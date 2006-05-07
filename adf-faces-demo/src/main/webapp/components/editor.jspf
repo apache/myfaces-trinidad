@@ -1,0 +1,52 @@
+        <af:table var="row" rows="100" value="#{editor.attributes}" 
+                  summary="Attributes">
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Name"/>
+            </f:facet>
+            <af:outputText value="#{row.name}"/>
+          </af:column>
+          <af:column>
+            <f:facet name="header">
+              <af:outputText value="Value"/>
+            </f:facet>
+            <af:inputText immediate="true"
+                           readOnly="#{row.name == 'value' ||
+                                       row.name == 'var' ||
+                                       row.name == 'currencyKey' ||
+                                       row.name == 'currencyString' ||
+                                       row.name == 'rowKey' ||
+                                       row.name == 'id' ||
+                                       row.name == 'rendererType' ||
+                                       row.name == 'submittedValue'}"
+                           rendered="#{row.type == 'string'}"
+                           value="#{row.value}"
+                           shortDesc="Type to change '#{row.name}'"/>
+            <af:inputText immediate="true"
+                           readOnly="#{row.name == 'rowIndex'}"
+                           rendered="#{row.type == 'integer'}"
+                           value="#{row.value}"
+                           shortDesc="Type to change '#{row.name}'">
+              <f:converter converterId="javax.faces.Integer"/>
+            </af:inputText>
+            <af:inputText immediate="true"
+                          rendered="#{row.type == 'date'}"
+                          value="#{row.value}"
+                          shortDesc="Type to change '#{row.name}'">
+              <f:facet name="help">
+                <af:outputText value="Sample format: 2004-07-15"/>
+              </f:facet>
+              <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </af:inputText>
+            <af:selectBooleanCheckbox rendered="#{row.type == 'boolean'}"
+                                       readOnly="#{row.name == 'localValueSet' ||
+                                                   row.name == 'valid' ||
+                                                   row.name == 'transient'}"
+                                       immediate="true" value="#{row.value}"
+                                       shortDesc="Click to change '#{row.name}'"/>
+          </af:column>
+          <f:facet name="footer">
+            <af:commandButton  text="Update"
+                              action="#{editor.update}"/>
+          </f:facet>
+        </af:table>

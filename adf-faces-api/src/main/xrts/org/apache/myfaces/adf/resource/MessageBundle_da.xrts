@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2000-2006 The Apache Software Foundation.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!-- Resource file for all BLAF resources -->
+
+<!-- order of parameters is:   -->
+<!-- label                     -->
+<!-- input value (if present)  -->
+<!-- min value (if present)    -->
+<!-- max value (if present)    -->
+<!-- pattern (if present)      -->
+
+
+<!DOCTYPE resources SYSTEM "rts.dtd">
+<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.adf.resource">
+<!-- The FacesMessage class supports both summary and detailed messages. -->
+<!-- The convention is that the summary will be the main key. The key    -->
+<!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
+<!-- message will be of the form <classname>.MSG_KEY_detail.             -->
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.adf.UIXEditableValue.REQUIRED" dnt="false">Værdi er obligatorisk.</resource>
+<resource key="org.apache.myfaces.adf.UIXEditableValue.REQUIRED_detail" dnt="false">Du skal indtaste en værdi.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.adf.UIXSelectMany.REQUIRED" dnt="false">Valg er påkrævet.</resource>
+<resource key="org.apache.myfaces.adf.UIXSelectMany.REQUIRED_detail" dnt="false">Mindst én værdi skal være valgt.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.adf.UIXSelectOne.REQUIRED" dnt="false">Valg er påkrævet.</resource>
+<resource key="org.apache.myfaces.adf.UIXSelectOne.REQUIRED_detail" dnt="false">Der skal vælges en værdi.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.adf.UIXTableSelectOne.REQUIRED" dnt="false">Række skal være markeret.</resource>
+<resource key="org.apache.myfaces.adf.UIXTableSelectOne.REQUIRED_detail" dnt="false">En række skal være markeret.</resource>
+<!-- {0} the label that identifies the selection  -->
+<resource key="org.apache.myfaces.adf.UIXTableSelectMany.REQUIRED" dnt="false">En række skal være markeret.</resource>
+<resource key="org.apache.myfaces.adf.UIXTableSelectMany.REQUIRED_detail" dnt="false">Mindst én række skal være markeret.</resource>
+<!-- SelectManyRenderer ConversionException messages -->
+<!-- {0} modelClass                                  -->
+<resource key="org.apache.myfaces.adf.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">Ikke-understøttet modeltype.</resource>
+<resource key="org.apache.myfaces.adf.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail" dnt="false">SelectMany understøtter ikke en model af typen {0}.</resource>
+<!-- {0} the label that identifies the component               -->
+<!-- {1} value entered by the user                             -->
+<!-- {2} the message string returned by the ConverterException -->
+<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION" dnt="false">Konvertering fejlede.</resource>
+<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION_detail" dnt="false">Værdien &quot;{1}&quot; blev ikke forstået: {2}</resource>
+<!-- messages for validators -->
+<!-- Note: The parameter numbers of these faces messages do not match -->
+<!-- the parameter numbers of the rest of the ADF Faces messages      -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="javax.faces.validator.LongRangeValidator.MINIMUM" dnt="false">Værdien er for lille.</resource>
+<resource key="javax.faces.validator.LongRangeValidator.MINIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er mindre end minimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM" dnt="false">Værdien er for stor.</resource>
+<resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er større end maksimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component  -->
+<!-- {1} value entered by the user                -->
+<!-- NOTE: The format of this message must match the format of the    -->
+<!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+<resource key="javax.faces.LongRange" dnt="false">Ikke et heltal.</resource>
+<resource key="javax.faces.LongRange_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et heltal.</resource>
+<!-- E.g. for input value "test" and maximum value set to "3" -->
+<!--      the message would be:                               -->
+<!-- The length of the value entered, "test", exceeds the     -->
+<!--  maximum allowed byte length of 3                        -->
+<!--                                                          -->
+<!-- {0} the label that identifies the component              -->
+<!-- {1} value entered by the user                            -->
+<!-- {2} the maximum length                                   -->
+<resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM" dnt="false">Værdi er for lang.</resource>
+<resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM_detail" dnt="false">Længden på den indtastede værdi,  &quot;{1}&quot;, overskrider den maksimalt tilladte bytelængde på {2}.</resource>
+<!-- Date exceeds date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">Datoen ligger efter det gyldige interval.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">Den indtastede dato, &quot;{1}&quot;, ligger efter den sidste gyldige dato {2}.</resource>
+<!-- Date preceeds date range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Date which the user has set     -->
+<!-- {2} represents the minimum allowed date       -->
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM" dnt="false">Datoen ligger før det gyldige interval.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">Den indtastede dato, &quot;{1}&quot;, ligger før den første gyldige dato {2}.</resource>
+<!-- Date outside date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed date     -->
+<!-- {3} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">Datoen ligger ikke inden for det gyldige interval.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">Den indtastede dato, &quot;{1}&quot;, ligger ikke inden for det gyldige datointerval {2} til {3}.</resource>
+<!-- Input does not match regular expression error                        -->
+<!-- {0} the label that identifies the component                          -->
+<!-- {1} represents the input value                                       -->
+<!-- {2} represents the 'pattern' expected in the input                   -->
+<!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
+<!--  9912 does not match patern [9]*                                     -->
+<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH" dnt="false">Værdi matcher ikke mønster.</resource>
+<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH_detail" dnt="false">Værdien &quot;{1}&quot; matcher ikke mønsteret i det almindelige udtryk &quot;{2}&quot;.</resource>
+<!-- Length of input is less than the minimum specified length -->
+<!-- {0} the label that identifies the component               -->
+<!-- {1} value entered by the user                             -->
+<!-- {2} the minimum length                                    -->
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.MINIMUM_detail" dnt="false">Længden på den indtastede værdi,  &quot;{1}&quot;, er mindre end den minimalt tilladte længde på {2}.</resource>
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.MINIMUM" dnt="false">Værdien er for kort.</resource>
+<!-- Length of input violates specified allowable range       -->
+<!-- {0} the label that identifies the component              -->
+<!-- {1} value entered by the user                            -->
+<!-- {2} the minimum length                                   -->
+<!-- {3} the maximum length                                   -->
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.NOT_IN_RANGE_detail" dnt="false">Længden på den indtastede værdi,  &quot;{1}&quot;, skal være mellem de tilladte længder {2} og {3}.</resource>
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.NOT_IN_RANGE" dnt="false">Værdien er uden for interval.</resource>
+<!-- Length of input exceeds the specified maximum length     -->
+<!-- {0} the label that identifies the component              -->
+<!-- {1} value entered by the user                            -->
+<!-- {2} the maximum length                                   -->
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.MAXIMUM" dnt="false">Værdi er for lang.</resource>
+<resource key="org.apache.myfaces.adf.validator.LengthValidator.MAXIMUM_detail" dnt="false">Længden på den indtastede værdi,  &quot;{1}&quot;, overskrider den maksimalt tilladte længde på {2}.</resource>
+<!-- messages for converters -->
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE" dnt="false">Ikke en dato.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">Værdien &quot;{1}&quot; er ikke en gyldig dato. Gyldigt eksempel: &quot;{2}&quot;.</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">Ikke et klokkeslæt.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et gyldigt klokkeslæt. Gyldigt eksempel: &quot;{2}&quot;.</resource>
+<!-- {0} the label that identifies the component             -->
+<!-- {1} value entered by the user                           -->
+<!-- {2} an example of the format the converter is expecting -->
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Ikke en dato og et klokkeslæt.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">Værdien &quot;{1}&quot; er ikke en gyldig dato og et gyldigt klokkeslæt. Gyldigt eksempel: &quot;{2}&quot;.</resource>
+<!-- {0} the label that identifies the component    -->
+<!-- {1} value entered by the user                  -->
+<!-- {2} the pattern the converter is expecting     -->
+<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT" dnt="false">Ikke en farve.</resource>
+<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; matcher ikke nogen af de gyldige farvemønstre: {2}.</resource>
+<!-- Color converter transparent string -->
+<resource key="org.apache.myfaces.adf.convert.ColorConverter.TRANSPARENT" dnt="false">Gennemsigtig</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT" dnt="false">Ikke et heltal.</resource>
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et heltal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MINIMUM" dnt="false">Værdien er for lille.</resource>
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MINIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er mindre end minimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM" dnt="false">Værdien er for stor.</resource>
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er større end maksimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT" dnt="false">Ikke et heltal.</resource>
+<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et heltal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.LongConverter.MINIMUM" dnt="false">Værdien er for lille.</resource>
+<resource key="org.apache.myfaces.adf.convert.LongConverter.MINIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er mindre end minimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.LongConverter.MAXIMUM" dnt="false">Værdien er for stor.</resource>
+<resource key="org.apache.myfaces.adf.convert.LongConverter.MAXIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er større end maksimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the specified conversion pattern        -->
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN" dnt="false">Ikke et tal.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et tal, der matcher mønsteret &quot;{2}&quot;.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER" dnt="false">Ikke et tal.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et tal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">Ikke en valuta.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">Værdien &quot;{1}&quot; er ikke en gyldig valutaværdi.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT" dnt="false">Ikke en procent.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke en gyldig procentdelsværdi.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT" dnt="false">Ikke et heltal.</resource>
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et heltal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.MINIMUM" dnt="false">Værdien er for lille.</resource>
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.MINIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er mindre end minimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM" dnt="false">Værdien er for stor.</resource>
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er større end maksimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT" dnt="false">Ikke et heltal.</resource>
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et heltal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.MINIMUM" dnt="false">Værdien er for lille.</resource>
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.MINIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er mindre end minimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM" dnt="false">Værdien er for stor.</resource>
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM_detail" dnt="false">Værdien &quot;{1}&quot; er større end maksimumværdien på {2}.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT" dnt="false">Ikke et tal.</resource>
+<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et tal.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT" dnt="false">Ikke et tal.</resource>
+<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT_detail" dnt="false">Værdien &quot;{1}&quot; er ikke et tal.</resource>
+<!-- format for message in a javascript alert window                 -->
+<!-- This should match the af_messages.LIST_FORMAT_private           -->
+<!-- in BLAFBundle.xrts!!                                            -->
+<!-- Both summary and detail are here, but the detail is never used  -->
+<!-- {0} = label of the component                                    -->
+<!-- {1} = full formatted error message detail                       -->
+<resource key="org.apache.myfaces.adf.convert.ALERT_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="org.apache.myfaces.adf.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
+</resources>

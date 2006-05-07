@@ -1,0 +1,171 @@
+  <application>
+    <view-handler>org.apache.myfaces.adfinternal.application.ViewHandlerImpl</view-handler>
+    <state-manager>org.apache.myfaces.adfinternal.application.StateManagerImpl</state-manager>
+    <navigation-handler>org.apache.myfaces.adfinternal.application.NavigationHandlerImpl</navigation-handler>
+    <variable-resolver>org.apache.myfaces.adfinternal.el.AdfFacesVariableResolver</variable-resolver>
+  </application>
+
+  <factory>
+    <render-kit-factory>
+      org.apache.myfaces.adfinternal.renderkit.CoreRenderKitFactory
+    </render-kit-factory>
+  </factory>
+
+  <lifecycle>
+    <phase-listener>org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener</phase-listener>
+  </lifecycle>
+
+  <converter>
+    <converter-id>javax.faces.Short</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ShortConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Short</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ShortConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>javax.faces.Byte</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ByteConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Byte</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ByteConverter</converter-class>
+  </converter>  
+
+  <converter>
+    <converter-id>javax.faces.Integer</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.IntegerConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Integer</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.IntegerConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>javax.faces.Long</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.LongConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Long</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.LongConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <converter-id>javax.faces.Float</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.FloatConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Float</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.FloatConverter</converter-class>
+  </converter>  
+  
+  <converter>
+    <converter-id>javax.faces.Double</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.DoubleConverter</converter-class>
+  </converter>     
+  <converter>
+    <converter-for-class>java.lang.Double</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.DoubleConverter</converter-class>
+  </converter>        
+  
+  <validator>
+    <validator-id>javax.faces.LongRange</validator-id>
+    <validator-class>org.apache.myfaces.adfinternal.validator.LongRangeValidator</validator-class>
+  </validator>
+  
+  <validator>
+    <display-name>validateDateTimeRange</display-name>
+    <validator-id>org.apache.myfaces.adf.DateTimeRange</validator-id>
+    <validator-class>org.apache.myfaces.adfinternal.validator.DateTimeRangeValidator</validator-class>   
+  </validator>
+
+  <validator>
+    <display-name>validateRegularExpression</display-name>
+    <validator-id>org.apache.myfaces.adf.RegExp</validator-id>
+    <validator-class>org.apache.myfaces.adfinternal.validator.RegExpValidator</validator-class>
+  </validator>
+
+  <validator>
+    <display-name>validateByteLength</display-name>
+    <validator-id>org.apache.myfaces.adf.ByteLength</validator-id>
+    <validator-class>org.apache.myfaces.adfinternal.validator.ByteLengthValidator</validator-class>   
+  </validator>
+
+   <converter>
+    <display-name>Color Converter</display-name>
+    <converter-id>org.apache.myfaces.adf.Color</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ColorConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <description>Color Converter</description>
+    <converter-for-class>java.awt.Color</converter-for-class>
+    <converter-class>org.apache.myfaces.adfinternal.convert.ColorConverter</converter-class>
+  </converter>
+
+  <converter>
+    <display-name>Date Time Converter</display-name>
+    <converter-id>javax.faces.DateTime</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.DateTimeConverter</converter-class>
+  </converter>
+
+  <converter>
+    <display-name>Date Time Converter</display-name>
+    <converter-id>org.apache.myfaces.adf.DateTime</converter-id>    
+    <converter-class>org.apache.myfaces.adfinternal.convert.DateTimeConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <display-name>Date Time Converter</display-name>
+    <converter-for-class>java.util.Date</converter-for-class>   
+    <converter-class>org.apache.myfaces.adfinternal.convert.DateTimeConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <display-name>Date Time Converter</display-name>
+    <converter-for-class>java.util.Calendar</converter-for-class>   
+    <converter-class>org.apache.myfaces.adfinternal.convert.DateTimeConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <display-name>Number Converter</display-name>
+    <converter-for-class>java.lang.Number</converter-for-class>   
+    <converter-class>org.apache.myfaces.adfinternal.convert.NumberConverter</converter-class>
+  </converter>
+
+  <converter>
+    <display-name>Number Converter</display-name>
+    <converter-id>javax.faces.Number</converter-id>
+    <converter-class>org.apache.myfaces.adfinternal.convert.NumberConverter</converter-class>
+  </converter>
+  
+  <converter>
+    <display-name>Number Converter</display-name>
+    <converter-id>org.apache.myfaces.adf.Number</converter-id> 
+    <converter-class>org.apache.myfaces.adfinternal.convert.NumberConverter</converter-class>
+  </converter>
+  
+  <referenced-bean>
+    <description>implicit object provided by ADF Faces</description>
+    <display-name>ADF Faces Context</display-name>
+    <referenced-bean-name>adfFacesContext</referenced-bean-name>
+    <referenced-bean-class>org.apache.myfaces.adf.context.AdfFacesContext</referenced-bean-class>
+  </referenced-bean>
+
+  <referenced-bean>
+    <description>ADF Faces Process Scope Map</description>
+    <display-name>Process Scope</display-name>
+    <referenced-bean-name>processScope</referenced-bean-name>
+    <referenced-bean-class>java.util.Map</referenced-bean-class>
+  </referenced-bean>
+
+  <render-kit>
+    <render-kit-id>org.apache.myfaces.adf.core.desktop</render-kit-id>
+    <render-kit-class>org.apache.myfaces.adfinternal.renderkit.core.desktop.DesktopRenderKit</render-kit-class>
+  </render-kit>
+
+  <render-kit>
+    <render-kit-id>org.apache.myfaces.adf.core.pda</render-kit-id>
+    <render-kit-class>org.apache.myfaces.adfinternal.renderkit.core.pda.PdaRenderKit</render-kit-class>
+  </render-kit>

@@ -1,0 +1,172 @@
+<results>
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!-- MessageTest[ id:other,ERROR ]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!--AttributeTest[message,message_val]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+          >
+        message_val
+      </span>
+<!--AttributeTest[id,id_val]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="id_val"
+          >
+        message detail
+      </span>
+<!--AttributeTest[messageType,error]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!--AttributeTest[messageType,warning]-->
+
+      <span
+           class="OraInlineInfoText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!--AttributeTest[messageType,info]-->
+
+      <span
+           class="OraInlineInfoText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!--AttributeTest[messageType,none]-->
+
+      <span
+           class="OraInlineInfoText"
+           id="mainId"
+          >
+        message detail
+      </span>
+<!--AttributeTest[shortDesc,shortDesc_val]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           title="shortDesc_val"
+          >
+        message detail
+      </span>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           style="background-color:red"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onclick,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onclick="test-onclick"
+          >
+        message detail
+      </span>
+<!--AttributeTest[ondblclick,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onkeydown,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onkeypress,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onkeyup,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onmousedown,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onmousemove,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onmouseout,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onmouseover,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        message detail
+      </span>
+<!--AttributeTest[onmouseup,null]-->
+
+      <span
+           class="OraInlineErrorText"
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        message detail
+      </span>
+</results>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document title="Page Hierarchy Demo">
+        <af:form>
+          <af:panelGroup layout="vertical">
+            <af:commandLink immediate="true" text="Component Guide"
+                            action="guide"/>
+            <af:objectSeparator/>
+            <af:panelPage>
+              <f:facet name="navigation1">
+                <af:menuTabs level="1" var="foo" value="#{menuModel.model}">
+                  <f:facet name="nodeStamp">
+                    <af:commandNavigationItem text="#{foo.label}"
+                                        action="#{foo.getOutcome}"/>
+                  </f:facet>
+                </af:menuTabs>
+              </f:facet>
+              <f:facet name="navigation2">
+                <af:menuBar level="2" var="foo" value="#{menuModel.model}">
+                  <f:facet name="nodeStamp">
+                    <af:commandNavigationItem text="#{foo.label}"
+                                        action="#{foo.getOutcome}"/>
+                  </f:facet>
+                </af:menuBar>
+              </f:facet>
+              <f:facet name="navigation3">
+                <af:menuList level="3" var="foo"
+                             value="#{menuModel.model}">
+                  <f:facet name="nodeStamp">
+                    <af:commandNavigationItem text="#{foo.label}"
+                                        action="#{foo.getOutcome}"/>
+                  </f:facet>
+                </af:menuList>
+              </f:facet>
+              <f:facet name="navigationGlobal">
+                <af:menuButtons var="foo" value="#{menuModel.model}">
+                  <f:facet name="nodeStamp">
+                    <af:commandNavigationItem text="#{foo.label}"
+                                        action="#{foo.getOutcome}"
+                                        icon="#{foo.ico}"/>
+                  </f:facet>
+                </af:menuButtons>
+              </f:facet>
+              <f:facet name="location">
+                <af:navigationPath var="foo" value="#{menuModel.model}">
+                  <f:facet name="nodeStamp">
+                    <af:commandNavigationItem text="#{foo.label}"
+                                        action="#{foo.getOutcome}"/>
+                  </f:facet>
+                </af:navigationPath>
+              </f:facet>
+              <f:facet name="appAbout">
+                <af:outputText value="appAbout facet"/>
+              </f:facet>
+              <f:facet name="appCopyright">
+                <af:outputText value="appCopyright facet"/>
+              </f:facet>
+              <f:facet name="appPrivacy">
+                <af:outputText value="appPrivacy facet"/>
+              </f:facet>
+              <f:facet name="branding">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="branding facet"/>
+              </f:facet>
+              <f:facet name="infoFootnote">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="infoFootnote facet"/>
+              </f:facet>
+              <f:facet name="infoReturn">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="infoReturn facet"/>
+              </f:facet>
+              <f:facet name="infoStatus">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="infoStatus facet"/>
+              </f:facet>
+              <f:facet name="infoUser">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="infoUser facet"/>
+              </f:facet>
+              <f:facet name="search">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="search facet"/>
+              </f:facet>
+              <af:panelHeader text="Title attribute">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="This group of demo pages uses one of 2 components to lay out the page, 'page' or 'panelPage'. This particular page uses the &lt;b>'panelPage'&lt;/b> component."/>
+                <jsp:include page="/components/pageContent_include.jspx"/>
+              </af:panelHeader>
+            </af:panelPage>
+          </af:panelGroup>
+        </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

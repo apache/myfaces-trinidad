@@ -1,0 +1,544 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <div
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[disclosed,false,AttributeTest[undisclosedText,null]]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            test-undisclosedText
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[disclosed,true,AttributeTest[disclosedText,null]]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'hide','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to hide information"
+                >
+              &#x2193;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'hide','mainId','mainId__xc_')"
+              >
+            test-disclosedText
+          </a>
+        </div>
+        <div
+            >
+          
+        </div>
+      </span>
+<!--AttributeTest[id,sDetailId]-->
+
+      <span
+           id="sDetailId"
+          >
+        
+        <div
+            >
+          
+          <a
+               href="#"
+               id="sDetailId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','sDetailId','sDetailId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','sDetailId','sDetailId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[shortDesc,myDetail]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             title="myDetail"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[styleClass,myStyleClass]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             class="myStyleClass"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             style="background-color:red"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onclick,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onclick="test-onclick"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[ondblclick,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             ondblclick="test-ondblclick"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onkeydown,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onkeydown="test-onkeydown"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onkeypress,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onkeypress="test-onkeypress"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onkeyup,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onkeyup="test-onkeyup"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onmousedown,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onmousedown="test-onmousedown"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onmousemove,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onmousemove="test-onmousemove"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onmouseout,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onmouseout="test-onmouseout"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onmouseover,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onmouseover="test-onmouseover"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+<!--AttributeTest[onmouseup,null]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <div
+             onmouseup="test-onmouseup"
+            >
+          
+          <a
+               href="#"
+               id="mainId__xc_"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              &#x2192;
+            </span>
+          </a>
+          <a
+               class="OraLink"
+               href="#"
+               onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_')"
+              >
+            Show
+          </a>
+        </div>
+      </span>
+</results>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <component>
+    <description><![CDATA[The UIXValue component contains all the shared attributes
+   supported by all ADF Faces components that support the JSF
+   ValueHolder interface, and therefore support values and Converters.]]>
+    </description>
+    <icon>
+      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/value.png</small-icon>
+    </icon>
+    <component-type>org.apache.myfaces.adf.Value</component-type>
+    <component-class>org.apache.myfaces.adf.component.UIXValue</component-class>
+    <property>
+      <description><![CDATA[the value of the component]]></description>
+      <property-name>value</property-name>
+      <property-class>java.lang.Object</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[a converter object]]></description>
+      <property-name>converter</property-name>
+      <property-class>javax.faces.convert.Converter</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+        <mfp:state-holder>yes</mfp:state-holder>
+      </property-extension>
+    </property>
+    <component-extension>
+      <mfp:component-family>org.apache.myfaces.adf.Value</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.adf.Value</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXValueTag</mfp:tag-class>
+      <mfp:author>Adam Winer</mfp:author>
+      <mfp:component-class-modifier>abstract</mfp:component-class-modifier>
+      <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
+    </component-extension>
+  </component>
+</faces-config>
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreTable" value="#{simpleList}" var="row" rows="5">
+    <component af:type="org.apache.myfaces.adf.CoreColumn">
+      <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="StringHeader"/>
+      <component af:type="org.apache.myfaces.adf.CoreInputText" label="testLabel" value="" shortDesc="testShort"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreColumn">
+      <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="IntHeader"/>
+      <component af:type="org.apache.myfaces.adf.CoreInputText" label="testLabel"/>
+    </component>    
+  </base-component>  
+</test>

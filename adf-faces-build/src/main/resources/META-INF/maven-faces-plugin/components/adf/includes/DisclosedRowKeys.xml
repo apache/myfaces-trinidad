@@ -1,0 +1,21 @@
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <component>
+    <property>
+      <description><![CDATA[the set of disclosed rows for this component.
+Each entry in the set is a rowKey.]]>
+      </description>
+      <property-name>disclosedRowKeys</property-name>
+      <property-class>org.apache.myfaces.adf.model.RowKeySet</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+  </component>
+</faces-config>

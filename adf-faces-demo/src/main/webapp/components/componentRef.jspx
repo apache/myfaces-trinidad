@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <afh:html>
+      <afh:head title="Region Tag Demo"/>
+      <afh:body>
+        <af:form>        
+          <af:panelGroup layout="vertical">
+            <f:facet name="separator">
+             <af:objectSeparator />
+            </f:facet>
+            <af:commandLink immediate="true" text="Component Guide"
+                action="guide"/>      
+                
+            <af:outputText value="This demo uses three regions:"/>
+            
+            <af:componentRef id="reg1" componentType="org.apache.myfaces.adfdemo.region.stock"
+              value="Watch this stock">
+              <f:attribute name="symbol" value="XYZ"/>
+              <f:attribute name="company" value="XYZ Incorp"/>
+              <f:attribute name="amount" value="13.66"/>
+              <f:facet name="action">
+                <af:commandButton text="Buy" disabled="true"/>
+              </f:facet>
+            </af:componentRef>
+
+            <af:componentRef id="reg2" componentType="org.apache.myfaces.adfdemo.region.stock">
+              <f:attribute name="symbol" value="PQR"/>
+              <f:attribute name="company" value="PQR Corp"/>
+              <f:attribute name="description" value="Power and Utilities"/>
+              <f:attribute name="amount" value="26.32"/>
+              <f:facet name="action">
+                <af:commandButton text="Short" disabled="true"/>
+              </f:facet>
+            </af:componentRef>
+
+            <af:componentRef id="reg3" componentType="org.apache.myfaces.adfdemo.region.stock">
+              <f:attribute name="symbol" value="DFLT"/>
+            </af:componentRef>
+
+          </af:panelGroup>
+        </af:form>
+      </afh:body>
+    </afh:html>
+  </f:view>
+</jsp:root>

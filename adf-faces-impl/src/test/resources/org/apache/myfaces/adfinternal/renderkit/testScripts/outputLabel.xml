@@ -1,0 +1,14 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreOutputLabel" for="input" value="label-noaccess">
+    <component af:type="org.apache.myfaces.adf.CoreInputText" id="input"/>
+  </base-component>
+  <attribute-test name="accessKey" value="a"/>
+  <boolean-test name="showRequired"/>
+  <attribute-test name="id"/>
+  <boolean-test name="rendered"/>
+  <attribute-test name="inlineStyle"/>
+  <attribute-test name="styleClass"/>
+  <attribute-test name="shortDesc"/>
+  <js-test/>
+</test>

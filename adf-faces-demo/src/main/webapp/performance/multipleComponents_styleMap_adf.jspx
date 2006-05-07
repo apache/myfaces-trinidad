@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <af:document title="Components using style resource maps">
+        <af:form>
+          <af:panelGroup layout="vertical">
+            <f:facet name="separator">
+              <af:objectSeparator/>
+            </f:facet>
+        
+            <af:commandLink immediate="true" text="Component Guide"
+                action="guide"/>
+                <af:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
+              
+            <af:messages/>
+
+            <af:inputText label="Label:">
+              <f:facet name="help">
+                <af:outputText value="Type 'cat' to see an error in the message box"/>
+              </f:facet>
+              <f:converter converterId="javax.faces.BigInteger"/>
+            </af:inputText>                      
+             
+            <af:commandButton text="Submit"/>
+
+            <af:outputFormatted styleUsage="instruction"
+                               value="&lt;b>basic panelPage &lt;/b>"/>
+        
+            <af:panelPage binding="#{editor.component}">
+              <f:facet name="navigation1">
+                <af:menuTabs>
+                  <af:commandNavigationItem text="tab 1" action="guide.menuTabs"/>
+                  <af:commandNavigationItem text="tab 2" action="guide.menuTabs" 
+                                   selected="true" />
+                  <af:commandNavigationItem text="tab 3" action="guide.menuTabs"/>
+                  <af:commandNavigationItem text="tab 4" action="guide.menuTabs"/>
+                  <af:commandNavigationItem text="tab 5" action="guide.menuTabs"/>
+                  <af:commandNavigationItem text="tab 6" action="guide.menuTabs"
+                                   disabled="true" />
+                </af:menuTabs>
+              </f:facet>
+              <f:facet name="navigation2">
+                <af:menuBar>
+                  <af:commandNavigationItem text="item 1" action="guide.menuBar" 
+                                   selected="true" />
+                  <af:commandNavigationItem text="item 2" action="guide.menuBar"
+                                   disabled="true" />
+                  <af:commandNavigationItem text="item 3" action="guide.menuBar"/>
+                  <af:commandNavigationItem text="item 4" action="guide.menuBar"/>
+                </af:menuBar>
+              </f:facet>
+              <f:facet name="navigation3">
+                <af:menuList>
+                  <af:commandNavigationItem text="item 1" action="guide.menuList" 
+                                   selected="true" />
+                  <af:commandNavigationItem text="item 2" action="guide.menuList"
+                                   disabled="true" />
+                  <af:commandNavigationItem text="item 3" action="guide.menuList"/>
+                  <af:commandNavigationItem text="item 4" action="guide.menuList"/>
+                </af:menuList>
+              </f:facet>
+              <f:facet name="navigationGlobal">
+                <af:menuButtons>
+                  <af:commandNavigationItem text="help"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.menuButtons"/>
+                  <af:commandNavigationItem text="help more"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.menuButtons"/>
+                </af:menuButtons>
+              </f:facet>
+              <f:facet name="branding">
+                <af:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
+                                   styleUsage="inContextBranding"/>
+              </f:facet>
+              <f:facet name="location">
+                <af:navigationPath>
+                  <af:commandNavigationItem text="item 1" action="guide.navigationPath" />
+                  <af:commandNavigationItem text="item 2" action="guide.navigationPath" />
+                  <af:commandNavigationItem text="item 3" action="guide.navigationPath" />
+                  <af:commandNavigationItem text="item 4" action="guide.navigationPath" />
+                </af:navigationPath>
+              </f:facet>
+              <f:facet name="appCopyright">
+                <af:outputText value="copyright facet"/>
+              </f:facet>
+              <f:facet name="appPrivacy">
+                <af:commandLink text="privacy facet" action="action.none" />
+              </f:facet>
+              <f:facet name="appAbout">
+                <af:commandLink text="about facet" action="action.none" />
+              </f:facet>
+              <af:panelHeader text="Title">
+                <af:outputText value="Content here" />
+              </af:panelHeader>
+            </af:panelPage>
+            
+          
+            <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectManyShuttle bound to list&lt;/b>"/>
+              
+            <af:selectManyShuttle id="shuttle2" valuePassThru="true"
+                                 leadingHeader="Available values:"
+                                 trailingHeader="Selected values:"
+                                 valueChangeListener="#{list.valueChanged}"
+                                 value="#{list.objectList}">
+               <af:selectItem label="First" value="foo"/>
+               <af:selectItem label="Second" value="bar"/>
+               <af:selectItem label="Third" value="baz"/>
+            </af:selectManyShuttle>
+            
+           <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectOrderShuttle bound to list&lt;/b>"/>
+              
+           <af:selectOrderShuttle id="shuttle3" valuePassThru="true"
+                                 leadingHeader="Available values:"
+                                 trailingHeader="Selected values:"
+                                 valueChangeListener="#{list.valueChanged}"
+                                 value="#{list.objectList}" leadingDescShown="true" 
+                                 >
+               <af:selectItem label="First" value="foo"/>
+               <af:selectItem label="Second" value="bar"/>
+               <af:selectItem label="Third" value="baz"/>
+           </af:selectOrderShuttle>
+           
+           
+           <af:outputFormatted styleUsage="instruction" 
+              value="&lt;b>Editable treeTable with Record Set Navigation&lt;/b>"/>
+           <af:treeTable var="foo" value="#{tree.model}" rendered="true"
+              rowsByDepth="3" summary="Demo of treeTable"
+              >
+              <f:facet name="nodeStamp">
+                <af:column>
+                  <f:facet name="header">
+                    <af:outputText value="Text"/>
+                  </f:facet>
+                  <af:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+                </af:column>
+              </f:facet>
+              <f:facet name="pathStamp">
+                <af:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+              </f:facet>
+
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Foo Column"/>
+                </f:facet>
+                <af:inputText value="#{foo.text}"/>
+              </af:column>
+
+              <af:column>
+                <f:facet name="header">
+                  <h:outputText value="Bar Column"/>
+                </f:facet>
+                <h:outputText value="#{foo.text} Bar"/>
+              </af:column>
+         </af:treeTable>
+
+         <af:commandButton text="Submit"/>
+         
+      <af:outputFormatted styleUsage="instruction" value="&lt;b>Giant treeTable&lt;/b>"/>
+         <af:treeTable var="foo" value="#{largeTree.model}" 
+               summary="Giant treeTable"
+              rendered='true'>
+              <f:facet name="nodeStamp">
+                <af:column>
+                  <f:facet name="header">
+                    <af:outputText value="Label"/>
+                  </f:facet>
+                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                </af:column>
+              </f:facet>
+              <f:facet name="pathStamp">
+                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+              </f:facet>
+
+              <af:column>
+                <f:facet name="header">
+                  <af:outputText value="Parent"/>
+                </f:facet>
+                <af:outputText value="#{foo.parentLabel}"/>
+              </af:column>
+
+              <af:column>
+                <f:facet name="header">
+                  <h:outputText value="Index"/>
+                </f:facet>
+                <h:outputText value="#{foo.index}"/>
+              </af:column>
+              <af:column>
+                <f:facet name="header">
+                  <h:outputText value="Depth"/>
+                </f:facet>
+                <h:outputText value="#{foo.depth}"/>
+              </af:column>
+          </af:treeTable>
+            
+            <jsp:directive.include file="../components/editor.jspf" />
+    
+          </af:panelGroup>           
+        
+        </af:form>        
+ </af:document>
+  </f:view>
+</jsp:root>

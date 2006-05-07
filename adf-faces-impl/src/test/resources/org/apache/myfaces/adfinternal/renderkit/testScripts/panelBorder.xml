@@ -1,0 +1,29 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CorePanelBorder"> 
+    <component af:facet="top" af:type="org.apache.myfaces.adf.CoreGoLink" text="top link" destination="http://www.oracle.com"/>
+    <component af:facet="bottom" af:type="org.apache.myfaces.adf.CoreGoLink" text="bottom link" destination="http://www.oracle.com"/>
+    <component af:facet="end" af:type="org.apache.myfaces.adf.CoreGoLink" text="end link" destination="http://www.oracle.com"/>
+    <component af:facet="start" af:type="org.apache.myfaces.adf.CoreGoLink" text="start link" destination="http://www.oracle.com"/>
+    <component af:facet="left" af:type="org.apache.myfaces.adf.CoreGoLink" text="left link" destination="http://www.oracle.com"/>
+    <component af:facet="right" af:type="org.apache.myfaces.adf.CoreGoLink" text="right link" destination="http://www.oracle.com"/>
+    <component af:facet="innerTop" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerTop link" destination="http://www.oracle.com"/>
+    <component af:facet="innerBottom" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerBottom link" destination="http://www.oracle.com"/>
+    <component af:facet="innerEnd" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerEnd link" destination="http://www.oracle.com"/>
+    <component af:facet="innerStart" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerStart link" destination="http://www.oracle.com"/>
+    <component af:facet="innerLeft" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerLeft link" destination="http://www.oracle.com"/>
+    <component af:facet="innerRight" af:type="org.apache.myfaces.adf.CoreGoLink" text="innerRight link" destination="http://www.oracle.com"/>
+    <component af:type="org.apache.myfaces.adf.CoreGoLink" text="link 1" destination="http://www.oracle.com"/>
+    <component af:type="org.apache.myfaces.adf.CoreGoLink" text="link 2" destination="http://www.oracle.com"/>
+  </base-component>
+  
+  <!-- Core attribute tests -->
+  <attribute-test name="id"/>
+  <attribute-test name="inlineStyle"/>
+  <boolean-test name="rendered"/>
+  <attribute-test name="shortDesc"/>
+  <attribute-test name="styleClass"/>
+  
+  <js-test/>
+  
+</test>

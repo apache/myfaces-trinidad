@@ -1,0 +1,48 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <script
+             language="javascript"
+            >
+          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 5000);
+        </script>
+      </span>
+<!--AttributeTest[id,null]-->
+
+      <span
+           id="test-id"
+          >
+        
+        <script
+             language="javascript"
+            >
+          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("test-id", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'test-id\',\'partialTargets\':\'test-id\',\'partial\':\'true\'})", 5000);
+        </script>
+      </span>
+<!--AttributeTest[interval,5000]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <script
+             language="javascript"
+            >
+          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 5000);
+        </script>
+      </span>
+<!--AttributeTest[interval,7000]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <script
+             language="javascript"
+            >
+          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 7000);
+        </script>
+      </span>
+</results>

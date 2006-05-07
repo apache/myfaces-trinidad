@@ -1,0 +1,21 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+      xmlns:af="http://myfaces.apache.org/adf/view/faces">
+
+  <base-component af:type="org.apache.myfaces.adf.HtmlBody">
+  
+    <component af:type="org.apache.myfaces.adf.CoreOutputText" id="id_text" value="Enter"/>
+
+  </base-component>
+  
+  <!-- core attributes -->
+  <attribute-test name="id" value="myBodyId"/>
+  <attribute-test name="shortDesc" value="myShortDesc"/>
+  
+  <!-- these two attributes get rendererd twice -->
+  <!-- attribute-test name="inlineStyle" value="background-color:blue"/ -->
+  <!-- attribute-test name="styleClass" value="myStyleClass"/ -->
+  
+  <!-- javascript attributes -->
+  <js-test/>
+  
+</test>

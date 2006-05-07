@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces"
+          version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <af:document title="PanelForm Demo">
+      <af:form>
+        <af:panelGroup layout="vertical">
+          <f:facet name="separator">
+            <af:objectSeparator/>
+          </f:facet>
+          <af:commandLink immediate="true" text="Component Guide"
+            action="guide"/>
+          <af:outputText
+            value="This is a test case for the core panelForm component."/>
+          <af:panelForm binding="#{editor.component}" rows="5"
+            labelWidth="33%" fieldWidth="67%">
+            <af:inputText columns="5" label="label 1">
+              <f:facet name="help">
+                <af:outputText value="Enter an integer."/>
+              </f:facet>
+            </af:inputText>
+            <af:group>
+              <af:inputText columns="5" label="group item 1"/>
+              <af:inputText columns="5" label="group item 2"/>
+              <af:inputText columns="5" label="group item 3"/>
+            </af:group>
+            <af:selectInputDate id="df1" label="label 2"/>
+            <af:panelLabelAndMessage rendered="true" label="label 3">
+              <af:commandButton text="Submit"/>
+            </af:panelLabelAndMessage>
+            <af:selectManyListbox id="rs" label="label 4"
+              shortDesc="Select Option">
+              <af:selectItem label="option 1"/>
+              <af:selectItem label="option 2"/>
+              <af:selectItem label="option 3"/>
+              <af:selectItem label="option 4"/>
+            </af:selectManyListbox>
+            <af:panelLabelAndMessage label="label 5">
+              <f:facet name="help">
+                <af:outputText value="tip 5"/>
+              </f:facet>
+              <af:commandButton text="Hello World" partialSubmit="true"/>
+            </af:panelLabelAndMessage>
+            <af:inputText rows="2" label="label 6" secret="true"/>
+            <af:selectBooleanRadio id="rb" group="rbGroup" shortDesc="Label 7"
+              label="label 7"/>
+            <af:selectBooleanCheckbox shortDesc="label 8" label="label 8"/>
+            <af:inputText styleClass="AFDataText" label="label 9" value="hi"
+              readOnly="true"/>
+            <af:inputText styleClass="AFDataText" label="label 10"
+              value="hi again" readOnly="true"/>
+            <af:panelLabelAndMessage label="label 11">
+              <af:selectBooleanCheckbox shortDesc="option 1" label="option 1"/>
+              <af:panelForm>
+                <af:inputText styleClass="AFDataText" label="sub item 1" value="hello"/>
+                <af:inputText styleClass="AFDataText" label="sub item 2" value="world"/>
+                <af:selectOneChoice label="sub item 3">
+                  <af:selectItem label="coffee" value="bean"
+                    shortDesc="Coffee from Kona"/>
+                  <f:selectItem itemLabel="tea" itemValue="leaf"
+                    itemDescription="Tea from China"/>
+                  <af:selectItem label="milk" value="moo" rendered="false"/>
+                  <f:selectItems value="#{demoInput.selectItems}"/>
+                </af:selectOneChoice>
+              </af:panelForm>
+              <af:selectBooleanCheckbox shortDesc="option 2" label="option 2"/>
+              <af:selectBooleanCheckbox shortDesc="option 3" label="option 3"/>
+            </af:panelLabelAndMessage>
+            <f:facet name="footer">
+              <af:group>
+                <af:inputText rows="2" label="footer item 1"/>
+                <af:group>
+                  <af:inputText columns="5" label="footer group item 1"/>
+                  <af:inputText columns="5" label="footer group item 2"/>
+                  <af:inputText columns="5" label="footer group item 3"/>
+                </af:group>
+                <af:panelHorizontal>
+                  <f:facet name="separator">
+                    <af:objectSpacer width="10"/>
+                  </f:facet>
+                  <af:commandButton text="Page 1" partialSubmit="true"/>
+                  <af:commandButton text="Page 2" partialSubmit="true"/>
+                </af:panelHorizontal>
+              </af:group>
+            </f:facet>
+          </af:panelForm>
+          <jsp:directive.include file="editor.jspf"/>
+        </af:panelGroup>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

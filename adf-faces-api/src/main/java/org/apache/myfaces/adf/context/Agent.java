@@ -1,0 +1,167 @@
+/*
+* Copyright 2006 The Apache Software Foundation.
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+package org.apache.myfaces.adf.context;
+
+import java.util.Map;
+
+/**
+ * The Agent interface describes the client that is making the request that will display
+ * the rendered output.
+ * <p>
+ * Implementations that provide the set of capabilities must clearly define the names
+ * of these capabilities and their values.
+ * </p>
+ * <p>
+ * Capability names that are implementation private must be defined so using appropriate
+ * naming schemes. ADF private capability names are prefixed using "-adfinternal-xxx",
+ * and such capability names (and their values) may change at anytime
+ * (and not guaranteed to be supported in future releases).
+ * <p>
+ */
+public interface Agent {
+
+  /**
+   * Constant for Unknown device type
+   */
+  public static final Object TYPE_UNKNOWN = "unknown";
+
+  /**
+   * Constant for telnet device type
+   */
+  public static final Object TYPE_TELNET = "telnet";
+  
+  /**
+   * Constant for desktop devices
+   */
+  public static final Object TYPE_DESKTOP = "desktop";
+
+  /**
+   * Constant for handheld sized devices (Pocket-PC, Palm)
+   */
+  public static final Object TYPE_PDA = "pda";
+
+  /**
+   * Constant for Phone sized devices
+   */
+  public static final Object TYPE_PHONE = "phone";
+
+  /**
+   * Constant for windows platform
+   */
+  public static final String  PLATFORM_WINDOWS = "windows";
+
+  /**
+   * Constant for linux platform
+   */
+  public static final String  PLATFORM_LINUX = "linux";
+
+  /**
+   * Constant for MAC platform
+   */
+  public static final String  PLATFORM_MAC = "mac";
+
+  /**
+   * Constant for plam platform
+   */
+  public static final String  PLATFORM_PALM = "palm";
+
+  /**
+   * Constant for solaris platform
+   */
+  public static final String  PLATFORM_SOLARIS = "solaris";
+
+  /**
+   * Constant for pocket pc platform
+   */
+  public static final String PLATFORM_PPC = "ppc";
+
+  /**
+   * Constant for Internet Explorer agent
+   */
+  public static final String AGENT_IE = "ie";
+
+  /**
+   * Constant for Gecko agent. Used for all Gecko based agents like Mozilla, Netscape 6+
+   */
+  public static final String AGENT_GECKO = "gecko";
+
+  /**
+   * Constant for Apple Webkit agent. Used for all Webkit based agent like Safari
+   */
+  public static final String AGENT_WEBKIT = "webkit";
+
+  /**
+   *
+   * @return return the Type of Agent. Returns <code>TYPE_UNKNOWN</code> if not available.
+   * <br>E.g. desktop, pda, phone
+   *
+   */
+  public Object getType();
+
+  /**
+   *
+   * @return return the canonical name of the agent (browser application).
+   * Returns <code>null</code> if not available.
+   * <br>E.g. gecko, ie, opera, pocketie
+   */
+  public String getAgentName();
+
+  /**
+   *
+   * @return return the version number of the agent (browser application).
+   * Return <code>null</code> if not available.
+   */
+  public String getAgentVersion();
+
+  /**
+   *
+   * @return return the canonical name for the platform. Returns <code>null</code> if not available.
+   *  <br>E.g ppc, series60, windows, mac, linux, solaris
+   */
+  public String getPlatformName();
+
+
+  /**
+   *
+   * @return return the version number for the platform.
+   * Returns <code>null</code> if not available.
+   */
+  public String getPlatformVersion();
+
+
+  /**
+   *
+   * @return return a canonical name for the Hardware make and Model. Re
+   * turns <code>null</code> if not available.
+   * <br>E.g nokia6600, sonyericssonP900, nokai3650i
+   */
+  public String getHardwareMakeModel();
+
+
+  /**
+   * @return Map of capability names and their values for the current client request.
+   * <br>Some of the available capability names are:
+   * <br><i>height</i>- provides the screen height in pixels of the Agent as an Integer.
+   * <br><i>width</i>- provides the screen width in pixels of the Agent as an Integer.
+   * <br><i>dom</i>- provides the DOM API support of the agent as a String.
+   *   Possible values are: <i>level2</i>, <i>level1</i>, <i>form</i>, and <i>none</i>.
+   * <br><i>frames</i>- returns a Boolean value signifying whether or not the Agent
+   * supports frames.
+   * <br><i>accessKeys</i>- returns a Boolean value signifying whether or not the Agent
+   * supports accessKeys.
+   */
+  public Map getCapabilities ();
+}

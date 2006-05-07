@@ -1,0 +1,781 @@
+<results>
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,myid]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="myid"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'myid:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'myid:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'myid:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           title="my short desc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[styleClass,mystyle]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="mystyle af_processTrain"
+           id="mainId"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onclick,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[ondblclick,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeydown,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeypress,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeyup,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousedown,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousemove,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseout,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseover,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseup,null]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_processTrain"
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_processTrain_step-active"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_processTrain_step-unvisited"
+               colspan="2"
+              >
+            
+            <a
+                 class="OraLink af_processTrain_link"
+                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+</results>

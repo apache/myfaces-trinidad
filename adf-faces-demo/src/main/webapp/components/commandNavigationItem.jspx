@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root version="1.2"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document title="commandNavigationItem Demo">
+      <af:form>
+        <af:panelGroup layout="vertical">
+          <f:facet name="separator">
+            <af:objectSeparator/>
+          </f:facet>
+          <af:navigationLevel hint="buttons">
+            <af:commandNavigationItem immediate="true" text="Component Guide"
+              action="guide"/>
+            <af:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+              action="guide.page"/>
+            <af:commandNavigationItem immediate="true" text="NavigationLevel Demo"
+              action="guide.navigationLevel"/>
+            <af:commandNavigationItem immediate="true" text="NavigationPath Demo"
+              action="guide.navigationPath"/>
+            <af:commandNavigationItem immediate="true" text="PanelPage Demo"
+              action="guide.panelPage"/>
+          </af:navigationLevel>
+          <af:outputFormatted styleUsage="instruction" value="&lt;b>A commandNavigationItem&lt;/b>"/>
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;tabs&quot;&lt;/b>"/>
+            <af:navigationLevel hint="tabs" shortDesc="Select Page"
+              id="editorExample">
+              <af:commandNavigationItem
+                binding="#{editor.component}"
+                text="Editor Item"
+                shortDesc="Item with an assigned actionListener"
+                partialSubmit="true"
+                accessKey="A"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem
+                text="Oracle"
+                shortDesc="Oracle's website"
+                destination="http://www.oracle.com/"/>
+            </af:navigationLevel>
+          </af:panelGroup>
+          <jsp:directive.include file="editor.jspf"/>
+
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;bar&quot;&lt;/b>"/>
+            <af:navigationLevel hint="bar" id="barExample">
+              <af:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="B"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem text="Oracle"
+                destination="http://www.oracle.com/"/>
+            </af:navigationLevel>
+          </af:panelGroup>
+
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;list&quot;&lt;/b>"/>
+            <af:navigationLevel hint="list" id="listExample">
+              <af:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="C"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem text="Oracle"
+                destination="http://www.oracle.com/"/>
+            </af:navigationLevel>
+          </af:panelGroup>
+
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;buttons&quot;&lt;/b>"/>
+            <af:navigationLevel hint="buttons" id="buttonsExample">
+              <af:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="D"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem text="Oracle"
+                destination="http://www.oracle.com/"/>
+            </af:navigationLevel>
+          </af:panelGroup>
+
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;choice&quot;&lt;/b>"/>
+            <af:navigationLevel hint="choice" shortDesc="Switch application"
+              id="choiceExample">
+              <af:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="E"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem text="Oracle"
+                destination="http://www.oracle.com/"/>
+            </af:navigationLevel>
+          </af:panelGroup>
+
+          <af:panelGroup layout="vertical">
+            <af:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationPath&lt;/b>"/>
+            <af:navigationPath id="pathExample">
+              <af:commandNavigationItem text="Component Guide"
+                action="guide"
+                shortDesc="Return to the component guide"
+                accessKey="F"/>
+              <af:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <af:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                partialSubmit="true"/>
+              <af:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.oracle.com/"/>
+              <af:commandNavigationItem text="Oracle"
+                destination="http://www.oracle.com/"/>
+            </af:navigationPath>
+          </af:panelGroup>
+
+        </af:panelGroup>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,386 @@
+/*
+ * Copyright 2004,2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.myfaces.adf.validator;
+
+import java.util.Date;
+import java.util.Locale;
+
+import javax.faces.component.UIViewRoot;
+import javax.faces.convert.DateTimeConverter;
+import javax.faces.validator.ValidatorException;
+
+import javax.faces.application.MockApplication;
+import javax.faces.component.MockUIComponent;
+import javax.faces.context.MockFacesContext;
+
+import org.apache.myfaces.adfbuild.test.MockUtils;
+
+/**
+ * Unit tests for DateTimeRangeValidator.
+ *
+ * @author John Fallows
+ */
+public class DateTimeRangeValidatorTest extends ValidatorTestCase
+{
+  /**
+   * Creates a new DateTimeRangeValidatorTest.
+   *
+   * @param testName  the unit test name
+   */
+  public DateTimeRangeValidatorTest(
+    String testName)
+  {
+    super(testName);
+  }
+
+  /**
+   * Tests that null returns immediately.
+   *
+   * @throws ValidatorException  when test fails
+   */
+  public void testNull() throws ValidatorException
+  {
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+    doTestNull(context, component, validator);
+  }
+
+   /**
+   * Test when context is set to null
+   */
+  public void testNullContext()
+  {
+    MockUIComponent component = MockUtils.buildMockUIComponent();
+    RegExpValidator validator = new RegExpValidator();
+
+    doTestNullContext(component, validator);
+  }
+
+  /**
+   * Test null value for component.
+   */
+  public void testNullComponent()
+  {
+    MockFacesContext context  = new MockFacesContext();
+    RegExpValidator validator = new RegExpValidator();
+
+    doTestNullComponent(context, validator);
+  }
+
+  /**
+   * Tests that non Date objects throw a ValidationException.
+   */
+  public void testNonDate()
+  {
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    UIViewRoot root   = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+    root.setLocale(mockLocale);
+    component.setupGetId("test");
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    try
+    {
+      validator.validate(context, component, "not-a-date");
+      fail("ValidatorException not thrown");
+    }
+    catch (IllegalArgumentException iae)
+    {
+      // pass
+    }
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates before the maximum date are valid.
+   *
+   * @throws ValidatorException  when test fails
+   */
+  public void testBeforeMaximumDate() throws ValidatorException
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMaximum(new Date(millis));
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    UIViewRoot root   = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+    root.setLocale(mockLocale);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+
+    validator.validate(context, component, new Date(millis - 1));
+
+    context.verify();
+    component.verify();
+  }
+
+  protected void setMockCreateConverter(MockApplication app)
+  {
+    DateTimeConverter dtc = new DateTimeConverter();
+    app.setupCreateConverterString(dtc);
+  }
+
+  /**
+   * Tests that dates after the maximum date cause a ValidationException.
+   */
+  public void testAfterMaximumDate()
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMaximum(new Date(millis));
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent component = MockUtils.buildMockUIComponent(4);
+
+    setMockLabelForComponent(component);
+
+    UIViewRoot root   = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+
+    root.setLocale(mockLocale);
+    for (int i = 0; i < 4; i++)
+      context.setupGetViewRoot(root);
+
+    MockApplication  app      = new MockApplication();
+    setMockCreateConverter(app);
+    context.setupGetApplication(app);
+
+    try
+    {
+      validator.setMaximumMessageDetail("max set");
+      validator.validate(context, component, new Date(millis + 1));
+      fail("ValidatorException not thrown");
+    }
+    catch (ValidatorException e)
+    {
+      // pass
+      String msg = e.getFacesMessage().getDetail();
+      assertEquals(msg, "max set");
+    }
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates after the minimum date are valid.
+   *
+   * @throws ValidatorException  when test fails
+   */
+  public void testAfterMinimumDate() throws ValidatorException
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMinimum(new Date(millis));
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    validator.validate(context, component, new Date(millis + 1));
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates before the minimum date cause a ValidationException.
+   */
+  public void testBeforeMinimumDate()
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMinimum(new Date(millis));
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    setMockLabelForComponent(component);
+    UIViewRoot root   = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+
+    root.setLocale(mockLocale);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+
+    MockApplication  app      = new MockApplication();
+    setMockCreateConverter(app);
+    context.setupGetApplication(app);
+
+    try
+    {
+      validator.setMinimumMessageDetail("min set");
+      validator.validate(context, component, new Date(millis - 1));
+      fail("ValidatorException not thrown");
+    }
+    catch (ValidatorException e)
+    {
+      // pass
+      String msg = e.getFacesMessage().getDetail();
+      assertEquals(msg, "min set");
+    }
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates within the date range are valid.
+   *
+   * @throws ValidatorException  when test fails
+   */
+  public void testWithinDateRange() throws ValidatorException
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMinimum(new Date(millis));
+    validator.setMaximum(new Date(millis + 2));
+
+    MockFacesContext context = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    validator.validate(context, component, new Date(millis + 1));
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates before the date range cause a ValidationException.
+   */
+  public void testBeforeDateRange()
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMinimum(new Date(millis));
+    validator.setMaximum(new Date(millis + 10));
+
+    MockFacesContext context = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    setMockLabelForComponent(component);
+    UIViewRoot root = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+    root.setLocale(mockLocale);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+
+    MockApplication  app      = new MockApplication();
+    setMockCreateConverter(app);
+    context.setupGetApplication(app);
+
+    try
+    {
+      validator.setMinimumMessageDetail("min");
+      validator.validate(context, component, new Date(millis - 1));
+      fail("ValidatorException not thrown");
+    }
+    catch (ValidatorException e)
+    {
+      // pass
+
+    }
+
+    context.verify();
+    component.verify();
+  }
+
+  /**
+   * Tests that dates after the date range cause a ValidationException.
+   */
+  public void testAfterDateRange()
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
+    validator.setMinimum(new Date(millis));
+    validator.setMaximum(new Date(millis + 10));
+
+    MockFacesContext context = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+    setMockLabelForComponent(component);
+
+    UIViewRoot root = new UIViewRoot();
+    Locale mockLocale = new Locale("xx", "MOCK");
+    root.setLocale(mockLocale);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+    context.setupGetViewRoot(root);
+
+    MockApplication  app      = new MockApplication();
+    setMockCreateConverter(app);
+    context.setupGetApplication(app);
+
+    try
+    {
+      validator.setNotInRangeMessageDetail("not in range is set");
+      validator.validate(context, component, new Date(millis + 20));
+      fail("ValidatorException not thrown");
+    }
+    catch (ValidatorException e)
+    {
+      //first pass
+      String msg = e.getFacesMessage().getDetail();
+      assertEquals(msg, "not in range is set");
+    }
+
+    context.verify();
+    component.verify();
+  }
+
+
+  /**
+   * Tests that dates after the date range cause a ValidationException.
+   */
+  public void testStateHolderSaveRestore()
+  {
+    long millis = System.currentTimeMillis();
+    DateTimeRangeValidator originalValidator = new DateTimeRangeValidator();
+    originalValidator.setMinimum(new Date(millis));
+    originalValidator.setMaximum(new Date(millis + 10));
+
+    originalValidator.setMinimumMessageDetail("min");
+    originalValidator.setMaximumMessageDetail("max");
+    originalValidator.setNotInRangeMessageDetail("not in range");
+
+    MockFacesContext context   = new MockFacesContext();
+    MockUIComponent  component = MockUtils.buildMockUIComponent();
+
+    Object state = originalValidator.saveState(context);
+
+    DateTimeRangeValidator restoredValidator = new DateTimeRangeValidator();
+
+    doTestStateHolderSaveRestore(originalValidator, restoredValidator,
+                                 context, component);
+  }
+
+}

@@ -1,0 +1,75 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+      </span>
+<!--AttributeTest[chromeType,compact]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+      </span>
+<!--AttributeTest[chromeType,expanded]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+      </span>
+</results>

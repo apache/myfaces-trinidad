@@ -1,0 +1,5 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreInputHidden"/>
+  <attribute-test name="value" value="hiddenVal"/>
+</test>

@@ -1,0 +1,10 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreObjectSeparator"/>
+  
+  <!-- Core attribute tests -->
+  <attribute-test name="id"/>
+  <boolean-test name="rendered"/>
+  <attribute-test name="shortDesc"/>
+
+</test>

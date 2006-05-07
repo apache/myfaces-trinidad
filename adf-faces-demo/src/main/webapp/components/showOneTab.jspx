@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+ <af:document title="showOneTab Demo">
+        <af:form>
+        
+            <af:panelGroup layout="vertical">
+              <f:facet name="separator">
+                <af:objectSeparator/>
+              </f:facet>
+            <af:commandLink immediate="true" text="Component Guide"
+                action="guide"/>                   
+             
+                <af:outputFormatted styleUsage="instruction" value="&lt;b> A showOneTab component with position set to 'above' and takes default selection among showDetailItem children&lt;/b>"/>  
+                <af:showOneTab position="above">
+                  <af:showDetailItem text="Tab 1" disabled="true"/>
+                  <af:showDetailItem text="Tab 2">
+                    <af:panelHeader text="Header 2">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 2-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 3">
+                    <af:panelHeader text="Header 3">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 3-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 4">
+                    <af:panelHeader text="Header 4">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 4-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 5">
+                    <af:panelHeader text="Header 5">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 5-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                </af:showOneTab>
+                
+                <af:outputFormatted styleUsage="instruction" value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>  
+                <af:panelForm>
+                  <af:inputText readOnly="true" label="Date/Time from last full page refresh" 
+                                         value="#{date.currentDate}"
+                                         styleClass="AFDataText">
+                    <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </af:inputText>
+                </af:panelForm>
+
+                <af:outputFormatted styleUsage="instruction" value="&lt;b>A standard showOneTab component - Update its properties from the table below &lt;/b>"/>  
+                <af:showOneTab binding="#{editor.component}">
+                  <af:showDetailItem text="Tab 1">
+                    <af:panelHeader text="Header 1">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 1-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 2">
+                    <af:panelHeader text="Header 2">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 2-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 3" disclosed="true">
+                    <af:panelHeader text="Header 3">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 3-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                  <af:showDetailItem text="Tab 4" disabled="true"/>
+                  <af:showDetailItem text="Tab 5">
+                    <af:panelHeader text="Header 5">
+                      <af:panelForm>
+                        <af:inputText readOnly="true" label="Label 5-1" value="Value"
+                                               styleClass="AFDataText"/>
+                        <af:inputText readOnly="true" 
+                          label="Date/Time from last partial refresh" 
+                          value="#{date.currentDate}"
+                          styleClass="AFDataText">
+                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </af:inputText>
+                      </af:panelForm>
+                    </af:panelHeader>
+                  </af:showDetailItem>
+                </af:showOneTab>
+                
+                <jsp:directive.include file="editor.jspf" />
+    
+            </af:panelGroup>
+        </af:form>
+ </af:document>
+  </f:view>
+</jsp:root>

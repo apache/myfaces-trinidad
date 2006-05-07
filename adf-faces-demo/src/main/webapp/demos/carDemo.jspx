@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <afh:html>
+      <afh:head title="Car Demo"/>
+      <afh:body>
+       <af:form>
+        <af:panelPage>
+         <f:facet name="navigationGlobal">
+          <af:menuButtons>
+           <af:commandNavigationItem text="Return to Feature Demos page"
+                                   immediate="true"
+                                   action="demos"/>
+          </af:menuButtons>
+         </f:facet>
+         <af:messages/>
+         <af:panelForm>
+
+          <af:selectOneChoice id="makesChoice" label="Makes:"
+                              autoSubmit="true"
+                              valueChangeListener="#{carBacking.makeChanged}">
+           <f:selectItems value="#{carBacking.makes}"/>
+          </af:selectOneChoice>
+
+          <af:selectOneChoice id="modelsChoice"
+                              autoSubmit="true"
+                              valueChangeListener="#{carBacking.modelChanged}"
+                              partialTriggers="makesChoice" label="Models:">
+           <f:selectItems binding="#{carBacking.modelItems}"/>
+          </af:selectOneChoice>
+
+         </af:panelForm>
+
+         <!-- Show the price -->
+         <af:panelGroup layout="vertical">
+          <af:outputText value="Price: "/>
+          <af:outputText id="price" 
+                         partialTriggers="modelsChoice makesChoice launchOptions"
+                         binding="#{carBacking.price}">
+           <f:convertNumber type="currency"/>
+          </af:outputText>
+          <af:objectSpacer width="10"/>
+          <!-- A link to show the options;  it starts out disabled -->
+          <af:commandLink id="launchOptions" disabled="true"
+                         shortDesc="Click to pick new options"
+                         partialTriggers="modelsChoice makeChoice"
+                         returnListener="#{carBacking.returnOptions}"
+                         binding="#{carBacking.launchOptions}"
+                         useWindow="true"
+                         action="dialog:optionsDialog" text="Pick options: "/>
+          <af:outputText id="options"
+                         binding="#{carBacking.options}"
+                         partialTriggers="launchOptions modelsChoice makeChoice"/>
+         </af:panelGroup>
+
+        </af:panelPage>
+       </af:form>
+      </afh:body>
+    </afh:html>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document title="Survey">
+       <af:form>
+       
+        <af:panelPage>
+          <af:panelHeader text="Please review your answers and make any last changes:">
+       
+            <af:panelForm>
+<!-- question 1 -->
+             <af:selectOneRadio label="#{survey.q0.prompt}" 
+                                    required="true"
+                                    value="#{survey.a0}">            
+              <af:selectItem label="#{survey.q0.answerString}" value="0"/>
+              <af:selectItem label="#{survey.q0.answerString}" value="1"/>
+              <af:selectItem label="#{survey.q0.answerString}" value="2"/>
+              <af:selectItem label="#{survey.q0.answerString}" value="3"/>
+             </af:selectOneRadio >
+       
+       
+<!-- question 2 -->
+            <af:inputText label="#{survey.q1.prompt}" 
+                                   required="true"
+                                   value="#{survey.a1}"/>
+
+            
+<!-- question 3 -->
+             <af:selectOneRadio label="#{survey.q2.prompt}" 
+                                  required="true"
+                                  value="#{survey.a2}">            
+              <af:selectItem label="#{survey.q2.answerString}" value="0"/>
+              <af:selectItem label="#{survey.q2.answerString}" value="1"/>
+              <af:selectItem label="#{survey.q2.answerString}" value="2"/>
+              <af:selectItem label="#{survey.q2.answerString}" value="3"/>
+            </af:selectOneRadio >
+                                   
+          
+<!-- question 4 -->
+          <af:panelLabelAndMessage label="#{survey.q3.prompt}"
+            labelStyle="vertical-align: top;">
+            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a30}" readOnly="false"/>
+            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a31}" readOnly="false"/>
+            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a32}" readOnly="false"/>
+            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a33}" readOnly="false"/> 
+          </af:panelLabelAndMessage>
+                                   
+
+<!-- question 5 -->   
+            <af:selectOneRadio label="#{survey.q4.prompt}" 
+                                  required="true"
+                                  value="#{survey.a4}">            
+              <af:selectItem label="#{survey.q4.answerString}" value="0"/>
+              <af:selectItem label="#{survey.q4.answerString}" value="1"/>
+              <af:selectItem label="#{survey.q4.answerString}" value="2"/>
+              <af:selectItem label="#{survey.q4.answerString}" value="3"/>
+            </af:selectOneRadio >        
+        
+        </af:panelForm>
+       </af:panelHeader>
+            <f:facet name="navigationGlobal">
+              <af:menuButtons>
+                <af:commandNavigationItem text="Return to Index"
+                    immediate="true"
+                    action="home"/>
+              </af:menuButtons>
+            </f:facet>
+        
+         <af:panelButtonBar>
+           <af:commandButton action="#{survey.check}" text="check answers" rendered="true" />  
+         </af:panelButtonBar>
+       </af:panelPage>
+
+
+       </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
