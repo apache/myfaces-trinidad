@@ -1,0 +1,431 @@
+<results>
+      <div
+           id="mainId"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[id,null]-->
+
+      <div
+           id="test-id"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[inlineStyle,null]-->
+
+      <div
+           id="mainId"
+           style="test-inlineStyle"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <div
+           id="mainId"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[shortDesc,null]-->
+
+      <div
+           id="mainId"
+           title="test-shortDesc"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[styleClass,null]-->
+
+      <div
+           class="test-styleClass"
+           id="mainId"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onclick,null]-->
+
+      <div
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[ondblclick,null]-->
+
+      <div
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeydown,null]-->
+
+      <div
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeypress,null]-->
+
+      <div
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeyup,null]-->
+
+      <div
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmousedown,null]-->
+
+      <div
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmousemove,null]-->
+
+      <div
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseout,null]-->
+
+      <div
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseover,null]-->
+
+      <div
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseup,null]-->
+
+      <div
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <img
+             alt=""
+             height="13"
+             src="/test-context-path/adf/images/tip.gif"
+             width="15"
+            >
+          
+        </img>
+        <span
+             class="OraTipLabel"
+             nowrap="nowrap"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+</results>

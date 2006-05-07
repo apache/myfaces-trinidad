@@ -1,0 +1,73 @@
+<project> 
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.apache.myfaces.adfbuild</groupId>
+    <artifactId>maven-plugin-parent</artifactId> 
+    <version>1.0-alpha-1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.apache.myfaces.adfbuild</groupId>
+  <artifactId>maven-mock-plugin</artifactId> 
+  <version>1.0-alpha-1-SNAPSHOT</version>
+  <packaging>maven-plugin</packaging>
+  <name>Maven Mock Plugin</name>
+
+  <repositories>
+    <repository>
+      <id>codehaus-snapshots</id>
+      <name>CodeHaus Snapshots</name>
+      <url>http://snapshots.maven.codehaus.org/maven2</url>
+    </repository>
+  </repositories>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-project</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-archiver</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-archiver</artifactId>
+      <version>1.0-alpha-3</version>
+    </dependency>
+    <dependency>
+      <groupId>mockmaker</groupId>
+      <artifactId>mmmockobjects</artifactId>
+      <version>1.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>mockobjects</groupId>
+      <artifactId>mockobjects-core</artifactId>
+      <version>0.09</version>
+    </dependency>
+    <dependency>
+      <groupId>qdox</groupId>
+      <artifactId>qdox</artifactId>
+      <version>1.6-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-compiler-manager</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-compiler-javac</artifactId>
+      <version>1.5.1</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+  
+</project>

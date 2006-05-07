@@ -1,0 +1,35 @@
+<results>
+      <hr
+           id="mainId"
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[id,null]-->
+
+      <hr
+           id="test-id"
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <hr
+           id="mainId"
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[shortDesc,null]-->
+
+      <hr
+           id="mainId"
+           size="1"
+           title="test-shortDesc"
+          >
+        
+      </hr>
+</results>

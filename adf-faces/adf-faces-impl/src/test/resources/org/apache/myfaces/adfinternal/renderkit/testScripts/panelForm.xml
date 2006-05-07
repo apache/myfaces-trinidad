@@ -1,0 +1,29 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CorePanelForm">
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 1"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 2"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 3"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 4"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 5"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 6"/>
+    <component af:type="org.apache.myfaces.adf.CoreInputText" label="Attribute 7"/>
+    <component af:facet="footer" af:type="org.apache.myfaces.adf.CoreInputText" label="Footer"/>
+  </base-component>
+  <attribute-test name="rows" value="2">
+    <attribute-test name="maxColumns" value="2"/>
+  </attribute-test>
+  
+  <attribute-test name="labelWidth" value="50%"/>
+  <attribute-test name="fieldWidth" value="50%"/>
+
+  <!-- Core attribute tests -->
+  <attribute-test name="id"/>
+  <attribute-test name="inlineStyle"/>
+  <attribute-test name="inlineStyle" value="width: 50%"/>
+  <boolean-test name="rendered"/>
+  <attribute-test name="shortDesc"/>
+  <attribute-test name="styleClass"/>
+
+  <js-test/>
+</test>

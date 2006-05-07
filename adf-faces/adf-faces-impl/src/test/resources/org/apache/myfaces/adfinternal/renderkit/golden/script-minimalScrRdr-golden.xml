@@ -1,0 +1,34 @@
+<results>
+      <script
+           id="mainId"
+           language="javascript"
+          >
+        
+      </script>
+<!--AttributeTest[source,myScriptSource]-->
+
+      <script
+           id="mainId"
+           language="javascript"
+           type="text/javascript"
+           src="uri-attr:myScriptSource"
+          >
+        
+      </script>
+<!--AttributeTest[text,myScriptText]-->
+
+      <script
+           id="mainId"
+           language="javascript"
+          >
+        myScriptText
+      </script>
+<!--AttributeTest[id,myScriptId]-->
+
+      <script
+           id="myScriptId"
+           language="javascript"
+          >
+        
+      </script>
+</results>

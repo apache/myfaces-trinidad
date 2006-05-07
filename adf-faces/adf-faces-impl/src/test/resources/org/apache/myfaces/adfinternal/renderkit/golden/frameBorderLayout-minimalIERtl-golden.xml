@@ -1,0 +1,663 @@
+<results>
+  <frameset
+       id="mainId"
+       rows="100%,*"
+      >
+    
+    <frameset
+         rows="20%,*,30pt"
+         title="Container for top and bottom frames"
+        >
+      
+      <frameset
+           rows="100%,*"
+          >
+        
+        <frameset
+             rows="100%,*"
+             title="Container for top and bottom frames"
+            >
+          
+          <frame
+               frameborder="0"
+               noresize="noresize"
+               src="uri-attr:encoded-action-url:http://www.oracle.com"
+              >
+            
+          </frame>
+        </frameset>
+        <noframes
+            >
+          
+        </noframes>
+      </frameset>
+      <frameset
+           cols="30%,10%,*,10%,30%"
+           title="Container for left, center and right frames"
+          >
+        
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="*,35%,25%"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="30%,30%,*"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+      </frameset>
+      <frame
+           frameborder="0"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+    </frameset>
+    <noframes
+        >
+      no frames
+    </noframes>
+  </frameset>
+<!--AttributeTest[id,myFrameBorderId]-->
+
+  <frameset
+       id="myFrameBorderId"
+       rows="100%,*"
+      >
+    
+    <frameset
+         rows="20%,*,30pt"
+         title="Container for top and bottom frames"
+        >
+      
+      <frameset
+           rows="100%,*"
+          >
+        
+        <frameset
+             rows="100%,*"
+             title="Container for top and bottom frames"
+            >
+          
+          <frame
+               frameborder="0"
+               noresize="noresize"
+               src="uri-attr:encoded-action-url:http://www.oracle.com"
+              >
+            
+          </frame>
+        </frameset>
+        <noframes
+            >
+          
+        </noframes>
+      </frameset>
+      <frameset
+           cols="30%,10%,*,10%,30%"
+           title="Container for left, center and right frames"
+          >
+        
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="*,35%,25%"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="30%,30%,*"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+      </frameset>
+      <frame
+           frameborder="0"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+    </frameset>
+    <noframes
+        >
+      no frames
+    </noframes>
+  </frameset>
+<!--AttributeTest[inlineStyle,border:dashed]-->
+
+  <frameset
+       id="mainId"
+       rows="100%,*"
+       style="border:dashed"
+      >
+    
+    <frameset
+         rows="20%,*,30pt"
+         title="Container for top and bottom frames"
+        >
+      
+      <frameset
+           rows="100%,*"
+          >
+        
+        <frameset
+             rows="100%,*"
+             title="Container for top and bottom frames"
+            >
+          
+          <frame
+               frameborder="0"
+               noresize="noresize"
+               src="uri-attr:encoded-action-url:http://www.oracle.com"
+              >
+            
+          </frame>
+        </frameset>
+        <noframes
+            >
+          
+        </noframes>
+      </frameset>
+      <frameset
+           cols="30%,10%,*,10%,30%"
+           title="Container for left, center and right frames"
+          >
+        
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="*,35%,25%"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="30%,30%,*"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+      </frameset>
+      <frame
+           frameborder="0"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+    </frameset>
+    <noframes
+        >
+      no frames
+    </noframes>
+  </frameset>
+<!--AttributeTest[shortDesc,myShortDesc]-->
+
+  <frameset
+       id="mainId"
+       rows="100%,*"
+       title="myShortDesc"
+      >
+    
+    <frameset
+         rows="20%,*,30pt"
+         title="Container for top and bottom frames"
+        >
+      
+      <frameset
+           rows="100%,*"
+          >
+        
+        <frameset
+             rows="100%,*"
+             title="Container for top and bottom frames"
+            >
+          
+          <frame
+               frameborder="0"
+               noresize="noresize"
+               src="uri-attr:encoded-action-url:http://www.oracle.com"
+              >
+            
+          </frame>
+        </frameset>
+        <noframes
+            >
+          
+        </noframes>
+      </frameset>
+      <frameset
+           cols="30%,10%,*,10%,30%"
+           title="Container for left, center and right frames"
+          >
+        
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="*,35%,25%"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="30%,30%,*"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+      </frameset>
+      <frame
+           frameborder="0"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+    </frameset>
+    <noframes
+        >
+      no frames
+    </noframes>
+  </frameset>
+<!--AttributeTest[styleClass,myStyle]-->
+
+  <frameset
+       class="myStyle"
+       id="mainId"
+       rows="100%,*"
+      >
+    
+    <frameset
+         rows="20%,*,30pt"
+         title="Container for top and bottom frames"
+        >
+      
+      <frameset
+           rows="100%,*"
+          >
+        
+        <frameset
+             rows="100%,*"
+             title="Container for top and bottom frames"
+            >
+          
+          <frame
+               frameborder="0"
+               noresize="noresize"
+               src="uri-attr:encoded-action-url:http://www.oracle.com"
+              >
+            
+          </frame>
+        </frameset>
+        <noframes
+            >
+          
+        </noframes>
+      </frameset>
+      <frameset
+           cols="30%,10%,*,10%,30%"
+           title="Container for left, center and right frames"
+          >
+        
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="*,35%,25%"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frame
+             frameborder="0"
+             noresize="noresize"
+             src="uri-attr:encoded-action-url:http://www.oracle.com"
+            >
+          
+        </frame>
+        <frameset
+             rows="100%,*"
+            >
+          
+          <frameset
+               cols="30%,30%,*"
+               title="Container for left, center and right frames"
+              >
+            
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+            <frame
+                 frameborder="0"
+                 noresize="noresize"
+                 src="uri-attr:encoded-action-url:http://www.oracle.com"
+                >
+              
+            </frame>
+          </frameset>
+          <noframes
+              >
+            
+          </noframes>
+        </frameset>
+      </frameset>
+      <frame
+           frameborder="0"
+           noresize="noresize"
+           src="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        
+      </frame>
+    </frameset>
+    <noframes
+        >
+      no frames
+    </noframes>
+  </frameset>
+</results>

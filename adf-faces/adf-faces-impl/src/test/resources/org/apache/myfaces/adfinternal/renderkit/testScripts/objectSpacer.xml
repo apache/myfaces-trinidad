@@ -1,0 +1,22 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreObjectSpacer"/>
+
+  <!--pu: generates a div tag if only height is specified -->
+  <attribute-test name="height" value="0"/>
+  <attribute-test name="height" value="10%"/>
+  <attribute-test name="height" value="5cm"/>
+
+  <!--pu: generates an img tag if width is specified -->
+  <attribute-test name="width" value="0"/>
+  <attribute-test name="width" value="10%"/>
+  <attribute-test name="width" value="5"/>
+
+  <attribute-test name="height" value="10%">
+    <attribute-test name="width" value="5"/>
+  </attribute-test>
+
+  <!-- Core attribute tests -->
+  <attribute-test name="id"/>
+  <!-- <attribute-test name="shortDesc"/> -->
+</test>

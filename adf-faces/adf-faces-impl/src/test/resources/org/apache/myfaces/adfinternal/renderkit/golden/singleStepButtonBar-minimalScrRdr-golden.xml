@@ -1,0 +1,200 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="5"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
+                 type="button"
+                >
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[maxStep,10]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               nowrap="nowrap"
+              >
+            
+            <span
+                 class="OraNavBarViewOnly"
+                >
+              Step 1 of 10
+            </span>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="5"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
+                 type="button"
+                >
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[selectedStep,5]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="_navBarSubmit('formId','goto','mainId',0,'4');return false"
+                 type="button"
+                >
+              Back
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="5"
+                >
+              
+            </img>
+          </td>
+          <td
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="5"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="_navBarSubmit('formId','goto','mainId',1,'6');return false"
+                 type="button"
+                >
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           id="test-id"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               nowrap="nowrap"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="5"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="_navBarSubmit('formId','goto','test-id',1,'2');return false"
+                 type="button"
+                >
+              Next
+            </button>
+          </td>
+        </tr>
+      </table>
+</results>

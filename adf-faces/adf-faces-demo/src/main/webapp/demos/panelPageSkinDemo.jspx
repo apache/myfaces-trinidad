@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
+          xmlns:af="http://myfaces.apache.org/adf/faces">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <afh:html>
+      <afh:head title="Skin Demo">
+        <!-- the beach skin is defined in beach.css. If you want to add your own
+     custom style classes, you can add it to beach.css or to your own css 
+     file, like what we demo here in beachCustomStyles.css -->
+        <link rel="stylesheet" charset="UTF-8" type="text/css"
+              href="/adf-faces-demo-context-root/skins/beach/CustomStyles.css"/>
+      </afh:head>
+      <afh:body>
+        <af:form>
+          <af:panelGroup layout="vertical">
+            <f:facet name="separator">
+              <af:objectSeparator/>
+            </f:facet>
+            <af:commandLink immediate="true" text="Component Guide"
+                            action="guide"/>
+            <af:panelGroup layout="vertical">
+              <af:panelGroup layout="horizontal" styleClass="tabsPanelGroup">
+                <af:menuTabs shortDesc="Select tab">
+                  <af:commandNavigationItem text="Home" action="guide.menuTabs"
+                                      selected="true"/>
+                  <af:commandNavigationItem text="Clothing" action="guide.menuTabs"/>
+                  <af:commandNavigationItem text="Equipment" action="guide.menuTabs"/>
+                </af:menuTabs>
+                <af:menuButtons>
+                  <af:commandNavigationItem text="Your Account"
+                                      action="guide.menuButtons"/>
+                  <af:outputText value="|"/>
+                  <af:objectIcon name="required"/>
+                  <af:commandNavigationItem text="SALES!" action="guide.menuButtons"/>
+                  <af:objectIcon name="required"/>
+                  <af:outputText value="|"/>
+                  <af:commandNavigationItem text="Help" action="guide.menuButtons"/>
+                </af:menuButtons>
+              </af:panelGroup>
+              <af:menuBar>
+                <af:commandNavigationItem text="Jackets" action="guide.menuBar"
+                                    selected="true"/>
+                <af:commandNavigationItem text="Pants" action="guide.menuBar"/>
+                <af:commandNavigationItem text="Shirts" action="guide.menuBar"/>
+                <af:commandNavigationItem text="Shoes" action="guide.menuBar"/>
+                <af:commandNavigationItem text="Swimwear" action="guide.menuBar"/>
+                <af:commandNavigationItem text="Sale Items" action="guide.menuBar"/>
+              </af:menuBar>
+              <af:panelGroup layout="horizontal"
+                             styleClass="adfFacesDemoSearchPanelGroup">
+                <f:facet name="separator">
+                  <af:objectSpacer width="10px"/>
+                </f:facet>
+                <af:selectOneChoice label="Search">
+                  <af:selectItem label="Cycling"/>
+                  <af:selectItem label="Climbing"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice label="Skin-family:" autoSubmit="false"
+                                    value="#{sessionScope.skinFamily}">
+                  <af:selectItem label="oracle" value="oracle"/>
+                  <af:selectItem label="simple" value="simple"/>
+                  <af:selectItem label="minimal" value="minimal"/>
+                  <af:selectItem label="purple" value="purple"/>
+                  <af:selectItem label="beach" value="beach"/>
+                </af:selectOneChoice>
+                <af:commandButton text="Go"/>
+              </af:panelGroup>
+              <af:panelGroup layout="horizontal" styleClass="welcomePanel">
+                <af:outputFormatted styleUsage="instruction"
+                                    value="&lt;b>Welcome!&lt;/b> We hope you find something you like."></af:outputFormatted>
+              </af:panelGroup>
+              <af:panelHorizontal valign="top" inlineStyle="padding:5px;">
+                <af:panelBox background="medium" text="Browse" inlineStyle="width:160px">
+                  <af:outputText value="Recent Purchases"
+                                 styleClass="panelBoxHeader"/>
+                  <af:panelList>
+                    <af:goLink text="flip flops"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="sandals"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="trail shoes"
+                               destination="http://www.oracle.com"/>
+                  </af:panelList>
+                  <af:outputText value="Equipment" styleClass="panelBoxHeader"/>
+                  <af:panelList>
+                    <af:goLink text="Cycling"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="Climbing"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="Kayaking"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="Camping"
+                               destination="http://www.oracle.com"/>
+                  </af:panelList>
+                  <af:outputText value="Clothing" styleClass="panelBoxHeader"/>
+                  <af:panelList>
+                    <af:goLink text="Shirts"
+                               destination="http://www.oracle.com"/>
+                    <af:goLink text="Shoes"
+                               destination="http://www.oracle.com"/>
+                  </af:panelList>
+                </af:panelBox>
+                <af:panelGroup layout="vertical">
+                  <af:panelHeader text="Recommendations for you">
+                    <af:outputText value="Everything in Camping  is on sale! Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                                   styleClass="mainContentText"/>
+                  </af:panelHeader>
+                  <af:objectSpacer height="5px"/>
+                  <af:panelHeader text="New in Down Jackets!">
+                    <af:outputText value="You might be sweltering in 100 degree heat, but think ahead to the cold winters and buy                     a down jacket!"
+                                   styleClass="mainContentText"/>
+                  </af:panelHeader>
+                  <af:objectSpacer height="15px"/>
+                  <af:showOneTab>
+                    <af:showDetailItem text="Tab 1">
+                      <af:panelHeader text="Tab Header 1">
+                        <af:panelForm>
+                          <af:inputText readOnly="true" label="Label 2-1"
+                                        value="Value" styleClass="AFDataText"/>
+                          <af:inputText readOnly="true"
+                                        label="Date/Time from last partial refresh"
+                                        value="#{date.currentDate}"
+                                        styleClass="AFDataText">
+                            <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                          </af:inputText>
+                          <af:selectInputDate label="Birthdate:"/>
+                        </af:panelForm>
+                      </af:panelHeader>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Tab 2" disclosed="true">
+                      <af:panelHeader text="ShowOneTab details">
+                        <af:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
+                                       styleClass="mainContentText"/>
+                        <af:panelGroup layout="horizontal">
+                          <af:goButton text="Sorry, Disabled" disabled="true"/>
+                          <af:objectSpacer width="10px"/>
+                          <af:goButton text="Go!" disabled="false"/>
+                        </af:panelGroup>
+                      </af:panelHeader>
+                    </af:showDetailItem>
+                    <af:showDetailItem text="Tab 4" disabled="true"/>
+                    <af:showDetailItem text="Tab 5">
+                      <af:panelHeader text="Header 5">
+                        <af:panelForm>
+                          <af:inputText readOnly="true" label="Label 5-1"
+                                        value="Value" styleClass="AFDataText"/>
+                          <af:inputText readOnly="true"
+                                        label="Date/Time from last partial refresh"
+                                        value="#{date.currentDate}"
+                                        styleClass="AFDataText">
+                            <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                          </af:inputText>
+                        </af:panelForm>
+                      </af:panelHeader>
+                    </af:showDetailItem>
+                  </af:showOneTab>
+                </af:panelGroup>
+                <af:panelGroup layout="vertical">
+                  <f:facet name="separator">
+                    <af:objectSpacer height="10px"/>
+                  </f:facet>
+                  <af:panelBox background="medium" inlineStyle="width:160px">
+                    <af:panelGroup layout="vertical">
+                      <af:outputText value="New Releases"
+                                     styleClass="panelBoxHeader"/>
+                      <af:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <af:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </af:panelGroup>
+                  </af:panelBox>
+                  <af:panelBox background="medium" inlineStyle="width:160px">
+                    <af:panelGroup layout="vertical">
+                      <af:outputText value="More Stuff"
+                                     styleClass="panelBoxHeader"/>
+                      <af:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <af:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </af:panelGroup>
+                  </af:panelBox>
+                  <af:panelBox background="medium" inlineStyle="width:160px">
+                    <af:panelGroup layout="vertical">
+                      <af:outputText value="Your New Releases"
+                                     styleClass="panelBoxHeader"/>
+                      <af:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <af:outputFormatted styleUsage="instruction"
+                                          value="Check this out!"/>
+                    </af:panelGroup>
+                  </af:panelBox>
+                </af:panelGroup>
+              </af:panelHorizontal>
+            </af:panelGroup>
+          </af:panelGroup>
+        </af:form>
+      </afh:body>
+    </afh:html>
+  </f:view>
+</jsp:root>

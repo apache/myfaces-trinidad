@@ -1,0 +1,1495 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[disabled,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[disabled,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldTextDisabled"
+                 disabled="disabled"
+                 id="mainId"
+                 name="mainId"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[title,the title]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            the title
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,myid]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="myid"
+                 name="myid"
+                >
+              
+              <option
+                   id="myid:0:stamp"
+                   selected="selected"
+                   value="myid:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="myid:1:stamp"
+                   value="myid:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="myid:2:stamp"
+                   value="myid:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','myid');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 title="my short desc"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[styleClass,mystyle]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="mystyle"
+                 id="mainId"
+                 name="mainId"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onblur,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onblur="test-onblur"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onchange,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onchange="test-onchange"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onclick="test-onclick"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[ondblclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 ondblclick="test-ondblclick"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onfocus,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onfocus="test-onfocus"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeydown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onkeydown="test-onkeydown"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeypress,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onkeypress="test-onkeypress"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeyup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onkeyup="test-onkeyup"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousedown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onmousedown="test-onmousedown"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousemove,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onmousemove="test-onmousemove"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseout,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onmouseout="test-onmouseout"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseover,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onmouseover="test-onmouseover"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           summary=""
+           width="5"
+          >
+        
+        <tr
+            >
+          
+          <td
+               align="right"
+               class="af_menuChoice_label"
+              >
+            Switch Applications
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <select
+                 class="AFFieldText"
+                 id="mainId"
+                 name="mainId"
+                 onmouseup="test-onmouseup"
+                >
+              
+              <option
+                   id="mainId:0:stamp"
+                   selected="selected"
+                   value="mainId:0:stamp[1]"
+                  >
+                First
+              </option>
+              <option
+                   id="mainId:1:stamp"
+                   value="mainId:1:stamp[1]"
+                  >
+                Second
+              </option>
+              <option
+                   id="mainId:2:stamp"
+                   value="mainId:2:stamp[1]"
+                  >
+                Third
+              </option>
+            </select>
+          </td>
+          <td
+              >
+            &#xa0;
+          </td>
+          <td
+               valign="bottom"
+              >
+            
+            <input
+                 class="OraLink"
+                 onclick="_commandChoice('formId','mainId');return false;"
+                 title="Go To Selected Application"
+                 type="button"
+                 value="Go"
+                >
+              
+            </input>
+          </td>
+        </tr>
+      </table>
+</results>

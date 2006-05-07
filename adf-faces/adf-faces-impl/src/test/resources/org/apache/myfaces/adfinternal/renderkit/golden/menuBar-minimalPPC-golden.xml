@@ -1,0 +1,115 @@
+<results>
+      <hr
+           id="mainId"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[id,myid]-->
+
+      <hr
+           id="myid"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <hr
+           id="mainId"
+           size="2"
+           title="my short desc"
+          >
+        
+      </hr>
+<!--AttributeTest[onclick,null]-->
+
+      <hr
+           id="mainId"
+           onclick="test-onclick"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[ondblclick,null]-->
+
+      <hr
+           id="mainId"
+           ondblclick="test-ondblclick"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onkeydown,null]-->
+
+      <hr
+           id="mainId"
+           onkeydown="test-onkeydown"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onkeypress,null]-->
+
+      <hr
+           id="mainId"
+           onkeypress="test-onkeypress"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onkeyup,null]-->
+
+      <hr
+           id="mainId"
+           onkeyup="test-onkeyup"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onmousedown,null]-->
+
+      <hr
+           id="mainId"
+           onmousedown="test-onmousedown"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onmousemove,null]-->
+
+      <hr
+           id="mainId"
+           onmousemove="test-onmousemove"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onmouseout,null]-->
+
+      <hr
+           id="mainId"
+           onmouseout="test-onmouseout"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onmouseover,null]-->
+
+      <hr
+           id="mainId"
+           onmouseover="test-onmouseover"
+           size="2"
+          >
+        
+      </hr>
+<!--AttributeTest[onmouseup,null]-->
+
+      <hr
+           id="mainId"
+           onmouseup="test-onmouseup"
+           size="2"
+          >
+        
+      </hr>
+</results>

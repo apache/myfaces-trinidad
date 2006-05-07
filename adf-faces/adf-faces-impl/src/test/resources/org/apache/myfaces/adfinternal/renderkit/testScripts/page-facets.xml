@@ -1,0 +1,78 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces"
+       agentNotSupported="pda">
+  <base-component af:type="org.apache.myfaces.adf.CorePage"
+                value="#{menu}" var="foo">
+     <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                af:facet="nodeStamp"
+                text="#{foo.label}"
+                id="stamp"/>
+     <component af:type="org.apache.myfaces.adf.CoreProcessChoiceBar"
+                af:facet="actions"
+                value="#{pageList}" var="foo">
+         <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                    af:facet="nodeStamp"
+                    text="#{foo.label}"/>
+     </component>
+     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+                 af:facet="appAbout"
+                 text="appAbout"/>
+     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+                 af:facet="appPrivacy"
+                 text="privacy"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="appCopyright"
+                value="the appCopyright facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="contextSwitcher"
+                value="the contextSwitcher facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoFootnote"
+                value="the infoFootnote facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoUser"
+                value="the infoUser facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoStatus"
+                value="the infoStatus facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoReturn"
+                value="the infoReturn facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoSupplemental"
+                value="the infoSupplemental facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="messages"
+                value="the messages facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreMenuChoice"
+                     af:facet="menuSwitch" >
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice1"/>
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice2"/>
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice3"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="branding"
+                source="/foo/foo.gif"/>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="brandingApp"
+                source="/foo/bar.gif"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="brandingAppContextual"
+                value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
+                styleUsage="inContextBranding"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="search"
+                value="the search facet"/>
+     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+                text="header1"/>
+     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+                text="header2"/>
+  </base-component>
+
+
+ <!-- test the facets seperately so output not too big - see page.xml for attribute tests -->
+
+</test>

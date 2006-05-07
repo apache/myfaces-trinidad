@@ -1,0 +1,130 @@
+<results>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <noframes
+      >
+    no frames
+  </noframes>
+<!--AttributeTest[id,myFrameBorderId]-->
+
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <noframes
+      >
+    no frames
+  </noframes>
+<!--AttributeTest[inlineStyle,border:dashed]-->
+
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <noframes
+      >
+    no frames
+  </noframes>
+<!--AttributeTest[shortDesc,myShortDesc]-->
+
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <noframes
+      >
+    no frames
+  </noframes>
+<!--AttributeTest[styleClass,myStyle]-->
+
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <a
+       class="OraLink"
+       href="uri-attr:encoded-action-url:http://www.oracle.com"
+      >
+    http://www.oracle.com
+  </a>
+  <br
+      >
+    
+  </br>
+  <noframes
+      >
+    no frames
+  </noframes>
+</results>

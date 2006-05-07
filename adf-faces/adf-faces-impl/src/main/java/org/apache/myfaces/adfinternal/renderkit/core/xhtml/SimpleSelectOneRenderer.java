@@ -1,0 +1,495 @@
+/*
+ * Copyright  2005,2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+
+import java.io.IOException;
+
+import java.util.List;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+
+import javax.faces.model.SelectItem;
+
+import org.apache.myfaces.adf.logging.ADFLogger;
+
+import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.adf.bean.PropertyKey;
+
+import org.apache.myfaces.adf.component.UIXSelectOne;
+
+import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.adfinternal.renderkit.uix.SelectItemSupport;
+import org.apache.myfaces.adfinternal.util.IntegerUtils;
+
+/**
+ */
+abstract public class SimpleSelectOneRenderer extends FormInputRenderer
+{
+  public SimpleSelectOneRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _valuePassThruKey = type.findKey("valuePassThru");
+  }
+
+
+  public Object getSubmittedValue(
+    FacesContext context,
+    UIComponent  component)
+  {
+    String clientId = component.getClientId(context);
+    Object submittedValue = context.getExternalContext().
+                                getRequestParameterMap().get(clientId);
+     if (submittedValue == null)
+      submittedValue = "";
+
+    return submittedValue;
+  }
+
+
+  /**
+   * Return the value to output for an item.
+   */
+  static public Object getItemValue(
+    FacesContext context,
+    UIComponent  component,
+    SelectItem   item,
+    Converter    converter,
+    boolean      valuePassThru,
+    int          index)
+  {
+    if (!valuePassThru)
+    {
+      return IntegerUtils.getString(index);
+    }
+    else
+    {
+      Object itemValue = item.getValue();
+      if ((itemValue != null) && (converter != null))
+      {
+        itemValue = converter.getAsString(context,
+                                          component,
+                                          itemValue);
+      }
+
+      return itemValue;
+    }
+  }
+
+  /**
+   * @todo Move to utility class?
+   */
+  static public boolean encodeOption(
+    FacesContext        context,
+    AdfRenderingContext arc,
+    UIComponent         component,
+    SelectItem          item,
+    Converter           converter,
+    boolean             valuePassThru,
+    int                 index,
+    boolean             isSelected) throws IOException
+  {
+    if (item == null)
+      return false;
+
+    if (item.isDisabled())
+    {
+      if (!Boolean.TRUE.equals(arc.getAgent().getCapability(
+                          AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
+        return false;
+    }
+
+    Object itemValue = getItemValue(context,
+                                    component,
+                                    item,
+                                    converter,
+                                    valuePassThru,
+                                    index);
+
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement("option", null);
+
+    if (item.isDisabled())
+      writer.writeAttribute("disabled", Boolean.TRUE, null);
+
+    // Never write out null, because that will result in the label
+    // getting submitted, instead of null.
+    if (itemValue == null)
+      itemValue="";
+    writer.writeAttribute("value", itemValue, null);
+
+    if (isSelected)
+      writer.writeAttribute("selected", Boolean.TRUE, null);
+
+    // For reasons that aren't especially clear to me, we're getting
+    // passed the empty string for our title.
+    String description = item.getDescription();
+    if ((description != null) && !"".equals(description))
+      writer.writeAttribute("title", description, null);
+
+    writer.writeText(item.getLabel(), null);
+
+    writer.endElement("option");
+
+    return true;
+  }
+
+  //
+  // DECODE BEHAVIOR
+  //
+  public Object getConvertedValue(
+    FacesContext context,
+    UIComponent  component,
+    Object       submittedValue) throws ConverterException
+  {
+    boolean valuePassThru = getValuePassThru(getFacesBean(component));
+
+    if (!valuePassThru)
+    {
+      return _convertIndexedSubmittedValue(context, component, submittedValue);
+    }
+    else
+    {
+      return super.getConvertedValue(context, component, submittedValue);
+    }
+  }
+
+
+  /**
+   * Call this method only when the valuePassThru attribute on the selectOne
+   * component is not set to true.
+   * This indicates that the client-side value
+   * is an index. We need to convert that index into its real value.
+   * @param component
+   * @param submittedValue the submittedValue. Since this method is only
+   *  called when the valuePassThru attribute on the selectOne component is
+   *  not true, then the submittedValue in this case is an index into a List.
+   * @return the Object value at that index specified in submittedValue,
+   *    or null.
+   */
+  private Object _convertIndexedSubmittedValue(
+    FacesContext context,
+    UIComponent  component,
+    Object       submittedValue)
+  {
+    FacesBean bean = getFacesBean(component);
+    Converter converter = getConverter(bean);
+    if ( converter == null)
+      converter = getDefaultConverter(context, bean);
+
+    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    int index = __getIndex(submittedValue, selectItems);
+    if (index < 0)
+      return null;
+
+    SelectItem item =
+      (SelectItem) selectItems.get(index);
+    if (item != null)
+      return item.getValue();
+    else
+      return null;
+  }
+
+
+  //
+  // ENCODE BEHAVIOR
+  //
+  /*
+   */
+  protected void encodeAllAsElement(
+    FacesContext        context,
+    AdfRenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
+    Converter converter = getConverter(bean);
+    if ( converter == null)
+      converter = getDefaultConverter(context, bean);
+    boolean valuePassThru = getValuePassThru(bean);
+
+    if (isAutoSubmit(bean))
+      AutoSubmitUtils.writeDependencies(context, arc);
+
+    // Only add in validators and converters when we're in valuePassThru
+    // mode; otherwise, there's not enough on the client to even consider
+    FormData fData = arc.getFormData();
+    if (fData != null)
+    {
+      fData.addOnSubmitConverterValidators(component,
+                      valuePassThru ? converter : null,
+                      valuePassThru ? getValidators(bean) : null,
+                      getClientId(context, component),
+                      isImmediate(bean),
+                      getRequired(bean),
+                      getRequiredMessageKey());
+    }
+
+    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    int selectedIndex = _getSelectedIndex(context,
+                                          component,
+                                          bean,
+                                          selectItems,
+                                          converter,
+                                          valuePassThru);
+
+    ResponseWriter writer = context.getResponseWriter();
+    boolean simple = getSimple(bean);
+    if (simple)
+    {
+      writer.startElement("span", component);
+      // put the outer style class here, like af_selectOneRadio, styleClass,
+      // inlineStyle, 'state' styles like p_AFDisabled, etc.
+      renderRootDomElementStyles(context, arc, component, bean);
+    }
+
+    encodeElementContent(context,
+                         arc,
+                         component,
+                         bean,
+                         selectItems,
+                         selectedIndex,
+                         converter,
+                         valuePassThru);
+
+
+
+    if (isHiddenLabelRequired(arc))
+      renderShortDescAsHiddenLabel(context, arc, component, bean);
+
+    if (simple)
+    {
+      writer.endElement("span");
+    }
+  }
+
+  abstract   protected void encodeElementContent(
+    FacesContext        context,
+    AdfRenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean,
+    List                selectItems,
+    int                 selectedIndex,
+    Converter           converter,
+    boolean             valuePassThru) throws IOException;
+
+  protected void renderNonElementContent(
+    FacesContext        context,
+    AdfRenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
+    Converter converter = getConverter(bean);
+    if ( converter == null)
+      converter = getDefaultConverter(context, bean);
+    boolean valuePassThru = getValuePassThru(bean);
+
+    // =-=AEW If needed, this could be made more efficient
+    // by iterating through the list instead of getting
+    // all the items
+    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    int selectedIndex = _getSelectedIndex(context,
+                                          component,
+                                          bean,
+                                          selectItems,
+                                          converter,
+                                          valuePassThru);
+
+    // If an item is selected, get its label.
+    String text;
+    if (selectedIndex >= 0)
+    {
+      SelectItem item = (SelectItem) selectItems.get(selectedIndex);
+      text = item.getLabel();
+    }
+    else
+    {
+      text = getUnselectedLabel(bean);
+    }
+
+    context.getResponseWriter().writeText(text, null);
+  }
+
+
+  protected String getRequiredMessageKey()
+  {
+    return UIXSelectOne.REQUIRED_MESSAGE_ID;
+  }
+
+
+  protected boolean getValuePassThru(FacesBean bean)
+  {
+    Object o = bean.getProperty(_valuePassThruKey);
+    if (o == null)
+      o = _valuePassThruKey.getDefault();
+    assert(o != null);
+    return Boolean.TRUE.equals(o);
+  }
+
+  /**
+   * @todo Move up to all SelectOnes?
+   */
+  protected String getUnselectedLabel(FacesBean bean)
+  {
+    return null;
+  }
+
+  /**
+   * Convert a stringified index into an index, with range-checking.
+   */
+  static int __getIndex(Object submittedValue, List selectItems)
+  {
+    if ("".equals(submittedValue))
+      return -1;
+
+    try
+    {
+      int index = Integer.parseInt(submittedValue.toString());
+
+      if (( -1 < index) && (selectItems.size() > index))
+      {
+        return index;
+      }
+      else
+      {
+        // TODO Don't throw exception: message!
+        throw new IndexOutOfBoundsException(
+          "SelectOne submittedValue's index " +
+          index + " is out of bounds. It should be between 0 and " +
+          (selectItems.size() - 1));
+      }
+    }
+    catch (NumberFormatException ne)
+    {
+      // TODO Don't throw exception: message!
+      throw new NumberFormatException(
+        "SelectOne could not convert submittedValue's index " +
+        submittedValue.toString() + " into int " + ne);
+    }
+  }
+
+  //
+  // Find the selected item in the list
+  //
+  private int _findIndex(Object value, List selectItems)
+  {
+    int size = selectItems.size();
+    for (int i = 0; i < size; i++)
+    {
+      SelectItem item = (SelectItem) selectItems.get(i);
+      if (item == null)
+        continue;
+
+      if (value == null)
+      {
+        Object itemValue = item.getValue();
+        // =-=AEW Treat the empty string as if it were null
+        if ((item == null) || (itemValue == null) || "".equals(itemValue))
+          return i;
+      }
+      else
+      {
+        if (value.equals(item.getValue()))
+          return i;
+      }
+    }
+
+    return -1;
+  }
+
+  protected String getAutoSubmitScript(
+    AdfRenderingContext arc,
+    FacesBean           bean)
+  {
+    String source = LabelAndMessageRenderer.__getCachedClientId(arc);
+    boolean immediate = isImmediate(bean);
+    return AutoSubmitUtils.getSubmitScript(arc, source, immediate);
+  }
+
+
+
+  private int _getSelectedIndex(
+    FacesContext        context,
+    UIComponent         component,
+    FacesBean           bean,
+    List                selectItems,
+    Converter           converter,
+    boolean             valuePassThru)
+  {
+    Object submittedValue = getSubmittedValue(bean);
+    // In passthru mode, if there's a submitted value, we just
+    // have to turn it into an int and range-check it
+    if ((submittedValue != null) && !valuePassThru)
+    {
+      return __getIndex(submittedValue, selectItems);
+    }
+    // Figure out the current value, whether it's submitted or not
+    else
+    {
+      Object value;
+      if (submittedValue == null)
+      {
+        value = getValue(bean);
+      }
+      else
+      {
+        // submittedValue: run it through the converter if there is one
+        if (converter != null)
+        {
+          try
+          {
+            value = converter.getAsObject(context,
+                                          component,
+                                          submittedValue.toString());
+          }
+          // This shouldn't happen unless we got sent a bogus value;
+          // log a warning and move on
+          catch (ConverterException ce)
+          {
+            _LOG.warning(ce);
+            value = null;
+          }
+        }
+        else
+          value = submittedValue;
+      }
+
+      int index = _findIndex(value, selectItems);
+      if ((value != null) && (index < 0))
+      {
+        if (_LOG.isWarning())
+          _LOG.warning("Could not find selected item matching value \"{0}\" " +
+                       "in {1}", new Object[]{value, component});
+      }
+
+      return index;
+    }
+  }
+
+  private PropertyKey _valuePassThruKey;
+
+  static private final ADFLogger _LOG =
+    ADFLogger.createADFLogger(SimpleSelectOneRenderer.class);
+}

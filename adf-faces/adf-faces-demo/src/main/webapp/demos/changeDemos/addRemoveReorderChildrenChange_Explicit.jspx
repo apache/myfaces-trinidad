@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document 
+      title="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
+        Persistence Feature Demo">
+      <af:form>
+
+        <af:panelPage >
+         <f:facet name="navigationGlobal">
+          <af:menuButtons>
+            <af:commandNavigationItem 
+              text="Return to Change Persistence demo index page"
+              immediate="true"
+              action="demos.changePersistence"/>
+           </af:menuButtons>
+          </f:facet>
+        <af:panelHeader text="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
+          Persistence Feature Demo">
+          <af:panelGroup layout="vertical">
+            <f:facet name="separator">
+              <af:objectSeparator/>
+            </f:facet>
+            <af:panelGroup id="pg1">
+              <af:objectImage 
+                id="oi1" 
+  shortDesc="Corporate Brand"
+                source="/components/images/corporateBrand.gif"/>
+              <af:panelBox id="pb1" text="PanelBoxText"/>
+              <af:inputText id="it1" label="Label"/>
+              <af:selectInputColor 
+                id="sic1" 
+                chooseId="cc1"
+                label="Color:"
+                value="#{color.colorValue2}">
+                <f:facet name="help">
+                  <af:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+                </f:facet>
+              </af:selectInputColor>
+              <af:chooseColor 
+                id="cc1" 
+                colorData="#{adfFacesContext.colorPalette.default49}"/>
+              <af:chooseDate id="cd1"/>
+              <af:selectInputDate label="Date:" id="sid1" chooseId="cd1"/>
+            </af:panelGroup>
+            <af:panelGroup>
+              <af:commandButton 
+                id="cb1" 
+                text="Reorder children" 
+                actionListener="#{change.reorderChildren}"/>
+              <af:objectSpacer width="10"/>
+              <af:commandButton 
+                id="cb2" 
+                text="Remove color child components" 
+                actionListener="#{change.removeChildren}"/>
+              <af:objectSpacer width="10"/>
+              <af:commandButton 
+                id="cb3" 
+                text="Remove date child components" 
+                actionListener="#{change.removeChildren}"/>
+              <af:objectSpacer width="10"/>
+              <af:commandButton 
+                id="cb4" 
+                text="Add an object image child" 
+                actionListener="#{change.appendChild}"/>
+              <af:objectSpacer width="10" rendered="false"/>
+              <af:commandButton 
+                id="cb5" 
+                text="Add an object image child to document" 
+                actionListener="#{change.appendChildToDocument}"
+                rendered="false"/>
+            </af:panelGroup>
+          </af:panelGroup>
+         </af:panelHeader>
+        </af:panelPage>
+
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

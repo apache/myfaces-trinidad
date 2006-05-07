@@ -1,0 +1,1443 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <a
+             class="p_OraHideSkipNaviText"
+             href="uri-attr:encoded-action-url:#TheContent"
+            >
+          Skip navigation elements to page contents
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   summary=""
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="_idXXX"
+                   summary=""
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button1
+                    </a>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button2
+                    </a>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                   summary=""
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         summary=""
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 rowspan="3"
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="2"
+                  >
+                
+              </img>
+            </td>
+            <td
+                 rowspan="3"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_panelSideBar"
+                   summary=""
+                   width="150"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_panelSideBar_body"
+                      >
+                    
+                    <ul
+                         class="OraStyledList"
+                         id="_idXXX"
+                         style="list-style-type:disc"
+                        >
+                      
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list1
+                          </a>
+                        </span>
+                      </li>
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list2
+                          </a>
+                        </span>
+                      </li>
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list3
+                          </a>
+                        </span>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="100%"
+                >
+              
+              <div
+                   style="margin-top:5px"
+                  >
+                
+              </div>
+              <div
+                  >
+                
+              </div>the search facet
+              <div
+                  >
+                
+              </div>
+              <hr
+                   class="af_objectSeparator"
+                  >
+                
+              </hr>
+              <div
+                  >
+                
+              </div>
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <span
+                         class="af_navigationPath"
+                        >
+                      
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_step"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            path1
+                          </a>
+                        </span>&#xa0;&#xa0;&gt;&#xa0;&#xa0;
+                      </nobr>
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_step"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            path2
+                          </a>
+                        </span>&#xa0;&#xa0;&gt;&#xa0;&#xa0;
+                      </nobr>
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_selected-step"
+                              >
+                            path3
+                          </a>
+                        </span>
+                      </nobr>
+                    </span>
+                  </td>
+                  <td
+                      >
+                    
+                    <img
+                         alt=""
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="5"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       align="right"
+                      >
+                    the infoUser facet
+                  </td>
+                </tr>
+              </table>
+              <div
+                  >
+                
+              </div>the messages facet
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 valign="top"
+                 width="100%"
+                >
+              
+              <a
+                   class="OraLink"
+                   id="uri-attr:TheContent"
+                   name="uri-attr:TheContent"
+                  >
+                
+              </a>
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                     valign="top"
+                    >
+                  
+                  <td
+                       width="100%"
+                      >
+                    the infoStatus facet
+                  </td>
+                </tr>
+              </table>
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  foo
+                </h1>
+              </div>
+              <div
+                  >
+                
+              </div>
+              <div
+                   id="panID"
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  bar bar
+                </h1>
+              </div>
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  header2
+                </h1>
+              </div>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 width="100%"
+                >
+              the infoFootnote facet
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <hr
+                     class="p_OraContentFooterRule"
+                    >
+                  
+                </hr>
+                <div
+                     class="p_OraContentFooterChildren"
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       id="_idXXX__xc_"
+                       summary=""
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           nowrap="nowrap"
+                          >
+                        
+                        <select
+                             class="AFFieldText"
+                             id="_idXXX"
+                             name="_idXXX"
+                             onchange="_commandChoice('formId','_idXXX');return false;"
+                            >
+                          
+                          <option
+                               selected="selected"
+                               value="null:0:_idXXX[1]"
+                              >
+                            First
+                          </option>
+                          <option
+                               value="null:1:_idXXX[1]"
+                              >
+                            Second
+                          </option>
+                          <option
+                               value="null:2:_idXXX[1]"
+                              >
+                            Third
+                          </option>
+                        </select>
+                      </td>
+                      <td
+                          >
+                        
+                        <img
+                             alt=""
+                             height="1"
+                             src="/test-context-path/adf/images/t.gif"
+                             width="5"
+                            >
+                          
+                        </img>
+                      </td>
+                      <td
+                          >
+                        
+                        <button
+                             accesskey="x"
+                             class="OraLink"
+                             onclick="_navSubmit('formId', 'goto', '_idXXX',1,'1', '1',null);return false"
+                             type="button"
+                            >
+                          Ne
+                          <u
+                              >
+                            x
+                          </u>t
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div
+                     class="p_OraContentFooterStart"
+                    >
+                  the infoReturn facet
+                </div>
+                <div
+                     class="p_OraContentFooterBottom"
+                    >
+                  
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div
+             class="p_OraFooter"
+            >
+          
+          <div
+               class="p_OraFooterBottom"
+              >
+            
+            <span
+                 class="af_panelPage_copyright"
+                >
+              the appCopyright facet
+            </span>
+            <span
+                 class="af_panelPage_privacy"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                privacy
+              </a>
+            </span>
+            <span
+                 class="af_panelPage_about"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                appAbout
+              </a>
+            </span>
+          </div>
+        </div>
+      </span>
+<!--AttributeTest[icon,icon-uri]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <a
+             class="p_OraHideSkipNaviText"
+             href="uri-attr:encoded-action-url:#TheContent"
+            >
+          Skip navigation elements to page contents
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   summary=""
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   id="_idXXX"
+                   summary=""
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button1
+                    </a>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button2
+                    </a>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <a
+                         class="af_menuButtons_text"
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      button3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                   summary=""
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         summary=""
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 rowspan="3"
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="2"
+                  >
+                
+              </img>
+            </td>
+            <td
+                 rowspan="3"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_panelSideBar"
+                   summary=""
+                   width="150"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_panelSideBar_body"
+                      >
+                    
+                    <ul
+                         class="OraStyledList"
+                         id="_idXXX"
+                         style="list-style-type:disc"
+                        >
+                      
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list1
+                          </a>
+                        </span>
+                      </li>
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list2
+                          </a>
+                        </span>
+                      </li>
+                      <li
+                          >
+                        
+                        <span
+                             class="OraNav3"
+                            >
+                          
+                          <a
+                               class="OraLink"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            list3
+                          </a>
+                        </span>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 width="100%"
+                >
+              
+              <div
+                   style="margin-top:5px"
+                  >
+                
+              </div>
+              <div
+                  >
+                
+              </div>the search facet
+              <div
+                  >
+                
+              </div>
+              <hr
+                   class="af_objectSeparator"
+                  >
+                
+              </hr>
+              <div
+                  >
+                
+              </div>
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <span
+                         class="af_navigationPath"
+                        >
+                      
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_step"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            path1
+                          </a>
+                        </span>&#xa0;&#xa0;&gt;&#xa0;&#xa0;
+                      </nobr>
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_step"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            path2
+                          </a>
+                        </span>&#xa0;&#xa0;&gt;&#xa0;&#xa0;
+                      </nobr>
+                      <nobr
+                          >
+                        
+                        <span
+                             dir="ltr"
+                            >
+                          
+                          <a
+                               class="af_navigationPath_selected-step"
+                              >
+                            path3
+                          </a>
+                        </span>
+                      </nobr>
+                    </span>
+                  </td>
+                  <td
+                      >
+                    
+                    <img
+                         alt=""
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="5"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       align="right"
+                      >
+                    the infoUser facet
+                  </td>
+                </tr>
+              </table>
+              <div
+                  >
+                
+              </div>the messages facet
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 valign="top"
+                 width="100%"
+                >
+              
+              <a
+                   class="OraLink"
+                   id="uri-attr:TheContent"
+                   name="uri-attr:TheContent"
+                  >
+                
+              </a>
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   summary=""
+                   width="100%"
+                  >
+                
+                <tr
+                     valign="top"
+                    >
+                  
+                  <td
+                       width="100%"
+                      >
+                    the infoStatus facet
+                  </td>
+                </tr>
+              </table>
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  foo
+                </h1>
+              </div>
+              <div
+                  >
+                
+              </div>
+              <div
+                   id="panID"
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  
+                  <img
+                       alt=""
+                       class="af_panelHeader_icon-style"
+                       src="uri-attr:icon-uri"
+                      >
+                    
+                  </img>bar bar
+                </h1>
+              </div>
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <h1
+                     class="af_panelHeader"
+                    >
+                  header2
+                </h1>
+              </div>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 width="100%"
+                >
+              the infoFootnote facet
+              <div
+                  >
+                
+              </div>
+              <div
+                  >
+                
+                <hr
+                     class="p_OraContentFooterRule"
+                    >
+                  
+                </hr>
+                <div
+                     class="p_OraContentFooterChildren"
+                    >
+                  
+                  <table
+                       border="0"
+                       cellpadding="0"
+                       cellspacing="0"
+                       id="_idXXX__xc_"
+                       summary=""
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           nowrap="nowrap"
+                          >
+                        
+                        <select
+                             class="AFFieldText"
+                             id="_idXXX"
+                             name="_idXXX"
+                             onchange="_commandChoice('formId','_idXXX');return false;"
+                            >
+                          
+                          <option
+                               selected="selected"
+                               value="null:0:_idXXX[1]"
+                              >
+                            First
+                          </option>
+                          <option
+                               value="null:1:_idXXX[1]"
+                              >
+                            Second
+                          </option>
+                          <option
+                               value="null:2:_idXXX[1]"
+                              >
+                            Third
+                          </option>
+                        </select>
+                      </td>
+                      <td
+                          >
+                        
+                        <img
+                             alt=""
+                             height="1"
+                             src="/test-context-path/adf/images/t.gif"
+                             width="5"
+                            >
+                          
+                        </img>
+                      </td>
+                      <td
+                          >
+                        
+                        <button
+                             accesskey="x"
+                             class="OraLink"
+                             onclick="_navSubmit('formId', 'goto', '_idXXX',1,'1', '1',null);return false"
+                             type="button"
+                            >
+                          Ne
+                          <u
+                              >
+                            x
+                          </u>t
+                        </button>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div
+                     class="p_OraContentFooterStart"
+                    >
+                  the infoReturn facet
+                </div>
+                <div
+                     class="p_OraContentFooterBottom"
+                    >
+                  
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <div
+             class="p_OraFooter"
+            >
+          
+          <div
+               class="p_OraFooterBottom"
+              >
+            
+            <span
+                 class="af_panelPage_copyright"
+                >
+              the appCopyright facet
+            </span>
+            <span
+                 class="af_panelPage_privacy"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                privacy
+              </a>
+            </span>
+            <span
+                 class="af_panelPage_about"
+                >
+              
+              <a
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                appAbout
+              </a>
+            </span>
+          </div>
+        </div>
+      </span>
+</results>

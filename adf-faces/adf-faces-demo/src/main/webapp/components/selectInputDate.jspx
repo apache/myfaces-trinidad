@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+     <af:document title="SelectInputDate Demo">
+        <af:form>
+          <af:commandLink immediate="true" text="Component Guide"
+                action="guide"/>   
+          <af:objectSeparator/>
+          <af:panelPage>
+            <af:messages/>
+           <af:panelHeader text="SelectInputDate Demo">
+            <af:panelGroup layout="vertical">
+              <f:facet name="separator">
+                <af:objectSeparator/>
+              </f:facet>            
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>A basic selectInputDate, no converter &lt;/b>"/>
+              <af:selectInputDate binding="#{editor.component}" id="mdf1" value="#{date.date1}"
+                                    label="no converter"/>
+            
+              <jsp:directive.include file="editor.jspf" />
+    
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>A selectInputDate with a converter attached that has dateStyle set to 'long' &lt;/b>"/>
+              <af:selectInputDate id="mdf2" value="#{date.date2}"
+                                    label="has converter">
+                <f:convertDateTime dateStyle="long"/>
+              </af:selectInputDate>
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>A selectInputDate with a validator that sets a maximum date&lt;/b>"/>
+              <af:selectInputDate id="mdf3" value="#{date.date3}"
+                                    label="max validator">
+                <af:validateDateTimeRange maximum="#{date.maxDate}"/>
+              </af:selectInputDate>
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>A selectInputDate with a validator that sets a minimum date&lt;/b>"/>
+              <af:selectInputDate id="mdf4" value="#{date.date4}"
+                                    label="min validator" >
+                <af:validateDateTimeRange minimum="#{date.minDate}"/>
+              </af:selectInputDate>
+              
+              <af:outputFormatted styleUsage="instruction"
+                 value="&lt;b>A selectInputDate with a converter attached 
+                  that has pattern as 'yyyy/M/d' and secondary pattern as 'd/M/yyyy' &lt;/b>"/> 
+              <af:selectInputDate id="mdf5" value="2004/09/06"
+                                    label="attached converter">
+                <af:convertDateTime secondaryPattern="d/M/yyyy" pattern="yyyy/M/d" />
+              </af:selectInputDate>              
+              
+            </af:panelGroup>
+           </af:panelHeader>
+           <af:commandButton text="Submit"/>
+          </af:panelPage>
+        </af:form>
+ </af:document>
+  </f:view>
+</jsp:root>

@@ -1,0 +1,20 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test" 
+  xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreSelectRangeChoiceBar" 
+    value="#{rangeChoiceBarModel.names}" var="range">
+<!-- Prior to faces-major, CoreSelectItem was just ignored;  we only
+     supported f:selectItem.  But the renderkit test fwk doesn't
+     support the EL syntax given here!!!
+    <component af:facet="rangeLabel" af:type="org.apache.myfaces.adf.CoreSelectItem" 
+      label="#{range.start} - #{range.end}"/>
+-->
+  </base-component>
+  <attribute-test name="first" value="1"/>
+  <attribute-test name="rows" value="0"/>
+  <attribute-test name="id"/>  
+  <attribute-test name="shortDesc"/>
+<!-- These attributes are currently ignored 
+  <attribute-test name="styleClass"/>
+  <js-test/>  
+-->
+</test>

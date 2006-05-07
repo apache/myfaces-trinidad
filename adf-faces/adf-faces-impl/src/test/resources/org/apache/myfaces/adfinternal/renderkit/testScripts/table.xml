@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreTable" value="#{simpleList}" var="row" rows="5">
+    <component id="test-id" af:type="org.apache.myfaces.adf.CoreColumn" sortable="true" sortProperty="string">
+      <attribute-test name="rowHeader" value="true"/>
+      <attribute-test name="width" value="30%"/>
+    <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="StringHeader"/>
+      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.string}"/>   
+    </component>
+    <component id="separate-id" af:type="org.apache.myfaces.adf.CoreColumn" sortable="true" sortProperty="int">
+      <attribute-test name="separateRows" value="true"/>
+      <attribute-test name="separateRows" value="false" matchesBase="true"/>
+      <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="IntHeader"/>
+      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.int}"/>
+      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Introduced for separateRows attribute check"/>
+    </component>
+    
+    <component af:facet="detailStamp" af:type="org.apache.myfaces.adf.CorePanelGroup" layout="vertical">
+      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="testStamp One"/>
+      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="testStamp Two"/>
+    </component>
+  </base-component>
+  
+  <boolean-test name="allDetailsEnabled" default="false"/> 
+  <attribute-test name="disclosedRowKeys" value="#{disclosureState}"/>
+  <attribute-test name="rowBandingInterval" value="1"/>
+  <attribute-test name="columnBandingInterval" value="1"/>
+  <attribute-test name="columnBandingInterval" value="0" matchesBase="true"/>
+  
+  <attribute-test name="horizontalGridVisible" value="false"/>
+  <attribute-test name="verticalGridVisible" value="false"/>
+  <attribute-test name="verticalGridVisible" value="false">
+    <attribute-test name="horizontalGridVisible" value="false"/>
+  </attribute-test>
+    
+  <attribute-test name="summary" value="testTableSummary"/>
+  <attribute-test name="width" value="70%"/>   
+  <!-- tableSortCriteria is a custom attribute. This is not renderer or component attribute.
+  The render kit framework handles this condition in the code. -->        
+  <attribute-test name="tableSortCriteria" value="int true"/>
+  <attribute-test name="tableSortCriteria" value="string false"/>
+</test>

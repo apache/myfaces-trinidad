@@ -1,0 +1,726 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,myid]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="myid"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'myid:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:myid:0:stamp"
+                 name="uri-attr:myid:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'myid:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:myid:1:stamp"
+                 name="uri-attr:myid:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'myid:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:myid:2:stamp"
+                 name="uri-attr:myid:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           summary=""
+           title="my short desc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onclick="test-onclick"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[ondblclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           ondblclick="test-ondblclick"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeydown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onkeydown="test-onkeydown"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeypress,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onkeypress="test-onkeypress"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeyup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onkeyup="test-onkeyup"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousedown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onmousedown="test-onmousedown"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousemove,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onmousemove="test-onmousemove"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseout,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onmouseout="test-onmouseout"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseover,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onmouseover="test-onmouseover"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_menuTabs"
+           id="mainId"
+           onmouseup="test-onmouseup"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_menuTabs_selected"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:0:stamp"
+                 name="uri-attr:mainId:0:stamp"
+                >
+              First
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:1:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:1:stamp"
+                 name="uri-attr:mainId:1:stamp"
+                >
+              Second
+            </a>
+          </td>
+          <td
+               class="af_menuTabs_enabled"
+              >
+            
+            <a
+                 onclick="submitForm('formId',1,{source:'mainId:2:stamp'});return false;"
+                 href="uri-attr:encoded-action-url:#"
+                 id="uri-attr:mainId:2:stamp"
+                 name="uri-attr:mainId:2:stamp"
+                >
+              Third
+            </a>
+          </td>
+        </tr>
+      </table>
+</results>

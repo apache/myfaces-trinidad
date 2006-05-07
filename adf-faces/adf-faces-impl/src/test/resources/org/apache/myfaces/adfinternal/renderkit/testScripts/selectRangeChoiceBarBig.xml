@@ -1,0 +1,10 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test" 
+  xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreSelectRangeChoiceBar"
+      value="#{bigList}" rows="20">
+  </base-component>
+  <attribute-test name="rows" value="10"/>
+  <attribute-test name="first" value="60"/>
+  <attribute-test name="first" value="5000"/>
+  <attribute-test name="first" value="9980"/>
+</test>

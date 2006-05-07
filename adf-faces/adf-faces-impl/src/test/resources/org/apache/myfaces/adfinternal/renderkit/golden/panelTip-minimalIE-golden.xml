@@ -1,0 +1,287 @@
+<results>
+      <div
+           id="mainId"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[id,null]-->
+
+      <div
+           id="test-id"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[inlineStyle,null]-->
+
+      <div
+           id="mainId"
+           style="test-inlineStyle"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <div
+           id="mainId"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[shortDesc,null]-->
+
+      <div
+           id="mainId"
+           title="test-shortDesc"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[styleClass,null]-->
+
+      <div
+           class="test-styleClass"
+           id="mainId"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onclick,null]-->
+
+      <div
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[ondblclick,null]-->
+
+      <div
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeydown,null]-->
+
+      <div
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeypress,null]-->
+
+      <div
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onkeyup,null]-->
+
+      <div
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmousedown,null]-->
+
+      <div
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmousemove,null]-->
+
+      <div
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseout,null]-->
+
+      <div
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseover,null]-->
+
+      <div
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+<!--AttributeTest[onmouseup,null]-->
+
+      <div
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <span
+             class="OraTipLabel"
+            >
+          TIP&#xa0;
+        </span>
+        <span
+             class="OraTipText"
+            >
+          Tip content
+        </span>
+      </div>
+</results>

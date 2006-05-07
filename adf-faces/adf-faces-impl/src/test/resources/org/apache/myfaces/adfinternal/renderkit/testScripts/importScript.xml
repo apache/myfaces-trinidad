@@ -1,0 +1,9 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreImportScript"/>
+  <!-- This only renders a script tag, which doesn't show up -->
+  <!-- in the test output, so it matchesBase.                -->
+  <attribute-test name="names"
+                  value="submitForm() TableProxy()"
+                  matchesBase="true"/>
+</test>

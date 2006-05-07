@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document title="SelectInputText Demo">
+        <af:form>
+          <af:commandLink immediate="true" text="Component Guide"
+                action="guide"/>   
+          <af:objectSeparator/>
+          <af:panelPage>
+           <af:messages/>
+           <af:panelHeader text="SelectInputText Demo">
+            <af:panelGroup layout="vertical">
+              <f:facet name="separator">
+                <af:objectSeparator/>
+              </f:facet>            
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>A basic selectInputText&lt;/b>"/>
+              <af:selectInputText label="Atomic element:" value="(Empty)"
+                                  binding="#{editor.component}"
+                                  searchDesc="Pick an element"
+                                  columns="10" action="dialog:periodicTable"/>
+              <jsp:directive.include file="editor.jspf" />
+
+              <af:outputFormatted styleUsage="instruction"
+                                 value="&lt;b>selectInputText inside a table &lt;/b>"/>
+
+              <af:table value="#{table}" var="row" width="40%">
+                <af:column>
+                  <af:outputText value="#{row.int}"/>
+                </af:column>
+                <af:column width="100%" noWrap="true">
+                  <af:selectInputText value="(Empty)" columns="10"
+                                      searchDesc="Pick an element"
+                                      shortDesc="Enter element name or pick a element"
+                                      action="dialog:periodicTable"/>
+                </af:column>
+              </af:table>
+            </af:panelGroup>
+           </af:panelHeader>
+           <af:commandButton text="Submit"/>
+          </af:panelPage>
+        </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>
