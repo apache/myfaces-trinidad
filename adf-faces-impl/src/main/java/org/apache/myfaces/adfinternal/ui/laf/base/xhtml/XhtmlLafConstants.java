@@ -599,12 +599,8 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|navigationLevelTabs";
   public static final String AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS =
     "af|navigationLevelTabs::tabs-active";
-  public static final String AF_NAVIGATION_LEVEL_TABS_ACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-active .p_AFDisabled"; // =-= mcc FIXME is there a constant for ".p_AFDisabled"?
   public static final String AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS =
     "af|navigationLevelTabs::tabs-inactive";
-  public static final String AF_NAVIGATION_LEVEL_TABS_INACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-inactive .p_AFDisabled"; // =-= mcc FIXME is there a constant for ".p_AFDisabled"?
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS =
     "af|navigationLevelTabs::tabs-bottom-start";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS =
@@ -633,6 +629,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|navigationLevelTabs::tabs-start-join";
   public static final String AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS =
     "af|navigationLevelTabs::tabs-start";
+  public static final String P_AF_DISABLED = "p_AFDisabled";
 
   // BREADCRUMBS STYLES
   // used in af:navigationPath, af:treeTable

@@ -1036,32 +1036,25 @@ public class NavigationLevelRenderer extends XhtmlRenderer
     // Assign the event handlers:
     boolean isDisabled = _getBooleanFromProperty(itemData.get("isDisabled"));
     boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
-    String sectionStyleClass;
+    String sectionStyleClass1;
+    String sectionStyleClass2 = null;
     if (isActive)
     {
       if (isDisabled)
       {
-        sectionStyleClass =
-          XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_ACTIVE_DISABLED_STYLE_CLASS;
+        sectionStyleClass2 = XhtmlConstants.P_AF_DISABLED;
       }
-      else
-      {
-        sectionStyleClass =
-          XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS;
-      }
+      sectionStyleClass1 =
+        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS;
     }
     else
     {
       if (isDisabled)
       {
-        sectionStyleClass =
-          XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_INACTIVE_DISABLED_STYLE_CLASS;
+        sectionStyleClass2 = XhtmlConstants.P_AF_DISABLED;
       }
-      else
-      {
-        sectionStyleClass =
-          XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
-      }
+      sectionStyleClass1 =
+        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
     }
     renderStyleClass(context, arc, itemStyleClass.toString());
     String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
@@ -1086,7 +1079,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
@@ -1103,7 +1097,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_ACTIVE_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
@@ -1120,7 +1115,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
@@ -1137,7 +1133,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_INACTIVE_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
@@ -1153,7 +1150,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
       context,
       arc,
       rw,
-      sectionStyleClass,
+      sectionStyleClass1,
+      sectionStyleClass2,
       XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_MID_STYLE_CLASS,
       XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_STYLE_CLASS,
       XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
@@ -1170,7 +1168,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_END_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
@@ -1187,7 +1186,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
         context,
         arc,
         rw,
-        sectionStyleClass,
+        sectionStyleClass1,
+        sectionStyleClass2,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_END_JOIN_TO_INACTIVE_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_JOIN_STYLE_CLASS,
         XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
@@ -1206,7 +1206,8 @@ public class NavigationLevelRenderer extends XhtmlRenderer
     FacesContext context,
     AdfRenderingContext arc,
     ResponseWriter rw,
-    String sectionStyleClass,
+    String sectionStyleClass1,
+    String sectionStyleClass2,
     String topStyleClass,
     String bottomStyleClass,
     String bottomContentStyleClass,
@@ -1217,7 +1218,15 @@ public class NavigationLevelRenderer extends XhtmlRenderer
   {
     rw.startElement("table", null);
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
-    renderStyleClass(context, arc, sectionStyleClass);
+    if (sectionStyleClass2 == null)
+    {
+      renderStyleClass(context, arc, sectionStyleClass1);
+    }
+    else
+    {
+      String[] sectionStyleClasses = { sectionStyleClass1, sectionStyleClass2 };
+      renderStyleClasses(context, arc, sectionStyleClasses);
+    }
     rw.startElement("tbody", null);
     rw.startElement("tr", null);
     rw.startElement("td", null);
