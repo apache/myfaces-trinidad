@@ -58,12 +58,12 @@
     <dependency>
       <groupId>javax.xml.stream</groupId>
       <artifactId>jsr173-api</artifactId>
-      <version>07</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.stream</groupId>
       <artifactId>jsr173-ri</artifactId>
-      <version>07</version>
+      <version>1.0</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
