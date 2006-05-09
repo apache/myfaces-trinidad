@@ -30,8 +30,8 @@
         <version>0.5-SNAPSHOT</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
-          <sourcePath>oracle/adfinternal/view/faces/maven/plugin/javascript/obfuscator/javascript15parser</sourcePath>
-          <outputPath>oracle/adfinternal/view/faces/maven/plugin/javascript/obfuscator/javascript15parser</outputPath>
+          <sourcePath>org/apache/myfaces/adfbuild/plugins/javascript/obfuscator/javascript15parser</sourcePath>
+          <outputPath>org/apache/myfaces/adfbuild/plugins/javascript/obfuscator/javascript15parser</outputPath>
 	  <isStatic>false</isStatic>
 	  <doNotGenerateTokenFile>true</doNotGenerateTokenFile>
         </configuration>
