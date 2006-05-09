@@ -26,13 +26,9 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Properties;
 
-
-import oracle.bali.rts.tools.RTSWriter;
-import oracle.bali.rts.tools.XRTSGenerator;
-
-import oracle.xml.parser.v2.SAXParser;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -97,6 +93,9 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
         Dictionary params = new Hashtable();
 
         List dirtyXRTS = new LinkedList(Arrays.asList(xrtsFiles));
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setValidating(false);
+
         for (Iterator i=dirtyXRTS.iterator(); i.hasNext();)
         {
           String xrtsFile = (String)i.next();
@@ -129,10 +128,8 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
             params.put("outFile", targetFile);
             params.put("outName", baseName);
             params.put("srcName", baseName);
-            params.put("validate", Boolean.FALSE);
             params.put("quietMode", Boolean.TRUE);
 
-            SAXParser parser = new SAXParser();
             InputSource source = new InputSource(new FileInputStream(sourceFile));
             // setup relative systemId resolution for local rts.dtd files.
             source.setSystemId(sourceFile.getParentFile().toURL().toString());
@@ -142,6 +139,7 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
               if (targetFile.exists())
                 targetFile.delete();
 
+              SAXParser parser = factory.newSAXParser();
               targetFile.getParentFile().mkdirs();
               XRTSGenerator.generate(parser, source, writer, params);
               targetFile.setReadOnly();
@@ -158,10 +156,6 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
 
   private RTSWriter getRTSWriter() throws IOException, MojoExecutionException
   {
-    InputStream config = XRTSGenerator.class.getResourceAsStream("Config.txt");
-    if (config == null)
-      throw new IllegalStateException("Missing Config.text");
-
     String implClassName;
 
     String targetType = getTargetType();
@@ -171,14 +165,9 @@ abstract public class AbstractGenerateSourcesMojo extends AbstractMojo
     }
     else
     {
-      Properties props = new Properties();
-      props.load(config);
-      config.close();
-
-      implClassName = (String)props.get(targetType);
-
-      if (implClassName == null)
-        throw new IllegalArgumentException("Unrecognized targetType: " + targetType);
+      if ("list".equals(targetType))
+        return new ListRTSWriter();
+      throw new MojoExecutionException("Unknown bundle type: " + targetType);
     }
 
     try
