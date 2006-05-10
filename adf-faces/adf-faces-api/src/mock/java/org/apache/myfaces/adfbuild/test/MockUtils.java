@@ -16,6 +16,7 @@
 package org.apache.myfaces.adfbuild.test;
 import java.util.HashMap;
 
+import javax.faces.context.FacesContext;
 import javax.faces.component.MockUIComponent;
 
 /**
@@ -23,6 +24,11 @@ import javax.faces.component.MockUIComponent;
  */
 public class MockUtils
 {
+  public static void setFacesContext(FacesContext context)
+  {
+    FacesTestCase.TestFacesContext.setCurrentInstance(context);
+  }
+
   public static MockUIComponent buildMockUIComponent()
   {
     return buildMockUIComponent(1);
@@ -50,7 +56,11 @@ public class MockUtils
     for (i = 0; i < attributeNames.length; i++)
       attrs.put(attributeNames[i], attributeNames[i]);
     for (i = 0; i < iterations; i++)
+    {
       c.setupGetAttributes(attrs);
+      c.setupGetId("mockId");
+    }
+
     return c;
   }
 

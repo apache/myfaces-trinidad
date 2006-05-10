@@ -69,9 +69,14 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-impl</artifactId>
-      <version>1.1_01</version>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.myfaces.core</groupId>
+      <artifactId>myfaces-impl</artifactId>
       <scope>runtime</scope>
     </dependency>
     
@@ -82,6 +87,7 @@
       <scope>runtime</scope>
     </dependency>
 
+<!-- Dependencies pulled in via myfaces pom
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -99,7 +105,7 @@
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
       <scope>runtime</scope>
     </dependency>
     
@@ -109,19 +115,16 @@
       <version>2.1</version>
       <scope>runtime</scope>
     </dependency>
+-->
 
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>2.3</version>
-      <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>jsp-api</groupId>
-      <artifactId>jsp-el-api</artifactId>
-      <version>2.0</version>
-      <scope>provided</scope>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jsp-api</artifactId>
     </dependency>
   </dependencies>
 

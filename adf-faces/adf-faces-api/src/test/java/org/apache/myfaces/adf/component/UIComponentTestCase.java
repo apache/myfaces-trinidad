@@ -241,6 +241,7 @@ public class UIComponentTestCase extends FacesTestCase
     factory.setupGetRenderKit(renderkit);
     renderkit.setupGetRenderer(renderer);
     context.setupGetRenderResponse(false);
+    context.setupGetResponseComplete(false);
     context.setupGetRenderKit(renderkit);
 
     context.setupGetViewRoot(root);
@@ -358,6 +359,7 @@ public class UIComponentTestCase extends FacesTestCase
     renderkit.setupGetRenderer(renderer);
     context.setupGetRenderKit(renderkit);
     context.setupGetRenderResponse(false);
+    context.setupGetResponseComplete(false);
 
     context.setupGetViewRoot(root);
 
@@ -452,6 +454,7 @@ public class UIComponentTestCase extends FacesTestCase
     factory.setupGetRenderKit(renderkit);
     renderkit.setupGetRenderer(renderer);
     context.setupGetRenderResponse(false);
+    context.setupGetResponseComplete(false);
     context.setupGetRenderKit(renderkit);
 
     setCurrentContext(context);
@@ -523,6 +526,8 @@ public class UIComponentTestCase extends FacesTestCase
       context.setupGetViewRoot(root);
 
       context.setupGetApplication(application);
+      context.setupGetRenderResponse(false);
+      context.setupGetResponseComplete(false);
       application.setupGetActionListener(null);
 
       doTestInvokeApplication(context, root, component, event);
@@ -580,6 +585,7 @@ public class UIComponentTestCase extends FacesTestCase
     renderkit.setupGetRenderer(renderer);
     context.setupGetRenderKit(renderkit);
     context.setupGetRenderResponse(false);
+    context.setupGetResponseComplete(false);
 
     child.setupGetParent(null);
     child.setupGetRendersChildren(true);
@@ -663,6 +669,7 @@ public class UIComponentTestCase extends FacesTestCase
     context.setupGetApplication(application);
     context.setupGetRenderKit(renderkit);
     context.setupGetRenderResponse(false);
+    context.setupGetResponseComplete(false);
     
     // these are called because of validation failure for required
     context.setExpectedAddMessageCalls(1);

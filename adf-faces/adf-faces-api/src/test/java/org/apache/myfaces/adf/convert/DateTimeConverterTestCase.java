@@ -29,6 +29,8 @@ import org.apache.myfaces.adf.convert.ConverterTestCase;
 import javax.faces.component.MockUIComponent;
 import javax.faces.context.MockFacesContext;
 
+import org.apache.myfaces.adfbuild.test.MockUtils;
+
 /**
  * Test DateTimeConverter
  * @author Vijay Venaktaraman (vijay.venkataraman@oracle.com)
@@ -240,10 +242,17 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
 
       MockFacesContext context  =  new MockFacesContext();
       MockUIComponent component =  new MockUIComponent();
-
-      Date obj = (Date)dtConv.getAsObject(context, component, _SINPUT_VALUES[i]);
-
-      assertEquals(true, isEqual(obj,_SEXPECTED_DATES[i]));
+      
+      MockUtils.setFacesContext(context);
+      try
+      {
+        Date obj = (Date)dtConv.getAsObject(context, component, _SINPUT_VALUES[i]);
+        assertEquals(true, isEqual(obj,_SEXPECTED_DATES[i]));
+      }
+      finally
+      {
+        MockUtils.setFacesContext(null);
+      }
 
       context.verify();
       component.verify();
@@ -273,9 +282,17 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     GregorianCalendar gcal = new GregorianCalendar(getTzone("UTC"));
     gcal.set(2001,6,4,12,8,56);
 
-    Date dt = (Date) dtConv.getAsObject(context, component, inputValue);
-    Date expectedDt = gcal.getTime();
-    assertEquals(true, isEqual(dt, expectedDt));
+    MockUtils.setFacesContext(context);
+    try
+    {
+      Date dt = (Date) dtConv.getAsObject(context, component, inputValue);
+      Date expectedDt = gcal.getTime();
+      assertEquals(true, isEqual(dt, expectedDt));
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
+    }
  }
 
   protected void checkDatesForPatternBasedChecks()
@@ -328,16 +345,24 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
         context.setupGetViewRoot(uiRoot);
       }
 
-      String fobtPattern = fdtConv.getAsString(context, component, date);
-
-      assertEquals(patternBasedValues[i][3], fobtPattern);
-
-      Date fdt = (Date)fdtConv.getAsObject(context, component, fobtPattern);
-
-      /**
-       * @todo to find - why we get this millisecond difference
-       */
-      assertEquals(true, isEqual(date, fdt));
+      MockUtils.setFacesContext(context);
+      try
+      {
+        String fobtPattern = fdtConv.getAsString(context, component, date);
+        
+        assertEquals(patternBasedValues[i][3], fobtPattern);
+        
+        Date fdt = (Date)fdtConv.getAsObject(context, component, fobtPattern);
+        
+        /**
+         * @todo to find - why we get this millisecond difference
+         */
+        assertEquals(true, isEqual(date, fdt));
+      }
+      finally
+      {
+        MockUtils.setFacesContext(null);
+      }
 
       context.verify();
       component.verify();
@@ -370,8 +395,16 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       _setStyleOnConverter(dtConv, styleType, styles[i]);
 
       dtConv.setLocale(Locale.ENGLISH);
-      String out =  dtConv.getAsString(context, component, dt);
-      assertEquals(true, (out != null));
+      MockUtils.setFacesContext(context);
+      try
+      {
+        String out =  dtConv.getAsString(context, component, dt);
+        assertEquals(true, (out != null));
+      }
+      finally
+      {
+        MockUtils.setFacesContext(null);
+      }
 
       context.verify();
       component.verify();
@@ -379,17 +412,25 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       MockFacesContext ctx   = new MockFacesContext();
       MockUIComponent  cmp   = new MockUIComponent();
 
+      MockUtils.setFacesContext(ctx);
       try
       {
-        javax.faces.convert.DateTimeConverter extDtConv = getDateTimeConverter();
-        extDtConv.setLocale(Locale.ENGLISH);
-        _setStyleOnConverter(extDtConv, styleType, styles[i].toUpperCase());
-        String outPut = extDtConv.getAsString(context, component, dt);
-        fail("Upper case not accepted for styles");
+        try
+        {
+          javax.faces.convert.DateTimeConverter extDtConv = getDateTimeConverter();
+          extDtConv.setLocale(Locale.ENGLISH);
+          _setStyleOnConverter(extDtConv, styleType, styles[i].toUpperCase());
+          String outPut = extDtConv.getAsString(context, component, dt);
+          fail("Upper case not accepted for styles");
+        }
+        catch (RuntimeException ce)
+        {
+          // Expected
+        }
       }
-      catch (RuntimeException ce)
+      finally
       {
-        // Expected
+        MockUtils.setFacesContext(null);
       }
 
       ctx.verify();

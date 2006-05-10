@@ -136,14 +136,22 @@ public class TestScript
         String id = (String) messageIds.next();
         FacesMessage fm = (FacesMessage) _messages.get(id);
 
-        String sevStr = fm.getSeverity().toString();
+        // Severity toString() implementation is different in the
+        // RI and MyFaces;  in the RI it's "name ordinal",
+        // and in MyFaces it's just "name".  And in the RI,
+        // the names are uppercase, whereas they're mixed case
+        // in MyFaces.
+        String sevStr = fm.getSeverity().toString().toUpperCase();
         int space = sevStr.indexOf(" ");
         if (!gotFirst)
           gotFirst = true;
         else
           sb.append(", ");
         sb.append("id:" + id + ",");
-        sb.append(sevStr.substring(0,space));
+        if (space < 0)
+          sb.append(sevStr);
+        else
+          sb.append(sevStr.substring(0,space));
       }
 
       sb.append(" ]");
