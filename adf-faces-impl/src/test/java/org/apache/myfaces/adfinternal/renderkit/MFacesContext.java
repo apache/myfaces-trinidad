@@ -217,6 +217,8 @@ public class MFacesContext extends MockFacesContext
       return null;
     }
 
+    public String encodeNamespace(String in) { return in; }
+
     public String encodeResourceURL(String url) { return "encoded-resource-url:" + url; }
     public String encodeActionURL(String url) { return "encoded-action-url:" + url; }
 

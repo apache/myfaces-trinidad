@@ -100,12 +100,17 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     context.setupGetViewRoot(root);
     try
     {
+      MockUtils.setFacesContext(context);
       validator.validate(context, component, "not-a-date");
       fail("ValidatorException not thrown");
     }
     catch (IllegalArgumentException iae)
     {
       // pass
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
     }
 
     context.verify();
@@ -132,7 +137,15 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     context.setupGetViewRoot(root);
     context.setupGetViewRoot(root);
 
-    validator.validate(context, component, new Date(millis - 1));
+    try
+    {
+      MockUtils.setFacesContext(context);
+      validator.validate(context, component, new Date(millis - 1));
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
+    }
 
     context.verify();
     component.verify();
@@ -171,6 +184,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     try
     {
+      MockUtils.setFacesContext(context);
       validator.setMaximumMessageDetail("max set");
       validator.validate(context, component, new Date(millis + 1));
       fail("ValidatorException not thrown");
@@ -180,6 +194,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
       // pass
       String msg = e.getFacesMessage().getDetail();
       assertEquals(msg, "max set");
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
     }
 
     context.verify();
@@ -234,6 +252,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     try
     {
+      MockUtils.setFacesContext(context);
       validator.setMinimumMessageDetail("min set");
       validator.validate(context, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
@@ -243,6 +262,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
       // pass
       String msg = e.getFacesMessage().getDetail();
       assertEquals(msg, "min set");
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
     }
 
     context.verify();
@@ -264,7 +287,16 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     MockFacesContext context = new MockFacesContext();
     MockUIComponent  component = MockUtils.buildMockUIComponent();
 
-    validator.validate(context, component, new Date(millis + 1));
+
+    try
+    {
+      MockUtils.setFacesContext(context);
+      validator.validate(context, component, new Date(millis + 1));
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
+    }
 
     context.verify();
     component.verify();
@@ -299,6 +331,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     try
     {
+      MockUtils.setFacesContext(context);
       validator.setMinimumMessageDetail("min");
       validator.validate(context, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
@@ -307,6 +340,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     {
       // pass
 
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
     }
 
     context.verify();
@@ -342,6 +379,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
 
     try
     {
+      MockUtils.setFacesContext(context);
       validator.setNotInRangeMessageDetail("not in range is set");
       validator.validate(context, component, new Date(millis + 20));
       fail("ValidatorException not thrown");
@@ -351,6 +389,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
       //first pass
       String msg = e.getFacesMessage().getDetail();
       assertEquals(msg, "not in range is set");
+    }
+    finally
+    {
+      MockUtils.setFacesContext(null);
     }
 
     context.verify();

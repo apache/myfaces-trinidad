@@ -43,6 +43,7 @@ public class BasicHtmlRenderKit extends RenderKitBase
 {
   public BasicHtmlRenderKit()
   {
+    /* These are used only for CoreRenderKitPerf
     addRenderer("javax.faces.Output",
                 "javax.faces.Text",
                 "com.sun.faces.renderkit.html_basic.TextRenderer");
@@ -58,6 +59,7 @@ public class BasicHtmlRenderKit extends RenderKitBase
     addRenderer("javax.faces.SelectOne",
                 "javax.faces.Radio",
                 "com.sun.faces.renderkit.html_basic.RadioRenderer");
+    */
     Renderer n = new Renderer()
     {
       public void decode(FacesContext context, UIComponent component)
