@@ -308,8 +308,8 @@ public final class RowKeySetImplTest extends TestCase
 
       bytes = bos.toByteArray();
       // test to make sure that the serialized size is reasonable:
-      // FIXME: this test is brittle -- it fails if the full classname changes in length
-      assertEquals("serialized size", 91, bytes.length);
+     assertTrue(bytes.length <= 100);
+     assertTrue(bytes.length >= 80);
     }
 
     ObjectInputStream in =
