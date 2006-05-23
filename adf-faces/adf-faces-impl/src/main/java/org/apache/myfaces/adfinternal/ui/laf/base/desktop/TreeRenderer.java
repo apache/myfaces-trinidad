@@ -27,6 +27,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.adf.component.UIXHierarchy;
 import org.apache.myfaces.adf.component.UIXTree;
+import org.apache.myfaces.adf.logging.ADFLogger;
 import org.apache.myfaces.adf.model.RowKeySet;
 
 import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
@@ -98,8 +99,11 @@ public class TreeRenderer extends HtmlLafRenderer
 //    List focusPath = getFocusPath(context, node);
     Object focusPath = tree.getFocusRowKey();
     String formName = getParentFormName(context);
-
-
+    if (formName == null)
+    {
+      _LOG.warning("The tree component must be used inside of a form.");
+      return;
+    }
 
 
     // Bug 3931544:  don't use colons in Javascript variable names.
@@ -983,4 +987,6 @@ public class TreeRenderer extends HtmlLafRenderer
   
   private static final String _PATH_PARAM = 
     "path";
+
+  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TreeRenderer.class);
 }
