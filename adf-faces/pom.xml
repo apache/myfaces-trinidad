@@ -76,6 +76,14 @@
           </configuration>
         </plugin>
 
+	<!-- To work around "No Java test frameworks found" problem with 2.2 -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.1.3</version>
+          <inherited>true</inherited>
+        </plugin>
+
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
