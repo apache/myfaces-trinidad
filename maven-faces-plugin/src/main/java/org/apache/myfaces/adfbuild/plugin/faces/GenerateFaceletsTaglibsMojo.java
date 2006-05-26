@@ -42,6 +42,8 @@ import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.myfaces.adfbuild.plugin.faces.parse.ComponentBean;
+import org.apache.myfaces.adfbuild.plugin.faces.parse.ConverterBean;
+import org.apache.myfaces.adfbuild.plugin.faces.parse.ValidatorBean;
 import org.apache.myfaces.adfbuild.plugin.faces.parse.FacesConfigBean;
 import org.apache.myfaces.adfbuild.plugin.faces.util.FilteredIterator;
 import org.apache.myfaces.adfbuild.plugin.faces.util.XIncludeFilter;
@@ -89,6 +91,13 @@ public class GenerateFaceletsTaglibsMojo extends AbstractFacesMojo
         components = new FilteredIterator(components, new SkipFilter());
         components = new FilteredIterator(components, new ComponentTagLibraryFilter(namespaceURI));
 
+        Iterator validators = facesConfig.validators();
+        validators = new FilteredIterator(validators, new ValidatorTagLibraryFilter(namespaceURI));
+
+        Iterator converters = facesConfig.converters();
+        converters = new FilteredIterator(converters, new ConverterTagLibraryFilter(namespaceURI));
+
+
         String targetPath = "META-INF/" + shortName + ".taglib.xml";
         File targetFile = new File(generatedResourcesDirectory, targetPath);
 
@@ -116,6 +125,15 @@ public class GenerateFaceletsTaglibsMojo extends AbstractFacesMojo
             ComponentBean component = (ComponentBean)components.next();
             _writeTag(stream, component);
           }
+          while (validators.hasNext())
+          {
+            _writeValidatorTag(stream, (ValidatorBean) validators.next());
+          }
+          while (converters.hasNext())
+          {
+            _writeConverterTag(stream, (ConverterBean) converters.next());
+          }
+
           _writeEndTagLibrary(stream);
           stream.close();
 
@@ -270,6 +288,59 @@ public class GenerateFaceletsTaglibsMojo extends AbstractFacesMojo
     stream.writeCharacters("\n  ");
     stream.writeEndElement();
   }
+
+  /**
+   * Generates tag library descriptor for parsed validator metadata.
+   */
+  private void _writeValidatorTag(
+    XMLStreamWriter stream,
+    ValidatorBean   validator) throws XMLStreamException
+  {
+    stream.writeCharacters("\n  ");
+    stream.writeStartElement("tag");
+    stream.writeCharacters("\n    ");
+    stream.writeStartElement("tag-name");
+    stream.writeCharacters(validator.getTagName().getLocalPart());
+    stream.writeEndElement();
+    stream.writeCharacters("\n    ");
+    stream.writeStartElement("validator");
+    stream.writeCharacters("\n      ");
+    stream.writeStartElement("validator-id");
+    stream.writeCharacters(validator.getValidatorId());
+    stream.writeEndElement();
+
+    stream.writeCharacters("\n    ");
+    stream.writeEndElement();
+    stream.writeCharacters("\n  ");
+    stream.writeEndElement();
+  }
+
+  /**
+   * Generates tag library descriptor for parsed converter metadata.
+   */
+  private void _writeConverterTag(
+    XMLStreamWriter stream,
+    ConverterBean   converter) throws XMLStreamException
+  {
+    stream.writeCharacters("\n  ");
+    stream.writeStartElement("tag");
+    stream.writeCharacters("\n    ");
+    stream.writeStartElement("tag-name");
+    stream.writeCharacters(converter.getTagName().getLocalPart());
+    stream.writeEndElement();
+    stream.writeCharacters("\n    ");
+    stream.writeStartElement("converter");
+    stream.writeCharacters("\n      ");
+    stream.writeStartElement("converter-id");
+    stream.writeCharacters(converter.getConverterId());
+    stream.writeEndElement();
+
+    stream.writeCharacters("\n    ");
+    stream.writeEndElement();
+    stream.writeCharacters("\n  ");
+    stream.writeEndElement();
+  }
+
 
   /**
    * @parameter expression="${project}"
