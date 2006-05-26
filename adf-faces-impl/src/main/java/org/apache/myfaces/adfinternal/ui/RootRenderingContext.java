@@ -50,6 +50,7 @@ import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
 
 import org.apache.myfaces.adfinternal.image.cache.FileSystemImageCache;
 
+import org.apache.myfaces.adfinternal.style.util.StyleUtils;
 import org.apache.myfaces.adfinternal.ui.data.DataObject;
 
 import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
@@ -459,11 +460,11 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
     {
       if ((getLocaleContext().getReadingDirection() ==
           LocaleUtils.DIRECTION_RIGHTTOLEFT) &&
-          (!mappedIconName.endsWith(_RTL_CSS_SUFFIX)))
+          (!mappedIconName.endsWith(StyleUtils.RTL_CSS_SUFFIX)))
       {
         // append :rtl to the mappedIconName. If no icon with that name,
         // default to getting the icon with the original mappedIconName.
-        String rtlIconName = mappedIconName+_RTL_CSS_SUFFIX;
+        String rtlIconName = mappedIconName+StyleUtils.RTL_CSS_SUFFIX;
         // @todo I could optimize this a bit by having a method on SkinExtension
         // which doesn't create a NullIcon when the icon is not found, if I
         // know I want to set it to something else anyway.
@@ -764,8 +765,6 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   private static final int _DEFAULT_PROPERTY_MAP_SIZE = 101;
 
   private static final int _DEFAULT_STACK_SIZE = 40;
-
-  private static final String _RTL_CSS_SUFFIX = ":rtl";
 
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(RootRenderingContext.class);
 }

@@ -48,8 +48,10 @@ import org.apache.myfaces.adfinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.adfinternal.skin.icon.Icon;
 import org.apache.myfaces.adfinternal.skin.icon.TextIcon;
 import org.apache.myfaces.adfinternal.skin.icon.URIImageIcon;
+import org.apache.myfaces.adfinternal.style.util.StyleUtils;
 import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconNode;
 import org.apache.myfaces.adfinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
@@ -88,13 +90,6 @@ class SkinStyleSheetParserUtils
     if ((cached != null) && expectedType.isInstance(cached))
       return cached;
 
-    // Retrieve the base URI for the source style sheet.
-    // We need this information so that we can convert relative
-    // URLs in the source style sheet (eg. background-image URLs)
-    // to absolute URLs.  Otherwise, the relative URLs would
-    // be resolved relative to the generated style sheet,
-    // which is not the desired behavior.
-    String baseURI = _getBaseURI(sourceName);
 
     InputStream stream = provider.openInputStream();
 
@@ -107,102 +102,29 @@ class SkinStyleSheetParserUtils
 
       // PARSE!
       // create a SkinStyleSheetNode
-      // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes)
+      // (contains a namespaceMap and a List of SkinSelectorPropertiesNodes
+      // and additional information like direction, locale, etc.)
       // (selectorName + a css propertyList))
-      BufferedReader in = null;
-      SkinStyleSheetNode styleSheetNode = null;
-
-      in = new BufferedReader(new InputStreamReader(stream));
-      styleSheetNode = _parseCSSStyleSheet(in);
+      BufferedReader in = new BufferedReader(new InputStreamReader(stream));
+      List <SkinStyleSheetNode> skinSSNodeList = _parseCSSStyleSheet(in);
       in.close();
+  
+   
+      // process the SkinStyleSheetNodes to create a StyleSheetEntry object
+      StyleSheetEntry styleSheetEntry = 
+        _createStyleSheetEntry(context, sourceName, skinSSNodeList);
+  
 
-      // selector and its properties
-      List <SkinSelectorPropertiesNode> selectorNodeList =
-        styleSheetNode.getSelectorNodeList();
-      //Map namespaceMap = styleSheetNode.getNamespaceMap();
-
-      // now go through parsed file which is now a List of
-      // SkinSelectorPropertiesNode objects and create IconNodes,
-      // SkinPropertyNodes, and StyleNodes.
-
-      Iterator e = selectorNodeList.listIterator();
-      List <IconNode> iconNodeList = new ArrayList();
-      List skinPropertyNodeList = new ArrayList();
-      List styleNodeList = new ArrayList();
-
-
-
-      while (e.hasNext())
-      {
-        SkinSelectorPropertiesNode cssSelector =
-          (SkinSelectorPropertiesNode) e.next();
-
-        String selectorName = cssSelector.getSelectorName();
-        List propertyList = cssSelector.getPropertyNodes();
-
-        ResolvedSkinProperties resolvedProperties =
-          _resolveProperties(selectorName,
-                             propertyList,
-                             baseURI,
-                             sourceName);
-
-        skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
-
-        List noOraPropertyList = resolvedProperties.getNoOraPropertyList();
-
-        // =-=jmw There is no good way to tell if this is an icon.
-        // for now, I look at the selector name.
-        // we do have some styles that have -icon- in the name, but it's
-        // not at the end which is how icons are determined.
-        // our icon names look like .AFWarningIcon:alias
-        // AFErrorIconStyle is a style.
-        if (selectorName.endsWith("-icon")  ||
-            selectorName.endsWith("-icon:rtl") ||
-            selectorName.endsWith("Icon:alias") ||
-            selectorName.endsWith("Icon:alias:rtl"))
-        {
-          // knock off the '.' if it is the first character.
-          if (selectorName.charAt(0) == '.')
-            selectorName = selectorName.substring(1);
-          // strip out :alias
-          selectorName = selectorName.replaceFirst(":alias", "");
-
-          // create an IconNode object and add it ot the iconNodeList
-          _addIconNode(selectorName,
-                       noOraPropertyList,
-                       iconNodeList);
-        }
-        else
-        {
-          // create a StyleNode object and add it to the styleNodeList.
-          _addStyleNode(selectorName,
-                        noOraPropertyList,
-                        resolvedProperties.getOraRuleRefList(),
-                        resolvedProperties.isOraTextAntialias(),
-                        styleNodeList);
-
-        }
-      }
-
-      StyleSheetDocument document = _buildStyleSheetDocument(context,
-                                                             styleNodeList);
-
-      StyleSheetEntry styleSheet = new StyleSheetEntry(sourceName,
-                                                       document,
-                                                       iconNodeList,
-                                                       skinPropertyNodeList);
-
-
-      // Step 7. Store the cached result (if successful)
+      // Store the cached result (if successful)
       // otherwise, if we don't do this, we will keep reparsing. Somehow
       // this affects whether the file has been modified. STRANGE!
- //     if (value != null)
-   //    provider.setCachedResult(value);
+      //     if (value != null)
+      //    provider.setCachedResult(value);
 
-  //    return value;
-      provider.setCachedResult(styleSheet);
-
-      return styleSheet;
+      //    return value;
+      provider.setCachedResult(styleSheetEntry);
+      
+      return styleSheetEntry;
     }
     finally
     {
@@ -228,6 +150,139 @@ class SkinStyleSheetParserUtils
 
     return in.substring(firstCharIndex, length);
   }
+
+  /**
+   * Given a List of StyleSheetNodes, create StyleSheetEntry.
+   * A StyleSheetEntry is an object that contains:
+   * styleSheetName, StyleSheetDocument, List<IconNode>, List<SkinPropertyNode>
+   * A StyleSheetDocument contains StyleSheetNodes. A StyleSheetNode contains
+   * a list css style selectors and their properties and additional info like
+   * the direction, locale, etc. for this list of selectors.
+   * @param context
+   * @param sourceName
+   * @param styleSheetNodes
+   * @return
+   */
+  private static StyleSheetEntry _createStyleSheetEntry(
+    ParseContext  context,
+    String        sourceName,
+    List <SkinStyleSheetNode> skinSSNodeList
+    )
+  {
+
+    // Retrieve the base URI for the source style sheet.
+    // We need this information so that we can convert relative
+    // URLs in the source style sheet (eg. background-image URLs)
+    // to absolute URLs.  Otherwise, the relative URLs would
+    // be resolved relative to the generated style sheet,
+    // which is not the desired behavior.
+    String baseURI = _getBaseURI(sourceName);    
+    
+    // Get each SkinStyleSheetNode, and for each SkinStyleSheetNode get a
+    // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
+    
+    // initialize
+    List <IconNode> iconNodeList = new ArrayList();
+    List skinPropertyNodeList = new ArrayList();
+    List <StyleSheetNode> ssNodeList = new ArrayList();
+    
+    for (SkinStyleSheetNode skinSSNode : skinSSNodeList) 
+    {
+  
+      // selector and its properties
+      List <SkinSelectorPropertiesNode> selectorNodeList =
+        skinSSNode.getSelectorNodeList();
+      //Map namespaceMap = styleSheetNode.getNamespaceMap();
+     
+      // initialize
+      List <StyleNode> styleNodeList = new ArrayList();
+  
+      for (SkinSelectorPropertiesNode cssSelector : selectorNodeList) 
+      {
+
+        String selectorName = cssSelector.getSelectorName();
+        List propertyList = cssSelector.getPropertyNodes();
+        int direction     = skinSSNode.getDirection();
+  
+        ResolvedSkinProperties resolvedProperties =
+          _resolveProperties(selectorName,
+                             propertyList,
+                             baseURI,
+                             sourceName);
+  
+        skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
+  
+        List noOraPropertyList = resolvedProperties.getNoOraPropertyList();
+  
+        // =-=jmw There is no good way to tell if this is an icon.
+        // for now, I look at the selector name.
+        // we do have some styles that have -icon- in the name, but it's
+        // not at the end which is how icons are determined.
+        // our icon names look like .AFWarningIcon:alias
+        // AFErrorIconStyle is a style.
+        if (selectorName.endsWith("-icon")  ||
+            selectorName.endsWith("Icon:alias"))
+        {
+          // knock off the '.' if it is the first character.
+          if (selectorName.charAt(0) == '.')
+            selectorName = selectorName.substring(1);
+          // strip out :alias
+          selectorName = selectorName.replaceFirst(":alias", "");
+          // add :rtl if the direction is rtl
+          if (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT)
+            selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
+  
+          // create an IconNode object and add it ot the iconNodeList
+          _addIconNode(selectorName,
+                       noOraPropertyList,
+                       iconNodeList);
+        }
+        else
+        {
+          // create a StyleNode object and add it to the styleNodeList.
+          _addStyleNode(selectorName,
+                        noOraPropertyList,
+                        resolvedProperties.getOraRuleRefList(),
+                        resolvedProperties.isOraTextAntialias(),
+                        styleNodeList);
+  
+        }
+      }
+      
+      if (styleNodeList.size() > 0)
+      {
+        // we need to deal with the styleNodeList by building a StyleSheetNode
+        // with this information.
+        // create a StyleSheetNode, add to the ssNodeList
+        StyleNode[] styleNodeArray = styleNodeList.toArray(new StyleNode[0]);
+        StyleSheetNode ssNode = 
+          new StyleSheetNode(styleNodeArray,
+                             null,
+                             skinSSNode.getDirection(),
+                             null,
+                             null,
+                             null,
+                             0);
+        ssNodeList.add(ssNode);
+      }
+ 
+    } // end for each SkinStyleSheetNode
+    
+    
+    // StyleSheetDocument contains StyleSheetNode[] styleSheets
+    StyleSheetDocument ssDocument = 
+      _createStyleSheetDocument(context, ssNodeList);
+
+    return new StyleSheetEntry(sourceName,
+                               ssDocument,
+                               iconNodeList,
+                               skinPropertyNodeList);
+
+
+
+  }
+
+
 
   /**
    * Loop thru every property in the propertyList and store them in
@@ -471,7 +526,7 @@ class SkinStyleSheetParserUtils
     List    propertyNodeList,
     List    oraRuleRefList,
     boolean oraTextAntialias,
-    List    styleNodeList)
+    List    <StyleNode> styleNodeList)
   {
 
     // these are the styles.
@@ -593,27 +648,14 @@ class SkinStyleSheetParserUtils
     }
   }
 
-  private static StyleSheetDocument _buildStyleSheetDocument(
-    ParseContext context,
-    List         styleNodeList)
+  private static StyleSheetDocument _createStyleSheetDocument(
+    ParseContext       context,
+    List <StyleSheetNode> ssNodeList)
   {
 
-      // ok, now we built up an IconNode List and a StyleNode List.
-      // now create a StyleSheetDocument from the StyleNode List.
-      StyleNode[] styleNodeArray =
-        (StyleNode[])(styleNodeList.toArray(
-                        new StyleNode[styleNodeList.size()]));
+    long timestamp = _getDocumentTimestamp(context);
 
-      StyleSheetNode[] styleSheetNodes = {new StyleSheetNode(styleNodeArray,
-                                                             null,
-                                                             0,
-                                                             null,
-                                                             null,
-                                                             null,
-                                                             0)};
-      long timestamp = _getDocumentTimestamp(context);
-
-      return new StyleSheetDocument(styleSheetNodes,
+    return new StyleSheetDocument(ssNodeList.toArray(new StyleSheetNode[0]),
                                     null,
                                     timestamp);
   }
@@ -670,13 +712,12 @@ class SkinStyleSheetParserUtils
   }
   **/
 
-  private static SkinStyleSheetNode _parseCSSStyleSheet(Reader reader)
+  private static List <SkinStyleSheetNode> _parseCSSStyleSheet(Reader reader)
   {
       SkinCSSParser parser = new SkinCSSParser();
       SkinCSSDocumentHandler documentHandler = new SkinCSSDocumentHandler();
       parser.parseCSSDocument(reader, documentHandler);
-      return documentHandler.getSkinStyleSheetNode();
-
+      return documentHandler.getSkinStyleSheetNodes();
   }
 
   // Given the sourceName of the style sheet that is being

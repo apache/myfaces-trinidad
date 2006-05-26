@@ -512,3 +512,17 @@ af|objectSeparator
   height: 1px;
   padding: 0px;
 } 
+
+/* test :rtl for styles */
+.AFEndPadding:alias:rtl
+{
+  padding: 0px 0px 0px 20px;
+}
+af|inputText::content:rtl
+{
+  color: red; 
+}
+af|inputText::label:rtl
+{
+  font-weight:bold;
+}

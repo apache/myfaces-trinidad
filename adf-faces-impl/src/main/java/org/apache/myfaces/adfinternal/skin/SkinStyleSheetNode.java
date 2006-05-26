@@ -16,11 +16,12 @@
 
 package org.apache.myfaces.adfinternal.skin;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /** Stores information about the .css skin file.
- * namespaceMap and a List of SkinSelectorPropertiesNodes.
+ * namespaceMap, a List of SkinSelectorPropertiesNodes, and direction.
  * @todo honor the namespaces that are set in the css file. For now, we ignore
  * them. We need to honor them for icons, properties, and styles at the same
  * time so they are consistent. By honoring, I mean if the namespace is
@@ -33,20 +34,35 @@ import java.util.Map;
  */
 class SkinStyleSheetNode
 {
-    /**
-   * Constructor
-   * @param skinSelectorNodeList List of SkinSelectorPropertiesNodes
-   * @param namespaceMap Map of namespace prefix/values.
-   */
+    
     SkinStyleSheetNode(
       List <SkinSelectorPropertiesNode> skinSelectorNodeList,
-      Map  namespaceMap     
+      Map  namespaceMap,
+      int  direction
       )
     {
       _skinSelectorNodeList = skinSelectorNodeList;
       _namespaceMap     = namespaceMap;
-    }
+      _direction        = direction;
+    } 
     
+  
+  SkinStyleSheetNode(
+    Map  namespaceMap,
+    int  direction
+    )
+  {
+    _namespaceMap     = namespaceMap;
+    _direction        = direction;
+  }     
+    
+  public void add(SkinSelectorPropertiesNode node)
+  {
+    if (_skinSelectorNodeList == null)
+      _skinSelectorNodeList = new ArrayList();
+    _skinSelectorNodeList.add(node);
+  } 
+  
     /**
    * 
    * @return Map containing Strings keys/values of namespace prefix and 
@@ -65,8 +81,21 @@ class SkinStyleSheetNode
     {
       return _skinSelectorNodeList;
     }
+    
+    /**
+    *
+    * @return int indicating the direction
+    * LocaleUtils.DIRECTION_DEFAULT 
+    * LocaleUtils.DIRECTION_LEFTTORIGHT 
+    * LocaleUtils.DIRECTION_RIGHTTOLEFT
+    */
+    public int getDirection()
+    {
+      return _direction;
+    }    
 
     private Map  _namespaceMap;
     private List <SkinSelectorPropertiesNode> _skinSelectorNodeList;
+    private int _direction;  // reading direction
 
 }
