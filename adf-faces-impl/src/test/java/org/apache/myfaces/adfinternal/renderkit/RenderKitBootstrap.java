@@ -49,7 +49,7 @@ public class RenderKitBootstrap
     root.setLocale(context.getLocale());
     return root;
   }
-    
+
 
   public FacesConfigInfo getFacesConfigInfo()
   {
@@ -122,11 +122,11 @@ public class RenderKitBootstrap
     if (SkinFactory.getFactory() == null)
     {
       SkinFactory.setFactory(new SkinFactoryImpl());
-      
-      // register the skins 
-      // =-=AEW Because we're not passing a "ServletContext", we can't
+
+      // register the base skins
+      // =-=AEW Because we don't have a "ServletContext", we can't
       // find any custom skins
-      SkinUtils.registerSkins(null);
+      SkinUtils.registerBaseSkins();
     }
   }
 

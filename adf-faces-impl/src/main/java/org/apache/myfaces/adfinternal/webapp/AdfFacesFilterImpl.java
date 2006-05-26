@@ -128,14 +128,21 @@ public class AdfFacesFilterImpl implements Filter
     if (SkinFactory.getFactory() == null)
       SkinFactory.setFactory(new SkinFactoryImpl());
 
-    // register the skins
-    SkinUtils.registerSkins(_servletContext);
+    // register the base skins
+    SkinUtils.registerBaseSkins();
     
     _filters = ClassLoaderUtils.getServices(AdfFacesFilterImpl.class.getName());
     for(Filter f:_filters)
     {
       f.init(filterConfig);
     }
+    // after the 'services' filters are initialized, then register
+    // the skin extensions found in adf-faces-skins.xml. This
+    // gives a chance to the 'services' filters to create more base
+    // skins that the skins in adf-faces-skins.xml can extend.
+    SkinUtils.registerSkinExtensions(_servletContext);
+
+    
   }
 
   public void destroy()
