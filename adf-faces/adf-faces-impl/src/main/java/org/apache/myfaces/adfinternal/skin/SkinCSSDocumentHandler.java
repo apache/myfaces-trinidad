@@ -19,29 +19,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.myfaces.adfinternal.style.util.StyleUtils;
 import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
 
 /** As the Skin css file is parsed, methods in this class are called to
  * build up a SkinStyleSheetNode.
  */
 public class SkinCSSDocumentHandler
 {
+ 
   /**
-   * Return the SkinStyleSheetNode that was created at the end of parsing
-   * the skin css file.
+   * Return the List of SkinStyleSheetNodes that was created
+   *  at the end of parsing the skin css file (endDocument).
    */
-  public SkinStyleSheetNode getSkinStyleSheetNode()
+  public List <SkinStyleSheetNode> getSkinStyleSheetNodes()
   {
-    return _styleSheet;
+    return _skinStyleSheetNodes;  
   }
-
+  
   /**
    * Call this at the start of parsing the skin css file.
    */
   public void startDocument()
   {
     _namespaceMap = new HashMap();
-    _selectorPropertiesList = new ArrayList();
+    _completeSelectorNodeList = new ArrayList();
   }
   
   /**
@@ -49,8 +53,12 @@ public class SkinCSSDocumentHandler
    */
   public void endDocument()
   {
-    _styleSheet = 
-      new SkinStyleSheetNode(_selectorPropertiesList, _namespaceMap);
+    // We now have a list of CompleteSelectorNodes.
+    // We need to group this list into stylesheet nodes by matching 
+    // the additional information, like direction.
+    // Then we create a list of SkinStyleSheetNodes.
+    _skinStyleSheetNodes = 
+      _createSkinStyleSheetNodes(_completeSelectorNodeList, _namespaceMap);
   }
 
   public void comment(String text)
@@ -85,8 +93,9 @@ public class SkinCSSDocumentHandler
     for (int i = 0; i < selectorNum; i++)
     {
       String selector = (String)selectors.get(i);
-      _selectorPropertiesList.add(
-        new SkinSelectorPropertiesNode(selector, _propertyNodeList));
+      CompleteSelectorNode node =
+        _createCompleteSelectorNode(selector, _propertyNodeList);
+      _completeSelectorNodeList.add(node);
     }
     _inStyleRule = false;
     _propertyNodeList = null;
@@ -147,14 +156,128 @@ public class SkinCSSDocumentHandler
     }
   }
 
-  private boolean _inStyleRule = false;
+  // create a CompleteSelectorNode (this is the selector, properties, and
+  // additional info, like 'rtl' direction
+  private CompleteSelectorNode _createCompleteSelectorNode(
+    String selector, 
+    List  propertyNodeList)
+  {
+    // parse the selector to see if there is a :rtl or :ltr ending.
+    // if so, then set the reading direction.
+    int direction = LocaleUtils.DIRECTION_DEFAULT;
+    if (selector.endsWith(StyleUtils.RTL_CSS_SUFFIX))
+    {
+      int length = StyleUtils.RTL_CSS_SUFFIX.length();
+      // strip off the SUFFIX  
+      selector = selector.substring(0, selector.length()-length);
+      direction = LocaleUtils.DIRECTION_RIGHTTOLEFT;
+    }
+    else if (selector.endsWith(StyleUtils.LTR_CSS_SUFFIX))
+    {
+      int length = StyleUtils.LTR_CSS_SUFFIX.length();
+      // strip off the SUFFIX  
+      selector = selector.substring(0, selector.length()-length);
+      direction = LocaleUtils.DIRECTION_LEFTTORIGHT;
+    }
 
-  private SkinStyleSheetNode _styleSheet = null;
+    return 
+      new CompleteSelectorNode(selector, propertyNodeList, direction);
+  }
+
+  /**
+   * Given a List of CompleteSelectorNodes, we create a List of 
+   * SkinStyleSheetNodes. We do this by looping through each
+   * CompleteSeletcorNode and finding the SkinStyleSheetNode with matching
+   * direction attribute (someday we'll add locale, browser, etc), or 
+   * creaing a new SkinStyleSheetNode if a matching one doesn't exist.
+   * @param selectorList a list of CompleteSelectorNodes.
+   * @param namespaceMap the namespace map
+   * @return a List of SkinStyleSheetNodes
+   */
+  private List <SkinStyleSheetNode> _createSkinStyleSheetNodes(
+    List <CompleteSelectorNode> selectorList, 
+    Map namespaceMap)
+  {  
+    List <SkinStyleSheetNode> ssNodeList = new ArrayList();
+    // to start with ssNodeList is empty
+    // for each selector node, look to see if we can find a SkinStyleSheetNode
+    // that it belongs to (by matching direction).
+    // if not, create a new ssNode, and add it to the ssNodeList, and
+    // add the selector node to the ssNode.
+    
+    for (CompleteSelectorNode completeSelectorNode : selectorList) 
+    {
+       // we add to the ssNodeList in this method.
+        int direction = completeSelectorNode.getDirection();
+        // loop through the skinStyleSheetNodeList to find a match
+        boolean match = false;
+        for (SkinStyleSheetNode ssNode : ssNodeList) 
+        {
+            int ssNodeDirection = ssNode.getDirection();
+            if (ssNodeDirection == direction)
+            {
+              // got a match! use this one to add the selector node to.
+              ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
+              match = true;
+              break;
+            }        
+        }
+        if (!match)
+        {
+          // no matching stylesheet node found, so create a new one
+           SkinStyleSheetNode ssNode = 
+            new SkinStyleSheetNode(namespaceMap, direction);
+           ssNode.add(completeSelectorNode.getSkinSelectorPropertiesNode());
+           // add the ssNode to the ssNodeList
+           ssNodeList.add(ssNode);
+        }
+           
+    }
+     
+    return ssNodeList;
+     
+  }
+
+  /**
+   * This Class contains a SkinSelectorPropertiesNode and a rtl direction.
+   * We will use this information when creating a SkinStyleSheetNode.
+   */
+  private static class CompleteSelectorNode
+  {
+    public CompleteSelectorNode(
+      String selectorName,
+      List   propertyNodes,
+      int    direction
+      )
+    {
+      _node = new SkinSelectorPropertiesNode(selectorName, propertyNodes);
+      _direction = direction;
+    }
+    
+    public SkinSelectorPropertiesNode getSkinSelectorPropertiesNode()
+    {
+      return _node;
+    }
+    
+    public int getDirection()
+    {
+      return _direction;
+    }
+    
+    private SkinSelectorPropertiesNode _node;
+    private int _direction;  // the reading direction
+  }
+  
+  private boolean _inStyleRule = false;
+ 
+  private List <SkinStyleSheetNode> _skinStyleSheetNodes = null;
 
   private List _propertyNodeList = null;
 
-  // a List of SkinSelectorPropertiesNode objects
-  private List _selectorPropertiesList;
+  // we build this list in this document handler. We use this 
+  // list to create a list of 
+  // SkinStyleSheetNodes and SkinSelectorPropertiesNodes
+  private List <CompleteSelectorNode> _completeSelectorNodeList;
 
   private Map _namespaceMap;
 

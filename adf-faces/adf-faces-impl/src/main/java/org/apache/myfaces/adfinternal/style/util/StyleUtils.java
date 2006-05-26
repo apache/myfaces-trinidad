@@ -31,6 +31,10 @@ import org.apache.myfaces.adfinternal.style.cache.FileSystemStyleCache;
  */
 public class StyleUtils
 {
+
+  public static final String RTL_CSS_SUFFIX = ":rtl";
+  public static final String LTR_CSS_SUFFIX = ":ltr";
+
   /**
    * Returns a Map which maps style class names to
    * equivalent shorter names.

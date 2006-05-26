@@ -250,11 +250,11 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
     // If we're in right-to-left, and the code asking us hasn't
     // already slapped on a right-to-left suffix, then go looking
     // in right-to-left land
-    if (isRightToLeft() && !iconName.endsWith(_RTL_CSS_SUFFIX))
+    if (isRightToLeft() && !iconName.endsWith(StyleUtils.RTL_CSS_SUFFIX))
     {
       // append :rtl to the mappedIconName. If no icon with that name,
       // default to getting the icon with the original mappedIconName.
-      String rtlIconName = iconName + _RTL_CSS_SUFFIX;
+      String rtlIconName = iconName + StyleUtils.RTL_CSS_SUFFIX;
       Icon rtlIcon = skin.getIcon(rtlIconName);
 
       if ((rtlIcon == null) || rtlIcon.isNull())
@@ -495,8 +495,6 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   private Map                _properties = new HashMap();
   private int                _linkStyleDisabledCount = 0;
   private boolean            _isLinkDisabled = false;
-
-  static private final String _RTL_CSS_SUFFIX = ":rtl";
 
   // Maps describing the capabilities of our output modes
   static private final Map _PRINTABLE_CAPABILITIES = new HashMap();

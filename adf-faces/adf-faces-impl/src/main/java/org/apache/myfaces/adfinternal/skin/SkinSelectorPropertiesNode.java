@@ -20,9 +20,10 @@ import java.util.List;
 
 /**
  * Stores each selector and its properties that
- * was found in the css file. This is similar to StyleNode + StyleSheetNode
- * for the xss files. We'll separate out, too, when we have it full-featured to
- * include locales, direction, lang, etc.
+ * was found in the css file. This is similar to StyleNode
+ * for the xss files. 
+ * We turn this information into a StyleSheetDocument in 
+ * SkinStyleSheetParserUtils.java
  * We might want to add things like imports, so they can at least import other
  * css files if they care to. ??
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinSelectorPropertiesNode.java#0 $) $Date: 10-nov-2005.18:58:58 $
@@ -37,10 +38,10 @@ class SkinSelectorPropertiesNode
       List   propertyNodes
       )
     {
-      _selectorName= selectorName;
-      _propertyNodes= propertyNodes;
+      _selectorName  = selectorName;
+      _propertyNodes = propertyNodes;
     }
-    
+   
     public String getSelectorName()
     {
       return _selectorName;
@@ -49,7 +50,7 @@ class SkinSelectorPropertiesNode
     {
       return _propertyNodes;
     }
-
+  
     private String _selectorName;
     private List   _propertyNodes;
 
