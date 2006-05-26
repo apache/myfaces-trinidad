@@ -284,25 +284,16 @@ public class AdfFacesContextImpl extends AdfFacesContext
         _CHANGE_PERSISTENCE_INIT_PARAM);
     if (changeManager != null)
     {
+      // Support the "session" token
       if ("session".equalsIgnoreCase(changeManager))
       {
         _LOG.info("ADF Faces is using HTTPSession for change persistence");
         return new SessionChangeManager();
       }
-      else if ("mds".equalsIgnoreCase(changeManager))
-      {
-        _LOG.info("ADF Faces is using MDS for change persistence");
-        return _createChangeManager("org.apache.myfaces.adfinternal.change.MDSDocumentChangeManager");
-      }
-      else if ("test".equalsIgnoreCase(changeManager))
-      {
-        _LOG.info("ADF Faces is using TestDocumentChangeManager for change persistence");
-        return _createChangeManager("org.apache.myfaces.adfinternal.change.TestDocumentChangeManager");
-      }
+      // Otherwise, just assume its a class name.
       else
       {
-        _LOG.warning("Unknown value:{0} for web.xml init parameter:{1}",
-          new Object[] {changeManager, _CHANGE_PERSISTENCE_INIT_PARAM});
+        return _createChangeManager(changeManager);
       }
     }
     return new NullChangeManager();
@@ -317,28 +308,17 @@ public class AdfFacesContextImpl extends AdfFacesContext
   private ChangeManager _createChangeManager(
     String className)
   {
-    ChangeManager manager = null;
-    Throwable e = null;
-
     try
     {
       Class managerClass = ClassLoaderUtils.loadClass(className);
-      manager = (ChangeManager)managerClass.newInstance();
+      return (ChangeManager)managerClass.newInstance();
     }
     catch (Throwable throwable)
     {
-      e = throwable;
+      _LOG.warning("Unable to create ChangeManager:" + className,
+                   throwable);
+      return new NullChangeManager();
     }
-
-    // if loading the specified class failed,
-    if (manager == null)
-    {
-      _LOG.warning("Unable to create ChangeManager:" + className, e); // NOTRANS
-
-      manager = new SessionChangeManager();
-    }
-
-    return manager;
   }
 
 
