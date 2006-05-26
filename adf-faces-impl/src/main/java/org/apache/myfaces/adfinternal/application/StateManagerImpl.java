@@ -232,6 +232,13 @@ public class StateManagerImpl extends StateManager
         // Sadly, we can't save just a SerializedView, because we should
         // save a serialized object, and SerializedView is a *non*-static
         // inner class of StateManager
+        PageState pageState = new PageState(
+            structure,
+            state,
+            // Save the view root into the page state as a transient
+            // if this feature has not been disabled
+            _useViewRootCache(context) ? root : null);
+
         token = cache.addNewEntry(new PageState(structure, state, root),
                                   stateMap);
       }
@@ -355,12 +362,7 @@ public class StateManagerImpl extends StateManager
 
       _LOG.fine("Successfully found view state for token {0}", token);
 
-      UIViewRoot root;
-      if (_useViewRootCache(context))
-        root = viewState.popRoot(); // bug 4712492
-      else
-        root = null;
-
+      UIViewRoot root = viewState.popRoot(); // bug 4712492
       if (root != null)
       {
         _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
