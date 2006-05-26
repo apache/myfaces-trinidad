@@ -46,7 +46,6 @@ public class HtmlCommandLinkRenderer extends Renderer
     return true;
   }
 
-
   public void encodeChildren(FacesContext context,
                              UIComponent component) throws IOException
   {
@@ -80,7 +79,7 @@ public class HtmlCommandLinkRenderer extends Renderer
 
       protected String getText(FacesBean bean)
       {
-        return null;
+        return toString(component.getAttributes().get("value"));
       }
 
       protected String getShortDesc(FacesBean bean)
