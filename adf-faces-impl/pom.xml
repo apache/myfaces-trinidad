@@ -18,7 +18,7 @@
   <parent>
     <groupId>org.apache.myfaces.adf</groupId>
     <artifactId>adf-faces</artifactId>
-    <version>11-m7-SNAPSHOT</version>
+    <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -175,7 +175,7 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet</groupId>
+      <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
     </dependency>
 
@@ -251,10 +251,12 @@
       <artifactId>jsf-facelets</artifactId>
     </dependency>
 
+<!--
     <dependency>
       <groupId>javax.el</groupId>
       <artifactId>el-api</artifactId>
     </dependency>
+-->
 
   </dependencies>
 
