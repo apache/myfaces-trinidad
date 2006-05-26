@@ -63,14 +63,11 @@ public class SkinUtils
 {
 
   /**
-   * Register the base skins and any skin extensions found in the
-   * adf-faces-skins.xml file with the SkinFactory.
+   * Register the base skins with the SkinFactory.
    * Make sure the SkinFactory.getFactory() does not return null before
    * calling this method.
-   * @param context ServletContext, used to get the adf-faces-skins.xml file.
    */
-  static public void registerSkins(
-    ServletContext context)
+  static public void registerBaseSkins()
   {
 
     SkinFactory skinFactory = SkinFactory.getFactory();
@@ -84,6 +81,30 @@ public class SkinUtils
     }
 
     _registerAdfFacesSkins(skinFactory);
+  }
+  
+  /**
+   * Register any custom skin extensions found in the
+   * adf-faces-skins.xml file with the SkinFactory.
+   * 
+   * Make sure the SkinFactory.getFactory() does not return null before
+   * calling this method.
+   * You should call registerBaseSkins() before calling this method.
+   * @param context ServletContext, used to get the adf-faces-skins.xml file.
+   */
+  static public void registerSkinExtensions(
+    ServletContext context)
+  {
+
+    SkinFactory skinFactory = SkinFactory.getFactory();
+
+    // skinFactory should be non-null when this is called since it is
+    // initiated in the AdfFacesFilterImpl, but in case it isn't do this
+    if (skinFactory == null)
+    {
+      SkinFactory.setFactory(new SkinFactoryImpl());
+      skinFactory = SkinFactory.getFactory();
+    }
 
     _registerSkinExtensions(context, skinFactory);
 
