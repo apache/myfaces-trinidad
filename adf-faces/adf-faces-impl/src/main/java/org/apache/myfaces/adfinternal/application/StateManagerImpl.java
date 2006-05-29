@@ -401,7 +401,7 @@ public class StateManagerImpl extends StateManager
     {
 
       UIViewRoot root = context.getViewRoot();
-      if (root == null || _needStructure(context))
+      if (root == null && _needStructure(context))
       {
         _LOG.severe("No structure available and no root available");
         return null;
