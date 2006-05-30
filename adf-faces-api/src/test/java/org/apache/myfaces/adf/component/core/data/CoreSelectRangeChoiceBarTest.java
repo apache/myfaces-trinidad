@@ -17,9 +17,12 @@ package org.apache.myfaces.adf.component.core.data;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.myfaces.adf.component.UIComponentTestCase;
 import org.apache.myfaces.adf.event.RangeChangeEvent;
-import org.apache.myfaces.adf.event.MockRangeChangeListener;
+import org.apache.myfaces.adf.event.RangeChangeListener;
 
 import junit.textui.TestRunner;
 
@@ -107,6 +110,21 @@ public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
   }
 
 
+  private class MockRangeChangeListener implements RangeChangeListener
+  {
+    public List list()
+    {
+      return _list;
+    }
+
+    public void processRangeChange(RangeChangeEvent event)
+    {
+      _list.add(event);
+    }
+
+    private List _list = new ArrayList();
+  }
+
   /**
    * Tests the invoke-application lifecycle phase.
    */
@@ -118,12 +136,10 @@ public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
     component.addRangeChangeListener(listener);
     RangeChangeEvent event = new RangeChangeEvent(component, 0, 9, 10, 19);
 
-    listener.addExpectedProcessRangeChangeValues(event);
-    listener.setExpectedProcessRangeChangeCalls(1);
-
     doTestInvokeApplication(component, event);
 
-    listener.verify();
+    assertEquals(listener.list().size(), 1);
+    assertEquals(listener.list().get(0), event);
   }
 
   /**

@@ -50,14 +50,9 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
   protected void setUp()
   {
     _mafct = new MockAdfFacesContext();
-    //12 attrs * 2
-    for (int i = 0; i < 24; i++)
-    {
-      _mafct.setupGetDecimalSeparator('.');
-      _mafct.setupGetNumberGroupingSeparator(',');
-      _mafct.setupGetCurrencyCode(null);
-    }
-    _afct = getCustomMockAdfFacesContext(_mafct);
+    _mafct.setDecimalSeparator('.');
+    _mafct.setNumberGroupingSeparator(',');
+    _mafct.setCurrencyCode(null);
   }
 
   protected void tearDown()
@@ -66,17 +61,16 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
    // AdfFacesContext uses a thread local variable to hold itself and has a
    // check in it. So you need to release, since all instances for tests
    // are created on the same thread by Junit.
-    _afct.release();
-    _mafct.verify();
+    _mafct.release();
+
     _mafct = null;
-    _afct = null;
   }
 
   public void testCurrencyCodeIsHonoured()
   {
      DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
-    _mafct.setupGetDecimalSeparator(symbols.getMonetaryDecimalSeparator());
-    _mafct.setupGetNumberGroupingSeparator(symbols.getGroupingSeparator());
+    _mafct.setDecimalSeparator(symbols.getMonetaryDecimalSeparator());
+    _mafct.setNumberGroupingSeparator(symbols.getGroupingSeparator());
     super.testCurrencyCodeIsHonoured();
   }
 
@@ -84,11 +78,9 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
   {
     tearDown();
     _mafct = new MockAdfFacesContext();
-    _afct = super.getCustomMockAdfFacesContext(_mafct);
-
-    _mafct.setupGetDecimalSeparator('*');
-    _mafct.setupGetNumberGroupingSeparator('!');
-    _mafct.setupGetCurrencyCode(null);
+    _mafct.setDecimalSeparator('*');
+    _mafct.setNumberGroupingSeparator('!');
+    _mafct.setCurrencyCode(null);
     MockFacesContext context  = new MockFacesContext();
     MockUIComponent component = new MockUIComponent();
 
@@ -172,8 +164,6 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
       }
     }
   }
-
-  private AdfFacesContext _afct;
 
   private MockAdfFacesContext _mafct;
 
