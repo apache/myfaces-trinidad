@@ -33,24 +33,15 @@
     <plugins>
       <plugin>
         <groupId>org.apache.myfaces.adfbuild</groupId>
- <artifactId>maven-jdev-plugin</artifactId>
- <configuration>
-   <testSourceRoots>
-     <testSourceRoot>src/mock/java</testSourceRoot>
-     <testSourceRoot>target/maven-mock-plugin/mock/java</testSourceRoot>
-   </testSourceRoots>
- </configuration>
+        <artifactId>maven-jdev-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
-        <artifactId>maven-mock-plugin</artifactId>
-        <!-- TODO: move up to parent after MNG-985 is resolved -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
         <executions>
           <execution>
             <goals>
-              <goal>generate-mock-sources</goal>
-              <goal>mock-compile</goal>
-              <goal>mock-package</goal>
+              <goal>test-jar</goal>
             </goals>
           </execution>
         </executions>

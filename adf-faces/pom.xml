@@ -246,29 +246,30 @@
       <dependency>
         <groupId>org.apache.myfaces.adf</groupId>
         <artifactId>adf-faces-build</artifactId>
-        <version>11-m7-SNAPSHOT</version>
+        <version>incubator-m1-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.adf</groupId>
         <artifactId>adf-faces-api</artifactId>
-        <version>11-m7-SNAPSHOT</version>
+        <version>incubator-m1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
         <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-impl</artifactId>
-        <version>11-m7-SNAPSHOT</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-impl</artifactId>
-        <version>11-m7-SNAPSHOT</version>
+        <artifactId>adf-faces-api</artifactId>
+        <version>incubator-m1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache.myfaces.adf</groupId>
+        <artifactId>adf-faces-impl</artifactId>
+        <version>incubator-m1-SNAPSHOT</version>
+      </dependency>
+
 
       <dependency>
         <groupId>javax.servlet.jsp</groupId>

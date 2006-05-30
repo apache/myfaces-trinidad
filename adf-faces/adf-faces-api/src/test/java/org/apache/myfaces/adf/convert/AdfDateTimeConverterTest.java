@@ -311,24 +311,14 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
   protected void setUp()
   {
     _mafct = new MockAdfFacesContext();
-    for (int i = 0; i < 70; i++)
-    {
-      _mafct.setupGetTwoDigitYearStart(1950);
-      _mafct.setupGetTimeZone(DEFAULT_TIME_ZONE);
-    }
-    _afct = getCustomMockAdfFacesContext(_mafct);
+    _mafct.setTwoDigitYearStart(1950);
+    _mafct.setTimeZone(DEFAULT_TIME_ZONE);
   }
 
   protected void tearDown()
   {
-
-   // AdfFacesContext uses a thread local variable to hold itself and has a
-   // check in it. So you need to release, since all instances for tests
-   // are created on the same thread by Junit.
-    _afct.release();
-    _mafct.verify();
+    _mafct.release();
     _mafct = null;
-    _afct = null;
   }
 
   private Object[][] _getDataForPatterns()
@@ -353,8 +343,6 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     };
     return data;
   }
-
-  private AdfFacesContext _afct;
 
   private MockAdfFacesContext _mafct;
 
