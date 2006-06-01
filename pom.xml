@@ -19,7 +19,7 @@
 
   <groupId>org.apache.myfaces.adfbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>1.0-alpha-1-SNAPSHOT</version>
+  <version>incubator-alpha-1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Apache Plugin Parent</name>
 
