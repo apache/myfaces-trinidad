@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.apache.myfaces.adfbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>1.0-alpha-1-SNAPSHOT</version>
+    <version>incubator-alpha-1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.adfbuild</groupId>
   <artifactId>maven-jdev-plugin</artifactId> 
-  <version>1.0-alpha-2-SNAPSHOT</version>
+  <version>incubator-alpha-2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven JDev Plugin</name>
 

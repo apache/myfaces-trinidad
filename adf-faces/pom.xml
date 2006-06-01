@@ -106,35 +106,35 @@
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
-          <version>1.0-alpha-2-SNAPSHOT</version>
+          <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-mock-plugin</artifactId>
-          <version>1.0-alpha-1-SNAPSHOT</version>
+          <version>incubator-alpha-1-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
-          <version>1.0-alpha-9-SNAPSHOT</version>
+          <version>incubator-alpha-9-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
-          <version>1.0-alpha-2-SNAPSHOT</version>
+          <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
-          <version>1.0-alpha-2-SNAPSHOT</version>
+          <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 

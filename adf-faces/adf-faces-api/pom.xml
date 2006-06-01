@@ -171,7 +171,7 @@
       <plugin>
         <groupId>org.apache.myfaces.adfbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>1.0-alpha-3-SNAPSHOT</version>
+        <version>incubator-alpha-3-SNAPSHOT</version>
         <configuration>
           <taglibs>
             <af>http://myfaces.apache.org/adf/faces</af>
