@@ -42,7 +42,7 @@
             <af:panelGroup layout="vertical">
               <af:panelGroup>
                 <af:commandLink text="Email" action="emaildemo" />
-                <af:outputText styleClass="AFInstructionText" value=" - requires J2EE 1.3 (minimum) server or mail.jar and activation.jar"/>
+                <af:outputText styleClass="AFInstructionText" value=" - ADF Faces Email Demo"/>
               </af:panelGroup>
               <af:panelGroup>
                 <af:commandLink text="Survey" action="survey" />                
