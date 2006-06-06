@@ -798,7 +798,7 @@
         <value>processChoiceBar.jspx</value>
         <value>processTrain.jspx</value>
         <value>progressIndicator.jspx</value>
-        <value>region.jspx</value>
+        <!--value>region.jspx</value -->
         <value>resetButton.jspx</value>
         <value>selectBooleanCheckbox.jspx</value>
         <value>selectBooleanRadio.jspx</value>
