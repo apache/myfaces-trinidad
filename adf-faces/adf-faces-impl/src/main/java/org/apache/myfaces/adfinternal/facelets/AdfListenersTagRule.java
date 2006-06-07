@@ -16,21 +16,17 @@
 package org.apache.myfaces.adfinternal.facelets;
 
 import java.beans.PropertyDescriptor;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import javax.el.MethodExpression;
 import javax.faces.el.MethodBinding;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.el.LegacyMethodBinding;
+import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.tag.Metadata;
 import com.sun.facelets.tag.MetadataTarget;
-import com.sun.facelets.tag.MetaRule;
 import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagAttributeException;
 

@@ -15,12 +15,12 @@
 */
 package org.apache.myfaces.adfinternal.facelets;
 
-import java.io.IOException;
-
 import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
+
+import org.apache.myfaces.adfinternal.taglib.listener.SetActionListener;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;
@@ -29,8 +29,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
-
-import org.apache.myfaces.adfinternal.taglib.listener.SetActionListener;
 
 /**
  * @author Emmanuel Pirsch
