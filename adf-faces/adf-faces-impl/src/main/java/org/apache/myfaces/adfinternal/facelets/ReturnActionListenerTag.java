@@ -37,28 +37,27 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
  * @author Matthias Wessendorf
  *
  */
-public class ReturnActionListenerTag extends TagHandler {
+public class ReturnActionListenerTag extends TagHandler
+{
 
-	public ReturnActionListenerTag(TagConfig tagConfig) {
-		super(tagConfig);
-		_value = getAttribute("value");
-	}
+  public ReturnActionListenerTag(TagConfig tagConfig) {
+    super(tagConfig);
+    _value = getAttribute("value");
+  }
 
-	public void apply(FaceletContext faceletContext, UIComponent parent)
-			throws IOException, FacesException, FaceletException, ELException {
+  public void apply(FaceletContext faceletContext,
+          UIComponent parent) throws IOException, FacesException, FaceletException, ELException
+  {
+    if(ComponentSupport.isNew(parent))
+    {
+      ValueExpression valueExp = _value.getValueExpression(faceletContext, Object.class);
+      ActionSource actionSource = (ActionSource)parent;
+      ReturnActionListener listener = new ReturnActionListener();
+      listener.setValueBinding(listener.VALUE_KEY, new LegacyValueBinding(valueExp));
+      actionSource.addActionListener(listener);
+    }
+  }
 
-		if(ComponentSupport.isNew(parent))
-		{
-			ValueExpression valueExp = _value.getValueExpression(faceletContext, Object.class);
-			ActionSource actionSource = (ActionSource)parent;
-			ReturnActionListener listener = new ReturnActionListener();
-			listener.setValueBinding(listener.VALUE_KEY, 
-					new LegacyValueBinding(valueExp));
-				
-			actionSource.addActionListener(listener);
-		}
-	}
-	
-	private final TagAttribute _value;
+  private final TagAttribute _value;
 
 }
