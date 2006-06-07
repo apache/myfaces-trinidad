@@ -60,5 +60,4 @@ public class ReturnActionListenerTag extends TagHandler
   }
 
   private final TagAttribute _value;
-
 }
