@@ -40,7 +40,8 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 public class ReturnActionListenerTag extends TagHandler
 {
 
-  public ReturnActionListenerTag(TagConfig tagConfig) {
+  public ReturnActionListenerTag(TagConfig tagConfig)
+  {
     super(tagConfig);
     _value = getAttribute("value");
   }

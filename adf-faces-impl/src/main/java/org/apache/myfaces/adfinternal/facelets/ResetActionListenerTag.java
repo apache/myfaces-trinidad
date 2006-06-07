@@ -37,7 +37,8 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
 public class ResetActionListenerTag extends TagHandler
 {
 
-  public ResetActionListenerTag(TagConfig tagConfig) {
+  public ResetActionListenerTag(TagConfig tagConfig)
+  {
     super(tagConfig);
   }
 
