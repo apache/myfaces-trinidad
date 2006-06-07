@@ -34,21 +34,21 @@ import com.sun.facelets.tag.jsf.ComponentSupport;
  * @author Matthias Wessendorf
  *
  */
-public class ResetActionListenerTag extends TagHandler {
+public class ResetActionListenerTag extends TagHandler
+{
 
-	public ResetActionListenerTag(TagConfig tagConfig) {
-		super(tagConfig);
-	}
+  public ResetActionListenerTag(TagConfig tagConfig) {
+    super(tagConfig);
+  }
 
-	public void apply(FaceletContext faceletContext, UIComponent parent)
-			throws IOException, FacesException, FaceletException, ELException {
-
-		if(ComponentSupport.isNew(parent))
-		{
-			ActionSource actionSource = (ActionSource)parent;
-			ResetActionListener listener = new ResetActionListener();
-
-			actionSource.addActionListener(listener);
-		}
-	}
+  public void apply(FaceletContext faceletContext,
+		  UIComponent parent) throws IOException, FacesException, FaceletException, ELException
+  {
+    if(ComponentSupport.isNew(parent))
+    {
+      ActionSource actionSource = (ActionSource)parent;
+      ResetActionListener listener = new ResetActionListener();
+      actionSource.addActionListener(listener);
+    }
+  }
 }
