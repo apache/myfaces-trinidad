@@ -20,6 +20,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.myfaces.adf.logging.ADFLogger;
 
 
@@ -133,6 +136,10 @@ public class SkinCSSParser
     if (properties == null)
       return;
 
+    // first, parse out any comments
+    Matcher matcher = _COMMENT_PATTERN.matcher(properties);
+    properties = matcher.replaceAll("");
+       
     String[] property = properties.split("\\s*;\\s*");
 
     for (int i=0; i < property.length; i++)
@@ -250,45 +257,51 @@ public class SkinCSSParser
 
 
           case '/':
-            // check for comment. If it is a comment, set the type and return
-            // if it isn't a comment, keep looping to get more characters.
-            _nextChar();
-            if (_currentChar == '*')
+            if (_type != CSSLexicalUnits.LEFT_CURLY_BRACE)
             {
-              // WE ARE IN A COMMENT
-              // loop and get characters into buffer until we get '*/'
-
+              // check for comment. If it is a comment, set the type and return
+              // if it isn't a comment, keep looping to get more characters.
               _nextChar();
-              int prevChar;
-              while (_currentChar != -1)
+              if (_currentChar == '*')
               {
-
-                prevChar = _currentChar;
+                // WE ARE IN A COMMENT
+                // loop and get characters into buffer until we get '*/'
+  
                 _nextChar();
-                if ((prevChar == '*') && (_currentChar == '/'))
-                  break;
+                int prevChar;
+                while (_currentChar != -1)
+                {
+  
+                  prevChar = _currentChar;
+                  _nextChar();
+                  if ((prevChar == '*') && (_currentChar == '/'))
+                    break;
+                }
+  
+                _type = CSSLexicalUnits.COMMENT;
+                return;
+  
               }
-
-              _type = CSSLexicalUnits.COMMENT;
-              return;
-
+              // wasn't a comment, so keep going on, filling the buffer with
+              // each _nextChar call.
+              break;
             }
-            // wasn't a comment, so keep going on, filling the buffer with
-            // each _nextChar call.
-            break;
 
 
 
           case '@':
-            // found @. keep getting characters until we get a ; or end of file.
-            _nextChar();
-            while ((_currentChar != -1) && (_currentChar != ';'))
+            if (_type != CSSLexicalUnits.LEFT_CURLY_BRACE)
             {
+              // found @. keep getting characters until we get a ; or end of file.
               _nextChar();
+              while ((_currentChar != -1) && (_currentChar != ';'))
+              {
+                _nextChar();
+              }
+  
+              _type = CSSLexicalUnits.AT_KEYWORD;
+              return;
             }
-
-            _type = CSSLexicalUnits.AT_KEYWORD;
-            return;
 
           default:
             if (_type == CSSLexicalUnits.LEFT_CURLY_BRACE)
@@ -386,7 +399,13 @@ public class SkinCSSParser
   private SkinCSSDocumentHandler _documentHandler;
   private CSSScanner             _scanner;
   private int                    _currentType;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SkinCSSParser.class);
+  // this is the pattern for finding comments. We want to strip out 
+  // comments from the properties, and we use this pattern to do it.
+  private static final Pattern  _COMMENT_PATTERN = 
+     Pattern.compile("(?s)/\\*.*?\\*/"); 
+     
+  private static final ADFLogger _LOG = 
+    ADFLogger.createADFLogger(SkinCSSParser.class);
 
 
 }
