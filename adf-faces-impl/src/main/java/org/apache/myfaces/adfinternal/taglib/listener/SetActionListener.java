@@ -26,7 +26,9 @@ import org.apache.myfaces.adf.bean.FacesBeanImpl;
 import org.apache.myfaces.adf.bean.PropertyKey;
 
 /**
- * 
+ * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
+ * same functionality. In JSF 1.2 days this class should be <code>deprecated</code>.
+ *
  * @todo Look at moving to org.apache.myfaces.adf.event
  * @todo Extending FacesBean is very lame if we make this
  *   class part of our public API, but the FacesBean API

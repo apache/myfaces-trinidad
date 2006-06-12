@@ -31,6 +31,7 @@ import com.sun.facelets.tag.TagHandler;
 import com.sun.facelets.tag.jsf.ComponentSupport;
 
 /**
+ * @todo it should be removed after we consume JSF1.2.
  * @author Emmanuel Pirsch
  */
 public class SetActionListenerTag extends TagHandler

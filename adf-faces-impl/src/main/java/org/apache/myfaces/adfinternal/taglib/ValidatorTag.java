@@ -28,7 +28,7 @@ import org.apache.myfaces.adf.logging.ADFLogger;
  * This tag implements a generic validator tag.
  * It adds support for a "binding" attribute as well as a "validatorId"
  *
- * TODO: it should be removed after we consume JSF1.2.
+ * @todo it should be removed after we consume JSF1.2.
  *
  * @author The Oracle ADF Faces Team
  */
