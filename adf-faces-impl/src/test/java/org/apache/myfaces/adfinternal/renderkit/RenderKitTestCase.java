@@ -39,14 +39,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.component.html.HtmlHtml;
 import org.apache.myfaces.adf.render.ExtendedRenderKitService;
 import org.apache.myfaces.adf.util.Service;
 
 import org.apache.myfaces.adfinternal.io.XhtmlResponseWriter;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -122,11 +118,6 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       if (!_script.isSupportedAgentType(_agent.getType()))
       {
-        /*
-        System.out.println("SKIPPING UNSUPPORTED SCRIPT: " + _scriptName);
-        System.out.println("AGENT IS " + _agent);
-        System.out.println("AGENT TYPE IS " + _agent.getType());
-        */
         return;
       }
 
@@ -134,8 +125,8 @@ abstract public class RenderKitTestCase extends TestSuite
       // aborting the run
       _result = result;
       CatchSevere catchSevere = new CatchSevere();
-      Logger oracleLogger = Logger.getLogger("oracle");
-      oracleLogger.addHandler(catchSevere);
+      Logger apacheLogger = Logger.getLogger("org.apache");
+      apacheLogger.addHandler(catchSevere);
 
       try
       {
@@ -144,7 +135,7 @@ abstract public class RenderKitTestCase extends TestSuite
       }
       finally
       {
-        oracleLogger.removeHandler(catchSevere);
+        apacheLogger.removeHandler(catchSevere);
         RenderKitBootstrap.clearFactories();
       }
     }
@@ -196,7 +187,8 @@ abstract public class RenderKitTestCase extends TestSuite
 
       _initializeContext(new NullWriter());
 
-      UIComponent docRoot = _createDocumentRoot(root);
+      UIComponent docRoot = populateDefaultComponentTree(root,
+                                                         _script);
 
       StringWriter first = new StringWriter();
       docRoot.getChildren().add(new GatherContent(first,
@@ -334,38 +326,6 @@ abstract public class RenderKitTestCase extends TestSuite
     {
       RenderUtils.encodeRecursive(_facesContext, root);
     }
-
-
-    private UIComponent _createDocumentRoot(UIViewRoot root)
-    {
-      String componentType = 
-             _script.getDefinition().getComponentInfo().componentType;
-      
-      if ("org.apache.myfaces.adf.HtmlHtml".equals(componentType))
-      {
-        return root;
-      }
-      
-      if (_sHtmlComponents.contains(componentType))
-      {
-        HtmlHtml html = new HtmlHtml();
-        html.setId("htmlId");
-        root.getChildren().add(html);
-        return html;
-      }
-      else
-      {
-        CoreDocument doc = new CoreDocument();
-        doc.setId("docId");
-        root.getChildren().add(doc);
-        CoreForm form = new CoreForm();
-        form.setId("formId");
-        if (_script.getDefinition().isUsesUpload())
-          form.setUsesUpload(true);
-        doc.getChildren().add(form);
-        return form;
-      }
-    }
     
     private void _initializeContext(Writer out) throws IOException
     {
@@ -428,19 +388,6 @@ abstract public class RenderKitTestCase extends TestSuite
     _scriptDir = new File(scripts);
     _goldenDir = new File(golden);
     _failureDir = new File(failures);
-    
-    _sHtmlComponents = new HashSet(5);
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlBody");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrame");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrameBorderLayout");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlHead");
-    _sHtmlComponents.add("org.apache.myfaces.adf.CoreStyleSheet");
-
-    // Force the CoreRenderKit logger level to SEVERE, to bypass the
-    // warnings about not finding the Basic HTML RenderKit.
-    Logger logger = Logger.getLogger(CoreRenderKit.class.getName());
-    logger.setLevel(Level.SEVERE);
-    logger.setUseParentHandlers(false);
   }
 
   private void _initTests() throws IOException, SAXException
@@ -495,6 +442,10 @@ abstract public class RenderKitTestCase extends TestSuite
       }
     }
   }
+
+  protected abstract UIComponent populateDefaultComponentTree(
+    UIViewRoot root,
+    TestScript script);
 
   protected abstract Iterable<SuiteDefinition> getSuiteDefinitions();
   protected abstract String getRenderKitId();
@@ -573,5 +524,4 @@ abstract public class RenderKitTestCase extends TestSuite
   static private File _scriptDir;
   static private File _goldenDir;
   static private File _failureDir;
-  private static HashSet _sHtmlComponents;
 }
