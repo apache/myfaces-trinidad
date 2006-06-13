@@ -34,6 +34,8 @@
         tag can be used both with ADF Faces commands and JSF standard
         tags.  More generally, it can be used with any component at
         all that implements the standard ActionSource interface.
+        <b>Note</b> that JSF comes with a &lt;af:setPropertyActionListener&gt;, which
+        does exactly the same.
 
 </p><h4>Example:</h4><p>
 
