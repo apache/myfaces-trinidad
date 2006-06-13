@@ -18,9 +18,23 @@ package org.apache.myfaces.adfinternal.renderkit;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 
 import junit.framework.Test;
+
+import org.apache.myfaces.adf.component.core.CoreDocument;
+import org.apache.myfaces.adf.component.core.CoreForm;
+import org.apache.myfaces.adf.component.html.HtmlHtml;
+
+import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
 
 import org.xml.sax.SAXException;
 
@@ -50,11 +64,51 @@ public class CoreRenderKitTest extends RenderKitTestCase
     return "org.apache.myfaces.adf.core";
   }
 
+  protected UIComponent populateDefaultComponentTree(
+    UIViewRoot  root,
+    TestScript  script)
+  {
+    String componentType = 
+           script.getDefinition().getComponentInfo().componentType;
+
+    if ("org.apache.myfaces.adf.HtmlHtml".equals(componentType))
+    {
+      return root;
+    }
+    
+    if (_sHtmlComponents.contains(componentType))
+    {
+      HtmlHtml html = new HtmlHtml();
+      html.setId("htmlId");
+      root.getChildren().add(html);
+      return html;
+    }
+    else
+    {
+      CoreDocument doc = new CoreDocument();
+      doc.setId("docId");
+      root.getChildren().add(doc);
+      CoreForm form = new CoreForm();
+      form.setId("formId");
+      if (script.getDefinition().isUsesUpload())
+        form.setUsesUpload(true);
+      doc.getChildren().add(form);
+      return form;
+    }
+  }
+
   static private List<SuiteDefinition> _definitions =
     new ArrayList<SuiteDefinition>();
+  private static HashSet _sHtmlComponents;
 
   static
   {
+    // Force the CoreRenderKit logger level to SEVERE, to bypass the
+    // warnings about not finding the Basic HTML RenderKit.
+    Logger logger = Logger.getLogger(CoreRenderKit.class.getName());
+    logger.setLevel(Level.SEVERE);
+    logger.setUseParentHandlers(false);
+
     _definitions.add(new SuiteDefinition("minimal",
                                          "minimal",
                                          null,
@@ -90,5 +144,12 @@ public class CoreRenderKitTest extends RenderKitTestCase
                                          "inaccessible",
                                          RenderKitBootstrap.getGeckoAgent(),
                                          false));
+
+    _sHtmlComponents = new HashSet(5);
+    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlBody");
+    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrame");
+    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrameBorderLayout");
+    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlHead");
+    _sHtmlComponents.add("org.apache.myfaces.adf.CoreStyleSheet");
   }
 }
