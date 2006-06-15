@@ -36,7 +36,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.adf.context.Agent;
 import org.apache.myfaces.adf.render.ExtendedRenderKitService;
@@ -45,7 +44,6 @@ import org.apache.myfaces.adf.util.Service;
 import org.apache.myfaces.adfinternal.io.XhtmlResponseWriter;
 
 import junit.framework.AssertionFailedError;
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
