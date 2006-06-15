@@ -357,8 +357,7 @@ private void _setTranslationKeyTest(
 
   static private final String _FACES_NAMESPACE = null;
 
-
-
+  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIComponentUINode.class);
 
   static private Map _UIX2_LOCALNAMES;
   static
@@ -442,8 +441,5 @@ private void _setTranslationKeyTest(
     return (String)subMap.get(rendererType);
   }
 
-
-
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIComponentUINode.class);
 
 }
