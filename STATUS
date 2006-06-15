@@ -1,0 +1,49 @@
+ADF Faces Status
+
+
+PROJECT STATUS
+==============
+
+  The ADF Faces project represents the incubation of a comprehensive library
+  of JavaServer Faces components. The intended destination of this project
+  is the existing Apache MyFaces project.
+
+  Note that ADF Faces is a temporary working name for the incubation of the
+  corresponding code and committers. The final name of the component library
+  will be chosen by the MyFaces developer community, in the usual Apache fashion.
+
+PENDING ISSUES
+==============
+
+RESOLVED ISSUES SINCE LAST STATUS
+=================================
+None
+
+OTHER NEWS
+==========
+
+2006-06-12 Voted for the name Trinidad
+2006-06-08 Started vote for a new project name
+
+RELEASE STATUS
+==============
+None
+
+REFERENCES
+==========
+Status file     http://svn.apache.org/repos/asf/incubator/adffaces/STATUS
+User List       adffaces-user@incubator.apache.org
+Developer List  adffaces-dev@incubator.apache.org
+Commits List    adffaces-commits@incubator.apache.org
+Issues List     adffaces-issues@incubator.apache.org
+Source Code     http://svn.apache.org/repos/asf/incubator/adffaces/
+Issue Tracking  http://issues.apache.org/jira/browse/adffaces
+
+Committers
+    awiner      Adam Winer
+    baranda     Bruno Aranda
+    craigmcc    Craig McClanahan
+    jfallows     John Fallows
+    matzew      Matthias Wessendorf
+    mmarinschek Martin Marinschek
+    TBD          Jonas Jacobi
