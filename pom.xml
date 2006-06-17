@@ -52,6 +52,7 @@
     <module>maven-javascript-plugin</module>
     <module>maven-mock-plugin</module>
     <module>maven-xrts-plugin</module>
+    <module>maven-adf-archetype</module>
   </modules>
 
   <distributionManagement>

@@ -1,0 +1,65 @@
+/*
+ * Copyright 2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.myfaces.adf.blank;
+
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.adf.render.ExtendedRenderKitService;
+import org.apache.myfaces.adf.util.Service;
+
+/**
+ * A typical simple backing bean, that is backed to <code>helloworld.jsp</code>
+ * 
+ * @author <a href="mailto:matzew@apache.org">Matthias Weﬂendorf</a> 
+ */
+public class HelloWorldBacking
+{
+
+  //properties
+  private String _name;
+
+  /**
+   * default empty constructor
+   */
+  public HelloWorldBacking()
+  {   
+  }
+
+  //-------------------getter & setter
+  public String getName()
+  {
+    return _name;
+  }
+
+  public void setName(String name)
+  {
+    this._name = name;
+  }
+
+  /**
+   * Method that is backed to a submit button of a form.
+   */
+  public String send()
+  {
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExtendedRenderKitService service = (ExtendedRenderKitService)
+      Service.getRenderKitService(facesContext, ExtendedRenderKitService.class);
+    service.addScript(facesContext, "alert('Script added by ExtendedRenderKitService')");
+
+    //do real logic
+    return ("success");
+  }
+}
