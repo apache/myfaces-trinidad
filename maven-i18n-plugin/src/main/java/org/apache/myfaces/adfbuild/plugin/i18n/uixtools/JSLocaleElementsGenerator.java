@@ -746,7 +746,7 @@ public class JSLocaleElementsGenerator
                           _RESOURCES_PACKAGE + ".LocaleElements";
 
   private static final String _DEFAULT_LOCATION_PATH =
-          "org\\apace\\myfaces\\adfinternal\\ui\\jsLibs\\resources\\".replace('\\',
+          "org\\apache\\myfaces\\adfinternal\\ui\\jsLibs\\resources\\".replace('\\',
                                                           File.separatorChar);
 
   // Mimicking to be in api path. In the adf-faces impl side we have
