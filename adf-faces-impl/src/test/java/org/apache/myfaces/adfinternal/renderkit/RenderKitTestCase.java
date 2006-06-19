@@ -37,6 +37,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.commons.lang.StringUtils;
+
 import org.apache.myfaces.adf.context.Agent;
 import org.apache.myfaces.adf.render.ExtendedRenderKitService;
 import org.apache.myfaces.adf.util.Service;
@@ -309,8 +311,15 @@ abstract public class RenderKitTestCase extends TestSuite
         }
         else
         {
+          int index = StringUtils.indexOfDifference(golden, results);
+          String difference = StringUtils.difference(golden, results);
+          int diffLength = difference.length();
+          if (diffLength > 50)
+            difference = StringUtils.abbreviate(difference, 50);
           throw new AssertionFailedError(
-               "Golden file for test "+ _scriptName + " did not match");
+               "Golden file for test "+ _scriptName + " did not match; " +
+               "first difference at " + index + ", difference of length " +
+               diffLength + ", \"" + difference + "\"");
         }
       }
     }
