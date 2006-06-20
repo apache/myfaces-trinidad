@@ -15,36 +15,20 @@
  *    limitations under the License.
  
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project> 
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.apache.myfaces.adf.maven</groupId>
+
+  <parent>
+    <groupId>org.apache.myfaces.adfbuild</groupId>
+    <artifactId>maven-plugin-parent</artifactId> 
+    <version>incubator-alpha-1-SNAPSHOT</version>
+  </parent>
+
+  <groupId>org.apache.myfaces.adfbuild</groupId>
   <artifactId>adf-archetype</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>ADF Archetype</name>
   <description>Archetype to ease the burden of creating a new application based with ADF</description>
 
-  <!--scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/myfaces/maven/trunk/maven-archetype</connection>
-    <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/myfaces/maven/trunk/maven-archetype
-    </developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/myfaces/maven/trunk/maven-archetype</url>
-  </scm-->
-
-  <distributionManagement>
-    <repository>
-      <id>apache-maven</id>
-      <name>Apache Maven Repository</name>
-      <url>scpexe://minotaur.apache.org/www/www.apache.org/dist/maven-repository</url>
-    </repository>
-    <snapshotRepository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>apache-maven-snapshots</id>
-      <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
-    </snapshotRepository>
-  </distributionManagement>
 </project>
