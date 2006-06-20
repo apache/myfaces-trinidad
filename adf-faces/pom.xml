@@ -244,6 +244,20 @@
       </dependency>
 
       <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-mock</artifactId>
+        <version>1.1_01</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.struts.shale</groupId>
+        <artifactId>shale-test</artifactId>
+        <version>1.0.2</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
         <groupId>org.apache.myfaces.adf</groupId>
         <artifactId>adf-faces-build</artifactId>
         <version>incubator-m1-SNAPSHOT</version>
