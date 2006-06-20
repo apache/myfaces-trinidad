@@ -61,66 +61,37 @@ abstract public class RenderKitTestCase extends TestSuite
     _initTests();
   }
 
-  public class RendererTest extends TestCase
+
+  abstract public class BaseTest extends TestCase
   {
-    public RendererTest(String name,
-                        SuiteDefinition definition,
-                        boolean lenient) throws IOException, SAXException
+    public BaseTest(String name,
+                    SuiteDefinition definition)
     {
       this(name,
            definition.getCategory(),
            definition.getSkin(),
            definition.getAgent(),
            definition.getAccessibilityMode(),
-           definition.isRightToLeft(),
-           lenient);
+           definition.isRightToLeft());
     }
 
-    public RendererTest(String name,
-                        String categoryName,
-                        String skin,
-                        Agent agent,
-                        String accMode,
-                        boolean rightToLeft,
-                        // If lenient, we only diff against the golden file,
-                        // and ignore the rest
-                        boolean lenient) throws IOException, SAXException
+
+    public BaseTest(String name,
+                    String categoryName,
+                    String skin,
+                    Agent agent,
+                    String accMode,
+                    boolean rightToLeft)
     {
       super(name + "-" + categoryName);
-      _scriptName = name + ".xml";
-      File scriptFile = new File(_scriptDir, _scriptName);
-
-      _script =
-        TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
       _skin = skin;
       _agent = agent;
       _accMode = accMode;
       _rightToLeft = rightToLeft;
-      _lenient     = lenient;
-
-
-      // We run golden-file checks on each subtest - though all differences
-      // get counted only as a single diff.  We also do a comparison
-      // of each subtest against the base, and verify that startComponent()
-      // is correctly called
-      if (lenient)
-        _testCaseCount = 1;
-      else
-      _testCaseCount = (_script.getTests().size() * 3) + 1;
-    }
-
-    public int countTestCases()
-    {
-      return _testCaseCount;
     }
 
     public void run(TestResult result)
     {
-      if (!_script.isSupportedAgentType(_agent.getType()))
-      {
-        return;
-      }
-
       // Cache the TestResult so we can directly add failure without
       // aborting the run
       _result = result;
@@ -177,15 +148,130 @@ abstract public class RenderKitTestCase extends TestSuite
       _facesContext = null;
       _adfFacesContext = null;
       _result = null;
+    }
+
+    abstract protected void runTest() throws Throwable;
+
+    protected FacesContext getFacesContext()
+    {
+      return _facesContext;
+    }
+
+    protected TestResult getResult()
+    {
+      return _result;
+    }
+
+    protected Agent getAgent()
+    {
+      return _agent;
+    }
+
+    protected void renderRoot(UIViewRoot root) throws IOException
+    {
+      RenderUtils.encodeRecursive(_facesContext, root);
+    }
+    
+    protected void initializeContext(Writer out) throws IOException
+    {
+      _facesContext.getExternalContext().getRequestMap().clear();
+      _facesContext.setResponseWriter(_createResponseWriter(out));
+    }
+
+    private ResponseWriter _createResponseWriter(Writer out) throws IOException
+    {
+      return new TestResponseWriter(out,
+                                    XhtmlResponseWriter.XHTML_CONTENT_TYPE,
+                                    "UTF-8",
+                                    this,
+                                    _result);
+    }
+
+    // Severe errors should count as a test failure
+    private class CatchSevere extends Handler
+    {
+      public void publish(LogRecord record)
+      {
+        if (record.getLevel() == Level.SEVERE)
+        {
+          String message = (new SimpleFormatter()).format(record);
+          _result.addError(BaseTest.this,
+                           new AssertionFailedError(message));
+        }
+      }
+
+      public void flush() { }
+
+      public void close() { }
+    }
+
+    private TestResult    _result;
+    private MFacesContext _facesContext;
+    private MAdfFacesContext _adfFacesContext;
+    private String           _skin;
+    private Agent            _agent;
+    private String           _accMode;
+    private boolean          _rightToLeft;
+  }
+
+
+
+  public class RendererTest extends BaseTest
+  {
+    public RendererTest(String name,
+                        SuiteDefinition definition,
+                        boolean lenient) throws IOException, SAXException
+    {
+      super(name, definition);
+      _scriptName = name + ".xml";
+      File scriptFile = new File(_scriptDir, _scriptName);
+
+      _script =
+        TestScriptParser.getTestScript(scriptFile, _facesConfigInfo);
+      _lenient     = lenient;
+
+
+      // We run golden-file checks on each subtest - though all differences
+      // get counted only as a single diff.  We also do a comparison
+      // of each subtest against the base, and verify that startComponent()
+      // is correctly called
+      if (lenient)
+        _testCaseCount = 1;
+      else
+      _testCaseCount = (_script.getTests().size() * 3) + 1;
+    }
+
+    public int countTestCases()
+    {
+      return _testCaseCount;
+    }
+
+    public void run(TestResult result)
+    {
+      if (!_script.isSupportedAgentType(getAgent().getType()))
+      {
+        /*
+        System.out.println("SKIPPING UNSUPPORTED SCRIPT: " + _scriptName);
+        System.out.println("AGENT IS " + getAgent());
+        System.out.println("AGENT TYPE IS " + getAgent().getType());
+        */
+        return;
+      }
+
+      super.run(result);
+    }
+
+    protected void tearDown() throws IOException  
+    {
+      super.tearDown();
       _script = null;
-      _result = null;
     }
 
     protected void runTest() throws Throwable
     {
-      UIViewRoot root = _facesContext.getViewRoot();
+      UIViewRoot root = getFacesContext().getViewRoot();
 
-      _initializeContext(new NullWriter());
+      initializeContext(new NullWriter());
 
       UIComponent docRoot = populateDefaultComponentTree(root,
                                                          _script);
@@ -193,14 +279,14 @@ abstract public class RenderKitTestCase extends TestSuite
       StringWriter first = new StringWriter();
       docRoot.getChildren().add(new GatherContent(first,
                                                _createComponent(),
-                                               _result,
+                                               getResult(),
                                                this,
                                                _lenient));
 
       StringWriter base = new StringWriter();
       docRoot.getChildren().add(new GatherContent(base,
                                                _createComponent(),
-                                               _result,
+                                               getResult(),
                                                this,
                                                _lenient));
 
@@ -211,17 +297,17 @@ abstract public class RenderKitTestCase extends TestSuite
 
         UIComponent testComponent = _createComponent();
 
-        test.apply(_facesContext, testComponent);
+        test.apply(getFacesContext(), testComponent);
         docRoot.getChildren().add(new GatherContent(test.getOutput(),
                                                  testComponent,
-                                                 _result,
+                                                 getResult(),
                                                  this,
                                                  _lenient));
       }
 
       
 
-      _renderRoot(root);
+      renderRoot(root);
 
       File goldenFile = new File(_goldenDir, getName() + "-golden.xml");
       String golden = null;
@@ -269,7 +355,7 @@ abstract public class RenderKitTestCase extends TestSuite
           AssertionFailedError failure = new AssertionFailedError(
             "Result of " + test.toString() + " were identical to " +
             "base, but should not have been!");
-          _result.addError(this, failure);
+          getResult().addError(this, failure);
         }
         else if (test.shouldMatchBase() &&
                  !baseResults.equals(testResults))
@@ -277,7 +363,7 @@ abstract public class RenderKitTestCase extends TestSuite
           AssertionFailedError failure = new AssertionFailedError(
             "Result of " + test.toString() + " were not identical to " +
             "base, but should have been!");
-          _result.addError(this, failure);
+          getResult().addError(this, failure);
         }
       }
 
@@ -326,57 +412,12 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private UIComponent _createComponent()
     {
-        return _script.getDefinition().createComponent(_facesContext);
-    }
-
-    private void _renderRoot(UIViewRoot root) throws IOException
-    {
-      RenderUtils.encodeRecursive(_facesContext, root);
-    }
-    
-    private void _initializeContext(Writer out) throws IOException
-    {
-      _facesContext.getExternalContext().getRequestMap().clear();
-      _facesContext.setResponseWriter(_createResponseWriter(out));
-    }
-
-    private ResponseWriter _createResponseWriter(Writer out) throws IOException
-    {
-      return new TestResponseWriter(out,
-                                    XhtmlResponseWriter.XHTML_CONTENT_TYPE,
-                                    "UTF-8",
-                                    this,
-                                    _result);
-    }
-
-    // Severe errors should count as a test failure
-    private class CatchSevere extends Handler
-    {
-      public void publish(LogRecord record)
-      {
-        if (record.getLevel() == Level.SEVERE)
-        {
-          String message = (new SimpleFormatter()).format(record);
-          _result.addError(RendererTest.this,
-                           new AssertionFailedError(message));
-        }
-      }
-
-      public void flush() { }
-
-      public void close() { }
+        return _script.getDefinition().createComponent(getFacesContext());
     }
 
     private int           _testCaseCount;
-    private TestResult    _result;
-    private MFacesContext _facesContext;
-    private MAdfFacesContext _adfFacesContext;
     private String           _scriptName;
     private TestScript       _script;
-    private String           _skin;
-    private Agent            _agent;
-    private String           _accMode;
-    private boolean          _rightToLeft;
     private boolean          _lenient;
   }
 
@@ -506,7 +547,6 @@ abstract public class RenderKitTestCase extends TestSuite
     private boolean _rightToLeft;
   }
 
-  
   static
   {
     try
