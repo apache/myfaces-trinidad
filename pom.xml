@@ -155,6 +155,12 @@
   </modules>
 
   <distributionManagement>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>apache-maven-snapshots</id>
+      <name>Apache Maven Snapshot Repository</name>
+      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
+    </snapshotRepository>
 <!--
     <repository>
       <id>incubator</id>
