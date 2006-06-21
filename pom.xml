@@ -23,19 +23,118 @@
   <packaging>pom</packaging>
   <name>Maven Apache Plugin Parent</name>
 
+  <issueManagement>
+    <system>jira</system>
+    <url>http://issues.apache.org/jira/browse/ADFFACES</url>
+  </issueManagement>
+
   <ciManagement>
     <system>continuum</system>
+    <url>http://myfaces.zones.apache.org:8080/continuum</url>
     <notifiers>
       <notifier>
         <type>mail</type>
+        <sendOnSuccess>true</sendOnSuccess>
         <configuration>
-<!--
-          <address>TBD</address>
--->
+          <address>adffaces-commits@incubator.apache.org</address>
         </configuration>
       </notifier>
     </notifiers>
   </ciManagement>
+
+  <inceptionYear>2001</inceptionYear>
+
+  <mailingLists>
+    <mailingList>
+      <name>ADF Faces Incubator Users</name>
+      <post>adffaces-users@incubator.apache.org</post>
+    </mailingList>
+    <mailingList>
+      <name>ADF Faces Incubator Developers</name>
+      <post>adffaces-dev@incubator.apache.org</post>
+    </mailingList>
+    <mailingList>
+      <name>ADF Faces Incubator issues</name>
+      <post>adffaces-issues@incubator.apache.org</post>
+    </mailingList>
+    <mailingList>
+      <name>ADF Faces Incubator commits</name>
+      <post>adffaces-commits@incubator.apache.org</post>
+    </mailingList>
+  </mailingLists>
+
+  <developers>
+    <developer>
+      <id>awiner</id>
+      <name>Adam Winer</name>
+      <organization>Oracle Corp</organization>
+      <email>awiner@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>baranda</id>
+      <name>Bruno Aranda</name>
+      <organization/>
+      <email>baranda@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>craigmcc</id>
+      <name>Craig McClanahan</name>
+      <organization/>
+      <email>craigmcc@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>jfallows</id>
+      <name>John Fallows</name>
+      <organization/>
+      <email>jfallows@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>matzew</id>
+      <name>Matthias Wessendorf</name>
+      <organization>Oracle Deutschland GmbH, Germany</organization>
+      <email>matzew@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>mmarinschek</id>
+      <name>Martin Marinschek</name>
+      <organization>Irian, Austria</organization>
+      <email>mmarinschek@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>TDB</id>
+      <name>Jonas Jacobi</name>
+      <organization>Oracle Corp</organization>
+      <email>TDB</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+  </developers>
   
   <scm>
     <connection>
