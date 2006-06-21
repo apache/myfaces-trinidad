@@ -25,7 +25,7 @@
   </parent>
 
   <groupId>org.apache.myfaces.adfbuild</groupId>
-  <artifactId>adf-archetype</artifactId>
+  <artifactId>maven-adf-archetype</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>ADF Archetype</name>
