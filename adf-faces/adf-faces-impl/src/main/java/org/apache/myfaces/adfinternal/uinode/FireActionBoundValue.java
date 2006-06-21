@@ -98,10 +98,14 @@ public class FireActionBoundValue implements BoundValue
           
           if (kid instanceof UIParameter)
           {
-            Parameter p = new Parameter();
-            p.setKey(((UIParameter)kid).getName());
-            p.setValue((String)((UIParameter)kid).getValue());
-            params.add(p);
+            Object value = ((UIParameter)kid).getValue();
+            if (value != null)
+            {
+              Parameter p = new Parameter();
+              p.setKey(((UIParameter)kid).getName());
+              p.setValue(value.toString());
+              params.add(p);
+            }
           }
         }
 
