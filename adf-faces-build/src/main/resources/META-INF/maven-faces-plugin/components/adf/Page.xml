@@ -35,7 +35,6 @@
       <description><![CDATA[the component to use to stamp each element in the
               menu. A CommandNavigationItem is expected.]]>
       </description>
-      <display-name>nodeStamp</display-name>
       <facet-name>nodeStamp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

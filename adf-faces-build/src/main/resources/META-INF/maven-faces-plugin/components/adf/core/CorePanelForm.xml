@@ -39,7 +39,6 @@ The panelForm component also supports the group component in its footer facet so
 This facet may not always line up perfectly, especially if the labels or fields are longer than expected.  Try adjusting things with the labelWidth and fieldWidth attributes when necessary.  Also, the columns attribute on inputText may be helpful.
              </p>]]>
       </description>
-      <display-name>footer</display-name>
       <facet-name>footer</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

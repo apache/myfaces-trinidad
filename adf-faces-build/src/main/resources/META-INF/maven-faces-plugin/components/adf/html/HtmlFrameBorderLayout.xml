@@ -30,7 +30,6 @@
     <component-class>org.apache.myfaces.adf.component.html.HtmlFrameBorderLayout</component-class>
     <facet>
       <description><![CDATA[The frame to be rendered in the center.]]></description>
-      <display-name>center</display-name>
       <facet-name>center</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -44,7 +43,6 @@
                 This frame's height attribute is used to allocate
                 its height.]]>
       </description>
-      <display-name>top</display-name>
       <facet-name>top</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -58,7 +56,6 @@
                 This frame's height attribute is used to allocate
                 its height.]]>
       </description>
-      <display-name>bottom</display-name>
       <facet-name>bottom</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -72,7 +69,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>left</display-name>
       <facet-name>left</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -86,7 +82,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>right</display-name>
       <facet-name>right</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -102,7 +97,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>start</display-name>
       <facet-name>start</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -117,7 +111,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>end</display-name>
       <facet-name>end</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -131,7 +124,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>innerLeft</display-name>
       <facet-name>innerLeft</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -145,7 +137,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>innerRight</display-name>
       <facet-name>innerRight</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -160,7 +151,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>innerStart</display-name>
       <facet-name>innerStart</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -175,7 +165,6 @@
                 This frame's width attribute is used to allocate
                 its width.]]>
       </description>
-      <display-name>innerEnd</display-name>
       <facet-name>innerEnd</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -188,7 +177,6 @@
               <code>NOFRAMES</code> tags. Browsers that do not
               support frames will render these contents.]]>
       </description>
-      <display-name>alternateContent</display-name>
       <facet-name>alternateContent</facet-name>
     </facet>
     <property>

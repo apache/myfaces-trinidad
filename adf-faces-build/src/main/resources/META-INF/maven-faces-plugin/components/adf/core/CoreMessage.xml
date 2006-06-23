@@ -34,7 +34,6 @@ setting the "simple" attribute to true.]]>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
     <facet>
       <description>This facet should contain field level help.</description>
-      <display-name>help</display-name>
       <facet-name>help</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

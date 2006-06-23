@@ -31,7 +31,6 @@
     <component-class>org.apache.myfaces.adf.component.core.input.CoreSelectOrderShuttle</component-class>
     <facet>
       <description><![CDATA[the filter above the leading list.]]></description>
-      <display-name>filter</display-name>
       <facet-name>filter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -41,7 +40,6 @@
     </facet>
     <facet>
       <description><![CDATA[the footer of buttons/images under the leading list.]]></description>
-      <display-name>leadingFooter</display-name>
       <facet-name>leadingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -51,7 +49,6 @@
     </facet>
     <facet>
       <description><![CDATA[the footer of buttons/images under the trailing list.]]></description>
-      <display-name>trailingFooter</display-name>
       <facet-name>trailingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

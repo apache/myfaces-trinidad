@@ -32,7 +32,6 @@ can be specified.]]>
     <facet>
       <description><![CDATA[Content to be rendered once between each of the
                 other children.]]></description>
-      <display-name>separator</display-name>
       <facet-name>separator</facet-name>
     </facet>
     <property>

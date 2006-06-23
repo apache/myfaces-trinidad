@@ -37,7 +37,6 @@
       <description><![CDATA[the component to stamp below every row which is disclosed. Adding a
 detail facet will automatically cause the detail column to be displayed.]]>
       </description>
-      <display-name>detailStamp</display-name>
       <facet-name>detailStamp</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda</mfp:unsupported-agents>
