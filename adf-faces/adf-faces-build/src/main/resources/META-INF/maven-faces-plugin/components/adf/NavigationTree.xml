@@ -38,7 +38,6 @@
               components with no behavior and most components that implement the
               EditableValueHolder or ActionSource interfaces.]]>
       </description>
-      <display-name>nodeStamp</display-name>
       <facet-name>nodeStamp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

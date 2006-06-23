@@ -46,7 +46,6 @@ undisclosedText to null is the same as not setting the value.]]>
         <![CDATA[Component rendered next to the hide or show icon.  If this facet is present, this
 will be used instead of the disclosedText and undisclosedText attributes.]]>
       </description>
-      <display-name>prompt</display-name>
       <facet-name>prompt</facet-name>
       <facet-extension>
         <mfp:required>false</mfp:required>

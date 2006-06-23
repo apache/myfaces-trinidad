@@ -30,7 +30,6 @@
     <component-class>org.apache.myfaces.adf.component.core.CoreDocument</component-class>
     <facet>
       <description><![CDATA[Content to be rendered as meta data inside the "head" section.]]></description>
-      <display-name>metaContainer</display-name>
       <facet-name>metaContainer</facet-name>
     </facet>
     <property>

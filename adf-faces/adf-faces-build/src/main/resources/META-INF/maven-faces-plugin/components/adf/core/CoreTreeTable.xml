@@ -36,7 +36,6 @@
       <description><![CDATA[the component used to stamp each step of the focus path of this 
                   treeTable.]]>
       </description>
-      <display-name>pathStamp</display-name>
       <facet-name>pathStamp</facet-name>
       <facet-extension>
         <mfp:long-description>the component used to stamp each step of the focus path of this 

@@ -13,7 +13,6 @@
 
     <facet>
       <description><![CDATA[Area to put a commandLink to more information about the application.]]></description>
-      <display-name>appAbout</display-name>
       <facet-name>appAbout</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -26,7 +25,6 @@
       <description><![CDATA[The copyright region of the page.  If present, this area
                 typically contains an outputText with the copyright information.]]>
       </description>
-      <display-name>appCopyright</display-name>
       <facet-name>appCopyright</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -41,7 +39,6 @@
                 typically contains a commandLink to the privacy policy for the
                 application.]]>
       </description>
-      <display-name>appPrivacy</display-name>
       <facet-name>appPrivacy</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -52,7 +49,6 @@
     </facet>
     <facet>
       <description><![CDATA[The auxiliary content for the primary layer.]]></description>
-      <display-name>auxiliary1</display-name>
       <facet-name>auxiliary1</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -60,7 +56,6 @@
     </facet>
     <facet>
       <description><![CDATA[The auxiliary content for the secondary layer.]]></description>
-      <display-name>auxiliary2</display-name>
       <facet-name>auxiliary2</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -68,7 +63,6 @@
     </facet>
     <facet>
       <description><![CDATA[The auxiliary content for the global layer.]]></description>
-      <display-name>auxiliaryGlobal</display-name>
       <facet-name>auxiliaryGlobal</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -79,7 +73,6 @@
                 contains a horizontal panelGroup for an objectImage of a logo and an
                 outputText for a title.]]>
       </description>
-      <display-name>branding</display-name>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -90,7 +83,6 @@
     </facet>
     <facet>
       <description><![CDATA[The global contextual region of the page.]]></description>
-      <display-name>contextGlobal</display-name>
       <facet-name>contextGlobal</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -98,7 +90,6 @@
     </facet>
     <facet>
       <description><![CDATA[An optional horizontally oriented region of contexual components for the main content.]]></description>
-      <display-name>contextLocal</display-name>
       <facet-name>contextLocal</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -108,7 +99,6 @@
       <description><![CDATA[The footnote information region.  This region provides a location for
                 page-level information that is ancillary to the user's task.]]>
       </description>
-      <display-name>infoFootnote</display-name>
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -120,7 +110,6 @@
     <facet>
       <description><![CDATA[The return information region. Typically this will contain a "return to [X]" link.]]>
       </description>
-      <display-name>infoReturn</display-name>
       <facet-name>infoReturn</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -134,7 +123,6 @@
                 provides a location for page-level status that is important to
                 the user's task.]]>
       </description>
-      <display-name>infoStatus</display-name>
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -146,7 +134,6 @@
       <description><![CDATA[The user information region.  This region provides a location for
                 presenting user sign-in and connection information.]]>
       </description>
-      <display-name>infoUser</display-name>
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -162,7 +149,6 @@
                 links that will bring the user back to each of the parent
                 pages of a tree of pages that he has navigated down into.]]>
       </description>
-      <display-name>location</display-name>
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -172,7 +158,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically contains tabs for the primary layer.]]></description>
-      <display-name>navigation1</display-name>
       <facet-name>navigation1</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -183,7 +168,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically contains tabs for the secondary layer.]]></description>
-      <display-name>navigation2</display-name>
       <facet-name>navigation2</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -193,7 +177,6 @@
     </facet>
     <facet>
       <description><![CDATA[An optional vertically oriented region of contexual components for the main content.  Often this contains a list or tree of links for deeper navigation structure than the global, primary, and secondary regions can provide.]]></description>
-      <display-name>navigation3</display-name>
       <facet-name>navigation3</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -204,7 +187,6 @@
     </facet>
     <facet>
       <description><![CDATA[This section typically contains global application links or otherwise top level navigation structure links, e.g. "Home", "Preferences", "Help", and "Sign Out".]]></description>
-      <display-name>navigationGlobal</display-name>
       <facet-name>navigationGlobal</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -215,7 +197,6 @@
     </facet>
     <facet>
       <description><![CDATA[The search region of the page.  Typically used for application or system-wide searches.]]></description>
-      <display-name>search</display-name>
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -226,7 +207,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically is a toolbar for the primary layer.]]></description>
-      <display-name>toolbar1</display-name>
       <facet-name>toolbar1</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -234,7 +214,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically is a toolbar for the secondary layer.]]></description>
-      <display-name>toolbar2</display-name>
       <facet-name>toolbar2</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -242,7 +221,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically is a toolbar for the global layer.]]></description>
-      <display-name>toolbarGlobal</display-name>
       <facet-name>toolbarGlobal</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

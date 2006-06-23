@@ -32,7 +32,6 @@
     <facet>
       <description><![CDATA[Content to be rendered above the children.]]>
       </description>
-      <display-name>top</display-name>
       <facet-name>top</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -43,7 +42,6 @@
     <facet>
       <description><![CDATA[Content to be rendered below the children.]]>
       </description>
-      <display-name>bottom</display-name>
       <facet-name>bottom</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -55,7 +53,6 @@
       <description><![CDATA[Content to be rendered to the left of the children and
                 between any top and bottom children.]]>
       </description>
-      <display-name>left</display-name>
       <facet-name>left</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -65,7 +62,6 @@
       <description><![CDATA[Content to be rendered to the right of the children and
                 between any top and bottom children.]]>
       </description>
-      <display-name>right</display-name>
       <facet-name>right</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -76,7 +72,6 @@
                 between any top and bottom children, if the reading direction is
                 left-to-right, on the right otherwise.]]>
       </description>
-      <display-name>start</display-name>
       <facet-name>start</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -90,7 +85,6 @@
                 between any top and bottom children, if the reading direction is
                 left-to-right, on the left otherwise.]]>
       </description>
-      <display-name>end</display-name>
       <facet-name>end</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

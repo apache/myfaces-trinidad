@@ -29,7 +29,6 @@
     <component-class>org.apache.myfaces.adf.component.core.nav.CorePage</component-class>
     <facet>
       <description><![CDATA[This location typically contains a menuChoice.]]></description>
-      <display-name>menuSwitch</display-name>
       <facet-name>menuSwitch</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -41,7 +40,6 @@
     </facet>
     <facet>
       <description><![CDATA[The context switcher of a page.]]></description>
-      <display-name>contextSwitcher</display-name>
       <facet-name>contextSwitcher</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -52,7 +50,6 @@
     </facet>
     <facet>
       <description><![CDATA[The node to display messages. Usually contains a messages component.]]></description>
-      <display-name>messages</display-name>
       <facet-name>messages</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -65,7 +62,6 @@
                 contains a medium size objectImage of the logo of the organization 
                 owning the page.]]>
       </description>
-      <display-name>branding</display-name>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -78,7 +74,6 @@
       <description><![CDATA[The application, module, or product branding region of the page.
                 This section typically contains a objectImage of the application logo.]]>
       </description>
-      <display-name>brandingApp</display-name>
       <facet-name>brandingApp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -96,7 +91,6 @@
                 then navigates into a tabbed application pertaining to that 
                 specific context.]]>
       </description>
-      <display-name>brandingAppContextual</display-name>
       <facet-name>brandingAppContextual</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -104,7 +98,6 @@
     </facet>
     <facet>
       <description><![CDATA[The search region of the page.]]></description>
-      <display-name>search</display-name>
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -120,7 +113,6 @@
                 links that will bring the user back to each of the parent
                 pages of a tree of pages that he has navigated down into.]]>
       </description>
-      <display-name>location</display-name>
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -135,7 +127,6 @@
                 the user to move to the next or previous step in a process.
                 ]]>
       </description>
-      <display-name>actions</display-name>
       <facet-name>actions</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -147,7 +138,6 @@
       <description><![CDATA[The copyright region of the page.  If present, this area
                 typically contains a outputText with the copyright information.]]>
       </description>
-      <display-name>appCopyright</display-name>
       <facet-name>appCopyright</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -162,7 +152,6 @@
                 typically contains a commandLink to the privacy policy for the
                 application.]]>
       </description>
-      <display-name>appPrivacy</display-name>
       <facet-name>appPrivacy</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -173,7 +162,6 @@
     </facet>
     <facet>
       <description><![CDATA[Area to put a commandLink to more information about the application.]]></description>
-      <display-name>appAbout</display-name>
       <facet-name>appAbout</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -187,7 +175,6 @@
                 presenting additional information for the user. It often
                 contains a panelBox.]]>
       </description>
-      <display-name>infoSupplemental</display-name>
       <facet-name>infoSupplemental</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -199,7 +186,6 @@
     <facet>
       <description><![CDATA[The return information region. Typically this will contain a "return to [X]" link.]]>
       </description>
-      <display-name>infoReturn</display-name>
       <facet-name>infoReturn</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -212,7 +198,6 @@
       <description><![CDATA[The user information region.  This region provides a location for
                 presenting user login and connection information.]]>
       </description>
-      <display-name>infoUser</display-name>
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -225,7 +210,6 @@
       <description><![CDATA[The footnote information region.  This region provides a location for
                 page-level information that is ancillary to the user's task.]]>
       </description>
-      <display-name>infoFootnote</display-name>
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -241,7 +225,6 @@
                 A key notation is a legend used to define icons, elements, or
                 terms used within the page content.]]>
       </description>
-      <display-name>infoStatus</display-name>
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

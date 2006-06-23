@@ -40,7 +40,6 @@
               components with no behavior and most components that implement the
               EditableValueHolder or ActionSource interfaces.  In a treeTable, this must be a column.]]>
       </description>
-      <display-name>nodeStamp</display-name>
       <facet-name>nodeStamp</facet-name>
     </facet>
     <property>

@@ -28,7 +28,6 @@
     <component-class>org.apache.myfaces.adf.component.core.layout.CorePanelPageHeader</component-class>
     <facet>
       <description><![CDATA[This location typically contains a menuTabs.]]></description>
-      <display-name>navigation1</display-name>
       <facet-name>navigation1</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -38,7 +37,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically contains a menuBar.]]></description>
-      <display-name>navigation2</display-name>
       <facet-name>navigation2</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -48,7 +46,6 @@
     </facet>
     <facet>
       <description><![CDATA[This section typically contains a menuButtons.]]></description>
-      <display-name>navigationGlobal</display-name>
       <facet-name>navigationGlobal</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -58,7 +55,6 @@
     </facet>
     <facet>
       <description><![CDATA[This location typically contains a menuChoice.]]></description>
-      <display-name>menuSwitch</display-name>
       <facet-name>menuSwitch</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -73,7 +69,6 @@
                 contains a medium size objectImage of the logo of the organization 
                 owning the page.]]>
       </description>
-      <display-name>branding</display-name>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -85,7 +80,6 @@
       <description><![CDATA[The application, module, or product branding region of the page.
                 This section typically contains a objectImage of the application logo.]]>
       </description>
-      <display-name>brandingApp</display-name>
       <facet-name>brandingApp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
@@ -101,7 +95,6 @@
                 then navigates into a tabbed application pertaining to that 
                 specific context.]]>
       </description>
-      <display-name>brandingAppContextual</display-name>
       <facet-name>brandingAppContextual</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
@@ -109,7 +102,6 @@
     </facet>
     <facet>
       <description><![CDATA[The search region of the page.]]></description>
-      <display-name>search</display-name>
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

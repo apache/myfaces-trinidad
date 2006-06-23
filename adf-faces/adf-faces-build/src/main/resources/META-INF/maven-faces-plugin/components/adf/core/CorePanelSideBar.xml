@@ -29,7 +29,6 @@
     <facet>
       <description><![CDATA[rendered above the children of the
                 panelSideBar.]]></description>
-      <display-name>filter</display-name>
       <facet-name>filter</facet-name>
     </facet>
     <property>

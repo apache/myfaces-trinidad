@@ -32,7 +32,6 @@
     <component-class>org.apache.myfaces.adf.component.UIXSelectRange</component-class>
     <facet>
       <description><![CDATA[use to customize the label of each range selection.]]></description>
-      <display-name>rangeLabel</display-name>
       <facet-name>rangeLabel</facet-name>
       <facet-extension>
         <mfp:facet-metadata>

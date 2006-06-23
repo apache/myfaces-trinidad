@@ -29,7 +29,6 @@
     <component-class>org.apache.myfaces.adf.component.UIXColumn</component-class>
     <facet>
       <description><![CDATA[the node to use to render this column's header.]]></description>
-      <display-name>header</display-name>
       <facet-name>header</facet-name>
       <facet-extension>
         <mfp:long-description>the node to use to render this column's header.</mfp:long-description>
@@ -48,7 +47,6 @@
     </facet>
     <facet>
       <description><![CDATA[the node to render as this column's footer.]]></description>
-      <display-name>footer</display-name>
       <facet-name>footer</facet-name>
     </facet>
     <property>
