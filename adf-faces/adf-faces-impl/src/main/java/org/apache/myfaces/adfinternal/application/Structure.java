@@ -28,7 +28,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.adf.component.UIXComponentBase;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 /**
  * Utility class for storing the structure of a UIComponent tree.

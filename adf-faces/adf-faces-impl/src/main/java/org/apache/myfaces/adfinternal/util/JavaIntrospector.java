@@ -40,6 +40,7 @@ import java.util.TooManyListenersException;
 import java.util.Vector;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 
 /**

@@ -17,7 +17,7 @@ package org.apache.myfaces.adfinternal.renderkit;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import javax.faces.render.Renderer;
 

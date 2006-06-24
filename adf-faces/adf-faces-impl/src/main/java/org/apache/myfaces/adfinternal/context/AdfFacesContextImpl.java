@@ -40,6 +40,7 @@ import org.apache.myfaces.adf.context.DialogService;
 import org.apache.myfaces.adf.context.Agent;
 import org.apache.myfaces.adf.context.PageResolver;
 import org.apache.myfaces.adf.context.PageFlowScopeProvider;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
 
 import org.apache.myfaces.adfinternal.agent.AdfFacesAgentImpl;
@@ -60,7 +61,6 @@ import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.adfinternal.share.config.UIXCookie;
 
 import org.apache.myfaces.adfinternal.ui.expl.ColorPaletteUtils;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;

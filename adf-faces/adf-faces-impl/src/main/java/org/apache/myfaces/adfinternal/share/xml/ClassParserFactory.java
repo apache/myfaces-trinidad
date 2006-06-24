@@ -19,7 +19,7 @@ package org.apache.myfaces.adfinternal.share.xml;
 import org.apache.myfaces.adf.logging.ADFLogger;
 
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 /**
  * ParserFactory that instantiates parsers for

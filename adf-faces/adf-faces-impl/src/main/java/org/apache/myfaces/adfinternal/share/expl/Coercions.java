@@ -24,8 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
-
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adfinternal.util.IntegerUtils;
 

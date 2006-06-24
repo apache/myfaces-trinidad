@@ -24,7 +24,8 @@ import org.apache.myfaces.adf.context.AdfFacesContextFactory;
 import org.apache.myfaces.adf.context.PageFlowScopeProvider;
 import org.apache.myfaces.adf.context.PageResolver;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
+
 import org.apache.myfaces.adfinternal.webapp.ConfigParser;
 
 /**

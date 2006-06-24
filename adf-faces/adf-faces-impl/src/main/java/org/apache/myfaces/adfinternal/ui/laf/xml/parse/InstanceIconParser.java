@@ -21,9 +21,9 @@ import org.xml.sax.Attributes;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adfinternal.share.xml.LeafNodeParser;
 import org.apache.myfaces.adfinternal.share.xml.ParseContext;

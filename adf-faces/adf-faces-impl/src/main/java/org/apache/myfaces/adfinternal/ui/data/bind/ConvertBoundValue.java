@@ -15,10 +15,10 @@
  */
 package org.apache.myfaces.adfinternal.ui.data.bind;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 import java.lang.reflect.UndeclaredThrowableException;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adfinternal.share.expl.Coercions;
 

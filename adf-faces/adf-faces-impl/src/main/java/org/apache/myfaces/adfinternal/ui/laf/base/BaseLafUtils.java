@@ -28,10 +28,10 @@ import java.util.Random;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+
 
 import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adfinternal.share.config.Configuration;
 import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
@@ -53,6 +53,7 @@ import org.apache.myfaces.adfinternal.ui.data.BoundValue;
 import org.apache.myfaces.adfinternal.ui.data.bind.AndBoundValue;
 import org.apache.myfaces.adfinternal.ui.data.bind.ComparisonBoundValue;
 import org.apache.myfaces.adfinternal.ui.data.bind.DefaultingBoundValue;
+import org.apache.myfaces.adfinternal.util.IntegerUtils;
 import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
 
 /**

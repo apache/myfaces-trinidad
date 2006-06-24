@@ -26,7 +26,7 @@ import java.net.URL;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
 
