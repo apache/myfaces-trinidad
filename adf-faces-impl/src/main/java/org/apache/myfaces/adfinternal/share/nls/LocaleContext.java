@@ -21,8 +21,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
+
 import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 
 /**
  * Context for locale-specific operations and properties.  All of the properties

@@ -23,8 +23,9 @@ import java.util.Map;
 
 import org.xml.sax.Attributes;
 
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
+
 import org.apache.myfaces.adfinternal.util.JavaIntrospector;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 
 /**
  * Implementation of BeanDef that uses introspection

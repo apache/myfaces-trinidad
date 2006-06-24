@@ -27,7 +27,7 @@ import org.apache.myfaces.adf.logging.ADFLogger;
 import org.apache.myfaces.adf.resource.RegexResourceLoader;
 import org.apache.myfaces.adf.resource.ResourceLoader;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 /**
  * A resource loader implementation which loads resources

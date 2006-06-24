@@ -18,7 +18,7 @@ package org.apache.myfaces.adfinternal.share.io;
 import java.io.File;
 import java.net.URL;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 /**
  * NameResolver that locates files loaded relative to a class.  Files

@@ -40,6 +40,7 @@ import org.apache.myfaces.adf.logging.ADFLogger;
 import org.apache.myfaces.adf.context.AdfFacesContext;
 import org.apache.myfaces.adf.context.AdfFacesContextFactory;
 import org.apache.myfaces.adf.model.UploadedFile;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adfinternal.context.AdfFacesContextFactoryImpl;
 import org.apache.myfaces.adfinternal.context.AdfFacesContextImpl;
@@ -49,7 +50,6 @@ import org.apache.myfaces.adfinternal.share.util.MultipartFormItem;
 import org.apache.myfaces.adfinternal.skin.SkinFactory;
 import org.apache.myfaces.adfinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.adfinternal.skin.SkinUtils;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
 
 /**
  * Actual implementation of the ADF Faces servlet filter.

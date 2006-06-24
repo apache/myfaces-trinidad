@@ -37,7 +37,7 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.adfinternal.context.AdfFacesContextBean;
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 
 

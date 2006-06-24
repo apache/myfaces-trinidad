@@ -19,7 +19,7 @@ package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adfinternal.util.ClassLoaderUtils;
+import org.apache.myfaces.adf.util.ClassLoaderUtils;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
 
