@@ -76,7 +76,6 @@
                 </af:selectOneChoice>
                 <af:selectOneChoice label="Skin-family:" autoSubmit="false"
                                     value="#{sessionScope.skinFamily}">
-                  <af:selectItem label="oracle" value="oracle"/>
                   <af:selectItem label="simple" value="simple"/>
                   <af:selectItem label="minimal" value="minimal"/>
                   <af:selectItem label="purple" value="purple"/>
