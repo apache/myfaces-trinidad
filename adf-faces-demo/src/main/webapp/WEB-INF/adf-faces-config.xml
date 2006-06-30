@@ -22,14 +22,7 @@
   <!-- you can use EL to get the skin. This allows the skin to change between
        requests. -->
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>
-  <!--skin-family>oracle</skin-family-->
 
   <!--  Uncomment any of these to enable them -->
-  <!-- accessibility-mode>inaccessible</accessibility-mode -->
-
-  <!-- A silly use of EL: English users get Simple Skin, others get Oracle Skin -->
-  <!-- skin-family>#{facesContext.viewRoot.locale.language=='en' ? 'simple' : 'oracle'}</skin-family -->
-
-  <!-- oracle-help-servlet-url>http://helponline.oracle.com/jdeveloper/help/</oracle-help-servlet-url -->
-  
+  <!-- accessibility-mode>inaccessible</accessibility-mode -->  
 </adf-faces-config>
