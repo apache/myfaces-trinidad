@@ -217,14 +217,16 @@ public class CSSGenerationUtils
 
           // if the transformed full name is different than the shortSelector
           // then write out the shortSelector, too.
-          if ( (shortSelector != null) &&
-               (!validFullNameSelector.equals(shortSelector)) )
+          if (shortSelector != null)
           {
-            out.print(",");
             String validShortSelector =
               _getValidFullNameSelector(shortSelector);
-            if (validShortSelector != null)
+            if (!validFullNameSelector.equals(validShortSelector))
+            {
+              out.print(",");
               out.print(validShortSelector);
+  
+            }
           }
 
           // Write out a separator between matching selectors

@@ -155,7 +155,11 @@ public class StyleSheetNode
    * sort style sheets according to precedence.
    * @param mode 
    */
-  public int compareVariants(Locale locale, int direction, AdfFacesAgent agent, int mode)
+  public int compareVariants(
+    Locale locale, 
+    int direction, 
+    AdfFacesAgent agent, 
+    int mode)
   {
     int localeMatch = _compareLocale(locale);
     if (localeMatch == 0)

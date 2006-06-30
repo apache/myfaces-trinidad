@@ -14,6 +14,8 @@
 * limitations under the License.
 */
 
+
+
 /** Change the colors to purple **/
 
 /** All these styles/icons/properties are overrides of the simple skin */
@@ -99,7 +101,7 @@ af|showOneTab::orientation-bottom
 }
 
 af|showOneTab::separator {
-  margin-width:4px;
+  margin:4px;
   border-top: #BB95BB; solid 4pt ;
   border-bottom: #BB95BB; solid 4pt ;
   BACKGROUND-COLOR: white;
@@ -350,19 +352,6 @@ af|panelHeader
    font-size:larger;
 }
 
-/** selectInputDate launch icon **/
-af|selectInputDate::launch-icon
-{
-  content:url(/skins/purple/images/dateButtonPurple.gif); 
-  width:19px; 
-  height:24px
-}
-af|selectInputDate::launch-icon:rtl
-{
-  content:url(/skins/purple/images/dateButtonPurpleRTL.gif); 
-  width:19px; 
-  height:24px
-}
 
 /** processTrain **/
 /** ------------ **/
@@ -398,6 +387,20 @@ af|selectBooleanCheckbox::disabled-only-unchecked-icon
 af|selectBooleanCheckbox::disabled-only-checked-icon
 {
   content:url(/skins/purple/images/checkdc.gif);
+}
+
+/** selectInputDate launch icon **/
+af|selectInputDate::launch-icon
+{
+  content:url(/skins/purple/images/dateButtonPurple.gif); 
+  width:19px; 
+  height:24px
+}
+af|selectInputDate::launch-icon:rtl
+{
+  content:url(/skins/purple/images/dateButtonPurpleRTL.gif); 
+  width:19px; 
+  height:24px
 }
 
 /* use special properties to change the ui **/
@@ -525,4 +528,41 @@ af|inputText::content:rtl
 af|inputText::label:rtl
 {
   font-weight:bold;
+}
+
+/* test @agent and @platform styles */
+/* right now @agent/@platform work with style selectors, but they have no
+   effect on icon selectors. */
+/* possible values for @agent are: 
+netscape, ie, mozilla, gecko, webkit, ice */
+/* possible values for @platform are: 
+windows, macos, linux, solaris, ppc */
+
+@agent ie
+{
+  af|panelBox::header
+  {
+    text-overflow: ellipsis;
+  }
+
+  .DropShadowStyle
+  {
+    width: 357; 
+    height: 50; 
+    font-size: 36pt; 
+    font-family: Arial Black; 
+    color: blue; 
+    Filter: DropShadow(Color=#FF0000, OffX=2, OffY=2, Positive=1); 
+    
+  }
+}
+
+
+@platform windows, linux, solaris
+{
+  /** for ie and gecko on windows, linux and solaris, make the color pink **/
+  @agent ie, gecko
+  {
+    af|inputText::content {background-color:pink}
+  }
 }

@@ -236,6 +236,23 @@ class SkinStyleSheetParserUtils
           _addIconNode(selectorName,
                        noOraPropertyList,
                        iconNodeList);
+          // log warning if the icon is defined within an @agent or @platform
+          // block that tells the user that this icon will be used 
+          // for all agents and platforms.
+          // TODO add agent and platform support for icons.
+          // This means that if an icon is defined within the @agent and/or
+          // the @platform keys, then that icon should be rendered when
+          // the rendering context matches the agent/platform.
+          if (skinSSNode.getAgents() != null ||
+              skinSSNode.getPlatforms() != null)
+          {
+            _LOG.warning("Icon '" +
+                         selectorName +
+                         "' is defined for agents and/or platforms in the skinning file." +
+                         " However that feature is not implemented yet for icons, only styles. "+ " " +
+                         "Therefore, this icon will be used " +
+                         "regardless of the request's agent or platform.");
+          }
         }
         else
         {
@@ -257,11 +274,11 @@ class SkinStyleSheetParserUtils
         StyleNode[] styleNodeArray = styleNodeList.toArray(new StyleNode[0]);
         StyleSheetNode ssNode = 
           new StyleSheetNode(styleNodeArray,
-                             null,
+                             null,/*locales, not yet supported*/
                              skinSSNode.getDirection(),
-                             null,
-                             null,
-                             null,
+                             skinSSNode.getAgents(),
+                             null,/*versions, not supported*/
+                             skinSSNode.getPlatforms(),
                              0);
         ssNodeList.add(ssNode);
       }
@@ -412,7 +429,9 @@ class SkinStyleSheetParserUtils
 
 
     Integer width = null;
+    String  widthValue = null;
     Integer height = null;
+    String  heightValue = null;
     //String  styleClass = null;
     String  uri = null;
     String  text = null;
@@ -429,17 +448,17 @@ class SkinStyleSheetParserUtils
       String propertyValue = propertyNode.getValue();
       if (propertyName.equals("width"))
       {
-        int pxPosition = propertyValue.indexOf("px");
-        if (pxPosition > -1)
-          propertyValue = propertyValue.substring(0, pxPosition);
-        width = Integer.valueOf(propertyValue);
+        // save original width value
+        // strip off px from the string and return an Integer
+        widthValue = propertyValue;
+        width = _convertPxDimensionStringToInteger(widthValue);
       }
       else if (propertyName.equals("height"))
       {
-        int pxPosition = propertyValue.indexOf("px");
-        if (pxPosition > -1)
-          propertyValue = propertyValue.substring(0, pxPosition);
-        height = Integer.valueOf(propertyValue);
+        // save original height value
+        // strip off px from the string and return an Integer
+        heightValue = propertyValue;
+        height = _convertPxDimensionStringToInteger(heightValue);
       }
       else if (propertyName.equals("content"))
       {
@@ -475,6 +494,11 @@ class SkinStyleSheetParserUtils
       {
         // don't allow styleClass from the css parsing file. We can handle
         // this when we have style includes
+        // put back the width/height properties if there were some
+        if (heightValue != null)
+         inlineStyle.setProperty("height", heightValue);
+        if (widthValue != null)
+          inlineStyle.setProperty("width", widthValue);
         icon = new TextIcon(text, text, null, inlineStyle);
       }
       else if (uri != null)
@@ -851,6 +875,23 @@ class SkinStyleSheetParserUtils
     return buffer.toString();
   }
 
+  /**
+   * Given a String that denotes a width or height css style
+   * property, return an Integer. This will strip off 'px' from
+   * the string if there is one.
+   * e.g., if propertyValue is '7px', the Integer 7 will be returned.
+   * @param propertyValue - this is a string that indicates width
+   * or height.
+   * @return Integer
+   */
+  private static Integer _convertPxDimensionStringToInteger(
+    String propertyValue)
+  {
+    int pxPosition = propertyValue.indexOf("px");
+    if (pxPosition > -1)
+      propertyValue = propertyValue.substring(0, pxPosition);
+    return Integer.valueOf(propertyValue);    
+  }
   private static class ResolvedSkinProperties
   {
 

@@ -17,6 +17,7 @@
 package org.apache.myfaces.adfinternal.skin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,22 +39,28 @@ class SkinStyleSheetNode
     SkinStyleSheetNode(
       List <SkinSelectorPropertiesNode> skinSelectorNodeList,
       Map  namespaceMap,
-      int  direction
+      int  direction,
+      int[] agents
       )
     {
       _skinSelectorNodeList = skinSelectorNodeList;
       _namespaceMap     = namespaceMap;
       _direction        = direction;
+      _agents           = agents;
     } 
     
   
   SkinStyleSheetNode(
     Map  namespaceMap,
-    int  direction
+    int  direction,
+    int[] agents,
+    int[] platforms
     )
   {
     _namespaceMap     = namespaceMap;
     _direction        = direction;
+    _agents           = agents;
+    _platforms        = platforms;
   }     
     
   public void add(SkinSelectorPropertiesNode node)
@@ -82,20 +89,55 @@ class SkinStyleSheetNode
       return _skinSelectorNodeList;
     }
     
-    /**
-    *
-    * @return int indicating the direction
-    * LocaleUtils.DIRECTION_DEFAULT 
-    * LocaleUtils.DIRECTION_LEFTTORIGHT 
-    * LocaleUtils.DIRECTION_RIGHTTOLEFT
-    */
     public int getDirection()
     {
       return _direction;
-    }    
-
+    }
+    
+    public int[] getAgents()
+    {
+      return _agents;
+    }
+    
+    public int[] getPlatforms()
+    {
+      return _platforms;
+    }
+    
+    public boolean matches(
+      int direction, 
+      int[] agents, 
+      int[] platforms)
+    {
+      if (direction == _direction)
+      {
+        boolean agentsMatch = _intArraysEqual(agents, _agents);
+        
+        if (agentsMatch)
+        {
+          boolean platformsMatch = _intArraysEqual(platforms, _platforms);
+          if (platformsMatch)
+            return true;
+        }
+      }
+      return false;
+    }
+  
+    private boolean _intArraysEqual(
+      int[] a1, 
+      int[] a2)
+    {
+      if (a1 != null)
+        Arrays.sort(a1);
+      if (a2 != null)
+        Arrays.sort(a2);
+      return Arrays.equals(a1, a2); 
+    }
+    
     private Map  _namespaceMap;
     private List <SkinSelectorPropertiesNode> _skinSelectorNodeList;
-    private int _direction;  // reading direction
+    private int  _direction;  // reading direction
+    private int[] _agents;
+    private int[] _platforms;
 
 }
