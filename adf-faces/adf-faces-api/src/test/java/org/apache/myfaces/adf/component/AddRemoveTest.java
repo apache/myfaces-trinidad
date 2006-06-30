@@ -73,6 +73,10 @@ public class AddRemoveTest extends TestCase
     assertEquals(0, a.getChildren().size());
     assertEquals(2, e.getChildren().size());
     assertEquals(e, c.getParent());
+
+    //Make sure the children are in the right order under "e" 
+    assertEquals(e.getChildren().get(0), d);
+    assertEquals(e.getChildren().get(1), c);
   }
 
   public void testAddFacet()

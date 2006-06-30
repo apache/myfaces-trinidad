@@ -45,9 +45,16 @@ class ChildArrayList extends ArrayList
       throw new IndexOutOfBoundsException("index:"+index+" size:"+size());
 
     UIComponent child = (UIComponent) element;
-    if (child.getParent() != null)
+
+    UIComponent oldParent = child.getParent();
+    if (oldParent != null)
     {
-      index = __removeFromParent(child, index);
+      int adjustedIndex = __removeFromParent(child, index);
+      // Only adjust the index when the child is re-added to the same parent
+      if (oldParent == _parent)
+      {
+        index = adjustedIndex; 
+      }
     }
 
     child.setParent(_parent);
