@@ -257,6 +257,10 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     UIComponent nodeStamp = getNodeStamp();
     // process any facets of the nodeStamp column:
     TableUtils.__processFacets(context, this, nodeStamp, phaseId, null);
+
+    // process all the facets of this table's column children:
+    TableUtils.__processColumnFacets(context, this, this, phaseId);
+
     // recursively process any grandchild columns of the nodeStamp column:
     TableUtils.__processColumnFacets(context, this, nodeStamp, phaseId);
 
