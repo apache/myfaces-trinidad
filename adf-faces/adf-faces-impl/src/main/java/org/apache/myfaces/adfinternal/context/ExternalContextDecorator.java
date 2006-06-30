@@ -33,7 +33,7 @@ import javax.faces.context.ExternalContext;
  *
  * @author The Oracle ADF Faces Team
  */
-abstract class ExternalContextDecorator extends ExternalContext
+abstract public class ExternalContextDecorator extends ExternalContext
 {
   public void dispatch(String path) throws IOException
   {

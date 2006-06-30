@@ -57,7 +57,7 @@ public class FacesContextFactoryImpl
                                                        lifecycle));
   }
 
-  static private class CacheRenderKit extends FacesContext
+  static public class CacheRenderKit extends FacesContext
   {
     public CacheRenderKit(FacesContext base)
     {
@@ -190,7 +190,7 @@ public class FacesContextFactoryImpl
     private RenderKit _kit;
   }
 
-  static private class OverrideDispatch extends ExternalContextDecorator
+  static public class OverrideDispatch extends ExternalContextDecorator
   {
     public OverrideDispatch(ExternalContext decorated)
     {
