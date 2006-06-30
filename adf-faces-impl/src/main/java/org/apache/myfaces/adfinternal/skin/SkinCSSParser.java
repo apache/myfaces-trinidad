@@ -292,12 +292,56 @@ public class SkinCSSParser
           case '@':
             if (_type != CSSLexicalUnits.LEFT_CURLY_BRACE)
             {
+              // found @.
+              // @namespace is treated differently than other @rules.
+              // These are the formats:
+              // @namespace foo url(http://www.foo.com);
+              // @agent {
+              //    af|inputText::content{color:red; background-color:blue;}
+              // }
+              // @platform {...}
+              // If @namespace, go 'til the semi-colon
+              // Else, go until the start/end brace match.
+
               // found @. keep getting characters until we get a ; or end of file.
+              /*
               _nextChar();
+
               while ((_currentChar != -1) && (_currentChar != ';'))
               {
                 _nextChar();
               }
+              */
+              _nextChar();
+              boolean foundEnd = false;
+              // go until ; or until {} match
+              int openBraceCount = 0;
+              boolean openBraceCountStarted = false;
+              while ((_currentChar != -1))
+              {
+
+                if (_currentChar == '{')
+                  openBraceCount++;
+                if (openBraceCount == 1)
+                  openBraceCountStarted = true;
+                if (_currentChar == '}' && openBraceCountStarted)
+                {
+                  openBraceCount--;
+                  if (openBraceCountStarted && openBraceCount == 0)
+                  {
+                    foundEnd = true;
+                    break;
+                  }
+                }
+                if (_currentChar == ';' && openBraceCount==0)
+                {
+                  foundEnd = true;
+                  break;
+                }
+                _nextChar();
+
+              }
+             
   
               _type = CSSLexicalUnits.AT_KEYWORD;
               return;

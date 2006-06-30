@@ -305,7 +305,7 @@ public class StyleSheetDocument
     {
       StyleSheetNode styleSheet = (StyleSheetNode)e.next();
 
-      if (styleSheet.compareVariants(locale, direction, agent,mode) > 0)
+      if (styleSheet.compareVariants(locale, direction, agent, mode) > 0)
         v.addElement(styleSheet);
     }
 
@@ -319,7 +319,8 @@ public class StyleSheetDocument
     Comparator comparator = new StyleSheetComparator(locale,
                                                      direction,
                                                      agent,
-                                                     _styleSheets,mode);
+                                                     mode,
+                                                     _styleSheets);
 
     Arrays.sort(styleSheets, comparator);
 
@@ -895,8 +896,9 @@ public class StyleSheetDocument
       Locale locale,
       int direction,
       AdfFacesAgent agent,
-      StyleSheetNode[] styleSheets,
-      int mode)
+      int mode,
+      StyleSheetNode[] styleSheets
+      )
     {
       _direction = direction;
       _locale = locale;
