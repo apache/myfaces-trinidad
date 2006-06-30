@@ -18,7 +18,7 @@ package org.apache.myfaces.adf.model;
 
 /**
  * A base class which takes a TreeModel. Developers can extend this class and
- * just override the getFocusPath() method.
+ * just override the getFocusRowKey() method.
  *
  * @author The Oracle ADF Faces Team
  */
