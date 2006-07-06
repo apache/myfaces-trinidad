@@ -23,8 +23,8 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>ADF Faces Apache API</name>
-  <description>ADF JavaServer Faces Apache API</description>
+  <name>ADF Faces API</name>
+  <description>ADF is a JavaServer Faces component library. This project is currently undergoing Incubation at the Apache Software Foundation.</description>
 
   <artifactId>adf-faces-api</artifactId>
   <packaging>jar</packaging>
