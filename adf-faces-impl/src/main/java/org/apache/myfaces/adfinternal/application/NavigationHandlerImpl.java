@@ -20,13 +20,13 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.DialogService;
 
 public class NavigationHandlerImpl extends NavigationHandler
 {
   public NavigationHandlerImpl(NavigationHandler delegate)
   {
     _delegate = delegate;
+    _dialogPrefix = null;
   }
 
   public void handleNavigation(
@@ -35,14 +35,14 @@ public class NavigationHandlerImpl extends NavigationHandler
     String       outcome)
   {
     UIViewRoot oldRoot = context.getViewRoot();
-
+        
     _delegate.handleNavigation(context, fromAction, outcome);
 
     UIViewRoot newRoot = context.getViewRoot();
     if ((outcome != null) && (newRoot != oldRoot))
     {
       // Handle "dialog:" URLs
-      if (outcome.startsWith("dialog:"))
+      if (outcome.startsWith(_getDialogPrefix(context)))
       {
         // Navigate back to the original root
         context.setViewRoot(oldRoot);
@@ -56,6 +56,22 @@ public class NavigationHandlerImpl extends NavigationHandler
       }
     }
   }
+  
+  private String _getDialogPrefix(FacesContext context) {
+    if (_dialogPrefix == null) {
+        _dialogPrefix = context.getExternalContext().getInitParameter(DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+        
+        if(_dialogPrefix == null) {
+        	_dialogPrefix = DEFAULT_DIALOG_NAVIGATION_PREFIX;
+        }
+    }
 
+    return _dialogPrefix;
+  }
+
+  public static final String DEFAULT_DIALOG_NAVIGATION_PREFIX = "dialog:";
+  public static final String DIALOG_NAVIGATION_PREFIX_PARAM_NAME = "org.apache.myfaces.adf.DIALOG_NAVIGATION_PREFIX";
+  
   private NavigationHandler _delegate;
+  private static String _dialogPrefix;
 }

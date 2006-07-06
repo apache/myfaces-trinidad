@@ -67,6 +67,14 @@
     <param-value>session</param-value>
   </context-param>
 
+  <!-- With setting this parameter you are able to specify the logical
+       outcome prefix to launch the dialog framework. If not set, the
+       default value (dialog:) is used. -->
+  <!--context-param>
+    <param-name>org.apache.myfaces.adf.DIALOG_NAVIGATION_PREFIX</param-name>
+    <param-value>userInputHere:</param-value>
+  </context-param--> 
+
   <filter>
     <filter-name>adfFaces</filter-name>
     <filter-class>org.apache.myfaces.adf.webapp.AdfFacesFilter</filter-class>
