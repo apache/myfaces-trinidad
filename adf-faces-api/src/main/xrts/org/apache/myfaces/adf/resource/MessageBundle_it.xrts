@@ -87,21 +87,21 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">La data è successiva all&apos;intervallo valido.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">La data immessa, &quot;{1}&quot;, è successiva all&apos;ultima data valida {2}.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">La data è successiva all&apos;&apos;intervallo valido.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">La data immessa, &quot;{1}&quot;, è successiva all&apos;&apos;ultima data valida {2}.</resource>
 <!-- Date preceeds date range error                -->
 <!-- {0} the label that identifies the component   -->
 <!-- {1} represent Date which the user has set     -->
 <!-- {2} represents the minimum allowed date       -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM" dnt="false">La data è precedente all&apos;intervallo valido.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">La data immessa, &quot;{1}&quot;, è precedente all&apos;ultima data valida {2}.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM" dnt="false">La data è precedente all&apos;&apos;intervallo valido.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">La data immessa, &quot;{1}&quot;, è precedente all&apos;&apos;ultima data valida {2}.</resource>
 <!-- Date outside date range error               -->
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the minimum allowed date     -->
 <!-- {3} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">La data non è compresa nell&apos;intervallo valido.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">La data immessa, &quot;{1}&quot;, non è compresa nell&apos;intervallo di date valide {2} e {3}.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">La data non è compresa nell&apos;&apos;intervallo valido.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">La data immessa, &quot;{1}&quot;, non è compresa nell&apos;&apos;intervallo di date valide {2} e {3}.</resource>
 <!-- Input does not match regular expression error                        -->
 <!-- {0} the label that identifies the component                          -->
 <!-- {1} represents the input value                                       -->
@@ -138,8 +138,8 @@
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">Non è un&apos;ora.</resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">Il valore &quot;{1}&quot; non è un&apos;ora valida. Esempio valido: &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">Non è un&apos;&apos;ora.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">Il valore &quot;{1}&quot; non è un&apos;&apos;ora valida. Esempio valido: &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
