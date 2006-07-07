@@ -81,7 +81,7 @@ public class ReturnActionListenerTag extends TagSupport
       }
       else
       {
-        setValue(value);
+        listener.setValue(value);
       }
     }
     ((ActionSource) component).addActionListener(listener);
