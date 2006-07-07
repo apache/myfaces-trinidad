@@ -53,7 +53,7 @@
 <!-- {1} value entered by the user                             -->
 <!-- {2} the message string returned by the ConverterException -->
 <resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION" dnt="false">Echec de la conversion.</resource>
-<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas reconnue : {2}</resource>
+<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas reconnue : {2}</resource>
 <!-- messages for validators -->
 <!-- Note: The parameter numbers of these faces messages do not match -->
 <!-- the parameter numbers of the rest of the ADF Faces messages      -->
@@ -71,8 +71,8 @@
 <!-- {1} value entered by the user                -->
 <!-- NOTE: The format of this message must match the format of the    -->
 <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
-<resource key="javax.faces.LongRange" dnt="false">N&apos;est pas un entier.</resource>
-<resource key="javax.faces.LongRange_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un entier.</resource>
+<resource key="javax.faces.LongRange" dnt="false">N&apos;&apos;est pas un entier.</resource>
+<resource key="javax.faces.LongRange_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un entier.</resource>
 <!-- E.g. for input value "test" and maximum value set to "3" -->
 <!--      the message would be:                               -->
 <!-- The length of the value entered, "test", exceeds the     -->
@@ -100,8 +100,8 @@
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the minimum allowed date     -->
 <!-- {3} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">La date n&apos;appartient pas à la plage de dates valide.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">La date saisie, &quot;{1}&quot;, n&apos;appartient pas à la plage de dates valides (entre {2} et {3}).</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">La date n&apos;&apos;appartient pas à la plage de dates valide.</resource>
+<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">La date saisie, &quot;{1}&quot;, n&apos;&apos;appartient pas à la plage de dates valides (entre {2} et {3}).</resource>
 <!-- Input does not match regular expression error                        -->
 <!-- {0} the label that identifies the component                          -->
 <!-- {1} represents the input value                                       -->
@@ -109,7 +109,7 @@
 <!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
 <!--  9912 does not match patern [9]*                                     -->
 <resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH" dnt="false">La valeur ne correspond pas au motif.</resource>
-<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH_detail" dnt="false">La valeur &quot;{1}&quot; ne correspond pas au motif d&apos;expression régulière &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH_detail" dnt="false">La valeur &quot;{1}&quot; ne correspond pas au motif d&apos;&apos;expression régulière &quot;{2}&quot;.</resource>
 <!-- Length of input is less than the minimum specified length -->
 <!-- {0} the label that identifies the component               -->
 <!-- {1} value entered by the user                             -->
@@ -133,29 +133,29 @@
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE" dnt="false">N&apos;est pas une date.</resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas une date valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE" dnt="false">N&apos;&apos;est pas une date.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas une date valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">N&apos;est pas une heure.</resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas une heure valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">N&apos;&apos;est pas une heure.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas une heure valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">N&apos;est pas une valeur date/heure.</resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas une valeur date/heure valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">N&apos;&apos;est pas une valeur date/heure.</resource>
+<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas une valeur date/heure valide. Exemple de valeur valide : &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->
-<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT" dnt="false">N&apos;est pas une couleur.</resource>
+<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT" dnt="false">N&apos;&apos;est pas une couleur.</resource>
 <resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; ne correspond à aucun des motifs de couleur valides : {2}.</resource>
 <!-- Color converter transparent string -->
 <resource key="org.apache.myfaces.adf.convert.ColorConverter.TRANSPARENT" dnt="false">Transparent</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT" dnt="false">N&apos;est pas un entier.</resource>
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT" dnt="false">N&apos;&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un entier.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
@@ -168,8 +168,8 @@
 <resource key="org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM_detail" dnt="false">La valeur &quot;{1}&quot; est supérieure à la valeur maximale de {2}.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT" dnt="false">N&apos;est pas un entier.</resource>
-<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT" dnt="false">N&apos;&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un entier.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
@@ -183,24 +183,24 @@
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the specified conversion pattern        -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN" dnt="false">N&apos;est pas un nombre.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un nombre correspondant au motif &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN" dnt="false">N&apos;&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un nombre correspondant au motif &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER" dnt="false">N&apos;est pas un nombre.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER" dnt="false">N&apos;&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un nombre.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">N&apos;est pas une devise.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas une valeur de devise valide.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">N&apos;&apos;est pas une devise.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas une valeur de devise valide.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT" dnt="false">N&apos;est pas un pourcentage.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas une valeur de pourcentage valide.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT" dnt="false">N&apos;&apos;est pas un pourcentage.</resource>
+<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas une valeur de pourcentage valide.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT" dnt="false">N&apos;est pas un entier.</resource>
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT" dnt="false">N&apos;&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un entier.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
@@ -213,8 +213,8 @@
 <resource key="org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM_detail" dnt="false">La valeur &quot;{1}&quot; est supérieure à la valeur maximale de {2}.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT" dnt="false">N&apos;est pas un entier.</resource>
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT" dnt="false">N&apos;&apos;est pas un entier.</resource>
+<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un entier.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
@@ -227,12 +227,12 @@
 <resource key="org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM_detail" dnt="false">La valeur &quot;{1}&quot; est supérieure à la valeur maximale de {2}.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT" dnt="false">N&apos;est pas un nombre.</resource>
-<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT" dnt="false">N&apos;&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un nombre.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT" dnt="false">N&apos;est pas un nombre.</resource>
-<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT" dnt="false">N&apos;&apos;est pas un nombre.</resource>
+<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT_detail" dnt="false">La valeur &quot;{1}&quot; n&apos;&apos;est pas un nombre.</resource>
 <!-- format for message in a javascript alert window                 -->
 <!-- This should match the af_messages.LIST_FORMAT_private           -->
 <!-- in BLAFBundle.xrts!!                                            -->
