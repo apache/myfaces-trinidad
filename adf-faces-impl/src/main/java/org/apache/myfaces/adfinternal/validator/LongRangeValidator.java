@@ -49,7 +49,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     {
       super.validate(context, component, value);
     }
-    catch(ValidatorException ve)
+    catch (ValidatorException ve)
     {
          
       Object label = component.getAttributes().get("label");
@@ -85,10 +85,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
       {
         throw ve;
       }
-  
-
     }     
-    
   }
 
   public String getLibKey(
@@ -159,9 +156,9 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    */
   public void setMaximum(long maximum)
   {
-      super.setMaximum(maximum);
-      _maximumSet = true;
-
+    super.setMaximum(maximum);
+    _maximumSet = true;
+    
   }
 
   /**
@@ -172,32 +169,31 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    */
   public void setMinimum(long minimum)
   {
-      super.setMinimum(minimum);
-      _minimumSet = true;
-
+    super.setMinimum(minimum);
+    _minimumSet = true;
   }
 
-  public Object saveState(FacesContext context) {
-
-      Object values[] = new Object[2];
-      Object clientValues[] = new Object[2];
-
-      clientValues[0] = _maximumSet ? Boolean.TRUE : Boolean.FALSE;
-      clientValues[1] = _minimumSet ? Boolean.TRUE : Boolean.FALSE;
-
-      values[0] = super.saveState(context);
-      values[1] = clientValues;
-      return (values);
-
+  public Object saveState(FacesContext context)
+  {
+    Object values[] = new Object[2];
+    Object clientValues[] = new Object[2];
+    
+    clientValues[0] = _maximumSet ? Boolean.TRUE : Boolean.FALSE;
+    clientValues[1] = _minimumSet ? Boolean.TRUE : Boolean.FALSE;
+    
+    values[0] = super.saveState(context);
+    values[1] = clientValues;
+    return (values);
   }
 
 
-  public void restoreState(FacesContext context, Object state) {
-      Object values[] = (Object[]) state;
-      super.restoreState(context, values[0]);
-      Object clientValues[] = (Object[])values[1];
-      _maximumSet = ((Boolean) clientValues[0]).booleanValue();
-      _minimumSet = ((Boolean) clientValues[1]).booleanValue();
+  public void restoreState(FacesContext context, Object state)
+  {
+    Object values[] = (Object[]) state;
+    super.restoreState(context, values[0]);
+    Object clientValues[] = (Object[])values[1];
+    _maximumSet = ((Boolean) clientValues[0]).booleanValue();
+    _minimumSet = ((Boolean) clientValues[1]).booleanValue();
   }
 
 

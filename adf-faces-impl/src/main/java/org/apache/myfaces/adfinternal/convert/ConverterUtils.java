@@ -183,10 +183,9 @@ public class ConverterUtils
    String msgId)
   {
     FacesMessage convertMessage = MessageFactory.getMessage(context, msgId);
-    String m = MessageUtils.createErrorAlertMessage(context,
-                                                    component,
-                                                    convertMessage.getDetail());
-    return XhtmlLafUtils.escapeJS(m);
+    return MessageUtils.createErrorAlertMessage(context,
+                                                component,
+                                                convertMessage.getDetail());
   }
 
   public static String getClientValidation(

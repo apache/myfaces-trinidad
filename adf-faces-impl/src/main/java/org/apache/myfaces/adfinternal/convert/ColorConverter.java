@@ -44,7 +44,7 @@ public class ColorConverter extends org.apache.myfaces.adf.convert.ColorConverte
     FacesContext context,
     UIComponent component)
   {
-    return _getEscapedJsConvertMessageDetail(context);
+    return _getConvertMessageDetail(context);
   }
 
   public String getClientScript(FacesContext context, UIComponent component)
@@ -226,7 +226,7 @@ public class ColorConverter extends org.apache.myfaces.adf.convert.ColorConverte
     }
   }
 
-  private String _getEscapedJsConvertMessageDetail(FacesContext context)
+  private String _getConvertMessageDetail(FacesContext context)
   {
     String convMsgDet = getConvertMessageDetail();
 
@@ -245,9 +245,8 @@ public class ColorConverter extends org.apache.myfaces.adf.convert.ColorConverte
     convMsgDet = MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
                                            convMsgDet, params).getDetail();
 
-    String msg = MessageUtils.createErrorAlertMessage(context, label,
-                                                      convMsgDet);
-    return XhtmlUtils.escapeJS(msg);
+    return MessageUtils.createErrorAlertMessage(context, label,
+                                                convMsgDet);
   }
 
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColorConverter.class);
