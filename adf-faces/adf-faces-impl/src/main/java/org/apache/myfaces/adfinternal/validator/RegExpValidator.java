@@ -68,7 +68,8 @@ public class RegExpValidator
   {
 
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
-    String esNoMatchMsgPattern = _getEscapedJsNoMatchMessageDetail(context);
+    String esNoMatchMsgPattern = XhtmlUtils.escapeJS(
+                  _getNoMatchMessageDetail(context));
 
 
     StringBuffer outBuffer = new StringBuffer(28
@@ -128,10 +129,10 @@ public class RegExpValidator
      * @todo Think it's worth to cache it here and then blow that away once
      * this method gets called. The best would be get rid of this method contract
      */
-    return _getEscapedJsNoMatchMessageDetail(context);
+    return _getNoMatchMessageDetail(context);
   }
 
-  private String _getEscapedJsNoMatchMessageDetail(
+  private String _getNoMatchMessageDetail(
     FacesContext context)
   {
     String noMatchMsg = getNoMatchMessageDetatil();
@@ -143,11 +144,10 @@ public class RegExpValidator
                                   RegExpValidator.NO_MATCH_MESSAGE_ID,
                                   noMatchMsg,
                                   params).getDetail();
-    noMatchDetMsg = MessageUtils.createErrorAlertMessage(context, label,
-                                                         noMatchDetMsg);
-    return XhtmlUtils.escapeJS(noMatchDetMsg);
+    return MessageUtils.createErrorAlertMessage(context, label,
+                                                noMatchDetMsg);
   }
 
-  private static final ADFLogger _LOG  = ADFLogger.createADFLogger(RegExpValidator.class);
-
+  private static final ADFLogger _LOG  = ADFLogger.createADFLogger(
+     RegExpValidator.class);
 }

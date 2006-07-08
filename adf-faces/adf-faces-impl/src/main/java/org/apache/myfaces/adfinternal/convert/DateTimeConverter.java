@@ -246,9 +246,9 @@ public class DateTimeConverter extends org.apache.myfaces.adf.convert.DateTimeCo
     Object[] params = new Object[] {label, "{1}", getExample(context)};
     String msg = getParseErrorMessage(context, component,
                                       pattern, params).getDetail();
-    return XhtmlUtils.escapeJS(MessageUtils.createErrorAlertMessage(context,
-                                                                       label,
-                                                                       msg));
+    return MessageUtils.createErrorAlertMessage(context,
+                                                label,
+                                                msg);
   }
 
    /**

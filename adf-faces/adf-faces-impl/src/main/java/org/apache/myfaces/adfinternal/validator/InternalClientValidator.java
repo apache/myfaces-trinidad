@@ -35,6 +35,7 @@ public interface InternalClientValidator extends ClientValidator
   
   /**
    * Called to retrieve the format to display a validation error
+   * This method should not return a value that is Javascript-escaped.
    */
   public String getClientValidationFormat(
    FacesContext context,

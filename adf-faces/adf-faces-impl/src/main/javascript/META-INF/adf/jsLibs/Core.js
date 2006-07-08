@@ -2895,7 +2895,10 @@ function _formatErrorString(
     }
  }
 
-  return currString;
+  // And now take any doubled-up single quotes down to one,
+  // to handle escaping
+  var twoSingleQuotes = /''/g;
+  return currString.replace(twoSingleQuotes, "'");
 }
 
 /**

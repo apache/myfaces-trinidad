@@ -78,7 +78,7 @@ public class ByteLengthValidator
     UIComponent component
     )
   {
-    return _getEscapedJsMaxiumMessageDetail(context);
+    return _getEscapedJsMaximumMessageDetail(context);
   }
 
   /**
@@ -135,14 +135,14 @@ public class ByteLengthValidator
     }
 
     String lengthFailedMessage
-      = _getEscapedJsMaxiumMessageDetail(context);
+      = _getEscapedJsMaximumMessageDetail(context);
 
     String maxLength = String.valueOf(getMaximum());
 
     constr.append(maxLength);
 
     constr.append(",{LF:'");
-    constr.append(lengthFailedMessage);
+    constr.append(XhtmlLafUtils.escapeJS(lengthFailedMessage));
     constr.append( "'})");
 
     return constr.toString();
@@ -183,7 +183,7 @@ public class ByteLengthValidator
     return _UNSUPPORTED_TYPE;
   }
 
-  private String _getEscapedJsMaxiumMessageDetail(
+  private String _getEscapedJsMaximumMessageDetail(
     FacesContext context)
   {
     String maxMsgDetail = getMaximumMessageDetail();
@@ -199,10 +199,8 @@ public class ByteLengthValidator
                                   params).getDetail();
 
 
-    detailMsg = MessageUtils.createErrorAlertMessage(context, label,
+    return MessageUtils.createErrorAlertMessage(context, label,
                                                      detailMsg);
-
-    return XhtmlLafUtils.escapeJS(detailMsg);
   }
 
 
