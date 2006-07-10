@@ -80,7 +80,13 @@ public class SkinExtensionParser extends BaseNodeParser
     if (baseSkin == null)
     {
       if (_extends != null)
-        _LOG.severe(_UNKNOWN_BASE_SKIN_ERROR + _extends);
+      {
+        _LOG.severe("Unable to locate base skin \"{0}\" for " +
+                    "use in defining skin of id \"{1}\", family " +
+                    "\"{2}\", renderkit ID \"{3}\"",
+                    new String[]{_extends, _id, _family, _renderKitId});
+      }
+
       baseSkin = _getDefaultBaseSkin(context, _renderKitId);
     }
 
