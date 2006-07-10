@@ -16,6 +16,7 @@
 package org.apache.myfaces.adfinternal.renderkit;
 
 import java.util.Map;
+import java.util.MissingResourceException;
 
 import org.apache.myfaces.adf.logging.ADFLogger;
 
@@ -82,7 +83,18 @@ abstract public class AdfRenderingContext
     if (key == null)
       return null;
 
-    return getSkin().getTranslatedString(getLocaleContext(), key);
+    try
+    {
+      return getSkin().getTranslatedString(getLocaleContext(), key);
+    }
+    catch (MissingResourceException mre)
+    {
+      // Instead of halting execution, return "???<key>???",
+      // just like JSF and JSTL will do, and log a severe error
+      _LOG.severe("Could not get resource key {0} from skin {1}",
+                  new String[]{key, getSkin().getId()});
+      return "???" + key + "???";
+    }
   }
 
   abstract public Icon getIcon(String iconName);
