@@ -393,7 +393,7 @@ public class ViewHandlerImpl extends ViewHandler
 
 
   //
-  // Load the META-INF/org.apache.myfaces.adf.InternalView.properties
+  // Load the META-INF/org.apache.myfaces.adf.render.InternalView.properties
   // files.
   //
   private void _loadInternalViews()
@@ -404,11 +404,21 @@ public class ViewHandlerImpl extends ViewHandler
     try
     {
       Enumeration en = loader.getResources(
+               "META-INF/org.apache.myfaces.adf.render.InternalView.properties");
+      while (en.hasMoreElements())
+      {
+        list.add((URL) en.nextElement());
+      }
+
+      // And, for some temporary backwards compatibility, also load
+      // the incorrect properties without "render"
+      en = loader.getResources(
                "META-INF/org.apache.myfaces.adf.InternalView.properties");
       while (en.hasMoreElements())
       {
         list.add((URL) en.nextElement());
       }
+
 
       // Reverse the list so it is in the proper order (most local
       // entry "wins")
