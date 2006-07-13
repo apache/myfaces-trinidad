@@ -132,11 +132,14 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     writer.writeAttribute("value", getValueAttr(arc), null);
     
     Object value = getSubmittedValue(bean);
-    if ( value == null)
+    if (value == null)
       value = getValue(bean);
-                                    
+    
+    if (!(value instanceof Boolean)) 
+      value = Boolean.valueOf(getConvertedString(context, component, bean)); 
+
     if ( Boolean.TRUE.equals(value))  
-      writer.writeAttribute("checked", Boolean.TRUE, "value");                                  
+      writer.writeAttribute("checked", Boolean.TRUE, "value");
 
     writer.endElement("input");
     
@@ -206,6 +209,9 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     Object value = getSubmittedValue(bean);
     if ( value == null)
       value = getValue(bean);
+
+    if (!(value instanceof Boolean)) 
+      value = Boolean.valueOf(getConvertedString(context, component, bean)); 
 
     boolean selected = Boolean.TRUE.equals(value);
     boolean disabled = getDisabled(bean);
