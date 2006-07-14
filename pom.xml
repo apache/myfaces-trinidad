@@ -407,14 +407,6 @@
         <scope>test</scope>
       </dependency>
 
-
-      <dependency>
-        <groupId>javax.faces</groupId>
-        <artifactId>jsf-mock</artifactId>
-        <version>1.1_01</version>
-        <scope>test</scope>
-      </dependency>
-
       <dependency>
         <groupId>mockmaker</groupId>
         <artifactId>mmmockobjects</artifactId>
