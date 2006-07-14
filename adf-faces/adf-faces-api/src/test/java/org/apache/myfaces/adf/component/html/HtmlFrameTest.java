@@ -17,6 +17,9 @@ package org.apache.myfaces.adf.component.html;
 
 import java.io.IOException;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adf.component.UIComponentTestCase;
 
 /**
@@ -35,6 +38,21 @@ public class HtmlFrameTest extends UIComponentTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(HtmlFrameTest.class);
   }
 
   /**

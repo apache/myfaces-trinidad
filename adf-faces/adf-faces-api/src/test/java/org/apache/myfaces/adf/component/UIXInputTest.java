@@ -15,8 +15,12 @@
  */
 package org.apache.myfaces.adf.component;
 
-import javax.faces.el.MockValueBinding;
+import javax.faces.el.ValueBinding;
 
+import org.jmock.Mock;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 /**
@@ -33,6 +37,21 @@ public class UIXInputTest extends UIComponentTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIXInputTest.class);
   }
 
   /**
@@ -72,8 +91,9 @@ public class UIXInputTest extends UIComponentTestCase
     assertNull(input.getValue());
     
     // setup a valueBinding
-    MockValueBinding binding = new MockValueBinding();
-    binding.setupGetValue(Boolean.TRUE);
+    Mock mockBinding = mock(ValueBinding.class);
+    ValueBinding binding = (ValueBinding) mockBinding.proxy();
+    mockBinding.expects(atLeastOnce()).method("getValue").will(returnValue(Boolean.TRUE));//  setupGetValue(Boolean.TRUE);
     
     input.setValueBinding("value", binding);
     assertFalse(input.isLocalValueSet());

@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 package org.apache.myfaces.adf.model;
+
 import java.beans.IntrospectionException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,17 +25,33 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
 
-import org.apache.myfaces.adfbuild.test.MockFContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.shale.test.base.AbstractJsfTestCase;
 
 
-public class RowKeySetTreeImplTest extends TestCase
+public class RowKeySetTreeImplTest extends AbstractJsfTestCase
 {
   public RowKeySetTreeImplTest(String name)
   {
     super(name);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(RowKeySetTreeImplTest.class);
   }
 
   public void testInitialState() throws IntrospectionException
@@ -45,8 +62,6 @@ public class RowKeySetTreeImplTest extends TestCase
 
   public void testIterator() throws IntrospectionException
   {
-    // PropertyResolver needed when iteration with ChildPropertyTreeModel:
-    new MockFContext();
     TestPathSet pathSet = new TestPathSet();
     _add(pathSet, _0, _011, _20);
 
@@ -58,7 +73,6 @@ public class RowKeySetTreeImplTest extends TestCase
     assertEquals(_011, iter.next());
     assertEquals(_20, iter.next());
     assertFalse(iter.hasNext());
-    MockFContext.clearContext();
   }
 
   public void testInitialAddAll() throws IntrospectionException
@@ -202,9 +216,6 @@ public class RowKeySetTreeImplTest extends TestCase
     _add(set, _2, _20, _0, _011);
     assertEquals("size", 4, set.size());
 
-    // PropertyResolver needed when iteration with ChildPropertyTreeModel:
-    new MockFContext();
-
     set = new RowKeySetTreeImpl(true);
     TreeModel model = ChildPropertyTreeModelTest.createModel();
     set.setCollectionModel(model);
@@ -217,7 +228,6 @@ public class RowKeySetTreeImplTest extends TestCase
     set.removeAll();
     assertEquals("addAll:size", 10, set.size());
 
-    MockFContext.clearContext();
   }
 
   public void testClear() throws IntrospectionException
@@ -274,11 +284,6 @@ public class RowKeySetTreeImplTest extends TestCase
     // test state:
     _testNotInSet(pathSet, _0, _011, _20);
     assertTrue("is contained", pathSet.contains(_2));
-  }
-
-  public static void main(String[] args)
-  {
-    TestRunner.run(RowKeySetTreeImplTest.class);
   }
 
   private void _testInSet(RowKeySet set, Object ... keys)

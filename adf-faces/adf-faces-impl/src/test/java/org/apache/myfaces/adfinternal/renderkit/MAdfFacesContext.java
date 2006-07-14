@@ -26,7 +26,7 @@ import org.apache.myfaces.adf.context.Agent;
 import org.apache.myfaces.adf.context.PageResolver;
 import org.apache.myfaces.adf.context.PageFlowScopeProvider;
 import org.apache.myfaces.adf.context.DialogService;
-import org.apache.myfaces.adf.event.ReturnEvent;
+
 import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
 
 import org.apache.myfaces.adfinternal.context.PageFlowScopeProviderImpl;

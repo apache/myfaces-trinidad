@@ -15,6 +15,8 @@
  */
 package org.apache.myfaces.adf.component.core.output;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.adf.component.UIXObject;
@@ -37,6 +39,21 @@ public class CoreObjectSeparatorTest extends UIXObjectTestCase
     super(testName);
   }
 
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(CoreObjectSeparatorTest.class);
+  }
+  
   /**
    * Tests the initial values for the component attributes.
    */

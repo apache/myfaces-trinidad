@@ -15,27 +15,44 @@
  */
 
 package org.apache.myfaces.adfinternal.validator;
+
 import java.util.Locale;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 
-import junit.framework.TestCase;
+import org.apache.myfaces.adfbuild.test.AbstractBaseTestCase;
+import org.jmock.Mock;
 
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.myfaces.adfbuild.test.MockUtils;
 
 /**
  * Tests for ByteLenghtValidator which renderes the client side scripts.
  * the ByteLengthValidator class.
  * @author Vijay Venkataraman (vijay.venkataraman@oracle.com)
  */
-public class ByteLengthValidatorTest extends TestCase
+public class ByteLengthValidatorTest extends AbstractBaseTestCase
 {
   public ByteLengthValidatorTest(String name)
   {
     super(name);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(ByteLengthValidatorTest.class);
   }
 
   public void testPickedUpClientByteLengthValidator()
@@ -50,28 +67,27 @@ public class ByteLengthValidatorTest extends TestCase
     String expectedConstructorName
     )
   {
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    
+    Mock mockComponent = buildMockUIComponent();
+    UIComponent component = (UIComponent) mockComponent.proxy();
 
     UIViewRoot uiRoot = new UIViewRoot();
     uiRoot.setLocale(Locale.US);
     for (int i = 0; i < 4; i++)
-      context.setupGetViewRoot(uiRoot);
+      facesContext.setViewRoot(uiRoot);
 
     ByteLengthValidator blv = new ByteLengthValidator();
     blv.setEncoding(encoding);
 
-    String libKey = blv.getLibKey(context, component);
-    String constructorInfo = blv.getClientValidation(context, component);
-    String clientScript = blv.getClientScript(context, component);
+    String libKey = blv.getLibKey(facesContext, component);
+    String constructorInfo = blv.getClientValidation(facesContext, component);
+    String clientScript = blv.getClientScript(facesContext, component);
 
     assertEquals(null, clientScript);
     assertEquals(true, libKey.equals(expectedConstructorName + "()"));
     assertEquals(true, constructorInfo.startsWith("new "
                                                   + expectedConstructorName));
 
-    context.verify();
-    component.verify();
   }
 
   /**

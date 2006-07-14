@@ -15,6 +15,9 @@
  */
 package org.apache.myfaces.adf.component.core.input;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adf.component.UIXEditableValue;
 import org.apache.myfaces.adf.component.UIXEditableValueTestCase;
 
@@ -35,6 +38,21 @@ public class CoreInputHiddenTest extends UIXEditableValueTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(CoreInputHiddenTest.class);
   }
 
   protected final UIXEditableValue createEditableValue()

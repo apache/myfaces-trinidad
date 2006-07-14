@@ -46,11 +46,7 @@ public abstract class UIXPanelTestCase extends UIComponentTestCase
   public void testApplyRequestValues()
   {
     UIXPanel component = createTestComponent();
-    // From fixing ADFFACES-42, we now run decode()
-
-    //    setRendererUsed(false);
     doTestApplyRequestValues(component);
-    //    setRendererUsed(true);
 
     component = createTestComponent();
     component.setRendered(false);

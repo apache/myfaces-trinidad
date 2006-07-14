@@ -21,30 +21,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import junit.textui.TestRunner;
-import org.apache.myfaces.adfbuild.test.MockFContext;
+import org.apache.shale.test.base.AbstractJsfTestCase;
 
-public class ChildPropertyTreeModelTest extends TestCase
+public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
 {
   public ChildPropertyTreeModelTest(String name)
   {
     super(name);
   }
 
-	protected void setUp() throws Exception
+  public void setUp()
   {
     super.setUp();
-    new MockFContext();
   }
 
-	protected void tearDown() throws Exception
+  public void tearDown()
   {
-    MockFContext.clearContext();
     super.tearDown();
   }
-
+  public static Test suite()
+  {
+    return new TestSuite(ChildPropertyTreeModelTest.class);
+  }
+  
   public void testInitialState() throws IntrospectionException
   {
     TreeModel model = createModel();
@@ -167,19 +169,6 @@ public class ChildPropertyTreeModelTest extends TestCase
   {
     TreeModel model = new ChildPropertyTreeModel(_ROOTS, "kids");
     return model;
-  }
-  
-  public static void main(String[] args)
-  {
-    TestRunner.run(ChildPropertyTreeModelTest.class);
-//    try 
-//    {
-//      new ChildPropertyTreeModelTest("test").testGetPath();
-//    } catch (Exception ex) 
-//    {
-//      ex.printStackTrace();
-//    }
-    
   }
   
   private static final List _ROOTS = _createTree();

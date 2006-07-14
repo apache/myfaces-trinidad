@@ -21,6 +21,9 @@ import java.io.StringWriter;
 import java.io.BufferedWriter;
 import java.util.zip.GZIPOutputStream;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adfbuild.test.FacesTestCase;
 
 /**
@@ -39,7 +42,22 @@ public class Base64OutputStreamTest extends FacesTestCase
   	{
   	  super(testName);
  	}
-	
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(Base64OutputStreamTest.class);
+  }
+  
   /**
    * Tests decoding of stream that contains no trailing padding characters.
    */ 	

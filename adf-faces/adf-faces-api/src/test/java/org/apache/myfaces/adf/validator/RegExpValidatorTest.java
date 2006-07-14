@@ -15,17 +15,16 @@
  */
 
 package org.apache.myfaces.adf.validator;
-import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.validator.ValidatorException;
+import javax.faces.component.UIComponent;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import org.apache.myfaces.adf.validator.RegExpValidator;
-
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
-
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.jmock.Mock;
 
 /**
  * Unit tests for RegExpValidator
@@ -38,6 +37,21 @@ public class RegExpValidatorTest extends ValidatorTestCase
   {
     super(testName);
   }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(RegExpValidatorTest.class);
+  }
 
   /**
    * Tests that null returns immediately.
@@ -46,11 +60,12 @@ public class RegExpValidatorTest extends ValidatorTestCase
    */
   public void testNull() throws ValidatorException
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     RegExpValidator validator = new RegExpValidator();
 
-    doTestNull(context, component, validator);
+    doTestNull(facesContext, wrapper, validator);
   }
 
   /**
@@ -58,18 +73,19 @@ public class RegExpValidatorTest extends ValidatorTestCase
    */
   public void testNullContext()
   {
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     RegExpValidator validator = new RegExpValidator();
 
-    doTestNullContext(component, validator);
+    doTestNullContext(wrapper, validator);
   }
 
   public void testNullComponent()
   {
-    MockFacesContext context  = new MockFacesContext();
     RegExpValidator validator = new RegExpValidator();
 
-    doTestNullComponent(context, validator);
+    doTestNullComponent(facesContext, validator);
   }
 
   /**
@@ -87,13 +103,13 @@ public class RegExpValidatorTest extends ValidatorTestCase
   {
     // since the pattern has not been set it will be null
     // let us push some arbitary value
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = mock(UIComponent.class); 
+    UIComponent component = (UIComponent) mock.proxy();
 
     try
     {
       RegExpValidator validator = new RegExpValidator();
-      validator.validate(context, component, "someValue");
+      validator.validate(facesContext, component, "someValue");
       // test fails if it is here
 
       fail("Expected Null pointer exception");
@@ -102,8 +118,7 @@ public class RegExpValidatorTest extends ValidatorTestCase
     {
       // suppress it - this is as expected
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -112,21 +127,17 @@ public class RegExpValidatorTest extends ValidatorTestCase
   public void testBlankValueOnPattern()
   {
     // some very basic sanity test
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
-    setMockLabelForComponent(component);
-    UIViewRoot root = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
 
     try
     {
       RegExpValidator validator = new RegExpValidator();
       String value = "999999";
       validator.setPattern("");
-      validator.validate(context, component, value);
+      validator.validate(facesContext, component, value);
       fail("Expected ValidatorException");
     }
     catch (ValidatorException ve)
@@ -134,8 +145,7 @@ public class RegExpValidatorTest extends ValidatorTestCase
       // if exception then fine.
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -149,15 +159,16 @@ public class RegExpValidatorTest extends ValidatorTestCase
     //some very basic sanity test
     //
     RegExpValidator validator = new RegExpValidator();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     String values[]   = {"9123456","9x"};
     String patterns[] = {"[0-9]*","[9][x]"};
     for (int i = 0; i < values.length ; i++)
     {
       validator.setPattern(patterns[i]);
-      doTestValidate(validator, context, component, values[i]);
+      doTestValidate(validator, facesContext, wrapper, values[i]);
     }
   }
 
@@ -167,15 +178,16 @@ public class RegExpValidatorTest extends ValidatorTestCase
   public void testStateHolderSaveRestore()
   {
     RegExpValidator validator = new RegExpValidator();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     validator.setPattern("TestSaveRestore");
     validator.setNoMatchMessageDetail("\"{0}\" in \"{1}\" failed!! {4}");
     RegExpValidator restoreValidator = new  RegExpValidator();
 
     doTestStateHolderSaveRestore(validator, restoreValidator,
-                                 context, component);
+                                 facesContext, wrapper);
   }
 
   /**
@@ -184,8 +196,6 @@ public class RegExpValidatorTest extends ValidatorTestCase
   public void testIsEqual()
   {
     RegExpValidator validator = new RegExpValidator();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
     RegExpValidator otherValidator = new RegExpValidator();
     doTestEquals(validator, otherValidator, true);
     assertEquals(validator.hashCode(), otherValidator.hashCode());
@@ -204,14 +214,10 @@ public class RegExpValidatorTest extends ValidatorTestCase
 
   public void testCustomMessageIsSet()
   {
-    MockFacesContext context      = new MockFacesContext();
-    MockUIComponent component     = MockUtils.buildMockUIComponent();
-    UIViewRoot root = new UIViewRoot();
-    Locale usLoc =  Locale.US;
-    root.setLocale(usLoc);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    setMockLabelForComponent(component);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
     RegExpValidator validator = new RegExpValidator();
 
     validator.setPattern("[0-9]*");
@@ -220,7 +226,7 @@ public class RegExpValidatorTest extends ValidatorTestCase
 
     try
     {
-      validator.validate(context, component, "9123456");
+      validator.validate(facesContext, component, "9123456");
     }
     catch (ValidatorException ve)
     {

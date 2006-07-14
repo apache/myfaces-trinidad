@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.apache.myfaces.adf.convert;
+
 import java.text.DecimalFormatSymbols;
 
 import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.NumberConverter;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
 import org.apache.myfaces.adf.context.MockAdfFacesContext;
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.jmock.Mock;
 
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Test ADF NumberConverter
@@ -47,25 +49,31 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
     return new org.apache.myfaces.adf.convert.NumberConverter();
   }
 
-  protected void setUp()
+  public void setUp()
   {
+    super.setUp();
     _mafct = new MockAdfFacesContext();
     _mafct.setDecimalSeparator('.');
     _mafct.setNumberGroupingSeparator(',');
     _mafct.setCurrencyCode(null);
   }
 
-  protected void tearDown()
+  public void tearDown()
   {
-
-   // AdfFacesContext uses a thread local variable to hold itself and has a
-   // check in it. So you need to release, since all instances for tests
-   // are created on the same thread by Junit.
+    
+    // AdfFacesContext uses a thread local variable to hold itself and has a
+    // check in it. So you need to release, since all instances for tests
+    // are created on the same thread by Junit.
     _mafct.release();
-
     _mafct = null;
+    super.tearDown();
   }
 
+  public static Test suite()
+  {
+    return new TestSuite(AdfNumberConverterTest.class);
+  }
+  
   public void testCurrencyCodeIsHonoured()
   {
      DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
@@ -76,41 +84,39 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
 
   public void testValueSetInAdfFacesContextIsHonoured()
   {
-    tearDown();
+    //ugly ?
+    _mafct.release();
+    _mafct = null;
     _mafct = new MockAdfFacesContext();
     _mafct.setDecimalSeparator('*');
     _mafct.setNumberGroupingSeparator('!');
     _mafct.setCurrencyCode(null);
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
 
     NumberConverter conv = getNumberConverter();
 
     conv.setLocale(Locale.US);
     Number inputValue =  new Double(8989.789);
-    String out = conv.getAsString(context, component, inputValue);
+    String out = conv.getAsString(facesContext, component, inputValue);
     assertEquals("8!989*789", out);
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   protected void doTestStrictNess(
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Locale locale,
     String inputValue)
   {
      NumberConverter converter = getNumberConverter();
      converter.setLocale(locale);
-     UIViewRoot root = new UIViewRoot();
-     root.setLocale(locale);
-     context.setupGetViewRoot(root);
-     context.setupGetViewRoot(root);
+     context.getViewRoot().setLocale(locale);
      try
      {
        // ADF Converter is not lenient.
-       Object obj = converter.getAsObject(context, component, inputValue);
+       Object obj = converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
        fail("Expected converter exception");
      }
      catch (ConverterException ce)
@@ -128,17 +134,21 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
     for (int i = 0; i < failingValues.length ; i++)
     {
       MockFacesContext context  = new MockFacesContext();
-      MockUIComponent component = MockUtils.buildMockUIComponent(3);
+      Mock mock = buildMockUIComponent(3);
+      UIComponent component = (UIComponent) mock.proxy();
+      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
 
       org.apache.myfaces.adf.convert.NumberConverter converter =
         new org.apache.myfaces.adf.convert.NumberConverter();
 
-      UIViewRoot root = new UIViewRoot();
+      UIViewRoot root = facesContext.getViewRoot();
       root.setLocale(Locale.US);
+      
 
       for (int j = 0; j < 3; j++)
       {
-        context.setupGetViewRoot(root);
+        context.setViewRoot(root);
       }
 
       try

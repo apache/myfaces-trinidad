@@ -23,8 +23,8 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>ADF Faces API</name>
-  <description>ADF is a JavaServer Faces component library. This project is currently undergoing Incubation at the Apache Software Foundation.</description>
+  <name>ADF Faces Apache API</name>
+  <description>ADF JavaServer Faces Apache API</description>
 
   <artifactId>adf-faces-api</artifactId>
   <packaging>jar</packaging>
@@ -144,22 +144,47 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-mock</artifactId>
+      <groupId>org.apache.shale</groupId>
+      <artifactId>shale-test</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>mockmaker</groupId>
-      <artifactId>mmmockobjects</artifactId>
+      <groupId>jmock</groupId>
+      <artifactId>jmock</artifactId>
       <scope>test</scope>
     </dependency>
 
     <dependency>
-      <groupId>mockobjects</groupId>
-      <artifactId>mockobjects-core</artifactId>
+      <groupId>jmock</groupId>
+      <artifactId>jmock-cglib</artifactId>
       <scope>test</scope>
     </dependency>
+
+      <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-mock</artifactId>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>mockmaker</groupId>
+        <artifactId>mmmockobjects</artifactId>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>mockobjects</groupId>
+        <artifactId>mockobjects-core</artifactId>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>mockobjects</groupId>
+        <artifactId>mockobjects-jdk1.4</artifactId>
+        <scope>test</scope>
+      </dependency>
+
   </dependencies>
 
   <reporting>

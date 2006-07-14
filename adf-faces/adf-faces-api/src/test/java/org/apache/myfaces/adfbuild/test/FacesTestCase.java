@@ -23,19 +23,22 @@ import java.util.Iterator;
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-
-import javax.faces.render.MockRenderKitFactory;
+import org.apache.shale.test.jmock.AbstractJsfTestCase;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.apache.shale.test.mock.MockRenderKitFactory;
+import org.jmock.Mock;
 
 /**
  * Base class for JavaServer Faces unit tests.
- *
+ * Acts as a wrapper class to <code>AbstractJsfTestCase</code>
+ * 
  * @author John Fallows
+ * @author Matthias Wessendorf
  */
-public class FacesTestCase extends TestCase
+public class FacesTestCase extends AbstractJsfTestCase
 {
   /**
    * Creates a new FacesTestCase.
@@ -48,14 +51,21 @@ public class FacesTestCase extends TestCase
     super(testName);
   }
 
-  protected void setUp()
+  public void setUp()
   {
-    setupFactoryFinder();
+    super.setUp();
+    facesContext.getViewRoot().setRenderKitId("org.apache.myfaces.adf.core"); 
+    RenderKitFactory renderKitFactory = (RenderKitFactory)
+    FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    Mock mockRenderKitty = mock(RenderKit.class);
+    RenderKit renderKit = (RenderKit) mockRenderKitty.proxy();
+    _mockRenderKit = new MockRenderKitWrapper(mockRenderKitty, renderKit);
+    renderKitFactory.addRenderKit("org.apache.myfaces.adf.core", renderKit);
   }
 
-  protected void tearDown()
+  public void tearDown()
   {
-    tearDownFactoryFinder();
+    super.tearDown();
   }
 
   /**
@@ -66,7 +76,7 @@ public class FacesTestCase extends TestCase
   protected RenderKitFactory setupRenderKitFactory(
     Class renderkitFactoryClass)
   {
-    setupFactoryFinder();
+
     FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
                              renderkitFactoryClass.getName());
     return (RenderKitFactory)
@@ -75,6 +85,8 @@ public class FacesTestCase extends TestCase
 
   /**
    * Configures the FactoryFinder MockRenderKitFactory implementation class.
+   * @TODO rename the class.
+   * @TODO move to Shale.
    */
   protected MockRenderKitFactory setupMockRenderKitFactory()
   {
@@ -82,32 +94,6 @@ public class FacesTestCase extends TestCase
       setupRenderKitFactory(MockRenderKitFactory.class);
   }
 
-  /**
-   * Ensures that this test case uses its own FactoryFinder to avoid
-   * side effects between tests.
-   */
-  protected void setupFactoryFinder()
-  {
-    Thread t = Thread.currentThread();
-    ClassLoader ccl = t.getContextClassLoader();
-    t.setContextClassLoader(TestClassLoader.getTestClassLoader(ccl, this));
-  }
-
-  /**
-   * Tears down the FactoryFinder for this test case to avoid
-   * side effects between tests.
-   */
-  protected void tearDownFactoryFinder()
-  {
-    FactoryFinder.releaseFactories();
-    Thread t = Thread.currentThread();
-    ClassLoader ccl = t.getContextClassLoader();
-    while (ccl instanceof TestClassLoader)
-    {
-      ccl = ccl.getParent();
-    }
-    t.setContextClassLoader(ccl);
-  }
 
   /**
    * Renders the component tree.
@@ -143,57 +129,23 @@ public class FacesTestCase extends TestCase
   {
     TestFacesContext.setCurrentInstance(context);
   }
+  
+  private MockRenderKitWrapper _mockRenderKit = null;
+  
+  public MockRenderKitWrapper getMockRenderKitWrapper()
+  {
+    return _mockRenderKit;
+  }
 
   /**
    * @todo add this code to MockFacesContext
    */
-  public static abstract class TestFacesContext extends FacesContext
+  public static abstract class TestFacesContext extends MockFacesContext
   {
     public static void setCurrentInstance(
       FacesContext context)
     {
       FacesContext.setCurrentInstance(context);
     }
-  }
-
-  /**
-   * Internal marker to determine if we have already created
-   * a test context class loader.
-   */
-  private static class TestClassLoader extends ClassLoader
-  {
-    public TestClassLoader(
-      ClassLoader parent,
-      Test        test)
-    {
-      super(parent);
-      _test = test;
-    }
-
-    public static ClassLoader getTestClassLoader(
-      ClassLoader cl,
-      Test        test)
-    {
-      if (cl instanceof TestClassLoader)
-      {
-        TestClassLoader tcl = (TestClassLoader)cl;
-
-        // if this is the right test class loader, return it
-        if (test == tcl._test)
-          return tcl;
-
-        // strip off any TestClassLoader parents
-        cl = tcl.getParent();
-        while (cl instanceof TestClassLoader)
-        {
-          cl = cl.getParent();
-        }
-      }
-
-      // return the new TestClassLoader for this test
-      return new TestClassLoader(cl, test);
-    }
-
-    private final Test _test;
   }
 }

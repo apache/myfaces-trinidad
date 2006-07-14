@@ -16,17 +16,17 @@
 package org.apache.myfaces.adf.validator;
 
 import java.util.Date;
-import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.validator.ValidatorException;
+import javax.faces.component.UIComponent;
 
-import javax.faces.application.MockApplication;
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockApplication;
+import org.jmock.Mock;
 
 /**
  * Unit tests for DateTimeRangeValidator.
@@ -45,6 +45,21 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
   {
     super(testName);
   }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(DateTimeRangeValidatorTest.class);
+  }
 
   /**
    * Tests that null returns immediately.
@@ -55,9 +70,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
   {
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-    doTestNull(context, component, validator);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    doTestNull(facesContext, wrapper, validator);
   }
 
    /**
@@ -65,10 +81,12 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
    */
   public void testNullContext()
   {
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     RegExpValidator validator = new RegExpValidator();
 
-    doTestNullContext(component, validator);
+    doTestNullContext(wrapper, validator);
   }
 
   /**
@@ -76,10 +94,9 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
    */
   public void testNullComponent()
   {
-    MockFacesContext context  = new MockFacesContext();
     RegExpValidator validator = new RegExpValidator();
 
-    doTestNullComponent(context, validator);
+    doTestNullComponent(facesContext, validator);
   }
 
   /**
@@ -89,19 +106,15 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
   {
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
-    UIViewRoot root   = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    component.setupGetId("test");
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    mock.stubs().method("getId").will(returnValue("test"));
     try
     {
-      MockUtils.setFacesContext(context);
-      validator.validate(context, component, "not-a-date");
+      setFacesContext(facesContext);
+      validator.validate(facesContext, component, "not-a-date");
       fail("ValidatorException not thrown");
     }
     catch (IllegalArgumentException iae)
@@ -110,11 +123,9 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -128,33 +139,26 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
     validator.setMaximum(new Date(millis));
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-
-    UIViewRoot root   = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     try
     {
-      MockUtils.setFacesContext(context);
-      validator.validate(context, component, new Date(millis - 1));
+      setFacesContext(facesContext);
+      validator.validate(facesContext, component, new Date(millis - 1));
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   protected void setMockCreateConverter(MockApplication app)
   {
     DateTimeConverter dtc = new DateTimeConverter();
-    app.setupCreateConverterString(dtc);
+    app.addConverter(DateTimeConverter.CONVERTER_ID, dtc.getClass().getName());
   }
 
   /**
@@ -166,27 +170,17 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
     validator.setMaximum(new Date(millis));
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent(4);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
 
-    setMockLabelForComponent(component);
-
-    UIViewRoot root   = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-
-    root.setLocale(mockLocale);
-    for (int i = 0; i < 4; i++)
-      context.setupGetViewRoot(root);
-
-    MockApplication  app      = new MockApplication();
-    setMockCreateConverter(app);
-    context.setupGetApplication(app);
-
+    setMockCreateConverter(application);
     try
     {
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       validator.setMaximumMessageDetail("max set");
-      validator.validate(context, component, new Date(millis + 1));
+      validator.validate(facesContext, component, new Date(millis + 1));
       fail("ValidatorException not thrown");
     }
     catch (ValidatorException e)
@@ -197,11 +191,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -215,13 +208,12 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
     validator.setMinimum(new Date(millis));
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
 
-    validator.validate(context, component, new Date(millis + 1));
+    validator.validate(facesContext, component, new Date(millis + 1));
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -233,28 +225,18 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     DateTimeRangeValidator validator = new DateTimeRangeValidator();
     validator.setMinimum(new Date(millis));
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-
-    setMockLabelForComponent(component);
-    UIViewRoot root   = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-
-    root.setLocale(mockLocale);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-
-    MockApplication  app      = new MockApplication();
-    setMockCreateConverter(app);
-    context.setupGetApplication(app);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
+    
+    setMockCreateConverter(application);
 
     try
     {
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       validator.setMinimumMessageDetail("min set");
-      validator.validate(context, component, new Date(millis - 1));
+      validator.validate(facesContext, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
     }
     catch (ValidatorException e)
@@ -265,11 +247,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -284,22 +265,20 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     validator.setMinimum(new Date(millis));
     validator.setMaximum(new Date(millis + 2));
 
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
 
     try
     {
-      MockUtils.setFacesContext(context);
-      validator.validate(context, component, new Date(millis + 1));
+      setFacesContext(facesContext);
+      validator.validate(facesContext, component, new Date(millis + 1));
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -312,28 +291,18 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     validator.setMinimum(new Date(millis));
     validator.setMaximum(new Date(millis + 10));
 
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
 
-    setMockLabelForComponent(component);
-    UIViewRoot root = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-
-    MockApplication  app      = new MockApplication();
-    setMockCreateConverter(app);
-    context.setupGetApplication(app);
+    setMockCreateConverter(application);
 
     try
     {
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       validator.setMinimumMessageDetail("min");
-      validator.validate(context, component, new Date(millis - 1));
+      validator.validate(facesContext, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
     }
     catch (ValidatorException e)
@@ -343,11 +312,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -360,28 +328,18 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     validator.setMinimum(new Date(millis));
     validator.setMaximum(new Date(millis + 10));
 
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-    setMockLabelForComponent(component);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
 
-    UIViewRoot root = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-
-    MockApplication  app      = new MockApplication();
-    setMockCreateConverter(app);
-    context.setupGetApplication(app);
+    setMockCreateConverter(application);
 
     try
     {
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       validator.setNotInRangeMessageDetail("not in range is set");
-      validator.validate(context, component, new Date(millis + 20));
+      validator.validate(facesContext, component, new Date(millis + 20));
       fail("ValidatorException not thrown");
     }
     catch (ValidatorException e)
@@ -392,11 +350,10 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
 
@@ -414,15 +371,14 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     originalValidator.setMaximumMessageDetail("max");
     originalValidator.setNotInRangeMessageDetail("not in range");
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent  component = MockUtils.buildMockUIComponent();
-
-    Object state = originalValidator.saveState(context);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     DateTimeRangeValidator restoredValidator = new DateTimeRangeValidator();
 
     doTestStateHolderSaveRestore(originalValidator, restoredValidator,
-                                 context, component);
+                                 facesContext, wrapper);
   }
 
 }

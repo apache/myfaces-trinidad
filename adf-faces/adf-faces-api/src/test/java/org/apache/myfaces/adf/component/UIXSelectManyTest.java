@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.validator.Validator;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 /**
  * Unit tests for UIXSelectMany.
  *
@@ -38,6 +41,21 @@ public class UIXSelectManyTest extends UIXEditableValueTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIXSelectManyTest.class);
   }
 
   /**

@@ -18,14 +18,13 @@ package org.apache.myfaces.adf.convert;
 
 import javax.faces.component.StateHolder;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import junit.framework.TestCase;
-
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import org.apache.myfaces.adfbuild.test.AbstractBaseTestCase;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.jmock.Mock;
 
 /**
  * Base class for unit tests of Converters
@@ -34,7 +33,7 @@ import javax.faces.context.MockFacesContext;
  * @author vijay venkatarman (vijay.venkataraman@oracle.com)
  *
  */
-public abstract class ConverterTestCase extends TestCase
+public abstract class ConverterTestCase extends AbstractBaseTestCase
 {
   public ConverterTestCase(String testName)
   {
@@ -52,28 +51,27 @@ public abstract class ConverterTestCase extends TestCase
    */
   protected void doTestNull(
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Converter converter
     ) throws ConverterException
   {
-    Object obj = converter.getAsObject(context, component, null);
+    Object obj = converter.getAsObject(context, wrapper.getUIComponent(), null);
     assertEquals(null, obj);
-    String str = converter.getAsString(context, component, null);
+    String str = converter.getAsString(context, wrapper.getUIComponent(), null);
     assertEquals("",str);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
   /**
    * If contex or component = null then should throw NullPointerException
    */
   protected void doTestNullContext(
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Converter converter) throws NullPointerException
   {
     try
     {
-      converter.getAsObject(null, component , "dummy");
+      converter.getAsObject(null, wrapper.getUIComponent(), "dummy");
       fail("Expected NullpointerException - if context or component is null");
     }
     catch (NullPointerException npe)
@@ -82,7 +80,7 @@ public abstract class ConverterTestCase extends TestCase
     }
     try
     {
-      converter.getAsString(null, component , "dummy");
+      converter.getAsString(null, wrapper.getUIComponent(), "dummy");
       fail("Expected NullpointerException - if context or component is null");
     }
     catch (NullPointerException npe)
@@ -120,7 +118,8 @@ public abstract class ConverterTestCase extends TestCase
   protected void doTestBlankValue(Converter converter)
   {
     MockFacesContext context = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
     Object value = converter.getAsObject(context, component,"");
     assertEquals(null, value);
   }
@@ -137,16 +136,15 @@ public abstract class ConverterTestCase extends TestCase
   protected void doTestGetAsObject(
     Converter converter,
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     String value,
     Object expectedValue
     )  throws ConverterException
   {
-    Object conv = converter.getAsObject(context, component, value);
+    Object conv = converter.getAsObject(context, wrapper.getUIComponent(), value);
     assertEquals(expectedValue, conv);
 
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
 
@@ -161,15 +159,14 @@ public abstract class ConverterTestCase extends TestCase
   protected void doTestGetAsString(
     Converter converter,
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Object value,
     String expectedValue
     )  throws ConverterException
   {
-    Object conv = converter.getAsString(context, component, value);
+    Object conv = converter.getAsString(context, wrapper.getUIComponent(), value);
     assertEquals(conv, expectedValue);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
 
@@ -202,7 +199,7 @@ public abstract class ConverterTestCase extends TestCase
     Converter thisConverter,
     Converter otherConverter,
     MockFacesContext context,
-    MockUIComponent component
+    MockUIComponentWrapper wrapper
     )
   {
     Object state = ((StateHolder)thisConverter).saveState(context);
@@ -210,8 +207,7 @@ public abstract class ConverterTestCase extends TestCase
     ((StateHolder)otherConverter).restoreState(context, state);
     // do all actions of save and restore
     doTestEquals(thisConverter, otherConverter, true);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
 

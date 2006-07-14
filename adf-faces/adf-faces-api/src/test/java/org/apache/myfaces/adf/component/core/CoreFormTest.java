@@ -20,6 +20,9 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adf.component.UIComponentTestCase;
 
 /**
@@ -39,6 +42,21 @@ public class CoreFormTest extends UIComponentTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(CoreFormTest.class);
   }
 
   /**

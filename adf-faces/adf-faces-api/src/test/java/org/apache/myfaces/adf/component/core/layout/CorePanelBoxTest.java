@@ -15,6 +15,8 @@
  */
 package org.apache.myfaces.adf.component.core.layout;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 import org.apache.myfaces.adf.component.UIXPanel;
 
@@ -34,6 +36,21 @@ public class CorePanelBoxTest extends UIXPanelTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(CorePanelBoxTest.class);
   }
 
   /**

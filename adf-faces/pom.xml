@@ -271,6 +271,16 @@
       <url>https://maven-repository.dev.java.net/nonav/repository/</url>
       <layout>legacy</layout>
     </repository>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>apache.snapshots</id>
+      <url>http://people.apache.org/maven-snapshot-repository</url>
+    </repository>
   </repositories>
 
 
@@ -314,9 +324,23 @@
       </dependency>
 
       <dependency>
-        <groupId>javax.faces</groupId>
-        <artifactId>jsf-mock</artifactId>
-        <version>1.1_01</version>
+        <groupId>org.apache.shale</groupId>
+        <artifactId>shale-test</artifactId>
+        <version>1.0.3-SNAPSHOT</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jmock</groupId>
+        <artifactId>jmock</artifactId>
+        <version>1.0.1</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>jmock</groupId>
+        <artifactId>jmock-cglib</artifactId>
+        <version>1.0.1</version>
         <scope>test</scope>
       </dependency>
 
@@ -380,6 +404,14 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>3.8.1</version>
+        <scope>test</scope>
+      </dependency>
+
+
+      <dependency>
+        <groupId>javax.faces</groupId>
+        <artifactId>jsf-mock</artifactId>
+        <version>1.1_01</version>
         <scope>test</scope>
       </dependency>
 
