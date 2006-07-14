@@ -15,11 +15,15 @@
 */
 package org.apache.myfaces.adf.convert;
 
-import javax.faces.component.MockUIComponent;
 import javax.faces.component.StateHolder;
-import javax.faces.context.MockFacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
 
 public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
 {
@@ -27,17 +31,32 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
   {
     super(name);
   }
-
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(JsfDateTimeConverterTest.class);
+  }
+  
   protected void doTestStateHolderSaveRestore(
     Converter conv1,
     Converter conv2,
     MockFacesContext context,
-    MockUIComponent component
+    MockUIComponentWrapper wrapper
     )
   {
-    javax.faces.convert.DateTimeConverter dtConv1, dtConv2;
-    dtConv1 = (javax.faces.convert.DateTimeConverter)conv1;
-    dtConv2 = (javax.faces.convert.DateTimeConverter)conv2;
+    DateTimeConverter dtConv1, dtConv2;
+    dtConv1 = (DateTimeConverter)conv1;
+    dtConv2 = (DateTimeConverter)conv2;
 
     Object state = ((StateHolder)conv1).saveState(context);
 
@@ -46,8 +65,7 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     boolean isEqual =  _isConvertersEqual(dtConv1, dtConv2);
 
     assertEquals(true, isEqual);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
   protected void doTestEquals(
@@ -56,21 +74,21 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     boolean expectedOutCome
     )
   {
-    javax.faces.convert.DateTimeConverter dtConv1, dtConv2;
-    dtConv1 = (javax.faces.convert.DateTimeConverter)conv1;
-    dtConv2 = (javax.faces.convert.DateTimeConverter)conv2;
+    DateTimeConverter dtConv1, dtConv2;
+    dtConv1 = (DateTimeConverter)conv1;
+    dtConv2 = (DateTimeConverter)conv2;
     boolean isEqual =  _isConvertersEqual(dtConv1, dtConv2);
     assertEquals(expectedOutCome, isEqual);
   }
 
   protected DateTimeConverter getDateTimeConverter()
   {
-    return new javax.faces.convert.DateTimeConverter();
+    return new DateTimeConverter();
   }
 
 
   protected void setSecondaryPattern(
-    javax.faces.convert.DateTimeConverter converter,
+    DateTimeConverter converter,
     String secondaryPattern
     )
   {
@@ -87,8 +105,8 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
   }
 
   private boolean _isConvertersEqual(
-    javax.faces.convert.DateTimeConverter conv1,
-    javax.faces.convert.DateTimeConverter conv2
+    DateTimeConverter conv1,
+    DateTimeConverter conv2
     )
   {
     return

@@ -19,16 +19,21 @@ package org.apache.myfaces.adf.convert;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import javax.faces.component.UIViewRoot;
+
+import javax.faces.component.UIComponent;
 import javax.faces.convert.ConverterException;
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;;
+
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.jmock.Mock;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Unit tests for ColorConverter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/test/java/oracle/adf/view/faces/convert/ColorConverterTest.java#1 $) $Date: 16-aug-2005.15:12:23 $
  * @author vijay venkataraman (vijay.venkataraman@oracle.com)
+ * @author Matthias Wessendorf
  */
 public class ColorConverterTest extends ConverterTestCase
 {
@@ -37,6 +42,21 @@ public class ColorConverterTest extends ConverterTestCase
     super(testName);
   }
 
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(ColorConverterTest.class);
+  }
+  
   /**
    * Tests that null returns immediately.
    *
@@ -44,11 +64,13 @@ public class ColorConverterTest extends ConverterTestCase
    */
   public void testNull() throws ConverterException
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+
     ColorConverter converter  = new ColorConverter();
 
-    doTestNull(context, component, converter);
+    doTestNull(facesContext, wrapper, converter);
   }
 
   /**
@@ -56,18 +78,19 @@ public class ColorConverterTest extends ConverterTestCase
    */
   public void testNullContext()
   {
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     ColorConverter converter  = new ColorConverter();
 
-    doTestNullContext(component, converter);
+    doTestNullContext(wrapper, converter);
   }
 
   public void testNullComponent()
   {
-    MockFacesContext context  = new MockFacesContext();
     ColorConverter converter  = new ColorConverter();
 
-    doTestNullComponent(context, converter);
+    doTestNullComponent(facesContext, converter);
   }
 
   public void testEmptyValueConversion()
@@ -112,11 +135,12 @@ public class ColorConverterTest extends ConverterTestCase
   public void testDefaultColorPatternWorks()
   {
     ColorConverter converter  = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     String value = "#FFFFFF";
     Color expectedColor = new Color(255,255,255);
-    doTestGetAsObject(converter, context, component, value, expectedColor);
+    doTestGetAsObject(converter, facesContext, wrapper, value, expectedColor);
   }
 
   /**
@@ -125,8 +149,9 @@ public class ColorConverterTest extends ConverterTestCase
   public void testStateHolderSaveRestore()
   {
     ColorConverter converter = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     String[] patterns = {"#RRGGBB","RR.GG.BB"};
     converter.setPatterns(patterns);
@@ -134,9 +159,8 @@ public class ColorConverterTest extends ConverterTestCase
     ColorConverter restoreConverter = new  ColorConverter();
 
     doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
-    context.verify();
-    component.verify();
+        facesContext, wrapper);
+    mock.verify();
   }
   /**
    * Test ColorConverte's getAsObject(FacesContext, UIComponent, String) method
@@ -145,8 +169,9 @@ public class ColorConverterTest extends ConverterTestCase
   public void testGetAsObjectConversion()
   {
     ColorConverter converter = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     String[] patterns = { "#RRGGBB",
                           "RR.GG.BB",
@@ -174,10 +199,9 @@ public class ColorConverterTest extends ConverterTestCase
     converter.setPatterns(patterns);
     for (int i = 0; i < values.length; i++)
     {
-      doTestGetAsObject(converter, context, component,values[i], matchColors[i]);
+      doTestGetAsObject(converter, facesContext, wrapper, values[i], matchColors[i]);
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -187,8 +211,9 @@ public class ColorConverterTest extends ConverterTestCase
   public void testGetAsString()
   {
     ColorConverter converter  = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     Color[] colors = {  new Color(255,2,4),
                         new Color(255,2,6),
@@ -215,11 +240,10 @@ public class ColorConverterTest extends ConverterTestCase
     {
       String[] patterns = (String[]) patternsHoloder.get(i);
       converter.setPatterns(patterns);
-      doTestGetAsString(converter, context, component,
+      doTestGetAsString(converter, facesContext, wrapper,
                                     colors[i], matchValues[i] );
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   /**
@@ -228,9 +252,8 @@ public class ColorConverterTest extends ConverterTestCase
   public void testNullValueForPatterns()
   {
     ColorConverter converter = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
-
+    Mock mock = mock(UIComponent.class);
+    
     try
     {
       converter.setPatterns(null);
@@ -240,29 +263,24 @@ public class ColorConverterTest extends ConverterTestCase
     {
       // expected fine
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testGetAsObjectIllegalValue()
   {
     ColorConverter converter = new ColorConverter();
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
-    UIViewRoot root = new UIViewRoot();
-    root.setLocale(new Locale("xx","MOCK"));
-    component.setupGetId("test");
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    mock.stubs().method("getId").will(returnValue("test"));
+    //component.setupGetId("test");
     try
     {
-      converter.getAsString(context, component, new Integer(1));
+      converter.getAsString(facesContext, component, new Integer(1));
       fail("Expected a converter exception");
     } catch (IllegalArgumentException ex)
     {
       // expected
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 }

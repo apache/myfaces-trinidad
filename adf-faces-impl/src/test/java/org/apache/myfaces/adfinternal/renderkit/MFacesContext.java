@@ -34,12 +34,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.context.MockExternalContext;
-import javax.faces.context.MockFacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.adfinternal.share.config.Configuration;
+import org.apache.shale.test.mock.MockExternalContext;
+import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * Mock faces context for use with unit tests
@@ -184,6 +184,8 @@ public class MFacesContext extends MockFacesContext
   {
     public External(boolean testMode)
     {
+      super(null, null, null);
+      
       _testMode = testMode;
       File file = null;
       try

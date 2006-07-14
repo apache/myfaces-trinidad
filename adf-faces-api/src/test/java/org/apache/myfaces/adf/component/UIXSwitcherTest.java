@@ -19,11 +19,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.adf.component.UIComponentTestCase;
+import org.jmock.Mock;
 
-import javax.faces.component.MockUIComponent;
 
 /**
  * Unit tests for UIXSwitcher.
@@ -41,6 +43,21 @@ public class UIXSwitcherTest extends UIComponentTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIXSwitcherTest.class);
   }
 
   /**
@@ -91,16 +108,23 @@ public class UIXSwitcherTest extends UIComponentTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent fooChild = createMockUIComponent();
+
+    Mock mockUIComponent = createMockUIComponent();
+    UIComponent fooChild = (UIComponent) mockUIComponent.proxy();
+    
     // JavaServer Faces 1.0 Specification, section 2.2.2
     // During the apply-request-values phase,
     // only the processDecodes lifecycle method may be called.
-    if (component.isRendered())
-      fooChild.setExpectedProcessDecodesCalls(1);
+    if (component.isRendered()){
+      mockUIComponent.stubs().method("processDecodes").with(eq(facesContext));
+    }
 
     // These children will never get called
-    MockUIComponent barChild = createMockUIComponent();
-    MockUIComponent ordinaryChild = createMockUIComponent();
+    Mock mockBarChild = createMockUIComponent();
+    UIComponent barChild = (UIComponent) mockBarChild.proxy();
+    
+    Mock mockOrdinaryChild = createMockUIComponent();
+    UIComponent ordinaryChild = (UIComponent) mockOrdinaryChild.proxy();
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
@@ -110,9 +134,9 @@ public class UIXSwitcherTest extends UIComponentTestCase
     component.getChildren().add(ordinaryChild);
     root.processDecodes(context);
 
-    fooChild.verify();
-    barChild.verify();
-    ordinaryChild.verify();
+    mockUIComponent.verify();
+    mockBarChild.verify();
+    mockOrdinaryChild.verify();
   }
 
 
@@ -133,15 +157,21 @@ public class UIXSwitcherTest extends UIComponentTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent fooChild = createMockUIComponent();
+    
+    Mock mockUIComponent = createMockUIComponent();//mock(UIComponent.class);
+    UIComponent fooChild = (UIComponent) mockUIComponent.proxy();
+    
     // JavaServer Faces 1.0 Specification, section 2.2.2
     // During the apply-request-values phase,
     // only the processDecodes lifecycle method may be called.
-    fooChild.setExpectedProcessValidatorsCalls(1);
+    mockUIComponent.expects(once()).method("processValidators");
 
     // These children will never get called
-    MockUIComponent barChild = createMockUIComponent();
-    MockUIComponent ordinaryChild = createMockUIComponent();
+    Mock mockBarChild = createMockUIComponent();
+    UIComponent barChild = (UIComponent) mockBarChild.proxy();
+    
+    Mock mockOrdinaryChild = createMockUIComponent();
+    UIComponent ordinaryChild = (UIComponent) mockOrdinaryChild.proxy(); 
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
@@ -151,9 +181,9 @@ public class UIXSwitcherTest extends UIComponentTestCase
     component.getChildren().add(ordinaryChild);
     root.processValidators(context);
 
-    fooChild.verify();
-    barChild.verify();
-    ordinaryChild.verify();
+    mockUIComponent.verify();
+    mockBarChild.verify();
+    mockOrdinaryChild.verify();
   }
 
 
@@ -175,15 +205,19 @@ public class UIXSwitcherTest extends UIComponentTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent fooChild = createMockUIComponent();
+    Mock mockUIComponent = createMockUIComponent();
+    UIComponent fooChild = (UIComponent) mockUIComponent.proxy();
     // JavaServer Faces 1.0 Specification, section 2.2.2
     // During the apply-request-values phase,
     // only the processDecodes lifecycle method may be called.
-    fooChild.setExpectedProcessUpdatesCalls(1);
+    mockUIComponent.expects(once()).method("processUpdates");
 
     // These children will never get called
-    MockUIComponent barChild = createMockUIComponent();
-    MockUIComponent ordinaryChild = createMockUIComponent();
+    Mock mockBarChild = createMockUIComponent();
+    UIComponent barChild = (UIComponent) mockBarChild.proxy();
+    
+    Mock mockOrdinaryChild = createMockUIComponent();
+    UIComponent ordinaryChild = (UIComponent) mockOrdinaryChild.proxy();
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
@@ -193,9 +227,9 @@ public class UIXSwitcherTest extends UIComponentTestCase
     component.getChildren().add(ordinaryChild);
     root.processUpdates(context);
 
-    fooChild.verify();
-    barChild.verify();
-    ordinaryChild.verify();
+    mockUIComponent.verify();
+    mockBarChild.verify();
+    mockOrdinaryChild.verify();
   }
 
   public static void main(String[] args)

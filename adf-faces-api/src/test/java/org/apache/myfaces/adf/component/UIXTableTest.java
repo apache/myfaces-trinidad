@@ -30,15 +30,13 @@ import javax.faces.el.ValueBinding;
 import javax.faces.render.Renderer;
 
 import junit.framework.AssertionFailedError;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.adf.model.ModelUtils;
 import org.apache.myfaces.adf.model.SortableModel;
-
-import javax.faces.context.MockFacesContext;
-
-import org.apache.myfaces.adfbuild.test.MockFContext;
 
 /**
  * Unit tests for UIXTable
@@ -55,6 +53,21 @@ public class UIXTableTest extends UIComponentTestCase
   {
     super(testName);
   }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIXTableTest.class);
+  }
 
   /**
    * Tests the initial values for the component attributes.
@@ -65,7 +78,6 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(25, table.getRows());
     assertEquals(0, table.getFirst());
     assertFalse(table.isImmediate());
-    MockFContext.clearContext();
   }
 
   /**
@@ -81,7 +93,6 @@ public class UIXTableTest extends UIComponentTestCase
     doTestAttributeTransparency(table, "first", new Integer(0), new Integer(1));
     doTestAttributeTransparency(table, "immediate", Boolean.TRUE, Boolean.FALSE);
     doTestAttributeTransparency(table, "rows", new Integer(30), new Integer(10));
-    MockFContext.clearContext();
   }
 
   public void testModelMethods()
@@ -102,7 +113,6 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(-1, model.getRowIndex());
     assertEquals(model.getRowKey(), table.getRowKey());
     assertEquals(model.isRowAvailable(), table.isRowAvailable());
-    MockFContext.clearContext();
   }
 
   public void testProcessDecodes()
@@ -120,7 +130,6 @@ public class UIXTableTest extends UIComponentTestCase
     List detailData = table.detailStamp.getDecodesRowData();
     _testDetailStamp(table, detailData);
 
-    MockFContext.clearContext();
   }
 
   public void testProcessValidators()
@@ -138,7 +147,6 @@ public class UIXTableTest extends UIComponentTestCase
     List detailData = table.detailStamp.getValidatesRowData();
     _testDetailStamp(table, detailData);
 
-    MockFContext.clearContext();
   }
 
   public void testProcessUpdates()
@@ -156,7 +164,6 @@ public class UIXTableTest extends UIComponentTestCase
     List detailData = table.detailStamp.getUpdatesRowData();
     _testDetailStamp(table, detailData);
 
-    MockFContext.clearContext();
   }
 
   public void testEditableValueHolderChildren()
@@ -164,8 +171,6 @@ public class UIXTableTest extends UIComponentTestCase
     TestTable table = _createTable();
     UIXInput testComp = table.column1Child;
     UIXInput detailStamp = table.detailStamp;
-
-    createMockFacesContext(table); // sets up the facesContext on the thread.
 
     // initialize:
     table.setRowIndex(0);
@@ -185,7 +190,6 @@ public class UIXTableTest extends UIComponentTestCase
     _testEVHData(testComp, "Bar", false);
     _testEVHData(detailStamp, "Bar-ds", true);
 
-    MockFContext.clearContext();
   }
 
 
@@ -196,8 +200,6 @@ public class UIXTableTest extends UIComponentTestCase
       TestTable table = _createTable();
 
       UIXInput testComp = table.column1Child;
-      FacesContext fc =
-        createMockFacesContext(table); // sets up the facesContext on the thread.
 
       // initialize:
       table.setRowIndex(0);
@@ -210,14 +212,12 @@ public class UIXTableTest extends UIComponentTestCase
       // processSaveState should store the stamp data even though rowIndex was
       // not changed.
 
-      state = table.processSaveState(fc);
+      state = table.processSaveState(facesContext);
     }
 
     TestTable table = _createTable();
     UIXInput testComp = table.column1Child;
-    FacesContext fc =
-      createMockFacesContext(table); // sets up the facesContext on the thread.
-    table.processRestoreState(fc, state);
+    table.processRestoreState(facesContext, state);
 
     // now test:
     table.setRowIndex(0);
@@ -226,7 +226,6 @@ public class UIXTableTest extends UIComponentTestCase
     table.setRowIndex(1);
     _testEVHData(testComp, "Bar", false);
 
-    MockFContext.clearContext();
   }
 
   /**
@@ -246,9 +245,7 @@ public class UIXTableTest extends UIComponentTestCase
       TestTable table = _createTable(false);
       table.setValue(null); // instead use the valueBinding below:
       table.setValueBinding("value", doNotCall);
-      FacesContext fc =
-        createMockFacesContext(table); // sets up the facesContext on the thread.
-      state = table.processSaveState(fc);
+      state = table.processSaveState(facesContext);
     }
 
     TestTable table = _createTable(false);
@@ -257,13 +254,10 @@ public class UIXTableTest extends UIComponentTestCase
     // however, set it anyway just to catch any getValue() calls prior to
     // that.
     table.setValueBinding("value", doNotCall);
-    FacesContext fc =
-      createMockFacesContext(table); // sets up the facesContext on the thread.
-    table.processRestoreState(fc, state);
+    table.processRestoreState(facesContext, state);
 
     assertTrue(table.getValueBinding("value") instanceof DoNotCallBinding);
 
-    MockFContext.clearContext();
   }
 
   public void testNotRenderedSaveRestoreState()
@@ -277,20 +271,15 @@ public class UIXTableTest extends UIComponentTestCase
       TestTable table = _createTable(false);
       table.setRendered(false);
       panel.getChildren().add(table);
-      FacesContext fc =
-        createMockFacesContext(panel); // sets up the facesContext on the thread.
-      state = panel.processSaveState(fc);
+      state = panel.processSaveState(facesContext);
     }
 
     UIXPanel panel = new UIXPanel();
     TestTable table = _createTable(false);
     panel.getChildren().add(table);
 
-    FacesContext fc =
-      createMockFacesContext(panel); // sets up the facesContext on the thread.
-    panel.processRestoreState(fc, state);
+    panel.processRestoreState(facesContext, state);
 
-    MockFContext.clearContext();
   }
 
   protected void doTestUpdateModelValues(
@@ -375,12 +364,6 @@ public class UIXTableTest extends UIComponentTestCase
     root.processDecodes(context);
   }
 
-  protected MockFacesContext createMockFacesContext(UIComponent comp)
-  {
-    MockFContext context = new MockFContext();
-    return context;
-  }
-
   protected boolean isRendererUsed()
   {
     // we use our own MockRenderer; not the one created by our super class:
@@ -394,7 +377,6 @@ public class UIXTableTest extends UIComponentTestCase
 
   private TestTable _createTable(boolean useModel)
   {
-    new MockFContext(); // sets the facesContext on the thread.
     SortableModel model = useModel ? _createTableData() : null;
     TestTable table = new TestTable(model);
     return table;

@@ -15,17 +15,14 @@
  */
 package org.apache.myfaces.adf.component;
 
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.myfaces.adf.component.UIComponentTestCase;
 import org.apache.myfaces.adf.component.UIXTableTest.DoNotCallBinding;
-
-import javax.faces.context.MockFacesContext;
-
-import org.apache.myfaces.adfbuild.test.MockFContext;
 
 /**
  * Unit tests for UIXTree
@@ -41,6 +38,21 @@ public class UIXTreeTest extends UIComponentTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIXTreeTest.class);
   }
 
 
@@ -60,9 +72,7 @@ public class UIXTreeTest extends UIComponentTestCase
     {
       UIXTree tree = _createTree();
       tree.setValueBinding("value", doNotCall);
-      FacesContext fc =
-        createMockFacesContext(tree); // sets up the facesContext on the thread.
-      state = tree.processSaveState(fc);
+      state = tree.processSaveState(facesContext);
     }
 
     UIXTree tree = _createTree();
@@ -70,13 +80,10 @@ public class UIXTreeTest extends UIComponentTestCase
     // however, set it anyway just to catch any getValue() calls prior to
     // that.
     tree.setValueBinding("value", doNotCall);
-    FacesContext fc =
-      createMockFacesContext(tree); // sets up the facesContext on the thread.
-    tree.processRestoreState(fc, state);
+    tree.processRestoreState(facesContext, state);
 
     assertTrue(tree.getValueBinding("value") instanceof DoNotCallBinding);
 
-    MockFContext.clearContext();
   }
 
 
@@ -94,12 +101,6 @@ public class UIXTreeTest extends UIComponentTestCase
   }
 
 
-  protected MockFacesContext createMockFacesContext(UIComponent comp)
-  {
-    MockFContext context = new MockFContext();
-    return context;
-  }
-
   protected boolean isRendererUsed()
   {
     // we use our own MockRenderer; not the one created by our super class:
@@ -108,7 +109,6 @@ public class UIXTreeTest extends UIComponentTestCase
 
   private UIXTree _createTree()
   {
-    new MockFContext(); // sets the facesContext on the thread.
     UIXTree tree = new UIXTree();
     return tree;
   }

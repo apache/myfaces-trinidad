@@ -29,39 +29,36 @@ import java.util.List;
 import java.util.Set;
 
 import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
-import junit.textui.TestRunner;
-import org.apache.myfaces.adfbuild.test.MockFContext;
+import org.apache.shale.test.base.AbstractJsfTestCase;
 
 /**
  * Test for the RowKeySetImpl class.
  * @author Arjuna Wijeyekoon
  */
-public final class RowKeySetImplTest extends TestCase
+public final class RowKeySetImplTest extends AbstractJsfTestCase
 {
   public RowKeySetImplTest(String testName)
   {
     super(testName);
   }
 
-  protected void setUp() throws Exception
+  public void setUp()
   {
     super.setUp();
-    new MockFContext();
   }
 
-  protected void tearDown() throws Exception
+  public void tearDown()
   {
-    MockFContext.clearContext();
     super.tearDown();
   }
-
-  public static void main(String[] args)
+  public static Test suite()
   {
-    TestRunner.run(RowKeySetImplTest.class);
+    return new TestSuite(RowKeySetImplTest.class);
   }
-
+  
   public void testInitialyEmpty()
   {
     RowKeySetImpl set = _createKeySet(false);

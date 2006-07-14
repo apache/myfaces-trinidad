@@ -23,29 +23,30 @@ import java.io.IOException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Locale;
 import java.util.Map;
-import javax.faces.application.MockViewHandler;
+import javax.faces.application.ViewHandler;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.ValueChangeListener;
 
-import javax.faces.application.MockApplication;
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
-import javax.faces.convert.MockConverter;
-import javax.faces.el.MockValueBinding;
-import javax.faces.event.MockValueChangeListener;
-import javax.faces.render.MockRenderKit;
-import javax.faces.render.MockRenderKitFactory;
-import javax.faces.render.MockRenderer;
-import javax.faces.validator.MockValidator;
+import javax.faces.convert.Converter;
+import javax.faces.el.ValueBinding;
+import javax.faces.render.RenderKit;
+import javax.faces.render.RenderKitFactory;
+import javax.faces.render.Renderer;
+import javax.faces.validator.Validator;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import org.apache.myfaces.adf.event.AttributeChangeEvent;
 import org.apache.myfaces.adfbuild.test.FacesTestCase;
+import org.jmock.Mock;
+import org.jmock.core.Constraint;
 
 /**
  * Base class for JavaServer Faces UIComponent unit tests.
@@ -63,6 +64,21 @@ public class UIComponentTestCase extends FacesTestCase
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(UIComponentTestCase.class);
   }
 
   /**
@@ -156,11 +172,16 @@ public class UIComponentTestCase extends FacesTestCase
     UIComponent component,
     String      facetName)
   {
-    MockUIComponent facetValue = new MockUIComponent();
-    facetValue.setupGetParent(null);
-    MockUIComponent propValue = new MockUIComponent();
-    propValue.setupGetParent(null);
+    Mock mockFacetValue = mock(UIComponent.class);
+    UIComponent facetValue = (UIComponent) mockFacetValue.proxy();
+    mockFacetValue.stubs().method("getParent").will(returnValue(null));
+    mockFacetValue.stubs().method("setParent");
 
+    Mock mockPropValue = mock(UIComponent.class);
+    UIComponent propValue = (UIComponent) mockPropValue.proxy();
+    mockPropValue.stubs().method("getParent").will(returnValue(null));
+    mockPropValue.stubs().method("setParent");
+    
     Map facetMap = component.getFacets();
     try
     {
@@ -210,8 +231,8 @@ public class UIComponentTestCase extends FacesTestCase
     }
     finally
     {
-      facetValue.verify();
-      propValue.verify();
+      mockFacetValue.verify();
+      mockPropValue.verify();
     }
   }
 
@@ -232,36 +253,33 @@ public class UIComponentTestCase extends FacesTestCase
     UIViewRoot  root,
     UIComponent component)
   {
-    MockRenderKitFactory factory = setupMockRenderKitFactory();
-    MockRenderKit renderkit = new MockRenderKit();
-    MockRenderer renderer = new MockRenderer();
-    MockFacesContext context = createMockFacesContext(component);
-    setCurrentContext(context);
+    
+    Mock mockRenderKitFactory = mock(RenderKitFactory.class);
+    RenderKitFactory factory = (RenderKitFactory) mockRenderKitFactory.proxy();
 
-    factory.setupGetRenderKit(renderkit);
-    renderkit.setupGetRenderer(renderer);
-    context.setupGetRenderResponse(false);
-    context.setupGetResponseComplete(false);
-    context.setupGetRenderKit(renderkit);
+    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
 
-    context.setupGetViewRoot(root);
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer) mockRenderer.proxy();
+    
+    mockRenderKitFactory.stubs().method("getRenderKit").will(returnValue(renderkit));
+    mockRenderkit.stubs().method("getRenderer").will(returnValue(renderer));
 
     if (isRendererUsed() && component.isRendered())
     {
-      renderer.addExpectedDecodeValues(context, component);
-      renderer.setExpectedDecodeCalls(1);
+      mockRenderer.expects(once()).method("decode");
     }
     else
     {
-      renderer.setExpectedDecodeCalls(0);
+      mockRenderer.expects(never()).method("decode");
     }
 
-    doTestApplyRequestValues(context, root, component);
+    doTestApplyRequestValues(facesContext, root, component);
 
-    factory.verify();
-    renderkit.verify();
-    renderer.verify();
-    context.verify();
+    mockRenderKitFactory.verify();
+    mockRenderkit.verify();
+    mockRenderer.verify();
 
     setCurrentContext(null);
   }
@@ -272,12 +290,15 @@ public class UIComponentTestCase extends FacesTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent child = createMockUIComponent();
+    
+    Mock mock = createMockUIComponent();
+    UIComponent child = (UIComponent) mock.proxy();
+    
     // JavaServer Faces 1.0 Specification, section 2.2.2
     // During the apply-request-values phase,
     // only the processDecodes lifecycle method may be called.
     if (willChildrenBeProcessed(component))
-      child.setExpectedProcessDecodesCalls(1);
+      mock.expects(once()).method("processDecodes");
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
@@ -298,21 +319,14 @@ public class UIComponentTestCase extends FacesTestCase
       ace.queue();
     }
 
+    Renderer r = this.facesContext.getRenderKit().getRenderer("", "");
+    
     root.processDecodes(context);
 
     if (attributeChangeTester != null)
       attributeChangeTester.verify();
 
-    child.verify();
-  }
-
-  /**
-   * Create the MockFacesContext to use for testing.
-   */
-  protected MockFacesContext createMockFacesContext(UIComponent comp)
-  {
-    MockFacesContext context = new MockFacesContext();
-    return context;
+    mock.verify();
   }
 
   /**
@@ -345,42 +359,42 @@ public class UIComponentTestCase extends FacesTestCase
     Object      submittedValue,
     Object      convertedValue)
   {
-    MockRenderKitFactory factory = setupMockRenderKitFactory();
-    MockRenderKit renderkit = new MockRenderKit();
-    MockRenderer renderer = new MockRenderer();
-    MockFacesContext context = createMockFacesContext(component);
-    MockConverter converter = new MockConverter();
-    MockValidator validator = new MockValidator();
-    MockValueChangeListener listener = new MockValueChangeListener();
-
-    setCurrentContext(context);
-
-    factory.setupGetRenderKit(renderkit);
-    renderkit.setupGetRenderer(renderer);
-    context.setupGetRenderKit(renderkit);
-    context.setupGetRenderResponse(false);
-    context.setupGetResponseComplete(false);
-
-    context.setupGetViewRoot(root);
+    
+    Mock mockRenderKit = getMockRenderKitWrapper().getMock();
+    RenderKit renderKit = getMockRenderKitWrapper().getRenderKit();
+    
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer) mockRenderer.proxy();
+    mockRenderKit.stubs().method("getRenderer").will(returnValue(renderer));
+    
+    Mock mockConverter = mock(Converter.class);
+    Converter converter = (Converter) mockConverter.proxy();
+    
+    Mock mockValidator = mock(Validator.class);
+    Validator validator = (Validator) mockValidator.proxy();
+    
+    Mock mockListener = mock(ValueChangeListener.class);
+    ValueChangeListener listener = (ValueChangeListener) mockListener.proxy();
+    
+    setCurrentContext(facesContext);
 
     // if the component is an EditableValueHolder, then the submitted value
     // must be converted and validated before this phase completes.
     if (component instanceof EditableValueHolder)
     {
+      
       EditableValueHolder editable = (EditableValueHolder)component;
-      renderer.setupGetConvertedValue(convertedValue);
-      converter.setExpectedGetAsObjectCalls(0);
-      converter.setExpectedGetAsStringCalls(0);
-      renderer.setExpectedGetConvertedValueCalls(1);
+      mockConverter.expects(never()).method("getAsObject");
+      mockConverter.expects(never()).method("getAsString"); 
+      mockRenderer.expects(once()).method("getConvertedValue").will(returnValue(convertedValue));
       editable.setConverter(converter);
       editable.setSubmittedValue(submittedValue);
       editable.addValidator(validator);
       editable.addValueChangeListener(listener);
 
-      validator.addExpectedValidateValues(context, component,
-                                          convertedValue);
-      validator.setExpectedValidateCalls(1);
-      listener.setExpectedProcessValueChangeCalls(1);
+      mockListener.expects(once()).method("processValueChange");
+      mockValidator.expects(once()).method("validate").with(new Constraint[]  { eq(facesContext), eq(component), eq(convertedValue) });
+
     }
     // if the component is a ValueHolder, then the value is not updated or
     // validated and no value change event occurs.
@@ -388,19 +402,17 @@ public class UIComponentTestCase extends FacesTestCase
     {
       ValueHolder holder = (ValueHolder)component;
       holder.setConverter(converter);
-      converter.setExpectedGetAsStringCalls(0);
-      converter.setExpectedGetAsObjectCalls(0);
+      mockConverter.expects(never()).method("getAsObject");//setExpectedGetAsObjectCalls(0);
+      mockConverter.expects(never()).method("getAsString"); 
     }
 
-    doTestProcessValidations(context, root, component);
+    doTestProcessValidations(facesContext, root, component);
 
-    factory.verify();
-    renderkit.verify();
-    renderer.verify();
-    context.verify();
-    converter.verify();
-    validator.verify();
-    listener.verify();
+    mockRenderKit.verify();
+    mockRenderer.verify();
+    mockConverter.verify();
+    mockValidator.verify();
+    mockListener.verify();
 
     setCurrentContext(null);
   }
@@ -411,21 +423,25 @@ public class UIComponentTestCase extends FacesTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent child = createMockUIComponent();
+    
+    Mock mock = createMockUIComponent();
+    UIComponent child = (UIComponent) mock.proxy();
+    
     // JavaServer Faces 1.0 Specification, section 2.2.3
     // During the process-validations phase,
     // only the processValidators lifecycle method may be called.
     if (willChildrenBeProcessed(component))
-      child.setExpectedProcessValidatorsCalls(1);
+      mock.expects(once()).method("processValidators");
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
     if (component.getParent() == null)
       root.getChildren().add(component);
     component.getChildren().add(child);
+        
     root.processValidators(context);
 
-    child.verify();
+    mock.verify();
   }
 
   /**
@@ -445,21 +461,18 @@ public class UIComponentTestCase extends FacesTestCase
     UIViewRoot  root,
     UIComponent component)
   {
-    MockRenderKitFactory factory = setupMockRenderKitFactory();
-    MockRenderKit renderkit = new MockRenderKit();
-    MockRenderer renderer = new MockRenderer();
-    MockFacesContext context = createMockFacesContext(component);
-    MockValueBinding binding = new MockValueBinding();
 
-    factory.setupGetRenderKit(renderkit);
-    renderkit.setupGetRenderer(renderer);
-    context.setupGetRenderResponse(false);
-    context.setupGetResponseComplete(false);
-    context.setupGetRenderKit(renderkit);
+    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
+    
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer) mockRenderer.proxy();
+    mockRenderkit.stubs().method("getRenderer").will(returnValue(renderer));
+    
+    Mock mockBinding = mock(ValueBinding.class);
+    ValueBinding binding = (ValueBinding) mockBinding.proxy();
 
-    setCurrentContext(context);
-
-    context.setupGetViewRoot(root);
+    setCurrentContext(facesContext);
 
     // if the component is an EditableValueHolder, then the value binding
     // must be updated with the new value before this phase completes.
@@ -468,20 +481,17 @@ public class UIComponentTestCase extends FacesTestCase
       EditableValueHolder editable = (EditableValueHolder)component;
       component.setValueBinding("value", binding);
       editable.setValue("newValue");
-      binding.addExpectedSetValueValues(context, "newValue");
+      mockBinding.expects(atLeastOnce()).method("setValue").with(eq(facesContext), eq("newValue"));
 
       assertEquals(true, editable.isLocalValueSet());
     }
 
-    doTestUpdateModelValues(context, root, component);
+    doTestUpdateModelValues(facesContext, root, component);
 
     setCurrentContext(null);
 
-    factory.verify();
-    renderkit.verify();
-    renderer.verify();
-    context.verify();
-    binding.verify();
+    mockRenderer.verify();
+    mockBinding.verify();
   }
 
 
@@ -490,13 +500,14 @@ public class UIComponentTestCase extends FacesTestCase
     UIViewRoot   root,
     UIComponent  component)
   {
-    MockUIComponent child = createMockUIComponent();
+    Mock mock = createMockUIComponent();
+    UIComponent child = (UIComponent) mock.proxy();
 
     // JavaServer Faces 1.0 Specification, section 2.2.4
     // During the update-model-values phase,
     // only the processUpdates lifecycle method may be called.
     if (willChildrenBeProcessed(component))
-      child.setExpectedProcessUpdatesCalls(1);
+      mock.expects(once()).method("processUpdates");
 
     // construct the UIComponent tree and
     // execute the apply-request-values lifecycle phase
@@ -505,7 +516,7 @@ public class UIComponentTestCase extends FacesTestCase
     component.getChildren().add(child);
     root.processUpdates(context);
 
-    child.verify();
+    mock.verify();
   }
 
   /**
@@ -515,25 +526,12 @@ public class UIComponentTestCase extends FacesTestCase
     UIComponent   component,
     FacesEvent    event)
   {
-    MockApplication application = new MockApplication();
-    MockFacesContext context = new MockFacesContext();
-
     try
     {
-      setCurrentContext(context);
+      setCurrentContext(facesContext);
 
-      UIViewRoot root = new UIViewRoot();
-      context.setupGetViewRoot(root);
+      doTestInvokeApplication(facesContext, facesContext.getViewRoot(), component, event);
 
-      context.setupGetApplication(application);
-      context.setupGetRenderResponse(false);
-      context.setupGetResponseComplete(false);
-      application.setupGetActionListener(null);
-
-      doTestInvokeApplication(context, root, component, event);
-
-      application.verify();
-      context.verify();
     }
     finally
     {
@@ -549,7 +547,9 @@ public class UIComponentTestCase extends FacesTestCase
     UIComponent  component,
     FacesEvent   event)
   {
-    MockUIComponent child = createMockUIComponent();
+    
+    Mock mock = createMockUIComponent();
+    UIComponent child = (UIComponent) mock.proxy();
     // JavaServer Faces 1.0 Specification, section 2.2.5
     // During the invoke-application phase,
     // no per-component lifecycle methods may be called.
@@ -563,7 +563,7 @@ public class UIComponentTestCase extends FacesTestCase
     component.getChildren().add(child);
     root.processApplication(context);
 
-    child.verify();
+    mock.verify();
   }
 
   /**
@@ -574,56 +574,56 @@ public class UIComponentTestCase extends FacesTestCase
   protected void doTestRenderResponse(
     UIComponent component) throws IOException
   {
-    MockRenderKitFactory factory = setupMockRenderKitFactory();
-    MockRenderKit renderkit = new MockRenderKit();
-    MockRenderer renderer = new MockRenderer();
-    MockFacesContext context = new MockFacesContext();
-    MockValidator validator = new MockValidator();
-    MockUIComponent child = new MockUIComponent();
+    
+//    MockRenderKitFactory factory = setupMockRenderKitFactory();
+    
+    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
+    
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer) mockRenderer.proxy();
+    mockRenderkit.stubs().method("getRenderer").will(returnValue(renderer));
 
-    factory.setupGetRenderKit(renderkit);
-    renderkit.setupGetRenderer(renderer);
-    context.setupGetRenderKit(renderkit);
-    context.setupGetRenderResponse(false);
-    context.setupGetResponseComplete(false);
+    Mock mockChild = createMockUIComponent(); //mock(UIComponent.class);
+    UIComponent child = (UIComponent) mockChild.proxy();
 
-    child.setupGetParent(null);
-    child.setupGetRendersChildren(true);
-    child.setupIsTransient(false);
-    child.setupProcessSaveState("ChildState");
+    mockChild.expects(atLeastOnce()).method("getParent").will(returnValue(null));    
+    mockChild.expects(atLeastOnce()).method("isTransient").will(returnValue(false));
+    mockChild.expects(atLeastOnce()).method("getRendersChildren").will(returnValue(true));
 
     UIViewRoot root = new UIViewRoot();
-    context.setupGetViewRoot(root);
 
-    renderer.setupGetRendersChildren(false);
-    renderer.setExpectedDecodeCalls(0);
-    renderer.setExpectedGetConvertedValueCalls(0);
-
-    renderer.setExpectedEncodeChildrenCalls(0);
+    mockRenderer.expects(atLeastOnce()).method("getRendersChildren").will(returnValue(false));
+    mockRenderer.expects(never()).method("decode");
+    mockRenderer.expects(never()).method("getConvertedValue");
+    mockRenderer.expects(never()).method("encodeChildren");
+    
     if (isRendererUsed())
     {
-      renderer.setExpectedEncodeBeginCalls(1);
-      renderer.setExpectedEncodeEndCalls(1);
+      mockRenderer.expects(once()).method("encodeBegin");
+      mockRenderer.expects(once()).method("encodeEnd");
     }
     else
     {
-      renderer.setExpectedEncodeBeginCalls(0);
-      renderer.setExpectedEncodeEndCalls(0);
+      mockRenderer.expects(never()).method("encodeBegin");
+      mockRenderer.expects(never()).method("encodeEnd");
     }
 
     // JavaServer Faces 1.0 Specification, section 2.2.6
     // During the render-response phase,
     // only the encodeBegin, encodeEnd, encodeChildren
     // and processSaveState lifecycle methods may be called.
-    child.setExpectedProcessRestoreStateCalls(0);
-    child.setExpectedProcessDecodesCalls(0);
-    child.setExpectedProcessValidatorsCalls(0);
-    child.setExpectedProcessUpdatesCalls(0);
-    child.setExpectedProcessSaveStateCalls(1);
+    mockChild.expects(never()).method("processRestoreState");
+    mockChild.expects(never()).method("processDecodes");
+    mockChild.expects(never()).method("processValidators");
+    mockChild.expects(never()).method("processUpdates");
+    mockChild.expects(once()).method("processSaveState");
     int encodeCalls = willChildrenBeRendered(component) ? 1 : 0;
-    child.setExpectedEncodeBeginCalls(encodeCalls);
-    child.setExpectedEncodeChildrenCalls(encodeCalls);
-    child.setExpectedEncodeEndCalls(encodeCalls);
+    
+    //fix this!
+    mockChild.expects(once()).method("encodeBegin");
+    mockChild.expects(once()).method("encodeChildren");
+    mockChild.expects(once()).method("encodeEnd");
 
     root.getChildren().add(component);
     component.getChildren().add(child);
@@ -631,56 +631,39 @@ public class UIComponentTestCase extends FacesTestCase
     FacesContext current = FacesContext.getCurrentInstance();
     try
     {
-      TestFacesContext.setCurrentInstance(context);
-      root.processSaveState(context);
-      doRenderResponse(context, root);
+      TestFacesContext.setCurrentInstance(facesContext);
+      root.processSaveState(facesContext);
+      doRenderResponse(facesContext, root);
     }
     finally
     {
       TestFacesContext.setCurrentInstance(current);
     }
 
-    factory.verify();
-    renderkit.verify();
-    renderer.verify();
-    context.verify();
-    validator.verify();
-    child.verify();
+    mockRenderer.verify();
+    mockChild.verify();
   }
 
   protected void doTestValidateFailure(
     UIViewRoot root)
   {
-    MockRenderKitFactory factory = setupMockRenderKitFactory();
-    MockRenderKit renderkit = new MockRenderKit();
-    MockRenderer renderer = new MockRenderer();
-    MockApplication application = new MockApplication();
-    MockViewHandler viewhandler = new MockViewHandler();
-    MockFacesContext context = new MockFacesContext();
-
-    setCurrentContext(context);
-
-    factory.setupGetRenderKit(renderkit);
-    renderer.setupConvertClientId("clientId");
-    renderkit.setupGetRenderer(renderer);
-    viewhandler.setupCalculateLocale(Locale.getDefault());
-    application.setupGetViewHandler(viewhandler);
-    context.setupGetViewRoot(root);
-    context.setupGetApplication(application);
-    context.setupGetRenderKit(renderkit);
-    context.setupGetRenderResponse(false);
-    context.setupGetResponseComplete(false);
     
-    // these are called because of validation failure for required
-    context.setExpectedAddMessageCalls(1);
-    context.setExpectedRenderResponseCalls(1);
+    Mock mockRenderkit = getMockRenderKitWrapper().getMock();
+    RenderKit renderkit = getMockRenderKitWrapper().getRenderKit();
+    
+    Mock mockRenderer = mock(Renderer.class);
+    Renderer renderer = (Renderer) mockRenderer.proxy();
+    
+    Mock mockValidator = mock(Validator.class);
+    Validator validator = (Validator) mockValidator.proxy();
+    
+    ViewHandler viewhandler = this.facesContext.getApplication().getViewHandler();
 
-    root.processValidators(context);
+    setCurrentContext(facesContext);
+    
+    root.processValidators(facesContext);
 
-    factory.verify();
-    renderkit.verify();
-    renderer.verify();
-    context.verify();
+    mockRenderer.verify();
 
     setCurrentContext(null);
   }
@@ -691,19 +674,22 @@ public class UIComponentTestCase extends FacesTestCase
    * have any invoked, override the "expected calls" for
    * that lifecycle method.
    */
-  protected MockUIComponent createMockUIComponent()
+  protected Mock createMockUIComponent()
   {
-    MockUIComponent child = new MockUIComponent();
-    child.setupGetParent(null);
-    child.setExpectedProcessRestoreStateCalls(0);
-    child.setExpectedProcessDecodesCalls(0);
-    child.setExpectedProcessValidatorsCalls(0);
-    child.setExpectedProcessUpdatesCalls(0);
-    child.setExpectedProcessSaveStateCalls(0);
-    child.setExpectedEncodeBeginCalls(0);
-    child.setExpectedEncodeChildrenCalls(0);
-    child.setExpectedEncodeEndCalls(0);
-    return child;
+    Mock mock = mock(UIComponent.class);
+    
+    mock.stubs().method("getParent").will(returnValue(null));
+    mock.stubs().method("setParent");
+    mock.expects(never()).method("processRestoreState");
+    mock.expects(never()).method("processDecodes");
+    mock.expects(never()).method("processValidators");
+    mock.expects(never()).method("processUpdates");
+    mock.expects(never()).method("processSaveState");
+    mock.expects(never()).method("encodeBegin");
+    mock.expects(never()).method("encodeChildren");
+    mock.expects(never()).method("encodeEnd");
+    
+    return mock;
   }
 
   protected boolean willChildrenBeProcessed(UIComponent component)

@@ -16,6 +16,10 @@
 package org.apache.myfaces.adf.component.core.layout;
 
 import java.io.IOException;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adf.component.UIComponentTestCase;
 
 /**
@@ -34,6 +38,21 @@ public class CoreShowManyAccordionTest extends UIComponentTestCase
   public CoreShowManyAccordionTest(String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(CoreShowManyAccordionTest.class);
   }
 
   /**

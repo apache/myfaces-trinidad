@@ -20,31 +20,35 @@ import java.util.Collections;
 import java.util.List;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 import org.apache.myfaces.adf.model.SortCriterion;
-import org.apache.myfaces.adfbuild.test.MockFContext;
+import org.apache.shale.test.base.AbstractJsfTestCase;
 
 /**
  * @author Arjuna Wijeyekoon
  */
-public class SortableModelTest extends TestCase
+public class SortableModelTest extends AbstractJsfTestCase
 {
   public SortableModelTest(String name)
   {
     super(name);
   }
 
-	protected void setUp() throws Exception
+	public void setUp()
   {
     super.setUp();
-    new MockFContext();
   }
 
-	protected void tearDown() throws Exception
+	public void tearDown()
   {
-    MockFContext.clearContext();
     super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(SortableModelTest.class);
   }
   
   public void testInitialSort()
@@ -161,11 +165,6 @@ public class SortableModelTest extends TestCase
     assertTrue(dModel.getRowIndex() == 0);
     sModel.setRowIndex(2); //Anne
     assertTrue(dModel.getRowIndex() == 1);
-  }
-  
-  public static void main(String[] args)
-  {
-    TestRunner.run(SortableModelTest.class);
   }
   
   private DataModel _createTestDataModel()

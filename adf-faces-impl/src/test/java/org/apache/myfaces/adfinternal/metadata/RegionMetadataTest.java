@@ -26,26 +26,40 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
-import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import junit.textui.TestRunner;
 
+import org.apache.myfaces.adfbuild.test.FacesTestCase;
 import org.apache.myfaces.adfinternal.metadata.RegionMetadata.AttributeMetaData;
 import org.apache.myfaces.adfinternal.metadata.RegionMetadata.ComponentMetaData;
 
-import javax.faces.context.MockExternalContext;
-
-import org.apache.myfaces.adfbuild.test.MockFContext;
 /**
  * Test for parsing region-metadata.xml
  * @author Arjuna Wijeyekoon
  */
-public class RegionMetadataTest extends TestCase
+public class RegionMetadataTest extends FacesTestCase
 {
   public RegionMetadataTest(
     String testName)
   {
     super(testName);
+  }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(RegionMetadataTest.class);
   }
 
   // test loading the region-metadata from the classpath:
@@ -57,12 +71,9 @@ public class RegionMetadataTest extends TestCase
     {
       t.setContextClassLoader(new RegionClassLoader(loader));
   
-      MockFContext context = new MockFContext();
-      ((MockExternalContext) context.getExternalContext()).setupGetContext(null);
   
-      _testRegionMetadata(context);
+      _testRegionMetadata(facesContext);
   
-      MockFContext.clearContext();
     }
     finally
     {

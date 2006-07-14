@@ -17,17 +17,14 @@
 package org.apache.myfaces.adf.convert;
 import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.NumberConverter;
+import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.adf.convert.ConverterTestCase;
-import org.apache.myfaces.adfbuild.test.MockUtils;
-
-import javax.faces.application.MockApplication;
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockExternalContext;
-import javax.faces.context.MockFacesContext;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.jmock.Mock;
 
 /**
  * Test NumberConverter
@@ -46,18 +43,19 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
    */
   public void testNullContext()
   {
-    MockUIComponent component    = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     NumberConverter converter = getNumberConverter();
 
-    doTestNullContext(component, converter);
+    doTestNullContext(wrapper, converter);
   }
 
   public void testNullComponent()
   {
-    MockFacesContext context = new MockFacesContext();
     NumberConverter converter  = getNumberConverter();
 
-    doTestNullComponent(context, converter);
+    doTestNullComponent(facesContext, converter);
   }
 
   /**
@@ -67,12 +65,12 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
    */
   public void testNullInputValue() throws ConverterException
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
-
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     NumberConverter converter  = getNumberConverter();
 
-    doTestNull(context, component, converter);
+    doTestNull(facesContext, wrapper, converter);
   }
 
   public void testEmptyValueConversion()
@@ -82,32 +80,25 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
 
   public void testValueType()
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
-    UIViewRoot root = new UIViewRoot();
-    root.setLocale(Locale.US);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-
-    MockUtils.setFacesContext(context);
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    setFacesContext(facesContext);
     try
     {
       String input = "123";
       NumberConverter converter = getNumberConverter();
-      Object number = converter.getAsObject(context, component, input);
+      Object number = converter.getAsObject(facesContext, component, input);
       assertEquals(true, number instanceof Number);
       assertEquals(true, (((Number)number).intValue() == 123));
 
-      String outVal = converter.getAsString(context, component, number);
+      String outVal = converter.getAsString(facesContext, component, number);
       assertEquals(input, outVal);
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testAppropriateFormatsArePicked()
@@ -130,88 +121,84 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
 
     for (int i = 0; i < patterns.length; i++)
     {
-      MockFacesContext context  = new MockFacesContext();
-      MockUIComponent component = new MockUIComponent();
-      
-      MockUtils.setFacesContext(context);
+      Mock mock = mock(UIComponent.class);
+      UIComponent component = (UIComponent) mock.proxy();
+
+      setFacesContext(facesContext);
       try
       {
         nconv.setPattern(patterns[i]);
         nconv.setType(types[i]);
         nconv.setLocale(locales[i]);
         
-        Object convValue = nconv.getAsObject(context, component, inputValues[i]);
+        Object convValue = nconv.getAsObject(facesContext, component, inputValues[i]);
         assertEquals(expectedValues[i], convValue);
         
-        String outValue = nconv.getAsString(context, component, expectedValues[i]);
+        String outValue = nconv.getAsString(facesContext, component, expectedValues[i]);
         
         assertEquals(expectedStringValues[i], outValue);
       }
       finally
       {
-        MockUtils.setFacesContext(null);
+        setFacesContext(null);
       }
-      
-      context.verify();
-      component.verify();
+      mock.verify();
     }
   }
 
   public void testStateHolderSaveRestore()
   {
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
 
     NumberConverter restoreConverter = getNumberConverter();
-    MockFacesContext ctx = new MockFacesContext();
-    MockUIComponent comp = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     for (int i = 0; i < _LOCALES.length; i++)
     {
       converter.setLocale(_LOCALES[i]);
       restoreConverter.setLocale(_LOCALES[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setCurrencyCode( _CURRENCY_CODES[i]);
       restoreConverter.setCurrencyCode( _CURRENCY_CODES[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setCurrencySymbol(_CURRENCY_SYMBOLS[i]);
       restoreConverter.setCurrencySymbol(_CURRENCY_SYMBOLS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
-
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setIntegerOnly(_INTEGER_ONLY[1]);
       restoreConverter.setIntegerOnly(_INTEGER_ONLY[1]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setMaxFractionDigits(_MAX_FRACTION_DIGITS[i]);
       restoreConverter.setMaxFractionDigits(_MAX_FRACTION_DIGITS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setMaxIntegerDigits(_MAX_INT_DIGITS[i]);
       restoreConverter.setMaxIntegerDigits(_MAX_INT_DIGITS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setMinFractionDigits(_MIN_FRACT_DIGITS[i]);
       restoreConverter.setMinFractionDigits(_MIN_FRACT_DIGITS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setMinIntegerDigits(_MIN_INT_DIGITS[i]);
       restoreConverter.setMinIntegerDigits(_MIN_INT_DIGITS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setPattern( _PATTTERNS[i]);
       restoreConverter.setPattern(_PATTTERNS[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setTransient(_TRANSIENT[i]);
       restoreConverter.setTransient(_TRANSIENT[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
       converter.setType(_TYPES[i]);
-      doTestStateHolderSaveRestore(converter, restoreConverter, ctx, comp);
+      doTestStateHolderSaveRestore(converter, restoreConverter, facesContext, wrapper);
 
     }
   }
@@ -219,50 +206,46 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
   public void testCurrencyCodeIsHonoured()
   {
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+
     converter.setLocale(Locale.US);
     converter.setType("currency");
     Double  value = new Double(99);
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
-      String outPut = converter.getAsString(context, component, value);
+      String outPut = converter.getAsString(facesContext, component, value);
       assertEquals("$99.00", outPut);
       //Locale is US. By general convention the output prefix would be '$'
       // since we set the currency code to 'DEM' value should be DEM[value]
       converter.setCurrencyCode("DEM");
       
-      outPut = converter.getAsString(context, component, value);
+      outPut = converter.getAsString(facesContext, component, value);
       assertEquals("DEM99.00", outPut);
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testCurrencyCodeIsHonouredWhenCurrencyCodeAndCurrencySymbolIsSet()
   {
     NumberConverter converter   = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockApplication application = new MockApplication();
-    context.setupGetApplication(application);
-    application.setupGetMessageBundle(null);
+    Mock mock = buildMockUIComponent(2);
+    UIComponent component = (UIComponent) mock.proxy();
 
-    MockUIComponent component = MockUtils.buildMockUIComponent(2);
-    
     converter.setLocale(Locale.US);
     converter.setType("currency");
-    Double  value = new Double(99);
+    Double value = new Double(99);
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
-      String outPut = converter.getAsString(context, component, value);
+      String outPut = converter.getAsString(facesContext, component, value);
       assertEquals("$99.00", outPut);
       //Locale is US. By general convention the output prefix would be '$'
       // since we set the currency code to 'DEM' value should be DEM[value]
@@ -272,18 +255,11 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
       // code is set.
       converter.setCurrencySymbol("*");
       
-      outPut = converter.getAsString(context, component, value);
+      outPut = converter.getAsString(facesContext, component, value);
       assertEquals("DEM99.00", outPut);
       try
       {
-        UIViewRoot root = new UIViewRoot();
-        root.setLocale(Locale.US);
-        context.setupGetViewRoot(root);
-        context.setupGetViewRoot(root);
-        MockExternalContext external = new MockExternalContext();
-        context.setupGetExternalContext(external);
-        
-        Number outValue = (Number)converter.getAsObject(context, component, "DEM99.00");
+        Number outValue = (Number)converter.getAsObject(facesContext, component, "DEM99.00");
         fail("Exception should occur - since currency should not be considered while formatting");
       }
       catch(Exception e)
@@ -293,18 +269,16 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testCurrencySymbolIsHonoured()
   {
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
     converter.setLocale(Locale.US);
     converter.setType("currency");
     Double  value = new Double(99);
@@ -312,49 +286,45 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     // since we set currency symbol to '*' we should get the value to be *99.00
     converter.setCurrencySymbol("*");
     
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
-      String outPut = converter.getAsString(context, component, value);
+      String outPut = converter.getAsString(facesContext, component, value);
       assertEquals("*99.00", outPut);
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testIntegerOnlyIsHonoured()
   {
     // integerOnly is used only while parsing to create number objects
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
     converter.setLocale(Locale.US);
 
     String[] inputs = {"23.10", "44.90876", "11111", "67859.0001"};
     Number[] expectedValues = {new Long(23), new Long(44), new Long(11111), new Long(67859)};
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
       for (int i = 0; i < inputs.length; i++)
       {
         converter.setIntegerOnly(true);
-        Number num = (Number) converter.getAsObject(context, component, inputs[i]);
+        Number num = (Number) converter.getAsObject(facesContext, component, inputs[i]);
         assertEquals(expectedValues[i], num);
       }
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
 
@@ -362,14 +332,14 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
   {
     // integerOnly is used only while parsing to create number objects
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
     converter.setLocale(Locale.US);
 
     String[] inputs = {"23.10", "44.90876", "11111", "67859.0001"};
     Number[] expectedValues = {new Long(23), new Long(44), new Long(11111), new Long(67859)};
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
       for (int i = 0; i < inputs.length; i++)
@@ -382,44 +352,39 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
         
         // this should be taken care by the parsing code
         converter.setIntegerOnly(true);
-        Number num = (Number) converter.getAsObject(context, component, inputs[i]);
+        Number num = (Number) converter.getAsObject(facesContext, component, inputs[i]);
         assertEquals(expectedValues[i], num);
       }
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testLocaleIsPickedUpFromViewRoot()
   {
 
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
 
-    UIViewRoot root = new UIViewRoot();
-    root.setLocale(Locale.US);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    facesContext.getViewRoot().setLocale(Locale.US);
 
     String input = "1234.56";
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
       // if we get a valid object, implies locale was indeed picked up.
       // otherwise we would have got a null pointer exception or other exception
-      Object value = converter.getAsObject(context, component, input);
+      Object value = converter.getAsObject(facesContext, component, input);
       assertEquals(new Double(1234.56), value);
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
   }
 
@@ -430,41 +395,38 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     String[] expectedValues = {"9,999", "99", "0.99", "99999.567", "9999"};
 
     NumberConverter converter = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
     converter.setLocale(Locale.US);
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
       for (int i = 0; i < inputValues.length; i++)
       {
         converter.setGroupingUsed(isGroupingUsed[i]);
-        String out = converter.getAsString(context, component, inputValues[i]);
+        String out = converter.getAsString(facesContext, component, inputValues[i]);
         assertEquals(expectedValues[i], out);
       }
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testStrictnessOfConversion()
   {
     String[] inputValues = {"123ABC", "22.22.2" };
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component
-      = MockUtils.buildMockUIComponent(inputValues.length * 3);
+    Mock mock = buildMockUIComponent(inputValues.length * 3);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     for (int i = 0; i < inputValues.length; i++)
     {
-      doTestStrictNess(context, component, Locale.US, inputValues[i]);
+      doTestStrictNess(facesContext, wrapper, Locale.US, inputValues[i]);
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testSettingFractDigitsAndSettingMinDigitsAreHononured()
@@ -478,10 +440,10 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
     int[] minFractDigits = {0, 2, 0, 2};
 
     NumberConverter converter   = getNumberConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
       converter.setLocale(Locale.US);
@@ -492,23 +454,22 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
         converter.setMinFractionDigits(minFractDigits[i]);
         converter.setMinIntegerDigits(minIntDigits[i]);
         
-        String out = converter.getAsString(context, component, inputValues[i]);
+        String out = converter.getAsString(facesContext, component, inputValues[i]);
         assertEquals(expectedValues[i], out);   
       }
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   protected abstract NumberConverter getNumberConverter();
 
   protected abstract void doTestStrictNess(
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Locale locale,
     String inputValue);
 

@@ -22,8 +22,11 @@ import javax.faces.component.StateHolder;
 import javax.faces.convert.Converter;
 import javax.faces.convert.NumberConverter;
 
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
 
 /**
  * Test JSF NumberConverter
@@ -37,6 +40,21 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     super(name);
   }
 
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(JsfNumberConverterTest.class);
+  }
+  
   protected NumberConverter getNumberConverter()
   {
     return new NumberConverter();
@@ -46,7 +64,7 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     Converter conv1,
     Converter conv2,
     MockFacesContext context,
-    MockUIComponent component
+    MockUIComponentWrapper wrapper
     )
   {
     Object state = ((StateHolder)conv1).saveState(context);
@@ -57,8 +75,7 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
                                            (NumberConverter)conv2);
 
     assertEquals(true, isEqual);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
   // This is a bad equals comparison. But this is max we can do.
@@ -98,13 +115,13 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
 
    protected void doTestStrictNess(
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Locale locale,
     String inputValue)
   {
      NumberConverter converter = getNumberConverter();
      converter.setLocale(locale);
-     Object obj = converter.getAsObject(context, component, inputValue);
+     Object obj = converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
      // JSF Converter is lenient - so it will get parsed to a valid object
      assertEquals(true, (obj != null));
   };

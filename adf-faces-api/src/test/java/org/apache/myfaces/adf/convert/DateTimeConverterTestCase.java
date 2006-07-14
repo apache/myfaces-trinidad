@@ -15,21 +15,19 @@
  */
 
 package org.apache.myfaces.adf.convert;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import javax.faces.component.UIViewRoot;
+import javax.faces.component.UIComponent;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.adf.convert.ConverterTestCase;
-
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
-
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.jmock.Mock;
 
 /**
  * Test DateTimeConverter
@@ -42,7 +40,7 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
   {
     super(testName);
   }
-
+  
   /**
    * @todo once all test case work fine - we can move all in to one method
    */
@@ -73,12 +71,13 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
    */
   protected void checkNullInputValue() throws ConverterException
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     javax.faces.convert.DateTimeConverter converter  = getDateTimeConverter();
 
-    doTestNull(context, component, converter);
+    doTestNull(facesContext, wrapper, converter);
   }
 
   /**
@@ -86,18 +85,19 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
    */
   protected void checkNullContext()
   {
-    MockUIComponent component    = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     javax.faces.convert.DateTimeConverter converter = getDateTimeConverter();
 
-    doTestNullContext(component, converter);
+    doTestNullContext(wrapper, converter);
   }
 
   protected void checkNullComponent()
   {
-    MockFacesContext context = new MockFacesContext();
     javax.faces.convert.DateTimeConverter converter  = getDateTimeConverter();
 
-    doTestNullComponent(context, converter);
+    doTestNullComponent(facesContext, converter);
   }
 
   /**
@@ -168,8 +168,9 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
   {
 
     javax.faces.convert.DateTimeConverter converter = getDateTimeConverter();
-    MockFacesContext context    = new MockFacesContext();
-    MockUIComponent component   = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     javax.faces.convert.DateTimeConverter restoreConverter = getDateTimeConverter();
 
@@ -188,41 +189,40 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       converter.setLocale(_LOCALES[i]);
       restoreConverter.setLocale(_LOCALES[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
+                                 facesContext, wrapper);
 
       converter.setPattern(_PATTERNS[i]);
       restoreConverter.setPattern(_PATTERNS[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
+                                 facesContext, wrapper);
 
       converter.setTimeStyle(_TIME_STYLES[i]);
       restoreConverter.setTimeStyle(_TIME_STYLES[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
+                                 facesContext, wrapper);
 
       converter.setTimeZone(_TIME_ZONES[i]);
       restoreConverter.setTimeZone(_TIME_ZONES[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
+                                 facesContext, wrapper);
 
       converter.setType(_TYPES[i]);
       restoreConverter.setType(_TYPES[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
+                                 facesContext, wrapper);
 
       String secPattern = _SECONDARY_PATTERNS[i];
       setSecondaryPattern(converter, secPattern);
       setSecondaryPattern(restoreConverter, secPattern);
 
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                   context, component);
+                                   facesContext, wrapper);
 
       converter.setTransient(_TRANSIENT_VALUES[i]);
       restoreConverter.setTransient(_TRANSIENT_VALUES[i]);
       doTestStateHolderSaveRestore(converter, restoreConverter,
-                                 context, component);
-      context.verify();
-      component.verify();
+                                 facesContext, wrapper);
+      mock.verify();
     }
   }
 
@@ -240,22 +240,22 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       dtConv.setTimeZone(_STIME_ZONES[i]);
       dtConv.setType(_STYPES[i]);
 
-      MockFacesContext context  =  new MockFacesContext();
-      MockUIComponent component =  new MockUIComponent();
+      Mock mock = mock(UIComponent.class);
+      UIComponent component = (UIComponent) mock.proxy();
+      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
       
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       try
       {
-        Date obj = (Date)dtConv.getAsObject(context, component, _SINPUT_VALUES[i]);
+        Date obj = (Date)dtConv.getAsObject(facesContext, component, _SINPUT_VALUES[i]);
         assertEquals(true, isEqual(obj,_SEXPECTED_DATES[i]));
       }
       finally
       {
-        MockUtils.setFacesContext(null);
+        setFacesContext(null);
       }
 
-      context.verify();
-      component.verify();
+      mock.verify();
    }
   }
 
@@ -269,12 +269,11 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     dtConv.setTimeZone(null);
     dtConv.setPattern(pattern);
 
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component  = new MockUIComponent();
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
-    UIViewRoot uiRoot = new UIViewRoot();
-    uiRoot.setLocale(Locale.ENGLISH);
-    context.setupGetViewRoot(uiRoot);
+    facesContext.getViewRoot().setLocale(Locale.ENGLISH);
 
     TimeZone tz = TimeZone.getDefault();
     TimeZone.setDefault(getTzone("UTC"));
@@ -282,16 +281,16 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     GregorianCalendar gcal = new GregorianCalendar(getTzone("UTC"));
     gcal.set(2001,6,4,12,8,56);
 
-    MockUtils.setFacesContext(context);
+    setFacesContext(facesContext);
     try
     {
-      Date dt = (Date) dtConv.getAsObject(context, component, inputValue);
+      Date dt = (Date) dtConv.getAsObject(facesContext, component, inputValue);
       Date expectedDt = gcal.getTime();
       assertEquals(true, isEqual(dt, expectedDt));
     }
     finally
     {
-      MockUtils.setFacesContext(null);
+      setFacesContext(null);
     }
  }
 
@@ -324,8 +323,9 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     for (int i = 0; i < patternBasedValues.length; i++)
     {
 
-      MockFacesContext context   = new MockFacesContext();
-      MockUIComponent  component = new MockUIComponent();
+      Mock mock = mock(UIComponent.class);
+      UIComponent component = (UIComponent) mock.proxy();
+      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
       javax.faces.convert.DateTimeConverter fdtConv
         = getDateTimeConverter();
@@ -339,20 +339,17 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       // locale is indeed picked up from the view root
       if (loc == null)
       {
-        UIViewRoot uiRoot = new UIViewRoot();
-        uiRoot.setLocale(Locale.GERMAN);
-        context.setupGetViewRoot(uiRoot);
-        context.setupGetViewRoot(uiRoot);
+        facesContext.getViewRoot().setLocale(Locale.GERMAN);
       }
 
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       try
       {
-        String fobtPattern = fdtConv.getAsString(context, component, date);
+        String fobtPattern = fdtConv.getAsString(facesContext, component, date);
         
         assertEquals(patternBasedValues[i][3], fobtPattern);
         
-        Date fdt = (Date)fdtConv.getAsObject(context, component, fobtPattern);
+        Date fdt = (Date)fdtConv.getAsObject(facesContext, component, fobtPattern);
         
         /**
          * @todo to find - why we get this millisecond difference
@@ -361,11 +358,9 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       }
       finally
       {
-        MockUtils.setFacesContext(null);
+        setFacesContext(null);
       }
-
-      context.verify();
-      component.verify();
+      mock.verify();
     }
   }
 
@@ -389,30 +384,30 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       // by default dateStyle is shortish and type is date
 
       javax.faces.convert.DateTimeConverter dtConv = getDateTimeConverter();
-      MockFacesContext context   = new MockFacesContext();
-      MockUIComponent  component = new MockUIComponent();
+      Mock mock = mock(UIComponent.class);
+      UIComponent component = (UIComponent) mock.proxy();
+      MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
       _setStyleOnConverter(dtConv, styleType, styles[i]);
 
       dtConv.setLocale(Locale.ENGLISH);
-      MockUtils.setFacesContext(context);
+      setFacesContext(facesContext);
       try
       {
-        String out =  dtConv.getAsString(context, component, dt);
+        String out =  dtConv.getAsString(facesContext, component, dt);
         assertEquals(true, (out != null));
       }
       finally
       {
-        MockUtils.setFacesContext(null);
+        setFacesContext(null);
       }
 
-      context.verify();
-      component.verify();
+      mock.verify();
 
-      MockFacesContext ctx   = new MockFacesContext();
-      MockUIComponent  cmp   = new MockUIComponent();
+      Mock mok = mock(UIComponent.class);
+      UIComponent cmp = (UIComponent) mok.proxy();
 
-      MockUtils.setFacesContext(ctx);
+      setFacesContext(facesContext);
       try
       {
         try
@@ -420,7 +415,7 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
           javax.faces.convert.DateTimeConverter extDtConv = getDateTimeConverter();
           extDtConv.setLocale(Locale.ENGLISH);
           _setStyleOnConverter(extDtConv, styleType, styles[i].toUpperCase());
-          String outPut = extDtConv.getAsString(context, component, dt);
+          String outPut = extDtConv.getAsString(facesContext, cmp, dt);
           fail("Upper case not accepted for styles");
         }
         catch (RuntimeException ce)
@@ -430,14 +425,12 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
       }
       finally
       {
-        MockUtils.setFacesContext(null);
+        setFacesContext(null);
       }
 
-      ctx.verify();
-      cmp.verify();
+      mok.verify();
     }
   }
-
 
   protected abstract javax.faces.convert.DateTimeConverter getDateTimeConverter();
 
@@ -727,58 +720,3 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     = _getDates(_SLOCALES,_STIME_ZONES, _DAYS,_MONTHS, _YEARS, _HOURS, _MINS, _SECS);
 
 }
-
-
- /*
- public void testPrintValues()
- {
-   System.out.println("\n<TR>\n");
-   System.out.println("<TD>");System.out.print("Date Style\n");
-   System.out.println("<TD>");System.out.print("Locale\n");
-   System.out.println("<TD>");System.out.print("Pattern\n");
-   System.out.println("<TD>");System.out.print("TimeStyle\n");
-   System.out.println("<TD>");System.out.print("TimeZone\n");
-   System.out.println("<TD>");System.out.print("Type\n");
-   System.out.println("<TD>");System.out.print("SecondaryPattern\n");
-   System.out.println("<TD>");System.out.print("getAsObject()\n");
-   System.out.println("<TD>");System.out.print("getAsString()\n");
-   System.out.println("</TR>");
-   for (int i = 0; i < _DATE_STYLES.length; i++)
-   {
-      System.out.println("<TR>");
-      System.out.println("<TD>");
-      System.out.print(_DATE_STYLES[i]+"\n");
-      //System.out.print("\t");
-
-      System.out.print("<TD>");
-      System.out.print(_LOCALES[i]+"\n");
-      //System.out.print("\t");
-
-      System.out.println("<TD>");
-      System.out.print(_PATTERNS[i]+"\n");
-      //System.out.print("\t");
-
-      System.out.print("<TD>");
-      System.out.print(_TIME_STYLES[i]+"\n");
-      //System.out.print("\t");
-
-      System.out.print("<TD>");
-      System.out.print(_TIME_ZONES[i].getID()+"\n");
-      //System.out.print("\t");
-
-      System.out.print("<TD>");
-      System.out.print(_TYPES[i]+"\n");
-      //System.out.print("\t");
-
-      System.out.print("<TD>");
-      System.out.print(_SECONDARY_PATTERNS[i]+"\n");
-      //System.out.print("\t\n");
-      System.out.print("<TD>");
-      System.out.println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n");
-
-      System.out.print("<TD>");
-      System.out.println("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\n");
-      System.out.println("</TR>");
-
-   }  */
-

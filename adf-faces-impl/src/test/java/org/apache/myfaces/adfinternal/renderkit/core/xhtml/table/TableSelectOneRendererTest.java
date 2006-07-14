@@ -20,12 +20,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.context.FacesContext;
-import javax.faces.context.MockExternalContext;
 import javax.faces.event.FacesEvent;
+import javax.faces.render.RenderKit;
 
-import junit.textui.TestRunner;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import org.apache.myfaces.adf.component.core.data.CoreTable;
 import org.apache.myfaces.adf.event.SelectionEvent;
@@ -33,7 +32,7 @@ import org.apache.myfaces.adf.model.RowKeySet;
 import org.apache.myfaces.adf.model.RowKeySetImpl;
 
 import org.apache.myfaces.adfbuild.test.FacesTestCase;
-import org.apache.myfaces.adfbuild.test.MockFContext;
+import org.jmock.Mock;
 
 
 /**
@@ -46,19 +45,20 @@ public class TableSelectOneRendererTest extends FacesTestCase
   {
     super(testName);
   }
-
-  public static void main(String[] args)
+  
+  public void setUp()
   {
-    TestRunner.run(TableSelectOneRendererTest.class);
-    try
-    {
-      //new TreeStateTest("test").testExpandAllDepth();
-      //new TreeStateTest("test").testSerialization();
-    }
-    catch (Throwable e)
-    {
-      e.printStackTrace();
-    }
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(TableSelectOneRendererTest.class);
   }
 
   /**
@@ -67,12 +67,10 @@ public class TableSelectOneRendererTest extends FacesTestCase
    */
   public void testDecodeNothing()
   {
-    new MockFContext();
 
     CoreTable table = _createComponent();
     _doDecode(table, -1);
     _testSelection(table, _INIT_SELECTION);
-    MockFContext.clearContext();
   }
 
   /**
@@ -82,7 +80,6 @@ public class TableSelectOneRendererTest extends FacesTestCase
   public void testDecodeSelected()
   {
     final int selectedIndex = 4;
-    new MockFContext();
 
     TestTable table = (TestTable) _createComponent();
     _doDecode(table, selectedIndex);
@@ -105,7 +102,6 @@ public class TableSelectOneRendererTest extends FacesTestCase
 
     table.setRowIndex(oldIndex);
     _testSelection(table, selectedIndex);
-    MockFContext.clearContext();
   }
 
   private CoreTable _createComponent()
@@ -137,11 +133,13 @@ public class TableSelectOneRendererTest extends FacesTestCase
   private void _doDecode(CoreTable table,
                          int selectedIndex)
   {
-    MockFContext context = (MockFContext) FacesContext.getCurrentInstance();
-    context.setupGetViewRoot(new UIViewRoot());
-    MockExternalContext external =
-      (MockExternalContext) context.getExternalContext();
+    //this.facesContext.setViewRoot(new UIViewRoot());
+    Mock mockRenderKit = getMockRenderKitWrapper().getMock();
+    RenderKit renderKit = getMockRenderKitWrapper().getRenderKit();
+    TableSelectOneRenderer renderer = new TableSelectOneRenderer();
+    mockRenderKit.expects(atLeastOnce()).method("getRenderer").will(returnValue(renderer));
 
+    
     if (selectedIndex >= 0)
     {
       int oldIndex = table.getRowIndex();
@@ -151,21 +149,20 @@ public class TableSelectOneRendererTest extends FacesTestCase
 
       Map requestParams = new HashMap(2);
       String selectionParam =
-        TableSelectOneRenderer.__getSelectionParameterName(context, table);
+        TableSelectOneRenderer.__getSelectionParameterName(facesContext, table);
       requestParams.put(selectionParam, selectedParam);
-      external.setupGetRequestParameterMap(requestParams);
+      externalContext.setRequestParameterMap(requestParams);
     }
     else
     {
-      external.setupGetRequestParameterMap(Collections.EMPTY_MAP);
+      externalContext.setRequestParameterMap(Collections.EMPTY_MAP);
     }
 
 
-    TableSelectOneRenderer renderer = new TableSelectOneRenderer();
-    renderer.decode(context, table);
+    renderer.decode(facesContext, table);
+    
+    mockRenderKit.verify();
 
-    external.verify();
-    context.verify();
   }
 
   private static class TestTable extends CoreTable

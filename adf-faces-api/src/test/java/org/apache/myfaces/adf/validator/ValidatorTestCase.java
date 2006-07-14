@@ -15,37 +15,37 @@
  */
 
 package org.apache.myfaces.adf.validator;
-import java.util.HashMap;
-import java.util.Locale;
 
+import java.util.HashMap;
 import java.util.Map;
+
 import javax.faces.component.StateHolder;
-import javax.faces.component.UIViewRoot;
+import javax.faces.component.UIComponent;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import junit.framework.TestCase;
-
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
+import org.apache.myfaces.adfbuild.test.AbstractBaseTestCase;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.jmock.Mock;
 
 /**
  * Base class for unit tests for Validators
  *
  * @author vijay venkatarman
  */
-public abstract class ValidatorTestCase extends TestCase
+public abstract class ValidatorTestCase extends AbstractBaseTestCase
 {
   public ValidatorTestCase(String testName)
   {
     super(testName);
   }
 
-  protected static void setMockLabelForComponent(MockUIComponent component)
+  protected void setMockLabelForComponent(MockUIComponentWrapper wrapper)
   {
     Map attributes = new HashMap();
     attributes.put("label", "label");
-    component.setupGetAttributes(attributes);
+    wrapper.getMock().stubs().method("getAttributes").will(returnValue(attributes));
   }
 
   /**
@@ -55,26 +55,25 @@ public abstract class ValidatorTestCase extends TestCase
    */
   protected void doTestNull(
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Validator validator
     ) throws ValidatorException
   {
-    validator.validate(context, component, null);
+    validator.validate(context, wrapper.getUIComponent(), null);
 
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
   /**
    * if contex or component = null then should throw NullPointerException
    */
   protected void doTestNullContext(
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Validator validator) throws NullPointerException
   {
     try
     {
-      validator.validate(null, component , "dummy");
+      validator.validate(null, wrapper.getUIComponent(), "dummy");
       fail("Expected NullpointerException - if context or component is null");
     }
     catch (NullPointerException npe)
@@ -110,13 +109,12 @@ public abstract class ValidatorTestCase extends TestCase
   protected void doTestValidate(
     Validator validator,
     MockFacesContext context,
-    MockUIComponent component,
+    MockUIComponentWrapper wrapper,
     Object value
     )  throws ValidatorException
   {
-    validator.validate(context, component, value );
-    context.verify();
-    component.verify();
+    validator.validate(context, wrapper.getUIComponent(), value );
+    wrapper.getMock().verify();
   }
 
   /**
@@ -145,31 +143,24 @@ public abstract class ValidatorTestCase extends TestCase
     Validator thisValidator,
     Validator otherValidator,
     MockFacesContext context,
-    MockUIComponent component)
+    MockUIComponentWrapper wrapper)
   {
     Object state = ((StateHolder)thisValidator).saveState(context);
 
     ((StateHolder)otherValidator).restoreState(context, state);
     // do all actions of save and restore
     doTestEquals(thisValidator, otherValidator, true);
-    context.verify();
-    component.verify();
+    wrapper.getMock().verify();
   }
 
   public void doTestIsNotString(Validator validator)
   {
-    MockFacesContext context  = new MockFacesContext();
-    MockUIComponent component = new MockUIComponent();
-
-    UIViewRoot root = new UIViewRoot();
-    Locale mockLocale = new Locale("xx", "MOCK");
-    root.setLocale(mockLocale);
-    component.setupGetId("test");
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
+    Mock mock = mock(UIComponent.class);
+    UIComponent component = (UIComponent) mock.proxy();
+    mock.stubs().method("getId").will(returnValue("test"));
     try
     {
-      validator.validate(context, component, new Integer(1));
+      validator.validate(facesContext, component, new Integer(1));
       // if exception is not thrown - mark it as an failure
       fail("Expected Validator Exception");
     }

@@ -25,12 +25,8 @@ import javax.faces.render.RenderKitFactory;
 
 import java.io.IOException;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.apache.myfaces.adf.context.Agent;
 
-import org.apache.myfaces.adfinternal.agent.AgentImpl;
 import org.apache.myfaces.adfinternal.agent.AgentFactoryImpl;
 
 import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;

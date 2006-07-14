@@ -15,26 +15,41 @@
 */
 package org.apache.myfaces.adfinternal.application;
 
-import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.RenderKitFactory;
 
-import org.apache.myfaces.adfinternal.renderkit.MFacesContext;
+import org.apache.myfaces.adfbuild.test.FacesTestCase;
 import org.apache.myfaces.adfinternal.renderkit.RenderKitBootstrap;
 
-public class ViewHandlerImplTest extends TestCase
+public class ViewHandlerImplTest extends FacesTestCase
 {
   public ViewHandlerImplTest(
     String testName)
   {
     super(testName);
   }
+  
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(ViewHandlerImplTest.class);
+  }
 
   public void testInternalView() throws Throwable
   {
     ViewHandlerImpl vh = new ViewHandlerImpl(new NullViewHandler());
-    MFacesContext facesContext = new MFacesContext(false);
     RenderKitBootstrap.setFactories(null);
     try
     {

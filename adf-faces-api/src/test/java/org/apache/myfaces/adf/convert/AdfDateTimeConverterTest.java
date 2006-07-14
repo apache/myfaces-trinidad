@@ -21,17 +21,17 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import javax.faces.component.UIViewRoot;
+import javax.faces.component.UIComponent;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.apache.myfaces.adf.context.MockAdfFacesContext;
-
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
-
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.apache.shale.test.mock.MockFacesContext;
+import org.jmock.Mock;
 
 public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
 {
@@ -39,6 +39,28 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
   {
     super(name);
   }
+  
+
+  public void setUp()
+  {
+    super.setUp();
+    _mafct = new MockAdfFacesContext();
+    _mafct.setTwoDigitYearStart(1950);
+    _mafct.setTimeZone(DEFAULT_TIME_ZONE);
+  }
+
+  public void tearDown()
+  {
+    super.tearDown();
+    _mafct.release();
+    _mafct = null;
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(AdfDateTimeConverterTest.class);
+  }
+  
 
   /**
    * @todo move this to the parent class once JSF fixes the bug
@@ -59,20 +81,19 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     Date date = gcal.getTime();
 
     DateTimeConverter dtConv   = new DateTimeConverter();
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component  = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
     String inputValue          = "6/4/2999";
 
     dtConv.setDateStyle("shortish");
     dtConv.setLocale(Locale.ENGLISH);
 
-    Date dt = (Date) dtConv.getAsObject(context, component, inputValue);
+    Date dt = (Date) dtConv.getAsObject(facesContext, component, inputValue);
     assertEquals(true, isEqual(date, dt));
 
-    String exptectedStr = dtConv.getAsString(context, component, dt);
+    String exptectedStr = dtConv.getAsString(facesContext, component, dt);
     assertEquals(inputValue, exptectedStr);
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testShortishDateStyle()
@@ -91,8 +112,8 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     Date date = gcal.getTime();
 
     DateTimeConverter dtConv   = new DateTimeConverter();
-    MockFacesContext context   = new MockFacesContext();
-    MockUIComponent component  = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
     String inputValue          = "6/4/1600";
     String secondaryPattern    = "MM/d/yyyy";
 
@@ -101,12 +122,12 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     dtConv.setType("Let us un set it");
     dtConv.setSecondaryPattern(secondaryPattern);
     // This should work fine
-    Date dt = (Date) dtConv.getAsObject(context, component, inputValue);
+    Date dt = (Date) dtConv.getAsObject(facesContext, component, inputValue);
     assertEquals(true, isEqual(date, dt));
 
     try
     {
-      dtConv.getAsString(context, component, dt);
+      dtConv.getAsString(facesContext, component, dt);
       fail("Use of secondary pattern in the above fashion is expected to fail here");
     }
     catch (RuntimeException ce)
@@ -119,11 +140,10 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
 
     // now we set date and type so this is expected to work fine.
 
-    String expectedOut = dtConv.getAsString(context, component, date);
+    String expectedOut = dtConv.getAsString(facesContext, component, date);
     assertEquals(inputValue, expectedOut);
 
-    context.verify();
-    component.verify();
+    mock.verify();
   }
 
   public void testLeniencyOnPrimaryPattern()
@@ -138,15 +158,6 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     String primaryPattern = null;
     String secondaryPattern = "MMM/d/yyyy";
     dotestLeniencyOnPattern(primaryPattern, secondaryPattern);
-  }
-
-  private void _setupFacesContext(MockFacesContext context, int count)
-  {
-    UIViewRoot uiRoot = new UIViewRoot();
-    uiRoot.setLocale(Locale.ENGLISH);
-
-    for (int j = 0; j < count; j++)
-      context.setupGetViewRoot(uiRoot);
   }
 
   protected void dotestLeniencyOnPattern(
@@ -173,11 +184,11 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     GregorianCalendar cal = new GregorianCalendar(2004, Calendar.JUNE, 4);
     cal.setTimeZone(DEFAULT_TIME_ZONE);
     Date dt = cal.getTime();
-    MockUIComponent component
-       = MockUtils.buildMockUIComponent(iterations);
+    Mock mock = buildMockUIComponent(iterations);
+    UIComponent component = (UIComponent) mock.proxy();
+    
     for (int i = 0; i < validInputs.length; i++)
     {
-      MockFacesContext context  = new MockFacesContext();
       DateTimeConverter
         dtConv = (DateTimeConverter) getDateTimeConverter();
       dtConv.setLocale(Locale.ENGLISH);
@@ -186,13 +197,10 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
       dtConv.setTimeZone(DEFAULT_TIME_ZONE);
       dtConv.setType("INVALID"); // make this type invalid
 
-      _setupFacesContext(context, validInputs.length * 3);
-
-      Date convDate = (Date) dtConv.getAsObject(context, component,
+      Date convDate = (Date) dtConv.getAsObject(facesContext, component,
                                                 validInputs[i]);
       assertEquals(convDate, dt);
-      context.verify();
-      component.verify();
+      mock.verify();
     }
   }
 
@@ -214,15 +222,14 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
       fdtConv.setLocale((Locale)data[i][2]);
       fdtConv.setTimeZone((TimeZone)data[i][3]);
 
-      MockFacesContext context  = new MockFacesContext();
-      _setupFacesContext(context, 4);
-      MockUIComponent component = MockUtils.buildMockUIComponent();
-      Date dtConvDate  = (Date)dtConv.getAsObject(context, component, inputValue);
-      Date fdtConvDate = (Date)fdtConv.getAsObject(context, component, inputValue);
+      Mock mock = buildMockUIComponent();
+      UIComponent component = (UIComponent) mock.proxy();
+      Date dtConvDate  = (Date)dtConv.getAsObject(facesContext, component, inputValue);
+      Date fdtConvDate = (Date)fdtConv.getAsObject(facesContext, component, inputValue);
       //      assertEquals(dtConvDate, fdtConvDate);
 
-      String dtConvPattern  = dtConv.getAsString(context, component, dtConvDate);
-      String fdtConvPattern = fdtConv.getAsString(context, component, dtConvDate);
+      String dtConvPattern  = dtConv.getAsString(facesContext, component, dtConvDate);
+      String fdtConvPattern = fdtConv.getAsString(facesContext, component, dtConvDate);
       //      assertEquals(dtConvPattern, fdtConvPattern);
     }
   }
@@ -244,10 +251,10 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     Converter conv1,
     Converter conv2,
     MockFacesContext context,
-    MockUIComponent component
+    MockUIComponentWrapper wrapper
     )
   {
-    super.doTestStateHolderSaveRestore(conv1, conv2, context, component);
+    super.doTestStateHolderSaveRestore(conv1, conv2, context, wrapper);
   }
 
   public void testCustomMessageIsSet()
@@ -262,19 +269,16 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
 
     for (int i = 0; i < failingValues.length ; i++)
     {
-      MockFacesContext context  = new MockFacesContext();
-      MockUIComponent component = MockUtils.buildMockUIComponent(3 * 4);
+      Mock mock = buildMockUIComponent(3 * 4);
+      UIComponent component = (UIComponent) mock.proxy();
 
       org.apache.myfaces.adf.convert.DateTimeConverter converter =
         new org.apache.myfaces.adf.convert.DateTimeConverter();
 
-      UIViewRoot root = new UIViewRoot();
-      root.setLocale(Locale.US);
-
       for (int j = 0; j < 3; j++)
       {
         for (int k = 0; k < 4; k++)
-          context.setupGetViewRoot(root);
+        	facesContext.getViewRoot().setLocale(Locale.US);
       }
 
       try
@@ -296,7 +300,7 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
         else
           converter.setType(types[i]);
 
-        Object obj = converter.getAsObject(context, component, failingValues[i]);
+        Object obj = converter.getAsObject(facesContext, component, failingValues[i]);
         fail("Expected converter exception");
       }
       catch (ConverterException ce)
@@ -306,19 +310,6 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
         assertEquals(msg, customMessage[i]);
       }
     }
-  }
-
-  protected void setUp()
-  {
-    _mafct = new MockAdfFacesContext();
-    _mafct.setTwoDigitYearStart(1950);
-    _mafct.setTimeZone(DEFAULT_TIME_ZONE);
-  }
-
-  protected void tearDown()
-  {
-    _mafct.release();
-    _mafct = null;
   }
 
   private Object[][] _getDataForPatterns()
@@ -348,4 +339,3 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
 
   private static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getDefault();
 }
-

@@ -15,16 +15,15 @@
  */
 package org.apache.myfaces.adf.validator;
 
-import java.util.Locale;
 
-import javax.faces.component.UIViewRoot;
+import javax.faces.component.UIComponent;
 import javax.faces.validator.ValidatorException;
 
-import org.apache.myfaces.adfbuild.test.MockUtils;
+import org.apache.myfaces.adfbuild.test.MockUIComponentWrapper;
+import org.jmock.Mock;
 
-import javax.faces.component.MockUIComponent;
-import javax.faces.context.MockFacesContext;
-
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Unit tests for ByteLengthValidator
@@ -38,6 +37,21 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     super(testName);
   }
 
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(ByteLengthValidatorTest.class);
+  }
+  
   /**
    * Tests that null returns immediately.
    *
@@ -45,10 +59,11 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
    */
   public void testNull() throws ValidatorException
   {
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     ByteLengthValidator validator = new ByteLengthValidator();
-    doTestNull(context, component, validator);
+    doTestNull(facesContext, wrapper, validator);
   }
 
   /**
@@ -57,9 +72,11 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
   public void testNullContext()
   {
 
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     ByteLengthValidator validator = new ByteLengthValidator();
-    doTestNullContext(component, validator);
+    doTestNullContext(wrapper, validator);
   }
  /**
   * Check when component whose value is null is passed to the validator.
@@ -67,9 +84,8 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
   */
   public void testNullComponent()
   {
-    MockFacesContext context      = new MockFacesContext();
     ByteLengthValidator validator = new ByteLengthValidator();
-    doTestNullComponent(context, validator);
+    doTestNullComponent(facesContext, validator);
   }
 
   /**
@@ -86,31 +102,34 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
   public void testSanitySuccess()
   {
 
-    MockFacesContext context      = new MockFacesContext();
     ByteLengthValidator validator = new ByteLengthValidator();
     //some very basic sanity test
     String values[]    = {"four"};
     String encodings[] = {"ISO-8859-1"};
     int maxBytes[]     = {4};
 
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     for (int i = 0; i < values.length ; i++)
     {
       validator.setEncoding(encodings[i]);
       validator.setMaximum(maxBytes[i]);
-      doTestValidate(validator, context, component, values[i]);
+      doTestValidate(validator, facesContext, wrapper, values[i]);
     }
   }
 
   public void testDefaultEncodingWorks()
   {
-    MockFacesContext context      = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     ByteLengthValidator validator = new ByteLengthValidator();
     String value = "four";
     validator.setMaximum(4);
-    doTestValidate(validator, context, component, value);
+    doTestValidate(validator, facesContext, wrapper, value);
   }
 
   /**
@@ -118,8 +137,9 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
    */
   public void testStateHolderSaveRestore()
   {
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
     ByteLengthValidator validator = new ByteLengthValidator();
     validator.setEncoding("ISO-8859-1");
     validator.setMaximum(4);
@@ -127,7 +147,7 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     ByteLengthValidator restoreValidator = new  ByteLengthValidator();
 
     doTestStateHolderSaveRestore(validator, restoreValidator,
-                                 context, component);
+                                 facesContext, wrapper);
   }
 
   /**
@@ -165,14 +185,10 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
 
   public void testCustomMessageIsSet()
   {
-    MockFacesContext context = new MockFacesContext();
-    MockUIComponent component = MockUtils.buildMockUIComponent();
-    UIViewRoot root = new UIViewRoot();
-    Locale usLoc =  Locale.US;
-    root.setLocale(usLoc);
-    context.setupGetViewRoot(root);
-    context.setupGetViewRoot(root);
-    setMockLabelForComponent(component);
+    Mock mock = buildMockUIComponent();
+    UIComponent component = (UIComponent) mock.proxy();
+    MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
+    setMockLabelForComponent(wrapper);
     ByteLengthValidator validator = new ByteLengthValidator();
     int maxBytes[]     = {3};
     validator.setMaximumMessageDetail("\"{1}\"" + _IS_GREATER
@@ -186,7 +202,7 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     {
       validator.setMaximum(maxBytes[0]);
       validator.setEncoding(encodings[0]);
-      validator.validate(context, component, values[0]);
+      validator.validate(facesContext, component, values[0]);
     }
     catch (ValidatorException ve)
     {

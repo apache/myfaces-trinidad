@@ -15,23 +15,17 @@
 */
 package org.apache.myfaces.adfinternal.renderkit;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.ComparisonFailure;
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestResult;
 
 import org.xml.sax.SAXException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
-import javax.faces.render.Renderer;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.adf.component.core.CoreDocument;

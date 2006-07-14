@@ -15,22 +15,16 @@
  */
 package org.apache.myfaces.adfinternal.uinode.nav;
 
-import junit.framework.TestCase;
-
-import javax.faces.context.MockExternalContext;
-import javax.faces.context.MockFacesContext;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 import org.apache.myfaces.adfinternal.ui.UIConstants;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.FacesBeanFactory;
-import org.apache.myfaces.adf.component.UIXComponent;
 import org.apache.myfaces.adf.component.core.nav.CoreGoButton;
 
-//import org.apache.myfaces.adfinternal.MockUIXComponent;
 import org.apache.myfaces.adfinternal.uinode.UINodeFacesBean;
 import org.apache.myfaces.adfinternal.uinode.UINodeFacesBeanTestCase;
-import org.apache.myfaces.adfinternal.uinode.UINodePropertyKey;
+import org.apache.shale.test.mock.MockExternalContext;
 
 /**
  * Unit tests for GoButtonFacesBean.
@@ -51,6 +45,20 @@ public class GoButtonFacesBeanTest extends UINodeFacesBeanTestCase
     super(testName);
   }
 
+  public void setUp()
+  {
+    super.setUp();
+  }
+  
+  public void tearDown()
+  {
+    super.tearDown();
+  }
+  
+  public static Test suite()
+  {
+    return new TestSuite(GoButtonFacesBeanTest.class);
+  }
 
   /**
    * Tests that UINode property keys correctly update UINode attributes.
@@ -66,14 +74,13 @@ public class GoButtonFacesBeanTest extends UINodeFacesBeanTestCase
     assertEquals(fb.getUINode().getAttributeValue(
                                        null, UIConstants.DESTINATION_ATTR),
                  "someURL");
+    
+    //setting up the context path
+    request.setPathElements("/foo", null, null, null);
+    externalContext = new MockExternalContext(servletContext, request, response);
+    setCurrentContext(facesContext);
 
-    MockExternalContext external = new MockExternalContext();
-    MockFacesContext context = new MockFacesContext();
-    setCurrentContext(context);
-
-    context.setupGetExternalContext(external);
-    external.setupGetRequestContextPath("/foo");
-
+    
     fb.setProperty(CoreGoButton.DESTINATION_KEY, "/someURL");
     // Verify a context-relative URL gets recorded correctly
     assertEquals(fb.getUINode().getAttributeValue(

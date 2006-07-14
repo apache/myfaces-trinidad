@@ -216,8 +216,20 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.faces</groupId>
-      <artifactId>jsf-mock</artifactId>
+      <groupId>org.apache.shale</groupId>
+      <artifactId>shale-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jmock</groupId>
+      <artifactId>jmock</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jmock</groupId>
+      <artifactId>jmock-cglib</artifactId>
       <scope>test</scope>
     </dependency>
 
