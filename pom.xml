@@ -189,13 +189,6 @@
 
         <plugin>
           <groupId>org.apache.myfaces.adfbuild</groupId>
-          <artifactId>maven-mock-plugin</artifactId>
-          <version>incubator-alpha-1-SNAPSHOT</version>
-          <inherited>true</inherited>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.myfaces.adfbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
           <version>incubator-alpha-9-SNAPSHOT</version>
           <inherited>true</inherited>
