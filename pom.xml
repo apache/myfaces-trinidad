@@ -149,7 +149,6 @@
     <module>maven-i18n-plugin</module>
     <module>maven-jdev-plugin</module>
     <module>maven-javascript-plugin</module>
-    <module>maven-mock-plugin</module>
     <module>maven-xrts-plugin</module>
     <module>maven-adf-archetype</module>
   </modules>
