@@ -229,10 +229,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
-
-    TableRenderingContext tContext = createRenderingContext(context,
-                                                            arc,
-                                                            component);
+    TableRenderingContext tContext = null;
 
     // save current skin resource map, if any, on the local property
     Map oldSkinResourceMap = arc.getSkinResourceKeyMap();
@@ -243,6 +240,13 @@ abstract public class TableRenderer extends XhtmlRenderer
 
     try
     {
+      // Note: because createRenderingContext() might throw
+      // an exception, it is critical that this be inside the
+      // try/finally block.
+      tContext = createRenderingContext(context,
+                                        arc,
+                                        component);
+
       ResponseWriter rw = context.getResponseWriter();
 
       rw.startElement("div", component);
@@ -350,10 +354,11 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
     finally
     {
-      tContext.release();
-
       // restore current skin resource map. Most likely there won't be one.
       arc.setSkinResourceKeyMap(oldSkinResourceMap);
+
+      if (tContext != null)
+        tContext.release();
     }
 
   }
