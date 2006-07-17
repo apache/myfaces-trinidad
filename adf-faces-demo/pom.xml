@@ -69,25 +69,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-api</artifactId>
-      <scope>compile</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.myfaces.core</groupId>
-      <artifactId>myfaces-impl</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    
-    <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.1.2</version>
       <scope>runtime</scope>
     </dependency>
 
-<!-- Dependencies pulled in via myfaces pom
+<!-- Dependencies pulled in via myfaces/ri pom
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -127,5 +115,87 @@
       <artifactId>jsp-api</artifactId>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <!-- By default the war examples use myfaces! :) -->
+    <profile>
+      <id>myfaces</id>
+      <activation>
+        <property>
+          <name>!jsf</name>
+        </property>
+      </activation>
+      <dependencies>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-api</artifactId>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>org.apache.myfaces.core</groupId>
+          <artifactId>myfaces-impl</artifactId>
+          <scope>runtime</scope>
+        </dependency>
+      </dependencies>
+      
+      <properties>
+        <jsf_implementation>MyFaces</jsf_implementation>
+      </properties>
+    </profile>
+
+    <!-- To use the examples using the Sun's JSF Reference Implementation: -Djsf=ri -->
+    <profile>
+      <id>jsfri</id>
+      <activation>
+        <property>
+          <name>jsf</name>
+          <value>ri</value>
+        </property>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-api</artifactId>
+          <version>1.1_02</version>
+        </dependency>
+        <dependency>
+          <groupId>javax.faces</groupId>
+          <artifactId>jsf-impl</artifactId>
+          <version>1.1_02</version>
+          <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>jstl</groupId>
+          <artifactId>jstl</artifactId>
+          <version>1.1.0</version>
+          <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+          <groupId>commons-digester</groupId>
+          <artifactId>commons-digester</artifactId>
+          <version>1.5</version>
+          <scope>runtime</scope>
+        </dependency>
+
+      </dependencies>
+
+      <repositories>
+        <repository>
+          <id>java.net</id>
+          <name>java.net Maven 1 Repository</name>
+          <url>https://maven-repository.dev.java.net/nonav/repository</url>
+          <layout>legacy</layout>
+        </repository>
+      </repositories>
+
+      <properties>
+        <jsf_implementation>JSF-RI</jsf_implementation>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
