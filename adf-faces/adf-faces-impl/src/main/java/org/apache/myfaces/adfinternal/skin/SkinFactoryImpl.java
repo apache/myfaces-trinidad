@@ -46,15 +46,14 @@ public class SkinFactoryImpl extends SkinFactory
   {
     if (skinId == null || skin == null)
     {
-      if (_LOG.isWarning())
-        _LOG.warning("Can't add Skin with null skinId or null skin");
-        return;
-      }
+      _LOG.warning("Can't add Skin with null skinId or null skin");
+      return;
+    }
 
-      synchronized (_skins)
-      {
-        _skins.put(skinId, skin);
-      }
+    synchronized (_skins)
+    {
+      _skins.put(skinId, skin);
+    }
   }
 
 
@@ -71,13 +70,11 @@ public class SkinFactoryImpl extends SkinFactory
 
     if (skinId == null)
     {
-      if (_LOG.isWarning())
-        _LOG.warning("Can't get Skin with null skinId");
+      _LOG.warning("Can't get Skin with null skinId");
       return null;
     }
 
     Skin skin = null;
-
     synchronized (_skins)
     {
       if (_skins.containsKey(skinId))
@@ -136,7 +133,11 @@ public class SkinFactoryImpl extends SkinFactory
     // family/renderKitId match, so return the simple skin
     // that matches the renderkitid.
      if (_LOG.isWarning())
-       _LOG.warning("Can't find a skin that matches, so we will use the simple skin");
+     {
+       _LOG.warning("Can't find a skin that matches family " + family + 
+                    " and renderkit " + renderKitId + ", so we will" +
+                    " use the simple skin");
+     }
 
     if (renderKitId.equals(_RENDER_KIT_ID_PDA))
     {
