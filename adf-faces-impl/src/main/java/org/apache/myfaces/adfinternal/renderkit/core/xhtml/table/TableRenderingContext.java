@@ -49,10 +49,6 @@ public class TableRenderingContext
     AdfRenderingContext arc,
     UIComponent         component)
   {
-    // Set up the ThreadLocal
-    _previous = getCurrentInstance();
-    _CURRENT_CONTEXT.set(this);
-
     CollectionComponent collectionComponent =
       (CollectionComponent) component;
     // =-=AEW Don't like this here:  move it out to the Renderer
@@ -117,6 +113,13 @@ public class TableRenderingContext
     return component.getAttributes().get(key.getName());
   }
   
+  public void install()
+  {
+    // Set up the ThreadLocal
+    _previous = getCurrentInstance();
+    _CURRENT_CONTEXT.set(this);
+  }
+
   public void release()
   {
     _CURRENT_CONTEXT.set(_previous);
@@ -591,7 +594,7 @@ public class TableRenderingContext
 
 
   // general fields
-  private final TableRenderingContext _previous;
+  private       TableRenderingContext _previous;
   private       Object                _nodeList;
 
   /**
