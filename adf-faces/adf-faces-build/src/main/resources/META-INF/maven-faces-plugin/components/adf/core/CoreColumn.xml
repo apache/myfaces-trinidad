@@ -43,6 +43,19 @@ Table.]]>
         <mfp:property-values>start end center left right</mfp:property-values>
       </property-extension>
     </property>
+
+     <property>
+      <description><![CDATA[The default sort order of the column. The legal values are "ascending" or "descending" for ascending sorting or descending sorting on a first click respectively. The default value is "ascending".]]>
+      </description>
+      <property-name>defaultSortOrder</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>ascending</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+        <mfp:property-values>ascending descending</mfp:property-values>
+      </property-extension>
+    </property>
+
     <property>
       <description><![CDATA[the preferred width of this column, e.g., "30%", "100px".]]></description>
       <property-name>width</property-name>
