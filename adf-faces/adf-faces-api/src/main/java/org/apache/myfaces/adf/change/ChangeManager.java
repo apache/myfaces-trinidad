@@ -62,7 +62,6 @@ public abstract class ChangeManager
     Object converterObject = null;
     DocumentChangeFactory converter = null;
 
-    //=-=pu todo (as info from Lakshmi) Converter returns null for case of facets
     synchronized (_CLASS_TO_CONVERTER_MAP)
     {
       converterObject = _CLASS_TO_CONVERTER_MAP.get(changeClass);
@@ -78,7 +77,7 @@ public abstract class ChangeManager
 
       synchronized (_CLASSNAME_TO_CONVERTER_NAME_MAP)
       {
-       converterName = (String)
+       converterName = 
                   _CLASSNAME_TO_CONVERTER_NAME_MAP.get(changeClass.getName());
       }
 
@@ -86,18 +85,17 @@ public abstract class ChangeManager
       {
         try
         {
-          ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+          ClassLoader contextClassLoader =
+            Thread.currentThread().getContextClassLoader();
 
           Class converterClass = contextClassLoader.loadClass(converterName);
-
           if (DocumentChangeFactory.class.isAssignableFrom(converterClass))
           {
             converter = (DocumentChangeFactory)converterClass.newInstance();
 
             synchronized (_CLASS_TO_CONVERTER_MAP)
             {
-              converterObject = _CLASS_TO_CONVERTER_MAP.put(changeClass,
-                                                            converter);
+              _CLASS_TO_CONVERTER_MAP.put(changeClass, converter);
             }
           }
           else
@@ -111,7 +109,9 @@ public abstract class ChangeManager
           _LOG.warning("Unable to instantiate converterClass:" + converterName, e); // NOTRANS
         }
 
-        if (converterObject == null)
+	// if the registered converter class name doesn't work remove
+	// it from _CLASSNAME_TO_CONVERT_NAME_MAP
+        if (converter == null)
         {
           // this entry doesn't work, so remove it
           _CLASSNAME_TO_CONVERTER_NAME_MAP.remove(converterName);
@@ -122,7 +122,10 @@ public abstract class ChangeManager
     }
 
     // return the converted object
-    return converter.convert(change);
+    if (converter != null)
+      return converter.convert(change);
+    
+    return null;
   }
 
 
@@ -203,10 +206,12 @@ public abstract class ChangeManager
     }
   }
 
-  private static HashMap _CLASSNAME_TO_CONVERTER_NAME_MAP = new HashMap();
+  private static HashMap<String, String> _CLASSNAME_TO_CONVERTER_NAME_MAP =
+    new HashMap<String, String>();
   private static HashMap _CLASS_TO_CONVERTER_MAP = new HashMap();
 
-  static private final ADFLogger _LOG = 	ADFLogger.createADFLogger(ChangeManager.class);
+  static private final ADFLogger _LOG = 
+     ADFLogger.createADFLogger(ChangeManager.class);
 
   static
   {
