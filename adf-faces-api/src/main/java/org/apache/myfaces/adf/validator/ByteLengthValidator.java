@@ -340,7 +340,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
   {
     Object label = ValidatorUtils.getComponentLabel(component);
 
-    String maxMesgDetail = getMaximumMessageDetail();
+    Object maxMesgDetail = _getRawMaximumMessageDetail();
     String maximumBytes  = String.valueOf(getMaximum());
 
     Object[] params = { label, value, maximumBytes};
@@ -351,6 +351,11 @@ public class ByteLengthValidator  implements StateHolder, Validator
                                                  params,
                                                  component);
     return msg;
+  }
+
+  private Object _getRawMaximumMessageDetail()
+  {
+    return _facesBean.getRawProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
   }
 
   private static final FacesBean.Type _TYPE = new FacesBean.Type();

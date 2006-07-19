@@ -448,13 +448,20 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     Object cMin   = _getConvertedValue(context, component, converter, min);
     Object cMax   = _getConvertedValue(context, component, converter, max);
 
-    Object msg   = getNotInRangeMessageDetail();
+    Object msg   = _getRawNotInRangeMessageDetail();
     Object label = ValidatorUtils.getComponentLabel(component);
 
     Object[] params = {label, cValue, cMin, cMax};
 
     return MessageFactory.getMessage(context, NOT_IN_RANGE_MESSAGE_ID,
                                       msg, params, component);
+  }
+
+
+  
+  private Object _getRawNotInRangeMessageDetail()
+  {
+    return _facesBean.getRawProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
   }
 
 
@@ -469,7 +476,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     Object cValue = _getConvertedValue(context, component, converter, value);
     Object cMax   = _getConvertedValue(context, component, converter, max);
 
-    Object msg   = getMaximumMessageDetail();
+    Object msg   = _getRawMaximumMessageDetail();
     Object label = ValidatorUtils.getComponentLabel(component);
 
     Object[] params = {label, cValue, cMax};
@@ -479,6 +486,11 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
                                      msg,
                                      params,
                                      component);
+  }
+
+  private Object _getRawMaximumMessageDetail()
+  {
+    return _facesBean.getRawProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
   }
 
   private FacesMessage _getMinimumMessage(
@@ -493,13 +505,18 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     Object cMin   = _getConvertedValue(context, component, converter, min);
 
 
-    Object msg      = getMinimumMessageDetail();
+    Object msg      = _getRawMinimumMessageDetail();
     Object label    = ValidatorUtils.getComponentLabel(component);
 
     Object[] params = {label, cValue, cMin};
 
     return MessageFactory.getMessage(context, MINIMUM_MESSAGE_ID,
                                      msg, params, component);
+  }
+
+  private Object _getRawMinimumMessageDetail()
+  {
+    return _facesBean.getRawProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
   }
 
   private Converter _getConverter(

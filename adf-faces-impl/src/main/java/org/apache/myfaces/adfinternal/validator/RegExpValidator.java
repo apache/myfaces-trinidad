@@ -135,7 +135,7 @@ public class RegExpValidator
   private String _getNoMatchMessageDetail(
     FacesContext context)
   {
-    String noMatchMsg = getNoMatchMessageDetatil();
+    String noMatchMsg = getNoMatchMessageDetail();
     String label = "{0}"; // this will get substituted on the client
     Object[] params = new Object[] {label, "{1}", "{2}"};
 

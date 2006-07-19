@@ -71,6 +71,11 @@ public class ComponentFacesBean implements FacesBean
     return _component.getValueBinding(key.getName());
   }
 
+  final public Object getRawProperty(PropertyKey key)
+  {
+    throw new UnsupportedOperationException();
+  }
+
   final public void setValueBinding(PropertyKey key, ValueBinding binding)
   {
     throw new UnsupportedOperationException();

@@ -69,6 +69,24 @@ abstract public class FacesBeanImpl implements FacesBean
     return null;
   }
 
+
+  
+  /**
+   * {@inheritDoc}
+   */
+  final public Object getRawProperty(PropertyKey key)
+  {
+    _checkNotListKey(key);
+
+    Object local = getLocalProperty(key);
+    if (local != null)
+      return local;
+
+    // Look for a binding if and only if the key supports bindings
+    return key.getSupportsBinding() ? getValueBinding(key) : null;
+  }
+
+
   /**
    * @todo Need *good* way of hooking property-sets;  it's
    * currently not called from state restoring, so really, it shouldn't
@@ -123,6 +141,7 @@ abstract public class FacesBeanImpl implements FacesBean
   }
 
 
+  @SuppressWarnings("unchecked")
   final public void addEntry(PropertyKey listKey, Object value)
   {
     _checkListKey(listKey);
@@ -158,16 +177,17 @@ abstract public class FacesBeanImpl implements FacesBean
       setPropertyImpl(listKey, l);
   }
 
+  @SuppressWarnings("unchecked")
   final public Object[] getEntries(PropertyKey listKey, Class clazz)
   {
     _checkListKey(listKey);
 
-    List l = (List) getLocalPropertyImpl(listKey);
+    List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l == null)
       return (Object[]) Array.newInstance(clazz, 0);
 
     int size = l.size();
-    ArrayList tempList = new ArrayList(size);
+    ArrayList<Object> tempList = new ArrayList<Object>(size);
     for (int i = 0; i < size; i++)
     {
       Object o = l.get(i);
@@ -342,6 +362,7 @@ abstract public class FacesBeanImpl implements FacesBean
     return propertyState;
   }
 
+  @Override
   public String toString()
   {
     String className = getClass().getName();

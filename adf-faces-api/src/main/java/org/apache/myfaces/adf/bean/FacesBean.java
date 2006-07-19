@@ -68,6 +68,44 @@ public interface FacesBean
   public ValueBinding getValueBinding(PropertyKey key);
 
   /**
+   * Gets the current unevaluated value for the specified property key. 
+   * <p>The method will first look for a local value. If it exists, it will 
+   * be returned. If it does not and the bean supports value bindings, the 
+   * method will look for a binding with the specified key and return it 
+   * directly if it exists without evaluatig its value.</p>
+   * <p>This method is mainly used when:</p>
+   * <ul>
+   *   <li>The caller cannot ensure that FacesContext exists at the time 
+   *   of the call</li>
+   *   <li>The FacesContext does not yet contains the managed bean
+   *   referenced by the value binding</li>
+   *   <li>The managed bean referenced by the value binding is not yet 
+   *   in a coherent state to evaluate the expression</li>
+   * </ul>
+   * <p>The most common use case of this method is for message attributes 
+   * set on converters and validators using a value binding referencing 
+   * a managed bean created by <code>&lt;f:loadBundle/&gt;<code>. Since 
+   * loadBundle only creates its bean during the render response phase 
+   * while converter and validators take action during process validation 
+   * phase, the message property's value binding must be stored in a 
+   * special <code>FacesMessage</code> implementation that will evaluate 
+   * the binding only during render response.</p>
+   * 
+   * @param key the parameter key of the raw property value to get.
+   * 
+   * @return the local value of the specified key if it exists, a 
+   *         <code>ValueBinding</code> object if the specified key 
+   *         supports bindings and a binding was specified for that 
+   *         property, <code>null</code> otherwise.
+   * 
+   * @throws IllegalArgumentException if the specified key is a list key.
+   * 
+   * @see #getLocalProperty(PropertyKey)
+   * @see #getValueBinding(PropertyKey)
+   */
+  public Object getRawProperty(PropertyKey key);
+
+  /**
    * Set the value binding for a key.
    * @exception IllegalArgumentException if the property does
    *   not support value bindings.
@@ -272,6 +310,7 @@ public interface FacesBean
       int    capabilities)
     {
       _checkLocked();
+      _checkName(name);
 
       PropertyKey key = createPropertyKey(name,
                                           type,
@@ -378,7 +417,7 @@ public interface FacesBean
     }
      
     
-    static private void _expandListToIndex(ArrayList list, int count)
+    static private void _expandListToIndex(ArrayList<?> list, int count)
     {
       list.ensureCapacity(count + 1);
       int addCount = (count + 1) - list.size();
@@ -405,6 +444,11 @@ public interface FacesBean
       }
     }
 
+    private void _checkLocked()
+    {
+      if (_isLocked)
+        throw new IllegalStateException("Type is already locked");
+    }
 
     private void _checkName(String name)
     {
@@ -413,12 +457,6 @@ public interface FacesBean
         throw new IllegalStateException(
           "Name \"" + name + "\" has already been registered.");
       }
-    }
-
-    private void _checkLocked()
-    {
-      if (_isLocked)
-        throw new IllegalStateException("Type is already locked");
     }
 
     private Map<String, PropertyKey> _keyMap;
