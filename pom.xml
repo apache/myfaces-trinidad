@@ -158,7 +158,7 @@
       <uniqueVersion>false</uniqueVersion>
       <id>apache-maven-snapshots</id>
       <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
+      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
     </snapshotRepository>
 <!--
     <repository>
