@@ -417,6 +417,7 @@ public class MessageFactory
           context = FacesContext.getCurrentInstance();
         o = ((ValueBinding) o).getValue(context);
       }
+      
       resolvedParameters[i] = o;
     }
     return resolvedParameters;
@@ -617,10 +618,23 @@ public class MessageFactory
     // same to it also.
     public String getDetailMessage()
     {
-
       FacesContext context    = FacesContext.getCurrentInstance();
       String detailMsgPattern = (String)_customDetailErrorMessage.getValue(context);
-
+      if(detailMsgPattern == null)
+      {
+        // Set a default message that might get used by FacesException 
+        // constructor for example. This will often happen because 
+        // ValidatorException constructor will call this method to 
+        // get the exception message for its parent. So by default 
+        // we'll use the EL String.
+        // Note that by default 
+        detailMsgPattern = _customDetailErrorMessage.getExpressionString();
+        
+        // Since that string will get parsed by FastMessageFormat, the { } 
+        // of the EL must be escaped
+        detailMsgPattern = '\'' + detailMsgPattern + '\'';
+      }
+      
       Object[] params = super.getParameters();
 
       if (_hasBoundParameters)

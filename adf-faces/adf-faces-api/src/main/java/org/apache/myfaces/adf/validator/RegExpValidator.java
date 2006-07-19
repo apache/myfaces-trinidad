@@ -217,8 +217,8 @@ public class RegExpValidator implements StateHolder, Validator
 
       if ( this.isTransient() == other.isTransient() &&
            ValidatorUtils.equals(getPattern(), other.getPattern()) &&
-           ValidatorUtils.equals(getNoMatchMessageDetatil(),
-                                   other.getNoMatchMessageDetatil())
+           ValidatorUtils.equals(getNoMatchMessageDetail(),
+                                   other.getNoMatchMessageDetail())
          )
       {
         return true;
@@ -235,7 +235,7 @@ public class RegExpValidator implements StateHolder, Validator
   {
     int result = 17;
     String pattern = getPattern();
-    String noMesgDetail = getNoMatchMessageDetatil();
+    String noMesgDetail = getNoMatchMessageDetail();
     result = 37 * result + (pattern == null? 0 : pattern.hashCode());
     result = 37 * result + (isTransient() ? 0 : 1);
     result = 37 * result + (noMesgDetail == null ? 0 : noMesgDetail.hashCode());
@@ -286,7 +286,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom error message
    * @see #setNoMatchMessageDetail(String)
    */
-  public String getNoMatchMessageDetatil()
+  public String getNoMatchMessageDetail()
   {
     Object obj = _facesBean.getProperty(_NO_MATCH_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(obj);
@@ -301,15 +301,21 @@ public class RegExpValidator implements StateHolder, Validator
     UIComponent component,
     String value)
   {
-    String noMatchMesgDet = getNoMatchMessageDetatil();
+    Object noMatchMsgDet = _getRawNoMatchMessageDetail();
     Object label = ValidatorUtils.getComponentLabel(component);
     Object[] params = {label, value, getPattern()};
 
     FacesMessage msg =
         MessageFactory.getMessage(context, NO_MATCH_MESSAGE_ID,
-                                  noMatchMesgDet, params, label);
+                                  noMatchMsgDet, params, label);
       return msg;
   }
+
+  private Object _getRawNoMatchMessageDetail()
+  {
+    return _facesBean.getRawProperty(_NO_MATCH_MESSAGE_DETAIL_KEY);
+  }
+
 
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
