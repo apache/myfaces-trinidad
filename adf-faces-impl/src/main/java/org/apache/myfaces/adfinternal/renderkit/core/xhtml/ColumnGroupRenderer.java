@@ -73,6 +73,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     _widthKey = type.findKey("width");
     _sortableKey = type.findKey("sortable");
     _sortPropertyKey = type.findKey("sortProperty");
+    _defaultSortOrderKey = type.findKey("defaultSortOrder");
   }
 
 
@@ -148,6 +149,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   protected String getSortProperty(FacesBean bean)
   {
     return toString(bean.getProperty(_sortPropertyKey));
+  }
+
+  protected String getDefaultSortOrder(FacesBean bean)
+  {
+    return toString(bean.getProperty(_defaultSortOrderKey));
   }
 
 
@@ -465,11 +471,25 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String formName = arc.getFormData().getName();
     String source   = tContext.getTableId();
     String value    = getSortProperty(bean);
-    String state = (sortability == SORT_ASCENDING)
-      ? XhtmlConstants.SORTABLE_ASCENDING
-      : (sortability == SORT_DESCENDING)
-      ? XhtmlConstants.SORTABLE_DESCENDING
-      : "";
+    // Note that "state" refers to the current state, not
+    // the state will be set after clicking
+    String state;
+    if (sortability == SORT_ASCENDING)
+    {
+      state = XhtmlConstants.SORTABLE_ASCENDING;
+    }
+    else if (sortability == SORT_DESCENDING)
+    {
+      state = XhtmlConstants.SORTABLE_DESCENDING;
+    }
+    else if ("descending".equals(getDefaultSortOrder(bean)))
+    {
+      state = XhtmlConstants.SORTABLE_ASCENDING;
+    }
+    else
+    {
+      state = "";
+    }
 
     StringBuffer buffer = new StringBuffer(33+
                                            formName.length() +
@@ -835,6 +855,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   private PropertyKey _widthKey;
   private PropertyKey _sortPropertyKey;
   private PropertyKey _sortableKey;
+  private PropertyKey _defaultSortOrderKey;
 
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColumnGroupRenderer.class);
 }
