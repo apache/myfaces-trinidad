@@ -119,6 +119,11 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
     if (!POSITION_ABOVE.equals(position))
     {
       SubTabBarUtils.setOrientation(context, ORIENTATION_BOTTOM );
+
+      int resolvedSelectedIndex = _getResolvedSelectedIndex(context, node);
+      SubTabBarUtils.setSelectedIndex(context,
+				      resolvedSelectedIndex);
+
       Renderer subTabBarRenderer = 
         context.getRendererManager().getRenderer(
           MARLIN_NAMESPACE, SUB_TAB_BAR_NAME);
@@ -157,7 +162,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   }
   
   /**
-  * Returns the index of the first avilable showItem child that has its  
+  * Returns the index of the first available showItem child that has its  
   *  'selected' property set to true. 
   * If none of children are selected, the index of first such child that is 
   *  enabled is returned.
