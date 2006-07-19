@@ -272,7 +272,7 @@
         <enabled>true</enabled>
       </snapshots>
       <id>apache.snapshots</id>
-      <url>http://people.apache.org/maven-snapshot-repository</url>
+      <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
   </repositories>
 
@@ -408,7 +408,7 @@
       <uniqueVersion>false</uniqueVersion>
       <id>apache-maven-snapshots</id>
       <name>Apache Maven Snapshot Repository</name>
-      <url>scpexe://minotaur.apache.org/www/cvs.apache.org/maven-snapshot-repository</url>
+      <url>scpexe://minotaur.apache.org/www/people.apache.org/repo/m2-snapshot-repository</url>
     </snapshotRepository>
 <!--
     <repository>
