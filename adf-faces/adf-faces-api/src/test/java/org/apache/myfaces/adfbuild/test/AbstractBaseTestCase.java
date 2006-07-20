@@ -6,10 +6,10 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.shale.test.jmock.AbstractJsfTestCase;
+import org.apache.shale.test.jmock.AbstractJmockJsfTestCase;
 import org.jmock.Mock;
 
-public abstract class AbstractBaseTestCase extends AbstractJsfTestCase
+public abstract class AbstractBaseTestCase extends AbstractJmockJsfTestCase
 {
 
   public AbstractBaseTestCase(String name)

@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 
-import org.apache.shale.test.jmock.AbstractJsfTestCase;
+import org.apache.shale.test.jmock.AbstractJmockJsfTestCase;
 import org.apache.shale.test.mock.MockFacesContext;
 import org.apache.shale.test.mock.MockRenderKitFactory;
 import org.jmock.Mock;
@@ -38,7 +38,7 @@ import org.jmock.Mock;
  * @author John Fallows
  * @author Matthias Wessendorf
  */
-public class FacesTestCase extends AbstractJsfTestCase
+public class FacesTestCase extends AbstractJmockJsfTestCase
 {
   /**
    * Creates a new FacesTestCase.
