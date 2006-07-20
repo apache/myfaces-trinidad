@@ -777,6 +777,7 @@
         <value>objectMedia.jspx</value>
         <value>objectSeparator.jspx</value>
         <value>objectSpacer.jspx</value>
+        <value>outputDocument.jspx</value>
         <value>outputFormatted.jspx</value>
         <value>outputLabel.jspx</value>
         <value>outputText.jspx</value>
@@ -2155,6 +2156,12 @@
     </navigation-case>
 
     <navigation-case>
+      <from-outcome>guide.outputDocument</from-outcome>
+      <to-view-id>/components/outputDocument.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>guide.outputFormatted</from-outcome>
       <to-view-id>/components/outputFormatted.jspx</to-view-id>
       <redirect/>
@@ -2969,9 +2976,6 @@
         <value>Br</value>
         <value>35</value>
         <value>Other Metals</value>
-
-
-
 
       </list-entries>
     </managed-property>
