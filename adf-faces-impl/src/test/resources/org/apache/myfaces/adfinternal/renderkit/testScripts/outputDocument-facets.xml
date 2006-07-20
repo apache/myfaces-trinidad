@@ -1,0 +1,15 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreOutputDocument" 
+                  value="#{simpleDocument}"
+                  titleClass="titleClass"
+                  separatorClass="separatorClass">
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="title"
+                value="The title facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="separator"
+                value="The paragraph separator"/>
+  </base-component>
+  <!-- test the facets seperately so output not too big - see outputDocument.xml for attribute tests -->
+</test>

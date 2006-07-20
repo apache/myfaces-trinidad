@@ -212,6 +212,13 @@ public class MVariableResolver extends VariableResolver
     {
       return new Date(130, 0, 5);
     }
+    else if("simpleDocument".equals(name))
+    {
+      return "First paragraph followed by \\r\r" + 
+             "Second paragraph followed by \\n\n" + 
+             "Third paragraph followed by \\n\\r\n\r" + 
+             "Fourth paragraph";
+    }
 
     return null;
   }
