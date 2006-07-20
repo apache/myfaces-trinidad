@@ -24,6 +24,7 @@ import javax.faces.event.ActionListener;
 import org.apache.myfaces.adf.bean.FacesBean;
 import org.apache.myfaces.adf.bean.FacesBeanImpl;
 import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.adf.logging.ADFLogger;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
@@ -60,8 +61,25 @@ public class SetActionListener extends FacesBeanImpl
     ValueBinding to = getValueBinding(TO_KEY);
     if (to != null)
     {
-      to.setValue(FacesContext.getCurrentInstance(),
-                  getFrom());
+      Object from = getFrom();
+      try
+      {
+        to.setValue(FacesContext.getCurrentInstance(), from);
+      }
+      catch (RuntimeException e)
+      {
+        if (_LOG.isWarning())
+        {
+          ValueBinding fromBinding = getValueBinding(FROM_KEY);
+          String mes = "Error setting:'"+to.getExpressionString() +
+            "' to value:"+from;
+          if (fromBinding != null)
+            mes += " from:'"+fromBinding.getExpressionString()+"'";
+            
+          _LOG.warning(mes, e);
+        }
+        throw e;
+      }
     }
   }
 
@@ -91,4 +109,6 @@ public class SetActionListener extends FacesBeanImpl
   }
 
   // saveState() and restoreState() come from FacesBeanImpl
+  
+  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SetActionListener.class);
 }

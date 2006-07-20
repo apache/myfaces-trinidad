@@ -88,7 +88,7 @@ public class SetActionListenerTag extends TagSupport
       }
       else
       {
-        setFrom(_from);
+        listener.setFrom(_from);
       }
 
       if (TagUtils.isValueReference(_to))
