@@ -20,6 +20,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.adf.util.PartitialPageRenderingUtils;
 
 import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
 
@@ -32,7 +33,7 @@ import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/PartialPageUtils.java#0 $) $Date: 10-nov-2005.19:01:41 $
  * @author The Oracle ADF Faces Team
  */
-public class PartialPageUtils
+public final class PartialPageUtils
 {
   private PartialPageUtils()
   {
@@ -40,15 +41,7 @@ public class PartialPageUtils
 
   public static boolean isPartialRequest(FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
-    if (Boolean.TRUE.equals(requestMap.get(_PARTIAL_KEY)))
-      return true;
-
-    Map parameters = context.getExternalContext().getRequestParameterMap();
-    if ("true".equals(parameters.get(XhtmlConstants.PARTIAL_PARAM)))
-      return true;
-
-    return false;
+    return PartitialPageRenderingUtils.isPartialRequest(context);
   }
 
 
