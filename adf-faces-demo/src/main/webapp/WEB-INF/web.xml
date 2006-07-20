@@ -135,14 +135,16 @@
   </welcome-file-list>
 
   <!-- Survey Demo (Custom) Tag Library -->
-  <taglib>
-    <taglib-uri>http://myfaces.apache.org/adf/faces/demo</taglib-uri>
-    <taglib-location>/WEB-INF/survey.tld</taglib-location>
-  </taglib>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://myfaces.apache.org/adf/faces/demo</taglib-uri>
+      <taglib-location>/WEB-INF/survey.tld</taglib-location>
+    </taglib>
 
-  <taglib>
-    <taglib-uri>http://myfaces.apache.org/adffacesdemo</taglib-uri>
-    <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
-  </taglib>
+    <taglib>
+      <taglib-uri>http://myfaces.apache.org/adffacesdemo</taglib-uri>
+      <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 
 </web-app>
