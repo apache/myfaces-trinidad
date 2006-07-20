@@ -548,7 +548,34 @@
   <style selector="af|outputFormatted">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFTextForeground"/>
-  </style>    
+  </style>
+  
+  <!-- outputDocument selectors -->
+  <!-- TODO: Document those selectors -->
+  
+  <style selector="af|outputDocument">
+    <includeStyle name="AFDefaultFont"/>
+    <includeStyle name="AFTextForeground"/>
+  </style>
+  
+  <style selector="af|outputDocument::title">
+    <includeStyle name="AFLargeFont"/>
+    <includeStyle name="AFHeaderText"/>
+    <property name="padding">0px</property>
+    <property name="margin">0px</property>
+  </style>
+  
+  <style selector="af|outputDocument::paragraph">
+    <property name="text-align">justify</property>
+    <property name="padding">0px</property>
+    <property name="margin">0px</property>
+  </style>
+  
+  <style selector="af|outputDocument::separator">
+    <property name="text-align">center</property>
+    <property name="padding">0px</property>
+    <property name="margin">0px</property>
+  </style>
   
   <!-- form control styles -->
   <style selector="af|outputLabel">

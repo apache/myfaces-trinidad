@@ -59,9 +59,22 @@ public interface XhtmlConstants
     "af|panelBox::header";
   public static final String AF_PANEL_BOX_BODY_STYLE_CLASS =
     "af|panelBox::body";
+  
+  // ============= Output Document ==============
+  public static final String AF_OUTPUT_DOCUMENT_STYLE_CLASS = 
+    "af|outputDocument";
+  public static final String AF_OUTPUT_DOCUMENT_PARAGRAPH_STYLE_CLASS = 
+    "af|outputDocument::paragraph";
+  public static final String AF_OUTPUT_DOCUMENT_SEPARATOR_STYLE_CLASS = 
+    "af|outputDocument::separator";
+  public static final String AF_OUTPUT_DOCUMENT_TITLE_STYLE_CLASS = 
+    "af|outputDocument::title";
 
   // =============PROPERTY NAMES================
 
   public static final String AF_PANELHEADER_INDENT_CONTENT = 
     "af|panelHeader-ora-indent-content";
+  
+  // ============= Html elements ================
+  public static final String PARAGRAPH_ELEMENT = "p";
 }
