@@ -358,7 +358,7 @@ public class SelectItemSupport
       }    
       selectItem = 
         new SelectItem(value == null ? "" : value, 
-                       label == null ? "" : (String)label,
+                       label == null ? "" : label.toString(),
                        description == null ? "" : (String)description,
                        disabled);
     }
