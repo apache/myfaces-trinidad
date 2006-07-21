@@ -20,9 +20,9 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.util.PartitialPageRenderingUtils;
 
 import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.adfinternal.context.AdfFacesContextBean;
 
 import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
@@ -41,7 +41,7 @@ public final class PartialPageUtils
 
   public static boolean isPartialRequest(FacesContext context)
   {
-    return PartitialPageRenderingUtils.isPartialRequest(context);
+    return AdfFacesContext.getCurrentInstance().isPartialRequest(context);
   }
 
 
