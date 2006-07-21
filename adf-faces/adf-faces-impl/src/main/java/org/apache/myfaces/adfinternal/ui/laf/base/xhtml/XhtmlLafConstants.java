@@ -233,6 +233,10 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_MENU_BUTTONS_TEXT_DISABLED_STYLE_CLASS =
     "af|menuButtons::text-disabled";
 
+  // outputLabel's styles
+  public static final String AF_OUTPUT_LABEL_STYLE_CLASS =
+    "af|outputLabel";
+  
   public static final String AF_PANEL_PAGE_MB_TEXT_STYLE_CLASS =
     "af|panelPage::menu-buttons-text";
   public static final String AF_PANEL_PAGE_MB_TEXT_SELECTED_STYLE_CLASS =
