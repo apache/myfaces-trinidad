@@ -94,7 +94,7 @@ abstract public class AdfFacesContext
   public abstract Map getPageFlowScope();
 
   /**
-   * @deprecated since 11.0;  use getPageFlowScope()
+   * @deprecated use getPageFlowScope()
    */
   final public Map getProcessScope()
   {
