@@ -57,6 +57,7 @@ import org.apache.myfaces.adfinternal.el.OracleHelpProvider;
 import org.apache.myfaces.adfinternal.metadata.RegionMetadata;
 
 import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.adfinternal.share.config.UIXCookie;
 
@@ -173,6 +174,20 @@ public class AdfFacesContextImpl extends AdfFacesContext
 
     return true;
   }
+  
+  public boolean isPartialRequest(FacesContext context)
+  {
+    Map requestMap = context.getExternalContext().getRequestMap();
+    if (Boolean.TRUE.equals(requestMap.get(XhtmlConstants.PARTIAL_PARAM)))
+      return true;
+    
+    Map parameters = context.getExternalContext().getRequestParameterMap();
+    if ("true".equals(parameters.get("partial")))
+      return true;
+
+    return false;
+  }
+
 
   public boolean isDebugOutput()
   {

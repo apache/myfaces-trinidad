@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.adf.change.ChangeManager;
 import org.apache.myfaces.adf.config.RegionManager;
 import org.apache.myfaces.adf.context.AdfFacesContext;
@@ -84,6 +86,11 @@ public class MAdfFacesContext extends AdfFacesContext
   }
 
   public boolean isPostback()
+  {
+    return false;
+  }
+  
+  public boolean isPartialRequest(FacesContext context)
   {
     return false;
   }
@@ -219,4 +226,5 @@ public class MAdfFacesContext extends AdfFacesContext
   private boolean _rtl = false;
   static private TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
+  
 }
