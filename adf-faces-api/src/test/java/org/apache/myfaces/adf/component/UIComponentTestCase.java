@@ -319,8 +319,6 @@ public class UIComponentTestCase extends FacesTestCase
       ace.queue();
     }
 
-    Renderer r = this.facesContext.getRenderKit().getRenderer("", "");
-    
     root.processDecodes(context);
 
     if (attributeChangeTester != null)
