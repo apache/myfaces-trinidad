@@ -19,6 +19,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.adf.change.ChangeManager;
 import org.apache.myfaces.adf.config.RegionManager;
 import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
@@ -76,6 +78,12 @@ public class MockAdfFacesContext extends AdfFacesContext
   }
 
   public boolean isPostback()
+  {
+    return false;
+  }
+  
+  @Override
+  public boolean isPartialRequest(FacesContext context)
   {
     return false;
   }
@@ -243,5 +251,5 @@ public class MockAdfFacesContext extends AdfFacesContext
   private String _accMode;
   private Agent _agent;
   private boolean _rtl = false;
+  
 }
-

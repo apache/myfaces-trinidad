@@ -20,6 +20,7 @@ import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.adf.change.ChangeManager;
 import org.apache.myfaces.adf.config.RegionManager;
@@ -180,7 +181,16 @@ abstract public class AdfFacesContext
    * </p>
    */
   public abstract boolean isPostback();
-
+  
+  /**
+   * Method to indicate if this current HTTP request is a
+   * partial page rendering request.
+   * 
+   * @param context the <code>FacesContext</code> object for
+   * the request we are processing
+   * @return is this request a PPR request?
+   */
+  public abstract boolean isPartialRequest(FacesContext context);
   /**
    * Returns true if output should contain debugging information.
    */
@@ -395,4 +405,5 @@ abstract public class AdfFacesContext
   }
 
   static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
+  
 }
