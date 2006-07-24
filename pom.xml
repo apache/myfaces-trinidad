@@ -46,19 +46,19 @@
 
   <mailingLists>
     <mailingList>
-      <name>ADF Trinidad Incubator Users</name>
+      <name>Apache Trinidad Incubator Users</name>
       <post>adffaces-users@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Trinidad Incubator Developers</name>
+      <name>Apache Trinidad Incubator Developers</name>
       <post>adffaces-dev@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Trinidad Incubator issues</name>
+      <name>Apache Trinidad Incubator issues</name>
       <post>adffaces-issues@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Trinidad Incubator commits</name>
+      <name>Apache Trinidad Incubator commits</name>
       <post>adffaces-commits@incubator.apache.org</post>
     </mailingList>
   </mailingLists>
