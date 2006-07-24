@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CoreShowDetail">
+     <component af:facet="prompt" af:type="org.apache.myfaces.adf.CoreOutputText" value="promptText"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputText" value="detailText"/>
+  </base-component>  
+ 
+  <attribute-test name="undisclosedText" matchesBase="true"/>  
+  <!-- <boolean-test name="selected" default="false"/> -->
+  <boolean-test name="disclosed" default="false"/>  
+  
+  <!-- core attributes -->
+   <attribute-test name="id" value="sDetailId"/>
+  
+   <attribute-test name="shortDesc" value="myDetail"/>
+   <attribute-test name="styleClass" value="myStyleClass"/>
+   <attribute-test name="inlineStyle" value="background-color:red"/>
+   
+   <!-- javascript -->
+   <js-test/> 
+</test>

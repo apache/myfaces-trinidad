@@ -1,0 +1,60 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <button
+             class="OraLink"
+             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
+             title="Poll Server"
+             type="button"
+            >
+          Poll Server
+        </button>
+      </span>
+<!--AttributeTest[id,null]-->
+
+      <span
+           id="test-id"
+          >
+        
+        <button
+             class="OraLink"
+             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'test-id','partialTargets':'test-id','partial':'true'});"
+             title="Poll Server"
+             type="button"
+            >
+          Poll Server
+        </button>
+      </span>
+<!--AttributeTest[interval,5000]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <button
+             class="OraLink"
+             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
+             title="Poll Server"
+             type="button"
+            >
+          Poll Server
+        </button>
+      </span>
+<!--AttributeTest[interval,7000]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <button
+             class="OraLink"
+             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
+             title="Poll Server"
+             type="button"
+            >
+          Poll Server
+        </button>
+      </span>
+</results>

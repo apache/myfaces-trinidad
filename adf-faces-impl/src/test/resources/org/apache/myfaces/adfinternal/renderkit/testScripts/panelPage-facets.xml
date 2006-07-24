@@ -1,0 +1,100 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CorePanelPage">
+     <component af:type="org.apache.myfaces.adf.CoreProcessChoiceBar"
+                af:facet="actions"
+                value="#{pageList}" var="foo">
+     <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                    af:facet="nodeStamp"
+                    text="#{foo.label}"/>
+     </component>
+     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+                 af:facet="appAbout"
+                 text="appAbout"/>
+     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+                 af:facet="appPrivacy"
+                 text="privacy"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="appCopyright"
+                value="the appCopyright facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoFootnote"
+                value="the infoFootnote facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoUser"
+                value="the infoUser facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoStatus"
+                value="the infoStatus facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="infoReturn"
+                value="the infoReturn facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="messages"
+                value="the messages facet"/>
+     <component af:type="org.apache.myfaces.adf.CoreNavigationPath"
+                af:facet="location" >
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="path1"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="path2"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="path3"/>
+    </component>
+     <component af:type="org.apache.myfaces.adf.CoreMenuTabs"
+                af:facet="navigation1" >
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab1"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab2"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab3"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreMenuBar"
+                   af:facet="navigation2" >
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar1"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar2"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar3"/>
+     </component>
+    <component af:type="org.apache.myfaces.adf.CoreMenuList"
+                   af:facet="navigation3" >
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="list1"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="list2"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="list3"/>
+     </component>
+   <component af:type="org.apache.myfaces.adf.CoreMenuButtons"
+                   af:facet="navigationGlobal" >
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button1"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button2"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button3"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="branding"
+                source="/foo/foo.gif"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="search"
+                value="the search facet"/>
+                
+     <component af:type="org.apache.myfaces.adf.CorePanelHeader" text="foo"/>
+     <component id="panID" af:type="org.apache.myfaces.adf.CorePanelHeader" text="bar bar">
+        <attribute-test name="icon" value="icon-uri"/> 
+     </component>   
+           
+  
+     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+                text="header2"/>
+
+  </base-component>
+  
+  
+ <!-- test the facets seperately so output not too big - see panelPage.xml for attribute tests -->
+</test>

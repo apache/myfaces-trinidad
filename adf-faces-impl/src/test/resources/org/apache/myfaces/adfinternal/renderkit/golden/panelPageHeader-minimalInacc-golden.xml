@@ -1,0 +1,5920 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[id,myid]-->
+
+      <span
+           id="myid"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <span
+           id="mainId"
+           title="my short desc"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[styleClass,mystyle]-->
+
+      <span
+           class="mystyle"
+           id="mainId"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onclick,null]-->
+
+      <span
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[ondblclick,null]-->
+
+      <span
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeydown,null]-->
+
+      <span
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeypress,null]-->
+
+      <span
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeyup,null]-->
+
+      <span
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmousedown,null]-->
+
+      <span
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmousemove,null]-->
+
+      <span
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseout,null]-->
+
+      <span
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseover,null]-->
+
+      <span
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseup,null]-->
+
+      <span
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                 nowrap="nowrap"
+                 rowspan="2"
+                 valign="top"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="2"
+                   width="1%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       nowrap="nowrap"
+                       width="1%"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/foo.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       nowrap="nowrap"
+                      >
+                    
+                    <img
+                         src="uri-attr:/test-context-path/foo/bar.gif"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+                <tr
+                    >
+                  
+                  <td
+                       colspan="2"
+                       height="17"
+                       nowrap="nowrap"
+                       valign="top"
+                      >
+                    
+                    <span
+                         class="p_InContextBrandingText"
+                        >
+                      Customer 
+                      <b
+                          >
+                        InContextBranding Company - Menlo Park
+                      </b>
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                 align="right"
+                 style="padding-bottom:8px"
+                 valign="bottom"
+                >
+              
+              <table
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         id="_idXXX"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button1
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button2
+                          </a>
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <a
+                               class="af_menuButtons_text"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            button3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td
+                       valign="bottom"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                         width="5"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             align="right"
+                             class="af_menuChoice_label"
+                            >
+                          Switch Applications
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <select
+                               class="AFFieldText"
+                               id="_idXXX"
+                               name="_idXXX"
+                              >
+                            
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice1
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice2
+                            </option>
+                            <option
+                                 value="_idXXX:_idXXX[1]"
+                                >
+                              choice3
+                            </option>
+                          </select>
+                        </td>
+                        <td
+                            >
+                          &#xa0;
+                        </td>
+                        <td
+                             valign="bottom"
+                            >
+                          
+                          <button
+                               class="OraLink"
+                               onclick="_commandChoice('formId','_idXXX');return false;"
+                               title="Go To Selected Application"
+                               type="button"
+                              >
+                            Go
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 align="right"
+                 valign="bottom"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuTabs"
+                   id="_idXXX"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab1
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab2
+                    </a>
+                  </td>
+                  <td
+                       class="af_menuTabs_enabled"
+                      >
+                    
+                    <a
+                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                         href="uri-attr:encoded-action-url:#"
+                        >
+                      tab3
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td
+                >
+              
+              <img
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   class="af_menuBar"
+                   id="_idXXX"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       class="af_menuBar_body"
+                      >
+                    
+                    <table
+                         border="0"
+                         cellpadding="0"
+                         cellspacing="0"
+                        >
+                      
+                      <tr
+                          >
+                        
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar1
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar2
+                          </a>
+                        </td>
+                        <td
+                             class="af_menuBar_separator"
+                            >
+                          &#xa0;| 
+                        </td>
+                        <td
+                             class="af_menuBar_enabled"
+                            >
+                          
+                          <a
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               href="uri-attr:encoded-action-url:#"
+                              >
+                            bar3
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr
+              >
+            
+            <td
+                 colspan="3"
+                 width="100%"
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="margin-bottom:3px;"
+                   width="100%"
+                  >
+                
+                <tr
+                    >
+                  
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                  <td
+                       class="p_OraQuickSearchBox"
+                       colspan="3"
+                       width="100%"
+                      >
+                    the search facet
+                  </td>
+                  <td
+                       width="4"
+                      >
+                    
+                    <img
+                         height="1"
+                         src="/test-context-path/adf/images/t.gif"
+                         width="4"
+                        >
+                      
+                    </img>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </span>
+</results>

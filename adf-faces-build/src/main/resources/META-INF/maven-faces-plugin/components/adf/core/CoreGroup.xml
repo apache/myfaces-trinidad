@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:xi="http://www.w3.org/2001/XInclude">
+  <component>
+    <description><![CDATA[The group component is an invisible control that aggregates semantically-related children.
+The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the panelForm.]]>
+    </description>
+    <icon>
+      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/group.png</small-icon>
+    </icon>
+    <component-type>org.apache.myfaces.adf.CoreGroup</component-type>
+    <component-class>org.apache.myfaces.adf.component.core.CoreGroup</component-class>
+
+    <component-extension>
+      <mfp:component-supertype>org.apache.myfaces.adf.Group</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.adf.Group</mfp:renderer-type>
+      <mfp:tag-name>af:group</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.CoreGroupTag</mfp:tag-class>
+      <mfp:long-description><![CDATA[The group component is an invisible control that aggregates semantically-related children.
+The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the rich panelForm.]]>
+      </mfp:long-description>
+      <mfp:example>
+        <mfp:source-code><![CDATA[
+          <af:panelForm labelWidth="33%" fieldWidth="67%">
+  <af:inputText label="non-group item 1"/>
+  <af:group>
+    <af:inputText label="group item 1"/>
+    <af:inputText label="group item 2"/>
+    <af:inputText label="group item 3"/>
+  </af:group>
+  <af:inputText label="non-group item 2"/>
+</af:panelForm>]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:author>ADF Faces</mfp:author>
+      <mfp:component-metadata>
+        <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
+      </mfp:component-metadata>
+    </component-extension>
+  </component>
+</faces-config>

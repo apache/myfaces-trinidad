@@ -1,0 +1,72 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CorePanelPageHeader">
+     <component af:type="org.apache.myfaces.adf.CoreMenuTabs"
+                af:facet="navigation1" >
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab1"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab2"/>
+        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                   text="tab3"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreMenuBar"
+                   af:facet="navigation2" >
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar1"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar2"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="bar3"/>
+     </component>
+   <component af:type="org.apache.myfaces.adf.CoreMenuButtons"
+                   af:facet="navigationGlobal" >
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button1"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button2"/>
+           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                      text="button3"/>
+    </component>
+     <component af:type="org.apache.myfaces.adf.CoreMenuChoice"
+                     af:facet="menuSwitch" >
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice1"/>
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice2"/>
+             <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+                        text="choice3"/>
+    </component>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="branding"
+                source="/foo/foo.gif"/>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="brandingApp"
+                source="/foo/bar.gif"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="brandingAppContextual"
+                value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
+                styleUsage="inContextBranding"/>
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="search"
+                value="the search facet"/>
+  </base-component>
+
+
+  <!-- ungrouped -->
+  <!-- The chromeType tested in separate file because if you have brandingAppContextual set the chromeType does nothing -->
+  <!-- enum-test name="chromeType"/ -->
+  <!--attribute-test name="partialTriggers" value="x y" matchesBase="true"/-->
+
+
+  <!-- core -->
+  <attribute-test name="id" value="myid"/>
+  <!--attribute-test name="inlineStyle" value="background-color:red"/-->
+  <!--boolean-test name="rendered"/-->
+  <attribute-test name="shortDesc" value="my short desc"/>
+  <attribute-test name="styleClass" value="mystyle"/>
+
+  <!-- javascript -->
+  <js-test/>
+
+</test>

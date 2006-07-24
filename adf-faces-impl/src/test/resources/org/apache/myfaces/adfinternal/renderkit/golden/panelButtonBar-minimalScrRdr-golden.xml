@@ -1,0 +1,1583 @@
+<results>
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[id,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="test-id"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[inlineStyle,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             style="test-inlineStyle"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[shortDesc,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             summary=""
+             title="test-shortDesc"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[styleClass,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="test-styleClass"
+             id="mainId"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onclick,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onclick="test-onclick"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[ondblclick,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             ondblclick="test-ondblclick"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onkeydown,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onkeydown="test-onkeydown"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onkeypress,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onkeypress="test-onkeypress"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onkeyup,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onkeyup="test-onkeyup"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onmousedown,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onmousedown="test-onmousedown"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onmousemove,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onmousemove="test-onmousemove"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onmouseout,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onmouseout="test-onmouseout"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onmouseover,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onmouseover="test-onmouseover"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+<!--AttributeTest[onmouseup,null]-->
+
+      <map
+           title="Global buttons"
+          >
+        
+        <a
+             class="p_OraHiddenLabel"
+             href="uri-attr:encoded-action-url:#_idXXX"
+            >
+          
+          <img
+               alt="Skip all Global buttons"
+               border="0"
+               title="Skip all Global buttons"
+               src="uri-attr:/test-context-path/adf/images/t.gif"
+              >
+            
+          </img>
+        </a>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             id="mainId"
+             onmouseup="test-onmouseup"
+             summary=""
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 1
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 2
+              </button>
+            </td>
+            <td
+                >
+              
+              <img
+                   alt=""
+                   height="1"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="10"
+                  >
+                
+              </img>
+            </td>
+            <td
+                >
+              
+              <button
+                   class="OraLink"
+                   onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                   type="button"
+                  >
+                button 3
+              </button>
+            </td>
+          </tr>
+        </table>
+      </map>
+      <a
+           class="OraLink"
+           id="uri-attr:_idXXX"
+           name="uri-attr:_idXXX"
+          >
+        
+      </a>
+</results>

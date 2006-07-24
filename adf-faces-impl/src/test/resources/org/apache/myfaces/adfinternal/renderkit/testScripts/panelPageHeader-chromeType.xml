@@ -1,0 +1,21 @@
+<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
+       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+  <base-component af:type="org.apache.myfaces.adf.CorePanelPageHeader">
+     
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="branding"
+                source="/foo/foo.gif"/>
+    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+                af:facet="brandingApp"
+                source="/foo/bar.gif"/>
+   
+     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+                af:facet="search"
+                value="the search facet"/>
+  </base-component>
+
+
+  <!-- ungrouped -->
+  <!-- The chromeType tested in separate file because if you have brandingAppContextual set the chromeType does nothing -->
+  <enum-test name="chromeType"/>
+</test>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+   <af:document title="ChooseColor Demo" >
+        <af:form>       
+            <af:panelGroup layout="vertical">
+              <f:facet name="separator">
+                <af:objectSeparator/>
+              </f:facet>
+              <af:commandLink immediate="true" text="Component Guide"
+                  action="guide"/> 
+              <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor associated with a selectInputColor&lt;/b>"/>                
+              <af:selectInputColor id="sic1" chooseId="cp1"
+                shortDesc="Select color from pallette"                
+                label="Enter or select color from palette below"
+                value="#{color.colorValue1}"/>                              
+              <af:chooseColor id="cp1" 
+                colorData="#{adfFacesContext.colorPalette.default49}"/>
+                          
+              <af:outputFormatted styleUsage="instruction" value="&lt;b>Color Converter with patterns &quot;rrr-ggg-bbb #RRGGBB&quot; associated with selectInputColor component&lt;/b>"/>                
+              <af:selectInputColor id="sicConv" chooseId="cpConv"
+                label="Enter or select color from palette below"
+                value="#{color.colorValue1}">
+                <af:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
+              </af:selectInputColor>
+              <af:chooseColor id="cpConv" 
+                colorData="#{adfFacesContext.colorPalette.default49}"/>
+
+              <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor with attribute 'colorData' bound to a list(java.util.List) of colors(java.awt.Color) and attribute 'customColorData' bound to an array of colors(java.awt.Color)&lt;/b>"/>                                
+              <af:chooseColor id="cp2" 
+                colorData="#{color.colorList}"
+                customColorData="#{color.colorArray}"/>
+  
+              <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor using standard 80 color palette(ADF Faces implicit object) - Update its properties  from the table below&lt;/b>"/>                                
+              <af:chooseColor binding="#{editor.component}" id="cp3" 
+                colorData="#{adfFacesContext.colorPalette.default80}" width="16"/>
+              <jsp:directive.include file="editor.jspf" />
+          </af:panelGroup>
+        </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

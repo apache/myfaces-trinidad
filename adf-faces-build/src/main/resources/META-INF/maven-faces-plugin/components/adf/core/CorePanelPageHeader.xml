@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <component>
+    <description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></description>
+    <icon>
+      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/panelPageHeader.png</small-icon>
+    </icon>
+    <component-type>org.apache.myfaces.adf.CorePanelPageHeader</component-type>
+    <component-class>org.apache.myfaces.adf.component.core.layout.CorePanelPageHeader</component-class>
+    <facet>
+      <description><![CDATA[This location typically contains a menuTabs.]]></description>
+      <facet-name>navigation1</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:menuTabs</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[This location typically contains a menuBar.]]></description>
+      <facet-name>navigation2</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:menuBar</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[This section typically contains a menuButtons.]]></description>
+      <facet-name>navigationGlobal</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:menuButtons</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[This location typically contains a menuChoice.]]></description>
+      <facet-name>menuSwitch</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>false</mfp:preferred>
+          <mfp:preferred-children>af:menuChoice</mfp:preferred-children>
+        </mfp:facet-metadata>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[The corporate or organization branding region of the page.  This section typically
+                contains a medium size objectImage of the logo of the organization 
+                owning the page.]]>
+      </description>
+      <facet-name>branding</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[The application, module, or product branding region of the page.
+                This section typically contains a objectImage of the application logo.]]>
+      </description>
+      <facet-name>brandingApp</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[The application's contextual branding region of the page.  This section typically
+                contains formatted text indicating that ONE context exists
+                between the persistent tabs. The user selects the context 
+                from a centralized aggregate home page of multiple contexts, 
+                then navigates into a tabbed application pertaining to that 
+                specific context.]]>
+      </description>
+      <facet-name>brandingAppContextual</facet-name>
+      <facet-extension>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[The search region of the page.]]></description>
+      <facet-name>search</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred-children>af:inputText</mfp:preferred-children>
+        </mfp:facet-metadata>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <property>
+      <description><![CDATA[what the chromeType is for the page: compact or expanded. If
+              compact, the productBranding will be shown alongside the 
+              corporate branding instead of below the corporate branding.]]>
+      </description>
+      <property-name>chromeType</property-name>
+      <property-class>java.lang.String</property-class>
+      <default-value>compact</default-value>
+      <property-extension>
+        <mfp:property-values>compact expanded</mfp:property-values>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[the short description of the bean.  This text
+         is commonly used by user agents to display tooltip help text.]]>
+      </description>
+      <property-name>shortDesc</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[the IDs of the components that should trigger a partial update.
+         This component will listen on the trigger components. If one of the
+         trigger components receives an event that will cause it to update
+         in some way, this component will request to be updated too.]]>
+      </description>
+      <property-name>partialTriggers</property-name>
+      <property-class>java.lang.String[]</property-class>
+    </property>
+    <property>
+      <description><![CDATA[an onclick Javascript handler.]]></description>
+      <property-name>onclick</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an ondblclick Javascript handler.]]></description>
+      <property-name>ondblclick</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onmousedown Javascript handler.]]></description>
+      <property-name>onmousedown</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onmouseup Javascript handler.]]></description>
+      <property-name>onmouseup</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onmouseover Javascript handler.]]></description>
+      <property-name>onmouseover</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onmousemove Javascript handler.]]></description>
+      <property-name>onmousemove</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onmouseout Javascript handler.]]></description>
+      <property-name>onmouseout</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onkeypress Javascript handler.]]></description>
+      <property-name>onkeypress</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onkeydown Javascript handler.]]></description>
+      <property-name>onkeydown</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[an onkeyup Javascript handler.]]></description>
+      <property-name>onkeyup</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[the CSS style class of the bean.]]></description>
+      <property-name>styleClass</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[the inline CSS style for this element]]></description>
+      <property-name>inlineStyle</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:group>${md:getTranslatedString("CORE_GROUP")}</mfp:group>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <component-extension>
+      <mfp:component-supertype>org.apache.myfaces.adf.Panel</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.adf.PageHeader</mfp:renderer-type>
+      <mfp:tag-name>af:panelPageHeader</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.layout.CorePanelPageHeaderTag</mfp:tag-class>
+      <mfp:long-description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></mfp:long-description>
+      <mfp:example>
+        <mfp:source-code><![CDATA[<af:panelPageHeader>
+              <f:facet name="branding">
+                <af:panelGroup layout="horizontal">
+                  <af:objectImage source="/components/images/corporateBrand.gif"/>
+                  <af:objectImage source="/components/images/applicationBrand.gif"/>
+                  <af:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
+                                      styleUsage="inContextBranding"/>
+                </af:panelGroup>
+              </f:facet>
+              <f:facet name="navigationGlobal">
+                <af:menuButtons>
+                  <af:commandNavigationItem text="Help"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.menuButtons"/>
+                  <af:commandNavigationItem text="Help 2"
+                                    icon="/components/images/globalhelp.gif"
+                                    action="guide.menuButtons"/>
+                </af:menuButtons>
+              </f:facet>
+              <f:facet name="navigation2">
+                <af:menuBar >
+                  <af:commandNavigationItem text="item 1" action="guide.menuBar" 
+                                   selected="true" />
+                </af:menuBar>
+              </f:facet>
+            </af:panelPageHeader>]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:author>Blake Sullivan</mfp:author>
+      <mfp:component-metadata>
+        <mfp:accepts-child-components>false</mfp:accepts-child-components>
+        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
+      </mfp:component-metadata>
+      <mfp:uix2-local-name>pageHeaderLayout</mfp:uix2-local-name>
+    </component-extension>
+  </component>
+</faces-config>

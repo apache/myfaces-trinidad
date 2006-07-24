@@ -1,0 +1,268 @@
+<results>
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onclick,null]-->
+
+      <input
+           class="OraLink"
+           onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,event,true)"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[ondblclick,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           ondblclick="test-ondblclick"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onkeydown,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onkeydown="test-onkeydown"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onkeypress,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onkeypress="test-onkeypress"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onkeyup,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onkeyup="test-onkeyup"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onmousedown,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onmousedown="test-onmousedown"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onmousemove,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onmousemove="test-onmousemove"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onmouseout,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onmouseout="test-onmouseout"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onmouseover,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onmouseover="test-onmouseover"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[onmouseup,null]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           onmouseup="test-onmouseup"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[accessKey,u]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[id,myid]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'myid'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:myid"
+          >
+        
+      </input>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           style="background-color:red"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[shortDesc,my button]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           title="my button"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[styleClass,mystyle]-->
+
+      <input
+           class="mystyle"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[textAndAccessKey,&B]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[disabled,false]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[disabled,true]-->
+
+      <input
+           class="OraLinkDisabled"
+           disabled="disabled"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[immediate,false]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[immediate,true]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',0,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[partialSubmit,false]-->
+
+      <input
+           class="OraLink"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+      </input>
+<!--AttributeTest[partialSubmit,true]-->
+
+      <input
+           class="OraLink"
+           onclick="_uixspu('formId',1,0,'mainId',0,1,0);return false;"
+           type="button"
+           value="ButtonText"
+           id="uri-attr:mainId"
+          >
+        
+        <script
+            >
+          var _pprUpdateMode=false;function _uixspu(f,v,e,s,pt,p,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;if(p){o.partial='true';if(pt)o.partialTargets=pt;_submitPartialChange(f,v,o);}else submitForm(f,v,o);}
+        </script>
+      </input>
+</results>

@@ -1,0 +1,35 @@
+<results>
+      <hr
+           class="af_objectSeparator"
+           id="mainId"
+          >
+        
+      </hr>
+<!--AttributeTest[id,null]-->
+
+      <hr
+           class="af_objectSeparator"
+           id="test-id"
+          >
+        
+      </hr>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <hr
+           class="af_objectSeparator"
+           id="mainId"
+          >
+        
+      </hr>
+<!--AttributeTest[shortDesc,null]-->
+
+      <hr
+           class="af_objectSeparator"
+           id="mainId"
+           title="test-shortDesc"
+          >
+        
+      </hr>
+</results>

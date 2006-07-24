@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" 
+  xmlns:f="http://java.sun.com/jsf/core" 
+  xmlns:h="http://java.sun.com/jsf/html" 
+  xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
+  xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <af:document title="Welcome to AddRow and TotalRow demos">
+      <af:form >
+        <af:panelPage>
+          <f:facet name="navigationGlobal">
+          <af:menuButtons>
+            <af:commandNavigationItem text="Return to Feature Demos page"
+                                immediate="true"
+                                action="demos"/>
+           </af:menuButtons>
+          </f:facet>
+          <af:outputFormatted styleUsage="instruction" 
+            value="These demos show how you can play around with table data"/>
+          <af:panelGroup layout="vertical">
+            <af:panelHeader text="Add Row Demo">
+              <af:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to add a row to your model 
+                      based on user input"/>
+              <af:commandButton id="AddRowButton" 
+                text="go to AddRow Demo" action="addRow"/>
+            </af:panelHeader>
+            <af:panelHeader text="Total Row Demo">
+              <af:outputFormatted styleUsage="instruction" 
+                value="This demo shows you how to calculate totals for
+                a particular column in your table."/>
+              <af:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
+                action="totalRow"/>
+            </af:panelHeader>
+          </af:panelGroup>
+        </af:panelPage>
+      </af:form>
+    </af:document>
+  </f:view>
+</jsp:root>

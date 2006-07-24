@@ -1,0 +1,2434 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[id,myid]-->
+
+      <span
+           id="myid"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <span
+           id="mainId"
+           title="my short desc"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[styleClass,mystyle]-->
+
+      <span
+           class="mystyle"
+           id="mainId"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onclick,null]-->
+
+      <span
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[ondblclick,null]-->
+
+      <span
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeydown,null]-->
+
+      <span
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeypress,null]-->
+
+      <span
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onkeyup,null]-->
+
+      <span
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmousedown,null]-->
+
+      <span
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmousemove,null]-->
+
+      <span
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseout,null]-->
+
+      <span
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseover,null]-->
+
+      <span
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+<!--AttributeTest[onmouseup,null]-->
+
+      <span
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <img
+             src="uri-attr:/test-context-path/foo/foo.gif"
+            >
+          
+        </img>
+        <img
+             alt=""
+             height="1"
+             src="/test-context-path/adf/images/t.gif"
+             width="5"
+            >
+          
+        </img>
+        <img
+             src="uri-attr:/test-context-path/foo/bar.gif"
+            >
+          
+        </img>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraTabBar"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab1
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab2
+                  </a>
+                </span>
+              </span> | 
+              <span
+                   class="af_menuTabs_enabled"
+                  >
+                
+                <span
+                     class="af_menuTabs_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    tab3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+        <div
+            >
+          
+        </div>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class="p_OraGlobalHeader"
+             id="_idXXX"
+             summary=""
+             width="100%"
+            >
+          
+          <tr
+              >
+            
+            <td
+                >
+              
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar1
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar2
+                  </a>
+                </span>
+              </span>&#xa0;|&#xa0;
+              <span
+                   class="af_menuBar_enabled"
+                  >
+                
+                <span
+                     class="af_menuBar_enabled"
+                    >
+                  
+                  <a
+                       class="OraLink"
+                       onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                       href="uri-attr:encoded-action-url:#"
+                      >
+                    bar3
+                  </a>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </span>
+</results>

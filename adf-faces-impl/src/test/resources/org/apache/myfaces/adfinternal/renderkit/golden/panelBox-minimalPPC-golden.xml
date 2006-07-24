@@ -1,0 +1,1442 @@
+<results>
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[background,light]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[background,medium]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-medium"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[background,dark]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-dark"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[background,transparent]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-transparent"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[icon,http://www.oracle.com/images/oracle.gif]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_header"
+              >
+            
+            <img
+                 alt=""
+                 src="uri-attr:http://www.oracle.com/images/oracle.gif"
+                >
+              
+            </img>
+          </td>
+        </tr>
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[text,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_header"
+              >
+            test-text
+          </td>
+        </tr>
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[contentStyle,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+               style="test-contentStyle"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="test-id"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[inlineStyle,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           style="test-inlineStyle"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[rendered,false]-->
+
+<!--AttributeTest[rendered,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[shortDesc,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           summary=""
+           title="test-shortDesc"
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[styleClass,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="test-styleClass af_panelBox_content-light"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onclick="test-onclick"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[ondblclick,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           ondblclick="test-ondblclick"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeydown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onkeydown="test-onkeydown"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeypress,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onkeypress="test-onkeypress"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onkeyup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onkeyup="test-onkeyup"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousedown,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onmousedown="test-onmousedown"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmousemove,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onmousemove="test-onmousemove"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseout,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onmouseout="test-onmouseout"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseover,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onmouseover="test-onmouseover"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[onmouseup,null]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelBox_content-light"
+           id="mainId"
+           onmouseup="test-onmouseup"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_panelBox_body"
+              >
+            
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 1
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 2
+              </a>
+            </div>
+            <div
+                >
+              
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 3
+              </a>
+              <div
+                  >
+                
+              </div>
+              <a
+                   class="OraLink"
+                   href="uri-attr:encoded-action-url:http://www.oracle.com"
+                  >
+                link 4
+              </a>
+            </div>
+          </td>
+        </tr>
+      </table>
+</results>

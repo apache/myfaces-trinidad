@@ -1,0 +1,75 @@
+<results>
+      <span
+           id="mainId"
+          >
+        
+      </span>
+<!--AttributeTest[height,0]-->
+
+      <div
+           id="mainId"
+           style="margin-top:0px"
+          >
+        
+      </div>
+<!--AttributeTest[height,10%]-->
+
+      <div
+           id="mainId"
+           style="margin-top:10%"
+          >
+        
+      </div>
+<!--AttributeTest[height,5cm]-->
+
+      <div
+           id="mainId"
+           style="margin-top:5cm"
+          >
+        
+      </div>
+<!--AttributeTest[width,0]-->
+
+      <img
+           id="mainId"
+           src="/test-context-path/adf/images/t.gif"
+           width="0"
+          >
+        
+      </img>
+<!--AttributeTest[width,10%]-->
+
+      <img
+           id="mainId"
+           src="/test-context-path/adf/images/t.gif"
+           width="10%"
+          >
+        
+      </img>
+<!--AttributeTest[width,5]-->
+
+      <img
+           id="mainId"
+           src="/test-context-path/adf/images/t.gif"
+           width="5"
+          >
+        
+      </img>
+<!--AttributeTest[height,10%,AttributeTest[width,5]]-->
+
+      <img
+           height="10%"
+           id="mainId"
+           src="/test-context-path/adf/images/t.gif"
+           width="5"
+          >
+        
+      </img>
+<!--AttributeTest[id,null]-->
+
+      <span
+           id="test-id"
+          >
+        
+      </span>
+</results>

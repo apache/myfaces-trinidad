@@ -1,0 +1,151 @@
+<results>&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+<!-- MessageTest[ id:null,INFO ]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[id,id_val]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+           style="background-color:red"
+          >
+        
+      </hr>
+<!--AttributeTest[message,message_val]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+        <br
+            >
+          
+        </br>message_val
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[messageType,error]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[shortDesc,shortDesc_val]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+           title="shortDesc_val"
+          >
+        
+      </hr>
+<!--AttributeTest[styleClass,styleClass_val]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           class="styleClass_val"
+           size="1"
+          >
+        
+      </hr>
+<!--AttributeTest[text,text_val]-->
+&nbsp;
+      <b
+          >
+        
+        <span
+             class="af_messages_header"
+            >
+          Information
+        </span>
+      </b>
+      <hr
+           size="1"
+          >
+        
+      </hr>
+</results>

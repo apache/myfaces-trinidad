@@ -1,0 +1,131 @@
+/*
+ * Copyright  2000-2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.myfaces.adfinternal.image;
+
+import java.util.Map;
+import java.util.Iterator;
+
+
+import org.apache.myfaces.adf.util.ArrayMap;
+
+/**
+ * ImageType implementation used by the ImageTypeManager.
+ *
+ * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageTypeImpl.java#0 $) $Date: 10-nov-2005.19:03:57 $
+ * @author The Oracle ADF Faces Team
+ */
+class ImageTypeImpl implements ImageType
+{
+  public ImageTypeImpl(
+    String namespaceURI,
+    String name,
+    Map properties)
+  {
+    _namespace = namespaceURI;
+    _name = name;
+
+    setProperties(properties);
+  }
+
+  /**
+   * Implementation of ImageType.getNamespace().
+   */
+  public String getNamespaceURI()
+  {
+    return _namespace;
+  }
+
+  /**
+   * Implementation of ImageType.getName().
+   */
+  public String getLocalName()
+  {
+    return _name;
+  }
+
+  /**
+   * Implementation of ImageType.getProperty().
+   */
+  public Object getProperty(Object key)
+  {
+    Object value = _properties.get(key);
+
+    if (value instanceof PropertyInstantiator)
+    {
+      value = ((PropertyInstantiator)value).instantiate();
+
+      assert (value != null);
+
+      _properties.put(key, value);
+    }
+
+    // We do some defaulting to be nice
+    if (value == null)
+    {
+      if (IMAGE_RENDERER_NAME_PROPERTY.equals(key))
+      {
+        Object renderer = getProperty(IMAGE_RENDERER_PROPERTY);
+        if (renderer != null)
+          value = renderer.getClass().getName();
+      }
+    }
+
+    return value;
+  }
+
+  /**
+   * Implementation of MutableImageType.setProperty().
+   */
+  synchronized public void setProperty(Object key, Object value)
+  {
+    if (value == null)
+    {
+      throw new NullPointerException("Null value");
+    }
+
+    _properties.put(key, value);
+  }
+
+  /**
+   * Sets the properties contained in the specified dictionary.
+   * This method is not defined on ImageType or MutableImageType -
+   * it is provided as a convenience for ImageTypeManager.
+   */
+  public void setProperties(Map properties)
+  {
+    if (properties == null)
+      return;
+
+    Iterator keys = properties.keySet().iterator();
+    while (keys.hasNext())
+    {
+      Object key = keys.next();
+      Object value = properties.get(key);
+
+      setProperty(key, value);
+    }
+  }
+
+  public String toString()
+  {
+    return getClass().getName() + "[" + _namespace + ", " + _name + "]";
+  }
+
+  private String   _namespace;
+  private String   _name;
+  private ArrayMap _properties = new ArrayMap();
+}

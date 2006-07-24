@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
+          xmlns:af="http://myfaces.apache.org/adf/faces" >
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+   <html>
+    <head>
+     <title>Editable form ADF</title>
+     <afh:styleSheet/>
+    </head>
+    <body>
+      <af:form >
+        <af:messages/>
+        <af:panelForm>
+          <af:inputText label="First:" value="1"/>
+          <af:inputText label="Second:" value="2"/>
+          <af:inputText label="Third:" value="3"/>
+          <af:inputText label="Fourth:" value="4"/>
+          <af:inputText label="Fifth:" value="5"/>
+          <af:selectOneRadio label="Radio:" value="3">
+            <f:selectItem itemValue="1" itemLabel="1"/>
+            <f:selectItem itemValue="2" itemLabel="2"/>
+            <f:selectItem itemValue="3" itemLabel="3"/>
+          </af:selectOneRadio>
+          <af:selectOneListbox label="List:" value="2">
+            <f:selectItem itemValue="1" itemLabel="1"/>
+            <f:selectItem itemValue="2" itemLabel="2"/>
+            <f:selectItem itemValue="3" itemLabel="3"/>
+          </af:selectOneListbox>
+          <af:inputText label="Textarea:" value="Long text" rows="5" />
+          <af:selectBooleanCheckbox label="Checked:" selected="true"
+               text="True or false"/>
+        </af:panelForm>
+        <af:commandButton text="Submit"/>
+      </af:form>
+     </body>
+    </html>
+  </f:view>
+</jsp:root>
