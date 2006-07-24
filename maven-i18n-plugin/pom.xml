@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache.myfaces.adfbuild</groupId>
+    <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
     <version>incubator-alpha-1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.apache.myfaces.adfbuild</groupId>
+  <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-i18n-plugin</artifactId> 
   <version>incubator-alpha-2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>

@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfbuild.plugin.i18n;
+package org.apache.myfaces.trinidadbuild.plugin.i18n;
 
 import java.io.File;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.myfaces.adfbuild.plugin.i18n.uixtools.JSLocaleElementsGenerator;
+import org.apache.myfaces.trinidadbuild.plugin.i18n.uixtools.JSLocaleElementsGenerator;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
