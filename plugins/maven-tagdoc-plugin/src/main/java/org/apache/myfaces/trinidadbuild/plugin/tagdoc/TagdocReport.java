@@ -13,80 +13,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfbuild.plugin.tagdoc;
+package org.apache.myfaces.trinidadbuild.plugin.tagdoc;
 
 //import org.apache.maven.doxia.sink.Sink;
-import org.codehaus.doxia.sink.Sink;
-import org.apache.maven.doxia.siterenderer.RendererException;
-import org.apache.maven.model.Resource;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.reporting.AbstractMavenMultiPageReport;
-import org.apache.maven.reporting.MavenReportException;
-import org.apache.maven.reporting.sink.SinkFactory;
-import org.apache.maven.reporting.sink.MultiPageSink;
-
-import org.codehaus.doxia.site.renderer.SiteRenderer;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.apache.myfaces.adfbuild.plugin.faces.parse.AttributeBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.ComponentBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.ConverterBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.EventBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.EventRefBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.FacesConfigBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.FacesConfigParser;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.FacetBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.PropertyBean;
-import org.apache.myfaces.adfbuild.plugin.faces.parse.ValidatorBean;
-import org.apache.myfaces.adfbuild.plugin.faces.util.AttributeFilter;
-import org.apache.myfaces.adfbuild.plugin.faces.util.ComponentFilter;
-import org.apache.myfaces.adfbuild.plugin.faces.util.ConverterFilter;
-import org.apache.myfaces.adfbuild.plugin.faces.util.Filter;
-import org.apache.myfaces.adfbuild.plugin.faces.util.FilteredIterator;
-import org.apache.myfaces.adfbuild.plugin.faces.util.PropertyFilter;
-
-import org.apache.myfaces.adfbuild.plugin.faces.util.Util;
-import org.apache.myfaces.adfbuild.plugin.faces.util.ValidatorFilter;
-import org.apache.myfaces.adfbuild.plugin.faces.util.XIncludeFilter;
-
-import org.apache.commons.digester.AbstractObjectCreationFactory;
-import org.apache.commons.digester.Digester;
-
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
-
-
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -103,6 +40,34 @@ import java.util.TreeSet;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.commons.digester.AbstractObjectCreationFactory;
+import org.apache.commons.digester.Digester;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.reporting.AbstractMavenMultiPageReport;
+import org.apache.maven.reporting.MavenReportException;
+import org.apache.maven.reporting.sink.SinkFactory;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ComponentBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ConverterBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.EventBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.EventRefBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.FacesConfigBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.FacesConfigParser;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.FacetBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.PropertyBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ValidatorBean;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.ComponentFilter;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.ConverterFilter;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.FilteredIterator;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.PropertyFilter;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.ValidatorFilter;
+import org.apache.myfaces.trinidadbuild.plugin.faces.util.XIncludeFilter;
+import org.codehaus.doxia.sink.Sink;
+import org.codehaus.doxia.site.renderer.SiteRenderer;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 /**
  * Report for generating JSF tagdoc based on faces-config.xml parsing.
@@ -747,7 +712,6 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     while (attributes.hasNext())
     {
       PropertyBean attr = (PropertyBean) attributes.next();
-      String attrName = attr.getPropertyName();
 
       /*
       if ((group == null) || "Ungrouped".equals(group))
