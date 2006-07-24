@@ -16,23 +16,23 @@
 -->
 <project>
   <parent>
-    <groupId>org.apache.myfaces.adf</groupId>
-    <artifactId>adf-faces</artifactId>
+    <groupId>org.apache.myfaces.trinidad</groupId>
+    <artifactId>trinidad</artifactId>
     <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>ADF Faces Apache Impl</name>
-  <description>ADF JavaServer Faces Apache Impl</description>
+  <name>Apache Trinidad Impl</name>
+  <description>Apache Trinidad Impl</description>
 
-  <artifactId>adf-faces-impl</artifactId>
+  <artifactId>trinidad-impl</artifactId>
   <packaging>jar</packaging>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
         <configuration>
           <sourceRoots>
@@ -85,7 +85,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-faces-plugin</artifactId>
         <configuration>
           <taglibs>
@@ -108,7 +108,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-i18n-plugin</artifactId>
         <configuration>
           <force>true</force>
@@ -124,7 +124,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javascript-plugin</artifactId>
         <configuration>
           <sourcePath>META-INF/adf/jsLibs</sourcePath>
@@ -141,7 +141,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
         <executions>
           <execution>
@@ -169,13 +169,13 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-build</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-build</artifactId>
     </dependency>
     
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-api</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-api</artifactId>
     </dependency>
 
     <dependency>
@@ -185,8 +185,8 @@
 
     <!-- "test" scope dependencies -->
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-api</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-api</artifactId>
       <type>test-jar</type>
       <scope>test</scope>
     </dependency>

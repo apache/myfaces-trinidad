@@ -16,23 +16,23 @@
 -->
 <project>
   <parent>
-    <groupId>org.apache.myfaces.adf</groupId>
-    <artifactId>adf-faces</artifactId>
+    <groupId>org.apache.myfaces.trinidad</groupId>
+    <artifactId>trinidad</artifactId>
     <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>ADF Faces Apache API</name>
-  <description>ADF JavaServer Faces Apache API</description>
+  <name>Apache Trinidad API</name>
+  <description>This project is currently undergoing the Incubation at Apache</description>
 
-  <artifactId>adf-faces-api</artifactId>
+  <artifactId>trinidad-api</artifactId>
   <packaging>jar</packaging>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
       </plugin>
       <plugin>
@@ -47,7 +47,7 @@
         </executions>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-xrts-plugin</artifactId>
         <!-- TODO: move up to parent after MNG-985 is resolved -->
         <executions>
@@ -77,7 +77,7 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-faces-plugin</artifactId>
         <configuration>
           <typePrefix>org.apache</typePrefix>
@@ -95,7 +95,7 @@
       </plugin>
 
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-i18n-plugin</artifactId>
         <configuration>
           <locale>en_US</locale>
@@ -116,8 +116,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-build</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-build</artifactId>
       <version>${project.version}</version>
     </dependency>
     
@@ -170,7 +170,7 @@
         <artifactId>maven-project-info-reports-plugin</artifactId>
       </plugin>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
         <version>incubator-alpha-3-SNAPSHOT</version>
         <configuration>
