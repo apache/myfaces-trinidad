@@ -16,23 +16,23 @@
 -->
 <project>
   <parent>
-    <groupId>org.apache.myfaces.adf</groupId>
-    <artifactId>adf-faces</artifactId>
+    <groupId>org.apache.myfaces.trinidad</groupId>
+    <artifactId>trinidad</artifactId>
     <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
 
-  <name>ADF Faces Apache Demo</name>
-  <description>ADF JavaServer Faces Apache Demo</description>
+  <name>Apache Trinidad Demo</name>
+  <description>Apache Trinidad Demo</description>
 
-  <artifactId>adf-faces-demo</artifactId>
+  <artifactId>trinidad-demo</artifactId>
   <packaging>war</packaging>
 
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.myfaces.adfbuild</groupId>
+        <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-jdev-plugin</artifactId>
         <configuration>
           <libraries>
@@ -46,13 +46,13 @@
   <dependencies>
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>adf-faces-api</artifactId>
+      <artifactId>trinidad-api</artifactId>
       <version>${pom.version}</version>
     </dependency>
 
     <dependency>
       <groupId>${pom.groupId}</groupId>
-      <artifactId>adf-faces-impl</artifactId>
+      <artifactId>trinidad-impl</artifactId>
       <version>${pom.version}</version>
     </dependency>
 

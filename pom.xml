@@ -18,12 +18,12 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <groupId>org.apache.myfaces.adf</groupId>
-  <artifactId>adf-faces</artifactId>
+  <groupId>org.apache.myfaces.trinidad</groupId>
+  <artifactId>trinidad</artifactId>
   <packaging>pom</packaging>
-  <name>ADF Faces Apache</name>
+  <name>Apache Incubator Trinidad Podling</name>
   <version>incubator-m1-SNAPSHOT</version>
-  <description>ADF Faces Apache Incubator</description>
+  <description>Apache Incubator Trinidad Podling</description>
 
   <issueManagement>
     <system>jira</system>
@@ -48,19 +48,19 @@
 
   <mailingLists>
     <mailingList>
-      <name>ADF Faces Incubator Users</name>
+      <name>Trinidad Incubator Users</name>
       <post>adffaces-users@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator Developers</name>
+      <name>Trinidad Incubator Developers</name>
       <post>adffaces-dev@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator issues</name>
+      <name>Trinidad Incubator issues</name>
       <post>adffaces-issues@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator commits</name>
+      <name>Trinidad Incubator commits</name>
       <post>adffaces-commits@incubator.apache.org</post>
     </mailingList>
   </mailingLists>
@@ -156,7 +156,7 @@
   </scm>
 
   <organization>
-    <name>Apache ADF Faces Incubator</name>
+    <name>Apache Trinidad (undergoing Incubator)</name>
   </organization>
 
 
@@ -181,28 +181,28 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.myfaces.adfbuild</groupId>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-xrts-plugin</artifactId>
           <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.myfaces.adfbuild</groupId>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-faces-plugin</artifactId>
           <version>incubator-alpha-9-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.myfaces.adfbuild</groupId>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-i18n-plugin</artifactId>
           <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
         </plugin>
 
         <plugin>
-          <groupId>org.apache.myfaces.adfbuild</groupId>
+          <groupId>org.apache.myfaces.trinidadbuild</groupId>
           <artifactId>maven-javascript-plugin</artifactId>
           <version>incubator-alpha-2-SNAPSHOT</version>
           <inherited>true</inherited>
@@ -241,10 +241,10 @@
   </build>
 
   <modules>
-    <module>adf-faces-api</module>
-    <module>adf-faces-build</module>
-    <module>adf-faces-impl</module>
-    <module>adf-faces-demo</module>
+    <module>trinidad-api</module>
+    <module>trinidad-build</module>
+    <module>trinidad-impl</module>
+    <module>trinidad-demo</module>
   </modules>
 
   <repositories>
@@ -338,29 +338,29 @@
       </dependency>
 
       <dependency>
-        <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-build</artifactId>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-build</artifactId>
         <version>incubator-m1-SNAPSHOT</version>
         <scope>provided</scope>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-api</artifactId>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-api</artifactId>
         <version>incubator-m1-SNAPSHOT</version>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-api</artifactId>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-api</artifactId>
         <version>incubator-m1-SNAPSHOT</version>
         <type>test-jar</type>
         <scope>test</scope>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.myfaces.adf</groupId>
-        <artifactId>adf-faces-impl</artifactId>
+        <groupId>org.apache.myfaces.trinidad</groupId>
+        <artifactId>trinidad-impl</artifactId>
         <version>incubator-m1-SNAPSHOT</version>
       </dependency>
 
