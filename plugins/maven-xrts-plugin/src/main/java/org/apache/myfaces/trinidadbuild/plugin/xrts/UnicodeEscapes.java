@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfbuild.plugin.xrts;
+package org.apache.myfaces.trinidadbuild.plugin.xrts;
 
 /**
  * The <code>UnicodeEscapes</code> class converts bytes and characters outside

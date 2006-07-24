@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfbuild.plugin.xrts;
+package org.apache.myfaces.trinidadbuild.plugin.xrts;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,11 +22,11 @@ import org.apache.maven.project.MavenProject;
 
 /**
  * @version $Id$
- * @goal generate-test-sources
- * @phase generate-test-sources
+ * @goal generate-sources
+ * @phase generate-sources
  * @description Goal which generates the XRTS Bundles
  */
-public class GenerateTestSourcesMojo extends AbstractGenerateSourcesMojo
+public class GenerateSourcesMojo extends AbstractGenerateSourcesMojo
 {
   /**
    * @parameter expression="${project}"
@@ -44,28 +44,28 @@ public class GenerateTestSourcesMojo extends AbstractGenerateSourcesMojo
   /**
    * @parameter
    */
-  private String[] testExcludes;
+  private String[] excludes;
 
   /**
-   * @parameter expression="src/test/xrts"
+   * @parameter expression="src/main/xrts"
    * @required
    */
-  private File testSourceDirectory;
+  private File sourceDirectory;
 
   /**
-   * @parameter expression="${project.build.directory}/maven-xrts-plugin/test/java"
+   * @parameter expression="${project.build.directory}/maven-xrts-plugin/main/java"
    * @required
    */
   private File targetDirectory;
 
   protected String[] getExcludes()
   {
-	return testExcludes;
+	return excludes;
   }
 
   protected void addCompileSourceRoot() throws IOException
   {
-    project.addTestCompileSourceRoot(targetDirectory.getCanonicalPath());
+    project.addCompileSourceRoot(targetDirectory.getCanonicalPath());
   }
 
   protected String getTargetType()
@@ -75,7 +75,7 @@ public class GenerateTestSourcesMojo extends AbstractGenerateSourcesMojo
 
   protected File getSourceDirectory()
   {
-    return testSourceDirectory;
+    return sourceDirectory;
   }
 
   protected File getTargetDirectory()
