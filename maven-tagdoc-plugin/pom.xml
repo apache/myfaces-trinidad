@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache.myfaces.adfbuild</groupId>
+    <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
     <version>incubator-alpha-1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.apache.myfaces.adfbuild</groupId>
+  <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-tagdoc-plugin</artifactId> 
   <version>incubator-alpha-3-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
@@ -71,7 +71,7 @@
       <version>1.2.0_rc2-dev</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.myfaces.adfbuild</groupId>
+      <groupId>org.apache.myfaces.trinidadbuild</groupId>
       <artifactId>maven-faces-plugin</artifactId>
       <version>incubator-alpha-9-SNAPSHOT</version>
     </dependency>
