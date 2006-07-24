@@ -17,6 +17,8 @@ package org.apache.myfaces.adfinternal.renderkit;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -136,8 +138,21 @@ public class FacesConfigInfo
     while (resources.hasMoreElements())
     {
       URL resource = (URL) resources.nextElement();
-      System.out.println("PARSING " + resource);
-      InputStream inputStream = resource.openStream();
+      _LOG.info("PARSING " + resource);
+      InputStream inputStream = null;
+      // Try to get the inputStream off of a file
+      if ("file".equalsIgnoreCase(resource.getProtocol()))
+      {
+        File resourceFile = new File(resource.getFile().replaceAll("%20", " "));
+        if (resourceFile.exists())
+        {
+          inputStream = new FileInputStream(resourceFile);
+        }
+      }
+
+      if (inputStream == null)
+        inputStream = resource.openStream();
+
       try
       {
         InputSource source = new InputSource(inputStream);
