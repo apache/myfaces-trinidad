@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfbuild.plugin.jdeveloper;
+package org.apache.myfaces.trinidadbuild.plugin.jdeveloper;
 
 import java.io.File;
 import java.io.FileReader;
