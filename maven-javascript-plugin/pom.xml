@@ -2,12 +2,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache.myfaces.adfbuild</groupId>
+    <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
     <version>incubator-alpha-1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.apache.myfaces.adfbuild</groupId>
+  <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-javascript-plugin</artifactId> 
   <version>incubator-alpha-2-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
@@ -25,13 +25,13 @@
         </configuration>
       </plugin>
       <plugin>
-	<groupId>org.apache.myfaces.adfbuild</groupId>
+	<groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javacc-plugin</artifactId>
         <version>incubator-alpha-5-SNAPSHOT</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
-          <sourcePath>org/apache/myfaces/adfbuild/plugins/javascript/obfuscator/javascript15parser</sourcePath>
-          <outputPath>org/apache/myfaces/adfbuild/plugins/javascript/obfuscator/javascript15parser</outputPath>
+          <sourcePath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</sourcePath>
+          <outputPath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</outputPath>
 	  <isStatic>false</isStatic>
 	  <doNotGenerateTokenFile>true</doNotGenerateTokenFile>
         </configuration>
