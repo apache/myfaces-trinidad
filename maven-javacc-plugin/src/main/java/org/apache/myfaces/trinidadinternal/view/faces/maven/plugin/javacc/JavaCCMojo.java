@@ -1,4 +1,4 @@
-package oracle.adfinternal.view.faces.maven.plugin.javacc;
+package org.apache.myfaces.trinidadinternal.view.faces.maven.plugin.javacc;
 
 /*
  * Copyright 2001-2005 The Codehaus.
