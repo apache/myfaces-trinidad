@@ -24,11 +24,11 @@ import javax.faces.event.ActionListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.event.LaunchEvent;
-import org.apache.myfaces.adf.event.LaunchListener;
-import org.apache.myfaces.adf.event.ReturnEvent;
-import org.apache.myfaces.adf.event.ReturnListener;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.event.LaunchEvent;
+import org.apache.myfaces.trinidad.event.LaunchListener;
+import org.apache.myfaces.trinidad.event.ReturnEvent;
+import org.apache.myfaces.trinidad.event.ReturnListener;
 
 /**
  * Base class for command components.

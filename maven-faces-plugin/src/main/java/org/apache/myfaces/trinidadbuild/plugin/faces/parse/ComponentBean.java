@@ -883,7 +883,7 @@ public class ComponentBean extends ObjectBean
 
     ComponentBean parent = resolveSupertype();
     return (parent != null) ? parent.findComponentClass()
-                            : _ADF_FACES_COMPONENT_BASE;
+                            : _TRINIDAD_COMPONENT_BASE;
   }
 
   /**
@@ -899,7 +899,7 @@ public class ComponentBean extends ObjectBean
 
     ComponentBean parent = resolveSupertype();
     return (parent != null) ? parent.findJspTagClass()
-                            : _ADF_FACES_COMPONENT_TAG;
+                            : _TRINIDAD_COMPONENT_TAG;
   }
 
   /**
@@ -986,10 +986,10 @@ public class ComponentBean extends ObjectBean
   private int     _tagClassModifiers;
 
 
-  static private final String _ADF_FACES_COMPONENT_BASE =
+  static private final String _TRINIDAD_COMPONENT_BASE =
                          "org.apache.myfaces.trinidad.component.UIXComponentBase";
 
-  static private final String _ADF_FACES_COMPONENT_TAG =
+  static private final String _TRINIDAD_COMPONENT_TAG =
                          "org.apache.myfaces.trinidad.webapp.UIXComponentTag";
 
   static private final Logger _LOG = Logger.getLogger(ComponentBean.class.getName());
