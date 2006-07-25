@@ -20,8 +20,8 @@
 
   <component>  
   
-    <component-type>org.apache.myfaces.adf.ComponentBase</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXComponentBase</component-class>
+    <component-type>org.apache.myfaces.trinidad.ComponentBase</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXComponentBase</component-class>
 
     <property>
       <property-name>attributeChangeListener</property-name>
@@ -35,7 +35,7 @@
       <property-extension>
         <mfp:state-holder>true</mfp:state-holder>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.AttributeChangeEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
       </property-extension>
@@ -44,9 +44,9 @@
     <component-extension>
       <mfp:component-supertype>javax.faces.Component</mfp:component-supertype>
 
-      <mfp:jsp-tag-class>org.apache.myfaces.adfinternal.taglib.UIXComponentTag</mfp:jsp-tag-class>
+      <mfp:jsp-tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXComponentTag</mfp:jsp-tag-class>
       <mfp:event>
-        <mfp:event-type>org.apache.myfaces.adf.AttributeChange</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
         <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
       </mfp:event>
     </component-extension>

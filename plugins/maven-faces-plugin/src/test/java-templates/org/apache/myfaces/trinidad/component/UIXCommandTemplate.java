@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adf.component;
+package org.apache.myfaces.trinidad.component;
 
 import javax.faces.component.ActionSource;
 import javax.faces.context.FacesContext;

@@ -15,15 +15,15 @@
   limitations under the License.
 -->
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces/core"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:md="http://myfaces.apache.org/bali/xml/metadata"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin" >
 
   <component>  
   
-    <component-type>org.apache.myfaces.adf.Command</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXCommand</component-class>
+    <component-type>org.apache.myfaces.trinidad.Command</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXCommand</component-class>
 
     <description>
       A base abstraction for components that implement ActionSource.
@@ -85,7 +85,7 @@
       <property-extension>
         <mfp:state-holder>true</mfp:state-holder>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.ReturnEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
       </property-extension>
@@ -108,11 +108,11 @@ phase.
     </property>
 
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Command</mfp:component-family>
-      <mfp:default-renderer-type>org.apache.myfaces.adf.Button</mfp:default-renderer-type>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
+      <mfp:component-family>org.apache.myfaces.trinidad.Command</mfp:component-family>
+      <mfp:default-renderer-type>org.apache.myfaces.trinidad.Button</mfp:default-renderer-type>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
 
-      <mfp:jsp-tag-class>org.apache.myfaces.adfinternal.taglib.UIXCommandTag</mfp:jsp-tag-class>
+      <mfp:jsp-tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXCommandTag</mfp:jsp-tag-class>
       <mfp:jsp-tag-name>af:command</mfp:jsp-tag-name>
 
       <mfp:event>
@@ -121,12 +121,12 @@ phase.
       </mfp:event>
 
       <mfp:event>
-        <mfp:event-type>org.apache.myfaces.adf.Launch</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Launch</mfp:event-type>
         <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
       </mfp:event>
 
       <mfp:event>
-        <mfp:event-type>org.apache.myfaces.adf.Return</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Return</mfp:event-type>
         <mfp:event-delivery-phases>Apply Request Values</mfp:event-delivery-phases>
       </mfp:event>
 

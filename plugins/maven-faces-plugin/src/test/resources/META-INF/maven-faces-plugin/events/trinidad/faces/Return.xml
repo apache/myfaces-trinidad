@@ -15,23 +15,18 @@
   limitations under the License.
 -->
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces/core"
-              xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:md="http://myfaces.apache.org/bali/xml/metadata"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin" >
-
-  <component>  
-    <property>
-      <property-name>includedProperty</property-name>
-      <property-class>java.lang.String</property-class>
-      <description>
-          just a test.
-      </description>
-      <property-extension>
-        <md:attributeMetadata>
-          <md:preferred>true</md:preferred>
-        </md:attributeMetadata>
-      </property-extension>
-    </property>
-  </component>
+  <faces-config-extension>
+      <mfp:event>
+        <mfp:description>
+          Event delivered when the dialog has completed successfully.
+        </mfp:description>
+        <mfp:event-type>org.apache.myfaces.trinidad.Return</mfp:event-type>
+        <mfp:event-class>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:event-class>
+        <mfp:event-listener-class>org.apache.myfaces.trinidad.event.ReturnListener</mfp:event-listener-class>
+        <mfp:event-source-interface>org.apache.myfaces.trinidad.component.DialogSource</mfp:event-source-interface>
+        <mfp:event-delivery-phases>Apply Request Values</mfp:event-delivery-phases>
+      </mfp:event>
+  </faces-config-extension>
 </faces-config>

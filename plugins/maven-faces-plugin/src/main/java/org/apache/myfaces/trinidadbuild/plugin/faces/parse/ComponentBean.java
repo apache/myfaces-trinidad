@@ -987,10 +987,10 @@ public class ComponentBean extends ObjectBean
 
 
   static private final String _ADF_FACES_COMPONENT_BASE =
-                         "org.apache.myfaces.adf.component.UIXComponentBase";
+                         "org.apache.myfaces.trinidad.component.UIXComponentBase";
 
   static private final String _ADF_FACES_COMPONENT_TAG =
-                         "org.apache.myfaces.adf.webapp.UIXComponentTag";
+                         "org.apache.myfaces.trinidad.webapp.UIXComponentTag";
 
   static private final Logger _LOG = Logger.getLogger(ComponentBean.class.getName());
 }

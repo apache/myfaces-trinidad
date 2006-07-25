@@ -410,7 +410,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
       imports.addAll(template.getImports());
 
     // FacesBean is always needed to define the TYPE
-    imports.add("org.apache.myfaces.adf.bean.FacesBean");
+    imports.add("org.apache.myfaces.trinidad.bean.FacesBean");
 
     // Detect NamingContainer
     if (component.isNamingContainer())
@@ -421,7 +421,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     // PropertyKey only needed if there are properties
     if (properties.hasNext())
     {
-      imports.add("org.apache.myfaces.adf.bean.PropertyKey");
+      imports.add("org.apache.myfaces.trinidad.bean.PropertyKey");
 
       PropertyFilter resolvable = new ResolvableTypeFilter();
       while (properties.hasNext())
@@ -433,7 +433,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
 
         // ComponentUtils only needed for resolvable properties
         if (resolvable.accept(property))
-          imports.add("org.apache.myfaces.adf.util.ComponentUtils");
+          imports.add("org.apache.myfaces.trinidad.util.ComponentUtils");
       }
     }
 
