@@ -15,15 +15,15 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <converter>
     <description><![CDATA[Converts string into java.util.Date and vice versa based on the pattern
           and style set.]]>
     </description>
     <display-name>Date Time Converter</display-name>
-    <converter-id>org.apache.myfaces.adf.DateTime</converter-id>
-    <converter-class>org.apache.myfaces.adfinternal.convert.DateTimeConverter</converter-class>
+    <converter-id>org.apache.myfaces.trinidad.DateTime</converter-id>
+    <converter-class>org.apache.myfaces.trinidadinternal.convert.DateTimeConverter</converter-class>
         <property>
       <description><![CDATA[<html><p>
               Custom error message to be used, for creating detail part of
@@ -223,7 +223,7 @@
 
     <converter-extension>
       <mfp:tag-name>af:convertDateTime</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.convert.ConvertDateTimeTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.convert.ConvertDateTimeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[Converts string into java.util.Date and vice versa based on the pattern
           and style set.
           <html:p>

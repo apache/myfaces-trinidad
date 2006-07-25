@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -25,8 +25,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/page.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.CorePage</component-type>
-    <component-class>org.apache.myfaces.adf.component.core.nav.CorePage</component-class>
+    <component-type>org.apache.myfaces.trinidad.CorePage</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.nav.CorePage</component-class>
     <facet>
       <description><![CDATA[This location typically contains a menuChoice.]]></description>
       <facet-name>menuSwitch</facet-name>
@@ -386,10 +386,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-supertype>org.apache.myfaces.adf.Page</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Page</mfp:renderer-type>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Page</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Page</mfp:renderer-type>
       <mfp:tag-name>af:page</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.nav.CorePageTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CorePageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The Page component is similar to the PanelPage component, except that instead of having navigation1, navigation2 and navigation3 facets for adding navigation item information, the user binds a model object and a stamp to render these areas. The model object is of type MenuModel. A commandNavigationItem should be used as the stamp and placed in the &quot;nodeStamp&quot; facet.]]>
       </mfp:long-description>
       <mfp:example>

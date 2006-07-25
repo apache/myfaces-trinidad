@@ -15,13 +15,13 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <component-type>org.apache.myfaces.adf.ComponentBase</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXComponentBase</component-class>
+    <component-type>org.apache.myfaces.trinidad.ComponentBase</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXComponentBase</component-class>
     <property>
       <!-- description>The reference to the Java method that will be invoked when an
                    AttributeChangeEvent is broadcast by this component. The
@@ -36,17 +36,17 @@
           <mfp:expert>true</mfp:expert>
         </mfp:property-metadata>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.AttributeChangeEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
       </property-extension>
     </property>
     <component-extension>
       <mfp:component-supertype>javax.faces.Component</mfp:component-supertype>
-      <mfp:tag-class>org.apache.myfaces.adf.webapp.UIXComponentTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidad.webapp.UIXComponentTag</mfp:tag-class>
       <mfp:component-class-modifier>abstract</mfp:component-class-modifier>
       <mfp:event>
-        <mfp:event-type>org.apache.myfaces.adf.AttributeChange</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
       </mfp:event>

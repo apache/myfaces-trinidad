@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[Inserts a region into the current page.]]></description>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/region.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.ComponentRef</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXComponentRef</component-class>
+    <component-type>org.apache.myfaces.trinidad.ComponentRef</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXComponentRef</component-class>
     <property>
       <description><![CDATA[the value of the component.  This value be evaluated during
               all lifecycle processing and
@@ -38,7 +38,7 @@
     <property>
       <description><![CDATA[<html> which componnet to use. This should match a 
 &lt;component-type&gt; string in a region metadata file.
-An example might look like "org.apache.myfaces.adfdemo.region.stock".
+An example might look like "org.apache.myfaces.trinidaddemo.region.stock".
 This attribute can be bound to an EL expression or manually
 set, which will change the region definition used the next
 time the page renders.</html>]]>
@@ -63,9 +63,9 @@ time the page renders.</html>]]>
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.ComponentRef</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXComponentRefTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.ComponentRef</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXComponentRefTag</mfp:tag-class>
       <mfp:long-description><![CDATA[This component inserts a component (defined by a separate page
           that starts with &lt;af:componentDef&gt;)
           into the current page. The &quot;id&quot; attribute is required on this
@@ -83,7 +83,7 @@ time the page renders.</html>]]>
           &lt;af:componentRef&gt; tag documentation for more information.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:componentRef componentType="org.apache.myfaces.adfdemo.region.stock" >
+        <mfp:source-code><![CDATA[<af:componentRef componentType="org.apache.myfaces.trinidaddemo.region.stock" >
    <f:attribute name="symbol" value="ORCL"/>
    <f:attribute name="desc" value="Oracle Corp"/>
    <f:facet name="actions">

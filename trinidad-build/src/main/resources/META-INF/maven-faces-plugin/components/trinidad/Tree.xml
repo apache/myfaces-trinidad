@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[Represents an interactive tree component.]]></description>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseTree.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.Tree</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXTree</component-class>
+    <component-type>org.apache.myfaces.trinidad.Tree</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXTree</component-class>
 
     <xi:include href="includes/CommonTableAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/RowDisclosureEvent.xml" xpointer="/faces-config/component/*"/>
@@ -78,7 +78,7 @@
     </property>
     <property>
       <description><![CDATA[the hierarchy of tree data - must be of type 
-        org.apache.myfaces.adf.model.TreeModel]]></description>
+        org.apache.myfaces.trinidad.model.TreeModel]]></description>
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
@@ -107,7 +107,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.FocusEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.FocusEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -119,11 +119,11 @@
 
 
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Tree</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:component-superclass>org.apache.myfaces.adf.component.UIXHierarchy</mfp:component-superclass>
-      <mfp:renderer-type>org.apache.myfaces.adf.Tree</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXTreeTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.Tree</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:component-superclass>org.apache.myfaces.trinidad.component.UIXHierarchy</mfp:component-superclass>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Tree</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTreeTag</mfp:tag-class>
       <mfp:naming-container>true</mfp:naming-container>
       <mfp:long-description><![CDATA[<html:p>
             ADF Faces tree components are used to display hierarchical data. 
@@ -140,10 +140,10 @@
             <html:P>
               The ADF tree components use a model to access the data in the
               underlying hierarchy.  The specific model class is
-              <html:code>org.apache.myfaces.adf.model.TreeModel</html:code>.
+              <html:code>org.apache.myfaces.trinidad.model.TreeModel</html:code>.
 
               You may find the
-              <html:code>org.apache.myfaces.adf.model.ChildPropertyTreeModel</html:code> class
+              <html:code>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</html:code> class
               useful when constructing a <html:code>TreeModel</html:code>.
             </html:P>
           </section>
@@ -183,7 +183,7 @@
           <section name="Expand/Collapse State">
             <html:P>
               The ADF tree components use an instance of the
-              <html:code>org.apache.myfaces.adf.model.RowKeySet</html:code>
+              <html:code>org.apache.myfaces.trinidad.model.RowKeySet</html:code>
               class to keep track
               of which elements are expanded. This instance is stored
               as the &quot;expandedRowKeys&quot; attribute on the component. You may use this
@@ -199,7 +199,7 @@
 	        The TreeTable responds to this event by modifying the "focusRowKey" property appropriately.
 	        Subsequently, any registered FocusListener instances are called.
         </mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Focus</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Focus</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
       </mfp:event>

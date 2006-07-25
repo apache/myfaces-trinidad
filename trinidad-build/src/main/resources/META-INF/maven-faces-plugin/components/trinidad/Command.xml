@@ -15,10 +15,10 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[UIXCommand is a base abstraction for
@@ -27,8 +27,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/command.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.Command</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXCommand</component-class>
+    <component-type>org.apache.myfaces.trinidad.Command</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXCommand</component-class>
     <property>
       <description><![CDATA[a reference to an action method sent by the command component,
               or the static outcome of an action]]>
@@ -66,7 +66,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.ReturnEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -81,7 +81,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.LaunchEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.LaunchEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -106,10 +106,10 @@
       <property-class>boolean</property-class>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Command</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Button</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXCommandTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.Command</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Button</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXCommandTag</mfp:tag-class>
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
@@ -126,12 +126,12 @@ in page navigation.
       </mfp:event>
       <mfp:event>
         <mfp:description>Event delivered when the dialog has completed successfully.</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Return</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Return</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
       </mfp:event>
       <mfp:event>
         <mfp:description>Event delivered to prompt the command to launch a dialog.</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Launch</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Launch</mfp:event-type>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
       </mfp:event>

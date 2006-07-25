@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The poll component initiates poll to the server.]]></description>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/basePoll.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.Poll</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXPoll</component-class>
+    <component-type>org.apache.myfaces.trinidad.Poll</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXPoll</component-class>
     <property>
       <description><![CDATA[whether or not data validation - client-side or
             server-side -
@@ -48,7 +48,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.PollEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.PollEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -58,10 +58,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Poll</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Poll</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXPollTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.Poll</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Poll</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXPollTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The poll component initiates poll to the server.]]></mfp:long-description>
       <mfp:author>Prakash Udupa</mfp:author>
       <mfp:component-metadata>
@@ -70,7 +70,7 @@
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:event>
         <mfp:description>Event delivered at the server upon polling.</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Poll</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Poll</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
       </mfp:event>

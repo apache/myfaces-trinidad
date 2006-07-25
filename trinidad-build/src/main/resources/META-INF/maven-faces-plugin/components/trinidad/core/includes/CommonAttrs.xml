@@ -16,7 +16,7 @@
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin">
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin">
   <component>
     <property>
       <description><![CDATA[Specifies CSS styles to use for this component.]]></description>

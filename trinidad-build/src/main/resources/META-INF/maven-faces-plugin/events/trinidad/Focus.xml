@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <faces-config-extension>
     <mfp:event>
-      <mfp:event-type>org.apache.myfaces.adf.Focus</mfp:event-type>
+      <mfp:event-type>org.apache.myfaces.trinidad.Focus</mfp:event-type>
       <mfp:description>Event delivered when user clicks to focus on (or zoom into) a particular element's subtree of children.
       	        The TreeTable responds to this event by modifying the "focusPath" property appropriately.
       	        Subsequently, any registered FocusListener instances are called.
         </mfp:description>
-      <mfp:event-class>org.apache.myfaces.adf.event.FocusEvent</mfp:event-class>
-      <mfp:event-listener-class>org.apache.myfaces.adf.event.FocusListener</mfp:event-listener-class>
+      <mfp:event-class>org.apache.myfaces.trinidad.event.FocusEvent</mfp:event-class>
+      <mfp:event-listener-class>org.apache.myfaces.trinidad.event.FocusListener</mfp:event-listener-class>
     </mfp:event>
   </faces-config-extension>
 </faces-config>

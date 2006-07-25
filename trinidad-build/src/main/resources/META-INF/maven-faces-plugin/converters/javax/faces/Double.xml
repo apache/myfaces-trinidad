@@ -15,11 +15,11 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <converter>
     <converter-id>javax.faces.Double</converter-id>
-    <converter-class>org.apache.myfaces.adfinternal.convert.DoubleConverter</converter-class>
+    <converter-class>org.apache.myfaces.trinidadinternal.convert.DoubleConverter</converter-class>
   </converter>
 </faces-config>

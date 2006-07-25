@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -26,8 +26,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/importScript.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.CoreImportScript</component-type>
-    <component-class>org.apache.myfaces.adf.component.core.CoreImportScript</component-class>
+    <component-type>org.apache.myfaces.trinidad.CoreImportScript</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.CoreImportScript</component-class>
     <property>
       <description><![CDATA[a series of function names]]></description>
       <property-name>names</property-name>
@@ -41,11 +41,11 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.ImportScript</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.ImportScript</mfp:renderer-type>
+      <mfp:component-family>org.apache.myfaces.trinidad.ImportScript</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.ImportScript</mfp:renderer-type>
       <mfp:tag-name>af:importScript</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.CoreImportScriptTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreImportScriptTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The importScript component supports importing the built-in scripts
           provided by ADF Faces.  It can be used to ensure that a Javascript
           function is available before using it in a Javascript handler.

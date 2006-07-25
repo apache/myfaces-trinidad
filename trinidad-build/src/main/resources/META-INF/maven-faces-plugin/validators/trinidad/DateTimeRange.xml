@@ -15,13 +15,13 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate that the date entered is within a given range.]]></description>
     <display-name>validateDateTimeRange</display-name>
-    <validator-id>org.apache.myfaces.adf.DateTimeRange</validator-id>
-    <validator-class>org.apache.myfaces.adfinternal.validator.DateTimeRangeValidator</validator-class>
+    <validator-id>org.apache.myfaces.trinidad.DateTimeRange</validator-id>
+    <validator-class>org.apache.myfaces.trinidadinternal.validator.DateTimeRangeValidator</validator-class>
     <property>
       <description><![CDATA[the maximum java.util.Date.
            ISO 8601 date strings, of the form 'yyyy-MM-dd'
@@ -145,7 +145,7 @@
     </property>
     <validator-extension>
       <mfp:tag-name>af:validateDateTimeRange</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.validator.ValidateDateTimeRangeTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDateTimeRangeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
 
         Validate that the date entered is within a given range.

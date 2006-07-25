@@ -18,8 +18,8 @@
               xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <render-kit>
-    <render-kit-id>org.apache.myfaces.adfinternal.core</render-kit-id>
-    <render-kit-class>org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit</render-kit-class>
+    <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
+    <render-kit-class>org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit</render-kit-class>
 
     <render-kit-extension>
     </render-kit-extension>

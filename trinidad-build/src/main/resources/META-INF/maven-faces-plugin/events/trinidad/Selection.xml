@@ -15,17 +15,17 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <faces-config-extension>
     <mfp:event>
       <mfp:description>The selection event is delivered when the table selection
                        changes.</mfp:description>
-      <mfp:event-type>org.apache.myfaces.adf.Selection</mfp:event-type>
-      <mfp:event-class>org.apache.myfaces.adf.event.SelectionEvent</mfp:event-class>
-      <mfp:event-listener-class>org.apache.myfaces.adf.event.SelectionListener</mfp:event-listener-class>
+      <mfp:event-type>org.apache.myfaces.trinidad.Selection</mfp:event-type>
+      <mfp:event-class>org.apache.myfaces.trinidad.event.SelectionEvent</mfp:event-class>
+      <mfp:event-listener-class>org.apache.myfaces.trinidad.event.SelectionListener</mfp:event-listener-class>
     </mfp:event>
   </faces-config-extension>
 </faces-config>

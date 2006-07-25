@@ -15,13 +15,13 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <converter>
     <description>Converts an string, to and from java.awt.Color objects.</description>
     <display-name>Color Converter</display-name>
-    <converter-id>org.apache.myfaces.adf.Color</converter-id>
-    <converter-class>org.apache.myfaces.adfinternal.convert.ColorConverter</converter-class>
+    <converter-id>org.apache.myfaces.trinidad.Color</converter-id>
+    <converter-class>org.apache.myfaces.trinidadinternal.convert.ColorConverter</converter-class>
     <property>
       <description><![CDATA[The set of acceptable patterns, as a whitespace sepa
 rated list.
@@ -87,7 +87,7 @@ user's locale.]]>
     </property>
     <converter-extension>
       <mfp:tag-name>af:convertColor</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.convert.ConvertColorTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.convert.ConvertColorTag</mfp:tag-class>
       <mfp:long-description>Converts an strings to and from java.awt.Color
                             objects. The set of patterns used for conversion can
                             be overriden.</mfp:long-description>

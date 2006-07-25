@@ -15,14 +15,14 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <converter>
     <description><![CDATA[Converts an string to a Number and vice versa based on the 'pattern' or the 'type' set.]]>
     </description>
     <display-name>Number Converter</display-name>
-    <converter-id>org.apache.myfaces.adf.Number</converter-id>
-    <converter-class>org.apache.myfaces.adfinternal.convert.NumberConverter</converter-class>
+    <converter-id>org.apache.myfaces.trinidad.Number</converter-id>
+    <converter-class>org.apache.myfaces.trinidadinternal.convert.NumberConverter</converter-class>
     <property>
       <description><![CDATA[The ISO 4217 currency code, applied only when formatting currencies.
            Currency code can also be set for the entire application in adf-faces-config.xml file.
@@ -236,7 +236,7 @@
     </property>
     <converter-extension>
       <mfp:tag-name>af:convertNumber</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.convert.ConvertNumberTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.convert.ConvertNumberTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>This is an extension of the standard JSF javax.faces.convert.NumberConverter
           The converter provides all the standard functionality of the default NumberConverter
           and is strict while converting to object.</html:p>
@@ -269,7 +269,7 @@
          <html:code>&lt;f:convertNumber&gt;</html:code> tag is used.</html:p>
 
          <html:p>Further more information see javadoc for
-         <html:code>org.apache.myfaces.adf.converter.NumberConverter</html:code></html:p>]]>
+         <html:code>org.apache.myfaces.trinidad.converter.NumberConverter</html:code></html:p>]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[<af:inputText id="mdf5" value="0.75"

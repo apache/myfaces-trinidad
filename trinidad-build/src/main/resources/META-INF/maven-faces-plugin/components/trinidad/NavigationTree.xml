@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[ADF Faces navigationTree components are used to display hierarchical navigation data.]]></description>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseNavigationTree.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.NavigationTree</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXNavigationTree</component-class>
+    <component-type>org.apache.myfaces.trinidad.NavigationTree</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXNavigationTree</component-class>
 
     <xi:include href="includes/RowDisclosureEvent.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/DisclosedRowKeys.xml" xpointer="/faces-config/component/*"/>
@@ -47,7 +47,7 @@
     </facet>
     <property>
       <description><![CDATA[the hierarchy of tree data - must be of type 
-            org.apache.myfaces.adf.model.MenuModel]]>
+            org.apache.myfaces.trinidad.model.MenuModel]]>
       </description>
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
@@ -121,11 +121,11 @@
       <property-class>boolean</property-class>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.NavigationTree</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:component-superclass>org.apache.myfaces.adf.component.UIXNavigationHierarchy</mfp:component-superclass>
-      <mfp:renderer-type>org.apache.myfaces.adf.NavigationTree</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXNavigationTreeTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.NavigationTree</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:component-superclass>org.apache.myfaces.trinidad.component.UIXNavigationHierarchy</mfp:component-superclass>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.NavigationTree</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXNavigationTreeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           
             ADF Faces navigationTree components are used to display hierarchical navigation data.
