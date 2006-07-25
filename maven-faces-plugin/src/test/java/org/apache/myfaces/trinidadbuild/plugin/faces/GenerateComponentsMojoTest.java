@@ -85,11 +85,11 @@ public class GenerateComponentsMojoTest extends AbstractMojoTestCase
     _mojo.execute();
 
     File targetFile = new File(_genSrcDir,
-                               "org/apache/myfaces/adf/component/UIXCommand.java");
+                               "org/apache/myfaces/trinidad/component/UIXCommand.java");
     if (!targetFile.exists())
       fail("Component not generated");
 
-    // TODO: verify identity content with ADF Faces example
+    // TODO: verify identity content with trinidad Faces example
   }
 
   public void testGenerateWithTemplate() throws MojoExecutionException, MojoFailureException
@@ -99,11 +99,11 @@ public class GenerateComponentsMojoTest extends AbstractMojoTestCase
     _mojo.execute();
 
     File targetFile = new File(_genSrcDir,
-                               "org/apache/myfaces/adf/component/UIXCommand.java");
+                               "org/apache/myfaces/trinidad/component/UIXCommand.java");
     if (!targetFile.exists())
       fail("Component not generated");
 
-    // TODO: verify identity content with ADF Faces example
+    // TODO: verify identity content with trinidad Faces example
   }
 
   private Mojo _mojo;

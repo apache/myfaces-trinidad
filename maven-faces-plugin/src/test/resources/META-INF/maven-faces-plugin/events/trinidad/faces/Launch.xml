@@ -20,13 +20,13 @@
   <faces-config-extension>
       <mfp:event>
         <mfp:description>
-          Event delivered when the dialog has completed successfully.
+          Event delivered to prompt the command to launch a dialog.
         </mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Return</mfp:event-type>
-        <mfp:event-class>org.apache.myfaces.adf.event.ReturnEvent</mfp:event-class>
-        <mfp:event-listener-class>org.apache.myfaces.adf.event.ReturnListener</mfp:event-listener-class>
-        <mfp:event-source-interface>org.apache.myfaces.adf.component.DialogSource</mfp:event-source-interface>
-        <mfp:event-delivery-phases>Apply Request Values</mfp:event-delivery-phases>
+        <mfp:event-type>org.apache.myfaces.trinidad.Launch</mfp:event-type>
+        <mfp:event-class>org.apache.myfaces.trinidad.event.LaunchEvent</mfp:event-class>
+        <mfp:event-listener-class>org.apache.myfaces.trinidad.event.LaunchListener</mfp:event-listener-class>
+        <mfp:event-source-interface>org.apache.myfaces.trinidad.component.DialogSource</mfp:event-source-interface>
+        <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
       </mfp:event>
   </faces-config-extension>
 </faces-config>

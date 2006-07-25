@@ -171,7 +171,7 @@ public class RendererBean extends ObjectBean
   {
     ComponentBean component = resolveComponentType();
     return (component != null) ? component.getComponentClass()
-                               : "org.apache.myfaces.adf.component.UIXComponent";
+                               : "org.apache.myfaces.trinidad.component.UIXComponent";
   }
 
   /**
@@ -186,7 +186,7 @@ public class RendererBean extends ObjectBean
                                   ? component.findBehavioralComponent()
                                   : null;
     return (behavioral != null) ? behavioral.getComponentClass()
-                                : "org.apache.myfaces.adf.component.UIXComponent";
+                                : "org.apache.myfaces.trinidad.component.UIXComponent";
   }
 
   /**

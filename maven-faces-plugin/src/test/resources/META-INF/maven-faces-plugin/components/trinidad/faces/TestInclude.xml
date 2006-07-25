@@ -15,18 +15,23 @@
   limitations under the License.
 -->
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:md="http://myfaces.apache.org/bali/xml/metadata"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin" >
-  <faces-config-extension>
-      <mfp:event>
-        <mfp:description>
-          Event delivered to prompt the command to launch a dialog.
-        </mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Launch</mfp:event-type>
-        <mfp:event-class>org.apache.myfaces.adf.event.LaunchEvent</mfp:event-class>
-        <mfp:event-listener-class>org.apache.myfaces.adf.event.LaunchListener</mfp:event-listener-class>
-        <mfp:event-source-interface>org.apache.myfaces.adf.component.DialogSource</mfp:event-source-interface>
-        <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
-      </mfp:event>
-  </faces-config-extension>
+
+  <component>  
+    <property>
+      <property-name>includedProperty</property-name>
+      <property-class>java.lang.String</property-class>
+      <description>
+          just a test.
+      </description>
+      <property-extension>
+        <md:attributeMetadata>
+          <md:preferred>true</md:preferred>
+        </md:attributeMetadata>
+      </property-extension>
+    </property>
+  </component>
 </faces-config>

@@ -643,7 +643,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       {
         imports.add("javax.faces.convert.Converter");
         imports.add("javax.faces.el.ValueBinding");
-        imports.add("org.apache.myfaces.adfinternal.taglib.util.TagUtils");
+        imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
       }
 
       while (properties.hasNext())
@@ -956,7 +956,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       {
         imports.add("javax.faces.validator.Validator");
         imports.add("javax.faces.el.ValueBinding");
-        imports.add("org.apache.myfaces.adfinternal.taglib.util.TagUtils");
+        imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
       }
 
       while (properties.hasNext())
@@ -1284,17 +1284,17 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       properties = new FilteredIterator(properties, new TagAttributeFilter());
       if (properties.hasNext())
       {
-        imports.add("org.apache.myfaces.adf.bean.FacesBean");
+        imports.add("org.apache.myfaces.trinidad.bean.FacesBean");
         imports.add(componentFullClass);
       }
 
       // TODO: only add FacesBean import when properties exist
-      imports.add("org.apache.myfaces.adf.bean.FacesBean");
+      imports.add("org.apache.myfaces.trinidad.bean.FacesBean");
 
       // TODO: remove these imports
       imports.add("javax.faces.component.UIComponent");
       imports.add("javax.faces.el.ValueBinding");
-      imports.add("org.apache.myfaces.adfinternal.taglib.util.VirtualAttributeUtils");
+      imports.add("org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils");
 
       // superclassName is fully qualified if it collides
       // with the generated class name and should not be
@@ -1323,7 +1323,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         if (_isColorList(propertyClass, propertyClassParams))
         {
           imports.add("java.text.ParseException");
-          imports.add("org.apache.myfaces.adfinternal.taglib.util.TagUtils");
+          imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
         }
 
         // TODO: restore import and make reference to
@@ -1332,12 +1332,12 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         //if (property.isMethodBinding() &&
         //    isStringMethodBindingReturnType(property))
         //{
-        //  imports.add("org.apache.myfaces.adfinternal.taglib.ConstantMethodBinding");
+        //  imports.add("org.apache.myfaces.trinidadinternal.taglib.ConstantMethodBinding");
         //}
 
         if (property.isVirtual())
         {
-          imports.add("org.apache.myfaces.adfinternal.taglib.util.VirtualAttributeUtils");
+          imports.add("org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils");
         }
       }
 
@@ -1402,7 +1402,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       properties = new FilteredIterator(properties, new TagAttributeFilter());
       // TODO: remove special case for UIXFormTag
       if (properties.hasNext() ||
-          "org.apache.myfaces.adfinternal.taglib.UIXFormTag".equals(component.getTagClass()))
+          "org.apache.myfaces.trinidadinternal.taglib.UIXFormTag".equals(component.getTagClass()))
       {
         out.println();
         out.println("public void release()");
@@ -1742,7 +1742,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         out.unindent();
         out.println("else");
         out.indent();
-        out.println("mb = new org.apache.myfaces.adfinternal.taglib.ConstantMethodBinding(" + propVar + ");");
+        out.println("mb = new org.apache.myfaces.trinidadinternal.taglib.ConstantMethodBinding(" + propVar + ");");
         out.unindent();
       }
       else
