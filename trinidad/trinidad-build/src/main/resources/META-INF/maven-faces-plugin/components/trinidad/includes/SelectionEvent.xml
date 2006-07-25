@@ -1,8 +1,8 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <property>
@@ -11,7 +11,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.SelectionEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.SelectionEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -24,7 +24,7 @@
     <component-extension>
       <mfp:event>
         <mfp:description>Generated when the user selects a row or rows and submits.</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Selection</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Selection</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
       </mfp:event>

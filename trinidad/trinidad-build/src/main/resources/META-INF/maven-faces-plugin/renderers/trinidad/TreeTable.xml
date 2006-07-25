@@ -17,13 +17,13 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <render-kit>
-    <render-kit-id>org.apache.myfaces.adfinternal.core</render-kit-id>
+    <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
     <renderer>
-      <component-family>org.apache.myfaces.adf.TreeTable</component-family>
-      <renderer-type>org.apache.myfaces.adf.TreeTable</renderer-type>
-      <renderer-class>org.apache.myfaces.adfinternal.renderkit.core.desktop.TreeTableRenderer</renderer-class>
+      <component-family>org.apache.myfaces.trinidad.TreeTable</component-family>
+      <renderer-type>org.apache.myfaces.trinidad.TreeTable</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.desktop.TreeTableRenderer</renderer-class>
       <renderer-extension>
-        <mfp:component-type>org.apache.myfaces.adf.CoreTreeTable</mfp:component-type>
+        <mfp:component-type>org.apache.myfaces.trinidad.CoreTreeTable</mfp:component-type>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </renderer-extension>
     </renderer>

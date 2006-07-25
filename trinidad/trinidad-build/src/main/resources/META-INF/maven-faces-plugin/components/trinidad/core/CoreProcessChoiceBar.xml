@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -26,8 +26,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/processChoiceBar.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.CoreProcessChoiceBar</component-type>
-    <component-class>org.apache.myfaces.adf.component.core.nav.CoreProcessChoiceBar</component-class>
+    <component-type>org.apache.myfaces.trinidad.CoreProcessChoiceBar</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreProcessChoiceBar</component-class>
     <property>
       <description><![CDATA[the short description of the bean.  This text
          is commonly used by user agents to display tooltip help text.]]>
@@ -170,15 +170,15 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-supertype>org.apache.myfaces.adf.Process</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.ChoiceBar</mfp:renderer-type>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Process</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.ChoiceBar</mfp:renderer-type>
       <mfp:tag-name>af:processChoiceBar</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.nav.CoreProcessChoiceBarTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreProcessChoiceBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[ProcessChoiceBar is a UIXProcess component that renders a previous
           button, a choice bar, and a next button.
           <section name="Model">
           The processChoiceBar takes a model of type 
-          <html:code>org.apache.myfaces.adf.model.MenuModel</html:code>. The last node along the focusPath and its siblings are rendered.         
+          <html:code>org.apache.myfaces.trinidad.model.MenuModel</html:code>. The last node along the focusPath and its siblings are rendered.         
           <html:p>
           MenuModel extends TreeModel, but it also knows how to go from the current viewId to the focus path. Notice that the menuModel has no special knowledge of page navigation and places no requirements on the nodes that go into the tree. The nodes in the tree are stamped out with the 'nodeStamp' facet, which should contain a commandNavigationItem component, which allows the default actionListener mechanism to be used for page navigation. 
           </html:p>  
@@ -191,7 +191,7 @@
               </html:li>
             </html:ul>
             
-            The class <html:code>org.apache.myfaces.adf.model.ProcessMenuModel</html:code> and <html:code>org.apache.myfaces.adf.model.ProcessUtils</html:code> were created to support the &quot;Plus One&quot; and &quot;Max Visited&quot; scenarios. Please see the javadoc for these classes for more information. 
+            The class <html:code>org.apache.myfaces.trinidad.model.ProcessMenuModel</html:code> and <html:code>org.apache.myfaces.trinidad.model.ProcessUtils</html:code> were created to support the &quot;Plus One&quot; and &quot;Max Visited&quot; scenarios. Please see the javadoc for these classes for more information. 
           </html:p>
           <html:p>
           On browsers that support disabled items in the drop down, 

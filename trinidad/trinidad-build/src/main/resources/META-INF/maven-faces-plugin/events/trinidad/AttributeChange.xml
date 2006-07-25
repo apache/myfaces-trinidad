@@ -15,15 +15,15 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <faces-config-extension>
     <mfp:event>
       <mfp:description>Event delivered to describe an attribute change.</mfp:description>
-      <mfp:event-type>org.apache.myfaces.adf.AttributeChange</mfp:event-type>
-      <mfp:event-class>org.apache.myfaces.adf.event.AttributeChangeEvent</mfp:event-class>
-      <mfp:event-listener-class>org.apache.myfaces.adf.event.AttributeChangeListener</mfp:event-listener-class>
+      <mfp:event-type>org.apache.myfaces.trinidad.AttributeChange</mfp:event-type>
+      <mfp:event-class>org.apache.myfaces.trinidad.event.AttributeChangeEvent</mfp:event-class>
+      <mfp:event-listener-class>org.apache.myfaces.trinidad.event.AttributeChangeListener</mfp:event-listener-class>
       <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
     </mfp:event>
   </faces-config-extension>

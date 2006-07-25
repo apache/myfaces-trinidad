@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -27,8 +27,8 @@ Table.]]>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/column.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.CoreColumn</component-type>
-    <component-class>org.apache.myfaces.adf.component.core.data.CoreColumn</component-class>
+    <component-type>org.apache.myfaces.trinidad.CoreColumn</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.data.CoreColumn</component-class>
 
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
@@ -105,10 +105,10 @@ should be allowed to wrap]]></description>
       <default-value>false</default-value>
     </property>
     <component-extension>
-      <mfp:component-supertype>org.apache.myfaces.adf.Column</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Column</mfp:renderer-type>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Column</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Column</mfp:renderer-type>
       <mfp:tag-name>af:column</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.data.CoreColumnTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreColumnTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<P>
             The immediate children of a Table component must all be
             <code>&lt;af:column&gt;</code> components. Each visible ADF Column

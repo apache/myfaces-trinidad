@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -25,8 +25,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/table.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.CoreTable</component-type>
-    <component-class>org.apache.myfaces.adf.component.core.data.CoreTable</component-class>
+    <component-type>org.apache.myfaces.trinidad.CoreTable</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.data.CoreTable</component-class>
     <xi:include href="includes/CommonTableAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
@@ -45,10 +45,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-supertype>org.apache.myfaces.adf.Table</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Table</mfp:renderer-type>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Table</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Table</mfp:renderer-type>
       <mfp:tag-name>af:table</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.core.data.CoreTableTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTableTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The ADF Table is used to display tabular data. It also supports selection
 (both single and multiple), sorting, record navigation and
 detail-disclosure.
@@ -57,7 +57,7 @@ detail-disclosure.
            <p>
             The ADF Table component uses a model to access the data
             in the underlying list. The specific model class is
-            <code>org.apache.myfaces.adf.model.CollectionModel</code>.
+            <code>org.apache.myfaces.trinidad.model.CollectionModel</code>.
             You may also use other model instances, e.g.,
             <code>java.util.List</code>  ,
             array, and  <code>javax.faces.model.DataModel</code>.

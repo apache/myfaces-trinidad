@@ -17,13 +17,13 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <render-kit>
-    <render-kit-id>org.apache.myfaces.adfinternal.core</render-kit-id>
+    <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
     <renderer>
-      <component-family>org.apache.myfaces.adf.Output</component-family>
-      <renderer-type>org.apache.myfaces.adf.Formatted</renderer-type>
-      <renderer-class>org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputFormattedRenderer</renderer-class>
+      <component-family>org.apache.myfaces.trinidad.Output</component-family>
+      <renderer-type>org.apache.myfaces.trinidad.Formatted</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputFormattedRenderer</renderer-class>
       <renderer-extension>
-        <mfp:component-type>org.apache.myfaces.adf.CoreOutputFormatted</mfp:component-type>
+        <mfp:component-type>org.apache.myfaces.trinidad.CoreOutputFormatted</mfp:component-type>
       </renderer-extension>
     </renderer>
   </render-kit>

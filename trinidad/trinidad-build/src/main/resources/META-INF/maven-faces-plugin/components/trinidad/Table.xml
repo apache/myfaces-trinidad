@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[UIXTable is the base abstraction for table components.]]></description>
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseTable.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.Table</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXTable</component-class>
+    <component-type>org.apache.myfaces.trinidad.Table</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXTable</component-class>
 
     <xi:include href="includes/RowDisclosureEvent.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/DisclosedRowKeys.xml" xpointer="/faces-config/component/*"/>
@@ -40,7 +40,7 @@ detail facet will automatically cause the detail column to be displayed.]]>
       <facet-name>detailStamp</facet-name>
       <facet-extension>
         <mfp:unsupported-agents>pda</mfp:unsupported-agents>
-        <mfp:unsupported-render-kits>org.apache.myfaces.adf.dhtml</mfp:unsupported-render-kits>
+        <mfp:unsupported-render-kits>org.apache.myfaces.trinidad.dhtml</mfp:unsupported-render-kits>
       </facet-extension>
     </facet>
     <property>
@@ -49,7 +49,7 @@ detail facet will automatically cause the detail column to be displayed.]]>
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.SortEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.SortEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -66,7 +66,7 @@ detail facet will automatically cause the detail column to be displayed.]]>
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.RangeChangeEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -88,23 +88,23 @@ detail facet will automatically cause the detail column to be displayed.]]>
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Table</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.Iterator</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Table</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXTableTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.Table</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Iterator</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Table</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTableTag</mfp:tag-class>
       <mfp:naming-container>true</mfp:naming-container>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:event>
         <mfp:description>Generated when the user changes the range</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.RangeChange</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.RangeChange</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
       </mfp:event>
       <mfp:event>
         <mfp:description>Generated when the user sorts a column.</mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Sort</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Sort</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:event-delivery-phase>Invoke Application</mfp:event-delivery-phase>
       </mfp:event>

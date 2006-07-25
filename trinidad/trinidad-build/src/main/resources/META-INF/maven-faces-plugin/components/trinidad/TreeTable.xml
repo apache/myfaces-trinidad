@@ -15,10 +15,10 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The ADF TreeTable is used to display data that is structured in a hierarchical format.]]>
@@ -26,8 +26,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseTreeTable.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.TreeTable</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXTreeTable</component-class>
+    <component-type>org.apache.myfaces.trinidad.TreeTable</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXTreeTable</component-class>
     <property>
       <description><![CDATA[the maximum number of records that can be displayed at
               one time (range size).
@@ -57,7 +57,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.RangeChangeEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.RangeChangeEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -67,10 +67,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.TreeTable</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.Tree</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.BaseTreeTable</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXTreeTableTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.TreeTable</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.Tree</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.BaseTreeTable</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTreeTableTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The ADF TreeTable is used to display data that is structured in a hierarchical format.
           This component displays a hierarchy

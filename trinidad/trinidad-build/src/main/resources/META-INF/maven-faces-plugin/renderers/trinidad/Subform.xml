@@ -17,13 +17,13 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <render-kit>
-    <render-kit-id>org.apache.myfaces.adfinternal.core</render-kit-id>
+    <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
     <renderer>
-      <component-family>org.apache.myfaces.adf.Subform</component-family>
-      <renderer-type>org.apache.myfaces.adf.Subform</renderer-type>
-      <renderer-class>org.apache.myfaces.adfinternal.renderkit.uix.SubformRenderer</renderer-class>
+      <component-family>org.apache.myfaces.trinidad.Subform</component-family>
+      <renderer-type>org.apache.myfaces.trinidad.Subform</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer</renderer-class>
       <renderer-extension>
-        <mfp:component-type>org.apache.myfaces.adf.CoreSubform</mfp:component-type>
+        <mfp:component-type>org.apache.myfaces.trinidad.CoreSubform</mfp:component-type>
       </renderer-extension>
     </renderer>
   </render-kit>

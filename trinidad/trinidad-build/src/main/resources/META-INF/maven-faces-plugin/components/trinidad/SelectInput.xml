@@ -15,10 +15,10 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[selectInput is a base abstraction for
@@ -28,8 +28,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/selectInput.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.SelectInput</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXSelectInput</component-class>
+    <component-type>org.apache.myfaces.trinidad.SelectInput</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXSelectInput</component-class>
     <property>
       <description><![CDATA[a reference to an action method sent by the commandButton, or the static outcome of an action]]></description>
       <property-name>action</property-name>
@@ -65,7 +65,7 @@
       <property-class>javax.faces.el.MethodBinding</property-class>
       <property-extension>
         <mfp:method-binding-signature>
-          <mfp:parameter-type>org.apache.myfaces.adf.event.ReturnEvent</mfp:parameter-type>
+          <mfp:parameter-type>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:parameter-type>
           <mfp:return-type>void</mfp:return-type>
         </mfp:method-binding-signature>
         <mfp:property-metadata>
@@ -75,10 +75,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.SelectInput</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.EditableValue</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Text</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXSelectInputTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.SelectInput</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.EditableValue</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Text</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXSelectInputTag</mfp:tag-class>
       <mfp:long-description><![CDATA[selectInput is a base abstraction for
           components that allow both input and selection 
           from a list of possible values.]]>
@@ -99,7 +99,7 @@ invoked.  The action should generally result in launching a dialog.
         <mfp:description>Event delivered when a dialog launched by the selectInput
             has completed successfully.
         </mfp:description>
-        <mfp:event-type>org.apache.myfaces.adf.Return</mfp:event-type>
+        <mfp:event-type>org.apache.myfaces.trinidad.Return</mfp:event-type>
         <mfp:event-delivery-phase>Apply Request Values</mfp:event-delivery-phase>
         <mfp:ignore-source-interface>true</mfp:ignore-source-interface>
       </mfp:event>

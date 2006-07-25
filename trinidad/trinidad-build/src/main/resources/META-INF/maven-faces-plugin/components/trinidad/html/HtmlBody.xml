@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/adf/faces/html"
+              xmlns:afh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -23,8 +23,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/body.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.HtmlBody</component-type>
-    <component-class>org.apache.myfaces.adf.component.html.HtmlBody</component-class>
+    <component-type>org.apache.myfaces.trinidad.HtmlBody</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.html.HtmlBody</component-class>
     <property>
       <description><![CDATA[whether or not ADF will allow the first click to go
              through in certain instances. When a PPR event occurs, we block
@@ -225,11 +225,11 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.Body</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.Body</mfp:renderer-type>
+      <mfp:component-family>org.apache.myfaces.trinidad.Body</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Body</mfp:renderer-type>
       <mfp:tag-name>afh:body</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.html.HtmlBodyTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlBodyTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             Tag for the HTML body element.  In addition
 to providing support for the standard HTML body functionality,

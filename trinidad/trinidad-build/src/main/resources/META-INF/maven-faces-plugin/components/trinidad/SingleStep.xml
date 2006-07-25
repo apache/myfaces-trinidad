@@ -15,10 +15,10 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
-              xmlns:mafp="http://myfaces.apache.org/maven-adf-faces-plugin"
+              xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[UIXSingleStep is a base abstraction for components
@@ -28,8 +28,8 @@
     <icon>
       <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/singleStep.png</small-icon>
     </icon>
-    <component-type>org.apache.myfaces.adf.SingleStep</component-type>
-    <component-class>org.apache.myfaces.adf.component.UIXSingleStep</component-class>
+    <component-type>org.apache.myfaces.trinidad.SingleStep</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.UIXSingleStep</component-class>
     <property>
       <description><![CDATA[the current step. The valid range is 1 to maxStep.
               It defaults to 1.]]></description>
@@ -141,10 +141,10 @@
       </property-extension>
     </property>
     <component-extension>
-      <mfp:component-family>org.apache.myfaces.adf.SingleStep</mfp:component-family>
-      <mfp:component-supertype>org.apache.myfaces.adf.ComponentBase</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.adf.ButtonBar</mfp:renderer-type>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.UIXSingleStepTag</mfp:tag-class>
+      <mfp:component-family>org.apache.myfaces.trinidad.SingleStep</mfp:component-family>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.ButtonBar</mfp:renderer-type>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXSingleStepTag</mfp:tag-class>
       <mfp:long-description><![CDATA[UIXSingleStep is a base abstraction for components
           that implement ActionSource and 
           navigate back and forth through a sequence of known steps.

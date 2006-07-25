@@ -15,13 +15,13 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/adf/faces"
+              xmlns:af="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate expression using java regular expression syntax.]]></description>
     <display-name>validateRegularExpression</display-name>
-    <validator-id>org.apache.myfaces.adf.RegExp</validator-id>
-    <validator-class>org.apache.myfaces.adfinternal.validator.RegExpValidator</validator-class>
+    <validator-id>org.apache.myfaces.trinidad.RegExp</validator-id>
+    <validator-class>org.apache.myfaces.trinidadinternal.validator.RegExpValidator</validator-class>
     <property>
       <description><![CDATA[pattern to be matched in the input value.]]></description>
       <property-name>pattern</property-name>
@@ -65,7 +65,7 @@
     </property>
     <validator-extension>
       <mfp:tag-name>af:validateRegExp</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.adfinternal.taglib.validator.ValidateRegExpTag</mfp:tag-class>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateRegExpTag</mfp:tag-class>
       <mfp:long-description><![CDATA[Validate expression using java regular expression syntax.]]></mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[<af:inputText value="9999" label="RegExp validation">
