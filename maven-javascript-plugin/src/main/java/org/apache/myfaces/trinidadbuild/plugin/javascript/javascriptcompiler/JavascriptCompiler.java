@@ -13,8 +13,6 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.trinidadbuild.plugin.javascript.javascriptcompiler;
-
 import java.io.BufferedOutputStream;
 
 import org.apache.myfaces.trinidadbuild.plugin.javascript.uixtools.FileProcessor;
