@@ -1,4 +1,4 @@
-/*
+/**
 * Copyright 2006 The Apache Software Foundation.
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,7 @@ import org.apache.maven.plugin.Mojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.myfaces.trinidadbuild.plugin.faces.GenerateComponentsMojo;
+import org.apache.myfaces.trinidadbuild.plugin.faces.AbstractMojoTestCase;
 
 /**
  * Tests the component generation mojo.
