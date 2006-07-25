@@ -1,3 +1,4 @@
+package org.apache.myfaces.trinidadbuild.plugin.javascript.javascriptcompiler;
 /*
 * Copyright 2006 The Apache Software Foundation.
 *
