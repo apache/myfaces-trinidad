@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.encode;
+package org.apache.myfaces.trinidadinternal.image.xml.encode;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,17 +22,17 @@ import java.io.PrintWriter;
 import java.util.Map;
 
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoderManager;
-import org.apache.myfaces.adfinternal.image.util.MapArea;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
-import org.apache.myfaces.adfinternal.image.xml.ImageProviderRequestUtils;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.xml.ImageProviderRequestUtils;
 
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
 /**
  * Base class for XMLEncoders
@@ -145,7 +145,7 @@ abstract public class AbstractXMLEncoder
 
   /**
    * Encodes a font.  The specified object must be an
-   * instance of AWT Font or org.apache.myfaces.adfinternal.style.util.FontProxy.
+   * instance of AWT Font or org.apache.myfaces.trinidadinternal.style.util.FontProxy.
    */
   static protected void encodeFont(String name, Object font, PrintWriter out)
   {

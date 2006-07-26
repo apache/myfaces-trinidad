@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.url;
+package org.apache.myfaces.trinidadinternal.share.url;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
@@ -516,7 +516,7 @@ public class EncoderUtils
    * of that function.  That is: if the string does not
    * contain any '%' characters, the string will be returned unmodified.
    * <p>
-   * @see org.apache.myfaces.adfinternal.share.util.CaboHttpUtils#decodeRequestParameter
+   * @see org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils#decodeRequestParameter
    * @param text the original text
    * @param encoding the character encoding to assume
    */

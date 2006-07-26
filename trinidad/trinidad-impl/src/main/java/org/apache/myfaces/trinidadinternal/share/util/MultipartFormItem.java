@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.util;
+package org.apache.myfaces.trinidadinternal.share.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,7 +65,7 @@ public interface MultipartFormItem
    * @return     The total number of bytes written
    * @exception java.io.EOFException if the length of this item
    *   exceeds the maximum length set on the MultipartFormHandler
-   * @see org.apache.myfaces.adfinternal.share.util.MultipartFormHandler#setMaximumAllowedBytes
+   * @see org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler#setMaximumAllowedBytes
    */
   public long writeFile(OutputStream stream)
     throws IOException;

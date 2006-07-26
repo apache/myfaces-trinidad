@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.metadata;
+package org.apache.myfaces.trinidadinternal.metadata;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -33,11 +33,11 @@ import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.config.RegionConfig;
-import org.apache.myfaces.adf.config.RegionManager;
-import org.apache.myfaces.adfinternal.ui.data.bind.ConvertBoundValue;
+import org.apache.myfaces.trinidad.config.RegionConfig;
+import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.ConvertBoundValue;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

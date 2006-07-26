@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/FrameBorderLayoutRenderer.java#0 $) $Date: 10-nov-2005.18:54:23 $
  * @author The Oracle ADF Faces Team
  */
 public class FrameBorderLayoutRenderer extends
-                        org.apache.myfaces.adfinternal.ui.laf.base.xhtml.FrameBorderLayoutRenderer
+                        org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FrameBorderLayoutRenderer
 {
   
   protected void renderAttributes(

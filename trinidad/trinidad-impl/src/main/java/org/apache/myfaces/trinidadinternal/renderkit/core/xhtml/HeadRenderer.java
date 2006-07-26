@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 import java.util.TimeZone;
@@ -22,17 +22,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.html.HtmlHead;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.html.HtmlHead;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.adfinternal.share.config.UIXCookie;
+import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 /**
  * Renderer for meta data section of the document--a.k.a <head>.

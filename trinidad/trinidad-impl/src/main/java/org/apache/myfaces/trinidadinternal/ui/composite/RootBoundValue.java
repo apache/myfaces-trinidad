@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.composite;
+package org.apache.myfaces.trinidadinternal.ui.composite;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
 /**

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 /**
  * The key used to look up an icon. Passed to a LafIconProvider to
@@ -23,7 +23,7 @@ package org.apache.myfaces.adfinternal.ui.laf.base;
  * error icon is different in 2 lafs, its array index is the
  * same for those 2 lafs. The index is retrieved from the IconKey.
  *
- * @see org.apache.myfaces.adfinternal.ui.laf.base.LafIconProvider
+ * @see org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/IconKey.java#0 $) $Date: 10-nov-2005.18:53:01 $
  * @author The Oracle ADF Faces Team

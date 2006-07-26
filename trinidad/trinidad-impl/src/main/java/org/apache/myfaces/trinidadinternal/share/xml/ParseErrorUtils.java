@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
 import java.util.logging.Level;
 
 import org.xml.sax.Locator;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * Error reporting utilities.  Many of these utility methods
  * are available in even more convenient form on BaseNodeParser.
  * <p>
- * @see org.apache.myfaces.adfinternal.share.xml.BaseNodeParser#getRequiredAttribute
- * @see org.apache.myfaces.adfinternal.share.xml.BaseNodeParser#logWarning
- * @see org.apache.myfaces.adfinternal.share.xml.BaseNodeParser#logError
- * @see org.apache.myfaces.adfinternal.share.xml.BaseNodeParser#logUnexpectedElement
+ * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#getRequiredAttribute
+ * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#logWarning
+ * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#logError
+ * @see org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser#logUnexpectedElement
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/xml/ParseErrorUtils.java#0 $) $Date: 10-nov-2005.18:59:13 $
  * @author The Oracle ADF Faces Team
  */

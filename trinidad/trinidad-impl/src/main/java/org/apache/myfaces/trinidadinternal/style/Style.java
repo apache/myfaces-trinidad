@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * A Style object defines a set of visual (or aural) style properties.

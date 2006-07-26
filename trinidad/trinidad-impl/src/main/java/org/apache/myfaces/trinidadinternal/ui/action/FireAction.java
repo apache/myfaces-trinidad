@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.action;
+package org.apache.myfaces.trinidadinternal.ui.action;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.FormValueRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
  * ClientAction implementation which fires or submits an event

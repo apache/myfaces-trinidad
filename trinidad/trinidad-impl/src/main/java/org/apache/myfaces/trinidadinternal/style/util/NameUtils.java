@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Vector;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.UserStyleSheet;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
 
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
 /**
  * Utilities for converting between variant names and ids

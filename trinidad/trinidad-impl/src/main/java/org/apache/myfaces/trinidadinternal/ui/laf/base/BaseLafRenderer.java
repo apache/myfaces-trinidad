@@ -13,28 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.agent.CapabilityKey;
-import org.apache.myfaces.adfinternal.share.config.AccessibilityMode;
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.ElementRenderer;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.data.DataObjectList;
-import org.apache.myfaces.adfinternal.ui.data.bean.BeanAdapterUtils;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelExtension;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
+import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.ElementRenderer;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
+import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanAdapterUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelExtension;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 
@@ -694,7 +694,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @return the encoded form of the URL, by calling the encodeURL method
    *  in the URLEncoder
    * @see RenderingContext#getURLEncoder()
-   * @see org.apache.myfaces.adfinternal.share.url.URLEncoder#encodeURL(String)
+   * @see org.apache.myfaces.trinidadinternal.share.url.URLEncoder#encodeURL(String)
    */
   protected static String encodeURL(
           RenderingContext context,

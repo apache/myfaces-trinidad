@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import junit.framework.TestCase;
 

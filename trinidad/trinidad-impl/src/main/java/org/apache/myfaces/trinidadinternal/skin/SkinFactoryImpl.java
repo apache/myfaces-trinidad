@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 
 
@@ -159,8 +159,8 @@ public class SkinFactoryImpl extends SkinFactory
   // Stores all the Skins in this SkinFactory
   private HashMap _skins = null;
 
-  static private final String _RENDER_KIT_ID_CORE = "org.apache.myfaces.adf.desktop";
-  static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.adf.pda";
+  static private final String _RENDER_KIT_ID_CORE = "org.apache.myfaces.trinidad.desktop";
+  static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
 

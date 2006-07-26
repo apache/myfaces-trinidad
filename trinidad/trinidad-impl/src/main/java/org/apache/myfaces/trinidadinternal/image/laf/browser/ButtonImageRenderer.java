@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.laf.browser;
+package org.apache.myfaces.trinidadinternal.image.laf.browser;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -22,17 +22,17 @@ import java.awt.image.BufferedImage;
 
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.PainterImageRenderer;
-import org.apache.myfaces.adfinternal.image.painter.ImmInsets;
-import org.apache.myfaces.adfinternal.image.painter.PaintContext;
-import org.apache.myfaces.adfinternal.image.painter.PaintContextProxy;
-import org.apache.myfaces.adfinternal.image.painter.Painter;
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
-import org.apache.myfaces.adfinternal.style.util.GraphicsUtils;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.PainterImageRenderer;
+import org.apache.myfaces.trinidadinternal.image.painter.ImmInsets;
+import org.apache.myfaces.trinidadinternal.image.painter.PaintContext;
+import org.apache.myfaces.trinidadinternal.image.painter.PaintContextProxy;
+import org.apache.myfaces.trinidadinternal.image.painter.Painter;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
 
 /**
  * ButtonImageRenderer is an ImageRenderer implementation which

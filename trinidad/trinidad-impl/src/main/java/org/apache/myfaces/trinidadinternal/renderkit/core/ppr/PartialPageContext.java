@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.ppr;
+package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
 import java.util.Iterator;
 import java.util.HashMap;
@@ -22,11 +22,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.context.AdfFacesContextImpl;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * Context object which is used to track the targets of a partial

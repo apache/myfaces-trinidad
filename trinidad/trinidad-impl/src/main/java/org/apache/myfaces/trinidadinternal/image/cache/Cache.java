@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.util.Hashtable;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.util.OptimisticHashMap;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
 
 /**
  * Cache data structure

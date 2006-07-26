@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -26,10 +26,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.core.output.CoreOutputDocument;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputDocument;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 /**
  * @author Simon Lessard, Fujitsu Consulting

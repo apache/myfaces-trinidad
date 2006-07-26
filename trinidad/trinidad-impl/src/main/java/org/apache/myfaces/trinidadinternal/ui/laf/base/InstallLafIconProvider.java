@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * Abstracts out the retrieval of icons

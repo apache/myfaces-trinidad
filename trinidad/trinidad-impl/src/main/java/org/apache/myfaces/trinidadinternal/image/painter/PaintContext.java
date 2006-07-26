@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -27,7 +27,7 @@ import java.util.Locale;
 
 
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * This interface provides painters and fills with enough context
@@ -313,7 +313,7 @@ public interface PaintContext
    * <p>
    * @return The reading direction of the PaintContext.
    * <p>
-   * @see org.apache.myfaces.adfinternal.util.nls.LocaleUtils
+   * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
   public int getReadingDirection();
 }

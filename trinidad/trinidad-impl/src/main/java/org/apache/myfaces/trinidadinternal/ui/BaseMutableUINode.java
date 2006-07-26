@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.collection.FlaggedAttributeMap;
-import org.apache.myfaces.adfinternal.ui.collection.ContextMap;
-import org.apache.myfaces.adfinternal.ui.collection.MapContextMap;
-import org.apache.myfaces.adfinternal.ui.collection.UINodeList;
-import org.apache.myfaces.adfinternal.ui.collection.ArrayUINodeList;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.FlaggedAttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.ContextMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.MapContextMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
+import org.apache.myfaces.trinidadinternal.ui.collection.ArrayUINodeList;
 
 
 /**

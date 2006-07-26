@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.state;
+package org.apache.myfaces.trinidadinternal.ui.state;
 
 /*
  * The BaseSingleSelection abstract class is the parent of all Selection

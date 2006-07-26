@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.io.IOException;
 
@@ -23,20 +23,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.component.core.layout.CorePanelBox;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
 /**
  * ContentContainer Renderer for the desktop implementation of the
@@ -46,7 +46,7 @@ import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
  * @author The Oracle ADF Faces Team
  */
 public class ContentContainerRenderer
-  extends org.apache.myfaces.adfinternal.ui.laf.base.desktop.ContentContainerRenderer
+  extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.ContentContainerRenderer
 {
   /**
    * Override of the Base Desktop ContentContainerRenderer's
@@ -242,7 +242,7 @@ public class ContentContainerRenderer
     // Render the td with the AF_PANEL_BOX_HEADER_STYLE_CLASS style class
     writer.startElement(TABLE_DATA_ELEMENT, null);
     renderStyleClassAttribute(context, AF_PANEL_BOX_HEADER_STYLE_CLASS);
-    org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.headerBackground);
+    org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.headerBackground);
 
     // Write colspan for header text.  The header text cell takes up
     // space for any empty icon columns.
@@ -339,7 +339,7 @@ public class ContentContainerRenderer
     if (icons.startBackground != null)
     {
       writer.startElement(TABLE_DATA_ELEMENT, null);
-      org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.startBackground);
+      org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.startBackground);
       writer.endElement(TABLE_DATA_ELEMENT);
     }
 
@@ -360,7 +360,7 @@ public class ContentContainerRenderer
     if (icons.endBackground != null)
     {
       writer.startElement(TABLE_DATA_ELEMENT, null);
-      org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.endBackground);
+      org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.endBackground);
       writer.endElement(TABLE_DATA_ELEMENT);
     }
 
@@ -402,7 +402,7 @@ public class ContentContainerRenderer
     writer.startElement(TABLE_DATA_ELEMENT, null);
     writer.writeAttribute(COLSPAN_ATTRIBUTE, colspan, null);
     writer.writeAttribute(WIDTH_ATTRIBUTE, "100%", null);
-    org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.bottomBackground);
+    org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.bottomBackground);
     writer.endElement(TABLE_DATA_ELEMENT);
 
     // If we've got an end icon, render it
@@ -454,7 +454,7 @@ public class ContentContainerRenderer
     writer.startElement(TABLE_DATA_ELEMENT, null);
     writer.writeAttribute(COLSPAN_ATTRIBUTE, colspan, null);
     writer.writeAttribute(WIDTH_ATTRIBUTE, "100%", null);
-    org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.topBackground);
+    org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(fContext, arc, icons.topBackground);
     writer.endElement(TABLE_DATA_ELEMENT);
 
     // If we've got an end icon, render it

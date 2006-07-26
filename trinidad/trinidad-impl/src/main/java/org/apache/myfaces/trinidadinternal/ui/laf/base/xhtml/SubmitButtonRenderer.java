@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.action.ClientAction;
-import org.apache.myfaces.adfinternal.ui.action.ClientActionUtils;
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
-import org.apache.myfaces.adfinternal.ui.partial.PartialPageRendererUtils;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 
 /**

@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.util;
+package org.apache.myfaces.trinidadinternal.taglib.util;
 
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.adfinternal.util.nls.StringUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
-import org.apache.myfaces.adfinternal.binding.AccessKeyBinding;
-import org.apache.myfaces.adfinternal.binding.StripAccessKeyBinding;
+import org.apache.myfaces.trinidadinternal.binding.AccessKeyBinding;
+import org.apache.myfaces.trinidadinternal.binding.StripAccessKeyBinding;
 
 /**
  *

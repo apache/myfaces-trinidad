@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.desktop;
+package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.io.IOException;
 
@@ -23,32 +23,32 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.CollectionComponent;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.component.UIXColumn;
-import org.apache.myfaces.adf.component.UIXTable;
-import org.apache.myfaces.adf.component.core.data.CoreColumn;
-import org.apache.myfaces.adf.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.CollectionComponent;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.UIXColumn;
+import org.apache.myfaces.trinidad.component.UIXTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 
-import org.apache.myfaces.adfinternal.io.RepeatIdResponseWriter;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.ShowDetailRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.TableRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.CellUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.ColumnData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.RenderStage;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.RowData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RowData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 public class DesktopTableRenderer extends TableRenderer

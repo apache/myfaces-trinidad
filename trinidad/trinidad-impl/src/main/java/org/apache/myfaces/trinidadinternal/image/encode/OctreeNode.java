@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 /**
  * The node elements that make up an OctreeQuantizer.

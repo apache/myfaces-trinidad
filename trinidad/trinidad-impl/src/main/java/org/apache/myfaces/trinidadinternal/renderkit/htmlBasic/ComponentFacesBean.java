@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.htmlBasic;
+package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -22,8 +22,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 /**
  * Implementation of FacesBean that purely passes through 

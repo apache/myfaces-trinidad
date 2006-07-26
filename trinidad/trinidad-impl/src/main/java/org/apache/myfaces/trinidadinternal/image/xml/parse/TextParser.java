@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import java.util.ResourceBundle;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseErrorUtils;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseErrorUtils;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 
 /**
  * NodeParser for text and translatedText elements

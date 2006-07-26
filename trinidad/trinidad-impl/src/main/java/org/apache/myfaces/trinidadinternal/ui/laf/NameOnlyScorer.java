@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf;
+package org.apache.myfaces.trinidadinternal.ui.laf;
 
 
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * NameScoreProxyr delegates to another LookAndFeelScorer instance

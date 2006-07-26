@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data;
+package org.apache.myfaces.trinidadinternal.ui.data;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * The DataObject interface provides an extremely simple API for

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 
 import java.util.Map;
@@ -22,12 +22,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXProcess;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXProcess;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.ProcessUtils;
-import org.apache.myfaces.adfinternal.uinode.UINodeRendererBase;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ProcessUtils;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Renderer for process components: processTrain and processChoiceBar

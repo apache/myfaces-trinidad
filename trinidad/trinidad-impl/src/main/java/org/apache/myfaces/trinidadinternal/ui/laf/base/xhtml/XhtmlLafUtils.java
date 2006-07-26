@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
@@ -29,36 +29,36 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.AutoSubmitUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.style.ParsedPropertyKey;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleMap;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.MutableProperty;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.MutableProperty;
 
 
 /**

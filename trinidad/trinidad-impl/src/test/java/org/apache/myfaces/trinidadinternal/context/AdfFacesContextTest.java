@@ -13,11 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import junit.framework.TestCase;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
 public class AdfFacesContextTest extends TestCase
 {

@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 
-import org.apache.myfaces.adfinternal.ui.path.Path;
-import org.apache.myfaces.adfinternal.ui.path.PathImpl;
+import org.apache.myfaces.trinidadinternal.ui.path.Path;
+import org.apache.myfaces.trinidadinternal.ui.path.PathImpl;
 
 /**
  * Abstract RenderingContext implementation providing support for

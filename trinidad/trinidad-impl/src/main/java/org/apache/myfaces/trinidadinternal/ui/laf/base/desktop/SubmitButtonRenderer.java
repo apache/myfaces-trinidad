@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 /**
@@ -32,7 +32,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
 {
   /**
    * handle case where we don;t have javascript. This is a copy of
-   * org.apache.myfaces.adfinternal.ui.laf.base.xhtml.SubmitButtonRenderer.renderAttributes()
+   * org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer.renderAttributes()
    */
   protected void renderAttributes(
     RenderingContext context,
@@ -49,7 +49,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
                               context,
                               getParentFormName(context),
 
-      org.apache.myfaces.adfinternal.ui.laf.base.xhtml.SubmitButtonRenderer.getNameValues(
+      org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer.getNameValues(
                                   context,
                                   node));
                               
@@ -66,7 +66,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
     String           formName
     )
   {
-    return org.apache.myfaces.adfinternal.ui.laf.base.xhtml.SubmitButtonRenderer.createJSFunctionCall(
+    return org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer.createJSFunctionCall(
                                           context,
                                           node,
                                           formName); 
@@ -84,5 +84,5 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
   
   // Alternate renderer in screen reader mode
   private static final Renderer _ALTERNATE_RENDERER =
-    new org.apache.myfaces.adfinternal.ui.laf.base.xhtml.SubmitButtonRenderer();  
+    new org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer();  
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -41,7 +41,7 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
      * will be replaced by Integer.MAX_VALUE.</p>
      */
     public static final String MAXIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM";
+        "org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
@@ -51,14 +51,14 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
      * will be replaced by Integer.MIN_VALUE.</p>
      */
     public static final String MINIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.IntegerConverter.MINIMUM";
+        "org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
      * the value cannot be converted to an integer
      */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.IntegerConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT";
 
 
  

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.awt.Color;
 
@@ -25,24 +25,24 @@ import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProvider;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
-import org.apache.myfaces.adfinternal.image.cache.CompositeButtonKey;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
-import org.apache.myfaces.adfinternal.style.util.MutableFontProxy;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.action.ClientAction;
-import org.apache.myfaces.adfinternal.ui.action.ClientActionUtils;
-import org.apache.myfaces.adfinternal.ui.action.FireAction;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProvider;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.MutableFontProxy;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
+import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
 
 
 /**
@@ -682,7 +682,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
 
   // Alternate renderer in screen reader mode
   private static final Renderer _ALTERNATE_RENDERER =
-    new org.apache.myfaces.adfinternal.ui.laf.base.xhtml.ButtonRenderer();
+    new org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ButtonRenderer();
 
   // since the class AlternateRenderer is not static and we use the methods
   // of the enclosing class - this class is not static in nature.

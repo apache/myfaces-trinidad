@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.StringReader;
 
@@ -22,12 +22,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.style.util.NameUtils;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
-import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
  /** As the Skin css file is parsed, methods in this class are called to
   * build up a SkinStyleSheetNode.

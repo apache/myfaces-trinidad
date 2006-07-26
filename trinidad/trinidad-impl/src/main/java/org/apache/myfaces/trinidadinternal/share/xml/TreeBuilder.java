@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
 import java.io.IOException;
 
@@ -31,9 +31,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * Class responsible for building a tree of objects from
@@ -48,7 +48,7 @@ public class TreeBuilder
   /**
    * Creates a TreeBuilder with no ParserManager or root class.
    * Such a TreeBuilder can only be used with NodeParsers that never
-   * try to use {@link org.apache.myfaces.adfinternal.share.xml.ParseContext#getParser ParseContext.getParser()}.
+   * try to use {@link org.apache.myfaces.trinidadinternal.share.xml.ParseContext#getParser ParseContext.getParser()}.
    */
   public TreeBuilder()
   {

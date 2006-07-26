@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import java.util.ArrayList;
 
@@ -23,11 +23,11 @@ import org.xml.sax.SAXParseException;
 
 
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * NodeParser for <properties> elements

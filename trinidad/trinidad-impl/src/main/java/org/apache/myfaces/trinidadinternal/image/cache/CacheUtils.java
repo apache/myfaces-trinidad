@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.awt.Color;
 
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.util.LRUCache;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageTypeManager;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageTypeManager;
 
 /**
- * Private utilites used by org.apache.myfaces.adfinternal.image.cache.
+ * Private utilites used by org.apache.myfaces.trinidadinternal.image.cache.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/CacheUtils.java#0 $) $Date: 10-nov-2005.19:06:01 $
  * @author The Oracle ADF Faces Team

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXPage;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.PageRendererUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 
 /**
  *

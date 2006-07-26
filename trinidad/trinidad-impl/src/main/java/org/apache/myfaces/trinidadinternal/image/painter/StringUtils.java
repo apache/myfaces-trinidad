@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.util.Locale;
 
@@ -35,7 +35,7 @@ class StringUtils
    * a string that can be used for measuring and drawing.
    * @param text a logical string
    * @param context a painting context
-   * @see org.apache.myfaces.adfinternal.image.painter.PaintContext
+   * @see org.apache.myfaces.trinidadinternal.image.painter.PaintContext
    */
   public static String getDisplayString(
     String       text,

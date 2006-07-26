@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import java.lang.reflect.UndeclaredThrowableException;
 
 /**

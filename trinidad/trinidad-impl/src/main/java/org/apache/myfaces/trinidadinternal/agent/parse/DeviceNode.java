@@ -13,9 +13,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.agent.parse;
+package org.apache.myfaces.trinidadinternal.agent.parse;
 
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.context.Agent;
 
 /**
  * Object that holds information about the device nodes in capabilities file

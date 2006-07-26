@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core;
+package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.HtmlRenderer;
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.SkinStyleProvider;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.SkinStyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 class StyleContextImpl implements StyleContext
 {

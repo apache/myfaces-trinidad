@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.adfinternal.skin.icon.NullIcon;
-import org.apache.myfaces.adfinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.adfinternal.skin.icon.TextIcon;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 
@@ -59,7 +59,7 @@ public class XhtmlSkin extends BaseSkin
   // fully qualified class name of our resource bundle
   // Note: this is the same as BLAF!
   private static final String _BUNDLE_CLASS =
-    "org.apache.myfaces.adfinternal.renderkit.core.resource.CoreBundle";
+    "org.apache.myfaces.trinidadinternal.renderkit.core.resource.CoreBundle";
 
   // Customizable LAF Icons
   private static final TextIcon _ERROR_ICON =

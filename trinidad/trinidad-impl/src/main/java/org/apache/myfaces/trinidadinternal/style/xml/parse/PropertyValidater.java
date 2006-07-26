@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 /**
  * Little interface we use for performing validation of property values

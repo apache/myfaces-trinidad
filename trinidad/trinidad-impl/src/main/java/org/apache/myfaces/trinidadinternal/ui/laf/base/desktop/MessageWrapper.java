@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import javax.faces.application.FacesMessage;
 
-import org.apache.myfaces.adf.util.LabeledFacesMessage;
+import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 
 /**
  * A thin wrapper around a {@Link javax.faces.application.FacesMessage}.

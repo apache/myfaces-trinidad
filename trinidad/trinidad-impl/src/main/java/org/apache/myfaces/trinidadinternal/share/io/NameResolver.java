@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.io;
+package org.apache.myfaces.trinidadinternal.share.io;
 
 import java.io.IOException;
 
@@ -32,8 +32,8 @@ import java.io.IOException;
  * Developers writing their own NameResolver should strongly
  * consider subclassing BaseNameResolver.
  * <p>
- * @see org.apache.myfaces.adfinternal.share.xml.XMLUtils#getResolver
- * @see org.apache.myfaces.adfinternal.share.xml.XMLUtils#setResolver
+ * @see org.apache.myfaces.trinidadinternal.share.xml.XMLUtils#getResolver
+ * @see org.apache.myfaces.trinidadinternal.share.xml.XMLUtils#setResolver
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/io/NameResolver.java#0 $) $Date: 10-nov-2005.19:00:09 $
  * @author The Oracle ADF Faces Team

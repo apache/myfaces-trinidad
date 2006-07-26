@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
  * Private utility methods shared by CalendarDialogJSP/InlineCalendarJSP.

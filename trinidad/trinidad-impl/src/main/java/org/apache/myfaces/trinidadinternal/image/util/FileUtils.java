@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.util;
+package org.apache.myfaces.trinidadinternal.image.util;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.laf.browser;
+package org.apache.myfaces.trinidadinternal.image.laf.browser;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -23,16 +23,16 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageRenderer;
-import org.apache.myfaces.adfinternal.image.painter.ImageLoader;
-import org.apache.myfaces.adfinternal.image.painter.ImageUtils;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageRenderer;
+import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidadinternal.image.painter.ImageUtils;
 
-import org.apache.myfaces.adfinternal.style.util.GraphicsUtils;
+import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
 
 import java.awt.image.BufferedImage;
 

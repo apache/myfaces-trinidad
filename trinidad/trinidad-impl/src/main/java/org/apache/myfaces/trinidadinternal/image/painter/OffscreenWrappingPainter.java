@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,7 +29,7 @@ import java.awt.image.RGBImageFilter;
 
 
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 
 /**
  * This is used to render the contents of another painter (the wrapped

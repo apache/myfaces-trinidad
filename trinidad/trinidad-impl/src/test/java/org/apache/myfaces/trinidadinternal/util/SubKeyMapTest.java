@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.util;
+package org.apache.myfaces.trinidadinternal.util;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 /**
  * Test of SubKeyMap.
  */
-public class SubKeyMapTest extends org.apache.myfaces.adfbuild.test.MapTestCase
+public class SubKeyMapTest extends org.apache.myfaces.trinidadbuild.test.MapTestCase
 {
   public SubKeyMapTest(String testName)
   {

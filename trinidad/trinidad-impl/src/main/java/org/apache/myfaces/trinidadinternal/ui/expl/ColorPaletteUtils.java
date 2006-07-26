@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.expl;
+package org.apache.myfaces.trinidadinternal.ui.expl;
 
 import java.awt.Color;
 
@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 
 

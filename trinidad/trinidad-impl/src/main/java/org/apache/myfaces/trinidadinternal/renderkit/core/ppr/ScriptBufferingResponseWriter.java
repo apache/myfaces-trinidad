@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.ppr;
+package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -25,10 +25,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.util.ArrayMap;
-import org.apache.myfaces.adfinternal.io.ResponseWriterDecorator;
+import org.apache.myfaces.trinidad.util.ArrayMap;
+import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 
 /**
  * ResponseWriter which buffers up/filters out any deferred scripts.
@@ -477,7 +477,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   private static final String _PPR_OBJECT_SPAN = "_pprObjectSpan";
   private static final String _PPR_OBJECT_SCRIPT = "_pprObjectScript";
   private static final String _STORED_DATA_KEY =
-    "org.apache.myfaces.adfinternal.renderkit.core.STORED_PPR_DATA";
+    "org.apache.myfaces.trinidadinternal.renderkit.core.STORED_PPR_DATA";
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(
      ScriptBufferingResponseWriter.class);
 

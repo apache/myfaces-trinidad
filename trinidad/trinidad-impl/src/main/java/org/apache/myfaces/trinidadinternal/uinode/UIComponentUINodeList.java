@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.util.List;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.collection.UINodeList;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
 
 /**
  * Use a UIComponent as a uinodeList to deliver the component's children as

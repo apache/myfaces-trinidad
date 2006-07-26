@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.desktop;
+package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.io.IOException;
 
@@ -26,36 +26,36 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.CollectionComponent;
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXTreeTable;
-import org.apache.myfaces.adf.component.core.data.CoreTreeTable;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.model.RowKeySet;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.CollectionComponent;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.NavigationPathRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.ResourceKeyUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.CellUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.ColumnData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.FocusColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.RowData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.SpecialColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeNodeColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.NavigationPathRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.FocusColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RowData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.SpecialColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeNodeColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Renderer for treeTable

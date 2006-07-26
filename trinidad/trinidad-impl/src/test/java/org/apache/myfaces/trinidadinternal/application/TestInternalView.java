@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.IOException;
 
@@ -21,7 +21,7 @@ import javax.faces.FacesException;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.render.InternalView;
+import org.apache.myfaces.trinidad.render.InternalView;
 
 
 public class TestInternalView extends InternalView

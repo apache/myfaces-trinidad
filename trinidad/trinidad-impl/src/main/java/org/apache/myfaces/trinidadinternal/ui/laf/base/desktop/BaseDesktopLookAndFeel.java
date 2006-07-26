@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.ui.RendererFactory;
-import org.apache.myfaces.adfinternal.ui.RendererFactoryImpl;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLookAndFeel;
 
 /**
  * LookAndFeel implementation for HTML browsers
@@ -212,7 +212,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     return rendererFactory;
   }
 
-  private static final String _PREFIX = "org.apache.myfaces.adfinternal.ui.laf.base.desktop.";
+  private static final String _PREFIX = "org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.";
 
   /**
    * List of registered renderers.

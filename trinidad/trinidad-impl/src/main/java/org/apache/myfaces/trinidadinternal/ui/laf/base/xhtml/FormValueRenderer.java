@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
@@ -22,17 +22,17 @@ import java.util.Set;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.RoledRenderer;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 /**

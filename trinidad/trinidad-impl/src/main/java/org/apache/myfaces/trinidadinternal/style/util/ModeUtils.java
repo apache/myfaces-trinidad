@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 /**
  * Utils class for styleSheet mode support

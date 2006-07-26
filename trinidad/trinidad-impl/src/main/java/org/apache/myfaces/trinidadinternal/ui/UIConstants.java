@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 /**
  * Attribute Constants common to many renderers of UINodes.
@@ -302,7 +302,7 @@ public interface UIConstants
   public static final AttributeKey ON_BLUR_VALIDATER_ATTR    = new AttributeKey("onBlurValidater", 38);
   public static final AttributeKey ON_SUBMIT_VALIDATER_ATTR  = new AttributeKey("onSubmitValidater", 39);
 
-  /** TYPE: org.apache.myfaces.adfinternal.ui.data.DataProvider */
+  /** TYPE: org.apache.myfaces.trinidadinternal.ui.data.DataProvider */
   public static final AttributeKey PROVIDER_ATTR = new AttributeKey("provider");
 
   /** TYPE: UINode */

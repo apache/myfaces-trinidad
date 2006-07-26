@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 
 /**
@@ -23,7 +23,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * @author The Oracle ADF Faces Team
  */
 public class HtmlRenderer
-                     extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.HtmlRenderer
+                     extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.HtmlRenderer
 {
   /**
    * Returns the name of the language attribute

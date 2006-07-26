@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.awt.Color;
 
 
 import java.util.Map;
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.laf.browser.CompositeButtonPainter;
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.laf.browser.CompositeButtonPainter;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
 /**
  * Cache key for buttons.

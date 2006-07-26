@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
-import org.apache.myfaces.adfinternal.ui.composite.ContextPoppingUINode;
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeMap;
-import org.apache.myfaces.adfinternal.ui.composite.RootUINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.UINodeRenderer;
+import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootUINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
 
-import org.apache.myfaces.adfinternal.ui.data.bind.NotBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.OrBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.NotBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 
 /**

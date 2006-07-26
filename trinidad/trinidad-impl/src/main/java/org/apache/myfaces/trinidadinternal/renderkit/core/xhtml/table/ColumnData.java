@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.awt.Dimension;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXTreeTable;
-import org.apache.myfaces.adf.component.core.data.CoreColumn;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/table/ColumnData.java#0 $) $Date: 10-nov-2005.19:02:34 $

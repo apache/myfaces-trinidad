@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.listener;
+package org.apache.myfaces.trinidadinternal.taglib.listener;
 
-import org.apache.myfaces.adfinternal.taglib.util.TagUtils;
+import org.apache.myfaces.trinidadinternal.taglib.util.TagUtils;
 
 import javax.servlet.jsp.tagext.TagSupport;
 import javax.servlet.jsp.JspException;
@@ -26,7 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
-import org.apache.myfaces.adf.webapp.ELContextTag;
+import org.apache.myfaces.trinidad.webapp.ELContextTag;
 
 
 /**

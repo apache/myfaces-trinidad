@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adf.component.UIXPage;
+import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.BaseMutableUINode;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.collection.UINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.ContextPoppingUINode;
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.RootBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.RootUINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.UINodeRenderer;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.NotBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.OrBoundValue;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootUINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.NotBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -109,7 +109,7 @@ public class PageRenderer extends UINodeRenderer
         UINode pageNode = context.getParentContext().getAncestorNode(0);
         UIComponent component = pageNode.getUIComponent();
         return component.getClientId(context.getFacesContext()) +
-               org.apache.myfaces.adfinternal.renderkit.uix.PageRenderer.TREE_SUFFIX;
+               org.apache.myfaces.trinidadinternal.renderkit.uix.PageRenderer.TREE_SUFFIX;
       }
     }
                               );

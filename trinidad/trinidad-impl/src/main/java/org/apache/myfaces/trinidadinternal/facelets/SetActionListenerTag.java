@@ -13,14 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.facelets;
+package org.apache.myfaces.trinidadinternal.facelets;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adfinternal.taglib.listener.SetActionListener;
+import org.apache.myfaces.trinidadinternal.taglib.listener.SetActionListener;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletException;

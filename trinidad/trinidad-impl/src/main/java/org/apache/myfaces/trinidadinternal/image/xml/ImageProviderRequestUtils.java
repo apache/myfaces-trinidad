@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml;
+package org.apache.myfaces.trinidadinternal.image.xml;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,25 +26,25 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.share.xml.ParseContextImpl;
-import org.apache.myfaces.adfinternal.share.xml.ParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParserManager;
-import org.apache.myfaces.adfinternal.share.xml.TreeBuilder;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
+import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageType;
-import org.apache.myfaces.adfinternal.image.util.MapArea;
-import org.apache.myfaces.adfinternal.image.xml.encode.XMLEncoder;
-import org.apache.myfaces.adfinternal.image.xml.parse.ImageProviderRequestParserFactory;
-import org.apache.myfaces.adfinternal.image.xml.parse.ColorParserFactory;
-import org.apache.myfaces.adfinternal.image.xml.parse.FontParserFactory;
-import org.apache.myfaces.adfinternal.image.xml.parse.ImageMapParserFactory;
-import org.apache.myfaces.adfinternal.image.xml.parse.TextParserFactory;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageType;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
+import org.apache.myfaces.trinidadinternal.image.xml.encode.XMLEncoder;
+import org.apache.myfaces.trinidadinternal.image.xml.parse.ImageProviderRequestParserFactory;
+import org.apache.myfaces.trinidadinternal.image.xml.parse.ColorParserFactory;
+import org.apache.myfaces.trinidadinternal.image.xml.parse.FontParserFactory;
+import org.apache.myfaces.trinidadinternal.image.xml.parse.ImageMapParserFactory;
+import org.apache.myfaces.trinidadinternal.image.xml.parse.TextParserFactory;
 
 /**
  * Utility methods for parsing and encoding ImageProviderRequest XML elements.

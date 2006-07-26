@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 /**
  * The StyleProvider API is used to access context-dependent style 

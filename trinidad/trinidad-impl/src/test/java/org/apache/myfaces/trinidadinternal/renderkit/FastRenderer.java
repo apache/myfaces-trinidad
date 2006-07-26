@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
 import javax.faces.render.Renderer;
@@ -24,11 +24,11 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.core.output.CoreOutputText;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
 public class FastRenderer extends Renderer
 {

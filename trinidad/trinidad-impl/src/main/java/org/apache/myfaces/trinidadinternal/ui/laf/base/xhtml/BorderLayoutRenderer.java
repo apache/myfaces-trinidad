@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 /**
@@ -56,7 +56,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * since this class overrides the method in BaseRenderer, the method
    * renderIndexedChildren is provided to access the superclass method.
    * @see #renderIndexedChildren(RenderingContext, UINode)
-   * @see org.apache.myfaces.adfinternal.ui.BaseRenderer#renderContent(RenderingContext, UINode)
+   * @see org.apache.myfaces.trinidadinternal.ui.BaseRenderer#renderContent(RenderingContext, UINode)
    */
   protected void renderContent(RenderingContext context,
                                UINode node) throws IOException

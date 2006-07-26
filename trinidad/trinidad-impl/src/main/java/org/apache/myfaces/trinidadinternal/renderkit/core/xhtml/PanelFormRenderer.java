@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Dimension;
 
@@ -31,15 +31,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.core.layout.CorePanelForm;
-import org.apache.myfaces.adf.component.UIXEditableValue;
-import org.apache.myfaces.adf.component.UIXGroup;
-import org.apache.myfaces.adf.component.UIXPanel;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelForm;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.component.UIXGroup;
+import org.apache.myfaces.trinidad.component.UIXPanel;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 public class PanelFormRenderer extends XhtmlRenderer
 {
@@ -116,8 +116,8 @@ public class PanelFormRenderer extends XhtmlRenderer
 
     if (UIXPanel.COMPONENT_FAMILY.equals(component.getFamily()))
     {
-      if ("org.apache.myfaces.adf.LabelAndMessage".equals(rendererType) ||
-          "org.apache.myfaces.adf.rich.LabelAndMessage".equals(rendererType))
+      if ("org.apache.myfaces.trinidad.LabelAndMessage".equals(rendererType) ||
+          "org.apache.myfaces.trinidad.rich.LabelAndMessage".equals(rendererType))
         return true;
       return false;
     }
@@ -945,14 +945,14 @@ public class PanelFormRenderer extends XhtmlRenderer
   private static final Set _UNSUPPORTED_RENDERER_TYPES = new HashSet(64);
   static
   {
-    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.adf.Hidden");
-    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.adf.Shuttle");
-    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.adf.rich.Hidden");
-    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.adf.rich.Shuttle");
+    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.Hidden");
+    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.Shuttle");
+    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.rich.Hidden");
+    _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.rich.Shuttle");
   }
 
   private static final String PANEL_FORM_NEST_LEVEL_KEY =
-    "org.apache.myfaces.adfinternal.PanelFormNestLevel";
+    "org.apache.myfaces.trinidadinternal.PanelFormNestLevel";
 
   private static final int _COLUMNS_DEFAULT = 3;
 

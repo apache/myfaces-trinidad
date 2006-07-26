@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.io.IOException;
 
@@ -23,13 +23,13 @@ import javax.faces.component.UIComponent;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.collection.ContextMap;
-import org.apache.myfaces.adfinternal.ui.collection.UINodeList;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.ContextMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
 
@@ -77,8 +77,8 @@ public class BaseUINode implements UINode, UIConstants
    * be registered by namespace.
    * <p>
    * @see #getLocalName
-   * @see org.apache.myfaces.adfinternal.ui.RendererManager
-   * @see org.apache.myfaces.adfinternal.ui.RendererFactory
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererManager
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererFactory
    */
   public String getNamespaceURI()
   {
@@ -162,7 +162,7 @@ public class BaseUINode implements UINode, UIConstants
    * </STRONG>
    * <p>
    * @see #getChildNames
-   * @see org.apache.myfaces.adfinternal.ui.UIConstants
+   * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
   public UINode getNamedChild(
     RenderingContext context,

@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 
 import java.util.Map;
 
 
 
-import org.apache.myfaces.adfinternal.share.util.NamespaceMap;
+import org.apache.myfaces.trinidadinternal.share.util.NamespaceMap;
 
-import org.apache.myfaces.adfinternal.image.laf.browser.BlafImageUtils;
+import org.apache.myfaces.trinidadinternal.image.laf.browser.BlafImageUtils;
 
 /**
  * ImageTypeManager maintains a set of ImageType objects, each of which
@@ -35,8 +35,8 @@ import org.apache.myfaces.adfinternal.image.laf.browser.BlafImageUtils;
  * Clients can use the default ImageTypeManager, which can be obtained
  * via the getDefaultImageTypeManager(), or create their own.
  *
- * @see org.apache.myfaces.adfinternal.image.ImageType
- * @see org.apache.myfaces.adfinternal.image.ImageConstants
+ * @see org.apache.myfaces.trinidadinternal.image.ImageType
+ * @see org.apache.myfaces.trinidadinternal.image.ImageConstants
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageTypeManager.java#0 $) $Date: 10-nov-2005.19:03:57 $
  * @author The Oracle ADF Faces Team
  */

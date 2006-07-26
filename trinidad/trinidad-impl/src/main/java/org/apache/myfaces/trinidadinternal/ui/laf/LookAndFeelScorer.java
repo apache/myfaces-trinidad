@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf;
+package org.apache.myfaces.trinidadinternal.ui.laf;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * The LookAndFeelScorer is responsible for producing a score that is
@@ -26,7 +26,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * LookAndFeel that produces the highest score is used to render
  * the response.
  *
- * @see org.apache.myfaces.adfinternal.ui.laf.Score
+ * @see org.apache.myfaces.trinidadinternal.ui.laf.Score
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/LookAndFeelScorer.java#0 $) $Date: 10-nov-2005.18:50:31 $
  * @author The Oracle ADF Faces Team
@@ -34,27 +34,27 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
 public abstract class LookAndFeelScorer
 {
   /**
-   * @see org.apache.myfaces.adfinternal.ui.laf.Score#DONT_CARE_MATCH
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.Score#DONT_CARE_MATCH
    */
   public static final int DONT_CARE_MATCH = Score.DONT_CARE_MATCH;
 
   /**
-   * @see org.apache.myfaces.adfinternal.ui.laf.Score#COMPARISON_MATCH
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.Score#COMPARISON_MATCH
    */
   public static final int COMPARISON_MATCH = Score.COMPARISON_MATCH;
 
   /**
-   * @see org.apache.myfaces.adfinternal.ui.laf.Score#RANGE_MATCH
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.Score#RANGE_MATCH
    */
   public static final int RANGE_MATCH = Score.RANGE_MATCH;
 
   /**
-   * @see org.apache.myfaces.adfinternal.ui.laf.Score#EXACT_MATCH
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.Score#EXACT_MATCH
    */
   public static final int EXACT_MATCH = Score.EXACT_MATCH;
 
   /**
-   * @see org.apache.myfaces.adfinternal.ui.laf.Score#NO_MATCH
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.Score#NO_MATCH
    */
   public static final int NO_MATCH = Score.NO_MATCH;
 

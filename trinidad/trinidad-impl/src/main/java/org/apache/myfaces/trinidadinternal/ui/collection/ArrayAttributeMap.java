@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * AttributeMap implementation that stores AttributeKey value pairs in

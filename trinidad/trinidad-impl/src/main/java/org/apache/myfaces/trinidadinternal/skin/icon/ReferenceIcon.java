@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin.icon;
+package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 /**
  * An Icon implementation that references another icon by name.

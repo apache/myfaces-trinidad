@@ -15,13 +15,13 @@
  */
  
 
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 import java.awt.Image;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * ImageEncoder implementation for the Oracle GIF encoder.

@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.awt.Color;
 
 
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProvider;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProvider;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.ColorizedLafIconProvider;
-import org.apache.myfaces.adfinternal.ui.laf.base.IconKey;
-import org.apache.myfaces.adfinternal.ui.laf.base.Icon;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.ColorizedLafIconProvider;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.Icon;
 
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 /**
  * Abstracts out the retrieval of ImageProviderResponses for

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 import java.awt.Color;
 
@@ -30,31 +30,31 @@ import javax.faces.context.ExternalContext;
 
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
-import org.apache.myfaces.adfinternal.share.url.EncoderUtils;
-import org.apache.myfaces.adfinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleMap;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.composite.PoppedAttributeBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.RootChildBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.AndBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.ComparisonBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.DefaultingBoundValue;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.PoppedAttributeBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootChildBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.AndBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.ComparisonBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.DefaultingBoundValue;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/BaseLafUtils.java#0 $) $Date: 10-nov-2005.18:52:57 $

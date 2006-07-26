@@ -13,20 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.agent.parse;
+package org.apache.myfaces.trinidadinternal.agent.parse;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.InputSource;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.share.xml.ParseContextImpl;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
 
-import org.apache.myfaces.adfinternal.share.xml.TreeBuilder;
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 
 
 import java.io.IOException;

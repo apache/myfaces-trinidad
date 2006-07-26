@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 public interface XhtmlConstants
-  extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants,
-          org.apache.myfaces.adfinternal.ui.UIConstants
+  extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants,
+          org.apache.myfaces.trinidadinternal.ui.UIConstants
 {
   public static final String DEBUG_PARTIAL_RESPONSES_PARAM =
-    "org.apache.myfaces.adfinternal.DEBUG_PARTIAL_RESPONSES";
+    "org.apache.myfaces.trinidadinternal.DEBUG_PARTIAL_RESPONSES";
 
   static public String STYLES_CACHE_DIRECTORY = "/adf/styles/cache/";
   static public String OUTPUT_MODE_PORTLET = FACET_PORTLET;

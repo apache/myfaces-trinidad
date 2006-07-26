@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 /**
  * The StyleContext interface is used to provide information

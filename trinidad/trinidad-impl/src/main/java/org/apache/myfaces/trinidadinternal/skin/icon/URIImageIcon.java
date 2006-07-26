@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin.icon;
+package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.style.Style;
 
 /**
  * ImageIcon implementation which takes a full URI.

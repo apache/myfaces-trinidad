@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 
 /**
@@ -41,7 +41,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/AttributeMap.java#0 $) $Date: 10-nov-2005.18:57:31 $
  * @author The Oracle ADF Faces Team
  * @see AttributeKey
- * @see org.apache.myfaces.adfinternal.ui.BaseMutableUINode#setAttributeMap
+ * @see org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode#setAttributeMap
  */
 public interface AttributeMap
 {

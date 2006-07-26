@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,12 +26,12 @@ import javax.faces.render.RenderKit;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.myfaces.adf.component.core.data.CoreTable;
-import org.apache.myfaces.adf.event.SelectionEvent;
-import org.apache.myfaces.adf.model.RowKeySet;
-import org.apache.myfaces.adf.model.RowKeySetImpl;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.RowKeySetImpl;
 
-import org.apache.myfaces.adfbuild.test.FacesTestCase;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 import org.jmock.Mock;
 
 

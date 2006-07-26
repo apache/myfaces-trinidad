@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.change;
+package org.apache.myfaces.trinidadinternal.change;
 
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.change.ChangeManager;
-import org.apache.myfaces.adf.change.ComponentChange;
+import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.change.ComponentChange;
 
 /**
  * An ChangeManager implementation that is all a no-op.

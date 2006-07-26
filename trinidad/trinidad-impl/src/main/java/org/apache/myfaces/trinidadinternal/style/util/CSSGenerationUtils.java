@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.awt.Color;
 import java.util.Date;
@@ -31,9 +31,9 @@ import java.util.Comparator;
 
 import java.util.List;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleNode;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 
 /**
  * CSS-generation related utilities used when we write out our css-2 stylesheet

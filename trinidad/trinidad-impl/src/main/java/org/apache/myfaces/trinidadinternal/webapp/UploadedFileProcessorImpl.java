@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
-import org.apache.myfaces.adf.model.UploadedFile;
-import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 public class UploadedFileProcessorImpl implements UploadedFileProcessor
 {
@@ -154,6 +154,6 @@ public class UploadedFileProcessorImpl implements UploadedFileProcessor
   private static final long _DEFAULT_MAX_DISK_SPACE = 2048000;
 
   private static final String _REQUEST_INFO_KEY = 
-    "org.apache.myfaces.adfinternal.webapp.UploadedFilesInfo";
+    "org.apache.myfaces.trinidadinternal.webapp.UploadedFilesInfo";
 
 }

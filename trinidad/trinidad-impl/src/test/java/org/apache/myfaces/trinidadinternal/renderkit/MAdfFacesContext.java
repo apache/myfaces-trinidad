@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.util.Map;
 import java.util.TimeZone;
@@ -21,18 +21,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.change.ChangeManager;
-import org.apache.myfaces.adf.config.RegionManager;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.context.PageResolver;
-import org.apache.myfaces.adf.context.PageFlowScopeProvider;
-import org.apache.myfaces.adf.context.DialogService;
+import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.DialogService;
 
-import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
-import org.apache.myfaces.adfinternal.context.PageFlowScopeProviderImpl;
-import org.apache.myfaces.adfinternal.context.PageResolverDefaultImpl;
+import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
+import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
 
 public class MAdfFacesContext extends AdfFacesContext
 {

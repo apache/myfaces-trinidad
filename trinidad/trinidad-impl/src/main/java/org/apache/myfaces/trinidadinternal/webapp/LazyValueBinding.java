@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ReferenceSyntaxException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * A ValueBinding class that lazily parses the underlying EL expression

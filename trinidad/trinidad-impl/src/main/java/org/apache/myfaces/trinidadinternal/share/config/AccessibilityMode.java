@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.share.config;
+package org.apache.myfaces.trinidadinternal.share.config;
 
 /**
  * This class is used to control the level of accessibility support in an 

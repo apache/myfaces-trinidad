@@ -14,38 +14,38 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.action;
+package org.apache.myfaces.trinidadinternal.ui.action;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
-import org.apache.myfaces.adfinternal.ui.data.bind.AccessKeyBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.AccessKeyBoundValue;
 
 // =-=ags We probably should not depend on the following LAF classes!
-import org.apache.myfaces.adfinternal.ui.laf.base.SkinTranslatedBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.FormValueRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
-import org.apache.myfaces.adfinternal.ui.partial.PartialPageRendererUtils;
+import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 /**
  * An implementation of FireAction which supports Partial Page Rendering.

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Iterator;

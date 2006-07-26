@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.util.Map;
 
 
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * The PropertiesFilter interface is designed to allow type-specific

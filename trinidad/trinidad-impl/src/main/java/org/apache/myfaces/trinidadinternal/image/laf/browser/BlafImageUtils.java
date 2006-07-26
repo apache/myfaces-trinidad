@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.laf.browser;
+package org.apache.myfaces.trinidadinternal.image.laf.browser;
 
 
 import java.awt.Color;
@@ -23,24 +23,24 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageType;
-import org.apache.myfaces.adfinternal.image.ImageTypeManager;
-import org.apache.myfaces.adfinternal.image.PropertyInstantiator;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageType;
+import org.apache.myfaces.trinidadinternal.image.ImageTypeManager;
+import org.apache.myfaces.trinidadinternal.image.PropertyInstantiator;
 
-import org.apache.myfaces.adfinternal.image.cache.CacheKeyFactory;
-import org.apache.myfaces.adfinternal.image.cache.NameProvider;
-import org.apache.myfaces.adfinternal.image.cache.PropertiesFilter;
+import org.apache.myfaces.trinidadinternal.image.cache.CacheKeyFactory;
+import org.apache.myfaces.trinidadinternal.image.cache.NameProvider;
+import org.apache.myfaces.trinidadinternal.image.cache.PropertiesFilter;
 
-import org.apache.myfaces.adfinternal.image.painter.ImmInsets;
+import org.apache.myfaces.trinidadinternal.image.painter.ImmInsets;
 
-import org.apache.myfaces.adfinternal.style.ParsedPropertyKey;
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
 
 /**
@@ -96,7 +96,7 @@ public class BlafImageUtils implements ImageConstants
     String baseName = initialCap + name.substring(1);
 
     String rendererName =
-      "org.apache.myfaces.adfinternal.image.laf.browser." + baseName + "ImageRenderer";
+      "org.apache.myfaces.trinidadinternal.image.laf.browser." + baseName + "ImageRenderer";
 
     // Initialize renderer name
     type.setProperty(ImageType.IMAGE_RENDERER_NAME_PROPERTY, rendererName);
@@ -110,20 +110,20 @@ public class BlafImageUtils implements ImageConstants
     type.setProperty(
       ImageType.XML_ENCODER_PROPERTY,
       new PropertyInstantiator(
-        "org.apache.myfaces.adfinternal.image.xml.encode." + baseName + "Encoder"
+        "org.apache.myfaces.trinidadinternal.image.xml.encode." + baseName + "Encoder"
       ));
 
     // FileSystemImageCache properties
     type.setProperty(
       CacheKeyFactory.CACHE_KEY_FACTORY_PROPERTY,
       new PropertyInstantiator(
-        "org.apache.myfaces.adfinternal.image.cache." + baseName + "KeyFactory"
+        "org.apache.myfaces.trinidadinternal.image.cache." + baseName + "KeyFactory"
       ));
 
     type.setProperty(
       NameProvider.NAME_PROVIDER_PROPERTY,
       new PropertyInstantiator(
-        "org.apache.myfaces.adfinternal.image.cache." + baseName + "NameProvider"
+        "org.apache.myfaces.trinidadinternal.image.cache." + baseName + "NameProvider"
       ));
 
 
@@ -132,7 +132,7 @@ public class BlafImageUtils implements ImageConstants
       type.setProperty(
         PropertiesFilter.PROPERTIES_FILTER_PROPERTY,
         new PropertyInstantiator(
-          "org.apache.myfaces.adfinternal.image.cache." + baseName + "PropertiesFilter"
+          "org.apache.myfaces.trinidadinternal.image.cache." + baseName + "PropertiesFilter"
         ));
     }
 
@@ -149,7 +149,7 @@ public class BlafImageUtils implements ImageConstants
       );
   }
 
-  // Utility methods for org.apache.myfaces.adfinternal.image.laf.browser
+  // Utility methods for org.apache.myfaces.trinidadinternal.image.laf.browser
 
   // Returns the foreground Color from the specified style
   static Color __getForeground(

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import javax.faces.render.Renderer;
 import javax.faces.render.RenderKit;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 
 /**

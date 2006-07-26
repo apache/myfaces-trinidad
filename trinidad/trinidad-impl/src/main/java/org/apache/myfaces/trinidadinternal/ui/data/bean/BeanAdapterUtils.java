@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bean;
+package org.apache.myfaces.trinidadinternal.ui.data.bean;
 
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.util.OptimisticHashMap;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.data.DataObjectList;
-import org.apache.myfaces.adfinternal.ui.data.MutableDataObject;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
+import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
 
 /**
  * Utilities for working with bean DataObject adapters.  Provides
@@ -53,7 +53,7 @@ import org.apache.myfaces.adfinternal.ui.data.MutableDataObject;
  * handing to Cabo instances of these adapter classes instead
  * of the bean classes themselves.
  * <p>
- * @see org.apache.myfaces.adfinternal.ui.tools.BuildBeanDOAdapter
+ * @see org.apache.myfaces.trinidadinternal.ui.tools.BuildBeanDOAdapter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bean/BeanAdapterUtils.java#0 $) $Date: 10-nov-2005.18:56:48 $
  * @author The Oracle ADF Faces Team
  */

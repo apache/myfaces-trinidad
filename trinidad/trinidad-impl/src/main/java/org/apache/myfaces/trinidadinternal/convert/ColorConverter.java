@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.share.text.RGBColorFormat;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 
 /**
  * @author The Oracle ADF Faces Team
  */
-public class ColorConverter extends org.apache.myfaces.adf.convert.ColorConverter
+public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorConverter
                             implements InternalClientConverter
 {
 

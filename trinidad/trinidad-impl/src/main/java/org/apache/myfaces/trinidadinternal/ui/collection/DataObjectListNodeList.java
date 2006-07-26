@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.data.DataObjectList;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
 
-import org.apache.myfaces.adfinternal.ui.data.bean.BeanAdapterUtils;
+import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanAdapterUtils;
 
 
 /**

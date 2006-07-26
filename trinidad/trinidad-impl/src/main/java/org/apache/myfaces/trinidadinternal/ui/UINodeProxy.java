@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.io.IOException;
 
@@ -55,8 +55,8 @@ public abstract class UINodeProxy implements UINode
    * <p>
    * <i>TO DO: put in link to XML namespaces</i>
    * @see #getLocalName
-   * @see org.apache.myfaces.adfinternal.ui.RendererManager
-   * @see org.apache.myfaces.adfinternal.ui.RendererFactory
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererManager
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererFactory
    */
   public String getNamespaceURI()
   {
@@ -126,7 +126,7 @@ public abstract class UINodeProxy implements UINode
    * </STRONG>
    * <p>
    * @see #getChildNames
-   * @see org.apache.myfaces.adfinternal.ui.UIConstants
+   * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
   public UINode getNamedChild(
     RenderingContext context,

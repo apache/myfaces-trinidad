@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
  * A single parameter of an URL or a form.

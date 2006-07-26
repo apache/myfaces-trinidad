@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -27,24 +27,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.UIXPanel;
-import org.apache.myfaces.adf.component.UIXSelectItem;
-import org.apache.myfaces.adf.component.UIXSelectRange;
-import org.apache.myfaces.adf.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.event.RangeChangeEvent;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXPanel;
+import org.apache.myfaces.trinidad.component.UIXSelectItem;
+import org.apache.myfaces.trinidad.component.UIXSelectRange;
+import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.Range;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.Range;
 
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
 public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 {
@@ -1234,8 +1234,8 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   {
     UIComponent parent = component.getParent();
     if ((parent instanceof UIXPanel) &&
-        ("org.apache.myfaces.adf.ButtonBar".equals(parent.getRendererType()) ||
-         "org.apache.myfaces.adf.rich.ButtonBar".equals(parent.getRendererType())))
+        ("org.apache.myfaces.trinidad.ButtonBar".equals(parent.getRendererType()) ||
+         "org.apache.myfaces.trinidad.rich.ButtonBar".equals(parent.getRendererType())))
     {
       return false;
     }

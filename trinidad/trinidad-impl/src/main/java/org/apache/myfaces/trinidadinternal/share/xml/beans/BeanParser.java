@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml.beans;
+package org.apache.myfaces.trinidadinternal.share.xml.beans;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,11 +24,11 @@ import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
 
 /**

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import org.xml.sax.Attributes;
 
@@ -22,14 +22,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.share.xml.LeafNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * NodeParser for instance icons.
@@ -49,7 +49,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
   }
 
   // =-=ags The following code is copied almost verbatim from
-  //        org.apache.myfaces.adfinternal.uix22.servlet.xml.parse.EventHandlerFactory!
+  //        org.apache.myfaces.trinidadinternal.uix22.servlet.xml.parse.EventHandlerFactory!
   //        This common code should live somewhere in share.
 
   private Class _getClass(

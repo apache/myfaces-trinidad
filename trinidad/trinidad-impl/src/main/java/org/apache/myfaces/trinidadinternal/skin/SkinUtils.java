@@ -15,44 +15,44 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 
 import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.SAXParserFactory;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
-import org.apache.myfaces.adfinternal.renderkit.core.skin.MinimalPdaSkinExtension;
-import org.apache.myfaces.adfinternal.renderkit.core.skin.SimpleDesktopSkin;
-import org.apache.myfaces.adfinternal.renderkit.core.skin.SimplePdaSkin;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimpleDesktopSkin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.skin.SimplePdaSkin;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
-import org.apache.myfaces.adfinternal.share.xml.ClassParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
-import org.apache.myfaces.adfinternal.share.xml.ParseContextImpl;
-import org.apache.myfaces.adfinternal.share.xml.ParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParserManager;
-import org.apache.myfaces.adfinternal.share.xml.TreeBuilder;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
+import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.adfinternal.style.Style;
-
-
+import org.apache.myfaces.trinidadinternal.style.Style;
 
 
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
 
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconParserFactory;
-import org.apache.myfaces.adfinternal.ui.laf.xml.XMLConstants;
+
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconParserFactory;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * Utility functions for creating Skins from the adf-faces-skins.xml file
@@ -219,7 +219,7 @@ public class SkinUtils
 
     // Parser for inline styles ????
     ClassParserFactory styleFactory = new ClassParserFactory(
-        "org.apache.myfaces.adfinternal.style.xml.parse.CSSStyleParser");
+        "org.apache.myfaces.trinidadinternal.style.xml.parse.CSSStyleParser");
     manager.registerFactory(Style.class,
                             XMLConstants.SKIN_NAMESPACE,
                             styleFactory);
@@ -290,8 +290,8 @@ public class SkinUtils
   private static void _registerAdfFacesSkins(
     SkinFactory skinFactory)
   {
-    // SimpleDesktopSkin is the BASE skin for org.apache.myfaces.adf.desktop renderKit
-    // SimplePdaSkin is the BASE skin for org.apache.myfaces.adf.pda renderKit. By
+    // SimpleDesktopSkin is the BASE skin for org.apache.myfaces.trinidad.desktop renderKit
+    // SimplePdaSkin is the BASE skin for org.apache.myfaces.trinidad.pda renderKit. By
     // BASE skin, I mean, this is the skin that all SkinExtensions extend
     // from.
     SimpleDesktopSkin simpleDesktopSkin = new SimpleDesktopSkin();
@@ -372,7 +372,7 @@ public class SkinUtils
 
   // Prefix of LAf parsing package
   static private final String _LAF_PARSE_PACKAGE =
-    "org.apache.myfaces.adfinternal.ui.laf.xml.parse.";
+    "org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.";
 
   // Property for storing/retrieving the SkinFactory
   static private final String _SKIN_FACTORY_PROPERTY = "_skinFactory";

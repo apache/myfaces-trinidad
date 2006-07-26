@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.listener;
+package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import javax.faces.component.ActionSource;
 import javax.faces.component.UIComponent;

@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.html;
+package org.apache.myfaces.trinidadinternal.ui.html;
 
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RendererFactory;
-import org.apache.myfaces.adfinternal.ui.RendererFactoryImpl;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
 
 
 /**
  * Renderer factory for raw HTML elements.
  * <p>
- * @see org.apache.myfaces.adfinternal.ui.html.HTMLWebBean
+ * @see org.apache.myfaces.trinidadinternal.ui.html.HTMLWebBean
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/html/HTMLRendererFactory.java#0 $) $Date: 10-nov-2005.18:56:25 $
  * @author The Oracle ADF Faces Team
  */

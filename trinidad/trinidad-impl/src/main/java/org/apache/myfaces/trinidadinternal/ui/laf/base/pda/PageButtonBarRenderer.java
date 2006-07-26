@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.TextNode;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.TextNode;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeMap;
-import org.apache.myfaces.adfinternal.ui.composite.RootUINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.UINodeRenderer;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootUINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/PageButtonBarRenderer.java#0 $) $Date: 10-nov-2005.18:54:59 $

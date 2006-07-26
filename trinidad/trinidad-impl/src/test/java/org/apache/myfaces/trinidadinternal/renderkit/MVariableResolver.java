@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.awt.Color;
 
@@ -29,16 +29,16 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.model.ChildPropertyTreeModel;
-import org.apache.myfaces.adf.model.DefaultBoundedRangeModel;
-import org.apache.myfaces.adf.model.ProcessMenuModel;
-import org.apache.myfaces.adf.model.RowKeySet;
-import org.apache.myfaces.adf.model.RowKeySetImpl;
-import org.apache.myfaces.adf.model.RowKeySetTreeImpl;
-import org.apache.myfaces.adf.model.TreeModel;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
+import org.apache.myfaces.trinidad.model.DefaultBoundedRangeModel;
+import org.apache.myfaces.trinidad.model.ProcessMenuModel;
+import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.RowKeySetImpl;
+import org.apache.myfaces.trinidad.model.RowKeySetTreeImpl;
+import org.apache.myfaces.trinidad.model.TreeModel;
 
-import org.apache.myfaces.adfinternal.renderkit.testData.Person;
+import org.apache.myfaces.trinidadinternal.renderkit.testData.Person;
 
 public class MVariableResolver extends VariableResolver
 {

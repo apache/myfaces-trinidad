@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.convert.ClientConverter;
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * Interface that can return scriptlet keys to load our javascript libs

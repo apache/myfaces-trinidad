@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.config;
+package org.apache.myfaces.trinidadinternal.share.config;
 
 import java.util.TimeZone;
 
@@ -389,7 +389,7 @@ public class UIXCookie
   private HttpServletResponse _response;
 
   // Key that the UIXCookie is stored under.
-  static private final String _COOKIE_KEY = "org.apache.myfaces.adfinternal.share.Cookie";
+  static private final String _COOKIE_KEY = "org.apache.myfaces.trinidadinternal.share.Cookie";
   static private final String _COOKIE_NAME = "oracle.uix";
 
   // Maximum age: 10 years

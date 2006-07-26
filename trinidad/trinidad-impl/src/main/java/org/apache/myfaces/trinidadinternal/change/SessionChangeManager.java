@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.change;
+package org.apache.myfaces.trinidadinternal.change;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -80,7 +80,7 @@ public class SessionChangeManager extends BaseChangeManager
 
   
   static private final String _CHANGE_KEY =
-    "org.apache.myfaces.adfinternal.Change";
+    "org.apache.myfaces.trinidadinternal.Change";
     
   //pu: DataStructure:
   //  1. Session holds a Map instance named by _CHANGE_KEY 

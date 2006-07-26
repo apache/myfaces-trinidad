@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import java.math.BigInteger;
 import javax.faces.FacesException;
@@ -25,11 +25,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import javax.faces.convert.ConverterException;
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * Private utilities for working with converters

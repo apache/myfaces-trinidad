@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -28,9 +28,9 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.adf.model.UploadedFile;
+import org.apache.myfaces.trinidad.model.UploadedFile;
 
-import org.apache.myfaces.adfinternal.share.util.CaboHttpUtils;
+import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
 /**
  * UploadedFiles defines the set of files that have been uploaded
@@ -151,7 +151,7 @@ final public class UploadedFiles
   private final Map _map = new HashMap();
 
   private static final String _UPLOADED_FILES_KEY = 
-    "org.apache.myfaces.adfinternal.webapp.UploadedFiles";
+    "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles";
 
   static public class FixFilename implements UploadedFile, Serializable
   {

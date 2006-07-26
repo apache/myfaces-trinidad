@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 
 import java.util.List;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
-import org.apache.myfaces.adfinternal.share.xml.JaxpXMLProvider;
-import org.apache.myfaces.adfinternal.share.xml.ParseContextImpl;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
 
 
 /**

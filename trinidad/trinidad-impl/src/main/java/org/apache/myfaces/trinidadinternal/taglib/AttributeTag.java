@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib;
+package org.apache.myfaces.trinidadinternal.taglib;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

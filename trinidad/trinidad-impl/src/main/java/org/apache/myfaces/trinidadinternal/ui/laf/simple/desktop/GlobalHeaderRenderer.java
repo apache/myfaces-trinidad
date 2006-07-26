@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXNavigationLevel;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.LinkUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.ModelRendererUtils;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 
 /**
  * GlobalHeader Renderer for the desktop implementation of the
@@ -113,7 +113,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
       writer.startElement(TABLE_DATA_ELEMENT, null);
       renderStyleClassAttribute(context, _getContentStyleClass(context, node));
 
-      org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(context, icons.background);
+      org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(context, icons.background);
     }
     else
     {

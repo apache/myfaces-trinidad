@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXPage;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.adf.component.core.nav.CoreCommandNavigationItem;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.PageRendererUtils;
+import org.apache.myfaces.trinidad.component.core.nav.CoreCommandNavigationItem;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 
 /**
  * Renderer for page component tab bars
@@ -31,7 +31,7 @@ import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.PageRendererUtils;
  * @author The Oracle ADF Faces Team
  */
 public class PageMenuTabsRenderer extends
-  org.apache.myfaces.adfinternal.ui.laf.simple.desktop.TabBarRenderer
+  org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.TabBarRenderer
 {
 
   protected UIXHierarchy getHierarchyBase(

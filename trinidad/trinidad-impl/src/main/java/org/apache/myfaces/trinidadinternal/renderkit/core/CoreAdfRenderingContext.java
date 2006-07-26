@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core;
+package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import java.beans.Beans;
 
@@ -26,34 +26,34 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgentImpl;
-import org.apache.myfaces.adfinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormData;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 
-import org.apache.myfaces.adfinternal.share.config.AccessibilityMode;
+import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.SkinFactory;
-import org.apache.myfaces.adfinternal.skin.SkinNotAvailable;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
+import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.adfinternal.share.nls.MutableDecimalFormatContext;
-import org.apache.myfaces.adfinternal.share.nls.MutableLocaleContext;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
+import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 public class CoreAdfRenderingContext extends AdfRenderingContext
 {
@@ -330,13 +330,13 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   private void _initializeSkin(AdfFacesContext afContext)
   {
     String skinFamily = afContext.getSkinFamily();
-    String renderKitId = "org.apache.myfaces.adf.desktop";
+    String renderKitId = "org.apache.myfaces.trinidad.desktop";
 
     // =-=jmw @todo when we have proper renderKitId switching, I can
     // get rid of this bit of code.
     if (AdfFacesAgent.TYPE_PDA == _agent.getAgentType())
     {
-      renderKitId = "org.apache.myfaces.adf.pda";
+      renderKitId = "org.apache.myfaces.trinidad.pda";
     }
 
 

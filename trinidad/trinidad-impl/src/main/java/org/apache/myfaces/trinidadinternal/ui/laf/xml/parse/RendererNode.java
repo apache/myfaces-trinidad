@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 
 
-import org.apache.myfaces.adfinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
 
 /**
  * Object which represents a single <renderer> element.

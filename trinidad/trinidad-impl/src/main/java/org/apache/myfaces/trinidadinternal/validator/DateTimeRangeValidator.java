@@ -13,16 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.validator;
+package org.apache.myfaces.trinidadinternal.validator;
 import java.util.Date;
 
 import javax.faces.validator.ValidatorException;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adfinternal.convert.GenericConverterFactory;
+import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
-public class DateTimeRangeValidator extends org.apache.myfaces.adf.validator.DateTimeRangeValidator
+public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validator.DateTimeRangeValidator
 {
   public DateTimeRangeValidator()
   {

@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.image.util.MapArea;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 
 /**
  * NodeParser for imageMap elements

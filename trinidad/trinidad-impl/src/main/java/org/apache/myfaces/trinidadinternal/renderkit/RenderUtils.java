@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -23,7 +23,7 @@ import javax.faces.component.UIForm;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.UIXForm;
+import org.apache.myfaces.trinidad.component.UIXForm;
 
 /**
  * Generic utilities for rendering.

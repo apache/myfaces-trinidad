@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
-import org.apache.myfaces.adfinternal.ui.RendererFactory;
-import org.apache.myfaces.adfinternal.ui.RendererFactoryImpl;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.html.HTMLRendererFactory;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.html.HTMLRendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLookAndFeel;
 
 
 /**
@@ -59,7 +59,7 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     // Register the CalendarRenderer for the inlineDatePicker component
     rendererFactory.registerRenderer(
       INLINE_DATE_PICKER_NAME,
-      "org.apache.myfaces.adfinternal.ui.laf.base.xhtml.CalendarRenderer");
+      "org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.CalendarRenderer");
 
     return rendererFactory;
   }
@@ -83,7 +83,7 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     return _FACTORY;
   }
 
-  private static final String _PREFIX = "org.apache.myfaces.adfinternal.ui.laf.base.xhtml.";
+  private static final String _PREFIX = "org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.";
 
   /**
    * List of registered renderers.

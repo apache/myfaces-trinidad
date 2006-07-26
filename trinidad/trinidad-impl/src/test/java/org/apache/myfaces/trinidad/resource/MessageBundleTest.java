@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adf.resource;
+package org.apache.myfaces.trinidad.resource;
 
 import java.lang.IllegalAccessException;
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * Class For testing MessageBundle
@@ -55,7 +55,7 @@ public class MessageBundleTest extends TestCase
   public void testBundles( /* String qualifiedBundleName */)
   {
 
-    String qualifiedBundleName = "org.apache.myfaces.adf.resource.MessageBundle";
+    String qualifiedBundleName = "org.apache.myfaces.trinidad.resource.MessageBundle";
     ResourceBundle defBundle = _getDefaultBundle(qualifiedBundleName);
     BundleContext context
       = new BundleContext(qualifiedBundleName, null, defBundle);

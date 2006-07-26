@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.io;
+package org.apache.myfaces.trinidadinternal.io;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -26,7 +26,7 @@ import java.util.Stack;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 
 

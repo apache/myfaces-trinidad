@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.util.nls;
+package org.apache.myfaces.trinidadinternal.util.nls;
 
 
 /**

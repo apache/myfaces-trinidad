@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -29,11 +29,11 @@ import javax.faces.context.ResponseWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.render.InternalView;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.render.InternalView;
 
-import org.apache.myfaces.adfinternal.renderkit.RenderUtils;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**

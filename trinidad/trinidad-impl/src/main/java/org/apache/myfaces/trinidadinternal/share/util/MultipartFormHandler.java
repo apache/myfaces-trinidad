@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.util;
+package org.apache.myfaces.trinidadinternal.share.util;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -148,7 +148,7 @@ public class MultipartFormHandler
    * @param maxAllowedBytes the maximum number of bytes that
    * MultipartFormItem.writeFile() will be allowed to write.  Defaults
    * to 128MB.
-   * @see org.apache.myfaces.adfinternal.share.util.MultipartFormItem#writeFile
+   * @see org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem#writeFile
    */
   public void setMaximumAllowedBytes(long maxAllowedBytes)
   {
@@ -1003,7 +1003,7 @@ public class MultipartFormHandler
     "form-data";
 
   private static final String _HANDLED =
-    "org.apache.myfaces.adfinternal.share.util.MultipartFormHandler.handled";
+    "org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler.handled";
 
   private static final int _STREAM_BUFFER_SIZE = 65000;
   private static final int _LINE_BUFFER_SIZE = 1000;

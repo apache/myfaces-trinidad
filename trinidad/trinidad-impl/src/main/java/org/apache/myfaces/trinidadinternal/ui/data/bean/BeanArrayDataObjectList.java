@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bean;
+package org.apache.myfaces.trinidadinternal.ui.data.bean;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.data.DataObjectList;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
 
 /**
  * DataObjectList class that will automatically turn each

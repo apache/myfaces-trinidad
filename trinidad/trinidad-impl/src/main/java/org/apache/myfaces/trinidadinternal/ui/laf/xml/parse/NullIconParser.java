@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.adfinternal.share.xml.LeafNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
 /**
  * NodeParser for instance icons.

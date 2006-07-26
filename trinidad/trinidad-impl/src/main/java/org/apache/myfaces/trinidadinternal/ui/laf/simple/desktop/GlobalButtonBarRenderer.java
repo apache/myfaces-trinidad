@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
  * GlobalButtonBarRenderer for the desktop implementation of the
@@ -45,7 +45,7 @@ import org.apache.myfaces.adfinternal.skin.icon.Icon;
  * @author The Oracle ADF Faces Team
  */
 public class GlobalButtonBarRenderer
-  extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.GlobalButtonBarRenderer
+  extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.GlobalButtonBarRenderer
   implements SimpleDesktopConstants
 {
   /**

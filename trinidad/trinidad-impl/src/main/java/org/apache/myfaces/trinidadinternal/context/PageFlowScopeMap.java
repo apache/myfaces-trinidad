@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.io.Serializable;
 
@@ -25,10 +25,10 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.util.SubKeyMap;
-import org.apache.myfaces.adfinternal.util.TokenCache;
+import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
+import org.apache.myfaces.trinidadinternal.util.TokenCache;
 
 /**
  *
@@ -419,6 +419,6 @@ class PageFlowScopeMap implements Map, Serializable
   private HashMap    _map;
 
   static private final String _PAGE_FLOW_SCOPE_CACHE =
-    "org.apache.myfaces.adfinternal.application.PageFlowScope";
+    "org.apache.myfaces.trinidadinternal.application.PageFlowScope";
   static private final ADFLogger _LOG = ADFLogger.createADFLogger(PageFlowScopeMap.class);
 }

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.validator;
+package org.apache.myfaces.trinidadinternal.validator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.validator.ClientValidator;
+import org.apache.myfaces.trinidad.validator.ClientValidator;
 
 /**
  * Interface that can return scriptlet keys to load our javascript libs

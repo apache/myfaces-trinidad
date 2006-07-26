@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.binding;
+package org.apache.myfaces.trinidadinternal.binding;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.PropertyNotFoundException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.bean.util.StateUtils;
+import org.apache.myfaces.trinidad.bean.util.StateUtils;
 
 /**
  * Base implementation of a ValueBinding that wraps a second binding.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,17 +26,17 @@ import java.net.URL;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.adfinternal.share.io.FileInputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
-import org.apache.myfaces.adfinternal.share.io.URLInputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.FileInputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.URLInputStreamProvider;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 
 /**

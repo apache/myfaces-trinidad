@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -23,13 +23,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 
-import org.apache.myfaces.adfinternal.io.ResponseWriterDecorator;
+import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 import junit.framework.Test;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.HiddenLabelUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 
 public class GatherContent extends UIComponentBase
 {
@@ -49,7 +49,7 @@ public class GatherContent extends UIComponentBase
 
   public String getFamily()
   {
-    return "org.apache.myfaces.adftest.GatherContent";
+    return "org.apache.myfaces.trinidadtest.GatherContent";
   }
 
   public void encodeBegin(FacesContext context)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
 
@@ -25,20 +25,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.component.UIXTable;
-import org.apache.myfaces.adf.component.UIXTree;
-import org.apache.myfaces.adf.component.core.data.CoreTable;
-import org.apache.myfaces.adf.event.SelectionEvent;
-import org.apache.myfaces.adf.model.RowKeySet;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.UIXTable;
+import org.apache.myfaces.trinidad.component.UIXTree;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.event.SelectionEvent;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.SimpleSelectBooleanCheckboxRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SimpleSelectBooleanCheckboxRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 
 public class TableSelectOneRenderer extends XhtmlRenderer

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.data;
+package org.apache.myfaces.trinidadinternal.ui.data;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,12 +28,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
@@ -45,7 +45,7 @@ import javax.faces.convert.Converter;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $) $Date: 10-nov-2005.19:06:22 $
  * @author The Oracle ADF Faces Team
  */
-public class DateTimeConverter extends org.apache.myfaces.adf.convert.DateTimeConverter
+public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateTimeConverter
                                    implements InternalClientConverter
 
 {

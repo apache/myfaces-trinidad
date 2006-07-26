@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
@@ -21,15 +21,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.component.core.output.CoreMessages;
+import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.MessageBoxUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.MessageBoxUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 
 /**

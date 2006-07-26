@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.util.Collections;
 import java.util.Map;
@@ -21,12 +21,12 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.UIXPage;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.component.UIXPage;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.uinode.UINodeRendererBase;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Renderer for page

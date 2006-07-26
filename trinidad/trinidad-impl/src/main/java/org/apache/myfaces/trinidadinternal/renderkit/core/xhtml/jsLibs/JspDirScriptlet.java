@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
-import org.apache.myfaces.adfinternal.renderkit.core.pages.GenericEntry;
+import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/jsLibs/JspDirScriptlet.java#0 $) $Date: 10-nov-2005.19:02:46 $

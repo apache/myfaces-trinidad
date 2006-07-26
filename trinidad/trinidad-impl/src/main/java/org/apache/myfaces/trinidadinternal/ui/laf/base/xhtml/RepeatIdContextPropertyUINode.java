@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.io.RepeatIdResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.composite.ContextPropertyUINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.ContextPropertyUINode;
 
 /**
  * Node that extends ContextPropertyUINode and renders a suffix on its

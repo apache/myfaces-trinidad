@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.cache;
+package org.apache.myfaces.trinidadinternal.style.cache;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,34 +36,34 @@ import java.util.Vector;
 import org.xml.sax.SAXException;
 
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
-import org.apache.myfaces.adfinternal.share.io.CachingNameResolver;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.share.xml.JaxpXMLProvider;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 
-import org.apache.myfaces.adfinternal.style.CSSStyle;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleMap;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.UserStyleSheet;
-import org.apache.myfaces.adfinternal.style.util.CSSGenerationUtils;
-import org.apache.myfaces.adfinternal.style.util.NameUtils;
-import org.apache.myfaces.adfinternal.style.xml.StyleSheetDocumentUtils;
-import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
+import org.apache.myfaces.trinidadinternal.style.util.CSSGenerationUtils;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
@@ -73,7 +73,7 @@ import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
  * a shared FileSystemStyleCache instance for a particular source
  * XSS document.
  *
- * @see org.apache.myfaces.adfinternal.style.StyleProvider
+ * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  * @author The Oracle ADF Faces Team

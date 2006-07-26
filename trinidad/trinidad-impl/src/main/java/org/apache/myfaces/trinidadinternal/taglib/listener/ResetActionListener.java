@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.listener;
+package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import java.io.Serializable;
 
@@ -25,10 +25,10 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.component.UIXEditableValue;
-import org.apache.myfaces.adf.component.UIXForm;
-import org.apache.myfaces.adf.component.UIXSubform;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.component.UIXForm;
+import org.apache.myfaces.trinidad.component.UIXSubform;
 
 /**
  * An action listener that will reset all the editable values

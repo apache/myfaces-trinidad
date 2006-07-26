@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.html.HTMLWebBean;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.html.HTMLWebBean;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FormElementRenderer.java#0 $) $Date: 10-nov-2005.18:53:50 $

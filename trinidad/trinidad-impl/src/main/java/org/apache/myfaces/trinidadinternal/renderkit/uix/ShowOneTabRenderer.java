@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.io.IOException;
 
@@ -22,9 +22,9 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.UIXShowDetail;
+import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
-import org.apache.myfaces.adfinternal.uinode.UINodeRendererBase;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Renderer for ShowOneTab

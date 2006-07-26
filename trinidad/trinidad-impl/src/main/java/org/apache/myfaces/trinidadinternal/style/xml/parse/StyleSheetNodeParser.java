@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -24,18 +24,18 @@ import java.util.Vector;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.adfinternal.style.StyleConstants;
-import org.apache.myfaces.adfinternal.style.util.NameUtils;
-import org.apache.myfaces.adfinternal.style.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.style.StyleConstants;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
 /**
  * NodeParser for style sheet nodes

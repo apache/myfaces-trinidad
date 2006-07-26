@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
 import java.util.EmptyStackException;
 import java.util.Hashtable;
@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 /**
  * Encapsulate Namespace logic for use by SAX drivers.  Class

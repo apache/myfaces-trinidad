@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.core.nav.CoreGoButton;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.util.nls.StringUtils;
+import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
 /**
  * Utility methods for code shared among JSPs.

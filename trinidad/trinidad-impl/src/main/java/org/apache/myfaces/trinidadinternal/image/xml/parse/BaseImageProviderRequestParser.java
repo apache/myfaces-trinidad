@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import java.awt.Color;
 import java.util.Map;
@@ -22,22 +22,22 @@ import java.util.Map;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adf.util.ArrayMap;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.ArrayMap;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequestImpl;
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoderManager;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequestImpl;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 
 /**
  * Base class for NodeParsers which parse ImageProviderRequests.

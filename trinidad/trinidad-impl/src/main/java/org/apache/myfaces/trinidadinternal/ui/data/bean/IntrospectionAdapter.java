@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bean;
+package org.apache.myfaces.trinidadinternal.ui.data.bean;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -29,14 +29,14 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.WeakHashMap;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.util.JavaIntrospector;
+import org.apache.myfaces.trinidadinternal.util.JavaIntrospector;
 
-import org.apache.myfaces.adfinternal.share.expl.Coercions;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.MutableDataObject;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
 
 /**
  * The IntrospectionAdapter class can adapt a JavaBean-style
@@ -58,8 +58,8 @@ import org.apache.myfaces.adfinternal.ui.data.MutableDataObject;
  * may wish to create a more performant adapter class for beans
  * that are performance-critical;  see the BuildBeanDOAdapter tool.
  * <p>
- * @see org.apache.myfaces.adfinternal.ui.data.bean.BeanAdapterUtils
- * @see org.apache.myfaces.adfinternal.ui.tools.BuildBeanDOAdapter
+ * @see org.apache.myfaces.trinidadinternal.ui.data.bean.BeanAdapterUtils
+ * @see org.apache.myfaces.trinidadinternal.ui.tools.BuildBeanDOAdapter
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/bean/IntrospectionAdapter.java#0 $) $Date: 10-nov-2005.18:56:49 $
  * @author The Oracle ADF Faces Team
  */

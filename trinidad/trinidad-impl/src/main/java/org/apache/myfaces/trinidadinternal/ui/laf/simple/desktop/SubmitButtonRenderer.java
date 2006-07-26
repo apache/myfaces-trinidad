@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.awt.Color;
 
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * SubmitButtonRenderer for Simple Look And Feel.
@@ -32,7 +32,7 @@ import org.apache.myfaces.adfinternal.ui.UINode;
  * @author The Oracle ADF Faces Team
  */
 public class SubmitButtonRenderer 
-  extends org.apache.myfaces.adfinternal.ui.laf.base.desktop.SubmitButtonRenderer
+  extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.SubmitButtonRenderer
 {
   /**
    * Tests whether the button should be rendered as an image.

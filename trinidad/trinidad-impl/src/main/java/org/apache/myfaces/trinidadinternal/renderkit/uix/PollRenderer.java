@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.UIXPoll;
-import org.apache.myfaces.adf.event.PollEvent;
+import org.apache.myfaces.trinidad.component.UIXPoll;
+import org.apache.myfaces.trinidad.event.PollEvent;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.uinode.UINodeRendererBase;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Renderer for poll component.

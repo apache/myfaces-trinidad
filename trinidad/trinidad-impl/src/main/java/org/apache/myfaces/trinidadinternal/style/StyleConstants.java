@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 
 
 /**
- * Constants for org.apache.myfaces.adfinternal.style.
+ * Constants for org.apache.myfaces.trinidadinternal.style.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/StyleConstants.java#0 $) $Date: 10-nov-2005.18:57:57 $
  * @author The Oracle ADF Faces Team

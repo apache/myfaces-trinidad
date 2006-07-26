@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 /**
  * NodeParser for flippedIcon elements
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/xml/parse/FlippedIconParser.java#0 $) $Date: 10-nov-2005.19:04:04 $

@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
 import java.util.Map;
@@ -23,24 +23,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXNavigationTree;
-import org.apache.myfaces.adf.component.UIXPage;
-import org.apache.myfaces.adf.component.UIXTree;
-import org.apache.myfaces.adf.component.UIXTreeTable;
-import org.apache.myfaces.adf.event.RowDisclosureEvent;
-import org.apache.myfaces.adf.event.FocusEvent;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXNavigationTree;
+import org.apache.myfaces.trinidad.component.UIXPage;
+import org.apache.myfaces.trinidad.component.UIXTree;
+import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+import org.apache.myfaces.trinidad.event.FocusEvent;
 
-import org.apache.myfaces.adf.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.HiddenLabelUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.TableRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Class that handles all tree related events

@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bind;
+package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
  * Booolean BoundValue that compares either two BoundValues or a

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.cache.FileSystemStyleCache;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
 
 /**
  * Generic style utilities.

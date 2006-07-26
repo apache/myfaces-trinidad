@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adfinternal.util.nls.StringUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
 
 /**

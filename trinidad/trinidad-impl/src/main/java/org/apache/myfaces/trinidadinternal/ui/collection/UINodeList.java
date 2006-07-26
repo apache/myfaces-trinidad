@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 /**
@@ -36,7 +36,7 @@ import org.apache.myfaces.adfinternal.ui.UINode;
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/UINodeList.java#0 $) $Date: 10-nov-2005.18:57:36 $
  * @author The Oracle ADF Faces Team
- * @see org.apache.myfaces.adfinternal.ui.BaseMutableUINode#setIndexedNodeList
+ * @see org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode#setIndexedNodeList
  * @see DataObjectListNodeList
  */
 public interface UINodeList extends Cloneable

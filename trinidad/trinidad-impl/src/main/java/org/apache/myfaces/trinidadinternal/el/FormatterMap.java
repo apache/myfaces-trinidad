@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.el;
+package org.apache.myfaces.trinidadinternal.el;
 
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.myfaces.adfinternal.share.util.FastMessageFormat;
+import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 
 /**
  * Map implementation that provides a functor for message formatting.

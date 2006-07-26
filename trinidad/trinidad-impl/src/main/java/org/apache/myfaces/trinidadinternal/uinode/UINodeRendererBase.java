@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.io.IOException;
 
@@ -21,8 +21,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  *
@@ -153,5 +153,5 @@ public class UINodeRendererBase extends Renderer
       fContext.getExternalContext().getRequestMap().get(_CONTEXT_KEY);
   }
 
-  static private final String _CONTEXT_KEY = "org.apache.myfaces.adfinternal.uinode.RenderingContext";
+  static private final String _CONTEXT_KEY = "org.apache.myfaces.trinidadinternal.uinode.RenderingContext";
 }

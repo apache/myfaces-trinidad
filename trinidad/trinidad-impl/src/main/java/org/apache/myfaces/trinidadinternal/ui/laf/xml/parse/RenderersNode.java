@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import java.util.Arrays;
 import java.util.Collections;

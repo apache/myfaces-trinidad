@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.HtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HtmlLafRenderer;
 
 /**
  * Base Rendering class for simple.desktop renderers

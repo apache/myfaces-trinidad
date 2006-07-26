@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.awt.Color;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.cache.CompositeButtonKey;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Package-private utilities shared by SLAF button Renderers.

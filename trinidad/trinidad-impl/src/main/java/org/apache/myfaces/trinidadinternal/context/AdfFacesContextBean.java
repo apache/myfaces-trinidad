@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.TimeZone;
 
-import org.apache.myfaces.adf.bean.FacesBeanImpl;
-import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 public class AdfFacesContextBean extends FacesBeanImpl
 {

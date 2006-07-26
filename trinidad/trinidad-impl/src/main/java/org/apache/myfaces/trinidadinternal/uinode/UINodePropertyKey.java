@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -23,12 +23,12 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
  * PropertyKey subclass that knows about AttributeKeys.

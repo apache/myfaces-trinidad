@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin.icon;
+package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
 
@@ -22,11 +22,11 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.ServletNameResolver;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.ServletNameResolver;
 
-import org.apache.myfaces.adfinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.Style;
 
 /**
  * An Icon implementation for icons which are under the

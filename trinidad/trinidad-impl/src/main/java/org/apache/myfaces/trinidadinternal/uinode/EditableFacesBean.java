@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.ConverterBoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.EntriesBoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.PropertyBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.ConverterBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.EntriesBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
 
 public class EditableFacesBean extends UINodeFacesBean
 {

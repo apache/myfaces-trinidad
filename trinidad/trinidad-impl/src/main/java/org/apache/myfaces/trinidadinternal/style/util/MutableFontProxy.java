@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
 
 /**
@@ -24,7 +24,7 @@ package org.apache.myfaces.adfinternal.style.util;
  * represent different fonts over a short period of time.  Most clients
  * should use the immutable FontProxy class.
  *
- * @see org.apache.myfaces.adfinternal.style.util.FontProxy
+ * @see org.apache.myfaces.trinidadinternal.style.util.FontProxy
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/util/MutableFontProxy.java#0 $) $Date: 10-nov-2005.18:58:51 $
  * @author The Oracle ADF Faces Team
  */

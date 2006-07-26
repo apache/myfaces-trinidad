@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.nls;
+package org.apache.myfaces.trinidadinternal.share.nls;
 
 import java.util.Locale;
 import java.util.TimeZone;
@@ -90,14 +90,14 @@ public final class MutableLocaleContext extends LocaleContext
 
   /**
    * Sets the new reading direction to be one of the reading directions
-   * defined in <code>org.apache.myfaces.adfinternal.util.nls.LocaleUtils</code>.
+   * defined in <code>org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils</code>.
    * <p>
    * If set to any value other than
    * <code>LocaleUtils.DIRECTION_DEFAULT</code>, the new value will override
    * the default determination of the reading direction based on the Locale.
    * <p>
    * @see #getReadingDirection
-   * @see org.apache.myfaces.adfinternal.util.nls.LocaleUtils
+   * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
   public void setReadingDirection(
     int newReadingDirection

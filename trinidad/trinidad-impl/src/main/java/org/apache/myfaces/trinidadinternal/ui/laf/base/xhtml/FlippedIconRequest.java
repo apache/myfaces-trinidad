@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.util.Map;
 
@@ -25,21 +25,21 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.cache.FlippedIconKey;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.cache.FlippedIconKey;
 
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.ServletNameResolver;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.ServletNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * The ImageProviderRequest class that we use for requesting
- * flipped user icons.  It extends org.apache.myfaces.adfinternal.image.cache.FlippedIconKey
+ * flipped user icons.  It extends org.apache.myfaces.trinidadinternal.image.cache.FlippedIconKey
  * by adding support for obtaining an InputStreamProvider for the source
  * icon.
  * <p>

@@ -13,37 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.composite;
+package org.apache.myfaces.trinidadinternal.ui.composite;
 
 import java.util.Map;
 import java.util.MissingResourceException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.skin.Skin;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
-import org.apache.myfaces.adfinternal.ui.LogicalNodeRenderingContext;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.expl.UIVariableResolver;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.LogicalNodeRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.expl.UIVariableResolver;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/CompositeRenderingContext.java#0 $) $Date: 10-nov-2005.18:56:50 $

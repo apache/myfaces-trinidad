@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf;
+package org.apache.myfaces.trinidadinternal.ui.laf;
 
 /**
  * Implementation of Score which provides storage for all component

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * ParserFactory that instantiates parsers for

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib;
+package org.apache.myfaces.trinidadinternal.taglib;
 
 import java.lang.reflect.Array;
 
@@ -31,10 +31,10 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.webapp.ELContextTag;
-import org.apache.myfaces.adfinternal.el.Tokenizer;
-import org.apache.myfaces.adfinternal.el.Tokenizer.Token;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.webapp.ELContextTag;
+import org.apache.myfaces.trinidadinternal.el.Tokenizer;
+import org.apache.myfaces.trinidadinternal.el.Tokenizer.Token;
 
 //JSTL Core Library - <c:forEach> Tag
 //===================================

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -29,9 +29,9 @@ import java.util.zip.CRC32;
 import java.util.zip.DeflaterOutputStream;
 
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
 
 /**
  * Generates a PNG graphics file given pixel data.

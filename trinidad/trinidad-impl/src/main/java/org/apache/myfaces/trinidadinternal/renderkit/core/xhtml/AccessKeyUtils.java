@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 /**
  * Utilities for working with access keys.

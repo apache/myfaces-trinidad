@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.adfinternal.skin.icon.NullIcon;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Skin implementation for HTML browsers
@@ -47,7 +47,7 @@ public class PdaHtmlSkin extends XhtmlSkin
   }
 
   // This array contains entries for all of the customizable
-  // org.apache.myfaces.adfinternal.skin.icon.Icons for PdaHtmlSkin
+  // org.apache.myfaces.trinidadinternal.skin.icon.Icons for PdaHtmlSkin
   // and subclasses of PdaHtmlSkin.
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]
   {

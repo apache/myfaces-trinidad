@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 /**
  * This embarrassingly named interface is used to mark LookAndFeel

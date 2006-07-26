@@ -13,12 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.agent;
+package org.apache.myfaces.trinidadinternal.agent;
 
-import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.agent.parse.CapabilitiesDocument;
-import org.apache.myfaces.adfinternal.agent.parse.CapabilitiesDocumentParser;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.agent.parse.CapabilitiesDocument;
+import org.apache.myfaces.trinidadinternal.agent.parse.CapabilitiesDocumentParser;
 
 import java.util.Map;
 import java.util.HashMap;

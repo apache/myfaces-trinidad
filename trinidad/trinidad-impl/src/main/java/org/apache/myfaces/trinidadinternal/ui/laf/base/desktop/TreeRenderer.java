@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
@@ -25,29 +25,29 @@ import javax.faces.component.NamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXTree;
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.model.RowKeySet;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXTree;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.DataBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.DefaultingBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.IfBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.SkinTranslatedBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.FormValueRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
-import org.apache.myfaces.adfinternal.uinode.UIComponentUINode;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.DataBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.DefaultingBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.IfBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.uinode.UIComponentUINode;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Renderer for trees.  A TreeDataProxy may be set on the tree to create
@@ -149,7 +149,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
     String selectedParam =
       name + NamingContainer.SEPARATOR_CHAR +
-      org.apache.myfaces.adfinternal.renderkit.uix.TreeRenderer.SELECTED_PARAM;
+      org.apache.myfaces.trinidadinternal.renderkit.uix.TreeRenderer.SELECTED_PARAM;
 
     writer.writeText("var "+varName+" = "+
                      _createNewJSSelectionState(formName, name, selectedParam), null);

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 
 
-import org.apache.myfaces.adfinternal.share.xml.ParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParserManager;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 
 
 /**

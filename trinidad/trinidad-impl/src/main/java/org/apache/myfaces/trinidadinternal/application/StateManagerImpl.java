@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.IOException;
 
@@ -35,14 +35,14 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.component.UIXComponentBase;
 
-import org.apache.myfaces.adfinternal.util.LRUCache;
-import org.apache.myfaces.adfinternal.util.SubKeyMap;
-import org.apache.myfaces.adfinternal.util.TokenCache;
-import org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.util.LRUCache;
+import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
+import org.apache.myfaces.trinidadinternal.util.TokenCache;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
 
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
@@ -82,11 +82,11 @@ import com.sun.facelets.FaceletViewHandler;
 public class StateManagerImpl extends StateManager
 {
   static public final String USE_APPLICATION_VIEW_CACHE_INIT_PARAM =
-    "org.apache.myfaces.adf.USE_APPLICATION_VIEW_CACHE";
+    "org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE";
 
   // =-=AEW Should this really be public?
   static public final String CACHE_VIEW_ROOT_INIT_PARAM =
-    "org.apache.myfaces.adf.CACHE_VIEW_ROOT";
+    "org.apache.myfaces.trinidad.CACHE_VIEW_ROOT";
 
 
   /**
@@ -96,7 +96,7 @@ public class StateManagerImpl extends StateManager
    * default is "token".
    */
   static public final String CLIENT_STATE_METHOD_PARAM_NAME =
-    "org.apache.myfaces.adf.CLIENT_STATE_METHOD";
+    "org.apache.myfaces.trinidad.CLIENT_STATE_METHOD";
 
   /**
    * Servlet context initialization parameter used by
@@ -104,7 +104,7 @@ public class StateManagerImpl extends StateManager
    * per user.  The default is 15.
    */
   static public final String CLIENT_STATE_MAX_TOKENS_PARAM_NAME =
-    "org.apache.myfaces.adf.CLIENT_STATE_MAX_TOKENS";
+    "org.apache.myfaces.trinidad.CLIENT_STATE_MAX_TOKENS";
 
   /**
    * Value indicating that only a simple token will be stored
@@ -772,8 +772,8 @@ public class StateManagerImpl extends StateManager
     String out = _SPACES.substring(0, depth * 2);
     Object objectState = state;
 
-    if (state instanceof org.apache.myfaces.adf.component.TreeState)
-      objectState = ((org.apache.myfaces.adf.component.TreeState) state)._state;
+    if (state instanceof org.apache.myfaces.trinidad.component.TreeState)
+      objectState = ((org.apache.myfaces.trinidad.component.TreeState) state)._state;
 
     if (objectState == null)
       out += "null";
@@ -790,16 +790,16 @@ public class StateManagerImpl extends StateManager
     }
 
 
-    if (state instanceof org.apache.myfaces.adf.component.TreeState)
+    if (state instanceof org.apache.myfaces.trinidad.component.TreeState)
     {
-      Object[] array = ((org.apache.myfaces.adf.component.TreeState)state)._children;
+      Object[] array = ((org.apache.myfaces.trinidad.component.TreeState)state)._children;
       if (array != null)
       {
         for (int i = 0; i < array.length; i++)
           _dumpState(array[i], depth + 1);
       }
 
-      array = ((org.apache.myfaces.adf.component.TreeState)state)._facets;
+      array = ((org.apache.myfaces.trinidad.component.TreeState)state)._facets;
       if (array != null)
       {
         for (int i = 0; i < array.length; i++)
@@ -821,13 +821,13 @@ public class StateManagerImpl extends StateManager
 
   private static final Object _APPLICATION_VIEW_CACHE_LOCK = new Object();
   private static final String _VIEW_CACHE_KEY =
-    "org.apache.myfaces.adfinternal.application.VIEW_CACHE";
+    "org.apache.myfaces.trinidadinternal.application.VIEW_CACHE";
 
   private static final String _APPLICATION_VIEW_CACHE_KEY =
-    "org.apache.myfaces.adfinternal.application.APPLICATION_VIEW_CACHE";
+    "org.apache.myfaces.trinidadinternal.application.APPLICATION_VIEW_CACHE";
 
   private static final String _CACHED_SERIALIZED_VIEW =
-    "org.apache.myfaces.adfinternal.application.CachedSerializedView";
+    "org.apache.myfaces.trinidadinternal.application.CachedSerializedView";
 
 
 

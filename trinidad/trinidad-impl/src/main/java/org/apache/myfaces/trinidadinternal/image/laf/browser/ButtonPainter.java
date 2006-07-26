@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.laf.browser;
+package org.apache.myfaces.trinidadinternal.image.laf.browser;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.painter.AbstractBorderPainter;
-import org.apache.myfaces.adfinternal.image.painter.AdjustableBorderPainter;
-import org.apache.myfaces.adfinternal.image.painter.ColorChange;
-import org.apache.myfaces.adfinternal.image.painter.ImmInsets;
-import org.apache.myfaces.adfinternal.image.painter.OffscreenWrappingPainter;
-import org.apache.myfaces.adfinternal.image.painter.PaintContext;
-import org.apache.myfaces.adfinternal.image.painter.Painter;
-import org.apache.myfaces.adfinternal.image.painter.TextPainter;
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.painter.AbstractBorderPainter;
+import org.apache.myfaces.trinidadinternal.image.painter.AdjustableBorderPainter;
+import org.apache.myfaces.trinidadinternal.image.painter.ColorChange;
+import org.apache.myfaces.trinidadinternal.image.painter.ImmInsets;
+import org.apache.myfaces.trinidadinternal.image.painter.OffscreenWrappingPainter;
+import org.apache.myfaces.trinidadinternal.image.painter.PaintContext;
+import org.apache.myfaces.trinidadinternal.image.painter.Painter;
+import org.apache.myfaces.trinidadinternal.image.painter.TextPainter;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
 /**
  * Painter used to paint action button objects with the correct Oracle Look

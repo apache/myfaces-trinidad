@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.config;
+package org.apache.myfaces.trinidadinternal.share.config;
 
 
 /**
@@ -22,7 +22,7 @@ package org.apache.myfaces.adfinternal.share.config;
  * configuration classes for the UIX portions of ADF Faces, and
  * should not be used for new code.
  * <p>
- * @see org.apache.myfaces.adfinternal.share.config.ConfigurationImpl
+ * @see org.apache.myfaces.trinidadinternal.share.config.ConfigurationImpl
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/config/Configuration.java#0 $) $Date: 10-nov-2005.19:00:18 $
  * @author The Oracle ADF Faces Team
  */
@@ -41,7 +41,7 @@ abstract public class Configuration
    * debugging purposes can do so by setting this property to Boolean.TRUE.
    */
   static public final String DISABLE_CONTENT_COMPRESSION =
-    "org.apache.myfaces.adfinternal.DISABLE_CONTENT_COMPRESSION";
+    "org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION";
 
   /**
    * Key for the base UIX directory.
@@ -92,7 +92,7 @@ abstract public class Configuration
    * in this key is used to help determine the default
    * Skin instance to use.
    *
-   * @see org.apache.myfaces.adfinternal.skin.Skin  */
+   * @see org.apache.myfaces.trinidadinternal.skin.Skin  */
 
   // THE VALUE OF THIS STRING MATTERS: IT IS USED IN XML PARSING  
   static public final Object SKIN_FAMILY = "skinFamily";
@@ -101,7 +101,7 @@ abstract public class Configuration
    * Key for the LookAndFeelManager property.  The LookAndFeelManager instance
    * stored under this key is used to choose the LookAndFeel to use.
    *
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager
    */
   static public final Object LOOK_AND_FEEL_MANAGER = "lookAndFeelManager";
 
@@ -163,8 +163,8 @@ abstract public class Configuration
    * UserStyleSheet instance stored are merged with styles defined
    * by the UIX Styles StyleProvider when generating a new style sheet.
    *
-   * @see org.apache.myfaces.adfinternal.style.UserStyleSheet
-   * @see org.apache.myfaces.adfinternal.style.StyleProvider
+   * @see org.apache.myfaces.trinidadinternal.style.UserStyleSheet
+   * @see org.apache.myfaces.trinidadinternal.style.StyleProvider
    */
   static public final Object USER_STYLE_SHEET = "userStyleSheet";
 

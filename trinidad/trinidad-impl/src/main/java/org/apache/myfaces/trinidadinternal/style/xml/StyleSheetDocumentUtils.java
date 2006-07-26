@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml;
+package org.apache.myfaces.trinidadinternal.style.xml;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,25 +27,25 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 
-import org.apache.myfaces.adfinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
-import org.apache.myfaces.adfinternal.share.xml.ClassParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParseContextImpl;
-import org.apache.myfaces.adfinternal.share.xml.ParserFactory;
-import org.apache.myfaces.adfinternal.share.xml.ParserManager;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.share.xml.ClassParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContextImpl;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.adfinternal.style.StyleConstants;
-import org.apache.myfaces.adfinternal.style.xml.parse.ColorNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.ColorSchemeNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.IncludePropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.CompoundPropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.style.StyleConstants;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.ColorSchemeNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludePropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.CompoundPropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 
 /**
  * Utility class for parsing an XSS document into a StyleSheetDocument.
@@ -227,7 +227,7 @@ public class StyleSheetDocumentUtils
     String baseName
     )
   {
-    String className = "org.apache.myfaces.adfinternal.style.xml.parse." + baseName + "Parser";
+    String className = "org.apache.myfaces.trinidadinternal.style.xml.parse." + baseName + "Parser";
     ParserFactory factory = new ClassParserFactory(className);
 
     manager.registerFactory(expectedType,

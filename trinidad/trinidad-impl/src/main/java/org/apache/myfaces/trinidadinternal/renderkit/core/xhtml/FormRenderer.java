@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -29,24 +29,24 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.UIXForm;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXForm;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.context.Agent;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.adfinternal.renderkit.uix.SubformRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
 // TODO: Remove this class
-import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FormRenderer.java#0 $) $Date: 10-nov-2005.18:53:51 $

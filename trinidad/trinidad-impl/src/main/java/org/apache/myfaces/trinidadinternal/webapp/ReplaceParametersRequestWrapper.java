@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.util.Collections;
 import java.util.Enumeration;

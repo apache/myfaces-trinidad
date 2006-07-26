@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * Renderer for Navigation Bars showing either single or multiple records.
@@ -26,7 +26,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * @author The Oracle ADF Faces Team
  */
 public class NavigationBarRenderer extends
-   org.apache.myfaces.adfinternal.ui.laf.base.xhtml.NavigationBarRenderer
+   org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.NavigationBarRenderer
 {
 
 

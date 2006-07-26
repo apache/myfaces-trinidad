@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.config;
+package org.apache.myfaces.trinidadinternal.share.config;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adfinternal.image.cache.FileSystemImageCache;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidadinternal.image.cache.FileSystemImageCache;
 
 /**
  * Configuration class that works off of a AdfFacesContext.
@@ -61,6 +61,6 @@ public class ContextBasedConfiguration extends ConfigurationImpl
     }
   }
 
-  static private final String _DISABLE_STANDARDS_MODE= "org.apache.myfaces.adf.ENABLE_QUIRKS_MODE";
-  static private final String _BLOCK_IMAGE_GENERATION= "org.apache.myfaces.adfinternal.BLOCK_IMAGE_GENERATION";
+  static private final String _DISABLE_STANDARDS_MODE= "org.apache.myfaces.trinidad.ENABLE_QUIRKS_MODE";
+  static private final String _BLOCK_IMAGE_GENERATION= "org.apache.myfaces.trinidadinternal.BLOCK_IMAGE_GENERATION";
 }

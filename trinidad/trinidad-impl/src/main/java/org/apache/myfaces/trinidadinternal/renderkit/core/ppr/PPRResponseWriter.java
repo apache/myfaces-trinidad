@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.ppr;
+package org.apache.myfaces.trinidadinternal.renderkit.core.ppr;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -24,9 +24,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.io.ResponseWriterDecorator;
+import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 
 public class PPRResponseWriter extends ResponseWriterDecorator
 {

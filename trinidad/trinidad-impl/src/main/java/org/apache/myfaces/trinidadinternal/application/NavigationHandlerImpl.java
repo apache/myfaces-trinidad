@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
 public class NavigationHandlerImpl extends NavigationHandler
 {
@@ -70,7 +70,7 @@ public class NavigationHandlerImpl extends NavigationHandler
   }
 
   public static final String DEFAULT_DIALOG_NAVIGATION_PREFIX = "dialog:";
-  public static final String DIALOG_NAVIGATION_PREFIX_PARAM_NAME = "org.apache.myfaces.adf.DIALOG_NAVIGATION_PREFIX";
+  public static final String DIALOG_NAVIGATION_PREFIX_PARAM_NAME = "org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX";
   
   private NavigationHandler _delegate;
   private static String _dialogPrefix;

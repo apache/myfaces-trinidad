@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.collection;
+package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * Map-like object for storing context-based information.  Since the
@@ -30,7 +30,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/ContextMap.java#0 $) $Date: 10-nov-2005.18:57:32 $
  * @author The Oracle ADF Faces Team
  * <p>
- * @see org.apache.myfaces.adfinternal.ui.BaseMutableUINode#setNamedChildMap
+ * @see org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode#setNamedChildMap
  */
 public interface ContextMap
 {

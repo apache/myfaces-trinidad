@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RendererFactory;
-import org.apache.myfaces.adfinternal.ui.RendererFactoryImpl;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactoryImpl;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 
 /**
  * Abstract Base LookAndFeel implementation
@@ -195,7 +195,7 @@ public abstract class BaseLookAndFeel extends LookAndFeel
 
 
 
-  private static final String _PREFIX = "org.apache.myfaces.adfinternal.ui.laf.base.";
+  private static final String _PREFIX = "org.apache.myfaces.trinidadinternal.ui.laf.base.";
 
   /**
    * List of registered renderers.

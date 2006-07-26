@@ -13,13 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.resource;
+package org.apache.myfaces.trinidadinternal.resource;
 
 import java.io.IOException;
 import java.net.URL;
 
-import org.apache.myfaces.adf.resource.ClassLoaderResourceLoader;
-import org.apache.myfaces.adf.resource.ResourceLoader;
+import org.apache.myfaces.trinidad.resource.ClassLoaderResourceLoader;
+import org.apache.myfaces.trinidad.resource.ResourceLoader;
 
 
 /**

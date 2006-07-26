@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.util;
+package org.apache.myfaces.trinidadinternal.util;
 
 import java.util.Iterator;
 
@@ -21,15 +21,15 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.core.output.CoreMessage;
-import org.apache.myfaces.adf.convert.ClientConverter;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.component.core.output.CoreMessage;
+import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRendererUtils;
-import org.apache.myfaces.adfinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
+import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
 /**
  * Utility functions used for messaging.

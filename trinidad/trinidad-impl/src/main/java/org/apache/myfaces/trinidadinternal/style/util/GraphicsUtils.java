@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.util;
+package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
@@ -22,9 +22,9 @@ import java.awt.Toolkit;
 import java.util.Map;
 import java.util.Hashtable;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * Graphics-related utilities.

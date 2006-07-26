@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.laf.browser;
+package org.apache.myfaces.trinidadinternal.image.laf.browser;
 
 import java.util.Map;
 
 import java.awt.Image;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageRenderer;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageRenderer;
 
 /**
  * UnsupportedImageRenderer is a simple image renderer

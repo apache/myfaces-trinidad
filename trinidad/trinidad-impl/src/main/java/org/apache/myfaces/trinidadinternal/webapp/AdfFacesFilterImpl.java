@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,20 +36,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.AdfFacesContextFactory;
-import org.apache.myfaces.adf.model.UploadedFile;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.model.UploadedFile;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.context.AdfFacesContextFactoryImpl;
-import org.apache.myfaces.adfinternal.context.AdfFacesContextImpl;
-import org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener;
-import org.apache.myfaces.adfinternal.share.util.MultipartFormHandler;
-import org.apache.myfaces.adfinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.adfinternal.skin.SkinFactory;
-import org.apache.myfaces.adfinternal.skin.SkinFactoryImpl;
-import org.apache.myfaces.adfinternal.skin.SkinUtils;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextFactoryImpl;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
+import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
+import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
+import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
+import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 
 /**
  * Actual implementation of the ADF Faces servlet filter.
@@ -100,7 +100,7 @@ public class AdfFacesFilterImpl implements Filter
    * @param maxAllowedBytes the maximum number of bytes that
    * MultipartFormItem.writeFile() will be allowed to write.  Defaults
    * to 128MB.
-   * @see org.apache.myfaces.adfinternal.share.util.MultipartFormItem#writeFile
+   * @see org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem#writeFile
    */
   public void setMaximumAllowedBytes(long maxAllowedBytes)
   {
@@ -465,9 +465,9 @@ public class AdfFacesFilterImpl implements Filter
   private List<Filter> _filters = null;
 
   private static final String _IS_RETURNING_KEY =
-    "org.apache.myfaces.adfinternal.webapp.AdfacesFilterImpl.IS_RETURNING";
+    "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.IS_RETURNING";
   private static final String _FILTER_EXECUTED_KEY =
-    "org.apache.myfaces.adfinternal.webapp.AdfacesFilterImpl.EXECUTED";
+    "org.apache.myfaces.trinidadinternal.webapp.AdfacesFilterImpl.EXECUTED";
 
   // two parts of a script that will redirect the main page from the IFrame.
   private static final String _IFRAME_REDIRECT_START

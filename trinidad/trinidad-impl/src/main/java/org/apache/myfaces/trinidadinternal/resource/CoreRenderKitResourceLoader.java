@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.resource;
+package org.apache.myfaces.trinidadinternal.resource;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,11 +23,11 @@ import java.io.InputStreamReader;
 
 import java.net.URL;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.resource.RegexResourceLoader;
-import org.apache.myfaces.adf.resource.ResourceLoader;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.resource.RegexResourceLoader;
+import org.apache.myfaces.trinidad.resource.ResourceLoader;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * A resource loader implementation which loads resources

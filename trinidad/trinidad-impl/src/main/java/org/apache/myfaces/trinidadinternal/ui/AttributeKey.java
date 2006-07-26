@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.util.Hashtable;
 
@@ -42,7 +42,7 @@ import java.util.Hashtable;
  * </ol>  
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/AttributeKey.java#0 $) $Date: 10-nov-2005.18:50:10 $
  * @author The Oracle ADF Faces Team
- * @see org.apache.myfaces.adfinternal.ui.collection.AttributeMap
+ * @see org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap
  * @see UINode#getAttributeValue
  * @see MutableUINode#setAttributeValue
  */

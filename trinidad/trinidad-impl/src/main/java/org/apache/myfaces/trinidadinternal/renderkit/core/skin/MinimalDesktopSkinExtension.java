@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.SkinExtension;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/MinimalDesktopSkinExtension.java#0 $) $Date: 10-nov-2005.19:02:52 $
