@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.adf.component.core.input.CoreInputFile;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.webapp.UploadedFiles;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.webapp.UploadedFiles;
 
 /**
  */

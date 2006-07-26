@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.awt.Component;
 import java.awt.Dimension;
@@ -28,7 +28,7 @@ import java.awt.font.TextHitInfo;
 import java.awt.font.TextLayout;
 import java.text.AttributedString;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 /**

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.validator;
+package org.apache.myfaces.trinidadinternal.validator;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import javax.faces.validator.ValidatorException;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 

@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.cache.FileSystemStyleCache;
-import org.apache.myfaces.adfinternal.style.xml.StyleSheetDocumentUtils;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;
+import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
 
 /**

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf;
+package org.apache.myfaces.trinidadinternal.ui.laf;
 
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 
 /**
@@ -29,7 +29,7 @@ import org.apache.myfaces.adfinternal.ui.UIConstants;
  * to vary based on the target Agent or a user preference.
  *
  * @see LookAndFeelManager
- * @see org.apache.myfaces.adfinternal.ui.RenderingContext#getLookAndFeel
+ * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#getLookAndFeel
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/LookAndFeel.java#0 $) $Date: 10-nov-2005.18:50:30 $
  * @author The Oracle ADF Faces Team
@@ -40,7 +40,7 @@ abstract public class LookAndFeel
    * Returns an string identifier which uniquely identies
    * this LookAndFeel implementation.  LookAndFeel implementations
    * can be retrieved by id via LookAndFeelManager.getLookAndFeelById().
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager#getLookAndFeelById
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#getLookAndFeelById
    */
   public String getId()
   {

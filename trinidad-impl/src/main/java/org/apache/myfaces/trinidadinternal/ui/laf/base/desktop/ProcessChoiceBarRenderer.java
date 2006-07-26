@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * Renderer for processChoiceBar
@@ -28,7 +28,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * code.
  */
 public class ProcessChoiceBarRenderer extends
-   org.apache.myfaces.adfinternal.ui.laf.base.xhtml.ProcessChoiceBarRenderer
+   org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ProcessChoiceBarRenderer
 {
 
   /**

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.io;
+package org.apache.myfaces.trinidadinternal.share.io;
 
 import java.io.File;
 import java.net.URL;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * NameResolver that locates files loaded relative to a class.  Files

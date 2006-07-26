@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Iterator;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 /**
  * Base class for Style implementations

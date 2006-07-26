@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -25,17 +25,17 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.config.ConfigurationImpl;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.config.ConfigurationImpl;
 
-import org.apache.myfaces.adfinternal.share.io.CachingInputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.CachingInputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
-import org.apache.myfaces.adfinternal.share.expl.JavaMethod;
+import org.apache.myfaces.trinidadinternal.share.expl.JavaMethod;
 
 /**
  * Utility class for XML parsing.

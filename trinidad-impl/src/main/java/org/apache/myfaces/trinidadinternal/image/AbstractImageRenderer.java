@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;

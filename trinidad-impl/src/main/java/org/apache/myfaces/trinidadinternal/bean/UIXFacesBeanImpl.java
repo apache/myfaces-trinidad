@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.bean;
+package org.apache.myfaces.trinidadinternal.bean;
 
-import org.apache.myfaces.adf.bean.FacesBeanImpl;
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adf.component.UIXFacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXFacesBean;
 
 public class UIXFacesBeanImpl extends FacesBeanImpl implements UIXFacesBean
 {

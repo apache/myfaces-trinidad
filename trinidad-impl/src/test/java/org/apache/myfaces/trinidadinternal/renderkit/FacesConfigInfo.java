@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -32,10 +32,10 @@ import javax.faces.application.Application;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.XMLValidityTestCase;
-import org.apache.myfaces.adfinternal.share.xml.TreeBuilder;
+import org.apache.myfaces.trinidadinternal.XMLValidityTestCase;
+import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
 import java.util.List;
 
 public class FacesConfigInfo

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 
 
 import java.util.Map;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 
 /**
  * Icon key for flipped icons

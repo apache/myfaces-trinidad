@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
@@ -21,18 +21,18 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafConstants;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.component.core.layout.CorePanelHeader;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.HeaderUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HeaderUtils;
 
 
 /**
@@ -40,7 +40,7 @@ import org.apache.myfaces.adfinternal.ui.laf.base.desktop.HeaderUtils;
  * @author The Oracle ADF Faces Team
  */
 public class HeaderRenderer
-        extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.HeaderRenderer
+        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.HeaderRenderer
 {
     private int _getSize(
             RenderingContext context,

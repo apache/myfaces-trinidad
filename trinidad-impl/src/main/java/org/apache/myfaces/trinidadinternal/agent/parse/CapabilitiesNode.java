@@ -13,8 +13,8 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.agent.parse;
-import org.apache.myfaces.adf.context.Agent;
+package org.apache.myfaces.trinidadinternal.agent.parse;
+import org.apache.myfaces.trinidad.context.Agent;
 
 /**
  * Object for Capabilities node
@@ -122,8 +122,8 @@ class CapabilitiesNode
 
 /*
   private static String _AGENT_VERSIONID_KEY =
-          "org.apache.myfaces.adfinternal.agent.parse.AGENT_VERSIONID";
+          "org.apache.myfaces.trinidadinternal.agent.parse.AGENT_VERSIONID";
   private static String _PLATFORM_VERSIONID_KEY =
-          "org.apache.myfaces.adfinternal.agent.parse.PLATFORM_VERSIONID";
+          "org.apache.myfaces.trinidadinternal.agent.parse.PLATFORM_VERSIONID";
 */
 }

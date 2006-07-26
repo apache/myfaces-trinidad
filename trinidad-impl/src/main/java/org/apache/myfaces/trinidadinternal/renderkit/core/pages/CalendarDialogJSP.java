@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,21 +22,21 @@ import java.util.Date;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.component.core.CoreImportScript;
-import org.apache.myfaces.adf.component.core.input.CoreChooseDate;
-import org.apache.myfaces.adf.component.core.layout.CorePanelGroup;
-import org.apache.myfaces.adf.component.core.nav.CoreGoButton;
-import org.apache.myfaces.adf.component.core.output.CoreObjectSpacer;
-import org.apache.myfaces.adf.component.html.HtmlRowLayout;
-import org.apache.myfaces.adf.component.html.HtmlTableLayout;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.component.core.CoreImportScript;
+import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroup;
+import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
+import org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer;
+import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
+import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.url.EncoderUtils;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**

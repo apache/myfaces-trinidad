@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.Map;
 
@@ -23,10 +23,10 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
 
-import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
 
 /**
  * PhaseListener that hacks to ensure that the AdfFacesContext is
@@ -37,7 +37,7 @@ import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
 public class AdfFacesPhaseListener implements PhaseListener
 {
   static public final String CACHED_ADF_FACES_CONTEXT =
-    "org.apache.myfaces.adfinternal.context.CachedAdfFacesContext";
+    "org.apache.myfaces.trinidadinternal.context.CachedAdfFacesContext";
 
   /**
    * Returns true if the request might be a postback request.
@@ -182,12 +182,12 @@ public class AdfFacesPhaseListener implements PhaseListener
   }
 
   static public final String INITIAL_VIEW_ROOT_KEY =
-    "org.apache.myfaces.adfinternal.InitialViewRoot";
+    "org.apache.myfaces.trinidadinternal.InitialViewRoot";
 
   static private final String _CREATED_CONTEXT_KEY =
-    "org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener.CREATED_CONTEXT";
+    "org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener.CREATED_CONTEXT";
 
   static private final String _POSTBACK_KEY =
-    "org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener.POSTBACK";
+    "org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener.POSTBACK";
     
 }

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
  
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 import java.awt.Image;
 import java.awt.image.ImageObserver;
 import java.awt.image.PixelGrabber;
-import org.apache.myfaces.adfinternal.image.painter.ImageLoader;
+import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
 
 /**
  * Reduces an image's color palette by means of an octree quantization method.

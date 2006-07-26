@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.simple.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.pda;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager;
-import org.apache.myfaces.adfinternal.ui.laf.NameAndAgentScorer;
-import org.apache.myfaces.adfinternal.ui.laf.base.pda.PdaHtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.pda.PdaHtmlLafUtils;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 

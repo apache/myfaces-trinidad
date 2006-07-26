@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core;
+package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -51,36 +51,36 @@ import javax.faces.render.ResponseStateManager;
 
 import javax.servlet.ServletResponse;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.Agent;
 
-import org.apache.myfaces.adf.render.DialogRenderKitService;
-import org.apache.myfaces.adf.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.render.DialogRenderKitService;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 
-import org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
 
-import org.apache.myfaces.adfinternal.io.DebugResponseWriter;
-import org.apache.myfaces.adfinternal.io.DebugHtmlResponseWriter;
-import org.apache.myfaces.adfinternal.io.HtmlResponseWriter;
-import org.apache.myfaces.adfinternal.io.IndentingResponseWriter;
-import org.apache.myfaces.adfinternal.io.XhtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.DebugHtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.RenderKitBase;
-import org.apache.myfaces.adfinternal.renderkit.RenderUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.PartialPageUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.renderkit.htmlBasic.HtmlCommandLinkRenderer;
-import org.apache.myfaces.adfinternal.renderkit.htmlBasic.HtmlFormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandLinkRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlFormRenderer;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.agent.AgentUtil;
-import org.apache.myfaces.adfinternal.share.util.CaboHttpUtils;
-import org.apache.myfaces.adfinternal.webapp.DispatchServletResponse;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
+import org.apache.myfaces.trinidadinternal.webapp.DispatchServletResponse;
 
 /**
  * RenderKit based on UIX.
@@ -122,11 +122,11 @@ public class CoreRenderKit extends RenderKitBase
    * RenderKit ID for an internal and not-fully-functional kit
    * that contains a base set of renderers.
    */
-  static public String BASE_RENDER_KIT_ID = "org.apache.myfaces.adfinternal.core";
+  static public String BASE_RENDER_KIT_ID = "org.apache.myfaces.trinidadinternal.core";
 
   static public String getId()
   {
-    return "org.apache.myfaces.adf.core";
+    return "org.apache.myfaces.trinidad.core";
   }
 
   /**
@@ -143,9 +143,9 @@ public class CoreRenderKit extends RenderKitBase
       // TODO: Obviously, this cheesy algorithm is not quite enough!
       Agent agent = afc.getAgent();
       if (Agent.TYPE_PDA.equals(agent.getType()))
-        return "org.apache.myfaces.adf.core.pda";
+        return "org.apache.myfaces.trinidad.core.pda";
     }
-    return "org.apache.myfaces.adf.core.desktop";
+    return "org.apache.myfaces.trinidad.core.desktop";
   }
 
   public CoreRenderKit()
@@ -687,11 +687,11 @@ public class CoreRenderKit extends RenderKitBase
   private static final String _XML_MIME_TYPE = "text/xml";
   private static final String _HTML_MIME_TYPE = "text/html";
 
-  static private final String _RETURN_ID = "org.apache.myfaces.adfinternal.renderkit.ReturnId";
+  static private final String _RETURN_ID = "org.apache.myfaces.trinidadinternal.renderkit.ReturnId";
   static private final String _DIALOG_LIST_KEY =
-    "org.apache.myfaces.adfinternal.renderkit.DialogList";
+    "org.apache.myfaces.trinidadinternal.renderkit.DialogList";
   static private final String _SCRIPT_LIST_KEY =
-    "org.apache.myfaces.adfinternal.renderkit.ScriptList";
+    "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
 
   static private final ADFLogger _LOG =
      ADFLogger.createADFLogger(CoreRenderKit.class);

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.html;
+package org.apache.myfaces.trinidadinternal.renderkit.html;
 
-import org.apache.myfaces.adfinternal.uinode.UINodeRendererBase;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 /**
  * Generic lass for renderers that don't render their children.

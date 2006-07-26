@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,8 +30,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
-import org.apache.myfaces.adf.component.UIXSelectItem;
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidad.component.UIXSelectItem;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
 public class SelectItemSupport
 {

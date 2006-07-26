@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.awt.Color;
 
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.adfinternal.image.cache.AccentColorizedIconKey;
+import org.apache.myfaces.trinidadinternal.image.cache.AccentColorizedIconKey;
 
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 
 /**

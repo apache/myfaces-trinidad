@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 import java.awt.Image;
 import java.io.IOException;

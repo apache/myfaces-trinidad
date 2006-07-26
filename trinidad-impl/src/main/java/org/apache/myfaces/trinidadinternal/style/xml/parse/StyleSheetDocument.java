@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.awt.Color;
 
@@ -29,22 +29,22 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import java.util.Comparator;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.UserStyleSheet;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
-import org.apache.myfaces.adfinternal.style.util.ModeUtils;
-import org.apache.myfaces.adfinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 
 
 /**

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import javax.faces.component.UIComponent;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.core.data.CoreColumn;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.ColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 public class SpecialColumnRenderer extends ColumnRenderer
 {

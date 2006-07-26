@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.validator;
+package org.apache.myfaces.trinidadinternal.validator;
 
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
@@ -25,11 +25,11 @@ import java.util.Set;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * <p>Enables byte length validation at the client side. </p>
@@ -37,7 +37,7 @@ import org.apache.myfaces.adfinternal.util.MessageUtils;
  * @author The Oracle ADF Faces Team
  */
 public class ByteLengthValidator
-              extends org.apache.myfaces.adf.validator.ByteLengthValidator
+              extends org.apache.myfaces.trinidad.validator.ByteLengthValidator
               implements InternalClientValidator
 {
   public ByteLengthValidator()

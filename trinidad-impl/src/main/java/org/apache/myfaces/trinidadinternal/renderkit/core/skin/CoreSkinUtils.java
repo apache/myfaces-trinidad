@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
  * Utilities for the Core Skins.
@@ -75,7 +75,7 @@ public class CoreSkinUtils
   private CoreSkinUtils() {}
 
   /**
-   * Registers a set of org.apache.myfaces.adfinternal.skin.icon.Icon objects
+   * Registers a set of org.apache.myfaces.trinidadinternal.skin.icon.Icon objects
    * on the specified Skin. The icons
    * array contains alternating pairs of icon name and Icon objects.
    */

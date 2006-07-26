@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 
 /**
@@ -53,7 +53,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
 
   /**
    * Returns the renderKitId for the PDA implementation of the Simple
-   * Skin: "org.apache.myfaces.adf.pda".
+   * Skin: "org.apache.myfaces.trinidad.pda".
    */  
   public String getRenderKitId()
   {

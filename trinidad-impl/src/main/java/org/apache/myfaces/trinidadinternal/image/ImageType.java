@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 
 
 
@@ -25,7 +25,7 @@ package org.apache.myfaces.adfinternal.image;
  * a set of type-specific properties.  ImageTypes can be registered
  * and retrieved via the ImageTypeManager.
  *
- * @see org.apache.myfaces.adfinternal.image.ImageTypeManager
+ * @see org.apache.myfaces.trinidadinternal.image.ImageTypeManager
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageType.java#0 $) $Date: 10-nov-2005.19:03:56 $
  * @author The Oracle ADF Faces Team
  */
@@ -35,7 +35,7 @@ public interface ImageType
    * Key used to access the ImageType's renderer.
    * The value of this property is an ImageRenderer instance which
    * can be used to renderer images of this type.
-   * @see org.apache.myfaces.adfinternal.image.ImageRenderer
+   * @see org.apache.myfaces.trinidadinternal.image.ImageRenderer
    */
   public static final Object IMAGE_RENDERER_PROPERTY = "renderer";
 
@@ -43,8 +43,8 @@ public interface ImageType
    * Key used to access the ImageType's XML encoder.
    * The value of this property is an XMLEncoder instance which can
    * be used to encode ImageGenerator XML data for this type.
-   * @see org.apache.myfaces.adfinternal.image.xml.encode.XMLEncoder
-   * @see org.apache.myfaces.adfinternal.image.tools.ImageGenerator
+   * @see org.apache.myfaces.trinidadinternal.image.xml.encode.XMLEncoder
+   * @see org.apache.myfaces.trinidadinternal.image.tools.ImageGenerator
    */
   public static final Object XML_ENCODER_PROPERTY = "encoder";
 
@@ -62,7 +62,7 @@ public interface ImageType
    * The value of this property is a String which uniquely identifies
    * the ImageRenderer for this type, eg. the class name of the
    * ImageRenderer.
-   * @see org.apache.myfaces.adfinternal.image.ImageRenderer
+   * @see org.apache.myfaces.trinidadinternal.image.ImageRenderer
    */
   public static final Object IMAGE_RENDERER_NAME_PROPERTY = "rendererName";
 
@@ -98,7 +98,7 @@ public interface ImageType
    *  instance of PropertyInstantiator, the PropertyInstantiator will
    *  be used to create the true value of this property when it is
    *  first requested.
-   * @see org.apache.myfaces.adfinternal.image.PropertyInstantiator
+   * @see org.apache.myfaces.trinidadinternal.image.PropertyInstantiator
    */
   public void setProperty(Object key, Object value);
 }

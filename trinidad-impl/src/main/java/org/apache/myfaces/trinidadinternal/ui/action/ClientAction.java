@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.action;
+package org.apache.myfaces.trinidadinternal.ui.action;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 
 /**
  * The ClientAction object is used to associate client-side behavior
@@ -192,7 +192,7 @@ abstract public class ClientAction
    * interested renderers will try to render in the best way for that renderer
    * using the parameters returned from the {@link #getParameters
    * getParameters()} method, and other information on the parent node. As an
-   * example, the {@link org.apache.myfaces.adfinternal.ui.laf.base.xhtml.LinkRenderer#
+   * example, the {@link org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer#
    * LinkRenderer} might render an onClick script in the case of a
    * formSubmitted Action, but it can render a simple href if there is nothing
    * special to be done.

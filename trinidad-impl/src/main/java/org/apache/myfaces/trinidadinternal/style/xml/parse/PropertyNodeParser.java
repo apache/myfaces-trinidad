@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.style.StyleConstants;
-import org.apache.myfaces.adfinternal.style.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.style.StyleConstants;
+import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
 
 /**
  * NodeParser for property nodes

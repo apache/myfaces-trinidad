@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.beans;
+package org.apache.myfaces.trinidadinternal.ui.beans;
 
 
 
-import org.apache.myfaces.adfinternal.ui.BaseMutableUINode;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 
 
 /**

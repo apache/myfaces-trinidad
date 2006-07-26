@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.htmlBasic;
+package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -22,10 +22,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.adfinternal.renderkit.RenderUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.CommandLinkRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRenderer;
 
 /**
  * Renderer for h:commandLink.

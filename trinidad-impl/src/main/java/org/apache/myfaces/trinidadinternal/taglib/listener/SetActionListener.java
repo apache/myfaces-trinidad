@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.listener;
+package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import javax.faces.component.StateHolder;
 import javax.faces.context.FacesContext;
@@ -21,16 +21,16 @@ import javax.faces.el.ValueBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.FacesBeanImpl;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
  * same functionality. In JSF 1.2 days this class should be <code>deprecated</code>.
  *
- * @todo Look at moving to org.apache.myfaces.adf.event
+ * @todo Look at moving to org.apache.myfaces.trinidad.event
  * @todo Extending FacesBean is very lame if we make this
  *   class part of our public API, but the FacesBean API
  *   would otherwise require a private subclass of FacesBeanImpl.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.awt.Color;
 import java.awt.Image;
@@ -40,32 +40,32 @@ import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProvider;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
-import org.apache.myfaces.adfinternal.image.ImageRenderer;
-import org.apache.myfaces.adfinternal.image.ImageType;
-import org.apache.myfaces.adfinternal.image.ImageTypeManager;
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoder;
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoderManager;
-import org.apache.myfaces.adfinternal.image.util.FileUtils;
-import org.apache.myfaces.adfinternal.image.util.MapArea;
-import org.apache.myfaces.adfinternal.image.xml.ImageProviderRequestUtils;
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.xml.XMLProvider;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
-import org.apache.myfaces.adfinternal.style.util.GraphicsUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.OptimisticHashMap;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProvider;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.image.ImageRenderer;
+import org.apache.myfaces.trinidadinternal.image.ImageType;
+import org.apache.myfaces.trinidadinternal.image.ImageTypeManager;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoder;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.util.FileUtils;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
+import org.apache.myfaces.trinidadinternal.image.xml.ImageProviderRequestUtils;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -78,7 +78,7 @@ import org.xml.sax.SAXException;
  * the shared FileSystemImageCache instance for a particular file system
  * cache location via the getSharedCache method.
  *
- * @see org.apache.myfaces.adfinternal.image.ImageProvider
+ * @see org.apache.myfaces.trinidadinternal.image.ImageProvider
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/FileSystemImageCache.java#0 $) $Date: 10-nov-2005.19:06:06 $
  * @author The Oracle ADF Faces Team
@@ -86,7 +86,7 @@ import org.xml.sax.SAXException;
 public class FileSystemImageCache implements ImageProvider, ImageConstants
 {
   static public final String BLOCK_IMAGE_GENERATION =
-    "org.apache.myfaces.adf.image.BlockImageGeneration";
+    "org.apache.myfaces.trinidad.image.BlockImageGeneration";
 
   /**
    * Returns a shared cache instance.
@@ -162,7 +162,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
   /**
    * Implementation of ImageCache.getImage().
    *
-   * @see org.apache.myfaces.adfinternal.image.ImageProvider#getImage
+   * @see org.apache.myfaces.trinidadinternal.image.ImageProvider#getImage
    */
   public ImageProviderResponse getImage(
     ImageContext         context,

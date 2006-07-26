@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreAdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.action.ClientAction;
-import org.apache.myfaces.adfinternal.ui.action.ClientActionUtils;
-import org.apache.myfaces.adfinternal.ui.action.FireAction;
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
+import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
+import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/LinkRenderer.java#1 $) $Date: 11-nov-2005.14:59:39 $

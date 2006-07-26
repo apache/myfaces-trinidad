@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 /**
  * MutableUINode extends UINode to add mutability.  Most WebBeans will
@@ -143,7 +143,7 @@ public interface MutableUINode extends UINode
    * <strong>
    * This method is only present on this interface for backwards compatibility
    * and will be removed from this interface in a future version of UIX Components 
-   * and moved to <code>org.apache.myfaces.adfinternal.ui.beans.BaseWebBean</code>
+   * and moved to <code>org.apache.myfaces.trinidadinternal.ui.beans.BaseWebBean</code>
    * </strong>
    */
   public void setID(String id);

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.expl;
+package org.apache.myfaces.trinidadinternal.share.expl;
 
 /**
  * NSFunctionMapper is the abstraction for mapping namespaced names to

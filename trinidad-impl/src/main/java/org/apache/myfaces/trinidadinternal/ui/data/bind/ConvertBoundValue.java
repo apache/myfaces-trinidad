@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bind;
+package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.share.expl.Coercions;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
  * A BoundValue implementation that wraps another and converts

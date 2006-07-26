@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.share.xml.StringParser;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adfinternal.share.xml.BaseNodeParser;
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.SkinExtension;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
-import org.apache.myfaces.adfinternal.skin.SkinUtils;
-import org.apache.myfaces.adfinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * NodeParser for SkinExtensions
@@ -235,8 +235,8 @@ public class SkinExtensionParser extends BaseNodeParser
   private static final String _UNKNOWN_BASE_SKIN_ERROR =
     "Unable to locate base skin: ";
 
-  static private final String _RENDER_KIT_ID_DESKTOP = "org.apache.myfaces.adf.desktop";
-  static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.adf.pda";
+  static private final String _RENDER_KIT_ID_DESKTOP = "org.apache.myfaces.trinidad.desktop";
+  static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA_SKIN_ID = "simple.pda";
   static private final String _SIMPLE_DESKTOP_SKIN_ID = "simple.desktop";
 

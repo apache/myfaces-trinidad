@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml.beans;
+package org.apache.myfaces.trinidadinternal.share.xml.beans;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
@@ -23,9 +23,9 @@ import java.util.Map;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.util.JavaIntrospector;
+import org.apache.myfaces.trinidadinternal.util.JavaIntrospector;
 
 /**
  * Implementation of BeanDef that uses introspection

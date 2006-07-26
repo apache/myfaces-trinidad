@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -23,15 +23,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.core.CoreStyleSheet;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
 /**
  * Renderer for meta data section of the document--a.k.a <head>.
@@ -54,7 +54,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
    * debugging purposes can do so by setting this property to Boolean.TRUE.
    */
   static public final String DISABLE_CONTENT_COMPRESSION =
-    "org.apache.myfaces.adfinternal.DISABLE_CONTENT_COMPRESSION";
+    "org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION";
 
   public StyleSheetRenderer()
   {

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * CacheKeyFactory implementation for flipped icon keys

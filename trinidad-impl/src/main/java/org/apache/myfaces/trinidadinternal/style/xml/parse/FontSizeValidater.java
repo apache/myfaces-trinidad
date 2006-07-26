@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 /**
  * PropertyValidater for font-size values

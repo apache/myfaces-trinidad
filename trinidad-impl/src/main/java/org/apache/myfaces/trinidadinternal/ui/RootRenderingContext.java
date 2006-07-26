@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.util.Map;
 import java.util.Hashtable;
@@ -23,41 +23,41 @@ import java.util.MissingResourceException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
 
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.share.config.ContextBasedConfiguration;
-import org.apache.myfaces.adfinternal.share.url.FacesURLEncoder;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.config.ContextBasedConfiguration;
+import org.apache.myfaces.trinidadinternal.share.url.FacesURLEncoder;
 
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.share.url.NullFormEncoder;
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.NullFormEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProvider;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProvider;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
-import org.apache.myfaces.adfinternal.image.cache.FileSystemImageCache;
+import org.apache.myfaces.trinidadinternal.image.cache.FileSystemImageCache;
 
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 
-import org.apache.myfaces.adfinternal.ui.expl.UIVariableResolver;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.ui.expl.UIVariableResolver;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Default implementation of RenderingContext used as the root for rendering

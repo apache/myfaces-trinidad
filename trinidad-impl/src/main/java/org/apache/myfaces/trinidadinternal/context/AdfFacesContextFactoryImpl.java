@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.AdfFacesContextFactory;
-import org.apache.myfaces.adf.context.PageFlowScopeProvider;
-import org.apache.myfaces.adf.context.PageResolver;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.PageResolver;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.webapp.ConfigParser;
+import org.apache.myfaces.trinidadinternal.webapp.ConfigParser;
 
 /**
  * @author The Oracle ADF Faces Team
@@ -93,7 +93,7 @@ public class AdfFacesContextFactoryImpl extends AdfFacesContextFactory
   private PageFlowScopeProvider _pageFlowScopeProvider;
 
   static private final String _PAGE_RESOLVER_URL =
-    "org.apache.myfaces.adf.context.PageResolver";
+    "org.apache.myfaces.trinidad.context.PageResolver";
   static private final String _PAGE_FLOW_SCOPE_PROVIDER_URL =
-    "org.apache.myfaces.adf.context.PageFlowScopeProvider";
+    "org.apache.myfaces.trinidad.context.PageFlowScopeProvider";
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.taglib;
+package org.apache.myfaces.trinidadinternal.taglib;
 
 import java.io.IOException;
 
@@ -31,13 +31,13 @@ import javax.faces.component.UIComponent;
 import javax.servlet.ServletException;
 import javax.servlet.jsp.JspException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXComponentRef;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXComponentRef;
 
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata;
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata.AttributeMetaData;
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata.ComponentMetaData;
-import org.apache.myfaces.adfinternal.share.expl.Coercions;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata.AttributeMetaData;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata.ComponentMetaData;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
 
 /**
@@ -53,7 +53,7 @@ public class ComponentRefTag extends UIXComponentRefTag
 
   public String getComponentType()
   {
-    return "org.apache.myfaces.adf.ComponentRef";
+    return "org.apache.myfaces.trinidad.ComponentRef";
   }
 
   public String getRendererType()
@@ -294,8 +294,8 @@ processRegion:
   }
 
   private static final String _REGION_TYPE_ATTRIBUTE =
-    "org.apache.myfaces.adfinternal.taglib.RegionTag.regionType.old";
+    "org.apache.myfaces.trinidadinternal.taglib.RegionTag.regionType.old";
   private static final String _RELOCATED_FACETS_ATTRIBUTE =
-    "org.apache.myfaces.adfinternal.taglib.RegionTag.facets.relocated";
+    "org.apache.myfaces.trinidadinternal.taglib.RegionTag.facets.relocated";
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(ComponentRefTag.class);
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adf.component.UIXSubform;
+import org.apache.myfaces.trinidad.component.UIXSubform;
 
 /**
  * Renderer for Subform component.
@@ -63,7 +63,7 @@ public class SubformRenderer extends Renderer
   }
   
   static private final String _DEFAULT_LIST_KEY = 
-    "org.apache.myfaces.adfinternal.DefaultSubForms";
+    "org.apache.myfaces.trinidadinternal.DefaultSubForms";
   static private final String _LIST_KEY = 
-    "org.apache.myfaces.adfinternal.SubForms";
+    "org.apache.myfaces.trinidadinternal.SubForms";
 }

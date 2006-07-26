@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.taglib.util;
+package org.apache.myfaces.trinidadinternal.taglib.util;
 
 import java.awt.Color;
 
@@ -32,9 +32,9 @@ import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 
 /**

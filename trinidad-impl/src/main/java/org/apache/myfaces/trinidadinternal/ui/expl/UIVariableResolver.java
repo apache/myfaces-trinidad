@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.expl;
+package org.apache.myfaces.trinidadinternal.ui.expl;
 
-import org.apache.myfaces.adfinternal.share.expl.ExplException;
+import org.apache.myfaces.trinidadinternal.share.expl.ExplException;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * VariableResolver that supports UIX objects.  This VariableResolver

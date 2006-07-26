@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import org.xml.sax.SAXException;
 
@@ -25,22 +25,22 @@ import javax.faces.render.RenderKitFactory;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.context.Agent;
 
-import org.apache.myfaces.adfinternal.agent.AgentFactoryImpl;
+import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
-import org.apache.myfaces.adfinternal.skin.SkinFactory;
-import org.apache.myfaces.adfinternal.skin.SkinFactoryImpl;
-import org.apache.myfaces.adfinternal.skin.SkinUtils;
+import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
+import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
+import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 
 public class RenderKitBootstrap
 {
   static public UIViewRoot createUIViewRoot(MFacesContext context)
   {
     UIViewRoot root = new UIViewRoot();
-    root.setRenderKitId("org.apache.myfaces.adf.core");
+    root.setRenderKitId("org.apache.myfaces.trinidad.core");
     root.setViewId("/test-view-id.jspx");
     root.setLocale(context.getLocale());
     return root;
@@ -81,7 +81,7 @@ public class RenderKitBootstrap
     if (context.getViewRoot() != null)
       renderKitId = context.getViewRoot().getRenderKitId();
     if (renderKitId == null)
-      renderKitId = "org.apache.myfaces.adf.core";
+      renderKitId = "org.apache.myfaces.trinidad.core";
 
     RenderKit renderKit = factory.getRenderKit(context,renderKitId);
     if (renderKit == null)

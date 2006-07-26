@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -26,19 +26,19 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adf.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXComponentBase;
 
 
 /**
@@ -185,8 +185,8 @@ private void _setTranslationKeyTest(
   UIComponent      component,
   Stack            componentStack)
 {
-  // e.g., family = org.apache.myfaces.adf.SelectBoolean
-  // e.g., rendererType = org.apache.myfaces.adf.Checkbox
+  // e.g., family = org.apache.myfaces.trinidad.SelectBoolean
+  // e.g., rendererType = org.apache.myfaces.trinidad.Checkbox
   String family = component.getFamily();
   String rendererType = component.getRendererType();
 
@@ -427,7 +427,7 @@ private void _setTranslationKeyTest(
 
   static private String _unifiedRendererType(String rendererType)
   {
-    return "org.apache.myfaces.adf.rich" + rendererType.substring("org.apache.myfaces.adf".length());
+    return "org.apache.myfaces.trinidad.rich" + rendererType.substring("org.apache.myfaces.trinidad".length());
   }
 
   private String _get(

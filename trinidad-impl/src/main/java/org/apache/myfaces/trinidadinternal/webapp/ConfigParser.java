@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.InputStream;
 import java.io.IOException;
@@ -21,9 +21,9 @@ import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -36,8 +36,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adfinternal.context.AdfFacesContextBean;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextBean;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 
 

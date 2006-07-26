@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  * Renderer for trees.  A TreeDataProxy may be set on the tree to create
@@ -28,7 +28,7 @@ import org.apache.myfaces.adfinternal.ui.RenderingContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/oracle/desktop/TreeRenderer.java#0 $) $Date: 10-nov-2005.18:52:33 $
  * @author The Oracle ADF Faces Team
  */
-public class TreeRenderer extends org.apache.myfaces.adfinternal.ui.laf.base.desktop.TreeRenderer
+public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.TreeRenderer
 {
 
 

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.action;
+package org.apache.myfaces.trinidadinternal.ui.action;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 
 /**
  * Public utility methods useful for working with ClientActions

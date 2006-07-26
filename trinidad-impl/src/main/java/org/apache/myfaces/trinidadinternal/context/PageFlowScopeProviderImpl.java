@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 
-import org.apache.myfaces.adfinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
 public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
 {
@@ -148,5 +148,5 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
     new PageFlowScopeProviderImpl();
 
   static private final String _PAGE_FLOW_SCOPE_KEY = 
-  "org.apache.myfaces.adfinternal.context.PageFlowScope";   
+  "org.apache.myfaces.trinidadinternal.context.PageFlowScope";   
 }

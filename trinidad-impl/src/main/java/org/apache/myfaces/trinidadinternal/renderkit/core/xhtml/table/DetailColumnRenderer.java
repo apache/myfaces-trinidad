@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.component.UIXTable;
-import org.apache.myfaces.adf.component.core.data.CoreTable;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.ShowDetailRenderer;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.UIXTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 public class DetailColumnRenderer extends SpecialColumnRenderer

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
 
 /**
@@ -27,7 +27,7 @@ import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
  * @author The Oracle ADF Faces Team
  */
 public class NavigationBarRenderer extends
-  org.apache.myfaces.adfinternal.ui.laf.base.xhtml.NavigationBarRenderer
+  org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.NavigationBarRenderer
 
 {
   protected MutableUINode createSingleItemURLButton(

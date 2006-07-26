@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import junit.framework.TestCase;
 
@@ -28,12 +28,12 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.render.ExtendedRenderKitService;
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.adfinternal.io.XhtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 
 
 
@@ -82,7 +82,7 @@ public class RenderKitPerfTestCase extends TestCase
 
   protected String getRenderKitId()
   {
-    return "org.apache.myfaces.adf.core";
+    return "org.apache.myfaces.trinidad.core";
   }
 
   protected UIViewRoot createTestTree(
@@ -167,7 +167,7 @@ public class RenderKitPerfTestCase extends TestCase
 
     public String getFamily()
     {
-      return "org.apache.myfaces.adftest.PerfComp";
+      return "org.apache.myfaces.trinidadtest.PerfComp";
     }
 
     public boolean getRendersChildren()

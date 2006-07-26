@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.adfinternal.share.xml.ParserManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserManager;
 
 /**
  * A UIExtension encapsulates a single bundle of functionality
@@ -27,8 +27,8 @@ import org.apache.myfaces.adfinternal.share.xml.ParserManager;
  * LookAndFeelManager.  Developers using the UIX Servlet
  * can use its BaseUIPageBroker (or a subclass)
  *
- * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager#registerUIExtension
- * @see org.apache.myfaces.adfinternal.uix22.servlet.ui.BaseUIPageBroker#registerUIExtension
+ * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#registerUIExtension
+ * @see org.apache.myfaces.trinidadinternal.uix22.servlet.ui.BaseUIPageBroker#registerUIExtension
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/UIExtension.java#0 $) $Date: 10-nov-2005.18:50:24 $
  * @author The Oracle ADF Faces Team

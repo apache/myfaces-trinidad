@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.io.IOException;
 
@@ -23,22 +23,22 @@ import javax.faces.component.UIComponent;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RendererFactory;
-import org.apache.myfaces.adfinternal.ui.RendererManager;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.RoledRenderer;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.PreAndPostRenderer;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
+import org.apache.myfaces.trinidadinternal.ui.RendererManager;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.PreAndPostRenderer;
 
-import org.apache.myfaces.adf.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 
 
 /**
@@ -143,7 +143,7 @@ public class UIXComponentUINode extends UIComponentUINode
    * attempting to further resolve that value - as if , for instance,
    * it might be a BoundValue.
    * <p>
-   * @see org.apache.myfaces.adfinternal.ui.data.BoundValue
+   * @see org.apache.myfaces.trinidadinternal.ui.data.BoundValue
    */
   public Object getRawAttributeValue(RenderingContext context, AttributeKey attrKey)
   {

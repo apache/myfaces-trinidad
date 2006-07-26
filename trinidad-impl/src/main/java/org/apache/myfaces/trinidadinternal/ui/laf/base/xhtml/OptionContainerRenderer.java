@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
@@ -31,18 +31,18 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.adf.component.UIXSelectOne;
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafUtils;
-import org.apache.myfaces.adfinternal.ui.path.Path;
-import org.apache.myfaces.adfinternal.ui.state.BaseSelection;
-import org.apache.myfaces.adfinternal.ui.state.Selection;
+import org.apache.myfaces.trinidad.component.UIXSelectOne;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
+import org.apache.myfaces.trinidadinternal.ui.path.Path;
+import org.apache.myfaces.trinidadinternal.ui.state.BaseSelection;
+import org.apache.myfaces.trinidadinternal.ui.state.Selection;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/OptionContainerRenderer.java#0 $) $Date: 10-nov-2005.18:54:04 $

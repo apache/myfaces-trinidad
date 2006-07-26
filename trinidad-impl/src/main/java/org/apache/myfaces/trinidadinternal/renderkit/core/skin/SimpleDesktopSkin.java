@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.ui.laf.simple.desktop.SimpleDesktopConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopConstants;
 
 
 /**
@@ -61,7 +61,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   }
   
   /**
-   * Returns the renderKitId for the SimpleDesktopSkin: "org.apache.myfaces.adf.desktop".
+   * Returns the renderKitId for the SimpleDesktopSkin: "org.apache.myfaces.trinidad.desktop".
    */  
   public String getRenderKitId()
   {

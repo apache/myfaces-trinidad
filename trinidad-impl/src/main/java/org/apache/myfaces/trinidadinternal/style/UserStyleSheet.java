@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Map;
 import java.util.Iterator;
@@ -22,7 +22,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.Arrays;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
 /**
  * The UserStyleSheet is used to specify user-specific style overrides

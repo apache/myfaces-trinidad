@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.metadata;
+package org.apache.myfaces.trinidadinternal.metadata;
 
 import java.io.IOException;
 
@@ -31,9 +31,9 @@ import junit.framework.TestSuite;
 
 import junit.textui.TestRunner;
 
-import org.apache.myfaces.adfbuild.test.FacesTestCase;
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata.AttributeMetaData;
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata.ComponentMetaData;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata.AttributeMetaData;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata.ComponentMetaData;
 
 /**
  * Test for parsing region-metadata.xml
@@ -86,7 +86,7 @@ public class RegionMetadataTest extends FacesTestCase
     RegionMetadata rmd = RegionMetadata.getRegionMetadata(context);
 
     ComponentMetaData comp = 
-      (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.adf.view.test.TestRegion1");
+      (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.trinidad.view.test.TestRegion1");
     assertEquals("/regions/testRegion1.jspx", comp.getJspUIDef());
     List attrs = comp.getAttributes();
     assertEquals(2, attrs.size());
@@ -103,12 +103,12 @@ public class RegionMetadataTest extends FacesTestCase
     assertFalse(attr.isRequired());
     assertEquals("Test", attr.getDefaultValue());
 
-    comp = (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.adf.view.test.TestRegion2");
+    comp = (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.trinidad.view.test.TestRegion2");
     assertEquals("/regions/testRegion2.jspx", comp.getJspUIDef());
     attrs = comp.getAttributes();
     assertEquals(0, attrs.size());
 
-    comp = (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.adf.view.test.TestRegion3");
+    comp = (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.trinidad.view.test.TestRegion3");
     assertEquals("/regions/testRegion3.jspx", comp.getJspUIDef());
     attrs = comp.getAttributes();
     assertEquals(0, attrs.size());

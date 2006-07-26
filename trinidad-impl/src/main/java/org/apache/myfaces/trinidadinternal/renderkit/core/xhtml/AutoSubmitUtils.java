@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -25,9 +25,9 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
 
 /**
  * Public utility methods useful for working with AutoSubmits
@@ -345,7 +345,7 @@ public class AutoSubmitUtils
 
   // Name for our Scriptlet
   private static final String _AUTO_SUBMIT_SCRIPTLET =
-    "org.apache.myfaces.adfinternal.renderkit.core.xhtml.AUTO_SUBMIT_SCRIPTLET";
+    "org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AUTO_SUBMIT_SCRIPTLET";
 
   private static final String _FULL_PAGE_START = "submitForm(\'";
   private static final String _START = "_adfspu(\'";

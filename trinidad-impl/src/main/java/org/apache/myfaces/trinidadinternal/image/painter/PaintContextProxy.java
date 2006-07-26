@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -25,7 +25,7 @@ import java.awt.image.ImageObserver;
 
 import java.util.Locale;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * PaintContext that delegates all PaintContext calls to the PaintContext
@@ -214,7 +214,7 @@ public abstract class PaintContextProxy implements PaintContext
    * <p>
    * @return The reading direction of the PaintContext.
    * <p>
-   * @see org.apache.myfaces.adfinternal.util.nls.LocaleUtils
+   * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
   public int getReadingDirection()
   {

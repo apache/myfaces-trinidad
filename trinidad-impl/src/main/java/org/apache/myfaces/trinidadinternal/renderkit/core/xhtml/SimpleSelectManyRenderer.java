@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -33,17 +33,17 @@ import javax.faces.el.ValueBinding;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.adf.component.UIXSelectMany;
-import org.apache.myfaces.adf.util.MessageFactory;
+import org.apache.myfaces.trinidad.component.UIXSelectMany;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.uix.SelectItemSupport;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
 /**
  * Renderer for SelectMany listboxes.

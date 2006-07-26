@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml.parse;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
-import org.apache.myfaces.adfinternal.share.xml.NodeParser;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
-import org.apache.myfaces.adfinternal.share.xml.ParserFactory;
+import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParserFactory;
 
-import org.apache.myfaces.adfinternal.ui.laf.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
  * ParserFactory for Renderer parsers.

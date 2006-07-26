@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.File;
 import java.io.InputStream;
@@ -37,7 +37,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.adfinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.shale.test.mock.MockExternalContext;
 import org.apache.shale.test.mock.MockFacesContext;
 
@@ -214,7 +214,7 @@ public class MFacesContext extends MockFacesContext
       if (_testMode && Configuration.DISABLE_CONTENT_COMPRESSION.equals(name))
         return "true";
       // A hack to disable image generation
-      if ("org.apache.myfaces.adfinternal.BLOCK_IMAGE_GENERATION".equals(name))
+      if ("org.apache.myfaces.trinidadinternal.BLOCK_IMAGE_GENERATION".equals(name))
         return "true";
       return null;
     }
@@ -263,5 +263,5 @@ public class MFacesContext extends MockFacesContext
     private final Map _applicationMap = new HashMap(2);
     private final boolean _testMode;
   }
-  private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.adfinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";
+  private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.trinidadinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";
 }

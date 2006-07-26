@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
 
@@ -29,11 +29,11 @@ import javax.faces.component.UIViewRoot;
 
 import junit.framework.Test;
 
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 import org.xml.sax.SAXException;
 
@@ -60,7 +60,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
 
   protected String getRenderKitId()
   {
-    return "org.apache.myfaces.adf.core";
+    return "org.apache.myfaces.trinidad.core";
   }
 
   protected UIComponent populateDefaultComponentTree(
@@ -70,7 +70,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
     String componentType = 
            script.getDefinition().getComponentInfo().componentType;
 
-    if ("org.apache.myfaces.adf.HtmlHtml".equals(componentType))
+    if ("org.apache.myfaces.trinidad.HtmlHtml".equals(componentType))
     {
       return root;
     }
@@ -145,10 +145,10 @@ public class CoreRenderKitTest extends RenderKitTestCase
                                          false));
 
     _sHtmlComponents = new HashSet(5);
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlBody");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrame");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlFrameBorderLayout");
-    _sHtmlComponents.add("org.apache.myfaces.adf.HtmlHead");
-    _sHtmlComponents.add("org.apache.myfaces.adf.CoreStyleSheet");
+    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlBody");
+    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrame");
+    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrameBorderLayout");
+    _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlHead");
+    _sHtmlComponents.add("org.apache.myfaces.trinidad.CoreStyleSheet");
   }
 }

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.util.Collection;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
-import org.apache.myfaces.adfinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
 
 /** 
  * Cache entry data structure

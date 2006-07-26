@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
-import org.apache.myfaces.adfinternal.ui.composite.ContextPoppingUINode;
-import org.apache.myfaces.adfinternal.ui.composite.RootUINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.UINodeRenderer;
+import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootUINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
 
 
 /**

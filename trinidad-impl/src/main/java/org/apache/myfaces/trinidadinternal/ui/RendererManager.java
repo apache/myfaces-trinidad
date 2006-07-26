@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.BaseDesktopLookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopLookAndFeel;
 
 /**
  * RendererManager maintains a table of RendererFactories, keyed
@@ -71,8 +71,8 @@ public class RendererManager
    * @deprecated RendererManagers should be retrieved from the
    *             LookAndFeel returned from the LookAndFeelManager
    * <p>
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager#getLookAndFeel
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeel#getRendererManager
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#getLookAndFeel
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel#getRendererManager
    */
   static public RendererManager getDefaultRendererManager()
   {
@@ -91,8 +91,8 @@ public class RendererManager
    * @deprecated RendererManagers should be retrieved from the
    *             LookAndFeel returned from the LookAndFeelManager
    * <p>
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager#getLookAndFeel
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeel#getRendererManager
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#getLookAndFeel
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel#getRendererManager
    */
   static public RendererManager createDefaultRendererManager()
   {

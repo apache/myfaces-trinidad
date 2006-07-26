@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin.icon;
+package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
 import java.util.Map;
@@ -23,10 +23,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
 /**
  * An Icon implementation which renders a text string as the icon.

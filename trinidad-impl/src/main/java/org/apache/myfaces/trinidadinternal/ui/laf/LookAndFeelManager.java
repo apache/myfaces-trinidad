@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf;
+package org.apache.myfaces.trinidadinternal.ui.laf;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.adfinternal.share.config.Configuration;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIExtension;
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.BaseDesktopUtils;
-import org.apache.myfaces.adfinternal.ui.laf.simple.desktop.SimpleDesktopUtils;
-import org.apache.myfaces.adfinternal.ui.laf.simple.pda.SimplePdaUtils;
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIExtension;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.simple.pda.SimplePdaUtils;
 
 /**
  * Manages the set of LookAndFeel instances.  LookAndFeel instances can
@@ -148,7 +148,7 @@ public class LookAndFeelManager
    * with the LookAndFeelManager, returns null.
    *
    * @param id A non-null string which represents the id of a LookAndFeel
-   * @see org.apache.myfaces.adfinternal.ui.laf.LookAndFeel#getId
+   * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel#getId
    */
   public LookAndFeel getLookAndFeelById(String id)
   {

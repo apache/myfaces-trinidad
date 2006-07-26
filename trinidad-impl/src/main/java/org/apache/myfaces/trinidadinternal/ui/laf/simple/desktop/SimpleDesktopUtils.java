@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelExtension;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelScorer;
-import org.apache.myfaces.adfinternal.ui.laf.NameOnlyScorer;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelExtension;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelScorer;
+import org.apache.myfaces.trinidadinternal.ui.laf.NameOnlyScorer;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.BaseDesktopConstants;
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.BaseDesktopUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
 
 /**
  * Utilities for the desktop implementation of the Simple
@@ -127,5 +127,5 @@ public class SimpleDesktopUtils extends BaseDesktopUtils
 
   // Package prefix for SLAF package
   private static final String _PACKAGE_PREFIX = 
-    "org.apache.myfaces.adfinternal.ui.laf.simple.desktop.";
+    "org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.";
 }

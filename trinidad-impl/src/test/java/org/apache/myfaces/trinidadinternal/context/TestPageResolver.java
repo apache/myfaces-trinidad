@@ -13,9 +13,9 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
-import org.apache.myfaces.adf.context.PageResolver;
+import org.apache.myfaces.trinidad.context.PageResolver;
 
 /**
  * A default implementation of the page resolver that returns the view ID

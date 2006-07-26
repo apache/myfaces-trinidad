@@ -13,11 +13,11 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.taglib;
+package org.apache.myfaces.trinidadinternal.taglib;
 
 import java.net.URL;
 
-import org.apache.myfaces.adfinternal.XMLValidityTestCase;
+import org.apache.myfaces.trinidadinternal.XMLValidityTestCase;
 
 public class TLDTest extends XMLValidityTestCase
 {

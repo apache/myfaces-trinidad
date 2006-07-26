@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode.nav;
+package org.apache.myfaces.trinidadinternal.uinode.nav;
 
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adf.component.core.nav.CoreCommandLink;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.uinode.FireActionBoundValue;
-import org.apache.myfaces.adfinternal.uinode.UINodeFacesBean;
-import org.apache.myfaces.adfinternal.uinode.bind.PropertyBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.FireActionBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
+import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
 
 
 public class CommandLinkFacesBean extends UINodeFacesBean

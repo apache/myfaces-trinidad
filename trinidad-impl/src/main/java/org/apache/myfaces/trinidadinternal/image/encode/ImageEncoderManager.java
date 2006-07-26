@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.encode;
+package org.apache.myfaces.trinidadinternal.image.encode;
 
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.image.PropertyInstantiator;
+import org.apache.myfaces.trinidadinternal.image.PropertyInstantiator;
 
 /**
  * ImageEncoderManager maintains a registry of image encodings.
@@ -145,13 +145,13 @@ public class ImageEncoderManager
     manager.registerEncoding(
       GIF_TYPE,
       _GIF_EXTENSION,
-      "org.apache.myfaces.adfinternal.image.encode.DefaultGIFEncoder"
+      "org.apache.myfaces.trinidadinternal.image.encode.DefaultGIFEncoder"
       );
 
     manager.registerEncoding(
       PNG_TYPE,
       _PNG_EXTENSION,
-      "org.apache.myfaces.adfinternal.image.encode.DefaultPNGEncoder"
+      "org.apache.myfaces.trinidadinternal.image.encode.DefaultPNGEncoder"
       );
   }
 

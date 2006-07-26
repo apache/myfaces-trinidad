@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style.xml.parse;
+package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,12 +22,12 @@ import java.util.Iterator;
 import java.util.Locale;
 
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.adfinternal.style.util.ModeUtils;
-import org.apache.myfaces.adfinternal.style.util.NameUtils;
+import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
+import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 
 
 /**

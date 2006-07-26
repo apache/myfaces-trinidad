@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.lang.reflect.Array;
 
@@ -27,10 +27,10 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import javax.faces.model.SelectItem;
-import org.apache.myfaces.adf.component.UIXSelectMany;
+import org.apache.myfaces.trinidad.component.UIXSelectMany;
 
-import org.apache.myfaces.adf.util.MessageFactory;
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 /**
  * @todo Support primitive arrays (=-=AEW Already does?)
  */

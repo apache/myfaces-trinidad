@@ -13,13 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 
 public class TestPageFlowScopeProvider extends PageFlowScopeProvider
 {

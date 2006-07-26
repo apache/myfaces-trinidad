@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.expl;
+package org.apache.myfaces.trinidadinternal.share.expl;
 
 import java.awt.Color;
 import java.lang.reflect.Array;
@@ -24,18 +24,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.share.text.ColorFormat;
-import org.apache.myfaces.adfinternal.share.text.RGBColorFormat;
+import org.apache.myfaces.trinidadinternal.share.text.ColorFormat;
+import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 
-import org.apache.myfaces.adfinternal.share.xml.NamespaceURI;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 /**
  * Coercions is a utility class to coerce values to their target type.

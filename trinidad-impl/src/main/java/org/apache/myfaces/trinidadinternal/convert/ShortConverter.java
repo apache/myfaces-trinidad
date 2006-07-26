@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,7 +39,7 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
      * will be replaced by Short.MAX_VALUE.</p>
      */
     public static final String MAXIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM";
+        "org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
@@ -49,14 +49,14 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
      * will be replaced by Short.MIN_VALUE.</p>
      */
     public static final String MINIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ShortConverter.MINIMUM";
+        "org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
      * the value cannot be converted to an integer
      */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ShortConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT";
 
 
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -27,37 +27,37 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.CollectionComponent;
-import org.apache.myfaces.adf.component.TableUtils;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.component.UIXColumn;
-import org.apache.myfaces.adf.component.UIXTable;
-import org.apache.myfaces.adf.component.core.data.CoreColumn;
-import org.apache.myfaces.adf.component.core.data.CoreTable;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.event.RowDisclosureEvent;
-import org.apache.myfaces.adf.event.RangeChangeEvent;
-import org.apache.myfaces.adf.event.SortEvent;
-import org.apache.myfaces.adf.model.RowKeySet;
-import org.apache.myfaces.adf.model.SortCriterion;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.CollectionComponent;
+import org.apache.myfaces.trinidad.component.TableUtils;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.component.UIXColumn;
+import org.apache.myfaces.trinidad.component.UIXTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+import org.apache.myfaces.trinidad.event.RangeChangeEvent;
+import org.apache.myfaces.trinidad.event.SortEvent;
+import org.apache.myfaces.trinidad.model.RowKeySet;
+import org.apache.myfaces.trinidad.model.SortCriterion;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.CellUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.ColumnData;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.DetailColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.RenderStage;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.SelectionColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.SpecialColumnRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableSelectOneRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.DetailColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.SelectionColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.SpecialColumnRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectOneRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 abstract public class TableRenderer extends XhtmlRenderer
 {

@@ -13,15 +13,15 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.table;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.CollectionComponent;
-import org.apache.myfaces.adf.component.UIXTable;
+import org.apache.myfaces.trinidad.component.CollectionComponent;
+import org.apache.myfaces.trinidad.component.UIXTable;
 
 /**
  * @author The Oracle ADF Faces Team
@@ -94,7 +94,7 @@ public final class TableUtils
       int rangeStart = table.getFirst();
       int rangeEnd = showAll  
         ? table.getRowCount() - 1
-        : org.apache.myfaces.adf.component.TableUtils.getLast(table);
+        : org.apache.myfaces.trinidad.component.TableUtils.getLast(table);
       for(int i=rangeStart; i<=rangeEnd; i++)
       {
         table.setRowIndex(i);
@@ -137,7 +137,7 @@ public final class TableUtils
   public static int getVisibleRowCount(CollectionComponent table)
   {
     int rangeStart = table.getFirst();
-    int rangeEnd = org.apache.myfaces.adf.component.TableUtils.getLast(table) + 1;
+    int rangeEnd = org.apache.myfaces.trinidad.component.TableUtils.getLast(table) + 1;
     return rangeEnd - rangeStart;
   }
     

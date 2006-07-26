@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode.bind;
+package org.apache.myfaces.trinidadinternal.uinode.bind;
 
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adf.component.UIXValue;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXValue;
 
-import org.apache.myfaces.adfinternal.convert.ConverterUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
 /**

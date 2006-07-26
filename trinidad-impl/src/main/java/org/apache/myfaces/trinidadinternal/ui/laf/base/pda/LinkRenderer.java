@@ -13,16 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.LinkUtils;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
  */
-public class LinkRenderer extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.LinkRenderer
+public class LinkRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer
 {
   protected Object getStyleClass(
     RenderingContext context,

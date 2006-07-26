@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.html.HtmlBody;
-import org.apache.myfaces.adf.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.component.html.HtmlBody;
+import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**

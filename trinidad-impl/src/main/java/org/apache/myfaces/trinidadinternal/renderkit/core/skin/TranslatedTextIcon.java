@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 
 /**
  * Translated text Icon used by simple skin.

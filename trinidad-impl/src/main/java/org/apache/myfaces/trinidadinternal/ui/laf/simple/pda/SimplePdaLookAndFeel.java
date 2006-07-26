@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.simple.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.pda;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.pda.PdaHtmlLookAndFeel;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.pda.PdaHtmlLookAndFeel;
 
 /**
  * LookAndFeel implementation for simple pocket pc

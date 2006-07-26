@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.OutputStream;
 import java.io.Writer;
@@ -27,7 +27,7 @@ import javax.faces.render.RenderKitFactory;
 import javax.faces.render.Renderer;
 import javax.faces.render.ResponseStateManager;
 
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.util.Service;
 
 abstract public class RenderKitDecorator extends RenderKitBase
                                          implements Service.Provider

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -28,37 +28,37 @@ import javax.faces.el.ValueBinding;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.adf.component.UIXSelectMany;
-import org.apache.myfaces.adf.component.UIXSelectOrder;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.adfinternal.share.xml.NamespaceURI;
-import org.apache.myfaces.adfinternal.ui.html.HTMLWebBean;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.component.UIXSelectMany;
+import org.apache.myfaces.trinidad.component.UIXSelectOrder;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
+import org.apache.myfaces.trinidadinternal.ui.html.HTMLWebBean;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.collection.UINodeList;
-import org.apache.myfaces.adfinternal.ui.composite.ContextPoppingUINode;
-import org.apache.myfaces.adfinternal.ui.composite.RootAttributeBoundValue;
-import org.apache.myfaces.adfinternal.ui.composite.UINodeRenderer;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.ConcatBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.FixedBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.IfBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.IsAgentApplicationBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.OrBoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.NotBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.SkinTranslatedBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
+import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
+import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.ConcatBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.FixedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.IfBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.IsAgentApplicationBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.NotBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
 /**
  * Renders a shuttle element.
@@ -1196,9 +1196,9 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
                                                        TRAILING_HEADER_ATTR);
 
       leadingInfo.itemsList = (List) node.getAttributeValue(context,
-         org.apache.myfaces.adfinternal.renderkit.uix.SelectManyShuttleRenderer.SELECT_ITEMS_ATTR);
+         org.apache.myfaces.trinidadinternal.renderkit.uix.SelectManyShuttleRenderer.SELECT_ITEMS_ATTR);
       trailingInfo.itemsList = (List) node.getAttributeValue(context,
-         org.apache.myfaces.adfinternal.renderkit.uix.SelectManyShuttleRenderer.VALUE_ITEMS_ATTR);
+         org.apache.myfaces.trinidadinternal.renderkit.uix.SelectManyShuttleRenderer.VALUE_ITEMS_ATTR);
 
       // descriptions
       Object hasLeadingDescArea = node.getAttributeValue( context,

@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.StringWriter;
 
@@ -30,11 +30,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.model.SortCriterion;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.context.Agent;
 
 public class TestScript
 {

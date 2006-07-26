@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.uix;
+package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -29,16 +29,16 @@ import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXSelectMany;
-import org.apache.myfaces.adf.component.core.input.CoreSelectItem;
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXSelectMany;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.agent.AgentUtil;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.uinode.UINodeFacesBean;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Renderer used both for <uix:selectManyShuttle> and <uix:selectOrderShuttle>.

@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 
 /**
@@ -140,7 +140,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
 
   // Alternate renderer in screen reader mode
   private static final Renderer _ALTERNATE_RENDERER =
-    new org.apache.myfaces.adfinternal.ui.laf.base.xhtml.ResetButtonRenderer();
+    new org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ResetButtonRenderer();
 
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(ResetButtonRenderer.class);
 }

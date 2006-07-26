@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,14 +31,14 @@ import java.awt.image.ImageObserver;
 import java.util.Locale;
 
 import java.util.Map;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.image.painter.FontUtils;
-import org.apache.myfaces.adfinternal.image.painter.Painter;
-import org.apache.myfaces.adfinternal.image.painter.PaintContext;
+import org.apache.myfaces.trinidadinternal.image.painter.FontUtils;
+import org.apache.myfaces.trinidadinternal.image.painter.Painter;
+import org.apache.myfaces.trinidadinternal.image.painter.PaintContext;
 
-import org.apache.myfaces.adfinternal.style.util.FontProxy;
-import org.apache.myfaces.adfinternal.style.util.GraphicsUtils;
+import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
+import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
 
 /**
  * ImageRenderer implementation that uses Painter objects to
@@ -164,7 +164,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
     /**
      * Tests whether the requested image can be rendered.
      * The default implementation of isRenderable() returns false if
-     * org.apache.myfaces.adfinternal.style.util.GraphicsUtils.isGraphicalEnvironment()
+     * org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils.isGraphicalEnvironment()
      * returns false.  Subclasses can override this to verify that all
      * required properties are present in the requested properties
      * Map.  All overrides must either call super.isRenderable()

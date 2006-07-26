@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
@@ -23,33 +23,33 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
 import javax.faces.convert.Converter;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
-import org.apache.myfaces.adfinternal.image.ImageProvider;
-import org.apache.myfaces.adfinternal.image.ImageProviderRequest;
-import org.apache.myfaces.adfinternal.image.ImageProviderResponse;
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.IconURIBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.LafIconProvider;
-import org.apache.myfaces.adfinternal.ui.laf.base.NodeRoleUtils;
-import org.apache.myfaces.adfinternal.ui.partial.PartialPageRendererUtils;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageProvider;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
+import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.IconURIBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
+import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
-import org.apache.myfaces.adfinternal.util.FormattedTextParser;
+import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
 
 
 /**

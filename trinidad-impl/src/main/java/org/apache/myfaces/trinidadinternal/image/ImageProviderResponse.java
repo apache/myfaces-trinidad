@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 import java.util.Collection;
 
 
@@ -60,7 +60,7 @@ public interface ImageProviderResponse
    * regions of the image which should be included in the image's
    * map.
    *
-   * @see org.apache.myfaces.adfinternal.image.util.MapArea
+   * @see org.apache.myfaces.trinidadinternal.image.util.MapArea
    */
   public Collection getMapAreas();
 }

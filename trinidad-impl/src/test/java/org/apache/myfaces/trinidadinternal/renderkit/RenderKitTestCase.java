@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,11 +39,11 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.commons.lang.StringUtils;
 
-import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.render.ExtendedRenderKitService;
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.adfinternal.io.XhtmlResponseWriter;
+import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
@@ -329,7 +329,7 @@ abstract public class RenderKitTestCase extends TestSuite
       }
 
       boolean forceGolden = "true".equals(
-         System.getProperty("org.apache.myfaces.adf.ForceGolden"));
+         System.getProperty("org.apache.myfaces.trinidad.ForceGolden"));
 
       Writer out = new StringWriter(golden == null ? 1000 : golden.length());
       out.write("<results>");
@@ -374,7 +374,7 @@ abstract public class RenderKitTestCase extends TestSuite
       if ((golden == null) || !golden.equals(results))
       {
         File failureFile;
-        // Set the "org.apache.myfaces.adf.ForceGolden" property to true to
+        // Set the "org.apache.myfaces.trinidad.ForceGolden" property to true to
         // force failures to be directly copied into the target directory
         if (forceGolden)
           failureFile = new File(_goldenDir, getName() + "-golden.xml");

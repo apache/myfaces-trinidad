@@ -13,17 +13,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit.core.pda;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
 
-import org.apache.myfaces.adfinternal.renderkit.RenderKitDecorator;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitDecorator;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
 public class PdaRenderKit extends RenderKitDecorator
 {
   public PdaRenderKit()
   {
-    addRenderer("org.apache.myfaces.adf.Table",
-		"org.apache.myfaces.adf.Table",
+    addRenderer("org.apache.myfaces.trinidad.Table",
+		"org.apache.myfaces.trinidad.Table",
                 new PdaTableRenderer());
   }
 

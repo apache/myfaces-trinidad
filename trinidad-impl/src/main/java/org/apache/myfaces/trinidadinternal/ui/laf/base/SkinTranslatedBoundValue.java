@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base;
+package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
  * BoundValue used to retrieve a translated String from the Skin,
@@ -26,7 +26,7 @@ import org.apache.myfaces.adfinternal.ui.data.BoundValue;
  * If either the the key can not be found, an error message
  * will be written to the error log.
  * <p>
- * @see org.apache.myfaces.adfinternal.share.nls.LocaleContext
+ * @see org.apache.myfaces.trinidadinternal.share.nls.LocaleContext
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/SkinTranslatedBoundValue.java#0 $) $Date: 10-nov-2005.18:53:07 $
  * @author The Oracle ADF Faces Team
  */

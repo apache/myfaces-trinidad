@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.context.AdfFacesContextBean;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextBean;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
 /**
  * Utility methods for Renderers which support partial page rendering.
@@ -145,8 +145,8 @@ public final class PartialPageUtils
   // Flag used to store info on the context about whether
   // an iFrame is built yet.
   private static final String _PPR_ACTIVE_FLAG_NAME =
-          "org.apache.myfaces.adfinternal.renderkit._pprActiveOnPage";
+          "org.apache.myfaces.trinidadinternal.renderkit._pprActiveOnPage";
   private static final String _PARTIAL_KEY =
-    "org.apache.myfaces.adfinternal.ForcedPartialRequest";
+    "org.apache.myfaces.trinidadinternal.ForcedPartialRequest";
 
 }

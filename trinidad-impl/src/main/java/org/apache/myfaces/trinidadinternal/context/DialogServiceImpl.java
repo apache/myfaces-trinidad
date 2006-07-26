@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,17 +27,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.DialogService;
-import org.apache.myfaces.adf.event.LaunchEvent;
-import org.apache.myfaces.adf.event.ReturnEvent;
-import org.apache.myfaces.adf.render.DialogRenderKitService;
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.DialogService;
+import org.apache.myfaces.trinidad.event.LaunchEvent;
+import org.apache.myfaces.trinidad.event.ReturnEvent;
+import org.apache.myfaces.trinidad.render.DialogRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.application.StateManagerImpl;
-import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
 
 public class DialogServiceImpl extends DialogService
 {
@@ -488,13 +488,13 @@ public class DialogServiceImpl extends DialogService
   }
 
   static private final String _PUSHED_VIEWS_KEY =
-    "org.apache.myfaces.adfinternal.PushedViews";
+    "org.apache.myfaces.trinidadinternal.PushedViews";
   static private final String _DIALOG_RETURN_KEY =
-    "org.apache.myfaces.adfinternal.DialogReturnValue";
+    "org.apache.myfaces.trinidadinternal.DialogReturnValue";
   static private final String _USED_RENDER_KIT_KEY =
-    "org.apache.myfaces.adfinternal.DialogUsedRK";
+    "org.apache.myfaces.trinidadinternal.DialogUsedRK";
   static private final String _RETURN_PARAM =
-    "org.apache.myfaces.adfinternal.ReturnParam";
+    "org.apache.myfaces.trinidadinternal.ReturnParam";
 
   static private final ADFLogger _LOG =
     ADFLogger.createADFLogger(DialogServiceImpl.class);

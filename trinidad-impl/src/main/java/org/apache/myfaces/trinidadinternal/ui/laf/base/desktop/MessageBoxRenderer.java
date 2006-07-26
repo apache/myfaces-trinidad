@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
@@ -23,14 +23,14 @@ import java.util.Map;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.component.core.output.CoreMessages;
+import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
-import org.apache.myfaces.adfinternal.ui.BaseMutableUINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.data.bind.ContextPropertyBoundValue;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.ContextPropertyBoundValue;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * Renders a message box.

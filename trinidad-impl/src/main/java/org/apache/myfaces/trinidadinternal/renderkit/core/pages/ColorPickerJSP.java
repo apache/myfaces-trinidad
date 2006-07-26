@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
 
@@ -22,20 +22,20 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.component.core.input.CoreChooseColor;
-import org.apache.myfaces.adf.component.core.input.CoreSelectInputColor;
-import org.apache.myfaces.adf.component.core.layout.CorePanelButtonBar;
-import org.apache.myfaces.adf.component.core.nav.CoreGoButton;
-import org.apache.myfaces.adf.component.core.output.CoreObjectSpacer;
-import org.apache.myfaces.adf.component.html.HtmlCellFormat;
-import org.apache.myfaces.adf.component.html.HtmlRowLayout;
-import org.apache.myfaces.adf.component.html.HtmlScript;
-import org.apache.myfaces.adf.component.html.HtmlTableLayout;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.component.core.input.CoreChooseColor;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
+import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
+import org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer;
+import org.apache.myfaces.trinidad.component.html.HtmlCellFormat;
+import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
+import org.apache.myfaces.trinidad.component.html.HtmlScript;
+import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 
-import org.apache.myfaces.adfinternal.convert.ColorConverter;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 /**
  * Entry point for the "colorPicker" JSP.

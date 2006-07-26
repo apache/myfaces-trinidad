@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.listener;
+package org.apache.myfaces.trinidadinternal.taglib.listener;
 
 import javax.faces.component.StateHolder;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.FacesBeanImpl;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
 
 /**
  * This action listener returns a value from a dialog or process.

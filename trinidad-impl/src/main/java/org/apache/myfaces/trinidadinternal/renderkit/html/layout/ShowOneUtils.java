@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.html.layout;
+package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 
 import java.io.IOException;
 
@@ -22,10 +22,10 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
-import org.apache.myfaces.adfinternal.ui.partial.PartialPageRendererUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
+import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 /**
  *  Utility class for showOne category of components.

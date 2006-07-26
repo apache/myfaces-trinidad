@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui;
+package org.apache.myfaces.trinidadinternal.ui;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -69,8 +69,8 @@ public interface UINode
    * <p>
    * <i>TO DO: put in link to XML namespaces</i>
    * @see #getLocalName
-   * @see org.apache.myfaces.adfinternal.ui.RendererManager
-   * @see org.apache.myfaces.adfinternal.ui.RendererFactory
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererManager
+   * @see org.apache.myfaces.trinidadinternal.ui.RendererFactory
    */
   public String getNamespaceURI();
 
@@ -123,7 +123,7 @@ public interface UINode
    * </STRONG>
    * <p>
    * @see #getChildNames
-   * @see org.apache.myfaces.adfinternal.ui.UIConstants
+   * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
   public UINode getNamedChild(RenderingContext context, String childName);
 
@@ -185,7 +185,7 @@ public interface UINode
    * attempting to further resolve that value - as if , for instance,
    * it might be a BoundValue.
    * <p>
-   * @see org.apache.myfaces.adfinternal.ui.data.BoundValue
+   * @see org.apache.myfaces.trinidadinternal.ui.data.BoundValue
    */
   public Object getRawAttributeValue(RenderingContext context, AttributeKey attrKey);
 

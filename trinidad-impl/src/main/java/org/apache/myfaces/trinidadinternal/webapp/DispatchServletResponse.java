@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.webapp;
+package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -74,7 +74,7 @@ public class DispatchServletResponse extends HttpServletResponseWrapper
   private final HttpServletRequest _request;
  
   static private final String _CONTENT_TYPE_KEY = 
-                                  "org.apache.myfaces.adfinternal.CONTENT_TYPE";
+                                  "org.apache.myfaces.trinidadinternal.CONTENT_TYPE";
                                   
   static private final Pattern _CONTENT_TYPE_PATTERN = 
                                   Pattern.compile("([^;]+)(?:;charset=(.*))?");

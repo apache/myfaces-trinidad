@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * Renderer that renders a horizontal separator.
@@ -29,7 +29,7 @@ import org.apache.myfaces.adfinternal.ui.UINode;
  * @author The Oracle ADF Faces Team
  */
 public class SeparatorRenderer 
-                     extends org.apache.myfaces.adfinternal.ui.laf.base.xhtml.SeparatorRenderer
+                     extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SeparatorRenderer
 {
   protected void renderAttributes(
     RenderingContext context,

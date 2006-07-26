@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -32,15 +32,15 @@ import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestResult;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.util.CaboHttpUtils;
+import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
-import org.apache.myfaces.adfinternal.ui.io.EscapedText;
-import org.apache.myfaces.adfinternal.ui.io.EscapedTextFactory;
-import org.apache.myfaces.adfinternal.ui.io.XMLEscapes;
+import org.apache.myfaces.trinidadinternal.ui.io.EscapedText;
+import org.apache.myfaces.trinidadinternal.ui.io.EscapedTextFactory;
+import org.apache.myfaces.trinidadinternal.ui.io.XMLEscapes;
 
 /**
  * Implementation of ResponseWriter for outputting XHTML.

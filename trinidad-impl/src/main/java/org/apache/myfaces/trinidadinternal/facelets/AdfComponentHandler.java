@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.facelets;
+package org.apache.myfaces.trinidadinternal.facelets;
 
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletViewHandler;
@@ -27,7 +27,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 
 /**
  * TagLibrary implementation for Oracle ADF core library.

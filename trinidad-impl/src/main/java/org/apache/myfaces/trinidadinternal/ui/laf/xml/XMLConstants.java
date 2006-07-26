@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.xml;
+package org.apache.myfaces.trinidadinternal.ui.laf.xml;
 
 /**
  * Constants used by look and feel parsing.

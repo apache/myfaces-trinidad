@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
 import java.awt.Color;
 
@@ -22,12 +22,12 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 /**
  * Scriptlet for adding color field information.

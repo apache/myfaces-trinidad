@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.resource;
+package org.apache.myfaces.trinidadinternal.renderkit.core.resource;
 
 /**
  * Empty class to ensure that English locale pages

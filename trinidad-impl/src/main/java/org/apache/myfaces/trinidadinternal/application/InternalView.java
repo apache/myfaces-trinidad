@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.IOException;
 

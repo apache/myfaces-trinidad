@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.FacesBeanFactory;
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adfbuild.test.FacesTestCase;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
 
 /**
  * Base class for JavaServer Faces UINodeFacesBean unit tests.

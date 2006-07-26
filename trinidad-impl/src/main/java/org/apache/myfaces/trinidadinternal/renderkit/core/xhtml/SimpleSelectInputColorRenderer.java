@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Color;
 
@@ -28,26 +28,26 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.core.input.CoreSelectInputColor;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.event.ReturnEvent;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.event.ReturnEvent;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.convert.ColorConverter;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRendererUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.pages.GenericEntry;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.ColorFieldInfoScriptlet;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ColorFieldInfoScriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**

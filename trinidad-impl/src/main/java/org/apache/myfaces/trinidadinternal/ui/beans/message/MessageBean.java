@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.beans.message;
+package org.apache.myfaces.trinidadinternal.ui.beans.message;
 
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 
 /**
  * Interface implemented by all components that support

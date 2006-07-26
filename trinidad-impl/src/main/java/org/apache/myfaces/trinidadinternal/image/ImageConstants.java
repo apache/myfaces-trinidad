@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image;
+package org.apache.myfaces.trinidadinternal.image;
 
 
 
 /**
- * Common constants for the org.apache.myfaces.adfinternal.image package.
+ * Common constants for the org.apache.myfaces.trinidadinternal.image package.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/ImageConstants.java#0 $) $Date: 10-nov-2005.19:03:52 $
  * @author The Oracle ADF Faces Team
@@ -44,7 +44,7 @@ public interface ImageConstants
    * RenderingContext via the RenderingContext.setProperty()
    * method.
    */
-  public static final Object IMAGE_PROVIDER_PROPERTY = "org.apache.myfaces.adfinternal.image.imageProvider";
+  public static final Object IMAGE_PROVIDER_PROPERTY = "org.apache.myfaces.trinidadinternal.image.imageProvider";
 
   /**
    * Name for the colorized icon type
@@ -78,9 +78,9 @@ public interface ImageConstants
   /**
    * Key used to specify the font.
    * The value of this key is either a java.awt.Font or a
-   * org.apache.myfaces.adfinternal.style.util.FontProxy object specifying the
+   * org.apache.myfaces.trinidadinternal.style.util.FontProxy object specifying the
    * font to use when rendering an image.
-   * @see org.apache.myfaces.adfinternal.style.util.FontProxy
+   * @see org.apache.myfaces.trinidadinternal.style.util.FontProxy
    */
   public static final Object FONT_KEY = "font";
 
@@ -228,7 +228,7 @@ public interface ImageConstants
    * The InputStreamProvider is used to obtain image data for the
    * source images for global buttons and colorizeds.
    *
-   * @see org.apache.myfaces.adfinternal.share.io.InputStreamProvider
+   * @see org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider
    */
   public static final Object SOURCE_INPUT_STREAM_PROVIDER_KEY = "inputStreamProvider";
 
@@ -272,7 +272,7 @@ public interface ImageConstants
    * The value of this key is an array of MapArea objects
    * (MapArea[]).
    *
-   * @see org.apache.myfaces.adfinternal.image.util.MapArea
+   * @see org.apache.myfaces.trinidadinternal.image.util.MapArea
    */
   public static final Object IMAGE_MAP_AREAS_RESPONSE_KEY = "areas";
 

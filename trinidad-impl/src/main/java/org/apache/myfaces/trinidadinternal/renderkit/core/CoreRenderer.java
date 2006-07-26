@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core;
+package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import java.io.IOException;
 
@@ -25,12 +25,12 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.UIXComponent;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.RenderUtils;
-import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
 
 /**
  * Basic implementation of the core rendering functionality

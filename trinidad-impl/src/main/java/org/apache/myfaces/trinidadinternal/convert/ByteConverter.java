@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,7 +39,7 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
      * will be replaced by Byte.MAX_VALUE.</p>
      */
     public static final String MAXIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM";
+        "org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
@@ -49,14 +49,14 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
      * will be replaced by Byte.MIN_VALUE.</p>
      */
     public static final String MINIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ByteConverter.MINIMUM";
+        "org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
      * the value cannot be converted to an integer
      */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ByteConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT";
 
   public Object getAsObject(
     FacesContext context, 

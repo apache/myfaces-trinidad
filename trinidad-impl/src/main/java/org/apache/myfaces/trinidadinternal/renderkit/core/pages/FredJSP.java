@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.pages;
+package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 
 import java.io.IOException;
 
@@ -26,20 +26,20 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.component.core.CoreImportScript;
-import org.apache.myfaces.adf.component.core.output.CoreOutputText;
-import org.apache.myfaces.adf.component.html.HtmlHtml;
-import org.apache.myfaces.adf.component.html.HtmlFrame;
-import org.apache.myfaces.adf.component.html.HtmlFrameBorderLayout;
-import org.apache.myfaces.adf.component.html.HtmlScript;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.component.core.CoreImportScript;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
+import org.apache.myfaces.trinidad.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.component.html.HtmlFrame;
+import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
+import org.apache.myfaces.trinidad.component.html.HtmlScript;
 
-import org.apache.myfaces.adfinternal.context.PageFlowScopeProviderImpl;
-import org.apache.myfaces.adfinternal.renderkit.RenderUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRenderKit;
-import org.apache.myfaces.adfinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
+import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 /**
  * Entry point for the "fred" JSP.

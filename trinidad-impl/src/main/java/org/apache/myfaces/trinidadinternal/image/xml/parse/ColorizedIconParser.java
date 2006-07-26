@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.parse;
+package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.xml.XMLConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.xml.XMLConstants;
 
 /**
  * NodeParser for colorizedIcon elements
@@ -60,7 +60,7 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
     // If we didn't find the LAF string in the IMX file, we must
     // have an old IMX file.  Assume that we've got a BLAF icon
     if (lafString == null)
-      lafString = "org.apache.myfaces.adfinternal.ui.laf.oracle.desktop.BrowserLookAndFeel";
+      lafString = "org.apache.myfaces.trinidadinternal.ui.laf.oracle.desktop.BrowserLookAndFeel";
 
     // Map old LAF strings to new strings.
     String newLafString = _mapOldLaf(lafString);
@@ -85,8 +85,8 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
 
   static private String _mapOldLaf(String lafString)
   {
-    if ("org.apache.myfaces.adfinternal.ui.laf.browser.BrowserLookAndFeel".equals(lafString))
-      return "org.apache.myfaces.adfinternal.ui.laf.oracle.desktop.BrowserLookAndFeel";
+    if ("org.apache.myfaces.trinidadinternal.ui.laf.browser.BrowserLookAndFeel".equals(lafString))
+      return "org.apache.myfaces.trinidadinternal.ui.laf.oracle.desktop.BrowserLookAndFeel";
     return null;
   }
   protected boolean isColorElement(String namespaceURI, String localName)

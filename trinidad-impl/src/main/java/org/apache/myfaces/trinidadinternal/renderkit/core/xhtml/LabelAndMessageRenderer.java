@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -23,17 +23,17 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.adf.component.UIXGroup;
-import org.apache.myfaces.adf.component.UIXPanel;
-import org.apache.myfaces.adf.component.html.HtmlTableLayout;
+import org.apache.myfaces.trinidad.component.UIXGroup;
+import org.apache.myfaces.trinidad.component.UIXPanel;
+import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.table.TableRenderingContext;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
 
 
 /**
@@ -85,8 +85,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     if (UIXPanel.COMPONENT_FAMILY.equals(family))
     {
       String rendererType = parent.getRendererType();
-      if ("org.apache.myfaces.adf.Form".equals(rendererType) ||
-          "org.apache.myfaces.adf.rich.Form".equals(rendererType))
+      if ("org.apache.myfaces.trinidad.Form".equals(rendererType) ||
+          "org.apache.myfaces.trinidad.rich.Form".equals(rendererType))
         return false;
     }
     else if (HtmlTableLayout.COMPONENT_FAMILY.equals(family))
@@ -121,8 +121,8 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     if (UIXPanel.COMPONENT_FAMILY.equals(family))
     {
       String rendererType = parentComponent.getRendererType();
-      if ("org.apache.myfaces.adf.Form".equals(rendererType) ||
-          "org.apache.myfaces.adf.rich.Form".equals(rendererType))
+      if ("org.apache.myfaces.trinidad.Form".equals(rendererType) ||
+          "org.apache.myfaces.trinidad.rich.Form".equals(rendererType))
         return true;
     }
     return false;

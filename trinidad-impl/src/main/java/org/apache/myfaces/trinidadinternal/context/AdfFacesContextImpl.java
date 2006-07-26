@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.context;
+package org.apache.myfaces.trinidadinternal.context;
 
 
 import java.util.HashMap;
@@ -31,40 +31,40 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.change.ChangeManager;
-import org.apache.myfaces.adf.component.UIXCollection;
-import org.apache.myfaces.adf.config.RegionManager;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.context.DialogService;
-import org.apache.myfaces.adf.context.Agent;
-import org.apache.myfaces.adf.context.PageResolver;
-import org.apache.myfaces.adf.context.PageFlowScopeProvider;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
-import org.apache.myfaces.adf.webapp.UploadedFileProcessor;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.component.UIXCollection;
+import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.DialogService;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.PageResolver;
+import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgentImpl;
-import org.apache.myfaces.adfinternal.agent.AgentFactory;
-import org.apache.myfaces.adfinternal.agent.AgentFactoryImpl;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
+import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
+import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
-import org.apache.myfaces.adfinternal.change.NullChangeManager;
-import org.apache.myfaces.adfinternal.change.SessionChangeManager;
+import org.apache.myfaces.trinidadinternal.change.NullChangeManager;
+import org.apache.myfaces.trinidadinternal.change.SessionChangeManager;
 
-import org.apache.myfaces.adfinternal.el.FormatterMap;
-import org.apache.myfaces.adfinternal.el.HelpProvider;
-import org.apache.myfaces.adfinternal.el.OracleHelpProvider;
+import org.apache.myfaces.trinidadinternal.el.FormatterMap;
+import org.apache.myfaces.trinidadinternal.el.HelpProvider;
+import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 
-import org.apache.myfaces.adfinternal.metadata.RegionMetadata;
+import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 
-import org.apache.myfaces.adfinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.config.UIXCookie;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
-import org.apache.myfaces.adfinternal.ui.expl.ColorPaletteUtils;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
 
 /**
  * @author The Oracle ADF Faces Team
@@ -72,10 +72,10 @@ import org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl;
 public class AdfFacesContextImpl extends AdfFacesContext
 {
   static public final String LAUNCH_PARAMETERS =
-    "org.apache.myfaces.adf.PageFlowSourceParameters";
+    "org.apache.myfaces.trinidad.PageFlowSourceParameters";
 
   static public final String LAUNCH_VIEW =
-    "org.apache.myfaces.adf.PageFlowSourceView";
+    "org.apache.myfaces.trinidad.PageFlowSourceView";
 
 
   public AdfFacesContextImpl(AdfFacesContextBean bean)
@@ -656,9 +656,9 @@ public class AdfFacesContextImpl extends AdfFacesContext
   // static private final Object _GLOBAL_TRIGGER = new Object();
   static private final int    _DEFAULT_PAGE_FLOW_SCOPE_LIFETIME = 15;
   static private final String _CHANGE_MANAGER_KEY =
-    "org.apache.myfaces.adfinternal.ChangeManager";
+    "org.apache.myfaces.trinidadinternal.ChangeManager";
   static private final String _CHANGE_PERSISTENCE_INIT_PARAM =
-    "org.apache.myfaces.adf.CHANGE_PERSISTENCE";
+    "org.apache.myfaces.trinidad.CHANGE_PERSISTENCE";
 
   static private final ADFLogger _LOG =
     ADFLogger.createADFLogger(AdfFacesContextImpl.class);

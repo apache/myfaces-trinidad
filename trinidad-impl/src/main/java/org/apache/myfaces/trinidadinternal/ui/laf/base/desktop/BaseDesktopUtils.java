@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.laf.LookAndFeelManager;
-import org.apache.myfaces.adfinternal.ui.laf.NameAndAgentScorer;
-import org.apache.myfaces.adfinternal.ui.laf.Score;
-import org.apache.myfaces.adfinternal.ui.laf.ScoreProxy;
-import org.apache.myfaces.adfinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
+import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
+import org.apache.myfaces.trinidadinternal.ui.laf.Score;
+import org.apache.myfaces.trinidadinternal.ui.laf.ScoreProxy;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 
 /**

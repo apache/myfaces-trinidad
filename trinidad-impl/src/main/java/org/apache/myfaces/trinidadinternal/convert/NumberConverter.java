@@ -13,13 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
-public final class NumberConverter extends org.apache.myfaces.adf.convert.NumberConverter
+public final class NumberConverter extends org.apache.myfaces.trinidad.convert.NumberConverter
 {
   public NumberConverter()
   {

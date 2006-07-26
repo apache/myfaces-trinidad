@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 
 import java.util.ArrayList;
@@ -30,19 +30,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.component.UIXEditableValue;
-import org.apache.myfaces.adf.convert.ClientConverter;
-import org.apache.myfaces.adf.util.MessageFactory;
-import org.apache.myfaces.adf.validator.ClientValidator;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidad.validator.ClientValidator;
 
-import org.apache.myfaces.adfinternal.convert.InternalClientConverter;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.data.ServletRequestParameters;
-import org.apache.myfaces.adfinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
-import org.apache.myfaces.adfinternal.util.MessageUtils;
-import org.apache.myfaces.adfinternal.validator.InternalClientValidator;
+import org.apache.myfaces.trinidadinternal.convert.InternalClientConverter;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
+import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
+import org.apache.myfaces.trinidadinternal.validator.InternalClientValidator;
 
 /**
  *@todo - this needs to be moved to the renderkit package
@@ -447,7 +447,7 @@ public class FormData
     if (component == null)
     {
       // HACK HACK - this is needed for colorPicker!
-      component = new org.apache.myfaces.adf.component.UIXInput();
+      component = new org.apache.myfaces.trinidad.component.UIXInput();
       component.setId(clientId);
 
     }

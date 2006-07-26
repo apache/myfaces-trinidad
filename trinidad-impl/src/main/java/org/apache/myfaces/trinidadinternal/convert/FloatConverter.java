@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -32,7 +32,7 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
      * the value cannot be converted
      */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.FloatConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT";
 
   public Object getAsObject(
     FacesContext context, 

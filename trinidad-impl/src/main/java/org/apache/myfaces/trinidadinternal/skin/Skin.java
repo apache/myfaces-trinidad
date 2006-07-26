@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,22 +23,22 @@ import java.util.Map;
 import java.util.MissingResourceException;
 
 import java.util.Stack;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.adfinternal.share.expl.Coercions;
-import org.apache.myfaces.adfinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.SkinPropertyNode;
-import org.apache.myfaces.adfinternal.util.OptimisticHashMap;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.xml.StyleSheetDocumentUtils;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 
 
@@ -48,7 +48,7 @@ import org.apache.myfaces.adfinternal.skin.icon.Icon;
  * @todo. look through UIExtension comments.
  *
  * @see SkinFactory
- * @see org.apache.myfaces.adfinternal.ui.RenderingContext#getSkinFactory
+ * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#getSkinFactory
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/Skin.java#0 $) $Date: 10-nov-2005.18:58:54 $
  * @author The Oracle ADF Faces Team
@@ -59,7 +59,7 @@ abstract public class Skin
    * Returns an string identifier which uniquely identies
    * this Skin implementation.  Skin implementations
    * can be retrieved by id via SkinFactory.getSkin().
-   * @see org.apache.myfaces.adfinternal.skin.SkinFactory#getSkin
+   * @see org.apache.myfaces.trinidadinternal.skin.SkinFactory#getSkin
    */
   public String getId()
   {

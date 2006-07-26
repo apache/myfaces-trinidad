@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/TextInputRenderer.java#0 $) $Date: 10-nov-2005.18:55:06 $
  * @author The Oracle ADF Faces Team
  */
 public class TextInputRenderer extends 
-                               org.apache.myfaces.adfinternal.ui.laf.base.xhtml.TextInputRenderer
+                               org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.TextInputRenderer
 {
   /**
    * Returns the default number of text input columns

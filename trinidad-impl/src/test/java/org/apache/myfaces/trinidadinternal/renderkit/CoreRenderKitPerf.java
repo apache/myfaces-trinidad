@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.renderkit;
+package org.apache.myfaces.trinidadinternal.renderkit;
 
 import org.xml.sax.SAXException;
 
@@ -33,20 +33,20 @@ import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.component.UISelectItem;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.adf.component.core.CoreDocument;
-import org.apache.myfaces.adf.component.core.CoreForm;
-import org.apache.myfaces.adf.component.core.data.CoreColumn;
-import org.apache.myfaces.adf.component.core.data.CoreTable;
-import org.apache.myfaces.adf.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.adf.component.core.layout.CorePanelGroup;
-import org.apache.myfaces.adf.component.core.output.CoreOutputText;
-import org.apache.myfaces.adf.component.core.output.CoreOutputFormatted;
-import org.apache.myfaces.adf.component.core.input.CoreInputHidden;
-import org.apache.myfaces.adf.component.core.input.CoreInputText;
-import org.apache.myfaces.adf.component.core.input.CoreSelectOneChoice;
-import org.apache.myfaces.adf.component.core.input.CoreSelectOneRadio;
-import org.apache.myfaces.adf.component.core.input.CoreSelectInputDate;
-import org.apache.myfaces.adf.component.core.input.CoreSelectItem;
+import org.apache.myfaces.trinidad.component.core.CoreDocument;
+import org.apache.myfaces.trinidad.component.core.CoreForm;
+import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroup;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputHidden;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneRadio;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputDate;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
 
 
 
@@ -446,7 +446,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
 
     public String getFamily()
     {
-      return "org.apache.myfaces.adftest.PerfComp";
+      return "org.apache.myfaces.trinidadtest.PerfComp";
     }
 
     public boolean getRendersChildren()

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
-import org.apache.myfaces.adf.util.ArrayMap;
+import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.adfinternal.share.expl.ExpressionParser;
-import org.apache.myfaces.adfinternal.share.expl.Function;
-import org.apache.myfaces.adfinternal.share.util.NamespaceMap;
+import org.apache.myfaces.trinidadinternal.share.expl.ExpressionParser;
+import org.apache.myfaces.trinidadinternal.share.expl.Function;
+import org.apache.myfaces.trinidadinternal.share.util.NamespaceMap;
 
 /**
  * ParserManager maintains a table of ParserFactories, keyed

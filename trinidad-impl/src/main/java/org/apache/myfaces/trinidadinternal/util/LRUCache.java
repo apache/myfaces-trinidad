@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.util;
+package org.apache.myfaces.trinidadinternal.util;
 
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * A VERY simple LRU cache.

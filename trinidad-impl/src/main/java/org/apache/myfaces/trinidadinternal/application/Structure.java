@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.Externalizable;
 import java.io.IOException;
@@ -27,8 +27,8 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adf.component.UIXComponentBase;
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.component.UIXComponentBase;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * Utility class for storing the structure of a UIComponent tree.
@@ -250,7 +250,7 @@ final class Structure implements Externalizable
 
 
   static private final String _COMMON_CLASS_PREFIX =
-    "org.apache.myfaces.adf.component";
+    "org.apache.myfaces.trinidad.component";
   static private final int _COMMON_CLASS_PREFIX_LENGTH =
     _COMMON_CLASS_PREFIX.length();
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.data;
+package org.apache.myfaces.trinidadinternal.share.data;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -78,7 +78,7 @@ public class ServletRequestParameters extends RequestParameters
    * values into the specified Map of String[]s.  This code
    * does not currently handle multiple values for the same key.
    * <p>
-   * adapted from org.apache.myfaces.adfinternal.uix22.servlet.url.DefaultPageEncoder
+   * adapted from org.apache.myfaces.trinidadinternal.uix22.servlet.url.DefaultPageEncoder
    */
   public static void decodeCompoundKeyValues(
     String     compoundValue,
@@ -578,7 +578,7 @@ public class ServletRequestParameters extends RequestParameters
 
   /**
    * Cabo page-property escape-decoding
-   * copied from org.apache.myfaces.adfinternal.uix22.servlet.url.DefaultPageEncoder
+   * copied from org.apache.myfaces.trinidadinternal.uix22.servlet.url.DefaultPageEncoder
    */
   private static String _decodeEscapes(String string)
   {
@@ -603,7 +603,7 @@ public class ServletRequestParameters extends RequestParameters
   }
 
 
-  // mostly copied from org.apache.myfaces.adfinternal.uix22.servlet.url.UrlEncoder
+  // mostly copied from org.apache.myfaces.trinidadinternal.uix22.servlet.url.UrlEncoder
   static private String _encodeChars(
     StringBuffer buffer,
     String       s)
@@ -638,7 +638,7 @@ public class ServletRequestParameters extends RequestParameters
     return buffer.toString();
   }
 
-  // copied from org.apache.myfaces.adfinternal.uix22.servlet.url.UrlEncoder
+  // copied from org.apache.myfaces.trinidadinternal.uix22.servlet.url.UrlEncoder
   static private char _toHex(int fourBits)
   {
     if (fourBits < 10)
@@ -683,7 +683,7 @@ public class ServletRequestParameters extends RequestParameters
 
 
   // separator used to separate compund key value pairs in a compund value
-  // copied from org.apache.myfaces.adfinternal.uix22.servlet.url.DefaultPageEncoder
+  // copied from org.apache.myfaces.trinidadinternal.uix22.servlet.url.DefaultPageEncoder
   private static final char _PROPERTY_BOUNDARY = '$';
 
   private static final String _DOT_X = _PROPERTY_BOUNDARY + ".x";

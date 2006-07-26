@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode.nav;
+package org.apache.myfaces.trinidadinternal.uinode.nav;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.adf.component.UIXNavigationHierarchy;
-import org.apache.myfaces.adf.component.UIXProcess;
+import org.apache.myfaces.trinidad.component.UIXNavigationHierarchy;
+import org.apache.myfaces.trinidad.component.UIXProcess;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.uinode.UINodeFacesBean;
-import org.apache.myfaces.adfinternal.uinode.bind.ClientIdBoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.MenuSelectedValueBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
+import org.apache.myfaces.trinidadinternal.uinode.bind.ClientIdBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.MenuSelectedValueBoundValue;
 
 public class ProcessChoiceBarFacesBean extends UINodeFacesBean
 {

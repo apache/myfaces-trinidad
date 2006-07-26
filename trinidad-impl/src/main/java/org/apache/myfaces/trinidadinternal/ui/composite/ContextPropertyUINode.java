@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.composite;
+package org.apache.myfaces.trinidadinternal.ui.composite;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.BaseMutableUINode;
-import org.apache.myfaces.adfinternal.ui.BaseRenderer;
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.Renderer;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.Renderer;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.FixedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.FixedBoundValue;
 
 /**
  * Node that sets a property on the context.

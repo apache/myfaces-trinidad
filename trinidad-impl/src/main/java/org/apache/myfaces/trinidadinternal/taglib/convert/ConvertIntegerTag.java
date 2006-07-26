@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.taglib.convert;
+package org.apache.myfaces.trinidadinternal.taglib.convert;
 
 import javax.faces.convert.Converter;
 import javax.faces.webapp.ConverterTag;
 
 import javax.servlet.jsp.JspException;
-import org.apache.myfaces.adfinternal.convert.IntegerConverter;
+import org.apache.myfaces.trinidadinternal.convert.IntegerConverter;
 
 /**
 

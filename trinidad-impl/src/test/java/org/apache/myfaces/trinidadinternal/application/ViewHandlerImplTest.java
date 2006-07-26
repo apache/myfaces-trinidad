@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -21,8 +21,8 @@ import junit.framework.TestSuite;
 import javax.faces.component.UIViewRoot;
 import javax.faces.render.RenderKitFactory;
 
-import org.apache.myfaces.adfbuild.test.FacesTestCase;
-import org.apache.myfaces.adfinternal.renderkit.RenderKitBootstrap;
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBootstrap;
 
 public class ViewHandlerImplTest extends FacesTestCase
 {

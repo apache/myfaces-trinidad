@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -30,28 +30,28 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
-import org.apache.myfaces.adfinternal.share.xml.ParseContext;
-import org.apache.myfaces.adfinternal.share.xml.XMLUtils;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
+import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
-import org.apache.myfaces.adfinternal.skin.icon.NullIcon;
-import org.apache.myfaces.adfinternal.style.CSSStyle;
-import org.apache.myfaces.adfinternal.style.xml.parse.IncludeStyleNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleNode;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetNode;
-import org.apache.myfaces.adfinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
-import org.apache.myfaces.adfinternal.skin.icon.TextIcon;
-import org.apache.myfaces.adfinternal.skin.icon.URIImageIcon;
-import org.apache.myfaces.adfinternal.style.util.StyleUtils;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.adfinternal.ui.laf.xml.parse.SkinPropertyNode;
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.style.CSSStyle;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.IncludeStyleNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
+import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetParserUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $

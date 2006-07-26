@@ -13,10 +13,10 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.agent;
+package org.apache.myfaces.trinidadinternal.agent;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.context.Agent;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.context.Agent;
 
 import java.net.URL;
 
@@ -25,7 +25,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 /**
  * implementation that supports the AdfFacesAgent
@@ -381,7 +381,7 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
   static final private String _CAPABILITIES_FILE = "META-INF/agent/capabilities.xml";
 
   static private final String _DEVICE_REPOSITORY_URL =
-    "org.apache.myfaces.adfinternal.agent.DeviceRepository";
+    "org.apache.myfaces.trinidadinternal.agent.DeviceRepository";
 
 
   static final private ADFLogger _LOG =

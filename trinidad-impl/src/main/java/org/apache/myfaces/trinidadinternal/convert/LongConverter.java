@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.convert;
+package org.apache.myfaces.trinidadinternal.convert;
 
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import javax.faces.convert.ConverterException;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -40,7 +40,7 @@ public class LongConverter extends javax.faces.convert.LongConverter
      * will be replaced by Long.MAX_VALUE.</p>
      */
     public static final String MAXIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.LongConverter.MAXIMUM";
+        "org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
@@ -50,14 +50,14 @@ public class LongConverter extends javax.faces.convert.LongConverter
      * will be replaced by Long.MIN_VALUE.</p>
      */
     public static final String MINIMUM_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.LongConverter.MINIMUM";
+        "org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM";
 
     /**
      * <p>The message identifier of the FacesMessage to be created if
      * the value cannot be converted to an integer
      */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.LongConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.LongConverter.CONVERT";
 
 
   public Object getAsObject(

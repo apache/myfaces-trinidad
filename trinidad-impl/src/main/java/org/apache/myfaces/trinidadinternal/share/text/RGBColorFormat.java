@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.text;
+package org.apache.myfaces.trinidadinternal.share.text;
 
 import java.awt.Color;
 

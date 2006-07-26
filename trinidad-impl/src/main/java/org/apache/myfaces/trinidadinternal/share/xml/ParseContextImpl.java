@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.xml;
+package org.apache.myfaces.trinidadinternal.share.xml;
 
 import org.xml.sax.Locator;
 
-import org.apache.myfaces.adfinternal.share.expl.ExpressionContext;
-import org.apache.myfaces.adfinternal.share.expl.PrefixMapper;
-import org.apache.myfaces.adfinternal.share.expl.NSFunctionMapper;
+import org.apache.myfaces.trinidadinternal.share.expl.ExpressionContext;
+import org.apache.myfaces.trinidadinternal.share.expl.PrefixMapper;
+import org.apache.myfaces.trinidadinternal.share.expl.NSFunctionMapper;
 
-import org.apache.myfaces.adfinternal.share.util.NamespaceMap;
+import org.apache.myfaces.trinidadinternal.share.util.NamespaceMap;
 
 /**
  * The base implementation of ParseContext.  Clients can subclass

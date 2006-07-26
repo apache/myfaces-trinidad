@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.action.FirePartialAction;
-import org.apache.myfaces.adfinternal.ui.collection.Parameter;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.action.FirePartialAction;
+import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
-import org.apache.myfaces.adfinternal.ui.action.FireAction;
+import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
 
-import org.apache.myfaces.adf.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXComponent;
 
 public class FireActionBoundValue implements BoundValue
 {

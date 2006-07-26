@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.share.nls;
+package org.apache.myfaces.trinidadinternal.share.nls;
 
 import java.util.Hashtable;
 import java.util.Locale;
@@ -21,9 +21,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
-import org.apache.myfaces.adf.util.ClassLoaderUtils;
+import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Context for locale-specific operations and properties.  All of the properties
@@ -77,7 +77,7 @@ public class LocaleContext
     Locale translationLocale
     )
   {
-    if (!getClass().getName().startsWith("org.apache.myfaces.adfinternal.share.nls."))
+    if (!getClass().getName().startsWith("org.apache.myfaces.trinidadinternal.share.nls."))
       throw new IllegalStateException("User-defined subclasses not supported.");
 
     if (baseLocale == null)
@@ -153,12 +153,12 @@ public class LocaleContext
   /**
    * Returns the reading direction that should be used for rendering.
    * @return a reading direction from
-   * <code>org.apache.myfaces.adfinternal.util.nls.LocaleUtils</code>.
+   * <code>org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils</code>.
    * This method will never return
    * <code>LocaleUtils.DIRECTION_DEFAULT</code>.
    * <p>
    * @see #setReadingDirection
-   * @see org.apache.myfaces.adfinternal.util.nls.LocaleUtils
+   * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
   public int getReadingDirection()
   {
@@ -175,10 +175,10 @@ public class LocaleContext
 
   /**
    * Sets the new reading direction to be one of the reading directions
-   * defined in <code>org.apache.myfaces.adfinternal.util.nls.LocaleUtils</code>.
+   * defined in <code>org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils</code>.
    *
    * @deprecated  use MutableLocaleContext.setReadingDirection() instead
-   * @see org.apache.myfaces.adfinternal.share.nls.MutableLocaleContext
+   * @see org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext
    */
   public void setReadingDirection(
     int newReadingDirection
@@ -210,7 +210,7 @@ public class LocaleContext
    * to null will set the TimeZone to the default TimeZone.
    *
    * @deprecated  use MutableLocaleContext.setTimeZone() instead
-   * @see org.apache.myfaces.adfinternal.share.nls.MutableLocaleContext
+   * @see org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext
    */
   public void setTimeZone(
     TimeZone newTimeZone

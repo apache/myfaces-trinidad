@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.skin;
+package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.desktop.BaseDesktopConstants;
-import org.apache.myfaces.adfinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.adfinternal.skin.icon.NullIcon;
-import org.apache.myfaces.adfinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.adfinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
+import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Skin implementation for HTML browsers
@@ -62,7 +62,7 @@ public class BaseDesktopSkin extends XhtmlSkin
 
 
   /**
-   * Returns the renderKitId for the BaseDesktopSkin: "org.apache.myfaces.adf.desktop".
+   * Returns the renderKitId for the BaseDesktopSkin: "org.apache.myfaces.trinidad.desktop".
    */
   public String getRenderKitId()
   {

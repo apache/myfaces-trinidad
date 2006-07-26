@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -23,11 +23,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.component.html.HtmlFrameBorderLayout;
-import org.apache.myfaces.adf.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
+import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 
 /**
@@ -273,5 +273,5 @@ public class HtmlRenderer extends XhtmlRenderer
   protected static final String XHTML_NAMESPACE = "http://www.w3.org/1999/xhtml";
 
   static private final String _DISABLE_STANDARDS_MODE=
-    "org.apache.myfaces.adf.ENABLE_QUIRKS_MODE";
+    "org.apache.myfaces.trinidad.ENABLE_QUIRKS_MODE";
 }

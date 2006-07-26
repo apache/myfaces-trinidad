@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin;
+package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -27,18 +27,18 @@ import java.util.ResourceBundle;
 import java.util.Stack;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.adfinternal.util.OptimisticHashMap;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.adfinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.xml.StyleSheetDocumentUtils;
-import org.apache.myfaces.adfinternal.style.xml.parse.StyleSheetDocument;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
+import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 
 
@@ -55,9 +55,9 @@ public class SkinExtension extends Skin
    * Skin.
    *
    * @param baseSkin The base Skin that this custom
-   *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.adf.desktop"
+   *        Skin "extends". If it is a Skin designed for "org.apache.myfaces.trinidad.desktop"
    *        render-kit-id, then its base skin should be SimpleDesktopSkin.
-   *        If it is a Skin designed for "org.apache.myfaces.adf.pda" render-kit-id,
+   *        If it is a Skin designed for "org.apache.myfaces.trinidad.pda" render-kit-id,
    *        then its base skin should be SimplePdaSkin. Currently, we
    *        do not allow one SkinExtension to extend another, but we may
    *        someday.
@@ -92,7 +92,7 @@ public class SkinExtension extends Skin
     if (family == null)
       throw new NullPointerException("Null family");
     if (renderKitId == null)
-      renderKitId = "org.apache.myfaces.adf.desktop";
+      renderKitId = "org.apache.myfaces.trinidad.desktop";
 
     _baseSkin = baseSkin;
     _id = id;

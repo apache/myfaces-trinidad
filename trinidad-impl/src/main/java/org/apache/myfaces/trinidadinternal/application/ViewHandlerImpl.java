@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.application;
+package org.apache.myfaces.trinidadinternal.application;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,18 +33,18 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.render.ExtendedRenderKitService;
-import org.apache.myfaces.adf.render.InternalView;
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.render.InternalView;
+import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.adfinternal.context.AdfFacesContextImpl;
-import org.apache.myfaces.adfinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
+import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
 
-import org.apache.myfaces.adfinternal.share.url.EncoderUtils;
+import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
-import org.apache.myfaces.adfinternal.renderkit.core.pages.GenericEntry;
+import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
@@ -63,7 +63,7 @@ import org.apache.myfaces.adfinternal.renderkit.core.pages.GenericEntry;
 public class ViewHandlerImpl extends ViewHandler
 {
   static public final String ALTERNATE_VIEW_HANDLER =
-    "org.apache.myfaces.adf.ALTERNATE_VIEW_HANDLER";
+    "org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER";
 
   public ViewHandlerImpl(
     ViewHandler delegate)
@@ -393,7 +393,7 @@ public class ViewHandlerImpl extends ViewHandler
 
 
   //
-  // Load the META-INF/org.apache.myfaces.adf.render.InternalView.properties
+  // Load the META-INF/org.apache.myfaces.trinidad.render.InternalView.properties
   // files.
   //
   private void _loadInternalViews()
@@ -404,7 +404,7 @@ public class ViewHandlerImpl extends ViewHandler
     try
     {
       Enumeration en = loader.getResources(
-               "META-INF/org.apache.myfaces.adf.render.InternalView.properties");
+               "META-INF/org.apache.myfaces.trinidad.render.InternalView.properties");
       while (en.hasMoreElements())
       {
         list.add((URL) en.nextElement());
@@ -413,7 +413,7 @@ public class ViewHandlerImpl extends ViewHandler
       // And, for some temporary backwards compatibility, also load
       // the incorrect properties without "render"
       en = loader.getResources(
-               "META-INF/org.apache.myfaces.adf.InternalView.properties");
+               "META-INF/org.apache.myfaces.trinidad.InternalView.properties");
       while (en.hasMoreElements())
       {
         list.add((URL) en.nextElement());
@@ -483,7 +483,7 @@ public class ViewHandlerImpl extends ViewHandler
 
 
   private static final String _CHECK_TIMESTAMP_PARAM =
-  "org.apache.myfaces.adf.CHECK_FILE_MODIFICATION";
+  "org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION";
 
   private static final ADFLogger _LOG = ADFLogger.createADFLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = new Long(0);

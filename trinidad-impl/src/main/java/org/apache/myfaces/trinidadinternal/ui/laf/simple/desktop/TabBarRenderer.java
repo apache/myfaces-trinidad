@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.ui.laf.simple.desktop;
+package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 
 /**
@@ -46,7 +46,7 @@ import org.apache.myfaces.adfinternal.skin.icon.Icon;
  * @author The Oracle ADF Faces Team
  */
 public class TabBarRenderer
-  extends org.apache.myfaces.adfinternal.ui.laf.base.desktop.TabBarRenderer
+  extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.TabBarRenderer
   implements SimpleDesktopConstants
 
 {
@@ -117,7 +117,7 @@ public class TabBarRenderer
                   icons.selectedBackground :
                   icons.enabledBackground;
 
-    org.apache.myfaces.adfinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(context, icon);
+    org.apache.myfaces.trinidadinternal.renderkit.core.skin.CoreSkinUtils.__renderBackgroundIcon(context, icon);
   }
 
   /**

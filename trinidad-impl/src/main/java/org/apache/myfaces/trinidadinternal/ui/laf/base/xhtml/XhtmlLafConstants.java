@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
-import org.apache.myfaces.adfinternal.ui.NodeRole;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.NodeRole;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafConstants;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafConstants;
 
 /**
  * Constants used throughout the HTML Laf rendering.
@@ -30,8 +30,8 @@ public interface XhtmlLafConstants extends BaseLafConstants
 {
 
   // renderKitIds needed for Skins
-  public static final String ORACLE_ADF_DESKTOP = "org.apache.myfaces.adf.desktop";
-  public static final String ORACLE_ADF_PDA     = "org.apache.myfaces.adf.pda";
+  public static final String ORACLE_ADF_DESKTOP = "org.apache.myfaces.trinidad.desktop";
+  public static final String ORACLE_ADF_PDA     = "org.apache.myfaces.trinidad.pda";
 
   // mobile dateField and lovField params
   public static final String TOK_PARAM  = UIConstants.TOK_PARAM;

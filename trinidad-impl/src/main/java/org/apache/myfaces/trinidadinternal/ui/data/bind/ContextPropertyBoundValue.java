@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.data.bind;
+package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
  * BoundValue implementation that returns the result
@@ -31,8 +31,8 @@ public class ContextPropertyBoundValue implements BoundValue
    * Create a BoundValue that returns the result of
    * calling RenderingContext.getProperty()
    * <p>
-   * @see org.apache.myfaces.adfinternal.ui.RenderingContext#getProperty
-   * @see org.apache.myfaces.adfinternal.ui.RenderingContext#setProperty
+   * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#getProperty
+   * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#setProperty
    */
   public ContextPropertyBoundValue(
     String namespace,

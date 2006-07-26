@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.pda;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 
 /**
@@ -21,6 +21,6 @@ package org.apache.myfaces.adfinternal.ui.laf.base.pda;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/HtmlRenderer.java#0 $) $Date: 10-nov-2005.18:54:57 $
  * @author The Oracle ADF Faces Team
  */
-public class HtmlRenderer extends org.apache.myfaces.adfinternal.ui.laf.base.desktop.HtmlRenderer
+public class HtmlRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HtmlRenderer
 {
 }

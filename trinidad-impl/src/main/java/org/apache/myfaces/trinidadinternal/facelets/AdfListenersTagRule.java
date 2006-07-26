@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.adfinternal.facelets;
+package org.apache.myfaces.trinidadinternal.facelets;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
@@ -98,7 +98,7 @@ final class AdfListenersTagRule extends MetaRule
         
         // Ignore non-ADF types
         Class listenerClass = arrayType.getComponentType();
-        if (!listenerClass.getName().startsWith("org.apache.myfaces.adf."))
+        if (!listenerClass.getName().startsWith("org.apache.myfaces.trinidad."))
           return null;
 
         // Turn that into an Event to get the signature

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.taglib;
+package org.apache.myfaces.trinidadinternal.taglib;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -22,7 +22,7 @@ import javax.faces.validator.Validator;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 /**
  * This tag implements a generic validator tag.

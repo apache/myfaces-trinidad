@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.skin.icon;
+package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
 /**
  * An object which represents a customizable icon that is capable of

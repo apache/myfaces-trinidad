@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.style;
+package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Collections;
 import java.util.Iterator;
 
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
 
 /**

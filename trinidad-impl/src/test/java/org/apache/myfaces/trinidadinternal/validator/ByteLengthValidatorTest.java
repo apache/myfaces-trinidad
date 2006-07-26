@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.validator;
+package org.apache.myfaces.trinidadinternal.validator;
 
 import java.util.Locale;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 
-import org.apache.myfaces.adfbuild.test.AbstractBaseTestCase;
+import org.apache.myfaces.trinidadbuild.test.AbstractBaseTestCase;
 import org.jmock.Mock;
 
 import junit.framework.Test;

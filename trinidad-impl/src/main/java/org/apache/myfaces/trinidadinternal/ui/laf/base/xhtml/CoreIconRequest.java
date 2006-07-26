@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.awt.Color;
 
@@ -21,20 +21,20 @@ import java.io.IOException;
 
 import java.util.Map;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.image.ImageConstants;
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageConstants;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.adfinternal.image.cache.CoreColorizedIconKey;
+import org.apache.myfaces.trinidadinternal.image.cache.CoreColorizedIconKey;
 
-import org.apache.myfaces.adfinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.adfinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 
 /**
  * The ImageProviderRequest class that we use for requesting core
- * colorized icons.  It extends org.apache.myfaces.adfinternal.image.cache.CoreColorizedIconKey
+ * colorized icons.  It extends org.apache.myfaces.trinidadinternal.image.cache.CoreColorizedIconKey
  * by adding support for obtaining an InputStreamProvider for the source
  * icon.
  * <p>

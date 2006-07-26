@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.painter;
+package org.apache.myfaces.trinidadinternal.image.painter;
 
 import java.awt.Font;
 
-import org.apache.myfaces.adfinternal.util.nls.LocaleUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.adfinternal.style.PropertyParseException;
-import org.apache.myfaces.adfinternal.style.StyleContext;
-import org.apache.myfaces.adfinternal.style.Style;
-import org.apache.myfaces.adfinternal.style.StyleMap;
-import org.apache.myfaces.adfinternal.style.StyleProvider;
-import org.apache.myfaces.adfinternal.style.util.CSSUtils;
+import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.StyleContext;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.style.StyleMap;
+import org.apache.myfaces.trinidadinternal.style.StyleProvider;
+import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * A border that insets painting of the wrapped painter by an amount
@@ -83,7 +83,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
    * <p>
    * @return The insets of just this BorderPainter.
    * <p>
-   * @see org.apache.myfaces.adfinternal.image.painter.AbstractBorderPainter#getInsets
+   * @see org.apache.myfaces.trinidadinternal.image.painter.AbstractBorderPainter#getInsets
    */
   protected ImmInsets getOwnInsets(
     PaintContext context

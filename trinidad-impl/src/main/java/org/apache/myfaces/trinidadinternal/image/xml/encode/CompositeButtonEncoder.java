@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.xml.encode;
+package org.apache.myfaces.trinidadinternal.image.xml.encode;
 
 import java.io.PrintWriter;
 import java.util.Map;
 
-import org.apache.myfaces.adfinternal.image.ImageContext;
+import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
 /**
  * Encoder for composite buttons

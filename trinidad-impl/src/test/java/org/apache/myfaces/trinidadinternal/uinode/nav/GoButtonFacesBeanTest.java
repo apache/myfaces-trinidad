@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode.nav;
+package org.apache.myfaces.trinidadinternal.uinode.nav;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.myfaces.adfinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
-import org.apache.myfaces.adf.component.core.nav.CoreGoButton;
+import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 
-import org.apache.myfaces.adfinternal.uinode.UINodeFacesBean;
-import org.apache.myfaces.adfinternal.uinode.UINodeFacesBeanTestCase;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
+import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBeanTestCase;
 import org.apache.shale.test.mock.MockExternalContext;
 
 /**

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.bean;
+package org.apache.myfaces.trinidadinternal.bean;
 
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.UIXEditableValue;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.UIXEditableValue;
 
 public class UIXEditableFacesBeanImpl extends UIXFacesBeanImpl
 {

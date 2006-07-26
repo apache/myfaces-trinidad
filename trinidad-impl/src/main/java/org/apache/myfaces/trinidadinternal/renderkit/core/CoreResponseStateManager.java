@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core;
+package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import javax.faces.application.StateManager;
 import javax.faces.context.FacesContext;
@@ -36,10 +36,10 @@ import java.util.zip.GZIPInputStream;
 
 import java.util.Map;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.util.Base64InputStream;
-import org.apache.myfaces.adf.util.Base64OutputStream;
+import org.apache.myfaces.trinidad.util.Base64InputStream;
+import org.apache.myfaces.trinidad.util.Base64OutputStream;
 
 /**
  * ResponseStateManager implementation for the Core RenderKit.
@@ -51,7 +51,7 @@ public class CoreResponseStateManager extends ResponseStateManager
   /**
    * Name of the form field that encodes the UI state.
    */
-  static public final String FORM_FIELD_NAME = "org.apache.myfaces.adf.faces.FORM";
+  static public final String FORM_FIELD_NAME = "org.apache.myfaces.trinidad.faces.FORM";
 
   /**
    * Write the state into the page.
@@ -188,7 +188,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     return view;
   }
 
-  static private final String _STATE_FIELD_NAME = "org.apache.myfaces.adf.faces.STATE";
+  static private final String _STATE_FIELD_NAME = "org.apache.myfaces.trinidad.faces.STATE";
 
 
   /* Test code for dumping out the page's state
@@ -228,7 +228,7 @@ public class CoreResponseStateManager extends ResponseStateManager
 
   static private final int _BUFFER_SIZE = 2048;
   static private final String _CACHED_SERIALIZED_VIEW =
-    "org.apache.myfaces.adfinternal.renderkit.CACHED_SERIALIZED_VIEW";
+    "org.apache.myfaces.trinidadinternal.renderkit.CACHED_SERIALIZED_VIEW";
 
   // Exclamation marks are not legit Base64 characters;  only
   // A-Z, a-z, 0-9, +, /, and = can ever show up.

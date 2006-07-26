@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.uinode;
+package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,45 +21,45 @@ import java.util.Set;
 import javax.faces.el.ValueBinding;
 
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.FacesBeanImpl;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.bean.PropertyMap;
-import org.apache.myfaces.adf.bean.util.FlaggedPropertyMap;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.bean.PropertyMap;
+import org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap;
 
-import org.apache.myfaces.adf.component.UIXChoose;
-import org.apache.myfaces.adf.component.UIXCommand;
-import org.apache.myfaces.adf.component.UIXComponent;
-import org.apache.myfaces.adf.component.UIXFacesBean;
-import org.apache.myfaces.adf.component.UIXGo;
-import org.apache.myfaces.adf.component.UIXNavigationLevel;
-import org.apache.myfaces.adf.component.UIXNavigationTree;
-import org.apache.myfaces.adf.component.UIXInput;
-import org.apache.myfaces.adf.component.UIXMenu;
-import org.apache.myfaces.adf.component.UIXMessages;
-import org.apache.myfaces.adf.component.UIXPanel;
-import org.apache.myfaces.adf.component.UIXPoll;
-import org.apache.myfaces.adf.component.UIXProcess;
-import org.apache.myfaces.adf.component.UIXSelectItem;
-import org.apache.myfaces.adf.component.UIXSelectMany;
-import org.apache.myfaces.adf.component.UIXShowDetail;
-import org.apache.myfaces.adf.component.UIXShowMany;
-import org.apache.myfaces.adf.component.UIXShowOne;
-import org.apache.myfaces.adf.component.UIXSingleStep;
-import org.apache.myfaces.adf.component.UIXTree;
+import org.apache.myfaces.trinidad.component.UIXChoose;
+import org.apache.myfaces.trinidad.component.UIXCommand;
+import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.component.UIXFacesBean;
+import org.apache.myfaces.trinidad.component.UIXGo;
+import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
+import org.apache.myfaces.trinidad.component.UIXNavigationTree;
+import org.apache.myfaces.trinidad.component.UIXInput;
+import org.apache.myfaces.trinidad.component.UIXMenu;
+import org.apache.myfaces.trinidad.component.UIXMessages;
+import org.apache.myfaces.trinidad.component.UIXPanel;
+import org.apache.myfaces.trinidad.component.UIXPoll;
+import org.apache.myfaces.trinidad.component.UIXProcess;
+import org.apache.myfaces.trinidad.component.UIXSelectItem;
+import org.apache.myfaces.trinidad.component.UIXSelectMany;
+import org.apache.myfaces.trinidad.component.UIXShowDetail;
+import org.apache.myfaces.trinidad.component.UIXShowMany;
+import org.apache.myfaces.trinidad.component.UIXShowOne;
+import org.apache.myfaces.trinidad.component.UIXSingleStep;
+import org.apache.myfaces.trinidad.component.UIXTree;
 
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.UIConstants;
-import org.apache.myfaces.adfinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.adfinternal.ui.collection.AttributeMap;
-import org.apache.myfaces.adfinternal.ui.collection.FlaggedAttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
+import org.apache.myfaces.trinidadinternal.ui.collection.FlaggedAttributeMap;
 
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
-import org.apache.myfaces.adfinternal.uinode.bind.ClientIdBoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.PropertyBoundValue;
-import org.apache.myfaces.adfinternal.uinode.bind.URLBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.ClientIdBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
+import org.apache.myfaces.trinidadinternal.uinode.bind.URLBoundValue;
 
 public class UINodeFacesBean extends FacesBeanImpl
                              implements UIXFacesBean

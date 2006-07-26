@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.expl;
+package org.apache.myfaces.trinidadinternal.ui.expl;
 
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
-import org.apache.myfaces.adfinternal.skin.Skin;
-import org.apache.myfaces.adfinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
  * Implements some of the EL functions in the
@@ -46,7 +46,7 @@ public final class UIFunctions
    * &lt;formValue name="${ui:encodeParameter(uix,'event')}"
    *            value="viewSource"/&gt;
    * </pre>
-   * @see org.apache.myfaces.adfinternal.share.url.URLEncoder#encodeParameter
+   * @see org.apache.myfaces.trinidadinternal.share.url.URLEncoder#encodeParameter
    */
   public static String encodeParameter(UIImplicitObject uix,
                                        String parameterName)

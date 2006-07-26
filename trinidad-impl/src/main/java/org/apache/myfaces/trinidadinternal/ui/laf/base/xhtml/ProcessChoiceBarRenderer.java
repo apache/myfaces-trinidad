@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.adf.component.UIXHierarchy;
-import org.apache.myfaces.adf.component.UIXCommand;
-import org.apache.myfaces.adf.component.UIXProcess;
+import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXCommand;
+import org.apache.myfaces.trinidad.component.UIXProcess;
 
-import org.apache.myfaces.adfinternal.share.url.FormEncoder;
-import org.apache.myfaces.adfinternal.share.url.URLEncoder;
-import org.apache.myfaces.adfinternal.ui.MutableUINode;
-import org.apache.myfaces.adfinternal.ui.NodeUtils;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.adfinternal.ui.data.BoundValue;
-import org.apache.myfaces.adfinternal.ui.data.bind.AccessKeyBoundValue;
-import org.apache.myfaces.adfinternal.ui.laf.base.BaseLafUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.NodeRoleUtils;
-import org.apache.myfaces.adfinternal.ui.laf.base.SkinTranslatedBoundValue;
-import org.apache.myfaces.adfinternal.ui.partial.PartialPageRendererUtils;
+import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
+import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
+import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
+import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
+import org.apache.myfaces.trinidadinternal.ui.data.bind.AccessKeyBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
+import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/ProcessChoiceBarRenderer.java#0 $) $Date: 10-nov-2005.18:54:08 $

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -31,23 +31,23 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adf.bean.FacesBean;
-import org.apache.myfaces.adf.bean.PropertyKey;
-import org.apache.myfaces.adf.component.core.input.CoreSelectInputDate;
-import org.apache.myfaces.adf.context.AdfFacesContext;
-import org.apache.myfaces.adf.event.ReturnEvent;
-import org.apache.myfaces.adf.validator.DateTimeRangeValidator;
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputDate;
+import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.event.ReturnEvent;
+import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 
-import org.apache.myfaces.adfinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.adfinternal.convert.GenericConverterFactory;
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.adfinternal.renderkit.core.CoreRendererUtils;
-import org.apache.myfaces.adfinternal.renderkit.core.pages.GenericEntry;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
-import org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -387,9 +387,9 @@ public class SimpleSelectInputDateRenderer
     // Ignoring the "default" converter code is intentional;  we'll just
     // fall through to _DEFAULT_COLUMNS here to save time
     if (converter instanceof
-        org.apache.myfaces.adfinternal.convert.DateTimeConverter)
+        org.apache.myfaces.trinidadinternal.convert.DateTimeConverter)
     {
-      int columns = ((org.apache.myfaces.adfinternal.convert.DateTimeConverter)
+      int columns = ((org.apache.myfaces.trinidadinternal.convert.DateTimeConverter)
               converter).getColumns();
       return IntegerUtils.getInteger(columns);
     }
@@ -515,7 +515,7 @@ public class SimpleSelectInputDateRenderer
   private static boolean _isAdfDateTimeConverter(Converter converter)
   {
     return (converter instanceof
-            org.apache.myfaces.adf.convert.DateTimeConverter);
+            org.apache.myfaces.trinidad.convert.DateTimeConverter);
   }
 
 

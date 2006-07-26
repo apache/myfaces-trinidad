@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.UINode;
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 
 /**
@@ -67,7 +67,7 @@ public class ResetButtonRenderer extends ButtonRenderer
   /**
    * Show the modal dialog on click.
    * =-= bts copied code from
-   *         org.apache.myfaces.adfinternal.ui.blaf.RestButtonRenderer
+   *         org.apache.myfaces.trinidadinternal.ui.blaf.RestButtonRenderer
    */
   protected Object getOnClick(
     RenderingContext context,
@@ -110,7 +110,7 @@ public class ResetButtonRenderer extends ButtonRenderer
   }
 
   /**
-   * =-= bts bogus copied code from org.apache.myfaces.adfinternal.ui.laf.browser.ResetButtonRenderer
+   * =-= bts bogus copied code from org.apache.myfaces.trinidadinternal.ui.laf.browser.ResetButtonRenderer
    */
   protected String getFunctionCall(
     RenderingContext context,

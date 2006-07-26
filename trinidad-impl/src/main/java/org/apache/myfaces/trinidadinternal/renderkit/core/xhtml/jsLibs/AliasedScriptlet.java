@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.renderkit.core.xhtml.jsLibs;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,11 +24,11 @@ import java.util.HashSet;
 import java.util.Properties;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adfinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
 
 /**

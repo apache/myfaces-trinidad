@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.util;
+package org.apache.myfaces.trinidadinternal.image.util;
 
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
-import org.apache.myfaces.adfinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * MapArea describes an area of an image map.

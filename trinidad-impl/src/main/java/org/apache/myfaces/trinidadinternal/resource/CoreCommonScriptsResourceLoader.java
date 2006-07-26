@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.resource;
+package org.apache.myfaces.trinidadinternal.resource;
 
 import java.net.URLConnection;
-import org.apache.myfaces.adf.resource.AggregatingResourceLoader;
-import org.apache.myfaces.adf.resource.ClassLoaderResourceLoader;
+import org.apache.myfaces.trinidad.resource.AggregatingResourceLoader;
+import org.apache.myfaces.trinidad.resource.ClassLoaderResourceLoader;
 
 /**
  * A resource loader implementation which serves up the rich

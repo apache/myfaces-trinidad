@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adfinternal.ui.expl;
+package org.apache.myfaces.trinidadinternal.ui.expl;
 
 import java.util.Set;
 import java.util.Map;
@@ -23,15 +23,15 @@ import java.util.AbstractList;
 import java.util.Collections;
 
 
-import org.apache.myfaces.adf.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.adfinternal.ui.RenderingContext;
-import org.apache.myfaces.adfinternal.ui.AttributeKey;
-import org.apache.myfaces.adfinternal.ui.data.DataObject;
-import org.apache.myfaces.adfinternal.ui.data.DataObjectList;
-import org.apache.myfaces.adfinternal.ui.data.DataSet;
-import org.apache.myfaces.adfinternal.ui.data.MutableDataObject;
-import org.apache.myfaces.adfinternal.ui.data.bean.BeanDOAdapter;
+import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
+import org.apache.myfaces.trinidadinternal.ui.data.DataSet;
+import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
+import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanDOAdapter;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/expl/UIImplicitObject.java#0 $) $Date: 10-nov-2005.18:56:28 $

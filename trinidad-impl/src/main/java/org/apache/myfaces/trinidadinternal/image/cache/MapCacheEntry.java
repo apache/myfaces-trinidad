@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.adfinternal.image.cache;
+package org.apache.myfaces.trinidadinternal.image.cache;
 
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import org.apache.myfaces.adfinternal.image.util.MapArea;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
 
 
 /**
