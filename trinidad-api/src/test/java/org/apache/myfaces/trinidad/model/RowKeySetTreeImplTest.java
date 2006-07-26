@@ -275,7 +275,7 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     // we're doing a test here to warn the developer if the
     // serialized size changes significantly. If the size changes are
     // expected, then change the expected range for these tests:
-    assertTrue(bytes.length < 635);
+    assertTrue(bytes.length < 650);
     assertTrue(bytes.length > 615);
 
     ObjectInputStream in =
