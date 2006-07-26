@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidad.bean.FacesBeanFactory;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.util.ValueMap;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
@@ -544,7 +544,7 @@ abstract public class UIXComponentBase extends UIXComponent
     UIComponent component = event.getComponent();
     if (component != null)
     {
-      AdfFacesContext adfContext = AdfFacesContext.getCurrentInstance();
+      RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
         adfContext.partialUpdateNotify(component);
     }
@@ -579,7 +579,7 @@ abstract public class UIXComponentBase extends UIXComponent
     Object triggers = attrs.get("partialTriggers");
     if (triggers instanceof String[])
     {
-      AdfFacesContext adfContext = AdfFacesContext.getCurrentInstance();
+      RequestContext adfContext = RequestContext.getCurrentInstance();
       if (adfContext != null)
         adfContext.addPartialTriggerListeners(this, (String[]) triggers);
     }
@@ -941,7 +941,7 @@ abstract public class UIXComponentBase extends UIXComponent
   {
     AttributeComponentChange aa =
       new AttributeComponentChange(attributeName, attributeValue);
-    AdfFacesContext adfContext = AdfFacesContext.getCurrentInstance();
+    RequestContext adfContext = RequestContext.getCurrentInstance();
     adfContext.getChangeManager().addComponentChange(getFacesContext(), this, aa);
   }
 

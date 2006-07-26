@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.change.AddComponentChange;
 import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.component.UIXComponent;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 
@@ -479,7 +479,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     UIComponent uiComponent,
     boolean isCreated)
   {
-    AdfFacesContext afc = AdfFacesContext.getCurrentInstance();
+    RequestContext afc = RequestContext.getCurrentInstance();
     Iterator changeIter =
                   afc.getChangeManager().getComponentChanges(facesContext, uiComponent);
 

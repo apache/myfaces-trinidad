@@ -28,15 +28,15 @@ import javax.faces.convert.ConverterException;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.myfaces.trinidad.context.MockAdfFacesContext;
+import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidad.convert.DateTimeConverter;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
 import org.apache.shale.test.mock.MockFacesContext;
 import org.jmock.Mock;
 
-public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
+public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
 {
-  public AdfDateTimeConverterTest(String name)
+  public TrinidadDateTimeConverterTest(String name)
   {
     super(name);
   }
@@ -45,7 +45,7 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
   public void setUp()
   {
     super.setUp();
-    _mafct = new MockAdfFacesContext();
+    _mafct = new MockRequestContext();
     _mafct.setTwoDigitYearStart(1950);
     _mafct.setTimeZone(DEFAULT_TIME_ZONE);
   }
@@ -59,7 +59,7 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
   
   public static Test suite()
   {
-    return new TestSuite(AdfDateTimeConverterTest.class);
+    return new TestSuite(TrinidadDateTimeConverterTest.class);
   }
   
 
@@ -336,7 +336,7 @@ public class AdfDateTimeConverterTest extends DateTimeConverterTestCase
     return data;
   }
 
-  private MockAdfFacesContext _mafct;
+  private MockRequestContext _mafct;
 
   private static final TimeZone DEFAULT_TIME_ZONE = TimeZone.getDefault();
 }

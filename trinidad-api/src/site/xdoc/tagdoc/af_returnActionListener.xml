@@ -27,7 +27,7 @@
         The returnActionListener tag is a declarative way to allow an action source 
         (&lt;commandButton&gt;, &lt;commandLink&gt;, etc.) to return a value 
         from a dialog or process. It calls the
-        returnFromDialog method on the AdfFacesContext.
+        returnFromDialog method on the RequestContext.
         This tag can be used both with ADF Faces commands and JSF standard tags.  
         More generally, it can be used with any component at all that implements 
         the standard ActionSource interface.

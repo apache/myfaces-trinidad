@@ -28,7 +28,7 @@
            Currency code can also be set for the entire application in adf-faces-config.xml file.
            If currency code is not set on the converter, and if set on
            adf-faces-config.xml configuration file it will be used by calling
-           <code>AdfFacesContext().getCurrenctInstance().getCurrencyCode().</code>
+           <code>RequestContext().getCurrenctInstance().getCurrencyCode().</code>
            This currency code will be used during call to getAsString() for formatting,
            provided type is set to 'currency'.]]>
       </description>

@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 /**
  * Interface responsible for processing file uploads.  An ADF Faces
  * application has a single <code>UploadedFileProcessor</code> instance.
- * It is accessible from the {@link org.apache.myfaces.trinidad.context.AdfFacesContext},
+ * It is accessible from the {@link org.apache.myfaces.trinidad.context.RequestContext},
  * but will be invoked automatically by the framework as needed.  Developers
  * can replace the standard processor using the
  * <code>adf-faces-config.xml</code> file.

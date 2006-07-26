@@ -41,7 +41,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
@@ -1539,14 +1539,14 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
           }
         }
 
-        AdfFacesContext adfContext = AdfFacesContext.getCurrentInstance();
+        RequestContext adfContext = RequestContext.getCurrentInstance();
         Calendar cal;
         if (adfContext == null)
         {
           cal = null;
           if(_LOG.isWarning())
           {
-            _LOG.warning("Cannot find AdfFacesContext; two-digit-year-start will be defaulted");
+            _LOG.warning("Cannot find RequestContext; two-digit-year-start will be defaulted");
           }
         }
         else
@@ -1616,17 +1616,17 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
 
     if (tZone == null)
     {
-      AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+      RequestContext context = RequestContext.getCurrentInstance();
       if (context == null)
       {
-        _LOG.warning("Cannot find AdfFacesContext;  TimeZone will default.");
+        _LOG.warning("Cannot find RequestContext;  TimeZone will default.");
       }
       else
       {
         tZone = context.getTimeZone();
       }
 
-      // If AdfFacesContext is null or if it returns a null,
+      // If RequestContext is null or if it returns a null,
       // then set it to the default time zone which is GMT time zone
       if (tZone == null)
       {

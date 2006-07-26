@@ -24,7 +24,7 @@ import javax.faces.event.ActionListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
@@ -73,7 +73,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
   {
     if (event instanceof ActionEvent)
     {
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.getDialogService().setCurrentLaunchSource(this);
 
       try
