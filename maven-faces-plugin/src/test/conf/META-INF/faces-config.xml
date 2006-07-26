@@ -148,9 +148,9 @@
   
   <referenced-bean>
     <description>implicit object provided by ADF Faces</description>
-    <display-name>ADF Faces Context</display-name>
+    <display-name>Request Context</display-name>
     <referenced-bean-name>adfFacesContext</referenced-bean-name>
-    <referenced-bean-class>org.apache.myfaces.trinidad.context.AdfFacesContext</referenced-bean-class>
+    <referenced-bean-class>org.apache.myfaces.trinidad.context.RequestContext</referenced-bean-class>
   </referenced-bean>
 
   <referenced-bean>
