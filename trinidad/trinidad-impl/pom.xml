@@ -48,19 +48,19 @@
         <configuration>
           <systemProperties>
             <property>
-              <name>adf.renderkit.fulltests</name>
+              <name>trinidad.renderkit.fulltests</name>
               <value>lenient</value>
             </property>
             <property>
-              <name>adf.renderkit.scripts</name>
-              <value>${project.basedir}/src/test/resources/org/apache/myfaces/adfinternal/renderkit/testScripts/</value>
+              <name>trinidad.renderkit.scripts</name>
+              <value>${project.basedir}/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/testScripts/</value>
             </property>
             <property>
-              <name>adf.renderkit.golden</name>
-              <value>${project.basedir}/src/test/resources/org/apache/myfaces/adfinternal/renderkit/golden/</value>
+              <name>trinidad.renderkit.golden</name>
+              <value>${project.basedir}/src/test/resources/org/apache/myfaces/trinidadinternal/renderkit/golden/</value>
             </property>
             <property>
-              <name>adf.renderkit.failures</name>
+              <name>trinidad.renderkit.failures</name>
               <value>${project.basedir}/target/test-failures/</value>
             </property>
             <property>

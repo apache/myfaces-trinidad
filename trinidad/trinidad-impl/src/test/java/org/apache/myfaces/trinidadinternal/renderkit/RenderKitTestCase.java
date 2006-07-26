@@ -429,9 +429,9 @@ abstract public class RenderKitTestCase extends TestSuite
 
     _facesConfigInfo = bootstrap.getFacesConfigInfo();
 
-    String scripts = System.getProperty("adf.renderkit.scripts");
-    String golden = System.getProperty("adf.renderkit.golden");
-    String failures = System.getProperty("adf.renderkit.failures");
+    String scripts = System.getProperty("trinidad.renderkit.scripts");
+    String golden = System.getProperty("trinidad.renderkit.golden");
+    String failures = System.getProperty("trinidad.renderkit.failures");
 
     _scriptDir = new File(scripts);
     _goldenDir = new File(golden);
@@ -440,7 +440,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
   private void _initTests() throws IOException, SAXException
   {
-    String script = System.getProperty("adf.renderkit.script");
+    String script = System.getProperty("trinidad.renderkit.script");
     Set includedScripts = null;
     if (script != null)
     {
@@ -454,7 +454,7 @@ abstract public class RenderKitTestCase extends TestSuite
     }
 
     // See if we want to run the full test suite (by default, no)
-    String fulltests = System.getProperty("adf.renderkit.fulltests");
+    String fulltests = System.getProperty("trinidad.renderkit.fulltests");
     // We can run the full test suite in two modes:  strict, and lenient.
     // We should go to "strict" all the time, but "lenient" simply
     // diffs against the golden files
