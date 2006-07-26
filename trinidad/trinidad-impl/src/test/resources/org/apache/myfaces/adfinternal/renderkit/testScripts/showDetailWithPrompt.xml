@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreShowDetail">
-     <component af:facet="prompt" af:type="org.apache.myfaces.adf.CoreOutputText" value="promptText"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputText" value="detailText"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreShowDetail">
+     <component af:facet="prompt" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="promptText"/>
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="detailText"/>
   </base-component>  
  
   <attribute-test name="undisclosedText" matchesBase="true"/>  

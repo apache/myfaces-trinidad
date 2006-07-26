@@ -1,10 +1,10 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelBox">
-  <component af:type="org.apache.myfaces.adf.CorePanelGroup">
-    <component af:type="org.apache.myfaces.adf.CoreGoLink" text="link 1" destination="http://www.oracle.com"/>
-    <component af:type="org.apache.myfaces.adf.CoreGoLink" text="link 2" destination="http://www.oracle.com"/>
-    <component af:type="org.apache.myfaces.adf.CoreGoLink" text="link 3" destination="http://www.oracle.com"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelBox">
+  <component af:type="org.apache.myfaces.trinidad.CorePanelGroup">
+    <component af:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 1" destination="http://www.oracle.com"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 2" destination="http://www.oracle.com"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 3" destination="http://www.oracle.com"/>
   </component>
   </base-component>
   <attribute-test name="text"/>

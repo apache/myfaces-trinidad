@@ -1,10 +1,10 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelHorizontal">
-    <component af:type="org.apache.myfaces.adf.CoreOutputText" value="1"/>
-    <component af:type="org.apache.myfaces.adf.CoreOutputText" value="2"/>
-    <component af:type="org.apache.myfaces.adf.CoreOutputText" value="3"/>
-    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelHorizontal">
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="1"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="2"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="3"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
                 af:facet="separator"
             source="/foo/bar.gif"/>
   </base-component>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreShowDetail"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreShowDetail"/>
   
   <!-- ungrouped attributes -->
   

@@ -7,9 +7,9 @@
   ]>
 <faces-config>
   <component>
-    <component-type>org.apache.myfaces.adf.view.test.TestRegion3</component-type>
+    <component-type>org.apache.myfaces.trinidad.view.test.TestRegion3</component-type>
     <component-class>
-      org.apache.myfaces.adf.component.UIXRegion
+      org.apache.myfaces.trinidad.component.UIXRegion
     </component-class>
     <component-extension>
       <region-jsp-ui-def>/regions/testRegion3.jspx</region-jsp-ui-def>

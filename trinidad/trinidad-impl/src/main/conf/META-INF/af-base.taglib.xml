@@ -22,14 +22,14 @@
 
   <tag>
     <tag-name>setActionListener</tag-name>
-    <handler-class>org.apache.myfaces.adfinternal.facelets.SetActionListenerTag</handler-class>
+    <handler-class>org.apache.myfaces.trinidadinternal.facelets.SetActionListenerTag</handler-class>
   </tag>
   <tag>
     <tag-name>resetActionListener</tag-name>
-    <handler-class>org.apache.myfaces.adfinternal.facelets.ResetActionListenerTag</handler-class>
+    <handler-class>org.apache.myfaces.trinidadinternal.facelets.ResetActionListenerTag</handler-class>
   </tag>
   <tag>
     <tag-name>returnActionListener</tag-name>
-    <handler-class>org.apache.myfaces.adfinternal.facelets.ReturnActionListenerTag</handler-class>
+    <handler-class>org.apache.myfaces.trinidadinternal.facelets.ReturnActionListenerTag</handler-class>
   </tag>
 </facelet-taglib>

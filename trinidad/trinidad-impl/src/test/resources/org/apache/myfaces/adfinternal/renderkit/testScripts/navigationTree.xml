@@ -1,9 +1,9 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces"
        agentNotSupported="pda">
-  <base-component af:type="org.apache.myfaces.adf.CoreNavigationTree"
+  <base-component af:type="org.apache.myfaces.trinidad.CoreNavigationTree"
                   value="#{menu}" var="foo">
-    <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem" 
+    <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" 
                af:facet="nodeStamp" 
                text="#{foo.label}"
                id="stamp"/> 

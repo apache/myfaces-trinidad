@@ -1,7 +1,7 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces"
        agentNotSupported="pda">
- <base-component af:type="org.apache.myfaces.adf.CoreChooseColor" colorData="#{colorList}" customColorData="#{colorList}"/>
+ <base-component af:type="org.apache.myfaces.trinidad.CoreChooseColor" colorData="#{colorList}" customColorData="#{colorList}"/>
  <!-- ungrouped -->  
   <attribute-test name="width" value="5"/>
   

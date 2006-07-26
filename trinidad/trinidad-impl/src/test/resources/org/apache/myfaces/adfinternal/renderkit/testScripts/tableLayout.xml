@@ -1,23 +1,23 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
       xmlns:af="http://myfaces.apache.org/adf/view/faces">
       
-  <base-component af:type="org.apache.myfaces.adf.HtmlTableLayout">
+  <base-component af:type="org.apache.myfaces.trinidad.HtmlTableLayout">
     
-    <component af:type="org.apache.myfaces.adf.HtmlRowLayout">
+    <component af:type="org.apache.myfaces.trinidad.HtmlRowLayout">
       
-      <component af:type="org.apache.myfaces.adf.HtmlCellFormat" header="true" columnSpan="2">
-        <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Table Header"/>
+      <component af:type="org.apache.myfaces.trinidad.HtmlCellFormat" header="true" columnSpan="2">
+        <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Table Header"/>
       </component>
     
     </component>
     
-    <component af:type="org.apache.myfaces.adf.HtmlRowLayout">
+    <component af:type="org.apache.myfaces.trinidad.HtmlRowLayout">
       
-      <component af:type="org.apache.myfaces.adf.HtmlCellFormat" halign="center">
-        <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Row 1, Col 1"/>
+      <component af:type="org.apache.myfaces.trinidad.HtmlCellFormat" halign="center">
+        <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Row 1, Col 1"/>
       </component>
       
-      <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Row 1, Col 2"/>
+      <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Row 1, Col 2"/>
     
     </component>
   

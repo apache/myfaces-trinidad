@@ -1,8 +1,8 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelSideBar">
-    <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Sidebar content"/>
-    <component af:facet="filter" af:type="org.apache.myfaces.adf.CoreOutputText" value="Filter"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelSideBar">
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Sidebar content"/>
+    <component af:facet="filter" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Filter"/>
   </base-component>
   
   <attribute-test name="width" value="20px"/>

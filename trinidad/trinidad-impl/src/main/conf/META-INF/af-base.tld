@@ -26,7 +26,7 @@
         
     <tag>
       <name>attribute</name>   
-      <tag-class>org.apache.myfaces.adfinternal.taglib.AttributeTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.AttributeTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The Attribute tag adds a property with the specified name and value 
@@ -53,7 +53,7 @@
 
     <tag>
       <name>validator</name>   
-      <tag-class>org.apache.myfaces.adfinternal.taglib.ValidatorTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.ValidatorTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The Validator tag adds a new validator instance to the component
@@ -80,7 +80,7 @@
 
    <tag>
       <name>forEach</name>
-      <tag-class>org.apache.myfaces.adfinternal.taglib.ForEachTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.ForEachTag</tag-class>
       <description>
 The forEach tag is a replacement for the JSTL &amp;lt;c:forEach&amp;gt; tag
                 that works with ADF Faces components.  Today, &amp;lt;c:forEach&amp;gt; cannot
@@ -151,7 +151,7 @@ to &amp;lt;af:forEach&amp;gt;
 
    <tag>
       <name>setActionListener</name>
-      <tag-class>org.apache.myfaces.adfinternal.taglib.listener.SetActionListenerTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.SetActionListenerTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The setActionListener tag provides a declarative syntax for assigning values before an action fires
@@ -178,7 +178,7 @@ to &amp;lt;af:forEach&amp;gt;
 
    <tag>
       <name>returnActionListener</name>
-      <tag-class>org.apache.myfaces.adfinternal.taglib.listener.ReturnActionListenerTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.ReturnActionListenerTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The returnActionListener tag is a declarative way to allow an action source to return 
@@ -198,7 +198,7 @@ to &amp;lt;af:forEach&amp;gt;
 
    <tag>
       <name>resetActionListener</name>
-      <tag-class>org.apache.myfaces.adfinternal.taglib.listener.ResetActionListenerTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.listener.ResetActionListenerTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The resetActionListener tag provides a declarative syntax for resetting values before an action fires
@@ -207,7 +207,7 @@ to &amp;lt;af:forEach&amp;gt;
  
    <tag>
       <name>componentRef</name>
-      <tag-class>org.apache.myfaces.adfinternal.taglib.ComponentRefTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.ComponentRefTag</tag-class>
       <description> 
 
       The componentRef tag adds declarative components onto the current
@@ -260,7 +260,7 @@ declared in a region-metadata.xml file.
 
     <tag>
       <name>componentDef</name>   
-      <tag-class>org.apache.myfaces.adfinternal.taglib.ComponentDefTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.ComponentDefTag</tag-class>
       <description>
         The componentDef tag is used to define a component. Its primary purpose
 is defining a "var" property so that the definition can refer to attributes
@@ -279,7 +279,7 @@ on this component's usage.
 
     <tag>
       <name>facetRef</name>   
-      <tag-class>org.apache.myfaces.adfinternal.taglib.FacetRefTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidadinternal.taglib.FacetRefTag</tag-class>
       <description>
         The facetRef tag is used to copy facets from a component
         and paste them into its

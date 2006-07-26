@@ -154,7 +154,7 @@ supported, to use the Expression Language syntax by default instead.
           <annotation>
             <documentation>The lenient-date-formats element affects whether
 date formatting should be lenient.  This can also be set from Java code using
-org.apache.myfaces.adfinternal.share.nls.MutableDateFormatContext@setLenient.  When leniency
+org.apache.myfaces.trinidadinternal.share.nls.MutableDateFormatContext@setLenient.  When leniency
 is activated, date fields will allow some formats that do not exactly match
 the requested server-side format (but have an unambiguous interpretation).
 While client-side code will attempt to fix up fields, server-side code

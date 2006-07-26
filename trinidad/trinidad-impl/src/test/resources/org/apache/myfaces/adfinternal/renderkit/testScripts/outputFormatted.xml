@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreOutputFormatted" value="Text"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted" value="Text"/>
 
   <attribute-test name="value" value="&lt;p&gt;paragraph&lt;/p&gt;"/>
   <attribute-test name="value" value="&lt;b&gt;bold&lt;/b&gt;"/>
