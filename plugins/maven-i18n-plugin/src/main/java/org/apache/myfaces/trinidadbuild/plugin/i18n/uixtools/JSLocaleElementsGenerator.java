@@ -21,11 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
-
-import java.lang.reflect.Method;
-
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -746,30 +742,30 @@ public class JSLocaleElementsGenerator
                           _RESOURCES_PACKAGE + ".LocaleElements";
 
   private static final String _DEFAULT_LOCATION_PATH =
-          "org\\apache\\myfaces\\adfinternal\\ui\\jsLibs\\resources\\".replace('\\',
+          "org\\apache\\myfaces\\trinidadinternal\\ui\\jsLibs\\resources\\".replace('\\',
                                                           File.separatorChar);
 
-  // Mimicking to be in api path. In the adf-faces impl side we have
+  // Mimicking to be in api path. In the trinidad-faces impl side we have
   // the following directory structure. There is identical directory sturcture
-  // in adf-faces api side.
-  // Only _ADF_LOCALE_ELEMENT base file will be added to the api side,
+  // in trinidad-faces api side.
+  // Only _TRINIDAD_LOCALE_ELEMENT base file will be added to the api side,
   // while all the variants will be in impl side in the directory structure
   // defined below.
-  private static final String _ADF_LOCALE_ELEMENTS_PACKAGE =
+  private static final String _TRINIDAD_LOCALE_ELEMENTS_PACKAGE =
     "org.apache.myfaces.trinidad.resource";
 
   public static final String _DEFAULT_BUNDLE_LOCATION_PATH =
-    (_ADF_LOCALE_ELEMENTS_PACKAGE.replace('.', File.separatorChar)
+    (_TRINIDAD_LOCALE_ELEMENTS_PACKAGE.replace('.', File.separatorChar)
      + File.separatorChar);
 
-  private static final String _ADF_LOCALE_ELEMENTS_PATH =
-    _ADF_LOCALE_ELEMENTS_PACKAGE + ".LocaleElements";
+  private static final String _TRINIDAD_LOCALE_ELEMENTS_PATH =
+    _TRINIDAD_LOCALE_ELEMENTS_PACKAGE + ".LocaleElements";
 
   // buffer size of the BufferedWriter to which output is written
   private static final int _DEFAULT_BUFFER_SIZE = 1 << 14;
 
   private static final String _LOCALE_LIST_PATH =
-          "org\\apache\\myfaces\\adfinternal\\ui\\laf\\base\\xhtml\\LocaleList.java".replace('\\',
+          "org\\apache\\myfaces\\trinidadinternal\\ui\\laf\\base\\xhtml\\LocaleList.java".replace('\\',
                                                           File.separatorChar);
 
   private static final String _EMPTY_VALUES[] = { "" };
@@ -826,7 +822,7 @@ public class JSLocaleElementsGenerator
     + "// This file has been automatically generated.\n"
     + "// Edit JSLocaleElementsGenerator instead.\n//\n"
     + "package "
-    + _ADF_LOCALE_ELEMENTS_PACKAGE
+    + _TRINIDAD_LOCALE_ELEMENTS_PACKAGE
     + ";\n\n"
     + "import java.util.ListResourceBundle;\n";
 
