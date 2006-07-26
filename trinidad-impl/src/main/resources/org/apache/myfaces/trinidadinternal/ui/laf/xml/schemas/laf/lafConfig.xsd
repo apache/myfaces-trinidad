@@ -501,7 +501,7 @@
                 In the following example, the public static method
                 test.IconUtils.getRequiredIcon() is called (at parse time). This
                 method must take no arguments and must return an
-                org.apache.myfaces.adfinternal.ui.skin.icon.Icon instance.
+                org.apache.myfaces.trinidadinternal.ui.skin.icon.Icon instance.
               </html:p>
               <cabotool:sampleCode>
                 &lt;!-- Replace the required icon with a text icon. --&gt;
@@ -512,7 +512,7 @@
                 In the following example, the public static method
                 test.IconUtils.sharedInstance() is called (at parse time). This
                 method must take no arguments and must return an
-                org.apache.myfaces.adfinternal.skin.icon.Icon instance.
+                org.apache.myfaces.trinidadinternal.skin.icon.Icon instance.
               </html:p>
               <cabotool:sampleCode>
                 &lt;!-- Replace the required icon with a text icon. --&gt;
@@ -523,7 +523,7 @@
                 In the above example, if the method sharedInstance() does not
                 exist, than an instance of the above class will be constructed
                 by calling a public no-arg constructor. This class must be of
-                type org.apache.myfaces.adfinternal.skin.icon.Icon.
+                type org.apache.myfaces.trinidadinternal.skin.icon.Icon.
               </html:p>
             </cabotool:example>
           </xsd:documentation>

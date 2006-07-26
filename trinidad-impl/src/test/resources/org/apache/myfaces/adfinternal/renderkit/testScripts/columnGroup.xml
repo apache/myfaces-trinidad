@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreTable" value="#{simpleList}" var="row" rows="5">
+  <base-component af:type="org.apache.myfaces.trinidad.CoreTable" value="#{simpleList}" var="row" rows="5">
 
-    <component af:type="org.apache.myfaces.adf.CoreColumn">
-      <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Atom"/>      
-        <component af:type="org.apache.myfaces.adf.CoreColumn">
-          <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Symbol"/>
-          <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.int}"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+      <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Atom"/>      
+        <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+          <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Symbol"/>
+          <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
         </component>
-        <component af:type="org.apache.myfaces.adf.CoreColumn">
-          <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Description"/>
-          <component af:type="org.apache.myfaces.adf.CoreColumn">
-            <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Name"/>
-            <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.string}"/>
+        <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+          <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Description"/>
+          <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+            <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Name"/>
+            <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.string}"/>
           </component>
-          <component af:type="org.apache.myfaces.adf.CoreColumn">
-            <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Number"/>
-            <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.int}"/>
+          <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+            <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Number"/>
+            <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
           </component>
-          <component af:type="org.apache.myfaces.adf.CoreColumn">
-            <component af:facet="header" af:type="org.apache.myfaces.adf.CoreOutputText" value="Group"/>
-            <component af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.int}"/>
+          <component af:type="org.apache.myfaces.trinidad.CoreColumn">
+            <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Group"/>
+            <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
           </component>
       </component>
     </component>  

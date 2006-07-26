@@ -1,15 +1,15 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelPageHeader">
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelPageHeader">
      
-    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
                 af:facet="branding"
                 source="/foo/foo.gif"/>
-    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
                 af:facet="brandingApp"
                 source="/foo/bar.gif"/>
    
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="search"
                 value="the search facet"/>
   </base-component>

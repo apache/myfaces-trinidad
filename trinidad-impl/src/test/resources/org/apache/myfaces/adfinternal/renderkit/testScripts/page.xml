@@ -1,11 +1,11 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces"
        agentNotSupported="pda">
-  <base-component af:type="org.apache.myfaces.adf.CorePage">
+  <base-component af:type="org.apache.myfaces.trinidad.CorePage">
    
-     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+     <component af:type="org.apache.myfaces.trinidad.CorePanelHeader"
                 text="header1"/>
-     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+     <component af:type="org.apache.myfaces.trinidad.CorePanelHeader"
                 text="header2"/>
 
 <!-- only test all the facets once in page-facets.xml, otherwise page test is giant. -->                  

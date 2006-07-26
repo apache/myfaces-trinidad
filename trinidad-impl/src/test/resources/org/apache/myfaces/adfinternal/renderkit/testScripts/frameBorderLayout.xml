@@ -1,33 +1,33 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
       xmlns:af="http://myfaces.apache.org/adf/view/faces">
       
-  <base-component af:type="org.apache.myfaces.adf.HtmlFrameBorderLayout">
+  <base-component af:type="org.apache.myfaces.trinidad.HtmlFrameBorderLayout">
    
     <!-- height attribute test -->
-    <component af:facet="top" af:type="org.apache.myfaces.adf.HtmlFrameBorderLayout" height="20%">
-      <component af:facet="top" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" height="100%"/>
+    <component af:facet="top" af:type="org.apache.myfaces.trinidad.HtmlFrameBorderLayout" height="20%">
+      <component af:facet="top" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" height="100%"/>
     </component>
     
     <!-- width attribute test -->
-    <component af:facet="start" af:type="org.apache.myfaces.adf.HtmlFrameBorderLayout" width="30%">
-      <component af:facet="left" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="30%"/>
-      <component af:facet="innerLeft" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="30%"/>
+    <component af:facet="start" af:type="org.apache.myfaces.trinidad.HtmlFrameBorderLayout" width="30%">
+      <component af:facet="left" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="30%"/>
+      <component af:facet="innerLeft" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="30%"/>
     </component>
    
-    <component af:facet="innerStart" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="10%"/>
+    <component af:facet="innerStart" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="10%"/>
     
-    <component af:facet="center" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com"/>
+    <component af:facet="center" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com"/>
     
-    <component af:facet="innerEnd" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="10%"/>
+    <component af:facet="innerEnd" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="10%"/>
     
-    <component af:facet="end" af:type="org.apache.myfaces.adf.HtmlFrameBorderLayout" width="30%">
-      <component af:facet="innerRight" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="35%"/>
-      <component af:facet="right" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" width="25%"/>
+    <component af:facet="end" af:type="org.apache.myfaces.trinidad.HtmlFrameBorderLayout" width="30%">
+      <component af:facet="innerRight" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="35%"/>
+      <component af:facet="right" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" width="25%"/>
     </component>
 
-    <component af:facet="bottom" af:type="org.apache.myfaces.adf.HtmlFrame" source="http://www.oracle.com" height="30pt"/>
+    <component af:facet="bottom" af:type="org.apache.myfaces.trinidad.HtmlFrame" source="http://www.oracle.com" height="30pt"/>
 
-    <component af:facet="alternateContent" af:type="org.apache.myfaces.adf.CoreOutputText" value="no frames"/>
+    <component af:facet="alternateContent" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="no frames"/>
    
   </base-component>
   

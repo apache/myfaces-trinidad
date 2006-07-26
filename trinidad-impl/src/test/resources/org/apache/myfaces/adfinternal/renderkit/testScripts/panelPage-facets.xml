@@ -1,96 +1,96 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelPage">
-     <component af:type="org.apache.myfaces.adf.CoreProcessChoiceBar"
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelPage">
+     <component af:type="org.apache.myfaces.trinidad.CoreProcessChoiceBar"
                 af:facet="actions"
                 value="#{pageList}" var="foo">
-     <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+     <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                     af:facet="nodeStamp"
                     text="#{foo.label}"/>
      </component>
-     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+     <component af:type="org.apache.myfaces.trinidad.CoreCommandLink"
                  af:facet="appAbout"
                  text="appAbout"/>
-     <component af:type="org.apache.myfaces.adf.CoreCommandLink"
+     <component af:type="org.apache.myfaces.trinidad.CoreCommandLink"
                  af:facet="appPrivacy"
                  text="privacy"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="appCopyright"
                 value="the appCopyright facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="infoFootnote"
                 value="the infoFootnote facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="infoUser"
                 value="the infoUser facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="infoStatus"
                 value="the infoStatus facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="infoReturn"
                 value="the infoReturn facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="messages"
                 value="the messages facet"/>
-     <component af:type="org.apache.myfaces.adf.CoreNavigationPath"
+     <component af:type="org.apache.myfaces.trinidad.CoreNavigationPath"
                 af:facet="location" >
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="path1"/>
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="path2"/>
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="path3"/>
     </component>
-     <component af:type="org.apache.myfaces.adf.CoreMenuTabs"
+     <component af:type="org.apache.myfaces.trinidad.CoreMenuTabs"
                 af:facet="navigation1" >
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab1"/>
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab2"/>
-        <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+        <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab3"/>
     </component>
-    <component af:type="org.apache.myfaces.adf.CoreMenuBar"
+    <component af:type="org.apache.myfaces.trinidad.CoreMenuBar"
                    af:facet="navigation2" >
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar1"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar2"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar3"/>
      </component>
-    <component af:type="org.apache.myfaces.adf.CoreMenuList"
+    <component af:type="org.apache.myfaces.trinidad.CoreMenuList"
                    af:facet="navigation3" >
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="list1"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="list2"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="list3"/>
      </component>
-   <component af:type="org.apache.myfaces.adf.CoreMenuButtons"
+   <component af:type="org.apache.myfaces.trinidad.CoreMenuButtons"
                    af:facet="navigationGlobal" >
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button1"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button2"/>
-           <component af:type="org.apache.myfaces.adf.CoreCommandNavigationItem"
+           <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button3"/>
     </component>
-    <component af:type="org.apache.myfaces.adf.CoreObjectImage"
+    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
                 af:facet="branding"
                 source="/foo/foo.gif"/>
-     <component af:type="org.apache.myfaces.adf.CoreOutputFormatted"
+     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
                 af:facet="search"
                 value="the search facet"/>
                 
-     <component af:type="org.apache.myfaces.adf.CorePanelHeader" text="foo"/>
-     <component id="panID" af:type="org.apache.myfaces.adf.CorePanelHeader" text="bar bar">
+     <component af:type="org.apache.myfaces.trinidad.CorePanelHeader" text="foo"/>
+     <component id="panID" af:type="org.apache.myfaces.trinidad.CorePanelHeader" text="bar bar">
         <attribute-test name="icon" value="icon-uri"/> 
      </component>   
            
   
-     <component af:type="org.apache.myfaces.adf.CorePanelHeader"
+     <component af:type="org.apache.myfaces.trinidad.CorePanelHeader"
                 text="header2"/>
 
   </base-component>

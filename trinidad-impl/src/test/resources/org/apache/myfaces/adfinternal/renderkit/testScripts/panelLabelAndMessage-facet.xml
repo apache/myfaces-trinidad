@@ -1,10 +1,10 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CorePanelLabelAndMessage">
-    <component af:type="org.apache.myfaces.adf.CoreSelectBooleanCheckbox" text="Checkbox 1" value="Value 1" readOnly="false"/>
-    <component af:type="org.apache.myfaces.adf.CoreSelectBooleanCheckbox" text="Checkbox 2" value="Value 2" readOnly="false"/>
-    <component af:facet="end" af:type="org.apache.myfaces.adf.CoreInputText"/>
-    <component af:type="org.apache.myfaces.adf.CoreOutputText"
+  <base-component af:type="org.apache.myfaces.trinidad.CorePanelLabelAndMessage">
+    <component af:type="org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox" text="Checkbox 1" value="Value 1" readOnly="false"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox" text="Checkbox 2" value="Value 2" readOnly="false"/>
+    <component af:facet="end" af:type="org.apache.myfaces.trinidad.CoreInputText"/>
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText"
                 af:facet="help"
                 value="help text"/>
   </base-component>     

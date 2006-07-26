@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreSelectBooleanCheckbox" />
+  <base-component af:type="org.apache.myfaces.trinidad.CoreSelectBooleanCheckbox" />
   <attribute-test name="accessKey" value="a"/>
   <boolean-test name="autoSubmit"/>  
   <attribute-test name="autoSubmit" value="true">  

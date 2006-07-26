@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreSelectInputDate" simple="true"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreSelectInputDate" simple="true"/>
   <!--attribute-test name = "accessKey" value="A"/-->
   <attribute-test name ="chooseId"/>
   <boolean-test name="disabled"/>

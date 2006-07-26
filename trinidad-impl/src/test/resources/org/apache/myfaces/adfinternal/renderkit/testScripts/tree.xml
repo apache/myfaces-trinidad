@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="windows-1252" ?>
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreTree" expandedRowKeys="#{pathSet}" value="#{modelTree}" var="row">
+  <base-component af:type="org.apache.myfaces.trinidad.CoreTree" expandedRowKeys="#{pathSet}" value="#{modelTree}" var="row">
     
-    <component af:facet="nodeStamp" af:type="org.apache.myfaces.adf.CoreOutputText" value="#{row.name}"/>
+    <component af:facet="nodeStamp" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.name}"/>
       
   </base-component>
   <!-- uncomment immediate test when bug 4379168 is fixed -->

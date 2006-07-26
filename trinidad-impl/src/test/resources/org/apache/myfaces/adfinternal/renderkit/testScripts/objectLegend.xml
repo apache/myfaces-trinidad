@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreObjectLegend" name="required"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreObjectLegend" name="required"/>
 
    <!-- Core attribute tests -->
   <attribute-test name="id"/>

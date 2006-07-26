@@ -1,7 +1,7 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreShowDetailItem">
-    <component af:type="org.apache.myfaces.adf.CoreOutputText" value="Content"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreShowDetailItem">
+    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Content"/>
   </base-component>
 
   <boolean-test name="disclosed"/>

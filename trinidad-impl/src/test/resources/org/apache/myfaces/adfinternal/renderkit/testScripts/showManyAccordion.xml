@@ -1,14 +1,14 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreShowManyAccordion">
+  <base-component af:type="org.apache.myfaces.trinidad.CoreShowManyAccordion">
     
-    <component af:type="org.apache.myfaces.adf.CoreShowDetailItem" text="1">
+    <component af:type="org.apache.myfaces.trinidad.CoreShowDetailItem" text="1">
     </component>
     
-    <component af:type="org.apache.myfaces.adf.CoreShowDetailItem" text="2">
+    <component af:type="org.apache.myfaces.trinidad.CoreShowDetailItem" text="2">
     </component>
     
-    <component af:type="org.apache.myfaces.adf.CoreShowDetailItem" text="3">
+    <component af:type="org.apache.myfaces.trinidad.CoreShowDetailItem" text="3">
     </component>
     
   </base-component>

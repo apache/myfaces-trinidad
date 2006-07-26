@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/adf/view/faces/test"
        xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreOutputText" value="This is some &lt;Text&gt;"/>
+  <base-component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="This is some &lt;Text&gt;"/>
   <attribute-test name="description"/>
   <boolean-test name="escape"/>
   <attribute-test name="truncateAt" value="13"/>
