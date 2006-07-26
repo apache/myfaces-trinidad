@@ -24,7 +24,7 @@ import javax.faces.convert.NumberConverter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 
-import org.apache.myfaces.trinidad.context.MockAdfFacesContext;
+import org.apache.myfaces.trinidad.context.MockRequestContext;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
 import org.apache.shale.test.mock.MockFacesContext;
 import org.jmock.Mock;
@@ -37,9 +37,9 @@ import junit.framework.TestSuite;
  * @author Vijay Venaktaraman (vijay.venkataraman@oracle.com)
  * @version $Name: $ ($version: $) $Date: 16-aug-2005.15:12:23 $
  */
-public class AdfNumberConverterTest extends NumberConverterTestCase
+public class TrinidadNumberConverterTest extends NumberConverterTestCase
 {
-  public AdfNumberConverterTest(String name)
+  public TrinidadNumberConverterTest(String name)
   {
     super(name);
   }
@@ -52,7 +52,7 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
   public void setUp()
   {
     super.setUp();
-    _mafct = new MockAdfFacesContext();
+    _mafct = new MockRequestContext();
     _mafct.setDecimalSeparator('.');
     _mafct.setNumberGroupingSeparator(',');
     _mafct.setCurrencyCode(null);
@@ -61,7 +61,7 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
   public void tearDown()
   {
     
-    // AdfFacesContext uses a thread local variable to hold itself and has a
+    // RequestContext uses a thread local variable to hold itself and has a
     // check in it. So you need to release, since all instances for tests
     // are created on the same thread by Junit.
     _mafct.release();
@@ -71,7 +71,7 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
 
   public static Test suite()
   {
-    return new TestSuite(AdfNumberConverterTest.class);
+    return new TestSuite(TrinidadNumberConverterTest.class);
   }
   
   public void testCurrencyCodeIsHonoured()
@@ -82,12 +82,12 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
     super.testCurrencyCodeIsHonoured();
   }
 
-  public void testValueSetInAdfFacesContextIsHonoured()
+  public void testValueSetInRequestContextIsHonoured()
   {
     //ugly ?
     _mafct.release();
     _mafct = null;
-    _mafct = new MockAdfFacesContext();
+    _mafct = new MockRequestContext();
     _mafct.setDecimalSeparator('*');
     _mafct.setNumberGroupingSeparator('!');
     _mafct.setCurrencyCode(null);
@@ -175,7 +175,7 @@ public class AdfNumberConverterTest extends NumberConverterTestCase
     }
   }
 
-  private MockAdfFacesContext _mafct;
+  private MockRequestContext _mafct;
 
-  //checkForSettingsInAdfFacesContext - dec sep, currencyCode, NumGrpSptr
+  //checkForSettingsInRequestContext - dec sep, currencyCode, NumGrpSptr
 }

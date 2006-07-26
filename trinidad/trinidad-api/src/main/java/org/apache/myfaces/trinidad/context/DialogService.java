@@ -81,7 +81,7 @@ abstract public class DialogService
    *
    * @param source the component that may have launched a dialog
    * @return a ReturnEvent containing the
-   * {@link AdfFacesContext#returnFromDialog return value} from the
+   * {@link RequestContext#returnFromDialog return value} from the
    * dialog.
    */
   public abstract ReturnEvent getReturnEvent(UIComponent source);
@@ -113,7 +113,7 @@ abstract public class DialogService
    * Launches a dialog without pushing a process scope.
    * This method should only be used by controller framework
    * code;  all others should use
-   * {@link AdfFacesContext#launchDialog AdfFacesContext.launchDialog()}.
+   * {@link RequestContext#launchDialog RequestContext.launchDialog()}.
    * The process scope must be {@link #pushPageFlowScope pushed}
    * <em>before</em> calling this method.
    */
@@ -129,7 +129,7 @@ abstract public class DialogService
    * Returns from a dialog without popping a process scope.
    * This method should only be used by controller framework
    * code;  all others should use
-   * {@link AdfFacesContext#returnFromDialog AdfFacesContext.returnFromDialog()}.
+   * {@link RequestContext#returnFromDialog RequestContext.returnFromDialog()}.
    * The process scope must be {@link #popPageFlowScope popped}
    * <em>after</em> calling this method.
    *

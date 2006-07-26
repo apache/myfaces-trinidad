@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
@@ -31,14 +31,14 @@ import org.apache.myfaces.trinidad.context.PageResolver;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 
-public class MockAdfFacesContext extends AdfFacesContext
+public class MockRequestContext extends RequestContext
 {
-  public MockAdfFacesContext()
+  public MockRequestContext()
   {
     attach();
   }
 
-  // Support setting the agent so we can create one AdfFacesContext
+  // Support setting the agent so we can create one RequestContext
   // and mutate it
 
   public void setAgent(Agent agent)

@@ -34,7 +34,7 @@ import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
@@ -60,7 +60,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * Else uses the <code>currencyCode</code> set on <code>adf-faces-config.xml</code>
  * file. If it is not set, then it is defaulted based on the locale. The
  * value registered in adf-faces-config.xml is obtained using
- * api from {@link org.apache.myfaces.trinidad.context.AdfFacesContext}.</p>
+ * api from {@link org.apache.myfaces.trinidad.context.RequestContext}.</p>
  *
  * <p>Since ADF Faces is compatible only with JDK 1.4 and higher versions,
  * the <code>currencyCode</code> gets preferance over <code>currencySymbol</code>
@@ -105,7 +105,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * converter ID, and therefore will be used when the
  * <code>&lt;f:convertNumber&gt;</code> tag is used.
  *
- * @see org.apache.myfaces.trinidad.context.AdfFacesContext
+ * @see org.apache.myfaces.trinidad.context.RequestContext
  *
  * <p>
  * @author The Oracle ADF Faces Team
@@ -215,7 +215,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
 
     Locale locale = _getLocale(context);
-    AdfFacesContext adfFacesCtx = AdfFacesContext.getCurrentInstance();
+    RequestContext adfFacesCtx = RequestContext.getCurrentInstance();
 
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, adfFacesCtx);
 
@@ -291,7 +291,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
 
     Locale locale  = _getLocale(context);
-    AdfFacesContext adfFacesCtx = AdfFacesContext.getCurrentInstance();
+    RequestContext adfFacesCtx = RequestContext.getCurrentInstance();
 
     NumberFormat formatter = _getNumberFormat(pattern, type, locale, adfFacesCtx);
 
@@ -674,7 +674,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       Object dfs = _patternFormatSymbolsHolder.get(locale);
 
       // make sure to return a clone so that it can be mutated at the point
-      // of use based on the setting in the AdfFacesContext
+      // of use based on the setting in the RequestContext
       if (dfs != null)
         return (DecimalFormatSymbols) ((DecimalFormatSymbols) dfs).clone();
       else
@@ -767,7 +767,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     String pattern,
     String type,
     Locale locale,
-    AdfFacesContext adfFacesCtx
+    RequestContext adfFacesCtx
     )
   {
     NumberFormat nfmt;
@@ -811,7 +811,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private void _setUpDecimalSymbolFormatProperties(
     DecimalFormatSymbols symbols,
-    AdfFacesContext adfFacesCtx,
+    RequestContext adfFacesCtx,
     Locale locale
     )
   {
@@ -830,7 +830,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     {
       if (_LOG.isWarning())
       {
-        _LOG.warning("AdfFacesContext is null:"    +
+        _LOG.warning("RequestContext is null:"    +
                      " decimal separator,"         +
                      " number grouping separator," +
                      " currency code"              +
@@ -868,7 +868,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   }
 
   private void _setCurrencyInformation(
-    AdfFacesContext context,
+    RequestContext context,
     DecimalFormatSymbols symbols)
   {
     String currencyCode = _getCurrencyCode(context);
@@ -986,7 +986,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   }
 
   private String _getCurrencyCode(
-    AdfFacesContext context
+    RequestContext context
     )
   {
     String currencyCode = getCurrencyCode();
@@ -998,7 +998,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       }
       else
       {
-        _LOG.warning("AdfFacesContext is null, unable to get currency code");
+        _LOG.warning("RequestContext is null, unable to get currency code");
       }
     }
 
@@ -1007,7 +1007,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   // applied only while formatting
   private void _setCurrencyFormattingProperties(
-    AdfFacesContext context,
+    RequestContext context,
     NumberFormat numberFormatter
    )
   {

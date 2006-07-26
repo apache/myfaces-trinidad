@@ -18,27 +18,27 @@ package org.apache.myfaces.trinidad.context;
 import java.util.HashMap;
 
 /**
- * Factory for creating AdfFacesContext objects.
+ * Factory for creating RequestContext objects.
  * 
  * @author The Oracle ADF Faces Team
  */
-abstract public class AdfFacesContextFactory
+abstract public class RequestContextFactory
 {
   /**
-   * Retrieve the current AdfFacesContextFactory.
+   * Retrieve the current RequestContextFactory.
    */
-  static public AdfFacesContextFactory getFactory()
+  static public RequestContextFactory getFactory()
   {
     synchronized (_FACTORIES)
     {
-      return (AdfFacesContextFactory) _FACTORIES.get(_getClassLoader());
+      return (RequestContextFactory) _FACTORIES.get(_getClassLoader());
     }
   }
 
   /**
-   * Store the current AdfFacesContextFactory.
+   * Store the current RequestContextFactory.
    */
-  static public void setFactory(AdfFacesContextFactory factory)
+  static public void setFactory(RequestContextFactory factory)
   {
     synchronized (_FACTORIES)
     {
@@ -54,11 +54,11 @@ abstract public class AdfFacesContextFactory
   }
 
   /**
-   * Create a AdfFacesContext.
+   * Create a RequestContext.
    * @todo do we need to pass the servlet objects, or can we rely
    * on their being available via the FacesContext?
    */
-  abstract public AdfFacesContext createContext(Object context,
+  abstract public RequestContext createContext(Object context,
                                                 Object request);
 
   static private ClassLoader _getClassLoader()

@@ -26,7 +26,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 import javax.faces.event.PhaseId;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 
 /**
@@ -64,7 +64,7 @@ public class LaunchEvent extends FacesEvent
    */
   public void launchDialog(boolean useWindow)
   {
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     afContext.launchDialog(getViewRoot(),
                            getDialogParameters(),
                            getComponent(),

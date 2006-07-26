@@ -28,9 +28,9 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
  * Context class for all per-request and per-webapp information
- * required by ADF Faces.  A <code>AdfFacesContext</code> object can be
+ * required by ADF Faces.  A <code>RequestContext</code> object can be
  * retrieved with the static {@link #getCurrentInstance} method.
- * There is one and only one <code>AdfFacesContext</code> object
+ * There is one and only one <code>RequestContext</code> object
  * active in any one thread.
  * <p>
  * This class does not extend <code>FacesContext</code>;  this is intentional,
@@ -45,7 +45,7 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
  * @author The Oracle ADF Faces Team
  * @mock
  */
-abstract public class AdfFacesContext
+abstract public class RequestContext
 {
   /**
    * Name of the EL implicit variable ("adfFacesContext") that is used to
@@ -67,21 +67,21 @@ abstract public class AdfFacesContext
 
 
   /**
-   * Retrieves the AdfFacesContext active for the current thread.
+   * Retrieves the RequestContext active for the current thread.
    */
-  static public AdfFacesContext getCurrentInstance()
+  static public RequestContext getCurrentInstance()
   {
-    return (AdfFacesContext) _CURRENT_CONTEXT.get();
+    return (RequestContext) _CURRENT_CONTEXT.get();
   }
 
   
 
   /**
-   * Creates an AdfFacesContext.  AdfFacesContext is abstract
+   * Creates an RequestContext.  RequestContext is abstract
    * and may not be instantiated directly.
-   * @see AdfFacesContextFactory
+   * @see RequestContextFactory
    */
-  protected AdfFacesContext()
+  protected RequestContext()
   {
   }
 
@@ -372,34 +372,34 @@ abstract public class AdfFacesContext
   public abstract Agent getAgent();
 
   /**
-   * Releases the AdfFacesContext object.  This method must only
-   * be called by the code that created the AdfFacesContext.
-   * @exception IllegalStateException if no AdfFacesContext is attached
+   * Releases the RequestContext object.  This method must only
+   * be called by the code that created the RequestContext.
+   * @exception IllegalStateException if no RequestContext is attached
    * to the thread, or the attached context is not this object
    */
   public void release()
   {
     Object o = _CURRENT_CONTEXT.get();
     if (o == null)
-      throw new IllegalStateException("AdfFacesContext was already released or " +
+      throw new IllegalStateException("RequestContext was already released or " +
                                       "had never been attached.");
     if (o != this)
       throw new IllegalStateException("Trying to release a different " +
-                     "AdfFacesContext than the current context.");
+                     "RequestContext than the current context.");
     _CURRENT_CONTEXT.set(null);
   }
 
   /**
-   * Attaches a AdfFacesContext to the current thread.  This method 
-   * should only be called by a AdfFacesContext object itself.
-   * @exception IllegalStateException if an AdfFacesContext is already
+   * Attaches a RequestContext to the current thread.  This method 
+   * should only be called by a RequestContext object itself.
+   * @exception IllegalStateException if an RequestContext is already
    * attached to the thread
    */
   public void attach()
   {
     Object o = _CURRENT_CONTEXT.get();
     if (o != null)
-      throw new IllegalStateException("Trying to attach AdfFacesContext to a " +
+      throw new IllegalStateException("Trying to attach RequestContext to a " +
                                       "thread that already had one.");
     _CURRENT_CONTEXT.set(this);
   }
