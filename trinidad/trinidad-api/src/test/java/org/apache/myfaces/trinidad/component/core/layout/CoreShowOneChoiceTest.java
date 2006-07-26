@@ -74,7 +74,7 @@ public class CoreShowOneChoiceTest extends UIComponentTestCase
    public void testgetAttributeValues()
    {
      CoreShowOneChoice component = new CoreShowOneChoice();
-     assertEquals("org.apache.myfaces.adf.ShowOne",component.getFamily());
+     assertEquals("org.apache.myfaces.trinidad.ShowOne",component.getFamily());
    }
 
   /**

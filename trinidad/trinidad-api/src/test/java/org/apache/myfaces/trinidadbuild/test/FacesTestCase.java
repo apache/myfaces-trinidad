@@ -54,13 +54,13 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
   public void setUp()
   {
     super.setUp();
-    facesContext.getViewRoot().setRenderKitId("org.apache.myfaces.adf.core"); 
+    facesContext.getViewRoot().setRenderKitId("org.apache.myfaces.trinidad.core"); 
     RenderKitFactory renderKitFactory = (RenderKitFactory)
     FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
     Mock mockRenderKitty = mock(RenderKit.class);
     RenderKit renderKit = (RenderKit) mockRenderKitty.proxy();
     _mockRenderKit = new MockRenderKitWrapper(mockRenderKitty, renderKit);
-    renderKitFactory.addRenderKit("org.apache.myfaces.adf.core", renderKit);
+    renderKitFactory.addRenderKit("org.apache.myfaces.trinidad.core", renderKit);
   }
 
   public void tearDown()

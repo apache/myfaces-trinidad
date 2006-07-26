@@ -70,7 +70,7 @@ public class CoreShowManyAccordionTest extends UIComponentTestCase
   public void testgetAttributeValues()
   {
     CoreShowManyAccordion component = new CoreShowManyAccordion();
-    assertEquals("org.apache.myfaces.adf.ShowMany",component.getFamily());
+    assertEquals("org.apache.myfaces.trinidad.ShowMany",component.getFamily());
   }
 
   /**

@@ -74,7 +74,7 @@ public class CoreShowOneRadioTest extends UIComponentTestCase
    public void testgetAttributeValues()
    {
      CoreShowOneRadio component = new CoreShowOneRadio();
-     assertEquals("org.apache.myfaces.adf.ShowOne",component.getFamily());
+     assertEquals("org.apache.myfaces.trinidad.ShowOne",component.getFamily());
    }
 
   /**
