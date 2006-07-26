@@ -16,7 +16,7 @@
 -->
 <!--Resource file for all BLAF resources-->
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.adfinternal.renderkit.core.resource">
+<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidadinternal.renderkit.core.resource">
 
   <!--resource for the column heading of the property name-->
   <resource key="TIP_LABEL">CONSELL</resource>
