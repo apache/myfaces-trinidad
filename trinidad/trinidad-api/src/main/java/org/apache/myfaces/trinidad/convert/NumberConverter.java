@@ -127,7 +127,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   /**
    * <p>The standard converter id for this converter.</p>
    */
-    public static final String CONVERTER_ID = "org.apache.myfaces.adf.Number";
+    public static final String CONVERTER_ID = "org.apache.myfaces.trinidad.Number";
 
   /**
    * <p>The message identifier of the {@link FacesMessage}
@@ -138,7 +138,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * label associated with the component and the pattern respectively.</p>
    */
    public static final String CONVERT_PATTERN_MESSAGE_ID =
-    "org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN";
+    "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN";
 
   /**
    * <p>The message identifier of the {@link FacesMessage}
@@ -149,7 +149,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * respectively.</p>
    */
    public static final String CONVERT_NUMBER_MESSAGE_ID =
-    "org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER";
+    "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER";
 
   /**
    * <p>The message identifier of the {@link FacesMessage}
@@ -161,7 +161,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * respectively.</p>
    */
    public static final String CONVERT_CURRENCY_MESSAGE_ID =
-    "org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY";
+    "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY";
 
    /**
    * <p>The message identifier of the {@link FacesMessage}
@@ -173,7 +173,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * respectively.</p>
    */
    public static final String CONVERT_PERCENT_MESSAGE_ID =
-    "org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT";
+    "org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT";
 
 
   //Converter interface implementation

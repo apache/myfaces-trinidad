@@ -115,7 +115,7 @@ public class ColorConverter implements Converter, StateHolder
   /**
    * <p>Standard converter id for this converter.</p>
    */
-  public static final String CONVERTER_ID = "org.apache.myfaces.adf.Color";
+  public static final String CONVERTER_ID = "org.apache.myfaces.trinidad.Color";
 
  /**
    * <p>The message identifier of the {@link FacesMessage} to be created when
@@ -126,14 +126,14 @@ public class ColorConverter implements Converter, StateHolder
    * set in the converter.</p>
    */
     public static final String CONVERT_MESSAGE_ID =
-        "org.apache.myfaces.adf.convert.ColorConverter.CONVERT";
+        "org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT";
 
  /**
    * <p>The string identifier for the "Transparent" option 
    * set in the converter.</p>
    */
     private static final String TRANSPARENT =
-        "org.apache.myfaces.adf.convert.ColorConverter.TRANSPARENT";
+        "org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT";
 
   /**
    * <p>Default pattern to be used if pattern if not supplied.

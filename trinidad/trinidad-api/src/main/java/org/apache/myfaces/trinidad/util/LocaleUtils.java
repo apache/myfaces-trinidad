@@ -280,7 +280,7 @@ class LocaleUtils
 
 
   private static final String _ADF_FACES_MESSAGE_BUNDLE
-    = "org.apache.myfaces.adf.resource.MessageBundle";
+    = "org.apache.myfaces.trinidad.resource.MessageBundle";
 
   // cache Bundles based on locale
   private static  Map  _bundleCache;

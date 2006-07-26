@@ -47,7 +47,7 @@ public class AdfFacesFilter implements Filter
       try
       {
         Class proxiedClass = loader.loadClass(
-                      "org.apache.myfaces.adfinternal.webapp.AdfFacesFilterImpl");
+                      "org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl");
         _proxied = (Filter) proxiedClass.newInstance();
         _proxied.init(filterConfig);
       }

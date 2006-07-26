@@ -262,7 +262,7 @@ abstract public class AdfFacesContext
   /**
    * Returns the year offset for parsing years with only two digits.
    * If not set this is defaulted to <code>1950</code>
-   * This is used by @link{org.apache.myfaces.adf.faces.view.converter.DateTimeConverter}
+   * This is used by @link{org.apache.myfaces.trinidad.faces.view.converter.DateTimeConverter}
    * while converting strings to Date object.
    */
   public abstract int getTwoDigitYearStart();

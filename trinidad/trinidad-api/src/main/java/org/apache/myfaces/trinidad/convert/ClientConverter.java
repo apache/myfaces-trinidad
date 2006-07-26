@@ -105,5 +105,5 @@ public interface ClientConverter
    UIComponent component);
 
   static public final String ALERT_FORMAT_KEY =
-    "org.apache.myfaces.adf.convert.ALERT_FORMAT";
+    "org.apache.myfaces.trinidad.convert.ALERT_FORMAT";
 }

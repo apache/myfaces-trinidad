@@ -117,6 +117,6 @@ class ADFLogRecord extends LogRecord
   static private final String _JDK_LOG_CLASS =
   "java.util.logging.Logger";
   static private final String _ADF_LOG_CLASS =
-  "org.apache.myfaces.adf.logging.ADFLogger";
+  "org.apache.myfaces.trinidad.logging.ADFLogger";
 }
 
