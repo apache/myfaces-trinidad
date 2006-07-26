@@ -756,7 +756,7 @@ public class JSLocaleElementsGenerator
   // while all the variants will be in impl side in the directory structure
   // defined below.
   private static final String _ADF_LOCALE_ELEMENTS_PACKAGE =
-    "org.apache.myfaces.adf.resource";
+    "org.apache.myfaces.trinidad.resource";
 
   public static final String _DEFAULT_BUNDLE_LOCATION_PATH =
     (_ADF_LOCALE_ELEMENTS_PACKAGE.replace('.', File.separatorChar)
@@ -779,7 +779,7 @@ public class JSLocaleElementsGenerator
 "**\n" +
 "**34567890123456789012345678901234567890123456789012345678901234567890123456789\n" +
 "*/\n" +
-"package org.apache.myfaces.adfinternal.ui.laf.base.xhtml;\n" +
+"package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;\n" +
 "\n" +
 "import java.util.Locale;\n" +
 "\n" +
