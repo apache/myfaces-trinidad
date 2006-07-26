@@ -25,35 +25,35 @@
 
 
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.adf.resource">
+<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidad.resource">
 <!-- The FacesMessage class supports both summary and detailed messages. -->
 <!-- The convention is that the summary will be the main key. The key    -->
 <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
 <!-- message will be of the form <classname>.MSG_KEY_detail.             -->
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.adf.UIXEditableValue.REQUIRED" dnt="false">Değer gerekli.</resource>
-<resource key="org.apache.myfaces.adf.UIXEditableValue.REQUIRED_detail" dnt="false">Değer girilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED" dnt="false">Değer gerekli.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail" dnt="false">Değer girilmelidir.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.adf.UIXSelectMany.REQUIRED" dnt="false">Seçim gerekli.</resource>
-<resource key="org.apache.myfaces.adf.UIXSelectMany.REQUIRED_detail" dnt="false">En az bir değer seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED" dnt="false">Seçim gerekli.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail" dnt="false">En az bir değer seçilmelidir.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.adf.UIXSelectOne.REQUIRED" dnt="false">Seçim gereklidir.</resource>
-<resource key="org.apache.myfaces.adf.UIXSelectOne.REQUIRED_detail" dnt="false">Bir değer seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED" dnt="false">Seçim gereklidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail" dnt="false">Bir değer seçilmelidir.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.adf.UIXTableSelectOne.REQUIRED" dnt="false">Satır seçilmelidir.</resource>
-<resource key="org.apache.myfaces.adf.UIXTableSelectOne.REQUIRED_detail" dnt="false">Bir satır seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED" dnt="false">Satır seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail" dnt="false">Bir satır seçilmelidir.</resource>
 <!-- {0} the label that identifies the selection  -->
-<resource key="org.apache.myfaces.adf.UIXTableSelectMany.REQUIRED" dnt="false">Bir satır seçilmelidir.</resource>
-<resource key="org.apache.myfaces.adf.UIXTableSelectMany.REQUIRED_detail" dnt="false">En az bir satır seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED" dnt="false">Bir satır seçilmelidir.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail" dnt="false">En az bir satır seçilmelidir.</resource>
 <!-- SelectManyRenderer ConversionException messages -->
 <!-- {0} modelClass                                  -->
-<resource key="org.apache.myfaces.adf.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">Desteklenmeyen model türü.</resource>
-<resource key="org.apache.myfaces.adf.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail" dnt="false">SelectMany {0} türünde bir modeli desteklemiyor.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE" dnt="false">Desteklenmeyen model türü.</resource>
+<resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail" dnt="false">SelectMany {0} türünde bir modeli desteklemiyor.</resource>
 <!-- {0} the label that identifies the component               -->
 <!-- {1} value entered by the user                             -->
 <!-- {2} the message string returned by the ConverterException -->
-<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION" dnt="false">Dönüştürme başarısız</resource>
-<resource key="org.apache.myfaces.adf.UIXEditableValue.CONVERSION_detail" dnt="false">&quot;{1}&quot; değeri anlaşılamadı: {2}</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION" dnt="false">Dönüştürme başarısız</resource>
+<resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail" dnt="false">&quot;{1}&quot; değeri anlaşılamadı: {2}</resource>
 <!-- messages for validators -->
 <!-- Note: The parameter numbers of these faces messages do not match -->
 <!-- the parameter numbers of the rest of the ADF Faces messages      -->
@@ -81,164 +81,164 @@
 <!-- {0} the label that identifies the component              -->
 <!-- {1} value entered by the user                            -->
 <!-- {2} the maximum length                                   -->
-<resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM" dnt="false">Değer çok uzun.</resource>
-<resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM_detail" dnt="false">Girilen değerin (&quot;{1}&quot;) uzunluğu izin verilen maksimum bayt uzunluğunu ({2}) aşıyor.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM" dnt="false">Değer çok uzun.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_detail" dnt="false">Girilen değerin (&quot;{1}&quot;) uzunluğu izin verilen maksimum bayt uzunluğunu ({2}) aşıyor.</resource>
 <!-- Date exceeds date range error               -->
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">Tarih, geçerli aralıktan sonra.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">Girilen tarih (&quot;{1}&quot;) son geçerli tarihten ({2}) sonra.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM" dnt="false">Tarih, geçerli aralıktan sonra.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_detail" dnt="false">Girilen tarih (&quot;{1}&quot;) son geçerli tarihten ({2}) sonra.</resource>
 <!-- Date preceeds date range error                -->
 <!-- {0} the label that identifies the component   -->
 <!-- {1} represent Date which the user has set     -->
 <!-- {2} represents the minimum allowed date       -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM" dnt="false">Tarih, geçerli aralıktan önce.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">Girilen tarih (&quot;{1}&quot;), ilk geçerli tarihten ({2}) önce.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM" dnt="false">Tarih, geçerli aralıktan önce.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_detail" dnt="false">Girilen tarih (&quot;{1}&quot;), ilk geçerli tarihten ({2}) önce.</resource>
 <!-- Date outside date range error               -->
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} represents the minimum allowed date     -->
 <!-- {3} represents the maximum allowed date     -->
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">Tarih, geçerli aralıkta değil.</resource>
-<resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">Girilen tarih (&quot;{1}&quot;), geçerli tarih aralığında ({2} ve {3}) değil.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">Tarih, geçerli aralıkta değil.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">Girilen tarih (&quot;{1}&quot;), geçerli tarih aralığında ({2} ve {3}) değil.</resource>
 <!-- Input does not match regular expression error                        -->
 <!-- {0} the label that identifies the component                          -->
 <!-- {1} represents the input value                                       -->
 <!-- {2} represents the 'pattern' expected in the input                   -->
 <!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
 <!--  9912 does not match patern [9]*                                     -->
-<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH" dnt="false">Değer, desenle eşleşmiyor.</resource>
-<resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH_detail" dnt="false">Değer (&quot;{1}&quot;) sıradan ifade deseniyle (&quot;{2}&quot;) eşleşmiyor.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH" dnt="false">Değer, desenle eşleşmiyor.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail" dnt="false">Değer (&quot;{1}&quot;) sıradan ifade deseniyle (&quot;{2}&quot;) eşleşmiyor.</resource>
 <!-- Length of input is less than the minimum specified length -->
 <!-- {0} the label that identifies the component               -->
 <!-- {1} value entered by the user                             -->
 <!-- {2} the minimum length                                    -->
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.MINIMUM_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen minimum uzunluktan ({2}) az.</resource>
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.MINIMUM" dnt="false">Değer çok kısa.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen minimum uzunluktan ({2}) az.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM" dnt="false">Değer çok kısa.</resource>
 <!-- Length of input violates specified allowable range       -->
 <!-- {0} the label that identifies the component              -->
 <!-- {1} value entered by the user                            -->
 <!-- {2} the minimum length                                   -->
 <!-- {3} the maximum length                                   -->
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.NOT_IN_RANGE_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen uzunlukların ({2} ve {3}) arasında olmalıdır.</resource>
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.NOT_IN_RANGE" dnt="false">Değer aralık dışında.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen uzunlukların ({2} ve {3}) arasında olmalıdır.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE" dnt="false">Değer aralık dışında.</resource>
 <!-- Length of input exceeds the specified maximum length     -->
 <!-- {0} the label that identifies the component              -->
 <!-- {1} value entered by the user                            -->
 <!-- {2} the maximum length                                   -->
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.MAXIMUM" dnt="false">Değer çok uzun.</resource>
-<resource key="org.apache.myfaces.adf.validator.LengthValidator.MAXIMUM_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen maksimum uzunluğu ({2}) aşıyor.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM" dnt="false">Değer çok uzun.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail" dnt="false">Girilen değerin uzunluğu (&quot;{1}&quot;), izin verilen maksimum uzunluğu ({2}) aşıyor.</resource>
 <!-- messages for converters -->
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE" dnt="false">Tarih değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir tarih değil. Geçerli örnek: &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE" dnt="false">Tarih değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir tarih değil. Geçerli örnek: &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME" dnt="false">Saat değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir saat değil. Geçerli örnek: &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME" dnt="false">Saat değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir saat değil. Geçerli örnek: &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component             -->
 <!-- {1} value entered by the user                           -->
 <!-- {2} an example of the format the converter is expecting -->
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Tarih ve saat değil.</resource>
-<resource key="org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir tarih ve saat değil. Geçerli örnek: &quot;{2}&quot;.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH" dnt="false">Tarih ve saat değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir tarih ve saat değil. Geçerli örnek: &quot;{2}&quot;.</resource>
 <!-- {0} the label that identifies the component    -->
 <!-- {1} value entered by the user                  -->
 <!-- {2} the pattern the converter is expecting     -->
-<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT" dnt="false">Renk değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.ColorConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri geçerli renk örnekleriyle eşleşmiyor: {2}.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT" dnt="false">Renk değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri geçerli renk örnekleriyle eşleşmiyor: {2}.</resource>
 <!-- Color converter transparent string -->
-<resource key="org.apache.myfaces.adf.convert.ColorConverter.TRANSPARENT" dnt="false">Saydam</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT" dnt="false">Saydam</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<!-- {2} the minimum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, minimum değerden ({2}) küçük.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<!-- {2} the maximum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
-<resource key="org.apache.myfaces.adf.convert.IntegerConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, maksimum değerden ({2}) büyük.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.LongConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.LongConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
-<resource key="org.apache.myfaces.adf.convert.LongConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, minimum değerden ({2}) küçük.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.LongConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
-<resource key="org.apache.myfaces.adf.convert.LongConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, maksimum değerden ({2}) büyük.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the specified conversion pattern        -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN" dnt="false">Sayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">&quot;{1}&quot; değeri, &quot;{2}&quot; deseniyle eşleşen bir sayı değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN" dnt="false">Sayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail" dnt="false">&quot;{1}&quot; değeri, &quot;{2}&quot; deseniyle eşleşen bir sayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER" dnt="false">Sayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER" dnt="false">Sayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">Para birimi değil.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir para birimi değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY" dnt="false">Para birimi değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir para birimi değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT" dnt="false">Yüzde değil.</resource>
-<resource key="org.apache.myfaces.adf.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir yüzde değeri değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT" dnt="false">Yüzde değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT_detail" dnt="false">&quot;{1}&quot; değeri geçerli bir yüzde değeri değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<!-- {2} the minimum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<!-- {2} the maximum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
-<resource key="org.apache.myfaces.adf.convert.ShortConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
-<!-- {0} the label that identifies the component -->
-<!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the minimum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
 <!-- {2} the maximum number allowed              -->
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
-<resource key="org.apache.myfaces.adf.convert.ByteConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT" dnt="false">Sayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.DoubleConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT" dnt="false">Tamsayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir tamsayı değil.</resource>
 <!-- {0} the label that identifies the component -->
 <!-- {1} value entered by the user               -->
-<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT" dnt="false">Sayı değil. </resource>
-<resource key="org.apache.myfaces.adf.convert.FloatConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
+<!-- {2} the minimum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM" dnt="false">Değer çok küçük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} minimum değerinden küçük.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} the maximum number allowed              -->
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM" dnt="false">Değer çok büyük.</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM_detail" dnt="false">&quot;{1}&quot; değeri, {2} maksimum değerinden büyük.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT" dnt="false">Sayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT" dnt="false">Sayı değil. </resource>
+<resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail" dnt="false">&quot;{1}&quot; değeri bir sayı değil.</resource>
 <!-- format for message in a javascript alert window                 -->
 <!-- This should match the af_messages.LIST_FORMAT_private           -->
 <!-- in BLAFBundle.xrts!!                                            -->
 <!-- Both summary and detail are here, but the detail is never used  -->
 <!-- {0} = label of the component                                    -->
 <!-- {1} = full formatted error message detail                       -->
-<resource key="org.apache.myfaces.adf.convert.ALERT_FORMAT" dnt="false">{0} - {1}</resource>
-<resource key="org.apache.myfaces.adf.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT" dnt="false">{0} - {1}</resource>
+<resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail" dnt="false">{0} - {1}</resource>
 </resources>
