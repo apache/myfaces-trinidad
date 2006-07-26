@@ -33,18 +33,13 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
-
 import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
 import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
-
-import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
-
-import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
