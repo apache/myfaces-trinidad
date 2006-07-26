@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidad.context;
  *  <p>
  *  By default, the physical page and logical view ID will be identical.
  *  To override this, provide a file on the classpath at
- *  <code>/META-INF/services/org.apache.myfaces.adf.context.PageResolver</code>
+ *  <code>/META-INF/services/org.apache.myfaces.trinidad.context.PageResolver</code>
  *  with the name of the alternative implementation.  (There's no current
  *  support for decoration, and this general approach may be revisited
  *  in the future.)

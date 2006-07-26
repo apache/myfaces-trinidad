@@ -78,7 +78,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 public class DateTimeRangeValidator implements Validator, StateHolder {
 
 
-  public static final String VALIDATOR_ID = "org.apache.myfaces.adf.DateTimeRange";
+  public static final String VALIDATOR_ID = "org.apache.myfaces.trinidad.DateTimeRange";
 
 
   /**
@@ -90,7 +90,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * maximum value.</p>
    */
   public static final String MAXIMUM_MESSAGE_ID =
-      "org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM";
+      "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM";
 
   /**
    * <p>The message identifier of the {@link javax.faces.application.FacesMessage}
@@ -100,7 +100,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * by user input, component label and configured minimum value.</p>
    */
   public static final String MINIMUM_MESSAGE_ID =
-      "org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM";
+      "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM";
 
 
   /**
@@ -113,7 +113,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * configured minimum value and configured maximum value.</p>
    */
   public static final String NOT_IN_RANGE_MESSAGE_ID =
-      "org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE";
+      "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE";
 
 
   /**

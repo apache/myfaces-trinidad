@@ -173,7 +173,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   /**
    * <p>Standard converter id for this converter.</p>
    */
-  public static final String CONVERTER_ID = "org.apache.myfaces.adf.DateTime";
+  public static final String CONVERTER_ID = "org.apache.myfaces.trinidad.DateTime";
 
   /**
    * <p>The message identifier of the FacesMessage to be created if
@@ -187,7 +187,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <code>style</code> when <code>type</code> is set to <code>'date'</code>.</p>
    */
   public static final String CONVERT_DATE_MESSAGE_ID =
-      "org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_DATE";
+      "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE";
 
   /**
    * <p>The message identifier of the FacesMessage to be created if
@@ -200,7 +200,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * set in the converter.</p>
    */
   public static final String CONVERT_TIME_MESSAGE_ID =
-      "org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_TIME";
+      "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME";
 
   /**
    * <p>The message identifier of the FacesMessage to be created if
@@ -213,7 +213,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <code>timeStyle</code> set in the converter.</p>
    */
   public static final String CONVERT_BOTH_MESSAGE_ID =
-      "org.apache.myfaces.adf.convert.DateTimeConverter.CONVERT_BOTH";
+      "org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH";
 
 
   /**
@@ -1686,7 +1686,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   private static final int _TYPE_BOTH      = 4;
 
   private static final String _ORA_LOCALE_ELEMENTS_BASE =
-    "org.apache.myfaces.adf.resource.LocaleElements";
+    "org.apache.myfaces.trinidad.resource.LocaleElements";
 
   private static final ADFLogger _LOG  = ADFLogger.createADFLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;

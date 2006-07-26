@@ -85,7 +85,7 @@ public class ResourceServlet extends HttpServlet
    * caching.
    */
   static public final String DEBUG_INIT_PARAM =
-    "org.apache.myfaces.adf.resource.DEBUG";
+    "org.apache.myfaces.trinidad.resource.DEBUG";
 
 
   /**

@@ -79,9 +79,9 @@ public class AttributeComponentChange extends ComponentChange
   // Current known cases:
   //  The focusPath attribute of a tree, which is considered as a persistible
   //    Change takes a value that is a java.util.List. (-ve)
-  //  treeState of a tree is a org.apache.myfaces.adf.model.PathSet that
+  //  treeState of a tree is a org.apache.myfaces.trinidad.model.PathSet that
   //    implements serializable. (+ve)
-  //  selectionState of a table is org.apache.myfaces.adf.model.RowKeySet that
+  //  selectionState of a table is org.apache.myfaces.trinidad.model.RowKeySet that
   //    implements externalizable. (+ve)
   private final Object _attributeValue;
 }

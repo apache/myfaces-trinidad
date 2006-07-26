@@ -25,7 +25,7 @@ import javax.faces.context.FacesContext;
  * may be overridden.
  * <p>
  *  To override this, provide a file on the classpath at
- *  <code>/META-INF/services/org.apache.myfaces.adf.context.PageFlowScopeProvider</code>
+ *  <code>/META-INF/services/org.apache.myfaces.trinidad.context.PageFlowScopeProvider</code>
  *  with the name of the alternative implementation.  (There's no current
  *  support for decoration, and this general approach may be revisited
  *  in the future.)

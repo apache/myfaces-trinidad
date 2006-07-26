@@ -22,7 +22,7 @@ package org.apache.myfaces.trinidad.config;
  * <pre> 
  *  &lt;component&gt;
  *    &lt;component-type&gt;
- *      org.apache.myfaces.adfdemo.view.faces.region.stock
+ *      org.apache.myfaces.trinidaddemo.view.faces.region.stock
  *    &lt;/component-type&gt;
  *    &lt;component-extension&gt;
  *      &lt;region-jsp-ui-def&gt;/regions/stock.jspx&lt;/region-jsp-ui-def&gt;

@@ -62,7 +62,7 @@ public class RegExpValidator implements StateHolder, Validator
   /**
    * <p>Standard validator id for this validator.</p>
    */
-  public static final String VALIDATOR_ID = "org.apache.myfaces.adf.RegExp";
+  public static final String VALIDATOR_ID = "org.apache.myfaces.trinidad.RegExp";
 
   /**
    * <p>The message identifier of the {@link FacesMessage}
@@ -72,7 +72,7 @@ public class RegExpValidator implements StateHolder, Validator
    * input value, label associated with the component and pattern respectively.</p>
    */
   public static final String NO_MATCH_MESSAGE_ID
-    = "org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH";
+    = "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH";
 
   /**
    * <p>Construct a RegExpValidator with no preconfigured pattern.</p>

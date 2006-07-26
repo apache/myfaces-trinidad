@@ -81,12 +81,12 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * associated with the component and the maximum bytes respectively.<p>
    */
   public static final String MAXIMUM_MESSAGE_ID =
-    "org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM";
+    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM";
 
   /**
    *  <p>Standard validator id for this validator.</p>
    */
-  public static final String VALIDATOR_ID = "org.apache.myfaces.adf.ByteLength";
+  public static final String VALIDATOR_ID = "org.apache.myfaces.trinidad.ByteLength";
 
 
   /**

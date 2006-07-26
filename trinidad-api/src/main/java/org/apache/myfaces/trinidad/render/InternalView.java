@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
  * can also be used to register pseudo-URLs that 
  * <p>
  * InternalViews should be registered with a .properties-syntax file at
- * <code>/META-INF/org.apache.myfaces.adf.render.InternalView.properties</code>
+ * <code>/META-INF/org.apache.myfaces.trinidad.render.InternalView.properties</code>
  */
 abstract public class InternalView
 {  

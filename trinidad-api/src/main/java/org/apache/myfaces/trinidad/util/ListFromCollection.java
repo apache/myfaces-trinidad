@@ -37,7 +37,7 @@ import java.util.Set;
  *  &lt;managed-bean&gt;
  *    &lt;managed-bean-name&gt;makeList&lt;/managed-bean-name&gt;
  *    &lt;managed-bean-class&gt;
- *       org.apache.myfaces.adf.util.ListFromCollection
+ *       org.apache.myfaces.trinidad.util.ListFromCollection
  *    &lt;/managed-bean-class&gt;
  *    &lt;managed-bean-scope&gt;
  *       request

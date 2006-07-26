@@ -32,7 +32,7 @@ public class TypeRepository
     String rendererType,
     FacesBean.Type type)
   {
-    String renderKitId = "org.apache.myfaces.adf.core";
+    String renderKitId = "org.apache.myfaces.trinidad.core";
 
     // =-=AEW GLOBAL SYNCHRONIZATION IS NOT GOOD!  We need
     // to investigate the performance of this approach.  In
@@ -68,7 +68,7 @@ public class TypeRepository
     String componentFamily,
     String rendererType)
   {
-    String renderKitId = "org.apache.myfaces.adf.core";
+    String renderKitId = "org.apache.myfaces.trinidad.core";
 
     synchronized (_repos)
     {

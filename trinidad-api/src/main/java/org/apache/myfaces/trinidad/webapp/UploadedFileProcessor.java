@@ -30,13 +30,13 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  * To configure file uploads, the default instance supports three context
  * initialization parameters :
  * <ul>
- * <li>org.apache.myfaces.adf.UPLOAD_MAX_MEMORY: the maximum amount of memory
+ * <li>org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY: the maximum amount of memory
  *  that can be used in a single request to store
  *  uploaded files. (Default of 100K)
- * <li>org.apache.myfaces.adf.UPLOAD_MAX_DISK_SPACE: the maximum amount of
+ * <li>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE: the maximum amount of
  *  disk space that can be used in a single request to store
  *  uploaded files.  (Default of 2000K)
- * <li>org.apache.myfaces.adf.UPLOAD_TEMP_DIR: the name of a directory
+ * <li>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR: the name of a directory
  *   to store temporary files.  (Defaults to the user's temporary directory)
  * </ul>
  * 
@@ -52,7 +52,7 @@ public interface UploadedFileProcessor
    * uploaded files.  Any requirements above this will be stored on disk.
    * The default is 100 kilobytes.
    */
-  public static final String MAX_MEMORY_PARAM_NAME = "org.apache.myfaces.adf.UPLOAD_MAX_MEMORY";
+  public static final String MAX_MEMORY_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_MAX_MEMORY";
 
   /**
    * Initialization parameter for the default
@@ -62,7 +62,7 @@ public interface UploadedFileProcessor
    * exceed this size will result in an EOFException being thrown
    * on that request.
    */
-  public static final String MAX_DISK_SPACE_PARAM_NAME = "org.apache.myfaces.adf.UPLOAD_MAX_DISK_SPACE";
+  public static final String MAX_DISK_SPACE_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE";
 
   /**
    * Initialization parameter for the default
@@ -73,7 +73,7 @@ public interface UploadedFileProcessor
    * property.  If that is not set, the System "java.io.tempdir" property
    * will be used as a backup.
    */
-  public static final String TEMP_DIR_PARAM_NAME = "org.apache.myfaces.adf.UPLOAD_TEMP_DIR";
+  public static final String TEMP_DIR_PARAM_NAME = "org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR";
 
   /**
    * Initialize the UploadedFileProcessor with access to the current
