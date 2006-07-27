@@ -21,7 +21,7 @@ import java.awt.Image;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * ImageEncoder implementation for the Oracle GIF encoder.
@@ -59,5 +59,5 @@ public class OracleGIFEncoder implements ImageEncoder
 
   private static final boolean _REPORT_TIMING = false;
   private long _lastTime=0;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(OracleGIFEncoder.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(OracleGIFEncoder.class);
 }

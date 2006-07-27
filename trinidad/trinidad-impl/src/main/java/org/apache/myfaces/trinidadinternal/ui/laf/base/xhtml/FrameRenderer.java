@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -132,5 +132,5 @@ public class FrameRenderer extends XhtmlLafRenderer
     return "frame";
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FrameRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FrameRenderer.class);
 }

@@ -24,7 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXProgress;
 import org.apache.myfaces.trinidad.model.BoundedRangeModel;
 
@@ -76,5 +76,5 @@ public class ProgressRenderer extends UINodeRendererBase
     super.encodeBegin(context, component);
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ProgressRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ProgressRenderer.class);
 }

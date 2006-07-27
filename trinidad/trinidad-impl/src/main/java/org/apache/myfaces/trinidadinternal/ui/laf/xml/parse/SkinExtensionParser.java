@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.share.xml.StringParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
@@ -240,6 +240,6 @@ public class SkinExtensionParser extends BaseNodeParser
   static private final String _SIMPLE_PDA_SKIN_ID = "simple.pda";
   static private final String _SIMPLE_DESKTOP_SKIN_ID = "simple.desktop";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SkinExtensionParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinExtensionParser.class);
 
 }

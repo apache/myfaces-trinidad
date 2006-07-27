@@ -27,7 +27,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXTree;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
@@ -988,5 +988,5 @@ public class TreeRenderer extends HtmlLafRenderer
   private static final String _PATH_PARAM = 
     "path";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TreeRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeRenderer.class);
 }

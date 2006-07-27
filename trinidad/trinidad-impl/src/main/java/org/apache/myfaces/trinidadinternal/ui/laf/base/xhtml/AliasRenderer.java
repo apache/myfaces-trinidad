@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
@@ -67,5 +67,5 @@ abstract public class AliasRenderer implements Renderer, RoledRenderer
     RenderingContext context,
     UINode           node);
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(AliasRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AliasRenderer.class);
 }

@@ -32,7 +32,7 @@ import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
@@ -262,6 +262,6 @@ public class TagUtils
   private static DateFormat  _ISO_DATE_FORMAT =
     new SimpleDateFormat("yyyy-MM-dd");
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(TagUtils.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TagUtils.class);
 
 }

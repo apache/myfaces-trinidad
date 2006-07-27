@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Map that wraps another to provide an isolated namespace using
@@ -295,5 +295,5 @@ final public class SubKeyMap extends AbstractMap
   private final String _prefix;
   private Set          _entrySet;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(SubKeyMap.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SubKeyMap.class);
 }

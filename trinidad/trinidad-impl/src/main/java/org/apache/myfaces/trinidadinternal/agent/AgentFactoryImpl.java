@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -710,6 +710,6 @@ public class AgentFactoryImpl implements AgentFactory
   }
 
   static final private String _IASW_DEVICE_HINT_PARAM = "X-Oracle-Device.Class";
-  static final private ADFLogger _LOG = ADFLogger.createADFLogger(AgentFactoryImpl.class);
+  static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentFactoryImpl.class);
 
 }

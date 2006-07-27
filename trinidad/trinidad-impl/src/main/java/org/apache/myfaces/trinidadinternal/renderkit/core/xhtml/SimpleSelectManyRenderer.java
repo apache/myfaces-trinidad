@@ -33,7 +33,7 @@ import javax.faces.el.ValueBinding;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -609,7 +609,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
   static private final int[] _EMPTY_INT_ARRAY = new int[0];
   static private final String[] _EMPTY_ARRAY = new String[0];
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     EditableValueRenderer.class);
 }
 

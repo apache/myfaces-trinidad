@@ -28,7 +28,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -636,7 +636,7 @@ public class SimpleSelectInputColorRenderer
   // Key for remembering the cached chooseId
   private static final Object _CACHED_CHOOSE_ID = new Object();
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(SimpleSelectInputColorRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(SimpleSelectInputColorRenderer.class);
 
 }

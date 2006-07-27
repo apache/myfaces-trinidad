@@ -51,7 +51,7 @@ import javax.faces.render.ResponseStateManager;
 
 import javax.servlet.ServletResponse;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
@@ -693,6 +693,6 @@ public class CoreRenderKit extends RenderKitBase
   static private final String _SCRIPT_LIST_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.ScriptList";
 
-  static private final ADFLogger _LOG =
-     ADFLogger.createADFLogger(CoreRenderKit.class);
+  static private final TrinidadLogger _LOG =
+     TrinidadLogger.createTrinidadLogger(CoreRenderKit.class);
 }

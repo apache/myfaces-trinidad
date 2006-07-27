@@ -29,7 +29,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.DefaultBoundedRangeModel;
 import org.apache.myfaces.trinidad.model.ProcessMenuModel;
@@ -405,6 +405,6 @@ public class MVariableResolver extends VariableResolver
   private RowKeySet _treeState = null;
   private RowKeySet _disclosureState = null;
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(MVariableResolver.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(MVariableResolver.class);
 }

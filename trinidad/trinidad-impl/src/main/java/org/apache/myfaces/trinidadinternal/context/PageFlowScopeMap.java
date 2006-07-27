@@ -25,7 +25,7 @@ import java.util.Set;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
@@ -420,5 +420,5 @@ class PageFlowScopeMap implements Map, Serializable
 
   static private final String _PAGE_FLOW_SCOPE_CACHE =
     "org.apache.myfaces.trinidadinternal.application.PageFlowScope";
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(PageFlowScopeMap.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PageFlowScopeMap.class);
 }

@@ -32,7 +32,7 @@ import javax.faces.application.Application;
 import javax.faces.render.RenderKit;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.XMLValidityTestCase;
 import org.apache.myfaces.trinidadinternal.share.xml.TreeBuilder;
@@ -191,6 +191,6 @@ public class FacesConfigInfo
   private Map _convertersByType  = new HashMap();
   private Map _convertersById  = new HashMap();
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(FacesConfigInfo.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(FacesConfigInfo.class);
 }

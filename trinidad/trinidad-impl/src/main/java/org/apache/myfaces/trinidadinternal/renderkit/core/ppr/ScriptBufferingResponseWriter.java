@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
@@ -478,7 +478,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   private static final String _PPR_OBJECT_SCRIPT = "_pprObjectScript";
   private static final String _STORED_DATA_KEY =
     "org.apache.myfaces.trinidadinternal.renderkit.core.STORED_PPR_DATA";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
      ScriptBufferingResponseWriter.class);
 
 }

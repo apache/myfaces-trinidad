@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * @todo Kill the now-strange "compute mode", since we can
@@ -857,5 +857,5 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   private PropertyKey _sortableKey;
   private PropertyKey _defaultSortOrderKey;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColumnGroupRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColumnGroupRenderer.class);
 }

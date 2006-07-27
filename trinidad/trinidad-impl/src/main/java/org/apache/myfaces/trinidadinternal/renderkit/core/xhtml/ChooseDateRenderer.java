@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -1562,5 +1562,5 @@ public class ChooseDateRenderer extends XhtmlRenderer
   private PropertyKey _scrolledValueKey;
   private PropertyKey _destinationKey;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ChooseDateRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ChooseDateRenderer.class);
 }

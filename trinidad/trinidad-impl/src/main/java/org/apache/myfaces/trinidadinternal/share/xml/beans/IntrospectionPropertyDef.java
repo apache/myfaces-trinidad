@@ -20,7 +20,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
@@ -104,6 +104,6 @@ public class IntrospectionPropertyDef extends BasePropertyDef
   }
 
   private PropertyDescriptor _descriptor;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(IntrospectionPropertyDef.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(IntrospectionPropertyDef.class);
 }
 

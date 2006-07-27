@@ -24,7 +24,7 @@ import javax.faces.event.ActionListener;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * JavaServer Faces version 1.2 a <code>setPropertyActionListener</code>, which provides the 
@@ -110,5 +110,5 @@ public class SetActionListener extends FacesBeanImpl
 
   // saveState() and restoreState() come from FacesBeanImpl
   
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SetActionListener.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SetActionListener.class);
 }

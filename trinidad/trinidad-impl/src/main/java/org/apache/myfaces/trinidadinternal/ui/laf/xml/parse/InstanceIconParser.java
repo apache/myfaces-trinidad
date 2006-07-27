@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
@@ -145,6 +145,6 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
 
   static private final String _DEFAULT_INSTANCE_METHOD_NAME =
     "sharedInstance";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(InstanceIconParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InstanceIconParser.class);
 }
 

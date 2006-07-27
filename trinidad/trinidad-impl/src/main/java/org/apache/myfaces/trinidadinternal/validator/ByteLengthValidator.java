@@ -25,7 +25,7 @@ import java.util.Set;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
@@ -433,6 +433,6 @@ public class ByteLengthValidator
       _singleByteEncodings.add(singleByteArray[i]);
   }
 
- private static final ADFLogger _LOG =  ADFLogger.createADFLogger(ByteLengthValidator.class);
+ private static final TrinidadLogger _LOG =  TrinidadLogger.createTrinidadLogger(ByteLengthValidator.class);
 
 }

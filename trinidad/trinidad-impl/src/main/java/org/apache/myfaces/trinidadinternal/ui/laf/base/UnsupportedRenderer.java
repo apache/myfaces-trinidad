@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
@@ -59,5 +59,5 @@ public class UnsupportedRenderer implements Renderer
   }
 
   private static final UnsupportedRenderer _INSTANCE=new UnsupportedRenderer();
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(UnsupportedRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UnsupportedRenderer.class);
 }

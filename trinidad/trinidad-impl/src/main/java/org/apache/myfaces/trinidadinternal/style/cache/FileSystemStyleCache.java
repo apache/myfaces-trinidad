@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
@@ -1385,7 +1385,7 @@ public class FileSystemStyleCache implements StyleProvider
   private static final String _SHORT_CLASS_PREFIX = "x";
 
   private static final Hashtable _sCanonicalPaths = new Hashtable(19);
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FileSystemStyleCache.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemStyleCache.class);
 
 
   // use this map to map from the public style selector names to

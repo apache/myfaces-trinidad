@@ -31,7 +31,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -644,7 +644,7 @@ public class SimpleSelectInputDateRenderer
     DateTimeZoneOffsetScriptlet.sharedInstance().registerSelf();
   }
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(SimpleSelectInputDateRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(SimpleSelectInputDateRenderer.class);
 
 }

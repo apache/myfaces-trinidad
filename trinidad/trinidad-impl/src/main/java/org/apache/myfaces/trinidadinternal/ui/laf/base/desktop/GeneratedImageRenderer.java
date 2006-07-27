@@ -28,7 +28,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.style.ParsedPropertyKey;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
@@ -568,5 +568,5 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static private final int _DEFAULT_FONT_SIZE = 12;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(GeneratedImageRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(GeneratedImageRenderer.class);
 }

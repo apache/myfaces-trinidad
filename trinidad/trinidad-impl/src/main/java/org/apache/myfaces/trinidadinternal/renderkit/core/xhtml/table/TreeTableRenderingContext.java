@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
@@ -187,5 +187,5 @@ public final class TreeTableRenderingContext extends TableRenderingContext
 
   private static final int _DEFAULT_SPACER_WIDTH = 18;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TreeTableRenderingContext.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeTableRenderingContext.class);
 }

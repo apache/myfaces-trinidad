@@ -23,7 +23,7 @@ import java.util.AbstractList;
 import java.util.Collections;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
@@ -346,5 +346,5 @@ public class UIImplicitObject
   }
 
   private final UIVariableResolver _varResolver;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(UIImplicitObject.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIImplicitObject.class);
 }

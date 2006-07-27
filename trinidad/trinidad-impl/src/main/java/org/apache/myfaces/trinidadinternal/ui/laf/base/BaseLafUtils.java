@@ -30,7 +30,7 @@ import javax.faces.context.ExternalContext;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
@@ -1167,5 +1167,5 @@ public class BaseLafUtils implements UIConstants
   // the resources under this directory.
   private static final String _BASE_DIRECTORY = "META-INF";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BaseLafUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseLafUtils.class);
 }

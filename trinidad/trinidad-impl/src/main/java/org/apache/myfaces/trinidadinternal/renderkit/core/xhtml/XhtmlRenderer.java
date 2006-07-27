@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -1014,5 +1014,5 @@ public class XhtmlRenderer extends CoreRenderer
   // =-=AEW THIS MUST BE THE SAME AS THE VALUE IN XhtmlLafRenderer!!!
   private static final String _DEFER_SCRIPTS_KEY = "_defer";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(XhtmlRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlRenderer.class);
 }

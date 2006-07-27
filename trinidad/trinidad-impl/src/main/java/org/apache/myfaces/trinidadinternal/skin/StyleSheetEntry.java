@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.io.IOException;
 
 import java.util.List;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -405,6 +405,6 @@ class StyleSheetEntry
   // jmw it will be key, name, value. or name/value???
   private List <SkinPropertyNode> _skinProperties;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StyleSheetEntry.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetEntry.class);
 
 }

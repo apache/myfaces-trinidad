@@ -20,7 +20,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -249,6 +249,6 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
                                                 convMsgDet);
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColorConverter.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorConverter.class);
   private static final Object _PATTERN_WRITTEN_KEY = new Object();
 }

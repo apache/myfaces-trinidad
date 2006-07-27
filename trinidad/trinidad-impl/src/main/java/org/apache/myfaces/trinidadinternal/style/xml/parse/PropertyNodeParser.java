@@ -22,7 +22,7 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -137,5 +137,5 @@ public class PropertyNodeParser extends BaseNodeParser
     "font-style",        new FontStyleValidater(),
     "text-antialias",    new TextAntialiasValidater(),
   };
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(PropertyNodeParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PropertyNodeParser.class);
 }

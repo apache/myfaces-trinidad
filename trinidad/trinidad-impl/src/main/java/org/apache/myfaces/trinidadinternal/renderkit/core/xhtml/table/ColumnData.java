@@ -19,7 +19,7 @@ import java.awt.Dimension;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -556,5 +556,5 @@ public final class ColumnData
   // this constants is used for assert only:
   private boolean _assertInitMode = true;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColumnData.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColumnData.class);
 }

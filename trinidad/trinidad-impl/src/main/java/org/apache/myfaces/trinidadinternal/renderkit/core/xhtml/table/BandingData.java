@@ -19,7 +19,7 @@ import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 
@@ -90,5 +90,5 @@ public final class BandingData
 
   private final int _rowBanding, _colBanding;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BandingData.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BandingData.class);
 }

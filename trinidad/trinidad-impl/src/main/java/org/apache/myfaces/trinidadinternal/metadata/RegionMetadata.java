@@ -33,7 +33,7 @@ import javax.servlet.ServletContext;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.config.RegionConfig;
 import org.apache.myfaces.trinidad.config.RegionManager;
@@ -575,6 +575,6 @@ public final class RegionMetadata extends RegionManager
   // package private for testing purposes:
   // the leading "/" is needed when classpath points to a jar file:
   static final String __CONFIG_FILE_OTHER = "/META-INF/region-metadata.xml";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RegionMetadata.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RegionMetadata.class);
   private static final String _KEY = RegionMetadata.class.getName();
 }

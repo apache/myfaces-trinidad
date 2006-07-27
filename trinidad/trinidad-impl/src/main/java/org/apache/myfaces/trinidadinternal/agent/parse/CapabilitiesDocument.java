@@ -15,7 +15,7 @@
 */
 package org.apache.myfaces.trinidadinternal.agent.parse;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.Agent;
 
 import java.util.ArrayList;
@@ -353,6 +353,6 @@ public class CapabilitiesDocument
 
   static final CapabilitiesDocument EMPTY_DOCUMENT = new CapabilitiesDocument();
 
-  private static ADFLogger _LOG = ADFLogger.createADFLogger(CapabilitiesDocument.class);
+  private static TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilitiesDocument.class);
 
 }

@@ -24,7 +24,7 @@ import java.util.Iterator;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -593,5 +593,5 @@ public class BeanParser extends BaseNodeParser
 
   // Text being accumulated for the default property
   private       String       _defaultPropertyText;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BeanParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BeanParser.class);
 }

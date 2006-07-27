@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -74,6 +74,6 @@ class ClassRendererInstantiator implements RendererInstantiator
   }
 
   private String _className;
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(ClassRendererInstantiator.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ClassRendererInstantiator.class);
 }

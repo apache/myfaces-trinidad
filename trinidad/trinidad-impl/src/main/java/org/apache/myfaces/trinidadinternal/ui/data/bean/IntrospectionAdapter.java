@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.WeakHashMap;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.util.JavaIntrospector;
 
@@ -498,5 +498,5 @@ public class IntrospectionAdapter implements BeanDOAdapter
     _sIntrospectionInfo = Collections.synchronizedMap(new WeakHashMap());
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(IntrospectionAdapter.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(IntrospectionAdapter.class);
 }

@@ -24,7 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 
@@ -370,5 +370,5 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   static private final String[] _ADD_FORM =
      new String[]{"form"};
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(PPRResponseWriter.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PPRResponseWriter.class);
 }

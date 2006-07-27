@@ -21,7 +21,7 @@ import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
@@ -256,5 +256,5 @@ public class ConfigParser
   }
 
   static private final String _CONFIG_FILE = "/WEB-INF/adf-faces-config.xml";
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ConfigParser.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ConfigParser.class);
 }

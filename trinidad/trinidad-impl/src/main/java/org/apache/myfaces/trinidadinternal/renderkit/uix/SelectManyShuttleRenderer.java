@@ -29,7 +29,7 @@ import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXSelectMany;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
 import org.apache.myfaces.trinidad.util.ArrayMap;
@@ -368,6 +368,6 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
 
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SelectManyShuttleRenderer.class);
 }

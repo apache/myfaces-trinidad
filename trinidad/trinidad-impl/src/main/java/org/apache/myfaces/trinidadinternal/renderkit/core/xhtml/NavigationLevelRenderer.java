@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationLevel;
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -1314,6 +1314,6 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   static private final Object _EXTRA_SUBMIT_PARAMS_KEY = new Object();
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(NavigationLevelRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(NavigationLevelRenderer.class);
 }

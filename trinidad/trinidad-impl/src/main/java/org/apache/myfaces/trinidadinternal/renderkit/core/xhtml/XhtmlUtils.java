@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
@@ -527,6 +527,6 @@ public class XhtmlUtils
     XhtmlScriptletFactory.registerAllScriptlets();
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(XhtmlUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlUtils.class);
 
 }

@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.SAXParserFactory;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
@@ -379,6 +379,6 @@ public class SkinUtils
 
   static private final String _CONFIG_FILE = "/WEB-INF/adf-faces-skins.xml";
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(SkinUtils.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinUtils.class);
 
 }

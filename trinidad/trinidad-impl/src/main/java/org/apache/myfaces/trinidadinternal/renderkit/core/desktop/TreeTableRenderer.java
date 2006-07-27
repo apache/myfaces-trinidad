@@ -26,7 +26,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.CollectionComponent;
@@ -626,5 +626,5 @@ public class TreeTableRenderer extends DesktopTableRenderer
   private PropertyKey _expandAllEnabledKey;
 
   private static final Object _JS_LIBS_KEY = new Object();
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TreeTableRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeTableRenderer.class);
  }

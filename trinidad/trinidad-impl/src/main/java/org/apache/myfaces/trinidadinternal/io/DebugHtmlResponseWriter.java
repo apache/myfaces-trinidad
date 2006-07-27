@@ -26,7 +26,7 @@ import java.util.Stack;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 
@@ -244,5 +244,5 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
           new Object[]{"select", "optgroup"}));
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(DebugHtmlResponseWriter.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DebugHtmlResponseWriter.class);
 }

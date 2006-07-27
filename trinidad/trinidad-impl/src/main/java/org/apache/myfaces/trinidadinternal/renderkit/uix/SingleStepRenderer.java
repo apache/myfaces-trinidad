@@ -21,7 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXSingleStep;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
@@ -92,5 +92,5 @@ public class SingleStepRenderer extends UINodeRendererBase
       }
     }
   }
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(SingleStepRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SingleStepRenderer.class);
 }

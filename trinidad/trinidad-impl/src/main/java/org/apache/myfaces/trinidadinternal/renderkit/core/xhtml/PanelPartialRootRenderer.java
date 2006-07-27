@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelPartialRoot;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
@@ -544,6 +544,6 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   private static final String _ON_LOAD_START = "_partialChange(";
   private static final String _SCRIPT_EVAL_LIBRARY_NAME = "ScriptEval";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
    PanelPartialRootRenderer.class);
 }

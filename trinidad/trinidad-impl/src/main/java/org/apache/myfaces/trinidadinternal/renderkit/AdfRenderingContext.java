@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.util.Map;
 import java.util.MissingResourceException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -165,6 +165,6 @@ abstract public class AdfRenderingContext
 
 
   static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(AdfRenderingContext.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(AdfRenderingContext.class);
 }

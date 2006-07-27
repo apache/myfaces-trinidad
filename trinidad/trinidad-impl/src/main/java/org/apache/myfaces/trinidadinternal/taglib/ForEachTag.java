@@ -31,7 +31,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.webapp.ELContextTag;
 import org.apache.myfaces.trinidadinternal.el.Tokenizer;
 import org.apache.myfaces.trinidadinternal.el.Tokenizer.Token;
@@ -520,6 +520,6 @@ public class ForEachTag extends TagSupport implements ELContextTag
   //pu: Represents replacement for 'var' upon every iteration
   private String _varReplacement;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ForEachTag.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ForEachTag.class);
 
 }

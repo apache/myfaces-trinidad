@@ -35,7 +35,7 @@ import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
 import javax.faces.render.ResponseStateManager;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.component.UIXComponentBase;
 
@@ -833,5 +833,5 @@ public class StateManagerImpl extends StateManager
 
   private static final String _APPLICATION_CACHE_TOKEN = "_a_";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StateManagerImpl.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateManagerImpl.class);
 }

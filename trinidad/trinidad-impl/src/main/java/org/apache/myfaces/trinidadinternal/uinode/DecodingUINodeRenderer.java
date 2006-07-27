@@ -22,7 +22,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
@@ -122,5 +122,5 @@ public class DecodingUINodeRenderer extends UINodeRendererBase
     return null;
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(DecodingUINodeRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DecodingUINodeRenderer.class);
 }

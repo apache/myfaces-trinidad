@@ -30,7 +30,7 @@ import java.util.List;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
@@ -939,6 +939,6 @@ class SkinStyleSheetParserUtils
   private static final String _ORA_RULE_REF = "-ora-rule-ref";
   private static final String _ORA_TEXT_ANTIALIAS = "-ora-text-antialias";
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleSheetParserUtils.class);
 }

@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bean;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
@@ -83,5 +83,5 @@ public class BeanArrayDataObjectList implements DataObjectList
   }
 
   private final Object[] _array;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BeanArrayDataObjectList.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BeanArrayDataObjectList.class);
 }

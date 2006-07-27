@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 
@@ -164,6 +164,6 @@ public class SkinFactoryImpl extends SkinFactory
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(SkinFactoryImpl.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);
 
 }

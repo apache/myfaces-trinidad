@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.model.UploadedFile;
@@ -480,5 +480,5 @@ public class TrinidadFilterImpl implements Filter
     protected Object initialValue() { return (null); }
   };
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TrinidadFilterImpl.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);
 }

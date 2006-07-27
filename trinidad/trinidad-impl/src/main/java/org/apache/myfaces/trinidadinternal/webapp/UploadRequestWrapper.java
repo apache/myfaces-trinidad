@@ -26,7 +26,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
@@ -144,7 +144,7 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
   private Map _extractedAndDecodedParams;
   private Map _extractedParams;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(UploadRequestWrapper.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UploadRequestWrapper.class);
   private static final String _WWW_FORM_URLENCODED_TYPE =
     "application/x-www-form-urlencoded";
 }

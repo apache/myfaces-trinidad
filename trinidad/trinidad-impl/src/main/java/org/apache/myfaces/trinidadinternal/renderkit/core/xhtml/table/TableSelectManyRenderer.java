@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
@@ -278,6 +278,6 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   }
 
   private static final Object _JS_RENDERED_KEY = new Object();
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(TableSelectManyRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(TableSelectManyRenderer.class);
 }

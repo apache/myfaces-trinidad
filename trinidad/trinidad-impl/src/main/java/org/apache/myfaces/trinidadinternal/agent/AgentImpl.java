@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.agent;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -156,6 +156,6 @@ public class AgentImpl extends DefaultAgent
   private HashMap _requestCapabilities;
   private AgentEntry _entry;
   static private final AgentEntry _NULL_AGENT_ENTRY = new AgentEntry();
-  static final private ADFLogger _LOG = ADFLogger.createADFLogger(AgentImpl.class);
+  static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentImpl.class);
 
 }

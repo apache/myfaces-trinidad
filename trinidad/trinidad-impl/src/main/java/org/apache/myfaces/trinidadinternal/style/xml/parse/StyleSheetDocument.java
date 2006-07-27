@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import java.util.Comparator;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
@@ -1492,5 +1492,5 @@ public class StyleSheetDocument
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =
     "Circular dependency detected in style ";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StyleSheetDocument.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetDocument.class);
 }

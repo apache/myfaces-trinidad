@@ -31,7 +31,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
@@ -660,6 +660,6 @@ public class RequestContextImpl extends RequestContext
   static private final String _CHANGE_PERSISTENCE_INIT_PARAM =
     "org.apache.myfaces.trinidad.CHANGE_PERSISTENCE";
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(RequestContextImpl.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(RequestContextImpl.class);
 }

@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
@@ -53,7 +53,7 @@ public class UINodePropertyKey extends PropertyKey
 
   private final AttributeKey _attributeKey;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UINodePropertyKey.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UINodePropertyKey.class);
 
   // Set of keys that are explicitly excluded, because the
   // old UIX 2 meaning differs from the new UIX 3 meaning.

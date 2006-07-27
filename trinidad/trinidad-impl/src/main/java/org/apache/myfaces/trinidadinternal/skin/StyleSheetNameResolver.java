@@ -28,7 +28,7 @@ import javax.servlet.ServletContext;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.FileInputStreamProvider;
@@ -295,6 +295,6 @@ class StyleSheetNameResolver implements NameResolver
     "Could not locate the ADF styles directory."
     + "Please be sure that the ADF installable resources are installed.";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StyleSheetNameResolver.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetNameResolver.class);
 }
 

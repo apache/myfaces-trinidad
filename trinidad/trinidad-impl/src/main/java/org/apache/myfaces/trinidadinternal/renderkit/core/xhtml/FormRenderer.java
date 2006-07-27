@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXForm;
@@ -1168,5 +1168,5 @@ public class FormRenderer extends XhtmlRenderer
   private PropertyKey _targetFrameKey;
 
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(FormRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormRenderer.class);
 }

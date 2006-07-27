@@ -22,7 +22,7 @@ import java.util.Map;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -865,8 +865,8 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   private static final String _PREVIOUS_KEY = "af_processTrain.PREVIOUS";
 
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(ProcessTrainRenderer.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ProcessTrainRenderer.class);
 
   // for now keep the OraLink/OraDisabledLink styles on the 'a', and
   // append train link style class.

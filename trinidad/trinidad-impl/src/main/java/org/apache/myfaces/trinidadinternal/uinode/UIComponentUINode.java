@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
@@ -357,7 +357,7 @@ private void _setTranslationKeyTest(
 
   static private final String _FACES_NAMESPACE = null;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIComponentUINode.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIComponentUINode.class);
 
   static private Map _UIX2_LOCALNAMES;
   static

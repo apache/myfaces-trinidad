@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
@@ -145,5 +145,5 @@ public class ConvertBoundValue implements BoundValue
   private BoundValue _wrapped;
   private String     _javaType;
   private Class      _class;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ConvertBoundValue.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ConvertBoundValue.class);
 }

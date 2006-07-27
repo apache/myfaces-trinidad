@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This needs to be massively cleaned up...
@@ -507,5 +507,5 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   private static final String _UNDISCLOSED_TIP_KEY =
     "af_showDetail.UNDISCLOSED_TIP";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ShowDetailRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ShowDetailRenderer.class);
 }

@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -680,6 +680,6 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
   private static final String _SEPARATOR_SIZE = "8";
   private static final String _LABEL_CONTROL_SEPARATOR_SIZE = "12";
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(ShowOneListRendererBase.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ShowOneListRendererBase.class);
 }
