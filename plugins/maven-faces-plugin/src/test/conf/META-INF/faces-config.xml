@@ -6,7 +6,7 @@
   </application>
 
   <lifecycle>
-    <phase-listener>org.apache.myfaces.trinidadinternal.context.TrinidadFacesPhaseListener</phase-listener>
+    <phase-listener>org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener</phase-listener>
   </lifecycle>
 
   <converter>
