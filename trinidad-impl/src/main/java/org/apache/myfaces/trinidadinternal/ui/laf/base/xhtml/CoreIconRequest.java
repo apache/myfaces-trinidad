@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -110,5 +110,5 @@ public final class CoreIconRequest extends CoreColorizedIconKey
   private static final String _GIF = ".gif";
 
   private NameResolver _resolver;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(CoreIconRequest.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CoreIconRequest.class);
 }

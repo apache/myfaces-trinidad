@@ -26,7 +26,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.change.DocumentChange;
@@ -428,6 +428,6 @@ abstract class BaseChangeManager extends ChangeManager
 
   private static final String _FAKE_ID_PREFIX = "_id";
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(BaseChangeManager.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseChangeManager.class);
 
 }

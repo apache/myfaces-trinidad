@@ -22,7 +22,7 @@ import java.util.Set;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
@@ -196,5 +196,5 @@ public class FormValueRenderer extends XhtmlLafRenderer
   static final NodeRole _FORM_VALUE_ROLE =
     new NodeRole("formValue", new NodeRole[] { USER_INVISIBLE_ROLE,
                                                FORM_SUBMIT_DATA_ROLE });
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FormValueRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormValueRenderer.class);
 }

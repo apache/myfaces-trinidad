@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 import org.apache.myfaces.trinidad.render.DialogRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
@@ -496,6 +496,6 @@ public class DialogServiceImpl extends DialogService
   static private final String _RETURN_PARAM =
     "org.apache.myfaces.trinidadinternal.ReturnParam";
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(DialogServiceImpl.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(DialogServiceImpl.class);
 }

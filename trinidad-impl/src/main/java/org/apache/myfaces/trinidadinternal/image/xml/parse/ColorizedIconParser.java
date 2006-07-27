@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.image.xml.parse;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
@@ -127,5 +127,5 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
   // 6. DARK_COLOR_KEY
   // 7. DARK_ACCENT_COLOR_KEY
   private static final int _PROPERTY_COUNT = 7;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColorizedIconParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorizedIconParser.class);
 }

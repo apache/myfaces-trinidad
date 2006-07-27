@@ -39,7 +39,7 @@ import java.util.Hashtable;
 import java.util.TooManyListenersException;
 import java.util.Vector;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 
@@ -2390,6 +2390,6 @@ class GenericBeanInfo extends SimpleBeanInfo
   private MethodDescriptor[]   _methods;
   private BeanInfo             _targetBeanInfo;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(JavaIntrospector.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(JavaIntrospector.class);
 }
 

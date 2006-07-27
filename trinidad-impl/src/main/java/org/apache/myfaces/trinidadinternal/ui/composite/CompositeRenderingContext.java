@@ -20,7 +20,7 @@ import java.util.MissingResourceException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 
@@ -587,7 +587,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
 
   private boolean _globalCurrentDataObject;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(CompositeRenderingContext.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CompositeRenderingContext.class);
 
 
 }

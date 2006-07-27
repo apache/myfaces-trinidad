@@ -23,7 +23,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -417,5 +417,5 @@ public class BlafImageUtils implements ImageConstants
 
   // Top/bottom padding for Dialog font
   private static ImmInsets _sDialogPadding;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BlafImageUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BlafImageUtils.class);
 }

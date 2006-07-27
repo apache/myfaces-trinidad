@@ -40,7 +40,7 @@ import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
@@ -1808,5 +1808,5 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
   private static final String _GIF_ENABLED = "gifEnabled";
 
   private static final Hashtable _sCanonicalPaths = new Hashtable(19);
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FileSystemImageCache.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemImageCache.class);
 }

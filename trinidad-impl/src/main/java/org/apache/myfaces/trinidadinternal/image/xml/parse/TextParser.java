@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -151,5 +151,5 @@ public class TextParser extends BaseNodeParser
   private static final String _KEY_ERROR =
     "Missing translatedText key attribute.";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TextParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TextParser.class);
 }

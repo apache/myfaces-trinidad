@@ -26,7 +26,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 
@@ -473,5 +473,5 @@ public class XhtmlResponseWriter extends ResponseWriter
   private static final Class _INTEGER_CLASS = Integer.class;
   private static final Class _ESCAPED_TEXT_CLASS = EscapedText.class;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(XhtmlResponseWriter.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlResponseWriter.class);
 }

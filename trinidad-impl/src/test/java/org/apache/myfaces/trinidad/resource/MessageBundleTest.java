@@ -33,7 +33,7 @@ import java.util.regex.Pattern;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Class For testing MessageBundle
@@ -448,5 +448,5 @@ public class MessageBundleTest extends TestCase
       private static final Pattern _PATTERN = Pattern.compile("\\{\\d}");
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(MessageBundleTest.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(MessageBundleTest.class);
 }

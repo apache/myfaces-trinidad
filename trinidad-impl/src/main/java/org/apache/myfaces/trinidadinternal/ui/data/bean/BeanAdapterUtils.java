@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
@@ -200,5 +200,5 @@ public class BeanAdapterUtils
 
   static private final OptimisticHashMap _sAdapters =
     new OptimisticHashMap(101);
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BeanAdapterUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BeanAdapterUtils.class);
 }

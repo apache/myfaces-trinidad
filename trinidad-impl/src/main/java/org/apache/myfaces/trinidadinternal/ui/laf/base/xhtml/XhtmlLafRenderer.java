@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -2292,5 +2292,5 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
   // The value bound to the type attribute in script tags in accessibilty mode.
   private static final String _ACCESSIBILITY_SCRIPT_TYPE = "text/javascript";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(XhtmlLafRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlLafRenderer.class);
 }

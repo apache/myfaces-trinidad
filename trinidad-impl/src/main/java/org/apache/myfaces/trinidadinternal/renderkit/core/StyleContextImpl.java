@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -145,6 +145,6 @@ class StyleContextImpl implements StyleContext
   private StyleProvider _styleProvider;
   private StyleMap _styleMap;
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(StyleContextImpl.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(StyleContextImpl.class);
 }

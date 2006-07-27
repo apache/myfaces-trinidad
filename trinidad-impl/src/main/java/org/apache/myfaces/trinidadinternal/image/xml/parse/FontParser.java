@@ -21,7 +21,7 @@ import java.awt.Font;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -219,5 +219,5 @@ public class FontParser extends BaseNodeParser
     "Error while parsing font size value.  Font size must be an integer.";
   private static final String _STYLE_ERROR =
     "Error while parsing font style value.  Valid values are \"plain\", \"bold\" or \"italic\"";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FontParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FontParser.class);
 }

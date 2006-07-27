@@ -20,7 +20,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A VERY simple LRU cache.
@@ -55,6 +55,6 @@ public class LRUCache extends LinkedHashMap
 
   private final int _maxSize;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(LRUCache.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LRUCache.class);
 
 }

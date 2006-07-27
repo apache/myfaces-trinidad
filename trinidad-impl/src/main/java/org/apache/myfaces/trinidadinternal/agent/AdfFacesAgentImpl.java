@@ -15,7 +15,7 @@
 */
 package org.apache.myfaces.trinidadinternal.agent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.Agent;
 
 import java.net.URL;
@@ -384,8 +384,8 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
     "org.apache.myfaces.trinidadinternal.agent.DeviceRepository";
 
 
-  static final private ADFLogger _LOG =
-    ADFLogger.createADFLogger(AdfFacesAgentImpl.class);
+  static final private TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(AdfFacesAgentImpl.class);
 
   private static boolean _deviceRepositoryLoaded;
   private static DeviceRepository _deviceRepository;

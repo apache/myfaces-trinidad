@@ -25,7 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import javax.faces.convert.ConverterException;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
@@ -255,6 +255,6 @@ public class ConverterUtils
     return outBuffer.toString();
   }
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(ConverterUtils.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ConverterUtils.class);
 }

@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Properties;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import javax.faces.context.FacesContext;
 
@@ -152,11 +152,11 @@ public class AliasedScriptlet extends Scriptlet
     "javascriptmap.properties";
 
 
-  private static final ADFLogger _LOG;
+  private static final TrinidadLogger _LOG;
 
   static
   {
-    _LOG = ADFLogger.createADFLogger(AliasedScriptlet.class);
+    _LOG = TrinidadLogger.createTrinidadLogger(AliasedScriptlet.class);
 
     // Load library versions
     Class cl = AliasedScriptlet.class;

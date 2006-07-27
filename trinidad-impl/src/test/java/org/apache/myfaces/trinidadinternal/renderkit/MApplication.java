@@ -34,7 +34,7 @@ import javax.faces.el.VariableResolver;
 import javax.faces.event.ActionListener;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.util.StateUtils;
 
 public class MApplication extends Application 
@@ -303,5 +303,5 @@ public class MApplication extends Application
   static private MApplication _INSTANCE = new MApplication();
   private Map _converterIdMap = new HashMap();
   private Map _converterTypeMap = new HashMap();
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(StateUtils.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
 }

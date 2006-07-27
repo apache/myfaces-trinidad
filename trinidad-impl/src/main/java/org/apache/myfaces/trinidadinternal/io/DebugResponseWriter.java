@@ -27,7 +27,7 @@
  import javax.faces.component.UIComponent;
  import javax.faces.context.ResponseWriter;
 
- import org.apache.myfaces.trinidad.logging.ADFLogger;
+ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
  /**
@@ -313,6 +313,6 @@
    // to avoid multiple "start" comments
    private UIComponent  _lastComponentStarted;
 
-   static private final ADFLogger _LOG = ADFLogger.createADFLogger(DebugResponseWriter.class);
+   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DebugResponseWriter.class);
  }
 

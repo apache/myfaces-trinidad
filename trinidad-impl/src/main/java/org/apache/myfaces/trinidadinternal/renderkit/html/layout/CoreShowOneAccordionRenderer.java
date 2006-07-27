@@ -24,7 +24,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -533,8 +533,8 @@ public class CoreShowOneAccordionRenderer extends UINodeRendererBase
   }
 
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(CoreShowOneAccordionRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(CoreShowOneAccordionRenderer.class);
 
   private static final String _DISCLOSED_TIP_KEY =
     "af_showOneAccordion.DISCLOSED_TIP";

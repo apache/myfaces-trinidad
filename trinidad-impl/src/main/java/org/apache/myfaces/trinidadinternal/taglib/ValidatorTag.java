@@ -22,7 +22,7 @@ import javax.faces.validator.Validator;
 import javax.faces.webapp.UIComponentTag;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This tag implements a generic validator tag.
@@ -155,5 +155,5 @@ public final class ValidatorTag extends TagSupport
 
   private String _validatorId = null;
   private String _binding = null;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ValidatorTag.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ValidatorTag.class);
 }

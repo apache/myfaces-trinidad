@@ -29,7 +29,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
@@ -1502,5 +1502,5 @@ public class XhtmlLafUtils extends BaseLafUtils
   // Value for indicating that we have a null short style classes Dictionary
   private static final Object _NULL_STYLE_CLASSES = new Object();
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(XhtmlLafUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlLafUtils.class);
 }

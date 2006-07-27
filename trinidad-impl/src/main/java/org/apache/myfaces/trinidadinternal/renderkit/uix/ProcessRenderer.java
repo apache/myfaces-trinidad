@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXProcess;
 
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -115,5 +115,5 @@ public class ProcessRenderer extends UINodeRendererBase
     }
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ProcessRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ProcessRenderer.class);
 }

@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Context object which is used to track the targets of a partial
@@ -246,5 +246,5 @@ public class PartialPageContext
   // The stack of partial targets that are currently being rendered
   private Stack    _currentTargetStack;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(PartialPageContext.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PartialPageContext.class);
 }

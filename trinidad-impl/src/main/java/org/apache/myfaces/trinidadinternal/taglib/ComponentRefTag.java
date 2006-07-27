@@ -31,7 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.servlet.ServletException;
 import javax.servlet.jsp.JspException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
 
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
@@ -297,5 +297,5 @@ processRegion:
     "org.apache.myfaces.trinidadinternal.taglib.RegionTag.regionType.old";
   private static final String _RELOCATED_FACETS_ATTRIBUTE =
     "org.apache.myfaces.trinidadinternal.taglib.RegionTag.facets.relocated";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ComponentRefTag.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ComponentRefTag.class);
 }

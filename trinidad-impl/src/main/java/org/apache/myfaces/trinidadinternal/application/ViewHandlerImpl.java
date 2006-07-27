@@ -34,7 +34,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
@@ -480,6 +480,6 @@ public class ViewHandlerImpl extends ViewHandler
   private static final String _CHECK_TIMESTAMP_PARAM =
   "org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ViewHandlerImpl.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewHandlerImpl.class);
   private static final Long   _NOT_FOUND = new Long(0);
 }

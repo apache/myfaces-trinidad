@@ -22,7 +22,7 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -164,5 +164,5 @@ public class ImageIconParser extends BaseNodeParser implements XMLConstants
   private Integer _height;
   private String  _styleClass;
   private Style   _inlineStyle;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ImageIconParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ImageIconParser.class);
 }

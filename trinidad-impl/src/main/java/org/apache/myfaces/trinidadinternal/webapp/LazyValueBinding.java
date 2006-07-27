@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ReferenceSyntaxException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A ValueBinding class that lazily parses the underlying EL expression
@@ -117,5 +117,5 @@ class LazyValueBinding extends ValueBinding
   private final String       _expression;
   private       ValueBinding _binding;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(LazyValueBinding.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LazyValueBinding.class);
 }

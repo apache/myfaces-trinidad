@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
 
@@ -766,5 +766,5 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
   private static final int _DEFAULT_STACK_SIZE = 40;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RootRenderingContext.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RootRenderingContext.class);
 }

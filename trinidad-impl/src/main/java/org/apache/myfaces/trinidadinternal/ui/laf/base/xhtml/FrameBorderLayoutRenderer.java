@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
@@ -323,5 +323,5 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
     result.append(val);
     return result;
   }
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FrameBorderLayoutRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FrameBorderLayoutRenderer.class);
 }

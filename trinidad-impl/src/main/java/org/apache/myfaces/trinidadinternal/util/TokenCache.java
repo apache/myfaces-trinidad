@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -220,6 +220,6 @@ public class TokenCache implements Serializable
   static private final boolean _USE_SESSION_TO_SEED_ID = true;
 
   static private final int _DEFAULT_SIZE = 15;
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(TokenCache.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(TokenCache.class);
 }

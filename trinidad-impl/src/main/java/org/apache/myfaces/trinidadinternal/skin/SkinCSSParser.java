@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -448,8 +448,8 @@ public class SkinCSSParser
   private static final Pattern  _COMMENT_PATTERN = 
      Pattern.compile("(?s)/\\*.*?\\*/"); 
      
-  private static final ADFLogger _LOG = 
-    ADFLogger.createADFLogger(SkinCSSParser.class);
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(SkinCSSParser.class);
 
 
 }

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 
@@ -198,7 +198,7 @@ public class LibraryScriptlet extends Scriptlet
   // Library version properties
   private static String _LIBRARY_VERSION = null;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(LibraryScriptlet.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LibraryScriptlet.class);
 
   static private final String _JSLIBS_DIRECTORY = "/adf/jsLibs/";
   static

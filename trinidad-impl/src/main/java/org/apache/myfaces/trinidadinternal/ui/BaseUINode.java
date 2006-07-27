@@ -23,7 +23,7 @@ import javax.faces.component.UIComponent;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
 import org.apache.myfaces.trinidadinternal.ui.collection.ContextMap;
@@ -572,5 +572,5 @@ public class BaseUINode implements UINode, UIConstants
 
   private String _namespaceURI;
   private String _localName;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BaseUINode.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseUINode.class);
 }

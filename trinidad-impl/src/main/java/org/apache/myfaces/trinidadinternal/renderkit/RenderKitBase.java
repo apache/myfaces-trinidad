@@ -23,7 +23,7 @@ import javax.faces.render.Renderer;
 import javax.faces.render.RenderKit;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -196,5 +196,5 @@ abstract public class RenderKitBase extends RenderKit
   private RenderKit _aggregated;
   private Map<String, Map<String, Object>>  _renderers;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(RenderKitBase.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RenderKitBase.class);
 }

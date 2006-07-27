@@ -23,7 +23,7 @@ import java.util.Map;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
@@ -133,5 +133,5 @@ class SourceUtils
   private static final String _IMAGE_ERROR =
     "Could not create image";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SourceUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SourceUtils.class);
 }

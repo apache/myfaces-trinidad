@@ -20,7 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.uinode.DecodingUINodeRenderer;
 
@@ -56,5 +56,5 @@ public class InputRenderer extends DecodingUINodeRenderer
     return true;
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(InputRenderer.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InputRenderer.class);
 }

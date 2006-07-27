@@ -22,7 +22,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -152,5 +152,5 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
 
   private static final String _INCLUDE_PROPERTY_ERROR =
     "The use of the includeProperty element inside of a compoundProperty element is now deprecated.  Please use the includeValue element instead.";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(CompoundPropertyNodeParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CompoundPropertyNodeParser.class);
 }

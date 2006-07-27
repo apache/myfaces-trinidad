@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -91,5 +91,5 @@ public class IconNodeParser extends BaseNodeParser implements XMLConstants
 
   private static final String _MULTIPLE_ICONS_ERROR =
     "The icon element must only contain one child element.";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(IconNodeParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(IconNodeParser.class);
 }

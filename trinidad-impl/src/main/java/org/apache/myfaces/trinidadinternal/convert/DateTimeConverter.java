@@ -28,7 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
@@ -502,7 +502,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return false;
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(DateTimeConverter.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
 
   // RenderingContext key indicating the _dateFormat object
   // has been created

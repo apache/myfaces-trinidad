@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.data;
 
 import java.lang.reflect.UndeclaredThrowableException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
@@ -174,5 +174,5 @@ public class DataBoundValue implements BoundValue
   private String _namespace;
   private String _localName;
   private Object _select;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(DataBoundValue.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DataBoundValue.class);
 }

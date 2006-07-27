@@ -22,7 +22,7 @@ import java.util.Map;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -109,5 +109,5 @@ class SourceCheckingCacheEntry extends CacheEntry
   private Object _provider;
 
   private static final Object _NULL_PROVIDER = new Object();
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SourceCheckingCacheEntry.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SourceCheckingCacheEntry.class);
 }

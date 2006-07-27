@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.MissingResourceException;
 
 import java.util.Stack;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
@@ -602,5 +602,5 @@ abstract public class Skin
   // Error messages
   private static final String _CIRCULAR_INCLUDE_ERROR =
     "Circular dependency detected in skin reference icon ";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(Skin.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(Skin.class);
 }

@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -503,5 +503,5 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
   // that gets messy too, as we would need to escape and unescape all
   // text values and attributes.  No thanks.
   static Object __STRIP_MNEMONICS_PROPERTY = "stripMnemonics";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(BaseImageProviderRequestParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseImageProviderRequestParser.class);
 }

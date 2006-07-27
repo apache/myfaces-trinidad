@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.agent.parse;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
@@ -116,7 +116,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
   private String _extendsId;
   private List _componentNodes = new ArrayList();
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(DeviceNodeParser.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DeviceNodeParser.class);
 }
 
 

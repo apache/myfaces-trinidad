@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -527,6 +527,6 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
                             Boolean.FALSE);
   }
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(CoreAdfRenderingContext.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(CoreAdfRenderingContext.class);
 }

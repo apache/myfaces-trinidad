@@ -23,7 +23,7 @@ import java.util.HashMap;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -745,5 +745,5 @@ public class FormattedTextParser
   static private final int _OUT_OF_ELEMENT = 0;
   static private final int _IN_ELEMENT = 1;
   static private final int _IN_EMPTY_ELEMENT = 2;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FormattedTextParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormattedTextParser.class);
 }

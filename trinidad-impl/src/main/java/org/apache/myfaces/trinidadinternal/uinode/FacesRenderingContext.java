@@ -21,7 +21,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -222,7 +222,7 @@ public class FacesRenderingContext extends RootRenderingContext
 
   private AdfRenderingContext _adfRenderingContext;
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(FacesRenderingContext.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(FacesRenderingContext.class);
 
 }

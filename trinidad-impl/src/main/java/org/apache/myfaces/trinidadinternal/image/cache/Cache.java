@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.image.cache;
 
 import java.util.Hashtable;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
@@ -324,6 +324,6 @@ class Cache
   // Default size for names cache
   private static final int _NAMES_SIZE = 101;
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(Cache.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(Cache.class);
 }

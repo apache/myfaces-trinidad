@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
@@ -142,5 +142,5 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
   private static final Renderer _ALTERNATE_RENDERER =
     new org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ResetButtonRenderer();
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ResetButtonRenderer.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ResetButtonRenderer.class);
 }

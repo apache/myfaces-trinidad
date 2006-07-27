@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.validator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
@@ -148,6 +148,6 @@ public class RegExpValidator
                                                 noMatchDetMsg);
   }
 
-  private static final ADFLogger _LOG  = ADFLogger.createADFLogger(
+  private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(
      RegExpValidator.class);
 }

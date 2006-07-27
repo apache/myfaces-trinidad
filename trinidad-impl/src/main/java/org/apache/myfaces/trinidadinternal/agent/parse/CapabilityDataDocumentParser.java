@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityValue;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -156,6 +156,6 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
 
   private List _capList = new ArrayList();
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(CapabilityDataDocumentParser.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilityDataDocumentParser.class);
 
 }

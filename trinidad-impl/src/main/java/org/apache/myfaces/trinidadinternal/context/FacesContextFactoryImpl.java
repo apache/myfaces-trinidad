@@ -30,7 +30,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
@@ -219,6 +219,6 @@ public class FacesContextFactoryImpl
 
   private final FacesContextFactory _factory;
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(FacesContextFactoryImpl.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(FacesContextFactoryImpl.class);
 }

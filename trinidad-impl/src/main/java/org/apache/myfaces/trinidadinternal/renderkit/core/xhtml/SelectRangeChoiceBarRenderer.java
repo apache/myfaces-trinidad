@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -1374,6 +1374,6 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
   static private final String _CHOICE_ID_SUFFIX = "c";
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(SelectRangeChoiceBarRenderer.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(SelectRangeChoiceBarRenderer.class);
 }

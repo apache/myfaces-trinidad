@@ -24,7 +24,7 @@ import java.util.Hashtable;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Graphics-related utilities.
@@ -443,5 +443,5 @@ public class GraphicsUtils
                    "sansserif",
                    "symbol" };
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(GraphicsUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(GraphicsUtils.class);
 }

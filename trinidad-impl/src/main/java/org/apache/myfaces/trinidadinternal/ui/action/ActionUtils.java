@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.action;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
@@ -418,5 +418,5 @@ class ActionUtils
 
   private static final String _FORM_WARNING =
     "Action can only be used within a form, or by specifying the formName attribute";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ActionUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ActionUtils.class);
 }

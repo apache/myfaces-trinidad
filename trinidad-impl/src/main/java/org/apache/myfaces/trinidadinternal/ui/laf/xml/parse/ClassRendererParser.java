@@ -21,7 +21,7 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -66,5 +66,5 @@ public class ClassRendererParser extends LeafNodeParser implements XMLConstants
 
     return null;
   }
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ClassRendererParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ClassRendererParser.class);
 }

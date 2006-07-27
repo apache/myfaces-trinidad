@@ -21,7 +21,7 @@ import java.awt.Color;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -108,5 +108,5 @@ public class ColorParser extends LeafNodeParser
     "Error while parsing rgb attribute value.  Values must be specified in #RRGGBB format.";
   private static final String _COLOR_ERROR =
     "Error while parsing color attribute value.  Values must be between 0 and 255.";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColorParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorParser.class);
 }

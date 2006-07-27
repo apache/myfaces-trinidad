@@ -36,7 +36,7 @@ import java.util.zip.GZIPInputStream;
 
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.Base64InputStream;
 import org.apache.myfaces.trinidad.util.Base64OutputStream;
@@ -234,5 +234,5 @@ public class CoreResponseStateManager extends ResponseStateManager
   // A-Z, a-z, 0-9, +, /, and = can ever show up.
   static private final String _TOKEN_PREFIX = "!";
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(CoreResponseStateManager.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CoreResponseStateManager.class);
 }

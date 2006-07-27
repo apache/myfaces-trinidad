@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bind;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -319,5 +319,5 @@ public class ComparisonBoundValue implements BoundValue
   private BoundValue _leftSideValue;
   private BoundValue _rightSideValue;
   private int        _comparison;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ComparisonBoundValue.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ComparisonBoundValue.class);
 }

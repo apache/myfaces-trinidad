@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
@@ -105,5 +105,5 @@ public class RendererNodeParser extends BaseNodeParser implements XMLConstants
 
   private static final String _MULTIPLE_RENDERERS_ERROR =
     "The renderer element must only contain one child element.";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RendererNodeParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RendererNodeParser.class);
 }

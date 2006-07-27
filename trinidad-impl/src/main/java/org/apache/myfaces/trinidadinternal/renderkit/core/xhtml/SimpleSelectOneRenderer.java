@@ -27,7 +27,7 @@ import javax.faces.convert.ConverterException;
 
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
@@ -490,6 +490,6 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
   private PropertyKey _valuePassThruKey;
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(SimpleSelectOneRenderer.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(SimpleSelectOneRenderer.class);
 }

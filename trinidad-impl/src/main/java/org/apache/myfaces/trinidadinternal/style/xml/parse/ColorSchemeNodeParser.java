@@ -21,7 +21,7 @@ import java.util.Vector;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
@@ -118,5 +118,5 @@ public class ColorSchemeNodeParser extends BaseNodeParser
 
   private static final String _DEPRECATED_ERROR =
     "The <colorScheme> element is deprecated.  Colors must be explicitly specified using <property> elements.";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(ColorSchemeNodeParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorSchemeNodeParser.class);
 }

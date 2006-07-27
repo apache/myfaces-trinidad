@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.MessageFactory;
@@ -795,5 +795,5 @@ public class FormData
   }
 
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(FormData.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormData.class);
 }

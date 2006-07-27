@@ -23,7 +23,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.Tag;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXComponentRef;
 
 
@@ -134,5 +134,5 @@ public class FacetRefTag extends TagSupport
     return comp;
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FacetRefTag.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacetRefTag.class);
 }

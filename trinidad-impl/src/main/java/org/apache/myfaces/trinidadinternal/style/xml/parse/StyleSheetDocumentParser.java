@@ -31,7 +31,7 @@ import org.xml.sax.SAXParseException;
 
 
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -543,5 +543,5 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     "AFTextBackground",
     "#ffffff",
   };
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StyleSheetDocumentParser.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetDocumentParser.class);
 }

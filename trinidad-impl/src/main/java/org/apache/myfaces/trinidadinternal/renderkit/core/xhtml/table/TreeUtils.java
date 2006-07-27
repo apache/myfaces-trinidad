@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationTree;
 import org.apache.myfaces.trinidad.component.UIXPage;
@@ -356,5 +356,5 @@ public final class TreeUtils
   private static final String _PATH_PARAM = "path";
   private static final String _START_PARAM = "start";
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TreeUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeUtils.class);
 }

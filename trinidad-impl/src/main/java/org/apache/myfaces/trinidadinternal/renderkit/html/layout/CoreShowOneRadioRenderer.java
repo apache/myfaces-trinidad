@@ -23,7 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
@@ -309,6 +309,6 @@ public class CoreShowOneRadioRenderer extends ShowOneListRendererBase
   private static final String _RADIO_SPAN_SUFFIEX_ID_CONST =
     _RADIO_TABLE_SUFFIEX_ID_CONST + "_span";
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(CoreShowOneRadioRenderer.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(CoreShowOneRadioRenderer.class);
 }

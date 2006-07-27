@@ -21,7 +21,7 @@ import java.awt.Color;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -309,5 +309,5 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
   // Default values for colorization colors
   private static final Color _DEFAULT_ACCENT_COLOR = new Color(204, 204, 153);
   private static final Color _DEFAULT_CORE_COLOR = new Color(51, 102, 153);
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(AccentedLafIconProvider.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AccentedLafIconProvider.class);
 }

@@ -25,7 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -157,5 +157,5 @@ final class FlippedIconRequest extends FlippedIconKey
   }
 
   private ServletRequest _request;
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(FlippedIconRequest.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FlippedIconRequest.class);
 }

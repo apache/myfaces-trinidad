@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 
 import java.net.URL;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.RegexResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
 
@@ -71,8 +71,8 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
   // Version string to append to library, style sheet URIs
   static private final String _VERSION;
 
-  static private final ADFLogger _LOG =
-                          ADFLogger.createADFLogger(CoreRenderKitResourceLoader.class);
+  static private final TrinidadLogger _LOG =
+                          TrinidadLogger.createTrinidadLogger(CoreRenderKitResourceLoader.class);
 
   static
   {

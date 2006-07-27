@@ -16,7 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.image;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
@@ -76,6 +76,6 @@ public class PropertyInstantiator
   }
 
   private String _className;
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(PropertyInstantiator.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(PropertyInstantiator.class);
 }

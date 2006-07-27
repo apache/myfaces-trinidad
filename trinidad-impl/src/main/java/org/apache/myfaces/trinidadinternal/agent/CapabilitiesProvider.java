@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.agent;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.parse.CapabilitiesDocument;
 import org.apache.myfaces.trinidadinternal.agent.parse.CapabilitiesDocumentParser;
 
@@ -220,6 +220,6 @@ public class CapabilitiesProvider
 
 
   static private Map _providerMap = new HashMap(4);
-  static final private ADFLogger _LOG = ADFLogger.createADFLogger(CapabilitiesProvider.class);
+  static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilitiesProvider.class);
 
 }

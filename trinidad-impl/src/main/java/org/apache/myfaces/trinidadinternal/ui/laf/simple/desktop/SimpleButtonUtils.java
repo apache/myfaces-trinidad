@@ -21,7 +21,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
@@ -321,6 +321,6 @@ class SimpleButtonUtils implements SimpleDesktopConstants
   // Error messasges
   private static final String _MISSING_ICON_ERROR =
     "Unable to generate composite button images.  Missing button icons for: ";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(SimpleButtonUtils.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SimpleButtonUtils.class);
 }
 
