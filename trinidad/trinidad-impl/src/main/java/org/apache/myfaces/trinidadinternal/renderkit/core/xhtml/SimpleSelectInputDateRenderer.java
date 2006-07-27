@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputDate;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 
@@ -104,7 +104,7 @@ public class SimpleSelectInputDateRenderer
       }
 
 
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       DateTimeRangeValidator dtrv = _findDateTimeRangeValidator(bean);
 
       if (date == null)
@@ -244,7 +244,7 @@ public class SimpleSelectInputDateRenderer
         {
             TimeZone tz = null;
 
-            AdfFacesContext adfFacesContext = AdfFacesContext.getCurrentInstance();
+            RequestContext adfFacesContext = RequestContext.getCurrentInstance();
             tz = adfFacesContext.getTimeZone();
             if(tz == null)
             {
@@ -533,7 +533,7 @@ public class SimpleSelectInputDateRenderer
 
   /**
    * Adjust the specified date, which is in server timeZone to the timeZone
-   * found in AdfFacesContext and return the new date long value.
+   * found in RequestContext and return the new date long value.
    */
   private static long _adjustTimeZone(Date date)
   {
@@ -547,15 +547,15 @@ public class SimpleSelectInputDateRenderer
                    calendar.get(Calendar.DST_OFFSET);
     // get the timeZone specified in adf-faces-config, if any or the
     // client timeZone and find out the difference in timeZone
-    TimeZone timeZone = AdfFacesContext.getCurrentInstance().getTimeZone();
+    TimeZone timeZone = RequestContext.getCurrentInstance().getTimeZone();
     if(timeZone == null)
     {
         timeZone = TimeZone.getDefault();
     }
 
     // then, adjust for the "local" time zone (either the client's, as
-    // specified in AdfFacesContext, or the server's if it wasn't specified
-    // in AdfFacesContext)
+    // specified in RequestContext, or the server's if it wasn't specified
+    // in RequestContext)
     tzOffset -= timeZone.getOffset(dateValueInMs);
 
     // make sure that adjusting to correct timeZone doesn't take the

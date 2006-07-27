@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 
 /**
  * Factory to create Agent. Allows implementations to plug in their own agent
- * detection, without having to override AdfFacesContext.
+ * detection, without having to override RequestContext.
  * //@todo: Right now this not public API, but will be when adf faces cofiguration is sorted out
  */
 public interface AgentFactory

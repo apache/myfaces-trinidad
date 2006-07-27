@@ -29,7 +29,7 @@ import javax.servlet.ServletContext;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
@@ -60,7 +60,7 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   public CoreAdfRenderingContext()
   {
     FacesContext context = FacesContext.getCurrentInstance();
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
 
     _outputMode = afContext.getOutputMode();
     _agent = _initializeAgent(context, afContext.getAgent(), _outputMode);
@@ -139,7 +139,7 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
       return _localeContext.isRightToLeft();
     }
 
-    return AdfFacesContext.getCurrentInstance().isRightToLeft();
+    return RequestContext.getCurrentInstance().isRightToLeft();
   }
 
   public String getOutputMode()
@@ -203,7 +203,7 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
     if (_localeContext == null)
     {
       _initializeLocaleContext(FacesContext.getCurrentInstance(),
-                               AdfFacesContext.getCurrentInstance());
+                               RequestContext.getCurrentInstance());
     }
 
     return _localeContext;
@@ -325,9 +325,9 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
    * SkinFactory that best matches
    * the <skin-family> and current render-kit-id.
    * @param fContext FacesContext
-   * @param context  AdfFacesContext
+   * @param context  RequestContext
    */
-  private void _initializeSkin(AdfFacesContext afContext)
+  private void _initializeSkin(RequestContext afContext)
   {
     String skinFamily = afContext.getSkinFamily();
     String renderKitId = "org.apache.myfaces.trinidad.desktop";
@@ -370,8 +370,8 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   {
     // First, get an AdfFacesAgent out of the plain Agent
     // =-=AEW In theory, we should only be getting a plain Agent
-    // out of the AdfFacesContext:  for some reason, we're going
-    // straight to an AdfFacesAgent in AdfFacesContext
+    // out of the RequestContext:  for some reason, we're going
+    // straight to an AdfFacesAgent in RequestContext
     AdfFacesAgent agent;
     if (base instanceof AdfFacesAgent)
       agent = (AdfFacesAgent) base;
@@ -398,7 +398,7 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   //
   private void _initializePPR(
     FacesContext    fContext,
-    AdfFacesContext context)
+    RequestContext context)
   {
     // Don't bother if PPR isn't even supported
     if (!CoreRendererUtils.supportsPartialRendering(this))
@@ -456,7 +456,7 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
 
   private void _initializeLocaleContext(
     FacesContext    fContext,
-    AdfFacesContext context)
+    RequestContext context)
   {
     MutableLocaleContext localeContext = new MutableLocaleContext(
                                    fContext.getViewRoot().getLocale());

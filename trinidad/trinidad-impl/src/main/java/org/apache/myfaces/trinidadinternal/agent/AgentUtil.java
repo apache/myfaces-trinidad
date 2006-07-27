@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.agent;
 import java.util.Map;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import javax.faces.context.FacesContext;
 
@@ -87,7 +87,7 @@ public class AgentUtil
    */
   public static AdfFacesAgent getAgent(FacesContext context)
   {
-    Agent agent = AdfFacesContext.getCurrentInstance().getAgent();
+    Agent agent = RequestContext.getCurrentInstance().getAgent();
     if (agent instanceof AdfFacesAgent)
       return (AdfFacesAgent) agent;
 

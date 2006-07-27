@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
@@ -60,7 +60,7 @@ public class FastRenderer2 extends Renderer
   public void encodeBegin(FacesContext context,
                           UIComponent comp) throws IOException
   {
-    AdfFacesContext.getCurrentInstance();
+    RequestContext.getCurrentInstance();
     FacesBean bean = ((UIXComponent) comp).getFacesBean();
     if (getEscape(bean))
     {
@@ -87,7 +87,7 @@ public class FastRenderer2 extends Renderer
   public void encodeEnd(FacesContext context,
                         UIComponent comp) throws IOException
   {
-    AdfFacesContext.getCurrentInstance();
+    RequestContext.getCurrentInstance();
     ResponseWriter rw = context.getResponseWriter();
     FacesBean bean = ((UIXComponent) comp).getFacesBean();
     Object value = getConvertedValue(context, comp, bean);

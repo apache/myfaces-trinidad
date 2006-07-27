@@ -26,7 +26,7 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.component.core.CoreImportScript;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;

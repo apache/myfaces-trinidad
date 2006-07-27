@@ -22,7 +22,7 @@ import javax.faces.event.ActionListener;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
  * This action listener returns a value from a dialog or process.
@@ -46,7 +46,7 @@ public class ReturnActionListener extends FacesBeanImpl
   public void processAction(ActionEvent event)
   {
     Object value = getValue();
-    AdfFacesContext adf = AdfFacesContext.getCurrentInstance();
+    RequestContext adf = RequestContext.getCurrentInstance();
     adf.returnFromDialog(value, null);
   }
 

@@ -18,34 +18,34 @@ package org.apache.myfaces.trinidadinternal.el;
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
  * VariableResolver decorator used by ADF Faces.
  * <p>
  * @author The Oracle ADF Faces Team
  */
-public class AdfFacesVariableResolver extends VariableResolver
+public class TrinidadVariableResolver extends VariableResolver
 {
   static public final String PAGE_FLOW_SCOPE_VARIABLE_NAME = "pageFlowScope";
 
-  public AdfFacesVariableResolver(VariableResolver decorated)
+  public TrinidadVariableResolver(VariableResolver decorated)
   {
     _decorated = decorated;
   }
 
   public Object resolveVariable(FacesContext context, String name)
   {
-    if (AdfFacesContext.VARIABLE_NAME.equals(name))
+    if (RequestContext.VARIABLE_NAME.equals(name))
     {
-      return AdfFacesContext.getCurrentInstance();
+      return RequestContext.getCurrentInstance();
     }
     // Support both "pageFlowScope" and "processScope"
     // as EL variables to give developers a time to migrate
     else if (PAGE_FLOW_SCOPE_VARIABLE_NAME.equals(name) ||
              "processScope".equals(name))
     {
-      return AdfFacesContext.getCurrentInstance().getPageFlowScope();
+      return RequestContext.getCurrentInstance().getPageFlowScope();
     }
 
     return _decorated.resolveVariable(context, name);

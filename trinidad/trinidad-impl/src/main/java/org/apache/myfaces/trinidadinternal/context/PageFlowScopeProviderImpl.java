@@ -19,7 +19,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
@@ -43,8 +43,8 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
     PageFlowScopeMap pageFlowScope = _getPageFlowScope(context);
     if (pageFlowScope == null)
     {
-      AdfFacesContextImpl impl = (AdfFacesContextImpl)
-        AdfFacesContext.getCurrentInstance();
+      RequestContextImpl impl = (RequestContextImpl)
+        RequestContext.getCurrentInstance();
       int lifetime = impl.__getPageFlowScopeLifetime();
       String token = _getToken(context);
       if (token != null)

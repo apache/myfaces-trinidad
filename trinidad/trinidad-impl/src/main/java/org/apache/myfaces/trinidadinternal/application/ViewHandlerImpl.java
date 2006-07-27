@@ -33,13 +33,13 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.render.InternalView;
 import org.apache.myfaces.trinidad.util.Service;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 /**
  * ViewHandler that adds modification detection to the existing ViewHandler,
@@ -119,7 +119,7 @@ public class ViewHandlerImpl extends ViewHandler
   public String getActionURL(FacesContext context, String viewId)
   {
     String actionURL = _delegate.getActionURL(context, viewId);
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     if (afContext != null)
     {
       actionURL = afContext.getPageResolver().encodeActionURI(actionURL);
@@ -187,16 +187,16 @@ public class ViewHandlerImpl extends ViewHandler
   {
     // If we're being asked to re-run the lifecycle for a "return"
     // event, always restore the "launch view", which was set
-    // over in AdfFacesContextImpl
+    // over in RequestContextImpl
     UIViewRoot launchView = (UIViewRoot)
       context.getExternalContext().getRequestMap().get(
-        AdfFacesContextImpl.LAUNCH_VIEW);
+        RequestContextImpl.LAUNCH_VIEW);
 
     if (launchView != null)
     {
       context.getExternalContext().getRequestMap().remove(
-        AdfFacesContextImpl.LAUNCH_VIEW);
-      AdfFacesPhaseListener.markPostback(context);
+        RequestContextImpl.LAUNCH_VIEW);
+      TrinidadPhaseListener.markPostback(context);
       return launchView;
     }
 
@@ -255,7 +255,7 @@ public class ViewHandlerImpl extends ViewHandler
     // this is a postback request.
     if (result != null)
     {
-      AdfFacesPhaseListener.markPostback(context);
+      TrinidadPhaseListener.markPostback(context);
     }
 
     return result;
@@ -355,13 +355,13 @@ public class ViewHandlerImpl extends ViewHandler
    */
   static private String _getPath(String uri)
   {
-    AdfFacesContext afc = AdfFacesContext.getCurrentInstance();
+    RequestContext afc = RequestContext.getCurrentInstance();
     if (afc != null)
     {
       return afc.getPageResolver().getPhysicalURI(uri);
     }
 
-    // No AdfFacesContext?  Just return the URI
+    // No RequestContext?  Just return the URI
     return uri;
   }
 

@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailItem;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class ShowDetailItemRenderer extends XhtmlRenderer
 {
@@ -63,7 +63,7 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
       {
         boolean isDisclosed = XhtmlConstants.SHOW_EVENT.equals(event);
         (new DisclosureEvent(component, isDisclosed)).queue();
-        AdfFacesContext.getCurrentInstance().addPartialTarget(component);
+        RequestContext.getCurrentInstance().addPartialTarget(component);
       }
     }
   }

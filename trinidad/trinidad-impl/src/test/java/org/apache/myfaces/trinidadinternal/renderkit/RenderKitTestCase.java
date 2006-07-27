@@ -114,7 +114,7 @@ abstract public class RenderKitTestCase extends TestSuite
     protected void setUp() throws IOException  
     {
       _facesContext = new MFacesContext(true);
-      _adfFacesContext = new MAdfFacesContext();
+      _adfFacesContext = new MRequestContext();
       _adfFacesContext.setSkinFamily(_skin);
       _adfFacesContext.setAgent(_agent);
       _adfFacesContext.setRightToLeft(_rightToLeft);
@@ -207,7 +207,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private TestResult    _result;
     private MFacesContext _facesContext;
-    private MAdfFacesContext _adfFacesContext;
+    private MRequestContext _adfFacesContext;
     private String           _skin;
     private Agent            _agent;
     private String           _accMode;

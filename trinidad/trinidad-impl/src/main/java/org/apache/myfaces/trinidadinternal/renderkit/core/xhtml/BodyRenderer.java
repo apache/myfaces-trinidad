@@ -27,7 +27,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.html.HtmlBody;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -428,7 +428,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
       comment += ", skin:" + skinId;
 
       // Also log preferred Skin if we have one
-      AdfFacesContext adfFacesContext = AdfFacesContext.getCurrentInstance();
+      RequestContext adfFacesContext = RequestContext.getCurrentInstance();
       String preferredSkin = adfFacesContext.getSkinFamily();
       if (preferredSkin != null)
         comment += (" (" + preferredSkin.toString() + ")");

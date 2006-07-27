@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 import org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer;
 import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
@@ -56,7 +56,7 @@ class CalendarDialogJSP
 {
 
   /**
-   * @todo Integrate the time zone with AdfFacesContext (somehow)
+   * @todo Integrate the time zone with RequestContext (somehow)
    */
   static public void service(FacesContext context)
     throws IOException
@@ -202,13 +202,13 @@ class CalendarDialogJSP
         date = new Date();
       }
 
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.returnFromDialog(date, null);
       return true;
     }
     else if (XhtmlConstants.CANCEL_EVENT.equals(event))
     {
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.returnFromDialog(null, null);
       return true;
     }
@@ -225,7 +225,7 @@ class CalendarDialogJSP
     String value = (String) requestParams.get(name);
     if (value == null || value.equals(""))
     {
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       Object o = afContext.getPageFlowScope().get(name);
       if (o != null)
         value = o.toString();

@@ -28,7 +28,7 @@ public class CapabilityValue
   //an string.intern() on the values read from the file.
  
   //Also string values need to be retained, as need to support
-  //clients accessing the Agent Api (AdfFacesContext object constants 
+  //clients accessing the Agent Api (RequestContext object constants 
   //are internal impl)
   
   //This is a poor man's quick substitute for string.intern().

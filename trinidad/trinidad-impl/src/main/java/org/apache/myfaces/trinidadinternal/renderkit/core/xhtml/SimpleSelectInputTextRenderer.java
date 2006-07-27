@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputText;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
@@ -69,7 +69,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
   {
     super.decode(context, component);
 
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     // See if a ReturnEvent is waiting for us.  We don't deliver
     // the ReturnEvent - we just use its value
     ReturnEvent returnEvent = 

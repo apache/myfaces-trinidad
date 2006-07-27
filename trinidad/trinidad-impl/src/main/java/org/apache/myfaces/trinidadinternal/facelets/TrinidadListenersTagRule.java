@@ -35,9 +35,9 @@ import com.sun.facelets.tag.TagAttributeException;
  * @author Adam Winer
  * =-=AEW REWRITE USING BEANINFO
  */
-final class AdfListenersTagRule extends MetaRule
+final class TrinidadListenersTagRule extends MetaRule
 {
-  public static final MetaRule Instance = new AdfListenersTagRule();
+  public static final MetaRule Instance = new TrinidadListenersTagRule();
 
   private static class ListenerPropertyMetadata extends Metadata
   {

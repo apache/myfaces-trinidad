@@ -21,7 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
 
 /**
@@ -136,7 +136,7 @@ public class UINodeRendererBase extends Renderer
     // The best fix would really be somehow skipping the Apply Request
     // Values phase altogether, while still queueing the ReturnEvent
     // properly.
-    return AdfFacesFilterImpl.isExecutingDialogReturn(context);
+    return TrinidadFilterImpl.isExecutingDialogReturn(context);
   }
 
   static void __restoreRenderingContext(

@@ -37,14 +37,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
 import org.apache.myfaces.trinidad.logging.ADFLogger;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
-import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextFactoryImpl;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.RequestContextFactoryImpl;
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
@@ -59,7 +59,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
  * @todo Allow configuration of the maximum allowed number of bytes in
  *   an entire request
  */
-public class AdfFacesFilterImpl implements Filter
+public class TrinidadFilterImpl implements Filter
 {
   static public void verifyFilterIsInstalled(FacesContext context)
   {
@@ -119,8 +119,8 @@ public class AdfFacesFilterImpl implements Filter
   public void init(
     FilterConfig filterConfig) throws ServletException
   {
-    if (AdfFacesContextFactory.getFactory() == null)
-      AdfFacesContextFactory.setFactory(new AdfFacesContextFactoryImpl());
+    if (RequestContextFactory.getFactory() == null)
+      RequestContextFactory.setFactory(new RequestContextFactoryImpl());
 
     _servletContext = filterConfig.getServletContext();
 
@@ -131,7 +131,7 @@ public class AdfFacesFilterImpl implements Filter
     // register the base skins
     SkinUtils.registerBaseSkins();
     
-    _filters = ClassLoaderUtils.getServices(AdfFacesFilterImpl.class.getName());
+    _filters = ClassLoaderUtils.getServices(TrinidadFilterImpl.class.getName());
     for(Filter f:_filters)
     {
       f.init(filterConfig);
@@ -167,42 +167,42 @@ public class AdfFacesFilterImpl implements Filter
     request.setAttribute(_FILTER_EXECUTED_KEY, Boolean.TRUE);
 
 
-    // If someone didn't release the AdfFacesContext on an earlier request,
+    // If someone didn't release the RequestContext on an earlier request,
     // then it'd still be around, and trying to create a new one
     // would trigger an exception.  We don't want to take down
     // this thread for all eternity, so clean up after poorly-behaved code.
-    AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+    RequestContext context = RequestContext.getCurrentInstance();
     if (context != null)
     {
       if (_LOG.isWarning())
-        _LOG.warning("AdfFacesContext had not been properly released on earlier " +
+        _LOG.warning("RequestContext had not been properly released on earlier " +
                      "request.");
       context.release();
     }
 
-    AdfFacesContextFactory factory = AdfFacesContextFactory.getFactory();
+    RequestContextFactory factory = RequestContextFactory.getFactory();
     assert(factory != null);
 
-    // See if we've got a cached AdfFacesContext instance;  if so,
+    // See if we've got a cached RequestContext instance;  if so,
     // reattach it
-    Object cachedAdfFacesContext = 
-      request.getAttribute(AdfFacesPhaseListener.CACHED_ADF_FACES_CONTEXT);
+    Object cachedRequestContext = 
+      request.getAttribute(TrinidadPhaseListener.CACHED_ADF_FACES_CONTEXT);
 
     // Catch both the null scenario and the 
-    // AdfFacesContext-from-a-different-classloader scenario
-    if (cachedAdfFacesContext instanceof AdfFacesContext)
+    // RequestContext-from-a-different-classloader scenario
+    if (cachedRequestContext instanceof RequestContext)
     {
-      context = (AdfFacesContext) cachedAdfFacesContext;
+      context = (RequestContext) cachedRequestContext;
       context.attach();
     }
     else
     {
       context = factory.createContext(_servletContext, request);
-      request.setAttribute(AdfFacesPhaseListener.CACHED_ADF_FACES_CONTEXT,
+      request.setAttribute(TrinidadPhaseListener.CACHED_ADF_FACES_CONTEXT,
                            context);
     }
 
-    assert(AdfFacesContext.getCurrentInstance() == context);
+    assert(RequestContext.getCurrentInstance() == context);
 
     try
     {
@@ -268,7 +268,7 @@ public class AdfFacesFilterImpl implements Filter
       if (context != null)
       {
         context.release();
-        assert(AdfFacesContext.getCurrentInstance() == null);
+        assert(RequestContext.getCurrentInstance() == null);
       }
     }
   }
@@ -293,10 +293,10 @@ public class AdfFacesFilterImpl implements Filter
     // faces lifecycle.  ViewHandlerImpl will be responsible for ensuring
     // that we re-execute the lifecycle on the correct page.
     Map launchParameters = (Map)
-      request.getAttribute(AdfFacesContextImpl.LAUNCH_PARAMETERS);
+      request.getAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
     if (launchParameters != null)
     {
-      request.removeAttribute(AdfFacesContextImpl.LAUNCH_PARAMETERS);
+      request.removeAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
       request.setAttribute(_IS_RETURNING_KEY, Boolean.TRUE);
       request = new ReplaceParametersRequestWrapper(
                (HttpServletRequest) request, launchParameters);
@@ -311,7 +311,7 @@ public class AdfFacesFilterImpl implements Filter
     FilterChain     chain) throws IOException, ServletException
   {
     // Set up a PseudoFacesContext with the actual request and response
-    // so that AdfFacesContext can be more functional in the interval
+    // so that RequestContext can be more functional in the interval
     // between now and when the FacesServlet starts.
     PseudoFacesContext pfc = new PseudoFacesContext(request, response);
     _PSEUDO_FACES_CONTEXT.set(pfc);
@@ -326,7 +326,7 @@ public class AdfFacesFilterImpl implements Filter
   }
 
   private void _doUploadFile(
-    AdfFacesContext   context,
+    RequestContext   context,
     ServletRequest    request,
     UploadedFiles     files,
     MultipartFormItem item) throws IOException
@@ -480,5 +480,5 @@ public class AdfFacesFilterImpl implements Filter
     protected Object initialValue() { return (null); }
   };
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(AdfFacesFilterImpl.class);
+  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TrinidadFilterImpl.class);
 }

@@ -17,11 +17,11 @@ package org.apache.myfaces.trinidadinternal.context;
 
 import junit.framework.TestCase;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
-public class AdfFacesContextTest extends TestCase
+public class RequestContextTest extends TestCase
 {
-  public AdfFacesContextTest(
+  public RequestContextTest(
     String testName)
   {
     super(testName);
@@ -29,7 +29,7 @@ public class AdfFacesContextTest extends TestCase
 
   public void testPageResolver()
   {
-    AdfFacesContext context = _createContext();
+    RequestContext context = _createContext();
     try
     {
       assertTrue(context.getPageResolver() instanceof TestPageResolver);
@@ -42,7 +42,7 @@ public class AdfFacesContextTest extends TestCase
 
   public void testPageFlowScopeProvider()
   {
-    AdfFacesContext context = _createContext();
+    RequestContext context = _createContext();
     try
     {
       assertTrue(context.getPageFlowScopeProvider()
@@ -54,10 +54,10 @@ public class AdfFacesContextTest extends TestCase
     }
   }
 
-  private AdfFacesContext _createContext()
+  private RequestContext _createContext()
   {
     // =-=AEW Would be better to create it with a mock context so we
     // can test parsing
-    return (new AdfFacesContextFactoryImpl()).createContext(null, null);
+    return (new RequestContextFactoryImpl()).createContext(null, null);
   }
 }

@@ -26,7 +26,7 @@ import javax.faces.event.ActionEvent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -47,7 +47,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
 
   public void decode(FacesContext context, UIComponent component)
   {
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     ReturnEvent returnEvent =
       afContext.getDialogService().getReturnEvent(component);
     if (returnEvent != null)

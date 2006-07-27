@@ -128,7 +128,7 @@ public class RenderKitPerfTestCase extends TestCase
 
     _facesContext.setResponseWriter(writer);
 
-    _adfFacesContext = new MAdfFacesContext();
+    _adfFacesContext = new MRequestContext();
     _adfFacesContext.setSkinFamily("minimal");
     _adfFacesContext.setAgent(RenderKitBootstrap.getGeckoAgent());
   }
@@ -193,7 +193,7 @@ public class RenderKitPerfTestCase extends TestCase
 
   private java.io.Writer     _fileWriter;
   private MFacesContext _facesContext;
-  private MAdfFacesContext _adfFacesContext;
+  private MRequestContext _adfFacesContext;
 
   static private RenderKitBootstrap _bootstrap;
 

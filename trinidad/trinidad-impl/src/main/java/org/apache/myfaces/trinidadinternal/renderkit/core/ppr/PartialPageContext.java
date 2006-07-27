@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextImpl;
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 
@@ -61,7 +61,7 @@ public class PartialPageContext
    * the specified ids.
    */
   public PartialPageContext(
-    AdfFacesContext afContext)
+    RequestContext afContext)
   {
     this();
 
@@ -69,8 +69,8 @@ public class PartialPageContext
     // phases (we don't get here until render response). If so, the IDs have
     // been kept on the AdfContext. We'll grab them now and add them to the
     // target list.
-    AdfFacesContextImpl adfContext =
-      (AdfFacesContextImpl) afContext;
+    RequestContextImpl adfContext =
+      (RequestContextImpl) afContext;
     Iterator targetIter = adfContext.getPartialTargets();
     while (targetIter.hasNext())
       _targets.put(targetIter.next(), Boolean.FALSE);

@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.component.CollectionComponent;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
@@ -100,7 +100,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       TreeUtils.decodeFocusEvent(parameters, component);
       TreeUtils.decodeGotoEvent(parameters, component);
       // bug 4522210:
-      AdfFacesContext.getCurrentInstance().addPartialTarget(component);
+      RequestContext.getCurrentInstance().addPartialTarget(component);
     }
   }
 

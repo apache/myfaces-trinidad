@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PageResolver;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
@@ -34,14 +34,14 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
 import org.apache.myfaces.trinidadinternal.context.PageResolverDefaultImpl;
 
-public class MAdfFacesContext extends AdfFacesContext
+public class MRequestContext extends RequestContext
 {
-  public MAdfFacesContext()
+  public MRequestContext()
   {
     attach();
   }
 
-  // Support setting the agent so we can create one AdfFacesContext
+  // Support setting the agent so we can create one RequestContext
   // and mutate it
 
   public void setAgent(Agent agent)

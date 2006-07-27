@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
  * Basic implementation of the core rendering functionality
@@ -401,7 +401,7 @@ public class CoreRenderer extends Renderer
     // The best fix would really be somehow skipping the Apply Request
     // Values phase altogether, while still queueing the ReturnEvent
     // properly.  But how the heck is that gonna happen?
-    return AdfFacesFilterImpl.isExecutingDialogReturn(context);
+    return TrinidadFilterImpl.isExecutingDialogReturn(context);
   }
 
   protected FacesBean getFacesBean(UIComponent component)
