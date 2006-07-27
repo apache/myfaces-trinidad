@@ -89,7 +89,7 @@
     <welcome-file>index.jspx</welcome-file>
   </welcome-file-list>
 
-  <!-- ADF Faces Tag Library -->
+  <!-- Trinidad Tag Library -->
   <taglib>
     <taglib-uri>http://myfaces.apache.org/trinidad</taglib-uri>
     <taglib-location>/WEB-INF/af.tld</taglib-location>
@@ -112,7 +112,7 @@
     <taglib-location>/WEB-INF/html_basic.tld</taglib-location>
   </taglib>
 
-  <!-- ADF Faces Demo Tag Library --> 
+  <!-- Trinidad Demo Tag Library --> 
   <taglib>
     <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
     <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>

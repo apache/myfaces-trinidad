@@ -19,7 +19,7 @@
           xmlns:af="http://myfaces.apache.org/adf/faces">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title=" ADF Faces Converters and Validators message customization">
+    <af:document title=" Trinidad Converters and Validators message customization">
         <af:form>
           <af:panelPage>
             <af:messages/>

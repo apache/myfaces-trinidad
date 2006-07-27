@@ -62,11 +62,11 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
               <af:commandNavigationItem
-                text="Oracle"
-                shortDesc="Oracle's website"
-                destination="http://www.oracle.com/"/>
+                text="Apache"
+                shortDesc="Apache's website"
+                destination="http://www.apache.org/"/>
             </af:navigationLevel>
           </af:panelGroup>
           <jsp:directive.include file="editor.jspf"/>
@@ -89,9 +89,9 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
-              <af:commandNavigationItem text="Oracle"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
+              <af:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
             </af:navigationLevel>
           </af:panelGroup>
 
@@ -113,9 +113,9 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
-              <af:commandNavigationItem text="Oracle"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
+              <af:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
             </af:navigationLevel>
           </af:panelGroup>
 
@@ -137,9 +137,9 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
-              <af:commandNavigationItem text="Oracle"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
+              <af:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
             </af:navigationLevel>
           </af:panelGroup>
 
@@ -162,9 +162,9 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
-              <af:commandNavigationItem text="Oracle"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
+              <af:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
             </af:navigationLevel>
           </af:panelGroup>
 
@@ -187,9 +187,9 @@
               <af:commandNavigationItem text="Disabled Item"
                 disabled="true"
                 action="guide"
-                destination="http://www.oracle.com/"/>
-              <af:commandNavigationItem text="Oracle"
-                destination="http://www.oracle.com/"/>
+                destination="http://www.apache.org/"/>
+              <af:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
             </af:navigationPath>
           </af:panelGroup>
 

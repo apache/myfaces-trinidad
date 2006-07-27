@@ -32,10 +32,10 @@
             <af:outputFormatted styleUsage="instruction" value="&lt;b>Simple panelBox&lt;/b>"/>
             <af:panelBox binding="#{editor.component}" icon="/adf/images/info.gif" text="container header"> 
               <af:panelList> 
-                <af:goLink text="item 1" destination="http://www.oracle.com"/>
-                <af:goLink text="item 2" destination="http://www.oracle.com"/>
-                <af:goLink text="item 3" destination="http://www.oracle.com"/>
-                <af:goLink text="item 4" destination="http://www.oracle.com"/>
+                <af:goLink text="item 1" destination="http://www.apache.org"/>
+                <af:goLink text="item 2" destination="http://www.apache.org"/>
+                <af:goLink text="item 3" destination="http://www.apache.org"/>
+                <af:goLink text="item 4" destination="http://www.apache.org"/>
               </af:panelList>     
             </af:panelBox>
             

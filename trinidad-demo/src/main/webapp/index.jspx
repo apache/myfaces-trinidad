@@ -19,12 +19,12 @@
           xmlns:af="http://myfaces.apache.org/adf/faces" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Oracle ADF Faces Demo Index">
+    <af:document title="Apache Trinidad Demo Index">
        <af:form>
        
         <af:panelPage>
          <af:messages/>
-         <af:panelHeader text="Welcome to the Oracle ADF Faces Demos">  
+         <af:panelHeader text="Welcome to the Apache Trinidad Demos">  
           <af:panelHeader text="Basics">    
             <af:panelGroup layout="vertical">
               <af:commandLink text="Component Guide" action="guide" />
@@ -42,7 +42,7 @@
             <af:panelGroup layout="vertical">
               <af:panelGroup>
                 <af:commandLink text="Email" action="emaildemo" />
-                <af:outputText styleClass="AFInstructionText" value=" - ADF Faces Email Demo"/>
+                <af:outputText styleClass="AFInstructionText" value=" - Trinidad Email Demo"/>
               </af:panelGroup>
               <af:panelGroup>
                 <af:commandLink text="Survey" action="survey" />                

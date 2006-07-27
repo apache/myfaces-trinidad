@@ -30,7 +30,7 @@
             <af:commandLink immediate="true" text="Component Guide"
                 action="guide"/>      
             <af:goLink binding="#{editor.component}" text="Link Here"
-                      destination="http://www.oracle.com"/>
+                      destination="http://www.apache.org"/>
     
             <jsp:directive.include file="editor.jspf" />
           </af:panelGroup>

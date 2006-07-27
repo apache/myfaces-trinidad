@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * correct checkboxes in the answer.
  *
  * [Note: Due to a lack of support for dynamically iterating through data in
- * early releases of ADF Faces, this bean contains special get methods that help
+ * early releases of Trinidad, this bean contains special get methods that help
  * iterate through the list of choices for printing out on the screen.]
  *
  * ***/

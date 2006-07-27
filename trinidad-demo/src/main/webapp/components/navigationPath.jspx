@@ -41,7 +41,7 @@
           <af:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath&lt;/b>"/>
           <af:navigationPath binding="#{editor.component}">
             <af:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
-            <af:commandNavigationItem text="Oracle.com" destination="http://www.oracle.com" targetFrame="_new"/>
+            <af:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
             <af:commandNavigationItem text="Disabled Item" disabled="true" action="guide.tree"/>
             <af:commandNavigationItem text="NavigationLevel Demo" action="guide.navigationLevel"/>
             <af:commandNavigationItem text="Current Page" action="guide.navigationPath"/>

@@ -19,7 +19,7 @@
           xmlns:jsp="http://java.sun.com/JSP/Page">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title=" ADF Faces Converters and Validators">
+    <af:document title=" Trinidad Converters and Validators">
         <af:form>
           <af:panelPage>
             <af:messages/>

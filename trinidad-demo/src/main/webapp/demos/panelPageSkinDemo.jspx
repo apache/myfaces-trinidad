@@ -93,29 +93,29 @@
                                  styleClass="panelBoxHeader"/>
                   <af:panelList>
                     <af:goLink text="flip flops"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="sandals"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="trail shoes"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                   </af:panelList>
                   <af:outputText value="Equipment" styleClass="panelBoxHeader"/>
                   <af:panelList>
                     <af:goLink text="Cycling"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="Climbing"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="Kayaking"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="Camping"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                   </af:panelList>
                   <af:outputText value="Clothing" styleClass="panelBoxHeader"/>
                   <af:panelList>
                     <af:goLink text="Shirts"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                     <af:goLink text="Shoes"
-                               destination="http://www.oracle.com"/>
+                               destination="http://www.apache.org"/>
                   </af:panelList>
                 </af:panelBox>
                 <af:panelGroup layout="vertical">

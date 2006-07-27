@@ -51,7 +51,7 @@
                 colorData="#{color.colorList}"
                 customColorData="#{color.colorArray}"/>
   
-              <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor using standard 80 color palette(ADF Faces implicit object) - Update its properties  from the table below&lt;/b>"/>                                
+              <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor using standard 80 color palette(Trinidad implicit object) - Update its properties  from the table below&lt;/b>"/>                                
               <af:chooseColor binding="#{editor.component}" id="cp3" 
                 colorData="#{requestContext.colorPalette.default80}" width="16"/>
               <jsp:directive.include file="editor.jspf" />

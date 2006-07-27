@@ -21,7 +21,7 @@
           xmlns:af="http://myfaces.apache.org/adf/faces" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Oracle ADF Faces Feature Demos">
+    <af:document title="Apache Trinidad Feature Demos">
        <af:form>
 
         <af:panelPage>
@@ -33,7 +33,7 @@
            </af:menuButtons>
           </f:facet>
 
-          <af:panelHeader text="Welcome to the Oracle ADF Faces Feature Demos">
+          <af:panelHeader text="Welcome to the Apache Trinidad Feature Demos">
            <af:panelHeader text="Basics">
             <af:panelGroup layout="vertical">
               <af:commandLink text="Converters and Validators" action="convertValidateDemos" />

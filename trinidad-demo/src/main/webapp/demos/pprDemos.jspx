@@ -33,7 +33,7 @@
        </af:menuButtons>
       </f:facet>
 
-    <af:panelHeader text="Welcome to the Oracle ADF Partial Page Rendering Demos">
+    <af:panelHeader text="Welcome to the Apache Trinidad Partial Page Rendering Demos">
       <af:outputFormatted styleUsage="instruction"
                           value="These demos illustrate Partial Page Refresh capabilities using the autoSubmit attribute of various input components."/>
       <af:panelGroup layout="vertical">
@@ -233,7 +233,7 @@
          <af:commandLink immediate="true"
                          partialSubmit="true"
                          action="home"
-                         text="Go to ADF Faces demos home page."/>
+                         text="Go to Trinidad demos home page."/>
          <af:objectSpacer height="6"/>
          <af:commandLink immediate="true"
                          partialSubmit="true"

@@ -53,7 +53,7 @@
             </f:facet>
             <f:facet name="infoStatus">
               <af:outputText styleClass="AFErrorText"
-                             value="Note: The ADF Faces Email Demo application is not                  configured to use a secure communication channel between                  the browser and the application server - or between the                  application server and the IMAP server.                   This means that your data (including your user name/password                  and email contents) are transmitted in a non-secure manner.                   Thus, this sample application should only be used in environments                 that are known to be secure."/>
+                             value="Note: The Trinidad Email Demo application is not                  configured to use a secure communication channel between                  the browser and the application server - or between the                  application server and the IMAP server.                   This means that your data (including your user name/password                  and email contents) are transmitted in a non-secure manner.                   Thus, this sample application should only be used in environments                 that are known to be secure."/>
             </f:facet>
            <af:panelHeader text="Email Log In">
             <af:panelForm>
