@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.logging.ADFLogger;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/webapp/AdfFacesFilter.java#0 $) $Date: 10-nov-2005.19:08:29 $
  * @author The Oracle ADF Faces Team
  */
-public class RequestFilter implements Filter
+public class TrinidadFilter implements Filter
 {
   public void init(
     FilterConfig filterConfig) throws ServletException
@@ -94,5 +94,5 @@ public class RequestFilter implements Filter
 
   private Filter _proxied;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RequestFilter.class);
+  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TrinidadFilter.class);
 }
