@@ -28,15 +28,15 @@
        <af:form>
          <af:messages/>
          <af:panelGroup layout="vertical">
-           <af:outputText value="Current context is #{adfFacesContext}"/>
-           <af:outputText value="Right to left? :  #{adfFacesContext.rightToLeft}"/>
-           <af:outputText value="Look and feel? :  #{adfFacesContext.lookAndFeel}"/>
-           <af:outputText value="Accessibility mode? :  #{adfFacesContext.accessibilityMode}"/>
-           <af:outputText value="Time zone? :  #{adfFacesContext.timeZone}"/>
+           <af:outputText value="Current context is #{requestContext}"/>
+           <af:outputText value="Right to left? :  #{requestContext.rightToLeft}"/>
+           <af:outputText value="Look and feel? :  #{requestContext.lookAndFeel}"/>
+           <af:outputText value="Accessibility mode? :  #{requestContext.accessibilityMode}"/>
+           <af:outputText value="Time zone? :  #{requestContext.timeZone}"/>
            
-           <af:outputText value="#{adfFacesContext.formatter['Test {0} MessageFormat']['of']}"/>
-           <af:goLink destination="#{adfFacesContext.helpSystem.frontPage}" text="Get Help"/>
-           <af:goLink destination="#{adfFacesContext.helpTopic.ui_table}" text="Get Help"/>
+           <af:outputText value="#{requestContext.formatter['Test {0} MessageFormat']['of']}"/>
+           <af:goLink destination="#{requestContext.helpSystem.frontPage}" text="Get Help"/>
+           <af:goLink destination="#{requestContext.helpTopic.ui_table}" text="Get Help"/>
          </af:panelGroup>
        </af:form>
        </af:panelPage>

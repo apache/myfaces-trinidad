@@ -156,9 +156,9 @@ tip), and may use simpler layout primitives]]>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
       </mfp:component-metadata>
       <mfp:javadoc-tags><![CDATA[@see org.apache.myfaces.trinidad.model.UploadedFile
-@see org.apache.myfaces.trinidad.webapp.AdfFacesFilter
+@see org.apache.myfaces.trinidad.webapp.TrinidadFilter
 @see org.apache.myfaces.trinidad.model.UploadedFile
-@see org.apache.myfaces.trinidad.webapp.AdfFacesFilter]]>
+@see org.apache.myfaces.trinidad.webapp.TrinidadFilter]]>
       </mfp:javadoc-tags>
       <mfp:uix2-local-name>inputFile</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

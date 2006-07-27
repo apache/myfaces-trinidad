@@ -27,7 +27,7 @@
   <!-- Faces Filter -->
   <filter>
     <filter-name>faces</filter-name>
-    <filter-class>org.apache.myfaces.adfinternal.webapp.FacesFilter</filter-class>
+    <filter-class>org.apache.myfaces.trinidadinternal.webapp.FacesFilter</filter-class>
     <init-param>
       <param-name>faces-servlet-url-pattern</param-name>
       <param-value>/faces/*</param-value>
@@ -35,8 +35,8 @@
   </filter>
 
   <filter>
-    <filter-name>adfFaces</filter-name>
-    <filter-class>org.apache.myfaces.adf.webapp.AdfFacesFilter</filter-class>
+    <filter-name>trinidad</filter-name>
+    <filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
   </filter>
 
   <!-- Faces Filter Mappings -->
@@ -46,7 +46,7 @@
   </filter-mapping>
 
   <filter-mapping>
-    <filter-name>adfFaces</filter-name>
+    <filter-name>trinidad</filter-name>
     <servlet-name>faces</servlet-name>
   </filter-mapping>
 
@@ -59,7 +59,7 @@
   <!-- resource loader servlet -->
   <servlet>
     <servlet-name>resources</servlet-name>
-    <servlet-class>org.apache.myfaces.adf.webapp.ResourceServlet</servlet-class>
+    <servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
   </servlet>
 
   <!-- On some version of OC4J, the following is needed when using jsf 1.0 -->
@@ -91,12 +91,12 @@
 
   <!-- ADF Faces Tag Library -->
   <taglib>
-    <taglib-uri>http://myfaces.apache.org/adf/faces</taglib-uri>
+    <taglib-uri>http://myfaces.apache.org/trinidad</taglib-uri>
     <taglib-location>/WEB-INF/af.tld</taglib-location>
   </taglib>
 
   <taglib>
-    <taglib-uri>http://myfaces.apache.org/adf/faces/html</taglib-uri>
+    <taglib-uri>http://myfaces.apache.org/trinidad/html</taglib-uri>
     <taglib-location>/WEB-INF/afh.tld</taglib-location>
   </taglib>
 
@@ -114,7 +114,7 @@
 
   <!-- ADF Faces Demo Tag Library --> 
   <taglib>
-    <taglib-uri>http://myfaces.apache.org/adffacesdemo</taglib-uri>
+    <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
     <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
   </taglib>
 

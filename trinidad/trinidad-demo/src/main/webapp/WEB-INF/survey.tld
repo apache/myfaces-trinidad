@@ -22,12 +22,12 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
    <tlib-version>1.0</tlib-version>
    <jsp-version>1.2</jsp-version>
    <short-name>survey</short-name>
-   <uri>http://myfaces.apache.org/adf/faces/demo</uri>
+   <uri>http://myfaces.apache.org/trinidad/demo</uri>
    <display-name>survey</display-name>   
    
    <tag>
       <name>validate_answer</name>
-      <tag-class>org.apache.myfaces.adfdemo.survey.AnswerValidatorTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidaddemo.survey.AnswerValidatorTag</tag-class>
       <attribute>
          <name>questionIndex</name>
          <required>true</required>

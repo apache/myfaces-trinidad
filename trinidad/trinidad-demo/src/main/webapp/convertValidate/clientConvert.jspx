@@ -17,7 +17,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:af="http://myfaces.apache.org/adf/faces"
-          xmlns:afdemo="http://myfaces.apache.org/adffacesdemo">
+          xmlns:trdemo="http://myfaces.apache.org/trinidaddemo">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
     <af:document title="Client-side Converters and Validators">
@@ -122,14 +122,14 @@
                 <f:facet name="help">
                   <af:outputText value="examples of unconvertable values: 'a' or 'cat'"/>
                 </f:facet>
-                <afdemo:convertSSN/>
+                <trdemo:convertSSN/>
               </af:inputText>
               <af:inputText required="true" secret="true"
                             label="password validator">
                 <f:facet name="help">
                   <af:outputText value="examples of unconvertable values: 'a' or 'cat'"/>
                 </f:facet>
-                <afdemo:validatePassword/>
+                <trdemo:validatePassword/>
               </af:inputText>
             </af:panelForm>
            </af:panelHeader>

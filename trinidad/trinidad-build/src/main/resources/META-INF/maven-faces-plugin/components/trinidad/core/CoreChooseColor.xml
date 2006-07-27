@@ -224,7 +224,7 @@
           <html:p>
           In order to simplify the use of standard palettes, ADF Faces makes 
           certain palettes available via the uix.colorPalette EL implicit 
-          object.  The &quot;#{adfFacesContext.colorPalette}&quot; implicit object
+          object.  The &quot;#{requestContext.colorPalette}&quot; implicit object
           provides access to four standard color palettes:
           <html:ul>
           <html:li><html:code>&quot;default49&quot;</html:code>: 49 colors, including
@@ -241,16 +241,16 @@
       <mfp:example>
         <mfp:source-code><![CDATA[<!-- A chooseColor which uses the standard "default49" palette -->
 <af:chooseColor id="cc0"
-                colorData="#{adfFacesContext.colorPalette.default49}"/>
+                colorData="#{requestContext.colorPalette.default49}"/>
 
 <!-- A chooseColor which defines custom colors using inline data -->
-<af:chooseColor id="cc1" colorData="#{adfFacesContext.colorPalette.default49}"
+<af:chooseColor id="cc1" colorData="#{requestContext.colorPalette.default49}"
                          customColorData="#{myBean.listOfColors}">
 
 <!-- A chooseColor that is associated with a selectInputColor -->
 <af:selectInputColor id="sic1" chooseId="cc2"/>
 <af:chooseColor id="cc2" width="18"
-                colorData="#{adfFacesContext.colorPalette.web216}"/>]]>
+                colorData="#{requestContext.colorPalette.web216}"/>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>John Fallows</mfp:author>

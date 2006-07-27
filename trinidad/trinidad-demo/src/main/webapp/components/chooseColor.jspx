@@ -35,7 +35,7 @@
                 label="Enter or select color from palette below"
                 value="#{color.colorValue1}"/>                              
               <af:chooseColor id="cp1" 
-                colorData="#{adfFacesContext.colorPalette.default49}"/>
+                colorData="#{requestContext.colorPalette.default49}"/>
                           
               <af:outputFormatted styleUsage="instruction" value="&lt;b>Color Converter with patterns &quot;rrr-ggg-bbb #RRGGBB&quot; associated with selectInputColor component&lt;/b>"/>                
               <af:selectInputColor id="sicConv" chooseId="cpConv"
@@ -44,7 +44,7 @@
                 <af:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
               </af:selectInputColor>
               <af:chooseColor id="cpConv" 
-                colorData="#{adfFacesContext.colorPalette.default49}"/>
+                colorData="#{requestContext.colorPalette.default49}"/>
 
               <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor with attribute 'colorData' bound to a list(java.util.List) of colors(java.awt.Color) and attribute 'customColorData' bound to an array of colors(java.awt.Color)&lt;/b>"/>                                
               <af:chooseColor id="cp2" 
@@ -53,7 +53,7 @@
   
               <af:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor using standard 80 color palette(ADF Faces implicit object) - Update its properties  from the table below&lt;/b>"/>                                
               <af:chooseColor binding="#{editor.component}" id="cp3" 
-                colorData="#{adfFacesContext.colorPalette.default80}" width="16"/>
+                colorData="#{requestContext.colorPalette.default80}" width="16"/>
               <jsp:directive.include file="editor.jspf" />
           </af:panelGroup>
         </af:form>

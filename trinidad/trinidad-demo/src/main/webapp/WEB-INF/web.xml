@@ -76,17 +76,17 @@
   </context-param--> 
 
   <filter>
-    <filter-name>adfFaces</filter-name>
-    <filter-class>org.apache.myfaces.adf.webapp.AdfFacesFilter</filter-class>
+    <filter-name>trinidad</filter-name>
+    <filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
   </filter>
 
   <filter>
     <filter-name>demoRedirect</filter-name>
-    <filter-class>org.apache.myfaces.adfdemo.webapp.RedirectFilter</filter-class>
+    <filter-class>org.apache.myfaces.trinidaddemo.webapp.RedirectFilter</filter-class>
   </filter>
   
   <filter-mapping>
-    <filter-name>adfFaces</filter-name>
+    <filter-name>trinidad</filter-name>
     <servlet-name>faces</servlet-name>
   </filter-mapping>
 
@@ -104,7 +104,7 @@
   <!-- resource loader servlet -->
   <servlet>
     <servlet-name>resources</servlet-name>
-    <servlet-class>org.apache.myfaces.adf.webapp.ResourceServlet</servlet-class>
+    <servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
   </servlet>
 
   <!-- On some version of OC4J, the following is needed when using jsf 1.0 -->
@@ -137,12 +137,12 @@
   <!-- Survey Demo (Custom) Tag Library -->
   <jsp-config>
     <taglib>
-      <taglib-uri>http://myfaces.apache.org/adf/faces/demo</taglib-uri>
+      <taglib-uri>http://myfaces.apache.org/trinidad/demo</taglib-uri>
       <taglib-location>/WEB-INF/survey.tld</taglib-location>
     </taglib>
 
     <taglib>
-      <taglib-uri>http://myfaces.apache.org/adffacesdemo</taglib-uri>
+      <taglib-uri>http://myfaces.apache.org/trinidaddemo</taglib-uri>
       <taglib-location>/WEB-INF/uixdemo.tld</taglib-location>
     </taglib>
   </jsp-config>
