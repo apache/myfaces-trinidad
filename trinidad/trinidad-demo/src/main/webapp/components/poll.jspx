@@ -67,7 +67,7 @@
                                  windowWidth="150" windowHeight="150"
                                  immediate="true" partialSubmit="true"/>
               <af:goButton 
-                text="Using openWindow() API in ADF Faces Javascript library" 
+                text="Using openWindow() API in Trinidad Javascript library" 
                 onclick="openWindow(window,'poll_window_page.jspx','',{width:200, height:100},true,'dialog','');"/>
             </af:panelGroup>
 

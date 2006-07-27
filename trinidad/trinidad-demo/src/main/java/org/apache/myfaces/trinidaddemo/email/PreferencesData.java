@@ -53,7 +53,7 @@ public class PreferencesData
    */
   public PreferencesData()
   {
-    // need public accesibility mode constants declared in ADF Faces!
+    // need public accesibility mode constants declared in Trinidad!
     _branding = REGULAR_BRANDING;
     _rowsShown = _DEFAULT_ROWS_SHOWN;
     _displayFolderTree = true;

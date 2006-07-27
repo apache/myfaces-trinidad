@@ -127,7 +127,7 @@ public final class AccountData implements java.io.Serializable
   }
 
   /**
-   * Get the folder model used in the ADF Faces tree component showing folders.
+   * Get the folder model used in the Trinidad tree component showing folders.
    */
   public TreeModel getFolderModel()
   {
@@ -217,7 +217,7 @@ public final class AccountData implements java.io.Serializable
   }
 
   /**
-   * Set the folder model used in the ADF Faces tree component showing folders.
+   * Set the folder model used in the Trinidad tree component showing folders.
    */
   public void setFolderModel(TreeModel model)
   {

@@ -32,7 +32,7 @@
             <af:outputFormatted styleUsage="instruction" value="&lt;b> &lt;/b>"/>
 
             <af:goButton binding="#{editor.component}" text="Press me"
-                        destination="http://www.oracle.com"/>
+                        destination="http://www.apache.org"/>
                   
             <jsp:directive.include file="editor.jspf" />
     

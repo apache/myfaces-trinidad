@@ -22,7 +22,7 @@
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
     <afh:html>
-      <afh:head title="Test of ADF Faces EL bindings"/>
+      <afh:head title="Test of Trinidad EL bindings"/>
       <afh:body>
        <af:panelPage>
        <af:form>

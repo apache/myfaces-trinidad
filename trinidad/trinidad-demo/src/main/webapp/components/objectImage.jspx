@@ -37,7 +37,7 @@
             <jsp:directive.include file="editor.jspf" />
 
             <af:outputFormatted styleUsage="instruction" value="&lt;b>objectImage with server-relative URL&lt;/b>"/>
-            <af:goLink destination="http://www.oracle.com">
+            <af:goLink destination="http://www.apache.org">
               <!-- Use long EL chain to avoid hardcoding the context path;  of course, once you're doing this, you might as well just use the context-relative URL form above, but this does test out the feature... -->
               <af:objectImage source="/#{facesContext.externalContext.request.contextPath}/adf/images/error.gif" shortDesc="error"/>
             </af:goLink>

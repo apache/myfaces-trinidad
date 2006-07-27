@@ -33,7 +33,7 @@
                 action="guide"/>             
             <af:panelTip binding="#{editor.component}">
               <af:goLink text="link inside panelTip"
-                        destination="http://www.oracle.com"/>
+                        destination="http://www.apache.org"/>
             </af:panelTip>
     
             <jsp:directive.include file="editor.jspf" />

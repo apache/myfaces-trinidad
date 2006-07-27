@@ -23,7 +23,7 @@
   <f:view>
     <afh:html>
     <!-- The afh:head element automatically adds 
-    the style sheet link reference to a generated ADF Faces style sheet 
+    the style sheet link reference to a generated Trinidad style sheet 
       <afh:head title="commandButton Demo"/>
     -->
       <afh:styleSheet rendered="true" binding="#{editor.component}"/>
@@ -41,7 +41,7 @@
               <af:outputFormatted 
                 styleUsage="instruction" 
                 value="The styleSheet component generates the style sheet link
-                reference to a generated ADF Faces style sheet. This is automatically 
+                reference to a generated Trinidad style sheet. This is automatically 
                 included for you if you use the ADF HtmlHead component. 
                 Toggle rendered to see the effect of the styleSheet component.
                 "/>

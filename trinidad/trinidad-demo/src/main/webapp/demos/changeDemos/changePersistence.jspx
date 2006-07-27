@@ -45,7 +45,7 @@
                   action="demos.attributeChange_Implicit"/>
                <af:outputFormatted 
                   styleUsage="instruction"
-                  value="Certain of the user actions on few ADF Faces components,
+                  value="Certain of the user actions on few Trinidad components,
                     alter the attributes implicitly. AttributeChange behind such 
                     changes are implicitly created and registered, so that the 
                     UI is restored upon re-visit to the page. In this demo upon

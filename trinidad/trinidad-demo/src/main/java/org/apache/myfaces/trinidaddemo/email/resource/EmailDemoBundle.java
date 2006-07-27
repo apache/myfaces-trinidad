@@ -33,7 +33,7 @@ public class EmailDemoBundle extends ListResourceBundle
     {"MESSAGE_SENT", "The message was sent successfully."},
     {"COULD_NOT_DELETE", "Deletion failed."},
     {"COULD_NOT_DELETE_detail", "The server returned an error: {0}."},
-    {"EMAIL_DEMO_TITLE", "ADF Faces Email Demo"},   
+    {"EMAIL_DEMO_TITLE", "Trinidad Email Demo"},   
 
     
   };

@@ -21,12 +21,12 @@
           xmlns:af="http://myfaces.apache.org/adf/faces">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Oracle Logo">
+    <af:document title="Apache Logo">
         <af:form>
           <af:panelGroup layout="vertical">
             <af:objectImage 
-                source="http://www.oracle.com/admin/images/ocom/oralogo_small.gif" 
-                shortDesc="Oracle Logo"/>
+                source="http://www.apache.org/images/asf_logo_wide.gif" 
+                shortDesc="Apache Logo"/>
           </af:panelGroup>
         </af:form>
     </af:document>
