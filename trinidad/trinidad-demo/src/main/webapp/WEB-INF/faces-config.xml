@@ -63,34 +63,34 @@
   
   </application>
   <component>
-    <component-type>org.apache.myfaces.adfdemo.DateField</component-type>
-    <component-class>org.apache.myfaces.adfdemo.composite.DateField</component-class>
+    <component-type>org.apache.myfaces.trinidaddemo.DateField</component-type>
+    <component-class>org.apache.myfaces.trinidaddemo.composite.DateField</component-class>
   </component>
 
   <render-kit>
     <renderer>
       <component-family>javax.faces.Input</component-family>
-      <renderer-type>org.apache.myfaces.adfdemo.DateField</renderer-type>
-      <renderer-class>org.apache.myfaces.adfdemo.composite.DateFieldAsRenderer</renderer-class>
+      <renderer-type>org.apache.myfaces.trinidaddemo.DateField</renderer-type>
+      <renderer-class>org.apache.myfaces.trinidaddemo.composite.DateFieldAsRenderer</renderer-class>
     </renderer>
   </render-kit>
 
   <converter>
    <display-name>SSN Converter</display-name>
-   <converter-id>org.apache.myfaces.adfdemo.SSN</converter-id>
-   <converter-class>org.apache.myfaces.adfdemo.convertValidate.SSNConverter</converter-class>
+   <converter-id>org.apache.myfaces.trinidaddemo.SSN</converter-id>
+   <converter-class>org.apache.myfaces.trinidaddemo.convertValidate.SSNConverter</converter-class>
   </converter>
   <validator>
    <display-name>Password Validator</display-name>
-   <validator-id>org.apache.myfaces.adfdemo.PasswordValidator</validator-id>
-   <validator-class>org.apache.myfaces.adfdemo.convertValidate.PasswordValidator</validator-class>
+   <validator-id>org.apache.myfaces.trinidaddemo.PasswordValidator</validator-id>
+   <validator-class>org.apache.myfaces.trinidaddemo.convertValidate.PasswordValidator</validator-class>
   </validator>
     
   <!-- Global preferences object that proxies to others -->
   <managed-bean>
     <managed-bean-name>prefs</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.PreferencesProxy
+       org.apache.myfaces.trinidaddemo.PreferencesProxy
     </managed-bean-class>
     <managed-bean-scope>
        application
@@ -101,7 +101,7 @@
   <managed-bean>
     <managed-bean-name>action</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.ActionBean
+       org.apache.myfaces.trinidaddemo.ActionBean
     </managed-bean-class>
     <managed-bean-scope>
        application
@@ -111,7 +111,7 @@
   <managed-bean>
     <managed-bean-name>selectItemTest</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.SelectItemTestBean
+       org.apache.myfaces.trinidaddemo.SelectItemTestBean
     </managed-bean-class>
     <managed-bean-scope>
        application
@@ -121,7 +121,7 @@
   <managed-bean>
     <managed-bean-name>ui</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.UIBean
+       org.apache.myfaces.trinidaddemo.UIBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -135,7 +135,7 @@
   <managed-bean>
     <managed-bean-name>uiState</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.UIBeanState
+       org.apache.myfaces.trinidaddemo.UIBeanState
     </managed-bean-class>
     <managed-bean-scope>
        session
@@ -152,7 +152,7 @@
        application
     </managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.DataBean</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.DataBean</value-class>
       <value>#{tablerow}</value>
       <value>#{tablerow}</value>
       <value>#{tablerow}</value>
@@ -179,7 +179,7 @@
     <managed-bean-class>java.util.ArrayList</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.DataBean</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.DataBean</value-class>
       <value>#{tablerow}</value>
       <value>#{tablerow}</value>
       <value>#{tablerow}</value>
@@ -202,20 +202,20 @@
 
   <managed-bean>
     <managed-bean-name>tablerow</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DataBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>data</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DataBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
 
   <!--managed-bean>
     <managed-bean-name>data2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DataBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DataBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean-->
    
@@ -230,7 +230,7 @@
        application
     </managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.survey.SurveyPage</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
       <value>#{processChoiceBar1}</value>
       <value>#{processChoiceBar2}</value>
       <value>#{processChoiceBar3}</value>
@@ -240,7 +240,7 @@
   <!-- create the menuModel -->
   <managed-bean>
     <managed-bean-name>processMenuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -254,7 +254,7 @@
 
   <managed-bean>
     <managed-bean-name>processChoiceBar1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -271,7 +271,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processChoiceBar2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -288,7 +288,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processChoiceBar3</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -318,7 +318,7 @@
        none
     </managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
       <value>#{processTrain1}</value>
       <value>#{processTrain2}</value>
       <value>#{processTrain3}</value>
@@ -332,7 +332,7 @@
 
  <managed-bean>
     <managed-bean-name>processTrainTree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ChildPropertyTreeModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>childProperty</property-name>
@@ -347,7 +347,7 @@
   <!-- create the menuModel -->
   <managed-bean>
     <managed-bean-name>processTrainMenuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -367,7 +367,7 @@
 
   <managed-bean>
     <managed-bean-name>processTrain1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -384,7 +384,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -401,7 +401,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain3</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -418,7 +418,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain4</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -435,7 +435,7 @@
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{processTrain4a}</value>
         <value>#{processTrain4b}</value>
         <value>#{processTrain4c}</value>
@@ -444,7 +444,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain4a</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -461,7 +461,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain4b</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -478,7 +478,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain4c</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -495,7 +495,7 @@
   </managed-bean>
    <managed-bean>
     <managed-bean-name>processTrain5</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -512,7 +512,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain6</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -529,7 +529,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processTrain7</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -546,7 +546,7 @@
   </managed-bean>
    <managed-bean>
     <managed-bean-name>processTrain8</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -578,7 +578,7 @@
   <managed-bean>
     <managed-bean-name>periodicDialog</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.dialog.PeriodicDialogBean
+       org.apache.myfaces.trinidaddemo.dialog.PeriodicDialogBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -588,42 +588,42 @@
 
   <managed-bean>
     <managed-bean-name>color</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ColorBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ColorBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>date</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DateBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DateBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>toggle</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ToggleBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ToggleBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>animals</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.AnimalsBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.AnimalsBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   <managed-bean>
     <managed-bean-name>list</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ListTestBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ListTestBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>testTree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DemoTreeData</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoTreeData</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>partialDemoUtil</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.PartialDemoUtilBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PartialDemoUtilBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
     <managed-property>
       <property-name>status</property-name>
@@ -633,37 +633,37 @@
 
   <managed-bean>
     <managed-bean-name>partialDemoStatus</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.PartialDemoStatusBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PartialDemoStatusBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>poll</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.PollBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.PollBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>change</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.change.ChangeBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.change.ChangeBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>progress</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ProgressBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ProgressBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>progressSteps</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ProgressStepsBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ProgressStepsBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>tree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>childProperty</property-name>
@@ -677,13 +677,13 @@
 
   <managed-bean>
     <managed-bean-name>testTree2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.InfiniteTree</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.InfiniteTree</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>largeTree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>childProperty</property-name>
@@ -698,13 +698,13 @@
 
   <managed-bean>
     <managed-bean-name>tableActions</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.TableBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TableBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>editor</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ComponentEditorHandler</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ComponentEditorHandler</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
     <managed-property>
       <property-name>javascriptShown</property-name>
@@ -714,25 +714,25 @@
 
   <managed-bean>
     <managed-bean-name>demoCommandNavigationItem</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.DemoCommandNavigationItemBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.DemoCommandNavigationItemBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>clientValidation</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ClientValidationBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ClientValidationBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   
   <managed-bean>
     <managed-bean-name>converterValidator</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ConverterValidatorBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ConverterValidatorBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
   
   <managed-bean>
     <managed-bean-name>messageCustomization</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.CustomMessageConvertValidateBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.CustomMessageConvertValidateBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
@@ -741,7 +741,7 @@
    <!-- BEGIN component tree -->
   <managed-bean>
     <managed-bean-name>componentTreeBean</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.ComponentTree</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.ComponentTree</managed-bean-class>
     <managed-bean-scope>application</managed-bean-scope>
     <managed-property>
       <property-name>fileList</property-name>
@@ -838,7 +838,7 @@
 
   <managed-bean>
     <managed-bean-name>componentTree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.TreeModelAdapter</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.TreeModelAdapter</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>childProperty</property-name>
@@ -854,7 +854,7 @@
   <!-- create the menuModel  for the navigationTree demo, which uses the component guide tree-->
   <managed-bean>
     <managed-bean-name>navigationTree</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -899,7 +899,7 @@
    
    <managed-bean>
     <managed-bean-name>navItem_a1b1c1d1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>          
     <managed-property>
       <property-name>label</property-name>
@@ -917,7 +917,7 @@
   
   <managed-bean>
     <managed-bean-name>navItem_a1b1c2d1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>          
     <managed-property>
       <property-name>label</property-name>
@@ -935,12 +935,12 @@
    
    <managed-bean>
     <managed-bean-name>navItem_a1b1c1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>                
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1b1c1d1}</value>
       </list-entries>
     </managed-property>  
@@ -960,12 +960,12 @@
 
    <managed-bean>
     <managed-bean-name>navItem_a1b1c2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>                  
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1b1c2d1}</value>
       </list-entries>
     </managed-property>          
@@ -985,7 +985,7 @@
     
    <managed-bean>
     <managed-bean-name>navItem_a1b2c1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>          
     <managed-property>
       <property-name>label</property-name>
@@ -1003,7 +1003,7 @@
   
    <managed-bean>
     <managed-bean-name>navItem_a1b2c2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>          
     <managed-property>
       <property-name>label</property-name>
@@ -1021,12 +1021,12 @@
   
    <managed-bean>
     <managed-bean-name>navItem_a1b1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>         
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1b1c1}</value>
         <value>#{navItem_a1b1c2}</value>
       </list-entries>
@@ -1047,12 +1047,12 @@
 
    <managed-bean>
     <managed-bean-name>navItem_a1b2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>         
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1b2c1}</value>
         <value>#{navItem_a1b2c2}</value>
       </list-entries>
@@ -1073,7 +1073,7 @@
 
    <managed-bean>
     <managed-bean-name>navItem_a2b1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope> 
     <managed-property>
       <property-name>label</property-name>
@@ -1092,7 +1092,7 @@
 
    <managed-bean>
     <managed-bean-name>navItem_a2b2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope> 
     <managed-property>
       <property-name>label</property-name>
@@ -1110,12 +1110,12 @@
   
   <managed-bean>
     <managed-bean-name>navItem_a1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>      
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1b1}</value>
         <value>#{navItem_a1b2}</value>
       </list-entries>
@@ -1136,12 +1136,12 @@
   
   <managed-bean>
     <managed-bean-name>navItem_a2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>            
     <managed-property>
       <property-name>children</property-name>
       <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a2b1}</value>
         <value>#{navItem_a2b2}</value>
       </list-entries>
@@ -1162,7 +1162,7 @@
 
   <managed-bean>
     <managed-bean-name>navItem_a3</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>   
     <managed-property>
       <property-name>label</property-name>
@@ -1184,7 +1184,7 @@
 
  <managed-bean>
     <managed-bean-name>navItem_a4</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>   
     <managed-property>
       <property-name>label</property-name>
@@ -1215,7 +1215,7 @@
        none
     </managed-bean-scope>
      <list-entries>
-        <value-class>org.apache.myfaces.adfdemo.nav.DemoNavigationItem</value-class>
+        <value-class>org.apache.myfaces.trinidaddemo.nav.DemoNavigationItem</value-class>
         <value>#{navItem_a1}</value>
         <value>#{navItem_a2}</value>
         <value>#{navItem_a3}</value>
@@ -1225,7 +1225,7 @@
   
   <managed-bean>
     <managed-bean-name>navTreeModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ChildPropertyTreeModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ChildPropertyTreeModel</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>childProperty</property-name>
@@ -1241,7 +1241,7 @@
   
   <managed-bean>
     <managed-bean-name>viewIdMenuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -1255,7 +1255,7 @@
   
   <managed-bean>
     <managed-bean-name>menuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.nav.MenuModelAdapter</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.nav.MenuModelAdapter</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>   
     <managed-property>
       <property-name>model</property-name>
@@ -1363,7 +1363,7 @@
   
   <managed-bean>
     <managed-bean-name>processItem_p1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1380,7 +1380,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>processItem_p2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1397,7 +1397,7 @@
   </managed-bean>
  <managed-bean>
     <managed-bean-name>processItem_p3</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1414,7 +1414,7 @@
   </managed-bean>
  <managed-bean>
     <managed-bean-name>processItem_p4</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1439,7 +1439,7 @@
        application
     </managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.survey.SurveyPage</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
       <value>#{processItem_p1}</value>
       <value>#{processItem_p2}</value>
       <value>#{processItem_p3}</value>
@@ -1449,7 +1449,7 @@
 
   <managed-bean>
     <managed-bean-name>processPageMenuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ProcessMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ProcessMenuModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -1496,7 +1496,7 @@
   <managed-bean>
     <managed-bean-name>survey</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.survey.SurveyBean
+       org.apache.myfaces.trinidaddemo.survey.SurveyBean
     </managed-bean-class>
     <managed-bean-scope>
        session
@@ -1512,7 +1512,7 @@
        application
     </managed-bean-scope>
     <list-entries>
-      <value-class>org.apache.myfaces.adfdemo.survey.SurveyPage</value-class>
+      <value-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</value-class>
       <value>#{survey1}</value>
       <value>#{survey2}</value>
       <value>#{survey3}</value>
@@ -1524,7 +1524,7 @@
   <!-- create the menuModel -->
   <managed-bean>
     <managed-bean-name>surveyMenuModel</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adf.model.ViewIdPropertyMenuModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidad.model.ViewIdPropertyMenuModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
     <managed-property>
       <property-name>viewIdProperty</property-name>
@@ -1538,7 +1538,7 @@
 
   <managed-bean>
     <managed-bean-name>survey1</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1555,7 +1555,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>survey2</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1572,7 +1572,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>survey3</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1589,7 +1589,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>survey4</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1606,7 +1606,7 @@
   </managed-bean>
   <managed-bean>
     <managed-bean-name>survey5</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.survey.SurveyPage</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.survey.SurveyPage</managed-bean-class>
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
@@ -1737,7 +1737,7 @@
       <description>Validates user's responses to survey questions</description>
       <display-name>Survey Demo Answer Validator</display-name>
       <validator-id>survey answer validator</validator-id>
-      <validator-class>org.apache.myfaces.adfdemo.survey.AnswerValidator</validator-class>
+      <validator-class>org.apache.myfaces.trinidaddemo.survey.AnswerValidator</validator-class>
       <attribute>
           <attribute-name>questionIndex</attribute-name>
           <attribute-class>java.lang.String</attribute-class>
@@ -2548,7 +2548,7 @@
   <managed-bean>
     <managed-bean-name>compositeTest</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.composite.CompositeTest
+       org.apache.myfaces.trinidaddemo.composite.CompositeTest
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2560,7 +2560,7 @@
   <managed-bean>
     <managed-bean-name>email</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.email.AccountData
+       org.apache.myfaces.trinidaddemo.email.AccountData
     </managed-bean-class>
     <managed-bean-scope>
        session
@@ -2570,7 +2570,7 @@
   <managed-bean>
     <managed-bean-name>showMessageBacking</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.email.ShowMessageBackingBean
+       org.apache.myfaces.trinidaddemo.email.ShowMessageBackingBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2586,7 +2586,7 @@
   <managed-bean>
     <managed-bean-name>messagesBacking</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.email.MessagesBackingBean
+       org.apache.myfaces.trinidaddemo.email.MessagesBackingBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2601,7 +2601,7 @@
   <managed-bean>
     <managed-bean-name>newMessageBacking</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.email.NewMessageBackingBean
+       org.apache.myfaces.trinidaddemo.email.NewMessageBackingBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2615,7 +2615,7 @@
   <managed-bean>
     <managed-bean-name>replyToMessageBacking</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.email.ReplyToMessageBackingBean
+       org.apache.myfaces.trinidaddemo.email.ReplyToMessageBackingBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2629,14 +2629,14 @@
   <managed-bean>
     <managed-bean-name>Backer</managed-bean-name>
     <managed-bean-class> 
-       org.apache.myfaces.adfdemo.tableDemos.EmployeeTableBean 
+       org.apache.myfaces.trinidaddemo.tableDemos.EmployeeTableBean 
     </managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>  
   </managed-bean>
  
   <managed-bean>
     <managed-bean-name>TotalBacker</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.tableDemos.EmployeeTableBean</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.tableDemos.EmployeeTableBean</managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>  
   </managed-bean>
 
@@ -2731,13 +2731,13 @@
   </navigation-rule>
 
   <converter>
-    <converter-id>org.apache.myfaces.adfdemo.email.RelativeDate</converter-id>
-    <converter-class>org.apache.myfaces.adfdemo.email.RelativeDateConverter</converter-class>
+    <converter-id>org.apache.myfaces.trinidaddemo.email.RelativeDate</converter-id>
+    <converter-class>org.apache.myfaces.trinidaddemo.email.RelativeDateConverter</converter-class>
   </converter>
 
   <converter>
-    <converter-id>org.apache.myfaces.adfdemo.email.EmailDisplay</converter-id>
-    <converter-class>org.apache.myfaces.adfdemo.email.EmailDisplayConverter</converter-class>
+    <converter-id>org.apache.myfaces.trinidaddemo.email.EmailDisplay</converter-id>
+    <converter-class>org.apache.myfaces.trinidaddemo.email.EmailDisplayConverter</converter-class>
   </converter>
   <!-- END OF EMAIL DEMO -->
 
@@ -2746,7 +2746,7 @@
   <managed-bean>
     <managed-bean-name>carBacking</managed-bean-name>
     <managed-bean-class>
-      org.apache.myfaces.adfdemo.CarBackingBean
+      org.apache.myfaces.trinidaddemo.CarBackingBean
     </managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
@@ -2754,7 +2754,7 @@
   <managed-bean>
     <managed-bean-name>carOptionsBacking</managed-bean-name>
     <managed-bean-class>
-      org.apache.myfaces.adfdemo.CarOptionsBackingBean
+      org.apache.myfaces.trinidaddemo.CarOptionsBackingBean
     </managed-bean-class>
     <managed-bean-scope>request</managed-bean-scope>
   </managed-bean>
@@ -2772,7 +2772,7 @@
   <managed-bean>
     <managed-bean-name>chooseInteger</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.dialog.ChooseIntegerBean
+       org.apache.myfaces.trinidaddemo.dialog.ChooseIntegerBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2786,7 +2786,7 @@
   <managed-bean>
     <managed-bean-name>launchDialog</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.dialog.LaunchDialogBean
+       org.apache.myfaces.trinidaddemo.dialog.LaunchDialogBean
     </managed-bean-class>
     <managed-bean-scope>
        request
@@ -2813,14 +2813,14 @@
 
   <managed-bean>
     <managed-bean-name>dynamicTable</managed-bean-name>
-    <managed-bean-class>org.apache.myfaces.adfdemo.table.DynamicModel</managed-bean-class>
+    <managed-bean-class>org.apache.myfaces.trinidaddemo.table.DynamicModel</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
   <managed-bean>
     <managed-bean-name>periodicTable</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adfdemo.table.TableBuilder
+       org.apache.myfaces.trinidaddemo.table.TableBuilder
     </managed-bean-class>
     <managed-bean-scope>
        session
@@ -2828,7 +2828,7 @@
     <managed-property>
       <property-name>beanClass</property-name>
       <value>
-         org.apache.myfaces.adfdemo.AtomBean
+         org.apache.myfaces.trinidaddemo.AtomBean
       </value>
     </managed-property>
     <managed-property>
