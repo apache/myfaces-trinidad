@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:validator</title>
+  <title>tr:validator</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:validator&gt;
+   <b>Tag name:</b> &lt;tr:validator&gt;
    <br/>
 <p>
             The validator tag is an implementation of the future JSF 1.2
@@ -36,9 +36,9 @@
             "validatorId". This Validator is added to the component and also
             assigned to the "binding" ValueBinding.
          </p><h4>Example:</h4><source>
-            &lt;af:inputText value="#{mybean.ename}"&gt;
-              &lt;af:validator binding="#{mybean.validator"/&gt;
-            &lt;/af:inputText&gt;</source>
+            &lt;tr:inputText value="#{mybean.ename}"&gt;
+              &lt;tr:validator binding="#{mybean.validator"/&gt;
+            &lt;/tr:inputText&gt;</source>
  </p>
  </section>
  <section name="Attributes">
@@ -50,7 +50,7 @@
 <th>Description</th>
 </tr>
 <tr>
-<td>binding</td><td>org.apache.myfaces.adf.component.<wbr/>UIXValidator</td><td>Only EL</td><td>
+<td>binding</td><td>org.apache.myfaces.trinidad.component.<wbr/>UIXValidator</td><td>Only EL</td><td>
 
 A ValueBinding that evaluates to an object that implements
           <code>javax.faces.validator.Validator</code>.

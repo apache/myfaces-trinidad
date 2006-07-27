@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:setActionListener</title>
+  <title>tr:setActionListener</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:setActionListener&gt;
+   <b>Tag name:</b> &lt;tr:setActionListener&gt;
    <br/>
 <p>
 
@@ -34,7 +34,7 @@
         tag can be used both with ADF Faces commands and JSF standard
         tags.  More generally, it can be used with any component at
         all that implements the standard ActionSource interface.
-        <b>Note</b> that JSF comes with a &lt;af:setPropertyActionListener&gt;, which
+        <b>Note</b> that JSF comes with a &lt;tr:setPropertyActionListener&gt;, which
         does exactly the same.
 
 </p><h4>Example:</h4><p>
@@ -61,7 +61,7 @@ The target page can then retrieve the detail object from the process scope and u
               ...
               &lt;h:column&gt;
                 &lt;h:commandButton value="Show..." action="showDetail" ..&gt;
-                  &lt;af:setActionListener from="#{row}"
+                  &lt;tr:setActionListener from="#{row}"
                                         to="#{processScope.detail}"/&gt;
                 &lt;/h:commandButton&gt;
               &lt;/h:column&gt;

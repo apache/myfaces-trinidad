@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:attribute</title>
+  <title>tr:attribute</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:attribute&gt;
+   <b>Tag name:</b> &lt;tr:attribute&gt;
    <br/>
 
 <p>
@@ -37,19 +37,19 @@
 
 
          </p><h4>Example:</h4><source>
-            &lt;af:table var="emp" value="#{employees}"&gt;
-              &lt;af:attribute name="banding" value="none"/&gt;
-              &lt;af:column &gt;
-                &lt;af:outputText value="#{emp.ename}"&gt;
-                  &lt;af:attribute name="styleClass" value="#{emp.role}"/&gt;
-                &lt;/af:outputText&gt;
-              &lt;/af:column &gt;
-              &lt;af:column &gt;
-                &lt;af:commandButton action="#{emp.viewDetails}"&gt;
-                  &lt;af:attribute name="label" value="More on this #{emp.title}"/&gt;
-                &lt;/af:commandButton&gt;
-              &lt;/af:column &gt;
-            &lt;/af:table&gt;</source>
+            &lt;tr:table var="emp" value="#{employees}"&gt;
+              &lt;tr:attribute name="banding" value="none"/&gt;
+              &lt;tr:column &gt;
+                &lt;tr:outputText value="#{emp.ename}"&gt;
+                  &lt;tr:attribute name="styleClass" value="#{emp.role}"/&gt;
+                &lt;/tr:outputText&gt;
+              &lt;/tr:column &gt;
+              &lt;tr:column &gt;
+                &lt;tr:commandButton action="#{emp.viewDetails}"&gt;
+                  &lt;tr:attribute name="label" value="More on this #{emp.title}"/&gt;
+                &lt;/tr:commandButton&gt;
+              &lt;/tr:column &gt;
+            &lt;/tr:table&gt;</source>
  </p>
  </section>
  <section name="Attributes">
