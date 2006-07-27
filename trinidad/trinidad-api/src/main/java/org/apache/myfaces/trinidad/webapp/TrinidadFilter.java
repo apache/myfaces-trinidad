@@ -27,7 +27,7 @@ import javax.servlet.ServletResponse;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
- * Servlet filter that ensures that ADF Faces is properly initialized
+ * Servlet filter that ensures that Trinidad is properly initialized
  * by establishing a RequestContext object;  this filter also processes file
  * uploads.
  * <p>
