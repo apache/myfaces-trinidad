@@ -21,7 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
@@ -37,7 +37,7 @@ public class CommandRenderer extends UINodeRendererBase
 {
   public void decode(FacesContext context, UIComponent component)
   {
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     ReturnEvent returnEvent =
       afContext.getDialogService().getReturnEvent(component);
     if (returnEvent != null)

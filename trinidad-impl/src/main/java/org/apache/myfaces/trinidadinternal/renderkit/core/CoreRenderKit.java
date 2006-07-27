@@ -53,13 +53,13 @@ import javax.servlet.ServletResponse;
 
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.Agent;
 
 import org.apache.myfaces.trinidad.render.DialogRenderKitService;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 
-import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 import org.apache.myfaces.trinidadinternal.io.DebugResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.DebugHtmlResponseWriter;
@@ -134,9 +134,9 @@ public class CoreRenderKit extends RenderKitBase
    */
   static public String chooseRenderKit(FacesContext context)
   {
-    AdfFacesContext afc = AdfFacesContext.getCurrentInstance();
+    RequestContext afc = RequestContext.getCurrentInstance();
     // According to the spec FacesContext can be null.
-    // In that case AdfFacesContext could also be null.
+    // In that case RequestContext could also be null.
     // bug 4695929:
     if (afc != null)
     {
@@ -163,7 +163,7 @@ public class CoreRenderKit extends RenderKitBase
   static public void saveDialogPostbackValues(
     String returnId)
   {
-    Map pageFlowScope = AdfFacesContext.getCurrentInstance().getPageFlowScope();
+    Map pageFlowScope = RequestContext.getCurrentInstance().getPageFlowScope();
     pageFlowScope.put(_RETURN_ID, returnId);
   }
 
@@ -204,7 +204,7 @@ public class CoreRenderKit extends RenderKitBase
       _copyProperty(windowProperties, "height", sourceAttrs, "windowHeight");
     }
 
-    Map pageFlowScope = AdfFacesContext.getCurrentInstance().getPageFlowScope();
+    Map pageFlowScope = RequestContext.getCurrentInstance().getPageFlowScope();
     if (processParameters != null)
       pageFlowScope.putAll(processParameters);
 
@@ -224,7 +224,7 @@ public class CoreRenderKit extends RenderKitBase
     if (!_supportsSeparateWindow(context))
       return false;
 
-    AdfFacesContext afC = AdfFacesContext.getCurrentInstance();
+    RequestContext afC = RequestContext.getCurrentInstance();
     try
     {
       String returnId = (String) afC.getPageFlowScope().get(_RETURN_ID);
@@ -285,7 +285,7 @@ public class CoreRenderKit extends RenderKitBase
       Map requestMap = context.getExternalContext().getRequestMap();
 
       UIViewRoot originalRoot = (UIViewRoot) requestMap.get(
-                         AdfFacesPhaseListener.INITIAL_VIEW_ROOT_KEY);
+                         TrinidadPhaseListener.INITIAL_VIEW_ROOT_KEY);
       // If we're doing a partial update, and the page has changed, switch to a
       // full page context.
       if (context.getViewRoot() != originalRoot)
@@ -493,7 +493,7 @@ public class CoreRenderKit extends RenderKitBase
   static private ResponseWriter _addDebugResponseWriters(
      ResponseWriter responseWriter)
   {
-    AdfFacesContext adfFacesContext = AdfFacesContext.getCurrentInstance();
+    RequestContext adfFacesContext = RequestContext.getCurrentInstance();
     if (adfFacesContext.isDebugOutput())
     {
       responseWriter = new IndentingResponseWriter(responseWriter);

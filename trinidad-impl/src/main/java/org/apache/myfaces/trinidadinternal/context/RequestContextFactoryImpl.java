@@ -19,8 +19,8 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
-import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContextFactory;
 import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidad.context.PageResolver;
 
@@ -31,23 +31,23 @@ import org.apache.myfaces.trinidadinternal.webapp.ConfigParser;
 /**
  * @author The Oracle ADF Faces Team
  */
-public class AdfFacesContextFactoryImpl extends AdfFacesContextFactory
+public class RequestContextFactoryImpl extends RequestContextFactory
 {
-  public AdfFacesContextFactoryImpl()
+  public RequestContextFactoryImpl()
   {
   }
 
-  public AdfFacesContext createContext(Object context,
+  public RequestContext createContext(Object context,
                                        Object request)
   {
-    AdfFacesContextImpl impl =  new AdfFacesContextImpl(_getBean(context));
+    RequestContextImpl impl =  new RequestContextImpl(_getBean(context));
     impl.init(request);
     impl.__setPageResolver(_pageResolver);
     impl.__setPageFlowScopeProvider(_pageFlowScopeProvider);
     return impl;
   }
 
-  private AdfFacesContextBean _getBean(Object context)
+  private RequestContextBean _getBean(Object context)
   {
     if (_bean == null)
     {
@@ -59,7 +59,7 @@ public class AdfFacesContextFactoryImpl extends AdfFacesContextFactory
         }
         else
         {
-          _bean = new AdfFacesContextBean();
+          _bean = new RequestContextBean();
         }
 
         // And let's load the PageResolver and PageFlowScopeProvider
@@ -88,7 +88,7 @@ public class AdfFacesContextFactoryImpl extends AdfFacesContextFactory
     return _bean;
   }
 
-  private AdfFacesContextBean _bean;
+  private RequestContextBean _bean;
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
 

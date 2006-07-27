@@ -20,7 +20,7 @@ import java.util.TimeZone;
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-public class AdfFacesContextBean extends FacesBeanImpl
+public class RequestContextBean extends FacesBeanImpl
 {
   static public Type TYPE = new Type();
   static public final PropertyKey PAGE_FLOW_SCOPE_LIFETIME_KEY =

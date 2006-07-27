@@ -19,7 +19,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class NavigationHandlerImpl extends NavigationHandler
 {
@@ -47,7 +47,7 @@ public class NavigationHandlerImpl extends NavigationHandler
         // Navigate back to the original root
         context.setViewRoot(oldRoot);
 
-        AdfFacesContext afc = AdfFacesContext.getCurrentInstance();
+        RequestContext afc = RequestContext.getCurrentInstance();
 
         // Give ourselves a new page flow scope
         afc.getPageFlowScopeProvider().pushPageFlowScope(context, true);

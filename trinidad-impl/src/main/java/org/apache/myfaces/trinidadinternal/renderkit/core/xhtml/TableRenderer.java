@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.SortEvent;
@@ -108,7 +108,7 @@ abstract public class TableRenderer extends XhtmlRenderer
       _decodeSort(table, parameters);
     }
 
-    AdfFacesContext.getCurrentInstance().addPartialTarget(table);
+    RequestContext.getCurrentInstance().addPartialTarget(table);
   }
 
   protected final void decodeSelection(FacesContext context, UIComponent treeTable)

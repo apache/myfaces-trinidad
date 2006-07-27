@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
@@ -59,7 +59,7 @@ public class CoreShowOneChoiceRenderer extends ShowOneListRendererBase
     if ((formName != null) && (! jsRendered) )
     {
       String getSelectedScript = null;
-      if (AdfFacesContext.getCurrentInstance().isDebugOutput())
+      if (RequestContext.getCurrentInstance().isDebugOutput())
       {
         getSelectedScript =
           "function _socGetSelection(elem)" +

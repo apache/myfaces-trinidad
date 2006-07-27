@@ -31,7 +31,7 @@ import javax.faces.lifecycle.Lifecycle;
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidad.logging.ADFLogger;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
  * Internal class that optimizes retrieval of the RenderKit by caching it
@@ -199,7 +199,7 @@ public class FacesContextFactoryImpl
 
     public void dispatch(String path) throws IOException
     {
-      AdfFacesContext afc = AdfFacesContext.getCurrentInstance();
+      RequestContext afc = RequestContext.getCurrentInstance();
       if (afc != null)
       {
         path = afc.getPageResolver().getPhysicalURI(path);

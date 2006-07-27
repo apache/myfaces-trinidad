@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.UIXSelectItem;
 import org.apache.myfaces.trinidad.component.UIXSelectRange;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
@@ -88,7 +88,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         if (choiceBar.isImmediate())
           context.renderResponse();
 
-        AdfFacesContext.getCurrentInstance().addPartialTarget(component);
+        RequestContext.getCurrentInstance().addPartialTarget(component);
       }
     }
   }

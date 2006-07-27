@@ -19,10 +19,10 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextBean;
+import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -41,7 +41,7 @@ public final class PartialPageUtils
 
   public static boolean isPartialRequest(FacesContext context)
   {
-    return AdfFacesContext.getCurrentInstance().isPartialRequest(context);
+    return RequestContext.getCurrentInstance().isPartialRequest(context);
   }
 
 
@@ -58,7 +58,7 @@ public final class PartialPageUtils
 
   public static PartialPageContext createPartialPageContext(
     FacesContext    context,
-    AdfFacesContext afContext)
+    RequestContext afContext)
   {
     if (isPartialRequest(context))
     {

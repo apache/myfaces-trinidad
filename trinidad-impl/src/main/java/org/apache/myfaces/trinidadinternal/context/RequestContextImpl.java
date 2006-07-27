@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.logging.ADFLogger;
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.PageResolver;
@@ -64,12 +64,12 @@ import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
  * @author The Oracle ADF Faces Team
  */
-public class AdfFacesContextImpl extends AdfFacesContext
+public class RequestContextImpl extends RequestContext
 {
   static public final String LAUNCH_PARAMETERS =
     "org.apache.myfaces.trinidad.PageFlowSourceParameters";
@@ -78,7 +78,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
     "org.apache.myfaces.trinidad.PageFlowSourceView";
 
 
-  public AdfFacesContextImpl(AdfFacesContextBean bean)
+  public RequestContextImpl(RequestContextBean bean)
   {
     _bean = bean;
     _dialogService = new DialogServiceImpl(this);
@@ -144,7 +144,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public UploadedFileProcessor getUploadedFileProcessor()
   {
     return (UploadedFileProcessor)
-      _bean.getProperty(AdfFacesContextBean.UPLOADED_FILE_PROCESSOR_KEY);
+      _bean.getProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY);
   }
 
 
@@ -152,14 +152,14 @@ public class AdfFacesContextImpl extends AdfFacesContext
   {
     FacesContext context = __getFacesContext();
     // First, see if this is definitely not a postback request
-    if (!AdfFacesPhaseListener.isPostback(context))
+    if (!TrinidadPhaseListener.isPostback(context))
       return false;
 
     // Second, see if we are still on the original view root (which
     // the PhaseListener's isPostback() method doesn't look at).
     UIViewRoot originalViewRoot = (UIViewRoot)
       context.getExternalContext().getRequestMap().
-         get(AdfFacesPhaseListener.INITIAL_VIEW_ROOT_KEY);
+         get(TrinidadPhaseListener.INITIAL_VIEW_ROOT_KEY);
 
     // However, we only set the "originalViewRoot" during the afterPhase()
     // of our PhaseListener;  so, if it's null, then we have to asume
@@ -192,25 +192,25 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public boolean isDebugOutput()
   {
     return Boolean.TRUE.equals(
-       _bean.getProperty(AdfFacesContextBean.DEBUG_OUTPUT_KEY));
+       _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
   }
 
   public boolean isClientValidationDisabled()
   {
     return Boolean.TRUE.equals(
-       _bean.getProperty(AdfFacesContextBean.CLIENT_VALIDATION_DISABLED_KEY));
+       _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY));
   }
 
   public String getOutputMode()
   {
-    return (String) _bean.getProperty(AdfFacesContextBean.OUTPUT_MODE_KEY);
+    return (String) _bean.getProperty(RequestContextBean.OUTPUT_MODE_KEY);
   }
 
   // get skinFamily; default to minimal if nothing is specified.
   public String getSkinFamily()
   {
     String skinFamily =
-      (String) _bean.getProperty(AdfFacesContextBean.SKIN_FAMILY_KEY);
+      (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
     if (skinFamily == null)
       skinFamily = "minimal";
     return skinFamily;
@@ -219,7 +219,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public String getAccessibilityMode()
   {
     String s = (String) _bean.getProperty(
-      AdfFacesContextBean.ACCESSIBILITY_MODE_KEY);
+      RequestContextBean.ACCESSIBILITY_MODE_KEY);
     if (s != null)
       return s;
 
@@ -236,7 +236,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public char getNumberGroupingSeparator()
   {
     Character c = (Character) _bean.getProperty(
-      AdfFacesContextBean.NUMBER_GROUPING_SEPARATOR_KEY);
+      RequestContextBean.NUMBER_GROUPING_SEPARATOR_KEY);
     if (c != null)
       return c.charValue();
 
@@ -246,7 +246,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public char getDecimalSeparator()
   {
     Character c = (Character) _bean.getProperty(
-      AdfFacesContextBean.DECIMAL_SEPARATOR_KEY);
+      RequestContextBean.DECIMAL_SEPARATOR_KEY);
     if (c != null)
       return c.charValue();
 
@@ -256,7 +256,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
 
   public TimeZone getTimeZone()
   {
-    TimeZone tz = (TimeZone) _bean.getProperty(AdfFacesContextBean.TIME_ZONE_KEY);
+    TimeZone tz = (TimeZone) _bean.getProperty(RequestContextBean.TIME_ZONE_KEY);
     if (tz != null)
       return tz;
 
@@ -345,18 +345,18 @@ public class AdfFacesContextImpl extends AdfFacesContext
 
   public String getCurrencyCode()
   {
-    return (String) _bean.getProperty(AdfFacesContextBean.CURRENCY_CODE_KEY);
+    return (String) _bean.getProperty(RequestContextBean.CURRENCY_CODE_KEY);
   }
 
   public String getOracleHelpServletUrl()
   {
     return (String) _bean.getProperty(
-     AdfFacesContextBean.ORACLE_HELP_SERVLET_URL_KEY);
+     RequestContextBean.ORACLE_HELP_SERVLET_URL_KEY);
   }
 
   public boolean isRightToLeft()
   {
-    Boolean b = (Boolean) _bean.getProperty(AdfFacesContextBean.RIGHT_TO_LEFT_KEY);
+    Boolean b = (Boolean) _bean.getProperty(RequestContextBean.RIGHT_TO_LEFT_KEY);
     if (b != null)
       return b.booleanValue();
 
@@ -515,7 +515,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   public int getTwoDigitYearStart()
   {
     Integer twoDigitYearStart  = (Integer) _bean.getProperty(
-      AdfFacesContextBean.TWO_DIGIT_YEAR_START);
+      RequestContextBean.TWO_DIGIT_YEAR_START);
 
     if (twoDigitYearStart != null)
       return twoDigitYearStart.intValue();
@@ -550,7 +550,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   int __getPageFlowScopeLifetime()
   {
     Integer lifetimeObj = (Integer) _bean.getProperty(
-                           AdfFacesContextBean.PAGE_FLOW_SCOPE_LIFETIME_KEY);
+                           RequestContextBean.PAGE_FLOW_SCOPE_LIFETIME_KEY);
     if (lifetimeObj == null)
       return _DEFAULT_PAGE_FLOW_SCOPE_LIFETIME;
     return lifetimeObj.intValue();
@@ -592,7 +592,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
 
   //
   // Get the FacesContext.  We used to cache the instance, but
-  // in some circumstances the AdfFacesContext was getting reused
+  // in some circumstances the RequestContext was getting reused
   // across multiple FacesServlet invocations, so the caching
   // was more trouble than it was worth.  Re-enable some sort
   // of caching if it proves a performance issue.
@@ -605,7 +605,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
     // to the filter and ask for a pseudo-FacesContext
     if (fContext == null)
     {
-      fContext = AdfFacesFilterImpl.getPseudoFacesContext();
+      fContext = TrinidadFilterImpl.getPseudoFacesContext();
     }
 
     return fContext;
@@ -639,7 +639,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   }
 
 
-  private AdfFacesContextBean _bean;
+  private RequestContextBean _bean;
   private HelpProvider        _provider;
   private Map                 _partialListeners;
   private Set                 _partialTargets = new HashSet();
@@ -650,7 +650,7 @@ public class AdfFacesContextImpl extends AdfFacesContext
   private PageResolver        _pageResolver;
   private PageFlowScopeProvider _pageFlowScopeProvider;
 
-  //todo: get factory from configuration (else implementations have to provide their own AdfFacesContext)
+  //todo: get factory from configuration (else implementations have to provide their own RequestContext)
   static private final AgentFactory _agentFactory = new AgentFactoryImpl();
 
   // static private final Object _GLOBAL_TRIGGER = new Object();
@@ -661,5 +661,5 @@ public class AdfFacesContextImpl extends AdfFacesContext
     "org.apache.myfaces.trinidad.CHANGE_PERSISTENCE";
 
   static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(AdfFacesContextImpl.class);
+    ADFLogger.createADFLogger(RequestContextImpl.class);
 }

@@ -34,9 +34,9 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
  * @author Adam Winer
  * @version
  */
-public class AdfComponentHandler extends ComponentHandler
+public class TrinidadComponentHandler extends ComponentHandler
 {
-  public AdfComponentHandler(ComponentConfig config) 
+  public TrinidadComponentHandler(ComponentConfig config) 
   {
     super(config);
     if (_markInitialState == null)
@@ -62,7 +62,7 @@ public class AdfComponentHandler extends ComponentHandler
     MetaRuleset m = super.createMetaRuleset(type);
     
     m.addRule(StringArrayPropertyTagRule.Instance);
-    m.addRule(AdfListenersTagRule.Instance);
+    m.addRule(TrinidadListenersTagRule.Instance);
            
     return m;
   }

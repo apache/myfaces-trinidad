@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 import javax.faces.render.RenderKit;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.event.LaunchEvent;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
@@ -37,11 +37,11 @@ import org.apache.myfaces.trinidad.util.Service;
 import org.apache.myfaces.trinidad.logging.ADFLogger;
 
 import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
-import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 public class DialogServiceImpl extends DialogService
 {
-  public DialogServiceImpl(AdfFacesContextImpl context)
+  public DialogServiceImpl(RequestContextImpl context)
   {
     _context = context;
   }
@@ -231,17 +231,17 @@ public class DialogServiceImpl extends DialogService
     // the AdfFacesFilter to re-execute the faces lifecycle with the
     // new parameters
     Map launchParameters = (Map)
-      poppedView.getAttributes().get(AdfFacesContextImpl.LAUNCH_PARAMETERS);
+      poppedView.getAttributes().get(RequestContextImpl.LAUNCH_PARAMETERS);
 
     if (launchParameters != null)
     {
       // Store the parameters and the UIViewRoot for (respectively)
       // AdfFacesFilterImpl and ViewHandlerImpl
-      poppedView.getAttributes().remove(AdfFacesContextImpl.LAUNCH_PARAMETERS);
+      poppedView.getAttributes().remove(RequestContextImpl.LAUNCH_PARAMETERS);
 
       Map requestMap = context.getExternalContext().getRequestMap();
-      requestMap.put(AdfFacesContextImpl.LAUNCH_PARAMETERS, launchParameters);
-      requestMap.put(AdfFacesContextImpl.LAUNCH_VIEW, poppedView);
+      requestMap.put(RequestContextImpl.LAUNCH_PARAMETERS, launchParameters);
+      requestMap.put(RequestContextImpl.LAUNCH_VIEW, poppedView);
 
       context.responseComplete();
       _LOG.fine("Returned from dialog and re-executing lifecycle for {0}",
@@ -255,7 +255,7 @@ public class DialogServiceImpl extends DialogService
   public ReturnEvent getReturnEvent(UIComponent source)
   {
     FacesContext context = _getFacesContext();
-    if (AdfFacesFilterImpl.isExecutingDialogReturn(context))
+    if (TrinidadFilterImpl.isExecutingDialogReturn(context))
     {
       Map parameterMap = context.getExternalContext().getRequestParameterMap();
       Object returnParam = parameterMap.get(_RETURN_PARAM);
@@ -401,7 +401,7 @@ public class DialogServiceImpl extends DialogService
       savedRequestParameters.remove("source");
       savedRequestParameters.remove("event");
 
-      sourceRoot.getAttributes().put(AdfFacesContextImpl.LAUNCH_PARAMETERS,
+      sourceRoot.getAttributes().put(RequestContextImpl.LAUNCH_PARAMETERS,
                                      savedRequestParameters);
       pushView(sourceRoot);
 
@@ -460,7 +460,7 @@ public class DialogServiceImpl extends DialogService
       _executeBindings(context, (UIComponent) kids.next());
   }
 
-  private AdfFacesContextImpl _context;
+  private RequestContextImpl _context;
 
 
   /**
@@ -477,7 +477,7 @@ public class DialogServiceImpl extends DialogService
 
     public void launchDialog(boolean useWindow)
     {
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       afContext.getDialogService().launchDialog(
         getViewRoot(),
         getDialogParameters(),

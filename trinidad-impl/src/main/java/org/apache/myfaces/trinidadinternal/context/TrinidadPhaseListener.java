@@ -23,21 +23,21 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
-import org.apache.myfaces.trinidad.context.AdfFacesContextFactory;
+import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.context.RequestContextFactory;
 
-import org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl;
+import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
- * PhaseListener that hacks to ensure that the AdfFacesContext is
+ * PhaseListener that hacks to ensure that the RequestContext is
  * available even if the filter doesn't execute.
  *
  * @author The Oracle ADF Faces Team
  */
-public class AdfFacesPhaseListener implements PhaseListener
+public class TrinidadPhaseListener implements PhaseListener
 {
   static public final String CACHED_ADF_FACES_CONTEXT =
-    "org.apache.myfaces.trinidadinternal.context.CachedAdfFacesContext";
+    "org.apache.myfaces.trinidadinternal.context.CachedRequestContext";
 
   /**
    * Returns true if the request might be a postback request.
@@ -70,7 +70,7 @@ public class AdfFacesPhaseListener implements PhaseListener
     }
 
     // If we've finished up Render Response, or for some other
-    // reason the response is complete, free up the AdfFacesContext
+    // reason the response is complete, free up the RequestContext
     // if we created.
     // Note, however, that this code is *not* bulletproof!  There
     // is nothing stopping an "afterPhase()" listener getting called
@@ -98,7 +98,7 @@ public class AdfFacesPhaseListener implements PhaseListener
         // Assume it's not a postback request
         context.getExternalContext().getRequestMap().put(_POSTBACK_KEY,
                                                          Boolean.FALSE);
-        AdfFacesFilterImpl.verifyFilterIsInstalled(context);
+        TrinidadFilterImpl.verifyFilterIsInstalled(context);
       }
 
       _createContextIfNecessary(event.getFacesContext());
@@ -120,7 +120,7 @@ public class AdfFacesPhaseListener implements PhaseListener
   }
 
   //
-  // Create the AdfFacesContext if necessary;  ideally, this is unnecessary
+  // Create the RequestContext if necessary;  ideally, this is unnecessary
   // because our filter will have executed - but if not, deal.
   //
   static private void _createContextIfNecessary(FacesContext fContext)
@@ -130,29 +130,29 @@ public class AdfFacesPhaseListener implements PhaseListener
       requestMap.get(_CREATED_CONTEXT_KEY);
     if (createdContext == null)
     {
-      AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+      RequestContext context = RequestContext.getCurrentInstance();
       // Let our code know if it has to clean up.
       requestMap.put(_CREATED_CONTEXT_KEY,
                      context == null ? Boolean.TRUE : Boolean.FALSE);
 
       if (context == null)
       {
-        Object cachedAdfFacesContext = requestMap.get(CACHED_ADF_FACES_CONTEXT);
+        Object cachedRequestContext = requestMap.get(CACHED_ADF_FACES_CONTEXT);
         
         // Catch both the null scenario and the 
-        // AdfFacesContext-from-a-different-classloader scenario
-        if (cachedAdfFacesContext instanceof AdfFacesContext)
+        // RequestContext-from-a-different-classloader scenario
+        if (cachedRequestContext instanceof RequestContext)
         {
-          context = (AdfFacesContext) cachedAdfFacesContext;
+          context = (RequestContext) cachedRequestContext;
           context.attach();
         }
         else
         {
-          AdfFacesContextFactory factory = AdfFacesContextFactory.getFactory();
+          RequestContextFactory factory = RequestContextFactory.getFactory();
           if (factory == null)
           {
-            AdfFacesContextFactory.setFactory(new AdfFacesContextFactoryImpl());
-            factory = AdfFacesContextFactory.getFactory();
+            RequestContextFactory.setFactory(new RequestContextFactoryImpl());
+            factory = RequestContextFactory.getFactory();
           }
 
           assert(factory != null);
@@ -166,7 +166,7 @@ public class AdfFacesPhaseListener implements PhaseListener
   }
 
   //
-  // Release the AdfFacesContext if we created it.
+  // Release the RequestContext if we created it.
   //
   static private void _releaseContextIfNecessary(FacesContext fContext)
   {
@@ -174,7 +174,7 @@ public class AdfFacesPhaseListener implements PhaseListener
       fContext.getExternalContext().getRequestMap().get(_CREATED_CONTEXT_KEY);
     if (Boolean.TRUE.equals(createdContext))
     {
-      AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+      RequestContext context = RequestContext.getCurrentInstance();
       if (context != null)
         context.release();
     }

@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
 
@@ -453,7 +453,7 @@ public class FormRenderer extends XhtmlRenderer
     boolean hasImmediateComponent = fData.hasImmediateComponent();
 
     boolean isClientValidationDisabled =
-      AdfFacesContext.getCurrentInstance().isClientValidationDisabled();
+      RequestContext.getCurrentInstance().isClientValidationDisabled();
 
     if (isClientValidationDisabled || hasImmediateComponent)
     {

@@ -26,7 +26,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
@@ -35,7 +35,7 @@ public class FastRenderer extends Renderer
   public void encodeBegin(FacesContext context,
                           UIComponent comp) throws IOException
   {
-    AdfFacesContext.getCurrentInstance();
+    RequestContext.getCurrentInstance();
     CoreOutputText cot = (CoreOutputText) comp;
     if (cot.isEscape())
     {
@@ -62,7 +62,7 @@ public class FastRenderer extends Renderer
   public void encodeEnd(FacesContext context,
                         UIComponent comp) throws IOException
   {
-    AdfFacesContext.getCurrentInstance();  
+    RequestContext.getCurrentInstance();  
     CoreOutputText cot = (CoreOutputText) comp;
     ResponseWriter rw = context.getResponseWriter();
 

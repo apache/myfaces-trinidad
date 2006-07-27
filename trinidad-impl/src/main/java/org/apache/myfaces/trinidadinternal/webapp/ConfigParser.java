@@ -36,7 +36,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidadinternal.context.AdfFacesContextBean;
+import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 
@@ -49,10 +49,10 @@ public class ConfigParser
   /**
    *
    */
-  static public AdfFacesContextBean parseConfigFile(
+  static public RequestContextBean parseConfigFile(
     ServletContext context)
   {
-    AdfFacesContextBean bean = new AdfFacesContextBean();
+    RequestContextBean bean = new RequestContextBean();
 
     InputStream in = context.getResourceAsStream(_CONFIG_FILE);
     if (in != null)
@@ -128,7 +128,7 @@ public class ConfigParser
 
     if (_LOG.isInfo())
     {
-      Object debug = bean.getProperty(AdfFacesContextBean.DEBUG_OUTPUT_KEY);
+      Object debug = bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY);
       if (Boolean.TRUE.equals(debug))
         _LOG.info("ADF Faces is running in debug mode. "+
                   "Do not use in a production environment. See:"+_CONFIG_FILE);
@@ -138,7 +138,7 @@ public class ConfigParser
 
   static private class Handler extends DefaultHandler
   {
-    public Handler(AdfFacesContextBean bean,ServletContext context)
+    public Handler(RequestContextBean bean,ServletContext context)
     {
       _context = context;
       _bean = bean;
@@ -192,27 +192,27 @@ public class ConfigParser
           {
             Object value;
 
-            if ((key == AdfFacesContextBean.NUMBER_GROUPING_SEPARATOR_KEY) ||
-                (key == AdfFacesContextBean.DECIMAL_SEPARATOR_KEY))
+            if ((key == RequestContextBean.NUMBER_GROUPING_SEPARATOR_KEY) ||
+                (key == RequestContextBean.DECIMAL_SEPARATOR_KEY))
             {
               value = new Character(_currentText.charAt(0));
             }
-            else if (key == AdfFacesContextBean.PAGE_FLOW_SCOPE_LIFETIME_KEY)
+            else if (key == RequestContextBean.PAGE_FLOW_SCOPE_LIFETIME_KEY)
             {
               value = _getIntegerValue(_currentText, qName);
             }
-            else if (key == AdfFacesContextBean.RIGHT_TO_LEFT_KEY ||
-                     key == AdfFacesContextBean.DEBUG_OUTPUT_KEY ||
-                     key == AdfFacesContextBean.CLIENT_VALIDATION_DISABLED_KEY)
+            else if (key == RequestContextBean.RIGHT_TO_LEFT_KEY ||
+                     key == RequestContextBean.DEBUG_OUTPUT_KEY ||
+                     key == RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY)
             {
               value = ("true".equalsIgnoreCase(_currentText)
                        ? Boolean.TRUE : Boolean.FALSE);
             }
-            else if (key == AdfFacesContextBean.TIME_ZONE_KEY)
+            else if (key == RequestContextBean.TIME_ZONE_KEY)
             {
               value = TimeZone.getTimeZone(_currentText);
             }
-            else if (key == AdfFacesContextBean.TWO_DIGIT_YEAR_START)
+            else if (key == RequestContextBean.TWO_DIGIT_YEAR_START)
             {
               value = _getIntegerValue(_currentText, qName);
             }
@@ -220,7 +220,7 @@ public class ConfigParser
             {
               value = _currentText;
             }
-            if (key == AdfFacesContextBean.REMOTE_DEVICE_REPOSITORY_URI){
+            if (key == RequestContextBean.REMOTE_DEVICE_REPOSITORY_URI){
                 _context.setAttribute("remote-device-repository-uri",value);
             }
             _bean.setProperty(key, value);
@@ -250,7 +250,7 @@ public class ConfigParser
   }
 
 
-    private AdfFacesContextBean _bean;
+    private RequestContextBean _bean;
     private String              _currentText;
     private ServletContext _context;
   }

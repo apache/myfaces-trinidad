@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidad.component.UIXComponentBase;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.SubKeyMap;
 import org.apache.myfaces.trinidadinternal.util.TokenCache;
-import org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener;
+import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 
 // Imported only for a String constant - so no runtime dependency
 import com.sun.facelets.FaceletViewHandler;
@@ -591,7 +591,7 @@ public class StateManagerImpl extends StateManager
       return false;
 
     if (_saveAsToken(context) &&
-        !AdfFacesPhaseListener.isPostback(context))
+        !TrinidadPhaseListener.isPostback(context))
     {
       if (_useApplicationViewCache == null)
       {

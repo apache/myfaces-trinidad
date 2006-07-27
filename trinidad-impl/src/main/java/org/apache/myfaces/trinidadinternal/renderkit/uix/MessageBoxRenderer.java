@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
@@ -32,7 +32,7 @@ public class MessageBoxRenderer extends UINodeRendererBase
   {
     // Force MessageBox to be re-rendered via PPR, since the set
     // of messages may have changed.
-    AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+    RequestContext afContext = RequestContext.getCurrentInstance();
     if (afContext != null)
       afContext.addPartialTarget(component);
 

@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXPage;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -54,7 +54,7 @@ public class PageRenderer extends UINodeRendererBase
     if ( treeId.equals(source))
     {          
       TreeUtils.decodeExpandEvents(parameters, page, Collections.EMPTY_LIST);
-      AdfFacesContext afContext = AdfFacesContext.getCurrentInstance();
+      RequestContext afContext = RequestContext.getCurrentInstance();
       if (afContext != null)
         afContext.addPartialTarget(component);
     }

@@ -29,7 +29,7 @@ import javax.faces.context.ResponseWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.InternalView;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
@@ -92,7 +92,7 @@ public class GenericEntry extends InternalView
     String entryKey = (String) context.getExternalContext().getRequestParameterMap().get(__ENTRY_KEY_PARAM);
     if (entryKey == null)
     {
-      AdfFacesContext adfFacesContext = AdfFacesContext.getCurrentInstance();
+      RequestContext adfFacesContext = RequestContext.getCurrentInstance();
       if (adfFacesContext != null)
       {
         Object o = adfFacesContext.getPageFlowScope().get(__ENTRY_KEY_PARAM);

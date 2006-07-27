@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.ADFLogger;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
@@ -112,7 +112,7 @@ public class FacesRenderingContext extends RootRenderingContext
 
     init(fContext);
 
-    AdfFacesContext context = AdfFacesContext.getCurrentInstance();
+    RequestContext context = RequestContext.getCurrentInstance();
     String outputMode = context.getOutputMode();
     if (outputMode != null)
       setFacet(outputMode);
@@ -188,7 +188,7 @@ public class FacesRenderingContext extends RootRenderingContext
 
 
   private void _initializeConfiguration(FacesContext fContext,
-                                        AdfFacesContext context)
+                                        RequestContext context)
   {
     setConfiguration(new ContextBasedConfiguration(fContext, context));
   }

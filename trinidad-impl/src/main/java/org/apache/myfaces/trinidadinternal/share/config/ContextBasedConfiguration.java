@@ -16,11 +16,11 @@
 package org.apache.myfaces.trinidadinternal.share.config;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidad.context.AdfFacesContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.image.cache.FileSystemImageCache;
 
 /**
- * Configuration class that works off of a AdfFacesContext.
+ * Configuration class that works off of a RequestContext.
  *
  * @author The Oracle ADF Faces Team
  * @todo Support context-relative and server-relative URLs
@@ -31,7 +31,7 @@ public class ContextBasedConfiguration extends ConfigurationImpl
   static public final String CONFIGURATION_NAME = "_CBC";
 
   public ContextBasedConfiguration(FacesContext fContext,
-                                   AdfFacesContext context)
+                                   RequestContext context)
   {
     super(CONFIGURATION_NAME);
     putProperty(SKIN_FAMILY,
