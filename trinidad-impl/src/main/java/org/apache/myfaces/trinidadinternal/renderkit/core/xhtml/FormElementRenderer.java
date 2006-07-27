@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 abstract public class FormElementRenderer extends EditableValueRenderer
 {
@@ -51,7 +51,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
 
   protected final void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -66,7 +66,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
   }
 
 
-  protected boolean isHiddenLabelRequired(AdfRenderingContext arc)
+  protected boolean isHiddenLabelRequired(RenderingContext arc)
   {
     return true;
   }
@@ -75,7 +75,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   protected void renderShortDescAsHiddenLabel(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
     throws IOException
@@ -102,7 +102,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -113,7 +113,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   protected void encodeAllAsNonElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -134,7 +134,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   protected void renderNonElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -165,7 +165,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
    */
   protected final boolean renderAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
     if (getReadOnly(context, bean) || !supportsEditing(arc))
@@ -184,7 +184,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
   }
 
   protected boolean renderReadOnlyAsElement(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
     return false;

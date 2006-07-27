@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -108,7 +108,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     ResponseWriter writer = context.getResponseWriter();
 
     MarlinBean text = new MarlinBean(STYLED_TEXT_NAME);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
     icon.renderIcon(fContext, arc, null);
 

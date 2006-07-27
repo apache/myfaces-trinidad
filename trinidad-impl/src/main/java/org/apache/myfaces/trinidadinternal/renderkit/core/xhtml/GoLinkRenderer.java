@@ -26,8 +26,8 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoLink;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 public class GoLinkRenderer extends XhtmlRenderer
 {
@@ -56,7 +56,7 @@ public class GoLinkRenderer extends XhtmlRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -113,7 +113,7 @@ public class GoLinkRenderer extends XhtmlRenderer
 
   public void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -201,8 +201,8 @@ public class GoLinkRenderer extends XhtmlRenderer
     String styleClass = super.getStyleClass(bean);
     if (styleClass == null)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-      if (!((CoreAdfRenderingContext) arc).isDefaultLinkStyleDisabled())
+      RenderingContext arc = RenderingContext.getCurrentInstance();
+      if (!((CoreRenderingContext) arc).isDefaultLinkStyleDisabled())
         styleClass = getDefaultStyleClass(bean);
     }
 

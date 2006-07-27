@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
@@ -120,7 +120,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
     String           name4
     )
   {
-    FormData fd = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fd = RenderingContext.getCurrentInstance().getFormData();
     fd.addNeededValue(name1);
     if (name2!=null)
     {
@@ -155,7 +155,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
         return;
       }
 
-      FormData fd = AdfRenderingContext.getCurrentInstance().getFormData();
+      FormData fd = RenderingContext.getCurrentInstance().getFormData();
       fd.addRenderedValue(name.toString());
     }
   }

@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class SelectInputColorRenderer extends InputLabelAndMessageRenderer
 {
@@ -42,7 +42,7 @@ public class SelectInputColorRenderer extends InputLabelAndMessageRenderer
   
   protected String getLabelFor(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
   {

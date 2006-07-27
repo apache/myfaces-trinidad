@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -46,7 +46,7 @@ public class TableRenderingContext
 
   public TableRenderingContext(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component)
   {
     CollectionComponent collectionComponent =
@@ -172,7 +172,7 @@ public class TableRenderingContext
   public final void setExplicitHeaderIDMode(boolean isEnabled)
   {
     if (!XhtmlRenderer.isInaccessibleMode(
-           AdfRenderingContext.getCurrentInstance()))
+           RenderingContext.getCurrentInstance()))
       _explicitHeaderIDMode = isEnabled;
   }
 

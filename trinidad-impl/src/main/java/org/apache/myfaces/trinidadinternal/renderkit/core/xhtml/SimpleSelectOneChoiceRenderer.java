@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  */
@@ -54,7 +54,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   // 
   protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -76,7 +76,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
 
   protected void encodeSelectItems(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -130,7 +130,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   protected String getOnclick(
     FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String onclick = super.getOnclick(bean);
     if (isIE(arc) && isAutoSubmit(bean))
     {
@@ -158,7 +158,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   protected String getOnblur(
     FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String onblur = super.getOnblur(bean);
     if (isIE(arc) && isAutoSubmit(bean))
     {
@@ -179,7 +179,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
     FacesBean bean
     )
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
 
     String onchange = super.getOnchange(bean);
     String auto = null;
@@ -223,7 +223,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   }   
 
   // Is this choice in a branch of the tree that is repeated:
-  static private boolean _isRepeatingRegion(AdfRenderingContext arc)
+  static private boolean _isRepeatingRegion(RenderingContext arc)
   {
     // check to make sure that repeating property is set, and that this choice
     // has a name (see bug 3194812):

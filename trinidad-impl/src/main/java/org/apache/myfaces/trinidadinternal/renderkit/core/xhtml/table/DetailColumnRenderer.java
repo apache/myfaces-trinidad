@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -33,7 +33,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
 {
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -57,7 +57,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
   
   protected String getHeaderText(FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     return arc.getTranslatedString("af_table.DETAIL_COLUMN_HEADER");
   }
   
@@ -67,7 +67,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
   }
 
   protected void renderKids(FacesContext          context,
-                            AdfRenderingContext   arc,
+                            RenderingContext   arc,
                             TableRenderingContext tContext,
                             UIComponent           column) throws IOException
   {
@@ -89,7 +89,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
     
     protected void renderAllAttributes(
        FacesContext        context,
-       AdfRenderingContext arc,
+       RenderingContext arc,
        FacesBean           bean)
     {
       
@@ -98,7 +98,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
     @Override
     protected void renderPromptStart(
       FacesContext        context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent         component,
       FacesBean           bean) throws IOException
     {

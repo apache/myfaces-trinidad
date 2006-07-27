@@ -30,7 +30,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
@@ -495,7 +495,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     if (dateTimeConverterLocale != null)
     {
       Locale defaultLocale =
-        AdfRenderingContext.getCurrentInstance().getLocaleContext().getLocale();
+        RenderingContext.getCurrentInstance().getLocaleContext().getLocale();
       return !dateTimeConverterLocale.equals(defaultLocale);
     }
 

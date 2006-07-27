@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
@@ -89,7 +89,7 @@ public class IconRenderer implements Renderer
           // The span is written out here because the writer needs to see the UIComponent.
           ResponseWriter writer = context.getResponseWriter();
           writer.startElement("span", node.getUIComponent());
-          AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+          RenderingContext arc = RenderingContext.getCurrentInstance();
           FacesContext fContext = context.getFacesContext();
           icon.renderIcon(fContext, arc, _getNodeAttributeMap(context, node));
           writer.endElement("span");

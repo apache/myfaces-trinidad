@@ -58,7 +58,7 @@ import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
@@ -398,7 +398,7 @@ public class RequestContextImpl extends RequestContext
   {
     FacesContext fContext = __getFacesContext();
 
-    AdfRenderingContext afContext = AdfRenderingContext.getCurrentInstance();
+    RenderingContext afContext = RenderingContext.getCurrentInstance();
 
     PartialPageContext pContext = null;
 

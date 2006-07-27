@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -1812,7 +1812,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
       }
     }
     Skin skin = context.getSkin();
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
 
     String iconURI = (String)(skin.getIcon(

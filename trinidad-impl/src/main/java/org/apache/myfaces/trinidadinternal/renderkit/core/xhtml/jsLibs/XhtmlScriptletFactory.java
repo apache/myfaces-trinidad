@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  *
@@ -143,7 +143,7 @@ public class XhtmlScriptletFactory
         // =-=AEW  The MarlinCore library needs to be rendered even
         // when it's outside of a partial page request, since the
         // partial page library itself needs it.
-        boolean __isOutsidePartialPage(AdfRenderingContext context)
+        boolean __isOutsidePartialPage(RenderingContext context)
         {
           return false;
         }

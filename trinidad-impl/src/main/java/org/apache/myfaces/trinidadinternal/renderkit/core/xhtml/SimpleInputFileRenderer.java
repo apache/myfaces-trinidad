@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.webapp.UploadedFiles;
 
 /**
@@ -136,7 +136,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return "af|inputFile::content";
   }
 
-  protected Integer getDefaultColumns(AdfRenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     return null;
   }

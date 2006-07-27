@@ -20,8 +20,8 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -124,8 +124,8 @@ public class LinkRenderer extends XhtmlLafRenderer
     UINode           node
     )
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-    boolean isDisabled = ((CoreAdfRenderingContext) arc).isLinkDisabled();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    boolean isDisabled = ((CoreRenderingContext) arc).isLinkDisabled();
     boolean disabledAttr = XhtmlLafUtils.getLocalBooleanAttribute(context,
                                                node,
                                                DISABLED_ATTR,
@@ -149,8 +149,8 @@ public class LinkRenderer extends XhtmlLafRenderer
    */
   public static void setDisabled(UIXRenderingContext context, boolean isDisabled)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-    ((CoreAdfRenderingContext) arc).setLinkDisabled(isDisabled);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    ((CoreRenderingContext) arc).setLinkDisabled(isDisabled);
   }
 
   public static void setSaveModelDisabled(UIXRenderingContext context, boolean isDisabled)

@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -49,7 +49,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -67,7 +67,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   private void _renderViewNavBar(
      FacesContext        context,
-     AdfRenderingContext arc,
+     RenderingContext arc,
      TreeTableRenderingContext ttrc,
      UIXTreeTable        hgrid,
      int                   rangeStart,
@@ -163,7 +163,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
 
   private void _writeCellContents(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TreeTableRenderingContext ttrc,
     UIXTreeTable        hgrid,
     String text,
@@ -247,7 +247,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
   }
 
   private Icon _getIcon(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean          isTop,
     boolean          isDisabled
    )

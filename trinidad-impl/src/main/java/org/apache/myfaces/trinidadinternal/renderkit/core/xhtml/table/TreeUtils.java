@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.event.FocusEvent;
 
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -65,7 +65,7 @@ public final class TreeUtils
    */
   public static void writeNodeLevel(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     int              depth,
     String           nodeLevelTextKey
     ) throws IOException

@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
@@ -176,7 +176,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
   public static void renderScripts(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext trc) throws IOException
   {
     if (arc.getProperties().put(_JS_RENDERED_KEY, Boolean.TRUE) == null)
@@ -207,7 +207,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
   protected void renderCellContent(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean             bean) throws IOException

@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneListbox;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -73,7 +73,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
   // 
   protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -127,7 +127,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
     String onchange = super.getOnchange(bean);
     if (isAutoSubmit(bean))
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       String auto = getAutoSubmitScript(arc, bean);
       return XhtmlUtils.getChainedJS(onchange, auto, true);
     }

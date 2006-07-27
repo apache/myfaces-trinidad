@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class CommandLinkRenderer extends GoLinkRenderer
 {
@@ -73,7 +73,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
   
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -101,7 +101,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
 
   public void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -116,7 +116,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
     UIComponent  component)
   {
     // Use the cached version
-    return AdfRenderingContext.getCurrentInstance().getCurrentClientId();
+    return RenderingContext.getCurrentInstance().getCurrentClientId();
   }
 
   protected String getDestination(FacesBean bean)
@@ -139,7 +139,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
   protected String getOnclick(FacesBean bean)
   {
     String onclick = super.getOnclick(bean);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String id = arc.getCurrentClientId();
     boolean immediate = getImmediate(bean);
     

@@ -29,8 +29,8 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -228,7 +228,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
       stamp.render(context);
 
       if (isLastChild)
-        ((CoreAdfRenderingContext) context).setLinkDisabled(false);
+        ((CoreRenderingContext) context).setLinkDisabled(false);
     }
     finally
     {
@@ -396,7 +396,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
         // render the separator
         if (_separatorIcon != null)
         {
-          AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+          RenderingContext arc = RenderingContext.getCurrentInstance();
           FacesContext fContext = context.getFacesContext();
           OutputUtils.renderIcon(fContext, arc, _separatorIcon, "", null);
         }

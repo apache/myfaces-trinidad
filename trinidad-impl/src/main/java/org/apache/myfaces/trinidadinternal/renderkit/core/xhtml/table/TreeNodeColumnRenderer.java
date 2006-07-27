@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -36,7 +36,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 {
 
   protected void renderKids(FacesContext          context,
-                            AdfRenderingContext   arc,
+                            RenderingContext   arc,
                             TableRenderingContext tContext,
                             UIComponent           column) throws IOException
   {
@@ -143,7 +143,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
   // Renders the expansion Icon
   private void _renderExpansionIcon(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     boolean          disclosed,
     Object           onclick) throws IOException
   {
@@ -174,7 +174,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 
   private void _renderNodeStampBasedOnAccessibilty(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TreeTableRenderingContext ttrc,
     UIComponent           column) throws IOException
   {      

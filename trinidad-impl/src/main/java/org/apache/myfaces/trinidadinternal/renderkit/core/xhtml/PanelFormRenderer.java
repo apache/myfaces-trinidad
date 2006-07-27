@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class PanelFormRenderer extends XhtmlRenderer
 {
@@ -69,7 +69,7 @@ public class PanelFormRenderer extends XhtmlRenderer
    */
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, 
@@ -132,7 +132,7 @@ public class PanelFormRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -199,7 +199,7 @@ public class PanelFormRenderer extends XhtmlRenderer
   
   private void _encodeChildren(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List<UIComponent>   footerComponents,
@@ -570,7 +570,7 @@ public class PanelFormRenderer extends XhtmlRenderer
 
   private void _encodeFormColumns(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      rw,
     boolean             startAlignedLabels,
     String              effectiveLabelWidth,
@@ -683,7 +683,7 @@ public class PanelFormRenderer extends XhtmlRenderer
 
   private static void _encodeGroupDivider(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      rw,
     boolean             startAlignedLabels) throws IOException
   {
@@ -706,7 +706,7 @@ public class PanelFormRenderer extends XhtmlRenderer
 
   private void _encodeFormItem(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      rw,
     boolean             startAlignedLabels,
     UIComponent         item) throws IOException
@@ -772,7 +772,7 @@ public class PanelFormRenderer extends XhtmlRenderer
   
   private static void _encodeBeforeLabelTd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      rw,
     boolean             startAlignedLabels) throws IOException
   {
@@ -799,7 +799,7 @@ public class PanelFormRenderer extends XhtmlRenderer
    */
   protected static void encodeBetweenLabelAndFieldCells(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      rw) throws IOException
   {
     Map requestMap = context.getExternalContext().getRequestMap();

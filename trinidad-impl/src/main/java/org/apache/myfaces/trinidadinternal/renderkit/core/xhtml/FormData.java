@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 
 import org.apache.myfaces.trinidadinternal.convert.InternalClientConverter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -735,7 +735,7 @@ public class FormData
         (null == contentType))
     {
       XhtmlUtils.addLib(context,
-                        AdfRenderingContext.getCurrentInstance(),
+                        RenderingContext.getCurrentInstance(),
                         libReference);
     }
   }

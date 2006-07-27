@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
@@ -86,7 +86,7 @@ public class CellUtils
    */
   public static String getHeaderBorderStyle(
     TableRenderingContext tContext,
-    AdfRenderingContext   afContext,
+    RenderingContext   afContext,
     boolean isColumnHeader,
     boolean isSortable)
   {
@@ -174,7 +174,7 @@ public class CellUtils
    * physical/logical column indices and row index.
    */
   public static String getDataBorderStyle(
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext
     )
   {

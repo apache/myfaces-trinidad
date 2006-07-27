@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.UIXSubform;
 import org.apache.myfaces.trinidad.component.UIXSwitcher;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
@@ -118,7 +118,7 @@ public class XhtmlUtils
    */
   static public void addLib(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              libKey) throws IOException
   {
     if ((XhtmlRenderer.supportsScripting(arc)) && (libKey != null))
@@ -142,7 +142,7 @@ public class XhtmlUtils
    */
   public static void writeLibImport(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              libURL) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();

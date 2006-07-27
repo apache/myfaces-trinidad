@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 
@@ -62,7 +62,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
 
   protected String getLabelFor(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
   {
@@ -76,7 +76,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -125,7 +125,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
   
   protected void renderFieldCellContents(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -154,7 +154,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
    */
   protected void renderRootDomElementStyles(
    FacesContext        context,
-   AdfRenderingContext arc,
+   RenderingContext arc,
    UIComponent         component,
    FacesBean           bean) throws IOException
   {

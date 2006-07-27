@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
 /**
@@ -73,7 +73,7 @@ public final class PartialPageUtils
    * Returns true if we are performing a partial page render.
    */
   public static boolean isPartialRenderingPass(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     PartialPageContext pprContext = arc.getPartialPageContext();
@@ -93,7 +93,7 @@ public final class PartialPageUtils
    * (PPR is considered accessible, so we do not check the accessibility mode)
    */
   public static boolean supportsPartialRendering(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
 
@@ -107,7 +107,7 @@ public final class PartialPageUtils
   }
 
   public static boolean supportsBlocking(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     // At the moment we have blocking solved on IE and Mozilla

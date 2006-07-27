@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanCheckbox;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  */
@@ -55,7 +55,7 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
   //encode
   //**********************
 
-  protected Object getValueAttr(AdfRenderingContext arc)
+  protected Object getValueAttr(RenderingContext arc)
   {
     // HTML 3.2 specification, default value for checkboxes
     return "t";

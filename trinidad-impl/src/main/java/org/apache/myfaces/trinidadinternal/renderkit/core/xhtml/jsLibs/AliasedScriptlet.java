@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 
 /**
@@ -64,7 +64,7 @@ public class AliasedScriptlet extends Scriptlet
           // when it's outside of a partial page request, since the
           // partial page library itself needs it.
           // See comments in Scriptlet.__isOutsidePartialPage()
-          boolean __isOutsidePartialPage(AdfRenderingContext arc)
+          boolean __isOutsidePartialPage(RenderingContext arc)
           {
             return false;
           }
@@ -114,7 +114,7 @@ public class AliasedScriptlet extends Scriptlet
 
   protected void outputScriptletImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (_dependencies != null)
     {
@@ -127,7 +127,7 @@ public class AliasedScriptlet extends Scriptlet
 
   protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // Nothing
   }

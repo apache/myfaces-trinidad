@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRequest;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.ServletNameResolver;
 
@@ -112,7 +112,7 @@ public class ContextImageIcon extends BaseImageIcon
    */
   public InputStreamProvider getImageData(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
 
@@ -140,7 +140,7 @@ public class ContextImageIcon extends BaseImageIcon
    */
   protected String getBaseURI(
   FacesContext        context,
-  AdfRenderingContext arc)
+  RenderingContext arc)
   {
     return context.getExternalContext().getRequestContextPath() + '/';
 

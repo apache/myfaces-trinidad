@@ -28,7 +28,7 @@ import java.util.Stack;
 
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
@@ -594,7 +594,7 @@ public class SkinExtension extends Skin
   {
     public void renderIcon(
       FacesContext        context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       Map              attrs
       ) throws IOException
     {

@@ -20,7 +20,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleMap;
 class StyleContextImpl implements StyleContext
 {
   public StyleContextImpl(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Skin             skin,
     String generatedFilesPath)
   {
@@ -140,7 +140,7 @@ class StyleContextImpl implements StyleContext
   }
 
 
-  private AdfRenderingContext _arc;
+  private RenderingContext _arc;
   private String  _generatedFilesPath;
   private StyleProvider _styleProvider;
   private StyleMap _styleMap;

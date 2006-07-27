@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -182,7 +182,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -217,7 +217,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
   private void _renderHeaderMode(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent           column) throws IOException
   {
@@ -291,7 +291,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   private String _renderColumnHeader(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   rowSpan,
@@ -338,7 +338,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   protected final String renderHeaderAndSpan(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   rowSpan,
@@ -443,7 +443,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    * @return an inline style String to be rendered on headers (used on
    *  special subclasses)
    */
-  protected String getHeaderInlineStyle(AdfRenderingContext arc)
+  protected String getHeaderInlineStyle(RenderingContext arc)
   {
     return null;
   }
@@ -452,7 +452,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   /**
    */
   protected String getSortingOnclick(
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   sortability)
@@ -521,7 +521,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
   protected void renderHeaderContents(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           column,
     int                   sortability,
@@ -543,7 +543,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
    */
   protected void renderSortOrderSymbol(
     FacesContext       context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     int                 sortability,
     Icon                icon,
     String              sortOnclick
@@ -647,7 +647,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   }
 
   protected boolean hasSortingIcon(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     int                 sortability)
   {
     return sortability != SORT_NO;

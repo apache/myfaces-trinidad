@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
@@ -172,7 +172,7 @@ public class SimpleSelectInputDateRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -193,7 +193,7 @@ public class SimpleSelectInputDateRenderer
 
   protected void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -261,7 +261,7 @@ public class SimpleSelectInputDateRenderer
   protected String getOnblur(FacesBean bean)
   {
     String onblur = super.getOnblur(bean);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String chooseId = _getChooseId(arc);
 
     int length = _BLUR_PREFIX.length() + 4;
@@ -286,7 +286,7 @@ public class SimpleSelectInputDateRenderer
   protected String getOnfocus(FacesBean bean)
   {
     String onfocus = super.getOnfocus(bean);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String chooseId = _getChooseId(arc);
 
     // The special _dff handler is only needed for date fields
@@ -320,7 +320,7 @@ public class SimpleSelectInputDateRenderer
 
   protected String getLaunchOnclick(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -380,7 +380,7 @@ public class SimpleSelectInputDateRenderer
   }
 
 
-  protected Integer getDefaultColumns(AdfRenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     Converter converter = getConverter(bean);
 
@@ -410,7 +410,7 @@ public class SimpleSelectInputDateRenderer
 
   protected String getSearchDesc(FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (isInaccessibleMode(arc))
       return null;
 
@@ -428,7 +428,7 @@ public class SimpleSelectInputDateRenderer
     return "af|selectInputDate::content";
   }
 
-  private String _getChooseId(AdfRenderingContext arc)
+  private String _getChooseId(RenderingContext arc)
   {
     return (String) arc.getProperties().get(_CACHED_CHOOSE_ID);
   }
@@ -449,7 +449,7 @@ public class SimpleSelectInputDateRenderer
   // it.
   private void _checkIfActive(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     String              chooseId
     ) throws IOException
@@ -599,7 +599,7 @@ public class SimpleSelectInputDateRenderer
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc)
+      RenderingContext arc)
       throws IOException
     {
       // get the tzOffset for the current date. I will compare this with

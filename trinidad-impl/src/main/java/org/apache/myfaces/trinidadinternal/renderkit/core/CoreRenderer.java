@@ -28,7 +28,7 @@ import javax.faces.render.Renderer;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
@@ -150,7 +150,7 @@ public class CoreRenderer extends Renderer
   {
     if (!getRendersChildren())
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       if (arc == null)
         throw new IllegalStateException("No AdfRenderingContext");
       
@@ -168,7 +168,7 @@ public class CoreRenderer extends Renderer
   public final void encodeEnd(FacesContext context,
                         UIComponent component) throws IOException
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc == null)
       throw new IllegalStateException("No AdfRenderingContext");
 
@@ -189,7 +189,7 @@ public class CoreRenderer extends Renderer
    */
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -203,7 +203,7 @@ public class CoreRenderer extends Renderer
    */
   protected void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -218,7 +218,7 @@ public class CoreRenderer extends Renderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -280,7 +280,7 @@ public class CoreRenderer extends Renderer
    */
   protected void delegateRenderer(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
@@ -300,7 +300,7 @@ public class CoreRenderer extends Renderer
    */
   protected void delegateRendererBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
@@ -320,7 +320,7 @@ public class CoreRenderer extends Renderer
    */
   protected void delegateRendererEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     CoreRenderer        renderer) throws IOException
@@ -410,14 +410,14 @@ public class CoreRenderer extends Renderer
   }
 
   static protected final Object getRenderingProperty(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              key)
   {
     return arc.getProperties().get(key);
   }
 
   static protected final Object setRenderingProperty(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              key,
     Object              value)
   {

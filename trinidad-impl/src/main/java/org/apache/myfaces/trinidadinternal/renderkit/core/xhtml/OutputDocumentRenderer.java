@@ -29,7 +29,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputDocument;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * @author Simon Lessard, Fujitsu Consulting
@@ -47,7 +47,7 @@ public class OutputDocumentRenderer extends ValueRenderer
   @Override
   protected void encodeBegin(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent comp,
       FacesBean bean) throws IOException
   {
@@ -64,7 +64,7 @@ public class OutputDocumentRenderer extends ValueRenderer
   @Override
   public void encodeEnd(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent comp,
       FacesBean bean) throws IOException
   {
@@ -171,7 +171,7 @@ public class OutputDocumentRenderer extends ValueRenderer
   @Override
   protected void renderStyleAttributes(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, _ROOT_SELECTOR);
@@ -191,7 +191,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    * @return the array of style classes to add to the current facet.
    */
   private String[] _getStyleClasses(
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean bean,
       PropertyKey key,
       String skinSelector)
@@ -264,7 +264,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    */
   private void _renderParagraphStart(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean bean) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
@@ -287,7 +287,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    */
   private void _renderSeparator(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent separator,
       FacesBean bean) throws IOException
   {
@@ -320,7 +320,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    */
   private void _renderTitle(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent comp,
       FacesBean bean) throws IOException
   {

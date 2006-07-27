@@ -28,7 +28,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
@@ -60,7 +60,7 @@ public class OutputUtils
 
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              cellspacing,
     Object              tableWidth
     ) throws IOException
@@ -71,7 +71,7 @@ public class OutputUtils
 
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              cellpadding,
     Object              cellspacing,
     Object              tableWidth
@@ -87,7 +87,7 @@ public class OutputUtils
    */
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              cellpadding,
     Object              cellspacing,
     Object              border,
@@ -104,7 +104,7 @@ public class OutputUtils
    */
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              cellpadding,
     Object              cellspacing,
     Object              border,
@@ -130,7 +130,7 @@ public class OutputUtils
   */
   public static void renderAltAndTooltipForImage(
      FacesContext        context,
-     AdfRenderingContext afc,
+     RenderingContext afc,
      Object              textValue
      ) throws IOException
   {
@@ -161,7 +161,7 @@ public class OutputUtils
    * Returns true if the agent supports alt as a tooltip on images
    */
   public static boolean supportsAltRendersTooltipOnImage(
-    AdfRenderingContext     afc
+    RenderingContext     afc
     )
   {
     return Boolean.TRUE.equals(afc.getAgent().getCapability(
@@ -173,7 +173,7 @@ public class OutputUtils
    * vertically with text on the same line.
    */
   public static String getMiddleIconAlignment(
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     // =-= AEW I haven't been able to find an image alignment
     // that works well for all browsers.  "absmiddle" looks
@@ -208,7 +208,7 @@ public class OutputUtils
    */
   public static void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Icon                icon,
     Object              shortDesc,
     Object              align
@@ -222,7 +222,7 @@ public class OutputUtils
    */
   public static void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Icon                icon,
     Object              shortDesc,
     Object              align,
@@ -252,7 +252,7 @@ public class OutputUtils
    */
   static public void renderImage(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              absoluteUri,
     Object              width,
     Object              height,
@@ -266,7 +266,7 @@ public class OutputUtils
 
   static public void renderImage(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              absoluteUri,
     Object              width,
     Object              height,
@@ -301,7 +301,7 @@ public class OutputUtils
    * @todo Add real mechanism for getting the background color
    * if needed.
    */
-  static public Color getBackgroundColor(AdfRenderingContext arc)
+  static public Color getBackgroundColor(RenderingContext arc)
   {
     return Color.WHITE;
   }

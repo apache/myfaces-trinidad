@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -53,7 +53,7 @@ abstract public class Scriptlet
    */
   public void outputScriptlet(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (!_isAlreadyWritten(arc) &&
         !__isOutsidePartialPage(arc))
@@ -74,7 +74,7 @@ abstract public class Scriptlet
   //
   // Also note that this method is overridden for the MarlinCore
   // library.  See XhtmlScriptletFactory.
-  boolean __isOutsidePartialPage(AdfRenderingContext arc)
+  boolean __isOutsidePartialPage(RenderingContext arc)
   {
     PartialPageContext pprContext = arc.getPartialPageContext();
     if (pprContext == null)
@@ -94,7 +94,7 @@ abstract public class Scriptlet
 
   public void embedInScriptTag(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (!_isAlreadyWritten(arc))
     {
@@ -108,7 +108,7 @@ abstract public class Scriptlet
    */
   protected void outputScriptletImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -127,7 +127,7 @@ abstract public class Scriptlet
    */
   protected void embedInScriptTagImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     outputScriptletContent(context, arc);
   }
@@ -138,7 +138,7 @@ abstract public class Scriptlet
    */
   abstract protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException;
+    RenderingContext arc) throws IOException;
 
 
 
@@ -148,7 +148,7 @@ abstract public class Scriptlet
    */
   protected void outputDependency(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              dependency) throws IOException
   {
     XhtmlUtils.addLib(context, arc, dependency);
@@ -166,7 +166,7 @@ abstract public class Scriptlet
   //
   // Returns true if this scriptlet has already been written.
   //
-  private boolean _isAlreadyWritten(AdfRenderingContext arc)
+  private boolean _isAlreadyWritten(RenderingContext arc)
   {
     return arc.getProperties().get(getScriptletKey()) != null;
   }
@@ -174,7 +174,7 @@ abstract public class Scriptlet
   //
   // Marks that the scriptlet has been written.
   //
-  private void _markAsWritten(AdfRenderingContext arc)
+  private void _markAsWritten(RenderingContext arc)
   {
     arc.getProperties().put(getScriptletKey(), Boolean.TRUE);
   }

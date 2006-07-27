@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.NavigationPathRenderer;
@@ -110,7 +110,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected TableRenderingContext createRenderingContext(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component
     )
   {
@@ -124,7 +124,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected boolean renderTableWithoutColumns(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
   {
@@ -136,7 +136,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -183,7 +183,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected void renderNavigationHeaderBars(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean           bean) throws IOException
@@ -194,7 +194,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   protected final void renderRangePagingControl(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           table)
     throws IOException
@@ -216,7 +216,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   protected boolean hasControlBarLinks(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component) throws IOException
   {
@@ -227,7 +227,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   protected void renderControlBarLinks(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component,
     boolean useDivider) throws IOException
@@ -272,7 +272,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected int renderSpecialColumns(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     int                   physicalColumnIndex)
@@ -313,7 +313,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   protected void renderTableRows(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext trc,
     UIComponent           component,
     FacesBean bean) throws IOException
@@ -349,7 +349,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   // Renders the hGridLocator Icon
   private void _renderLocatorIcon(
     FacesContext          fc,
-    AdfRenderingContext   arc)
+    RenderingContext   arc)
     throws IOException
   {
     Icon icon = arc.getIcon(XhtmlConstants.AF_TREE_TABLE_LOCATOR_ICON_NAME);
@@ -371,7 +371,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private void _renderBreadCrumbs(
     FacesContext          fc,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext context,
     UIComponent tree,
     FacesBean bean) throws IOException
@@ -416,7 +416,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private void _renderTableRows(
     FacesContext          context,
-    final AdfRenderingContext   arc,
+    final RenderingContext   arc,
     final TreeTableRenderingContext ttrc) throws IOException
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
@@ -483,7 +483,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    */
   private int _renderEmptyTableRow(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TreeTableRenderingContext ttrc) throws IOException
   {
     // we do not include the object hierarchy column in the specialCols
@@ -523,7 +523,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   {
     protected void renderLink(
       FacesContext context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIComponent child,
       int renderedCount,
       boolean isLastChild) throws IOException
@@ -583,7 +583,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
     protected UIComponent getStamp(
       FacesContext        context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIXHierarchy        component,
       FacesBean           bean
       )

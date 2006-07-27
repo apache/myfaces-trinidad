@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import javax.faces.component.UIComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
@@ -53,7 +53,7 @@ public class SpecialColumnRenderer extends ColumnRenderer
     return null;
   }
 
-  protected String getHeaderInlineStyle(AdfRenderingContext arc)
+  protected String getHeaderInlineStyle(RenderingContext arc)
   {
     if (XhtmlRenderer.isIE(arc))
       return "word-break:keep-all"; // bugs 2342291, 1999842

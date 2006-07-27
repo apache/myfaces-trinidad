@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
@@ -81,7 +81,7 @@ abstract public class BaseImageIcon extends Icon
    */
   public Object getImageURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     // Get the base URI
     String baseURI = _getBaseURI(context, arc);
@@ -101,7 +101,7 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of Icon.getImageWidth().
    */
-  public Integer getImageWidth(AdfRenderingContext arc)
+  public Integer getImageWidth(RenderingContext arc)
   {
     return _width;
   }
@@ -109,7 +109,7 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of Icon.getImageHeight().
    */
-  public Integer getImageHeight(AdfRenderingContext arc)
+  public Integer getImageHeight(RenderingContext arc)
   {
     return _height;
   }
@@ -119,7 +119,7 @@ abstract public class BaseImageIcon extends Icon
    */
   public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     ) throws IOException
   {
@@ -216,14 +216,14 @@ abstract public class BaseImageIcon extends Icon
    */
   abstract protected String getBaseURI(
   FacesContext        context,
-  AdfRenderingContext arc);
+  RenderingContext arc);
 
   /**
    * Returns the URI of the image relative to the base URI.
    */
   protected String getRelativeURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     // We only need to check the reading direction if
     // we actually have a RTL version of the icon
@@ -236,7 +236,7 @@ abstract public class BaseImageIcon extends Icon
   // Gets the baseURI, checking to make sure that it is properly terminated.
   private String _getBaseURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     String baseURI = getBaseURI(context, arc);
 
@@ -272,7 +272,7 @@ abstract public class BaseImageIcon extends Icon
 
   // Returns the width of the icon
   private Object _getWidth(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map                 attrs
     )
   {
@@ -292,7 +292,7 @@ abstract public class BaseImageIcon extends Icon
 
   // Returns the height of the icon
   private Object _getHeight(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map                 attrs
     )
   {

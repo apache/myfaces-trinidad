@@ -66,7 +66,7 @@ public class GatherContent extends UIComponentBase
   public void encodeEnd(FacesContext context)
   {
     context.setResponseWriter(_savedWriter);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
 
     // Our hidden label utility code makes sure it never writes out
     // the same label twice consecutively - but between batches of

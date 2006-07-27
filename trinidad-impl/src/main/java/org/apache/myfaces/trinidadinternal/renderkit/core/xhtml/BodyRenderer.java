@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.html.HtmlBody;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 
@@ -64,7 +64,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -80,7 +80,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected void renderAtEnd(
     FacesContext context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     context.getResponseWriter().endElement("body");
 
@@ -89,7 +89,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected void renderPPRSupport(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -107,7 +107,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -147,7 +147,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     FacesBean    bean) throws IOException
   {
     super.renderEventHandlers(context, bean);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     ResponseWriter rw = context.getResponseWriter();
 
     if (PartialPageUtils.isPartialRenderingPass(arc))
@@ -190,7 +190,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     return toString(bean.getProperty(_initialFocusIdKey));
   }
 
-  protected String getOnload(AdfRenderingContext arc, FacesBean bean)
+  protected String getOnload(RenderingContext arc, FacesBean bean)
   {
     String onload = toString(bean.getProperty(_onloadKey));
     if (PartialPageUtils.supportsPartialRendering(arc))
@@ -202,7 +202,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     return onload;
   }
 
-  protected String getOnunload(AdfRenderingContext arc, FacesBean bean)
+  protected String getOnunload(RenderingContext arc, FacesBean bean)
   {
     String onunload = toString(bean.getProperty(_onunloadKey));
     if (PartialPageUtils.supportsPartialRendering(arc))
@@ -235,7 +235,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   private void _renderNoScript(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // Some accessibility standards rather oddly claim that NOSCRIPT
     // tags are essential for compliance.  So, render NOSCRIPT, at
@@ -256,7 +256,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   }
 
   private void _storeInitialFocus(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
 
@@ -291,7 +291,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   //
   private void _renderInitialFocusScript(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
 
@@ -327,7 +327,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // the user used the Back button to go back to the page.
   private static void _renderPartialBackSupportSpan(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             isStart
     ) throws IOException
   {
@@ -374,7 +374,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
 
   private static boolean _isPartialBackSupported(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     /*
@@ -394,7 +394,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   //
   static private void _writeVersionInformation(
     FacesContext context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
     throws IOException
   {
     String comment = _VERSION_COMMENT;

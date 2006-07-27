@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -44,7 +44,7 @@ public class CoreSkinUtils
   {
     if (icon != null)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       FacesContext fContext = context.getFacesContext();
       __renderBackgroundIcon(fContext, arc, icon);
     }
@@ -54,7 +54,7 @@ public class CoreSkinUtils
   // This is more optimized than the method that takes a RenderingContext
   public static void __renderBackgroundIcon(
     FacesContext        fContext, 
-    AdfRenderingContext arc, 
+    RenderingContext arc, 
     Icon                icon)
     throws IOException
   {

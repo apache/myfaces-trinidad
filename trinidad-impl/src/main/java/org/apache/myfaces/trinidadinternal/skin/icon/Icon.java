@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
 /**
@@ -56,7 +56,7 @@ abstract public class Icon
    * Renders the Icon.
    *
    * @param FacesContext context
-   * @param AdfRenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The AdfRenderingContext for the
    *                                 current request.
    * @param attrs A Map which which provides access to
    *             values that might be useful to Icon implementations,
@@ -64,7 +64,7 @@ abstract public class Icon
    */
   abstract public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     ) throws IOException;
 
@@ -74,12 +74,12 @@ abstract public class Icon
    * which indicates to the caller that no image representation of
    * the Icon is available.
    * @param FacesContext context
-   * @param AdfRenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The AdfRenderingContext for the
    *                                 current request.
    */
   public Object getImageURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     return null;
   }
@@ -89,9 +89,9 @@ abstract public class Icon
    * The default implementation of this method simply returns null,
    * which indicates to the caller the width of the image is not
    * known - or that the Icon does not provide an image representation.
-   * @param AdfRenderingContext arc
+   * @param RenderingContext arc
    */
-  public Integer getImageWidth(AdfRenderingContext arc)
+  public Integer getImageWidth(RenderingContext arc)
   {
     return null;
   }
@@ -101,10 +101,10 @@ abstract public class Icon
    * The default implementation of this method simply returns null,
    * which indicates to the caller the height of the image is not
    * known - or that the Icon does not provide an image representation.
-   * @param AdfRenderingContext arc
+   * @param RenderingContext arc
    *
    */
-  public Integer getImageHeight(AdfRenderingContext arc)
+  public Integer getImageHeight(RenderingContext arc)
   {
     return null;
   }
@@ -113,13 +113,13 @@ abstract public class Icon
    * Returns an InputStreamProvider which provides access to the
    * image data for image-based Icons.
    * @param FacesContext context
-   * @param AdfRenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The AdfRenderingContext for the
    *                                 current request.
    * @todo Is this still necessary?
    */
   public InputStreamProvider getImageData(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     // This operation is not supported by default.  Log a warning.

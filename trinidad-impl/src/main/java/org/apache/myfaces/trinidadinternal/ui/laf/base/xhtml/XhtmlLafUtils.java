@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
@@ -841,7 +841,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     ) throws IOException
   {
     XhtmlUtils.addLib(context.getFacesContext(),
-                      AdfRenderingContext.getCurrentInstance(),
+                      RenderingContext.getCurrentInstance(),
                       libKey);
   }
 
@@ -854,7 +854,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     Object           libURL) throws IOException
   {
     XhtmlUtils.writeLibImport(context.getFacesContext(),
-                              AdfRenderingContext.getCurrentInstance(),
+                              RenderingContext.getCurrentInstance(),
                               libURL);
   }
 
@@ -978,7 +978,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     boolean          embedded
     ) throws IOException
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
     OutputUtils.renderIcon(fContext, arc, icon, shortDesc, align, embedded);
   }

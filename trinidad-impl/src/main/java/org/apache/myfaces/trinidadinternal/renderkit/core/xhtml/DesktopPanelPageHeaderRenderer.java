@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPageHeader;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -60,7 +60,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -79,7 +79,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
 
   protected void encodeAllDesktop(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -422,7 +422,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
    */
   private void  _renderNavigation1(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter      writer,
     UIComponent         navigation1,
     boolean             isRTL
@@ -476,7 +476,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
    */
   private void _renderSearch(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter   writer,
     UIComponent           search,
     int              colSpan

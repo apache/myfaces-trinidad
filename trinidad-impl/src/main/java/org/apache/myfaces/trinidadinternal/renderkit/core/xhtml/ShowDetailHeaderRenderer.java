@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailHeader;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 public class ShowDetailHeaderRenderer
@@ -55,7 +55,7 @@ public class ShowDetailHeaderRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -75,7 +75,7 @@ public class ShowDetailHeaderRenderer
     }
   }
 
-  protected void renderIcon(FacesContext context, AdfRenderingContext arc, 
+  protected void renderIcon(FacesContext context, RenderingContext arc, 
                             UIComponent component, FacesBean bean, String messageType)
     throws IOException
   {
@@ -116,7 +116,7 @@ public class ShowDetailHeaderRenderer
     }
 
     protected void renderAllAttributes(FacesContext context, 
-                                       AdfRenderingContext arc, 
+                                       RenderingContext arc, 
                                        FacesBean bean)
       throws IOException
     {
@@ -127,7 +127,7 @@ public class ShowDetailHeaderRenderer
       return true;
     }
 
-    protected String getDisclosureText(AdfRenderingContext arc, 
+    protected String getDisclosureText(RenderingContext arc, 
                                        FacesBean bean, boolean disclosed)
     {
       return null;

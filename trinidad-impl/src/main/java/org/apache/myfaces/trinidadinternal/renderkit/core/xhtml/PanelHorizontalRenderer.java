@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHorizontal;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class PanelHorizontalRenderer extends XhtmlRenderer
 {
@@ -51,7 +51,7 @@ public class PanelHorizontalRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -96,7 +96,7 @@ public class PanelHorizontalRenderer extends XhtmlRenderer
    */
   private void _encodeChildren(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent  component,
     Object       vAlign,
     Object       hAlign

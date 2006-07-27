@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SimpleSelectBooleanCheckboxRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -116,7 +116,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -159,7 +159,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
   protected void renderCellContent(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean             bean) throws IOException
@@ -239,7 +239,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     }
 
 
-    protected Object getValueAttr(AdfRenderingContext arc)
+    protected Object getValueAttr(RenderingContext arc)
     {
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
@@ -251,7 +251,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     protected String getShortDesc(FacesBean bean)
     {
       String key = getDefaultShortDescKey();
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(key);
     }
 

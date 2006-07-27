@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelLabelAndMessage;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 
@@ -60,7 +60,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
   
   protected String getLabelFor(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
   {
@@ -73,7 +73,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
 
   protected void renderFieldCellContents(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -126,7 +126,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
 
   protected boolean hasMessage(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
   {

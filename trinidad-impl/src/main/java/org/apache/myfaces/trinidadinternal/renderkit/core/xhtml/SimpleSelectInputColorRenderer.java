@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
@@ -155,7 +155,7 @@ public class SimpleSelectInputColorRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -178,7 +178,7 @@ public class SimpleSelectInputColorRenderer
 
   protected void renderTextField(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -212,7 +212,7 @@ public class SimpleSelectInputColorRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             renderAsElement,
@@ -230,7 +230,7 @@ public class SimpleSelectInputColorRenderer
 
   protected void renderAfterTextField(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -251,7 +251,7 @@ public class SimpleSelectInputColorRenderer
 
   protected void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -281,7 +281,7 @@ public class SimpleSelectInputColorRenderer
 
   protected String getLaunchOnclick(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -313,7 +313,7 @@ public class SimpleSelectInputColorRenderer
   protected String getOnfocus(FacesBean bean)
   {
     String onfocus = super.getOnfocus(bean);
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (!_supportsSwatchAndChooser(arc))
       return onfocus;
 
@@ -340,7 +340,7 @@ public class SimpleSelectInputColorRenderer
   protected String getOnblur(FacesBean bean)
   {
     String onblur = super.getOnblur(bean);
-    if (!_supportsSwatchAndChooser(AdfRenderingContext.getCurrentInstance()))
+    if (!_supportsSwatchAndChooser(RenderingContext.getCurrentInstance()))
       return XhtmlUtils.getChainedJS(_AUTO_FORMAT_SCRIPT,
                                      onblur, false);
 
@@ -351,7 +351,7 @@ public class SimpleSelectInputColorRenderer
 
 
 
-  protected Integer getDefaultColumns(AdfRenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     Converter converter = getConverter(bean);
 
@@ -403,7 +403,7 @@ public class SimpleSelectInputColorRenderer
     return "af|selectInputColor::content";
   }
 
-  private String _getChooseId(AdfRenderingContext arc)
+  private String _getChooseId(RenderingContext arc)
   {
     return (String) arc.getProperties().get(_CACHED_CHOOSE_ID);
   }
@@ -420,21 +420,21 @@ public class SimpleSelectInputColorRenderer
   }
 
   // On PDAs, we only support a simple text field
-  private boolean _supportsSwatchAndChooser(AdfRenderingContext arc)
+  private boolean _supportsSwatchAndChooser(RenderingContext arc)
   {
     return (arc.getAgent().getAgentType() != AdfFacesAgent.TYPE_PDA);
   }
 
   protected String getSearchDesc(FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (isInaccessibleMode(arc))
       return null;
 
     return arc.getTranslatedString(_LAUNCH_PICKER_TIP_KEY);
   }
 
-  private String _getColorSwatchId(AdfRenderingContext arc)
+  private String _getColorSwatchId(RenderingContext arc)
   {
     return arc.getCurrentClientId() + "$sw";
   }
@@ -442,7 +442,7 @@ public class SimpleSelectInputColorRenderer
 
   private void _renderColorSwatch(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             editable) throws IOException
@@ -533,7 +533,7 @@ public class SimpleSelectInputColorRenderer
   // a given chooseId, and if so renders a script
   private void _renderFirstColorFieldScript(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     String              chooseId
     ) throws IOException

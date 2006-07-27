@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
@@ -84,7 +84,7 @@ public class TextIcon extends Icon
    */
   public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     ) throws IOException
   {
@@ -153,7 +153,7 @@ public class TextIcon extends Icon
   /**
    * Returns the text to render.
    */
-  protected String getText(AdfRenderingContext arc)
+  protected String getText(RenderingContext arc)
   {
     if ((_rtlText != null) && arc.isRightToLeft() )
       return _rtlText;

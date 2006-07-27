@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
@@ -61,7 +61,7 @@ class CalendarDialogJSP
   static public void service(FacesContext context)
     throws IOException
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     CoreDocument doc = new CoreDocument();
     context.getViewRoot().getChildren().add(doc);
     doc.setTitle(arc.getTranslatedString(_DIALOG_TITLE_KEY));

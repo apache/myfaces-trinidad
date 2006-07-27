@@ -22,7 +22,7 @@ import java.util.Set;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -170,7 +170,7 @@ public final class UIFunctions
     {
       // Get the Icon from the Skin 
       UIXRenderingContext context = uix.getRenderingContext();
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       FacesContext fContext = context.getFacesContext();
       Skin skin = context.getSkin();
       Icon icon = skin.getIcon(name);

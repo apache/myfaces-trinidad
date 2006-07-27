@@ -21,7 +21,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -98,7 +98,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
     int columnCount = _getColumnCount(icons);
 
     FacesContext fContext = context.getFacesContext();
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
 
     // Render the top row if we have one
     if (_hasTopRow(icons))
@@ -122,7 +122,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
     int columnCount = _getColumnCount(icons);
 
     FacesContext fContext = context.getFacesContext();
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     
     // Close up the contents row
     _endContentsRow(fContext, arc, icons);
@@ -173,7 +173,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   // End the table row with the contents
   private void _endContentsRow(
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     IconData         icons
     ) throws IOException
   {
@@ -201,7 +201,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   // Renders the bottom row
   private void _renderBottomRow(
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     IconData         icons,
     int              columnCount
     ) throws IOException
@@ -251,7 +251,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   // Renders the top row
   private void _renderTopRow(
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     IconData         icons,
     int              columnCount
     ) throws IOException

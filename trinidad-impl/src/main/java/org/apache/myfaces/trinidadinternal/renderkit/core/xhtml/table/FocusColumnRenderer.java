@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.component.UIXTreeTable;
 
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -36,7 +36,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
 {
   protected String getHeaderText(FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     return arc.getTranslatedString("af_treeTable.FOCUS_COLUMN_HEADER");
   }
   
@@ -51,7 +51,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
   }
 
   protected void renderKids(FacesContext          context,
-                            AdfRenderingContext   arc,
+                            RenderingContext   arc,
                             TableRenderingContext trc,
                             UIComponent           column) throws IOException
   {
@@ -88,7 +88,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
   // Renders the focus icon  
   private void _renderFocusIcon(
     FacesContext fc,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String           altText
     ) throws IOException
   {

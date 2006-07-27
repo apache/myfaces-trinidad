@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectManyListbox;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -54,7 +54,7 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
 
   protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -103,7 +103,7 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
     String onchange = super.getOnchange(bean);
     if (isAutoSubmit(bean))
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       String source = LabelAndMessageRenderer.__getCachedClientId(arc);
       boolean immediate = isImmediate(bean);
       String auto = AutoSubmitUtils.getSubmitScript(arc, source, immediate);

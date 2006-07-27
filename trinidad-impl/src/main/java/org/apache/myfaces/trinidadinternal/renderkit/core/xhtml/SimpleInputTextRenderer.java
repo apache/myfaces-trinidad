@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -89,7 +89,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -154,7 +154,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
        
   protected void renderAllAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     boolean             renderStyleAttrs) throws IOException
   {
@@ -263,7 +263,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    * Returns the default number of text input columns
    * =-=AEW MOVE ONTO BEAN TYPE?
    */
-  protected Integer getDefaultColumns(AdfRenderingContext arc, FacesBean bean)
+  protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     if (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA)
       return _DEFAULT_PDA_COLUMNS;
@@ -292,7 +292,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   protected void encodeAllAsNonElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -333,7 +333,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    */
   protected void renderNonElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -343,7 +343,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             renderAsElement,
@@ -555,7 +555,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     if (isTextArea(bean) &&
         getReadOnly(FacesContext.getCurrentInstance(), bean))
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       if (!supportsReadonlyFormElements(arc))
       {
         onfocus = (String) XhtmlUtils.getChainedJS("this.blur()",
@@ -574,7 +574,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     String onchange = super.getOnchange(bean);
     if (isAutoSubmit(bean))
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       String source = LabelAndMessageRenderer.__getCachedClientId(arc);
       boolean immediate = isImmediate(bean);
       String auto = AutoSubmitUtils.getSubmitScript(arc, source, immediate);
@@ -665,7 +665,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    * @todo RENABLE ONFOCUS HACK
    */
   protected boolean renderReadOnlyAsElement(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
     // We render read-only single-line input fields as plain text

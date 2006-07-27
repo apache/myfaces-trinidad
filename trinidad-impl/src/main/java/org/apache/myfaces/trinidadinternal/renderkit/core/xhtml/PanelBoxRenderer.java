@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class PanelBoxRenderer
   extends XhtmlRenderer
@@ -57,7 +57,7 @@ public class PanelBoxRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -80,7 +80,7 @@ public class PanelBoxRenderer
   }
   
   protected void renderAllAttributes(FacesContext context, 
-    AdfRenderingContext arc, 
+    RenderingContext arc, 
     FacesBean bean) throws IOException
   {
     super.renderAllAttributes(context, arc, bean); 
@@ -89,7 +89,7 @@ public class PanelBoxRenderer
   
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, _getDefaultStyleClass(bean));
@@ -137,7 +137,7 @@ public class PanelBoxRenderer
   
   private void _renderHeaderRow (
     FacesContext context, 
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean bean, 
     Object text,
     Object icon)
@@ -170,7 +170,7 @@ public class PanelBoxRenderer
   // contentContainer's child contents.
   private void _renderContentRow(
     FacesContext context, 
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,    
     FacesBean bean
   ) throws IOException

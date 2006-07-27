@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXSelectOne;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -103,7 +103,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
    */
   static public boolean encodeOption(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     SelectItem          item,
     Converter           converter,
@@ -221,7 +221,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
    */
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -287,7 +287,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
   abstract   protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -297,7 +297,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
 
   protected void renderNonElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -420,7 +420,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   }
 
   protected String getAutoSubmitScript(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
     String source = LabelAndMessageRenderer.__getCachedClientId(arc);

@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
@@ -520,7 +520,7 @@ public class FirePartialAction extends FireAction
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc)
+      RenderingContext arc)
       throws IOException
     {
       // Make sure we have a form

@@ -19,7 +19,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
@@ -28,7 +28,7 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
 {
 
   protected void renderKids(FacesContext          context,
-                            AdfRenderingContext   arc,
+                            RenderingContext   arc,
                             TableRenderingContext trc,
                             UIComponent           column) throws IOException
   {
@@ -43,7 +43,7 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
 
   protected String getHeaderText(FacesBean bean)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     TableRenderingContext tContext =
       TableRenderingContext.getCurrentInstance();
 
