@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
 
 
@@ -131,7 +131,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   // inlineStyle, 'state' styles like p_AFDisabled, etc.  
   protected void renderRootDomElementStyles(
    FacesContext        context,
-   AdfRenderingContext arc,
+   RenderingContext arc,
    UIComponent         component,
    FacesBean           bean) throws IOException
   {
@@ -161,7 +161,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -281,7 +281,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    */
   private void _renderLabelCell(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             labelExists) throws IOException
@@ -320,7 +320,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    */
   private void _renderFieldCell(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             labelExists,
@@ -370,7 +370,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     rw.endElement("td");
   }
 
-  static String __getCachedClientId(AdfRenderingContext arc)
+  static String __getCachedClientId(RenderingContext arc)
   {
     String clientId = arc.getCurrentClientId();
     assert(clientId != null);
@@ -379,7 +379,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   protected boolean hasMessage(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean)
   {
@@ -394,7 +394,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   private void _renderMessageCellContents(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -420,7 +420,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   abstract protected void renderFieldCellContents(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException;
 
@@ -461,22 +461,22 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    */
   abstract protected String getLabelFor(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean);
 
-  static void __setLabelWidth(AdfRenderingContext arc, Object width)
+  static void __setLabelWidth(RenderingContext arc, Object width)
   {
     arc.getProperties().put(_LABEL_CELL_WIDTH_KEY, width);
   }
 
-  static void __setFieldWidth(AdfRenderingContext arc, Object width)
+  static void __setFieldWidth(RenderingContext arc, Object width)
   {
     arc.getProperties().put(_FIELD_CELL_WIDTH_KEY, width);
   }
 
 
-  static void __clearProperties(AdfRenderingContext arc)
+  static void __clearProperties(RenderingContext arc)
   {
     arc.getProperties().remove(_LABEL_CELL_WIDTH_KEY);
     arc.getProperties().remove(_FIELD_CELL_WIDTH_KEY);
@@ -499,7 +499,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
     protected void renderAllAttributes(
       FacesContext        context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean           bean) throws IOException
     {
       // Block everything
@@ -563,13 +563,13 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       FacesBean    bean)
     {
       return getLabelFor(context,
-                         AdfRenderingContext.getCurrentInstance(),
+                         RenderingContext.getCurrentInstance(),
                          component,
                          bean);
     }
 
     protected boolean isLabelTagNeeded(
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean           bean,
       String              forId,
       int                 accessKeyIndex
@@ -610,7 +610,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
     protected void renderAllAttributes(
       FacesContext        context,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       FacesBean           bean) throws IOException
     {
     }
@@ -621,7 +621,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       FacesBean    bean)
     {
       return getLabelFor(context,
-                         AdfRenderingContext.getCurrentInstance(),
+                         RenderingContext.getCurrentInstance(),
                          component,
                          bean);
     }
@@ -691,7 +691,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   // If we have mapped this style (like in panelForm), 
   // then return the style, otherwise return null
   private String _getDefaultLabelStyleClass(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              styleClass)  
   {
     Map keyMap = arc.getSkinResourceKeyMap();

@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class NavigationLevelRenderer extends XhtmlRenderer
 {
@@ -62,7 +62,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -98,7 +98,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIXHierarchy        component,
     FacesBean           bean
     ) throws IOException
@@ -216,7 +216,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
    */
   protected void _renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     String renderingHint = _getHint(bean);
@@ -376,7 +376,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderNavigationItem(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     Map itemData,
     String renderingHint,
@@ -439,7 +439,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
   }
 
   private void _writeInlineTbodyStyles(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw
     ) throws IOException
   {
@@ -453,7 +453,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _appendIconAndText(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     String iconUri,
     Map itemData,
@@ -499,7 +499,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _writeItemLink(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     Map itemData,
     boolean isDisabled
@@ -602,7 +602,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
   }
 
   private void _writeOnclickProperty(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     UIXCommand commandChild,
     boolean actionSpecialCase,
@@ -624,7 +624,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
   }
 
   private String _getAutoSubmitScript(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean immediate,
     boolean partialSubmit
     )
@@ -656,7 +656,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderNonOverlappingItem(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     Map itemData,
     boolean isRtl,
@@ -843,7 +843,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderChoiceItem(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     Map itemData
     ) throws IOException
@@ -937,7 +937,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderChoiceLabel(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     boolean isRtl,
     FacesBean bean
@@ -969,7 +969,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderChoiceButton(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     boolean isRtl,
     String choiceSelectId
@@ -1014,7 +1014,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderTabItem(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     Map itemData,
     boolean isRtl
@@ -1204,7 +1204,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
 
   private void _renderTabSection(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     ResponseWriter rw,
     String sectionStyleClass1,
     String sectionStyleClass2,

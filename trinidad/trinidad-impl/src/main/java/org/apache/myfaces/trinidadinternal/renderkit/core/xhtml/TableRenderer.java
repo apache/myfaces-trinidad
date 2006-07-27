@@ -45,7 +45,7 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -225,7 +225,7 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -367,7 +367,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected void renderTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent  component,
     FacesBean    bean,
     Object       cellPadding,
@@ -390,7 +390,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected TableRenderingContext createRenderingContext(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component
     )
   {
@@ -399,7 +399,7 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   protected abstract void renderSingleRow(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException;
 
@@ -412,7 +412,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected boolean renderTableWithoutColumns(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
   {
@@ -458,7 +458,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected int renderSpecialColumns(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           treeTable,
     int                   physicalColumnIndex)
@@ -517,7 +517,7 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private void _renderDetailColumn(
     FacesContext          context,
-    AdfRenderingContext   arc) throws IOException
+    RenderingContext   arc) throws IOException
   {
     UIComponent column = _detailRenderer.getSpecialColumn();
     delegateRenderer(context, arc, column,
@@ -526,7 +526,7 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private void _renderSelectionColumn(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext) throws IOException
   {
     Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
@@ -549,7 +549,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected void renderNavigationHeaderBars(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean           bean) throws IOException
@@ -569,7 +569,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   private void _renderControlBar(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     boolean isUpper) throws IOException
@@ -624,7 +624,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected abstract void renderControlBar(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component)
     throws IOException;
@@ -636,7 +636,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected abstract void renderSubControlBar(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     boolean isUpper) throws IOException;
@@ -650,7 +650,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   protected abstract void renderTableContent(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException;
 
@@ -712,7 +712,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    * @todo reuse these Maps!
    */
   public static void setSelectionResourceKeyMap(
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext)
   {
     if (tContext.hasSelection())
@@ -787,7 +787,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
 
     protected void renderAllAttributes(
-      FacesContext context, AdfRenderingContext arc, FacesBean bean)
+      FacesContext context, RenderingContext arc, FacesBean bean)
     {
     }
 

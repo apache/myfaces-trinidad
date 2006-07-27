@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 
 import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
@@ -83,7 +83,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected final void renderSingleRow(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component) throws IOException
   {
@@ -109,7 +109,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected void renderSelectionLinks(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component) throws IOException
   {
@@ -147,7 +147,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected boolean hasControlBarLinks(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component) throws IOException
   {
@@ -166,7 +166,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected void renderControlBarLinks(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext trc,
     UIComponent component,
     boolean useDivider) throws IOException
@@ -207,7 +207,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected final void renderControlBarLink(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String onclick,
     String translationKey,
     String id,
@@ -228,7 +228,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected void renderSubControlBar(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component,
     boolean isUpper) throws IOException
@@ -243,7 +243,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected void renderTableContent(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component) throws IOException
   {
@@ -389,7 +389,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   private void _writeIEscrollScript(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String tableId,
     String scrollID) throws IOException
   {
@@ -506,7 +506,7 @@ public class DesktopTableRenderer extends TableRenderer
   // render the control bar
   protected final void renderControlBar(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component)
     throws IOException
@@ -584,7 +584,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected void renderRangePagingControl(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component)
     throws IOException
@@ -609,7 +609,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected void renderTableRows(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext trc,
     UIComponent           component,
     FacesBean bean) throws IOException
@@ -628,7 +628,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected void renderTableAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent  component,
     FacesBean    bean,
     Object       cellPadding,
@@ -645,7 +645,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected void renderCellFormatAttributes(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext) throws IOException
   {
     // renders "style", "class", "nowrap", "headers".
@@ -687,7 +687,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   private void _renderTableHeader(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component)
     throws IOException
@@ -714,7 +714,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   private void _renderEmptyTable(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext)
     throws IOException
   {
@@ -732,7 +732,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected final void renderEmptyTableRow(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     int                   specialColumnCount) throws IOException
   {
@@ -741,7 +741,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   protected final void renderEmptyTableRow(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     int                   specialColumnCount,
     CoreRenderer          emptyTextRenderer) throws IOException
@@ -779,7 +779,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   private void _renderEmptyCell(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     int physicalColumn,
     String text) throws IOException
@@ -800,7 +800,7 @@ public class DesktopTableRenderer extends TableRenderer
 
   private void _renderTableRows(
     FacesContext          context,
-    final AdfRenderingContext   arc,
+    final RenderingContext   arc,
     final TableRenderingContext tContext,
     UIComponent           component
     )
@@ -894,7 +894,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected final void renderColumnHeader(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
   {
@@ -915,7 +915,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected final void renderRegularHeaders(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component,
     int physicalCol) throws IOException
@@ -977,7 +977,7 @@ public class DesktopTableRenderer extends TableRenderer
    */
   protected final void renderFooter(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
 
@@ -1060,7 +1060,7 @@ public class DesktopTableRenderer extends TableRenderer
 
     protected void renderAllAttributes(
        FacesContext        context,
-       AdfRenderingContext arc,
+       RenderingContext arc,
        FacesBean           bean)
     {
     }
@@ -1088,13 +1088,13 @@ public class DesktopTableRenderer extends TableRenderer
 
     protected String getDisclosedText(FacesBean bean)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_HIDE_ALL_DETAILS_TEXT_KEY);
     }
 
     protected String getUndisclosedText(FacesBean bean)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_SHOW_ALL_DETAILS_TEXT_KEY);
     }
 

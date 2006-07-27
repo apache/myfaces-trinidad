@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -442,7 +442,7 @@ public class ProcessUtils
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc) throws IOException
+      RenderingContext arc) throws IOException
     {
       // We output a function "_navSubmit" (UIX submit a goto event)
       // which takes the following arguments:
@@ -478,7 +478,7 @@ public class ProcessUtils
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc) throws IOException
+      RenderingContext arc) throws IOException
     {
       ResponseWriter writer = context.getResponseWriter();
 

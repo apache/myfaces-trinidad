@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * Scriptlet for defaulting the time zone.
@@ -46,7 +46,7 @@ class DefaultTimeZoneScriptlet extends Scriptlet
 
   protected void outputScriptletImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     outputDependency(context, arc, XhtmlScriptletFactory.COOKIES_LIB);
     super.outputScriptletImpl(context, arc);
@@ -54,7 +54,7 @@ class DefaultTimeZoneScriptlet extends Scriptlet
 
   protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     context.getResponseWriter().writeText("_defaultTZ()", null);
   }

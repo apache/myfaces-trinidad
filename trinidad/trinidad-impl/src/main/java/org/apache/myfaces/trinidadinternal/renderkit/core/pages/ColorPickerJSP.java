@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.html.HtmlScript;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * Entry point for the "colorPicker" JSP.
@@ -56,7 +56,7 @@ class ColorPickerJSP
   {
     Map requestParams = context.getExternalContext().getRequestParameterMap();
     
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     CoreDocument doc = new CoreDocument();
     context.getViewRoot().getChildren().add(doc);
 

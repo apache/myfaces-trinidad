@@ -67,7 +67,7 @@ import org.apache.myfaces.trinidadinternal.io.HtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.IndentingResponseWriter;
 import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -346,7 +346,7 @@ public class CoreRenderKit extends RenderKitBase
 
     if (hasDialog || hasScript)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       if (hasDialog)
         DialogRequest.addDependencies(context, arc);
 
@@ -402,7 +402,7 @@ public class CoreRenderKit extends RenderKitBase
    */
   public void encodeBegin(FacesContext context)
   {
-    /*CoreAdfRenderingContext arc = */new CoreAdfRenderingContext();
+    /*CoreAdfRenderingContext arc = */new CoreRenderingContext();
   }
 
 
@@ -419,7 +419,7 @@ public class CoreRenderKit extends RenderKitBase
    */
   public void encodeFinally(FacesContext context)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc != null)
     {
       arc.release();

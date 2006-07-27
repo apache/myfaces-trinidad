@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidad.component.UIXSelectMany;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
 /**
@@ -304,7 +304,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -376,7 +376,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    */
   abstract protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -386,7 +386,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
   protected void renderNonElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -421,7 +421,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
   protected void renderBetweenNonElements(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {

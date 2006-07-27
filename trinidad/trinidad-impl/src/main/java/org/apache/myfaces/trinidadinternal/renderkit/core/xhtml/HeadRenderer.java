@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 /**
@@ -60,7 +60,7 @@ public class HeadRenderer extends XhtmlRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -90,7 +90,7 @@ public class HeadRenderer extends XhtmlRenderer
 
   protected void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -106,7 +106,7 @@ public class HeadRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_titleKey));
   }
 
-  private boolean _skipRendering(AdfRenderingContext arc)
+  private boolean _skipRendering(RenderingContext arc)
   {
     return (PartialPageUtils.isPartialRenderingPass(arc) &&
             PartialPageUtils.supportsPartialRendering(arc) &&
@@ -131,7 +131,7 @@ public class HeadRenderer extends XhtmlRenderer
 
 
   static private void _writeCookieScript(
-   FacesContext context, AdfRenderingContext arc)
+   FacesContext context, RenderingContext arc)
     throws IOException
   { 
     if (_needsCookieScript(context, arc))
@@ -142,7 +142,7 @@ public class HeadRenderer extends XhtmlRenderer
 
   static private boolean _needsCookieScript(
     FacesContext context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     // Disable the Cookie script for portlets
     // =-=AEW Right or wrong?
@@ -177,7 +177,7 @@ public class HeadRenderer extends XhtmlRenderer
             tz.getID().startsWith("GMT"));
   }
 
-  static private boolean _supportsUIXCookie(AdfRenderingContext arc)
+  static private boolean _supportsUIXCookie(RenderingContext arc)
   {
     // =-=AEW We used to have a configuration hook for disabling
     // the cookie.

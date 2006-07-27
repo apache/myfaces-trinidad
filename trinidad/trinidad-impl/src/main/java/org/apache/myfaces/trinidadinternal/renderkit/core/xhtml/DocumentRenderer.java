@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 
@@ -60,7 +60,7 @@ public class DocumentRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {

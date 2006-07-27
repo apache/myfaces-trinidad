@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 /**
@@ -320,7 +320,7 @@ public final class ColumnData
 
   public void setSpecialColumnData(
     TableRenderingContext tContext,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     boolean               noWrap,
     String                formatType)
   {
@@ -496,7 +496,7 @@ public final class ColumnData
 
   static private Object _getSpecialWidth(
     TableRenderingContext tContext,
-    AdfRenderingContext   arc)
+    RenderingContext   arc)
   {
     // =-= ACW:
     // if we don't set a width, then we get bugs:

@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -193,7 +193,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     // If we have an icon, render it inside of a table cell
     if (icon != null)
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       FacesContext fContext = context.getFacesContext();
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement(TABLE_DATA_ELEMENT, null);

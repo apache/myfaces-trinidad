@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -55,7 +55,7 @@ public class PdaTableRenderer extends TableRenderer
   
   protected final void renderControlBar(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component)
     throws IOException
@@ -104,7 +104,7 @@ public class PdaTableRenderer extends TableRenderer
 
   protected void renderSubControlBar(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent component,
     boolean isUpper) throws IOException
@@ -114,7 +114,7 @@ public class PdaTableRenderer extends TableRenderer
 
   private void _renderEmptyCell(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     boolean             isSelect,
     Object              emptyText) throws IOException
@@ -135,7 +135,7 @@ public class PdaTableRenderer extends TableRenderer
   // render the actual table content, with headers
   protected void renderTableContent(
     FacesContext context,
-    final AdfRenderingContext arc,
+    final RenderingContext arc,
     final TableRenderingContext tContext,
     final UIComponent component) throws IOException
   {
@@ -291,7 +291,7 @@ public class PdaTableRenderer extends TableRenderer
   
      private void _renderColumnFooter(
        FacesContext          context,
-       AdfRenderingContext   arc,
+       RenderingContext   arc,
        TableRenderingContext tContext,
        UIComponent           component) throws IOException
 
@@ -348,7 +348,7 @@ public class PdaTableRenderer extends TableRenderer
 
   protected final void renderSingleRow(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
   {
@@ -406,7 +406,7 @@ public class PdaTableRenderer extends TableRenderer
   // render the complete column header
   private void _renderColumnHeader(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext,
     UIComponent           component) throws IOException
   {

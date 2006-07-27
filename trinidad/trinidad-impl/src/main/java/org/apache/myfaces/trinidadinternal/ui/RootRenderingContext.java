@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.config.ContextBasedConfiguration;
@@ -94,7 +94,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
                 fContext.getExternalContext().getRequestContextPath());
     setProperty(UIConstants.MARLIN_NAMESPACE,
                 CONTEXT_PATH_PROPERTY,
-                CoreAdfRenderingContext.getTemporaryDirectory(fContext));
+                CoreRenderingContext.getTemporaryDirectory(fContext));
 
   }
 

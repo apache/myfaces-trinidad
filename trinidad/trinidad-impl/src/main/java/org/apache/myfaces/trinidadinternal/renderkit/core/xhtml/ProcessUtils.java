@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -107,7 +107,7 @@ public class ProcessUtils
 
   public static void renderNavSubmitScript(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     XhtmlUtils.addLib(context, arc, _NAV_SUBMIT_SCRIPTLET);
@@ -115,7 +115,7 @@ public class ProcessUtils
 
   public static void renderNavChoiceSubmitScript(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     XhtmlUtils.addLib(context, arc,_NAV_CHOICE_SUBMIT_SCRIPTLET);
@@ -138,7 +138,7 @@ public class ProcessUtils
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc) throws IOException
+      RenderingContext arc) throws IOException
     {
       context.getResponseWriter().writeText(_NAV_SUBMIT_SCRIPT, null);
     }
@@ -162,7 +162,7 @@ public class ProcessUtils
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc) throws IOException
+      RenderingContext arc) throws IOException
     {
       ResponseWriter writer = context.getResponseWriter();
 

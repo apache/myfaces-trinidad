@@ -24,7 +24,7 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.FredJSP;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -59,14 +59,14 @@ class DialogRequest
 
   static public void addDependencies(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     XhtmlUtils.addLib(context, arc, "_launchDialog()");
   }
 
   public void renderLaunchJavascript(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     ResponseWriter out = context.getResponseWriter();
 

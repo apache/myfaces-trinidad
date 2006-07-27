@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
@@ -50,7 +50,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
   //**********************
 
 
-  abstract protected Object getValueAttr(AdfRenderingContext arc);
+  abstract protected Object getValueAttr(RenderingContext arc);
 
   abstract protected Object getType();
 
@@ -66,7 +66,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
 
   protected void renderNameAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean
     )throws IOException
   {
@@ -79,7 +79,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
    */
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -175,7 +175,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
 
   protected void encodeAllAsNonElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -254,7 +254,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
 
   protected void renderAccessKeyAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
   }  
@@ -264,7 +264,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
    */
   protected void renderText(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             renderAccessKeys,
@@ -301,7 +301,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     FacesBean bean
   )
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     String source = LabelAndMessageRenderer.__getCachedClientId(arc);
     boolean immediate = isImmediate(bean);
     boolean isRadio = isRadio();
@@ -347,7 +347,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
    * it does not have any text.
    */
   private boolean _isLabelTagRendered(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              text,
     char                accessKey
     )
@@ -367,7 +367,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
    */
   private void _renderPartialId(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              clientId
   )throws IOException
   {

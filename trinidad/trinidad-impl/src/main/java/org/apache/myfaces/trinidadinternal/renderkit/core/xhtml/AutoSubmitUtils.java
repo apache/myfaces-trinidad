@@ -25,7 +25,7 @@ import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
 
@@ -39,7 +39,7 @@ public class AutoSubmitUtils
 {
   public static void writeDependencies(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     // Render our scriptlet
@@ -94,7 +94,7 @@ public class AutoSubmitUtils
   }
     
   public static String getFullPageSubmitScript(
-     AdfRenderingContext arc,
+     RenderingContext arc,
      String              source,
      boolean             immediate,
      String              event,
@@ -174,7 +174,7 @@ public class AutoSubmitUtils
   }
 
   public static String getSubmitScript(
-     AdfRenderingContext arc,
+     RenderingContext arc,
      String              source,
      boolean             immediate
      )
@@ -183,7 +183,7 @@ public class AutoSubmitUtils
   }
 
   public static String getSubmitScript(
-     AdfRenderingContext arc,
+     RenderingContext arc,
      String              source,
      boolean             immediate,
      boolean             isRadio)
@@ -195,7 +195,7 @@ public class AutoSubmitUtils
    * TODO: remove "isRadio", which shouldn't be necessary
    */
   public static String getSubmitScript(
-     AdfRenderingContext arc,
+     RenderingContext arc,
      String              source,
      boolean             immediate,
      boolean             isRadio,
@@ -290,7 +290,7 @@ public class AutoSubmitUtils
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc)
+      RenderingContext arc)
       throws IOException
     {
       // Make sure we have a form

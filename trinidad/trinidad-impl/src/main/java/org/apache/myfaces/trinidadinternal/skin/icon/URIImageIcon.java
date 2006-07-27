@@ -17,7 +17,7 @@
 package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.style.Style;
 
 /**
@@ -100,7 +100,7 @@ public class URIImageIcon extends BaseImageIcon
    */
   protected String getBaseURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     return null;
   }

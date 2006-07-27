@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class HiddenLabelUtils
 {
@@ -30,7 +30,7 @@ public class HiddenLabelUtils
    * Identifies whether the current agent supports the hidden label
    * trick.
    */
-  static public boolean supportsHiddenLabels(AdfRenderingContext arc)
+  static public boolean supportsHiddenLabels(RenderingContext arc)
   {
     if (XhtmlRenderer.isInaccessibleMode(arc))
       return false;
@@ -72,7 +72,7 @@ public class HiddenLabelUtils
    * a particular ID.
    */
   static public boolean wantsHiddenLabel(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              id)
   {
     if (id == null)
@@ -93,7 +93,7 @@ public class HiddenLabelUtils
    */
   static public void outputHiddenLabelIfNeeded(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              id,
     Object              text,
     UIComponent         component
@@ -111,7 +111,7 @@ public class HiddenLabelUtils
    */
   static public void outputHiddenLabel(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              id,
     Object              text,
     UIComponent         component
@@ -131,7 +131,7 @@ public class HiddenLabelUtils
    * Remembers that a "normal" hidden label has already been outputted.
    */
   static public void rememberLabel(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              id)
   {
     if (id != null)

@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.render.TypedRenderer;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
@@ -90,36 +90,36 @@ public class XhtmlRenderer extends CoreRenderer
   // AGENT CAPABILITY CONVENIENCE METHODS
   //
 
-  static public boolean isDesktop(AdfRenderingContext arc)
+  static public boolean isDesktop(RenderingContext arc)
   {
     return (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_DESKTOP);
   }
 
-  static public boolean isIE(AdfRenderingContext arc)
+  static public boolean isIE(RenderingContext arc)
   {
     return (arc.getAgent().getAgentApplication() ==
               AdfFacesAgent.APPLICATION_IEXPLORER);
   }
 
-  static public boolean isGecko(AdfRenderingContext arc)
+  static public boolean isGecko(RenderingContext arc)
   {
     return (arc.getAgent().getAgentApplication() ==
               AdfFacesAgent.APPLICATION_GECKO);
   }
 
-  static public boolean isInaccessibleMode(AdfRenderingContext arc)
+  static public boolean isInaccessibleMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==
-              AdfRenderingContext.INACCESSIBLE_MODE);
+              RenderingContext.INACCESSIBLE_MODE);
   }
 
-  static public boolean isScreenReaderMode(AdfRenderingContext arc)
+  static public boolean isScreenReaderMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==
-              AdfRenderingContext.SCREEN_READER_MODE);
+              RenderingContext.SCREEN_READER_MODE);
   }
 
-  static public boolean supportsScripting(AdfRenderingContext arc)
+  static public boolean supportsScripting(RenderingContext arc)
   {
     Object scriptingSpeed = arc.getAgent().getCapability(
             AdfFacesAgent.CAP_SCRIPTING_SPEED);
@@ -128,7 +128,7 @@ public class XhtmlRenderer extends CoreRenderer
             (AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
   }
 
-  static public boolean supportsEditing(AdfRenderingContext arc)
+  static public boolean supportsEditing(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_EDITING);
@@ -144,14 +144,14 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.18 of xhtml modularization
    */
   public static boolean supportsStyleAttributes(
-          AdfRenderingContext arc
+          RenderingContext arc
           )
   {
     return (arc.getAgent().getCapability(AdfFacesAgent.CAP_STYLE_ATTRIBUTES) !=
             AdfFacesAgent.STYLES_NONE);
   }
 
-  static public boolean supportsNavigation(AdfRenderingContext arc)
+  static public boolean supportsNavigation(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_NAVIGATION);
@@ -164,14 +164,14 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.4.1 of xhtml modularization.
    */
   public static boolean supportsTextPresentation(
-          AdfRenderingContext arc
+          RenderingContext arc
           )
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_TEXT_PRESENTATION);
     return !Boolean.FALSE.equals(cap);
   }
-  static public boolean supportsAccessKeys(AdfRenderingContext arc)
+  static public boolean supportsAccessKeys(RenderingContext arc)
   {
     // In screen reader mode, disable access keys.  Despite
     // the name, they are currently considered an accessibility
@@ -184,7 +184,7 @@ public class XhtmlRenderer extends CoreRenderer
     return !Boolean.FALSE.equals(cap);
   }
 
-  static public final boolean supportsDisabledFormElements(AdfRenderingContext arc)
+  static public final boolean supportsDisabledFormElements(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_DISABLED_FORM_ELEMENTS);
@@ -192,7 +192,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   }
 
-  static public final boolean supportsReadonlyFormElements(AdfRenderingContext arc)
+  static public final boolean supportsReadonlyFormElements(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_READONLY_FORM_ELEMENTS);
@@ -201,7 +201,7 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   static public final boolean supportsAutoCompleteFormElements(
-     AdfRenderingContext arc)
+     RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
@@ -209,7 +209,7 @@ public class XhtmlRenderer extends CoreRenderer
   }
 
   static public final boolean supportsSeparateWindow(
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     return XhtmlUtils.supportsSeparateWindow(arc.getAgent());
   }
@@ -221,7 +221,7 @@ public class XhtmlRenderer extends CoreRenderer
    * See section 5.12 of xhtml modularization.
    */
   static public final boolean supportsTarget(
-     AdfRenderingContext arc)
+     RenderingContext arc)
 
   {
     Object cap = arc.getAgent().getCapability(
@@ -235,7 +235,7 @@ public class XhtmlRenderer extends CoreRenderer
    * Returns true if the agent supports the xmldom
    */
   public static boolean supportsXMLDOM(
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
                     AdfFacesAgent.CAP_XMLDOM);
@@ -275,7 +275,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected void renderAllAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderAllAttributes(context, arc, bean, true);
@@ -289,7 +289,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected void renderAllAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     boolean             renderStyleAttrs) throws IOException
   {
@@ -304,7 +304,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   public static void renderInlineStyleAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              style
     ) throws IOException
   {
@@ -321,7 +321,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected void renderInlineStyle(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     String style = getInlineStyle(bean);
@@ -335,7 +335,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected void renderShortDescAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     String shortDesc = getShortDesc(bean);
@@ -347,7 +347,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, null);
@@ -358,7 +358,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     String              defaultStyleClass) throws IOException
   {
@@ -405,7 +405,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   static public void renderStyleClass(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              styleClass) throws IOException
   {
     if (styleClass != null)
@@ -423,7 +423,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   static public void renderStyleClasses(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String[]            styleClasses) throws IOException
   {
     int length = 0;
@@ -500,7 +500,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected static void renderHAlign(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              hAlign) throws IOException
   {
     if (hAlign != null)
@@ -575,7 +575,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   static public String getAbsoluteImageUri(
      FacesContext        context,
-     AdfRenderingContext arc,
+     RenderingContext arc,
      String              imagePath)
   {
     return getBaseImageUri(context, arc) + imagePath;
@@ -587,7 +587,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   static protected String getBaseImageUri(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     String contextUri = context.getExternalContext().getRequestContextPath();
     return contextUri + "/adf/images/";
@@ -601,7 +601,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected final void renderDecorativeIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              iconUri,
     Object              width,
     Object              height,
@@ -615,7 +615,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected final void renderDecorativeIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              iconUri,
     Object              width,
     Object              height,
@@ -670,7 +670,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected final void renderSpacer(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              width,
     String              height
     ) throws IOException
@@ -684,7 +684,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected final void renderTransparent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              width,
     String              height,
     boolean             needsQuoting,
@@ -721,7 +721,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   private void _renderTransparent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              width,
     String              height,
     boolean             needsQuoting,
@@ -849,7 +849,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   public static void renderScriptDeferAttribute(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // At the moment we only render the defer attribute if
     // we are in the partial rendering pass.  This is to
@@ -866,7 +866,7 @@ public class XhtmlRenderer extends CoreRenderer
       context.getResponseWriter().writeAttribute("defer", Boolean.TRUE, null);
   }
 
-  public static void enableScriptDeferring(AdfRenderingContext arc, boolean isEnabled)
+  public static void enableScriptDeferring(RenderingContext arc, boolean isEnabled)
   {
     // This property is used to control whether or not scripts should
     // be deferred.  We only defer scripts if we are rendering a
@@ -904,7 +904,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   public static void renderScriptTypeAttribute(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (isScreenReaderMode(arc))
     {

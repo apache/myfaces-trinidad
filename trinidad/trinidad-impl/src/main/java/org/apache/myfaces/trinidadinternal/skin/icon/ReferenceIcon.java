@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * An Icon implementation that references another icon by name.
@@ -40,7 +40,7 @@ public class ReferenceIcon extends Icon
   
   public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     ) throws IOException
   {

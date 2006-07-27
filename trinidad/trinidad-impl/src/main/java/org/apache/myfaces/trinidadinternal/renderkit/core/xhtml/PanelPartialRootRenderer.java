@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.util.Service;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.ScriptBufferingResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LibraryScriptlet;
@@ -66,7 +66,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -76,7 +76,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -157,7 +157,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
   protected void renderAtEnd(
     FacesContext context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
   }
 
@@ -179,7 +179,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
    */
   private void _renderPartialScripts(
     FacesContext                  context,
-    AdfRenderingContext           arc,
+    RenderingContext           arc,
     ScriptBufferingResponseWriter scriptBufferingWriter) throws IOException
   {
     PartialPageContext pprContext = arc.getPartialPageContext();
@@ -324,14 +324,14 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   }
 
   // Is this a partial page rendering pass?
-  protected static boolean isPartialPass(AdfRenderingContext arc)
+  protected static boolean isPartialPass(RenderingContext arc)
   {
     return (PartialPageUtils.isPartialRenderingPass(arc));
   }
 
   protected void renderPPRSupport(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -353,7 +353,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   // Renders the iframe used to make partial page requests.
   private void _renderPartialIFrame(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component) throws IOException
   {
     // Note: For now we just use the simplest possible strategy -
@@ -440,7 +440,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   // handling of a partial update.
   private static void _renderPartialBlocking(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component)
     throws IOException
   {
@@ -471,7 +471,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
   // for IE.
   private static void _renderLibraryDownloadElement(
     FacesContext context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // This is to download the libraries from the iframe into the
     // main page on IE.
@@ -503,7 +503,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
     protected void outputScriptletContent(
       FacesContext context,
-      AdfRenderingContext arc) throws IOException
+      RenderingContext arc) throws IOException
     {
       ResponseWriter writer = context.getResponseWriter();
 

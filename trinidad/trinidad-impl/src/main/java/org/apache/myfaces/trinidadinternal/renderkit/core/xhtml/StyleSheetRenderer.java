@@ -26,8 +26,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
@@ -74,7 +74,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -138,10 +138,10 @@ public class StyleSheetRenderer extends XhtmlRenderer
           context.getExternalContext().getInitParameter(
                                  DISABLE_CONTENT_COMPRESSION)))
       {
-        if (arc instanceof CoreAdfRenderingContext)
+        if (arc instanceof CoreRenderingContext)
         {
           Map shortStyles = StyleUtils.getShortStyleClasses(sContext, provider);
-          ((CoreAdfRenderingContext) arc).setStyleMap(shortStyles);
+          ((CoreRenderingContext) arc).setStyleMap(shortStyles);
         }
       }
     }

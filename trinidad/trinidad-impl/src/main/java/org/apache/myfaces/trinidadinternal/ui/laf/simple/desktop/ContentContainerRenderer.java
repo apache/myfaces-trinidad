@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
@@ -212,7 +212,7 @@ public class ContentContainerRenderer
     assert (text != null);
     
     FacesContext fContext = context.getFacesContext();
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     ResponseWriter writer = fContext.getResponseWriter();
 
 
@@ -290,7 +290,7 @@ public class ContentContainerRenderer
       // Use the Icon's height if it is known.  If the height isn't,
       // known, we need to specify some height for IE - otherwise the
       // image does not show up!
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       Object height = icon.getImageHeight(arc);
 
       if (height == null)
@@ -308,7 +308,7 @@ public class ContentContainerRenderer
     int              columnCount
     ) throws IOException
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
     // Render the top row if we have the necessary icons
     if (_hasTopRow(icons, text))
@@ -326,7 +326,7 @@ public class ContentContainerRenderer
   private void _renderContentsRow(
     UIXRenderingContext context,
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UINode           node,
     IconData         icons,
     int              columnCount
@@ -376,7 +376,7 @@ public class ContentContainerRenderer
   // Renders the bottom row
   private void _renderBottomRow(
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     IconData         icons,
     int              columnCount
     ) throws IOException
@@ -428,7 +428,7 @@ public class ContentContainerRenderer
   // Renders the top row
   private void _renderTopRow(
     FacesContext     fContext,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     IconData         icons,
     int              columnCount
     ) throws IOException

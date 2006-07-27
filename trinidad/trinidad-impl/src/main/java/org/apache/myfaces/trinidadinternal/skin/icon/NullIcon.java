@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * Icon class for a completely empty, null icon.
@@ -32,7 +32,7 @@ public class NullIcon extends Icon
 
   public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     )
   {

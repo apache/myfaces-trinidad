@@ -17,8 +17,8 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
@@ -103,8 +103,8 @@ public final class LinkUtils implements UIConstants
    */
   public static void startDefaultStyleClassDisabled(UIXRenderingContext context)
   {   
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-    ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(true);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    ((CoreRenderingContext) arc).setDefaultLinkStyleDisabled(true);
   }
 
   /**
@@ -113,8 +113,8 @@ public final class LinkUtils implements UIConstants
    */
   public static void endDefaultStyleClassDisabled(UIXRenderingContext context)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-    ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(false);
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    ((CoreRenderingContext) arc).setDefaultLinkStyleDisabled(false);
   }
 
   /**
@@ -123,8 +123,8 @@ public final class LinkUtils implements UIConstants
    */
   public static boolean isDefaultStyleClassDisabled(UIXRenderingContext context)
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
-    return ((CoreAdfRenderingContext) arc).isDefaultLinkStyleDisabled();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    return ((CoreRenderingContext) arc).isDefaultLinkStyleDisabled();
   }
 
 

@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
@@ -94,7 +94,7 @@ public class FormRenderer extends XhtmlRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -196,7 +196,7 @@ public class FormRenderer extends XhtmlRenderer
 
   protected void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -344,7 +344,7 @@ public class FormRenderer extends XhtmlRenderer
   // Renders reset call code
   private static void _renderResetCalls(
     FacesContext context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
 
     // if scripting isn't supported, no need to do the rest
@@ -410,7 +410,7 @@ public class FormRenderer extends XhtmlRenderer
   // Renders validation code
   private static void _renderValidationScripts(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     // if scripting isn't supported, no need to do the rest
@@ -818,7 +818,7 @@ public class FormRenderer extends XhtmlRenderer
   // this script should be rendered at the very end of the form.
   private static void _renderSubmitFormCheck(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     // if scripting isn't supported, no need to do the rest
@@ -846,7 +846,7 @@ public class FormRenderer extends XhtmlRenderer
     String           call
     )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     fData.addResetCall(call);
   }
 
@@ -860,7 +860,7 @@ public class FormRenderer extends XhtmlRenderer
     String           requiredMessageKey
     ) throws IOException
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
 
     fData.addOnSubmitConverterValidators(component,
                                          converter,
@@ -886,7 +886,7 @@ public class FormRenderer extends XhtmlRenderer
     String           label
     )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     fData.addLabel(targetID, label);
   }
 
@@ -904,14 +904,14 @@ public class FormRenderer extends XhtmlRenderer
     String           pattern
     )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     fData.addPattern(targetID, pattern);
   }
 
   public static String getDefaultCommandId(
   )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     return fData.getDefaultCommandId();
   }
 
@@ -919,20 +919,20 @@ public class FormRenderer extends XhtmlRenderer
   public static int getInputTextCount(
   )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     return fData.getInputTextCount();
   }
 
   public static void incrementInputTextCount(
   )
   {
-    FormData fData = AdfRenderingContext.getCurrentInstance().getFormData();
+    FormData fData = RenderingContext.getCurrentInstance().getFormData();
     fData.incrementInputTextCount();
   }
 
   // Returns the ID to use for our postscript if PPR is supported
   private static String _getPostscriptId(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String formName
     )
   {
@@ -1068,7 +1068,7 @@ public class FormRenderer extends XhtmlRenderer
    */
   static private void _renderNeededValues(
     FacesContext        context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();

@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
@@ -50,7 +50,7 @@ class DateFormatInfoScriptlet extends Scriptlet
 
   protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 

@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * Scriptlet which hands off configuration information
@@ -54,7 +54,7 @@ public class ConfigurationScriptlet extends Scriptlet
    */
   protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
     throws IOException
   {
     JspDirScriptlet.sharedInstance().embedInScriptTag(context, arc);

@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 
 /**
@@ -108,7 +108,7 @@ class XhtmlFormattedText
       //      if (XhtmlLafRenderer.supportsStyleAttributes(context))
       {
         XhtmlRenderer.renderStyleClass(context,
-                                       AdfRenderingContext.getCurrentInstance(),
+                                       RenderingContext.getCurrentInstance(),
                                        styleClass);
       }
       /*else if (XhtmlLafRenderer.renderStyleElements(context))

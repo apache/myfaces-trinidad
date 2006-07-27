@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
@@ -95,7 +95,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   protected final void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -519,7 +519,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    */
   protected void renderNextPrev(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent      component,
     FacesBean        bean,
     boolean          isPrev,
@@ -620,7 +620,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    */
   private void _renderNextPrev(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean          isPrev,
@@ -690,7 +690,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Creates the base navigation URL
    */
   private String _createNavURL(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String           destinationString,
     long             minTime,
     long             maxTime,
@@ -721,7 +721,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Creates the params for navigation URL
    */
   private String[] _createNavURLParams(
-    AdfRenderingContext  arc,
+    RenderingContext  arc,
     long                 minTime,
     long                 maxTime,
     long                 selectedTime,
@@ -771,7 +771,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   private void _renderMonthChoice(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String[]          months,
     Calendar          currentTime,
     int               visibleMonth,
@@ -840,7 +840,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   private void _renderYearChoice(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Calendar         currentTime,
     int              year,
     int              minimumYear,
@@ -1002,7 +1002,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    */
   private void _renderMonthAndYear(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     long              minTime,
     long              maxTime,
     Calendar          displayedCalendar,
@@ -1114,7 +1114,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
 
   private static long _getTimeAttr(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean   bean,
     PropertyKey key,
     long        defaultTime
@@ -1194,7 +1194,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns a Calendar, given Locale information
    */
   private static Calendar _getCalendar(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     LocaleContext localeContext = arc.getLocaleContext();
@@ -1215,7 +1215,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns a Calendar, given a time and Locale information
    */
   private static Calendar _getCalendar(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     long                time
     )
   {
@@ -1249,7 +1249,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns the minimum pickable time
    */
 
-  private long _getMinTime(AdfRenderingContext arc, FacesBean bean)
+  private long _getMinTime(RenderingContext arc, FacesBean bean)
   {
     return _getTimeAttr(arc, bean, _minValueKey, _MIN_TIME);
   }
@@ -1258,7 +1258,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   /**
    * Returns the maximum pickable time
    */
-  private long _getMaxTime(AdfRenderingContext arc, FacesBean bean)
+  private long _getMaxTime(RenderingContext arc, FacesBean bean)
   {
     return _getTimeAttr(arc, bean, _maxValueKey, _MAX_TIME);
   }
@@ -1268,7 +1268,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns the Calendar to display
    */
   private Calendar _getDisplayedCalendar(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     long                minTime,
     long                maxTime,
@@ -1293,7 +1293,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns the time of the displayed day.
    */
   private long _getDisplayedTime(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean        bean,
     long             minTime,
     long             maxTime,
@@ -1312,7 +1312,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
    * Returns the time of the selected day.
    */
   private long _getSelectedTime(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean bean,
     long      minTime,
     long      maxTime
@@ -1349,7 +1349,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
 
   private FastMessageFormat _getTitleFormat(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     return _getMessageFormat(arc,
@@ -1357,7 +1357,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
   private FastMessageFormat _getBeforeFormat(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     return _getMessageFormat(arc,
@@ -1365,7 +1365,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
   private FastMessageFormat _getAfterFormat(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     return _getMessageFormat(arc,
@@ -1373,7 +1373,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
   private FastMessageFormat _getMessageFormat(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              translationKey)
   {
     FastMessageFormat format =
@@ -1383,7 +1383,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
   private static DateFormatSymbols _getDateFormatSymbols(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     DateFormatSymbols symbols = (DateFormatSymbols)
@@ -1457,7 +1457,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
   // Tests whether the current environment supports inline mode
-  protected static boolean isInlineSupported(AdfRenderingContext arc)
+  protected static boolean isInlineSupported(RenderingContext arc)
   {
     // Inline mode is only supported if partial page rendering is
     // supported and we are not running in screen reader mode.

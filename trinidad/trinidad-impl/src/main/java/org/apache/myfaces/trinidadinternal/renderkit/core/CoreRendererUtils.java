@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class CoreRendererUtils
 {
@@ -55,7 +55,7 @@ public class CoreRendererUtils
    * by the agent associated with the provided rendering context.
    */
   public static boolean supportsPartialRendering(
-    AdfRenderingContext context
+    RenderingContext context
     )
   {
     return supportsBooleanCapability(context,
@@ -63,7 +63,7 @@ public class CoreRendererUtils
   }
 
   public static boolean supportsNameIdentification(
-    AdfRenderingContext context
+    RenderingContext context
     )
   {
     return supportsBooleanCapability(context,
@@ -71,7 +71,7 @@ public class CoreRendererUtils
   }
 
   public static boolean supportsBooleanCapability(
-    AdfRenderingContext context,
+    RenderingContext context,
     CapabilityKey cap
     )
   {

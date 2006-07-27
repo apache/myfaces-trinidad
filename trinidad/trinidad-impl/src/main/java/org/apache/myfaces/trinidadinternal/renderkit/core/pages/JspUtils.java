@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
 /**
@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 class JspUtils
 {
   static public CoreGoButton createGoButton(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              textKey)
   {
     CoreGoButton button = new CoreGoButton();

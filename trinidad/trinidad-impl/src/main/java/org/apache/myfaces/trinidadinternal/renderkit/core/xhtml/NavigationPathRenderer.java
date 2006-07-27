@@ -34,8 +34,8 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPath;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 public class NavigationPathRenderer extends XhtmlRenderer
@@ -59,7 +59,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
   
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -87,7 +87,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
    */
   protected UIComponent getStamp(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIXHierarchy        component,
     FacesBean           bean
     )
@@ -98,7 +98,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
 
   protected void renderContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIXHierarchy        component,
     FacesBean           bean
     ) throws IOException
@@ -178,7 +178,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
 
   protected void renderNode(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Icon                separatorIcon,
     UIComponent         child,
     int                 renderedCount,
@@ -232,13 +232,13 @@ public class NavigationPathRenderer extends XhtmlRenderer
 
   protected void renderLink(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent child,
     int renderedCount,
     boolean isLastChild) throws IOException
   {
     if (isLastChild)
-      ((CoreAdfRenderingContext) arc).setLinkDisabled(true);    
+      ((CoreRenderingContext) arc).setLinkDisabled(true);    
   
     boolean isBidi = false;
     String text = toString(child.getAttributes().get(CoreCommandLink.TEXT_KEY.getName()));
@@ -265,7 +265,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
         encodeChild(context, child);      
       
       if (isLastChild)
-        ((CoreAdfRenderingContext) arc).setLinkDisabled(false);       
+        ((CoreRenderingContext) arc).setLinkDisabled(false);       
     }
     finally
     {
@@ -274,7 +274,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
   }
  
   protected boolean shouldRenderLastChild(
-    AdfRenderingContext arc
+    RenderingContext arc
   )
   {
     Object propValue = arc.getSkin().getProperty(
@@ -289,7 +289,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
    */
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, 
@@ -313,7 +313,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
    */
   private void _renderStartOfLink(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             isVertical,
     boolean             isLastChild) throws IOException
   {
@@ -358,7 +358,7 @@ public class NavigationPathRenderer extends XhtmlRenderer
   }
 
   private int _getMinItemCount(
-    AdfRenderingContext arc
+    RenderingContext arc
   )
   {
     int minChildCount = 0;

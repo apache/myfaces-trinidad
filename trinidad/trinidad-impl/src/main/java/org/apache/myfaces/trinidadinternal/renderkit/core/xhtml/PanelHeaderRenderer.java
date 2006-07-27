@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -65,7 +65,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -153,7 +153,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   // we use the icon specified via the header's ICON_ATTR.
   protected void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     String              messageType) throws IOException
@@ -203,7 +203,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   * Returns text of header
   */
   protected String getText(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     String              messageType
     )
@@ -260,7 +260,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
 
   protected static Number getContextHeaderSize(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Number           defaultValue
     )
   {
@@ -275,7 +275,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
    * Set the size of the header stored on the context
    */
   protected static void setContextHeaderSize(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Number           size
     )
   {
@@ -288,7 +288,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
    * Returns the current depth of the nesting.
    */
   protected static int getHeaderNestLevel(
-    AdfRenderingContext arc
+    RenderingContext arc
     )
   {
     Number n = (Number) arc.getProperties().get(HEADER_NEST_LEVEL);
@@ -299,7 +299,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
 
   protected static void incrementHeaderNestLevel(
-    AdfRenderingContext arc
+    RenderingContext arc
     )throws IOException
   {
     arc.getProperties().put(HEADER_NEST_LEVEL,
@@ -307,7 +307,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   }
 
   protected static void decrementHeaderNestLevel(
-    AdfRenderingContext arc
+    RenderingContext arc
     )throws IOException
   {
     int headerNestLevel = getHeaderNestLevel(arc);
@@ -342,7 +342,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
 
   private int _getAndStoreSize(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean)
   {
     Number sizeNumber = getSize(bean);

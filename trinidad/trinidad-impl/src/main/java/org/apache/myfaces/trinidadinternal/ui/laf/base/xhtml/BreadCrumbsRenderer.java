@@ -28,7 +28,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -462,7 +462,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
         // render the separator
         if (_separatorIcon != null)
         {
-          AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+          RenderingContext arc = RenderingContext.getCurrentInstance();
           FacesContext fContext = context.getFacesContext();
           OutputUtils.renderIcon(fContext, arc, _separatorIcon, "", null);
         }

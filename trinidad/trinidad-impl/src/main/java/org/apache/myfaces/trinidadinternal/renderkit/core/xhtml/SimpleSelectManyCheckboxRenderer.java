@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectManyCheckbox;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -57,7 +57,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
   //
   protected void encodeElementContent(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -105,7 +105,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
   protected void encodeSelectItems(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     List                selectItems,
@@ -155,7 +155,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
   protected boolean encodeSelectItem(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     SelectItem          item,
     Converter           converter,
@@ -239,7 +239,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
   protected void renderBetweenNonElements(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -298,7 +298,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
   /**
    * Get the onclick for the individual radio buttons.
    */
-  protected String getItemOnclick(AdfRenderingContext arc, FacesBean bean)
+  protected String getItemOnclick(RenderingContext arc, FacesBean bean)
   {
     // Get the overall onclick, and merge in any needed autosubmit script
     String onclick = super.getOnclick(bean);
@@ -328,7 +328,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
   // Never render the "hidden label";  labels entirely go on the individual
   // items
-  protected boolean isHiddenLabelRequired(AdfRenderingContext arc)
+  protected boolean isHiddenLabelRequired(RenderingContext arc)
   {
     return false;
   } 
@@ -342,7 +342,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
    return "af|selectManyCheckbox";
   }
   
-  private static boolean _applyFieldSetWrapper(AdfRenderingContext arc)
+  private static boolean _applyFieldSetWrapper(RenderingContext arc)
   {
     // Don't bother with the output in inaccessible mode
     if (isInaccessibleMode(arc))

@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanRadio;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  */
@@ -71,7 +71,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   //encode
   //**********************
 
-  protected Object getValueAttr(AdfRenderingContext arc)
+  protected Object getValueAttr(RenderingContext arc)
   {
     return arc.getCurrentClientId();
   }
@@ -115,7 +115,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
 
   protected void renderNameAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean
     )throws IOException
   {

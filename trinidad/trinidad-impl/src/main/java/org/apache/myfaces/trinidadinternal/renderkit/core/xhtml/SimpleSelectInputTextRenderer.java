@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
@@ -127,7 +127,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
 
   protected void encodeAllAsElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -149,7 +149,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
   
   protected void encodeAllAsNonElement(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -178,7 +178,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
   
   protected void renderTextField(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -187,7 +187,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
 
   protected void renderAfterTextField(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -202,7 +202,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
 
   protected void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -273,7 +273,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
    */
   protected String getLaunchOnclick(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {

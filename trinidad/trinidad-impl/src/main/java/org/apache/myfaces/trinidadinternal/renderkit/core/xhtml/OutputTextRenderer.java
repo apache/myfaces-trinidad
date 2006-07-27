@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
 public class OutputTextRenderer extends ValueRenderer
@@ -46,7 +46,7 @@ public class OutputTextRenderer extends ValueRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -62,7 +62,7 @@ public class OutputTextRenderer extends ValueRenderer
 
   public void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -119,7 +119,7 @@ public class OutputTextRenderer extends ValueRenderer
 
   private void _renderDescription(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean
     ) throws IOException
   {

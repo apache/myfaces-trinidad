@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -58,7 +58,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -130,7 +130,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   protected void renderPromptStart(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -160,7 +160,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   static public void renderDisclosureIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             disclosed,
     String              disclosedAltTextKey,
     String              undisclosedAltTextKey) throws IOException
@@ -183,7 +183,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   protected void renderDisclosureIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             disclosed) throws IOException
   {
     renderDisclosureIcon(context, arc, disclosed,
@@ -203,7 +203,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   // Returns the disclosure Icon
   private static Icon _getDisclosureIcon(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             disclosed
     )
   {
@@ -215,7 +215,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   }
 
   protected String getDisclosureText(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     boolean             disclosed)
   {
@@ -252,7 +252,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   private void _renderScripts(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component) throws IOException
   {
     if (!supportsNavigation(arc))
@@ -338,7 +338,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   private void _renderLinkStart(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String           onclickString ) throws IOException
   {
     if (!supportsNavigation(arc))
@@ -352,7 +352,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   private String _generateOnClickString(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     boolean             disclosed)
@@ -406,7 +406,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   private void _renderLinkEnd(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (!supportsNavigation(arc))
       return;

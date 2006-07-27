@@ -27,7 +27,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -155,7 +155,7 @@ public class CoreShowOneAccordionRenderer extends UINodeRendererBase
     UIXRenderingContext rCtx = getRenderingContext(context, component);
 
     String styleClass = (String) component.getAttributes().get("styleClass");
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     if (styleClass != null)
     {
       XhtmlRenderer.renderStyleClasses(context, arc, new String [] {
@@ -423,7 +423,7 @@ public class CoreShowOneAccordionRenderer extends UINodeRendererBase
     out.writeAttribute("cellPadding", "0", null);
     out.writeAttribute("summary", "", null);
 
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     XhtmlRenderer.renderStyleClass(context, arc, getContentStyleClass());
 
     out.startElement("tr", component);

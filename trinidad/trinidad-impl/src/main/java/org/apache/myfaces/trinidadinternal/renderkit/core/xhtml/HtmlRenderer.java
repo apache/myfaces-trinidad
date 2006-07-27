@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 
 /**
@@ -63,7 +63,7 @@ public class HtmlRenderer extends XhtmlRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -118,7 +118,7 @@ public class HtmlRenderer extends XhtmlRenderer
 
   public void encodeEnd(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {

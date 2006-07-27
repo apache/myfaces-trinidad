@@ -27,8 +27,8 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelList;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 public class PanelListRenderer extends XhtmlRenderer
@@ -53,7 +53,7 @@ public class PanelListRenderer extends XhtmlRenderer
    */
   protected void renderStyleAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean,
@@ -68,7 +68,7 @@ public class PanelListRenderer extends XhtmlRenderer
 
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -85,13 +85,13 @@ public class PanelListRenderer extends XhtmlRenderer
     renderId(context, component);
     renderAllAttributes(context, arc, bean);
 
-    ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(true);
+    ((CoreRenderingContext) arc).setDefaultLinkStyleDisabled(true);
 
     if (split >= childCount)
       _renderNoColumns(context, arc, component, bean, 0, childCount);
     else
       _renderColumns(context, arc, component, bean, split, childCount);
-    ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(false);
+    ((CoreRenderingContext) arc).setDefaultLinkStyleDisabled(false);
     writer.endElement("div");
 
   }
@@ -128,7 +128,7 @@ public class PanelListRenderer extends XhtmlRenderer
   // multiple columns, and we are rendering a single column.
   private int _renderNoColumns(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent  component,
     FacesBean    bean,
     int          start,
@@ -170,7 +170,7 @@ public class PanelListRenderer extends XhtmlRenderer
   // render with columns
   private void _renderColumns(
     FacesContext context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent  component,
     FacesBean    bean,
     int          split,
@@ -225,7 +225,7 @@ public class PanelListRenderer extends XhtmlRenderer
   }
 
   private int _getMaxColumns(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean bean)
   {
     // get the number of columns
@@ -244,7 +244,7 @@ public class PanelListRenderer extends XhtmlRenderer
               SPLIT_DEFAULT;
   }
 
-  private int _getDefaultColumns(AdfRenderingContext arc)
+  private int _getDefaultColumns(RenderingContext arc)
   {
 
     Integer defaultColumns =

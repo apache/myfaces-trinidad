@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
@@ -71,7 +71,7 @@ public class OutputLabelRenderer extends ValueRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   { 
@@ -159,7 +159,7 @@ public class OutputLabelRenderer extends ValueRenderer
 
   protected boolean encodeIcons(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
     String              messageType,
@@ -198,7 +198,7 @@ public class OutputLabelRenderer extends ValueRenderer
   }
 
   protected boolean isLabelTagNeeded(
-    AdfRenderingContext arc, 
+    RenderingContext arc, 
     FacesBean           bean,
     String              forId, 
     int                 accessKeyIndex
@@ -214,7 +214,7 @@ public class OutputLabelRenderer extends ValueRenderer
    */
   protected boolean renderMessageSymbol(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Object              type,
     Object              destination,
     Object              anchor,
@@ -275,7 +275,7 @@ public class OutputLabelRenderer extends ValueRenderer
   
    protected void renderAllAttributes(
      FacesContext        context,
-     AdfRenderingContext arc,
+     RenderingContext arc,
      FacesBean           bean) throws IOException
    {
      renderAllAttributes(context, arc, bean, false);
@@ -289,7 +289,7 @@ public class OutputLabelRenderer extends ValueRenderer
 
   private void _renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Icon             icon,
     Object           destination,
     Object           anchor,

@@ -24,7 +24,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
@@ -54,7 +54,7 @@ class MacOSSwitcherIcon extends Icon
    */
   public void renderIcon(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Map              attrs
     ) throws IOException
   {
@@ -68,7 +68,7 @@ class MacOSSwitcherIcon extends Icon
    */
   public Object getImageURI(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     Icon icon = _getIcon(arc);
 
@@ -78,7 +78,7 @@ class MacOSSwitcherIcon extends Icon
   /**
    * Override of Icon.getImageWidth().
    */
-  public Integer getImageWidth(AdfRenderingContext arc)
+  public Integer getImageWidth(RenderingContext arc)
   {
     Icon icon = _getIcon(arc);
 
@@ -88,7 +88,7 @@ class MacOSSwitcherIcon extends Icon
   /**
    * Override of Icon.getImageHeight().
    */
-  public Integer getImageHeight(AdfRenderingContext arc)
+  public Integer getImageHeight(RenderingContext arc)
   {
     Icon icon = _getIcon(arc);
 
@@ -96,7 +96,7 @@ class MacOSSwitcherIcon extends Icon
   }
 
   // Returns the Icon to use
-  private Icon _getIcon(AdfRenderingContext arc)
+  private Icon _getIcon(RenderingContext arc)
   {
     return (arc.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS) ?
              _macOSIcon :

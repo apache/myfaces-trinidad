@@ -23,7 +23,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
@@ -150,7 +150,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
     char         accessKey
     )
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
     FacesContext fContext = context.getFacesContext();
     return new SimpleButtonUtils.Key(
                         fContext,
@@ -190,7 +190,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
   {
     public Key(
       FacesContext fContext,
-      AdfRenderingContext arc,
+      RenderingContext arc,
       UIXRenderingContext context,
       String       skinId,
       String       name,
@@ -293,7 +293,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
     }
 
     private UIXRenderingContext _context;
-    private AdfRenderingContext _arc;
+    private RenderingContext _arc;
     private FacesContext _fContext;
 
   }

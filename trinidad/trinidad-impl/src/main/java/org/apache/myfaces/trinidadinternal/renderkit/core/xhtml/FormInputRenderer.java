@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 abstract public class FormInputRenderer extends FormElementRenderer
 {
@@ -69,7 +69,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
 
   protected void renderDisabledAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
    
@@ -92,7 +92,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
    */
   protected void renderAllAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean,
     boolean             renderStyleAttrs) throws IOException
   {
@@ -122,7 +122,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
    */  
   protected void renderRootDomElementStyles(
   FacesContext        context,
-  AdfRenderingContext arc,
+  RenderingContext arc,
   UIComponent         component,
   FacesBean           bean) throws IOException
   {

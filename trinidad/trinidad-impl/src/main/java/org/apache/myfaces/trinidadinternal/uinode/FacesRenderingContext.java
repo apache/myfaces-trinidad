@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * RenderingContext implementation that supports JSF.
@@ -97,7 +97,7 @@ public class FacesRenderingContext extends RootRenderingContext
   static public PartialPageContext getPartialPageContext(FacesContext fContext)
   {
     return (PartialPageContext)
-      AdfRenderingContext.getCurrentInstance().getPartialPageContext();
+      RenderingContext.getCurrentInstance().getPartialPageContext();
   }
 
   /**
@@ -108,7 +108,7 @@ public class FacesRenderingContext extends RootRenderingContext
   {
     super();
 
-    _adfRenderingContext = AdfRenderingContext.getCurrentInstance();
+    _adfRenderingContext = RenderingContext.getCurrentInstance();
 
     init(fContext);
 
@@ -220,7 +220,7 @@ public class FacesRenderingContext extends RootRenderingContext
     }
   }
 
-  private AdfRenderingContext _adfRenderingContext;
+  private RenderingContext _adfRenderingContext;
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(FacesRenderingContext.class);

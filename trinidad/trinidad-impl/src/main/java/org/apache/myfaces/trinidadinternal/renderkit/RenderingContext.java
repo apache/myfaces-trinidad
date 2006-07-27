@@ -32,14 +32,14 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 /**
  * @todo REMOVE DEPENDENCY ON AcessibilityMode
  */
-abstract public class AdfRenderingContext
+abstract public class RenderingContext
 {
   /**
    * Retrieves the AdfRenderingContext active for the current thread.
    */
-  static public AdfRenderingContext getCurrentInstance()
+  static public RenderingContext getCurrentInstance()
   {
-    return (AdfRenderingContext) _CURRENT_CONTEXT.get();
+    return (RenderingContext) _CURRENT_CONTEXT.get();
   }
 
   static public final Object INACCESSIBLE_MODE =
@@ -47,7 +47,7 @@ abstract public class AdfRenderingContext
   static public final Object SCREEN_READER_MODE =
    AccessibilityMode.SCREEN_READER_MODE;
 
-  public AdfRenderingContext()
+  public RenderingContext()
   {
     attach();
   }
@@ -166,5 +166,5 @@ abstract public class AdfRenderingContext
 
   static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
   static private final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(AdfRenderingContext.class);
+    TrinidadLogger.createTrinidadLogger(RenderingContext.class);
 }

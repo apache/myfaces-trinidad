@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.BandingData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
@@ -52,7 +52,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -126,7 +126,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
 
   protected void renderKids(FacesContext          context,
-                            AdfRenderingContext   arc,
+                            RenderingContext   arc,
                             TableRenderingContext trc,
                             UIComponent           column) throws IOException
   {
@@ -160,7 +160,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
    * @todo This dual-purpose method is creepy.
    */
   private void _renderKids(FacesContext          context,
-                           AdfRenderingContext   arc,
+                           RenderingContext   arc,
                            TableRenderingContext tContext,
                            UIComponent           column,
                            int          kid) throws IOException
@@ -199,7 +199,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   private void _renderDataMode(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent           column)
     throws IOException
@@ -274,7 +274,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
    * @todo Generate Unique IDs correctly!
    */
   private void _renderTD(FacesContext          context,
-                         AdfRenderingContext   arc,
+                         RenderingContext   arc,
                          TableRenderingContext tContext,
                          UIComponent           column,
                          int kidIndex,
@@ -370,7 +370,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
   /**
    */
   private void _computeMode(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent           component,
     FacesBean             bean)
@@ -426,7 +426,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   private void _renderFooterMode(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent           column)
     throws IOException
@@ -475,7 +475,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   private void _renderHeaderMode(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     TableRenderingContext tContext,
     UIComponent           column)
     throws IOException
@@ -569,7 +569,7 @@ public class ColumnRenderer extends ColumnGroupRenderer
 
   public static String renderDataStyleClass(
     FacesContext          context,
-    AdfRenderingContext   arc,
+    RenderingContext   arc,
     TableRenderingContext tContext)
     throws IOException
   {

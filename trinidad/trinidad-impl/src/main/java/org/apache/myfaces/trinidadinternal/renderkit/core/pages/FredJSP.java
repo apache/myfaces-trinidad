@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * Entry point for the "fred" JSP.
@@ -96,7 +96,7 @@ public class FredJSP
 
   static void service(FacesContext context) throws IOException
   {
-    AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+    RenderingContext arc = RenderingContext.getCurrentInstance();
 
     // Don't use HtmlHead or CoreDocument;  these add a stylesheet link,
     // which we don't need or want

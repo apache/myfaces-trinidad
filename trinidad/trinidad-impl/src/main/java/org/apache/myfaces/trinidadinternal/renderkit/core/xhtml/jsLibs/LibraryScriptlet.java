@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.resource.CoreRenderKitResourceLoader;
@@ -83,7 +83,7 @@ public class LibraryScriptlet extends Scriptlet
 
   protected void outputScriptletImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     if (_dependencies != null)
     {
@@ -96,14 +96,14 @@ public class LibraryScriptlet extends Scriptlet
 
   protected void outputScriptletContent(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // No-op.
   }
 
   protected void embedInScriptTagImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     // =-=AEW REVISIT.  You can't currently "embed" a library.
     // Of course, we're also not using this feature for LibraryScriptlets,
@@ -113,7 +113,7 @@ public class LibraryScriptlet extends Scriptlet
 
   protected String getLibraryName(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     String libraryName = _libraryName;
 
@@ -125,7 +125,7 @@ public class LibraryScriptlet extends Scriptlet
 
   private String _getLibraryURL(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     String libraryName = getLibraryName(context, arc);
 

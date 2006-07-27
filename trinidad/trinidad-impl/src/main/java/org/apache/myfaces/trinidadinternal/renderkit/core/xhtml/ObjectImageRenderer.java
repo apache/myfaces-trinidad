@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreObjectImage;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 
 public class ObjectImageRenderer extends XhtmlRenderer
@@ -45,7 +45,7 @@ public class ObjectImageRenderer extends XhtmlRenderer
 
   protected void encodeBegin(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     FacesBean           bean) throws IOException
   {
@@ -59,7 +59,7 @@ public class ObjectImageRenderer extends XhtmlRenderer
 
   protected void renderAllAttributes(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
@@ -74,7 +74,7 @@ public class ObjectImageRenderer extends XhtmlRenderer
 
   protected void renderShortDescAttribute(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     FacesBean           bean) throws IOException
   {
     String shortDesc = getShortDesc(bean);
@@ -103,7 +103,7 @@ public class ObjectImageRenderer extends XhtmlRenderer
 
   protected void renderId(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         comp,
     ResponseWriter      writer
     ) throws IOException

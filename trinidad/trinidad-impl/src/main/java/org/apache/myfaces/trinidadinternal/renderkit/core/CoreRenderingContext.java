@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 
 import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
@@ -55,9 +55,9 @@ import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-public class CoreAdfRenderingContext extends AdfRenderingContext
+public class CoreRenderingContext extends RenderingContext
 {
-  public CoreAdfRenderingContext()
+  public CoreRenderingContext()
   {
     FacesContext context = FacesContext.getCurrentInstance();
     RequestContext afContext = RequestContext.getCurrentInstance();
@@ -528,5 +528,5 @@ public class CoreAdfRenderingContext extends AdfRenderingContext
   }
 
   static private final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(CoreAdfRenderingContext.class);
+    TrinidadLogger.createTrinidadLogger(CoreRenderingContext.class);
 }

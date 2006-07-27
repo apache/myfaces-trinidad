@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
@@ -906,7 +906,7 @@ public class TreeRenderer extends HtmlLafRenderer
   {
     if (isScreenReaderMode(context))
     {
-      AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
+      RenderingContext arc = RenderingContext.getCurrentInstance();
       FacesContext fc = FacesContext.getCurrentInstance();
       if(isRightToLeft(context))
       {

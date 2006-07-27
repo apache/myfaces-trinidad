@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.share.nls.DecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
@@ -58,7 +58,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
    */ 
   protected void outputScriptletImpl(
     FacesContext        context,
-    AdfRenderingContext arc) throws IOException
+    RenderingContext arc) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     LocaleContext lc = arc.getLocaleContext();
@@ -110,7 +110,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
 
   protected String getLibraryName(
     FacesContext        context,
-    AdfRenderingContext arc)
+    RenderingContext arc)
   {
     Locale elementsLocale = _getJSLocaleElementsLocale(
                                     arc.getLocaleContext().getLocale());
@@ -144,7 +144,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
    *
    * @param context The current RenderingContext.
    */
-  public String getSupportedLocaleVariant(AdfRenderingContext arc)
+  public String getSupportedLocaleVariant(RenderingContext arc)
   {
     String variant = arc.getLocaleContext().getLocale().getVariant();
     variant = variant.toUpperCase();

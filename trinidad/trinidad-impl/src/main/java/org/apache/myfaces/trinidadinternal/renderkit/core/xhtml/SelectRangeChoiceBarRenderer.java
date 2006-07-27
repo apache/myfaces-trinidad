@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.Range;
@@ -271,7 +271,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   protected void encodeAll(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -577,7 +577,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   /**
    * render form value needed values and javascript code.
    */
-  public static void addHiddenFields(AdfRenderingContext arc)
+  public static void addHiddenFields(RenderingContext arc)
   {
     FormData fData = arc.getFormData();
     fData.addNeededValue(XhtmlConstants.EVENT_PARAM);
@@ -588,7 +588,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
   private void _renderChoice(
    FacesContext        context,
-   AdfRenderingContext arc,
+   RenderingContext arc,
    UIComponent         component,
    String              id,
    String              source,
@@ -718,7 +718,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   private int _getItems(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     List                items,
     long                minValue, long maxValue, long value,
@@ -875,7 +875,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   }
 
   private SelectItem _createShowAllSelectItem(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     long                maxValue)
   {
     String[] parameters = new String[]{IntegerUtils.getString(maxValue)};
@@ -890,7 +890,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   // create a choice option when max value is known
   private SelectItem _createNavigationItem(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent         component,
     long             blockStart,
     int              blockSize,
@@ -927,7 +927,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   // create one of the text links for navigation
   private void _renderLink(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             isNext,
     String              onclick,
     int                 records,
@@ -975,7 +975,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   /**
    */
   protected Icon getIcon(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             isNext,
     boolean             isEnabled
     )
@@ -1031,7 +1031,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   private void _renderArrow(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     Icon                icon,
     boolean             isNext,
     String              onclick) throws IOException
@@ -1059,7 +1059,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    * in a table navigation bar.
    */
   protected String getBlockString(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     boolean             isNext,
     int                 numRecords
     )
@@ -1096,7 +1096,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   private String _getRangeString(
     FacesContext        context,
-    AdfRenderingContext arc,
+    RenderingContext arc,
     UIComponent      component,
     long             start,
     int              visibleItemCount,
@@ -1249,7 +1249,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   protected void renderItemSpacer(
    FacesContext context,
-   AdfRenderingContext arc) throws IOException
+   RenderingContext arc) throws IOException
   {
     if (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA)
     {
@@ -1267,7 +1267,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    */
   private void _renderSpacerCell(
     FacesContext       context,
-    AdfRenderingContext arc
+    RenderingContext arc
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -1293,7 +1293,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   }
 
   private String _getIDForFocus(
-    AdfRenderingContext arc,
+    RenderingContext arc,
     String              baseId
     )
   {
