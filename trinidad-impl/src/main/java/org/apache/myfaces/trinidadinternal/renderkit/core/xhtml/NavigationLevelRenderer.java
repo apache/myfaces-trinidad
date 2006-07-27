@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationLevel;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class NavigationLevelRenderer extends XhtmlRenderer
@@ -547,7 +547,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
       renderEncodedActionURI(context, "href", destination);
       String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
       if ( (targetFrame != null) && !Boolean.FALSE.equals(
-        arc.getAgent().getCapability(AdfFacesAgent.CAP_TARGET)) )
+        arc.getAgent().getCapability(TrinidadAgent.CAP_TARGET)) )
       {
         rw.writeAttribute("target", targetFrame, null);
       }
@@ -911,7 +911,7 @@ public class NavigationLevelRenderer extends XhtmlRenderer
           String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
           StringBuilder sb = new StringBuilder();
           if ( (targetFrame != null) && !Boolean.FALSE.equals(
-            arc.getAgent().getCapability(AdfFacesAgent.CAP_TARGET)) )
+            arc.getAgent().getCapability(TrinidadAgent.CAP_TARGET)) )
           {
             sb.append("window.open('");
             sb.append(encodedDestination);

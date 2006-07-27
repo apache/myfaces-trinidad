@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
@@ -421,7 +421,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     //  that the only reason desktop renders it in both places
     //  was for Netscape.  If I'm right, then really this decision should
     //  be driven off an "event bubbling" agent property.
-    if (arc.getAgent().getAgentType() != AdfFacesAgent.TYPE_PDA)
+    if (arc.getAgent().getAgentType() != TrinidadAgent.TYPE_PDA)
       rw.writeAttribute("onclick", sortOnclick, null);
 
     // TODO: we should pass in null for "event bubbling" systems
@@ -556,7 +556,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     boolean renderAnchor = supportsNavigation(arc);
     if (renderAnchor)
     {
-      if (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA)
+      if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
         writer.writeText(XhtmlConstants.NBSP_STRING, null);
 
       writer.startElement("a", null);

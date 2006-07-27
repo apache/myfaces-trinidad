@@ -43,7 +43,7 @@ import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
@@ -530,7 +530,7 @@ public class RequestContextImpl extends RequestContext
       Agent agent = _agentFactory.createAgent(__getFacesContext());
       // =-=AEW Does this need to be an AdfFacesAgent?  That should
       // only be necessary once we get to rendering...
-      AdfFacesAgentImpl fAgent = new AdfFacesAgentImpl(__getFacesContext(),agent);
+      TrinidadAgentImpl fAgent = new TrinidadAgentImpl(__getFacesContext(),agent);
       _agent = fAgent;
     }
 

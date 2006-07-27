@@ -31,17 +31,17 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  * implementation that supports the AdfFacesAgent
  *
  */
-public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
+public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
 {
 
-  public AdfFacesAgentImpl(FacesContext context, Agent agent)
+  public TrinidadAgentImpl(FacesContext context, Agent agent)
   {
     _delegate = agent;
     _initialize(context);
   }
 
 
-  public AdfFacesAgentImpl(Agent agent)
+  public TrinidadAgentImpl(Agent agent)
   {
     this (null, agent);
   }
@@ -158,7 +158,7 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
   {
     try
     {
-      AdfFacesAgentImpl that = (AdfFacesAgentImpl) super.clone();
+      TrinidadAgentImpl that = (TrinidadAgentImpl) super.clone();
       that._capMap = (CapabilityMap) _capMap.clone();
       return that;
     }
@@ -289,7 +289,7 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
     }
 
     URL path = null;
-    synchronized (AdfFacesAgentImpl.class)
+    synchronized (TrinidadAgentImpl.class)
     {
       if (_capUrl != null)
         return _capUrl;
@@ -299,7 +299,7 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
       {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         if (loader == null)
-          loader = AdfFacesAgentImpl.class.getClassLoader();
+          loader = TrinidadAgentImpl.class.getClassLoader();
         path =  loader.getResource(_CAPABILITIES_FILE);
       }
       
@@ -385,7 +385,7 @@ public class AdfFacesAgentImpl implements AdfFacesAgent, Cloneable
 
 
   static final private TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(AdfFacesAgentImpl.class);
+    TrinidadLogger.createTrinidadLogger(TrinidadAgentImpl.class);
 
   private static boolean _deviceRepositoryLoaded;
   private static DeviceRepository _deviceRepository;

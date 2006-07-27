@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
@@ -112,7 +112,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       return;
 
     boolean isDesktop = (arc.getAgent().getAgentType() ==
-                         AdfFacesAgent.TYPE_DESKTOP);
+                         TrinidadAgent.TYPE_DESKTOP);
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("table", component);
     renderId(context, component);
@@ -1462,7 +1462,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // Inline mode is only supported if partial page rendering is
     // supported and we are not running in screen reader mode.
     return (PartialPageUtils.supportsPartialRendering(arc) &&
-            (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_DESKTOP) &&
+            (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_DESKTOP) &&
             !isScreenReaderMode(arc));
   }
 

@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -572,8 +572,8 @@ public class ContentContainerRenderer
     UIXRenderingContext context
     )
   {
-    AdfFacesAgent agent = context.getAgent();
-    Object capImageStretch = agent.getCapability(AdfFacesAgent.CAP_IMAGE_STRETCH);
+    TrinidadAgent agent = context.getAgent();
+    Object capImageStretch = agent.getCapability(TrinidadAgent.CAP_IMAGE_STRETCH);
 
     // If the Agent supports image stretching, return the
     // Map with height=100%.  Otherwise we don't

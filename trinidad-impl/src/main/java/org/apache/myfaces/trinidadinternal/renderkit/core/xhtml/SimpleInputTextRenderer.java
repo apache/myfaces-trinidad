@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -265,7 +265,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
    */
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
-    if (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA)
+    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
       return _DEFAULT_PDA_COLUMNS;
 
     return _DEFAULT_COLUMNS;

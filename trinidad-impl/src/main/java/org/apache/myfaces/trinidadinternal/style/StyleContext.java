@@ -16,7 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.style;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 /**
@@ -37,7 +37,7 @@ public interface StyleContext
   /**
    * Returns the end user's Agent.
    */
-  public AdfFacesAgent getAgent();
+  public TrinidadAgent getAgent();
 
   public String getGeneratedFilesPath();
   public boolean checkStylesModified();

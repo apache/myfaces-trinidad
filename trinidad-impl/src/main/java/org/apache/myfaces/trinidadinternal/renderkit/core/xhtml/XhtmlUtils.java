@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.component.UIXComponentRef;
 import org.apache.myfaces.trinidad.component.UIXSubform;
 import org.apache.myfaces.trinidad.component.UIXSwitcher;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
@@ -75,12 +75,12 @@ public class XhtmlUtils
    * support and PPR support.
    */
   static public final boolean supportsSeparateWindow(
-    AdfFacesAgent agent)
+    TrinidadAgent agent)
   {
     return (Boolean.TRUE.equals(
-             agent.getCapability(AdfFacesAgent.CAP_MULTIPLE_WINDOWS)) &&
+             agent.getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)) &&
             Boolean.TRUE.equals(
-             agent.getCapability(AdfFacesAgent.CAP_PARTIAL_RENDERING)));
+             agent.getCapability(TrinidadAgent.CAP_PARTIAL_RENDERING)));
   }
 
   /** Library key for the locale lib */
@@ -159,7 +159,7 @@ public class XhtmlUtils
     // that's the platform that would benefit the most from this trick),
     // as this same trick once caused really problems when resizing windows!
     if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()) &&
-        !(AdfFacesAgent.APPLICATION_NETSCAPE ==
+        !(TrinidadAgent.APPLICATION_NETSCAPE ==
           arc.getAgent().getAgentApplication()))
     {
       if (arc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)

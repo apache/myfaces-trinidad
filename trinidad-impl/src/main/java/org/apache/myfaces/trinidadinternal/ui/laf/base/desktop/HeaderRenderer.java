@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -150,9 +150,9 @@ public class HeaderRenderer
       // really, this is a more generic problem that would need to be
       // explored in LinkRenderer as well, but to minimize the scope
       // of the changes, I'll only tweak it here.
-      if ((context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS) &&
+      if ((context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS) &&
           (context.getAgent().getAgentApplication() == 
-          AdfFacesAgent.APPLICATION_IEXPLORER))
+          TrinidadAgent.APPLICATION_IEXPLORER))
 
         renderAttribute(context, NAME_ATTRIBUTE, label);
       else

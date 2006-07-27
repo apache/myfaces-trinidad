@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class PanelFormRenderer extends XhtmlRenderer
@@ -153,7 +153,7 @@ public class PanelFormRenderer extends XhtmlRenderer
     }
 
     int rows = 0;
-    if (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA)
+    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
     {
       maxColumns = 1;
     }

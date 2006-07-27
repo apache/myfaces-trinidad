@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -53,7 +53,7 @@ public class TextInputRenderer
     UIXRenderingContext context
     )
   {
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
 
     boolean isNetscape = HtmlLafRenderer.isNetscape(context);
 
@@ -62,7 +62,7 @@ public class TextInputRenderer
     // and 3/4 for text areas.  Also, the heuristic only
     // appears to work on Windows.  (Mozilla was once on the large
     // size, but as of 1.0 seems good).
-    return (isNetscape && (agent.getAgentOS() == AdfFacesAgent.OS_WINDOWS));
+    return (isNetscape && (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS));
   }
 
   protected boolean renderReadOnlyAsElement(

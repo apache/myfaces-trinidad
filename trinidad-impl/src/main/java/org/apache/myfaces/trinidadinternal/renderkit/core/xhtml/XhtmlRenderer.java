@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.render.TypedRenderer;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -92,19 +92,19 @@ public class XhtmlRenderer extends CoreRenderer
 
   static public boolean isDesktop(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentType() == AdfFacesAgent.TYPE_DESKTOP);
+    return (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_DESKTOP);
   }
 
   static public boolean isIE(RenderingContext arc)
   {
     return (arc.getAgent().getAgentApplication() ==
-              AdfFacesAgent.APPLICATION_IEXPLORER);
+              TrinidadAgent.APPLICATION_IEXPLORER);
   }
 
   static public boolean isGecko(RenderingContext arc)
   {
     return (arc.getAgent().getAgentApplication() ==
-              AdfFacesAgent.APPLICATION_GECKO);
+              TrinidadAgent.APPLICATION_GECKO);
   }
 
   static public boolean isInaccessibleMode(RenderingContext arc)
@@ -122,16 +122,16 @@ public class XhtmlRenderer extends CoreRenderer
   static public boolean supportsScripting(RenderingContext arc)
   {
     Object scriptingSpeed = arc.getAgent().getCapability(
-            AdfFacesAgent.CAP_SCRIPTING_SPEED);
+            TrinidadAgent.CAP_SCRIPTING_SPEED);
 
     return ((scriptingSpeed != null) &&
-            (AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
+            (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
   }
 
   static public boolean supportsEditing(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_EDITING);
+                    TrinidadAgent.CAP_EDITING);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -147,14 +147,14 @@ public class XhtmlRenderer extends CoreRenderer
           RenderingContext arc
           )
   {
-    return (arc.getAgent().getCapability(AdfFacesAgent.CAP_STYLE_ATTRIBUTES) !=
-            AdfFacesAgent.STYLES_NONE);
+    return (arc.getAgent().getCapability(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
+            TrinidadAgent.STYLES_NONE);
   }
 
   static public boolean supportsNavigation(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_NAVIGATION);
+                    TrinidadAgent.CAP_NAVIGATION);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -168,7 +168,7 @@ public class XhtmlRenderer extends CoreRenderer
           )
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_TEXT_PRESENTATION);
+                    TrinidadAgent.CAP_TEXT_PRESENTATION);
     return !Boolean.FALSE.equals(cap);
   }
   static public boolean supportsAccessKeys(RenderingContext arc)
@@ -180,14 +180,14 @@ public class XhtmlRenderer extends CoreRenderer
       return false;
 
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_ACCESS_KEYS);
+                    TrinidadAgent.CAP_ACCESS_KEYS);
     return !Boolean.FALSE.equals(cap);
   }
 
   static public final boolean supportsDisabledFormElements(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_DISABLED_FORM_ELEMENTS);
+                    TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
@@ -195,7 +195,7 @@ public class XhtmlRenderer extends CoreRenderer
   static public final boolean supportsReadonlyFormElements(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_READONLY_FORM_ELEMENTS);
+                    TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
   }
@@ -204,7 +204,7 @@ public class XhtmlRenderer extends CoreRenderer
      RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
+                    TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -225,7 +225,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_TARGET);
+                    TrinidadAgent.CAP_TARGET);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -238,7 +238,7 @@ public class XhtmlRenderer extends CoreRenderer
     RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapability(
-                    AdfFacesAgent.CAP_XMLDOM);
+                    TrinidadAgent.CAP_XMLDOM);
     return Boolean.TRUE.equals(cap);
   }
 
@@ -704,8 +704,8 @@ public class XhtmlRenderer extends CoreRenderer
     // number of spacers. bug 3786394:
     boolean useScript =
       ((count < 800)
-       && (AdfFacesAgent.SCRIPTING_SPEED_CAP_FAST ==
-           arc.getAgent().getCapability(AdfFacesAgent.CAP_SCRIPTING_SPEED)));
+       && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
+           arc.getAgent().getCapability(TrinidadAgent.CAP_SCRIPTING_SPEED)));
     _renderTransparent(context, arc, width, height, needsQuoting, id, useScript);
   }
 

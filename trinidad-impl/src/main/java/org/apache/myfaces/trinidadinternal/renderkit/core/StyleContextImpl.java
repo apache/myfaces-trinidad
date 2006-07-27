@@ -19,7 +19,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
@@ -71,7 +71,7 @@ class StyleContextImpl implements StyleContext
   /**
    * Returns the end user's Agent.
    */
-  public AdfFacesAgent getAgent()
+  public TrinidadAgent getAgent()
   {
     return _arc.getAgent();
   }

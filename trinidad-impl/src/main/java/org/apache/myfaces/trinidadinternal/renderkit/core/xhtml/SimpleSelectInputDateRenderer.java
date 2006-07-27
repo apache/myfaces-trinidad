@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
@@ -329,7 +329,7 @@ public class SimpleSelectInputDateRenderer
     // use the default behavior.
     if ((getAction(bean) != null) ||
         !Boolean.TRUE.equals(
-            arc.getAgent().getCapability(AdfFacesAgent.CAP_MULTIPLE_WINDOWS)))
+            arc.getAgent().getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
       return super.getLaunchOnclick(context, arc, component, bean);
 
     String id = arc.getCurrentClientId();

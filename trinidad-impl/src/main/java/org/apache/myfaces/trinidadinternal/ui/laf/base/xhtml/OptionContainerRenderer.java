@@ -32,7 +32,7 @@ import javax.faces.convert.Converter;
 import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidad.component.UIXSelectOne;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -326,7 +326,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       return false;
     boolean agentSupportsDisabledOptions = Boolean.TRUE
         .equals(getAgentCapability(context,
-            AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
+            TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
     boolean isParentDisabled = Boolean.TRUE.equals(component.getAttributes()
         .get(DISABLED_ATTR.getAttributeName()));  
     if (!isParentDisabled && item.isDisabled()

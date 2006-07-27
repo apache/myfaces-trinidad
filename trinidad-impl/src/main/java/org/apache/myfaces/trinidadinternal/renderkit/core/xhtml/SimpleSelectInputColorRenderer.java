@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
@@ -290,7 +290,7 @@ public class SimpleSelectInputColorRenderer
     // use the default behavior.
     if ((getAction(bean) != null) ||
         !Boolean.TRUE.equals(
-            arc.getAgent().getCapability(AdfFacesAgent.CAP_MULTIPLE_WINDOWS)))
+            arc.getAgent().getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
       return super.getLaunchOnclick(context, arc, component, bean);
 
     String id = arc.getCurrentClientId();
@@ -422,7 +422,7 @@ public class SimpleSelectInputColorRenderer
   // On PDAs, we only support a simple text field
   private boolean _supportsSwatchAndChooser(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentType() != AdfFacesAgent.TYPE_PDA);
+    return (arc.getAgent().getAgentType() != TrinidadAgent.TYPE_PDA);
   }
 
   protected String getSearchDesc(FacesBean bean)

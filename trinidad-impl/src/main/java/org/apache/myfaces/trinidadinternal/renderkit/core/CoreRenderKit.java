@@ -77,7 +77,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandLinkRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlFormRenderer;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 import org.apache.myfaces.trinidadinternal.webapp.DispatchServletResponse;
@@ -588,7 +588,7 @@ public class CoreRenderKit extends RenderKitBase
 
   private boolean _supportsSeparateWindow(FacesContext context)
   {
-    AdfFacesAgent agent = AgentUtil.getAgent(context);
+    TrinidadAgent agent = AgentUtil.getAgent(context);
     return XhtmlUtils.supportsSeparateWindow(agent);
   }
 

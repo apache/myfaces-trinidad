@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -92,7 +92,7 @@ public class SimpleSelectInputTextRenderer extends SimpleInputTextRenderer
           // Force partial rendering (if we're launching a window)
           // =-=AEW I don't believe this is necessary;  I believe
           // we've already got "partial" turned on
-          AdfFacesAgent agent = AgentUtil.getAgent(context);
+          TrinidadAgent agent = AgentUtil.getAgent(context);
           if (XhtmlUtils.supportsSeparateWindow(agent))
             PartialPageUtils.forcePartialRendering(context);
 

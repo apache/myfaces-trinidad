@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
@@ -46,7 +46,7 @@ public class PdaHtmlLafUtils extends XhtmlLafUtils
 
   private static final NameAndAgentScorer _SCORER =
     new NameAndAgentScorer(null,
-                           IntegerUtils.getInteger(AdfFacesAgent.TYPE_PDA),
+                           IntegerUtils.getInteger(TrinidadAgent.TYPE_PDA),
                            null,
                            null,
                            null);

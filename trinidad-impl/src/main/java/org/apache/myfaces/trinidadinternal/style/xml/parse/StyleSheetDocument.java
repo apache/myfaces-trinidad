@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
@@ -295,7 +295,7 @@ public class StyleSheetDocument
     Locale locale = localeContext.getTranslationLocale();
     int direction = localeContext.getReadingDirection();
     int mode = NameUtils.getMode(ModeUtils.getCurrentMode(context));
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
 
     Vector v = new Vector();           // Vector of matching style sheets
     Iterator e = getStyleSheets();  // Enum of all style sheets
@@ -895,7 +895,7 @@ public class StyleSheetDocument
     public StyleSheetComparator(
       Locale locale,
       int direction,
-      AdfFacesAgent agent,
+      TrinidadAgent agent,
       int mode,
       StyleSheetNode[] styleSheets
       )
@@ -954,7 +954,7 @@ public class StyleSheetDocument
 
     private Locale _locale;
     private int    _direction;
-    private AdfFacesAgent  _agent;
+    private TrinidadAgent  _agent;
     private int _mode;
     // We use the style sheet node array to determine the
     // precedence of two stylesheets with the same attributes.

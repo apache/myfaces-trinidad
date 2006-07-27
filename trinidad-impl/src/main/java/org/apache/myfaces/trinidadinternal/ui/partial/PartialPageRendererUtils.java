@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.partial;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
@@ -99,8 +99,8 @@ public class PartialPageRendererUtils
   {
 
     // First, make sure the agent supports partial rendering
-    AdfFacesAgent agent = context.getAgent();
-    Object capPartial = agent.getCapability(AdfFacesAgent.CAP_PARTIAL_RENDERING);
+    TrinidadAgent agent = context.getAgent();
+    Object capPartial = agent.getCapability(TrinidadAgent.CAP_PARTIAL_RENDERING);
     if (!Boolean.TRUE.equals(capPartial))
       return false;
 
@@ -116,8 +116,8 @@ public class PartialPageRendererUtils
     {
       int application = context.getAgent().getAgentApplication();
 
-      return ((application == AdfFacesAgent.APPLICATION_IEXPLORER)
-              || (application == AdfFacesAgent.APPLICATION_GECKO));
+      return ((application == TrinidadAgent.APPLICATION_IEXPLORER)
+              || (application == TrinidadAgent.APPLICATION_GECKO));
     }
     return false;
   }

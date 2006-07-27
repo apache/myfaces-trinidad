@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 
 /**
@@ -55,7 +55,7 @@ public class SideBarRenderer extends HtmlLafRenderer
     renderStyleClassAttribute(context, AF_PANEL_SIDE_BAR_STYLE_CLASS);
     Object width = node.getAttributeValue(context, WIDTH_ATTR);
     
-    boolean isMac = context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS;
+    boolean isMac = context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS;
     if (width != null && !isMac)
     {
       writer.writeAttribute(STYLE_ATTRIBUTE,  

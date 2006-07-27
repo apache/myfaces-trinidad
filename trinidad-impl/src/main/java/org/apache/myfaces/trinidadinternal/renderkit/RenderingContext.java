@@ -20,7 +20,7 @@ import java.util.MissingResourceException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
@@ -57,7 +57,7 @@ abstract public class RenderingContext
    */
   abstract public Map           getProperties();
 
-  abstract public AdfFacesAgent getAgent();
+  abstract public TrinidadAgent getAgent();
   /**
    * @todo REMOVE LocaleContext
    */

@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.context.Agent;
  *
  * @author The Oracle ADF Faces Team
  */
-public interface AdfFacesAgent extends Agent
+public interface TrinidadAgent extends Agent
 {
   static public final CapabilityKey CAP_DOM =
           CapabilityKey.getCapabilityKey("dom", true);

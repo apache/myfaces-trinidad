@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -1021,11 +1021,11 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
     // our layout problems.
     String iconID = null;
     Object id = (supportsID(context) ? getID(context, navBar) : null);
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
 
     if ((id != null) &&
         (partialTargets != null) &&
-        (agent.getAgentApplication() == AdfFacesAgent.APPLICATION_IEXPLORER))
+        (agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER))
     {
       iconID = id.toString() + "-i";
     }

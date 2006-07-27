@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -98,7 +98,7 @@ class MacOSSwitcherIcon extends Icon
   // Returns the Icon to use
   private Icon _getIcon(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS) ?
+    return (arc.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS) ?
              _macOSIcon :
              _icon;
   }

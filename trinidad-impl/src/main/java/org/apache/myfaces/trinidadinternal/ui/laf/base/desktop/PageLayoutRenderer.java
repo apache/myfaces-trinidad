@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -615,7 +615,7 @@ public class PageLayoutRenderer extends UINodeRenderer
     public Object getValue(UIXRenderingContext context)
     {
       if (context.getAgent().getAgentApplication() ==
-          AdfFacesAgent.APPLICATION_NETSCAPE)
+          TrinidadAgent.APPLICATION_NETSCAPE)
         return _netscapeObj;
       else return _elseObj;
     }

@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -109,9 +109,9 @@ public final class UIFunctions
 
 
     final char breakHint;
-    if ((agentApp == AdfFacesAgent.APPLICATION_IEXPLORER) ||
-        (agentApp == AdfFacesAgent.APPLICATION_GECKO) ||
-        (agentApp == AdfFacesAgent.APPLICATION_NETSCAPE))
+    if ((agentApp == TrinidadAgent.APPLICATION_IEXPLORER) ||
+        (agentApp == TrinidadAgent.APPLICATION_GECKO) ||
+        (agentApp == TrinidadAgent.APPLICATION_NETSCAPE))
     {
       // insert the special unicode character that tells the output method to
       // use the <wbr> tag. This character is recognized by HTMLEscapes:

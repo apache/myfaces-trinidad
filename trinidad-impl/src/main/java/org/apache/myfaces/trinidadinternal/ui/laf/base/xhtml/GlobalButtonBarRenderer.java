@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -188,9 +188,9 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   {
     String valign;
     // See bug 2866954
-    if ( context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS &&
+    if ( context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS &&
          context.getAgent().getAgentApplication() ==
-               AdfFacesAgent.APPLICATION_IEXPLORER)
+               TrinidadAgent.APPLICATION_IEXPLORER)
       valign = "top";
     else
       valign = "bottom";

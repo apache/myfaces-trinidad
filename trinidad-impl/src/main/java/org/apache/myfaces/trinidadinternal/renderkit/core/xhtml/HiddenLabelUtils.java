@@ -21,7 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class HiddenLabelUtils
@@ -35,18 +35,18 @@ public class HiddenLabelUtils
     if (XhtmlRenderer.isInaccessibleMode(arc))
       return false;
 
-    AdfFacesAgent agent = arc.getAgent();
+    TrinidadAgent agent = arc.getAgent();
     switch (agent.getAgentApplication())
     {
-      case AdfFacesAgent.APPLICATION_IEXPLORER:
-        if (agent.getAgentOS() == AdfFacesAgent.OS_WINDOWS)
+      case TrinidadAgent.APPLICATION_IEXPLORER:
+        if (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS)
         {
           // IE 4 doesn't support the label hack.
           if (agent.getAgentMajorVersion() == 4)
             return false;
 
           // JDev VE masquerades as IE Windows, but doesn't support this
-          if (agent.getCapability(AdfFacesAgent.CAP_IS_JDEV_VE) != null)
+          if (agent.getCapability(TrinidadAgent.CAP_IS_JDEV_VE) != null)
             return false;
 
           // IE 5 and 6 do.
@@ -57,11 +57,11 @@ public class HiddenLabelUtils
         return false;
 
       // Mozilla does support the label hack
-      case AdfFacesAgent.APPLICATION_GECKO:
+      case TrinidadAgent.APPLICATION_GECKO:
         return true;
 
       // Assume everyone else doesn't.
-      case AdfFacesAgent.APPLICATION_NETSCAPE:
+      case TrinidadAgent.APPLICATION_NETSCAPE:
       default:
         return false;
     }

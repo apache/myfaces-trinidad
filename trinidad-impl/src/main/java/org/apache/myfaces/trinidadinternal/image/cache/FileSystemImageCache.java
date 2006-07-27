@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProvider;
@@ -1388,7 +1388,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
 
     // Pick an encoding based on the Configuration/Agent
     Configuration config = context.getConfiguration();
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
     //encodings was part of old Agent capabilities, not in new Agent Caps. So replaced
     //Object encodingsObj = agent.getCapability(AdfFacesAgent.CAP_IMAGE_ENCODINGS);
     //int encodings = ((encodingsObj == null)
@@ -1402,7 +1402,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
     //{
     //  return ImageEncoderManager.GIF_TYPE;
     //}
-    if ((agent.getCapability(AdfFacesAgent.CAP_GIF_TYPE_IMAGE) == Boolean.TRUE) &&
+    if ((agent.getCapability(TrinidadAgent.CAP_GIF_TYPE_IMAGE) == Boolean.TRUE) &&
             !Boolean.FALSE.equals(config.getProperty(_GIF_ENABLED)))
     {
       return ImageEncoderManager.GIF_TYPE;
@@ -1413,7 +1413,7 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
     //{
     //  return ImageEncoderManager.PNG_TYPE;
     //}
-    if (agent.getCapability(AdfFacesAgent.CAP_PNG_TYPE_IMAGE) == Boolean.TRUE)
+    if (agent.getCapability(TrinidadAgent.CAP_PNG_TYPE_IMAGE) == Boolean.TRUE)
     {
       return ImageEncoderManager.PNG_TYPE;
     }

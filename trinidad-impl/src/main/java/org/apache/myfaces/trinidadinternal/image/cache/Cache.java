@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
@@ -45,16 +45,16 @@ class Cache
     if (entry == null)
       return null;
 
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
     //int encodings = ((Integer)agent.getCapability(
     //                                  AdfFacesAgent.CAP_IMAGE_ENCODINGS)).intValue();
     boolean capGif = false;
-    Object capability =  agent.getCapability(AdfFacesAgent.CAP_GIF_TYPE_IMAGE);
+    Object capability =  agent.getCapability(TrinidadAgent.CAP_GIF_TYPE_IMAGE);
     if (capability == Boolean.TRUE)
        capGif = true;
 
     boolean capPng = false;
-    capability = agent.getCapability(AdfFacesAgent.CAP_PNG_TYPE_IMAGE);
+    capability = agent.getCapability(TrinidadAgent.CAP_PNG_TYPE_IMAGE);
     if (capability == Boolean.TRUE)
       capPng = true;
 

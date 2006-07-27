@@ -25,7 +25,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
@@ -716,7 +716,7 @@ public class FormattedTextParser
 
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (!Boolean.FALSE.equals(arc.getAgent().getCapability(
-                                    AdfFacesAgent.CAP_NAVIGATION)))
+                                    TrinidadAgent.CAP_NAVIGATION)))
         context.getResponseWriter().writeURIAttribute("href", href, null);
     }
 

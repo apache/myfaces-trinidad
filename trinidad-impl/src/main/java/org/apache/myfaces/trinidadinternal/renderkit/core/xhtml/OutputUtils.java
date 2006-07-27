@@ -27,7 +27,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
@@ -165,7 +165,7 @@ public class OutputUtils
     )
   {
     return Boolean.TRUE.equals(afc.getAgent().getCapability(
-                        AdfFacesAgent.CAP_ALT_RENDERS_TOOLTIP_ON_IMAGE));
+                        TrinidadAgent.CAP_ALT_RENDERS_TOOLTIP_ON_IMAGE));
   }
 
   /**
@@ -184,7 +184,7 @@ public class OutputUtils
 
     int agentApplication = arc.getAgent().getAgentApplication();
 
-    if (agentApplication == AdfFacesAgent.APPLICATION_NETSCAPE)
+    if (agentApplication == TrinidadAgent.APPLICATION_NETSCAPE)
     {
       return XhtmlConstants.V_ALIGN_TOP;
     }

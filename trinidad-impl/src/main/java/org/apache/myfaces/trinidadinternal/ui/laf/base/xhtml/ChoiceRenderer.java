@@ -28,7 +28,7 @@ import javax.faces.model.SelectItem;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -226,7 +226,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     String actionScript = null;
 
     // IE hands off select element events to the beat of a different drummer.
-    if ((context.getAgent().getAgentOS() == AdfFacesAgent.OS_WINDOWS)
+    if ((context.getAgent().getAgentOS() == TrinidadAgent.OS_WINDOWS)
         && (HtmlLafRenderer.isIE(context)))
     {
       // The CHOICE_CHANGE_TRACKER just sets a flag whenever a choice occurs.

@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
@@ -968,7 +968,7 @@ public class FileSystemStyleCache implements StyleProvider
   {
     public Key(StyleContext context)
     {
-      AdfFacesAgent agent = context.getAgent();
+      TrinidadAgent agent = context.getAgent();
 
       LocaleContext localeContext = context.getLocaleContext();
 
