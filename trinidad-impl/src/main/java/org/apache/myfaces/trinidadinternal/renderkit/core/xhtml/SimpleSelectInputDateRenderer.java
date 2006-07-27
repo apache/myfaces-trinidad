@@ -244,8 +244,8 @@ public class SimpleSelectInputDateRenderer
         {
             TimeZone tz = null;
 
-            RequestContext adfFacesContext = RequestContext.getCurrentInstance();
-            tz = adfFacesContext.getTimeZone();
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            tz = requestContext.getTimeZone();
             if(tz == null)
             {
                 tz = TimeZone.getDefault();

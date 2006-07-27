@@ -100,7 +100,7 @@ user's locale.]]>
   <af:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
 </af:selectInputColor>
 <af:chooseColor id="cpConv"
-  colorData="#{adfFacesContext.colorPalette.default49}"/>
+  colorData="#{requestContext.colorPalette.default49}"/>
            ]]>
         </mfp:source-code>
       </mfp:example>

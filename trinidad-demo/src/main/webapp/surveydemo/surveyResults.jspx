@@ -17,7 +17,7 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:af="http://myfaces.apache.org/adf/faces" 
-          xmlns:survey="http://myfaces.apache.org/adf/faces/demo" >
+          xmlns:survey="http://myfaces.apache.org/trinidad/demo" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
  <af:document title="Survey">

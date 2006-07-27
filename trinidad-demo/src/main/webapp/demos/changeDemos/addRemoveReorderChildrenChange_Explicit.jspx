@@ -57,7 +57,7 @@
               </af:selectInputColor>
               <af:chooseColor 
                 id="cc1" 
-                colorData="#{adfFacesContext.colorPalette.default49}"/>
+                colorData="#{requestContext.colorPalette.default49}"/>
               <af:chooseDate id="cd1"/>
               <af:selectInputDate label="Date:" id="sid1" chooseId="cd1"/>
             </af:panelGroup>

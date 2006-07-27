@@ -128,15 +128,15 @@ public class RenderKitPerfTestCase extends TestCase
 
     _facesContext.setResponseWriter(writer);
 
-    _adfFacesContext = new MRequestContext();
-    _adfFacesContext.setSkinFamily("minimal");
-    _adfFacesContext.setAgent(RenderKitBootstrap.getGeckoAgent());
+    _requestContext = new MRequestContext();
+    _requestContext.setSkinFamily("minimal");
+    _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
   }
   
   protected void tearDown() throws IOException
   {
     MFacesContext.clearContext();
-    _adfFacesContext.release();
+    _requestContext.release();
     if (_fileWriter != null)
       _fileWriter.close();
 
@@ -193,7 +193,7 @@ public class RenderKitPerfTestCase extends TestCase
 
   private java.io.Writer     _fileWriter;
   private MFacesContext _facesContext;
-  private MRequestContext _adfFacesContext;
+  private MRequestContext _requestContext;
 
   static private RenderKitBootstrap _bootstrap;
 

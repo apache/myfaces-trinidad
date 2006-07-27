@@ -39,7 +39,7 @@
               </f:facet>
             </af:selectInputColor>
             <af:chooseColor id="cp1" 
-              colorData="#{adfFacesContext.colorPalette.default49}"/>
+              colorData="#{requestContext.colorPalette.default49}"/>
             <jsp:directive.include file="editor.jspf" />          
             <af:outputFormatted styleUsage="instruction" value="&lt;b>A selectInputColor&lt;/b>"/>
             <af:selectInputColor id="sic3"

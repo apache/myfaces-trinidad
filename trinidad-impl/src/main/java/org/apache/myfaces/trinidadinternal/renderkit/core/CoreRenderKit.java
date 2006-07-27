@@ -493,8 +493,8 @@ public class CoreRenderKit extends RenderKitBase
   static private ResponseWriter _addDebugResponseWriters(
      ResponseWriter responseWriter)
   {
-    RequestContext adfFacesContext = RequestContext.getCurrentInstance();
-    if (adfFacesContext.isDebugOutput())
+    RequestContext requestContext = RequestContext.getCurrentInstance();
+    if (requestContext.isDebugOutput())
     {
       responseWriter = new IndentingResponseWriter(responseWriter);
       responseWriter = new DebugResponseWriter(responseWriter);

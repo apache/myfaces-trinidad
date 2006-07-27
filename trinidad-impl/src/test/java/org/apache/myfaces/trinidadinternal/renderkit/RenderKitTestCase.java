@@ -114,11 +114,11 @@ abstract public class RenderKitTestCase extends TestSuite
     protected void setUp() throws IOException  
     {
       _facesContext = new MFacesContext(true);
-      _adfFacesContext = new MRequestContext();
-      _adfFacesContext.setSkinFamily(_skin);
-      _adfFacesContext.setAgent(_agent);
-      _adfFacesContext.setRightToLeft(_rightToLeft);
-      _adfFacesContext.setAccessibilityMode(_accMode);
+      _requestContext = new MRequestContext();
+      _requestContext.setSkinFamily(_skin);
+      _requestContext.setAgent(_agent);
+      _requestContext.setRightToLeft(_rightToLeft);
+      _requestContext.setAccessibilityMode(_accMode);
 
       UIViewRoot root = RenderKitBootstrap.createUIViewRoot(_facesContext);
       root.setRenderKitId(getRenderKitId());
@@ -143,10 +143,10 @@ abstract public class RenderKitTestCase extends TestSuite
       }
 
       MFacesContext.clearContext();
-      _adfFacesContext.release();
+      _requestContext.release();
 
       _facesContext = null;
-      _adfFacesContext = null;
+      _requestContext = null;
       _result = null;
     }
 
@@ -207,7 +207,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private TestResult    _result;
     private MFacesContext _facesContext;
-    private MRequestContext _adfFacesContext;
+    private MRequestContext _requestContext;
     private String           _skin;
     private Agent            _agent;
     private String           _accMode;

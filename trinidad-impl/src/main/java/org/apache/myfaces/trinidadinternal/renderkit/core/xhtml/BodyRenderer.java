@@ -428,8 +428,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
       comment += ", skin:" + skinId;
 
       // Also log preferred Skin if we have one
-      RequestContext adfFacesContext = RequestContext.getCurrentInstance();
-      String preferredSkin = adfFacesContext.getSkinFamily();
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      String preferredSkin = requestContext.getSkinFamily();
       if (preferredSkin != null)
         comment += (" (" + preferredSkin.toString() + ")");
     }

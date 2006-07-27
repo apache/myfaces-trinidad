@@ -48,11 +48,11 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 abstract public class RequestContext
 {
   /**
-   * Name of the EL implicit variable ("adfFacesContext") that is used to
+   * Name of the EL implicit variable ("requestContext") that is used to
    * expose this context object.
    */
   static public final String VARIABLE_NAME =
-    "adfFacesContext";
+    "requestContext";
 
   // Omitted APIs:
   //

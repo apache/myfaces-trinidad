@@ -20,13 +20,13 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
 <taglib>
   <tlib-version>1.0</tlib-version>
   <jsp-version>1.2</jsp-version>
-  <short-name>adf faces demo</short-name>
-  <uri>http://myfaces.apache.org/adffacesdemo</uri>
-  <display-name>adffacesdemo</display-name>    
+  <short-name>trinidad demo</short-name>
+  <uri>http://myfaces.apache.org/trinidaddemo</uri>
+  <display-name>trinidaddemo</display-name>    
 
     <tag>
       <name>dateField</name>
-      <tag-class>org.apache.myfaces.adfdemo.composite.DateFieldTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidaddemo.composite.DateFieldTag</tag-class>
       <attribute>
         <name>id</name>
         <rtexprvalue>false</rtexprvalue>
@@ -86,7 +86,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
     </tag>
     <tag>
       <name>convertSSN</name>   
-      <tag-class>org.apache.myfaces.adfdemo.convertValidate.ConvertSSNTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidaddemo.convertValidate.ConvertSSNTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The convertSSN tag converts to/from a social security number.
@@ -94,7 +94,7 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
     </tag>    
     <tag>
       <name>validatePassword</name>   
-      <tag-class>org.apache.myfaces.adfdemo.convertValidate.ValidatePasswordTag</tag-class>
+      <tag-class>org.apache.myfaces.trinidaddemo.convertValidate.ValidatePasswordTag</tag-class>
       <body-content>empty</body-content>
       <description>
         The validatePassword tag checks to see that a password contains at least on number.

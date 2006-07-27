@@ -92,10 +92,10 @@ public class GenericEntry extends InternalView
     String entryKey = (String) context.getExternalContext().getRequestParameterMap().get(__ENTRY_KEY_PARAM);
     if (entryKey == null)
     {
-      RequestContext adfFacesContext = RequestContext.getCurrentInstance();
-      if (adfFacesContext != null)
+      RequestContext requestContext = RequestContext.getCurrentInstance();
+      if (requestContext != null)
       {
-        Object o = adfFacesContext.getPageFlowScope().get(__ENTRY_KEY_PARAM);
+        Object o = requestContext.getPageFlowScope().get(__ENTRY_KEY_PARAM);
         if (o != null)
           entryKey = o.toString();
       }
