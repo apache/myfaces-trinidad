@@ -35,7 +35,7 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
@@ -1112,7 +1112,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 
-  private static ADFLogger _LOG = ADFLogger.createADFLogger(NumberConverter.class);
+  private static TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(NumberConverter.class);
 
 
   // This is a Map which will hold type and patterns as the key and then

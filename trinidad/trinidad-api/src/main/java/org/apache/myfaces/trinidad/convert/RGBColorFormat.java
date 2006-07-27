@@ -20,7 +20,7 @@ import java.awt.Color;
 import java.text.FieldPosition;
 import java.text.ParsePosition;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Format for colors.
@@ -589,5 +589,5 @@ class RGBColorFormat extends ColorFormat
   private static final int _ALPHA_FIELD = 3;
   private static final int _FIELD_COUNT = 4;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RGBColorFormat.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RGBColorFormat.class);
 }

@@ -20,7 +20,7 @@ import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Proxy class representing the state of the UIComponent.
@@ -110,6 +110,6 @@ class ChangeComponentProxy implements Serializable
   private transient Class _class;
   private String _className;
   private Object _state;
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(org.apache.myfaces.trinidad.change.ChangeComponentProxy.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(org.apache.myfaces.trinidad.change.ChangeComponentProxy.class);
 }

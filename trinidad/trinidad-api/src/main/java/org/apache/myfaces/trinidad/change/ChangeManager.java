@@ -22,7 +22,7 @@ import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * The base class for all ChangeManagers.
@@ -210,8 +210,8 @@ public abstract class ChangeManager
     new HashMap<String, String>();
   private static HashMap _CLASS_TO_CONVERTER_MAP = new HashMap();
 
-  static private final ADFLogger _LOG = 
-     ADFLogger.createADFLogger(ChangeManager.class);
+  static private final TrinidadLogger _LOG = 
+     TrinidadLogger.createTrinidadLogger(ChangeManager.class);
 
   static
   {

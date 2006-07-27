@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Utility methods for accessing classes and resources using an appropriate
@@ -293,6 +293,6 @@ public class ClassLoaderUtils
   }
 
 
-  private static final ADFLogger _LOG =
-    ADFLogger.createADFLogger(ClassLoaderUtils.class);
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ClassLoaderUtils.class);
 }

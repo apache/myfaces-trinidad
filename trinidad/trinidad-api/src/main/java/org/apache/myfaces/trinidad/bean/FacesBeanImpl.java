@@ -29,7 +29,7 @@ import javax.faces.el.ValueBinding;
 
 
 import org.apache.myfaces.trinidad.bean.util.FlaggedPropertyMap;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base implementation of FacesBean.
@@ -478,5 +478,5 @@ abstract public class FacesBeanImpl implements FacesBean
   private PropertyMap  _bindings;
   private transient boolean  _initialStateMarked;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(FacesBeanImpl.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanImpl.class);
 }

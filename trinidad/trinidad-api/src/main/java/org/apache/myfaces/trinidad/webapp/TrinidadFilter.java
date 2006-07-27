@@ -24,7 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Servlet filter that ensures that ADF Faces is properly initialized
@@ -94,5 +94,5 @@ public class TrinidadFilter implements Filter
 
   private Filter _proxied;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(TrinidadFilter.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadFilter.class);
 }

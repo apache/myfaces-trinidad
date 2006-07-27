@@ -21,7 +21,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Factory class to return {@link FacesMessage} objects.
@@ -669,5 +669,5 @@ public class MessageFactory
     Object[] _parameters;
   }
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(MessageFactory.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(MessageFactory.class);
 }

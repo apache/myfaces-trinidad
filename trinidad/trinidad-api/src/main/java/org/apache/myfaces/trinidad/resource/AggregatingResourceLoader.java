@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * A resource loader implementation which combines multiple resources
@@ -123,7 +123,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
   private String[] _paths;
   private ResourceLoader _target;
   private String _separator;
-  static private final ADFLogger _LOG = 	ADFLogger.createADFLogger(AggregatingResourceLoader.class);
+  static private final TrinidadLogger _LOG = 	TrinidadLogger.createTrinidadLogger(AggregatingResourceLoader.class);
 
   /**
    * This is a Stream Handler which can be used to construct a URL that is an Aggregate of a list of
