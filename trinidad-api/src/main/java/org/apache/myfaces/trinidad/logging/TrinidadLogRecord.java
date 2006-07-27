@@ -19,11 +19,11 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
 /**
- * Private subclass of LogRecord to hide ADFLogger in the stack trace.
+ * Private subclass of LogRecord to hide TrinidadLogger in the stack trace.
  */
-class ADFLogRecord extends LogRecord 
+class TrinidadLogRecord extends LogRecord 
 {
-  public ADFLogRecord(Level level, String msg)
+  public TrinidadLogRecord(Level level, String msg)
   {
     super(level, msg);
   }
@@ -117,6 +117,6 @@ class ADFLogRecord extends LogRecord
   static private final String _JDK_LOG_CLASS =
   "java.util.logging.Logger";
   static private final String _ADF_LOG_CLASS =
-  "org.apache.myfaces.trinidad.logging.ADFLogger";
+  "org.apache.myfaces.trinidad.logging.TrinidadLogger";
 }
 

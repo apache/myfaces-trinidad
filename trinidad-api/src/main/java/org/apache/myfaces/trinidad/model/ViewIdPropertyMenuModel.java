@@ -23,7 +23,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.el.PropertyResolver;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -219,5 +219,5 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
 
 
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ViewIdPropertyMenuModel.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ViewIdPropertyMenuModel.class);
 }

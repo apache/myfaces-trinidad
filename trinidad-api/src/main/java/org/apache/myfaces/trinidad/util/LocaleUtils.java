@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -290,5 +290,5 @@ class LocaleUtils
     _bundleCache = Collections.synchronizedMap(new HashMap(13));
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(LocaleUtils.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LocaleUtils.class);
 }

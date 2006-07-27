@@ -27,7 +27,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Implements a set of rowKeys. This set is connected with a CollectionModel
@@ -490,5 +490,5 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   private Set _set = Collections.EMPTY_SET;
   private transient CollectionModel _model = null;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(RowKeySetImpl.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RowKeySetImpl.class);
 }

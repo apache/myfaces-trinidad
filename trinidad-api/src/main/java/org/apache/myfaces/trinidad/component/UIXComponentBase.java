@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidad.change.AttributeComponentChange;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
 import org.apache.myfaces.trinidad.event.AttributeChangeListener;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderer;
 import org.apache.myfaces.trinidad.render.LifecycleRenderer;
 
@@ -62,7 +62,7 @@ abstract public class UIXComponentBase extends UIXComponent
 {
   // Created up top to ensure it's present while we're processing
   // class initialization code.
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIXComponentBase.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentBase.class);
 
   static public final FacesBean.Type TYPE = _createType();
   static public final PropertyKey ID_KEY =

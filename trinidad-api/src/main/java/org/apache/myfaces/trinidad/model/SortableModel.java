@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.PropertyResolver;
 import javax.faces.model.DataModel;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -377,5 +377,5 @@ public final class SortableModel extends CollectionModel
   private IntList _sortedIndicesList = null, // from baseIndex to sortedIndex
     _baseIndicesList = null; // from sortedIndex to baseIndex
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(SortableModel.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SortableModel.class);
 }

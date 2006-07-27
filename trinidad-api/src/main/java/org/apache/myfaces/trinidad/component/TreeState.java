@@ -26,7 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -260,5 +260,5 @@ class TreeState implements Externalizable
   private Object _state;
   private boolean _empty;
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(TreeState.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeState.class);
 }

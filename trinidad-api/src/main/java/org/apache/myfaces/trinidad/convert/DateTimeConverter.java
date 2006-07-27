@@ -42,7 +42,7 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.context.RequestContext;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.ComponentUtils;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
@@ -1688,7 +1688,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   private static final String _ORA_LOCALE_ELEMENTS_BASE =
     "org.apache.myfaces.trinidad.resource.LocaleElements";
 
-  private static final ADFLogger _LOG  = ADFLogger.createADFLogger(DateTimeConverter.class);
+  private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
   private static final Date _EXAMPLE_DATE;
 
   static

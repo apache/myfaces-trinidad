@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.AttributeChangeEvent;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Subclass of UIComponentTag to add convenience methods,
@@ -526,5 +526,5 @@ abstract public class UIXComponentTag extends UIComponentTag
   private static DateFormat  _ISO_DATE_FORMAT =
     new SimpleDateFormat("yyyy-MM-dd");
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIXComponentTag.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
 }

@@ -113,5 +113,5 @@ final class ValueMap extends AbstractMap implements Externalizable
   private Map _cache = new HashMap(13);
   private transient Map _valueMap = new HashMap(13);
 
-  //private static final ADFLogger _LOG = ADFLogger.createADFLogger(InvertibleMap.class);
+  //private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InvertibleMap.class);
 }

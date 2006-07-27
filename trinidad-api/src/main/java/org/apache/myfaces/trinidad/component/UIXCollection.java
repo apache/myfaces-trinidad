@@ -33,7 +33,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.event.SelectionEvent;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 
 /**
@@ -1172,5 +1172,5 @@ public abstract class UIXCollection extends UIXComponentBase
   // be Serializable:
   private static final Object _NULL = new Object();
   private static final Object[] _EMPTY_ARRAY = new Object[0];
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(UIXCollection.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXCollection.class);
 }

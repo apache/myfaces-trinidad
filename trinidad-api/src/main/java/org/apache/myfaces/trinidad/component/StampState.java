@@ -29,7 +29,7 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This class saves the state of stamp components.
@@ -409,5 +409,5 @@ final class StampState implements Externalizable
 
   private Map _rows = Collections.EMPTY_MAP;
 
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(StampState.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StampState.class);
 }

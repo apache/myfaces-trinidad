@@ -27,28 +27,28 @@ import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 /**
- * ADFLogger wraps JDK 1.4 logging to provided a large number of 
- * extra convenience methods.  ADFLoggers are created off of
+ * TrinidadLogger wraps JDK 1.4 logging to provided a large number of 
+ * extra convenience methods.  TrinidadLoggers are created off of
  * Packages or Classes (not arbitrary names) to force
  * proper logging hierarchies.
  *
  */
-public class ADFLogger 
+public class TrinidadLogger 
 {
   
-  private ADFLogger(String name)
+  private TrinidadLogger(String name)
   {
     _log = Logger.getLogger(name);
   }
 
-  private ADFLogger(Logger log)
+  private TrinidadLogger(Logger log)
   {
     if (log == null)
       throw new IllegalArgumentException("Logger required");    
     _log = log;
   }
 
-  private ADFLogger(String name, String resourceBundleName)
+  private TrinidadLogger(String name, String resourceBundleName)
   {
     _log = Logger.getLogger(name, resourceBundleName);
   }
@@ -81,14 +81,14 @@ public class ADFLogger
    *				or javax.swing
    * @return a suitable Logger
    */
-  private static ADFLogger createADFLogger(String name) 
+  private static TrinidadLogger createTrinidadLogger(String name) 
   {
     if (name == null)
       throw new IllegalArgumentException("Logger Name required");
    
     Logger log = Logger.getLogger(name);
 
-    return new ADFLogger(log);
+    return new TrinidadLogger(log);
   }
 
   /**
@@ -119,14 +119,14 @@ public class ADFLogger
    * @throws IllegalArgumentException if the Logger already exists and uses
    *		   a different resource bundle name.
    */
-  private static ADFLogger createADFLogger(String name, String resourceBundleName) 
+  private static TrinidadLogger createTrinidadLogger(String name, String resourceBundleName) 
   {
     if (name == null)
       throw new IllegalArgumentException("Logger Name required");
    
     Logger log = Logger.getLogger(name, resourceBundleName);
 
-    return new ADFLogger(log);
+    return new TrinidadLogger(log);
   }
 
 
@@ -143,12 +143,12 @@ public class ADFLogger
    * @param	c		A class instance for the logger.  
    * @return a suitable Logger
    */
-  public static ADFLogger createADFLogger(Class c) 
+  public static TrinidadLogger createTrinidadLogger(Class c) 
   {
     if (c == null)
       throw new IllegalArgumentException("Class required");
     String name = c.getName();
-    return createADFLogger(name);
+    return createTrinidadLogger(name);
   }
 
   /**
@@ -167,12 +167,12 @@ public class ADFLogger
    *        
    * @return a suitable Logger
    */
-  public static ADFLogger createADFLogger(Class c, String resourceBundleName) 
+  public static TrinidadLogger createTrinidadLogger(Class c, String resourceBundleName) 
   {
     if (c == null)
       throw new IllegalArgumentException("Class required");
     String name = c.getName();
-    return createADFLogger(name, resourceBundleName);
+    return createTrinidadLogger(name, resourceBundleName);
   }
 
  /**
@@ -189,12 +189,12 @@ public class ADFLogger
    * @return a suitable Logger
    */
 
-  public static ADFLogger createADFLogger(Package p)
+  public static TrinidadLogger createTrinidadLogger(Package p)
   {
     if (p == null)
       throw new IllegalArgumentException("Package required");
     String name = p.getName();
-    return createADFLogger(name);
+    return createTrinidadLogger(name);
   }
 
 /**
@@ -214,12 +214,12 @@ public class ADFLogger
    * @return a suitable Logger
    */
 
-  public static ADFLogger createADFLogger(Package p, String resourceBundleName)
+  public static TrinidadLogger createTrinidadLogger(Package p, String resourceBundleName)
   {
     if (p == null)
       throw new IllegalArgumentException("Package required");
     String name = p.getName();
-    return createADFLogger(name, resourceBundleName);
+    return createTrinidadLogger(name, resourceBundleName);
   }
 
   /**
@@ -242,9 +242,9 @@ public class ADFLogger
    *
    * @return a newly created private Logger
    */
-  public static ADFLogger getAnonymousLogger() 
+  public static TrinidadLogger getAnonymousLogger() 
   {
-    return new ADFLogger(Logger.getAnonymousLogger());    
+    return new TrinidadLogger(Logger.getAnonymousLogger());    
   }
 
   /**
@@ -269,9 +269,9 @@ public class ADFLogger
    * @return a newly created private Logger
    * @throws MissingResourceException if the named ResourceBundle cannot be found.
    */
-  public static ADFLogger getAnonymousLogger(String resourceBundleName) 
+  public static TrinidadLogger getAnonymousLogger(String resourceBundleName) 
   {
-    return new ADFLogger(Logger.getAnonymousLogger(resourceBundleName));
+    return new TrinidadLogger(Logger.getAnonymousLogger(resourceBundleName));
   }
 
 
@@ -322,7 +322,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       doLog(lr);  
     }
   }
@@ -342,7 +342,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       Object params[] = { param1};
       lr.setParameters(params);
       doLog(lr);  
@@ -364,7 +364,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setParameters(params);
       doLog(lr);  
     }
@@ -390,7 +390,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setThrown(thrown);
       doLog(lr);  
     }
@@ -417,7 +417,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       doLog(lr);  
@@ -443,7 +443,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       Object params[] = { param1};
@@ -471,7 +471,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       lr.setParameters(params);
@@ -503,7 +503,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       lr.setThrown(thrown);
@@ -537,7 +537,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       doLog(lr,bundleName);  
@@ -569,7 +569,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       Object params[] = { param1};
@@ -603,7 +603,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       lr.setParameters(params);
@@ -641,7 +641,7 @@ public class ADFLogger
   {
     if (isLoggable(level))
     {
-      ADFLogRecord lr = new ADFLogRecord(level, msg);
+      TrinidadLogRecord lr = new TrinidadLogRecord(level, msg);
       lr.setSourceClassName(sourceClass);
       lr.setSourceMethodName(sourceMethod);
       lr.setThrown(thrown);

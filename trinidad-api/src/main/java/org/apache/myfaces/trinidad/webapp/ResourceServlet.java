@@ -47,7 +47,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.CachingResourceLoader;
 import org.apache.myfaces.trinidad.resource.DirectoryResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
@@ -500,5 +500,5 @@ public class ResourceServlet extends HttpServlet
   static private final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(ResourceServlet.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ResourceServlet.class);
 }

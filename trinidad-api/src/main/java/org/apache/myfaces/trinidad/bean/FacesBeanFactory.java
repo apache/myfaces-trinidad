@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -153,7 +153,7 @@ public class FacesBeanFactory
     return loader;
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(FacesBeanFactory.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanFactory.class);
   static private       Map    _TYPES_MAP;
 
   static

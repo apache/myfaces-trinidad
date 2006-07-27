@@ -29,7 +29,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.bean.PropertyMap;
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
@@ -318,6 +318,6 @@ public class StateUtils
     return cl;
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(StateUtils.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
 }
 
