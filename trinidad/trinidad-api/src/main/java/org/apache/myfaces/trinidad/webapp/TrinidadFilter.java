@@ -47,7 +47,7 @@ public class TrinidadFilter implements Filter
       try
       {
         Class proxiedClass = loader.loadClass(
-                      "org.apache.myfaces.trinidadinternal.webapp.AdfFacesFilterImpl");
+                      "org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl");
         _proxied = (Filter) proxiedClass.newInstance();
         _proxied.init(filterConfig);
       }
