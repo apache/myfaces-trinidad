@@ -25,7 +25,7 @@
           components that implement ActionSource and DialogSource.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/command.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/command.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Command</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXCommand</component-class>

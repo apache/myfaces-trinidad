@@ -22,7 +22,7 @@
   <component>
     <description><![CDATA[Component that displays a label for a form component.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/outputLabel.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/outputLabel.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreOutputLabel</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreOutputLabel</component-class>

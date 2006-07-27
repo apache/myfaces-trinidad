@@ -22,7 +22,7 @@
   <component>
     <description><![CDATA[The objectIcon component renders a skin specific icon.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/objectIcon.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/objectIcon.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreObjectIcon</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreObjectIcon</component-class>

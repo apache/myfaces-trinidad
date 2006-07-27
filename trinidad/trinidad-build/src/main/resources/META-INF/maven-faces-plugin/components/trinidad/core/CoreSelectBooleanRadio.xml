@@ -26,7 +26,7 @@
           It supports displaying a prompt, text, and messages.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/selectBooleanRadio.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectBooleanRadio.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectBooleanRadio</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanRadio</component-class>

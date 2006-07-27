@@ -28,7 +28,7 @@ If you place panelForm child items inside of a group, separators will be drawn a
 Grouped panelForm items are kept in the same column of the panelForm even when the assigned rows attribute is set to a value smaller than the number of items in the group.
 The panelForm component also supports the group component in its footer facet so you can place more than one item in the footer.  You can even group footer items one additional time to get separators to appear.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/panelForm.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelForm.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelForm</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelForm</component-class>

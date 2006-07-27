@@ -24,7 +24,7 @@
 may select from a list, choice, radio, or shuttle ADF control.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/selectItem.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectItem.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectItem</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectItem</component-class>

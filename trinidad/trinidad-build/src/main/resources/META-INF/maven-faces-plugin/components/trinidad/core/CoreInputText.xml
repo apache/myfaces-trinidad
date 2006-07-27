@@ -25,7 +25,7 @@ it may be single-line, multi-line, or a "secret" password field.
 It supports displaying a label, text, and messages.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/inputText.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputText.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputText</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputText</component-class>

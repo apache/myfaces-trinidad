@@ -25,7 +25,7 @@
 that display a single message on behalf of a component.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseMessage.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseMessage.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Message</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXMessage</component-class>

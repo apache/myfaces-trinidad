@@ -24,7 +24,7 @@
     <description><![CDATA[The navigationLevel component creates a series of navigation items representing one level in a navigation hierarchy.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseNavigationLevel.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseNavigationLevel.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.NavigationLevel</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXNavigationLevel</component-class>

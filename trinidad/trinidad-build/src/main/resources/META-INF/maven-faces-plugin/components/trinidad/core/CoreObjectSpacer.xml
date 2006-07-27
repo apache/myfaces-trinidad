@@ -23,7 +23,7 @@
     <description><![CDATA[objectSpacers occupy a fixed amount of
           space in a layout.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/objectSpacer.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/objectSpacer.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreObjectSpacer</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer</component-class>

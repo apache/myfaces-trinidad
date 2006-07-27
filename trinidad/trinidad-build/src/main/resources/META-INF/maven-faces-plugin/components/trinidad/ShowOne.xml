@@ -25,7 +25,7 @@
 a group of showDetails, but displays one of them.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/showOne.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showOne.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.ShowOne</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXShowOne</component-class>

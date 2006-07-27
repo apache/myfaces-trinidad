@@ -25,7 +25,7 @@
           of a page.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/reset.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/reset.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Reset</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXReset</component-class>

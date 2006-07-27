@@ -23,7 +23,7 @@
   <component>
     <description><![CDATA[Represents an interactive tree component.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseTree.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseTree.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Tree</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXTree</component-class>

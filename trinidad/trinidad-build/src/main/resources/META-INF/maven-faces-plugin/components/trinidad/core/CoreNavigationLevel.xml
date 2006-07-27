@@ -22,7 +22,7 @@
     <description><![CDATA[The navigationLevel component creates a series of navigation items representing one level in a navigation hierarchy.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/navigationLevel.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/navigationLevel.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreNavigationLevel</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreNavigationLevel</component-class>

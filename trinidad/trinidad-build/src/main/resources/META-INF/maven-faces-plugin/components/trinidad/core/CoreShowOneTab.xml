@@ -23,7 +23,7 @@
     <description><![CDATA[The showOneTab control creates, contains and shows a series of items defined by showDetailItem nodes.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/showOneTab.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showOneTab.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreShowOneTab</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CoreShowOneTab</component-class>

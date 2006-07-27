@@ -24,7 +24,7 @@
          provided by ADF Faces.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/importScript.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/importScript.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreImportScript</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.CoreImportScript</component-class>

@@ -23,7 +23,7 @@
     <description><![CDATA[The ADF NavigationTree is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/navigationTree.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/navigationTree.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreNavigationTree</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreNavigationTree</component-class>

@@ -24,7 +24,7 @@
       <![CDATA[The objectImage control creates an image tag.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/objectImage.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/objectImage.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreObjectImage</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreObjectImage</component-class>

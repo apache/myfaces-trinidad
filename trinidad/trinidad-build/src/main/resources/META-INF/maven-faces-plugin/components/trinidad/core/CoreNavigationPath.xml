@@ -24,7 +24,7 @@
           hierarchy with links.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/navigationPath.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/navigationPath.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreNavigationPath</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPath</component-class>

@@ -24,7 +24,7 @@
     <description><![CDATA[The form control is the base abstraction for a submitted
 region of a page.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseForm.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseForm.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Form</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXForm</component-class>

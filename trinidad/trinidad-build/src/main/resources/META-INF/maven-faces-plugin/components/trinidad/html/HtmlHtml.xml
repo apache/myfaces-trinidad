@@ -22,7 +22,7 @@
     <description><![CDATA[<html>
           The html tag generates the &lt;html&gt; element for an HTML page.</html>]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/html.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/html.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlHtml</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlHtml</component-class>
