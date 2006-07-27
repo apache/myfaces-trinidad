@@ -33,7 +33,7 @@ import javax.faces.render.Renderer;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.util.MessageFactory;
@@ -560,6 +560,6 @@ abstract public class UIXEditableValueTemplate
     return new FacesMessageWrapper(original, _getLabel());
   }
 
-  static private final ADFLogger _LOG =
-    ADFLogger.createADFLogger(UIXEditableValue.class);
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(UIXEditableValue.class);
 }
