@@ -26,7 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Base class for referencing declarative components.
@@ -224,5 +224,5 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
   private transient Object _oldValue = Boolean.FALSE;
   private transient Object _oldVar = null;
   private static final String _BINDINGS_VAR = "bindings";
-  private static final ADFLogger _LOG = ADFLogger.createADFLogger(UIXComponentRefTemplate.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentRefTemplate.class);
 }

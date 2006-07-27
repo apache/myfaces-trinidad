@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.ADFLogger;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 abstract public class UIXSelectManyTemplate extends UIXEditableValue
 {
@@ -168,5 +168,5 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
     return listCopy;
   }
 
-  static private final ADFLogger _LOG = ADFLogger.createADFLogger(UIXSelectMany.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXSelectMany.class);
 }
