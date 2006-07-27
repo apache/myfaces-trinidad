@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.UIXSelectOne;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -117,7 +117,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     if (item.isDisabled())
     {
       if (!Boolean.TRUE.equals(arc.getAgent().getCapability(
-                          AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
+                          TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
         return false;
     }
 

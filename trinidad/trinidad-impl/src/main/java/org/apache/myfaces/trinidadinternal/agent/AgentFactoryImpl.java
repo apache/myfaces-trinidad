@@ -341,7 +341,7 @@ public class AgentFactoryImpl implements AgentFactory
   private void _populateNetFrontAgentImpl(String agent, AgentImpl agentObj)
   {
     agentObj.setType(Agent.TYPE_PDA);
-    agentObj.setAgent(AdfFacesAgent.AGENT_NETFRONT);
+    agentObj.setAgent(TrinidadAgent.AGENT_NETFRONT);
 
     int start = agent.indexOf("NetFront/");
 
@@ -381,7 +381,7 @@ public class AgentFactoryImpl implements AgentFactory
   private void _populatePalmWebBrowserProAgentImpl(String agent,AgentImpl agentObj)
   {
     agentObj.setType(Agent.TYPE_PDA);
-    agentObj.setAgent(AdfFacesAgent.AGENT_WEBPRO);
+    agentObj.setAgent(TrinidadAgent.AGENT_WEBPRO);
 
     int start = agent.indexOf("WebPro/");
 
@@ -432,7 +432,7 @@ public class AgentFactoryImpl implements AgentFactory
 
     String version = _getVersion(agent, agent.indexOf('/'));
     agentObj.setType(Agent.TYPE_PHONE);
-    agentObj.setAgent(AdfFacesAgent.AGENT_PTG);
+    agentObj.setAgent(TrinidadAgent.AGENT_PTG);
     agentObj.setAgentVersion(version);
   }
 
@@ -444,9 +444,9 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setType(Agent.TYPE_PDA);
 
     if (userAgent.indexOf("Blazer") != -1)
-      agentObj.setAgent(AdfFacesAgent.AGENT_BLAZER);
+      agentObj.setAgent(TrinidadAgent.AGENT_BLAZER);
     else if (userAgent.indexOf("Xiino") != -1)
-      agentObj.setAgent(AdfFacesAgent.AGENT_XIINO);
+      agentObj.setAgent(TrinidadAgent.AGENT_XIINO);
 
     agentObj.setPlatform(Agent.PLATFORM_PALM);
 
@@ -459,7 +459,7 @@ public class AgentFactoryImpl implements AgentFactory
   {
     int slashIndex = agent.indexOf('/');
     agentObj.setType(Agent.TYPE_DESKTOP);
-    agentObj.setAgent(AdfFacesAgent.AGENT_ICE_BROWSER);
+    agentObj.setAgent(TrinidadAgent.AGENT_ICE_BROWSER);
     agentObj.setAgentVersion(_getVersion(agent, slashIndex));
     agentObj.setPlatform(_getJavaOS(agent, slashIndex));
   }
@@ -470,7 +470,7 @@ public class AgentFactoryImpl implements AgentFactory
   private void  _populatePixoAgentImpl(String agent,AgentImpl agentObj)
   {
     agentObj.setType(Agent.TYPE_PHONE);
-    agentObj.setAgent(AdfFacesAgent.AGENT_PIXO);
+    agentObj.setAgent(TrinidadAgent.AGENT_PIXO);
     agentObj.setAgentVersion(_getVersion(agent, agent.indexOf('/')));
   }
 
@@ -586,7 +586,7 @@ public class AgentFactoryImpl implements AgentFactory
     // No section to qualify the agent;  assume Mozilla/Netscape
     if (paren == -1)
     {
-      agentObj.setAgent(AdfFacesAgent.AGENT_NETSCAPE);
+      agentObj.setAgent(TrinidadAgent.AGENT_NETSCAPE);
       agentObj.setAgentVersion(_getVersion(agent, agent.indexOf('/')));
     }
     else
@@ -608,7 +608,7 @@ public class AgentFactoryImpl implements AgentFactory
           if (palmIndex > 0)
           {
             agentObj.setType(Agent.TYPE_PDA);
-            agentObj.setAgent(AdfFacesAgent.AGENT_ELAINE);
+            agentObj.setAgent(TrinidadAgent.AGENT_ELAINE);
             agentObj.setAgentVersion(_getVersion(agent, palmIndex));
             agentObj.setPlatform(Agent.PLATFORM_PALM);
           }
@@ -621,7 +621,7 @@ public class AgentFactoryImpl implements AgentFactory
       }
       else
       {
-        agentObj.setAgent(AdfFacesAgent.AGENT_NETSCAPE);
+        agentObj.setAgent(TrinidadAgent.AGENT_NETSCAPE);
         agentObj.setAgentVersion(_getVersion(agent, agent.indexOf('/')));
       }
 
@@ -650,11 +650,11 @@ public class AgentFactoryImpl implements AgentFactory
 
       if (isJDevVE)
       {
-        agentObj.__addRequestCapability(AdfFacesAgent.CAP_IS_JDEV_VE,
+        agentObj.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_VE,
                                         Boolean.TRUE);
         if (isJDevJSVE)
         {
-          agentObj.__addRequestCapability(AdfFacesAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
+          agentObj.__addRequestCapability(TrinidadAgent.CAP_IS_JDEV_JAVASCRIPT_VE,
                                           Boolean.TRUE);
         }
           

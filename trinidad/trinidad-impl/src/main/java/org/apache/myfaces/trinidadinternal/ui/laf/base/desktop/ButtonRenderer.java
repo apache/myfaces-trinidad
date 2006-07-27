@@ -25,7 +25,7 @@ import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
@@ -325,8 +325,8 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     int application = context.getAgent().getAgentApplication();
     Object align;
 
-    if ((application == AdfFacesAgent.APPLICATION_NETSCAPE)
-        || (application == AdfFacesAgent.APPLICATION_GECKO)
+    if ((application == TrinidadAgent.APPLICATION_NETSCAPE)
+        || (application == TrinidadAgent.APPLICATION_GECKO)
         || (isScreenReaderMode(context)))
     {
       align = UIConstants.V_ALIGN_MIDDLE;
@@ -358,7 +358,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
       // so that in renderImageContent we know that we rendered this special
       // attribute and then we will register the onkeydown event handler.
       if ((isIE(context)) &&
-          !(context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS ))
+          !(context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS ))
       {
         context.getResponseWriter().writeAttribute("adfbtn", "t", null);
         setRenderingProperty(context, _ADF_BTN_ATTR, Boolean.TRUE);

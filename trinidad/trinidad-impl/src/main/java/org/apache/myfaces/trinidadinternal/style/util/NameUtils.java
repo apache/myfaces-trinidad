@@ -23,7 +23,7 @@ import java.util.Vector;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.UserStyleSheet;
@@ -47,21 +47,21 @@ public class NameUtils
   public static int getBrowser(String browserName)
   {
     if (browserName == null)
-      return AdfFacesAgent.APPLICATION_UNKNOWN;
+      return TrinidadAgent.APPLICATION_UNKNOWN;
 
-    int browser = AdfFacesAgent.APPLICATION_UNKNOWN;
+    int browser = TrinidadAgent.APPLICATION_UNKNOWN;
 
     if (_BROWSER_NETSCAPE.equals(browserName))
-      browser = AdfFacesAgent.APPLICATION_NETSCAPE;
+      browser = TrinidadAgent.APPLICATION_NETSCAPE;
     else if (_BROWSER_IE.equals(browserName))
-      browser = AdfFacesAgent.APPLICATION_IEXPLORER;
+      browser = TrinidadAgent.APPLICATION_IEXPLORER;
     else if (_BROWSER_GECKO.equals(browserName) ||
              _BROWSER_MOZILLA.equals(browserName))
-      browser = AdfFacesAgent.APPLICATION_GECKO;
+      browser = TrinidadAgent.APPLICATION_GECKO;
     else if (_BROWSER_ICE.equals(browserName))
-      browser = AdfFacesAgent.APPLICATION_ICE;
+      browser = TrinidadAgent.APPLICATION_ICE;
     else if (_BROWSER_WEBKIT.equals(browserName))
-      browser = AdfFacesAgent.APPLICATION_SAFARI;
+      browser = TrinidadAgent.APPLICATION_SAFARI;
     else
     {
       // Either a new or an invalid browser
@@ -80,22 +80,22 @@ public class NameUtils
 
     switch (browser)
     {
-    case AdfFacesAgent.APPLICATION_NETSCAPE:
+    case TrinidadAgent.APPLICATION_NETSCAPE:
       name = _BROWSER_NETSCAPE;
       break;
-    case AdfFacesAgent.APPLICATION_IEXPLORER:
+    case TrinidadAgent.APPLICATION_IEXPLORER:
       name = _BROWSER_IE;
       break;
-    case AdfFacesAgent.APPLICATION_GECKO:
+    case TrinidadAgent.APPLICATION_GECKO:
       name = _BROWSER_GECKO;
       break;
-    case AdfFacesAgent.APPLICATION_ICE:
+    case TrinidadAgent.APPLICATION_ICE:
       name = _BROWSER_ICE;
       break;
-    case AdfFacesAgent.APPLICATION_SAFARI:
+    case TrinidadAgent.APPLICATION_SAFARI:
       name = _BROWSER_WEBKIT;
       break;
-    case AdfFacesAgent.APPLICATION_UNKNOWN:
+    case TrinidadAgent.APPLICATION_UNKNOWN:
       // This case is only here to avoid the default assertion
       break;
     default:
@@ -176,20 +176,20 @@ public class NameUtils
   public static int getPlatform(String platformName)
   {
     if (platformName == null)
-      return AdfFacesAgent.OS_UNKNOWN;
+      return TrinidadAgent.OS_UNKNOWN;
 
-    int platform = AdfFacesAgent.OS_UNKNOWN;
+    int platform = TrinidadAgent.OS_UNKNOWN;
 
     if (_PLATFORM_WINDOWS.equals(platformName))
-      platform = AdfFacesAgent.OS_WINDOWS;
+      platform = TrinidadAgent.OS_WINDOWS;
     else if (_PLATFORM_MACOS.equals(platformName))
-      platform = AdfFacesAgent.OS_MACOS;
+      platform = TrinidadAgent.OS_MACOS;
     else if (_PLATFORM_LINUX.equals(platformName))
-      platform = AdfFacesAgent.OS_LINUX;
+      platform = TrinidadAgent.OS_LINUX;
     else if (_PLATFORM_SOLARIS.equals(platformName))
-      platform = AdfFacesAgent.OS_SOLARIS;
+      platform = TrinidadAgent.OS_SOLARIS;
     else if (_PLATFORM_PPC.equals(platformName))
-      platform = AdfFacesAgent.OS_PPC;
+      platform = TrinidadAgent.OS_PPC;
     else if (!_PLATFORM_UNIX.equals(platformName))
     {
       // Either a new or an invalid platform
@@ -208,22 +208,22 @@ public class NameUtils
 
     switch (platform)
     {
-    case AdfFacesAgent.OS_WINDOWS:
+    case TrinidadAgent.OS_WINDOWS:
       name = _PLATFORM_WINDOWS;
       break;
-    case AdfFacesAgent.OS_MACOS:
+    case TrinidadAgent.OS_MACOS:
       name = _PLATFORM_MACOS;
       break;
-    case AdfFacesAgent.OS_LINUX:
+    case TrinidadAgent.OS_LINUX:
       name = _PLATFORM_LINUX;
       break;
-    case AdfFacesAgent.OS_SOLARIS:
+    case TrinidadAgent.OS_SOLARIS:
       name = _PLATFORM_SOLARIS;
       break;
-    case AdfFacesAgent.OS_PPC:
+    case TrinidadAgent.OS_PPC:
       name = _PLATFORM_PPC;
       break;
-    case AdfFacesAgent.OS_UNKNOWN:
+    case TrinidadAgent.OS_UNKNOWN:
       // This case is only here to avoid the default assertion
       break;
     default:
@@ -458,7 +458,7 @@ public class NameUtils
   // Get the version as a String
   private static String _getVersionString(StyleContext context)
   {
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
     int version = agent.getAgentMajorVersion();
 
     // Zero indicates that the version is not known
@@ -576,7 +576,7 @@ public class NameUtils
       StyleSheetNode[] styleSheets)
   {
     int browser = context.getAgent().getAgentApplication();
-    if (browser == AdfFacesAgent.APPLICATION_UNKNOWN)
+    if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
       return false;
 
     // If any style sheet has a non-null browser variant, we must
@@ -616,7 +616,7 @@ public class NameUtils
       StyleSheetNode[] styleSheets)
   {
     int platform = context.getAgent().getAgentOS();
-    if (platform == AdfFacesAgent.OS_UNKNOWN)
+    if (platform == TrinidadAgent.OS_UNKNOWN)
       return false;
 
     // If any style sheet has a non-null platform variant, we must

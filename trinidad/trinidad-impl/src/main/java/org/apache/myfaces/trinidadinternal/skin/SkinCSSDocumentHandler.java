@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -330,7 +330,7 @@ public class SkinCSSDocumentHandler
         {
           int agentInt = NameUtils.getBrowser(typeArray[i].trim());
           
-          if (agentInt != AdfFacesAgent.APPLICATION_UNKNOWN)
+          if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
             list.add(IntegerUtils.getInteger(agentInt));
         }
       }
@@ -340,7 +340,7 @@ public class SkinCSSDocumentHandler
         {
           int platformInt = NameUtils.getPlatform(typeArray[i].trim());           
 
-          if (platformInt != AdfFacesAgent.OS_UNKNOWN)
+          if (platformInt != TrinidadAgent.OS_UNKNOWN)
             list.add(IntegerUtils.getInteger(platformInt));
         }          
       }

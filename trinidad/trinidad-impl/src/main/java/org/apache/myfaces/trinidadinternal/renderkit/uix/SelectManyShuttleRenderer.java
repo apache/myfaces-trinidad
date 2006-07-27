@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.component.UIXSelectMany;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeFacesBean;
@@ -155,7 +155,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
         // options
         boolean agentSupportsDisabledOptions = Boolean.TRUE.equals(AgentUtil
             .getAgent(context).getCapability(
-                AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
+                TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
         boolean isItemDisabled = uiSelectItem.isDisabled();
         if (!isItemDisabled || agentSupportsDisabledOptions)
         {

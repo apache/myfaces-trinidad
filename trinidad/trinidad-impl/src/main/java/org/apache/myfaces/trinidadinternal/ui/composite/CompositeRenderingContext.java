@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
@@ -201,7 +201,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * Returns an Agent object that can be used to identify
    * what device will display the rendering.
    */
-  public AdfFacesAgent getAgent()
+  public TrinidadAgent getAgent()
   {
     return _nonCompositeContext.getAgent();
   }

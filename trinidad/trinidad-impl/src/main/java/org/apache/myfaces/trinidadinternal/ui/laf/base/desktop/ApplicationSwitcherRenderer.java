@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.component.UIXNavigationHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidad.component.core.nav.CoreMenuChoice;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
@@ -220,7 +220,7 @@ public class ApplicationSwitcherRenderer extends
     writer.startElement(TABLE_DATA_ELEMENT, null);
 
     if (  context.getAgent().getAgentApplication()
-          != AdfFacesAgent.APPLICATION_NETSCAPE)
+          != TrinidadAgent.APPLICATION_NETSCAPE)
       writer.writeAttribute("valign", "bottom", null);
   }
 
@@ -277,7 +277,7 @@ public class ApplicationSwitcherRenderer extends
 
     writer.startElement(TABLE_DATA_ELEMENT, null);
     if (  context.getAgent().getAgentApplication()
-          != AdfFacesAgent.APPLICATION_NETSCAPE)
+          != TrinidadAgent.APPLICATION_NETSCAPE)
       writer.writeAttribute("valign", "bottom", null);
 
     // render goto button

@@ -39,7 +39,7 @@ public class AgentUtil
    * @param platform
    * @return
    */
-  public static AdfFacesAgent getAgent(int type, int browser, String agentVersion, int platform)
+  public static TrinidadAgent getAgent(int type, int browser, String agentVersion, int platform)
   {
     final int fType = type;
     final int fBrowser = browser;
@@ -65,7 +65,7 @@ public class AgentUtil
                 return AgentNameUtil.getPlatformName(fPlatform);
               }
             };
-    return new AdfFacesAgentImpl(agent);
+    return new TrinidadAgentImpl(agent);
   }
 
   /**
@@ -73,10 +73,10 @@ public class AgentUtil
    *
    * @return
    */
-  public static AdfFacesAgent getUnknownAgent()
+  public static TrinidadAgent getUnknownAgent()
   {
     DefaultAgent adfAgent = new DefaultAgent();
-    return new AdfFacesAgentImpl(adfAgent);
+    return new TrinidadAgentImpl(adfAgent);
   }
 
   /**
@@ -85,13 +85,13 @@ public class AgentUtil
    * @param context
    * @return
    */
-  public static AdfFacesAgent getAgent(FacesContext context)
+  public static TrinidadAgent getAgent(FacesContext context)
   {
     Agent agent = RequestContext.getCurrentInstance().getAgent();
-    if (agent instanceof AdfFacesAgent)
-      return (AdfFacesAgent) agent;
+    if (agent instanceof TrinidadAgent)
+      return (TrinidadAgent) agent;
 
-    return new AdfFacesAgentImpl(context, agent);
+    return new TrinidadAgentImpl(context, agent);
   }
 
 
@@ -110,19 +110,19 @@ public class AgentUtil
   //=-=AEW: I don't believe this is a repository thing:  the concept
   //of output mode is entirely renderkit specific, and the tweaks
   //that are made to the capabilities are also renderkit specific.
-  public static AdfFacesAgent mergeCapabilities(AdfFacesAgent agent, Map capabilities)
+  public static TrinidadAgent mergeCapabilities(TrinidadAgent agent, Map capabilities)
   {
-    if (!(agent instanceof AdfFacesAgentImpl))
+    if (!(agent instanceof TrinidadAgentImpl))
       throw new IllegalArgumentException("mergeCapabilities() may only be " +
                                          "used with Agents created by this " +
                                          "class.");
     // Make a copy of the agent first
-    agent = (AdfFacesAgent) agent.clone();
+    agent = (TrinidadAgent) agent.clone();
 
     // Then merge in the capabilities
     // =-=AEW This codepath ends up creating copies of the
     // capability map twice, once in clone(), once in __mergeCapabilities()
-    ((AdfFacesAgentImpl)agent).__mergeCapabilities(capabilities);
+    ((TrinidadAgentImpl)agent).__mergeCapabilities(capabilities);
 
     return agent;
   }

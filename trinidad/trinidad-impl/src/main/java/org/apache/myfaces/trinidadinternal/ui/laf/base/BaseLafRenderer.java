@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
@@ -776,8 +776,8 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (AdfFacesAgent.DOM_CAP_LEVEL_2 ==
-            context.getAgent().getCapability(AdfFacesAgent.CAP_DOM));
+    return (TrinidadAgent.DOM_CAP_LEVEL_2 ==
+            context.getAgent().getCapability(TrinidadAgent.CAP_DOM));
   }
 
   /**
@@ -787,7 +787,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ID);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_ID);
   }
 
   /**
@@ -797,7 +797,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_XMLDOM);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_XMLDOM);
   }
 
 
@@ -810,7 +810,7 @@ public class BaseLafRenderer extends ElementRenderer
   {
     if (isScreenReaderMode(context))
       return false;
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ACCESS_KEYS);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_ACCESS_KEYS);
   }
 
 
@@ -823,7 +823,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_TEXT_PRESENTATION);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_TEXT_PRESENTATION);
   }
 
   /**
@@ -835,7 +835,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ADVANCED_FORMS);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_ADVANCED_FORMS);
   }
 
 
@@ -848,8 +848,8 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (AdfFacesAgent.TABLES_CAP_ADVANCED ==
-            getAgentCapability(context, AdfFacesAgent.CAP_TABLES));
+    return (TrinidadAgent.TABLES_CAP_ADVANCED ==
+            getAgentCapability(context, TrinidadAgent.CAP_TABLES));
   }
 
 
@@ -862,7 +862,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_FRAMES);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_FRAMES);
   }
 
 
@@ -876,7 +876,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_TARGET);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_TARGET);
   }
 
 
@@ -889,7 +889,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_IFRAMES);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_IFRAMES);
   }
 
 
@@ -905,7 +905,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_INTRINSIC_EVENTS);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_INTRINSIC_EVENTS);
   }
 
 
@@ -920,10 +920,10 @@ public class BaseLafRenderer extends ElementRenderer
   {
 
     Object scriptingSpeed = getAgentCapability(context,
-            AdfFacesAgent.CAP_SCRIPTING_SPEED);
+            TrinidadAgent.CAP_SCRIPTING_SPEED);
 
     return ((scriptingSpeed != null) &&
-            (AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
+            (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
 
   }
 
@@ -934,7 +934,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_MULTIPLE_WINDOWS);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_MULTIPLE_WINDOWS);
   }
 
 
@@ -950,8 +950,8 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (getAgentCapability(context, AdfFacesAgent.CAP_STYLE_ATTRIBUTES) !=
-            AdfFacesAgent.STYLES_NONE);
+    return (getAgentCapability(context, TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
+            TrinidadAgent.STYLES_NONE);
   }
 
 
@@ -962,8 +962,8 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (getAgentCapability(context, AdfFacesAgent.CAP_STYLE_ATTRIBUTES) ==
-            AdfFacesAgent.STYLES_EXTERNAL );
+    return (getAgentCapability(context, TrinidadAgent.CAP_STYLE_ATTRIBUTES) ==
+            TrinidadAgent.STYLES_EXTERNAL );
   }
 
 
@@ -975,8 +975,8 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return (getAgentCapability(context, AdfFacesAgent.CAP_CSS_SELECTORS) ==
-            AdfFacesAgent.SELECTORS_MULTIPLE);
+    return (getAgentCapability(context, TrinidadAgent.CAP_CSS_SELECTORS) ==
+            TrinidadAgent.SELECTORS_MULTIPLE);
   }
 
 
@@ -987,7 +987,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NAVIGATION);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_NAVIGATION);
   }
 
 
@@ -998,7 +998,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_EDITING);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_EDITING);
   }
 
   /**
@@ -1010,7 +1010,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NAME_IDENTIFICATION);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_NAME_IDENTIFICATION);
   }
 
   /**
@@ -1021,7 +1021,7 @@ public class BaseLafRenderer extends ElementRenderer
           )
   {
     return getBooleanAgentCapability(context,
-            AdfFacesAgent.CAP_DISABLED_FORM_ELEMENTS);
+            TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
   }
 
   /*
@@ -1032,7 +1032,7 @@ public class BaseLafRenderer extends ElementRenderer
     )
   {
     return getBooleanAgentCapability(context,
-            AdfFacesAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
+            TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
   }
 
   /**
@@ -1043,7 +1043,7 @@ public class BaseLafRenderer extends ElementRenderer
           )
   {
     return getBooleanAgentCapability(context,
-            AdfFacesAgent.CAP_READONLY_FORM_ELEMENTS);
+            TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
   }
 
   /**
@@ -1053,7 +1053,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_FIELDSET);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_FIELDSET);
   }
 
   /**

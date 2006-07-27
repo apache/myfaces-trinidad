@@ -31,8 +31,8 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgentImpl;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -127,7 +127,7 @@ public class CoreRenderingContext extends RenderingContext
     return _properties;
   }
 
-  public AdfFacesAgent getAgent()
+  public TrinidadAgent getAgent()
   {
     return _agent;
   }
@@ -334,7 +334,7 @@ public class CoreRenderingContext extends RenderingContext
 
     // =-=jmw @todo when we have proper renderKitId switching, I can
     // get rid of this bit of code.
-    if (AdfFacesAgent.TYPE_PDA == _agent.getAgentType())
+    if (TrinidadAgent.TYPE_PDA == _agent.getAgentType())
     {
       renderKitId = "org.apache.myfaces.trinidad.pda";
     }
@@ -363,7 +363,7 @@ public class CoreRenderingContext extends RenderingContext
     _skin = skin;
   }
 
-  private AdfFacesAgent _initializeAgent(
+  private TrinidadAgent _initializeAgent(
     FacesContext context,
     Agent        base,
     String       outputMode)
@@ -372,11 +372,11 @@ public class CoreRenderingContext extends RenderingContext
     // =-=AEW In theory, we should only be getting a plain Agent
     // out of the RequestContext:  for some reason, we're going
     // straight to an AdfFacesAgent in RequestContext
-    AdfFacesAgent agent;
-    if (base instanceof AdfFacesAgent)
-      agent = (AdfFacesAgent) base;
+    TrinidadAgent agent;
+    if (base instanceof TrinidadAgent)
+      agent = (TrinidadAgent) base;
     else
-      agent = new AdfFacesAgentImpl(context, base);
+      agent = new TrinidadAgentImpl(context, base);
 
     // Now, merge in any capabilities that we need
     if (CoreRenderKit.OUTPUT_MODE_PRINTABLE.equals(outputMode))
@@ -484,7 +484,7 @@ public class CoreRenderingContext extends RenderingContext
 
   private Skin               _skin;
   private FormData           _formData;
-  private AdfFacesAgent      _agent;
+  private TrinidadAgent      _agent;
   private Map                _styleMap;
   private Map                _skinResourceKeyMap;
   private String             _outputMode;
@@ -501,29 +501,29 @@ public class CoreRenderingContext extends RenderingContext
   static private final Map _EMAIL_CAPABILITIES = new HashMap();
   static
   {
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_INTRINSIC_EVENTS,
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
                                 Boolean.FALSE);
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_SCRIPTING_SPEED,
-                                AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE);
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_SCRIPTING_SPEED,
-                                AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE);
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_NAVIGATION,
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                                TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                                TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_NAVIGATION,
                                 Boolean.FALSE);
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_EDITING,
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
                                 Boolean.FALSE);
-    _PRINTABLE_CAPABILITIES.put(AdfFacesAgent.CAP_PARTIAL_RENDERING,
+    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                                 Boolean.FALSE);
 
 
-    _EMAIL_CAPABILITIES.put(AdfFacesAgent.CAP_INTRINSIC_EVENTS,
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
                             Boolean.FALSE);
-    _EMAIL_CAPABILITIES.put(AdfFacesAgent.CAP_SCRIPTING_SPEED,
-                            AdfFacesAgent.SCRIPTING_SPEED_CAP_NONE);
-    _EMAIL_CAPABILITIES.put(AdfFacesAgent.CAP_EDITING,
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
+                            TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_EDITING,
                             Boolean.FALSE);
-    _EMAIL_CAPABILITIES.put(AdfFacesAgent.CAP_STYLE_ATTRIBUTES,
-                            AdfFacesAgent.STYLES_INTERNAL);
-    _EMAIL_CAPABILITIES.put(AdfFacesAgent.CAP_PARTIAL_RENDERING,
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_STYLE_ATTRIBUTES,
+                            TrinidadAgent.STYLES_INTERNAL);
+    _EMAIL_CAPABILITIES.put(TrinidadAgent.CAP_PARTIAL_RENDERING,
                             Boolean.FALSE);
   }
 

@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class InputFileRenderer extends InputLabelAndMessageRenderer
@@ -42,7 +42,7 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
   {
     // =-=AEW inputFile is currently disabled for PDAs.  But this should
     // run off of an agent property.
-    if (arc.getAgent().getAgentType() != AdfFacesAgent.TYPE_PDA)
+    if (arc.getAgent().getAgentType() != TrinidadAgent.TYPE_PDA)
     {
       super.encodeAll(context, arc, component, bean);
     }

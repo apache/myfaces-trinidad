@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
@@ -185,7 +185,7 @@ public class CellUtils
     
     if ((tContext.getTableHeight() != null) &&
         (arc.getAgent().getAgentApplication() ==
-           AdfFacesAgent.APPLICATION_GECKO))
+           TrinidadAgent.APPLICATION_GECKO))
     {
       return getBorderClass(false, false, false, false);
     }

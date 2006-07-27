@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.style.Style;
@@ -134,7 +134,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     UIXRenderingContext context
     )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ADVANCED_BUTTONS);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_ADVANCED_BUTTONS);
   }
 
   /**
@@ -144,7 +144,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     UIXRenderingContext context
     )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_VALIGN);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_VALIGN);
   }
 
   /**
@@ -154,7 +154,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     UIXRenderingContext context
     )
   {
-    return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NOWRAP);
+    return getBooleanAgentCapability(context, TrinidadAgent.CAP_NOWRAP);
   }
 
   /**
@@ -165,7 +165,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     )
   {
     return getBooleanAgentCapability(context,
-                                     AdfFacesAgent.CAP_ALT_RENDERS_TOOLTIP_ON_IMAGE);
+                                     TrinidadAgent.CAP_ALT_RENDERS_TOOLTIP_ON_IMAGE);
   }
 
   /**
@@ -1188,10 +1188,10 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     // number of spacers. bug 3786394:
     boolean useScript =
       ((count < 800)
-       && (AdfFacesAgent.SCRIPTING_SPEED_CAP_FAST ==
-           getAgentCapability(context, AdfFacesAgent.CAP_SCRIPTING_SPEED))
+       && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
+           getAgentCapability(context, TrinidadAgent.CAP_SCRIPTING_SPEED))
        && (null ==
-           getAgentCapability(context, AdfFacesAgent.CAP_IS_JDEV_VE)));
+           getAgentCapability(context, TrinidadAgent.CAP_IS_JDEV_VE)));
     _renderTransparent(context, width, height, needsQuoting, id, useScript);
   }
 

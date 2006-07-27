@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
@@ -75,7 +75,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
     {
       // Initialize the NameAndAgentScorer for base/desktop
       super(lafName,
-            IntegerUtils.getInteger(AdfFacesAgent.TYPE_DESKTOP),
+            IntegerUtils.getInteger(TrinidadAgent.TYPE_DESKTOP),
             null,
             null,
             null);
@@ -89,7 +89,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
       Score score = super.scoreLookAndFeel(context, lafName);
 
       // We don't support Netscape 4.x
-      if (AdfFacesAgent.APPLICATION_NETSCAPE ==
+      if (TrinidadAgent.APPLICATION_NETSCAPE ==
           context.getAgent().getAgentApplication())
       {
         score = new ScoreProxy(score)

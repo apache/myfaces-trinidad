@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -584,7 +584,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     space.setAttributeValue(WIDTH_ATTR, "1");
     space.setAttributeValue(HEIGHT_ATTR, "1");
     space.setAttributeValue(RENDERED_ATTR,
-                 new IsAgentApplicationBoundValue(AdfFacesAgent.APPLICATION_NETSCAPE));
+                 new IsAgentApplicationBoundValue(TrinidadAgent.APPLICATION_NETSCAPE));
 
     MarlinBean spaceRequired = new MarlinBean(SPACER_NAME);
     spaceRequired.setAttributeValue(WIDTH_ATTR, "1");
@@ -1240,18 +1240,18 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       // the description area should be roughly the same
       // size as the list, but just setting the
       // width to be the width of the list isn't enough
-      AdfFacesAgent agent = context.getAgent();
+      TrinidadAgent agent = context.getAgent();
       int agentApp = agent.getAgentApplication();
       int descWidth = barWidth;
 
       // On IE and mozilla width too narrow so increasing
-      if ( agentApp == AdfFacesAgent.APPLICATION_IEXPLORER ||
-           agentApp == AdfFacesAgent.APPLICATION_GECKO)
+      if ( agentApp == TrinidadAgent.APPLICATION_IEXPLORER ||
+           agentApp == TrinidadAgent.APPLICATION_GECKO)
         descWidth = (descWidth *6)/5;
       // size would be right in netscape, but in
       // TextInputRenderer we are shrinking width of textinputs
       // on netscape, so to counter this multiplying by 4/3rd's
-      else if ( agentApp == AdfFacesAgent.APPLICATION_NETSCAPE )
+      else if ( agentApp == TrinidadAgent.APPLICATION_NETSCAPE )
         descWidth = ( descWidth * 4 )/3;
 
 

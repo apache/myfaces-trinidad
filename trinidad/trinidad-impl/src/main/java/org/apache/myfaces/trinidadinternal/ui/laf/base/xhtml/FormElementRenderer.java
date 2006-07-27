@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
@@ -46,9 +46,9 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
       // 2981538 PDA: TOO MUCH WHITESPACE UNDER INPUT ELEMENTS IN TABLE
       // This is a browser bug workaround,
       // hopefully we can remove it eventually
-      if ( context.getAgent().getAgentType() == AdfFacesAgent.TYPE_PDA &&
+      if ( context.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA &&
            context.getAgent().getAgentApplication() ==
-                                                AdfFacesAgent.APPLICATION_IEXPLORER )
+                                                TrinidadAgent.APPLICATION_IEXPLORER )
         setRenderingProperty(context,
                              VISIBLE_FORM_ELEMENT_RENDERED,
                              Boolean.TRUE);

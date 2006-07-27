@@ -24,7 +24,7 @@ import java.util.Locale;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.style.util.ModeUtils;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
@@ -158,7 +158,7 @@ public class StyleSheetNode
   public int compareVariants(
     Locale locale, 
     int direction, 
-    AdfFacesAgent agent, 
+    TrinidadAgent agent, 
     int mode)
   {
     int localeMatch = _compareLocale(locale);
@@ -182,7 +182,7 @@ public class StyleSheetNode
     // clients to generate a "default" style sheet - for cases where
     // the browser/version isn't known.  Since there is no Agent
     // VERSION_UNKNOWN constant, we cue off of APPLICATION_UNKNOWN.
-    if (browser != AdfFacesAgent.APPLICATION_UNKNOWN)
+    if (browser != TrinidadAgent.APPLICATION_UNKNOWN)
     {
       versionMatch = _compareVersion(agent.getAgentMajorVersion());
       if (versionMatch == 0)
@@ -277,7 +277,7 @@ public class StyleSheetNode
 
     // On the other hand, if we do have a browser specified, but
     // the client browser is not known, we don't have a match
-    if (browser == AdfFacesAgent.APPLICATION_UNKNOWN)
+    if (browser == TrinidadAgent.APPLICATION_UNKNOWN)
       return 0;
 
     if (_containsInt(browser, _browsers))
@@ -307,7 +307,7 @@ public class StyleSheetNode
 
     // On the other hand, if we do have a platform specified, but
     // the client platform is unknown, we don't have a match.
-    if (os == AdfFacesAgent.OS_UNKNOWN)
+    if (os == TrinidadAgent.OS_UNKNOWN)
       return 0;
 
     if (_containsInt(os, _platforms))
@@ -493,8 +493,8 @@ public class StyleSheetNode
   // time a new Unix OS constant is added Agent.
   private static final int[] _UNIX_PLATFORMS =
   {
-    AdfFacesAgent.OS_LINUX,
-    AdfFacesAgent.OS_SOLARIS
+    TrinidadAgent.OS_LINUX,
+    TrinidadAgent.OS_SOLARIS
   };
 
   // This special platform constant is used to indicate that the style sheet

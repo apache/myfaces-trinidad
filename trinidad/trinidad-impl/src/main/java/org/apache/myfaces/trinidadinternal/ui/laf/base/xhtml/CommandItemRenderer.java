@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/CommandItemRenderer.java#0 $) $Date: 10-nov-2005.18:53:46 $
@@ -60,7 +60,7 @@ public class CommandItemRenderer extends SelectOptionRenderer
 
       boolean agentSupportsDisabledOptions = Boolean.TRUE
           .equals(getAgentCapability(context,
-              AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
+              TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
       if (!(agentSupportsDisabledOptions))
       {
         

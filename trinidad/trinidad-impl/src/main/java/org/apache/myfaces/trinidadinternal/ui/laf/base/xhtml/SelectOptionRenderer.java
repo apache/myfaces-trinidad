@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
@@ -40,7 +40,7 @@ public class SelectOptionRenderer
 
     boolean agentSupportsDisabledOptions = Boolean.TRUE
         .equals(getAgentCapability(context,
-            AdfFacesAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
+            TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS));
     if (!(agentSupportsDisabledOptions))
     {
       

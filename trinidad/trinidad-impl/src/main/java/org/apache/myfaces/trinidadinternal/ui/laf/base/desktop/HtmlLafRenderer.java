@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
@@ -50,7 +50,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            AdfFacesAgent.APPLICATION_NETSCAPE);
+            TrinidadAgent.APPLICATION_NETSCAPE);
   }
 
   /**
@@ -61,7 +61,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            AdfFacesAgent.APPLICATION_SAFARI);
+            TrinidadAgent.APPLICATION_SAFARI);
   }
 
 
@@ -73,7 +73,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            AdfFacesAgent.APPLICATION_GECKO);
+            TrinidadAgent.APPLICATION_GECKO);
   }
 
   /**
@@ -84,7 +84,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
     )
   {
     return (context.getAgent().getAgentApplication() ==
-            AdfFacesAgent.APPLICATION_IEXPLORER);
+            TrinidadAgent.APPLICATION_IEXPLORER);
   }
 
   /**

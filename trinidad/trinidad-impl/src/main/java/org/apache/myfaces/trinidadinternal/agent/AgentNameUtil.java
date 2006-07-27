@@ -33,48 +33,48 @@ public class AgentNameUtil
    */
   public static int getAgent(String agentName)
   {
-    if (AdfFacesAgent.AGENT_NETSCAPE.equals(agentName))
+    if (TrinidadAgent.AGENT_NETSCAPE.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_NETSCAPE;
+      return TrinidadAgent.APPLICATION_NETSCAPE;
     }
 
-    if (AdfFacesAgent.AGENT_IE.equals(agentName))
+    if (TrinidadAgent.AGENT_IE.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_IEXPLORER;
+      return TrinidadAgent.APPLICATION_IEXPLORER;
     }
 
-    if (AdfFacesAgent.AGENT_GECKO.equals(agentName))
+    if (TrinidadAgent.AGENT_GECKO.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_GECKO;
+      return TrinidadAgent.APPLICATION_GECKO;
     }
 
-    if (AdfFacesAgent.AGENT_ELAINE.equals(agentName))
+    if (TrinidadAgent.AGENT_ELAINE.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_WEB_CLIPPING;
+      return TrinidadAgent.APPLICATION_WEB_CLIPPING;
     }
 
-    if (AdfFacesAgent.AGENT_ICE_BROWSER.equals(agentName))
+    if (TrinidadAgent.AGENT_ICE_BROWSER.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_ICE;
+      return TrinidadAgent.APPLICATION_ICE;
     }
 
-    if (AdfFacesAgent.AGENT_PIXO.equals(agentName))
+    if (TrinidadAgent.AGENT_PIXO.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_PIXO;
+      return TrinidadAgent.APPLICATION_PIXO;
     }
 
-    if ((AdfFacesAgent.AGENT_NETFRONT.equals(agentName)) ||
-        (AdfFacesAgent.AGENT_WEBPRO.equals(agentName)))
+    if ((TrinidadAgent.AGENT_NETFRONT.equals(agentName)) ||
+        (TrinidadAgent.AGENT_WEBPRO.equals(agentName)))
     {
-      return AdfFacesAgent.APPLICATION_NET_FRONT;
+      return TrinidadAgent.APPLICATION_NET_FRONT;
     }
 
-    if (AdfFacesAgent.AGENT_WEBKIT.equals(agentName))
+    if (TrinidadAgent.AGENT_WEBKIT.equals(agentName))
     {
-      return AdfFacesAgent.APPLICATION_SAFARI;
+      return TrinidadAgent.APPLICATION_SAFARI;
     }
 
-    return AdfFacesAgent.APPLICATION_UNKNOWN;
+    return TrinidadAgent.APPLICATION_UNKNOWN;
   }
 
   /**
@@ -85,38 +85,38 @@ public class AgentNameUtil
    */
   public static int getPlatform(String platformName)
   {
-    if (AdfFacesAgent.PLATFORM_WINDOWS.equals(platformName))
+    if (TrinidadAgent.PLATFORM_WINDOWS.equals(platformName))
     {
-      return AdfFacesAgent.OS_WINDOWS;
+      return TrinidadAgent.OS_WINDOWS;
     }
 
-    if (AdfFacesAgent.PLATFORM_MAC.equals(platformName))
+    if (TrinidadAgent.PLATFORM_MAC.equals(platformName))
     {
-      return AdfFacesAgent.OS_MACOS;
+      return TrinidadAgent.OS_MACOS;
     }
 
-    if (AdfFacesAgent.PLATFORM_LINUX.equals(platformName))
+    if (TrinidadAgent.PLATFORM_LINUX.equals(platformName))
     {
-      return AdfFacesAgent.OS_LINUX;
+      return TrinidadAgent.OS_LINUX;
     }
 
-    if (AdfFacesAgent.PLATFORM_SOLARIS.equals(platformName))
+    if (TrinidadAgent.PLATFORM_SOLARIS.equals(platformName))
     {
-      return AdfFacesAgent.OS_SOLARIS;
+      return TrinidadAgent.OS_SOLARIS;
     }
 
-    if (AdfFacesAgent.PLATFORM_PALM.equals(platformName))
+    if (TrinidadAgent.PLATFORM_PALM.equals(platformName))
     {
-      return AdfFacesAgent.OS_PALM;
+      return TrinidadAgent.OS_PALM;
     }
 
-    if (AdfFacesAgent.PLATFORM_PPC.equals(platformName))
+    if (TrinidadAgent.PLATFORM_PPC.equals(platformName))
     {
       //return unknown for now
-      return AdfFacesAgent.OS_PPC;
+      return TrinidadAgent.OS_PPC;
     }
 
-    return AdfFacesAgent.OS_UNKNOWN;
+    return TrinidadAgent.OS_UNKNOWN;
   }
 
   /**
@@ -129,16 +129,16 @@ public class AgentNameUtil
   {
     if (otype == Agent.TYPE_PDA)
     {
-      return AdfFacesAgent.TYPE_PDA;
+      return TrinidadAgent.TYPE_PDA;
     }
 
     if (otype == Agent.TYPE_PHONE)
     {
-      return AdfFacesAgent.TYPE_PHONE;
+      return TrinidadAgent.TYPE_PHONE;
     }
 
     //Default to desktop (This is UIX 2.2 logic)
-    return AdfFacesAgent.TYPE_DESKTOP;
+    return TrinidadAgent.TYPE_DESKTOP;
   }
 
   /**
@@ -150,24 +150,24 @@ public class AgentNameUtil
   public static String getAgentName(int agentId)
   {
     switch (agentId) {
-      case AdfFacesAgent.APPLICATION_UNKNOWN:
+      case TrinidadAgent.APPLICATION_UNKNOWN:
         return null;
-      case AdfFacesAgent.APPLICATION_NETSCAPE:
-        return AdfFacesAgent.AGENT_NETSCAPE;
-      case AdfFacesAgent.APPLICATION_IEXPLORER:
-        return AdfFacesAgent.AGENT_IE;
-      case AdfFacesAgent.APPLICATION_GECKO:
-        return AdfFacesAgent.AGENT_GECKO;
-      case AdfFacesAgent.APPLICATION_WEB_CLIPPING:
-        return AdfFacesAgent.AGENT_ELAINE;
-      case AdfFacesAgent.APPLICATION_ICE:
-        return AdfFacesAgent.AGENT_ICE_BROWSER;
-      case AdfFacesAgent.APPLICATION_PIXO:
-        return AdfFacesAgent.AGENT_PIXO;
-      case AdfFacesAgent.APPLICATION_NET_FRONT:
-        return AdfFacesAgent.AGENT_NETFRONT;
-      case AdfFacesAgent.APPLICATION_SAFARI:
-        return AdfFacesAgent.AGENT_WEBKIT;
+      case TrinidadAgent.APPLICATION_NETSCAPE:
+        return TrinidadAgent.AGENT_NETSCAPE;
+      case TrinidadAgent.APPLICATION_IEXPLORER:
+        return TrinidadAgent.AGENT_IE;
+      case TrinidadAgent.APPLICATION_GECKO:
+        return TrinidadAgent.AGENT_GECKO;
+      case TrinidadAgent.APPLICATION_WEB_CLIPPING:
+        return TrinidadAgent.AGENT_ELAINE;
+      case TrinidadAgent.APPLICATION_ICE:
+        return TrinidadAgent.AGENT_ICE_BROWSER;
+      case TrinidadAgent.APPLICATION_PIXO:
+        return TrinidadAgent.AGENT_PIXO;
+      case TrinidadAgent.APPLICATION_NET_FRONT:
+        return TrinidadAgent.AGENT_NETFRONT;
+      case TrinidadAgent.APPLICATION_SAFARI:
+        return TrinidadAgent.AGENT_WEBKIT;
        default:
         return null;
     }
@@ -184,20 +184,20 @@ public class AgentNameUtil
   public static String getPlatformName(int platformId)
   {
     switch (platformId) {
-      case AdfFacesAgent.OS_UNKNOWN:
+      case TrinidadAgent.OS_UNKNOWN:
         return null;
-      case AdfFacesAgent.OS_WINDOWS:
-        return AdfFacesAgent.PLATFORM_WINDOWS;
-      case AdfFacesAgent.OS_MACOS:
-        return AdfFacesAgent.PLATFORM_MAC;
-      case AdfFacesAgent.OS_LINUX:
-        return AdfFacesAgent.PLATFORM_LINUX;
-      case AdfFacesAgent.OS_SOLARIS:
-        return AdfFacesAgent.PLATFORM_SOLARIS;
-      case AdfFacesAgent.OS_PALM:
-        return AdfFacesAgent.PLATFORM_PALM;
-      case AdfFacesAgent.OS_PPC:
-        return AdfFacesAgent.PLATFORM_PPC;
+      case TrinidadAgent.OS_WINDOWS:
+        return TrinidadAgent.PLATFORM_WINDOWS;
+      case TrinidadAgent.OS_MACOS:
+        return TrinidadAgent.PLATFORM_MAC;
+      case TrinidadAgent.OS_LINUX:
+        return TrinidadAgent.PLATFORM_LINUX;
+      case TrinidadAgent.OS_SOLARIS:
+        return TrinidadAgent.PLATFORM_SOLARIS;
+      case TrinidadAgent.OS_PALM:
+        return TrinidadAgent.PLATFORM_PALM;
+      case TrinidadAgent.OS_PPC:
+        return TrinidadAgent.PLATFORM_PPC;
       default:
         return null;
     }
@@ -211,13 +211,13 @@ public class AgentNameUtil
    */
   public Object getType (int type) {
     switch (type) {
-      case AdfFacesAgent.TYPE_DESKTOP:
+      case TrinidadAgent.TYPE_DESKTOP:
         return null;
-      case AdfFacesAgent.TYPE_PDA:
+      case TrinidadAgent.TYPE_PDA:
         return Agent.TYPE_PDA;
-      case AdfFacesAgent.TYPE_PHONE:
+      case TrinidadAgent.TYPE_PHONE:
         return Agent.TYPE_PHONE;
-      case AdfFacesAgent.TYPE_VOICE:
+      case TrinidadAgent.TYPE_VOICE:
       default:
         return Agent.TYPE_UNKNOWN;
     }

@@ -19,7 +19,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
@@ -59,7 +59,7 @@ public class CoreRendererUtils
     )
   {
     return supportsBooleanCapability(context,
-                                     AdfFacesAgent.CAP_PARTIAL_RENDERING);
+                                     TrinidadAgent.CAP_PARTIAL_RENDERING);
   }
 
   public static boolean supportsNameIdentification(
@@ -67,7 +67,7 @@ public class CoreRendererUtils
     )
   {
     return supportsBooleanCapability(context,
-                                     AdfFacesAgent.CAP_NAME_IDENTIFICATION);
+                                     TrinidadAgent.CAP_NAME_IDENTIFICATION);
   }
 
   public static boolean supportsBooleanCapability(
@@ -75,7 +75,7 @@ public class CoreRendererUtils
     CapabilityKey cap
     )
   {
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
     Object capPartial = agent.getCapability(cap);
     if (!Boolean.TRUE.equals(capPartial))
       return false;

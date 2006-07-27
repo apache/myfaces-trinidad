@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
@@ -925,13 +925,13 @@ public class XhtmlLafUtils extends BaseLafUtils
     UIXRenderingContext context
     )
   {
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
 
     // =-=ags Temporarily disabling the use of transparent images
     // on ICE due to problems with tiling transparent images that
     // are affecting UIXVE.  This code should be removed once the
     // underlying ICE bug is fixed (supposedly ICE 5.4.1)
-    if (AdfFacesAgent.APPLICATION_ICE == agent.getAgentApplication())
+    if (TrinidadAgent.APPLICATION_ICE == agent.getAgentApplication())
       return false;
 
     //int encodings = ((Integer)agent.getCapability(
@@ -941,7 +941,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     //if ((encodings & AdfFacesAgent.IMAGE_ENCODINGS_CAP_TRANSPARENT_PNG) != 0)
     //  return true;
 
-    if (agent.getCapability(AdfFacesAgent.CAP_TRANSPARENT_PNG_TYPE_IMAGE) == Boolean.TRUE)
+    if (agent.getCapability(TrinidadAgent.CAP_TRANSPARENT_PNG_TYPE_IMAGE) == Boolean.TRUE)
        return true;
 
     // Otherwise, check GIF suport...
@@ -949,7 +949,7 @@ public class XhtmlLafUtils extends BaseLafUtils
 
     //return (((encodings & AdfFacesAgent.IMAGE_ENCODINGS_CAP_GIF) != 0) &&
     //          !Boolean.FALSE.equals(config.getProperty(_GIF_ENABLED)));
-    return ((agent.getCapability(AdfFacesAgent.CAP_GIF_TYPE_IMAGE) == Boolean.TRUE) &&
+    return ((agent.getCapability(TrinidadAgent.CAP_GIF_TYPE_IMAGE) == Boolean.TRUE) &&
                !Boolean.FALSE.equals(config.getProperty(_GIF_ENABLED)));
 
   }
@@ -999,7 +999,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     String align = null;
     int agentApplication = context.getAgent().getAgentApplication();
 
-    if (agentApplication == AdfFacesAgent.APPLICATION_NETSCAPE)
+    if (agentApplication == TrinidadAgent.APPLICATION_NETSCAPE)
     {
       align = UIConstants.V_ALIGN_TOP;
     }

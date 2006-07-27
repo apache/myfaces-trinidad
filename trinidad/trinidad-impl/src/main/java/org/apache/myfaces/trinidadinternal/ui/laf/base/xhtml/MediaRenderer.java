@@ -26,7 +26,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -429,13 +429,13 @@ public class MediaRenderer extends XhtmlLafRenderer
     UIXRenderingContext context
     )
   {
-    AdfFacesAgent agent = context.getAgent();
+    TrinidadAgent agent = context.getAgent();
 
     // =-= bts only desktop IE seems to support this
     //         Move this to capability
-    return !((agent.getAgentType()       == AdfFacesAgent.TYPE_DESKTOP) &&
-            (agent.getAgentApplication() == AdfFacesAgent.APPLICATION_IEXPLORER) &&
-            (agent.getAgentOS()          == AdfFacesAgent.OS_WINDOWS));
+    return !((agent.getAgentType()       == TrinidadAgent.TYPE_DESKTOP) &&
+            (agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER) &&
+            (agent.getAgentOS()          == TrinidadAgent.OS_WINDOWS));
   }
 
   private Number[] _getDefaultSizeArray(
@@ -556,7 +556,7 @@ public class MediaRenderer extends XhtmlLafRenderer
     if (playerData == null)
     {
       // the default player is the link player
-      AdfFacesAgent agent = context.getAgent();
+      TrinidadAgent agent = context.getAgent();
 
       int agentOSInt = agent.getAgentOS();
 
@@ -2054,13 +2054,13 @@ public class MediaRenderer extends XhtmlLafRenderer
   // Object constants for OS's
   //
   private static final Integer _WINDOWS_OS =
-                                  IntegerUtils.getInteger(AdfFacesAgent.OS_WINDOWS);
+                                  IntegerUtils.getInteger(TrinidadAgent.OS_WINDOWS);
 
   private static final Integer _MAC_OS =
-                                  IntegerUtils.getInteger(AdfFacesAgent.OS_MACOS);
+                                  IntegerUtils.getInteger(TrinidadAgent.OS_MACOS);
 
   private static final Integer _SOLARIS_OS =
-                                  IntegerUtils.getInteger(AdfFacesAgent.OS_SOLARIS);
+                                  IntegerUtils.getInteger(TrinidadAgent.OS_SOLARIS);
 
   // Preferred Players for Operating Systems
   /* CURRENTLY UNUSED

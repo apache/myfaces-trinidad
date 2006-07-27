@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.ContextBasedConfiguration;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
@@ -149,7 +149,7 @@ public class FacesRenderingContext extends RootRenderingContext
     return _adfRenderingContext.getSkin();
   }
 
-  public AdfFacesAgent getAgent()
+  public TrinidadAgent getAgent()
   {
     return _adfRenderingContext.getAgent();
   }

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -51,16 +51,16 @@ public class TableLayoutRenderer extends XhtmlLafRenderer
       renderAttribute(context, "summary", (summary==null) ? "" : summary);
     }
 
-    Object tableCap = getAgentCapability(context, AdfFacesAgent.CAP_TABLES);
+    Object tableCap = getAgentCapability(context, TrinidadAgent.CAP_TABLES);
     
     boolean supportsAdvancedAttrs = false;
     boolean supportsAdvanced      = false;
     
     if (tableCap != null)
     {
-      supportsAdvanced = (AdfFacesAgent.TABLES_CAP_ADVANCED == tableCap);
+      supportsAdvanced = (TrinidadAgent.TABLES_CAP_ADVANCED == tableCap);
       supportsAdvancedAttrs = supportsAdvanced ||
-                              (AdfFacesAgent.TABLES_CAP_ADVANCED_ATTRS == tableCap);
+                              (TrinidadAgent.TABLES_CAP_ADVANCED_ATTRS == tableCap);
                               
       if (supportsAdvancedAttrs)
       {          

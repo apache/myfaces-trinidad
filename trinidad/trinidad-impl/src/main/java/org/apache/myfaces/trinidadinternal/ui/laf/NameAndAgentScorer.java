@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
@@ -70,7 +70,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
 
     int nameScore = _scoreName(lafName);
 
-    AdfFacesAgent agent = context. getAgent();
+    TrinidadAgent agent = context. getAgent();
     int typeScore = _score(_agentType, agent.getAgentType());
     int appScore = _score(_agentApplication, agent.getAgentApplication());
     int versScore = _score(_agentMajorVersion, agent.getAgentMajorVersion());

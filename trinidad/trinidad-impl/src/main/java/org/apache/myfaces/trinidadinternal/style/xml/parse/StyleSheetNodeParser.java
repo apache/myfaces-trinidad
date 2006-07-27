@@ -27,7 +27,7 @@ import org.xml.sax.SAXParseException;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -178,7 +178,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
     {
       int browser = NameUtils.getBrowser((String)browsers.next());
 
-      if (browser != AdfFacesAgent.APPLICATION_UNKNOWN)
+      if (browser != TrinidadAgent.APPLICATION_UNKNOWN)
         v.addElement(IntegerUtils.getInteger(browser));
     }
 
@@ -227,10 +227,10 @@ public class StyleSheetNodeParser extends BaseNodeParser
       int platform = NameUtils.getPlatform(platformName);
 
       // If we didn't find the platform, check for special "unix" platform
-      if ((platform == AdfFacesAgent.OS_UNKNOWN) && "unix".equals(platformName))
+      if ((platform == TrinidadAgent.OS_UNKNOWN) && "unix".equals(platformName))
         platform = StyleSheetNode.__OS_UNIX;
 
-      if (platform != AdfFacesAgent.OS_UNKNOWN)
+      if (platform != TrinidadAgent.OS_UNKNOWN)
         v.addElement(IntegerUtils.getInteger(platform));
     }
 

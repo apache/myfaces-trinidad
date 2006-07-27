@@ -16,7 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.image;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
@@ -39,7 +39,7 @@ public interface ImageContext
   /**
    * Returns the end user's Agent.
    */
-  public AdfFacesAgent getAgent();
+  public TrinidadAgent getAgent();
 
   /**
    * Returns a Configuration object that will be used to

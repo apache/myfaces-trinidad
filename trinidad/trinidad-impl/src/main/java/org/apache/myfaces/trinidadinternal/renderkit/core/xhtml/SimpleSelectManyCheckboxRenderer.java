@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectManyCheckbox;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -353,7 +353,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
       return true;
 
     return Boolean.TRUE.equals(
-       arc.getAgent().getCapability(AdfFacesAgent.CAP_FIELDSET));
+       arc.getAgent().getCapability(TrinidadAgent.CAP_FIELDSET));
   }
 
 

@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
@@ -267,7 +267,7 @@ public class TreeRenderer extends HtmlLafRenderer
       case EXPAND_CLOSED:
         // "\u21D2"; // Double Arrow right
 
-        if ( context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS )
+        if ( context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS )
           text = isRightToLeft(context)? "\u2190"// single arrow left
                                        : "\u2192";// single arrow right
         else
@@ -277,14 +277,14 @@ public class TreeRenderer extends HtmlLafRenderer
         break;
       case EXPAND_OPEN:
         //"\u21D3"; // double arrow down
-        if ( context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS )
+        if ( context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS )
           text = "\u2193"; // single arrow down
         else
           text="\u25BC"; // triangle down
         altText = getTranslatedValue(context, mapKey(_COLLAPSE_TIP_KEY));
         break;
       case EXPAND_ALWAYS:
-        if ( context.getAgent().getAgentOS() == AdfFacesAgent.OS_MACOS )
+        if ( context.getAgent().getAgentOS() == TrinidadAgent.OS_MACOS )
           text = "\u2193"; // single arrow down
         else
           text="\u25BC"; // triangle down

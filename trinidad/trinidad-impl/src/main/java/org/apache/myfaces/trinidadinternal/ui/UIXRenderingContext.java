@@ -19,7 +19,7 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
@@ -142,7 +142,7 @@ public interface UIXRenderingContext extends Cloneable
    * Returns an Agent object that can be used to identify
    * what device will display the rendering.
    */
-  public AdfFacesAgent getAgent();
+  public TrinidadAgent getAgent();
 
   /**
    * Returns the LocaleContext that should be used for rendering.
