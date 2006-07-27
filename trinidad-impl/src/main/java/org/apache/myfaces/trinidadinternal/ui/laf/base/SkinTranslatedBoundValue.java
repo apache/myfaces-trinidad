@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
@@ -55,7 +55,7 @@ public class SkinTranslatedBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
 

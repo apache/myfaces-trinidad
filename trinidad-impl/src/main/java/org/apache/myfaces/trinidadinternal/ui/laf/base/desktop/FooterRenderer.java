@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 public class FooterRenderer extends HtmlLafRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     super.renderAttributes(context, node);
@@ -42,7 +42,7 @@ public class FooterRenderer extends HtmlLafRenderer
   }
 
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -51,7 +51,7 @@ public class FooterRenderer extends HtmlLafRenderer
   }  
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     
@@ -100,7 +100,7 @@ public class FooterRenderer extends HtmlLafRenderer
     super.postrender(context, node);
   }
 
-  protected String getElementName(RenderingContext context, UINode node)
+  protected String getElementName(UIXRenderingContext context, UINode node)
   {
     return DIV_ELEMENT;
   }

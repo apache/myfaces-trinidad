@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -86,7 +86,7 @@ public class UIComponentUINode implements UINode
     return _get(family, rendererType);
   }
 
-  public int getIndexedChildCount(RenderingContext context)
+  public int getIndexedChildCount(UIXRenderingContext context)
   {
     return _component.getChildCount();
   }
@@ -96,7 +96,7 @@ public class UIComponentUINode implements UINode
    * @todo can the children UIComponentUINode instances be cached anywhere?
    * @todo come up with a real namespace/local name for these UINodes
    */
-  public UINode getIndexedChild(RenderingContext context, int childIndex)
+  public UINode getIndexedChild(UIXRenderingContext context, int childIndex)
   {
     UIComponent child = (UIComponent) _component.getChildren().get(childIndex);
     return __getUINode(child);
@@ -106,7 +106,7 @@ public class UIComponentUINode implements UINode
    * @todo can the children UIComponentUINode instances be cached anywhere?
    * @todo come up with a real namespace/local name for these UINodes
    */
-  public UINode getNamedChild(RenderingContext context, String childName)
+  public UINode getNamedChild(UIXRenderingContext context, String childName)
   {
     UIComponent child = (UIComponent) _component.getFacet(childName);
     if (child == null)
@@ -116,7 +116,7 @@ public class UIComponentUINode implements UINode
   }
 
 
-  public Iterator getChildNames(RenderingContext context)
+  public Iterator getChildNames(UIXRenderingContext context)
   {
     if (_component instanceof UIXComponentBase)
       return ((UIXComponentBase) _component).getFacetNames();
@@ -127,7 +127,7 @@ public class UIComponentUINode implements UINode
   /**
    * @todo implement this (if necessary)
    */
-  public Iterator getAttributeNames(RenderingContext context)
+  public Iterator getAttributeNames(UIXRenderingContext context)
   {
     throw new UnsupportedOperationException();
   }
@@ -142,7 +142,7 @@ public class UIComponentUINode implements UINode
   }
 
 
-  public Object getAttributeValue(RenderingContext context, AttributeKey attrKey)
+  public Object getAttributeValue(UIXRenderingContext context, AttributeKey attrKey)
   {
     // Note that we do not support BoundValues on generic UIComponents;
     // this is intentional!
@@ -157,7 +157,7 @@ public class UIComponentUINode implements UINode
    * @todo Any other UIComponent attributes that a parent UINode would care
    *    about?  How about SELECTED_ATTR?
    */
-  public Object getRawAttributeValue(RenderingContext context,
+  public Object getRawAttributeValue(UIXRenderingContext context,
                                      AttributeKey attrKey)
   {
     // Here, we're concerned not about a Renderer trying to retrieve
@@ -173,7 +173,7 @@ public class UIComponentUINode implements UINode
   /**
    * Returns the role that this node occupies.
    */
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     return UIConstants.UNKNOWN_ROLE;
   }
@@ -243,7 +243,7 @@ private void _setTranslationKeyTest(
   }
   ****/
 
-  public void render(RenderingContext context)
+  public void render(UIXRenderingContext context)
     throws IOException
   {
     render(context, this);
@@ -255,7 +255,7 @@ private void _setTranslationKeyTest(
    * integrated our OutputMethod with ResponseWriter (we needed
    * to get our OutputMethod to close any pending elements.
    */
-  public void render(RenderingContext context, UINode dataNode)
+  public void render(UIXRenderingContext context, UINode dataNode)
     throws IOException
   {
     // We currently have no acceptable way to deal with "dataNode"
@@ -266,7 +266,7 @@ private void _setTranslationKeyTest(
     // We need to keep pushing the RenderingContext so that
     // we properly handle composite rendering.
     FacesContext fContext = context.getFacesContext();
-    RenderingContext oldContext =
+    UIXRenderingContext oldContext =
         UINodeRendererBase.__setRenderingContext(fContext, context);
 
     _renderComponent(fContext, _component);
@@ -350,7 +350,7 @@ private void _setTranslationKeyTest(
 
   public UINode getNamedChild(String name) { throw new UnsupportedOperationException(); }
 
-  public Object getAttributeValue(RenderingContext context, String name) { throw new UnsupportedOperationException(); }
+  public Object getAttributeValue(UIXRenderingContext context, String name) { throw new UnsupportedOperationException(); }
 
   private String      _namespace;
   private UIComponent _component;

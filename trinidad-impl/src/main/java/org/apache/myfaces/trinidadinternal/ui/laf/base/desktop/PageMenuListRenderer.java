@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 
@@ -35,7 +35,7 @@ public class PageMenuListRenderer extends MenuListRenderer
 {
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -44,7 +44,7 @@ public class PageMenuListRenderer extends MenuListRenderer
   }
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -53,7 +53,7 @@ public class PageMenuListRenderer extends MenuListRenderer
   }
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy      component
   )

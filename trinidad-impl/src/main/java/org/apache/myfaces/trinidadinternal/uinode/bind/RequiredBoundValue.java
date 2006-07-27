@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.uinode.bind;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
@@ -37,7 +37,7 @@ public class RequiredBoundValue implements BoundValue
     _ev = ev;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   { 
     Object requiredObject = _ev.getAttributes().get(UIXEditableValue.REQUIRED_KEY);
     boolean isRequired = Boolean.TRUE.equals(requiredObject);

@@ -26,7 +26,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
 import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.ContextPropertyBoundValue;
@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.util.MessageUtils;
  */
 public class MessageBoxRenderer extends HtmlLafRenderer
 {
-  public void render(RenderingContext context, UINode node) throws IOException
+  public void render(UIXRenderingContext context, UINode node) throws IOException
   {
     Object globalOnlyAttr = getAttributeValue(context, node,
                                        GLOBAL_ONLY_ATTR, null);
@@ -62,7 +62,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -73,7 +73,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
    * Returns the messageBox's style class.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -102,7 +102,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
 
   // based on oracle.desktop.MessageBoxRenderer.renderChildren
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -174,7 +174,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
   }
 
   private void _renderMessages(
-    RenderingContext context,
+    UIXRenderingContext context,
     ResponseWriter writer,
     boolean isGlobal,
     boolean useList
@@ -210,7 +210,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
   }
 
   private void _writeGlobalMsg(
-    RenderingContext context,
+    UIXRenderingContext context,
     ResponseWriter writer,
     String summary,
     String detail
@@ -225,7 +225,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
 
 
   private BaseMutableUINode _writeClientMsg(
-    RenderingContext context,
+    UIXRenderingContext context,
     ResponseWriter writer,
     String summary,
     MessageWrapper msg,

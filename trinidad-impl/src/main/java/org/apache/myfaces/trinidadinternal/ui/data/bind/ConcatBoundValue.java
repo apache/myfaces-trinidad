@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -49,7 +49,7 @@ public class ConcatBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     BoundValue[] values = _values;
@@ -93,7 +93,7 @@ public class ConcatBoundValue implements BoundValue
   
   // Optimized version if there's only one element
   static private String _getValueSizeOne(
-    RenderingContext context,
+    UIXRenderingContext context,
     BoundValue[]     values)
   {
     return _toString(values[0].getValue(context));
@@ -102,7 +102,7 @@ public class ConcatBoundValue implements BoundValue
 
   // Optimized version if there's two elements
   static private String _getValueSizeTwo(
-    RenderingContext context,
+    UIXRenderingContext context,
     BoundValue[]     values)
   {
     String first = _toString(values[0].getValue(context));

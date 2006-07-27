@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
 
@@ -33,7 +33,7 @@ public class ProcessChoiceBarRenderer extends
 
   
   protected MutableUINode createSingleItemSubmitButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     Object           buttonText,
     String           onClickJS
@@ -53,7 +53,7 @@ public class ProcessChoiceBarRenderer extends
    * Returns true if disabled navigation items should be shown
    */
   protected boolean disabledNavigationShown(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return false;

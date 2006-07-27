@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
@@ -61,7 +61,7 @@ public class OrBoundValue implements BoundValue
   }
 
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (_values == null || _values.length == 0)

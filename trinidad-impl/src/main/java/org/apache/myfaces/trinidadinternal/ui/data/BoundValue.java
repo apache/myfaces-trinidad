@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The BoundValue interface is used to dynamically compute
@@ -34,5 +34,5 @@ public interface BoundValue
    * context.
    * @param context the rendering context
    */
-  public Object getValue(RenderingContext context);
+  public Object getValue(UIXRenderingContext context);
 }

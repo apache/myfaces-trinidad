@@ -39,7 +39,7 @@ public class NodeUtils implements UIConstants
   /**
    * Return the UIComponent for a node.
    */
-  static public UIComponent getUIComponent(RenderingContext context,
+  static public UIComponent getUIComponent(UIXRenderingContext context,
                                            UINode node)
   {
     UIComponent component = node.getUIComponent();
@@ -51,7 +51,7 @@ public class NodeUtils implements UIConstants
     // do that for the "root" of any particular tree.
     if (context.getAncestorNodeCount() >= 1)
     {
-      RenderingContext parentContext = context.getParentContext();
+      UIXRenderingContext parentContext = context.getParentContext();
       if (parentContext != null)
       {
         UINode parentNode = parentContext.getAncestorNode(0);
@@ -129,7 +129,7 @@ public class NodeUtils implements UIConstants
    * Returns the root UINode in the specified RenderingContext
    */
   public static UINode getRootUINode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return context.getAncestorNode(context.getAncestorNodeCount() - 1);
@@ -140,7 +140,7 @@ public class NodeUtils implements UIConstants
    * Returns the root UINode in a stack of RenderingContexts
    */
   public static UINode getStackRootUINode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getRootUINode(_getRootRenderingContext(context));
@@ -152,7 +152,7 @@ public class NodeUtils implements UIConstants
    * rendering UINode
    */
   public static boolean isRenderedAncestor(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           ancestorNode
     )
   {
@@ -225,7 +225,7 @@ public class NodeUtils implements UIConstants
    * and its children.
    */
   public static Object getPreorderDescendentAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           startNode,
     AttributeKey     attrKey
     )
@@ -259,11 +259,11 @@ public class NodeUtils implements UIConstants
   /**
    * Returns the root RenderingContext in a stack of RenderingContexts
    */
-  private static RenderingContext _getRootRenderingContext(
-    RenderingContext context
+  private static UIXRenderingContext _getRootRenderingContext(
+    UIXRenderingContext context
     )
   {
-    RenderingContext parentContext = context;
+    UIXRenderingContext parentContext = context;
 
     while (parentContext != null)
     {

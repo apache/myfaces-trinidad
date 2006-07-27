@@ -25,7 +25,7 @@ import java.util.Collections;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
@@ -55,7 +55,7 @@ public class UIImplicitObject
   /**
    * Gets the current RenderingContext.
    */
-  public final RenderingContext getRenderingContext()
+  public final UIXRenderingContext getRenderingContext()
   {
     return _varResolver.getRenderingContext();
   }
@@ -65,7 +65,7 @@ public class UIImplicitObject
    */
   public final Object getCurrent()
   {
-    RenderingContext context = getRenderingContext();
+    UIXRenderingContext context = getRenderingContext();
     DataObject currentData = context.getCurrentDataObject();
     return adapt(currentData);
   }
@@ -146,7 +146,7 @@ public class UIImplicitObject
 
       public Object get(Object key)
       {
-        RenderingContext context = getRenderingContext();
+        UIXRenderingContext context = getRenderingContext();
         return adapt(context.getDataObject("" /*namespace*/,
                                            key.toString()));
       }
@@ -161,9 +161,9 @@ public class UIImplicitObject
 
       public Object get(Object key)
       {
-        RenderingContext compositeContext = getRenderingContext();
+        UIXRenderingContext compositeContext = getRenderingContext();
 
-        RenderingContext context = compositeContext.getParentContext();
+        UIXRenderingContext context = compositeContext.getParentContext();
         if (context == null)
         {
           _LOG.warning
@@ -232,12 +232,12 @@ public class UIImplicitObject
       _dob = dob;
     }
 
-    public Object selectValue(RenderingContext rc, Object key)
+    public Object selectValue(UIXRenderingContext rc, Object key)
     {
       return _dob.selectValue(rc, key);
     }
 
-    public void updateValue(RenderingContext rc, Object key, Object value)
+    public void updateValue(UIXRenderingContext rc, Object key, Object value)
     {
       if (_dob instanceof MutableDataObject)
         ((MutableDataObject) _dob).updateValue(rc, key, value);
@@ -247,7 +247,7 @@ public class UIImplicitObject
 
     public Object get(Object key)
     {
-      RenderingContext context = getRenderingContext();
+      UIXRenderingContext context = getRenderingContext();
       Object value = selectValue(context, key);
       //ystem.out.println("key:"+key+" value:"+value);
       value = adapt(value);
@@ -256,7 +256,7 @@ public class UIImplicitObject
 
     public Object put(Object key, Object value)
     {
-      RenderingContext context = getRenderingContext();
+      UIXRenderingContext context = getRenderingContext();
       Object old = selectValue(context, key);
       updateValue(context, key, value);
       return old;
@@ -325,7 +325,7 @@ public class UIImplicitObject
       _dol = dol;
     }
 
-    public Object selectValue(RenderingContext rc, Object key)
+    public Object selectValue(UIXRenderingContext rc, Object key)
     {
       return _dob.selectValue(rc, key);
     }

@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 public class TabBarRenderer extends HtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -48,7 +48,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -60,7 +60,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    *
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -77,7 +77,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
 
  protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -86,7 +86,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -95,7 +95,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -111,7 +111,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * @todo - deal with rendered=false on model nodes
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -203,7 +203,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   }
 
   protected boolean isRendered(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp
   )
   {
@@ -214,7 +214,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    *
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -231,7 +231,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   }
 
   protected void renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child,
     boolean          selected,
     boolean          isFirst,
@@ -243,7 +243,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   }
 
     protected void renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child,
     boolean          selected
     )throws IOException
@@ -264,7 +264,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,
@@ -292,7 +292,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * Renders a separator between tabs.
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -303,7 +303,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * Renders a separator between tabs.
    */
   protected void renderBetweenNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -322,7 +322,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * Renders the style attributes for menuTabs items
    */
   protected void renderTabStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          selected,
     boolean          disabled
@@ -345,7 +345,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * to menuTabs.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -354,7 +354,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
   // Tests whether the child at the specified index is selected
   protected boolean isSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index
     )
@@ -364,7 +364,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
   // Tests whether the child at the specified index is disabled
   private boolean _isDisabled(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child
     )
   {
@@ -377,7 +377,7 @@ public class TabBarRenderer extends HtmlLafRenderer
 
   // Tests whether or not we should render a table cell for
   // the separator.
-  private boolean _doRenderSeparator(RenderingContext context)
+  private boolean _doRenderSeparator(UIXRenderingContext context)
   {
     // First check our local property
     Object value = context.getLocalProperty(0, _SEPARATOR_KEY, null);

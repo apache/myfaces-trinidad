@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -29,7 +29,7 @@ public class PageNavigationPathRenderer
 {
 
   protected boolean renderLastChild(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node)
   {
     return true;

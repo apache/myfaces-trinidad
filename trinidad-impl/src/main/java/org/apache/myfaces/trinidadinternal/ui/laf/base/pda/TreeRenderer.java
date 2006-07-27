@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Renderer for trees.  A TreeDataProxy may be set on the tree to create
@@ -77,7 +77,7 @@ public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.bas
   
   // render the correct icon for a specific node
   protected void renderExpandCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy tree,
     boolean isLeftToRight,
     boolean isRoot,

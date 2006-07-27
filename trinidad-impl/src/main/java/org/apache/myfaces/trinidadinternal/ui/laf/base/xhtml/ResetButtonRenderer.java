@@ -22,7 +22,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -35,7 +35,7 @@ public class ResetButtonRenderer extends ButtonRenderer
 {
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -48,7 +48,7 @@ public class ResetButtonRenderer extends ButtonRenderer
    * subclassers to override
    */
   protected boolean useButtonTags(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // we always use button tags
@@ -70,7 +70,7 @@ public class ResetButtonRenderer extends ButtonRenderer
    *         org.apache.myfaces.trinidadinternal.ui.blaf.RestButtonRenderer
    */
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -113,7 +113,7 @@ public class ResetButtonRenderer extends ButtonRenderer
    * =-= bts bogus copied code from org.apache.myfaces.trinidadinternal.ui.laf.browser.ResetButtonRenderer
    */
   protected String getFunctionCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           formName
     )

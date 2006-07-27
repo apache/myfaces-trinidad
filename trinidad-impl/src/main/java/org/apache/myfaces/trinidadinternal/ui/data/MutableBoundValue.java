@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/data/MutableBoundValue.java#0 $) $Date: 10-nov-2005.18:56:34 $
@@ -29,6 +29,6 @@ public interface MutableBoundValue extends BoundValue
    * @param value the new value for this BoundValue
    */
   public void setValue(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            value);
 }

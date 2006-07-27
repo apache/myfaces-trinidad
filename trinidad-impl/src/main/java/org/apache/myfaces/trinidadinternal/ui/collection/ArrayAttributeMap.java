@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * AttributeMap implementation that stores AttributeKey value pairs in
@@ -74,7 +74,7 @@ public class ArrayAttributeMap implements AttributeMap
 
 
   public Object getAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     key
     )
   {
@@ -97,7 +97,7 @@ public class ArrayAttributeMap implements AttributeMap
   }
 
   public Iterator attributeKeys(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     int size = size();

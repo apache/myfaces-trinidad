@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class ContentFooterRenderer extends HtmlLafRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {    
@@ -40,7 +40,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -63,7 +63,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
 
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -83,7 +83,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
   }
     
   
-  protected String getElementName(RenderingContext context, UINode node)
+  protected String getElementName(UIXRenderingContext context, UINode node)
   {
     return DIV_ELEMENT;
   }

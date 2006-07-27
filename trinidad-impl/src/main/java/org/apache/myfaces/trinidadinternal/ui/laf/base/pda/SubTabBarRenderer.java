@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -30,7 +30,7 @@ import java.io.IOException;
 public class SubTabBarRenderer extends XhtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -38,7 +38,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -48,7 +48,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -56,7 +56,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -68,7 +68,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -81,7 +81,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
    * Overrride to render in three passes.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -108,7 +108,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
 
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,

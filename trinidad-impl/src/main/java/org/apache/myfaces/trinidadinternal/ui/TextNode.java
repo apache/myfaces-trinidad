@@ -51,7 +51,7 @@ public class TextNode extends AbstractTextNode
    * For this class, just returns the value passed to the constructor.
    */
   protected Object getTextObject(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return _text;

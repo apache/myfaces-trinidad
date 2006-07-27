@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Renderer for text that shouldn't be escaped.  The renderer
@@ -59,7 +59,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -75,7 +75,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -88,7 +88,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param node the current UINode
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -97,7 +97,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
 
 
   private void _renderText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     attrKey
     ) throws IOException

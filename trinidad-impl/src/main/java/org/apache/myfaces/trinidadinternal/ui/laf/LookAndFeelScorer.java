@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The LookAndFeelScorer is responsible for producing a score that is
@@ -74,7 +74,7 @@ public abstract class LookAndFeelScorer
    *                Score.DONT_CARE_MATCH for the name score.
    */
   public abstract Score scoreLookAndFeel(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     String lafName
     );
 }

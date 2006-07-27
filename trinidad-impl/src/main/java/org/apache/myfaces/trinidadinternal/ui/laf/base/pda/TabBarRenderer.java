@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
@@ -43,7 +43,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 {
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -51,7 +51,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
  protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -80,7 +80,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderContent(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       ) throws IOException
   {
@@ -127,7 +127,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -147,7 +147,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -167,7 +167,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index
     )throws IOException
@@ -178,7 +178,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index
     )throws IOException
@@ -228,7 +228,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -275,7 +275,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   private boolean _isSelected(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -295,7 +295,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
 
   protected UIXHierarchy getHierarchyBase(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
   )
   {
@@ -304,7 +304,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -313,7 +313,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -325,7 +325,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
   }
 
   protected void renderStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp,
     boolean          selected
   ) throws IOException

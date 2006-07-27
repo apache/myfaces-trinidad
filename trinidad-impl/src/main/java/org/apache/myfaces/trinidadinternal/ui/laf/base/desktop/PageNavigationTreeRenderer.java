@@ -19,7 +19,7 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXPage;
 
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 
@@ -39,7 +39,7 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
   }
 
   protected UIXHierarchy getTree(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node)
   {
     UINode pageNode = context.getParentContext().getAncestorNode(0);
@@ -48,7 +48,7 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
   }
   
   protected UINode getStamp(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node)
   {
     UINode pageNode = context.getParentContext().getAncestorNode(0);
@@ -56,14 +56,14 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
   }  
   
   protected String getFormName(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node)
   {
     return getParentFormName(context.getParentContext());
   }
   
   protected boolean setInitialPath(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node,
     UIXHierarchy         tree)
   {

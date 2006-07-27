@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
@@ -40,7 +40,7 @@ public class ButtonRenderer extends LinkRenderer
    * subclassers to override
    */
   protected boolean useButtonTags(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // button tags are used if we support advanced forms and
@@ -52,7 +52,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -62,7 +62,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected void renderDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           destination
     ) throws IOException
@@ -75,7 +75,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -109,7 +109,7 @@ public class ButtonRenderer extends LinkRenderer
    * The ID and the naem aren't the same for buttons and button subclasses
    */
   protected boolean makeNameAndIDSame(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return false;
@@ -117,7 +117,7 @@ public class ButtonRenderer extends LinkRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -144,7 +144,7 @@ public class ButtonRenderer extends LinkRenderer
    * destination, or node name. We render nothing.
    */
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -153,7 +153,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -183,7 +183,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -204,7 +204,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -224,7 +224,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -241,7 +241,7 @@ public class ButtonRenderer extends LinkRenderer
    * Override to provide Javascript for moving to the destination
    */
    protected Object getOnClick(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -287,7 +287,7 @@ public class ButtonRenderer extends LinkRenderer
   }
 
   protected final Object getClientOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

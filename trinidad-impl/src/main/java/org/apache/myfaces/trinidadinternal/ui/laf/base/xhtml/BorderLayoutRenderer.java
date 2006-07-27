@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class BorderLayoutRenderer extends XhtmlLafRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -44,9 +44,9 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
 
   /**
    * writes out the indexed children.
-   * @see #renderContent(RenderingContext, UINode)
+   * @see #renderContent(UIXRenderingContext, UINode)
    */
-  protected final void renderIndexedChildren(RenderingContext context,
+  protected final void renderIndexedChildren(UIXRenderingContext context,
                                              UINode node) throws IOException
   {
     super.renderContent(context, node);
@@ -55,10 +55,10 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
   /**
    * since this class overrides the method in BaseRenderer, the method
    * renderIndexedChildren is provided to access the superclass method.
-   * @see #renderIndexedChildren(RenderingContext, UINode)
-   * @see org.apache.myfaces.trinidadinternal.ui.BaseRenderer#renderContent(RenderingContext, UINode)
+   * @see #renderIndexedChildren(UIXRenderingContext, UINode)
+   * @see org.apache.myfaces.trinidadinternal.ui.BaseRenderer#renderContent(UIXRenderingContext, UINode)
    */
-  protected void renderContent(RenderingContext context,
+  protected void renderContent(UIXRenderingContext context,
                                UINode node) throws IOException
   {
 
@@ -89,7 +89,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
-  private void _renderTableContent(RenderingContext context,
+  private void _renderTableContent(UIXRenderingContext context,
                                UINode node) throws IOException
   {
 
@@ -214,7 +214,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -231,7 +231,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
 
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -244,7 +244,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * @param rowSpan the numnber of rows this margin must span. maybe null to
    * indicate a single row.
    */
-  protected void renderMargin(RenderingContext context,
+  protected void renderMargin(UIXRenderingContext context,
                               UINode node,
                               Integer rowSpan) throws IOException
   {
@@ -261,7 +261,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    *  there is a column for each of the two side nodes and inner side nodes and the
    *  contents.
    */
-  protected void renderLeftSideNode(RenderingContext context,
+  protected void renderLeftSideNode(UIXRenderingContext context,
                                     UINode node,
                                     String leftName,
                                     UINode leftNode,
@@ -279,7 +279,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * @return true if at least one node was rendered.
    */
   private boolean _renderRightNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Integer          rowSpan
     ) throws IOException
@@ -331,7 +331,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * @param rowSpan the row span of the right hand side nodes.
    * @return true if something was rendered. false otherwise.
    */
-  private boolean _renderMiddleNode(RenderingContext context,
+  private boolean _renderMiddleNode(UIXRenderingContext context,
                                     UINode node,
                                     String middleNodeName,
                                     Integer rowSpan,
@@ -361,7 +361,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * Renders one of the inner nodes.
    */
   private void _renderInnerNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           innerNode,
     String           innerNodeName
@@ -380,7 +380,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * Renders one of the side nodes.
    */
   protected void renderSideNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           sideNode,
     String           sideNodeName,
@@ -403,7 +403,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * Returns the row span to use for the left and right children
    */
   private Integer _getRowSpan(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -436,7 +436,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * Returns the column span to use for the top and bottom children.
    */
   private Integer _getColSpan(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Integer          rowSpan
     )
@@ -483,7 +483,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
 
 
   private void _renderMarginSpacer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Integer          rowSpan
     ) throws IOException
@@ -505,7 +505,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
     
   
   private Integer _getMarginIndent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -530,7 +530,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * is specified
    */
   protected int getDefaultMarginIndent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -543,7 +543,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * layout, following bi-di rules.
    */
   private String _getInnerSideNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parentNode,
     boolean          getLeftName
     )
@@ -583,7 +583,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * layout, following bi-di rules.
    */
   private String _getSideNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parentNode,
     boolean          getLeftName
     )
@@ -623,7 +623,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    *  node
    */
   protected boolean hasSideNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 
@@ -33,7 +33,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
 
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -43,7 +43,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -53,7 +53,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -68,7 +68,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
    * indexed children).
    */
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

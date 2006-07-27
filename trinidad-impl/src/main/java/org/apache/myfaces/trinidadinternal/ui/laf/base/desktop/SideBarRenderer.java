@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
@@ -36,7 +36,7 @@ public class SideBarRenderer extends HtmlLafRenderer
  // issues 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -46,7 +46,7 @@ public class SideBarRenderer extends HtmlLafRenderer
 
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -68,7 +68,7 @@ public class SideBarRenderer extends HtmlLafRenderer
    *
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -94,7 +94,7 @@ public class SideBarRenderer extends HtmlLafRenderer
 
   
   protected final void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException

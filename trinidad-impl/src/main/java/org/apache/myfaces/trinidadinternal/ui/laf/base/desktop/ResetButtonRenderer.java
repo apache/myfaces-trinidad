@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
@@ -46,7 +46,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * @param response ImageProvider which descibes the button  image to render.
    * @throws IOException
    */
-  protected void renderImageContent(RenderingContext context,
+  protected void renderImageContent(UIXRenderingContext context,
     UINode node,
     ImageProviderResponse response
     ) throws IOException
@@ -60,7 +60,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * return false from our onClick handler so that this link is never followed.
    */
   protected Object getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -74,7 +74,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * Show the modal dialog on click.
    */
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -113,7 +113,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
 
 
   protected String getFunctionCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           formName
     )

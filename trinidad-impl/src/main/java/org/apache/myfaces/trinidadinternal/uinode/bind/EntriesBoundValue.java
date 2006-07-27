@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.uinode.bind;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -59,7 +59,7 @@ public class EntriesBoundValue implements BoundValue
     _key = key;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     return (_key != null) ? _bean.entries(_key) : null;
   }

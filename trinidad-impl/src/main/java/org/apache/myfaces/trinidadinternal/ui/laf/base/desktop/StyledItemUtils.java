@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -34,7 +34,7 @@ public class StyledItemUtils implements UIConstants
   }
 
   public static boolean isSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode styledItemNode
   )
   {
@@ -51,7 +51,7 @@ public class StyledItemUtils implements UIConstants
   }
 
   public static void setSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          selected
   )
   {

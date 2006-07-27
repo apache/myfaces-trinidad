@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.StyledItemUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
@@ -40,7 +40,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 {
 
    protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {
@@ -115,7 +115,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -124,7 +124,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -133,7 +133,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -146,7 +146,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -182,7 +182,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {
@@ -206,7 +206,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
   }
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              childIndex
     ) throws IOException
@@ -219,7 +219,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
   }
 
   protected void renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          selected
     ) throws IOException

@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -94,7 +94,7 @@ public class ContextPoppingUINode extends BaseUINode
 
 
   public int getIndexedChildCount(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (getPoppedNode(context) != null)
@@ -109,7 +109,7 @@ public class ContextPoppingUINode extends BaseUINode
 
 
   public UINode getIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              childIndex
     )
   {
@@ -127,7 +127,7 @@ public class ContextPoppingUINode extends BaseUINode
   }
 
   protected UINode getPoppedNode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (context == null)
@@ -150,7 +150,7 @@ public class ContextPoppingUINode extends BaseUINode
   }
 
   protected Object getAttributeValueImpl(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey,
     boolean          returnBoundValue
     )
@@ -177,7 +177,7 @@ public class ContextPoppingUINode extends BaseUINode
   }
 
   protected Renderer getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
   {
@@ -207,7 +207,7 @@ public class ContextPoppingUINode extends BaseUINode
   private static class ContextPoppingRenderer implements RoledRenderer
   {
     public void render(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
       throws IOException
@@ -216,7 +216,7 @@ public class ContextPoppingUINode extends BaseUINode
                               (ContextPoppingUINode)context.getAncestorNode(0);
       DataObject poppingCurrentDataObject  = context.getCurrentDataObject();
 
-      RenderingContext poppedContext = context.getParentContext();
+      UIXRenderingContext poppedContext = context.getParentContext();
 
       UINode poppedNode = poppingNode.getPoppedNode(context);
 
@@ -242,7 +242,7 @@ public class ContextPoppingUINode extends BaseUINode
     }
 
     public NodeRole getNodeRole(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node)
     {
       return STATE_ROLE;

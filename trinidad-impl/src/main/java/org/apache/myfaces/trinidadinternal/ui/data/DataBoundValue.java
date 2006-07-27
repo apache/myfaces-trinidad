@@ -19,7 +19,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -82,7 +82,7 @@ public class DataBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (context != null)
@@ -139,7 +139,7 @@ public class DataBoundValue implements BoundValue
    * Handles a Throwable;  the exception is swallowed after being logged.
    */
   static public void handleException(
-    RenderingContext context,
+    UIXRenderingContext context,
     Throwable throwable)
   {
     if (throwable == null)
@@ -164,7 +164,7 @@ public class DataBoundValue implements BoundValue
    * the exception is swallowed after being logged.
    */
   static public void handleException(
-    RenderingContext context,
+    UIXRenderingContext context,
     RuntimeException exception)
   {
     // Catch and log all exceptions.

@@ -21,7 +21,7 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
 public class GlobalButtonBarRenderer extends RowLayoutRenderer
 {
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -45,7 +45,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
 
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -54,7 +54,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -63,7 +63,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -74,7 +74,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -130,7 +130,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected boolean isRendered(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp
   )
   {
@@ -138,7 +138,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
  protected void renderStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          selected
     )throws IOException
@@ -157,7 +157,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -167,7 +167,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -175,7 +175,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected void renderBetweenNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -183,7 +183,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   }
 
   protected void renderDefaultCellAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child) throws IOException
   {
     String valign;
@@ -202,7 +202,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
    * Renders attributes of the current node.
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -230,7 +230,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
    * @return true if the ancestor node is a table
    * (tableLayout or messageComponentLayout)
    */
-  protected boolean hasTableParent(RenderingContext context)
+  protected boolean hasTableParent(UIXRenderingContext context)
   {
     UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
 

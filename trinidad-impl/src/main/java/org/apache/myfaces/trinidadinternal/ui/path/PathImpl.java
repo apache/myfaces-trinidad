@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.path;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -179,7 +179,7 @@ public class PathImpl implements Path
    *   will just return <code>from</code>
    */
   public UINode followPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           from,
     int              start,
     int              depth
@@ -208,7 +208,7 @@ public class PathImpl implements Path
    * @param from the node to start from
    */
   final public UINode followPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           from
     )
   {
@@ -294,7 +294,7 @@ public class PathImpl implements Path
   }
 
   static private UINode _follow(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           from,
     Object           element
     )

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
 public class RowLayoutRenderer extends XhtmlLafRenderer
 {
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     super.prerender(context, node);
@@ -43,7 +43,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     if (_shouldRenderTable(context))
@@ -56,7 +56,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
    * Renders attributes of the current node.
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -84,7 +84,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
    * @param child the child under consideration
    */
   protected void renderChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child
     ) throws IOException
   {
@@ -107,13 +107,13 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected void renderDefaultCellAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child) throws IOException
   {
   }
 
   protected boolean renderCellElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child
     )
   {
@@ -121,7 +121,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -129,7 +129,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -148,7 +148,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
    * @return true if the ancestor node is a table 
    * (tableLayout or messageComponentLayout)
    */
-  protected boolean hasTableParent(RenderingContext context)
+  protected boolean hasTableParent(UIXRenderingContext context)
   {
     UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
     
@@ -160,7 +160,7 @@ public class RowLayoutRenderer extends XhtmlLafRenderer
    * @param context
    * @return true if the &lt;table&gt; html element should be rendered.
    */
-  private boolean _shouldRenderTable(RenderingContext context)
+  private boolean _shouldRenderTable(UIXRenderingContext context)
   {
     return !hasTableParent(context);
   }

@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -86,7 +86,7 @@ public class IfBoundValue implements BoundValue
    * Calculates the current state of the model.
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return ((Boolean.TRUE.equals(_testValue.getValue(context)))

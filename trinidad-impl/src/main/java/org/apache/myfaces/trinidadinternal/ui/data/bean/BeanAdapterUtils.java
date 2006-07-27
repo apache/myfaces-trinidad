@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
 import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
@@ -108,7 +108,7 @@ public class BeanAdapterUtils
    * RenderingContext's error log.
    */
   static public DataObject getAdapter(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           instance)
   {
     try
@@ -133,7 +133,7 @@ public class BeanAdapterUtils
    * Creates a DataObjectList adapter class around an object.
    */
   static public DataObjectList getAdapterList(
-    RenderingContext context, Object listInstance)
+    UIXRenderingContext context, Object listInstance)
   {
     if (listInstance == null)
       return null;
@@ -182,13 +182,13 @@ public class BeanAdapterUtils
       _map = map;
     }
 
-    public Object selectValue(RenderingContext context, Object select)
+    public Object selectValue(UIXRenderingContext context, Object select)
     {
       return _map.get(select);
     }
 
     public void updateValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object select,
       Object value)
     {

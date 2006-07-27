@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
@@ -30,14 +30,14 @@ public class HeaderUtils implements UIConstants
   }
 
   public static Object getHeaderID(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {    
     return BaseDesktopUtils.getRenderingProperty(context, _HEADER_ID_PROPERTY);
   }
 
   public static void setHeaderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           id
   )
   {

@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -34,14 +34,14 @@ public class ImportScriptRenderer extends BaseRenderer
 
 {
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return USER_INVISIBLE_ROLE;
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -59,7 +59,7 @@ public class ImportScriptRenderer extends BaseRenderer
   }
 
   private void _importScript(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           name) throws IOException
   {
     XhtmlLafUtils.addLib(context, name);

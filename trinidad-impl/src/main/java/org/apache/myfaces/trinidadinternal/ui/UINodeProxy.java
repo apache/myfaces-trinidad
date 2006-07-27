@@ -85,7 +85,7 @@ public abstract class UINodeProxy implements UINode
    * @see #getIndexedChild
    */
   public int getIndexedChildCount(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     context = getRenderingContext(context);
@@ -104,7 +104,7 @@ public abstract class UINodeProxy implements UINode
    * @see #getIndexedChildCount
    */
   public UINode getIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              childIndex
     )
   {
@@ -129,7 +129,7 @@ public abstract class UINodeProxy implements UINode
    * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
   public UINode getNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           childName
     )
   {
@@ -152,7 +152,7 @@ public abstract class UINodeProxy implements UINode
    * @see #getNamedChild
    */
   public Iterator getChildNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     context = getRenderingContext(context);
@@ -173,7 +173,7 @@ public abstract class UINodeProxy implements UINode
    * @see #getAttributeValue
    */
   public Iterator getAttributeNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     context = getRenderingContext(context);
@@ -200,7 +200,7 @@ public abstract class UINodeProxy implements UINode
    * @see #getAttributeNames
    */
   public Object getAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -210,7 +210,7 @@ public abstract class UINodeProxy implements UINode
 
 
   public Object getRawAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -218,8 +218,8 @@ public abstract class UINodeProxy implements UINode
     return getUINode().getRawAttributeValue(context, attrKey);
   }
 
-  public RenderingContext getRenderingContext(
-    RenderingContext context
+  public UIXRenderingContext getRenderingContext(
+    UIXRenderingContext context
     )
   {
     return context;
@@ -230,7 +230,7 @@ public abstract class UINodeProxy implements UINode
   /**
    * Returns the role that this node occupies.
    */
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     context = getRenderingContext(context);
     return getUINode().getNodeRole(context);
@@ -243,7 +243,7 @@ public abstract class UINodeProxy implements UINode
    * get a Renderer, and defer rendering to that Renderer.
    */
   public final void render(
-    RenderingContext context
+    UIXRenderingContext context
     )
     throws IOException
   {
@@ -252,7 +252,7 @@ public abstract class UINodeProxy implements UINode
   }
 
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException

@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -31,8 +31,8 @@ public class ContextPropertyBoundValue implements BoundValue
    * Create a BoundValue that returns the result of
    * calling RenderingContext.getProperty()
    * <p>
-   * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#getProperty
-   * @see org.apache.myfaces.trinidadinternal.ui.RenderingContext#setProperty
+   * @see org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext#getProperty
+   * @see org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext#setProperty
    */
   public ContextPropertyBoundValue(
     String namespace,
@@ -51,7 +51,7 @@ public class ContextPropertyBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (context == null)

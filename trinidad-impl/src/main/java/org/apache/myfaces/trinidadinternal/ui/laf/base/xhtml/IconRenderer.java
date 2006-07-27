@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -44,7 +44,7 @@ public class IconRenderer implements Renderer
    * Render the icon
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -106,7 +106,7 @@ public class IconRenderer implements Renderer
    *             the node.
    */
   private Map _getNodeAttributeMap(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     Map attrs = null;

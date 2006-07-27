@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -33,14 +33,14 @@ public class FrameBorderLayoutRenderer extends
 {
   
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
   }
 
   public boolean isSupportedNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -54,7 +54,7 @@ public class FrameBorderLayoutRenderer extends
    * for the named ones.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -83,7 +83,7 @@ public class FrameBorderLayoutRenderer extends
   }
 
   private void _renderFrameAsLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {
@@ -108,7 +108,7 @@ public class FrameBorderLayoutRenderer extends
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {

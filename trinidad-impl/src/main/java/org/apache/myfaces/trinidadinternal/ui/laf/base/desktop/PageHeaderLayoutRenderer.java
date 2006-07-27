@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 public class PageHeaderLayoutRenderer extends HtmlLafRenderer
 {
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -479,7 +479,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
   }
 
   protected void renderPageHeaderChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           globalHeader,
     boolean          hasQuickSearch
@@ -491,7 +491,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -508,7 +508,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
    * @return void
    */
   private void _renderAds(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     UINode           largeAd,
@@ -558,7 +558,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
    * @return void
    */
   private void  _renderTabBar(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     UINode           tabBar,
@@ -590,7 +590,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
    * @return void
    */
   private void _renderGlobalHeader(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     UINode           globalHeader,
@@ -620,7 +620,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
    * @return void
    */
   private void _renderQuickSearch(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     UINode           quickSearch,

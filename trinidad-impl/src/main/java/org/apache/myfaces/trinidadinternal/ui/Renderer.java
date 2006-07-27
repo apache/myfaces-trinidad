@@ -29,6 +29,6 @@ public interface Renderer
    * Render a UINode in a RenderingContext.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException;
 }

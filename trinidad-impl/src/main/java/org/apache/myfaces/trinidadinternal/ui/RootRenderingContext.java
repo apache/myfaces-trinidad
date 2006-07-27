@@ -300,7 +300,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    * @since 2.0.12
    */
   public DataObject getDataObject(
-    RenderingContext context,
+    UIXRenderingContext context,
     String namespaceURI,
     String name
     )
@@ -356,7 +356,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   /**
    * This implementation returns an encoder that does no special encoding,
    * and returns an empty string as the default URL.
-   * @see RenderingContext#getURLEncoder()
+   * @see UIXRenderingContext#getURLEncoder()
    */
   public URLEncoder getURLEncoder()
   {
@@ -371,7 +371,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   /**
    * This implementation returns an encoder that does no special encoding,
    * and returns an empty string as the default URL.
-   * @see RenderingContext#getURLEncoder()
+   * @see UIXRenderingContext#getURLEncoder()
    */
   public void setURLEncoder(URLEncoder urlEncoder)
   {
@@ -389,7 +389,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
   /**
    * This implementation returns an encoder that does no special encoding.
-   * @see RenderingContext#getFormEncoder()
+   * @see UIXRenderingContext#getFormEncoder()
    */
   public FormEncoder getFormEncoder()
   {
@@ -398,7 +398,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
   /**
    * This implementation returns an encoder that does no special encoding.
-   * @see RenderingContext#getFormEncoder()
+   * @see UIXRenderingContext#getFormEncoder()
    */
   public void setFormEncoder(FormEncoder formEncoder)
   {
@@ -544,7 +544,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   */
   }
 
-  public final RenderingContext getParentContext()
+  public final UIXRenderingContext getParentContext()
   {
     return null;
   }

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Renderer for Navigation Bars showing either single or multiple records.
@@ -35,7 +35,7 @@ public class NavigationBarRenderer extends
    * Writes the separator between two elements
    */
   protected void renderItemSpacer(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     renderSpacer(context, 5, 1);
@@ -47,7 +47,7 @@ public class NavigationBarRenderer extends
    * submit
    */
   protected boolean requiresForm(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // Netscape requires forms in order to submit

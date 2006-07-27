@@ -21,7 +21,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class FrameRenderer extends XhtmlLafRenderer
 {
   public boolean isSupportedNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -42,7 +42,7 @@ public class FrameRenderer extends XhtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -72,7 +72,7 @@ public class FrameRenderer extends XhtmlLafRenderer
 
 
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -93,7 +93,7 @@ public class FrameRenderer extends XhtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -105,7 +105,7 @@ public class FrameRenderer extends XhtmlLafRenderer
    * Override to return the id and then anme, in that order
    */
   protected Object getID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -117,7 +117,7 @@ public class FrameRenderer extends XhtmlLafRenderer
    * Override to render both the id and the name
    */
   protected void renderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -125,7 +125,7 @@ public class FrameRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

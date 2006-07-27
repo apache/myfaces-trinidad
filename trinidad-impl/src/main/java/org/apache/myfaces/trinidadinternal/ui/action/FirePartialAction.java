@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -161,7 +161,7 @@ public class FirePartialAction extends FireAction
    * Implementation of FireAction.getSubmitScript().
    */
   protected String getSubmitScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      String returnScript)
   {
@@ -250,7 +250,7 @@ public class FirePartialAction extends FireAction
   }
 
   protected String getChangeScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      String returnScript)
   {
@@ -302,7 +302,7 @@ public class FirePartialAction extends FireAction
    * Override of FireAction.renderAsEvent().
    */
   public boolean renderAsEvent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return true;
@@ -339,7 +339,7 @@ public class FirePartialAction extends FireAction
    * Override of ClientAction.writeDependencies().
    */
   public void writeDependencies(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -377,7 +377,7 @@ public class FirePartialAction extends FireAction
    * Override of ClientAction.isTriggerRequired()
    */
   public boolean isTriggerRequired(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -392,7 +392,7 @@ public class FirePartialAction extends FireAction
    * Override of ClientAction.renderTrigger().
    */
   public void renderTrigger(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -418,7 +418,7 @@ public class FirePartialAction extends FireAction
    * Override of ClientAction.renderTrigger().
    */
   public void renderTrigger(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           text,
     Object           accessKey
@@ -451,7 +451,7 @@ public class FirePartialAction extends FireAction
   }
 
   public Parameter[] getParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
 
@@ -481,7 +481,7 @@ public class FirePartialAction extends FireAction
   }
 
   // Returns the set of partial targets encoded as a string
-  private String _getPartialTargets(RenderingContext context)
+  private String _getPartialTargets(UIXRenderingContext context)
   {
     // Get the partial targets
     String[] targets = (String[])ActionUtils.getValue(context,

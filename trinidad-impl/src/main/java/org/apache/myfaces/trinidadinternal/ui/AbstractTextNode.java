@@ -51,7 +51,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * the node.
    */
   public final char[] getText(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     Object text = getTextObject(context);
@@ -93,7 +93,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * contain no children, always returns 0
    */
   public int getIndexedChildCount(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return 0;
@@ -104,7 +104,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * contain no children, always throws an exception.
    */
   public UINode getIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              index
     )
   {
@@ -116,7 +116,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * Returns 1.
    */
   public int getAttributeCount(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return 1;
@@ -129,7 +129,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * TEXT_ATTR.
    */
   public Iterator getAttributeNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return Collections.singletonList(UIConstants.TEXT_ATTR).iterator();
@@ -140,7 +140,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * Returns null.
    */
   public UINode getNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           childName
     )
   {
@@ -151,7 +151,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * Returns null.
    */
   public Iterator getChildNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return null;
@@ -163,7 +163,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * valid attribute name for TextNode is <CODE>UIConstants.TEXT_ATTR</CODE>.
    */
   public Object getAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -179,7 +179,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
 
 
   public Object getRawAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -194,7 +194,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * get a Renderer, and defer rendering to that Renderer.
    */
   public final void render(
-    RenderingContext context
+    UIXRenderingContext context
     )
     throws IOException
   {
@@ -203,7 +203,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
 
 
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -215,7 +215,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
       renderer.render(context, node);
   }
 
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     // =-=AEW ???
     return STRUCTURAL_ROLE;
@@ -225,5 +225,5 @@ public abstract class AbstractTextNode implements UINode, UIConstants
   /**
    * Returns the text for the current rendering context.
    */
-  protected abstract Object getTextObject(RenderingContext context);
+  protected abstract Object getTextObject(UIXRenderingContext context);
 }

@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/collection/MapContextMap.java#0 $) $Date: 10-nov-2005.18:57:34 $
@@ -45,7 +45,7 @@ public final class MapContextMap implements ContextMap
   }
 
   public Object get(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           key
     )
   {
@@ -68,7 +68,7 @@ public final class MapContextMap implements ContextMap
   }
 
   public Iterator keys(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {  
     if(_map instanceof ArrayMap)

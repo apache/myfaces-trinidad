@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 import java.util.Iterator;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -48,7 +48,7 @@ public interface AttributeMap
   /**
    * Returns the value in the AttributeMap specified by the key.
    */
-  public Object getAttribute(RenderingContext context, AttributeKey key);
+  public Object getAttribute(UIXRenderingContext context, AttributeKey key);
 
   /**
    * Sets an attribute value specified by the key to the new value.
@@ -60,5 +60,5 @@ public interface AttributeMap
    * Returns an Iterator of all of the AttributeKeys in the AttributeMap
    * that values exist for.
    */
-  public Iterator attributeKeys(RenderingContext context);
+  public Iterator attributeKeys(UIXRenderingContext context);
 }

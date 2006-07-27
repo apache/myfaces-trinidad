@@ -21,7 +21,7 @@ package org.apache.myfaces.trinidadinternal.ui.action;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
@@ -106,7 +106,7 @@ class ActionUtils
    * Appends client-defined parameters to the buffer
    */
   public static void appendClientParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     StringBuffer     buffer,
     Parameter[]      parameters
     )
@@ -119,7 +119,7 @@ class ActionUtils
    * Appends client-defined parameters to the submit buffer including an event
    */
   public static void appendClientParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     StringBuffer     buffer,
     Parameter[]      parameters,
     String           event,
@@ -133,7 +133,7 @@ class ActionUtils
    * Appends client-defined parameters to the submit buffer including an event
    */
   public static void appendClientParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     StringBuffer     buffer,
     Parameter[]      parameters,
     String           event,
@@ -239,7 +239,7 @@ class ActionUtils
   }
 
   static String appendURLParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     String       base,
     Parameter[]  params
     )
@@ -299,7 +299,7 @@ class ActionUtils
    * Computes the buffer size for client-defined parameters
    */
   public static final int getClientParametersSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     Parameter[]      parameters
     )
   {
@@ -334,7 +334,7 @@ class ActionUtils
   /**
    * Returns the current form name
    */
-  public static String getFormName(RenderingContext context)
+  public static String getFormName(UIXRenderingContext context)
   {
     Object formName = context.getProperty(UIConstants.MARLIN_NAMESPACE,
                                           UIConstants.FORM_NAME_PROPERTY);
@@ -353,7 +353,7 @@ class ActionUtils
 
   // get the source parameter, and if null, then get the id as the source
   public static String getSource(
-     RenderingContext context,
+     UIXRenderingContext context,
      UINode node,
      BoundValue binding,
      String actionSource)
@@ -385,7 +385,7 @@ class ActionUtils
   }
 
   static Parameter buildParameter(
-     RenderingContext context,
+     UIXRenderingContext context,
      UINode node,
      BoundValue binding,
      String param,
@@ -400,7 +400,7 @@ class ActionUtils
 
   // Gets a value from a bound value
   public static Object getValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     BoundValue       boundValue,
     Object           defaultValue
     )

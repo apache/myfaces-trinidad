@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.ServletNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The ImageProviderRequest class that we use for requesting
@@ -50,7 +50,7 @@ final class FlippedIconRequest extends FlippedIconKey
 {
 
   public FlippedIconRequest(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           source
     )
   {

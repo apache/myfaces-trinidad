@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 
 import java.util.Map;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The MapData interface provides a simple,
@@ -73,7 +73,7 @@ public class MapData implements KeyedDataObject, MutableDataObject
   /**
    * Returns the value registered with the select key.
    */
-  public Object selectValue(RenderingContext context, Object select)
+  public Object selectValue(UIXRenderingContext context, Object select)
   {
     if (select == null)
       return null;
@@ -81,7 +81,7 @@ public class MapData implements KeyedDataObject, MutableDataObject
   }
 
   public void updateValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object select,
     Object value)
   {
@@ -89,7 +89,7 @@ public class MapData implements KeyedDataObject, MutableDataObject
   }
 
   public Iterator keys(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return _table.keySet().iterator();

@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -44,7 +44,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns an URL to the media to display
    */
   protected Object getSource(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -55,7 +55,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns the expected content type of the media to display
    */
   protected Object getContentType(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -67,7 +67,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns true if the media should start playing as soon as it is loaded.
    */
   protected Object getAutostart(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -78,7 +78,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns the number of times that the media should play
    */
   protected Number getPlayCount(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -89,7 +89,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns an enumeration determining the set of controls to render
    */
   protected Object getControls(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -111,7 +111,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    *         do all of the work in render() could be revisited.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -398,7 +398,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * specified.
    */
   protected Number getDefaultInnerWidth(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           primaryContentType
     )
@@ -412,7 +412,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * specified.
    */
   protected Number getDefaultInnerHeight(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           primaryContentType
     )
@@ -426,7 +426,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * <object> tag to embed the viewer
    */
   protected boolean useEmbed(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     AdfFacesAgent agent = context.getAgent();
@@ -512,7 +512,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Renders a name value pair as a <param> element
    */
   private void _renderParamAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           paramName,
     Object           paramValue,
     boolean          isURL
@@ -545,7 +545,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * =-= bts Do we care about AccessibilityMode?
    */
   private MediaRenderer.PlayerData _getPlayerData(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           mimeType,
     String           primaryMimeType
@@ -714,7 +714,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns the most likely MIME type for the content
    */
   private String _getMimeType(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -788,7 +788,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Returns the lowercase extension of any source URL
    */
   private String _getSourceExtension(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -867,7 +867,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
   // get the height of the image window
   private Object _getInnerHeight(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          canAutosize,
     String           primaryContentType,
@@ -922,7 +922,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   // determine the height without checking the min height
   //
   private Object _getHeightNoMin(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          canAutosize,
     String           primaryContentType,
@@ -971,7 +971,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   // determine the height including the controls
   //
   private Object _getHeight(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          canAutosize,
     String           primaryContentType,
@@ -1049,7 +1049,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   }
 
   private void _render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           contentType,
     Object           id,

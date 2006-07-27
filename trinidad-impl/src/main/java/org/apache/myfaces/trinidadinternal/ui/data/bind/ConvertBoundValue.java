@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -69,7 +69,7 @@ public class ConvertBoundValue implements BoundValue
     _class    = javaType;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     Object value = _wrapped.getValue(context);
 

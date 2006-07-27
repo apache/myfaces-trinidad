@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -38,13 +38,13 @@ public class ArrayUINodeList implements UINodeList
     _nodes = new UINode[initialCapacity];
   }
  
-  public int size(RenderingContext context)
+  public int size(UIXRenderingContext context)
   {
     return _nodeCount;
   }
   
   public UINode getUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     int index
     )
   {

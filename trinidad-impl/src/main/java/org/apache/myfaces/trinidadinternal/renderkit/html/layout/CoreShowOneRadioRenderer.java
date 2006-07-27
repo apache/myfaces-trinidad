@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
@@ -54,7 +54,7 @@ public class CoreShowOneRadioRenderer extends ShowOneListRendererBase
                 "disclosedChildId: {0}" + disclosedChildId);
 
     // This renders the select controls alongwith javascript onchange handler.
-    RenderingContext rCtx = getRenderingContext(context, component);
+    UIXRenderingContext rCtx = getRenderingContext(context, component);
 
     String compId = component.getClientId(context);
 
@@ -114,7 +114,7 @@ public class CoreShowOneRadioRenderer extends ShowOneListRendererBase
   private void _renderRadioItemsInTD(FacesContext context,
                                      UIComponent component,
                                      ResponseWriter out,
-                                     RenderingContext rCtx,
+                                     UIXRenderingContext rCtx,
                                      String compId,
                                      String disclosedChildId)
     throws IOException
@@ -252,7 +252,7 @@ public class CoreShowOneRadioRenderer extends ShowOneListRendererBase
    *  for this case else returns a script where PPR is not required.
    */
   private String _getRadioSubmitJS(UIComponent component,
-                                   RenderingContext rCtx,
+                                   UIXRenderingContext rCtx,
                                    String formName,
                                    String compId,
                                    String detailChildId,

@@ -22,7 +22,7 @@ import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.component.UIXCommand;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 public class CommandItemRenderer extends SelectOptionRenderer
 {
   public boolean render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          isDisabled,
     boolean          isReadOnly
@@ -51,7 +51,7 @@ public class CommandItemRenderer extends SelectOptionRenderer
 
 
     protected void renderValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           value
     )throws IOException

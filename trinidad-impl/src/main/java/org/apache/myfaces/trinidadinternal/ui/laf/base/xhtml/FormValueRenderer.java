@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -43,14 +43,14 @@ public class FormValueRenderer extends XhtmlLafRenderer
                                implements RoledRenderer
 {
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return _FORM_VALUE_ROLE;
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -79,7 +79,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -93,7 +93,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
    * @param name the name of the hidden value.
    */
   public static void addNeededValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     String           name
     )
@@ -112,7 +112,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
    * @param name4 the name of a hidden value. maybe null.
    */
   public static void addNeededValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     String           name1,
     String           name2,
@@ -161,7 +161,7 @@ public class FormValueRenderer extends XhtmlLafRenderer
   }
 
   static void __renderHiddenValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     Object           name,
     Object           value

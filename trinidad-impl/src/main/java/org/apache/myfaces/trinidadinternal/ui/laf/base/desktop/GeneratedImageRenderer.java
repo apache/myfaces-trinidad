@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -55,7 +55,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
 
   protected void renderImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     ImageProviderResponse response
     )
@@ -69,13 +69,13 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
    * as the title attribute; instead we write shortDesc as the alt text of the
    * image.
    */
-  protected void renderShortDesc(RenderingContext context, UINode node)
+  protected void renderShortDesc(UIXRenderingContext context, UINode node)
   {
   }
 
 
   protected void renderImage(
-    RenderingContext      context,
+    UIXRenderingContext      context,
     UINode                node,
     ImageProviderResponse response,
     String                mapName
@@ -104,7 +104,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected void renderImage(
-    RenderingContext      context,
+    UIXRenderingContext      context,
     UINode                node,
     ImageProviderResponse response,
     boolean               hasMap,
@@ -198,7 +198,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -206,7 +206,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected Object getShortDesc(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -221,7 +221,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected Object getImageName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -229,7 +229,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected Object getLongDesc(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -241,7 +241,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
    * Returns the destination to use for the GeneratedImageRenderer
    */
   protected Object getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -267,7 +267,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
 
   protected String getImageStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -275,7 +275,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   protected String getImageStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -284,7 +284,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
 
   protected void renderButtonAccessKey(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )    throws IOException
   {
@@ -292,7 +292,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected String getURLAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode       node,
     AttributeKey attrKey
     )
@@ -306,7 +306,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
 
   // Returns the style for the specified name
   static protected Style getStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           name
     )
@@ -322,13 +322,13 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   // Returns the vertical alignment
-  protected Object getVAlign(RenderingContext context, UINode node)
+  protected Object getVAlign(UIXRenderingContext context, UINode node)
   {
     return null;
   }
 
   static protected int getFontStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style classStyle,
     Style inlineStyle,
@@ -386,7 +386,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected int getFontSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style classStyle,
     Style inlineStyle,
@@ -418,7 +418,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected Collection getFontFamilies(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style  style,
     String styleName
@@ -442,7 +442,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected Color getBackground(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style classStyle,
     Style inlineStyle,
@@ -464,7 +464,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected Color getForeground(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style classStyle,
     Style inlineStyle,
@@ -485,7 +485,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
       _parseValue(classStyle, styleName, Style.FOREGROUND_KEY);
   }
 
-  static protected Color getSurroundingColor(RenderingContext context)
+  static protected Color getSurroundingColor(UIXRenderingContext context)
   {
     if (BaseDesktopUtils.supportsTransparentImages(context))
       return null;
@@ -494,7 +494,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected int getDirection(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -503,7 +503,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
   }
 
   static protected boolean isTextAntialiased(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     Style classStyle,
     Style inlineStyle

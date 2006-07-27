@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer;
@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 public class SubTabBarRenderer extends HtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -43,7 +43,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   }
 
   protected void renderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -53,7 +53,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -71,7 +71,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
    *
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -94,7 +94,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -121,7 +121,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
    * Overrride to render in three passes.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -145,7 +145,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
    * Returns the StyleClass to use to render this node.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -179,7 +179,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
 
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,
@@ -252,7 +252,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
    * af|showOneTab::separator-after-selected, or af|showOneTab::separator.
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
@@ -35,7 +35,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
 {
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -81,7 +81,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
    * indexed children).
    */
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

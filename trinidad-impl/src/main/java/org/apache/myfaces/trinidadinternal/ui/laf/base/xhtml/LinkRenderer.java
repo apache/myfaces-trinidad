@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 public class LinkRenderer extends XhtmlLafRenderer
 {
 
-  public void render(RenderingContext context,
+  public void render(UIXRenderingContext context,
                      UINode node) throws IOException
   {
 
@@ -52,7 +52,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   private String _addParams(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ClientAction     action,
     String           dest
@@ -71,7 +71,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -116,11 +116,11 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   /**
-   * @see #setDisabled(RenderingContext,boolean)
+   * @see #setDisabled(UIXRenderingContext,boolean)
    * @todo gcrawford - for now readonly maps to disabled
    */
   protected boolean isDisabled(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -145,15 +145,15 @@ public class LinkRenderer extends XhtmlLafRenderer
    * true, or you can call this method.
    * @param isDisabled if true, disables all subsequent links, regardless
    * of their disabled attributes.
-   * @see #isDisabled(RenderingContext,UINode)
+   * @see #isDisabled(UIXRenderingContext,UINode)
    */
-  public static void setDisabled(RenderingContext context, boolean isDisabled)
+  public static void setDisabled(UIXRenderingContext context, boolean isDisabled)
   {
     AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
     ((CoreAdfRenderingContext) arc).setLinkDisabled(isDisabled);
   }
 
-  public static void setSaveModelDisabled(RenderingContext context, boolean isDisabled)
+  public static void setSaveModelDisabled(UIXRenderingContext context, boolean isDisabled)
   {
     /* =-=AEW Save model not available in ADF Faces
     if (BodyRenderer.__isSaveModelActive(context))
@@ -165,7 +165,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
 
-  protected boolean isSaveModelDisabled(RenderingContext context)
+  protected boolean isSaveModelDisabled(UIXRenderingContext context)
   {
     return getRenderingProperty(context, _SAVE_MODEL_DISABLED_KEY) != null;
   }
@@ -174,7 +174,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Renders the destination of the link
    */
   protected void renderDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           destination
     ) throws IOException
@@ -207,7 +207,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -222,7 +222,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected void renderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -249,7 +249,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * link subclasses
    */
   protected boolean makeNameAndIDSame(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return true;
@@ -260,7 +260,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Override to return the id and then anme, in that order
    */
   protected Object getID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -279,7 +279,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Returns the destination to use for the ImageRenderer.
    */
   protected String getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -311,7 +311,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected final String getDestinationAttr(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -324,7 +324,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Returns the destination to use for the ImageRenderer.
    */
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -332,7 +332,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected Object getTargetFrame(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -344,7 +344,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Returns the StyleClass to use to render this node.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -376,7 +376,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -429,7 +429,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -450,7 +450,7 @@ public class LinkRenderer extends XhtmlLafRenderer
 
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -480,7 +480,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -491,7 +491,7 @@ public class LinkRenderer extends XhtmlLafRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -509,7 +509,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   }
 
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -578,7 +578,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   // Checks for partial targets provided by an ancestor link container
   // and returns a script which updates the partial targets.
   protected String getPartialChangeScript(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -612,7 +612,7 @@ public class LinkRenderer extends XhtmlLafRenderer
 
   // Returns any partial targets provided by ancestor link containers.
   protected static String getAncestorPartialTargets(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // First check to see if we've got a local copy
@@ -635,7 +635,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * Returns true if we should use an anchor to represent this link.
    */
   private boolean _isAnchor(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -661,7 +661,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * destination, or node name. We render nothing.
    */
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -683,7 +683,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     return ((text == null) && (childCount <= 0) && (id == null));
   }
 
-  private void _buildDataObject(RenderingContext context,
+  private void _buildDataObject(UIXRenderingContext context,
                                 UINode link) throws IOException
   {
     Object id = getID(context, link);
@@ -720,7 +720,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @throws IOException
    */
   private void _renderAccessibleStatus(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     // Do not attempt to render this label if the underlying

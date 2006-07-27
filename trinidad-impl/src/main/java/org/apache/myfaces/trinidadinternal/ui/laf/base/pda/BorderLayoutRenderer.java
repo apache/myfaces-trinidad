@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -31,7 +31,7 @@ public class BorderLayoutRenderer
    *  node
    */
   protected boolean hasSideNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

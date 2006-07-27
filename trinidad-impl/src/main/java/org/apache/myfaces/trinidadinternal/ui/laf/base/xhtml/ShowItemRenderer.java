@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.SubTabBarUtils;
@@ -33,7 +33,7 @@ public class ShowItemRenderer extends LinkRenderer
 {
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,
@@ -47,7 +47,7 @@ public class ShowItemRenderer extends LinkRenderer
   
   // Returns the partial change script that is usually rendered for onClick
   protected String getPartialChangeScript(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -43,7 +43,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.composite.PoppedAttributeBoundValue;
@@ -99,7 +99,7 @@ public class BaseLafUtils implements UIConstants
    * Returns the attribute as a String
    */
   public static String getStringAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     key
     )
@@ -114,7 +114,7 @@ public class BaseLafUtils implements UIConstants
    * Returns the name of the current parent form
    */
   public static String getParentFormName(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (String)context.getProperty(MARLIN_NAMESPACE, FORM_NAME_PROPERTY);
@@ -127,7 +127,7 @@ public class BaseLafUtils implements UIConstants
    * is not set, then the name of the containing form is used
    */
   public static String getSubmitFormName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -159,7 +159,7 @@ public class BaseLafUtils implements UIConstants
 
 
   public static boolean isRightToLeft(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return context.getLocaleContext().getReadingDirection() ==
@@ -170,7 +170,7 @@ public class BaseLafUtils implements UIConstants
 
 
   public static Object getTransformedID(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           idObject,
     boolean          isSubID
     )
@@ -195,7 +195,7 @@ public class BaseLafUtils implements UIConstants
    * @param name the local name of the ancestor being sought
    */
   public static UINode getRenderedAncestorByName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child,
     String           namespaceURI,
     String           name
@@ -239,7 +239,7 @@ public class BaseLafUtils implements UIConstants
    * Gets a property stored on the context, using the BLAF namespace.
    */
   public static Object getRenderingProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           key
     )
   {
@@ -250,7 +250,7 @@ public class BaseLafUtils implements UIConstants
    * Gets a property stored on the context, using the Marlin namespace.
    */
   public static Object getRenderingProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           key,
     Object           defaultValue
     )
@@ -264,7 +264,7 @@ public class BaseLafUtils implements UIConstants
    * Stores a property on the context, using the BLAF namespace.
    */
   public static void setRenderingProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           key,
     Object           value
     )
@@ -280,7 +280,7 @@ public class BaseLafUtils implements UIConstants
    * @see #popRenderingProperty
    */
   public static void pushAttributeAsRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node,
     AttributeKey      attrKey)
   {
@@ -298,7 +298,7 @@ public class BaseLafUtils implements UIConstants
    * @see #popRenderingProperty
    */
   public static void pushAttributeAsStringRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node,
     AttributeKey      attrKey)
   {
@@ -315,7 +315,7 @@ public class BaseLafUtils implements UIConstants
    * @see #popRenderingProperty
    */
   public static void pushRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            key,
     Object            value)
   {
@@ -329,7 +329,7 @@ public class BaseLafUtils implements UIConstants
    * @see #popRenderingProperty
    */
   public static void pushRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            key,
     Object            localKey,
     Object            value)
@@ -352,7 +352,7 @@ public class BaseLafUtils implements UIConstants
    * @see #pushRenderingProperty
    */
   public static void popRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            key)
   {
     popRenderingProperty(context, key, key);
@@ -365,7 +365,7 @@ public class BaseLafUtils implements UIConstants
    * @see #pushRenderingProperty
    */
   public static void popRenderingProperty(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            key,
     Object            localKey)
   {
@@ -382,7 +382,7 @@ public class BaseLafUtils implements UIConstants
    * the result
    */
   public static Object getLocalAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     attrKey
     )
@@ -407,7 +407,7 @@ public class BaseLafUtils implements UIConstants
    * the result
    */
   public static String getLocalTextAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     attrKey
     )
@@ -444,7 +444,7 @@ public class BaseLafUtils implements UIConstants
    * the result
    */
   public static boolean getLocalBooleanAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     attrKey,
     boolean          defaultValue
@@ -475,7 +475,7 @@ public class BaseLafUtils implements UIConstants
    * the result
    */
   public static UINode getLocalNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           childName
     )
@@ -517,7 +517,7 @@ public class BaseLafUtils implements UIConstants
    * Generates an ID that will be unique in the current rendering
    * context.
    */
-  public static String generateUniqueID(RenderingContext context)
+  public static String generateUniqueID(UIXRenderingContext context)
   {
     // We use MutableInt instead of an Integer because
     // we're out of range for IntegerUtils;  this way, we're at
@@ -554,7 +554,7 @@ public class BaseLafUtils implements UIConstants
     return new String(buffer);
   }
 
-  private static int _getUniqueIDStartingCount(RenderingContext context)
+  private static int _getUniqueIDStartingCount(UIXRenderingContext context)
   {
     if (UIConstants.FACET_PORTLET.equals(
            context.getRendererManager().getFacet()) ||
@@ -567,7 +567,7 @@ public class BaseLafUtils implements UIConstants
 
 
   static public char getCharacterAttr(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     key)
   {
@@ -608,12 +608,12 @@ public class BaseLafUtils implements UIConstants
    * used instead.
    */
   public static String getConfiguredURL(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           directoryKey)
   {
     Configuration config = context.getConfiguration();
     String contextURI = (String)context.getProperty(MARLIN_NAMESPACE,
-                                   RenderingContext.CONTEXT_URI_PROPERTY);
+                                   UIXRenderingContext.CONTEXT_URI_PROPERTY);
 
     String baseURL = config.getURI(directoryKey,
                                    contextURI);
@@ -632,7 +632,7 @@ public class BaseLafUtils implements UIConstants
    * from ADF Faces jar, and dynamic resources from temp cache directory.
    */
   private static String _generateDesignTimeURL(
-    RenderingContext context,
+    UIXRenderingContext context,
     String baseURL
     )
   {
@@ -890,7 +890,7 @@ public class BaseLafUtils implements UIConstants
   /**
    * Gets the character encoding of the output.
    */
-  public static String getOutputEncoding(RenderingContext context)
+  public static String getOutputEncoding(UIXRenderingContext context)
   {
     return context.getFacesContext().getResponseWriter().getCharacterEncoding();
   }
@@ -900,7 +900,7 @@ public class BaseLafUtils implements UIConstants
    * the FastMessageFormat on the RenderingContext.
    */
   public static String getFormattedString(
-    RenderingContext context,
+    UIXRenderingContext context,
     String pattern,
     String[] parameters
     )
@@ -929,7 +929,7 @@ public class BaseLafUtils implements UIConstants
    * getBackgroundColor().
    */
   public static void pushStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           styleClass,
     Style            inlineStyle
     )
@@ -940,7 +940,7 @@ public class BaseLafUtils implements UIConstants
   /**
    * Pops the style attributes stack.
    */
-  public static void popStyleAttrs(RenderingContext context)
+  public static void popStyleAttrs(UIXRenderingContext context)
   {
     _getStyleStack(context).pop();
   }
@@ -948,13 +948,13 @@ public class BaseLafUtils implements UIConstants
   /**
    * Returns the current background color.
    */
-  public static Color getBackgroundColor(RenderingContext context)
+  public static Color getBackgroundColor(UIXRenderingContext context)
   {
     return _getStyleStack(context).getBackgroundColor(context);
   }
 
   // Convenience method to pull the StyleStack off of the RenderingContext
-  private static StyleStack _getStyleStack(RenderingContext context)
+  private static StyleStack _getStyleStack(UIXRenderingContext context)
   {
     StyleStack stack = (StyleStack)getRenderingProperty(context,
                                                         _STYLE_STACK_KEY);
@@ -1019,7 +1019,7 @@ public class BaseLafUtils implements UIConstants
     }
 
     // Returns the current background color
-    public Color getBackgroundColor(RenderingContext context)
+    public Color getBackgroundColor(UIXRenderingContext context)
     {
       // Short-circuit if the top entry already has a background
       // color set.
@@ -1063,7 +1063,7 @@ public class BaseLafUtils implements UIConstants
     // returned.  Otherwise, the entry is not changed and null
     // is returned.
     private static Color _resolveBackground(
-      RenderingContext context,
+      UIXRenderingContext context,
       Entry            entry
       )
     {

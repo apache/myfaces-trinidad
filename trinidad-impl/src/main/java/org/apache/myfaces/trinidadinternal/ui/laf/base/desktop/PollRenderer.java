@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 public class PollRenderer extends HtmlLafRenderer
 {
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {  
@@ -52,7 +52,7 @@ public class PollRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -66,7 +66,7 @@ public class PollRenderer extends HtmlLafRenderer
    * which we render when not in screen-reader mode.     
    */
   private void _renderManualRefresh(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -89,7 +89,7 @@ public class PollRenderer extends HtmlLafRenderer
    * Renders a script which sends a 'poll' event after a timeout.
    */
   private void _renderPollingScript(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -109,7 +109,7 @@ public class PollRenderer extends HtmlLafRenderer
    * and the browser supports PPR
    */
   private boolean _elementSupportsPartial(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           id
     )
   {    
@@ -122,7 +122,7 @@ public class PollRenderer extends HtmlLafRenderer
    * or null if the element does not have an id
    */
   private String _getID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -137,7 +137,7 @@ public class PollRenderer extends HtmlLafRenderer
   * get the pollInterval attribute value. Defaults to _POLL_INTERVAL_DEFAULT
   */
   private static Integer _getPollIntervalOrDefault( 
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
     )
   {   
@@ -163,7 +163,7 @@ public class PollRenderer extends HtmlLafRenderer
   * to send the 'poll' event
   */
   private String _getScriptContents( 
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       String           elementID,
       boolean          isPartial,
@@ -247,7 +247,7 @@ public class PollRenderer extends HtmlLafRenderer
   * fire a refresh event.
   */ 
   private static String[] _getKeysAndValues(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           elementID,
     boolean          isPartial
     )
@@ -297,7 +297,7 @@ public class PollRenderer extends HtmlLafRenderer
   * append to the baseURL the parameters needed, like event=poll.
   */
   private static String _getScriptURL(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           baseURL,
     String           elementID,
     boolean          isPartial
@@ -382,7 +382,7 @@ public class PollRenderer extends HtmlLafRenderer
    * 'partialTargets':'polling-widget','partial':'true'}",
   */ 
   private static String _getArgumentString(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           elementID,
     String           formName,
     boolean          isPartial
@@ -429,7 +429,7 @@ public class PollRenderer extends HtmlLafRenderer
    * rather than manually.
    */
   private boolean _isAutoRefreshMode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // auto poll when NOT in screen-reader mode.

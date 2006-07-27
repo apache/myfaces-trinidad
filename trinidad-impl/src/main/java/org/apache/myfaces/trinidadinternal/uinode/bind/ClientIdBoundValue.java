@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -59,7 +59,7 @@ public class ClientIdBoundValue implements BoundValue
 
 
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     if (_onlyIfIdSet)
     {

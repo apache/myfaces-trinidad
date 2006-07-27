@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -71,7 +71,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 {
 
   protected UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -85,7 +85,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   * Render a UINode in a RenderingContext.
   */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -105,7 +105,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
       // We are sharing this renderer for selectOrderShuttle and
@@ -194,7 +194,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
    * the name.
    */
   protected Object getNodeName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -203,7 +203,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
 
   private static String _getShuttleName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // get name of shuttle
@@ -217,7 +217,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   }
 
   private void _writeNavExclude(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     String name = _getShuttleName(context, node);
@@ -1002,7 +1002,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
 
   private static final void _setShuttleInfoOnContext(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node )
   {
 
@@ -1026,7 +1026,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
 
     private static Integer _getBestListLen(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       int              leadingListCount,
       int              trailingListCount)
@@ -1163,7 +1163,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     }
 
     private static SelectManyShuttleRenderer.ShuttleInfo _getShuttleInfo(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode node
       )
     {
@@ -1276,7 +1276,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
 
   private static final void _clearContext(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     if ( context != null )
@@ -1368,7 +1368,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       _iconName = iconName;
     }
 
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
       Skin skin = context.getSkin();
 
@@ -1383,9 +1383,9 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   // BoundValue which checks whether the required Icon is  to be rendered
   private static class RequiredIconBoundValue implements BoundValue
   {
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
-      RenderingContext parentContext = context.getParentContext();
+      UIXRenderingContext parentContext = context.getParentContext();
       if (parentContext != null)
       {
         UIComponent component = NodeUtils.getUIComponent(parentContext,
@@ -1411,7 +1411,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
  // BoundValue for Required Tip
   private static class RequiredTipBoundValue implements BoundValue
   {
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
        Object requiredTip = 
               context.getTranslatedValue("REQUIRED_TIP");
@@ -1505,7 +1505,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       _lastNode = lastNode;
     }
 
-    public UINode getUINode(RenderingContext context,
+    public UINode getUINode(UIXRenderingContext context,
                         int index)
     {
       List selectItems = _getSelectItems(context);
@@ -1526,7 +1526,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       return option;
     }
 
-    public int size(RenderingContext context)
+    public int size(UIXRenderingContext context)
     {
       List selectItems = _getSelectItems(context);
       if (selectItems == null)
@@ -1565,7 +1565,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       throw new UnsupportedOperationException();
     }
 
-    private List _getSelectItems(RenderingContext context)
+    private List _getSelectItems(UIXRenderingContext context)
     {
       return (List) _itemsBV.getValue(context);
     }
@@ -1592,7 +1592,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     }
 
     public Object getValue(
-      RenderingContext context
+      UIXRenderingContext context
       )
     {
       if ( context != null )
@@ -1622,7 +1622,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
    * @param node
    */
   private void _setSelectOrderResourceKeyMap(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     UIComponent component = BaseLafRenderer.getUIComponent(context, node);
@@ -1693,13 +1693,13 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
   static private class IsReadOnly implements BoundValue
   {
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
       
       if (Boolean.TRUE.equals(_readOnlyRoot.getValue(context)))
         return Boolean.TRUE;
 
-      RenderingContext parentContext = context.getParentContext();
+      UIXRenderingContext parentContext = context.getParentContext();
       if (parentContext != null)
       {
         UIComponent component = NodeUtils.getUIComponent(parentContext,

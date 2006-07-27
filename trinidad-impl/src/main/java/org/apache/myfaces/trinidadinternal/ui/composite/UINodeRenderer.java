@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.composite;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -32,14 +32,14 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public abstract class UINodeRenderer implements Renderer
 {
   protected abstract UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node);
     
   /**
    * Render a UINode in a RenderingContext.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {    
@@ -54,7 +54,7 @@ public abstract class UINodeRenderer implements Renderer
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -67,17 +67,17 @@ public abstract class UINodeRenderer implements Renderer
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
   }
 
   /**
-   * @see #renderInCompositeContext(RenderingContext,UINode,UINode)
+   * @see #renderInCompositeContext(UIXRenderingContext,UINode,UINode)
    */
   protected void renderWithNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           renderingUINode
     ) throws IOException
@@ -117,7 +117,7 @@ public abstract class UINodeRenderer implements Renderer
    * and/or indexed/named children from <code>node</code>. It renders in its
    * own RenderingContext.
    */
-  public static void renderInCompositeContext(RenderingContext context,
+  public static void renderInCompositeContext(UIXRenderingContext context,
                                               UINode node,
                                               UINode renderingUINode)
     throws IOException
@@ -142,7 +142,7 @@ public abstract class UINodeRenderer implements Renderer
   }
 
   static private CompositeRenderingContext _startCompositeContext(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode renderingUINode
     )
   {

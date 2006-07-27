@@ -92,7 +92,7 @@ public interface UINode
    * <p>
    * @see #getIndexedChild
    */
-  public int getIndexedChildCount(RenderingContext context);
+  public int getIndexedChildCount(UIXRenderingContext context);
 
 
   /**
@@ -106,7 +106,7 @@ public interface UINode
    * <p>
    * @see #getIndexedChildCount
    */
-  public UINode getIndexedChild(RenderingContext context, int childIndex);
+  public UINode getIndexedChild(UIXRenderingContext context, int childIndex);
 
 
   /**
@@ -125,7 +125,7 @@ public interface UINode
    * @see #getChildNames
    * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
-  public UINode getNamedChild(RenderingContext context, String childName);
+  public UINode getNamedChild(UIXRenderingContext context, String childName);
 
 
   /**
@@ -141,7 +141,7 @@ public interface UINode
    * <p>
    * @see #getNamedChild
    */
-  public Iterator getChildNames(RenderingContext context);
+  public Iterator getChildNames(UIXRenderingContext context);
 
 
   /**
@@ -157,7 +157,7 @@ public interface UINode
    * <p>
    * @see #getAttributeValue
    */
-  public Iterator getAttributeNames(RenderingContext context);
+  public Iterator getAttributeNames(UIXRenderingContext context);
 
   /**
    * Returns the value of the attribute with the specified name in the
@@ -177,7 +177,7 @@ public interface UINode
    * <p>
    * @see #getAttributeNames
    */
-  public Object getAttributeValue(RenderingContext context, AttributeKey attrKey);
+  public Object getAttributeValue(UIXRenderingContext context, AttributeKey attrKey);
 
 
   /**
@@ -187,12 +187,12 @@ public interface UINode
    * <p>
    * @see org.apache.myfaces.trinidadinternal.ui.data.BoundValue
    */
-  public Object getRawAttributeValue(RenderingContext context, AttributeKey attrKey);
+  public Object getRawAttributeValue(UIXRenderingContext context, AttributeKey attrKey);
 
   /**
    * Returns the role that this node occupies.
    */
-  public NodeRole getNodeRole(RenderingContext context);
+  public NodeRole getNodeRole(UIXRenderingContext context);
 
   /**
    * Renders this UINode.  Clients can implements this
@@ -200,9 +200,9 @@ public interface UINode
    * will get a RendererManager from the RenderingContext,
    * get a Renderer, and defer rendering to that Renderer.
    */
-  public void render(RenderingContext context)
+  public void render(UIXRenderingContext context)
     throws IOException;
 
-  public void render(RenderingContext context, UINode node)
+  public void render(UIXRenderingContext context, UINode node)
     throws IOException;
 }

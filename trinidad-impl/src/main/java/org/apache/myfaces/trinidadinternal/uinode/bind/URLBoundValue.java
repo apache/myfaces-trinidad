@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.uinode.bind;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
@@ -36,7 +36,7 @@ public class URLBoundValue implements BoundValue
     _base = base;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     String url = (String) _base.getValue(context);
     if (url == null)

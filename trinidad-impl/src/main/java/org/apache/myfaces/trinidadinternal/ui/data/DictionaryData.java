@@ -21,7 +21,7 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 
 import java.util.Iterator;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The DictionaryData interface provides a simple,
@@ -75,7 +75,7 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
   /**
    * Returns the value registered with the select key.
    */
-  public Object selectValue(RenderingContext context, Object select)
+  public Object selectValue(UIXRenderingContext context, Object select)
   {
     if (select == null)
       return null;
@@ -83,7 +83,7 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
   }
   
   public void updateValue(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     Object select,
     Object value)
   {
@@ -91,7 +91,7 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
   }
   
   public Iterator keys(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     ArrayList keyList = new ArrayList();

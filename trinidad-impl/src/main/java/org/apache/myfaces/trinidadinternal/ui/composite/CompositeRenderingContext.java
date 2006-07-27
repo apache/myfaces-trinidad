@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 import org.apache.myfaces.trinidadinternal.ui.LogicalNodeRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RendererManager;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.expl.UIVariableResolver;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
@@ -59,7 +59,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    */
   static synchronized CompositeRenderingContext
                              __getCompositeRenderingContext(
-    RenderingContext parentContext
+    UIXRenderingContext parentContext
     )
   {
     CompositeRenderingContext currContext = _sContexts;
@@ -125,7 +125,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   }
 
   protected void initialize(
-    RenderingContext parentContext
+    UIXRenderingContext parentContext
     )
   {
     if (parentContext == null)
@@ -262,7 +262,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
 
 
   public void pushRenderedChild(
-    RenderingContext currentContext,
+    UIXRenderingContext currentContext,
     UINode renderedChild
     )
   {
@@ -273,7 +273,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     super.pushRenderedChild(currentContext, renderedChild);
   }
 
-  public void popRenderedChild(RenderingContext currentContext)
+  public void popRenderedChild(UIXRenderingContext currentContext)
   {
     // handle cleaning up any of the dataproviders
     super.popRenderedChild(currentContext);
@@ -288,7 +288,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * Returns the DataObject for the given namespace and name pair.
    */
   public DataObject getDataObject(
-    RenderingContext context,
+    UIXRenderingContext context,
     String namespaceURI,
     String name
     )
@@ -494,7 +494,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
 
 
   /**
-   * @see RenderingContext#getFormEncoder()
+   * @see UIXRenderingContext#getFormEncoder()
    */
   public FormEncoder getFormEncoder()
   {
@@ -502,7 +502,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   }
 
   /**
-   * @see RenderingContext#getURLEncoder()
+   * @see UIXRenderingContext#getURLEncoder()
    */
   public URLEncoder getURLEncoder()
   {
@@ -534,7 +534,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     return _nonCompositeContext.getStyleContext();
   }
 
-  public RenderingContext getParentContext()
+  public UIXRenderingContext getParentContext()
   {
     return _parentContext;
   }
@@ -550,7 +550,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     CompositeRenderingContext context = (CompositeRenderingContext)super.clone();
 
     // clone the delegated context
-    context._parentContext = (RenderingContext)_parentContext.clone();
+    context._parentContext = (UIXRenderingContext)_parentContext.clone();
 
     return context;
   }
@@ -562,7 +562,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   }
 
 
-  private RenderingContext _getNonCompositeContext(RenderingContext parent)
+  private UIXRenderingContext _getNonCompositeContext(UIXRenderingContext parent)
   {
     while (parent instanceof CompositeRenderingContext)
     {
@@ -581,8 +581,8 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   private static int _sCurrCompositeCount;
 
   private CompositeRenderingContext _nextContext;
-  private RenderingContext _parentContext;
-  private RenderingContext _nonCompositeContext;
+  private UIXRenderingContext _parentContext;
+  private UIXRenderingContext _nonCompositeContext;
   private Map  _skinResourceKeyMap;
 
   private boolean _globalCurrentDataObject;

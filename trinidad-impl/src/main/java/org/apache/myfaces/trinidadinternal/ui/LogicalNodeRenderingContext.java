@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.ui.path.PathImpl;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/LogicalNodeRenderingContext.java#0 $) $Date: 10-nov-2005.18:50:13 $
  * @author The Oracle ADF Faces Team
  */
-public abstract class LogicalNodeRenderingContext implements RenderingContext
+public abstract class LogicalNodeRenderingContext implements UIXRenderingContext
 {
   /**
    * Creates a AbstractRenderingContext.
@@ -193,14 +193,14 @@ public abstract class LogicalNodeRenderingContext implements RenderingContext
 
 
   public void pushRenderedChild(
-    RenderingContext currentContext,
+    UIXRenderingContext currentContext,
     UINode child
     )
   {
   }
 
 
-  public void popRenderedChild(RenderingContext currentContext)
+  public void popRenderedChild(UIXRenderingContext currentContext)
   {
   }
 
@@ -210,7 +210,7 @@ public abstract class LogicalNodeRenderingContext implements RenderingContext
    * function</em> unless you are yourself a RenderingContext.
    */
   public DataObject getDataObject(
-    RenderingContext context,
+    UIXRenderingContext context,
     String namespaceURI,
     String name)
   {

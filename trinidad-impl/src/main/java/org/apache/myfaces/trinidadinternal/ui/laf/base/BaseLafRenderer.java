@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.ElementRenderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
@@ -48,7 +48,7 @@ public class BaseLafRenderer extends ElementRenderer
         implements UIConstants, BaseLafConstants
 {
   protected Object getShortDesc(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -57,7 +57,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected Object getID(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -66,7 +66,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected boolean isDisabled(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -78,7 +78,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected void renderURIAttribute(
-          RenderingContext context,
+          UIXRenderingContext context,
           String           name,
           Object           value
           ) throws IOException
@@ -90,7 +90,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected void renderURIID(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           idObject
           ) throws IOException
   {
@@ -104,7 +104,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Renders the id of the UINode
    */
   protected void renderID(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           ) throws IOException
   {
@@ -119,7 +119,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Renders the id of the UINode
    */
   protected final void renderID(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           idObject,
           boolean          isSubID
           ) throws IOException
@@ -135,7 +135,7 @@ public class BaseLafRenderer extends ElementRenderer
    * the name.
    */
   protected Object getNodeName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -147,7 +147,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns the name of the node, transformed for the given context
    */
   protected Object getTransformedName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -164,7 +164,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected UINode getNamedChild(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           String           name
           )
@@ -179,7 +179,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected boolean hasNamedChild(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           String           name
           )
@@ -188,7 +188,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected boolean hasRenderedNamedChild(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           String           name
           )
@@ -206,7 +206,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Gets a property stored on the context, using the BLAF namespace.
    */
   protected static Object getRenderingProperty(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           key
           )
   {
@@ -218,7 +218,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Gets a property stored on the context, using the Marlin namespace.
    */
   protected static Object getRenderingProperty(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           key,
           Object           defaultValue
           )
@@ -227,7 +227,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected static int getRenderingProperty(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           key,
           int              defaultValue
           )
@@ -249,7 +249,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Stores a property on the context, using the BLAF namespace.
    */
   protected static void setRenderingProperty(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           key,
           Object           value
           )
@@ -265,7 +265,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns null if this lookup was unsuccessful.
    */
   public static UIComponent getUIComponent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -275,7 +275,7 @@ public class BaseLafRenderer extends ElementRenderer
       return component;
 
     // Else look up its ancestors.
-    RenderingContext rContext = context.getParentContext();
+    UIXRenderingContext rContext = context.getParentContext();
     while(rContext != null)
     {
       component = rContext.getAncestorNode(0).getUIComponent();
@@ -294,7 +294,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @see #popRenderingProperty
    */
   protected static void pushAttributeAsRenderingProperty(
-          RenderingContext  context,
+          UIXRenderingContext  context,
           UINode            node,
           AttributeKey      attrKey)
   {
@@ -308,7 +308,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @see #popRenderingProperty
    */
   protected static void pushRenderingProperty(
-          RenderingContext  context,
+          UIXRenderingContext  context,
           Object            key,
           Object            value)
   {
@@ -322,7 +322,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @see #popRenderingProperty
    */
   protected static void pushRenderingProperty(
-          RenderingContext  context,
+          UIXRenderingContext  context,
           Object            key,
           Object            localKey,
           Object            value)
@@ -337,7 +337,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @see #pushRenderingProperty
    */
   protected static void popRenderingProperty(
-          RenderingContext  context,
+          UIXRenderingContext  context,
           Object            key)
   {
     BaseLafUtils.popRenderingProperty(context, key);
@@ -350,7 +350,7 @@ public class BaseLafRenderer extends ElementRenderer
    * @see #pushRenderingProperty
    */
   protected static void popRenderingProperty(
-          RenderingContext  context,
+          UIXRenderingContext  context,
           Object            key,
           Object            localKey)
   {
@@ -375,7 +375,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Render the text stored as a text attribute.
    */
   protected final void renderText(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           ) throws IOException
   {
@@ -394,7 +394,7 @@ public class BaseLafRenderer extends ElementRenderer
    * if no value exists for the attribute on this node.
    */
   protected static Object getAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey,
           Object           defaultValue
@@ -411,7 +411,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected static boolean getBooleanAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey,
           Boolean          defaultValue
@@ -425,7 +425,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected static boolean getBooleanAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey,
           boolean          defaultValue
@@ -441,7 +441,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected static int getIntAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey,
           int              defaultValue
@@ -460,7 +460,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected static DataObject getDataObjectAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey)
   {
@@ -470,7 +470,7 @@ public class BaseLafRenderer extends ElementRenderer
 
 
   protected static DataObjectList getDataObjectListAttributeValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node,
           AttributeKey     attributeKey)
   {
@@ -494,7 +494,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected static boolean isRightToLeft(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return context.getLocaleContext().getReadingDirection() ==
@@ -507,7 +507,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Logs a severe message if there is a MissingResourceException.
    */ 
   public static String getTranslatedString(
-          RenderingContext context,
+          UIXRenderingContext context,
           String           key
           )
   {
@@ -519,7 +519,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Logs a severe message if there is a MissingResourceException.
    */ 
   public static Object getTranslatedValue(
-          RenderingContext context,
+          UIXRenderingContext context,
           String           key
           )
   {
@@ -531,7 +531,7 @@ public class BaseLafRenderer extends ElementRenderer
    * the FastMessageFormat on the RenderingContext.
    */
   protected String formatString(
-          RenderingContext context,
+          UIXRenderingContext context,
           String pattern,
           String[] parameters
           )
@@ -543,7 +543,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if this node is selected.
    */
   protected static boolean isSelected(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -585,7 +585,7 @@ public class BaseLafRenderer extends ElementRenderer
    * containing form is used
    */
   protected String getFormName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode node
           )
   {
@@ -593,7 +593,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   public static String getParentFormName(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return BaseLafUtils.getParentFormName(context);
@@ -611,7 +611,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
 
-  public static String getBaseImageURI(RenderingContext context)
+  public static String getBaseImageURI(UIXRenderingContext context)
   {
     // See if we've cached off the URI
     String baseImageURI = (String)context.getProperty(MARLIN_NAMESPACE,
@@ -637,7 +637,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   public static String getIconURI(
-          RenderingContext context,
+          UIXRenderingContext context,
           IconKey iconKey
           )
   {
@@ -666,7 +666,7 @@ public class BaseLafRenderer extends ElementRenderer
   // Returns the absolute URI based on the Configuration
   // IMAGES_DIRECTORY if the specified uri is relative.
   public static String getAbsoluteImageURI(
-          RenderingContext context,
+          UIXRenderingContext context,
           String           uri
           )
   {
@@ -693,11 +693,11 @@ public class BaseLafRenderer extends ElementRenderer
    * @param url the URL to encode. this must be a String object
    * @return the encoded form of the URL, by calling the encodeURL method
    *  in the URLEncoder
-   * @see RenderingContext#getURLEncoder()
+   * @see UIXRenderingContext#getURLEncoder()
    * @see org.apache.myfaces.trinidadinternal.share.url.URLEncoder#encodeURL(String)
    */
   protected static String encodeURL(
-          RenderingContext context,
+          UIXRenderingContext context,
           Object           url
           )
   {
@@ -734,7 +734,7 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
   protected void renderEncodedURIAttribute(
-          RenderingContext context,
+          UIXRenderingContext context,
           String           name,
           Object           value) throws IOException
   {
@@ -750,7 +750,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns the Agent capability specified by the key
    */
   protected static Object getAgentCapability(
-          RenderingContext   context,
+          UIXRenderingContext   context,
           CapabilityKey key
           )
   {
@@ -762,7 +762,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true iff the specified agent capability is true
    */
   protected static boolean getBooleanAgentCapability(
-          RenderingContext   context,
+          UIXRenderingContext   context,
           CapabilityKey key
           )
   {
@@ -773,7 +773,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports a full dom
    */
   public static boolean supportsFullDOM(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return (AdfFacesAgent.DOM_CAP_LEVEL_2 ==
@@ -784,7 +784,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports the id attribute
    */
   public static boolean supportsID(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ID);
@@ -794,7 +794,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports the xmldom
    */
   public static boolean supportsXMLDOM(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_XMLDOM);
@@ -805,7 +805,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports access keys
    */
   public static boolean supportsAccessKeys(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     if (isScreenReaderMode(context))
@@ -820,7 +820,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.4.1 of xhtml modularization.
    */
   public static boolean supportsTextPresentation(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_TEXT_PRESENTATION);
@@ -832,7 +832,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.5.2 of xhtml modularization.
    */
   public static boolean supportsAdvancedForms(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ADVANCED_FORMS);
@@ -845,7 +845,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.6.2 of xhtml modularization.
    */
   public static boolean supportsAdvancedTables(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return (AdfFacesAgent.TABLES_CAP_ADVANCED ==
@@ -859,7 +859,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.11 of xhtml modularization.
    */
   public static boolean supportsFrames(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_FRAMES);
@@ -873,7 +873,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.12 of xhtml modularization.
    */
   public static boolean supportsTarget(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_TARGET);
@@ -886,7 +886,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.13 of xhtml modularization.
    */
   public static boolean supportsIframes(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_IFRAMES);
@@ -902,7 +902,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.14 of xhtml modularization.
    */
   public static boolean supportsIntrinsicEvents(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_INTRINSIC_EVENTS);
@@ -915,7 +915,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.16 of xhtml modularization
    */
   public static boolean supportsScripting(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
 
@@ -931,7 +931,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports opening multiple windows
    */
   public static boolean supportsMultipleWindows(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_MULTIPLE_WINDOWS);
@@ -947,7 +947,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.18 of xhtml modularization
    */
   public static boolean supportsStyleAttributes(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return (getAgentCapability(context, AdfFacesAgent.CAP_STYLE_ATTRIBUTES) !=
@@ -959,7 +959,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the CSS class attribute is supported.
    */
   public static boolean supportsClassAttribute(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return (getAgentCapability(context, AdfFacesAgent.CAP_STYLE_ATTRIBUTES) ==
@@ -972,7 +972,7 @@ public class BaseLafRenderer extends ElementRenderer
    * take a space separated list of style selectors
    */
   public static boolean supportsMultipleCssSelectors(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return (getAgentCapability(context, AdfFacesAgent.CAP_CSS_SELECTORS) ==
@@ -984,7 +984,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if navigation is supported.
    */
   public static boolean supportsNavigation(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NAVIGATION);
@@ -995,7 +995,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if editing is supported.
    */
   public static boolean supportsEditing(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_EDITING);
@@ -1007,7 +1007,7 @@ public class BaseLafRenderer extends ElementRenderer
    * See section 5.21 of xhtml modularization
    */
   public static boolean supportsNameIdentification(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NAME_IDENTIFICATION);
@@ -1017,7 +1017,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports rendering disabled form elements
    */
   public static boolean supportsDisabledFormElements(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context,
@@ -1028,7 +1028,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports rendering autocomplete form elements
    */
   public static boolean supportsAutoCompleteFormElements(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getBooleanAgentCapability(context,
@@ -1039,7 +1039,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the agent supports rendering readonly form elements
    */
   public static boolean supportsReadOnlyFormElements(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context,
@@ -1050,7 +1050,7 @@ public class BaseLafRenderer extends ElementRenderer
    * Returns true if the browser supports rendering of fieldset element.
    */
   public static boolean supportsFieldSetElement(
-          RenderingContext context
+          UIXRenderingContext context
           )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_FIELDSET);
@@ -1059,7 +1059,7 @@ public class BaseLafRenderer extends ElementRenderer
   /**
    * @return true if we are in inaccessible mode
    */
-  public static boolean isInaccessibleMode(RenderingContext context)
+  public static boolean isInaccessibleMode(UIXRenderingContext context)
   {
     return AccessibilityMode.isInaccessibleMode(context.getConfiguration());
   }
@@ -1067,7 +1067,7 @@ public class BaseLafRenderer extends ElementRenderer
   /**
    * @return true if we are in screen reader mode
    */
-  public static boolean isScreenReaderMode(RenderingContext context)
+  public static boolean isScreenReaderMode(UIXRenderingContext context)
   {
     return AccessibilityMode.isScreenReaderMode(context.getConfiguration());
   }

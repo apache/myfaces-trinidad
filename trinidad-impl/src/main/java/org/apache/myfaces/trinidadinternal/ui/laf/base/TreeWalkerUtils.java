@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.Collections;
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -56,7 +56,7 @@ public class TreeWalkerUtils
    * @return the last value returned by walkNode()
    */
   static public Object walkTree(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           ancestor,
     TreeWalker       walker) throws IOException
   {
@@ -75,7 +75,7 @@ public class TreeWalkerUtils
    * @return the last value returned by walkNode()
    */
   static public Object walkTree(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           ancestor,
     TreeWalker       walker,
     PathImpl         path) throws IOException
@@ -96,7 +96,7 @@ public class TreeWalkerUtils
    * @return the last value returned by walkNode()
    */
   static public Object walkTree(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           ancestor,
     TreeWalker       walker,
     PathImpl         path,
@@ -106,14 +106,14 @@ public class TreeWalkerUtils
   }
 
   static private Object _walkTree(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           ancestor,
     TreeWalker       walker,
     Object           value,
     PathImpl         path,
     boolean          renderedOnly) throws IOException
   {
-    RenderingContext childContext =
+    UIXRenderingContext childContext =
       _getChildRenderingContext(context, ancestor);
 
     // Walk the indexed children
@@ -194,8 +194,8 @@ public class TreeWalkerUtils
   //
   // Returns the correct RenderingContext to pass to the children of this node.
   //
-  static private RenderingContext _getChildRenderingContext(
-    RenderingContext context,
+  static private UIXRenderingContext _getChildRenderingContext(
+    UIXRenderingContext context,
     UINode           child)
   {
     if (UIConstants.CONTEXT_POPPING_NAME.equals(child.getLocalName()) &&

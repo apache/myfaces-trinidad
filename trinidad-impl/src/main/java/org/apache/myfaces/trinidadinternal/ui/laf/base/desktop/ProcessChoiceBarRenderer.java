@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Renderer for processChoiceBar
@@ -35,7 +35,7 @@ public class ProcessChoiceBarRenderer extends
    * Writes the separator between two elements
    */
   protected void renderItemSpacer(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     renderSpacer(context, 5, 1);

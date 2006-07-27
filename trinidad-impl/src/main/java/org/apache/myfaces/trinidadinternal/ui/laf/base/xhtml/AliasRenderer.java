@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.RendererManager;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 abstract public class AliasRenderer implements Renderer, RoledRenderer
 {
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     Renderer renderer = _getRenderer(context, node);
@@ -39,7 +39,7 @@ abstract public class AliasRenderer implements Renderer, RoledRenderer
   }
 
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     Renderer renderer = _getRenderer(context, node);
@@ -50,7 +50,7 @@ abstract public class AliasRenderer implements Renderer, RoledRenderer
   }
 
   private Renderer _getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     RendererManager manager = context.getRendererManager();
@@ -64,7 +64,7 @@ abstract public class AliasRenderer implements Renderer, RoledRenderer
 
 
   abstract protected String getLocalName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node);
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AliasRenderer.class);

@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandNavigationItem;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
@@ -40,7 +40,7 @@ public final class LinkDataObject implements DataObject
 
 
   static public DataObjectList getLinkDataList(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parent) throws IOException
   {
     int childCount = parent.getIndexedChildCount(context);
@@ -90,7 +90,7 @@ public final class LinkDataObject implements DataObject
 
 
  static public DataObjectList getLinkDataList(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parent,
     UIXHierarchy    component,
     UINode           stamp,
@@ -241,7 +241,7 @@ public final class LinkDataObject implements DataObject
     _isSelected = (isSelected) ? Boolean.TRUE : Boolean.FALSE;
   }
 
-  public Object selectValue(RenderingContext rc, Object key)
+  public Object selectValue(UIXRenderingContext rc, Object key)
   {
     // this is only called by our renderers, so identity is okay here:
     if (UIConstants.TEXT_ATTR==key)         return _text;
@@ -278,7 +278,7 @@ public final class LinkDataObject implements DataObject
    * @param isUsed if true, then LinkRenderers will not render. set to false
    * to clear state
    */
-  static void __setDataObjectUsedMode(RenderingContext context,
+  static void __setDataObjectUsedMode(UIXRenderingContext context,
                                              boolean used)
   {
     BaseLafUtils.setRenderingProperty(context,
@@ -289,7 +289,7 @@ public final class LinkDataObject implements DataObject
   /**
    * called by LinkRenderer
    */
-  static boolean __isDataObjectUsedMode(RenderingContext context)
+  static boolean __isDataObjectUsedMode(UIXRenderingContext context)
   {
     return
       BaseLafUtils.getRenderingProperty(context, _KEY) != null;
@@ -298,7 +298,7 @@ public final class LinkDataObject implements DataObject
   /**
    * called by LinkRenderer
    */
-  static void __setDataObject(RenderingContext context,
+  static void __setDataObject(UIXRenderingContext context,
                               LinkDataObject dobj)
   {
     ListDataObjectList dol = (ListDataObjectList)
@@ -309,7 +309,7 @@ public final class LinkDataObject implements DataObject
   /**
    * called by LinkRenderer
    */
-  static Integer __getCurrentIndex(RenderingContext context)
+  static Integer __getCurrentIndex(UIXRenderingContext context)
   {
     Object currentIndex =
       BaseLafUtils.getRenderingProperty(context, _CURRENT_INDEX_KEY, null);
@@ -321,14 +321,14 @@ public final class LinkDataObject implements DataObject
   }
 
   static void __setDOL(
-    RenderingContext context,
+    UIXRenderingContext context,
     DataObjectList   list)
   {
     BaseLafUtils.setRenderingProperty(context, _DATA_OBJECT_LIST_KEY, list);
   }
 
   static void __setCurrentIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     Integer          currIndex)
   {
     BaseLafUtils.setRenderingProperty(context, _CURRENT_INDEX_KEY, currIndex);

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.expl;
 
 import org.apache.myfaces.trinidadinternal.share.expl.ExplException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * VariableResolver that supports UIX objects.  This VariableResolver
@@ -64,7 +64,7 @@ public class UIVariableResolver
   /**
    * gets the current RenderingContext
    */
-  protected final RenderingContext getRenderingContext()
+  protected final UIXRenderingContext getRenderingContext()
   {
     return _renderingContext;
   }
@@ -77,13 +77,13 @@ public class UIVariableResolver
     return _uiObjects.adapt(value);
   }
 
-  final void __setRenderingContext(RenderingContext rc)
+  final void __setRenderingContext(UIXRenderingContext rc)
   {
     _renderingContext = rc;
   }
 
 
-  private RenderingContext _renderingContext = null;
+  private UIXRenderingContext _renderingContext = null;
   private final UIImplicitObject _uiObjects;
 
   /**

@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.config.ContextBasedConfiguration;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RootRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -52,7 +52,7 @@ public class FacesRenderingContext extends RootRenderingContext
    * @todo Why are passing a UIComponent?  In some places,
    *   we're passing null for the component!
    */
-  static public RenderingContext getRenderingContext(
+  static public UIXRenderingContext getRenderingContext(
     FacesContext fContext,
     UIComponent  component) throws IOException
   {
@@ -65,7 +65,7 @@ public class FacesRenderingContext extends RootRenderingContext
    * @todo Why are passing a UIComponent?  In some places,
    *   we're passing null for the component!
    */
-  static public RenderingContext getRenderingContext(
+  static public UIXRenderingContext getRenderingContext(
     FacesContext fContext,
     UIComponent  component,
     boolean      createIfNull) throws IOException

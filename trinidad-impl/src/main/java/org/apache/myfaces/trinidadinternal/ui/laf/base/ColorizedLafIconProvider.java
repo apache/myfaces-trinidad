@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Abstracts out the retrieval of ImageProviderResponses for
@@ -35,7 +35,7 @@ public abstract class ColorizedLafIconProvider extends LafIconProvider
    * by the iconKey
    */
   public abstract ImageProviderResponse getColorizedIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey);
   
 
@@ -45,7 +45,7 @@ public abstract class ColorizedLafIconProvider extends LafIconProvider
    * Returns the URI to the icon indentified by the icon key
    */
   public String getColorizedIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey
     )
   {

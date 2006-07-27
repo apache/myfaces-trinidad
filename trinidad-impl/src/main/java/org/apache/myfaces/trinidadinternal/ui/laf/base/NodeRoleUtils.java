@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.path.Path;
@@ -36,7 +36,7 @@ public class NodeRoleUtils implements UIConstants
    * If no children are structural, returns null.
    */
   static public NodeRole getStructuralRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     NodeRole role = node.getNodeRole(context);
@@ -64,14 +64,14 @@ public class NodeRoleUtils implements UIConstants
    * that is, skip over any nodes that just change state,
    * like DataScopeBean or SwitcherBean.
    */
-  static public UINode getStructuralAncestor(RenderingContext context)
+  static public UINode getStructuralAncestor(UIXRenderingContext context)
   {
     return _getStructuralAncestor(context, 1);
   }
 
 
   static private UINode _getStructuralAncestor(
-   RenderingContext context,
+   UIXRenderingContext context,
    int              depth)
   {
     UINode ancestor;
@@ -101,7 +101,7 @@ public class NodeRoleUtils implements UIConstants
   static private class FindRole implements TreeWalker
   {
     public Object walkNode(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           previousValue,
       Path             path)
@@ -117,7 +117,7 @@ public class NodeRoleUtils implements UIConstants
     }
 
     public boolean walkChildren(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           value,
       Path             path)

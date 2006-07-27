@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
@@ -56,7 +56,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -64,7 +64,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -76,7 +76,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -126,7 +126,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -146,7 +146,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -170,7 +170,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index
     )throws IOException
@@ -193,7 +193,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
 
     protected void renderStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp,
     boolean          selected
     )throws IOException
@@ -219,7 +219,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * renders the separator Icon.
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -231,7 +231,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * renders the separator Icon.
    */
   protected void renderBetweenNodes(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     // Get the separator icon and render it in a table cell
@@ -246,7 +246,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * to OraGlobalHeader.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -264,7 +264,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * Renders the style attributes for global header items
    */
   protected void renderItemStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index,
     boolean          selected
@@ -282,7 +282,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
  // Tests whether the globalHeader has any children
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -303,7 +303,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   }
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -312,7 +312,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -321,7 +321,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -335,7 +335,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
   // Render child links if we have any
   private void _renderChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -419,7 +419,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   // Render the globalHeader's title.  Only called when
   // globalHeader has no children but does have text.
   private void _renderTitle(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           text
     ) throws IOException
   {
@@ -428,7 +428,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
   // Gets the style class for the inner content
   private Object _getContentStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -443,7 +443,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
   // Gets the title text
   private Object _getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -454,7 +454,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
   // Checks to see whether we have some content - either
   // some children or a title
   private boolean _hasContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -463,7 +463,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
 
   // Retrieve the Icons used by this globalHeader
-  private static IconData _getIconData(RenderingContext context)
+  private static IconData _getIconData(UIXRenderingContext context)
   {
     // First check for a local property
     IconData icons = (IconData)context.getLocalProperty(0, _ICONS_KEY, null);
@@ -495,7 +495,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
   // Create the IconData for the specified Skin
   private static IconData _createIconData(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     Icon start = context.getIcon(AF_MENU_BAR_START_ICON_NAME);
     Icon end = context.getIcon(AF_MENU_BAR_END_ICON_NAME);

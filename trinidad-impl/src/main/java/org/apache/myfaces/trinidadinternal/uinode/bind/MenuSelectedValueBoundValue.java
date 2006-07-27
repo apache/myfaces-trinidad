@@ -19,7 +19,7 @@ import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.component.UIXNavigationHierarchy;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -38,7 +38,7 @@ abstract public class MenuSelectedValueBoundValue implements BoundValue
     _menuComponent = (UIXNavigationHierarchy)component;
   }
   
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
       
     UIComponent stamp = getStamp(_menuComponent);

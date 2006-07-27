@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 
@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 public class BreadCrumbsRenderer extends XhtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -56,7 +56,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -92,7 +92,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
  protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -101,7 +101,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -121,7 +121,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -178,7 +178,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -205,7 +205,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
   }
 
   protected void renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child,
     int              nextVisChildIndex
     ) throws IOException
@@ -247,7 +247,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     }   
   }
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,
@@ -268,14 +268,14 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     }     
   }
   protected boolean renderLastChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return false;
   }
 
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -284,7 +284,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
 
 
   protected void setLastChildProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Boolean          isLastChild
   )
   {
@@ -294,14 +294,14 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
   }
 
   protected Renderer getBetweenRenderer(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return (Renderer)getRenderingProperty(context, _BETWEEN_RENDERER_KEY);
   }
 
   private int _getItemCount(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
     )
@@ -366,7 +366,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
   // Renders (almost) everything that goes before the link
   //
   private void _renderStartOfLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean      vertical,
     boolean      isLastChild) throws IOException
   {
@@ -389,7 +389,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
   // Renders everything that goes after the link
   //
   private void _renderEndOfLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean      vertical
     ) throws IOException
   {
@@ -409,7 +409,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
    * defaults to horizontal.
    * @return true if the orientation is vertical
    */
-  private static boolean _getOrientation(RenderingContext context,
+  private static boolean _getOrientation(UIXRenderingContext context,
                                          UINode breadCrumbs)
   {
     Object orientation = breadCrumbs.getAttributeValue(context,
@@ -443,7 +443,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
       _separatorIcon = separatorIcon;
     }
 
-    public void render(RenderingContext context, UINode node)
+    public void render(UIXRenderingContext context, UINode node)
       throws IOException
     {
       ResponseWriter writer = context.getResponseWriter();
@@ -493,7 +493,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
         LinkRenderer.setDisabled(context, true);
     }
 
-    private boolean _isLastChild(RenderingContext context)
+    private boolean _isLastChild(UIXRenderingContext context)
     {
       // See if BreadCrumbs has taken responsibility for determining
       // this.  This code's here so that our "BetweenRenderer" strategy

@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils
 
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 public class ShowOneTabRenderer extends HtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) 
   {
@@ -45,7 +45,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -84,7 +84,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -111,7 +111,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -137,7 +137,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   // Returns the partial targets for this node, if any,
   // in encoded form.
   protected static String getEncodedPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           id
     )
@@ -154,7 +154,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
 
   // Sets the partial targets on the RenderingContext
   protected static void setPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           partialTargets)
   {
     context.setProperty(MARLIN_NAMESPACE,
@@ -173,7 +173,7 @@ public class ShowOneTabRenderer extends HtmlLafRenderer
   *   the selection model (whether parent has this info or the children) is clear.
   */
   private static int _getResolvedSelectedIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode parentNode)
   {
     int childCount = parentNode.getIndexedChildCount(context);

@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -60,7 +60,7 @@ public class TreeRenderer extends HtmlLafRenderer
 {
 
   protected void renderContent(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode node) throws IOException
   {
     final String name = 
@@ -84,7 +84,7 @@ public class TreeRenderer extends HtmlLafRenderer
   }
 
   private void _renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy     tree,
     String name
@@ -164,14 +164,14 @@ public class TreeRenderer extends HtmlLafRenderer
   }
   
   protected UIXHierarchy getTree(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode node)
   {
     return (UIXHierarchy) node.getUIComponent();    
   }
   
   protected UINode getStamp(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode node)
   {
     return getNamedChild(context, node, NODE_STAMP_CHILD);
@@ -179,7 +179,7 @@ public class TreeRenderer extends HtmlLafRenderer
   
   // return whether to continue with rendering
   protected boolean setInitialPath(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node,
     UIXHierarchy     tree)
   {
@@ -244,7 +244,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
   // render the correct icon for a specific node
   protected void renderExpandCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy tree,
     boolean isLeftToRight,
     boolean isRoot,
@@ -304,7 +304,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
 
   private void _renderTextCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           text,
     Object           altText,
     String           width,
@@ -338,7 +338,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
 
   protected void renderIconCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy         tree,
     String           backgroundIcon,
     String           icon,
@@ -405,7 +405,7 @@ public class TreeRenderer extends HtmlLafRenderer
     return jsVarName+".select(this,'"+currencyStr+"');";
   }
 
-  private void _renderTreeJS(RenderingContext context, UINode node)
+  private void _renderTreeJS(UIXRenderingContext context, UINode node)
     throws IOException
   {
     if (!isPreviouslyRendered(context, _JS_RENDERED_KEY))
@@ -498,7 +498,7 @@ public class TreeRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -508,7 +508,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
   // render one row of the tree
   private void _renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy tree,
     UINode icon,
     UINode stamp,
@@ -718,7 +718,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
     // render an icon with our own special formatting
   private void _renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           icon,
     boolean          isIconAbsoluteURI,
     Object           text,
@@ -792,7 +792,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
 
   private void _prependIcons(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy tree,
     Boolean[] prepend,
     boolean leftToRight
@@ -850,7 +850,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
     BoundValue isExpandable = new BoundValue()
     {
-      public Object getValue(RenderingContext rc)
+      public Object getValue(UIXRenderingContext rc)
       {
         UINode uinode = rc.getAncestorNode(1);
         UIXHierarchy tree = (UIXHierarchy) ((UIComponentUINode) uinode).getUIComponent();
@@ -899,7 +899,7 @@ public class TreeRenderer extends HtmlLafRenderer
   }
 
   private void _renderStampBasedOnAccessibilty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     int depth
     ) throws IOException
@@ -960,7 +960,7 @@ public class TreeRenderer extends HtmlLafRenderer
       _imageName = imageName;
     }
 
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
       return getAbsoluteImageURI(context, _imageName);
     }

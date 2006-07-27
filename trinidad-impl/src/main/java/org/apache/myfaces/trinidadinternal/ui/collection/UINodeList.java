@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -45,13 +45,13 @@ public interface UINodeList extends Cloneable
    * Returns the number of elements in the UINodeList given the specified
    * RenderingContext.
    */
-  public int size(RenderingContext context);
+  public int size(UIXRenderingContext context);
 
   /**
    * Returns the UINode at the specifed index in the UINodeList, given
    * the specified RenderingContext.
    */
-  public UINode getUINode(RenderingContext context, int index);
+  public UINode getUINode(UIXRenderingContext context, int index);
   
   /**
    * Replaces the UINode at the specified index with the new UINode value,

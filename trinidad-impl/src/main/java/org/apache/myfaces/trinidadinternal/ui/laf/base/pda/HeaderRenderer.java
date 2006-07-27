@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
@@ -43,7 +43,7 @@ public class HeaderRenderer
         extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.HeaderRenderer
 {
     private int _getSize(
-            RenderingContext context,
+            UIXRenderingContext context,
             UINode           node
             )throws IOException
     {
@@ -74,7 +74,7 @@ public class HeaderRenderer
     }
 
     protected void prerender(
-            RenderingContext context,
+            UIXRenderingContext context,
             UINode           node
             ) throws IOException
     {
@@ -138,7 +138,7 @@ public class HeaderRenderer
 
 
     protected void renderIcon(
-            RenderingContext context,
+            UIXRenderingContext context,
             UINode           node
             )throws IOException
     {
@@ -159,7 +159,7 @@ public class HeaderRenderer
 
     }
     protected void postrender(
-            RenderingContext context,
+            UIXRenderingContext context,
             UINode           node
             ) throws IOException
     {
@@ -174,7 +174,7 @@ public class HeaderRenderer
     }
 
     protected void renderContent(
-       RenderingContext context,
+       UIXRenderingContext context,
        UINode           node
        ) throws IOException
      {
@@ -190,7 +190,7 @@ public class HeaderRenderer
      * Copies an attribute from a source node to a destination UINode
      */
     private void _copyAttr(
-            RenderingContext context,
+            UIXRenderingContext context,
             UINode           sourceNode,
             AttributeKey     attrKey,
             MutableUINode    destNode

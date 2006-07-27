@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.state;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The Selection interface encapsulates access to one or more selected indicies
@@ -36,7 +36,7 @@ public interface Selection
    * @param index  the index to test, pass -1 to ignore this parameter
    */
   public boolean isSelected(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     Object            value,
     int               index);
 }

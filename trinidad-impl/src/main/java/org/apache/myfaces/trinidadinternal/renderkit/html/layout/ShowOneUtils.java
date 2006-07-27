@@ -22,7 +22,7 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
@@ -42,7 +42,7 @@ public class ShowOneUtils
    * @param component the UIComponent object
    * @throws IOException when can't write onto response writer
    */
-  static void renderGenericAttributes(RenderingContext rCtx,
+  static void renderGenericAttributes(UIXRenderingContext rCtx,
                                       UIComponent component,
                                       ResponseWriter out)
     throws IOException

@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -47,7 +47,7 @@ public class ProcessUtils
    * Creates the submit button bean
    */
   public static UINode createSubmitButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           buttonText,
     Object           buttonAccessKey,
     String           buttonID,
@@ -100,7 +100,7 @@ public class ProcessUtils
    * @return
    */
   public static String getSubmitScriptCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     String  form,
     String  eventKey,
     String  sourceKey,
@@ -189,7 +189,7 @@ public class ProcessUtils
   }
 
   public static String getChoiceOnChangeFormSubmitted(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           form,
     String           eventKey,
@@ -315,14 +315,14 @@ public class ProcessUtils
   }
 
   public static void renderNavSubmitScript(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     XhtmlLafUtils.addLib(context, _NAV_SUBMIT_SCRIPTLET);
   }
 
   public static void renderNavChoiceSubmitScript(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     XhtmlLafUtils.addLib(context, _NAV_CHOICE_SUBMIT_SCRIPTLET);

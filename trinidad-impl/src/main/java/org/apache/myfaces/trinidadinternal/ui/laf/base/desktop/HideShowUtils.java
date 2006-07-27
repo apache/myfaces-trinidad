@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
@@ -36,7 +36,7 @@ public class HideShowUtils implements BaseDesktopConstants
    * the undisclosed (show) symbol is shown.
    */
   public static void renderDisclosedStateSymbol(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean disclosed,
     String disclosedAltTextKey,
     String undisclosedAltTextKey) throws IOException
@@ -62,7 +62,7 @@ public class HideShowUtils implements BaseDesktopConstants
   // get property as to whether to render hideShow as inline rather
   // than block level element
   public static Boolean getIsInline(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return (Boolean)context.getProperty(UIConstants.MARLIN_NAMESPACE, 
@@ -73,7 +73,7 @@ public class HideShowUtils implements BaseDesktopConstants
   // Set property to say to render hideShow as inline rather
   // than block level element
   public static void setIsInline(
-    RenderingContext context,
+    UIXRenderingContext context,
     Boolean          isInline
   )
   {    
@@ -84,7 +84,7 @@ public class HideShowUtils implements BaseDesktopConstants
 
   // Returns the hideShow Icon
   private static Icon _getHideShowIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          disclosed
     )
   {

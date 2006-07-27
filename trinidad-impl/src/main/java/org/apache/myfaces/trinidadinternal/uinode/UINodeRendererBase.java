@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  *
@@ -39,7 +39,7 @@ public class UINodeRendererBase extends Renderer
     if (!getRendersChildren())
     {
       UIXComponentUINode adapter = UIXComponentUINode.__getAdapter(component);
-      RenderingContext rContext = getRenderingContext(context, component);
+      UIXRenderingContext rContext = getRenderingContext(context, component);
       adapter.prerenderInternal(rContext, adapter);
     }
   }
@@ -56,7 +56,7 @@ public class UINodeRendererBase extends Renderer
     throws IOException
   {
     UIXComponentUINode adapter = UIXComponentUINode.__getAdapter(component);
-    RenderingContext rContext = getRenderingContext(context, component);
+    UIXRenderingContext rContext = getRenderingContext(context, component);
 
     if (getRendersChildren())
     {
@@ -77,7 +77,7 @@ public class UINodeRendererBase extends Renderer
   /**
    * Get - and create if necessary - a RenderingContext.
    */
-  static protected RenderingContext getRenderingContext(
+  static protected UIXRenderingContext getRenderingContext(
     FacesContext context,
     UIComponent  component) throws IOException
   {
@@ -87,12 +87,12 @@ public class UINodeRendererBase extends Renderer
   /**
    * Get - and create if necessary - a RenderingContext.
    */
-  static protected RenderingContext getRenderingContext(
+  static protected UIXRenderingContext getRenderingContext(
     FacesContext context,
     UIComponent  component,
     boolean      createIfNull) throws IOException
   {
-    RenderingContext rContext = __getRenderingContext(context);
+    UIXRenderingContext rContext = __getRenderingContext(context);
 
     if (rContext == null && createIfNull)
     {
@@ -105,14 +105,14 @@ public class UINodeRendererBase extends Renderer
   }
 
 
-  static RenderingContext __setRenderingContext(
+  static UIXRenderingContext __setRenderingContext(
     FacesContext     fContext,
-    RenderingContext rContext)
+    UIXRenderingContext rContext)
   {
     if (rContext == null)
       throw new NullPointerException();
 
-    RenderingContext oldContext = __getRenderingContext(fContext);
+    UIXRenderingContext oldContext = __getRenderingContext(fContext);
     if (oldContext == rContext)
       return null;
 
@@ -141,15 +141,15 @@ public class UINodeRendererBase extends Renderer
 
   static void __restoreRenderingContext(
     FacesContext     fContext,
-    RenderingContext rContext)
+    UIXRenderingContext rContext)
   {
     if (rContext != null)
       fContext.getExternalContext().getRequestMap().put(_CONTEXT_KEY, rContext);
   }
 
-  static RenderingContext __getRenderingContext(FacesContext fContext)
+  static UIXRenderingContext __getRenderingContext(FacesContext fContext)
   {
-    return (RenderingContext)
+    return (UIXRenderingContext)
       fContext.getExternalContext().getRequestMap().get(_CONTEXT_KEY);
   }
 

@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class ListRenderer extends FormSelectRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -93,7 +93,7 @@ public class ListRenderer extends FormSelectRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     // If we've got a ClientAction, let it write its dependencies
@@ -107,7 +107,7 @@ public class ListRenderer extends FormSelectRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -146,7 +146,7 @@ public class ListRenderer extends FormSelectRenderer
   }  
 
   protected Boolean isMultipleSelection(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // list can be multiple selection
@@ -161,7 +161,7 @@ public class ListRenderer extends FormSelectRenderer
    * @param node the current UINode
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -176,7 +176,7 @@ public class ListRenderer extends FormSelectRenderer
   }
 
   protected Object getOnChange(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -200,7 +200,7 @@ public class ListRenderer extends FormSelectRenderer
 
 
   protected boolean wasOptionSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

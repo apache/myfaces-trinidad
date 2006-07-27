@@ -20,7 +20,7 @@ import java.io.IOException;
 
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
@@ -32,7 +32,7 @@ public class SelectOptionRenderer
        extends OptionContainerRenderer.OptionRenderer
 {
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -68,7 +68,7 @@ public class SelectOptionRenderer
   }
 
   public boolean render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          isDisabled,
     boolean          isReadOnly
@@ -80,7 +80,7 @@ public class SelectOptionRenderer
   }
 
   protected void renderAsNonElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     if (isOptionSelected(context, node))
@@ -90,7 +90,7 @@ public class SelectOptionRenderer
   }
 
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -98,14 +98,14 @@ public class SelectOptionRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     renderText(context, node);
   }
 
   protected void renderSelectedAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -115,7 +115,7 @@ public class SelectOptionRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Abstracts out the retrieval of colorized icons given icon keys
@@ -33,7 +33,7 @@ public interface ColorizedIconProvider
    * by the iconKey
    */
   public ImageProviderResponse getColorizedIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey);
   
 
@@ -43,7 +43,7 @@ public interface ColorizedIconProvider
    * Returns the URI to the icon indentified by the icon key
    */
   public String getColorizedIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey
     );
 

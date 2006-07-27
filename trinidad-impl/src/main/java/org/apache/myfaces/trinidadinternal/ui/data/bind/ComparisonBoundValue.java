@@ -20,7 +20,7 @@ import java.math.BigInteger;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -130,7 +130,7 @@ public class ComparisonBoundValue implements BoundValue
    * Calculates the current state of the model.
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     Object leftSide  = _leftSideValue.getValue(context);

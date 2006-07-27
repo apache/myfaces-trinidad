@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.UINodeProxy;
 
@@ -81,7 +81,7 @@ class DataObjectUINodeProxy extends UINodeProxy
   }
 
   public Object getAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -110,7 +110,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return value;
   }
 
-  public int getIndexedChildCount(RenderingContext context)
+  public int getIndexedChildCount(UIXRenderingContext context)
   {
     int count;
 
@@ -137,7 +137,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return count;
   }
 
-  public void render(RenderingContext context, UINode node)
+  public void render(UIXRenderingContext context, UINode node)
     throws IOException
   {
     DataObject oldDataObject = context.getCurrentDataObject();
@@ -155,7 +155,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
 
   public UINode getIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              childIndex)
   {
     UINode child;
@@ -189,7 +189,7 @@ class DataObjectUINodeProxy extends UINodeProxy
 
 
   public UINode getNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           childName)
   {
     UINode child;

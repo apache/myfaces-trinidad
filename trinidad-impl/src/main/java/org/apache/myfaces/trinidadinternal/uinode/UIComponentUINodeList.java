@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
 
@@ -42,12 +42,12 @@ public class UIComponentUINodeList implements UINodeList
     _component = component;
   } 
 
-  public int size(RenderingContext context)
+  public int size(UIXRenderingContext context)
   {
     return _component.getChildCount();
   }
 
-  public UINode getUINode(RenderingContext context, int index)
+  public UINode getUINode(UIXRenderingContext context, int index)
   {      
     List children =  _component.getChildren();
     

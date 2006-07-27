@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.composite;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.collection.UINodeUINodeList;
@@ -39,7 +39,7 @@ public class RootUINodeList extends UINodeUINodeList
   }
     
   protected UINode getUINode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {    
     if (context != null)
@@ -52,7 +52,7 @@ public class RootUINodeList extends UINodeUINodeList
     }
   }
 
-  protected RenderingContext getRenderingContext(RenderingContext context)
+  protected UIXRenderingContext getRenderingContext(UIXRenderingContext context)
   {
     if (context == null)
       return null;
@@ -62,7 +62,7 @@ public class RootUINodeList extends UINodeUINodeList
 
 
   public UINode getUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              index
     )
   {

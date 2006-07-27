@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -38,7 +38,7 @@ public final class IconURIBoundValue implements BoundValue
    * @return a string that is a concatenation of the cabo base image URI
    *  and the icon filename.
    */
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     return BaseLafRenderer.getBaseImageURI(context) + _icon; 
   }

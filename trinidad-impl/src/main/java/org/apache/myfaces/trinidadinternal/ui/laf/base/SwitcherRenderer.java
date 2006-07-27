@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -34,14 +34,14 @@ public class SwitcherRenderer extends BaseRenderer
   implements UIConstants, RoledRenderer
 {
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return STATE_ROLE;
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -69,7 +69,7 @@ public class SwitcherRenderer extends BaseRenderer
   // _renderCase renders a particular case child of a switcher element.
   // Return value is true if the child name pointed to a named case child.
   private boolean _renderCase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           childName
     ) throws IOException

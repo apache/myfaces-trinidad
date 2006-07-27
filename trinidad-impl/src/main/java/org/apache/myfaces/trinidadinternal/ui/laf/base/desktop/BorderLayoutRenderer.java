@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -32,7 +32,7 @@ public class BorderLayoutRenderer extends
    * is specified
    */
   protected int getDefaultMarginIndent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
