@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -31,7 +31,7 @@ public class CellFormatRenderer extends XhtmlLafRenderer
    * Renders attributes of the current node.
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -51,7 +51,7 @@ public class CellFormatRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {    
@@ -61,7 +61,7 @@ public class CellFormatRenderer extends XhtmlLafRenderer
   }
   
   private boolean isHeaderCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

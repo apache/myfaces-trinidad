@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 import org.apache.myfaces.trinidadinternal.style.util.MutableFontProxy;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
@@ -65,11 +65,11 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @param context The rendering context
    * @param node the node to be rendered
    * @throws IOException
-   * @see #renderContent(RenderingContext,UINode)
-   * @see #renderImageContent(RenderingContext,UINode,ImageProviderResponse)
+   * @see #renderContent(UIXRenderingContext,UINode)
+   * @see #renderImageContent(UIXRenderingContext,UINode,ImageProviderResponse)
    */
   protected final void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -86,7 +86,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @throws IOException
    */
   protected final void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -105,7 +105,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @throws IOException
    */
   protected final void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -123,7 +123,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * false, the button will be rendered using alternate content
    */
   protected boolean doRenderImageContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -144,7 +144,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @throws IOException
    */
   protected void renderImageContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     ImageProviderResponse response
     ) throws IOException
@@ -170,7 +170,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * image to render
    * @throws IOException
    */
-  public final void render(RenderingContext context, UINode node)
+  public final void render(UIXRenderingContext context, UINode node)
     throws IOException
   {
     // We override render() so that we can bypass the normal rendering
@@ -213,7 +213,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @throws IOException
    */
   protected void renderAltContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -229,7 +229,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
       return _ALTERNATE_RENDERER;
     }
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -277,7 +277,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   }
 
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -294,7 +294,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * Override to provide defaults
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -304,7 +304,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   }
 
   // Returns the vertical alignment
-  protected Object getVAlign(RenderingContext context, UINode node)
+  protected Object getVAlign(UIXRenderingContext context, UINode node)
   {
     // This is kind of a hack to address bug #2047577
     // Instead of adding an attribute to control placement of the button,
@@ -341,7 +341,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
 
 
   protected void renderButtonAccessKey(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )    throws IOException
   {
@@ -371,7 +371,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * button image.
    */
   abstract protected ImageProviderRequest createImageProviderRequest(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object       name,
     Object       text,
     Color        foreground,
@@ -390,7 +390,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * button text.
    */
   protected String getServerStyleName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          disabled
     )
@@ -402,7 +402,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   // image generation and makes a request to the ImageProvider to
   // generate the corresponding image.
   private ImageProviderResponse _getImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -479,7 +479,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   // This overload of _getImage() loops through all inline font families
   // and style class font families trying to find a match.
   private ImageProviderResponse _getImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     ImageProvider    provider,
     ImageProviderRequest request,
     MutableFontProxy font,
@@ -527,7 +527,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     return provider.getImage(imageContext, request);
   }
 
-  private char _getAccessKey(RenderingContext context, UINode node)
+  private char _getAccessKey(UIXRenderingContext context, UINode node)
   {
     char ch = BaseDesktopUtils.getCharacterAttr(context, node, ACCESS_KEY_ATTR);
 
@@ -546,7 +546,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     * @throws IOException
     */
   private static void _writeClientActionDependency(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -565,7 +565,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @throws IOException
    */
   private  static void _renderOnKeyDownScript(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     if (Boolean.TRUE.equals(getRenderingProperty(context, _ADF_BTN_ATTR)))
@@ -576,7 +576,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
       }
   }
 
-  private boolean _useLinkAlternateContent(RenderingContext context)
+  private boolean _useLinkAlternateContent(UIXRenderingContext context)
   {
     return  (!supportsAdvancedButtons(context) &&
       (getParentFormName(context) == null));
@@ -586,7 +586,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   /**
    *  Returns the Renderer to use to render the alternate content.
    */
-  private Renderer _getAlternateRenderer (RenderingContext context)
+  private Renderer _getAlternateRenderer (UIXRenderingContext context)
   {
     // We need to use a special Renderer for Netscape when there
     // is no form, but other than that we delegate to a
@@ -614,7 +614,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     * @throws IOException
     */
     public void render(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode node
       ) throws IOException
     {

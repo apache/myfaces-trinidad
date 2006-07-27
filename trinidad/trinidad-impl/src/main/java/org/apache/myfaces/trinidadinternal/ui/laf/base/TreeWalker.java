@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.path.Path;
 
@@ -45,7 +45,7 @@ public interface TreeWalker
    * @exception IOException if this method writes output
    */
   public Object walkNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           previousValue,
     Path             path) throws IOException;
@@ -63,7 +63,7 @@ public interface TreeWalker
    *         If false, the siblings of this ndoe will still be walked to.
    */
   public boolean walkChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           value,
     Path             path);

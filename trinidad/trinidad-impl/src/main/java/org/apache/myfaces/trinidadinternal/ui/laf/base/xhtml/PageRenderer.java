@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.component.UIXPage;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 public class PageRenderer extends UINodeRenderer
 {
   protected UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return _compositeNode;
@@ -55,7 +55,7 @@ public class PageRenderer extends UINodeRenderer
 
 
   protected void renderWithNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           renderingUINode
     ) throws IOException
@@ -104,7 +104,7 @@ public class PageRenderer extends UINodeRenderer
     // for PPR, an ID is required:
     navigationTree.setAttributeValue(UIConstants.ID_ATTR, new BoundValue()
     {
-      public Object getValue(RenderingContext context)
+      public Object getValue(UIXRenderingContext context)
       {
         UINode pageNode = context.getParentContext().getAncestorNode(0);
         UIComponent component = pageNode.getUIComponent();
@@ -222,7 +222,7 @@ public class PageRenderer extends UINodeRenderer
       _isDataATree = isDataATree;
     }
     public Object getValue(
-      RenderingContext context
+      UIXRenderingContext context
     )
     {
       UINode node = (UINode)_componentBV.getValue(context);

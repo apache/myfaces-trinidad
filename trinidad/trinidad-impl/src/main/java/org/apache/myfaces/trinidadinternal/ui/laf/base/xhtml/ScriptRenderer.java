@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -38,14 +38,14 @@ public class ScriptRenderer extends BaseLafRenderer
 
 {
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return USER_INVISIBLE_ROLE;
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -53,7 +53,7 @@ public class ScriptRenderer extends BaseLafRenderer
   }
 
   public void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -87,7 +87,7 @@ public class ScriptRenderer extends BaseLafRenderer
   }
 
   public void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     super.postrender(context, node);
@@ -95,7 +95,7 @@ public class ScriptRenderer extends BaseLafRenderer
 
     
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -108,7 +108,7 @@ public class ScriptRenderer extends BaseLafRenderer
 
 
   private boolean _hasText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // If there's no "source" attribute, then let's guess that
@@ -125,7 +125,7 @@ public class ScriptRenderer extends BaseLafRenderer
   * generating content means the script calls document.write/writeln.
   */
   private void _renderDeferAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )  throws IOException
   {

@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.component.UIXComponent;
 import org.apache.myfaces.trinidad.component.UIXValue;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
@@ -45,7 +45,7 @@ public class ConverterBoundValue implements BoundValue
     _component = component;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     FacesBean bean = _component.getFacesBean();
     // Try to get an explicit Converter

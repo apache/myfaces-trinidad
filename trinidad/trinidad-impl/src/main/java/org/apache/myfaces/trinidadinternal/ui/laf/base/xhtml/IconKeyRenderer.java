@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
  */
 public class IconKeyRenderer extends XhtmlLafRenderer
 {
-  protected void renderContent(RenderingContext context, UINode node)
+  protected void renderContent(UIXRenderingContext context, UINode node)
     throws IOException
   {
     Object name = node.getAttributeValue(context, NAME_ATTR);
@@ -53,7 +53,7 @@ public class IconKeyRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -61,7 +61,7 @@ public class IconKeyRenderer extends XhtmlLafRenderer
   }
 
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return XhtmlLafConstants.TIP_TEXT_STYLE_CLASS;

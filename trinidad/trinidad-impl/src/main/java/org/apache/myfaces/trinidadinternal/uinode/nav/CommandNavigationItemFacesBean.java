@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.uinode.nav;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;

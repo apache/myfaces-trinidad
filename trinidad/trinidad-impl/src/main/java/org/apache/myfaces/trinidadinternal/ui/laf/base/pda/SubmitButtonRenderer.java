@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
@@ -32,7 +32,7 @@ public class SubmitButtonRenderer
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer
 {
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -48,7 +48,7 @@ public class SubmitButtonRenderer
    * Returns the StyleClass to use to render this node.
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {

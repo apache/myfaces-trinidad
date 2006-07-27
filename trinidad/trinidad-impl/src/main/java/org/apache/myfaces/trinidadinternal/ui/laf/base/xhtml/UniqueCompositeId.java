@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.util.Hashtable;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
@@ -36,13 +36,13 @@ public class UniqueCompositeId
     return XhtmlUtils.getCompositeId(baseid, suffix);
   }
 
-  public UniqueCompositeId(RenderingContext context,
+  public UniqueCompositeId(UIXRenderingContext context,
                            String baseid)
   {
     this(context, 0, baseid);
   }
 
-  public UniqueCompositeId(RenderingContext context,
+  public UniqueCompositeId(UIXRenderingContext context,
                            int    depth,
                            String baseid)
   {

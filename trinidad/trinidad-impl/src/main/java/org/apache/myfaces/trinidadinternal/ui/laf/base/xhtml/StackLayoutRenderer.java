@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class StackLayoutRenderer extends XhtmlLafRenderer
 {  
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              nextIndex
     ) throws IOException
@@ -62,7 +62,7 @@ public class StackLayoutRenderer extends XhtmlLafRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -50,7 +50,7 @@ public class AccessKeyBoundValue implements BoundValue
     _returnAccessKey   = returnAccessKey;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     Object embeddedText = _textWithAccessKey.getValue(context);
 

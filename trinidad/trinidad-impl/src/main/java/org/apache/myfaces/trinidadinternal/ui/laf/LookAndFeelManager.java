@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
 import java.util.ArrayList;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIExtension;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopUtils;
@@ -78,7 +78,7 @@ public class LookAndFeelManager
    * Gets the LookAndFeel for the specified RenderingContext.
    */
   public LookAndFeel getLookAndFeel(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     synchronized (_scorersAndLafs)
@@ -270,7 +270,7 @@ public class LookAndFeelManager
 
   // Computes the total score
   static private int _score(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     String            lafName,
     LookAndFeelScorer scorer
     )

@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.RendererFactory;
 import org.apache.myfaces.trinidadinternal.ui.RendererManager;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -62,7 +62,7 @@ public class UIXComponentUINode extends UIComponentUINode
   /**
    * Returns the role that this node occupies.
    */
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     if (context != null)
     {
@@ -82,7 +82,7 @@ public class UIXComponentUINode extends UIComponentUINode
     return UIConstants.UNKNOWN_ROLE;
   }
 
-  public Iterator getAttributeNames(RenderingContext context)
+  public Iterator getAttributeNames(UIXRenderingContext context)
   {
     AttributeMap attributes = getAttributeMap(false);
 
@@ -132,7 +132,7 @@ public class UIXComponentUINode extends UIComponentUINode
    * <p>
    * @see #getAttributeNames
    */
-  public Object getAttributeValue(RenderingContext context, AttributeKey attrKey)
+  public Object getAttributeValue(UIXRenderingContext context, AttributeKey attrKey)
   {
     return getAttributeValueImpl(context, attrKey, true);
   }
@@ -145,13 +145,13 @@ public class UIXComponentUINode extends UIComponentUINode
    * <p>
    * @see org.apache.myfaces.trinidadinternal.ui.data.BoundValue
    */
-  public Object getRawAttributeValue(RenderingContext context, AttributeKey attrKey)
+  public Object getRawAttributeValue(UIXRenderingContext context, AttributeKey attrKey)
   {
     return getAttributeValueImpl(context, attrKey, false);
   }
 
 
-  public void renderInternal(RenderingContext context, UINode dataNode)
+  public void renderInternal(UIXRenderingContext context, UINode dataNode)
     throws IOException
   {
     Renderer renderer = null;
@@ -209,7 +209,7 @@ public class UIXComponentUINode extends UIComponentUINode
 
 
 
-  public void prerenderInternal(RenderingContext context, UINode dataNode)
+  public void prerenderInternal(UIXRenderingContext context, UINode dataNode)
     throws IOException
   {
     Renderer renderer = null;
@@ -270,7 +270,7 @@ public class UIXComponentUINode extends UIComponentUINode
 
 
 
-  public void postrenderInternal(RenderingContext context, UINode dataNode)
+  public void postrenderInternal(UIXRenderingContext context, UINode dataNode)
     throws IOException
   {
     Renderer renderer = null;
@@ -347,7 +347,7 @@ public class UIXComponentUINode extends UIComponentUINode
     throw re;
   }
 
-  private void _logNoRenderer(RenderingContext context)
+  private void _logNoRenderer(UIXRenderingContext context)
   {
     if (_LOG.isWarning())
     {
@@ -368,7 +368,7 @@ public class UIXComponentUINode extends UIComponentUINode
   }
 
   protected Renderer getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
   {
@@ -386,7 +386,7 @@ public class UIXComponentUINode extends UIComponentUINode
    * Bottleneck method for all attribute getting.
    */
   protected Object getAttributeValueImpl(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey,
     boolean          returnBoundValue
     )

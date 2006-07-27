@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Abstracts out the retrieval of icons
@@ -130,7 +130,7 @@ public class InstallLafIconProvider extends LafIconProvider
    * Returns the URI to the icon indentified by the icon key
    */
   public  String getIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey
     )
   {

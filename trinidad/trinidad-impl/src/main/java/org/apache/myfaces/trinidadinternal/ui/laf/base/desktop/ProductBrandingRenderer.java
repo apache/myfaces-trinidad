@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -33,7 +33,7 @@ public class ProductBrandingRenderer extends HtmlLafRenderer
 {
   
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -52,7 +52,7 @@ public class ProductBrandingRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -61,7 +61,7 @@ public class ProductBrandingRenderer extends HtmlLafRenderer
   
 
   protected String getTextStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

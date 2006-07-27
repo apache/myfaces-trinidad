@@ -59,7 +59,7 @@ public class ElementRenderer extends BaseRenderer
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -83,7 +83,7 @@ public class ElementRenderer extends BaseRenderer
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     String elementName = getElementName(context, node);
@@ -100,7 +100,7 @@ public class ElementRenderer extends BaseRenderer
    * @param node the current UINode
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -116,7 +116,7 @@ public class ElementRenderer extends BaseRenderer
    * @param value the attribute value
    */
   protected void renderAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           name,
     Object           value
     ) throws IOException        
@@ -137,7 +137,7 @@ public class ElementRenderer extends BaseRenderer
    * @param valueKey the key to use to retrieve the attribute
    */
   protected final void renderAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           name,
     AttributeKey     valueKey
@@ -161,7 +161,7 @@ public class ElementRenderer extends BaseRenderer
    *                     isn't set
    */
   protected final void renderAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           name,
     AttributeKey      valueKey,
@@ -194,7 +194,7 @@ public class ElementRenderer extends BaseRenderer
    *                     isn't set
    */
   protected final void renderAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey     key,
     Object           defaultValue
@@ -215,7 +215,7 @@ public class ElementRenderer extends BaseRenderer
    * @param node the current node
    */
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

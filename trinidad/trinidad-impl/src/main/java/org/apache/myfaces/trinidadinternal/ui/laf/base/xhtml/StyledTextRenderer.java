@@ -21,7 +21,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXValue;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -39,7 +39,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
 {
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -141,7 +141,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
    * @see #doRenderStyleAttrs
    */
   protected void renderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -151,7 +151,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
   }
 
   protected void renderScripts(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
     throws IOException
@@ -165,7 +165,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
    * The literal or data bound attribute value should be used instead.
    */
   protected boolean shouldUseFormData(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node
     )
   {
@@ -173,7 +173,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
   }
 
   protected Object getInheritedStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -181,7 +181,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
   }
 
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -192,7 +192,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
 
 
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -201,7 +201,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
 
 
   protected Object getLabeledNodeID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -212,7 +212,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -239,7 +239,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
   }
 
   private boolean _isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           text
     )
@@ -251,7 +251,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
   // Renders an empty span with an ID - this gets rendered if we
   // have no text
   private void _renderEmptySpan(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object          id
     ) throws IOException
   {
@@ -270,7 +270,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
    * @throws IOException
    */
   private void _renderDescription(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

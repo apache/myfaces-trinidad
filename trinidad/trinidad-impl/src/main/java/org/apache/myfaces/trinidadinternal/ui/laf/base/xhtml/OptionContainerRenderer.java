@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.UIXSelectOne;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.path.Path;
@@ -50,7 +50,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
  */
 abstract public class OptionContainerRenderer extends FormElementRenderer
 {
-  protected void renderAsNonElement(RenderingContext context, UINode node)
+  protected void renderAsNonElement(UIXRenderingContext context, UINode node)
     throws IOException
   {
     pushRenderingProperty(context, _OPTION_INFO_PROPERTY,
@@ -62,7 +62,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -89,7 +89,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -101,7 +101,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -112,7 +112,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
 
 
   abstract protected Boolean isMultipleSelection(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node);
 
 
@@ -121,7 +121,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * RadioSetRenderer, which does not have an onChange handler.
    */
   protected Object getOnChange(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     return node.getAttributeValue(context, ON_CHANGE_ATTR);
@@ -130,7 +130,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   /**
    * Returns the value associated with the selected value attribute
    */
-  protected String getSelectedValue(RenderingContext context, UINode node)
+  protected String getSelectedValue(UIXRenderingContext context, UINode node)
   {
     return BaseLafUtils.getLocalTextAttribute(context, node,
                                                        SELECTED_VALUE_ATTR);
@@ -139,13 +139,13 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   /**
    * Returns the value associated with the selected index attribute
    */
-  protected Integer getSelectedIndex(RenderingContext context, UINode node)
+  protected Integer getSelectedIndex(UIXRenderingContext context, UINode node)
   {
     return (Integer) BaseLafUtils.getLocalAttribute(context, node,
                                                     SELECTED_INDEX_ATTR);
   }
 
-  protected Selection getSelection(RenderingContext context, UINode node)
+  protected Selection getSelection(UIXRenderingContext context, UINode node)
   {
     return (BaseSelection) BaseLafUtils.getLocalAttribute(context, node,
                                                           SELECTION_ATTR);
@@ -156,7 +156,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * populated with information, leveraging populateOptionInfo as needed.
    */
   protected OptionContainerRenderer.OptionInfo createOptionInfo(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     OptionContainerRenderer.OptionInfo info = new OptionContainerRenderer.OptionInfo();
@@ -165,7 +165,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   }
 
   final protected void populateOptionInfo(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     OptionContainerRenderer.OptionInfo info)
   {
@@ -189,7 +189,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * Returns the cached option information.
    */
   protected OptionContainerRenderer.OptionInfo getOptionInfo(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     return (OptionInfo) getRenderingProperty(context,
                                              _OPTION_INFO_PROPERTY);
@@ -199,10 +199,10 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * Subclasses should implement this method to return the specifc
    * option renderer to use.
    */
-  abstract protected Renderer getOptionRenderer(RenderingContext context);
+  abstract protected Renderer getOptionRenderer(UIXRenderingContext context);
 
   protected void renderSelectItemOptions(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIComponent      component,
     List             items) throws IOException
@@ -313,7 +313,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
    * @return false if nothing was rendered, true otherwise
    */
   protected boolean renderSelectItem(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIComponent      component,
     SelectItem       item,
@@ -373,13 +373,13 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   }
 
   static UIComponent __getUIComponent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     UIComponent component = node.getUIComponent();
     if (component == null)
     {
-      RenderingContext parentContext = context.getParentContext();
+      UIXRenderingContext parentContext = context.getParentContext();
       if (parentContext != null)
       {
         UINode parentNode = parentContext.getAncestorNode(0);
@@ -437,14 +437,14 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   protected static class OptionRenderer extends XhtmlLafRenderer
   {
     protected OptionContainerRenderer.OptionInfo getOptionInfo(
-      RenderingContext context)
+      UIXRenderingContext context)
     {
       return (OptionInfo) getRenderingProperty(context,
                                                _OPTION_INFO_PROPERTY);
     }
 
     protected void renderAttributes(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       ) throws IOException
     {
@@ -468,7 +468,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
     
     protected void renderValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           value
     )throws IOException
@@ -481,7 +481,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
      * @param node
      * @throws IOException
      */
-    private void _renderDisabledAttribute(RenderingContext context, UINode node)
+    private void _renderDisabledAttribute(UIXRenderingContext context, UINode node)
         throws IOException
     {
       boolean isReadOnly = BaseLafUtils.getLocalBooleanAttribute(context, 
@@ -500,14 +500,14 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
     
     protected void renderSelectedAttribute(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       ) throws IOException
     {
     }
 
     protected boolean renderAsElement(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -530,7 +530,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Object getNodeName(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -539,7 +539,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Object getTransformedName(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -548,7 +548,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Boolean isMultipleSelection(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node)
     {
       OptionContainerRenderer.OptionInfo info = getOptionInfo(context);
@@ -556,7 +556,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Boolean getDisabled(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -565,7 +565,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Boolean getReadOnly(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -574,7 +574,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Object getStyleClass(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -586,7 +586,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
      * Returns the value associated with the text attribute
      */
     protected Object getText(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode  node)
     {
       return BaseLafUtils.getLocalTextAttribute(context, node, TEXT_ATTR);
@@ -596,7 +596,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
      * Returns the value associated with the value attribute
      */
     protected Object getValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode  node)
     {
       return BaseLafUtils.getLocalTextAttribute(context, node, VALUE_ATTR);
@@ -606,7 +606,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
      * Returns the value associated with the selected attribute
      */
     protected Boolean getSelected(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode  node)
     {
       return (Boolean)
@@ -617,7 +617,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
      * Returns the value associated with the option value attribute
      */
     protected Object getOptionValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode  node)
     {
       Object value = getValue(context, node);
@@ -629,7 +629,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Selection getSelection(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -638,7 +638,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected Number getSelectedIndex(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -647,7 +647,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected String getSelectedValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -656,7 +656,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     }
 
     protected boolean isOptionSelected(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       )
     {
@@ -730,7 +730,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       return optionSelected;
     }
 
-    private int _getChildIndex(RenderingContext context)
+    private int _getChildIndex(UIXRenderingContext context)
     {
       Path path = context.getPath();
       // If the path is empty, this means we're working with composite
@@ -739,7 +739,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       // is tops in the template/composite widget - but it helps out a lot.
       if (path.getElementCount() == 0)
       {
-        RenderingContext parent = context.getParentContext();
+        UIXRenderingContext parent = context.getParentContext();
         if (parent == null)
           return -1;
         return _getChildIndex(parent);

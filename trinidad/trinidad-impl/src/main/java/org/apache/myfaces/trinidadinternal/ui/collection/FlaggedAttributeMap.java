@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -59,7 +59,7 @@ public final class FlaggedAttributeMap extends ArrayAttributeMap
   
   
   public Object getAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     key
     )
   {

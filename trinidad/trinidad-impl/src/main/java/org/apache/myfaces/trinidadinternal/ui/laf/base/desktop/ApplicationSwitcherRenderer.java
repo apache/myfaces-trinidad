@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -56,7 +56,7 @@ public class ApplicationSwitcherRenderer extends
 {
 
  protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -65,7 +65,7 @@ public class ApplicationSwitcherRenderer extends
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -74,7 +74,7 @@ public class ApplicationSwitcherRenderer extends
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -87,7 +87,7 @@ public class ApplicationSwitcherRenderer extends
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -122,7 +122,7 @@ public class ApplicationSwitcherRenderer extends
 
 
   protected Object getNodeName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {
@@ -132,7 +132,7 @@ public class ApplicationSwitcherRenderer extends
   /**
    * Returns the value associated with the selected value attribute
    */
-  protected String getSelectedValue(RenderingContext context, UINode node)
+  protected String getSelectedValue(UIXRenderingContext context, UINode node)
   {
     BoundValue bv = new MenuChoiceSelectedValueBoundValue(
       NodeUtils.getUIComponent(context, node));
@@ -141,7 +141,7 @@ public class ApplicationSwitcherRenderer extends
 
 
   protected void selectItemsRenderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -153,7 +153,7 @@ public class ApplicationSwitcherRenderer extends
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -174,7 +174,7 @@ public class ApplicationSwitcherRenderer extends
    * @param node the current UINode
    */
   protected void renderPreChoice(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -226,7 +226,7 @@ public class ApplicationSwitcherRenderer extends
 
 
   protected Object getTitle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -247,7 +247,7 @@ public class ApplicationSwitcherRenderer extends
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -261,7 +261,7 @@ public class ApplicationSwitcherRenderer extends
   }
 
   protected void renderPostChoice(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -290,7 +290,7 @@ public class ApplicationSwitcherRenderer extends
   }
   // render the button
   protected void renderButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -310,7 +310,7 @@ public class ApplicationSwitcherRenderer extends
    * @param node the current UINode
    */
   private String _getOnClickHandler(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.ui.ElementRenderer;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -45,14 +45,14 @@ public class HtmlRenderer extends ElementRenderer
   implements RoledRenderer, PreAndPostRenderer
 {
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return XhtmlLafConstants.DOCUMENT_ROLE;
   }
 
   public void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     // write the correct doctype - this has to be in render(),
@@ -82,7 +82,7 @@ public class HtmlRenderer extends ElementRenderer
   }
 
   public void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     super.postrender(context, node);
@@ -92,7 +92,7 @@ public class HtmlRenderer extends ElementRenderer
    * Subclasses should override to return their doctype
    */
   protected String getDocType(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -120,7 +120,7 @@ public class HtmlRenderer extends ElementRenderer
    * opposed to a document.
    */
   protected String getFrameSetDocType(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (isXMLDocument(context))
@@ -139,7 +139,7 @@ public class HtmlRenderer extends ElementRenderer
    * to a frameset.
    */
   protected String getDocumentDocType(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // default to transitional, rather than strict
@@ -160,7 +160,7 @@ public class HtmlRenderer extends ElementRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -172,7 +172,7 @@ public class HtmlRenderer extends ElementRenderer
    * for determining which doctype to return
    */
   private boolean _hasFrameSet(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -196,7 +196,7 @@ public class HtmlRenderer extends ElementRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -237,7 +237,7 @@ public class HtmlRenderer extends ElementRenderer
    * Returns the name of the language attribute
    */
   protected String getLangAttrName(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     return "xml:lang";
   }
@@ -255,7 +255,7 @@ public class HtmlRenderer extends ElementRenderer
    * Returns true if we are rendering an XML document
    */
   protected boolean isXMLDocument(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     String contentType = null;

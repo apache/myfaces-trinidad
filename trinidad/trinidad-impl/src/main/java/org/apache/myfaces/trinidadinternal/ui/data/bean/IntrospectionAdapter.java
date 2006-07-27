@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.util.JavaIntrospector;
 
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.MutableDataObject;
 
 /**
@@ -97,7 +97,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     _instance = instance;
   }
 
-  public Object selectValue(RenderingContext context, Object select)
+  public Object selectValue(UIXRenderingContext context, Object select)
   {
     Object instance = _instance;
     if ((instance == null) || (select == null))
@@ -110,7 +110,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     return _classInfo.selectValue(context, select, instance);
   }
 
-  public void updateValue(RenderingContext context, Object select, Object value)  {
+  public void updateValue(UIXRenderingContext context, Object select, Object value)  {
     Object instance = _instance;
 
     if ((instance != null) && (select != null))
@@ -282,7 +282,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     }
 
     public Object selectValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object           select,
       Object           instance)
     {
@@ -307,7 +307,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     }
 
     public void updateValue(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object           select,
       Object           value,
       Object           instance)
@@ -352,7 +352,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
   //
   static private interface PropertyReader
   {
-    public Object readProperty(RenderingContext context, Object instance)
+    public Object readProperty(UIXRenderingContext context, Object instance)
       throws IllegalAccessException;
   }
 
@@ -362,7 +362,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
   static private interface PropertyWriter
   {
     public void writeProperty(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object           instance,
       Object           value) throws IllegalAccessException;
   }
@@ -378,7 +378,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
       _method = method;
     }
 
-    public Object readProperty(RenderingContext context, Object instance)
+    public Object readProperty(UIXRenderingContext context, Object instance)
       throws IllegalAccessException
     {
       try
@@ -409,7 +409,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     }
 
     public void writeProperty(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object           instance,
       Object           value) throws IllegalAccessException
     {
@@ -442,14 +442,14 @@ public class IntrospectionAdapter implements BeanDOAdapter
       _field = field;
     }
 
-    public Object readProperty(RenderingContext context, Object instance)
+    public Object readProperty(UIXRenderingContext context, Object instance)
       throws IllegalAccessException
     {
       return _field.get(instance);
     }
 
     public void writeProperty(
-      RenderingContext context,
+      UIXRenderingContext context,
       Object           instance,
       Object           value) throws IllegalAccessException
     {

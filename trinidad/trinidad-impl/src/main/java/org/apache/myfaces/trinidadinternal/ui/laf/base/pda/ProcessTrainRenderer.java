@@ -21,7 +21,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -36,7 +36,7 @@ public class ProcessTrainRenderer extends XhtmlLafRenderer
 {
 
  protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -45,7 +45,7 @@ public class ProcessTrainRenderer extends XhtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -54,7 +54,7 @@ public class ProcessTrainRenderer extends XhtmlLafRenderer
   
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -70,7 +70,7 @@ public class ProcessTrainRenderer extends XhtmlLafRenderer
    *  Render Step x of z for process Train components.
    */
   protected void renderContent(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           ) throws IOException
   {
@@ -128,7 +128,7 @@ public class ProcessTrainRenderer extends XhtmlLafRenderer
 
 
   protected String getElementName(
-          RenderingContext context,
+          UIXRenderingContext context,
           UINode           node
           )
   {

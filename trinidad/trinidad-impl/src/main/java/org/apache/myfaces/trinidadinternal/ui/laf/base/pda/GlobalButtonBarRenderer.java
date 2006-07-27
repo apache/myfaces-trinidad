@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
@@ -30,7 +30,7 @@ public class GlobalButtonBarRenderer extends org.apache.myfaces.trinidadinternal
 {
 
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -38,7 +38,7 @@ public class GlobalButtonBarRenderer extends org.apache.myfaces.trinidadinternal
   }
 
   protected void renderDefaultCellAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child) throws IOException
   {
     renderAttribute(context, "valign", "bottom");

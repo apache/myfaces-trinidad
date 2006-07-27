@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
 
@@ -31,7 +31,7 @@ public class NavigationBarRenderer extends
 
 {
   protected MutableUINode createSingleItemURLButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     Object           buttonText,
     String           destinationURL
@@ -47,7 +47,7 @@ public class NavigationBarRenderer extends
   }
   
   protected MutableUINode createSingleItemSubmitButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     Object           buttonText,
     String           onClickJS
@@ -69,7 +69,7 @@ public class NavigationBarRenderer extends
    * Returns true if disabled navigation items should be shown
    */
   protected boolean disabledNavigationShown(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     //return false;

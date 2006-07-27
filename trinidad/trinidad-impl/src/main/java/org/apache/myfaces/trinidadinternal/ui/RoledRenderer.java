@@ -31,6 +31,6 @@ public interface RoledRenderer extends Renderer
    * @param node an optional UINode
    */
   public NodeRole getNodeRole(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node);
 }

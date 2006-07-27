@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
@@ -105,7 +105,7 @@ public class MessageUtils
   }
 
   public static String getGlobalMessage(
-     RenderingContext context,
+     UIXRenderingContext context,
      String summary,
      String detail)
   {

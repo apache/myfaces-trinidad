@@ -19,7 +19,7 @@ import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class MessageBoxUtils implements UIConstants
 {
 
-  public static FacesMessage.Severity sGetMaxSeverity(RenderingContext context)
+  public static FacesMessage.Severity sGetMaxSeverity(UIXRenderingContext context)
   {
     // This doesn't seem to work if there is a global message
     // return context.getFacesContext().getMaximumSeverity();
@@ -52,7 +52,7 @@ public class MessageBoxUtils implements UIConstants
     return max;
   }
 
-  public static String sGetMaxType(RenderingContext context)
+  public static String sGetMaxType(UIXRenderingContext context)
   {
     String type = UIConstants.MESSAGE_TYPE_INFO;
     FacesMessage.Severity sev = sGetMaxSeverity(context);
@@ -68,7 +68,7 @@ public class MessageBoxUtils implements UIConstants
   }
 
   public static boolean sIsRendered(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     boolean allMessages
     )
@@ -78,7 +78,7 @@ public class MessageBoxUtils implements UIConstants
   }
 
   public static Iterator sGetIterator(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean allMessages)
   {
     return new AllMessageIterator(context.getFacesContext(),
@@ -86,20 +86,20 @@ public class MessageBoxUtils implements UIConstants
   }
 
   public static Iterator sGetGlobalsIterator(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     return new AllMessageIterator(context.getFacesContext(), false, false);
   }
 
   public static Iterator sGetClientsIterator(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     return new AllMessageIterator(context.getFacesContext(), true, true);
   }
 
 
   public static Object sGetMessage(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -110,7 +110,7 @@ public class MessageBoxUtils implements UIConstants
   }
 
   public static boolean sMultipleMessages(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean allMessages)
   {
     boolean isMult = false;

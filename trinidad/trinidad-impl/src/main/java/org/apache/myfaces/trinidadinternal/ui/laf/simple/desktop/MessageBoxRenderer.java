@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -52,7 +52,7 @@ public class MessageBoxRenderer
    * Implementation of ElementRenderer.getName();
    */
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -63,7 +63,7 @@ public class MessageBoxRenderer
    * Override of BaseRenderer.renderAttributes().
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -76,7 +76,7 @@ public class MessageBoxRenderer
    * Override of BaseRenderer.prerender()
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -101,7 +101,7 @@ public class MessageBoxRenderer
    * Override of BaseRenderer.postrender()
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -125,7 +125,7 @@ public class MessageBoxRenderer
 
   // Start the table row with the contents
   private void _startContentsRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     FacesContext     fContext,
     AdfRenderingContext arc,
     IconData         icons,
@@ -357,7 +357,7 @@ public class MessageBoxRenderer
 
   // Get the IconData to use for rendering this sideBar
   private IconData _getIconData(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // Check to see whether we have already created

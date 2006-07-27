@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.data;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -28,5 +28,5 @@ import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
  */
 public interface KeyedDataObject extends DataObject
 {
-  public Iterator keys(RenderingContext context);
+  public Iterator keys(UIXRenderingContext context);
 }

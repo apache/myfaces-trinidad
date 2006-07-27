@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 
@@ -29,7 +29,7 @@ public class PageRendererUtils
 {
   
   public static final Object getFocusPath(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return context.getProperty(UIConstants.MARLIN_NAMESPACE, 
@@ -37,7 +37,7 @@ public class PageRendererUtils
   }  
   
   static final void setFocusPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object             focusPath
   )
   {
@@ -54,7 +54,7 @@ public class PageRendererUtils
    * @return whether or not a path was set.
    */
   public static final boolean setNewPath(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UIXHierarchy    component,
     int              startDepth
   )
@@ -68,7 +68,7 @@ public class PageRendererUtils
    * indexed children).
    */
   public static final boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UIXHierarchy    component,
     int              startDepth
     )

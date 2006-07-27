@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
@@ -57,7 +57,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
   // Otherwise the button is rendered using the base.desktop
   // button implementation (browser buttons).
   static public boolean doRenderImageButton(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // First, check the _IMAGE_BUTTON_KEY (or _IMAGE_BUTTON_RTL_KEY if rtl)
@@ -138,7 +138,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
   // Creates the ImageProviderRequest for the composite button lookup
   static public ImageProviderRequest createButtonRequest(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object       name,
     Object       text,
     Color        foreground,
@@ -191,7 +191,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
     public Key(
       FacesContext fContext,
       AdfRenderingContext arc,
-      RenderingContext context,
+      UIXRenderingContext context,
       String       skinId,
       String       name,
       String       text,
@@ -292,14 +292,14 @@ class SimpleButtonUtils implements SimpleDesktopConstants
       return null;
     }
 
-    private RenderingContext _context;
+    private UIXRenderingContext _context;
     private AdfRenderingContext _arc;
     private FacesContext _fContext;
 
   }
 
 
-  private static boolean _isRightToLeft(RenderingContext context)
+  private static boolean _isRightToLeft(UIXRenderingContext context)
   {
     LocaleContext lContext = context.getLocaleContext();
 

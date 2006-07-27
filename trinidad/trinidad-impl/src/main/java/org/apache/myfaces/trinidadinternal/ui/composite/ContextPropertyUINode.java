@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.BaseRenderer;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -58,13 +58,13 @@ public class ContextPropertyUINode extends BaseMutableUINode
     _propertyValue     = propertyValue;
   }
 
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     return UIConstants.STATE_ROLE;
   }
 
   protected Renderer getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
   {
@@ -74,7 +74,7 @@ public class ContextPropertyUINode extends BaseMutableUINode
   private class Rndr extends BaseRenderer
   {
     public void render(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node
       ) throws IOException
     {

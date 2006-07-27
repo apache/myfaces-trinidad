@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
@@ -42,7 +42,7 @@ public class HiddenLabelUtils
    * Identifies whether the current agent supports the hidden label
    * trick.
    */
-  static public boolean supportsHiddenLabels(RenderingContext context)
+  static public boolean supportsHiddenLabels(UIXRenderingContext context)
   {
     if (!BaseLafRenderer.supportsID(context))
       return false;
@@ -86,7 +86,7 @@ public class HiddenLabelUtils
    * @param component 
    */
   static public void outputHiddenLabel(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           id,
     Object           text, 
     UIComponent component
@@ -119,7 +119,7 @@ public class HiddenLabelUtils
    * a <label> tag, since the values are needed for validation.
    */
   static public void rememberLabel(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           id)
   {
     if (id != null)

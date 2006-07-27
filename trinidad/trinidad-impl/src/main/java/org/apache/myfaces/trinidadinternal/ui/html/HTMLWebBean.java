@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.html;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -84,7 +84,7 @@ public class HTMLWebBean extends BaseMutableUINode
    * HTMLElementRenderer.
    */
   public Renderer getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
   {

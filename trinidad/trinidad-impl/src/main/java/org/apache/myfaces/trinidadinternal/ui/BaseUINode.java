@@ -103,7 +103,7 @@ public class BaseUINode implements UINode, UIConstants
    * Returns the number of indexed children in this UINode.
    */
   public int getIndexedChildCount(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     UINodeList indexedChildren = getIndexedNodeList(false);
@@ -131,7 +131,7 @@ public class BaseUINode implements UINode, UIConstants
    * @see #getIndexedChildCount
    */
   public UINode getIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              childIndex
     )
   {
@@ -165,7 +165,7 @@ public class BaseUINode implements UINode, UIConstants
    * @see org.apache.myfaces.trinidadinternal.ui.UIConstants
    */
   public UINode getNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           childName
     )
   {
@@ -196,7 +196,7 @@ public class BaseUINode implements UINode, UIConstants
    * @see #getNamedChild
    */
   public Iterator getChildNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     ContextMap childMap = getNamedChildMap(false);
@@ -231,7 +231,7 @@ public class BaseUINode implements UINode, UIConstants
    * @see #getAttributeNames
    */
   public final Object getAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -240,7 +240,7 @@ public class BaseUINode implements UINode, UIConstants
 
 
   public final Object getRawAttributeValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey
     )
   {
@@ -262,7 +262,7 @@ public class BaseUINode implements UINode, UIConstants
    * @see #getAttributeValue
    */
   public Iterator getAttributeNames(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     AttributeMap attributes = getAttributeMap(false);
@@ -281,7 +281,7 @@ public class BaseUINode implements UINode, UIConstants
   /**
    * Returns the role that this node occupies.
    */
-  public NodeRole getNodeRole(RenderingContext context)
+  public NodeRole getNodeRole(UIXRenderingContext context)
   {
     if (context != null)
     {
@@ -304,7 +304,7 @@ public class BaseUINode implements UINode, UIConstants
    * get a Renderer, and defer rendering to that Renderer.
    */
   public final void render(
-    RenderingContext context
+    UIXRenderingContext context
     )
     throws IOException
   {
@@ -318,7 +318,7 @@ public class BaseUINode implements UINode, UIConstants
    * get a Renderer, and defer rendering to that Renderer.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
     throws IOException
@@ -403,7 +403,7 @@ public class BaseUINode implements UINode, UIConstants
   }
 
   protected final Renderer getRenderer(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     throw new IllegalStateException(
@@ -420,7 +420,7 @@ public class BaseUINode implements UINode, UIConstants
    * <CODE>TextRenderer</CODE> as its renderer.
    */
   protected Renderer getRenderer(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           dataNode
     )
   {
@@ -531,7 +531,7 @@ public class BaseUINode implements UINode, UIConstants
    * Bottleneck method for all attribute getting.
    */
   protected Object getAttributeValueImpl(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     attrKey,
     boolean          returnBoundValue
     )
@@ -563,7 +563,7 @@ public class BaseUINode implements UINode, UIConstants
    * hierarchy, enabling composite UINodes to be created.
    */
   protected UINode getRenderedUINode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return this;

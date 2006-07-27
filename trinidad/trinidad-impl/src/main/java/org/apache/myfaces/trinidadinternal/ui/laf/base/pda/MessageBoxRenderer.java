@@ -24,7 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.core.output.CoreMessages;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.MessageBoxUtils;
@@ -42,7 +42,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
 {
   // check for number of links at pre-, post-, and content.
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -55,7 +55,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -69,7 +69,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   // do the rendering work
   //
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -96,7 +96,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   }
 
   private static final void _renderLine(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           messageStyle,
     Icon             icon,
@@ -161,7 +161,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   }
 
   private Icon _getIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              messageType)
   {
     return context.getIcon(_getIconName(messageType));
@@ -184,7 +184,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   };
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -227,7 +227,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   // it can be cleaned up as long as you fix the RenderKit test too.
   private static final SeparatorRenderer sep = new SeparatorRenderer()
   {
-    protected void renderID(RenderingContext context, UINode node)
+    protected void renderID(UIXRenderingContext context, UINode node)
     {
       ;
     }

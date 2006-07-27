@@ -22,7 +22,7 @@ import java.util.Map;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationTree;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
 
@@ -66,7 +66,7 @@ public class NavigationTreeRenderer extends TreeRenderer
 
   // return whether to continue with rendering
   protected boolean setInitialPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy     tree)
   {

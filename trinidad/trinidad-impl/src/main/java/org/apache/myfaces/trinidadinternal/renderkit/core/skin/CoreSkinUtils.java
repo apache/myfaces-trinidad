@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
@@ -38,7 +38,7 @@ public class CoreSkinUtils
   // This method derives those objects, so if you have them already, use the
   // other method.
   public static void __renderBackgroundIcon(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     Icon icon)
     throws IOException
   {

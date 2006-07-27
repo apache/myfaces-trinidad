@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -32,7 +32,7 @@ public class SeparatorRenderer
                      extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SeparatorRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {

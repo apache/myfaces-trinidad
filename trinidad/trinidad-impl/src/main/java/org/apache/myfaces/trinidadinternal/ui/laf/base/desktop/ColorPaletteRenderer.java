@@ -27,7 +27,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -45,7 +45,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 public class ColorPaletteRenderer extends HtmlLafRenderer
 {
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node) throws IOException
   {
     super.prerender(context, node);
@@ -53,7 +53,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node) throws IOException
   {
     List colorData = _getColors(context, node, COLOR_DATA_ATTR);
@@ -81,7 +81,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   }
 
   private void _renderColorPalette(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     List colorData,
     int width,
@@ -321,28 +321,28 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node)
   {
     return "span";
   }
 
   protected int getWidth(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node)
   {
     return getIntAttributeValue(context, node, WIDTH_ATTR, 0);
   }
 
   protected int getHeight(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node)
   {
     return getIntAttributeValue(context, node, HEIGHT_ATTR, 0);
   }
 
   protected Object getOnColorSelect(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node)
   {
     return getAttributeValue(context, node,
@@ -351,7 +351,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   }
 
   protected Object getOnClick(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node)
   {
     Object onClick = null;
@@ -396,7 +396,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   }
 
   private static List _getColors(
-    RenderingContext  context,
+    UIXRenderingContext  context,
     UINode            node,
     AttributeKey     attributeKey
     )

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -35,7 +35,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
    * org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer.renderAttributes()
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -61,7 +61,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
    * Returns the Javascript function call to return for this button.
    */
   protected String getFunctionCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           formName
     )

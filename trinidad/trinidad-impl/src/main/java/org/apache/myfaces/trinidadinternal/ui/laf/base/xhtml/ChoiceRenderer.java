@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
@@ -46,7 +46,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HtmlLafRenderer;
 public class ChoiceRenderer extends FormSelectRenderer
 {
   protected Boolean isMultipleSelection(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // choice is single selection
@@ -54,7 +54,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -91,7 +91,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -103,7 +103,7 @@ public class ChoiceRenderer extends FormSelectRenderer
 
 
   protected void selectItemsRenderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -159,7 +159,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -176,7 +176,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     if (supportsScripting(context))
@@ -190,7 +190,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   protected Object getOnBlur(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     if (supportsScripting(context))
@@ -208,7 +208,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    * RadioSetRenderer, which does not have an onChange handler.
    */
   protected Object getOnChange(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     if (!supportsScripting(context))
@@ -297,7 +297,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    * @return String, the script
    */
   protected String getActionScript(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
 
@@ -323,7 +323,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    * more than the action script)
    */
   protected void renderTrigger(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ClientAction     action
     ) throws IOException
@@ -340,7 +340,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    * javascript.
    */
   protected boolean needsChangeTracker(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
    )
    {
@@ -348,7 +348,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    }
 
   private Object _getActionHandler(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           attr)
   {
@@ -393,7 +393,7 @@ public class ChoiceRenderer extends FormSelectRenderer
   }
 
   // Is this choice in a branch of the tree that is repeated:
-  private boolean _isRepeatingChoice(RenderingContext context,
+  private boolean _isRepeatingChoice(UIXRenderingContext context,
                                      UINode node)
   {
     // check to make sure that repeating property is set, and that this choice

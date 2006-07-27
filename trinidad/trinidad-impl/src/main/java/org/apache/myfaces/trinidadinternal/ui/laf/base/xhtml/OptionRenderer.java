@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class OptionRenderer extends OptionContainerRenderer.OptionRenderer
 {
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

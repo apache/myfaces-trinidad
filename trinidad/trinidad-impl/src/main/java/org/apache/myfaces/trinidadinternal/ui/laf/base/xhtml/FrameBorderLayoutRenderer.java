@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -89,7 +89,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
   }
 
   public boolean isSupportedNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -120,7 +120,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
     */
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -139,7 +139,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
    * for the named ones.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -265,7 +265,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -279,7 +279,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
    * @param attr the attribute to get.
    */
   private String _getSizeString(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           outer1,
     UINode           inner1,
     UINode           inner2,
@@ -306,7 +306,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
     return buf.toString();
   }
 
-  private StringBuffer _getAttrValue(RenderingContext context,
+  private StringBuffer _getAttrValue(UIXRenderingContext context,
                                      UINode frame,
                                      AttributeKey attr,
                                      StringBuffer result)

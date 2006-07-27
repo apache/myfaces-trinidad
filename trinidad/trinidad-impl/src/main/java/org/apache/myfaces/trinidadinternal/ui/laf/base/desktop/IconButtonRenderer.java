@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -44,7 +44,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
   // Returns the elmenet name - "a"
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -54,7 +54,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
   // Renders the link attributes
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -81,7 +81,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
   // Renders the icon
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -115,7 +115,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
   }
 
   protected Object getSource(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -124,7 +124,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
   // Gets the destination for the button
   protected Object getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -137,7 +137,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
 
   // Returns the vertical alignment for the Icon
   protected Object getVAlign(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

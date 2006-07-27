@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -45,7 +45,7 @@ public class IsAgentApplicationBoundValue implements BoundValue
    * matches what is returned from context.getAgent().getAgentApplication()
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return Boolean.valueOf(_app == context.getAgent().getAgentApplication());

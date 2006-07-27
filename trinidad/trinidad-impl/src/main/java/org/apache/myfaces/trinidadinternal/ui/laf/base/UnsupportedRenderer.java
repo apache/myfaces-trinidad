@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -37,7 +37,7 @@ public class UnsupportedRenderer implements Renderer
    * Render nothing.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

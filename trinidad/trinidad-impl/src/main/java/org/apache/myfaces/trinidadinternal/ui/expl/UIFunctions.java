@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -90,7 +90,7 @@ public final class UIFunctions
   public static String hyphenate(UIImplicitObject uix,
                                  String text, String breakChars)
   {
-    RenderingContext rc = uix.getRenderingContext();
+    UIXRenderingContext rc = uix.getRenderingContext();
     int agentApp = rc.getAgent().getAgentApplication();
 
 
@@ -169,7 +169,7 @@ public final class UIFunctions
     if (name != null)
     {
       // Get the Icon from the Skin 
-      RenderingContext context = uix.getRenderingContext();
+      UIXRenderingContext context = uix.getRenderingContext();
       AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
       FacesContext fContext = context.getFacesContext();
       Skin skin = context.getSkin();

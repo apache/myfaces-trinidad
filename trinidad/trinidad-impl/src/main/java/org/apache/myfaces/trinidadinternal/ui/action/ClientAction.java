@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.action;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
@@ -48,7 +48,7 @@ abstract public class ClientAction
    *                  true or false.
    */
   abstract public String getScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      Boolean returnVal);
 
@@ -62,7 +62,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public void writeDependencies(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -108,7 +108,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public boolean isTriggerRequired(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -136,7 +136,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public void renderTrigger(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -163,7 +163,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public void renderTrigger(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           text
     ) throws IOException
@@ -180,7 +180,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public Parameter[] getParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return null;
@@ -203,7 +203,7 @@ abstract public class ClientAction
    * @param node      The target UINode.
    */
   public boolean renderAsEvent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return true;

@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.component.UIXValue;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
@@ -44,14 +44,14 @@ public class TextInputRenderer extends FormInputRenderer
 {
 
   protected void renderAsNonElement(
-    RenderingContext context, UINode node) throws IOException
+    UIXRenderingContext context, UINode node) throws IOException
   {
     renderContent(context, node, false);
   }
 
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -184,7 +184,7 @@ public class TextInputRenderer extends FormInputRenderer
    * Returns true if the passed in columns should be shrunken when displaying
    */
   protected boolean shrinkColumns(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // assume that columns don't need to be shrunken
@@ -214,7 +214,7 @@ public class TextInputRenderer extends FormInputRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -230,7 +230,7 @@ public class TextInputRenderer extends FormInputRenderer
    * the name.
    */
   protected Object getNodeName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -249,7 +249,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   protected Object getOnKeyPress(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -295,7 +295,7 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected Object getOnChange(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -333,7 +333,7 @@ public class TextInputRenderer extends FormInputRenderer
    * Override to write any client JavaScript dependencies for the validater.
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -371,14 +371,14 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     renderContent(context, node, true);
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          renderAsElement) throws IOException
   {
@@ -467,7 +467,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     super.postrender(context, node);
@@ -482,7 +482,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   private void _writeTextWithBreaks(
-    RenderingContext context,
+    UIXRenderingContext context,
     BreakIterator    breaks,
     String           textString,
     int              columns) throws IOException
@@ -509,7 +509,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   private void _writeTextLineWithBreaks(
-    RenderingContext context,
+    UIXRenderingContext context,
     BreakIterator    breaks,
     String           textString,
     int              columns) throws IOException
@@ -554,7 +554,7 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected Object getColumns(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -562,7 +562,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -573,7 +573,7 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected Object getDefaultStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -584,7 +584,7 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected Object getDefaultDisabledStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -617,7 +617,7 @@ public class TextInputRenderer extends FormInputRenderer
 
   // map this node to <input type="text"> or <textarea>?
   protected boolean isTextArea(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -631,7 +631,7 @@ public class TextInputRenderer extends FormInputRenderer
   }
 
   protected boolean renderReadOnlyAsElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // jrf: hack, hack, hack
@@ -648,7 +648,7 @@ public class TextInputRenderer extends FormInputRenderer
 
 
   protected boolean isNoAutoComplete(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return (Boolean.TRUE.equals(node.getAttributeValue(context,

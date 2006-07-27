@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 abstract public class FormSelectRenderer extends OptionContainerRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -45,7 +45,7 @@ abstract public class FormSelectRenderer extends OptionContainerRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -60,14 +60,14 @@ abstract public class FormSelectRenderer extends OptionContainerRenderer
 
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
     return SELECT_ELEMENT;
   }
 
-  protected final Renderer getOptionRenderer(RenderingContext context)
+  protected final Renderer getOptionRenderer(UIXRenderingContext context)
   {
     return context.getRendererManager().getRenderer(MARLIN_NAMESPACE, 
                                                     SELECT_OPTION_NAME);

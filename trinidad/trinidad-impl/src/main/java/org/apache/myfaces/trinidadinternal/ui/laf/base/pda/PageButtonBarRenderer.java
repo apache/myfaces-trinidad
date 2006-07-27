@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.TextNode;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -101,7 +101,7 @@ public class PageButtonBarRenderer extends UINodeRenderer
   */
 
   protected UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

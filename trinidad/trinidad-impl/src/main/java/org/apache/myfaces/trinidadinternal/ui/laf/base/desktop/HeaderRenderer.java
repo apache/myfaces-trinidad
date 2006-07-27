@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -48,14 +48,14 @@ public class HeaderRenderer
   // ask whether the header is being rendered as an HTML table.  If
   // so, we don't bother rendering our div-based contents.
   protected boolean rendersTableHeader(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return false;
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -66,7 +66,7 @@ public class HeaderRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -77,7 +77,7 @@ public class HeaderRenderer
   }
 
   protected boolean hasQuickLinkAnchor(
-     RenderingContext context,
+     UIXRenderingContext context,
      UINode           node,
      int              headerIndentLevel
      )
@@ -92,7 +92,7 @@ public class HeaderRenderer
 
 
   protected Object getReturnAltString(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return getTranslatedValue(context, _QUICK_LINKS_RETURN_TOP_TIP);
@@ -100,7 +100,7 @@ public class HeaderRenderer
 
 
   protected Object getReturnString(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return getTranslatedValue(context, _QUICK_LINKS_RETURN_TOP_TEXT);
@@ -112,7 +112,7 @@ public class HeaderRenderer
   //
 
   private void _prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   ) throws IOException
   {
@@ -199,7 +199,7 @@ public class HeaderRenderer
   // then the icon is retrieved from the Skin.  Otherwise,
   // we use the icon specified via the header's ICON_ATTR.
   protected void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {   
@@ -242,7 +242,7 @@ public class HeaderRenderer
   }
 
   private void _postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -266,7 +266,7 @@ public class HeaderRenderer
   }
 
   private int _getSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {

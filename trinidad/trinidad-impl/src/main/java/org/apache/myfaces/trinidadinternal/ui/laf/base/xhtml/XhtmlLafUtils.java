@@ -53,7 +53,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -76,7 +76,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Copies an attribute from a source node to a destination UINode
    */
   public static void copyAttr(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           sourceNode,
     AttributeKey     attrKey,
     MutableUINode    destNode
@@ -103,7 +103,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * initializer, creating any needed form values.
    */
   public static String encodeJSEventObject(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     Iterator      keyValues,
     int              keyValueSize
@@ -187,7 +187,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * initializer, creating any needed form values.
    */
   public static String encodeJSEventObject(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     Object[]         keyValues
     )
@@ -213,7 +213,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Resolves the class name to the appropriate Style object
    */
   public static Style getClassStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           className
     )
   {
@@ -236,7 +236,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * then get a property from the Style
    */
   public static String getClassStyleProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           className,
     String           propertyName
     )
@@ -255,7 +255,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Resolves the class name to the appropriate Style object
    */
   public static Style getStyleSelector(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           styleSelector
     )
   {
@@ -277,7 +277,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * then get a property from the Style
    */
   public static String getStyleSelectorProperty(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           selectorName,
     String           propertyName
     )
@@ -296,7 +296,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Returns the short version of the specified style class.
    */
   public static Object getShortStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           styleClass
     )
   {
@@ -361,7 +361,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Returns the mapping of a css vertical-align to a valign attribute value.
    */
   public static String mapVerticalAlignToVAlign(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           verticalAlign
     )
   {
@@ -380,7 +380,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Closes any tags started by startRenderingStyleElements
    */
   public static void endRenderingStyleElements(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     Stack[] styleInfo = _getStyleInfo(context);
@@ -426,7 +426,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * as elements
    */
   public static void startRenderingStyleElements(
-    RenderingContext context,
+    UIXRenderingContext context,
     Style            inlineStyle,
     Style            classStyle
     ) throws IOException
@@ -660,7 +660,7 @@ public class XhtmlLafUtils extends BaseLafUtils
 
 
   public static String createCompoundName(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     Object           keyValues
     )
@@ -670,7 +670,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   }
 
   public static String createCompoundName(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     Object           keyValues,
     Object           keyExchanges
@@ -779,7 +779,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   }
 
   public static void addOnSubmitRequiredValidator(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           requiredMessageKey,
     Object           nodeName
@@ -836,7 +836,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * if needed).
    */
   public static void addLib(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           libKey
     ) throws IOException
   {
@@ -850,7 +850,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Write out a script element importing a library.
    */
   public static void writeLibImport(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           libURL) throws IOException
   {
     XhtmlUtils.writeLibImport(context.getFacesContext(),
@@ -862,7 +862,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Returns the partial targets associated with the specified node
    */
   public static String[] getPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -874,7 +874,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * including the specified ID.
    */
   public static String[] getPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           id
     )
@@ -922,7 +922,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Returns true if the agent supports transparent images.
    */
   public static boolean supportsTransparentImages(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     AdfFacesAgent agent = context.getAgent();
@@ -958,7 +958,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Renders the specified Icon with the provided attributes.
    */
   public static void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Icon             icon,
     Object           shortDesc,
     Object           align
@@ -971,7 +971,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Renders the specified Icon with the provided attributes.
    */
   public static void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Icon             icon,
     Object           shortDesc,
     Object           align,
@@ -987,7 +987,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Returns the valign vAlign value for aligning image icons
    * vertically with text on the same line.
    */
-  public static Object getMiddleIconAlignment(RenderingContext context)
+  public static Object getMiddleIconAlignment(UIXRenderingContext context)
   {
     // =-= AEW I haven't been able to find an image alignment
     // that works well for all browsers.  "absmiddle" looks
@@ -1025,7 +1025,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * currently scoped form.
    */
   public static Object getFormEncodedValue(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           transName,
     Object           value)
   {
@@ -1053,7 +1053,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   /**
    *  Return true if readOnly attribute exists and set to true
    */
-  public static boolean isReadOnly(RenderingContext context, UINode node)
+  public static boolean isReadOnly(UIXRenderingContext context, UINode node)
   {
     Object readOnly = node.getAttributeValue(context, READ_ONLY_ATTR);
     return Boolean.TRUE.equals(readOnly);
@@ -1186,7 +1186,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * which provides access to the current RenderingContext.
    */
   static void __pushCurrentRenderingContext(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     assert (context != null);
@@ -1218,7 +1218,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * by popping the current RenderingContext off of the stack.
    */
   static void __popCurrentRenderingContext(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     Stack stack = (Stack)context.getProperty(MARLIN_NAMESPACE,
@@ -1234,8 +1234,8 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Retrieves the current RenderingContext as specified
    * by the last call to __pushCurrentRenderingContext().
    */
-  static RenderingContext __getCurrentRenderingContext(
-    RenderingContext context
+  static UIXRenderingContext __getCurrentRenderingContext(
+    UIXRenderingContext context
     )
   {
     Stack stack = (Stack)context.getProperty(MARLIN_NAMESPACE,
@@ -1244,7 +1244,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     if ((stack == null) || (stack.empty()))
       return null;
 
-    return (RenderingContext)stack.peek();
+    return (UIXRenderingContext)stack.peek();
   }
 
 
@@ -1365,7 +1365,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * necessary.
    */
   private static Stack[] _getStyleInfo(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     XhtmlLafUtils.StyleInfo styleInfo = (StyleInfo)

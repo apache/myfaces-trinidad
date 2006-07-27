@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -61,7 +61,7 @@ public class PageLayoutRenderer extends UINodeRenderer
 
 
   protected UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -612,7 +612,7 @@ public class PageLayoutRenderer extends UINodeRenderer
       _elseObj = ifNotValue;
     }
 
-    public Object getValue(RenderingContext context)
+    public Object getValue(UIXRenderingContext context)
     {
       if (context.getAgent().getAgentApplication() ==
           AdfFacesAgent.APPLICATION_NETSCAPE)
@@ -651,7 +651,7 @@ public class PageLayoutRenderer extends UINodeRenderer
     }
 
     public Object walkNode(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           previousValue,
       Path             path)
@@ -669,7 +669,7 @@ public class PageLayoutRenderer extends UINodeRenderer
 
 
     public boolean walkChildren(
-      RenderingContext context,
+      UIXRenderingContext context,
       UINode           node,
       Object           value,
       Path             path)
@@ -681,7 +681,7 @@ public class PageLayoutRenderer extends UINodeRenderer
     }
 
     public Object getValue(
-      RenderingContext context
+      UIXRenderingContext context
       )
     {
       UINode child = (UINode)_rootBoundValue.getValue( context );

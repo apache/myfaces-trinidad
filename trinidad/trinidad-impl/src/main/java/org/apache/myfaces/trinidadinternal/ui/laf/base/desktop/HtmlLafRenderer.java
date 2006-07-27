@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
@@ -46,7 +46,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * Returns true if the current user agent is a Netscape user agent.
    */
   public static boolean isNetscape(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (context.getAgent().getAgentApplication() ==
@@ -57,7 +57,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * Returns true if the current user agent is a Safari user agent.
    */
   public static boolean isSafari(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (context.getAgent().getAgentApplication() ==
@@ -69,7 +69,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * Returns true if the current user agent is a Gecko user agent.
    */
   public static boolean isGecko(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (context.getAgent().getAgentApplication() ==
@@ -80,7 +80,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * Returns true if the current user agent is an Internet Explorer user agent.
    */
   public static boolean isIE(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (context.getAgent().getAgentApplication() ==
@@ -91,7 +91,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * Renders a transparent gif using a script to save space.
    */
   protected void renderTransparent(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           width,
     String           height,
     boolean          needsQuoting
@@ -102,7 +102,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
   
 
   protected void renderRepeatingImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           backgroundImageURL
     ) throws IOException
   {
@@ -111,7 +111,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
   
 
   protected void renderRepeatingImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           backgroundImageURL,
     Object           height
     ) throws IOException
@@ -142,7 +142,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
 
 
   protected void renderRepeatingImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           backgroundImageURL,
     Object           height,
     String           contentImageURL,
@@ -185,7 +185,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
    * for trim, so the alt="".
    */
   protected void renderTableDataIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Icon             icon,
     String           styleClass
     ) throws IOException
@@ -215,7 +215,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
   }
 
   protected static void writeCacheImageURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           attribute,
     String           uri) throws IOException
   {

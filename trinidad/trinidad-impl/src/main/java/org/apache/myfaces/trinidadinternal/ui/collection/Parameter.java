@@ -16,7 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 /**
@@ -109,14 +109,14 @@ public class Parameter implements Cloneable
   /**
    * Gets the value, resolving any data binding.
    */
-  public String getValue(RenderingContext context)
+  public String getValue(UIXRenderingContext context)
   {
     return _getString(context, _valueBinding, _value);
   }
 
   // Convert a BoundValue into a string
   static private String _getString(
-    RenderingContext context,
+    UIXRenderingContext context,
     BoundValue value,
     String     s)
   {

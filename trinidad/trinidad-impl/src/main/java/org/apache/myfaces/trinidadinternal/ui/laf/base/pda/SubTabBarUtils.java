@@ -15,7 +15,7 @@
 */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**
@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 public class SubTabBarUtils implements UIConstants
 {
   public static Object getSelectedIndex(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return context.getProperty( MARLIN_NAMESPACE,
@@ -31,7 +31,7 @@ public class SubTabBarUtils implements UIConstants
   }
   
   public static void setSelectedIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object selectedIndex)
   {
     context.setProperty( MARLIN_NAMESPACE,

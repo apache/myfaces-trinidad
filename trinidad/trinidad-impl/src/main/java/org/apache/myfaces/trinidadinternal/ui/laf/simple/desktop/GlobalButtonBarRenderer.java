@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -53,7 +53,7 @@ public class GlobalButtonBarRenderer
    * renders the separator Icon.
    */
   protected void renderBetweenNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -78,7 +78,7 @@ public class GlobalButtonBarRenderer
 
   // Returns the separator Icon to render between global buttons
   private static Icon _getSeparatorIcon(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // First, check to see if the Icon has been stored

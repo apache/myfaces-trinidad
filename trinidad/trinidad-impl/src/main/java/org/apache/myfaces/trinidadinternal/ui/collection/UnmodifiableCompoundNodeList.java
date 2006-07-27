@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -36,7 +36,7 @@ public class UnmodifiableCompoundNodeList implements UINodeList
   }
   
   public int size(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     int total = 0;
@@ -52,7 +52,7 @@ public class UnmodifiableCompoundNodeList implements UINodeList
   
   
   public UINode getUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              index
     )
   {

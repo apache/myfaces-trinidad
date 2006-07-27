@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 abstract public class FormInputRenderer extends FormElementRenderer
 {
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -43,7 +43,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -61,7 +61,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -75,7 +75,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
 /**
@@ -49,7 +49,7 @@ public class CoreShowOneChoiceRenderer extends ShowOneListRendererBase
                                    UIComponent component)
     throws IOException
   {
-    RenderingContext rCtx = getRenderingContext(context, component);
+    UIXRenderingContext rCtx = getRenderingContext(context, component);
     String formName = RenderUtils.getFormId(context, component);
 
     boolean jsRendered =
@@ -114,7 +114,7 @@ public class CoreShowOneChoiceRenderer extends ShowOneListRendererBase
     throws IOException
   {
     // This renders the select controls alongwith javascript onchange handler.
-    RenderingContext rCtx =
+    UIXRenderingContext rCtx =
       getRenderingContext(context, component);
 
     String compId = component.getClientId(context);
@@ -169,7 +169,7 @@ public class CoreShowOneChoiceRenderer extends ShowOneListRendererBase
   {
     String compId = component.getClientId(context);
     ResponseWriter out = context.getResponseWriter();
-    RenderingContext rCtx = getRenderingContext(context, component);
+    UIXRenderingContext rCtx = getRenderingContext(context, component);
 
     out.startElement("td", component);
     out.writeAttribute("valign", "top", null);
@@ -246,7 +246,7 @@ public class CoreShowOneChoiceRenderer extends ShowOneListRendererBase
    *  for this case else returns a script where PPR is not required.
    */
   private String _getChoiceOnchangeJS(FacesContext context,
-                                      RenderingContext rCtx,
+                                      UIXRenderingContext rCtx,
                                       UIComponent component,
                                       String compId)
   {

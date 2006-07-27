@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Scores a LAF based on the Laf name and the agent information.
@@ -54,7 +54,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
    * based on the required name and Agent information.
    */
   public Score scoreLookAndFeel(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     String lafName
     )
   {
@@ -88,7 +88,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
    * @deprecated Subclassers should override scoreLookAndFeel() instead.
    */
   public int score(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           lafName
     )
   {

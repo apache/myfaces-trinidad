@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
 import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 public class SubmitButtonRenderer extends ResetButtonRenderer
 {
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -69,7 +69,7 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
    * Returns the Object storing the name value pairs
    */
   public static String[] getNameValues(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -176,7 +176,7 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
    * of the SubmitButton
    */
   public static String createJSFunctionCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           formName
     )
@@ -228,7 +228,7 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
    * Returns the Javascript function call to return for this button.
    */
   protected String getFunctionCall(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           formName
     )

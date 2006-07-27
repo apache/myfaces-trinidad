@@ -22,7 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -43,7 +43,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
    * Implementation of ElementRenderer.getName();
    */
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -54,7 +54,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
    * Returns the sideBar's style class: OraSideBar
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -65,7 +65,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
    * Override of BaseRenderer.renderAttributes().
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -83,7 +83,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
    * Override of BaseRenderer.prerender()
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -112,7 +112,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
    * Override of BaseRenderer.postrender()
    */
   protected final void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -140,7 +140,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
 
   // Start the table row with the contents
   private void _startContentsRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     IconData         icons,
     int              columnCount
@@ -293,7 +293,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
 
   // Renders the filter named child
   private void _renderFilterChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -393,7 +393,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
 
   // Get the IconData to use for rendering this sideBar
   private IconData _getIconData(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // Check to see whether we have already created

@@ -20,7 +20,7 @@ import java.util.List;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.action.FirePartialAction;
 import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -64,7 +64,7 @@ public class FireActionBoundValue implements BoundValue
     _part = part;
   }
 
-  public Object getValue(RenderingContext context)
+  public Object getValue(UIXRenderingContext context)
   {
     FacesContext fContext = (context == null) ?
       FacesContext.getCurrentInstance() : context.getFacesContext();

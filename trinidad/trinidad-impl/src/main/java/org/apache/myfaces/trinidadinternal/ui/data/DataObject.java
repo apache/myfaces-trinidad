@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The DataObject interface provides an extremely simple API for
@@ -37,6 +37,6 @@ public interface DataObject
    * @param context the current rendering context
    * @param select a select criterion, syntax as defined by the data object
    */
-  public Object selectValue(RenderingContext context, Object select);
+  public Object selectValue(UIXRenderingContext context, Object select);
 }
 

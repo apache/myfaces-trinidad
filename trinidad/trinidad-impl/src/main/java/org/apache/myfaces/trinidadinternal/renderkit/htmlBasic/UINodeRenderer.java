@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.PreAndPostRenderer;
 
@@ -45,7 +45,7 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
   {
     if (!getRendersChildren())
     {
-      RenderingContext rContext = getRenderingContext(context, component);
+      UIXRenderingContext rContext = getRenderingContext(context, component);
       UINode node = createUINode(context, component);
       Renderer renderer = _getRenderer(rContext, node);
       assert(renderer instanceof PreAndPostRenderer);
@@ -63,7 +63,7 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
                         UIComponent component)
     throws IOException
   {
-    RenderingContext rContext = getRenderingContext(context, component);
+    UIXRenderingContext rContext = getRenderingContext(context, component);
     if (getRendersChildren())
     {
       createUINode(context, component).render(rContext);
@@ -82,7 +82,7 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
     FacesContext context,
     UIComponent  component);
 
-  protected RenderingContext getRenderingContext(
+  protected UIXRenderingContext getRenderingContext(
     FacesContext context,
     UIComponent  component) throws IOException
   {
@@ -109,7 +109,7 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
     return true;
   }
 
-  private Renderer _getRenderer(RenderingContext rContext, UINode node)
+  private Renderer _getRenderer(UIXRenderingContext rContext, UINode node)
   {
     return rContext.getRendererManager().getRenderer(node);
   }

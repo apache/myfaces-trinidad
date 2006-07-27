@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.composite;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
@@ -46,10 +46,10 @@ public class RootBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
-    RenderingContext parentContext = context.getParentContext();
+    UIXRenderingContext parentContext = context.getParentContext();
     
     if (parentContext != null)
     {

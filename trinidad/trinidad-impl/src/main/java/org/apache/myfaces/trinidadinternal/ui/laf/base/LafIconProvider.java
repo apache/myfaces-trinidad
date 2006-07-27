@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
@@ -33,7 +33,7 @@ public abstract class LafIconProvider
    * Returns the URI to the icon indentified by the icon key
    */
   public abstract String getIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey
     );
 
@@ -41,7 +41,7 @@ public abstract class LafIconProvider
    * Returns the URI to the image cache
    */
   public static String getCacheImageURI(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // See if we've cached off the URI

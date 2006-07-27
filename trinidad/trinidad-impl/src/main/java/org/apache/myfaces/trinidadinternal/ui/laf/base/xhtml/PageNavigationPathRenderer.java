@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -32,7 +32,7 @@ public class PageNavigationPathRenderer extends BreadCrumbsRenderer
 
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context, 
+    UIXRenderingContext context, 
     UINode           node
   )
   {    
@@ -41,7 +41,7 @@ public class PageNavigationPathRenderer extends BreadCrumbsRenderer
   }
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

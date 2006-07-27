@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -53,7 +53,7 @@ public class ContentContainerRenderer
    * renderContent().
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -85,7 +85,7 @@ public class ContentContainerRenderer
    * value.
    */
   protected Object getBackground(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -98,7 +98,7 @@ public class ContentContainerRenderer
 
   // Get the IconData to use for rendering this contentContainer
   private IconData _getIconData(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -201,7 +201,7 @@ public class ContentContainerRenderer
 
   // Renders the header row
   private void _renderHeaderRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     IconData         icons,
     Object           text,
@@ -280,7 +280,7 @@ public class ContentContainerRenderer
   // Writes out the height attribute for header table cells which
   // contain the header start/end icons.
   private void _writeHeaderIconCellHeight(
-    RenderingContext context,
+    UIXRenderingContext context,
     Icon             icon
     ) throws IOException
   {
@@ -301,7 +301,7 @@ public class ContentContainerRenderer
   }
 
   private void _renderContents(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     IconData         icons,
     Object           text,
@@ -324,7 +324,7 @@ public class ContentContainerRenderer
 
   // Render the table row with the contents
   private void _renderContentsRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     FacesContext     fContext,
     AdfRenderingContext arc,
     UINode           node,
@@ -558,7 +558,7 @@ public class ContentContainerRenderer
   // Tests whether the browser requires a height to be specified
   // in order for a stretched image to show up
   private static boolean _requiresStretchedImageHeight(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // IE does not display stretched images unless the containing table
@@ -569,7 +569,7 @@ public class ContentContainerRenderer
 
   // Gets the Map for stetched icons, and sets alt attribute to "".
   private static Map _getStretchedIconAttrs(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     AdfFacesAgent agent = context.getAgent();

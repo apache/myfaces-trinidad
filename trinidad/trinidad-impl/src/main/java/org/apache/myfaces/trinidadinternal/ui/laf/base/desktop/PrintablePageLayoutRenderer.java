@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -37,7 +37,7 @@ public class PrintablePageLayoutRenderer extends UINodeRenderer
                   implements UIConstants
 {
   protected UINode getRenderingUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

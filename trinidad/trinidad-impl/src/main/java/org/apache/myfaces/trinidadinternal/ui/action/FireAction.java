@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.ui.action;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
@@ -97,7 +97,7 @@ public class FireAction extends ClientAction
    * Implementation of ClientAction.getScript().
    */
   public String getScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      Boolean returnVal)
   {
@@ -118,7 +118,7 @@ public class FireAction extends ClientAction
    * Override of ClientAction.writeDependencies().
    */
   public void writeDependencies(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -172,7 +172,7 @@ public class FireAction extends ClientAction
   }
 
   protected String getSubmitScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      String returnScript)
   {
@@ -225,7 +225,7 @@ public class FireAction extends ClientAction
   }
 
   protected String getChangeScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      String returnScript)
   {
@@ -234,7 +234,7 @@ public class FireAction extends ClientAction
   }
 
   protected String getChangeScript
-    (RenderingContext context,
+    (UIXRenderingContext context,
      UINode node,
      String returnScript,
      String startScript,
@@ -307,7 +307,7 @@ public class FireAction extends ClientAction
   }
 
   public Parameter[] getParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // Get the encoded names for our event parameters
@@ -386,7 +386,7 @@ public class FireAction extends ClientAction
    * Override of ClientAction.renderAsEvent().
    */
   public boolean renderAsEvent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // If this action is formSubmitted, we have to render on an event handler.
@@ -489,13 +489,13 @@ public class FireAction extends ClientAction
   }
 
   // Gets the event value
-  protected String getEventValue(RenderingContext context)
+  protected String getEventValue(UIXRenderingContext context)
   {
     return (String) ActionUtils.getValue(context, _eventBinding, getEvent());
   }
 
   // Gets the unvalidated value
-  protected boolean isUnvalidated(RenderingContext context)
+  protected boolean isUnvalidated(UIXRenderingContext context)
   {
     Boolean unvalidated = (Boolean) ActionUtils.getValue(context,
                                                          _unvalidatedBinding,
@@ -541,7 +541,7 @@ public class FireAction extends ClientAction
 
 
   protected static void appendClientParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     StringBuffer     buffer,
     Parameter[]      parameters
     )
@@ -560,7 +560,7 @@ public class FireAction extends ClientAction
    * Computes the buffer size for client-defined parameters
    */
   protected static int getClientParametersSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     Parameter[]      parameters
     )
   {
@@ -594,7 +594,7 @@ public class FireAction extends ClientAction
 
   // Computes the size of the buffer that is needed to build up the script
   protected static int getBufferSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     String  startScript,
     String  endScript,
     String  destination,
@@ -653,7 +653,7 @@ public class FireAction extends ClientAction
   }
 
   // Gets the destination attribute of the specified UINode
-  protected static String getDestination(RenderingContext context, UINode node)
+  protected static String getDestination(UIXRenderingContext context, UINode node)
   {
     Object destination = node.getAttributeValue(context,
                                                 UIConstants.DESTINATION_ATTR);
@@ -677,12 +677,12 @@ public class FireAction extends ClientAction
     return encoder.encodeParameter(UIConstants.SOURCE_PARAM);
   }
 
-  protected String getSource(RenderingContext context, UINode node)
+  protected String getSource(UIXRenderingContext context, UINode node)
   {
     return ActionUtils.getSource(context, node, _sourceBinding, _source);
   }
 
-  protected String getFormName(RenderingContext context, UINode node)
+  protected String getFormName(UIXRenderingContext context, UINode node)
   {
     String formName = null;
 

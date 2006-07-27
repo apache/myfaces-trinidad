@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
 public class ImageRenderer extends XhtmlLafRenderer
 {
   protected void renderID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -43,7 +43,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected Object getSource(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -52,7 +52,7 @@ public class ImageRenderer extends XhtmlLafRenderer
 
 
   protected Object getLongDesc(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -61,7 +61,7 @@ public class ImageRenderer extends XhtmlLafRenderer
 
 
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -73,7 +73,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * Returns the destination to use for the ImageRenderer.
    */
   protected Object getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -98,7 +98,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -135,7 +135,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected Object getOnFocus(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -144,7 +144,7 @@ public class ImageRenderer extends XhtmlLafRenderer
 
 
   protected Object getDestinationAttr(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -152,7 +152,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -160,7 +160,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected final void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     ) throws IOException
   {
@@ -171,7 +171,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * Called to render the attributes of the <img> tag
    */
   protected void renderImageAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -188,7 +188,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   }
 
   protected void renderHAlign(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -217,7 +217,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * we render shortDesc as alt text on image. Do not render it as title
    * on the link.
    */
-  protected void renderShortDesc(RenderingContext context,
+  protected void renderShortDesc(UIXRenderingContext context,
                                  UINode node)
   {
   }
@@ -229,7 +229,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * can be a little expensive for subclasses like ButtonRenderer.
    */
   protected final void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -329,7 +329,7 @@ public class ImageRenderer extends XhtmlLafRenderer
   * otherwise don't render any image map attribute
   */
   private void _renderImageMap(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -346,7 +346,7 @@ public class ImageRenderer extends XhtmlLafRenderer
 
   // Get the source attribute from a local property
   private Object _getLocalSource(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 import java.util.Iterator;
 
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -31,15 +31,15 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public abstract class UINodeAttributeMap implements AttributeMap
 {
-  protected abstract UINode getUINode(RenderingContext context);
+  protected abstract UINode getUINode(UIXRenderingContext context);
 
-  protected RenderingContext getRenderingContext(RenderingContext context)
+  protected UIXRenderingContext getRenderingContext(UIXRenderingContext context)
   {
     return context;
   }
 
   public Object getAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     AttributeKey     key
     )
   {
@@ -72,7 +72,7 @@ public abstract class UINodeAttributeMap implements AttributeMap
   }
 
   public Iterator attributeKeys(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     UINode node = getUINode(context);

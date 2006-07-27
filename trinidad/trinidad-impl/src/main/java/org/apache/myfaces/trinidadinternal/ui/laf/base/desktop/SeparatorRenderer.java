@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class SeparatorRenderer extends HtmlLafRenderer
 {
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -43,7 +43,7 @@ public class SeparatorRenderer extends HtmlLafRenderer
   }
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   { 
@@ -52,7 +52,7 @@ public class SeparatorRenderer extends HtmlLafRenderer
 
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     // do nothing

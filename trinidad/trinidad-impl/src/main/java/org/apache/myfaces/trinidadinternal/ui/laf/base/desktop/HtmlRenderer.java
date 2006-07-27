@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -29,7 +29,7 @@ public class HtmlRenderer
    * Returns the name of the language attribute
    */
   protected String getLangAttrName(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     if (isXMLDocument(context))
       return super.getLangAttrName(context);

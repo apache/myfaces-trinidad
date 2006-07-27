@@ -87,7 +87,7 @@ public abstract class RenderedNodeRenderingContext extends
 
 
   public void pushRenderedChild(
-    RenderingContext currentContext,
+    UIXRenderingContext currentContext,
     UINode renderedChild
     )
   {
@@ -118,7 +118,7 @@ public abstract class RenderedNodeRenderingContext extends
   }
 
 
-  public void popRenderedChild(RenderingContext currentContext)
+  public void popRenderedChild(UIXRenderingContext currentContext)
   {
     // handle cleaning up any of the dataproviders
     super.popRenderedChild(currentContext);

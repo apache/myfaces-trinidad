@@ -23,7 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.html.HTMLWebBean;
@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 abstract public class FormElementRenderer extends XhtmlLafRenderer
 {
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -60,7 +60,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
     }
   }
 
-  protected void renderAsNonElement(RenderingContext context,
+  protected void renderAsNonElement(UIXRenderingContext context,
                                     UINode node)
     throws IOException
   {
@@ -77,12 +77,12 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected void renderAsNonElementContent(
-     RenderingContext context, UINode node) throws IOException
+     UIXRenderingContext context, UINode node) throws IOException
   {
     renderContent(context, node);
   }
 
-  protected void postrender(RenderingContext context, UINode node)
+  protected void postrender(UIXRenderingContext context, UINode node)
     throws IOException
   {
     super.postrender(context, node);
@@ -93,7 +93,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
       renderShortDescAsHiddenLabel(context, node, getID(context, node));
   }
 
-  protected boolean isHiddenLabelRequired(RenderingContext context, UINode node)
+  protected boolean isHiddenLabelRequired(UIXRenderingContext context, UINode node)
   {
     return true;
   }
@@ -102,7 +102,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * @param ID the id of the form control that needs the hidden label.
    */
   public static void renderShortDescAsHiddenLabel(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           id
     )
@@ -126,7 +126,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected Object getID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -159,7 +159,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected boolean needsUniqueID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // In "inaccessible" mode, we won't create a label for the "shortDesc";
@@ -178,7 +178,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * returning false, is that the UINode is read-only.
    */
   protected final boolean renderAsElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     // Cache the value of "renderAsElement", which is getting
@@ -203,14 +203,14 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected boolean renderReadOnlyAsElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return false;
   }
 
   protected Boolean getDisabled(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -220,7 +220,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected Boolean getReadOnly(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -233,7 +233,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected Object getOnBlur(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -241,7 +241,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   }
 
   protected Object getOnFocus(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -254,7 +254,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * are disabled or not.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -282,7 +282,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * @see #renderStyleAttrs
    */
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -303,7 +303,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
 
 
   protected Object getDefaultStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -312,7 +312,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
 
 
   protected Object getDefaultDisabledStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -323,7 +323,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   /**
    * Returns the value associated with the text attribute
    */
-  protected Object getText(RenderingContext context,  UINode  node)
+  protected Object getText(UIXRenderingContext context,  UINode  node)
   {
     return BaseLafUtils.getLocalTextAttribute(context, node, TEXT_ATTR);
   }
@@ -332,7 +332,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * Returns the name of the node, transformed for the given context
    */
   protected Object getTransformedName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

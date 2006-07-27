@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.composite;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.collection.UINodeAttributeMap;
@@ -42,12 +42,12 @@ public class RootAttributeMap extends UINodeAttributeMap
   }
   
   protected UINode getUINode(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     if (context != null)
     {
-      RenderingContext parentContext = context.getParentContext();
+      UIXRenderingContext parentContext = context.getParentContext();
       
       if (parentContext != null)
       {
@@ -58,7 +58,7 @@ public class RootAttributeMap extends UINodeAttributeMap
     return null;
   }
   
-  protected RenderingContext getRenderingContext(RenderingContext context)
+  protected UIXRenderingContext getRenderingContext(UIXRenderingContext context)
   {
     if (context == null)
       return null;

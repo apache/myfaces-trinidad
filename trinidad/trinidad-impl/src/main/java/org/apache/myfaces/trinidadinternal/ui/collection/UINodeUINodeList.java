@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -27,9 +27,9 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public abstract class UINodeUINodeList implements UINodeList
 {
-  protected abstract UINode getUINode(RenderingContext context);
+  protected abstract UINode getUINode(UIXRenderingContext context);
 
-  protected RenderingContext getRenderingContext(RenderingContext context)
+  protected UIXRenderingContext getRenderingContext(UIXRenderingContext context)
   {
     return context;
   }
@@ -50,7 +50,7 @@ public abstract class UINodeUINodeList implements UINodeList
   
 
   public int size(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     UINode node = getUINode(context);
@@ -68,7 +68,7 @@ public abstract class UINodeUINodeList implements UINodeList
   
   
   public UINode getUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              index
     )
   {

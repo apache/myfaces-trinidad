@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -27,7 +27,7 @@ public class TextInputRenderer
                         extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.TextInputRenderer
 {
   protected Object getOnFocus(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -50,7 +50,7 @@ public class TextInputRenderer
    * Returns true if the passed in columns should be shrunken when displaying
    */
   protected boolean shrinkColumns(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     AdfFacesAgent agent = context.getAgent();
@@ -66,7 +66,7 @@ public class TextInputRenderer
   }
 
   protected boolean renderReadOnlyAsElement(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return (super.renderReadOnlyAsElement(context, node) ||
@@ -74,7 +74,7 @@ public class TextInputRenderer
   }
 
   private boolean _shouldScriptReadOnly(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
     return  (isTextArea(context,node) &&

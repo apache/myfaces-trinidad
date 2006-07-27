@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
 
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * NameScoreProxyr delegates to another LookAndFeelScorer instance
@@ -58,7 +58,7 @@ public class NameOnlyScorer extends LookAndFeelScorer
    * the look and feel family name.
    */
   public Score scoreLookAndFeel(
-    RenderingContext context,
+    UIXRenderingContext context,
     String lafName
     )
   {

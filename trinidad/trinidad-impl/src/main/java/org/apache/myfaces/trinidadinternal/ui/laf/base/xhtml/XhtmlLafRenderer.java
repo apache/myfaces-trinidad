@@ -39,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -68,7 +68,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * of the current user agent
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -92,7 +92,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * on a module of XHTML that isn't supported by the current user agent.
    */
   public boolean isSupportedNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -105,7 +105,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @param expectedRole the role that must be satisfied
    * @return true iff the structural role of node satisfies the expectedRole.
    * */
-  public static boolean structureSatisfiesRole(RenderingContext context,
+  public static boolean structureSatisfiesRole(UIXRenderingContext context,
                                                UINode node,
                                                NodeRole expectedRole)
   {
@@ -121,7 +121,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns true if the agent supports partial rendering of content.
    */
   public static boolean supportsPartialRendering(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return PartialPageRendererUtils.supportsPartialRendering(context);
@@ -131,7 +131,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns true if the agent supports the <code>button</code> tag.
    */
   public static boolean supportsAdvancedButtons(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_ADVANCED_BUTTONS);
@@ -141,7 +141,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns true if the agent supports vertical alignment
    */
   public static boolean supportsVAlign(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_VALIGN);
@@ -151,7 +151,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns true if the agent supports wrapping
    */
   public static boolean supportsWrappingDisabled(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getBooleanAgentCapability(context, AdfFacesAgent.CAP_NOWRAP);
@@ -161,7 +161,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns true if the agent supports alt as a tooltip on images
    */
   public static boolean supportsAltRendersTooltipOnImage(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return getBooleanAgentCapability(context,
@@ -173,7 +173,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * style attributes
    */
   public static boolean renderStyleElements(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
 
@@ -186,7 +186,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Override to add support for rendering syle elements
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -217,7 +217,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Override to add support for rendering syle elements
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -234,7 +234,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     super.postrender(context, node);
   }
 
-  protected void renderShortDesc(RenderingContext context,
+  protected void renderShortDesc(UIXRenderingContext context,
                                  UINode node) throws IOException
   {
     // there is a certain amount of controversy about writing this attribute.
@@ -244,7 +244,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderAttributesExceptID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -266,7 +266,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -289,7 +289,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #getIDOrName
    * @see #getCachedIDOrName */
   protected final void renderNameAndID(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -311,7 +311,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   public static void renderScriptOnce(
-    RenderingContext context,
+    UIXRenderingContext context,
     String script,
     Object key
     ) throws IOException
@@ -343,7 +343,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * that this method has been previously called.
    * @return The first time this method is called with a specific context and
    * key, it returns false. On each subsequent call, it returns true.  */
-  public static boolean isPreviouslyRendered(RenderingContext context,
+  public static boolean isPreviouslyRendered(UIXRenderingContext context,
                                              Object key)
   {
     if (context.getProperty(MARLIN_NAMESPACE, key) == null)
@@ -366,7 +366,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #renderNameAndID
    * @see #getCachedIDOrName */
   protected final Object getIDOrName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -387,7 +387,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #getIDOrName
    */
   protected final Object getCachedIDOrName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -413,7 +413,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   /**
    * Returns the value associated with the text attribute
    */
-  protected Object getText(RenderingContext context,  UINode  node)
+  protected Object getText(UIXRenderingContext context,  UINode  node)
   {
     Object o = node.getAttributeValue(context, TEXT_ATTR);
 
@@ -428,7 +428,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns the StyleClass to use to render this node.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -440,7 +440,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns the inline Style used to render this node.
    */
   protected Object getInlineStyle(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -458,7 +458,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #renderStyleAttrs
    */
   protected boolean doRenderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -466,7 +466,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   public static void renderStyleAndClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           inlineStyle,
     Object           styleClass
     ) throws IOException
@@ -509,7 +509,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #supportsStyleAttributes
    */
   protected void renderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           defaultStyleClass
     ) throws IOException
@@ -547,7 +547,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see #supportsStyleAttributes
    */
   protected void renderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -559,7 +559,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the inline style attribute for the specified node
    */
   protected final void renderInlineStyleAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -570,7 +570,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the inline style attribute for the specified node
    */
   public static void renderInlineStyleAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object            inlineStyle
     ) throws IOException
   {
@@ -600,7 +600,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    *   other inline style is rendered.
    */
   public static void renderStyleClassAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           styleClass1,
     String           styleClass2,
     String           inlineStyleString
@@ -693,7 +693,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * If multiple selectors not supported, renders as inline style
    */
   public static void renderStyleClassAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object[]         styleClasses
     ) throws IOException
   {
@@ -711,7 +711,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    *   other inline style is rendered.
    */
   public static void renderStyleClassAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object[]         styleClasses,
     String           inlineStyleString
     ) throws IOException
@@ -789,7 +789,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * if one is available.
    */
   public static void renderStyleClassAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           styleClass
     ) throws IOException
   {
@@ -816,7 +816,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * if one is available.
    */
   private static void _renderStyleClassAttributeImpl(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           styleClass
     ) throws IOException
   {
@@ -836,7 +836,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @see XhtmlLafUtils#getShortStyleClass
    */
   public static void renderShortStyleClassAttribute(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           shortStyleClass
     ) throws IOException
   {
@@ -864,7 +864,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @param context the <code>RenderingContext</code>
    * @throws IOException
    */
-  public static void renderOnePixelLine(RenderingContext context) throws IOException {
+  public static void renderOnePixelLine(UIXRenderingContext context) throws IOException {
       final String style = "p_OraOnePixelLine";
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("div",null);
@@ -886,7 +886,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Note: ResponseWriter.startElement("script", null) must be called
    * before calling this method.
    */
-  public static void renderScriptDeferAttribute(RenderingContext context)
+  public static void renderScriptDeferAttribute(UIXRenderingContext context)
     throws IOException
   {
     // At the moment we only render the defer attribute if
@@ -916,7 +916,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * [ =-= mll added 20-Apr-04 to address bug 3426092 ]
    *
    */
-  public static void renderScriptTypeAttribute(RenderingContext context)
+  public static void renderScriptTypeAttribute(UIXRenderingContext context)
     throws IOException
   {
     if (isScreenReaderMode(context))
@@ -931,7 +931,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * as elements
    */
   protected final void startRenderingStyleElements(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -946,7 +946,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * as elements
    */
   protected final void startRenderingStyleElements(
-    RenderingContext context,
+    UIXRenderingContext context,
     Style            inlineStyle,
     Object           className
     ) throws IOException
@@ -962,7 +962,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders event handlers for the node.
    */
   protected void renderEventHandlers(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -986,7 +986,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -994,7 +994,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnDoubleClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1002,7 +1002,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnKeyDown(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1010,7 +1010,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnKeyPress(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1018,7 +1018,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnKeyUp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1026,7 +1026,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnMouseDown(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1034,7 +1034,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnMouseUp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1042,7 +1042,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnMouseOver(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1050,7 +1050,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnMouseMove(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1058,7 +1058,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected Object getOnMouseOut(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1066,7 +1066,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected void renderSpacer(
-    RenderingContext      context,
+    UIXRenderingContext      context,
     Object                width,
     Object                height,
     Object                id
@@ -1080,7 +1080,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderSpacer(
-    RenderingContext      context,
+    UIXRenderingContext      context,
     Object                width,
     Object                height
     ) throws IOException
@@ -1089,7 +1089,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected void renderSpacer(
-    RenderingContext context,
+    UIXRenderingContext context,
     Integer          width,
     Integer          height
     ) throws IOException
@@ -1107,7 +1107,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderSpacer(
-    RenderingContext context,
+    UIXRenderingContext context,
     int              width,
     int              height
     ) throws IOException
@@ -1130,7 +1130,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @param width
    * @throws IOException
    */
-  protected void renderHorizontalSpacer(RenderingContext context, String width)
+  protected void renderHorizontalSpacer(UIXRenderingContext context, String width)
       throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -1139,7 +1139,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     writer.endElement("b");
   }
 
-  protected void renderVerticalSpacer(RenderingContext context, Object height)
+  protected void renderVerticalSpacer(UIXRenderingContext context, Object height)
       throws IOException
   {
     if (height != null)
@@ -1155,7 +1155,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders a transparent gif using a script to save space.
    */
   protected void renderTransparent(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           width,
     String           height,
     boolean          needsQuoting
@@ -1168,7 +1168,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders a transparent gif using a script to save space.
    */
   protected void renderTransparent(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           width,
     String           height,
     boolean          needsQuoting,
@@ -1200,7 +1200,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * then an html IMG tag will be used.
    */
   private void _renderTransparent(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           width,
     String           height,
     boolean          needsQuoting,
@@ -1320,7 +1320,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * the Configuration to form an absolute path.
    */
   protected void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           iconURL,
     Object           width,
     Object           height
@@ -1335,7 +1335,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * the Configuration to form an absolute path.
    */
   protected void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           iconURL,
     Object           width,
     Object           height,
@@ -1351,7 +1351,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * the Configuration to form an absolute path.
    */
   protected final void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           iconURL,
     Object           width,
     Object           height,
@@ -1388,7 +1388,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           iconURL,
     int              width,
     int              height
@@ -1406,7 +1406,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
  * @param isBlock wether the icon should be rendered in block mode
    */
   protected void renderIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           iconAbsoluteURI,
     String           altTextKey,
     Object           destination,
@@ -1472,7 +1472,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     }
   }
 
-  protected void renderIcon(RenderingContext context, Object iconURL,
+  protected void renderIcon(UIXRenderingContext context, Object iconURL,
       Object width, Object height, boolean isBlock) throws IOException
   {
     String fulluri = getBaseImageURI(context) + iconURL.toString();
@@ -1482,7 +1482,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderStretchedImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           imageURL,
     int              height
     ) throws IOException
@@ -1492,7 +1492,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   public static void writeAbsoluteImageURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           attribute,
     String           uri) throws IOException
   {
@@ -1508,7 +1508,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected static void renderHAlign(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           hAlign) throws IOException
   {
     if (hAlign != null)
@@ -1534,7 +1534,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected void renderHAlign(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -1546,7 +1546,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the text with the access key highlighted as appropriate.
    */
   protected void renderAccessKeyText(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           textValue,
     int              keyIndex,
     String           highlightElement
@@ -1594,7 +1594,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the text with the access key highlighted as appropriate.
    */
   protected void renderAccessKeyText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           textValue,
     String           highlightElement
@@ -1617,7 +1617,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * property on first call, and retrieve from cache on subsequent calls.
    */
   protected int getResolvedSelectedIndexFromCache(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -1644,7 +1644,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    */
 
   public int getResolvedSelectedIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node )
   {
     //
@@ -1699,7 +1699,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns the index of the access key in the specified node's text.
    */
   protected static int getAccessKeyIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           textValue
     )
@@ -1740,7 +1740,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected static void renderLayoutTableAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           cellspacing,
     Object           tableWidth
     ) throws IOException
@@ -1750,7 +1750,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
 
 
   protected static void renderLayoutTableAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           cellpadding,
     Object           cellspacing,
     Object           tableWidth
@@ -1765,7 +1765,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * (which silences OAC) is rendered
    */
   protected static void renderLayoutTableAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           cellpadding,
     Object           cellspacing,
     Object           border,
@@ -1781,7 +1781,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * out
    */
   protected static void renderLayoutTableAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           cellpadding,
     Object           cellspacing,
     Object           border,
@@ -1802,7 +1802,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected static void renderLayoutTableHeader(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           cellspacing,
     Object           tableWidth
     ) throws IOException
@@ -1817,7 +1817,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   * Otherwise it renders both the alt and the title attributes.
   */
   public static void renderAltAndTooltipForImage(
-     RenderingContext context,
+     UIXRenderingContext context,
      Object           textValue
      ) throws IOException
   {
@@ -1858,7 +1858,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   final protected void renderPossiblyFormattedText(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           textValue
     ) throws IOException
   {
@@ -1872,7 +1872,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   final protected void renderFormattedText(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           textValue) throws IOException
   {
     if (textValue != null)
@@ -1890,7 +1890,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @param blockTitleKey The resource key for this blocks title
    */
   protected final void renderRelatedLinksBlockStart(
-    RenderingContext context,
+    UIXRenderingContext context,
     String blockTitleKey
     ) throws IOException
   {
@@ -1920,7 +1920,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * happen.
    */
   protected final void renderRelatedLinksBlockEnd(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     if (isScreenReaderMode(context))
@@ -1936,7 +1936,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected FormattedTextParser getFormattedTextParser(
-    RenderingContext context)
+    UIXRenderingContext context)
   {
     return XhtmlFormattedText.getFormattedTextParser();
   }
@@ -1946,7 +1946,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the node text using the relevant style information.
    */
   final protected void renderStyledText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -1957,7 +1957,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Renders the node text using the relevant style information.
    */
   protected void renderStyledText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          renderAccessKeys,
     boolean          renderID
@@ -2032,7 +2032,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected void addOnSubmitConverterValidators(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           requiredMessageKey
   )throws IOException
@@ -2082,7 +2082,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   }
 
   protected void addOnSubmitRequiredValidator(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           requiredMessageKey
   )throws IOException
@@ -2109,7 +2109,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns an image from the ImageProvider
    */
   public static String getFlippedIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           source
     )
   {
@@ -2129,7 +2129,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   * Get the URI of an image that might need to be flipped
   */
   protected Object getFlippableURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     AttributeKey    attrKey
     )
@@ -2161,7 +2161,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Returns an image from the ImageProvider
    */
   public static ImageProviderResponse getFlippedIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           sourceURI
     )
   {
@@ -2196,7 +2196,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   // Returns the style class, first looking for a local style class
   // property.
   private Object _getLocalStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -2235,7 +2235,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * @param altText Translated alt text value (ScreenReaders' speak this out)
    */
   private static void _renderSkipNavigationLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     String skipNavigationAnchor,
     String altText
     ) throws IOException

@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.ui.path.Path;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/RenderingContext.java#0 $) $Date: 10-nov-2005.18:50:20 $
  * @author The Oracle ADF Faces Team
  */
-public interface RenderingContext extends Cloneable
+public interface UIXRenderingContext extends Cloneable
 {
   /**
    * This property is used to retrieve the file system path
@@ -258,7 +258,7 @@ public interface RenderingContext extends Cloneable
    * @see #getRenderedAncestorNodeCount
    */
   public void pushRenderedChild(
-    RenderingContext currentContext,
+    UIXRenderingContext currentContext,
     UINode renderedChild
     );
 
@@ -277,7 +277,7 @@ public interface RenderingContext extends Cloneable
    * @see #getRenderedAncestorNode
    * @see #getRenderedAncestorNodeCount
    */
-  public void popRenderedChild(RenderingContext currentContext);
+  public void popRenderedChild(UIXRenderingContext currentContext);
 
 
   /**
@@ -402,7 +402,7 @@ public interface RenderingContext extends Cloneable
    * Typically, only composite UINode implementors ever need to call this
    * method.
    */
-  public RenderingContext getParentContext();
+  public UIXRenderingContext getParentContext();
 
 
   public PartialPageContext getPartialPageContext();
@@ -412,7 +412,7 @@ public interface RenderingContext extends Cloneable
    * function</em> unless you are yourself a RenderingContext.
    */
   public DataObject getDataObject(
-    RenderingContext outerContext,
+    UIXRenderingContext outerContext,
     String namespaceURI,
     String name);
 

@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -39,7 +39,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Implementation of ElementRenderer.getName();
    */
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -50,7 +50,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Override of BaseRenderer.renderAttributes().
    */
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -68,7 +68,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Returns the style class for the content container
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -115,7 +115,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * the contentContainer's chrome around the child contents.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -132,7 +132,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Gets the contentContainer's header text.
    */
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -145,7 +145,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Gets the contentContainer's background value
    */
   protected Object getBackground(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -156,7 +156,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
    * Hook for subclasses to render child contents
    */
   protected void renderChildContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -165,7 +165,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
 
   // Renders the header row
   private void _renderHeaderRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     Object           text
     ) throws IOException
@@ -202,7 +202,7 @@ public class ContentContainerRenderer extends HtmlLafRenderer
   // Renders the table row which contains the
   // contentContainer's child contents.
   private void _renderContentRow(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

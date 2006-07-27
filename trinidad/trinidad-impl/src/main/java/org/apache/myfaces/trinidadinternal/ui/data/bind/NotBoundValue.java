@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data.bind;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
@@ -46,7 +46,7 @@ public class NotBoundValue implements BoundValue
   }
 
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {    
     if (Boolean.TRUE.equals(_value.getValue(context)))

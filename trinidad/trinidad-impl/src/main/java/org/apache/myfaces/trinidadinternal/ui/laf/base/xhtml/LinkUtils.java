@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreAdfRenderingContext;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
@@ -60,12 +60,12 @@ public final class LinkUtils implements UIConstants
    * 4. Then reset the selection status to the initial status calling
    *    setSelected(RenderingContext,initial-status)
    * </pre>
-   * @see #setSelected(RenderingContext,boolean)
+   * @see #setSelected(UIXRenderingContext,boolean)
    * @param context The rendering context
    * @return true if selected else false
    */
   public static boolean isSelected(
-    RenderingContext context
+    UIXRenderingContext context
   )
   {
     return Boolean.TRUE.equals(
@@ -79,10 +79,10 @@ public final class LinkUtils implements UIConstants
    * initial status and reset it back to that initial status.
    * @param context The rendering context
    * @param selected selected status of the link.
-   * @see #isSelected(RenderingContext)
+   * @see #isSelected(UIXRenderingContext)
    */
   public static void setSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          selected
   )
   {
@@ -101,7 +101,7 @@ public final class LinkUtils implements UIConstants
    * Important: Each call to startDefaultStyleClassDisabled()
    * must be followed by a matching call to endDefaultStyleClassDisabled().
    */
-  public static void startDefaultStyleClassDisabled(RenderingContext context)
+  public static void startDefaultStyleClassDisabled(UIXRenderingContext context)
   {   
     AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
     ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(true);
@@ -111,7 +111,7 @@ public final class LinkUtils implements UIConstants
    * Called by link containers that have called
    * startDefaultStyleClassDisabled().
    */
-  public static void endDefaultStyleClassDisabled(RenderingContext context)
+  public static void endDefaultStyleClassDisabled(UIXRenderingContext context)
   {
     AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
     ((CoreAdfRenderingContext) arc).setDefaultLinkStyleDisabled(false);
@@ -121,7 +121,7 @@ public final class LinkUtils implements UIConstants
    * Called by base.desktop.LinkRenderer to detect whether default
    * style class rendering is currently disabled.
    */
-  public static boolean isDefaultStyleClassDisabled(RenderingContext context)
+  public static boolean isDefaultStyleClassDisabled(UIXRenderingContext context)
   {
     AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
     return ((CoreAdfRenderingContext) arc).isDefaultLinkStyleDisabled();

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.uinode;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 class ValueBindingBoundValue implements BoundValue
@@ -34,7 +34,7 @@ class ValueBindingBoundValue implements BoundValue
   /**
    * @todo Better way to retrieve FacesContext
    */
-  public Object getValue(RenderingContext rContext)
+  public Object getValue(UIXRenderingContext rContext)
   {
     FacesContext fContext = FacesContext.getCurrentInstance();
     return _binding.getValue(fContext);

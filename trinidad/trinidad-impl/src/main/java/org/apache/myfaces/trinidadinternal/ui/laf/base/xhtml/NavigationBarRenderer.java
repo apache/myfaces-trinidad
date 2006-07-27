@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.TextNode;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
@@ -54,7 +54,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 {
 
   protected MutableUINode createSingleItemURLButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     Object           buttonText,
     Object           buttonAccessKey,
@@ -72,7 +72,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
 
   protected MutableUINode createSingleItemSubmitButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     Object           buttonText,
     Object           buttonAccessKey,
@@ -95,7 +95,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   //         decide how to create anonymous children for UINodes that
   //         can persist across renderings.
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     URLEncoder encoder = context.getURLEncoder();
@@ -147,7 +147,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -156,7 +156,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -170,7 +170,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // render a single-step navigator
   private void _renderSingleItemNavigator(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           navBar,
     String           eventKey,
     String           sourceKey,
@@ -615,7 +615,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
 
   private String _getChoiceOnChangeFormSubmitted(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           form,
     String           eventKey,
@@ -673,7 +673,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // render a multi-item navigator
   private void _renderMultiItemNavigator(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode navBar,
     int    blockSize,
     String eventKey,
@@ -1131,7 +1131,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Returns the destination, defaulting if none is provided
    */
   private static String _getDestinationString(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1159,7 +1159,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Returns the name of the String, defaulting if none is provided
    */
   private String _getNameString(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -1181,7 +1181,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   // Note: This public method is called by TrainRenderer.java. The train
   // uses the javascript submission code rendered here to do validation
   public static void renderHiddenFields(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     boolean          isMulti,
     String           eventKey,
@@ -1250,7 +1250,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // create the anonymous node displayed between the links
   private UINode _createRangeNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode navBar,
     String destination,
     String name,
@@ -1416,7 +1416,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * submit
    */
   protected boolean requiresForm(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return true;
@@ -1427,7 +1427,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * create each of the choice options and add them onto the choiceBean.
    * @return the number of options added
    */
-  private int _addNavigationOptions(RenderingContext context,
+  private int _addNavigationOptions(UIXRenderingContext context,
                                     UINode navBar,
                                     MarlinBean choice,
                                     boolean isForm,
@@ -1573,7 +1573,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   private UINode _createShowAllOption(
-    RenderingContext context,
+    UIXRenderingContext context,
     long             maxValue,
     boolean          atShowAll)
   {
@@ -1594,7 +1594,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // create a choice option when max value is known
   private MarlinBean _createNavigationOption(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           navBar,
     boolean          isForm,
     long             blockStart,
@@ -1649,7 +1649,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Returns true if disabled navigation items should be shown
    */
   protected boolean disabledNavigationShown(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return true;
@@ -1661,7 +1661,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * multi item submit navbar
    */
   private String _getMultiSubmitButtonText(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     int              size
     )
@@ -1700,7 +1700,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Creates the submit button bean
    */
   public static UINode createSubmitButton(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object           buttonText,
     Object           buttonAccessKey,
     String           buttonID,
@@ -1737,7 +1737,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // create one of the text links for navigation
   private UINode _createTextLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           navBar,
     boolean          isBack,
     String           destination,
@@ -1781,7 +1781,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   protected String getIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     boolean          isEnabled
   )
@@ -1824,7 +1824,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // create the arrow image used in multi-item navigation
   private UINode _createArrowImage(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     String           destination,
     String           onClick
@@ -1886,7 +1886,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * in a table navigation bar.
    */
   protected String getBlockString(
-    RenderingContext context,
+    UIXRenderingContext context,
     boolean          isBack,
     int              numRecords
     )
@@ -1918,7 +1918,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // get the string for the current range
   private String _getRangeString(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     long   start,
     int    visibleItemCount,
@@ -2033,7 +2033,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   // Note: UINode is not guaranteed to be a navBar node.
   // e.g., it could be a train node.
   public static String getSingleDestinationURL(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node,
     String eventKey,
     String sourceKey,
@@ -2055,7 +2055,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   // Note: UINode is not guaranteed to be a navBar node.
   // e.g., it could be a train node.
   public static String getSingleDestinationSubmit(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode  node,
     String  form,
     String  name,
@@ -2079,7 +2079,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   // Note: UINode is not guaranteed to be a navBar node.
   // e.g., it could be a train node.
   public static String getSingleDestinationSubmit(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode  node,
     String  form,
     String  eventKey,
@@ -2135,7 +2135,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   private String _getMultiDestinationSubmit(
-    RenderingContext context,
+    UIXRenderingContext context,
     String  form,
     String  eventKey,
     String  sourceKey,
@@ -2361,7 +2361,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // don't render as a table in certain locations like a page button bar
   private boolean _renderAsTable(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
@@ -2373,7 +2373,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   // Utility method which tests whether the nav bar should validate
   // prior to navigating
   private static boolean _doValidate(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           navBar
     )
   {
@@ -2386,7 +2386,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Writes the separator between two elements
    */
   protected void renderItemSpacer(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     char[] chars = new char[1];
@@ -2399,7 +2399,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * Writes the separator between two elements
    */
   private void _renderSpacerCell(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -2415,7 +2415,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
    * subID.
    */
   private void _renderStartTableCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     boolean          renderAsTable,
@@ -2435,7 +2435,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // Gets the encoded partial targets for the specified node
   private static String _getPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -2450,7 +2450,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   }
 
   private String _getIDForFocus(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           navBar
     )
   {

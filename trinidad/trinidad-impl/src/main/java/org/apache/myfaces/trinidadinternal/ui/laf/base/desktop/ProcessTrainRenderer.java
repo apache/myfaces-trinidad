@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ProcessUtils;
@@ -42,7 +42,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
 {
 
   protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -51,7 +51,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -60,7 +60,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -74,7 +74,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
 
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -87,7 +87,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
    * component style class
    */
   protected void renderStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   ) throws IOException
   {
@@ -95,7 +95,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   }
 
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -107,7 +107,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
    * elements.  The second pass is the text elements.
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -142,7 +142,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   }
 
   protected void renderHiddenFields(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     TrainState       state
   )throws IOException
@@ -174,7 +174,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
    * @return
    */
   protected TrainState getTrainState(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -261,7 +261,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * Get the subTrain attribute from the node and return it.
   */
   private boolean _isSubTrain(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node)
   {
     UIXHierarchy component = getHierarchyBase(context, node);
@@ -276,7 +276,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * Returns true if READ_ONLY_ATTR is set to Boolean.TRUE
   */
   private static boolean _isReadOnly(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -289,7 +289,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * @todo =-=jmw Hopefully the controller will tell us this someday.
   */
   protected static Object _getMaxVisited(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -301,7 +301,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * Get the maxVisited attribute from the node and return it.
   */
   private int _getMaxVisitedIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node)
   {
     int maxVisitedIndex = NO_CHILD_INDEX;
@@ -322,7 +322,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
    *
    */
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component,
     UINode           stamp,
@@ -447,7 +447,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
    *
    */
   protected void renderLink(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp,
     ResponseWriter   writer,
     ProcessTrainRenderer.TrainState train,
@@ -564,7 +564,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * return the string to use for the text of the station
   * it is the text of the link or "Previous" or "More"
   */
-  protected String getTextForStation(RenderingContext context,
+  protected String getTextForStation(UIXRenderingContext context,
                                     ProcessTrainRenderer.StationState station,
                                     Object textObj)
   {
@@ -604,7 +604,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * it is the text of the link or "Previous" or "More"
   */
   protected static String getIDForStation(
-    RenderingContext context,
+    UIXRenderingContext context,
     ProcessTrainRenderer.StationState station,
     Object idValue)
   {
@@ -617,7 +617,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
     return null;
   }
 
-  private String _getDisabledUserText(RenderingContext context,
+  private String _getDisabledUserText(UIXRenderingContext context,
                                       ProcessTrainRenderer.StationState station,
                                       String textString)
   {
@@ -639,7 +639,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   }
 
   protected String getAltText(
-    RenderingContext context,
+    UIXRenderingContext context,
     ProcessTrainRenderer.StationState station,
     String textString)
   {
@@ -659,7 +659,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * Returns the max number of links to show
   */
   protected int getMaxLinks(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -670,7 +670,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   * Initialize the station state
   */
   protected void initializeStationState(
-    RenderingContext context,
+    UIXRenderingContext context,
     ProcessTrainRenderer.TrainState train,
     ProcessTrainRenderer.StationState station,
     int              currVisChildIndex,
@@ -779,7 +779,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   } //end StationState
 
   private void _renderSubTrainRow(
-    RenderingContext         context,
+    UIXRenderingContext         context,
     ProcessTrainRenderer.TrainState train,
     int                      length,
     ResponseWriter           writer
@@ -805,7 +805,7 @@ public class ProcessTrainRenderer extends HtmlLafRenderer
   }
 
   private void _renderSubTrainCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           style,
     ResponseWriter   writer
     ) throws IOException

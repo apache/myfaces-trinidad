@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
 import org.apache.myfaces.trinidadinternal.ui.laf.Score;
@@ -59,7 +59,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
    * Returns true if the agent supports partial rendering of content.
    */
   public static boolean supportsPartialRendering(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return HtmlLafRenderer.supportsPartialRendering(context);
@@ -82,7 +82,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
     }
 
     public Score scoreLookAndFeel(
-      RenderingContext context,
+      UIXRenderingContext context,
       String           lafName
       )
     {

@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleMap;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.ColorizedLafIconProvider;
@@ -92,7 +92,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
    * Returns an image from the ImageProvider
    */
   public ImageProviderResponse getColorizedIcon(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey iconKey
     )
   {
@@ -134,7 +134,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
   // Returns the request object for the icon at the specified index
   private ImageProviderRequest _getIconRequest(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey iconKey
     )
   {
@@ -215,7 +215,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
   // Gets the Core color to use as the background color when
   // colorizing blue icons.
-  private static Color _getCoreColor(RenderingContext context)
+  private static Color _getCoreColor(UIXRenderingContext context)
   {
     return _getColor(context,
                      BGCOLOR_DARK_STYLE_CLASS,
@@ -225,7 +225,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
   // Gets the Accent color to use as the background color when
   // colorizing tan icons.
-  private static Color _getAccentColor(RenderingContext context)
+  private static Color _getAccentColor(UIXRenderingContext context)
   {
     return _getColor(context,
                      BGACCENT_DARK_STYLE_CLASS,
@@ -240,7 +240,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
    * Ocelot StyleMap using the specified style class name.
    */
   private static Color _getColor(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           styleClass,
     Object           key,
     Color            defaultColor
@@ -286,7 +286,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
   // Return the surrounding color to use for the icon at
   // the specified index
   private Color _getSurroundingColor(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey iconKey
     )
   {

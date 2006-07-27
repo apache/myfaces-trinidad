@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.path;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -39,7 +39,7 @@ public interface Path extends Cloneable
    * @param depth the number of steps in the path to follow
    */
   public UINode followPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           from,
     int              start,
     int              depth);
@@ -51,7 +51,7 @@ public interface Path extends Cloneable
    * cannot be followed.
    * @param from the node to start from
    */
-  public UINode followPath(RenderingContext context, UINode from);
+  public UINode followPath(UIXRenderingContext context, UINode from);
   
 
   /**

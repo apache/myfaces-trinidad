@@ -16,7 +16,7 @@
 
 package org.apache.myfaces.trinidadinternal.ui.action;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -35,7 +35,7 @@ public class ClientActionUtils
    * Gets the ClientAction associated with this UINode if there is one.
    */
   public static ClientAction getPrimaryClientAction(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -44,7 +44,7 @@ public class ClientActionUtils
   }
 
   public static String appendURLParameters(
-    RenderingContext context,
+    UIXRenderingContext context,
     String       base,
     Parameter[]  params
     )

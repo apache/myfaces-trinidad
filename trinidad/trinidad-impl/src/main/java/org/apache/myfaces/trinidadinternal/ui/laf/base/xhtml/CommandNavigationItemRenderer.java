@@ -15,14 +15,14 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 public class CommandNavigationItemRenderer extends AliasRenderer
 {
   protected String getLocalName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node)
   {
 
@@ -40,7 +40,7 @@ public class CommandNavigationItemRenderer extends AliasRenderer
   }
 
   public static final void setNavigationItemRendererType(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object type
     )
   {
@@ -50,7 +50,7 @@ public class CommandNavigationItemRenderer extends AliasRenderer
   }
 
   public static final Object getNavigationItemRendererType(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return context.getProperty(UIConstants.MARLIN_NAMESPACE,

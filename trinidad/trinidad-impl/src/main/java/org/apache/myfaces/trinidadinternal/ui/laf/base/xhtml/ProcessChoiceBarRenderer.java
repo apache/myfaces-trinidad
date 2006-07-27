@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -46,7 +46,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 {
 
  protected UIXHierarchy getHierarchyBase(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )
   {
@@ -55,7 +55,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
 
   protected UINode getStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -64,7 +64,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
 
   protected boolean setNewPath(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UIXHierarchy    component
   )
@@ -77,7 +77,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -105,7 +105,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
 
   protected void selectItemsRenderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -117,7 +117,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -152,7 +152,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * @param node the current UINode
    */
   protected void renderPreChoice(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -415,7 +415,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -432,7 +432,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
   }
 
   protected void renderPostChoice(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -467,7 +467,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
   }
 
   protected Object getOnChange(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {
@@ -532,7 +532,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * Returns true if disabled navigation items should be shown
    */
   protected boolean disabledNavigationShown(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return true;
@@ -540,7 +540,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   // don't render as a table in certain locations like a page button bar
   private boolean _renderAsTable(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
@@ -556,7 +556,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * Writes the separator between two elements
    */
   protected void renderItemSpacer(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     char[] chars = new char[NBSP_CHAR];
@@ -568,7 +568,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * Writes the separator between two elements
    */
   private void _renderSpacerCell(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -586,7 +586,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * the pieces are one UINode. See bug 2222541.
    */
   private void _renderStartTableCell(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     ResponseWriter   writer,
     boolean          renderAsTable,
@@ -606,7 +606,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   // Gets the encoded partial targets for the specified node
   private static String _getPartialTargets(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -621,7 +621,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
   }
 
   private String _getIDForFocus(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -665,7 +665,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * render form value needed values and javascript code.
    */
   private void _renderHiddenFields(
-    RenderingContext context,
+    UIXRenderingContext context,
     String           formName,
     String           eventKey,
     String           sourceKey,

@@ -57,7 +57,7 @@ public class BaseRenderer implements Renderer
    * @param context the rendering context
    * @param node the node under consideration
    */
-  public static boolean skipNode(RenderingContext context, UINode node)
+  public static boolean skipNode(UIXRenderingContext context, UINode node)
   {
     Object render = node.getAttributeValue(context, UIConstants.RENDERED_ATTR);
     return Boolean.FALSE.equals(render);
@@ -70,7 +70,7 @@ public class BaseRenderer implements Renderer
    * @param node the current UINode
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -104,7 +104,7 @@ public class BaseRenderer implements Renderer
 
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -158,7 +158,7 @@ public class BaseRenderer implements Renderer
    * @see #getNextRenderedChildIndex
    */
   protected final UINode getNextRenderedChildNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parentNode,
     int              afterChildIndex
     )
@@ -187,7 +187,7 @@ public class BaseRenderer implements Renderer
    * @see #getNextRenderedChildNode
    */
   protected int getNextRenderedChildIndex(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           parentNode,
     int              afterChildIndex
     )
@@ -221,7 +221,7 @@ public class BaseRenderer implements Renderer
    * @see #renderChild
    */
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
     int              prevVisChildIndex,
@@ -242,7 +242,7 @@ public class BaseRenderer implements Renderer
    * @param node the current UINode
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -257,7 +257,7 @@ public class BaseRenderer implements Renderer
    * @param node the current UINode
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -270,7 +270,7 @@ public class BaseRenderer implements Renderer
    * @param node the current UINode
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -283,7 +283,7 @@ public class BaseRenderer implements Renderer
    * @param index the index of the next child to be rendered
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              nextIndex
     ) throws IOException
@@ -306,7 +306,7 @@ public class BaseRenderer implements Renderer
    * @see #getVisibleIndexedChildCount
    */
   protected boolean skipChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           child
     )
@@ -323,7 +323,7 @@ public class BaseRenderer implements Renderer
    * @see #renderChild
    */
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              childIndex
     ) throws IOException
@@ -354,7 +354,7 @@ public class BaseRenderer implements Renderer
    * @see #renderChild
    */
   protected final void renderNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           childName
     ) throws IOException
@@ -375,7 +375,7 @@ public class BaseRenderer implements Renderer
    * @see #renderChild
    */
   protected void renderNamedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     UINode           child,
     String           childName
@@ -413,7 +413,7 @@ public class BaseRenderer implements Renderer
    * @param child the child under consideration
    */
   protected void renderChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child
     ) throws IOException
   {
@@ -433,7 +433,7 @@ public class BaseRenderer implements Renderer
    * @see #skipChild
    */
   protected int getVisibleIndexedChildCount(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

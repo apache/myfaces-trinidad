@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -174,7 +174,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
       XhtmlRenderer.renderStyleClass(context, arc, styleClass);
     }
 
-    RenderingContext rCtx = getRenderingContext(context, component);
+    UIXRenderingContext rCtx = getRenderingContext(context, component);
     ShowOneUtils.renderGenericAttributes(rCtx, component, out);
 
     out.startElement("tr", component);
@@ -290,7 +290,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    * Returns true if the showOneChoice element has an id
    * and the browser supports PPR
    */
-  protected boolean elementSupportsPartial(RenderingContext context,
+  protected boolean elementSupportsPartial(UIXRenderingContext context,
                                            String           id)
   {
     return ((id != null) &&
@@ -304,7 +304,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *  Takes care of encoding for label text and the accessKey.
    *
    */
-  protected void renderSelectLabel(RenderingContext rCtx,
+  protected void renderSelectLabel(UIXRenderingContext rCtx,
                                    UIComponent component,
                                    ResponseWriter out,
                                    URLEncoder encoder,

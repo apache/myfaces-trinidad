@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelHeaderRenderer;
@@ -35,7 +35,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   * Sets the size of the header,
   */
   protected static void setPrevHeaderSize(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
 
@@ -44,7 +44,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
 
   }
   protected static Number getContextHeaderSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     Number           defaultValue
     )throws IOException
   {
@@ -57,7 +57,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
    * Set the size of the header stored on the context
    */
   protected static void setContextHeaderSize(
-    RenderingContext context,
+    UIXRenderingContext context,
     Number           size
     )throws IOException
   {
@@ -72,7 +72,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   * resets header size to value saved as local property
   */
   protected static void resetHeaderSize(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     setRenderingProperty( context,
@@ -88,7 +88,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
    * Returns the current depth of the nesting.
    */
   protected static int getHeaderNestLevel(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return ((Number)getRenderingProperty(context,
@@ -98,7 +98,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
 
 
   protected static void incrementHeaderNestLevel(
-    RenderingContext context
+    UIXRenderingContext context
     )throws IOException
   {
     setRenderingProperty( context,
@@ -107,7 +107,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   }
 
   protected static void decrementHeaderNestLevel(
-    RenderingContext context
+    UIXRenderingContext context
     )throws IOException
   {
     int headerNestLevel = getHeaderNestLevel(context);
@@ -125,7 +125,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   * Returns text of header
   */
   protected Object getText(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           messageType
     )
@@ -161,7 +161,7 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   * Returns the uri for icon.
   */
   protected Object getIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     String           messageType
     )

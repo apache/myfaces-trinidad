@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -40,7 +40,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   /**
    *
    */
-  protected void prerender(RenderingContext context, UINode node)
+  protected void prerender(UIXRenderingContext context, UINode node)
     throws IOException
   {
    // If we've got a ClientAction, let it write its dependencies
@@ -98,7 +98,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -110,7 +110,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
    * about _getPartialChangeScript if action is null
    */
   protected Object getOnClick(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -175,7 +175,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   }
 
   protected Object getDestination(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -204,7 +204,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   }
 
   protected final String getDestinationAttr(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -214,7 +214,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   }
 
   protected static boolean isSelected(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode node
     )
   {
@@ -225,7 +225,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   }
 
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {

@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.partial;
 
 import org.apache.myfaces.trinidadinternal.agent.AdfFacesAgent;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Utility methods for Renderers which support partial page rendering.
@@ -75,7 +75,7 @@ public class PartialPageRendererUtils
    * Returns true if we are performing a partial page render.
    */
   public static boolean isPartialRenderingPass(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     return (context.getPartialPageContext() != null);
@@ -94,7 +94,7 @@ public class PartialPageRendererUtils
    * (PPR is considered accessible, so we do not check the accessibility mode)
    */
   public static boolean supportsPartialRendering(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
 
@@ -108,7 +108,7 @@ public class PartialPageRendererUtils
   }
 
   public static boolean supportsBlocking(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
     // At the moment we have blocking solved on IE and Mozilla

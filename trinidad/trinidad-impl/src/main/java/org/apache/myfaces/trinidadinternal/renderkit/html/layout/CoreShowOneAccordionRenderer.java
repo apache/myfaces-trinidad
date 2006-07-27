@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 import org.apache.myfaces.trinidadinternal.renderkit.AdfRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HideShowUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
@@ -152,7 +152,7 @@ public class CoreShowOneAccordionRenderer extends UINodeRendererBase
     out.startElement("div", component);
     out.writeAttribute("id", compId, null);
 
-    RenderingContext rCtx = getRenderingContext(context, component);
+    UIXRenderingContext rCtx = getRenderingContext(context, component);
 
     String styleClass = (String) component.getAttributes().get("styleClass");
     AdfRenderingContext arc = AdfRenderingContext.getCurrentInstance();
@@ -449,7 +449,7 @@ public class CoreShowOneAccordionRenderer extends UINodeRendererBase
    * @param isImmediate the value of immediate attribute on child component
    */
   private String _getFormSubmitScript(UIComponent component,
-                                      RenderingContext rCtx,
+                                      UIXRenderingContext rCtx,
                                       String event,
                                       String detailItemId,
                                       String formName,

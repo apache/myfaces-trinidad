@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.data;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * The MutableDataObject interface provides an extremely simple API for
@@ -37,7 +37,7 @@ public interface MutableDataObject extends DataObject
    * @param select a select criterion, syntax as defined by the data object
    * @param value  the new value associated with this select criterion
    */
-  public void updateValue(RenderingContext context, 
+  public void updateValue(UIXRenderingContext context, 
                           Object select, 
                           Object value);
 }

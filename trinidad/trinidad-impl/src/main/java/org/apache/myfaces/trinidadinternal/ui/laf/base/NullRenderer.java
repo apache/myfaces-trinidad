@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
@@ -36,7 +36,7 @@ public class NullRenderer implements Renderer, PreAndPostRenderer
    * Render nothing.
    */
   public void render(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -44,14 +44,14 @@ public class NullRenderer implements Renderer, PreAndPostRenderer
   }
 
   public void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     // do nothing
   }
 
   public void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node) throws IOException
   {
     // do nothing

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.io.IOException;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -51,7 +51,7 @@ public class TabBarRenderer
 
 {
   protected void renderNode(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           child,
     boolean          selected,
     boolean          isFirst,
@@ -102,7 +102,7 @@ public class TabBarRenderer
    * for a background image
    */
   protected void renderTabStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          selected,
     boolean          disabled
@@ -125,7 +125,7 @@ public class TabBarRenderer
    * renderBetweenNodes().
    */
   protected void renderBetweenNodes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -135,7 +135,7 @@ public class TabBarRenderer
 
 
   // Retrieve the Icons used by this globalHeader
-  private static IconData _getIconData(RenderingContext context)
+  private static IconData _getIconData(UIXRenderingContext context)
   {
     // First check for a local property
     IconData icons = (IconData)context.getLocalProperty(0, _ICONS_KEY, null);
@@ -169,7 +169,7 @@ public class TabBarRenderer
   }
 
   // Create the IconData for the specified Skin
-  private static IconData _createIconData(RenderingContext context)
+  private static IconData _createIconData(UIXRenderingContext context)
   {
     Icon enabledStart = context.getIcon(
                                     AF_MENU_TABS_ENABLED_START_ICON_NAME);

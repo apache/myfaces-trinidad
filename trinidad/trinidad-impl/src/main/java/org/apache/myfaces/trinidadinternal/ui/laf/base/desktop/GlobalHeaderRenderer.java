@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidadinternal.style.Style;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
@@ -44,7 +44,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 public class GlobalHeaderRenderer extends HtmlLafRenderer
 {
   protected String getElementName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -52,7 +52,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   }
 
   protected void renderAttributes(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )throws IOException
   {
@@ -66,7 +66,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    *
    */
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -97,7 +97,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   }
 
   protected void renderContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -142,7 +142,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    *
    */
   protected void postrender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
     throws IOException
@@ -163,7 +163,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   }
   
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index
     )throws IOException
@@ -188,7 +188,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   }  
 
     protected void renderStamp(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           stamp,
     boolean          selected
     )throws IOException
@@ -214,7 +214,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * renders the separator Icon.
    */
   protected void renderBetweenIndexedChildren(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
@@ -226,7 +226,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * renders the separator Icon.
    */
   protected void renderBetweenNodes(
-    RenderingContext context
+    UIXRenderingContext context
     ) throws IOException
   {
     // Get the separator icon and render it in a table cell
@@ -240,7 +240,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * to OraGlobalHeader.
    */
   protected Object getStyleClass(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -251,7 +251,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * Renders the style attributes for global header items
    */
   protected void renderItemStyleAttrs(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              index,
     boolean          selected
@@ -270,7 +270,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   /**
    * Returns the separator Icon
    */
-  protected Icon getSeparatorIcon(RenderingContext context)
+  protected Icon getSeparatorIcon(UIXRenderingContext context)
   {
     return (Icon)context.getLocalProperty(0, _SEPARATOR_ICON_KEY, null);
   }
@@ -280,7 +280,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * indexed children).
    */
   protected boolean isEmpty(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -301,7 +301,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * Renders the empty global header
    */
   protected void renderEmptyGlobalHeader(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {

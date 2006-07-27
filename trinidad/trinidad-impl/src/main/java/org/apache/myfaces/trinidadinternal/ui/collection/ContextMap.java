@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.collection;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Map-like object for storing context-based information.  Since the
@@ -44,7 +44,7 @@ public interface ContextMap
    *         no value is found.
    * @throws IllegalArgumentException if the key is null
    */
-  public Object get(RenderingContext context, Object key);
+  public Object get(UIXRenderingContext context, Object key);
 
   /**
    * Stores the <code>value</code> in the map, under the <code>key</code>.
@@ -66,9 +66,9 @@ public interface ContextMap
    * The entire contents of the ContextMap can
    * be retrieved by calling <code>ContextMap.get</code> for each of the keys
    * in the enumeration.
-   * @param RenderingContext context Context used to determine the set of
+   * @param UIXRenderingContext context Context used to determine the set of
    *                                 keys.
    * @return The Iterator of keys in the RenderingContext
    */
-  public Iterator keys(RenderingContext context);
+  public Iterator keys(UIXRenderingContext context);
 }

@@ -19,7 +19,7 @@ import java.util.Hashtable;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -88,10 +88,10 @@ public class RootChildBoundValue implements BoundValue
    * @param context the rendering context
    */
   public Object getValue(
-    RenderingContext context
+    UIXRenderingContext context
     )
   {
-    RenderingContext parentContext = context.getParentContext();
+    UIXRenderingContext parentContext = context.getParentContext();
 
     if (parentContext != null)
     {

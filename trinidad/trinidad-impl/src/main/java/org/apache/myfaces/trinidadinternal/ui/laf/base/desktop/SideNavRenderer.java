@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -35,7 +35,7 @@ public class SideNavRenderer extends SideBarRenderer
 {
 
   protected void prerender(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
   )throws IOException
   {
@@ -50,7 +50,7 @@ public class SideNavRenderer extends SideBarRenderer
 
 
   protected void renderIndexedChild(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     int              childIndex
   )throws IOException

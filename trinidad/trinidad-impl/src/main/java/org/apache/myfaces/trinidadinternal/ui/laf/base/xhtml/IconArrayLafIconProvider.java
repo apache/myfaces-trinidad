@@ -23,7 +23,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * Abstracts out the retrieval of ImageProviderResponses for
@@ -139,7 +139,7 @@ public final class IconArrayLafIconProvider extends AccentedLafIconProvider
    * Returns the URI to the icon indentified by the icon key
    */
   public String getIconURI(
-    RenderingContext context,
+    UIXRenderingContext context,
     IconKey          iconKey
     )
   {

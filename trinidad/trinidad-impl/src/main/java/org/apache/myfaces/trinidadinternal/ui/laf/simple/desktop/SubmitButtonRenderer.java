@@ -22,7 +22,7 @@ import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
@@ -38,7 +38,7 @@ public class SubmitButtonRenderer
    * Tests whether the button should be rendered as an image.
    */
   protected boolean doRenderImageContent(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node
     )
   {
@@ -56,7 +56,7 @@ public class SubmitButtonRenderer
    * button image.
    */ 
   protected ImageProviderRequest createImageProviderRequest(
-    RenderingContext context,
+    UIXRenderingContext context,
     Object       name,
     Object       text,
     Color        foreground,
@@ -92,7 +92,7 @@ public class SubmitButtonRenderer
    * button text.
    */
   protected String getServerStyleName(
-    RenderingContext context,
+    UIXRenderingContext context,
     UINode           node,
     boolean          disabled
     )

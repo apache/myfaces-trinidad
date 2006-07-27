@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.collection;
 
-import org.apache.myfaces.trinidadinternal.ui.RenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
@@ -198,7 +198,7 @@ public class DataObjectListNodeList extends UINodeListProxy
    * Returns the size of the DataObjectListNodeList;  returns
    * (number of contained nodes) * (size of the DataObjectList).
    */
-  public int size(RenderingContext context)
+  public int size(UIXRenderingContext context)
   {
     DataObjectList dol = getDataObjectList(context);
     if (dol == null)
@@ -208,7 +208,7 @@ public class DataObjectListNodeList extends UINodeListProxy
 
 
   public UINode getUINode(
-    RenderingContext context,
+    UIXRenderingContext context,
     int index
     )
   {
@@ -262,7 +262,7 @@ public class DataObjectListNodeList extends UINodeListProxy
   /**
    * Returns the DataObjectList to be used.
    */
-  protected DataObjectList getDataObjectList(RenderingContext context)
+  protected DataObjectList getDataObjectList(UIXRenderingContext context)
   {
     if (_boundData != null)
     {
@@ -298,7 +298,7 @@ public class DataObjectListNodeList extends UINodeListProxy
     }
   }
 
-  protected UINodeList getUINodeList(RenderingContext context)
+  protected UINodeList getUINodeList(UIXRenderingContext context)
   {
     return _baseNodes;
   }
