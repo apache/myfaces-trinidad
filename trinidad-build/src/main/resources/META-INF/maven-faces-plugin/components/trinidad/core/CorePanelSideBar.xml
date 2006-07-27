@@ -22,7 +22,7 @@
   <component>
     <description><![CDATA[The panelSideBar control renders a side navigation bar.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/panelSideBar.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelSideBar.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelSideBar</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelSideBar</component-class>

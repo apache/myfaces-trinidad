@@ -24,7 +24,7 @@
           a button for picking colors from a palette.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/selectInputColor.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectInputColor.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectInputColor</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor</component-class>

@@ -22,7 +22,7 @@
   <component>
     <description><![CDATA[The outputDocument component supports styled text with line breaks.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/outputText.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/outputText.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreOutputDocument</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.output.CoreOutputDocument</component-class>

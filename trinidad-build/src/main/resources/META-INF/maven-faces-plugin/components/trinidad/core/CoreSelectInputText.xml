@@ -24,7 +24,7 @@
 launching a dialog to assist users in entering a value.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/selectInputText.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectInputText.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreSelectInputText</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreSelectInputText</component-class>

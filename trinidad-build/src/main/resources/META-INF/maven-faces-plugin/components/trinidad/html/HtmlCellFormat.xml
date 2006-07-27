@@ -23,7 +23,7 @@
           rowLayout component.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/cellFormat.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/cellFormat.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlCellFormat</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlCellFormat</component-class>

@@ -23,7 +23,7 @@
   <component>
     <description><![CDATA[Signifies an element that represents a process and binds to a menuModel.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/process.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/process.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Process</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXProcess</component-class>

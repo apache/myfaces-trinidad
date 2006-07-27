@@ -24,7 +24,7 @@
 to another location instead of delivering an action.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/goButton.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/goButton.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreGoButton</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.nav.CoreGoButton</component-class>

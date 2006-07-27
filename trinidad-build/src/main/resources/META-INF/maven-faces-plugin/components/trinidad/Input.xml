@@ -23,7 +23,7 @@
   <component>
     <description><![CDATA[UIXInput is a base class for all ADF Faces input components.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/input.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/input.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Input</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXInput</component-class>

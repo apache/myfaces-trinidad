@@ -25,7 +25,7 @@
           This is automatically included for you if you use the ADF head tag.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/styleSheet.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/styleSheet.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreStyleSheet</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.CoreStyleSheet</component-class>

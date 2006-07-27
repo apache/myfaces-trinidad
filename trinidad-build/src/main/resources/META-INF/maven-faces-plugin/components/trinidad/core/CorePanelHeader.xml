@@ -25,7 +25,7 @@
       <![CDATA[The panelHeader control places a label and optional icon at the top of a section.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/panelHeader.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelHeader.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelHeader</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader</component-class>

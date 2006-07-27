@@ -25,7 +25,7 @@
           to the user.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/inputHidden.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/inputHidden.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreInputHidden</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.input.CoreInputHidden</component-class>

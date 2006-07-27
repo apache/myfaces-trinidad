@@ -24,7 +24,7 @@
           element.  It contains a series of row layout elements.</html>]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/tableLayout.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/tableLayout.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.HtmlTableLayout</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlTableLayout</component-class>

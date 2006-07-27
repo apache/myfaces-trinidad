@@ -24,7 +24,7 @@
     <description><![CDATA[The ADF TreeTable is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseTreeTable.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseTreeTable.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.TreeTable</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXTreeTable</component-class>

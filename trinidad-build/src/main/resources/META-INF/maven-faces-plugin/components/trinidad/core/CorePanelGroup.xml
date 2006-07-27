@@ -21,7 +21,7 @@
   <component>
     <description><![CDATA[A panel component that displays its children in a group.]]></description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/panelGroup.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelGroup.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CorePanelGroup</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CorePanelGroup</component-class>

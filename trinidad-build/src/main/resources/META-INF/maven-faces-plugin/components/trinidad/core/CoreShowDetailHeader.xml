@@ -26,7 +26,7 @@
 between being disclosed(shown) or undisclosed(hidden).]]>
     </description>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/showDetailHeader.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showDetailHeader.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.CoreShowDetailHeader</component-type>
     <component-class>org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailHeader</component-class>

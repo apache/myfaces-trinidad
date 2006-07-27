@@ -22,7 +22,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <icon>
-      <small-icon>/oracle/adfdtinternal/view/rich/metadata/icons/baseSubform.png</small-icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseSubform.png</small-icon>
     </icon>
     <component-type>org.apache.myfaces.trinidad.Subform</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXSubform</component-class>
