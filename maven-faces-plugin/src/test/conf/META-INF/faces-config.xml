@@ -2,11 +2,11 @@
     <view-handler>org.apache.myfaces.trinidadinternal.application.ViewHandlerImpl</view-handler>
     <state-manager>org.apache.myfaces.trinidadinternal.application.StateManagerImpl</state-manager>
     <navigation-handler>org.apache.myfaces.trinidadinternal.application.NavigationHandlerImpl</navigation-handler>
-    <variable-resolver>org.apache.myfaces.trinidadinternal.el.AdfFacesVariableResolver</variable-resolver>
+    <variable-resolver>org.apache.myfaces.trinidadinternal.el.TrinidadVariableResolver</variable-resolver>
   </application>
 
   <lifecycle>
-    <phase-listener>org.apache.myfaces.trinidadinternal.context.AdfFacesPhaseListener</phase-listener>
+    <phase-listener>org.apache.myfaces.trinidadinternal.context.TrinidadFacesPhaseListener</phase-listener>
   </lifecycle>
 
   <converter>
@@ -147,14 +147,14 @@
   </converter>
   
   <referenced-bean>
-    <description>implicit object provided by ADF Faces</description>
+    <description>implicit object provided by Trinidad</description>
     <display-name>Request Context</display-name>
-    <referenced-bean-name>adfFacesContext</referenced-bean-name>
+    <referenced-bean-name>requestContext</referenced-bean-name>
     <referenced-bean-class>org.apache.myfaces.trinidad.context.RequestContext</referenced-bean-class>
   </referenced-bean>
 
   <referenced-bean>
-    <description>ADF Faces Process Scope Map</description>
+    <description>Trinidad Process Scope Map</description>
     <display-name>Process Scope</display-name>
     <referenced-bean-name>processScope</referenced-bean-name>
     <referenced-bean-class>java.util.Map</referenced-bean-class>
