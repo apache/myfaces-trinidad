@@ -16,33 +16,33 @@
 -->
 <document>
  <properties>
-  <title>af:region</title>
+  <title>tr:region</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:region&gt;
+   <b>Tag name:</b> &lt;tr:region&gt;
    <br/>
-   <b>UIComponent class:</b> <a href="../apidocs/oracle/adf/view/rich/component/UIXRegion.html">org.apache.myfaces.adf.component.UIXRegion</a>
+   <b>UIComponent class:</b> <a href="../apidocs/oracle/adf/view/rich/component/UIXRegion.html">org.apache.myfaces.trinidad.component.UIXRegion</a>
    <br/>
-   <b>Component type:</b> org.apache.myfaces.adf.Region
+   <b>Component type:</b> org.apache.myfaces.trinidad.Region
    <br/>
 
           This component inserts a region (defined by a separate page
-          that starts with &lt;af:regionDef&gt;)
+          that starts with &lt;tr:regionDef&gt;)
           into the current page. The "id" attribute is required on this
           component, which implements NamingContainer.  A region may have
           a value, custom attributes, or both.  The value will be
           made available to the region definition using the "binding"
           EL attribute.  Custom attributes, defined with
-          &lt;f:attribute&gt; or &lt;af:attribute&gt;, will also
+          &lt;f:attribute&gt; or &lt;tr:attribute&gt;, will also
           be made available to the region definition - see the
-          &lt;af:regionDef&gt; tag documentation for more information.
+          &lt;tr:regionDef&gt; tag documentation for more information.
         <h4>Example:</h4><source>
- &lt;af:region regionType="org.apache.myfaces.adfdemo.region.stock" &gt;
+ &lt;tr:region regionType="org.apache.myfaces.trinidaddemo.region.stock" &gt;
    &lt;f:attribute name="symbol" value="ORCL"/&gt;
    &lt;f:attribute name="desc" value="Oracle Corp"/&gt;
- &lt;/af:region&gt;</source>
+ &lt;/tr:region&gt;</source>
  </p>
  </section>
  <section name="Attributes">
@@ -63,7 +63,7 @@ a method reference to an attribute change listener</td>
 
 which region definition to use. This should match a 
 &lt;component-type> string in a region metadata file.
-An example might look like "org.apache.myfaces.adfdemo.region.stock".
+An example might look like "org.apache.myfaces.trinidaddemo.region.stock".
 This attribute can be bound to an EL expression or manually
 set, which will change the region definition used the next
 time the page renders.
@@ -88,7 +88,7 @@ time the page renders.
 <th>Description</th>
 </tr>
 <tr>
-<td>binding</td><td>org.apache.myfaces.adf.component.<wbr/>UIXRegion</td><td>Only EL</td><td>
+<td>binding</td><td>org.apache.myfaces.trinidad.component.<wbr/>UIXRegion</td><td>Only EL</td><td>
 
           a binding reference to store the component instance
         </td>

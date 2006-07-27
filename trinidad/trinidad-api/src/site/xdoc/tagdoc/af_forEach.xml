@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:forEach</title>
+  <title>tr:forEach</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:forEach&gt;
+   <b>Tag name:</b> &lt;tr:forEach&gt;
    <br/>
 <p>
         The forEach tag is a replacement for the JSTL
@@ -35,32 +35,32 @@ This tag also has several limitations not found in &lt;c:forEach&gt;:
 
 <ul>
 
-<li>&lt;af:forEach&gt; does not currently support scenarios where the
+<li>&lt;tr:forEach&gt; does not currently support scenarios where the
 size of the "items" list or array changes from one request to the
 next. It may be possible to work around this in specific scenarios by
 manually deleting all children of the parent component
-(&lt;af:selectOneListbox&gt; in the above example), but this has not
+(&lt;tr:selectOneListbox&gt; in the above example), but this has not
 yet been tested.</li>
 
-<li>&lt;af:forEach&gt; does not support arbitrary
+<li>&lt;tr:forEach&gt; does not support arbitrary
 java.util.Collections; it can only iterate over java.util.Lists or
 arrays.</li>
 
-<li>&lt;af:forEach&gt; executes at the time the JSP tag executes. So
+<li>&lt;tr:forEach&gt; executes at the time the JSP tag executes. So
 it does not have access to any EL variables that are created by JSF
-components.  For example, the &lt;af:table&gt; creates an EL variable
+components.  For example, the &lt;tr:table&gt; creates an EL variable
 using the value of the "var" attribute. However, this EL variable is
-not available to &lt;af:forEach&gt;</li>
+not available to &lt;tr:forEach&gt;</li>
 
 </ul></p><h4>Example:</h4><source>
-            &lt;af:selectOneListbox value="#{someValue}"&gt;
-              &lt;af:forEach var="item" items="#{model.listOfItems}"&gt;
-                &lt;af:selectItem value="#{item.value}" text="#{item.text}"/&gt;
-              &lt;/af:forEach&gt;
-            &lt;/af:selectOneListbox&gt;</source><source>
-            &lt;af:forEach varStatus="vs" begin="1" end="5"&gt;
-              &lt;af:outputText id="ot2" value="#{vs.index} #{vs.count} #{vs.begin} #{vs.current}"/&gt;
-            &lt;/af:forEach&gt;</source>
+            &lt;tr:selectOneListbox value="#{someValue}"&gt;
+              &lt;tr:forEach var="item" items="#{model.listOfItems}"&gt;
+                &lt;tr:selectItem value="#{item.value}" text="#{item.text}"/&gt;
+              &lt;/tr:forEach&gt;
+            &lt;/tr:selectOneListbox&gt;</source><source>
+            &lt;tr:forEach varStatus="vs" begin="1" end="5"&gt;
+              &lt;tr:outputText id="ot2" value="#{vs.index} #{vs.count} #{vs.begin} #{vs.current}"/&gt;
+            &lt;/tr:forEach&gt;</source>
  </p>
  </section>
  <section name="Attributes">

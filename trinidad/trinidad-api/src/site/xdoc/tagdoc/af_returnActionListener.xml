@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:returnActionListener</title>
+  <title>tr:returnActionListener</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:returnActionListener&gt;
+   <b>Tag name:</b> &lt;tr:returnActionListener&gt;
    <br/>
 <p>
         The returnActionListener tag is a declarative way to allow an action source 
@@ -38,25 +38,25 @@
            There is also a "Cancel" button, which when clicked will close the
            dialog without returning a value.
           </p><source>
-            &lt;af:table var="row" value="#{....}"&gt;
+            &lt;tr:table var="row" value="#{....}"&gt;
               ...
-              &lt;af:column headerText="Employee Number"&gt;
+              &lt;tr:column headerText="Employee Number"&gt;
                 &lt;outputText value="#{row.Empno}"/&gt;
-              &lt;/af:column&gt;
-              &lt;af:column headerText="Employee Name"&gt;
+              &lt;/tr:column&gt;
+              &lt;tr:column headerText="Employee Name"&gt;
                 &lt;outputText value="#{row.Ename}"/&gt;
-              &lt;/af:column&gt;
+              &lt;/tr:column&gt;
               &lt;f:facet name="selection"&gt;
-               &lt;af:tableSelectOne&gt;
-                &lt;af:commandButton text="Select"&gt;
-                  &lt;af:returnActionListener value="#{row.Empno}"/&gt;
-                &lt;/af:commandButton&gt;
-               &lt;/af:tableSelectOne&gt;
+               &lt;tr:tableSelectOne&gt;
+                &lt;tr:commandButton text="Select"&gt;
+                  &lt;tr:returnActionListener value="#{row.Empno}"/&gt;
+                &lt;/tr:commandButton&gt;
+               &lt;/tr:tableSelectOne&gt;
               &lt;/f:facet&gt;
-            &lt;/af:table&gt;
-            &lt;af:commandButton text="Cancel"&gt;
-              &lt;af:returnActionListener/&gt;
-            &lt;/af:commandButton&gt;</source>
+            &lt;/tr:table&gt;
+            &lt;tr:commandButton text="Cancel"&gt;
+              &lt;tr:returnActionListener/&gt;
+            &lt;/tr:commandButton&gt;</source>
  </p>
  </section>
  <section name="Attributes">

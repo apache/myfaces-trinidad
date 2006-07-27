@@ -16,12 +16,12 @@
 -->
 <document>
  <properties>
-  <title>af:resetActionListener</title>
+  <title>tr:resetActionListener</title>
  </properties>
  <body>
  <section name="Summary">
  <p>
-   <b>Tag name:</b> &lt;af:resetActionListener&gt;
+   <b>Tag name:</b> &lt;tr:resetActionListener&gt;
    <br/>
 <p>
           The resetActionListener tag is a declarative way to allow an action
@@ -36,11 +36,11 @@
            the all elements on the form will be reset before being applied. The
            resetModel actionListener will also be called.
           </p><source>
-           &lt;af:commandButton id="reset"
+           &lt;tr:commandButton id="reset"
                              text="Reset..."
                              immediate="true"
                              actionListener="#{myUtils.resetModel}"&gt;
-           &lt;af:resetActionListener/&gt;</source>
+           &lt;tr:resetActionListener/&gt;</source>
  </p>
  </section>
  <section name="Attributes">

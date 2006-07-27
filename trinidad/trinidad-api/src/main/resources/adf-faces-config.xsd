@@ -19,7 +19,7 @@
   xmlns:schema="http://www.w3.org/2001/XMLSchema"
   xmlns:html="http://www.w3.org/TR/REC-html40"
   xmlns:config="http://myfaces.apache.org/adf/view/faces/config"
-  xmlns:md="http://myfaces.apache.org/bali/xml/metadata">
+  xmlns:md="http://myfaces.apache.org/trinidad/xml/metadata">
   <annotation>
     <appinfo>
     </appinfo>
