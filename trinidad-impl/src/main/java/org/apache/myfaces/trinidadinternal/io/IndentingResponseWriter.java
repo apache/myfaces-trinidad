@@ -205,6 +205,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
             "tbody".equals(name)  ||
             "tr".equals(name)     ||
             "nobr".equals(name)   ||
+            "wbr".equals(name)   ||
             "script".equals(name));
   }
 
