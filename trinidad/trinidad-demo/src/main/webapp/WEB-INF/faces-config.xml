@@ -22,7 +22,7 @@
   <application>
     <!-- Use the ADF RenderKit -->
     <default-render-kit-id>
-      org.apache.myfaces.adf.core
+      org.apache.myfaces.trinidad.core
     </default-render-kit-id>
 
     <!-- DEFAULT/SUPPORTED LOCALE/S FOR THE DEMO -->
