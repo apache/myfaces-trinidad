@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
  * It is accessible from the {@link org.apache.myfaces.trinidad.context.RequestContext},
  * but will be invoked automatically by the framework as needed.  Developers
  * can replace the standard processor using the
- * <code>adf-faces-config.xml</code> file.
+ * <code>trinidad-config.xml</code> file.
  * <p>
  * To configure file uploads, the default instance supports three context
  * initialization parameters :

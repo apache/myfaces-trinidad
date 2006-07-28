@@ -255,6 +255,6 @@ public class ConfigParser
     private ServletContext _context;
   }
 
-  static private final String _CONFIG_FILE = "/WEB-INF/adf-faces-config.xml";
+  static private final String _CONFIG_FILE = "/WEB-INF/trinidad-config.xml";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ConfigParser.class);
 }

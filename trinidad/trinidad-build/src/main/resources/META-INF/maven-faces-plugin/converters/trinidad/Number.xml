@@ -25,9 +25,9 @@
     <converter-class>org.apache.myfaces.trinidadinternal.convert.NumberConverter</converter-class>
     <property>
       <description><![CDATA[The ISO 4217 currency code, applied only when formatting currencies.
-           Currency code can also be set for the entire application in adf-faces-config.xml file.
+           Currency code can also be set for the entire application in trinidad-config.xml file.
            If currency code is not set on the converter, and if set on
-           adf-faces-config.xml configuration file it will be used by calling
+           trinidad-config.xml configuration file it will be used by calling
            <code>RequestContext().getCurrenctInstance().getCurrencyCode().</code>
            This currency code will be used during call to getAsString() for formatting,
            provided type is set to 'currency'.]]>
@@ -246,14 +246,14 @@
           result in a conversion failure and would throw a ConverterException.</html:p>
 
           <html:p>If <html:code>number grouping separator, decimal separator</html:code>
-          is configured in <html:code>adf-faces-config.xml</html:code> file,
+          is configured in <html:code>trinidad-config.xml</html:code> file,
           it will be used during call to <html:code>getAsObject()</html:code> and
           <html:code>getAsString()</html:code> for parsing and formatting. If it has not been set,
           <html:code>number grouping separator, decimal separator</html:code> is
           defaulted based on the locale.</html:p>
 
           <html:p>If <html:code>currencyCode</html:code> is set on the converter then it will be used.
-          Else uses the <html:code>currencyCode</html:code> set in <html:code>adf-faces-config.xml</html:code>
+          Else uses the <html:code>currencyCode</html:code> set in <html:code>trinidad-config.xml</html:code>
           file. If it is not set in the configuration file then it is defaulted based on the locale.</html:p>
 
 

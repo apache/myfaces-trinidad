@@ -71,7 +71,7 @@ public class SkinExtension extends Skin
    *               desktop renderkit and a Skin that makes your pages
    *               look purple for the pda renderkit.
    *               You can set the skin-family to "purple" in
-   *               adf-faces-config.xml, and the Skin with skin-family
+   *               trinidad-config.xml, and the Skin with skin-family
    *               and render-kit-id match will be chosen.
    *               Must be non-null.
    * @param renderKitId The render-kit-id that this Skin is designed for.
