@@ -87,13 +87,13 @@ The forEach tag is a replacement for the JSTL &amp;lt;c:forEach&amp;gt; tag
                 be used with any JSF components or tags.  This tag brings that functionality
         to JSF, but it is limited to Apache Trinidad tags. This tag also has several limitations not found in &amp;lt;c:forEach&amp;gt;:
         &lt;ul&gt;
-        &lt;li&gt;&amp;lt;af:forEach&amp;gt; does not currently support scenarios where the size of the "items" list or array changes from one request to the next. It may be possible to work around this in specific scenarios by manually deleting all children of the parent component (&amp;lt;af:selectOneListbox&amp;gt; in the above example), but this has not yet been tested.&lt;/li&gt;
-        &lt;li&gt;&amp;lt;af:forEach&amp;gt; does not support arbitrary java.util.Collections; it can only iterate over java.util.Lists or arrays.&lt;/li&gt;
-        &lt;li&gt;&amp;lt;af:forEach&amp;gt; executes at the time the JSP tag executes. So it 
+        &lt;li&gt;&amp;lt;tr:forEach&amp;gt; does not currently support scenarios where the size of the "items" list or array changes from one request to the next. It may be possible to work around this in specific scenarios by manually deleting all children of the parent component (&amp;lt;tr:selectOneListbox&amp;gt; in the above example), but this has not yet been tested.&lt;/li&gt;
+        &lt;li&gt;&amp;lt;tr:forEach&amp;gt; does not support arbitrary java.util.Collections; it can only iterate over java.util.Lists or arrays.&lt;/li&gt;
+        &lt;li&gt;&amp;lt;tr:forEach&amp;gt; executes at the time the JSP tag executes. So it 
         does not have access to any EL variables that are created by JSF components.
-        For example, the &amp;lt;af:table&amp;gt; creates an EL variable using the value of
+        For example, the &amp;lt;tr:table&amp;gt; creates an EL variable using the value of
         the "var" attribute. However, this EL variable is not available 
-to &amp;lt;af:forEach&amp;gt;     
+to &amp;lt;tr:forEach&amp;gt;     
         &lt;/li&gt;
         &lt;/ul&gt;
       </description>
@@ -283,10 +283,10 @@ on this component's usage.
       <description>
         The facetRef tag is used to copy facets from a component
         and paste them into its
-        definition. This tag may only be used within an &lt;af:componentDef&gt;
+        definition. This tag may only be used within an &lt;tr:componentDef&gt;
         tag.
         Each facet may be used only once within each 
-        &lt;af:componentDef&gt;. In other words, a single facet cannot be
+        &lt;tr:componentDef&gt;. In other words, a single facet cannot be
         used more than once.
       </description>
       <attribute>

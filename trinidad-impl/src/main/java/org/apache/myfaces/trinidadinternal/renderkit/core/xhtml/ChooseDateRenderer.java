@@ -1151,7 +1151,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
         long dateValueInMs = calendar.getTimeInMillis();
         long tzOffset = calendar.get(Calendar.ZONE_OFFSET) +
                         calendar.get(Calendar.DST_OFFSET);
-        // get the timeZone specified in adf-faces-config, if any or the
+        // get the timeZone specified in trinidad-config, if any or the
         // client timeZone.
         LocaleContext localeContext = arc.getLocaleContext();
         // find out the difference in timeZone

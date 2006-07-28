@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -76,7 +76,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.NavigationLevel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Choice</mfp:renderer-type>
-      <mfp:tag-name>af:menuChoice</mfp:tag-name>
+      <mfp:tag-name>tr:menuChoice</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreMenuChoiceTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The menuChoice component creates a series of navigation items representing one level in a navigation hierarchy. These items may either be added as children or a menu model may be bound to the menuChoice component. If a menu model is bound, of class 
@@ -91,19 +91,19 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:menuChoice var="foo" value="#{menuModel.model}">
+        <mfp:source-code><![CDATA[<tr:menuChoice var="foo" value="#{menuModel.model}">
   <f:facet name="nodeStamp">
-    <af:commandNavigationItem text="#{foo.label}"
+    <tr:commandNavigationItem text="#{foo.label}"
                         action="#{foo.action}"/>
   </f:facet>
-</af:menuChoice>]]>
+</tr:menuChoice>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>name</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_NAVIGATION")}</mfp:group>
-        <mfp:preferred-children>af:commandNavigationItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:commandNavigationItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>applicationSwitcher</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>

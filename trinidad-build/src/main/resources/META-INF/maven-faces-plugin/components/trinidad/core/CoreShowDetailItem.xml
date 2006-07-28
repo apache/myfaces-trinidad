@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -130,7 +130,7 @@ container.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ShowDetail</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Item</mfp:renderer-type>
-      <mfp:tag-name>af:showDetailItem</mfp:tag-name>
+      <mfp:tag-name>tr:showDetailItem</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowDetailItemTag</mfp:tag-class>
       <mfp:long-description>
         <![CDATA[<html:p>
@@ -150,10 +150,10 @@ container.]]>
       <mfp:example>
         <xhtml:p>Two showDetailItems, the first of which is "disclosed":</xhtml:p>
         <mfp:source-code>
-          <![CDATA[<af:showOneTab>
-            <af:showDetailItem text="First" disclosed="true"/>
-            <af:showDetailItem text="Second"/>
-           </af:showOneTab>]]>
+          <![CDATA[<tr:showOneTab>
+            <tr:showDetailItem text="First" disclosed="true"/>
+            <tr:showDetailItem text="Second"/>
+           </tr:showOneTab>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>

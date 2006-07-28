@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml"
               xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -138,7 +138,7 @@ refers to]]></description>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Output</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Label</mfp:renderer-type>
-      <mfp:tag-name>af:outputLabel</mfp:tag-name>
+      <mfp:tag-name>tr:outputLabel</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreOutputLabelTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>
           Component that displays a label for a form component,
@@ -149,9 +149,9 @@ refers to]]></description>
         </p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:outputLabel value="Name:"
+        <mfp:source-code><![CDATA[<tr:outputLabel value="Name:"
                   for="anInput"/>
-  <af:inputText id="anInput"/>]]></mfp:source-code>
+  <tr:inputText id="anInput"/>]]></mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -43,7 +43,7 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:panelButtonBar</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelButtonBar</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -102,7 +102,7 @@ This facet may not always line up perfectly, especially if the labels or fields 
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Form</mfp:renderer-type>
-      <mfp:tag-name>af:panelForm</mfp:tag-name>
+      <mfp:tag-name>tr:panelForm</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelFormTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>          
            The panelForm lays out input form controls, such that their
@@ -151,40 +151,40 @@ This facet may not always line up perfectly, especially if the labels or fields 
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelForm rows="6" labelWidth="40%">
+        <mfp:source-code><![CDATA[<tr:panelForm rows="6" labelWidth="40%">
     <!-- A bunch of form components -->
-    <af:inputText label="Text"/>
-    <af:inputFile label="File"/>
-    <af:selectInputText label="SelectInput"/>
-    <af:selectInputDate label="Date"/>
-    <af:inputText label="Attribute"/>
-    <af:inputText label="Attribute"/>
-    <af:inputText label="Attribute"/>
-    <af:inputText label="Attribute"/>
+    <tr:inputText label="Text"/>
+    <tr:inputFile label="File"/>
+    <tr:selectInputText label="SelectInput"/>
+    <tr:selectInputDate label="Date"/>
+    <tr:inputText label="Attribute"/>
+    <tr:inputText label="Attribute"/>
+    <tr:inputText label="Attribute"/>
+    <tr:inputText label="Attribute"/>
 
     <!-- Now, an example of panelLabelAndMessage for more complex content -->
-    <af:panelLabelAndMessage label="Date Range">
-      <af:panelHorizontal>
-        <af:selectInputDate simple="true" shortDesc="Start date"/>
-        <af:selectInputDate simple="true" shortDesc="End date"/>
-      </af:panelHorizontal>
-    </af:panelLabelAndMessage>
+    <tr:panelLabelAndMessage label="Date Range">
+      <tr:panelHorizontal>
+        <tr:selectInputDate simple="true" shortDesc="Start date"/>
+        <tr:selectInputDate simple="true" shortDesc="End date"/>
+      </tr:panelHorizontal>
+    </tr:panelLabelAndMessage>
     <f:facet name="footer">
-      <af:panelButtonBar>
-        <af:commandButton text="Button 1"/>
-        <af:commandButton text="Button 2"/>
-      </af:panelButtonBar>
+      <tr:panelButtonBar>
+        <tr:commandButton text="Button 1"/>
+        <tr:commandButton text="Button 2"/>
+      </tr:panelButtonBar>
     </f:facet>      
-</af:panelForm>]]>
+</tr:panelForm>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:inputText af:inputHidden af:inputFile af:selectBooleanCheckBox
-          af:selectBooleanRadio af:selectInputColor af:selectInputDate
-          af:selectInputText af:selectManyListBox af:selectOneChoice 
-          af:selectOneRadio af:panelLabelAndMessage
+        <mfp:preferred-children>tr:inputText tr:inputHidden tr:inputFile tr:selectBooleanCheckBox
+          tr:selectBooleanRadio tr:selectInputColor tr:selectInputDate
+          tr:selectInputText tr:selectManyListBox tr:selectOneChoice 
+          tr:selectOneRadio tr:panelLabelAndMessage
         </mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>messageComponentLayout</mfp:uix2-local-name>

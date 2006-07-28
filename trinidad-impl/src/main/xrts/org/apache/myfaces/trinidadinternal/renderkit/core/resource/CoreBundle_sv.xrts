@@ -29,7 +29,7 @@
 <!-- af_objectLegend's required icon uses the generic REQUIRED_TIP key -->
 <!--
   -->
-<!--resource for af:menuChoice -->
+<!--resource for tr:menuChoice -->
 <resource key="af_menuChoice.LABEL" dnt="false">Växla applikation</resource>
 <!-- the tip that is on the Go button next to the Switch Applications choice -->
 <resource key="af_menuChoice.GO_TIP" dnt="false">Gå till vald applikation</resource>
@@ -37,11 +37,11 @@
 <!--resources for the column headers-->
 <resource key="af_tableSelectMany.SELECT_COLUMN_HEADER" dnt="false">Välj</resource>
 <resource key="af_tableSelectOne.SELECT_COLUMN_HEADER" dnt="false">Välj</resource>
-<!-- The header on the Detail column of af:table -->
+<!-- The header on the Detail column of tr:table -->
 <resource key="af_table.DETAIL_COLUMN_HEADER" dnt="false">Detaljer</resource>
-<!-- The header on the Focus column of af:treeTable -->
+<!-- The header on the Focus column of tr:treeTable -->
 <resource key="af_treeTable.FOCUS_COLUMN_HEADER" dnt="false">Fokus</resource>
-<!-- resources for af:column -->
+<!-- resources for tr:column -->
 <resource key="af_column.SORTED_ASCEND_TIP" dnt="false">Sorterade i stigande ordning</resource>
 <resource key="af_column.SORTED_DESCEND_TIP" dnt="false">Sorterade i fallande ordning</resource>
 <resource key="af_column.SORTED_SORTABLE_TIP" dnt="false">Inte sorterade </resource>
@@ -374,7 +374,7 @@
 <!-- See FirePartialAction.renderTrigger -->
 <resource key="PPR_TRIGGER_LABEL" dnt="false">OK</resource>
 <!-- Icons are used in the prompts for message components -->
-<!-- e.g., af:inputText, af:selectOneChoice -->
+<!-- e.g., tr:inputText, tr:selectOneChoice -->
 <!--Alternate text for the "error" icon-->
 <resource key="ERROR_TIP" dnt="false">Fel</resource>
 <!--Alternate text for the "warning" icon-->
@@ -413,7 +413,7 @@
 <!-- the components that used these keys in 2.2 are not in 3.0 yet -->
 <!-- some might never be (addTableRow, for example). -->
 <!-- Don't delete until the code that uses them is deleted -->
-<!-- resource for af:treeTOC -->
+<!-- resource for tr:treeTOC -->
 <resource key="af_treeTOC.LABEL" dnt="false">Bläddra</resource>
 <resource key="af_treeTOC.CATEGORY_LABEL" dnt="false">Kategorier</resource>
 <resource key="af_treeTOC.ITEM_LABEL" dnt="false">Objekt</resource>

@@ -1,10 +1,10 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces"
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad"
        agentNotSupported="pda">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreNavigationTree"
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreNavigationTree"
                   value="#{menu}" var="foo">
-    <component af:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" 
-               af:facet="nodeStamp" 
+    <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" 
+               tr:facet="nodeStamp" 
                text="#{foo.label}"
                id="stamp"/> 
   </base-component>

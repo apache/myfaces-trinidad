@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -171,7 +171,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Tree</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Tree</mfp:renderer-type>
-      <mfp:tag-name>af:tree</mfp:tag-name>
+      <mfp:tag-name>tr:tree</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTreeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The ADF Tree is used to display data that is structured in a hierarchical format.
@@ -195,11 +195,11 @@
           "node". The "nodeStamp" displays the data for each element by
           getting further properties from the "node" property:
         </xhtml:p>
-        <mfp:source-code><![CDATA[<af:tree var="node" value="#{myBean.orgChart.root}">
+        <mfp:source-code><![CDATA[<tr:tree var="node" value="#{myBean.orgChart.root}">
   <f:facet name="nodeStamp">
-    <af:outputText value="#{node.firstname}"/>
+    <tr:outputText value="#{node.firstname}"/>
   </f:facet>
-</af:tree>]]>
+</tr:tree>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>

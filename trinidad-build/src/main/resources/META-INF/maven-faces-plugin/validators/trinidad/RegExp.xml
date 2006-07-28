@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate expression using java regular expression syntax.]]></description>
@@ -64,13 +64,13 @@
       </property-extension>
     </property>
     <validator-extension>
-      <mfp:tag-name>af:validateRegExp</mfp:tag-name>
+      <mfp:tag-name>tr:validateRegExp</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateRegExpTag</mfp:tag-class>
       <mfp:long-description><![CDATA[Validate expression using java regular expression syntax.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:inputText value="9999" label="RegExp validation">
-  <af:validateRegExp pattern="[9]*"/>
-</af:inputText>]]>
+        <mfp:source-code><![CDATA[<tr:inputText value="9999" label="RegExp validation">
+  <tr:validateRegExp pattern="[9]*"/>
+</tr:inputText>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

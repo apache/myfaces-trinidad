@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -33,14 +33,14 @@ between items.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Separator</mfp:renderer-type>
-      <mfp:tag-name>af:objectSeparator</mfp:tag-name>
+      <mfp:tag-name>tr:objectSeparator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreObjectSeparatorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The objectSeparator creates a horizontal separator.
          </html:p>]]>
       </mfp:long-description>
       <mfp:example>It doesn't get any simpler than this one.
-        <mfp:source-code>&lt;af:objectSeparator/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:objectSeparator/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>

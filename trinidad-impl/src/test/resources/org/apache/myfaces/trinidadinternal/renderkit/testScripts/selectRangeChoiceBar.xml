@@ -1,11 +1,11 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test" 
-  xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreSelectRangeChoiceBar" 
+<test xmlns="http://myfaces.apache.org/trinidad/test" 
+  xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectRangeChoiceBar" 
     value="#{rangeChoiceBarModel.names}" var="range">
 <!-- Prior to faces-major, CoreSelectItem was just ignored;  we only
      supported f:selectItem.  But the renderkit test fwk doesn't
      support the EL syntax given here!!!
-    <component af:facet="rangeLabel" af:type="org.apache.myfaces.trinidad.CoreSelectItem" 
+    <component tr:facet="rangeLabel" tr:type="org.apache.myfaces.trinidad.CoreSelectItem" 
       label="#{range.start} - #{range.end}"/>
 -->
   </base-component>

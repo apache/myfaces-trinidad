@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -333,7 +333,7 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectInput</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Color</mfp:renderer-type>
-      <mfp:tag-name>af:selectInputColor</mfp:tag-name>
+      <mfp:tag-name>tr:selectInputColor</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectInputColorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The selectInputColor component creates a text field for entering colors.
           Users can specify color values in one of three ways, depending on
@@ -368,7 +368,7 @@ tip), and may use simpler layout primitives]]>
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectInputColor name="color" value="#{color.colorValue3}" />]]></mfp:source-code>
+        <mfp:source-code><![CDATA[<tr:selectInputColor name="color" value="#{color.colorValue3}" />]]></mfp:source-code>
       </mfp:example>
       <mfp:author>John Fallows</mfp:author>
       <mfp:component-metadata>

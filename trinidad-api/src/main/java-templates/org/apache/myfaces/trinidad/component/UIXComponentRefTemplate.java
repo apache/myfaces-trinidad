@@ -173,7 +173,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
         return (UIXComponentRef) test;
     }
 
-    _LOG.severe("no parent <af:componentRef> found!");
+    _LOG.severe("no parent <tr:componentRef> found!");
     return null;
   }
 

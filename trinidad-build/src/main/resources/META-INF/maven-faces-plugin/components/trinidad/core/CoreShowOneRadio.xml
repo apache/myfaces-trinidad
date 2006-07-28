@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -211,7 +211,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ShowOne</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Radio</mfp:renderer-type>
-      <mfp:tag-name>af:showOneRadio</mfp:tag-name>
+      <mfp:tag-name>tr:showOneRadio</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowOneRadioTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The showOneRadio control can be used to display a group of contents belonging to a showDetailItem.
           Radio buttons with each individual radio button representing a showDetailItem child is displayed.
@@ -221,24 +221,24 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>The following is an example of showOneRadio.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:showOneRadio label="Current Bug Status" position="top" alignment="right">
-          <af:showDetailItem text="10.1.3">
-            <af:panelHeader text="10.1.3 Open Bugs"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="10.1.2 R2" >
-            <af:panelHeader text="10.1.2 R2 Open Bugs"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Untriaged Bugs">
-            <af:panelHeader text="Untriaged Bugs per component"/>
-          </af:showDetailItem>
-        </af:showOneRadio>]]>
+        <mfp:source-code><![CDATA[<tr:showOneRadio label="Current Bug Status" position="top" alignment="right">
+          <tr:showDetailItem text="10.1.3">
+            <tr:panelHeader text="10.1.3 Open Bugs"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="10.1.2 R2" >
+            <tr:panelHeader text="10.1.2 R2 Open Bugs"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Untriaged Bugs">
+            <tr:panelHeader text="Untriaged Bugs per component"/>
+          </tr:showDetailItem>
+        </tr:showOneRadio>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Ravi Baranwal</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:showDetailItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>showOneRadio</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

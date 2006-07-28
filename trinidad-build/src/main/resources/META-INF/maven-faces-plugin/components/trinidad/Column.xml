@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -33,15 +33,15 @@
       <facet-extension>
         <mfp:long-description>the node to use to render this column's header.</mfp:long-description>
         <mfp:example>
-          <mfp:source-code><![CDATA[<af:column>
+          <mfp:source-code><![CDATA[<tr:column>
  <f:facet name="header">
-  <af:outputText value="Header1"/>
+  <tr:outputText value="Header1"/>
  </f:facet>
  ...
 </column>]]></mfp:source-code>
         </mfp:example>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:sortableHeader af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:sortableHeader tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -223,22 +223,22 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Document</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Document</mfp:renderer-type>
-      <mfp:tag-name>af:document</mfp:tag-name>
+      <mfp:tag-name>tr:document</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreDocumentTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The CoreDocument creates each of the standard root elements of an HTML page:  &lt;html&gt;, &lt;body&gt;, and &lt;head&gt;, but by abstracting away from those components, can be used in non-HTML pages as well.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[<f:view>
-  <af:document>
-    <af:form> ... </af:form>
-  </af:document>
+  <tr:document>
+    <tr:form> ... </tr:form>
+  </tr:document>
 </f:view>]]></mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>title</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
-        <mfp:preferred-children>af:form</mfp:preferred-children>
+        <mfp:preferred-children>tr:form</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>document</mfp:uix2-local-name>
     </component-extension>

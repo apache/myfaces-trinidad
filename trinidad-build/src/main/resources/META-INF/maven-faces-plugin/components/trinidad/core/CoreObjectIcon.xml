@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -187,7 +187,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Icon</mfp:renderer-type>
-      <mfp:tag-name>af:objectIcon</mfp:tag-name>
+      <mfp:tag-name>tr:objectIcon</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreObjectIconTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The objectIcon component renders a skin specific icon.
@@ -197,7 +197,7 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;af:objectIcon name="required"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:objectIcon name="required"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata>

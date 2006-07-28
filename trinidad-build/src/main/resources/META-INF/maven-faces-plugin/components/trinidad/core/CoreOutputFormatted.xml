@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -53,7 +53,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Output</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Formatted</mfp:renderer-type>
-      <mfp:tag-name>af:outputFormatted</mfp:tag-name>
+      <mfp:tag-name>tr:outputFormatted</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreOutputFormattedTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
         The outputFormatted bean accepts a string in its &quot;value&quot; attribute
@@ -61,7 +61,7 @@
         results.  It is not intended as anything near to a generic HTML
         output engine, and will never be such a bean.  Developers
         needing full HTML output should use &lt;f:verbatim&gt;
-        or &lt;af:outputText&gt; with escape=&quot;false&quot;.
+        or &lt;tr:outputText&gt; with escape=&quot;false&quot;.
         </html:p>
         <html:p>
         What this bean <html:em>does</html:em> provide is a limited
@@ -120,13 +120,13 @@
       <mfp:example>
         <mfp:source-code><![CDATA[In a .jspx:
 
-            <af:outputFormatted
+            <tr:outputFormatted
               styleUsage="instruction"
               value="&lt;b>simple outputFormatted&lt;/b>"/>
 
            In a .jsp:
 
-            <af:outputFormatted
+            <tr:outputFormatted
               styleUsage="instruction"
               value="<b>simple outputFormatted</b>"/>]]>
         </mfp:source-code>

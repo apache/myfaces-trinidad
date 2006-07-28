@@ -450,7 +450,7 @@ public class PollRenderer extends HtmlLafRenderer
     "document.location.replace(";  
   //=-=pu: This condition again results in URL replacement, but on the iFrame
   // hence equivalent to the one above. Can we force the poll component to
-  // be inside of a <af:form> ? If yes, we need not bother of this condition.
+  // be inside of a <tr:form> ? If yes, we need not bother of this condition.
   // see _getStartScript()
   private static final String _START_SCRIPT_PARTIAL =
     "_firePartialChange(";

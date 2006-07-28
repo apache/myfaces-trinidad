@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -186,7 +186,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectRange</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ChoiceBar</mfp:renderer-type>
-      <mfp:tag-name>af:selectRangeChoiceBar</mfp:tag-name>
+      <mfp:tag-name>tr:selectRangeChoiceBar</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreSelectRangeChoiceBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[SelectRangeChoiceBar is used to allow the user to select a range of
           records to display among a larger set of records. 
@@ -207,14 +207,14 @@
           a choice with the selected value of 30-39 of 100,
           and a Next button.
         </xhtml:p>
-        <mfp:source-code><![CDATA[<af:selectRangeChoiceBar value="#{tableData}" first="30" rows="10"/>]]></mfp:source-code>
+        <mfp:source-code><![CDATA[<tr:selectRangeChoiceBar value="#{tableData}" first="30" rows="10"/>]]></mfp:source-code>
         <xhtml:p>The following is an example of selectRangeChoiceBar with
           customized range labels.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:selectRangeChoiceBar value="#{tableData}" var="range" first="30" rows="10">
+        <mfp:source-code><![CDATA[<tr:selectRangeChoiceBar value="#{tableData}" var="range" first="30" rows="10">
               <f:facet name="rangeLabel">
                 <f:selectItem itemLabel="#{range.start.eName} - #{range.end.eName}" />
               </f:facet>
-            </af:selectRangeChoiceBar>]]>
+            </tr:selectRangeChoiceBar>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

@@ -26,7 +26,7 @@
   example that is easy to follow.
   -->
   <f:loadBundle var="nls"
-                basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
+                basename="org.apache.myfaces.trinidaddemo.email.resource.EmailDemoBundle"/>
   <f:view>
     <tr:document title="Email Log In">
         <tr:form>

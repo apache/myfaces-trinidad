@@ -14,6 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<capabilityData xmlns="http://myfaces.apache.org/adf/view/faces/agent/capabilities">
+<capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="-adfinternal-partialRendering" value="true"/>
 </capabilityData>

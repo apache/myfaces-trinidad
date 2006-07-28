@@ -24,10 +24,10 @@
     <appinfo>
     </appinfo>
   </annotation>
-  <element name="adf-faces-config">
+  <element name="trinidad-config">
     <annotation>
       <documentation>
-        The adf-faces-config element is the root element of all
+        The trinidad-config element is the root element of all
         trinidad-config.xml files.
       </documentation>
     </annotation>
@@ -40,7 +40,7 @@
             <documentation>The &lt;page-flow-scope-lifetime&gt; element
 controls the maximum number of pageFlowScope instances that will
 be kept active at any one time.  The default is 15.  Unlike other
-&lt;adf-faces-config&gt; elements, &lt;page-flow-scope-lifetime&gt;
+&lt;trinidad-config&gt; elements, &lt;page-flow-scope-lifetime&gt;
 does not support EL expressions - it must be configured statically.
             </documentation>
           </annotation>

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -30,7 +30,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.Html</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Html</mfp:renderer-type>
-      <mfp:tag-name>afh:html</mfp:tag-name>
+      <mfp:tag-name>trh:html</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlHtmlTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The html tag generates the &lt;html&gt; element for an HTML page.
@@ -39,17 +39,17 @@ based on the current locale.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:html>
-  <afh:head title="Document title"/>
+        <mfp:source-code><![CDATA[<trh:html>
+  <trh:head title="Document title"/>
 
-  <afh:body>
-    <af:panelPage/>      
-  </afh:body>]]>
+  <trh:body>
+    <tr:panelPage/>      
+  </trh:body>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:preferred-children>afh:head afh:body</mfp:preferred-children>
+        <mfp:preferred-children>trh:head trh:body</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>html</mfp:uix2-local-name>
     </component-extension>

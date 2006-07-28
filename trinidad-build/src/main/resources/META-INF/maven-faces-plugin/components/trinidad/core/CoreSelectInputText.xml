@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -365,7 +365,7 @@ used to launch a window.]]></description>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectInput</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Text</mfp:renderer-type>
-      <mfp:tag-name>af:selectInputText</mfp:tag-name>
+      <mfp:tag-name>tr:selectInputText</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectInputTextTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
         The selectInputText is a text field that also supports
@@ -379,11 +379,11 @@ the &quot;dialog&quot; will be shown in the same window.)
          </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:selectInputText label="Input:" value="Some text"
+        <mfp:source-code><![CDATA[<tr:form>
+     <tr:selectInputText label="Input:" value="Some text"
                             action="dialog:valueDialog"
                             searchDesc="Click to get a value" />
-   </af:form>]]>
+   </tr:form>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

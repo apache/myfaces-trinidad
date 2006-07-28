@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -52,7 +52,7 @@ use the ADF document or body tags.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.PartialRoot</mfp:renderer-type>
-      <mfp:tag-name>af:panelPartialRoot</mfp:tag-name>
+      <mfp:tag-name>tr:panelPartialRoot</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelPartialRootTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
         The panelPartialRoot component is used to enable partial page

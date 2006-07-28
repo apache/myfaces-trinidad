@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -201,7 +201,7 @@ ISO 8601 dates are of the form "yyyy-MM-dd"
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Choose</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Date</mfp:renderer-type>
-      <mfp:tag-name>af:chooseDate</mfp:tag-name>
+      <mfp:tag-name>tr:chooseDate</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreChooseDateTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The chooseDate component is used in conjunction with a 
           selectInputDate to allow the user to quickly select a date value without 
@@ -230,8 +230,8 @@ ISO 8601 dates are of the form "yyyy-MM-dd"
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectInputDate chooseId="cd1"/>
-<af:chooseDate id="cd1"
+        <mfp:source-code><![CDATA[<tr:selectInputDate chooseId="cd1"/>
+<tr:chooseDate id="cd1"
                minValue="2004-07-01"
                maxValue="2014-12-31"/>]]>
         </mfp:source-code>

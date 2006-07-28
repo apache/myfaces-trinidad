@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -31,22 +31,22 @@ The children of the group will not be displayed unless the parent of the group h
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Group</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Group</mfp:renderer-type>
-      <mfp:tag-name>af:group</mfp:tag-name>
+      <mfp:tag-name>tr:group</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreGroupTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The group component is an invisible control that aggregates semantically-related children.
 The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the rich panelForm.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[
-          <af:panelForm labelWidth="33%" fieldWidth="67%">
-  <af:inputText label="non-group item 1"/>
-  <af:group>
-    <af:inputText label="group item 1"/>
-    <af:inputText label="group item 2"/>
-    <af:inputText label="group item 3"/>
-  </af:group>
-  <af:inputText label="non-group item 2"/>
-</af:panelForm>]]>
+          <tr:panelForm labelWidth="33%" fieldWidth="67%">
+  <tr:inputText label="non-group item 1"/>
+  <tr:group>
+    <tr:inputText label="group item 1"/>
+    <tr:inputText label="group item 2"/>
+    <tr:inputText label="group item 3"/>
+  </tr:group>
+  <tr:inputText label="non-group item 2"/>
+</tr:panelForm>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>ADF Faces</mfp:author>

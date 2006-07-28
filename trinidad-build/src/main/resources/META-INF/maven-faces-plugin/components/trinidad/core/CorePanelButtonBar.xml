@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -170,23 +170,23 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ButtonBar</mfp:renderer-type>
-      <mfp:tag-name>af:panelButtonBar</mfp:tag-name>
+      <mfp:tag-name>tr:panelButtonBar</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelButtonBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The panelButtonBar lays out a set of buttons.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelButtonBar>
-              <af:commandButton text="button 1" action="action1"/>
-              <af:commandButton text="button 2" action="action2"/>
-              <af:singleStepButtonBar selectedStep="4" maxStep="5"  
+        <mfp:source-code><![CDATA[<tr:panelButtonBar>
+              <tr:commandButton text="button 1" action="action1"/>
+              <tr:commandButton text="button 2" action="action2"/>
+              <tr:singleStepButtonBar selectedStep="4" maxStep="5"  
                                       previousAction="#{action.app1}"
                                       nextAction="#{action.app2}"/>
-            </af:panelButtonBar>]]>
+            </tr:panelButtonBar>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:button af:commandButton af:resetButton af:processChoiceBar af:selectOneChoice</mfp:preferred-children>
+        <mfp:preferred-children>tr:button tr:commandButton tr:resetButton tr:processChoiceBar tr:selectOneChoice</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>pageButtonBar</mfp:uix2-local-name>
     </component-extension>

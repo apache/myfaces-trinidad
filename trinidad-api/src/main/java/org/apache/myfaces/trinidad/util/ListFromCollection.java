@@ -55,7 +55,7 @@ import java.util.Set;
  * </pre>
  * <p>
  * Note, though, that it is extremely expensive to use this bean for
- * the items of an af:forEach (or c:forEach in JSF 1.2 or Facelets).
+ * the items of an tr:forEach (or c:forEach in JSF 1.2 or Facelets).
  * </p>
  */
 public class ListFromCollection

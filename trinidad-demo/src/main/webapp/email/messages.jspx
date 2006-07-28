@@ -26,7 +26,7 @@
   example that is easy to follow.
   -->  
   <f:loadBundle var="nls"
-                basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
+                basename="org.apache.myfaces.trinidaddemo.email.resource.EmailDemoBundle"/>
   
   <f:view>
     <tr:document title="Message List">
@@ -116,7 +116,7 @@
                   <tr:outputText value="Sender"/>
                 </f:facet>
                 <tr:outputText value="#{currentMessage.sender}">
-                  <f:converter converterId="org.apache.myfaces.adfdemo.email.EmailDisplay"/>
+                  <f:converter converterId="org.apache.myfaces.trinidaddemo.email.EmailDisplay"/>
                 </tr:outputText>
               </tr:column>
               <tr:column noWrap="true"
@@ -125,7 +125,7 @@
                   <tr:outputText value="Sent"/>
                 </f:facet>
                 <tr:outputText value="#{currentMessage.sentDate}">
-                  <f:converter converterId="org.apache.myfaces.adfdemo.email.RelativeDate"/>
+                  <f:converter converterId="org.apache.myfaces.trinidaddemo.email.RelativeDate"/>
                 </tr:outputText>
               </tr:column>
               <tr:column rendered="#{email.preferences.displaySizeColumn}">

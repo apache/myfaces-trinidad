@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -31,7 +31,7 @@
       <facet-name>navigation1</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:menuTabs</mfp:preferred-children>
+          <mfp:preferred-children>tr:menuTabs</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -40,7 +40,7 @@
       <facet-name>navigation2</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:menuBar</mfp:preferred-children>
+          <mfp:preferred-children>tr:menuBar</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -49,7 +49,7 @@
       <facet-name>navigationGlobal</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:menuButtons</mfp:preferred-children>
+          <mfp:preferred-children>tr:menuButtons</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -59,7 +59,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>false</mfp:preferred>
-          <mfp:preferred-children>af:menuChoice</mfp:preferred-children>
+          <mfp:preferred-children>tr:menuChoice</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -72,7 +72,7 @@
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -83,7 +83,7 @@
       <facet-name>brandingApp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -105,7 +105,7 @@
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:inputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:inputText</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -266,36 +266,36 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.PageHeader</mfp:renderer-type>
-      <mfp:tag-name>af:panelPageHeader</mfp:tag-name>
+      <mfp:tag-name>tr:panelPageHeader</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelPageHeaderTag</mfp:tag-class>
       <mfp:long-description><![CDATA[PanelPageHeader lays out the top portion of a page.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelPageHeader>
+        <mfp:source-code><![CDATA[<tr:panelPageHeader>
               <f:facet name="branding">
-                <af:panelGroup layout="horizontal">
-                  <af:objectImage source="/components/images/corporateBrand.gif"/>
-                  <af:objectImage source="/components/images/applicationBrand.gif"/>
-                  <af:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
+                <tr:panelGroup layout="horizontal">
+                  <tr:objectImage source="/components/images/corporateBrand.gif"/>
+                  <tr:objectImage source="/components/images/applicationBrand.gif"/>
+                  <tr:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
                                       styleUsage="inContextBranding"/>
-                </af:panelGroup>
+                </tr:panelGroup>
               </f:facet>
               <f:facet name="navigationGlobal">
-                <af:menuButtons>
-                  <af:commandNavigationItem text="Help"
+                <tr:menuButtons>
+                  <tr:commandNavigationItem text="Help"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons"/>
-                  <af:commandNavigationItem text="Help 2"
+                  <tr:commandNavigationItem text="Help 2"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons"/>
-                </af:menuButtons>
+                </tr:menuButtons>
               </f:facet>
               <f:facet name="navigation2">
-                <af:menuBar >
-                  <af:commandNavigationItem text="item 1" action="guide.menuBar" 
+                <tr:menuBar >
+                  <tr:commandNavigationItem text="item 1" action="guide.menuBar" 
                                    selected="true" />
-                </af:menuBar>
+                </tr:menuBar>
               </f:facet>
-            </af:panelPageHeader>]]>
+            </tr:panelPageHeader>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

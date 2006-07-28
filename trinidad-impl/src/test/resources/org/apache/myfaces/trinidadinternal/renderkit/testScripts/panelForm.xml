@@ -1,14 +1,14 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CorePanelForm">
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 1"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 2"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 3"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 4"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 5"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 6"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 7"/>
-    <component af:facet="footer" af:type="org.apache.myfaces.trinidad.CoreInputText" label="Footer"/>
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelForm">
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 1"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 2"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 3"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 4"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 5"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 6"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Attribute 7"/>
+    <component tr:facet="footer" tr:type="org.apache.myfaces.trinidad.CoreInputText" label="Footer"/>
   </base-component>
   <attribute-test name="rows" value="2">
     <attribute-test name="maxColumns" value="2"/>

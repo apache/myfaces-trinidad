@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -162,7 +162,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.Frame</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Frame</mfp:renderer-type>
-      <mfp:tag-name>afh:frame</mfp:tag-name>
+      <mfp:tag-name>trh:frame</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlFrameTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The frame is used to specify attributes needed by an
           HTML frame. It does not render any child nodes, and should only be used as
@@ -175,17 +175,17 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:frameBorderLayout >
+        <mfp:source-code><![CDATA[<trh:frameBorderLayout >
 
  <f:facet name="left">
-  <afh:frame source="frame_leftTest.jspx" name="left" width="30%" />
+  <trh:frame source="frame_leftTest.jspx" name="left" width="30%" />
  </f:facet>
 
  <f:facet name="center">
-  <afh:frame source="frame_centerTest.jspx" name="contents" />
+  <trh:frame source="frame_centerTest.jspx" name="contents" />
  </f:facet>
 
-</afh:frameBorderLayout>]]>
+</trh:frameBorderLayout>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

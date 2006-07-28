@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate that the date entered is within a given range.]]></description>
@@ -144,29 +144,29 @@
       </property-extension>
     </property>
     <validator-extension>
-      <mfp:tag-name>af:validateDateTimeRange</mfp:tag-name>
+      <mfp:tag-name>tr:validateDateTimeRange</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDateTimeRangeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
 
         Validate that the date entered is within a given range.
 </html:p>]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectInputDate id="mdf3" value="#{date.date3}"
+        <mfp:source-code><![CDATA[<tr:selectInputDate id="mdf3" value="#{date.date3}"
                                label="max validator">
-  <af:validateDateTimeRange maximum="#{date.maxDate}"/>
-</af:selectInputDate>
+  <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
+</tr:selectInputDate>
 
-<af:selectInputDate id="mdf3" value="2004-11-25"
+<tr:selectInputDate id="mdf3" value="2004-11-25"
                                 tip="min=2004-11-16  max=2004-12-16"
                                 label="Submission period">
-  <af:convertDateTime pattern="yyyy-MM-dd"/>
+  <tr:convertDateTime pattern="yyyy-MM-dd"/>
 
   <!-- Supports ISO date format strings of the form "yyyy-MM-dd" -->
-  <af:validateDateTimeRange
+  <tr:validateDateTimeRange
        minimum="2004-11-16"
        maximum="2004-12-16"
        notInRangeMessageDetail="Date &quot;{1}&quot; does not fall within the range {2} : {3}"/>
-</af:selectInputDate>]]>
+</tr:selectInputDate>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

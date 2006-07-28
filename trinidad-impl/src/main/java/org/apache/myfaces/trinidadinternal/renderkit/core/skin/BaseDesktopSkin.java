@@ -141,21 +141,21 @@ public class BaseDesktopSkin extends XhtmlSkin
     AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_UNDISCLOSED_ICON_ALIAS_NAME),
 
-    // af:table icons
+    // tr:table icons
     AF_TABLE_SD_DISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_DISCLOSED_ICON_ALIAS_NAME),
 
     AF_TABLE_SD_UNDISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_UNDISCLOSED_ICON_ALIAS_NAME),
 
-    // af:showDetailHeader icons
+    // tr:showDetailHeader icons
     AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_DISCLOSED_ICON_ALIAS_NAME),
 
     AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_UNDISCLOSED_ICON_ALIAS_NAME),
 
-    // af:navigationTree icons
+    // tr:navigationTree icons
     AF_NAVIGATION_TREE_DISCLOSED_ICON_NAME,
       new ReferenceIcon(DETAIL_DISCLOSED_ICON_ALIAS_NAME),
 

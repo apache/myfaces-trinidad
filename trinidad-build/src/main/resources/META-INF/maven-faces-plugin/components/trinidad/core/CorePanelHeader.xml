@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -35,7 +35,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Header</mfp:renderer-type>
-      <mfp:tag-name>af:panelHeader</mfp:tag-name>
+      <mfp:tag-name>tr:panelHeader</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelHeaderTag</mfp:tag-class>
       <mfp:long-description>
         <![CDATA[<html:p>
@@ -78,15 +78,15 @@
       <mfp:example>
         <xhtml:p>Basic example.</xhtml:p>
         <mfp:source-code>
-          <![CDATA[<af:panelHeader text="This is a panelHeader">
-  <af:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
-  <af:panelHeader text="This is a Sub-panelHeader" >
-    <af:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
-  </af:panelHeader>
-</af:panelHeader>]]>
+          <![CDATA[<tr:panelHeader text="This is a panelHeader">
+  <tr:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
+  <tr:panelHeader text="This is a Sub-panelHeader" >
+    <tr:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
+  </tr:panelHeader>
+</tr:panelHeader>]]>
         </mfp:source-code>
         <xhtml:p>panelHeader displaying message information.</xhtml:p>
-        <mfp:source-code>&lt;af:panelHeader messageType="error"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:panelHeader messageType="error"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:author>Scott O'Bryan</mfp:author>

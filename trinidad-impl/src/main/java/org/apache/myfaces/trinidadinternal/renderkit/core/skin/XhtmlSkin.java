@@ -156,8 +156,8 @@ public class XhtmlSkin extends BaseSkin
     HEADER_CONFIRMATION_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
-    // af:messages header icons point to reference icon so they can
-    // be easily shared with af:panelHeader's icons
+    // tr:messages header icons point to reference icon so they can
+    // be easily shared with tr:panelHeader's icons
     AF_MESSAGES_ERROR_ICON_NAME,
     new ReferenceIcon(HEADER_ERROR_ICON_ALIAS_NAME),
 
@@ -170,8 +170,8 @@ public class XhtmlSkin extends BaseSkin
     AF_MESSAGES_CONFIRMATION_ICON_NAME,
     new ReferenceIcon(HEADER_CONFIRMATION_ICON_ALIAS_NAME),
 
-    // af:panelHeader header icons point to reference icon so they can
-    // be easily shared with af:messages's icons
+    // tr:panelHeader header icons point to reference icon so they can
+    // be easily shared with tr:messages's icons
     AF_PANEL_HEADER_ERROR_ICON_NAME,
     new ReferenceIcon(HEADER_ERROR_ICON_ALIAS_NAME),
 

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -77,7 +77,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Spacer</mfp:renderer-type>
-      <mfp:tag-name>af:objectSpacer</mfp:tag-name>
+      <mfp:tag-name>tr:objectSpacer</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreObjectSpacerTag</mfp:tag-class>
       <mfp:long-description><![CDATA[objectSpacer occupies a fixed amount of space in a layout, specified by
           its width and height attributes. If the width is not specified, but
@@ -88,17 +88,17 @@
           standards mode HTML.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelGroup type="horizontal">
+        <mfp:source-code><![CDATA[<tr:panelGroup type="horizontal">
   <f:facet name="separator">
-    <af:objectSpacer width="10" height="1"/>
+    <tr:objectSpacer width="10" height="1"/>
   </f:facet>
-  <af:goLink text="First Link"
+  <tr:goLink text="First Link"
         destination="http://myfaces.apache.org"/>
-  <af:goLink text="Second Link"
+  <tr:goLink text="Second Link"
         destination="http://myfaces.apache.org"/>
-  <af:goLink text="Third Link"
+  <tr:goLink text="Third Link"
         destination="http://myfaces.apache.org"/>
-</af:panelGroup>]]>
+</tr:panelGroup>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

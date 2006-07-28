@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -228,7 +228,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.Body</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Body</mfp:renderer-type>
-      <mfp:tag-name>afh:body</mfp:tag-name>
+      <mfp:tag-name>trh:body</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlBodyTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             Tag for the HTML body element.  In addition
@@ -242,16 +242,16 @@ the navigationFormName attribute).
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:html>
-  <afh:body>
-    <afh:outputText value="Here is some text inside a body element"/>
-  </afh:body>
-</afh:html>]]>
+        <mfp:source-code><![CDATA[<trh:html>
+  <trh:body>
+    <trh:outputText value="Here is some text inside a body element"/>
+  </trh:body>
+</trh:html>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
-        <mfp:preferred-children>af:panelPage af:form</mfp:preferred-children>
+        <mfp:preferred-children>tr:panelPage tr:form</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>body</mfp:uix2-local-name>
     </component-extension>

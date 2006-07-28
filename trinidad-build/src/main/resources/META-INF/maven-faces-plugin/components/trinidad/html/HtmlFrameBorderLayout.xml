@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -34,7 +34,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>afh:frame</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -47,7 +47,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -60,7 +60,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -73,7 +73,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -86,7 +86,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -100,7 +100,7 @@
       <facet-name>start</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -114,7 +114,7 @@
       <facet-name>end</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -127,7 +127,7 @@
       <facet-name>innerLeft</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -140,7 +140,7 @@
       <facet-name>innerRight</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -154,7 +154,7 @@
       <facet-name>innerStart</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -168,7 +168,7 @@
       <facet-name>innerEnd</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>afh:frame afh:frameBorderLayout</mfp:preferred-children>
+          <mfp:preferred-children>trh:frame trh:frameBorderLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -272,7 +272,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.FrameBorderLayout</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.FrameBorderLayout</mfp:renderer-type>
-      <mfp:tag-name>afh:frameBorderLayout</mfp:tag-name>
+      <mfp:tag-name>trh:frameBorderLayout</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlFrameBorderLayoutTag</mfp:tag-class>
       <mfp:long-description><![CDATA[frameBorderLayout is a layout bean which can be used to place seven
           frames at left, right, top, bottom, innerLeft, innerRight and center
@@ -287,20 +287,20 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:frameBorderLayout>
+        <mfp:source-code><![CDATA[<trh:frameBorderLayout>
  <f:facet name="Lleft">
-  <afh:frame source="frame_leftTest.jspx" name="left" width="30%" />
+  <trh:frame source="frame_leftTest.jspx" name="left" width="30%" />
  </f:facet>
 
  <f:facet name="center">
-  <afh:frame source="frame_centerTest.jspx" name="contents" />
+  <trh:frame source="frame_centerTest.jspx" name="contents" />
  </f:facet>
-</afh:frameBorderLayout>]]>
+</trh:frameBorderLayout>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
       <mfp:component-metadata>
-        <mfp:preferred-children>afh:frame</mfp:preferred-children>
+        <mfp:preferred-children>trh:frame</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>frameBorderLayout</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

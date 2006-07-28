@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <converter>
     <description>Converts an string, to and from java.awt.Color objects.</description>
@@ -86,7 +86,7 @@ user's locale.]]>
       </property-extension>
     </property>
     <converter-extension>
-      <mfp:tag-name>af:convertColor</mfp:tag-name>
+      <mfp:tag-name>tr:convertColor</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.convert.ConvertColorTag</mfp:tag-class>
       <mfp:long-description>Converts an strings to and from java.awt.Color
                             objects. The set of patterns used for conversion can
@@ -94,12 +94,12 @@ user's locale.]]>
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<af:selectInputColor id="sicConv" chooseId="cpConv"
+<tr:selectInputColor id="sicConv" chooseId="cpConv"
   label="Enter or select color from palette below"
   value="#{color.colorValue1}">
-  <af:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
-</af:selectInputColor>
-<af:chooseColor id="cpConv"
+  <tr:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
+</tr:selectInputColor>
+<tr:chooseColor id="cpConv"
   colorData="#{requestContext.colorPalette.default49}"/>
            ]]>
         </mfp:source-code>

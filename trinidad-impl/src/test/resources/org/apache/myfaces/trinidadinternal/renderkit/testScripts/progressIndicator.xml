@@ -1,7 +1,7 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces"
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad"
        agentNotSupported="pda">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreProgressIndicator" value="#{rangeModel}"/>
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreProgressIndicator" value="#{rangeModel}"/>
   <attribute-test name="id"/>
   <!--attribute-test name="shortDesc" value="MyColor"/-->
   <!--attribute-test name="styleClass" value="MyStyleClass" /-->

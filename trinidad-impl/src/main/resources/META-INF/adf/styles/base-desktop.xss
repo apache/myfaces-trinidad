@@ -879,7 +879,7 @@
   </style>
 
   <!-- 
-    af:menuChoice Styles
+    tr:menuChoice Styles
   -->
 
   <style selector="af|menuChoice::label">
@@ -928,7 +928,7 @@
    
   
   <!--
-    af:treeTable menuPath  styles
+    tr:treeTable menuPath  styles
   -->
   <style selector="af|treeTable::path">
     <includeStyle name="AFPath"/>
@@ -944,7 +944,7 @@
   </style>
   
   <!--
-    af:menuPath Styles
+    tr:menuPath Styles
     @todo What calls MenuPathRenderer?
   -->
 
@@ -962,7 +962,7 @@
   </style>
 
   <!--
-    af:panelList Styles
+    tr:panelList Styles
   -->
   <!--style selector=".OraBulletedList A">
     <includeStyle name="AFDefaultFont"/>
@@ -1685,7 +1685,7 @@
   </style>
 
   <!--
-     af:menuButtons Styles
+     tr:menuButtons Styles
    -->
    <!-- this style is included in all three styles below -->
    <style name="AFMenuButtons">
@@ -1933,7 +1933,7 @@
 
   
   <!--
-    af:messages Styles
+    tr:messages Styles
   -->
 
   <style selector="af|messages">

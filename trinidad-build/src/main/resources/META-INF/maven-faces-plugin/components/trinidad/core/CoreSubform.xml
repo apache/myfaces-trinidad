@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -33,7 +33,7 @@ responsible for submitting the page.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Subform</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Subform</mfp:renderer-type>
-      <mfp:tag-name>af:subform</mfp:tag-name>
+      <mfp:tag-name>tr:subform</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreSubformTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
 The CoreSubform represents an independently submittable
@@ -46,8 +46,8 @@ elements.
 </html:p>
 
 <html:p>
-We strongly recommend the use of a single &lt;af:form&gt; per page, and
-using &lt;af:subform&gt; where you might otherwise be tempted to use multiple
+We strongly recommend the use of a single &lt;tr:form&gt; per page, and
+using &lt;tr:subform&gt; where you might otherwise be tempted to use multiple
 forms.  Multiple forms require multiple copies of page state, and user
 edits in forms that aren't submitted are always lost.  When a page using
 subforms is submitted, page state is only written once, and all
@@ -58,10 +58,10 @@ See the UIXSubform Javadoc for more details on how subforms work.
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:form>
-  <af:subform>... search region ... </af:subform>
-  <af:subform default="true"> ... main content ... </af:subform>
-</af:form>]]>
+        <mfp:source-code><![CDATA[<tr:form>
+  <tr:subform>... search region ... </tr:subform>
+  <tr:subform default="true"> ... main content ... </tr:subform>
+</tr:form>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

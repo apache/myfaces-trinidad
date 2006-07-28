@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -171,7 +171,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.NavigationTree</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.NavigationTree</mfp:renderer-type>
-      <mfp:tag-name>af:navigationTree</mfp:tag-name>
+      <mfp:tag-name>tr:navigationTree</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreNavigationTreeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
                  The navigationTree is used to display navigation data that is structured in a hierarchical format. The features of the Tree component include mechanisms for expanding and collapsing portions of the hierarchy. The focus path of the navigationTree is visually indicated and by default the nodes along the focus path are added to the expandedRowKeys pathSet.
@@ -189,11 +189,11 @@
                  "node". The "nodeStamp" displays the data for each tree node by
                  getting further properties from the "node" property:
         </xhtml:p>
-        <mfp:source-code><![CDATA[<af:navigationTree var="node" value="#{menuModel.model}">
+        <mfp:source-code><![CDATA[<tr:navigationTree var="node" value="#{menuModel.model}">
   <f:facet name="nodeStamp">
-    <af:commandNavigationItem text="#{node.label} action="#{node.action}"/>
+    <tr:commandNavigationItem text="#{node.label} action="#{node.action}"/>
   </f:facet>
-</af:navigationTree>]]>
+</tr:navigationTree>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

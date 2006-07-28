@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -131,7 +131,7 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Input</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.File</mfp:renderer-type>
-      <mfp:tag-name>af:inputFile</mfp:tag-name>
+      <mfp:tag-name>tr:inputFile</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreInputFileTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The inputFile component is a component that can
           be used to upload a file.  Any ADF form that contains this component
@@ -143,10 +143,10 @@ tip), and may use simpler layout primitives]]>
           using this, developers must install the ADF Faces filter.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:form usesUpload="true">
-  <af:inputFile columns="10"
+        <mfp:source-code><![CDATA[<tr:form usesUpload="true">
+  <tr:inputFile columns="10"
                 valueChangeListener="#{backing.fileUploaded}"/>
-</af:form>]]>
+</tr:form>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

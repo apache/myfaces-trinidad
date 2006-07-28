@@ -1,5 +1,5 @@
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -10,7 +10,7 @@
       <facet-extension>
         <mfp:long-description>This component will be used to render the table footer.
                This must be specified if the "footer" facet on each 
-               &lt;af:column&gt; is to be rendered.
+               &lt;tr:column&gt; is to be rendered.
         </mfp:long-description>
       </facet-extension>
     </facet>

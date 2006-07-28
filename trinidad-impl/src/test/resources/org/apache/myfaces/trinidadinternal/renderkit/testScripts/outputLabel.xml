@@ -1,7 +1,7 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreOutputLabel" for="input" value="label-noaccess">
-    <component af:type="org.apache.myfaces.trinidad.CoreInputText" id="input"/>
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreOutputLabel" for="input" value="label-noaccess">
+    <component tr:type="org.apache.myfaces.trinidad.CoreInputText" id="input"/>
   </base-component>
   <attribute-test name="accessKey" value="a"/>
   <boolean-test name="showRequired"/>

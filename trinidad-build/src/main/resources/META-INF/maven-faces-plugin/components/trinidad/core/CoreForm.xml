@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -201,18 +201,18 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Form</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Form</mfp:renderer-type>
-      <mfp:tag-name>af:form</mfp:tag-name>
+      <mfp:tag-name>tr:form</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreFormTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The UIXForm component creates an HTML &lt;form&gt; element.]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:form usesUpload="true">
-  <af:inputFile columns="10"/>
-</af:form>]]></mfp:source-code>
+        <mfp:source-code><![CDATA[<tr:form usesUpload="true">
+  <tr:inputFile columns="10"/>
+</tr:form>]]></mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
-        <mfp:preferred-children>af:panelPage af:page</mfp:preferred-children>
+        <mfp:preferred-children>tr:panelPage tr:page</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>form</mfp:uix2-local-name>
     </component-extension>

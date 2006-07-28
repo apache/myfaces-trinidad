@@ -1,16 +1,16 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CorePanelPageHeader">
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelPageHeader">
      
-    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
-                af:facet="branding"
+    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+                tr:facet="branding"
                 source="/foo/foo.gif"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreObjectImage"
-                af:facet="brandingApp"
+    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+                tr:facet="brandingApp"
                 source="/foo/bar.gif"/>
    
-     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
-                af:facet="search"
+     <component tr:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
+                tr:facet="search"
                 value="the search facet"/>
   </base-component>
 

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -37,7 +37,7 @@ setting the "simple" attribute to true.]]>
       <facet-name>help</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet> 
@@ -70,7 +70,7 @@ setting the "simple" attribute to true.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Message</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Message</mfp:renderer-type>
-      <mfp:tag-name>af:message</mfp:tag-name>
+      <mfp:tag-name>tr:message</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreMessageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
  Component that displays a message on behalf of a component.
@@ -82,9 +82,9 @@ setting the "simple" attribute to true.]]>
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:outputLabel label="Name:" for="name"/>
-<af:inputText simple="true"  id="name"/>
-<af:message for="name" />]]>
+        <mfp:source-code><![CDATA[<tr:outputLabel label="Name:" for="name"/>
+<tr:inputText simple="true"  id="name"/>
+<tr:message for="name" />]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

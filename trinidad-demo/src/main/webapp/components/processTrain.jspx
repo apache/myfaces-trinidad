@@ -29,9 +29,9 @@
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/> 
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Link below to process using 'Plus One' described in the javadoc for org.apache.myfaces.adf.ProcessMenuModel&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Link below to process using 'Plus One' described in the javadoc for org.apache.myfaces.trinidad.ProcessMenuModel&lt;/b>"/>
             <tr:commandLink action="guide.page_p1" text="Plus One Process"/>
-            <tr:outputFormatted styleUsage="instruction" value="&lt;b>process using 'Max Visited' described in the javadoc for org.apache.myfaces.adf.ProcessMenuModel&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>process using 'Max Visited' described in the javadoc for org.apache.myfaces.trinidad.ProcessMenuModel&lt;/b>"/>
           
             <tr:processTrain binding="#{editor.component}" var="foo" value="#{processTrainMenuModel}">
               <f:facet name="nodeStamp">

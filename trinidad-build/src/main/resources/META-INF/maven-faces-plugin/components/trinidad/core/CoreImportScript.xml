@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -44,7 +44,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.ImportScript</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ImportScript</mfp:renderer-type>
-      <mfp:tag-name>af:importScript</mfp:tag-name>
+      <mfp:tag-name>tr:importScript</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreImportScriptTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The importScript component supports importing the built-in scripts
           provided by ADF Faces.  It can be used to ensure that a Javascript
@@ -53,7 +53,7 @@
           being imported.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;af:importScript names="submitForm() TableProxy()"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:importScript names="submitForm() TableProxy()"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>

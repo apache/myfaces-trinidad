@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -172,7 +172,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Progress</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Indicator</mfp:renderer-type>
-      <mfp:tag-name>af:progressIndicator</mfp:tag-name>
+      <mfp:tag-name>tr:progressIndicator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreProgressIndicatorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The progress is tracked from the 
@@ -197,8 +197,8 @@
       <mfp:example>
         <xhtml:p>Basic example to create a progressIndicator component 
  	            attached to a poll component:</xhtml:p>
-        <mfp:source-code><![CDATA[<af:poll pollInterval="2000" id="pollid"/>
-             <af:progressIndicator id="progress_widget" 
+        <mfp:source-code><![CDATA[<tr:poll pollInterval="2000" id="pollid"/>
+             <tr:progressIndicator id="progress_widget" 
                                       action="guide" 
                                       value="#{progress.progressModel}" 
                                       partialTriggers="pollid"/>]]>

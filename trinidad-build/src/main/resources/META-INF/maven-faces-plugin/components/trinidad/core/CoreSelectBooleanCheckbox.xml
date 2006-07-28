@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -309,7 +309,7 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectBoolean</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Checkbox</mfp:renderer-type>
-      <mfp:tag-name>af:selectBooleanCheckbox</mfp:tag-name>
+      <mfp:tag-name>tr:selectBooleanCheckbox</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectBooleanCheckboxTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>
             The selectBooleanCheckbox component maps to a standard browser input
@@ -325,7 +325,7 @@ tip), and may use simpler layout primitives]]>
             and a label of "Label:"
             which can be toggled using the accessKey '2'.
         </xhtml:p>
-        <mfp:source-code>&lt;af:selectBooleanCheckbox
+        <mfp:source-code>&lt;tr:selectBooleanCheckbox
              label="Label:"
              textAndAccessKey="checkbox&amp;amp;2"
              accessKey="2"/&gt;

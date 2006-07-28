@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -159,18 +159,18 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Command</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.NavigationItem</mfp:renderer-type>
-      <mfp:tag-name>af:commandNavigationItem</mfp:tag-name>
+      <mfp:tag-name>tr:commandNavigationItem</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreCommandNavigationItemTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The commandNavigationItem control creates a navigation item representation of a UIXCommand. The item could be rendered as a link, an option, a button, etc. This component is normally used as a stamp for a component that takes a MenuModel object.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:page var="foo" value="#{navigation.menuModel}">
+        <mfp:source-code><![CDATA[<tr:page var="foo" value="#{navigation.menuModel}">
               <f:facet name="nodeStamp">
-                <af:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
+                <tr:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
               </f:facet> 
-            </af:page>]]>
+            </tr:page>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -17,7 +17,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -29,7 +29,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -43,7 +43,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -77,7 +77,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:panelGroup af:objectImage af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:objectImage tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -102,7 +102,7 @@
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -113,7 +113,7 @@
       <facet-name>infoReturn</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -126,7 +126,7 @@
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -137,7 +137,7 @@
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -152,7 +152,7 @@
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:processTrain af:navigationPath</mfp:preferred-children>
+          <mfp:preferred-children>tr:processTrain tr:navigationPath</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -162,7 +162,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -171,7 +171,7 @@
       <facet-name>navigation2</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -180,7 +180,7 @@
       <facet-name>navigation3</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:navigationLevel af:navigationTree</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationLevel tr:navigationTree</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -191,7 +191,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -200,7 +200,7 @@
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:inputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:inputText</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -264,66 +264,66 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Page</mfp:renderer-type>
-      <mfp:tag-name>af:panelPage</mfp:tag-name>
+      <mfp:tag-name>tr:panelPage</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelPageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[PanelPage lays out an entire page.
         It supports several navigation and content areas for the creation of pages.
         When the panelPage is geometry managed, the last indexed child will be stretched vertically to fit in the leftover space not consumed by the other indexed children. If you do not want this stretching behavior, you must wrap your indexed children with a panelGroup with layout="vertical" and inlineStyle="overflow: auto;". This way, the panelGroup will be stretched to fit and scrollbars will appear when the content inside is larger than the allocated space.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelPage>
+        <mfp:source-code><![CDATA[<tr:panelPage>
             <f:facet name="branding">
-              <af:panelGroup layout="horizontal">
-                <af:objectImage source="/images/corporateBrand.gif"/>
-                <af:outputText value="My Company"/>
-              </af:panelGroup>
+              <tr:panelGroup layout="horizontal">
+                <tr:objectImage source="/images/corporateBrand.gif"/>
+                <tr:outputText value="My Company"/>
+              </tr:panelGroup>
             </f:facet>
             <f:facet name="location">
-              <af:navigationPath>
-                <af:commandNavigationItem text="crumb 1" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="crumb 2" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="crumb 3" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="crumb 4" action="guide.navigationLevel"/>
-              </af:navigationPath>
+              <tr:navigationPath>
+                <tr:commandNavigationItem text="crumb 1" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="crumb 2" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="crumb 3" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="crumb 4" action="guide.navigationLevel"/>
+              </tr:navigationPath>
             </f:facet>
             <f:facet name="navigation1">
-              <af:navigationLevel>
-                <af:commandNavigationItem text="tab 1" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="tab 2" action="guide.navigationLevel" 
+              <tr:navigationLevel>
+                <tr:commandNavigationItem text="tab 1" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="tab 2" action="guide.navigationLevel" 
                   selected="true"/>
-                <af:commandNavigationItem text="tab 3" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="tab 4" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="tab 5" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="tab 6" action="guide.navigationLevel"
+                <tr:commandNavigationItem text="tab 3" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="tab 4" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="tab 5" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="tab 6" action="guide.navigationLevel"
                   disabled="true"/>
-              </af:navigationLevel>
+              </tr:navigationLevel>
             </f:facet>
             <f:facet name="navigation2">
-              <af:navigationLevel>
-                <af:commandNavigationItem text="item 1" action="guide.navigationLevel" 
+              <tr:navigationLevel>
+                <tr:commandNavigationItem text="item 1" action="guide.navigationLevel" 
                   selected="true"/>
-                <af:commandNavigationItem text="item 2" action="guide.navigationLevel"
+                <tr:commandNavigationItem text="item 2" action="guide.navigationLevel"
                   disabled="true"/>
-                <af:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="item 4" action="guide.navigationLevel"/>
-              </af:navigationLevel>
+                <tr:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="item 4" action="guide.navigationLevel"/>
+              </tr:navigationLevel>
             </f:facet>
             <f:facet name="navigation3">
-              <af:navigationLevel>
-                <af:commandNavigationItem text="item 1" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="item 2" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
-              </af:navigationLevel>
+              <tr:navigationLevel>
+                <tr:commandNavigationItem text="item 1" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="item 2" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
+              </tr:navigationLevel>
             </f:facet>
             <f:facet name="navigationGlobal">
-              <af:navigationLevel>
-                <af:commandNavigationItem text="Home" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="Help" action="guide.navigationLevel"/>
-                <af:commandNavigationItem text="Sign Out" action="guide.navigationLevel"/>
-              </af:navigationLevel>
+              <tr:navigationLevel>
+                <tr:commandNavigationItem text="Home" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="Help" action="guide.navigationLevel"/>
+                <tr:commandNavigationItem text="Sign Out" action="guide.navigationLevel"/>
+              </tr:navigationLevel>
             </f:facet>
-            <af:outputText value="Content here"/>
-          </af:panelPage>]]>
+            <tr:outputText value="Content here"/>
+          </tr:panelPage>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

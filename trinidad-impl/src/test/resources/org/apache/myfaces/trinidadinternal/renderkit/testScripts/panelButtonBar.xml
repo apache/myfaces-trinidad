@@ -1,9 +1,9 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CorePanelButtonBar">
-    <component af:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 1"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 2"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 3"/>
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelButtonBar">
+    <component tr:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 1"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 2"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreCommandButton" text="button 3"/>
   </base-component>
   
   <!-- Core attribute tests -->

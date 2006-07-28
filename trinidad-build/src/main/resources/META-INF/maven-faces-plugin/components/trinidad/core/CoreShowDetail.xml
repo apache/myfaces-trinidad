@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -50,7 +50,7 @@ will be used instead of the disclosedText and undisclosedText attributes.]]>
       <facet-extension>
         <mfp:required>false</mfp:required>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:goLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:goLink</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -90,7 +90,7 @@ both the disclosed state AND the undisclosed state.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ShowDetail</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ShowDetail</mfp:renderer-type>
-      <mfp:tag-name>af:showDetail</mfp:tag-name>
+      <mfp:tag-name>tr:showDetail</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowDetailTag</mfp:tag-class>
       <mfp:long-description>
         <![CDATA[The showDetail provides a means of toggling a group of components between being 
@@ -160,9 +160,9 @@ disclosed or undisclosed.  A showDetail should be used to:
       <mfp:example>
         <xhtml:p>An interactive showDetail</xhtml:p>
         <mfp:source-code>
-          <![CDATA[<af:showDetail id="showDetail1">
-  <af:panelHeader text="Header" />
-</af:showDetail>]]>
+          <![CDATA[<tr:showDetail id="showDetail1">
+  <tr:panelHeader text="Header" />
+</tr:showDetail>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:component-metadata>

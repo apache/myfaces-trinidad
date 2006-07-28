@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -346,29 +346,29 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectOne</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Radio</mfp:renderer-type>
-      <mfp:tag-name>af:selectOneRadio</mfp:tag-name>
+      <mfp:tag-name>tr:selectOneRadio</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectOneRadioTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>The selectOneRadio component creates a component
           which allows the user to select a single value from a set of items
           displayed as a series of radio buttons.
           It can contain any number of
           &lt;f:selectItem&gt;, &lt;f:selectItems&gt;, or
-   &lt;af:selectItem&gt; components,  each of which
+   &lt;tr:selectItem&gt; components,  each of which
           represents an available option that the user may select.</p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectOneRadio value="#{bean.aValue}" required="yes">
+        <mfp:source-code><![CDATA[<tr:selectOneRadio value="#{bean.aValue}" required="yes">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</af:selectOneRadio>]]>
+</tr:selectOneRadio>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>John Fallows</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-        <mfp:preferred-children>af:selectItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:selectItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>selectOneRadio</mfp:uix2-local-name>
     </component-extension>

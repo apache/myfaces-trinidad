@@ -1,7 +1,7 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
   <!-- Set required group attribute -->
-  <base-component af:type="org.apache.myfaces.trinidad.CoreSelectBooleanRadio" group="groupTest"/>
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectBooleanRadio" group="groupTest"/>
   <!--attribute-test name="accessKey" value="a"/-->
   <boolean-test name="autoSubmit"/>
   <attribute-test name="autoSubmit" value="true">  

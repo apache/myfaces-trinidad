@@ -20,7 +20,7 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns="http://www.w3.org/2001/XMLSchema"
   xmlns:html="http://www.w3.org/TR/REC-html40"
-  xmlns:cabotool="http://bali.us.oracle.com/cabo/tool"
+  xmlns:cabotool="http://myfaces.apache.org/trinidad/cabo/tool"
   elementFormDefault="qualified">
 
   <element name="styleSheetDocument" type="style:styleSheetDocumentType">
