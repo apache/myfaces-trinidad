@@ -1,7 +1,7 @@
 <?xml version='1.0'?>
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude">
-  <xi:include href="components/adf/faces/Command.xml" xpointer="/faces-config/*"></xi:include>
+  <xi:include href="components/trinidad/faces/Command.xml" xpointer="/faces-config/*"></xi:include>
   <xi:include href="events/javax/faces/Action.xml" xpointer="/faces-config/*"></xi:include>
-  <xi:include href="events/adf/faces/Launch.xml" xpointer="/faces-config/*"></xi:include>
-  <xi:include href="events/adf/faces/Return.xml" xpointer="/faces-config/*"></xi:include>
+  <xi:include href="events/trinidad/faces/Launch.xml" xpointer="/faces-config/*"></xi:include>
+  <xi:include href="events/trinidad/faces/Return.xml" xpointer="/faces-config/*"></xi:include>
 </faces-config>

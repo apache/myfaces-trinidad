@@ -17,7 +17,7 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.apache.myfaces.adfbuild</groupId>
+  <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
   <version>incubator-alpha-1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -46,19 +46,19 @@
 
   <mailingLists>
     <mailingList>
-      <name>ADF Faces Incubator Users</name>
+      <name>Apache Trinidad Incubator Users</name>
       <post>adffaces-users@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator Developers</name>
+      <name>Apache Trinidad Incubator Developers</name>
       <post>adffaces-dev@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator issues</name>
+      <name>Apache Trinidad Incubator issues</name>
       <post>adffaces-issues@incubator.apache.org</post>
     </mailingList>
     <mailingList>
-      <name>ADF Faces Incubator commits</name>
+      <name>Apache Trinidad Incubator commits</name>
       <post>adffaces-commits@incubator.apache.org</post>
     </mailingList>
   </mailingLists>
@@ -99,6 +99,16 @@
       <name>John Fallows</name>
       <organization/>
       <email>jfallows@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
+      <id>jwaldman</id>
+      <name>Jeanne Waldman</name>
+      <organization/>
+      <email>jwaldman@apache.org</email>
       <roles>
         <role>Developer</role>
       </roles>
@@ -150,7 +160,7 @@
     <module>maven-jdev-plugin</module>
     <module>maven-javascript-plugin</module>
     <module>maven-xrts-plugin</module>
-    <module>maven-adf-archetype</module>
+    <!--module>maven-adf-archetype</module-->
   </modules>
 
   <distributionManagement>
