@@ -17,7 +17,7 @@
  -->
 
 <archetype>
-  <id>adf-archetype</id>
+  <id>myfaces-archetype-trinidad</id>
   <resources>
     <resource>src/main/java/org/apache/myfaces/adf/blank/HelloWorldBacking.java</resource>
     <resource>src/main/webapp/index.jspx</resource>

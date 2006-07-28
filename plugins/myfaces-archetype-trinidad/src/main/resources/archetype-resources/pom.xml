@@ -102,17 +102,17 @@
       <scope>compile</scope>
     </dependency>
 
-    <!-- adf -->
+    <!-- Apache Trinidad -->
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-api</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-api</artifactId>
       <version>incubator-m1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.myfaces.adf</groupId>
-      <artifactId>adf-faces-impl</artifactId>
+      <groupId>org.apache.myfaces.trinidad</groupId>
+      <artifactId>trinidad-impl</artifactId>
       <version>incubator-m1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
