@@ -16,43 +16,43 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
  <jsp:directive.page contentType="text/html;charset=utf-8"/>
  <f:view>
-   <af:document title="Add dialog">
-    <af:form>
-     <af:panelPage>
-       <af:messages/>
-      <af:panelHeader text="Add two numbers">
-      <af:panelForm>
-       <af:inputText label="Number 1:" value="#{chooseInteger.value1}"
+   <tr:document title="Add dialog">
+    <tr:form>
+     <tr:panelPage>
+       <tr:messages/>
+      <tr:panelHeader text="Add two numbers">
+      <tr:panelForm>
+       <tr:inputText label="Number 1:" value="#{chooseInteger.value1}"
                      required="true">
         <f:facet name="help">
-         <af:outputText value="Enter an integer."/>
+         <tr:outputText value="Enter an integer."/>
         </f:facet>
-       </af:inputText>
-       <af:inputText label="Number 2:" value="#{chooseInteger.value2}"
+       </tr:inputText>
+       <tr:inputText label="Number 2:" value="#{chooseInteger.value2}"
                      required="true">
         <f:facet name="help">
-         <af:outputText value="Enter an integer."/>
+         <tr:outputText value="Enter an integer."/>
         </f:facet>
-       </af:inputText>
-       </af:panelForm>
-      </af:panelHeader>
-       <af:panelButtonBar>
-        <af:commandButton text="Show Dialog" action="dialog:simpleDialog"
+       </tr:inputText>
+       </tr:panelForm>
+      </tr:panelHeader>
+       <tr:panelButtonBar>
+        <tr:commandButton text="Show Dialog" action="dialog:simpleDialog"
                           windowWidth="150" windowHeight="150" immediate="true"
                           partialSubmit="true" useWindow="true"
                           returnListener="#{chooseInteger.sayHello}"/>
-        <af:commandButton text="Submit">
-         <af:returnActionListener value="#{chooseInteger.value1 + chooseInteger.value2}"/>
-        </af:commandButton>
-        <af:commandButton text="Cancel" immediate="true">
-         <af:returnActionListener/>
-        </af:commandButton>
-       </af:panelButtonBar>
-     </af:panelPage>
-    </af:form>
-  </af:document>
+        <tr:commandButton text="Submit">
+         <tr:returnActionListener value="#{chooseInteger.value1 + chooseInteger.value2}"/>
+        </tr:commandButton>
+        <tr:commandButton text="Cancel" immediate="true">
+         <tr:returnActionListener/>
+        </tr:commandButton>
+       </tr:panelButtonBar>
+     </tr:panelPage>
+    </tr:form>
+  </tr:document>
  </f:view>
 </jsp:root>

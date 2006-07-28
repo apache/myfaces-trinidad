@@ -17,8 +17,8 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <jsp:include page="/components/page_process_include.jspx"/>
 </jsp:root>

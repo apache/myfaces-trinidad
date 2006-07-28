@@ -17,42 +17,42 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Tree Demo">
-        <af:form>
-          <af:messages/>
-          <af:panelGroup layout="vertical">
+ <tr:document title="Tree Demo">
+        <tr:form>
+          <tr:messages/>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>  
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>                
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Basic Tree&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Basic Tree&lt;/b>"/>
 <!--
-            <af:tree value="#{tree.model}" binding="#{editor.component}" />
+            <tr:tree value="#{tree.model}" binding="#{editor.component}" />
 
             <jsp:directive.include file="editor.jspf" />    
 -->
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Tree with TreeModel&lt;/b>"/>
-            <af:tree  binding="#{editor.component}"
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Tree with TreeModel&lt;/b>"/>
+            <tr:tree  binding="#{editor.component}"
                       var="foo" value="#{tree.model}">
               <f:facet name="nodeStamp">
-                <af:inputText value="#{foo.text}" shortDesc="Enter text"/>
+                <tr:inputText value="#{foo.text}" shortDesc="Enter text"/>
               </f:facet>
-            </af:tree>
+            </tr:tree>
 
             <jsp:directive.include file="editor.jspf" />  
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Tree with CollectionModel&lt;/b>"/>
-            <af:tree var="foo" value="#{periodicTable.tableData}">
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Tree with CollectionModel&lt;/b>"/>
+            <tr:tree var="foo" value="#{periodicTable.tableData}">
               <f:facet name="nodeStamp">
-                <af:commandLink text="#{foo.name}" action="#{foo.action}"/>
+                <tr:commandLink text="#{foo.name}" action="#{foo.action}"/>
               </f:facet>
-            </af:tree>
-          </af:panelGroup>
-        </af:form>
- </af:document>
+            </tr:tree>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

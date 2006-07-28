@@ -16,7 +16,7 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <!-- 
   Load a resource bundle localized for the Locale of the current view, 
@@ -28,61 +28,61 @@
   <f:loadBundle var="nls"
                 basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
   <f:view>
-    <af:document title="Email Log In">
-        <af:form>
-          <af:panelPage>
-            <af:messages/>
+    <tr:document title="Email Log In">
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
             <f:facet name="branding">
-              <af:panelGroup layout="vertical">
-                <af:panelGroup>
-                  <af:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}"
+              <tr:panelGroup layout="vertical">
+                <tr:panelGroup>
+                  <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}"
                                       styleClass="AFHeaderLevelOne"/>
-                  <af:objectImage source="/email/images/pbs.gif"
+                  <tr:objectImage source="/email/images/pbs.gif"
                                   shortDesc="Email demo"/>
-                </af:panelGroup>
-                <af:outputFormatted value="Customer &lt;b>Foo - Anywhere, U.S.A. &lt;/b>"
+                </tr:panelGroup>
+                <tr:outputFormatted value="Customer &lt;b>Foo - Anywhere, U.S.A. &lt;/b>"
                                     styleUsage="inContextBranding"/>
-              </af:panelGroup>
+              </tr:panelGroup>
             </f:facet>
             <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Return to Index" immediate="true"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Return to Index" immediate="true"
                                     action="home"/>
-                <af:commandNavigationItem text="Help" action="action.none"/>
-              </af:menuButtons>
+                <tr:commandNavigationItem text="Help" action="action.none"/>
+              </tr:menuButtons>
             </f:facet>
             <f:facet name="infoStatus">
-              <af:outputText styleClass="AFErrorText"
+              <tr:outputText styleClass="AFErrorText"
                              value="Note: The Trinidad Email Demo application is not                  configured to use a secure communication channel between                  the browser and the application server - or between the                  application server and the IMAP server.                   This means that your data (including your user name/password                  and email contents) are transmitted in a non-secure manner.                   Thus, this sample application should only be used in environments                 that are known to be secure."/>
             </f:facet>
-           <af:panelHeader text="Email Log In">
-            <af:panelForm>
-              <af:inputText required="true" labelAndAccessKey="&amp;Username"
+           <tr:panelHeader text="Email Log In">
+            <tr:panelForm>
+              <tr:inputText required="true" labelAndAccessKey="&amp;Username"
                             value="#{email.username}">
                 <f:facet name="help">
-                  <af:outputFormatted value="The part that comes &lt;b>before&lt;/b> the @ in your email address"/>
+                  <tr:outputFormatted value="The part that comes &lt;b>before&lt;/b> the @ in your email address"/>
                 </f:facet>
-              </af:inputText>
-              <af:inputText labelAndAccessKey="&amp;Password"
+              </tr:inputText>
+              <tr:inputText labelAndAccessKey="&amp;Password"
                             value="#{email.password}" secret="true"/>
-              <af:inputText required="true" label="Domain"
+              <tr:inputText required="true" label="Domain"
                             value="#{email.domain}">
                 <f:facet name="help">
-                  <af:outputFormatted value="The part that comes &lt;b>after&lt;/b> the @ in your email address"/>
+                  <tr:outputFormatted value="The part that comes &lt;b>after&lt;/b> the @ in your email address"/>
                 </f:facet>
-                </af:inputText>
-              <af:inputText required="true" label="IMAP Server"
+                </tr:inputText>
+              <tr:inputText required="true" label="IMAP Server"
                             value="#{email.server}"/>
-              <af:inputText required="true" label="SMTP Server"
+              <tr:inputText required="true" label="SMTP Server"
                             value="#{email.smtpServer}"/>
-            </af:panelForm>
-           </af:panelHeader>
-            <af:panelButtonBar>
-              <af:commandButton textAndAccessKey="&amp;Log In"
+            </tr:panelForm>
+           </tr:panelHeader>
+            <tr:panelButtonBar>
+              <tr:commandButton textAndAccessKey="&amp;Log In"
                                 action="#{email.login}"/>
-            </af:panelButtonBar>
-          </af:panelPage>
-        </af:form>
-    </af:document>
+            </tr:panelButtonBar>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

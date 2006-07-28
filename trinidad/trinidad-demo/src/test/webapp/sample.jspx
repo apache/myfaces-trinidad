@@ -17,64 +17,64 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Sample page"/>
-      <afh:body>
-       <af:form>
-        <af:panelPage id="plTarget"
+    <trh:html>
+      <trh:head title="Sample page"/>
+      <trh:body>
+       <tr:form>
+        <tr:panelPage id="plTarget"
                       binding="#{ui.panelPage}"
                       partialTriggers="sd1 sd2">
-          <af:messages/>
+          <tr:messages/>
           <f:facet name="manu1">
-            <af:menuTabs >
-              <af:goLink text="Home" destination="#" />
-              <af:goLink text="Home 2" destination="#" />
-            </af:menuTabs>
+            <tr:menuTabs >
+              <tr:goLink text="Home" destination="#" />
+              <tr:goLink text="Home 2" destination="#" />
+            </tr:menuTabs>
           </f:facet>
-          <af:commandButton text="Nothing" action="#{action.nothing}"/>
-          <af:commandButton text="Fire Action Listener"
+          <tr:commandButton text="Nothing" action="#{action.nothing}"/>
+          <tr:commandButton text="Fire Action Listener"
                             actionListener="#{ui.anActionListener}"/>
           <!-- This component is a trigger for the panelPage, 'cause our
                 disclosureListener modifies the panelPage's title -->
-          <af:showDetail id="sd1"
+          <tr:showDetail id="sd1"
                          disclosureListener="#{ui.aDisclosureListener}">
            <f:verbatim>
             Some text
            </f:verbatim>
-          </af:showDetail>
-          <af:showDetail id="sd2"
+          </tr:showDetail>
+          <tr:showDetail id="sd2"
                          immediate="false"
                          disclosureListener="#{ui.aDisclosureListener}">
            <f:verbatim>
             Some more text
            </f:verbatim>
-          </af:showDetail>
+          </tr:showDetail>
 
-          <af:inputText id="mti1" value="#{data.int}" required="true" label="label"/>
+          <tr:inputText id="mti1" value="#{data.int}" required="true" label="label"/>
 
 
-          <af:table value="#{table}" var="row" rows="10">
+          <tr:table value="#{table}" var="row" rows="10">
            <f:facet name="selection">
-            <af:tableSelectMany/>
+            <tr:tableSelectMany/>
            </f:facet>
-           <af:column>
-            <af:inputText value="#{row.int}"/>
-           </af:column>
-           <af:column>
-            <af:inputText value="#{row.string}"/>
-           </af:column>
-           <af:column>
-             <af:commandButton text="Details..."
+           <tr:column>
+            <tr:inputText value="#{row.int}"/>
+           </tr:column>
+           <tr:column>
+            <tr:inputText value="#{row.string}"/>
+           </tr:column>
+           <tr:column>
+             <tr:commandButton text="Details..."
                                 action="#{row.showDetail}"/>
-           </af:column>
-          </af:table>
-        </af:panelPage>
-       </af:form>
-      </afh:body>
-    </afh:html>
+           </tr:column>
+          </tr:table>
+        </tr:panelPage>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

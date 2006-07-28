@@ -17,32 +17,32 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="processTrain Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="processTrain Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>SubTrain A&lt;/b>"/>
-            <af:processTrain var="foo" value="#{processTrainMenuModel}">
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SubTrain A&lt;/b>"/>
+            <tr:processTrain var="foo" value="#{processTrainMenuModel}">
               <f:facet name="nodeStamp">
-                <af:commandNavigationItem text="#{foo.label}"
+                <tr:commandNavigationItem text="#{foo.label}"
                                     action="#{foo.getOutcome}"
                                     immediate="#{processTrainMenuModel.immediate}"
                                     readOnly="#{processTrainMenuModel.readOnly}"/>
               </f:facet>
-            </af:processTrain>             
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+            </tr:processTrain>             
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

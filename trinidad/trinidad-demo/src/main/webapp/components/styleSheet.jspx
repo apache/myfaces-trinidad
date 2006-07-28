@@ -17,28 +17,28 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-    <!-- The afh:head element automatically adds 
+    <trh:html>
+    <!-- The trh:head element automatically adds 
     the style sheet link reference to a generated Trinidad style sheet 
-      <afh:head title="commandButton Demo"/>
+      <trh:head title="commandButton Demo"/>
     -->
-      <afh:styleSheet rendered="true" binding="#{editor.component}"/>
-      <afh:body>
-        <af:form>       
-            <af:panelGroup layout="vertical">
+      <trh:styleSheet rendered="true" binding="#{editor.component}"/>
+      <trh:body>
+        <tr:form>       
+            <tr:panelGroup layout="vertical">
               <f:facet name="separator">
-                <af:objectSeparator />
+                <tr:objectSeparator />
               </f:facet>   
-              <af:commandLink immediate="true" text="Component Guide"
+              <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>      
-              <af:outputFormatted 
+              <tr:outputFormatted 
                 styleUsage="instruction" 
                 value="&lt;b>styleSheet Demo&lt;/b>"/>
-              <af:outputFormatted 
+              <tr:outputFormatted 
                 styleUsage="instruction" 
                 value="The styleSheet component generates the style sheet link
                 reference to a generated Trinidad style sheet. This is automatically 
@@ -46,9 +46,9 @@
                 Toggle rendered to see the effect of the styleSheet component.
                 "/>
               <jsp:directive.include file="editor.jspf" />
-            </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+            </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

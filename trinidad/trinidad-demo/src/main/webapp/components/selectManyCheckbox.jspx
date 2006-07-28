@@ -17,79 +17,79 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="SelectManyCheckbox Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="SelectManyCheckbox Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/> 
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectManyCheckbox bound to integer array&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectManyCheckbox bound to integer array&lt;/b>"/>
               
-             <af:selectManyCheckbox binding="#{editor.component}"
+             <tr:selectManyCheckbox binding="#{editor.component}"
                                  label="Label" 
                                  valueChangeListener="#{list.valueChanged}"
                                  value="#{list.intArray}">
-              <af:selectItem label="First" value="1"/>
-              <af:selectItem label="Second" value="2"/>
-              <af:selectItem label="Third" value="3"/>
-            </af:selectManyCheckbox>
+              <tr:selectItem label="First" value="1"/>
+              <tr:selectItem label="Second" value="2"/>
+              <tr:selectItem label="Third" value="3"/>
+            </tr:selectManyCheckbox>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                                 value="&lt;b>SelectManyCheckbox bound to string array&lt;/b>"/>
               
-             <af:selectManyCheckbox label="Label"
+             <tr:selectManyCheckbox label="Label"
                                  valueChangeListener="#{list.valueChanged}"
                                  value="#{list.stringArray}">
-               <af:selectItem label="First" value="foo"/>
-               <af:selectItem label="Second" value="bar"/>
-               <af:selectItem label="Third" value="baz"/>
-             </af:selectManyCheckbox>
+               <tr:selectItem label="First" value="foo"/>
+               <tr:selectItem label="Second" value="bar"/>
+               <tr:selectItem label="Third" value="baz"/>
+             </tr:selectManyCheckbox>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                                 value="&lt;b>SelectManyCheckbox bound to list&lt;/b>"/>
               
-             <af:selectManyCheckbox label="Label"
+             <tr:selectManyCheckbox label="Label"
                                  valueChangeListener="#{list.valueChanged}"
                                  value="#{list.objectList}">
-               <af:selectItem label="First" value="foo"/>
-               <af:selectItem label="Second" value="bar"/>
-               <af:selectItem label="Third" value="baz"/>
-             </af:selectManyCheckbox>
+               <tr:selectItem label="First" value="foo"/>
+               <tr:selectItem label="Second" value="bar"/>
+               <tr:selectItem label="Third" value="baz"/>
+             </tr:selectManyCheckbox>
 
-             <af:commandButton text="Submit"/>
+             <tr:commandButton text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
            
-            <af:outputFormatted styleUsage="instruction"
+            <tr:outputFormatted styleUsage="instruction"
                                 value="SelectManyCheckbox with f:selectItems bound to a List of SelectItem custom object"/>
 
-            <af:selectManyCheckbox label="Cars"
+            <tr:selectManyCheckbox label="Cars"
                                   valueChangeListener="#{list.valueChanged}"
                                   value="#{list.selectedCars}">
               <f:selectItems value="#{list.makes}"/>
-            </af:selectManyCheckbox>
+            </tr:selectManyCheckbox>
 
-            <af:outputFormatted styleUsage="instruction"
-                                value="SelectManyCheckbox with af:selectItem bound to SelectItem custom object"/>
+            <tr:outputFormatted styleUsage="instruction"
+                                value="SelectManyCheckbox with tr:selectItem bound to SelectItem custom object"/>
 
-            <af:selectManyCheckbox label="Cars"
+            <tr:selectManyCheckbox label="Cars"
                                   valueChangeListener="#{list.valueChanged}"
                                   value="#{list.selectedCars}">
-               <af:selectItem  value="#{list.firstSelectItemCar}"/>
-               <af:selectItem  value="#{list.secondSelectItemCar}"/>
-               <af:selectItem  value="#{list.thirdSelectItemCar}"/>
-            </af:selectManyCheckbox>
+               <tr:selectItem  value="#{list.firstSelectItemCar}"/>
+               <tr:selectItem  value="#{list.secondSelectItemCar}"/>
+               <tr:selectItem  value="#{list.thirdSelectItemCar}"/>
+            </tr:selectManyCheckbox>
           
-            <af:outputFormatted styleUsage="instruction"
-                                value="SelectManyCheckbox with af:selectItem bound to SelectItem Strings. 
+            <tr:outputFormatted styleUsage="instruction"
+                                value="SelectManyCheckbox with tr:selectItem bound to SelectItem Strings. 
                                 In this test case, the valuePassThru attribute is set to true, therefore the value is passed through
                                 to the client. If you  need to have the value on the client, one reason might be
                                 if you are relying on the value for javascript, then set valuePassThru to true.
@@ -97,19 +97,19 @@
                                 automatically on the server. valuePassThru=false allows the component to be bound to
                                 custom Objects. valuePassThru=true works ok when the value is bound to Strings. "/>
 
-            <af:selectManyCheckbox label="Strings, valuePassThru is true"
+            <tr:selectManyCheckbox label="Strings, valuePassThru is true"
                                   valuePassThru="true"
                                   valueChangeListener="#{list.valueChanged}"
                                   value="#{list.selectedSelectItems}">
-               <af:selectItem  value="#{list.firstSelectItemString}"/>
-               <af:selectItem  value="#{list.secondSelectItemString}"/>
-               <af:selectItem  value="#{list.thirdSelectItemString}"/>
-            </af:selectManyCheckbox>
+               <tr:selectItem  value="#{list.firstSelectItemString}"/>
+               <tr:selectItem  value="#{list.secondSelectItemString}"/>
+               <tr:selectItem  value="#{list.thirdSelectItemString}"/>
+            </tr:selectManyCheckbox>
 
-             <af:commandButton text="Submit"/>
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+             <tr:commandButton text="Submit"/>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

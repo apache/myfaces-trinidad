@@ -16,65 +16,65 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Car Demo"/>
-      <afh:body>
-       <af:form>
-        <af:panelPage>
+    <trh:html>
+      <trh:head title="Car Demo"/>
+      <trh:body>
+       <tr:form>
+        <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <af:menuButtons>
-           <af:commandNavigationItem text="Return to Feature Demos page"
+          <tr:menuButtons>
+           <tr:commandNavigationItem text="Return to Feature Demos page"
                                    immediate="true"
                                    action="demos"/>
-          </af:menuButtons>
+          </tr:menuButtons>
          </f:facet>
-         <af:messages/>
-         <af:panelForm>
+         <tr:messages/>
+         <tr:panelForm>
 
-          <af:selectOneChoice id="makesChoice" label="Makes:"
+          <tr:selectOneChoice id="makesChoice" label="Makes:"
                               autoSubmit="true"
                               valueChangeListener="#{carBacking.makeChanged}">
            <f:selectItems value="#{carBacking.makes}"/>
-          </af:selectOneChoice>
+          </tr:selectOneChoice>
 
-          <af:selectOneChoice id="modelsChoice"
+          <tr:selectOneChoice id="modelsChoice"
                               autoSubmit="true"
                               valueChangeListener="#{carBacking.modelChanged}"
                               partialTriggers="makesChoice" label="Models:">
            <f:selectItems binding="#{carBacking.modelItems}"/>
-          </af:selectOneChoice>
+          </tr:selectOneChoice>
 
-         </af:panelForm>
+         </tr:panelForm>
 
          <!-- Show the price -->
-         <af:panelGroup layout="vertical">
-          <af:outputText value="Price: "/>
-          <af:outputText id="price" 
+         <tr:panelGroup layout="vertical">
+          <tr:outputText value="Price: "/>
+          <tr:outputText id="price" 
                          partialTriggers="modelsChoice makesChoice launchOptions"
                          binding="#{carBacking.price}">
            <f:convertNumber type="currency"/>
-          </af:outputText>
-          <af:objectSpacer width="10"/>
+          </tr:outputText>
+          <tr:objectSpacer width="10"/>
           <!-- A link to show the options;  it starts out disabled -->
-          <af:commandLink id="launchOptions" disabled="true"
+          <tr:commandLink id="launchOptions" disabled="true"
                          shortDesc="Click to pick new options"
                          partialTriggers="modelsChoice makeChoice"
                          returnListener="#{carBacking.returnOptions}"
                          binding="#{carBacking.launchOptions}"
                          useWindow="true"
                          action="dialog:optionsDialog" text="Pick options: "/>
-          <af:outputText id="options"
+          <tr:outputText id="options"
                          binding="#{carBacking.options}"
                          partialTriggers="launchOptions modelsChoice makeChoice"/>
-         </af:panelGroup>
+         </tr:panelGroup>
 
-        </af:panelPage>
-       </af:form>
-      </afh:body>
-    </afh:html>
+        </tr:panelPage>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

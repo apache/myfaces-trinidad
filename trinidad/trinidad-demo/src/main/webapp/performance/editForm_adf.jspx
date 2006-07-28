@@ -17,40 +17,40 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
    <html>
     <head>
      <title>Editable form ADF</title>
-     <afh:styleSheet/>
+     <trh:styleSheet/>
     </head>
     <body>
-      <af:form >
-        <af:messages/>
-        <af:panelForm>
-          <af:inputText label="First:" value="1"/>
-          <af:inputText label="Second:" value="2"/>
-          <af:inputText label="Third:" value="3"/>
-          <af:inputText label="Fourth:" value="4"/>
-          <af:inputText label="Fifth:" value="5"/>
-          <af:selectOneRadio label="Radio:" value="3">
+      <tr:form >
+        <tr:messages/>
+        <tr:panelForm>
+          <tr:inputText label="First:" value="1"/>
+          <tr:inputText label="Second:" value="2"/>
+          <tr:inputText label="Third:" value="3"/>
+          <tr:inputText label="Fourth:" value="4"/>
+          <tr:inputText label="Fifth:" value="5"/>
+          <tr:selectOneRadio label="Radio:" value="3">
             <f:selectItem itemValue="1" itemLabel="1"/>
             <f:selectItem itemValue="2" itemLabel="2"/>
             <f:selectItem itemValue="3" itemLabel="3"/>
-          </af:selectOneRadio>
-          <af:selectOneListbox label="List:" value="2">
+          </tr:selectOneRadio>
+          <tr:selectOneListbox label="List:" value="2">
             <f:selectItem itemValue="1" itemLabel="1"/>
             <f:selectItem itemValue="2" itemLabel="2"/>
             <f:selectItem itemValue="3" itemLabel="3"/>
-          </af:selectOneListbox>
-          <af:inputText label="Textarea:" value="Long text" rows="5" />
-          <af:selectBooleanCheckbox label="Checked:" selected="true"
+          </tr:selectOneListbox>
+          <tr:inputText label="Textarea:" value="Long text" rows="5" />
+          <tr:selectBooleanCheckbox label="Checked:" selected="true"
                text="True or false"/>
-        </af:panelForm>
-        <af:commandButton text="Submit"/>
-      </af:form>
+        </tr:panelForm>
+        <tr:commandButton text="Submit"/>
+      </tr:form>
      </body>
     </html>
   </f:view>

@@ -17,31 +17,31 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Shopping Cart"/>
-      <afh:body>
-       <af:form>
+    <trh:html>
+      <trh:head title="Shopping Cart"/>
+      <trh:body>
+       <tr:form>
        
-        <af:panelPage>
-          <af:messages/>
+        <tr:panelPage>
+          <tr:messages/>
     
-          <af:panelHeader text="Shopping Cart">
-          <af:panelForm>        
-            <af:inputText readOnly="true" value="foobar" label="Items" />
-          </af:panelForm>
+          <tr:panelHeader text="Shopping Cart">
+          <tr:panelForm>        
+            <tr:inputText readOnly="true" value="foobar" label="Items" />
+          </tr:panelForm>
           
-          <af:panelButtonBar>
-            <af:commandButton action="checkout" text="Proceed to Checkout"/>        
-          </af:panelButtonBar>
-          </af:panelHeader>
-        </af:panelPage>
+          <tr:panelButtonBar>
+            <tr:commandButton action="checkout" text="Proceed to Checkout"/>        
+          </tr:panelButtonBar>
+          </tr:panelHeader>
+        </tr:panelPage>
     
-       </af:form>
-      </afh:body>
-    </afh:html>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

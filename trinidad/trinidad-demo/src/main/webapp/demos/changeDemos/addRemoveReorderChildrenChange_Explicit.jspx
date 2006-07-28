@@ -16,83 +16,83 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document 
+    <tr:document 
       title="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
         Persistence Feature Demo">
-      <af:form>
+      <tr:form>
 
-        <af:panelPage >
+        <tr:panelPage >
          <f:facet name="navigationGlobal">
-          <af:menuButtons>
-            <af:commandNavigationItem 
+          <tr:menuButtons>
+            <tr:commandNavigationItem 
               text="Return to Change Persistence demo index page"
               immediate="true"
               action="demos.changePersistence"/>
-           </af:menuButtons>
+           </tr:menuButtons>
           </f:facet>
-        <af:panelHeader text="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
+        <tr:panelHeader text="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
           Persistence Feature Demo">
-          <af:panelGroup layout="vertical">
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:panelGroup id="pg1">
-              <af:objectImage 
+            <tr:panelGroup id="pg1">
+              <tr:objectImage 
                 id="oi1" 
   shortDesc="Corporate Brand"
                 source="/components/images/corporateBrand.gif"/>
-              <af:panelBox id="pb1" text="PanelBoxText"/>
-              <af:inputText id="it1" label="Label"/>
-              <af:selectInputColor 
+              <tr:panelBox id="pb1" text="PanelBoxText"/>
+              <tr:inputText id="it1" label="Label"/>
+              <tr:selectInputColor 
                 id="sic1" 
                 chooseId="cc1"
                 label="Color:"
                 value="#{color.colorValue2}">
                 <f:facet name="help">
-                  <af:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+                  <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
                 </f:facet>
-              </af:selectInputColor>
-              <af:chooseColor 
+              </tr:selectInputColor>
+              <tr:chooseColor 
                 id="cc1" 
                 colorData="#{requestContext.colorPalette.default49}"/>
-              <af:chooseDate id="cd1"/>
-              <af:selectInputDate label="Date:" id="sid1" chooseId="cd1"/>
-            </af:panelGroup>
-            <af:panelGroup>
-              <af:commandButton 
+              <tr:chooseDate id="cd1"/>
+              <tr:selectInputDate label="Date:" id="sid1" chooseId="cd1"/>
+            </tr:panelGroup>
+            <tr:panelGroup>
+              <tr:commandButton 
                 id="cb1" 
                 text="Reorder children" 
                 actionListener="#{change.reorderChildren}"/>
-              <af:objectSpacer width="10"/>
-              <af:commandButton 
+              <tr:objectSpacer width="10"/>
+              <tr:commandButton 
                 id="cb2" 
                 text="Remove color child components" 
                 actionListener="#{change.removeChildren}"/>
-              <af:objectSpacer width="10"/>
-              <af:commandButton 
+              <tr:objectSpacer width="10"/>
+              <tr:commandButton 
                 id="cb3" 
                 text="Remove date child components" 
                 actionListener="#{change.removeChildren}"/>
-              <af:objectSpacer width="10"/>
-              <af:commandButton 
+              <tr:objectSpacer width="10"/>
+              <tr:commandButton 
                 id="cb4" 
                 text="Add an object image child" 
                 actionListener="#{change.appendChild}"/>
-              <af:objectSpacer width="10" rendered="false"/>
-              <af:commandButton 
+              <tr:objectSpacer width="10" rendered="false"/>
+              <tr:commandButton 
                 id="cb5" 
                 text="Add an object image child to document" 
                 actionListener="#{change.appendChildToDocument}"
                 rendered="false"/>
-            </af:panelGroup>
-          </af:panelGroup>
-         </af:panelHeader>
-        </af:panelPage>
+            </tr:panelGroup>
+          </tr:panelGroup>
+         </tr:panelHeader>
+        </tr:panelPage>
 
-      </af:form>
-    </af:document>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

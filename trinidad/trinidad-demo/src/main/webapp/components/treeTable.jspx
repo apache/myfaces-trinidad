@@ -17,155 +17,155 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="TreeTable Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="TreeTable Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>    
             
             <!--
-            <af:treeTable var="foo" value="#{tree.model}" binding="#{editor.component}">
+            <tr:treeTable var="foo" value="#{tree.model}" binding="#{editor.component}">
               <f:facet name="nodeStamp">
-                <af:outputText value="#{foo.text}"/>
+                <tr:outputText value="#{foo.text}"/>
               </f:facet>
-            </af:treeTable>
+            </tr:treeTable>
 
 
             <jsp:directive.include file="editor.jspf" />    
 -->
 
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
               value="&lt;b>Editable treeTable with Record Set Navigation&lt;/b>"/>
-            <af:treeTable  binding="#{editor.component}" var="foo" value="#{tree.model}" rendered="true"
+            <tr:treeTable  binding="#{editor.component}" var="foo" value="#{tree.model}" rendered="true"
               rowsByDepth="3" summary="Demo of treeTable"
               >
               <f:facet name="nodeStamp">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Text"/>
+                    <tr:outputText value="Text"/>
                   </f:facet>
-                  <af:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
-                </af:column>
+                  <tr:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+                </tr:column>
               </f:facet>
               <f:facet name="pathStamp">
-                <af:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+                <tr:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
               </f:facet>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Foo Column"/>
+                  <tr:outputText value="Foo Column"/>
                 </f:facet>
-                <af:inputText value="#{foo.text}" shortDesc="Enter text"/>
-              </af:column>
+                <tr:inputText value="#{foo.text}" shortDesc="Enter text"/>
+              </tr:column>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Bar Column"/>
                 </f:facet>
                 <h:outputText value="#{foo.text} Bar"/>
-              </af:column>
-            </af:treeTable>
+              </tr:column>
+            </tr:treeTable>
 
             <jsp:directive.include file="editor.jspf" />  
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>No Focus Column&lt;/b>"/>
-            <af:treeTable var="foo" value="#{tree.model}" rendered="true" 
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>No Focus Column&lt;/b>"/>
+            <tr:treeTable var="foo" value="#{tree.model}" rendered="true" 
                  summary="Second treeTable" >
               <f:facet name="nodeStamp">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Text"/>
+                    <tr:outputText value="Text"/>
                   </f:facet>
-                  <af:outputText value="#{foo.text}"/>
-                </af:column>
+                  <tr:outputText value="#{foo.text}"/>
+                </tr:column>
               </f:facet>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Text"/>
+                  <tr:outputText value="Text"/>
                 </f:facet>
-                <af:outputText value="#{foo.text}"/>
-              </af:column>
+                <tr:outputText value="#{foo.text}"/>
+              </tr:column>
 
-            </af:treeTable>
+            </tr:treeTable>
 
-            <af:commandButton text="Submit"/>
+            <tr:commandButton text="Submit"/>
 
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Giant treeTable&lt;/b>"/>
-            <af:treeTable var="foo" value="#{largeTree.model}" 
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Giant treeTable&lt;/b>"/>
+            <tr:treeTable var="foo" value="#{largeTree.model}" 
                summary="Giant treeTable"
               rendered='true'>
               <f:facet name="nodeStamp">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Label"/>
+                    <tr:outputText value="Label"/>
                   </f:facet>
-                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
-                </af:column>
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                </tr:column>
               </f:facet>
               <f:facet name="pathStamp">
-                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
               </f:facet>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Parent"/>
+                  <tr:outputText value="Parent"/>
                 </f:facet>
-                <af:outputText value="#{foo.parentLabel}"/>
-              </af:column>
+                <tr:outputText value="#{foo.parentLabel}"/>
+              </tr:column>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Index"/>
                 </f:facet>
                 <h:outputText value="#{foo.index}"/>
-              </af:column>
-              <af:column>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Depth"/>
                 </f:facet>
                 <h:outputText value="#{foo.depth}"/>
-              </af:column>
-            </af:treeTable>
+              </tr:column>
+            </tr:treeTable>
 
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Empty treeTable&lt;/b>"/>
-            <af:treeTable var="foo" rendered="true"
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Empty treeTable&lt;/b>"/>
+            <tr:treeTable var="foo" rendered="true"
               summary="Empty treeTable"
               emptyText="no records found"
               >
               <f:facet name="nodeStamp">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Text"/>
+                    <tr:outputText value="Text"/>
                   </f:facet>
-                <af:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
-                </af:column>
+                <tr:outputFormatted value="&lt;b>text:#{foo.text}&lt;/b>"/>
+                </tr:column>
               </f:facet>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Foo Column"/>
+                  <tr:outputText value="Foo Column"/>
                 </f:facet>
-                <af:outputText value="foo #{foo.text}"/>
-              </af:column>
+                <tr:outputText value="foo #{foo.text}"/>
+              </tr:column>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Bar Column"/>
                 </f:facet>
                 <h:outputText value="#{foo.text} Bar"/>
-              </af:column>
-            </af:treeTable>
-          </af:panelGroup>
+              </tr:column>
+            </tr:treeTable>
+          </tr:panelGroup>
 
-        </af:form>
- </af:document>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

@@ -17,24 +17,24 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="ObjectSeparator Demo"/>
-      <afh:body>
-        <af:form >
-          <af:panelGroup layout="vertical">
-            <af:commandLink immediate="true" text="Component Guide"
+    <trh:html>
+      <trh:head title="ObjectSeparator Demo"/>
+      <trh:body>
+        <tr:form >
+          <tr:panelGroup layout="vertical">
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>   
-            <af:outputText styleClass="AFInstructionText" value="Above separator"/>
-            <af:objectSeparator binding="#{editor.component}"/>
-            <af:outputText styleClass="AFInstructionText" value="Below separator"/>
+            <tr:outputText styleClass="AFInstructionText" value="Above separator"/>
+            <tr:objectSeparator binding="#{editor.component}"/>
+            <tr:outputText styleClass="AFInstructionText" value="Below separator"/>
             <jsp:directive.include file="editor.jspf" />
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

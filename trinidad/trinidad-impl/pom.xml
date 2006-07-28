@@ -89,10 +89,10 @@
         <artifactId>maven-faces-plugin</artifactId>
         <configuration>
           <taglibs>
-            <af>http://myfaces.apache.org/trinidad</af>
-            <afh>http://myfaces.apache.org/trinidad/html</afh>
+            <tr>http://myfaces.apache.org/trinidad</tr>
+            <trh>http://myfaces.apache.org/trinidad/html</trh>
           </taglibs>
-          <faceletHandlerClass>org.apache.myfaces.adfinternal.facelets.AdfComponentHandler</faceletHandlerClass>
+          <faceletHandlerClass>org.apache.myfaces.trinidadinternal.facelets.TrinidadComponentHandler</faceletHandlerClass>
           <typePrefix>org.apache</typePrefix>
           <packageContains>org.apache</packageContains>
           <force>true</force>

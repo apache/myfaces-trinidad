@@ -17,38 +17,38 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="menuList Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="menuList Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>    
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>A menuList bound to a menuModel&lt;/b>"/>
-            <af:commandLink immediate="true" text="Link to example"
+            <tr:commandLink immediate="true" text="Link to example"
                 action="guide.page_a1b2c2"/>        
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Basic basic menuList&lt;/b>"/>
-            <af:panelSideBar>
-              <af:menuList binding="#{editor.component}">
-                <af:commandNavigationItem text="Page 1" action="#{action.app1}"/>
-                <af:commandNavigationItem text="Page 2" selected="true"/>
-                <af:commandNavigationItem text="Page 3" action="#{action.app2}"/>
-              </af:menuList>
-            </af:panelSideBar>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Basic basic menuList&lt;/b>"/>
+            <tr:panelSideBar>
+              <tr:menuList binding="#{editor.component}">
+                <tr:commandNavigationItem text="Page 1" action="#{action.app1}"/>
+                <tr:commandNavigationItem text="Page 2" selected="true"/>
+                <tr:commandNavigationItem text="Page 3" action="#{action.app2}"/>
+              </tr:menuList>
+            </tr:panelSideBar>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

@@ -16,47 +16,47 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-   <af:document title="Survey Demo">
-     <af:form>
+   <tr:document title="Survey Demo">
+     <tr:form>
        
-        <af:panelPage>
+        <tr:panelPage>
 
-      <af:panelHeader text="Question 4 of 5">
-        <af:panelLabelAndMessage label="#{survey.q3.prompt}"
+      <tr:panelHeader text="Question 4 of 5">
+        <tr:panelLabelAndMessage label="#{survey.q3.prompt}"
             labelStyle="vertical-align: top;">
-          <af:selectBooleanCheckbox text="#{survey.q3.text1}" value="#{survey.a30}" />
-          <af:selectBooleanCheckbox text="#{survey.q3.text2}" value="#{survey.a31}" />
-          <af:selectBooleanCheckbox text="#{survey.q3.text3}" value="#{survey.a32}" />
-          <af:selectBooleanCheckbox text="#{survey.q3.text4}" value="#{survey.a33}" />  
-        </af:panelLabelAndMessage>
-      </af:panelHeader>
+          <tr:selectBooleanCheckbox text="#{survey.q3.text1}" value="#{survey.a30}" />
+          <tr:selectBooleanCheckbox text="#{survey.q3.text2}" value="#{survey.a31}" />
+          <tr:selectBooleanCheckbox text="#{survey.q3.text3}" value="#{survey.a32}" />
+          <tr:selectBooleanCheckbox text="#{survey.q3.text4}" value="#{survey.a33}" />  
+        </tr:panelLabelAndMessage>
+      </tr:panelHeader>
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Index"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </af:menuButtons>
+            </tr:menuButtons>
           </f:facet>
           <f:facet name="location">               
-            <af:processTrain  value="#{surveyMenuModel}" var="surveyNode" >
+            <tr:processTrain  value="#{surveyMenuModel}" var="surveyNode" >
               <f:facet name="nodeStamp">
-                <af:commandNavigationItem text="#{surveyNode.label}"
+                <tr:commandNavigationItem text="#{surveyNode.label}"
                                     action="#{surveyNode.getOutcome}"
                                     readOnly="true"/>
               </f:facet>
-            </af:processTrain>
+            </tr:processTrain>
           </f:facet>
-          <af:panelButtonBar>
-            <af:singleStepButtonBar selectedStep="4" maxStep="5"
+          <tr:panelButtonBar>
+            <tr:singleStepButtonBar selectedStep="4" maxStep="5"
               nextAction="#{survey.next}" previousAction="#{survey.back}"/>
-          </af:panelButtonBar>
-        </af:panelPage>
+          </tr:panelButtonBar>
+        </tr:panelPage>
       
-      </af:form>
+      </tr:form>
     
-    </af:document>
+    </tr:document>
   </f:view>
 </jsp:root>

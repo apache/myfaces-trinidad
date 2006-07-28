@@ -16,26 +16,26 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Simple dialog"/>
-      <afh:body>
-       <af:form>
-        <af:panelPage>
-          <af:messages/>
-         <af:panelHeader text="Hi there!">
-           <af:panelButtonBar>
-            <af:commandButton text="Say Hello" immediate="true">
-              <af:returnActionListener/>                      
-            </af:commandButton>
-           </af:panelButtonBar>
-         </af:panelHeader>
-        </af:panelPage>
-       </af:form>
-      </afh:body>
-    </afh:html>
+    <trh:html>
+      <trh:head title="Simple dialog"/>
+      <trh:body>
+       <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
+         <tr:panelHeader text="Hi there!">
+           <tr:panelButtonBar>
+            <tr:commandButton text="Say Hello" immediate="true">
+              <tr:returnActionListener/>                      
+            </tr:commandButton>
+           </tr:panelButtonBar>
+         </tr:panelHeader>
+        </tr:panelPage>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

@@ -17,69 +17,69 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Implicit AttributeChange Persistence Feature Demo">
-      <af:form>
+    <tr:document title="Implicit AttributeChange Persistence Feature Demo">
+      <tr:form>
 
-        <af:panelPage>
+        <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <af:menuButtons>
-            <af:commandNavigationItem 
+          <tr:menuButtons>
+            <tr:commandNavigationItem 
               text="Return to Change Persistence demo index page"
               immediate="true"
               action="demos.changePersistence"/>
-           </af:menuButtons>
+           </tr:menuButtons>
           </f:facet>
 
-          <af:messages/>
-        <af:panelHeader text="Implicit AttributeChange Persistence Feature Demo">
-          <af:panelGroup layout="vertical">
+          <tr:messages/>
+        <tr:panelHeader text="Implicit AttributeChange Persistence Feature Demo">
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:showDetail 
+            <tr:showDetail 
               id="hs1" 
               partialTriggers="hs1"
               disclosedText="Click to hide me"
               undisclosedText="Click to disclose me">
               <h:outputText value="This showDetail is now Disclosed"/>
-            </af:showDetail>
-            <af:table 
+            </tr:showDetail>
+            <tr:table 
               summary="Periodic table" 
               id="ta1"
               binding="#{tableActions.table}"
               rowSelection="multiple"
               value="#{periodicTable.tableData}" var="row" rows="10">
               <f:facet name="footer">
-                <af:commandButton 
+                <tr:commandButton 
                   text="Report"
                   actionListener="#{tableActions.performReport}"/>
               </f:facet>
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Name"/>
+                  <tr:outputText value="Name"/>
                 </f:facet>
-                <af:outputText value="#{row.name}"/>
-              </af:column>
-              <af:column>
+                <tr:outputText value="#{row.name}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Symbol"/>
+                  <tr:outputText value="Symbol"/>
                 </f:facet>
-                <af:outputText value="#{row.symbol}"/>
-              </af:column>
-            </af:table>
-            <af:tree id="tr1" var="foo" value="#{tree.model}">
+                <tr:outputText value="#{row.symbol}"/>
+              </tr:column>
+            </tr:table>
+            <tr:tree id="tr1" var="foo" value="#{tree.model}">
               <f:facet name="nodeStamp">
-                <af:inputText simple="true" shortDesc="Example" value="#{foo.text}"/>
+                <tr:inputText simple="true" shortDesc="Example" value="#{foo.text}"/>
               </f:facet>
-            </af:tree>
-          </af:panelGroup>
-         </af:panelHeader>
-        </af:panelPage>
+            </tr:tree>
+          </tr:panelGroup>
+         </tr:panelHeader>
+        </tr:panelPage>
 
-      </af:form>
-    </af:document>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

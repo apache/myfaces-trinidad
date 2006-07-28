@@ -17,34 +17,34 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="SelectItem Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="SelectItem Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet> 
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneChoice&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneChoice&lt;/b>"/>
               
-            <af:selectOneChoice label="Label" >
-               <af:selectItem binding="#{editor.component}" label="First" value="1"/>
-               <af:selectItem label="Second" value="2"/>
-               <af:selectItem label="Third" value="3"/>
-             </af:selectOneChoice>
-             <af:commandButton text="Submit"/>
+            <tr:selectOneChoice label="Label" >
+               <tr:selectItem binding="#{editor.component}" label="First" value="1"/>
+               <tr:selectItem label="Second" value="2"/>
+               <tr:selectItem label="Third" value="3"/>
+             </tr:selectOneChoice>
+             <tr:commandButton text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

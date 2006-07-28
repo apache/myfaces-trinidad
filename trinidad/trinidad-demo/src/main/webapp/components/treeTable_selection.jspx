@@ -17,104 +17,104 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="tableSelectMany Demo"/>
-      <afh:body>
-        <af:form >
-          <af:panelGroup layout="vertical">
-            <af:commandLink immediate="true" text="Component Guide"
+    <trh:html>
+      <trh:head title="tableSelectMany Demo"/>
+      <trh:body>
+        <tr:form >
+          <tr:panelGroup layout="vertical">
+            <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/> 
-          </af:panelGroup>
-          <af:panelPage>
-            <af:messages/>
-            <af:selectOneChoice value="#{sessionScope.tableSelection}"
+          </tr:panelGroup>
+          <tr:panelPage>
+            <tr:messages/>
+            <tr:selectOneChoice value="#{sessionScope.tableSelection}"
                 autoSubmit="true"
                 id="selType"
                 label="Selection Type">
-              <af:selectItem label="Single" value="#{null}"/>
-              <af:selectItem label="Multiple" value="#{true}"/>
-            </af:selectOneChoice>
-            <af:treeTable var="foo" value="#{largeTree.model}" 
+              <tr:selectItem label="Single" value="#{null}"/>
+              <tr:selectItem label="Multiple" value="#{true}"/>
+            </tr:selectOneChoice>
+            <tr:treeTable var="foo" value="#{largeTree.model}" 
               binding="#{tableActions.table}"
               summary="Demo of TreeTable selection"
               partialTriggers="selType"
               rowSelection="#{sessionScope.tableSelection ? 'multiple' : 'single'}">
               <f:facet name="footer">
-                <af:commandButton text="Report" 
+                <tr:commandButton text="Report" 
                      actionListener="#{tableActions.performReport}"/>
               </f:facet>
               <f:facet name="nodeStamp">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Label"/>
+                    <tr:outputText value="Label"/>
                   </f:facet>
-                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
-                </af:column>
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                </tr:column>
               </f:facet>
               <f:facet name="pathStamp">
-                <af:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
+                <tr:outputFormatted value="&lt;b>#{foo.label}&lt;/b>"/>
               </f:facet>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Parent"/>
+                  <tr:outputText value="Parent"/>
                 </f:facet>
-                <af:outputText value="#{foo.parentLabel}"/>
-              </af:column>
+                <tr:outputText value="#{foo.parentLabel}"/>
+              </tr:column>
 
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Index"/>
                 </f:facet>
                 <h:outputText value="#{foo.index}"/>
-              </af:column>
-              <af:column>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
                   <h:outputText value="Depth"/>
                 </f:facet>
                 <h:outputText value="#{foo.depth}"/>
-              </af:column>
-            </af:treeTable>
+              </tr:column>
+            </tr:treeTable>
             
-            <af:panelHeader text="Report Items">
-              <af:table var="foo" value="#{tableActions.reportItems}"
+            <tr:panelHeader text="Report Items">
+              <tr:table var="foo" value="#{tableActions.reportItems}"
                 emptyText="Report is Empty" 
                 summary="Report">
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Label"/>
+                    <tr:outputText value="Label"/>
                   </f:facet>
-                  <af:outputText value="#{foo.label}"/>
-                </af:column>
-                <af:column>
+                  <tr:outputText value="#{foo.label}"/>
+                </tr:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Parent"/>
+                    <tr:outputText value="Parent"/>
                   </f:facet>
-                  <af:outputText value="#{foo.parentLabel}"/>
-                </af:column>
+                  <tr:outputText value="#{foo.parentLabel}"/>
+                </tr:column>
   
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
                     <h:outputText value="Index"/>
                   </f:facet>
                   <h:outputText value="#{foo.index}"/>
-                </af:column>
-                <af:column>
+                </tr:column>
+                <tr:column>
                   <f:facet name="header">
                     <h:outputText value="Depth"/>
                   </f:facet>
                   <h:outputText value="#{foo.depth}"/>
-                </af:column>
-              </af:table>
-            </af:panelHeader>
+                </tr:column>
+              </tr:table>
+            </tr:panelHeader>
 
-          </af:panelPage>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelPage>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

@@ -16,41 +16,41 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="SelectInputColor Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="SelectInputColor Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
               action="guide"/>       
 
-            <af:commandButton text="Submit"/>           
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>A selectInputColor using inline chooseColor - Update its properties from the table below&lt;/b>"/>
-            <af:selectInputColor id="sic1" chooseId="cp1"
+            <tr:commandButton text="Submit"/>           
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A selectInputColor using inline chooseColor - Update its properties from the table below&lt;/b>"/>
+            <tr:selectInputColor id="sic1" chooseId="cp1"
               binding="#{editor.component}"
               label="Enter or select color from palette below"
               value="#{color.colorValue2}">
               <f:facet name="help">
-                <af:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+                <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
               </f:facet>
-            </af:selectInputColor>
-            <af:chooseColor id="cp1" 
+            </tr:selectInputColor>
+            <tr:chooseColor id="cp1" 
               colorData="#{requestContext.colorPalette.default49}"/>
             <jsp:directive.include file="editor.jspf" />          
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>A selectInputColor&lt;/b>"/>
-            <af:selectInputColor id="sic3"
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>A selectInputColor&lt;/b>"/>
+            <tr:selectInputColor id="sic3"
               label="Enter or select color" value="#{color.colorValue3}" > 
               <f:facet name="help">
-                <af:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
+                <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
               </f:facet>
-            </af:selectInputColor>
+            </tr:selectInputColor>
 
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

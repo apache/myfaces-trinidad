@@ -16,53 +16,53 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Survey Demo">
-       <af:form>
+    <tr:document title="Survey Demo">
+       <tr:form>
        
-        <af:panelPage>
+        <tr:panelPage>
       
-        <af:panelHeader text="Question 5 of 5">
-          <af:panelForm>
+        <tr:panelHeader text="Question 5 of 5">
+          <tr:panelForm>
           
-            <af:selectOneRadio label="#{survey.q0.prompt}" 
+            <tr:selectOneRadio label="#{survey.q0.prompt}" 
                                   required="true"
                                   value="#{survey.a0}" >
-              <af:forEach var="item" varStatus="iter"
+              <tr:forEach var="item" varStatus="iter"
                           items="#{survey.q0.answerStrings}">
                 <!-- The strange EL syntax for "value" forces it to be a string -->
-                <af:selectItem label="#{item}" value="#{''}#{iter.index}"/>
-              </af:forEach>
-            </af:selectOneRadio >
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
+            </tr:selectOneRadio >
           
-          </af:panelForm>
-        </af:panelHeader>
+          </tr:panelForm>
+        </tr:panelHeader>
 
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Index"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </af:menuButtons>
+            </tr:menuButtons>
           </f:facet>
           <f:facet name="location">        
-            <af:processTrain  value="#{surveyMenuModel}" var="surveyNode">
+            <tr:processTrain  value="#{surveyMenuModel}" var="surveyNode">
               <f:facet name="nodeStamp">
-                <af:commandNavigationItem text="#{surveyNode.label}"
+                <tr:commandNavigationItem text="#{surveyNode.label}"
                                     action="#{surveyNode.getOutcome}"
                                     readOnly="true"/>
               </f:facet>
-            </af:processTrain>
+            </tr:processTrain>
           </f:facet>
 
-         <af:singleStepButtonBar selectedStep="1" maxStep="5" 
+         <tr:singleStepButtonBar selectedStep="1" maxStep="5" 
            nextAction="#{survey.next}"/>
-       </af:panelPage>
+       </tr:panelPage>
 
-       </af:form>
+       </tr:form>
        
- </af:document>
+ </tr:document>
   </f:view>
 </jsp:root>

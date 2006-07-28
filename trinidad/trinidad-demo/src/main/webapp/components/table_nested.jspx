@@ -17,63 +17,63 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="table Demo">
-        <af:form >
-          <af:messages/>
-          <af:panelGroup layout="vertical">
+ <tr:document title="table Demo">
+        <tr:form >
+          <tr:messages/>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
   
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Editable table&lt;/b>"/>
-            <af:table var="row"
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Editable table&lt;/b>"/>
+            <tr:table var="row"
                       value="#{periodicTable.tableData}" rows="10"
                       summary="Element data">
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Name"/>
+                  <tr:outputText value="Name"/>
                 </f:facet>
-                <af:inputText value="#{row.name}" shortDesc="#{row.name}"/>
-              </af:column>
-              <af:column>
+                <tr:inputText value="#{row.name}" shortDesc="#{row.name}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Symbol"/>
+                  <tr:outputText value="Symbol"/>
                 </f:facet>
-                <af:inputText value="#{row.symbol}" shortDesc="#{row.symbol}"/>
-              </af:column>
+                <tr:inputText value="#{row.symbol}" shortDesc="#{row.symbol}"/>
+              </tr:column>
               <f:facet name="detailStamp" >
-                <af:table var="sub"
+                <tr:table var="sub"
                           value="#{periodicTable.tableData}" rows="3"
                           summary="Detail element information">
-                  <af:column>
+                  <tr:column>
                     <f:facet name="header">
-                      <af:outputText value="#{row.name}:Name"/>
+                      <tr:outputText value="#{row.name}:Name"/>
                     </f:facet>
-                    <af:inputText value="#{sub.name}" shortDesc="#{sub.name}"/>
-                  </af:column>
-                  <af:column>
+                    <tr:inputText value="#{sub.name}" shortDesc="#{sub.name}"/>
+                  </tr:column>
+                  <tr:column>
                     <f:facet name="header">
-                      <af:outputText value="Symbol"/>
+                      <tr:outputText value="Symbol"/>
                     </f:facet>
-                    <af:inputText value="#{sub.symbol}" shortDesc="#{sub.symbol}"/>
-                  </af:column>
-                </af:table>
+                    <tr:inputText value="#{sub.symbol}" shortDesc="#{sub.symbol}"/>
+                  </tr:column>
+                </tr:table>
               </f:facet>
-            </af:table>
+            </tr:table>
 
 
-            <af:commandButton text="Submit"/>
+            <tr:commandButton text="Submit"/>
 
 
             
-          </af:panelGroup>    
-        </af:form>
- </af:document>
+          </tr:panelGroup>    
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

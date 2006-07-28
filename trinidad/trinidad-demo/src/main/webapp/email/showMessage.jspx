@@ -16,8 +16,8 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <!-- 
   Load a resource bundle localized for the Locale of the current view, 
@@ -29,135 +29,135 @@
   <f:loadBundle var="nls"
                 basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>  
   <f:view>
-    <af:document title="Message">
-       <af:form>
-        <af:panelPage>
-          <af:messages/>
+    <tr:document title="Message">
+       <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
           
           <f:facet name="branding">
-            <af:panelGroup layout="vertical">
-              <af:panelGroup>
-                <af:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <af:objectImage source="/email/images/pbs.gif"/>
-              </af:panelGroup>
-              <af:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+            <tr:panelGroup layout="vertical">
+              <tr:panelGroup>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:objectImage source="/email/images/pbs.gif"/>
+              </tr:panelGroup>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </af:panelGroup>
+            </tr:panelGroup>
           </f:facet>
           
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Index"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-              <af:commandNavigationItem text="Logout" 
+              <tr:commandNavigationItem text="Logout" 
                                 action="#{email.logout}"/>
-              <af:commandNavigationItem text="Preferences"
+              <tr:commandNavigationItem text="Preferences"
                                 action="preferences"/>
-              <af:commandNavigationItem text="Help"
+              <tr:commandNavigationItem text="Help"
                                 action="action.none"/>
-            </af:menuButtons>
+            </tr:menuButtons>
            </f:facet>
               
           <f:facet name="infoUser">
-            <af:outputFormatted value="Logged in as #{email.username}"
+            <tr:outputFormatted value="Logged in as #{email.username}"
                            styleUsage="pageStamp"/>
           </f:facet>
           
-        <af:panelHeader text="Message">
-          <af:panelBorder>
+        <tr:panelHeader text="Message">
+          <tr:panelBorder>
             <!-- Top section: include the headers -->
             <f:facet name="innerTop">
-              <af:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
-                <af:panelLabelAndMessage label="From:">
-                  <af:outputText value="#{showMessageBacking.message.sender}"/>
-                </af:panelLabelAndMessage>
-                <af:panelLabelAndMessage label="To:">
-                  <af:panelGroup layout="vertical">
-                    <af:forEach items="#{showMessageBacking.message.tos}"
+              <tr:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
+                <tr:panelLabelAndMessage label="From:">
+                  <tr:outputText value="#{showMessageBacking.message.sender}"/>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="To:">
+                  <tr:panelGroup layout="vertical">
+                    <tr:forEach items="#{showMessageBacking.message.tos}"
                                 var="address">  
-                      <af:outputText value="#{address}"/>
-                    </af:forEach>
-                 </af:panelGroup>
-                </af:panelLabelAndMessage>
-                <af:panelLabelAndMessage label="Cc:"
+                      <tr:outputText value="#{address}"/>
+                    </tr:forEach>
+                 </tr:panelGroup>
+                </tr:panelLabelAndMessage>
+                <tr:panelLabelAndMessage label="Cc:"
                   labelStyle="vertical-align: top;">
-                  <af:panelGroup layout="vertical">
-                    <af:forEach items="#{showMessageBacking.message.ccs}"
+                  <tr:panelGroup layout="vertical">
+                    <tr:forEach items="#{showMessageBacking.message.ccs}"
                                 var="address">
-                      <af:outputText value="#{address}"/>
-                    </af:forEach>
-                  </af:panelGroup>
-                </af:panelLabelAndMessage>
-                <af:inputText label="Subject:" readOnly="true"
+                      <tr:outputText value="#{address}"/>
+                    </tr:forEach>
+                  </tr:panelGroup>
+                </tr:panelLabelAndMessage>
+                <tr:inputText label="Subject:" readOnly="true"
                               value="#{showMessageBacking.message.subject}"/>
-                <af:inputText label="Sent:" readOnly="true"
+                <tr:inputText label="Sent:" readOnly="true"
                               value="#{showMessageBacking.message.sentDate}"/>
                 <!-- Commented out: content type
-                <af:inputText label="Content type:" readOnly="true"
+                <tr:inputText label="Content type:" readOnly="true"
                               value="#{showMessageBacking.message.contentType}"/>
                 -->
-              </af:panelForm>
+              </tr:panelForm>
 
             </f:facet>
 
             <!-- Main content -->
-            <af:panelHeader text="Content:">
+            <tr:panelHeader text="Content:">
               <!-- For plain text, show in a readOnly inputText -->
-              <af:inputText rendered="#{showMessageBacking.message.contentType == 'TEXT/PLAIN'}"
+              <tr:inputText rendered="#{showMessageBacking.message.contentType == 'TEXT/PLAIN'}"
                             readOnly="true" columns="80"
                             rows="#{showMessageBacking.message.lineCount &gt; 30
                                 ? 30 : showMessageBacking.message.lineCount}"
                             value="#{showMessageBacking.message.content}"/>
               <!-- HTML content: run through our "outputFormatted" filter -->
-              <afh:rowLayout rendered="#{showMessageBacking.message.contentType != 'TEXT/PLAIN'}"
+              <trh:rowLayout rendered="#{showMessageBacking.message.contentType != 'TEXT/PLAIN'}"
                           width="75%">
-                <af:outputFormatted
+                <tr:outputFormatted
                           value="#{showMessageBacking.message.content}"/>
-              </afh:rowLayout>
-            </af:panelHeader>
+              </trh:rowLayout>
+            </tr:panelHeader>
   
             <!-- Side content for the secondary layer: show attachments -->
             <f:facet name="auxiliary2">
-              <af:panelBox text="Attachments"
+              <tr:panelBox text="Attachments"
                     rendered="#{showMessageBacking.message.attachmentPresent}">
-                <af:panelGroup layout="vertical">
-                  <af:forEach items="#{showMessageBacking.message.attachments}"
+                <tr:panelGroup layout="vertical">
+                  <tr:forEach items="#{showMessageBacking.message.attachments}"
                               var="attachment">
-                    <af:commandLink text="#{attachment.fileName}"
+                    <tr:commandLink text="#{attachment.fileName}"
                         action="#{showMessageBacking.downloadAttachment}">
-                      <af:setActionListener from="#{attachment}"
+                      <tr:setActionListener from="#{attachment}"
                          to="#{showMessageBacking.attachmentToDownload}"/>
-                    </af:commandLink>
-                  </af:forEach>
-                </af:panelGroup>
-              </af:panelBox>
+                    </tr:commandLink>
+                  </tr:forEach>
+                </tr:panelGroup>
+              </tr:panelBox>
             </f:facet>
-          </af:panelBorder>
-        </af:panelHeader>
+          </tr:panelBorder>
+        </tr:panelHeader>
           <!--
           <f:facet name="infoReturn">
-            <af:commandLink text="Return to #{email.currentFolder.name}"
+            <tr:commandLink text="Return to #{email.currentFolder.name}"
                             action="messages"/>
           </f:facet>
           -->
-          <af:panelButtonBar>
-            <af:commandButton textAndAccessKey="&amp;Reply" 
+          <tr:panelButtonBar>
+            <tr:commandButton textAndAccessKey="&amp;Reply" 
                               action="reply">
-              <af:setActionListener from="#{'false'}"
+              <tr:setActionListener from="#{'false'}"
                                     to="#{pageFlowScope.replyToAll}"/>
-            </af:commandButton>  
-            <af:commandButton textAndAccessKey="&amp;Reply to &amp;All" 
+            </tr:commandButton>  
+            <tr:commandButton textAndAccessKey="&amp;Reply to &amp;All" 
                               action="reply">
-              <af:setActionListener from="#{'true'}"
+              <tr:setActionListener from="#{'true'}"
                                     to="#{pageFlowScope.replyToAll}"/>
-            </af:commandButton>                   
-            <af:commandButton textAndAccessKey="Cance&amp;l" immediate="true"
+            </tr:commandButton>                   
+            <tr:commandButton textAndAccessKey="Cance&amp;l" immediate="true"
                               action="messages"/>                                
-          </af:panelButtonBar>
-        </af:panelPage>
+          </tr:panelButtonBar>
+        </tr:panelPage>
     
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -16,38 +16,38 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="InputText Demo">
-        <af:form>     
-          <af:panelGroup layout="vertical">
+ <tr:document title="InputText Demo">
+        <tr:form>     
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>InputText&lt;/b>"/>
-            <af:inputText binding="#{editor.component}" label="Label" value="Some text"/>
-            <af:commandButton text="Submit"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>InputText&lt;/b>"/>
+            <tr:inputText binding="#{editor.component}" label="Label" value="Some text"/>
+            <tr:commandButton text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
     
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>InputText Bound To Date&lt;/b>"/>
-            <af:inputText label="Label2" value="#{date.date1}" autoSubmit="true">
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>InputText Bound To Date&lt;/b>"/>
+            <tr:inputText label="Label2" value="#{date.date1}" autoSubmit="true">
               <f:convertDateTime dateStyle="long"/>
-            </af:inputText>
-            <af:outputText styleClass="AFInstructionText"
+            </tr:inputText>
+            <tr:outputText styleClass="AFInstructionText"
                                 value="The submitted value was: "/>
-            <af:outputText value="#{date.date1}"/>
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>InputText with help facet&lt;/b>"/>
-            <af:inputText label="Label3" >
+            <tr:outputText value="#{date.date1}"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>InputText with help facet&lt;/b>"/>
+            <tr:inputText label="Label3" >
               <f:facet name="help">
-                <af:outputText value="Help facet text"/>
+                <tr:outputText value="Help facet text"/>
               </f:facet>
-            </af:inputText>
-          </af:panelGroup>
-        </af:form>
- </af:document>
+            </tr:inputText>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

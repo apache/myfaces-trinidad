@@ -17,64 +17,64 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Poll Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <tr:document title="Poll Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
               action="guide" actionListener="#{poll.resetPoll}"/>
 
-            <af:commandButton text="Submit"/>
+            <tr:commandButton text="Submit"/>
 
-            <af:panelGroup layout="vertical">
-              <af:poll binding="#{editor.component}" interval="2000" 
+            <tr:panelGroup layout="vertical">
+              <tr:poll binding="#{editor.component}" interval="2000" 
                 pollListener="#{poll.onPoll}" id="pollid"/>
-              <af:outputFormatted styleUsage="instruction" 
+              <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>Poll component with a poll listener that updates the poll count&lt;/b>"/>
-            </af:panelGroup>
-            <af:inputText readOnly="true" 
+            </tr:panelGroup>
+            <tr:inputText readOnly="true" 
               label="Date/Time from last full page refresh" 
               value="#{date.currentDate}"
               styleClass="AFDataText">
-              <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-            </af:inputText>
-            <af:panelGroup layout="vertical">
-              <af:outputFormatted styleUsage="instruction" 
+              <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+            </tr:inputText>
+            <tr:panelGroup layout="vertical">
+              <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>InputText linked to Poll component being updated in partial page mode&lt;/b>"/>
-              <af:inputText  readOnly="true" label="Poll Count: " 
+              <tr:inputText  readOnly="true" label="Poll Count: " 
                              value="#{poll.pollCount}"
                              styleClass="AFDataText" partialTriggers="pollid"/>
-            </af:panelGroup>
+            </tr:panelGroup>
 
-            <af:panelGroup layout="vertical">
-              <af:panelHeader text="When modal dialogs are launched from the
+            <tr:panelGroup layout="vertical">
+              <tr:panelHeader text="When modal dialogs are launched from the
                 following components, poll pauses until the dialog is dismissed"/>
               <f:facet name="separator">
-                <af:objectSpacer height="5"/>
+                <tr:objectSpacer height="5"/>
               </f:facet>
-              <af:selectInputColor id="sic3" label="The color picker dialog" 
+              <tr:selectInputColor id="sic3" label="The color picker dialog" 
                                    value="#{color.colorValue3}" compact="true"/>
-              <af:selectInputDate id="sid1" value="#{date.date1}"
+              <tr:selectInputDate id="sid1" value="#{date.date1}"
                                   label="The date picker dialog"/>
-               <af:commandButton text="Using dialog framework" 
+               <tr:commandButton text="Using dialog framework" 
                                  action="dialog:simpleDialog" useWindow="true"
                                  windowWidth="150" windowHeight="150"
                                  immediate="true" partialSubmit="true"/>
-              <af:goButton 
+              <tr:goButton 
                 text="Using openWindow() API in Trinidad Javascript library" 
                 onclick="openWindow(window,'poll_window_page.jspx','',{width:200, height:100},true,'dialog','');"/>
-            </af:panelGroup>
+            </tr:panelGroup>
 
             <jsp:directive.include file="editor.jspf"/>
 
-          </af:panelGroup>
-        </af:form>
-    </af:document>
+          </tr:panelGroup>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

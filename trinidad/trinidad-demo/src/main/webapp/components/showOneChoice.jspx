@@ -17,96 +17,96 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="showOneChoice Demo">
-        <af:form>
+ <tr:document title="showOneChoice Demo">
+        <tr:form>
         
-            <af:panelGroup layout="vertical">
+            <tr:panelGroup layout="vertical">
               <f:facet name="separator">
-                <af:objectSeparator/>
+                <tr:objectSeparator/>
               </f:facet>
-            <af:commandLink immediate="true" 
+            <tr:commandLink immediate="true" 
                             text="Component Guide"
                             action="guide"/>                   
              
-                <af:outputFormatted styleUsage="instruction" 
+                <tr:outputFormatted styleUsage="instruction" 
                                     value="&lt;b> A showOneChoice component - takes default selection among showDetailItem children&lt;/b>"/>  
 
-                <af:showOneChoice binding="#{editor.component}" 
+                <tr:showOneChoice binding="#{editor.component}" 
                                   alignment="center" 
                                   position="start" 
                                   id="someId" 
                                   label="Sales Data"
                                   accessKey="S">
 
-                  <af:showDetailItem id="showDetailItem2" 
+                  <tr:showDetailItem id="showDetailItem2" 
                                      text="Monthly Sales Distribution">
                                      
-                    <af:panelHeader  text="Monthly Sales Distribution">
-                      <af:objectImage source="images/monthlySalesDistribution.gif" 
+                    <tr:panelHeader  text="Monthly Sales Distribution">
+                      <tr:objectImage source="images/monthlySalesDistribution.gif" 
                                       inlineStyle="height:200px; width:300px;" 
                                       id="monthlySalesImage"
                                       shortDesc="Monthly sales distribution"/> 
-                    </af:panelHeader>
-                  </af:showDetailItem>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
 
-                  <af:showDetailItem id="showDetailItem3" 
+                  <tr:showDetailItem id="showDetailItem3" 
                                      text="Sales by Geography">
-                    <af:panelHeader text="Sales by Geography">
-                         <af:objectImage source="images/salesByGeography.gif"              
+                    <tr:panelHeader text="Sales by Geography">
+                         <tr:objectImage source="images/salesByGeography.gif"              
                                          shortDesc="Sales by Geography"
                                          inlineStyle="height:200px; width:300px;" 
                                          id="salesByGeographyImage"/> 
                       
-                    </af:panelHeader>
-                  </af:showDetailItem>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
                   
-                  <af:showDetailItem text="This page data" 
+                  <tr:showDetailItem text="This page data" 
                                      disclosureListener="#{toggle.onDisclosure}">
-                    <af:panelHeader text="Page refresh status">
-                      <af:panelForm>
-                        <af:inputText readOnly="true" 
+                    <tr:panelHeader text="Page refresh status">
+                      <tr:panelForm>
+                        <tr:inputText readOnly="true" 
                                       label="Label 1-1" 
                                       value="Value"
                                       styleClass="AFDataText"/>
-                        <af:inputText readOnly="true" 
+                        <tr:inputText readOnly="true" 
                                       label="Date/Time from last partial refresh" 
                                       value="#{date.currentDate}"
                                       styleClass="AFDataText">
-                          <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </af:inputText>
+                          <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                        </tr:inputText>
 
-                        <af:inputText readOnly="true"
+                        <tr:inputText readOnly="true"
                                       styleClass="AFDataText"
                                       value="You have shown/ hidden this page data option a total of #{toggle.totalCount} times"/>
 
-                      </af:panelForm>
-                    </af:panelHeader>
-                  </af:showDetailItem>
+                      </tr:panelForm>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
 
-                </af:showOneChoice>
+                </tr:showOneChoice>
 
-                <af:outputFormatted styleUsage="instruction" 
+                <tr:outputFormatted styleUsage="instruction" 
                                     value="&lt;b>A standard showOneChoice component - Update its properties from the table below &lt;/b>"/>  
                 
                 <jsp:directive.include file="editor.jspf" />
                 
-                <af:outputFormatted styleUsage="instruction" 
+                <tr:outputFormatted styleUsage="instruction" 
                                     value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>  
-                <af:panelForm>
-                  <af:inputText readOnly="true" 
+                <tr:panelForm>
+                  <tr:inputText readOnly="true" 
                                 label="Date/Time from last full page refresh" 
                                 value="#{date.currentDate}"
                                 styleClass="AFDataText">
-                    <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                  </af:inputText>
-                </af:panelForm>
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelForm>
 
-            </af:panelGroup>
-        </af:form>
- </af:document>
+            </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

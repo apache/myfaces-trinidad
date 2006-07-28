@@ -17,35 +17,35 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" 
           xmlns:f="http://java.sun.com/jsf/core" 
           xmlns:h="http://java.sun.com/jsf/html" 
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-           xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+           xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Add Row Demo">
-      <af:form >
-        <af:panelPage>
-          <af:commandLink text ="Return to Demo Start Page" 
+    <tr:document title="Add Row Demo">
+      <tr:form >
+        <tr:panelPage>
+          <tr:commandLink text ="Return to Demo Start Page" 
             action="demos.tableDemos"/>
-          <af:table var="row" value="#{Backer.list}" >
-            <af:column>
+          <tr:table var="row" value="#{Backer.list}" >
+            <tr:column>
               <f:facet name="header">
-                <af:outputText value="Element1"/>
+                <tr:outputText value="Element1"/>
               </f:facet>
-              <af:inputText value="#{row.data1}" columns="4" readOnly ="#{row.readOnly}" />
-            </af:column>
-            <af:column>
+              <tr:inputText value="#{row.data1}" columns="4" readOnly ="#{row.readOnly}" />
+            </tr:column>
+            <tr:column>
               <f:facet name="header">
-                <af:outputText value="Element2"/>
+                <tr:outputText value="Element2"/>
               </f:facet>
-              <af:inputText value="#{row.data2}" columns="4" readOnly ="#{row.readOnly}" />
-            </af:column>
+              <tr:inputText value="#{row.data2}" columns="4" readOnly ="#{row.readOnly}" />
+            </tr:column>
             <f:facet name="footer">
-              <af:commandButton text="Add Row" 
+              <tr:commandButton text="Add Row" 
                 actionListener="#{Backer.addRow}"/>
             </f:facet>
-          </af:table>
-        </af:panelPage>
-      </af:form>
-    </af:document>
+          </tr:table>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

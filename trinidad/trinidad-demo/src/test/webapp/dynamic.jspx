@@ -17,13 +17,13 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-   <af:document title="Test of dynamic components">
-    <af:form>
-     <af:panelBox binding="#{dynamic.panel}"/>
-    </af:form>
-   </af:document>
+   <tr:document title="Test of dynamic components">
+    <tr:form>
+     <tr:panelBox binding="#{dynamic.panel}"/>
+    </tr:form>
+   </tr:document>
   </f:view>
 </jsp:root>

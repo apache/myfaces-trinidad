@@ -16,7 +16,7 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <!-- 
   Load a resource bundle localized for the Locale of the current view, 
@@ -29,57 +29,57 @@
                 basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
   
   <f:view>
-    <af:document title="Message List">
-       <af:form>
+    <tr:document title="Message List">
+       <tr:form>
        
-        <af:panelPage>
-          <af:messages/>
+        <tr:panelPage>
+          <tr:messages/>
           
           <f:facet name="branding">
-            <af:panelGroup layout="vertical">
-              <af:panelGroup>
-                <af:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <af:objectImage source="/email/images/pbs.gif"/>
-              </af:panelGroup>
-              <af:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+            <tr:panelGroup layout="vertical">
+              <tr:panelGroup>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:objectImage source="/email/images/pbs.gif"/>
+              </tr:panelGroup>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </af:panelGroup>
+            </tr:panelGroup>
           </f:facet>
           
           <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Return to Index"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Return to Index"
                     immediate="true"
                     action="home"/>
-                <af:commandNavigationItem text="Logout" 
+                <tr:commandNavigationItem text="Logout" 
                                   action="#{email.logout}"/>
-                <af:commandNavigationItem text="Preferences"
+                <tr:commandNavigationItem text="Preferences"
                                   action="preferences"/>
-                <af:commandNavigationItem text="Help"
+                <tr:commandNavigationItem text="Help"
                                   action="action.none"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
             
             <f:facet name="infoUser">
-              <af:outputFormatted value="Logged in as #{email.username}"
+              <tr:outputFormatted value="Logged in as #{email.username}"
                                   styleUsage="pageStamp"/>
             </f:facet>
              <f:facet name="navigation3">
-                <af:tree var="currentFolder" value="#{email.folderModel}">
+                <tr:tree var="currentFolder" value="#{email.folderModel}">
                   <f:facet name="nodeStamp">
-                    <af:commandLink 
+                    <tr:commandLink 
                            disabled="#{!currentFolder.holdsMessages}"
                            action="#{currentFolder.viewMessages}">
-                      <af:outputText value="#{currentFolder.name}"/>
-                      <af:outputText
+                      <tr:outputText value="#{currentFolder.name}"/>
+                      <tr:outputText
                          rendered="#{currentFolder.unreadMessageCount &gt; 0}"
                          value=" (#{currentFolder.unreadMessageCount})"/>
-                    </af:commandLink>
+                    </tr:commandLink>
                   </f:facet>
-                </af:tree>
+                </tr:tree>
             </f:facet>
-           <af:panelHeader text="View Messages for Folder #{email.currentFolder.name}">
-            <af:table rows="#{email.preferences.rowsShown}"
+           <tr:panelHeader text="View Messages for Folder #{email.currentFolder.name}">
+            <tr:table rows="#{email.preferences.rowsShown}"
                       var="currentMessage"
                       value="#{email.currentFolder.messageListModel}"
                       binding="#{messagesBacking.messagesTable}"
@@ -91,67 +91,67 @@
                       rowSelection="multiple"
                       rowBandingInterval = "1">
               <f:facet name="footer">
-                <af:commandButton text="Delete"
+                <tr:commandButton text="Delete"
                         actionListener="#{messagesBacking.performDelete}"/>
               </f:facet>
-              <af:column  noWrap="true">
+              <tr:column  noWrap="true">
                 <f:facet name="header">
-                  <af:outputText value="Subject"/>
+                  <tr:outputText value="Subject"/>
                 </f:facet>
-                <af:panelGroup>
-                  <af:objectImage rendered="#{currentMessage.deleted}"
+                <tr:panelGroup>
+                  <tr:objectImage rendered="#{currentMessage.deleted}"
                                   source="/email/images/deleted.gif"/>
-                  <af:commandLink action="showMessage">
-                    <af:outputText
+                  <tr:commandLink action="showMessage">
+                    <tr:outputText
                        styleClass="#{currentMessage.read ? null : 'AFDataText'}"
                        truncateAt="25" value="#{currentMessage.subject}"
                        shortDesc="#{currentMessage.subject}"/>
-                    <af:setActionListener from="#{currentMessage}"
+                    <tr:setActionListener from="#{currentMessage}"
                                           to="#{pageFlowScope.message}"/>
-                  </af:commandLink>
-                </af:panelGroup>
-              </af:column>
-              <af:column rendered="#{email.preferences.displaySenderColumn}">
+                  </tr:commandLink>
+                </tr:panelGroup>
+              </tr:column>
+              <tr:column rendered="#{email.preferences.displaySenderColumn}">
                 <f:facet name="header">
-                  <af:outputText value="Sender"/>
+                  <tr:outputText value="Sender"/>
                 </f:facet>
-                <af:outputText value="#{currentMessage.sender}">
+                <tr:outputText value="#{currentMessage.sender}">
                   <f:converter converterId="org.apache.myfaces.adfdemo.email.EmailDisplay"/>
-                </af:outputText>
-              </af:column>
-              <af:column noWrap="true"
+                </tr:outputText>
+              </tr:column>
+              <tr:column noWrap="true"
                          rendered="#{email.preferences.displayDateColumn}">
                 <f:facet name="header">
-                  <af:outputText value="Sent"/>
+                  <tr:outputText value="Sent"/>
                 </f:facet>
-                <af:outputText value="#{currentMessage.sentDate}">
+                <tr:outputText value="#{currentMessage.sentDate}">
                   <f:converter converterId="org.apache.myfaces.adfdemo.email.RelativeDate"/>
-                </af:outputText>
-              </af:column>
-              <af:column rendered="#{email.preferences.displaySizeColumn}">
+                </tr:outputText>
+              </tr:column>
+              <tr:column rendered="#{email.preferences.displaySizeColumn}">
                 <f:facet name="header">
-                  <af:outputText value="Size"/>
+                  <tr:outputText value="Size"/>
                 </f:facet>
-                <af:outputText value="#{currentMessage.size} kB"/>
-              </af:column>
-            </af:table>
-           </af:panelHeader>
-          <af:panelButtonBar>
-            <af:commandButton text="First"
+                <tr:outputText value="#{currentMessage.size} kB"/>
+              </tr:column>
+            </tr:table>
+           </tr:panelHeader>
+          <tr:panelButtonBar>
+            <tr:commandButton text="First"
                               disabled="#{!messagesBacking.firstEnabled}"
                               action="#{messagesBacking.first}"/>
-            <af:commandButton text="Last"
+            <tr:commandButton text="Last"
                               disabled="#{!messagesBacking.lastEnabled}"
                               action="#{messagesBacking.last}"/>
-            <af:commandButton text="New Message" action="newMessage"/>
-            <af:commandButton text="Refresh"
+            <tr:commandButton text="New Message" action="newMessage"/>
+            <tr:commandButton text="Refresh"
                               action="#{messagesBacking.refresh}"/>
-            <af:commandButton text="Compact"
+            <tr:commandButton text="Compact"
                               action="#{messagesBacking.compact}"/>
-          </af:panelButtonBar>
-        </af:panelPage>
+          </tr:panelButtonBar>
+        </tr:panelPage>
     
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -17,81 +17,81 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Column Demo">
-        <af:form >
-          <af:panelGroup layout="vertical">
-            <af:commandLink immediate="true" text="Component Guide"
+ <tr:document title="Column Demo">
+        <tr:form >
+          <tr:panelGroup layout="vertical">
+            <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>
-            <af:commandLink immediate="true" text="Column Demo"
+            <tr:commandLink immediate="true" text="Column Demo"
                   action="guide.column"/>
-            <af:commandLink immediate="true" text="Column Group"
+            <tr:commandLink immediate="true" text="Column Group"
                   action="guide.column.group"/>
-            <af:commandLink immediate="true" text="RowHeader Column"
+            <tr:commandLink immediate="true" text="RowHeader Column"
                   action="guide.column.rowHeader"/>
-            <af:commandLink immediate="true" text="Sortable Column"
+            <tr:commandLink immediate="true" text="Sortable Column"
                   action="guide.column.sortable"/>
-            <af:commandLink immediate="true" text="Column Footer"
+            <tr:commandLink immediate="true" text="Column Footer"
                   action="guide.column.footer"/>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
               value="&lt;br&gt;&lt;b>Column&lt;/b>"/>
-            <af:table id="foo" value="#{table}" var="row" rows="5" 
+            <tr:table id="foo" value="#{table}" var="row" rows="5" 
                       summary="Column Demo">
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Header 1"/>
+                  <tr:outputText value="Header 1"/>
                 </f:facet>
-                <af:outputText value="#{row.int}"/>
-              </af:column>
-              <af:column  separateRows="true"
+                <tr:outputText value="#{row.int}"/>
+              </tr:column>
+              <tr:column  separateRows="true"
                           binding="#{editor.component}">
                 <f:facet name="header">
-                  <af:outputText value="Separate Rows"/>
+                  <tr:outputText value="Separate Rows"/>
                 </f:facet>
-                <af:outputText value="#{row.int}"/>
-                <af:outputText value="#{row.string}"/>
-              </af:column>
+                <tr:outputText value="#{row.int}"/>
+                <tr:outputText value="#{row.string}"/>
+              </tr:column>
 
-              <af:column align="right">
+              <tr:column align="right">
                 <f:facet name="header">
-                  <af:outputText value="Right"/>
+                  <tr:outputText value="Right"/>
                 </f:facet>
-                <af:outputText value="#{row.int}"/>
-              </af:column>
-              <af:column align="center">
+                <tr:outputText value="#{row.int}"/>
+              </tr:column>
+              <tr:column align="center">
                 <f:facet name="header">
-                  <af:outputText value="Center"/>
+                  <tr:outputText value="Center"/>
                 </f:facet>
-                <af:outputText value="#{row.int}"/>
-              </af:column>
+                <tr:outputText value="#{row.int}"/>
+              </tr:column>
 
-              <af:column noWrap="true">
+              <tr:column noWrap="true">
                 <f:facet name="header">
-                  <af:outputText value="Data Does Not Wrap"/>
+                  <tr:outputText value="Data Does Not Wrap"/>
                 </f:facet>
-                <af:outputText value=" #{row.string} #{row.string}"/>
-              </af:column>
-              <af:column headerNoWrap="true">
+                <tr:outputText value=" #{row.string} #{row.string}"/>
+              </tr:column>
+              <tr:column headerNoWrap="true">
                 <f:facet name="header">
-                  <af:outputText value="Header No Wrap"/>
+                  <tr:outputText value="Header No Wrap"/>
                 </f:facet>
-                <af:outputText value=" #{row.string} #{row.string} #{row.string}"/>
-              </af:column>
+                <tr:outputText value=" #{row.string} #{row.string} #{row.string}"/>
+              </tr:column>
 
-            </af:table>
+            </tr:table>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
               value="&lt;br&gt;This Editor controls the 'Separate Rows' Column:"/>
             <jsp:directive.include file="editor.jspf" />
 
 
 
-          </af:panelGroup>
-        </af:form>
-    </af:document>
+          </tr:panelGroup>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

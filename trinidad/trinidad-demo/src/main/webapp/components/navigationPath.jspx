@@ -16,46 +16,46 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces"
+          xmlns:tr="http://myfaces.apache.org/trinidad"
           version="1.2">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="NavigationPath Demo">
-      <af:form>
-        <af:panelGroup layout="vertical">
+    <tr:document title="NavigationPath Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
           <f:facet name="separator">
-            <af:objectSeparator/>
+            <tr:objectSeparator/>
           </f:facet>
-          <af:navigationLevel hint="buttons">
-            <af:commandNavigationItem immediate="true" text="Component Guide"
+          <tr:navigationLevel hint="buttons">
+            <tr:commandNavigationItem immediate="true" text="Component Guide"
               action="guide"/>
-            <af:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+            <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
               action="guide.page"/>
-            <af:commandNavigationItem immediate="true" text="NavigationLevel Demo"
+            <tr:commandNavigationItem immediate="true" text="NavigationLevel Demo"
               action="guide.navigationLevel"/>
-            <af:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
+            <tr:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
               action="guide.commandNavigationItem"/>
-            <af:commandNavigationItem immediate="true" text="PanelPage Demo"
+            <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
               action="guide.panelPage"/>
-          </af:navigationLevel>
-          <af:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath&lt;/b>"/>
-          <af:navigationPath binding="#{editor.component}">
-            <af:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
-            <af:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
-            <af:commandNavigationItem text="Disabled Item" disabled="true" action="guide.tree"/>
-            <af:commandNavigationItem text="NavigationLevel Demo" action="guide.navigationLevel"/>
-            <af:commandNavigationItem text="Current Page" action="guide.navigationPath"/>
-          </af:navigationPath>
+          </tr:navigationLevel>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath&lt;/b>"/>
+          <tr:navigationPath binding="#{editor.component}">
+            <tr:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
+            <tr:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
+            <tr:commandNavigationItem text="Disabled Item" disabled="true" action="guide.tree"/>
+            <tr:commandNavigationItem text="NavigationLevel Demo" action="guide.navigationLevel"/>
+            <tr:commandNavigationItem text="Current Page" action="guide.navigationPath"/>
+          </tr:navigationPath>
           <jsp:directive.include file="editor.jspf"/>
-          <af:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath with the 'orientation' attribute set to 'vertical'&lt;/b>"/>
-          <af:navigationPath orientation="vertical">
-            <af:commandNavigationItem text="Table Demo" action="guide.table"/>
-            <af:commandNavigationItem text="Tree Demo" action="guide.tree"/>
-            <af:commandNavigationItem text="PanelPage Demo" action="guide.panelPage"/>
-            <af:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
-          </af:navigationPath>
-        </af:panelGroup>
-      </af:form>
-    </af:document>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath with the 'orientation' attribute set to 'vertical'&lt;/b>"/>
+          <tr:navigationPath orientation="vertical">
+            <tr:commandNavigationItem text="Table Demo" action="guide.table"/>
+            <tr:commandNavigationItem text="Tree Demo" action="guide.tree"/>
+            <tr:commandNavigationItem text="PanelPage Demo" action="guide.panelPage"/>
+            <tr:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
+          </tr:navigationPath>
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

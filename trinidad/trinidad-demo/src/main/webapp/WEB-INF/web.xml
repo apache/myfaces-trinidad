@@ -30,7 +30,7 @@
   <!-- Trinidad by default uses an optimized client-side state saving
        mechanism. To disable that, uncomment the following -->
   <!--context-param>
-    <param-name>org.apache.myfaces.adf.CLIENT_STATE_METHOD</param-name>
+    <param-name>org.apache.myfaces.trinidad.CLIENT_STATE_METHOD</param-name>
     <param-value>all</param-value>
   </context-param-->
 
@@ -41,7 +41,7 @@
    some rare cases cannot be used for some pages (see Trinidad
    documentation for more information) -->
   <context-param>
-    <param-name>org.apache.myfaces.adf.USE_APPLICATION_VIEW_CACHE</param-name>
+    <param-name>org.apache.myfaces.trinidad.USE_APPLICATION_VIEW_CACHE</param-name>
     <param-value>false</param-value>
   </context-param>
 
@@ -51,7 +51,7 @@
        but adds overhead that should be avoided when your application
        is deployed -->
   <context-param>
-    <param-name>org.apache.myfaces.adf.CHECK_FILE_MODIFICATION</param-name>
+    <param-name>org.apache.myfaces.trinidad.CHECK_FILE_MODIFICATION</param-name>
     <param-value>true</param-value>
   </context-param>
 
@@ -63,7 +63,7 @@
        Trinidad API's ChangeManager class. As the value you have 
        to use the fullqualified class name. -->
   <context-param>
-    <param-name>org.apache.myfaces.adf.CHANGE_PERSISTENCE</param-name>
+    <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
     <param-value>session</param-value>
   </context-param>
 
@@ -71,7 +71,7 @@
        outcome prefix to launch the dialog framework. If not set, the
        default value (dialog:) is used. -->
   <!--context-param>
-    <param-name>org.apache.myfaces.adf.DIALOG_NAVIGATION_PREFIX</param-name>
+    <param-name>org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX</param-name>
     <param-value>userInputHere:</param-value>
   </context-param--> 
 

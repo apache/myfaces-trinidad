@@ -17,74 +17,74 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="table Sorting Demo">
-        <af:form >
-          <af:panelGroup layout="vertical">
-            <af:commandLink immediate="true" text="Component Guide"
+ <tr:document title="table Sorting Demo">
+        <tr:form >
+          <tr:panelGroup layout="vertical">
+            <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>
-            <af:commandLink immediate="true" text="Column Demo"
+            <tr:commandLink immediate="true" text="Column Demo"
                   action="guide.column"/>
-            <af:commandLink immediate="true" text="Column Group"
+            <tr:commandLink immediate="true" text="Column Group"
                   action="guide.column.group"/>
-            <af:commandLink immediate="true" text="RowHeader Column"
+            <tr:commandLink immediate="true" text="RowHeader Column"
                   action="guide.column.rowHeader"/>
-            <af:commandLink immediate="true" text="Sortable Column"
+            <tr:commandLink immediate="true" text="Sortable Column"
                   action="guide.column.sortable"/>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
               value="&lt;br&gt;&lt;b>Sortable Table&lt;/b>"/>
-            <af:table value="#{periodicTable.tableData}" var="row" rows="10"
+            <tr:table value="#{periodicTable.tableData}" var="row" rows="10"
                       summary="Element Properties"> 
-              <af:column sortProperty="name" sortable="true">
+              <tr:column sortProperty="name" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="Name"/>
+                  <tr:outputText value="Name"/>
                 </f:facet>
-                <af:inputText value="#{row.name}" shortDesc="{row.name}"/>
-              </af:column>
-              <af:column sortProperty="symbol" sortable="true">
+                <tr:inputText value="#{row.name}" shortDesc="{row.name}"/>
+              </tr:column>
+              <tr:column sortProperty="symbol" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="Symbol"/>
+                  <tr:outputText value="Symbol"/>
                 </f:facet>
-                <af:inputText value="#{row.symbol}" shortDesc="{row.symbol}"/>
-              </af:column>
-              <af:column sortProperty="number" sortable="true">
+                <tr:inputText value="#{row.symbol}" shortDesc="{row.symbol}"/>
+              </tr:column>
+              <tr:column sortProperty="number" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="Number"/>
+                  <tr:outputText value="Number"/>
                 </f:facet>
-                <af:inputText value="#{row.number}" shortDesc="#{row.number}"/>
-              </af:column>
-              <af:column sortProperty="group" sortable="true">
+                <tr:inputText value="#{row.number}" shortDesc="#{row.number}"/>
+              </tr:column>
+              <tr:column sortProperty="group" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="Group"/>
+                  <tr:outputText value="Group"/>
                 </f:facet>
-                <af:inputText value="#{row.group}" shortDesc="#{row.group}" />
-              </af:column>
-            </af:table>
+                <tr:inputText value="#{row.group}" shortDesc="#{row.group}" />
+              </tr:column>
+            </tr:table>
 
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
               value="&lt;br&gt;&lt;b>Empty Table&lt;/b>"/>
-            <af:table  var="row" rows="10"
+            <tr:table  var="row" rows="10"
               emptyText="No records found" summary="Empty Table">            
-              <af:column sortProperty="int" sortable="true">
+              <tr:column sortProperty="int" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="Int"/>
+                  <tr:outputText value="Int"/>
                 </f:facet>
-                <af:inputText value="#{row.int}" shortDesc="#{row.int}"/>
-              </af:column>
-              <af:column sortProperty="string" sortable="true">
+                <tr:inputText value="#{row.int}" shortDesc="#{row.int}"/>
+              </tr:column>
+              <tr:column sortProperty="string" sortable="true">
                 <f:facet name="header">
-                  <af:outputText value="String"/>
+                  <tr:outputText value="String"/>
                 </f:facet>
-                <af:inputText value="#{row.string}" shortDesc="#{row.string}"/>
-              </af:column>
-            </af:table>
+                <tr:inputText value="#{row.string}" shortDesc="#{row.string}"/>
+              </tr:column>
+            </tr:table>
             
-          </af:panelGroup>    
-        </af:form>
- </af:document>
+          </tr:panelGroup>    
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

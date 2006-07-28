@@ -17,45 +17,45 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="SelectOneListbox Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="SelectOneListbox Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/> 
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneListbox bound to integer&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneListbox bound to integer&lt;/b>"/>
               
-             <af:selectOneListbox binding="#{editor.component}" 
+             <tr:selectOneListbox binding="#{editor.component}" 
                                 label="Label" 
                                 valueChangeListener="#{list.valueChanged}"
                                 value="#{list.singleInt}">
-               <af:selectItem label="First" value="1"/>
-               <af:selectItem label="Second" value="2"/>
-               <af:selectItem label="Third" value="3"/>
-             </af:selectOneListbox>
+               <tr:selectItem label="First" value="1"/>
+               <tr:selectItem label="Second" value="2"/>
+               <tr:selectItem label="Third" value="3"/>
+             </tr:selectOneListbox>
 
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneListbox bound to string&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectOneListbox bound to string&lt;/b>"/>
               
-             <af:selectOneListbox label="Label" 
+             <tr:selectOneListbox label="Label" 
                                 valueChangeListener="#{list.valueChanged}"
                                 value="#{list.singleString}">
-               <af:selectItem label="First" value="foo"/>
-               <af:selectItem label="Second" value="bar"/>
-               <af:selectItem label="Third" value="baz"/>
-             </af:selectOneListbox>
+               <tr:selectItem label="First" value="foo"/>
+               <tr:selectItem label="Second" value="bar"/>
+               <tr:selectItem label="Third" value="baz"/>
+             </tr:selectOneListbox>
 
-             <af:commandButton text="Submit"/>
+             <tr:commandButton text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
 
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

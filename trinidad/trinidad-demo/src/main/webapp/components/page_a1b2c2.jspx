@@ -16,99 +16,99 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Page Hierarchy Demo">
-      <af:form>
-          <af:panelGroup layout="vertical">
-            <af:commandLink immediate="true" text="Component Guide"
+    <tr:document title="Page Hierarchy Demo">
+      <tr:form>
+          <tr:panelGroup layout="vertical">
+            <tr:commandLink immediate="true" text="Component Guide"
                             action="guide"/>
-            <af:objectSeparator/>
-            <af:panelPage>
+            <tr:objectSeparator/>
+            <tr:panelPage>
               <f:facet name="navigation1">
-                <af:menuTabs level="1" var="foo" value="#{menuModel.model}">
+                <tr:menuTabs level="1" var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
-                    <af:commandNavigationItem text="#{foo.label}"
+                    <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"/>
                   </f:facet>
-                </af:menuTabs>
+                </tr:menuTabs>
               </f:facet>
               <f:facet name="navigation2">
-                <af:menuBar level="2" var="foo" value="#{menuModel.model}">
+                <tr:menuBar level="2" var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
-                    <af:commandNavigationItem text="#{foo.label}"
+                    <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"/>
                   </f:facet>
-                </af:menuBar>
+                </tr:menuBar>
               </f:facet>
               <f:facet name="navigation3">
-                <af:menuList level="3" var="foo"
+                <tr:menuList level="3" var="foo"
                              value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
-                    <af:commandNavigationItem text="#{foo.label}"
+                    <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"/>
                   </f:facet>
-                </af:menuList>
+                </tr:menuList>
               </f:facet>
               <f:facet name="navigationGlobal">
-                <af:menuButtons var="foo" value="#{menuModel.model}">
+                <tr:menuButtons var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
-                    <af:commandNavigationItem text="#{foo.label}"
+                    <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"
                                         icon="#{foo.ico}"/>
                   </f:facet>
-                </af:menuButtons>
+                </tr:menuButtons>
               </f:facet>
               <f:facet name="location">
-                <af:navigationPath var="foo" value="#{menuModel.model}">
+                <tr:navigationPath var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
-                    <af:commandNavigationItem text="#{foo.label}"
+                    <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"/>
                   </f:facet>
-                </af:navigationPath>
+                </tr:navigationPath>
               </f:facet>
               <f:facet name="appAbout">
-                <af:outputText value="appAbout facet"/>
+                <tr:outputText value="appAbout facet"/>
               </f:facet>
               <f:facet name="appCopyright">
-                <af:outputText value="appCopyright facet"/>
+                <tr:outputText value="appCopyright facet"/>
               </f:facet>
               <f:facet name="appPrivacy">
-                <af:outputText value="appPrivacy facet"/>
+                <tr:outputText value="appPrivacy facet"/>
               </f:facet>
               <f:facet name="branding">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="branding facet"/>
               </f:facet>
               <f:facet name="infoFootnote">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="infoFootnote facet"/>
               </f:facet>
               <f:facet name="infoReturn">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="infoReturn facet"/>
               </f:facet>
               <f:facet name="infoStatus">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="infoStatus facet"/>
               </f:facet>
               <f:facet name="infoUser">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="infoUser facet"/>
               </f:facet>
               <f:facet name="search">
-                <af:outputFormatted styleUsage="instruction"
+                <tr:outputFormatted styleUsage="instruction"
                                     value="search facet"/>
               </f:facet>
-              <af:panelHeader text="Title attribute">
-                <af:outputFormatted styleUsage="instruction"
+              <tr:panelHeader text="Title attribute">
+                <tr:outputFormatted styleUsage="instruction"
                                     value="This group of demo pages uses one of 2 components to lay out the page, 'page' or 'panelPage'. This particular page uses the &lt;b>'panelPage'&lt;/b> component."/>
                 <jsp:include page="/components/pageContent_include.jspx"/>
-              </af:panelHeader>
-            </af:panelPage>
-          </af:panelGroup>
-        </af:form>
-    </af:document>
+              </tr:panelHeader>
+            </tr:panelPage>
+          </tr:panelGroup>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

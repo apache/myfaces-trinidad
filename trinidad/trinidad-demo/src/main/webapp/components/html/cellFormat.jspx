@@ -17,45 +17,45 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="CellFormat Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="CellFormat Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet> 
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>               
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                                value="&lt;b>Using cellFormat in tableLayout&lt;/b>"/>
-            <afh:tableLayout borderWidth="1" width="50%" >
-              <afh:rowLayout>
-                <afh:cellFormat binding="#{editor.component}" 
+            <trh:tableLayout borderWidth="1" width="50%" >
+              <trh:rowLayout>
+                <trh:cellFormat binding="#{editor.component}" 
                                 rowSpan="2" halign="center" >
                   <h:outputText value="One"/>
-                </afh:cellFormat>
-                <afh:cellFormat halign="center" >
+                </trh:cellFormat>
+                <trh:cellFormat halign="center" >
                   <h:outputText value="Two"/>
-                </afh:cellFormat>
-                <afh:cellFormat halign="center" >
+                </trh:cellFormat>
+                <trh:cellFormat halign="center" >
                   <h:outputText value="Three"/>
-                </afh:cellFormat>
-              </afh:rowLayout>
-              <afh:rowLayout>
-                <afh:cellFormat halign="center" >
+                </trh:cellFormat>
+              </trh:rowLayout>
+              <trh:rowLayout>
+                <trh:cellFormat halign="center" >
                   <h:outputText value="Four"/>
-                </afh:cellFormat>
-                <afh:cellFormat halign="center" columnSpan="2" >
+                </trh:cellFormat>
+                <trh:cellFormat halign="center" columnSpan="2" >
                   <h:outputText value="Five"/>
-                </afh:cellFormat>
-              </afh:rowLayout>
-            </afh:tableLayout>
+                </trh:cellFormat>
+              </trh:rowLayout>
+            </trh:tableLayout>
             <jsp:directive.include file="../editor.jspf" />
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

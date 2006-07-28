@@ -385,7 +385,7 @@ public class ChangeBean
 
   // markup to use for image added to document
   private static final String _IMAGE_MARK_UP = 
-   "<af:objectImage id='oi3' inlineStyle='height: 100px; width: 120px;' " +
+   "<tr:objectImage id='oi3' inlineStyle='height: 100px; width: 120px;' " +
    "source='http://homepage.mac.com/awiner/.Pictures/WindyHill/PaleSwallowtail.jpg' " +
    "xmlns:af='http://myfaces.apache.org/adf/faces/EA17'/>";
 
