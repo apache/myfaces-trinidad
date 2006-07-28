@@ -17,110 +17,110 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Progress steps Demo">
-        <af:form>
-          <af:panelPage>
+    <tr:document title="Progress steps Demo">
+        <tr:form>
+          <tr:panelPage>
           
             <f:facet name="navigationGlobal">
-             <af:menuButtons>
-              <af:commandNavigationItem 
+             <tr:menuButtons>
+              <tr:commandNavigationItem 
                 text="Return to Feature Demos page"
                 immediate="true"
                 action="demos"
                 actionListener="#{progressSteps.cancelProcess}"/>
-             </af:menuButtons>
+             </tr:menuButtons>
             </f:facet>
-          <af:panelHeader
-             text="Progress steps demo using af:forEach and BoundedRangeModel">
+          <tr:panelHeader
+             text="Progress steps demo using tr:forEach and BoundedRangeModel">
 
-            <af:poll 
+            <tr:poll 
               binding="#{editor.component}" 
               interval="2000" 
               id="pollid" 
               pollListener="#{progressSteps.onPoll}"/>
-            <af:outputFormatted 
+            <tr:outputFormatted 
               styleUsage="instruction" 
               value="&lt;b>The steps completed in a background task could be 
               shown as a check list or a growing list as shown below.&lt;br>
               This could be achieved using suitable output components and the
-              'af:forEach' tag in conjunction with bindings to a 
+              'tr:forEach' tag in conjunction with bindings to a 
               BoundedRangeModel&lt;/b>"/>
 
             <!--Represents a check list-->
-            <af:panelHeader text="Progress steps as a check list"/>
-            <af:panelGroup layout="horizontal">
-              <af:objectSpacer width="30"/>
-              <af:panelGroup layout="vertical" partialTriggers="pollid" id="pg1">
-                <af:forEach 
+            <tr:panelHeader text="Progress steps as a check list"/>
+            <tr:panelGroup layout="horizontal">
+              <tr:objectSpacer width="30"/>
+              <tr:panelGroup layout="vertical" partialTriggers="pollid" id="pg1">
+                <tr:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
                   end="#{progressSteps.progressModel.maximum - 1}" 
                   items="#{progressSteps.progressSteps}">
-                  <af:panelGroup layout="horizontal">
-                    <af:objectSpacer 
+                  <tr:panelGroup layout="horizontal">
+                    <tr:objectSpacer 
                       width="13"
                       rendered="#{vs.index > progressSteps.progressModel.value}"/>
-                    <af:objectImage 
+                    <tr:objectImage 
                       source="/components/images/processCheck.gif" 
                       rendered="#{progressSteps.progressModel.value >= vs.index}"/>
-                    <af:objectSpacer width="5"/>
-                    <af:outputText 
+                    <tr:objectSpacer width="5"/>
+                    <tr:outputText 
                       value="#{progressStep}" 
                       styleClass="AFFieldText"/>
-                  </af:panelGroup>
-                </af:forEach>
-              </af:panelGroup>
-            </af:panelGroup>
+                  </tr:panelGroup>
+                </tr:forEach>
+              </tr:panelGroup>
+            </tr:panelGroup>
 
             <!--Represents a growing list-->
-            <af:panelHeader text="Progress steps as a growing list"/>
-            <af:panelGroup layout="horizontal">
-              <af:objectSpacer width="30"/>
-              <af:panelGroup layout="vertical" partialTriggers="pollid" id="pg2">
-                <af:forEach 
+            <tr:panelHeader text="Progress steps as a growing list"/>
+            <tr:panelGroup layout="horizontal">
+              <tr:objectSpacer width="30"/>
+              <tr:panelGroup layout="vertical" partialTriggers="pollid" id="pg2">
+                <tr:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
                   end="#{progressSteps.progressModel.maximum - 1}" 
                   items="#{progressSteps.progressSteps}">
-                  <af:panelGroup layout="horizontal">
-                    <af:outputText 
+                  <tr:panelGroup layout="horizontal">
+                    <tr:outputText 
                       value="#{progressStep}" 
                       styleClass="AFFieldText"
                       rendered="#{progressSteps.progressModel.value >= vs.index}"/>
-                  </af:panelGroup>
-                </af:forEach>
-              </af:panelGroup>
-            </af:panelGroup>
+                  </tr:panelGroup>
+                </tr:forEach>
+              </tr:panelGroup>
+            </tr:panelGroup>
 
-            <af:panelHeader/>
-            <af:panelGroup layout="horizontal">
-              <af:objectSpacer width="30"/>
-              <af:panelGroup layout="vertical">
-                <af:inputText 
+            <tr:panelHeader/>
+            <tr:panelGroup layout="horizontal">
+              <tr:objectSpacer width="30"/>
+              <tr:panelGroup layout="vertical">
+                <tr:inputText 
                   readOnly="true" 
                   label="Date/Time from last full page refresh" 
                   value="#{date.currentDate}" 
                   styleClass="AFDataText">
-                  <af:convertDateTime 
+                  <tr:convertDateTime 
                     pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                </af:inputText>
-                <af:objectSpacer height="10"/>
-                <af:commandButton 
+                </tr:inputText>
+                <tr:objectSpacer height="10"/>
+                <tr:commandButton 
                   text="Cancel" 
                   action="progressCancel" 
                   actionListener="#{progressSteps.cancelProcess}"/>
-              </af:panelGroup>
-            </af:panelGroup>
-          </af:panelHeader>
+              </tr:panelGroup>
+            </tr:panelGroup>
+          </tr:panelHeader>
 
-          </af:panelPage>
-        </af:form>
-    </af:document>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

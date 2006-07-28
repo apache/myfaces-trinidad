@@ -17,32 +17,32 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Register"/>
-      <afh:body>
-       <af:form>
+    <trh:html>
+      <trh:head title="Register"/>
+      <trh:body>
+       <tr:form>
        
-        <af:panelPage>
-          <af:messages/>
-          <af:panelHeader text="Register">
-            <af:panelForm>      
-              <af:inputText label="UserName"   value="#{order.customer.userName}"/>
-              <af:inputText label="Password"   value="#{order.customer.password}" secret="true"/>    
-              <af:inputText label="First Name"  value="#{order.customer.firstName}"/>   
-              <af:inputText label="Last Name"  value="#{order.customer.lastName}"/>   
-            </af:panelForm>
-            <af:panelButtonBar>    
-              <af:commandButton text="Log In" action="loggedIn"/> 
-            </af:panelButtonBar>
-          </af:panelHeader>
-        </af:panelPage>
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelHeader text="Register">
+            <tr:panelForm>      
+              <tr:inputText label="UserName"   value="#{order.customer.userName}"/>
+              <tr:inputText label="Password"   value="#{order.customer.password}" secret="true"/>    
+              <tr:inputText label="First Name"  value="#{order.customer.firstName}"/>   
+              <tr:inputText label="Last Name"  value="#{order.customer.lastName}"/>   
+            </tr:panelForm>
+            <tr:panelButtonBar>    
+              <tr:commandButton text="Log In" action="loggedIn"/> 
+            </tr:panelButtonBar>
+          </tr:panelHeader>
+        </tr:panelPage>
     
-       </af:form>
-      </afh:body>
-    </afh:html>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

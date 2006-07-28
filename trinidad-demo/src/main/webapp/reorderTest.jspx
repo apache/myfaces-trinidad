@@ -17,28 +17,28 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Reordering Test">
-      <af:form>
-        <af:panelGroup binding="#{reorder.panel}" layout="vertical">
-          <af:outputText value="Item 1"/>
-          <af:outputText value="Item 2"/>
-          <af:outputText value="Item 3"/>
+    <tr:document title="Reordering Test">
+      <tr:form>
+        <tr:panelGroup binding="#{reorder.panel}" layout="vertical">
+          <tr:outputText value="Item 1"/>
+          <tr:outputText value="Item 2"/>
+          <tr:outputText value="Item 3"/>
           <f:facet name="separator">
-            <af:outputText value="----------"/>
+            <tr:outputText value="----------"/>
           </f:facet>
-        </af:panelGroup>
+        </tr:panelGroup>
         <f:verbatim><br /></f:verbatim>
-        <af:commandButton text="Add" actionListener="#{reorder.add}"/>
-        <af:commandButton text="Remove last" actionListener="#{reorder.remove}"/>
-        <af:commandButton text="Remove first" actionListener="#{reorder.removeFirst}"/>
-        <af:commandButton text="Remove Last" actionListener="#{reorder.remove}"/>
-        <af:commandButton text="Rotate" actionListener="#{reorder.rotate}"/>
-        <af:commandButton text="Remove Separator" actionListener="#{reorder.removeSeparator}"/>
-        <af:commandButton text="Set Separator" actionListener="#{reorder.setSeparator}"/>
-      </af:form>
-    </af:document>
+        <tr:commandButton text="Add" actionListener="#{reorder.add}"/>
+        <tr:commandButton text="Remove last" actionListener="#{reorder.remove}"/>
+        <tr:commandButton text="Remove first" actionListener="#{reorder.removeFirst}"/>
+        <tr:commandButton text="Remove Last" actionListener="#{reorder.remove}"/>
+        <tr:commandButton text="Rotate" actionListener="#{reorder.rotate}"/>
+        <tr:commandButton text="Remove Separator" actionListener="#{reorder.removeSeparator}"/>
+        <tr:commandButton text="Set Separator" actionListener="#{reorder.setSeparator}"/>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -17,28 +17,28 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="ObjectSpacer Demo">
-        <af:form >
-          <af:panelGroup layout="vertical">
+ <tr:document title="ObjectSpacer Demo">
+        <tr:form >
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet> 
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>              
-            <af:panelGroup>
-              <af:outputText value="Hello"/>
-              <af:objectSpacer width="300" height="10"/>
-              <af:outputText value="Over There"/>
-              <af:objectSeparator/>
-              <af:objectSpacer height="300" width="10"/>
-              <af:outputText value="Big Gap Above Me"/>
-            </af:panelGroup>
-          </af:panelGroup>
-        </af:form>
- </af:document>
+            <tr:panelGroup>
+              <tr:outputText value="Hello"/>
+              <tr:objectSpacer width="300" height="10"/>
+              <tr:outputText value="Over There"/>
+              <tr:objectSeparator/>
+              <tr:objectSpacer height="300" width="10"/>
+              <tr:outputText value="Big Gap Above Me"/>
+            </tr:panelGroup>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

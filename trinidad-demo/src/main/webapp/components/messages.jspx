@@ -17,35 +17,35 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Messages Demo">
-        <af:form defaultCommand="messages">
-          <af:panelGroup layout="vertical">
+ <tr:document title="Messages Demo">
+        <tr:form defaultCommand="messages">
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>            
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple messages demo&lt;/b>"/>
               
-            <af:messages binding="#{editor.component}"/>
+            <tr:messages binding="#{editor.component}"/>
 
-            <af:inputText label="Label">
+            <tr:inputText label="Label">
                 <f:facet name="help">
-                  <af:outputText value="Type 'cat' to see an error in the message box"/>
+                  <tr:outputText value="Type 'cat' to see an error in the message box"/>
                 </f:facet>
               <f:converter converterId="javax.faces.BigInteger"/>
-            </af:inputText>                      
+            </tr:inputText>                      
              
-            <af:commandButton id="messages" text="Submit"/>
+            <tr:commandButton id="messages" text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

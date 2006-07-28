@@ -17,43 +17,43 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Form Demo"/>
-      <afh:body>      
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="Form Demo"/>
+      <trh:body>      
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Multiple form test &lt;/b>"/>
-            <af:form defaultCommand="first" binding="#{editor.component}">
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Multiple form test &lt;/b>"/>
+            <tr:form defaultCommand="first" binding="#{editor.component}">
             
-             <af:panelGroup layout="vertical">
-              <af:commandLink immediate="true" text="Component Guide"
+             <tr:panelGroup layout="vertical">
+              <tr:commandLink immediate="true" text="Component Guide"
                                 action="guide"/>
-              <af:outputFormatted styleUsage="instruction"
+              <tr:outputFormatted styleUsage="instruction"
                                  value="This is the first form;  submit it and changes in the second form will be lost."/>
-              <af:inputText label="First form, First Field:"  shortDesc="Field 1"/>
-              <af:inputText label="First form, Second Field:" shortDesc="Field 2"/>
-              <af:commandButton id="first" text="First"/>
-             </af:panelGroup>
-            </af:form>
-            <af:form>
+              <tr:inputText label="First form, First Field:"  shortDesc="Field 1"/>
+              <tr:inputText label="First form, Second Field:" shortDesc="Field 2"/>
+              <tr:commandButton id="first" text="First"/>
+             </tr:panelGroup>
+            </tr:form>
+            <tr:form>
               <jsp:directive.include file="editor.jspf" />
-            </af:form>
-            <af:form>
-             <af:panelGroup layout="vertical">
-              <af:outputFormatted styleUsage="instruction"
+            </tr:form>
+            <tr:form>
+             <tr:panelGroup layout="vertical">
+              <tr:outputFormatted styleUsage="instruction"
                                  value="This is the second form; submit it and changes in the first form will be lost."/>
-              <af:inputText label="Second form"/>
-              <af:commandButton text="Second"/>
-             </af:panelGroup>
-            </af:form>
-          </af:panelGroup>
-      </afh:body>
-    </afh:html>
+              <tr:inputText label="Second form"/>
+              <tr:commandButton text="Second"/>
+             </tr:panelGroup>
+            </tr:form>
+          </tr:panelGroup>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

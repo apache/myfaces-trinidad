@@ -18,33 +18,33 @@
           version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="selectRangeChoiceBar Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="selectRangeChoiceBar Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide" action="guide"/>
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>selectRangeChoiceBar&lt;/b>"/>
-              <af:panelGroup layout="vertical">
-                <af:outputFormatted styleUsage="instruction"
+            <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectRangeChoiceBar&lt;/b>"/>
+              <tr:panelGroup layout="vertical">
+                <tr:outputFormatted styleUsage="instruction"
                 value="selectRangeChoiceBar with no rangeLabel facet;
                 we get default labels."/>
-                <af:selectRangeChoiceBar binding="#{editor.component}"
+                <tr:selectRangeChoiceBar binding="#{editor.component}"
                   id="selectRangeChoiceBarID2" first="0" rows="5" value="#{table}"/>
 
                 <jsp:directive.include file="editor.jspf"/>
-              </af:panelGroup>
+              </tr:panelGroup>
 
-              <af:panelGroup layout="vertical">
-                <af:outputFormatted styleUsage="instruction"
+              <tr:panelGroup layout="vertical">
+                <tr:outputFormatted styleUsage="instruction"
                 value="selectRangeChoiceBar with rangeLabel facet to customize range
                 labels and tied to a list of data"/>
-                <af:selectRangeChoiceBar
+                <tr:selectRangeChoiceBar
                   id="selectRangeCBId1" first="0" rows="5"
                   value="#{animals.names}" var="range"
                   rangeChangeListener="#{animals.rangeChange}"
@@ -52,19 +52,19 @@
                   <f:facet name="rangeLabel">
                     <f:selectItem itemLabel="#{range.start} - #{range.end}"/>
                   </f:facet>
-                </af:selectRangeChoiceBar>
-                <af:panelGroup partialTriggers="selectRangeCBId1">
-                   <af:forEach items="#{animals.namesInRange}" var="animalName">
-                    <af:outputText value="#{animalName}, "/>
-                  </af:forEach>
-                </af:panelGroup>
-              </af:panelGroup>
+                </tr:selectRangeChoiceBar>
+                <tr:panelGroup partialTriggers="selectRangeCBId1">
+                   <tr:forEach items="#{animals.namesInRange}" var="animalName">
+                    <tr:outputText value="#{animalName}, "/>
+                  </tr:forEach>
+                </tr:panelGroup>
+              </tr:panelGroup>
 
 
 
-            </af:panelGroup>
+            </tr:panelGroup>
 
-        </af:form>
- </af:document>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

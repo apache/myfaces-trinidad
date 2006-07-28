@@ -175,8 +175,8 @@
         <version>incubator-alpha-3-SNAPSHOT</version>
         <configuration>
           <taglibs>
-            <af>http://myfaces.apache.org/trinidad</af>
-            <afh>http://myfaces.apache.org/trinidad/html</afh>
+            <tr>http://myfaces.apache.org/trinidad</tr>
+            <trh>http://myfaces.apache.org/trinidad/html</trh>
           </taglibs>
         </configuration>
       </plugin>

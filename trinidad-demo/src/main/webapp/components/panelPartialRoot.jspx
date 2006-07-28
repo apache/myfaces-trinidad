@@ -17,40 +17,40 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
  <jsp:directive.page contentType="text/html;charset=utf-8"/>
  <f:view>
-  <afh:html>
-   <afh:head title="panelPartialRoot Demo"/>
-   <af:panelPartialRoot>
-    <af:form>
-     <af:panelGroup layout="vertical">
+  <trh:html>
+   <trh:head title="panelPartialRoot Demo"/>
+   <tr:panelPartialRoot>
+    <tr:form>
+     <tr:panelGroup layout="vertical">
       <f:facet name="separator">
-       <af:objectSeparator/>
+       <tr:objectSeparator/>
       </f:facet>
-      <af:commandLink immediate="true"
+      <tr:commandLink immediate="true"
                       text="Component Guide"
                       action="guide"/>
-      <af:outputFormatted styleUsage="instruction"
-                          value="The panelPartialRoot component simply sets the page up for partial page rendering without an &amp;lt;afh:body&amp;gt; or &amp;lt;af:document&amp;gt;"/>
-      <afh:tableLayout width="80%">
-       <afh:rowLayout>
-        <af:inputText autoSubmit="true"
+      <tr:outputFormatted styleUsage="instruction"
+                          value="The panelPartialRoot component simply sets the page up for partial page rendering without an &amp;lt;trh:body&amp;gt; or &amp;lt;tr:document&amp;gt;"/>
+      <trh:tableLayout width="80%">
+       <trh:rowLayout>
+        <tr:inputText autoSubmit="true"
                       value="Change this text"
                       label="Enter text here and tab out: "
                       valueChangeListener="#{partialDemoUtil.valueChanged}"/>
-        <af:panelLabelAndMessage label="You entered: ">
-         <af:outputFormatted id="itTarget"
+        <tr:panelLabelAndMessage label="You entered: ">
+         <tr:outputFormatted id="itTarget"
                              styleUsage="instruction"
                              binding="#{partialDemoUtil.textUpdate}"
                              value="nothing yet"/>
-        </af:panelLabelAndMessage>
-       </afh:rowLayout>
-      </afh:tableLayout>
-     </af:panelGroup>
-    </af:form>
-   </af:panelPartialRoot>
-  </afh:html>
+        </tr:panelLabelAndMessage>
+       </trh:rowLayout>
+      </trh:tableLayout>
+     </tr:panelGroup>
+    </tr:form>
+   </tr:panelPartialRoot>
+  </trh:html>
  </f:view>
 </jsp:root>

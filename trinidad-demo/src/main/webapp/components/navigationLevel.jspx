@@ -17,140 +17,140 @@
 <jsp:root version="1.2"
           xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="navigationLevel Demo">
-      <af:form>
-        <af:panelGroup layout="vertical">
+    <tr:document title="navigationLevel Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
           <f:facet name="separator">
-            <af:objectSeparator/>
+            <tr:objectSeparator/>
           </f:facet>
-          <af:navigationLevel hint="buttons">
-            <af:commandNavigationItem immediate="true" text="Component Guide"
+          <tr:navigationLevel hint="buttons">
+            <tr:commandNavigationItem immediate="true" text="Component Guide"
               action="guide"/>
-            <af:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+            <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
               action="guide.page"/>
-            <af:commandNavigationItem immediate="true" text="NavigationPath Demo"
+            <tr:commandNavigationItem immediate="true" text="NavigationPath Demo"
               action="guide.navigationPath"/>
-            <af:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
+            <tr:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
               action="guide.commandNavigationItem"/>
-            <af:commandNavigationItem immediate="true" text="PanelPage Demo"
+            <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
               action="guide.panelPage"/>
-          </af:navigationLevel>
-          <af:outputFormatted styleUsage="instruction" value="&lt;b>A navigationLevel&lt;/b>"/>
-          <af:navigationLevel id="menuItemContainer" hint="tabs"
+          </tr:navigationLevel>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A navigationLevel&lt;/b>"/>
+          <tr:navigationLevel id="menuItemContainer" hint="tabs"
             binding="#{editor.component}" shortDesc="Select Page">
-            <af:commandNavigationItem text="Page 1" id="item1" partialSubmit="true"
+            <tr:commandNavigationItem text="Page 1" id="item1" partialSubmit="true"
               actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-            <af:commandNavigationItem text="Page 2" id="item2" partialSubmit="true"
+            <tr:commandNavigationItem text="Page 2" id="item2" partialSubmit="true"
               selected="true"
               actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-            <af:commandNavigationItem text="Page 3" id="item3" partialSubmit="true"
+            <tr:commandNavigationItem text="Page 3" id="item3" partialSubmit="true"
               actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-            <af:commandNavigationItem text="Page 4" id="item4" partialSubmit="true"
+            <tr:commandNavigationItem text="Page 4" id="item4" partialSubmit="true"
               actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-            <af:commandNavigationItem text="Page 5" id="item5" partialSubmit="true"
+            <tr:commandNavigationItem text="Page 5" id="item5" partialSubmit="true"
               actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-          </af:navigationLevel>
+          </tr:navigationLevel>
           <jsp:directive.include file="editor.jspf"/>
-          <af:panelGroup layout="vertical">
-            <af:outputFormatted 
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted 
               value="&lt;b>navigationLevel with 'bar' hint&lt;/b>"/>
-            <af:navigationLevel hint="bar" id="barExample">
-              <af:commandNavigationItem text="Bar Item 1" partialSubmit="true"
+            <tr:navigationLevel hint="bar" id="barExample">
+              <tr:commandNavigationItem text="Bar Item 1" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Bar Item 2" partialSubmit="true"
+              <tr:commandNavigationItem text="Bar Item 2" partialSubmit="true"
                 selected="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Bar Item 3" partialSubmit="true"
+              <tr:commandNavigationItem text="Bar Item 3" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Disabled Item" partialSubmit="true"
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
                 disabled="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Component Guide"
+              <tr:commandNavigationItem text="Component Guide"
                 immediate="true" action="guide"/>
-            </af:navigationLevel>
-          </af:panelGroup>
-          <af:panelGroup layout="vertical">
-            <af:outputFormatted 
+            </tr:navigationLevel>
+          </tr:panelGroup>
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted 
               value="&lt;b>navigationLevel with 'buttons' hint&lt;/b>"/>
-            <af:panelGroup styleClass="RichPanelPage"
+            <tr:panelGroup styleClass="RichPanelPage"
               inlineStyle="position: relative; height: auto;">
-              <af:panelGroup styleClass="RichPanelPageNavigationGlobal">
-                <af:navigationLevel hint="buttons" id="buttonsExample">
-                  <af:commandNavigationItem text="Button 1" partialSubmit="true"
+              <tr:panelGroup styleClass="RichPanelPageNavigationGlobal">
+                <tr:navigationLevel hint="buttons" id="buttonsExample">
+                  <tr:commandNavigationItem text="Button 1" partialSubmit="true"
                     actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-                  <af:commandNavigationItem text="Button 2" partialSubmit="true"
+                  <tr:commandNavigationItem text="Button 2" partialSubmit="true"
                     selected="true"
                     actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-                  <af:commandNavigationItem text="Button 3" partialSubmit="true"
+                  <tr:commandNavigationItem text="Button 3" partialSubmit="true"
                     actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-                  <af:commandNavigationItem text="Disabled Item" partialSubmit="true"
+                  <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
                     disabled="true"
                     actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-                  <af:commandNavigationItem text="Component Guide"
+                  <tr:commandNavigationItem text="Component Guide"
                     immediate="true" action="guide"/>
-                </af:navigationLevel>
-              </af:panelGroup>
-            </af:panelGroup>
-          </af:panelGroup>
-          <af:panelGroup layout="vertical">
-            <af:outputFormatted 
+                </tr:navigationLevel>
+              </tr:panelGroup>
+            </tr:panelGroup>
+          </tr:panelGroup>
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted 
               value="&lt;b>navigationLevel with 'choice' hint&lt;/b>"/>
-            <af:navigationLevel hint="choice" id="choiceExample">
-              <af:commandNavigationItem text="Choice 1" partialSubmit="true"
+            <tr:navigationLevel hint="choice" id="choiceExample">
+              <tr:commandNavigationItem text="Choice 1" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Choice 2" partialSubmit="true"
+              <tr:commandNavigationItem text="Choice 2" partialSubmit="true"
                 selected="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Choice 3" partialSubmit="true"
+              <tr:commandNavigationItem text="Choice 3" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Disabled Item" partialSubmit="true"
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
                 disabled="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Component Guide"
+              <tr:commandNavigationItem text="Component Guide"
                 immediate="true" action="guide"/>
-            </af:navigationLevel>
-          </af:panelGroup>
-          <af:panelGroup layout="vertical">
-            <af:outputFormatted 
+            </tr:navigationLevel>
+          </tr:panelGroup>
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted 
               value="&lt;b>navigationLevel with 'list' hint&lt;/b>"/>
-            <af:navigationLevel hint="list" id="listExample">
-              <af:commandNavigationItem text="List Item 1" partialSubmit="true"
+            <tr:navigationLevel hint="list" id="listExample">
+              <tr:commandNavigationItem text="List Item 1" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="List Item 2" partialSubmit="true"
+              <tr:commandNavigationItem text="List Item 2" partialSubmit="true"
                 selected="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="List Item 3" partialSubmit="true"
+              <tr:commandNavigationItem text="List Item 3" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Disabled Item" partialSubmit="true"
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
                 disabled="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Component Guide"
+              <tr:commandNavigationItem text="Component Guide"
                 immediate="true" action="guide"/>
-            </af:navigationLevel>
-          </af:panelGroup>
-          <af:panelGroup layout="vertical">
-            <af:outputFormatted 
+            </tr:navigationLevel>
+          </tr:panelGroup>
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted 
               value="&lt;b>navigationLevel with 'tabs' hint&lt;/b>"/>
-            <af:navigationLevel hint="tabs" id="tabsExample">
-              <af:commandNavigationItem text="Tab 1" partialSubmit="true"
+            <tr:navigationLevel hint="tabs" id="tabsExample">
+              <tr:commandNavigationItem text="Tab 1" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Tab 2" partialSubmit="true"
+              <tr:commandNavigationItem text="Tab 2" partialSubmit="true"
                 selected="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Tab 3" partialSubmit="true"
+              <tr:commandNavigationItem text="Tab 3" partialSubmit="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Disabled Item" partialSubmit="true"
+              <tr:commandNavigationItem text="Disabled Item" partialSubmit="true"
                 disabled="true"
                 actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
-              <af:commandNavigationItem text="Component Guide"
+              <tr:commandNavigationItem text="Component Guide"
                 immediate="true" action="guide"/>
-            </af:navigationLevel>
-          </af:panelGroup>
-        </af:panelGroup>
-      </af:form>
-    </af:document>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

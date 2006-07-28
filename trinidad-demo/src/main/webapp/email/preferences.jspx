@@ -16,7 +16,7 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <!-- 
   Load a resource bundle localized for the Locale of the current view, 
@@ -29,80 +29,80 @@
                 basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
   
   <f:view>
-    <af:document title="Preferences">
-       <af:form>
+    <tr:document title="Preferences">
+       <tr:form>
        
-        <af:panelPage>
-          <af:messages/>
+        <tr:panelPage>
+          <tr:messages/>
 
           <f:facet name="branding">
-            <af:panelGroup layout="vertical">
-              <af:panelGroup>
-                <af:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <af:objectImage source="/email/images/pbs.gif"/>
-              </af:panelGroup>
-              <af:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+            <tr:panelGroup layout="vertical">
+              <tr:panelGroup>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:objectImage source="/email/images/pbs.gif"/>
+              </tr:panelGroup>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </af:panelGroup>
+            </tr:panelGroup>
           </f:facet>
           
           <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Return to Index"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Return to Index"
                     immediate="true"
                     action="home"/>
-                <af:commandNavigationItem text="Logout" 
+                <tr:commandNavigationItem text="Logout" 
                                   action="#{email.logout}"/>
-                <af:commandNavigationItem text="Preferences"
+                <tr:commandNavigationItem text="Preferences"
                                   action="preferences" selected="true"/>
-                <af:commandNavigationItem text="Help"
+                <tr:commandNavigationItem text="Help"
                                   action="action.none"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
             
             <f:facet name="infoUser">
-              <af:outputFormatted value="Logged in as #{email.username}"
+              <tr:outputFormatted value="Logged in as #{email.username}"
                              styleUsage="pageStamp"/>
             </f:facet>
     
-        <af:panelHeader text="Update Preferences">
-          <af:panelForm> 
-            <af:selectOneChoice label="Skin-family:"
+        <tr:panelHeader text="Update Preferences">
+          <tr:panelForm> 
+            <tr:selectOneChoice label="Skin-family:"
                               value="#{email.preferences.skinFamily}">
               <f:selectItems value="#{email.preferences.skinFamilyItems}"/>
-            </af:selectOneChoice>
-            <af:selectOneChoice label="Accessibility features:"
+            </tr:selectOneChoice>
+            <tr:selectOneChoice label="Accessibility features:"
                               value="#{email.preferences.accessibilityMode}">
               <f:selectItems value="#{email.preferences.accessibilityModeItems}"/>
-            </af:selectOneChoice>
-            <af:inputText label="Messages per screen:"
+            </tr:selectOneChoice>
+            <tr:inputText label="Messages per screen:"
                           value="#{email.preferences.rowsShown}">
               <f:facet name="help">
-                <af:outputText value="Enter a value between 5 and 100."/>
+                <tr:outputText value="Enter a value between 5 and 100."/>
               </f:facet>
               <f:validateLongRange minimum="5" maximum="100"/>
-            </af:inputText>
-            <af:panelLabelAndMessage label="Columns:">
-              <af:panelGroup layout="vertical">
-                <af:selectBooleanCheckbox text="Sender"
+            </tr:inputText>
+            <tr:panelLabelAndMessage label="Columns:">
+              <tr:panelGroup layout="vertical">
+                <tr:selectBooleanCheckbox text="Sender"
                      value="#{email.preferences.displaySenderColumn}"/>
-                <af:selectBooleanCheckbox text="Date"
+                <tr:selectBooleanCheckbox text="Date"
                      value="#{email.preferences.displayDateColumn}"/>
-                <af:selectBooleanCheckbox text="Size"
+                <tr:selectBooleanCheckbox text="Size"
                      value="#{email.preferences.displaySizeColumn}"/>
-              </af:panelGroup>
-            </af:panelLabelAndMessage>
-          </af:panelForm>
-         </af:panelHeader>
-          <af:panelButtonBar>  
-            <af:commandButton textAndAccessKey="&amp;Save"
+              </tr:panelGroup>
+            </tr:panelLabelAndMessage>
+          </tr:panelForm>
+         </tr:panelHeader>
+          <tr:panelButtonBar>  
+            <tr:commandButton textAndAccessKey="&amp;Save"
                               action="success"/>   
-            <af:commandButton textAndAccessKey="Cance&amp;l"
+            <tr:commandButton textAndAccessKey="Cance&amp;l"
                               action="success" immediate="true"/>                                  
-          </af:panelButtonBar>
-        </af:panelPage>
+          </tr:panelButtonBar>
+        </tr:panelPage>
     
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

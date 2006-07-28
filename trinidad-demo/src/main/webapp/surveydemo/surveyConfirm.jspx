@@ -16,81 +16,81 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Survey">
-       <af:form>
+    <tr:document title="Survey">
+       <tr:form>
        
-        <af:panelPage>
-          <af:panelHeader text="Please review your answers and make any last changes:">
+        <tr:panelPage>
+          <tr:panelHeader text="Please review your answers and make any last changes:">
        
-            <af:panelForm>
+            <tr:panelForm>
 <!-- question 1 -->
-             <af:selectOneRadio label="#{survey.q0.prompt}" 
+             <tr:selectOneRadio label="#{survey.q0.prompt}" 
                                     required="true"
                                     value="#{survey.a0}">            
-              <af:selectItem label="#{survey.q0.answerString}" value="0"/>
-              <af:selectItem label="#{survey.q0.answerString}" value="1"/>
-              <af:selectItem label="#{survey.q0.answerString}" value="2"/>
-              <af:selectItem label="#{survey.q0.answerString}" value="3"/>
-             </af:selectOneRadio >
+              <tr:selectItem label="#{survey.q0.answerString}" value="0"/>
+              <tr:selectItem label="#{survey.q0.answerString}" value="1"/>
+              <tr:selectItem label="#{survey.q0.answerString}" value="2"/>
+              <tr:selectItem label="#{survey.q0.answerString}" value="3"/>
+             </tr:selectOneRadio >
        
        
 <!-- question 2 -->
-            <af:inputText label="#{survey.q1.prompt}" 
+            <tr:inputText label="#{survey.q1.prompt}" 
                                    required="true"
                                    value="#{survey.a1}"/>
 
             
 <!-- question 3 -->
-             <af:selectOneRadio label="#{survey.q2.prompt}" 
+             <tr:selectOneRadio label="#{survey.q2.prompt}" 
                                   required="true"
                                   value="#{survey.a2}">            
-              <af:selectItem label="#{survey.q2.answerString}" value="0"/>
-              <af:selectItem label="#{survey.q2.answerString}" value="1"/>
-              <af:selectItem label="#{survey.q2.answerString}" value="2"/>
-              <af:selectItem label="#{survey.q2.answerString}" value="3"/>
-            </af:selectOneRadio >
+              <tr:selectItem label="#{survey.q2.answerString}" value="0"/>
+              <tr:selectItem label="#{survey.q2.answerString}" value="1"/>
+              <tr:selectItem label="#{survey.q2.answerString}" value="2"/>
+              <tr:selectItem label="#{survey.q2.answerString}" value="3"/>
+            </tr:selectOneRadio >
                                    
           
 <!-- question 4 -->
-          <af:panelLabelAndMessage label="#{survey.q3.prompt}"
+          <tr:panelLabelAndMessage label="#{survey.q3.prompt}"
             labelStyle="vertical-align: top;">
-            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a30}" readOnly="false"/>
-            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a31}" readOnly="false"/>
-            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a32}" readOnly="false"/>
-            <af:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a33}" readOnly="false"/> 
-          </af:panelLabelAndMessage>
+            <tr:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a30}" readOnly="false"/>
+            <tr:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a31}" readOnly="false"/>
+            <tr:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a32}" readOnly="false"/>
+            <tr:selectBooleanCheckbox text="#{survey.q3.answerString}" value="#{survey.a33}" readOnly="false"/> 
+          </tr:panelLabelAndMessage>
                                    
 
 <!-- question 5 -->   
-            <af:selectOneRadio label="#{survey.q4.prompt}" 
+            <tr:selectOneRadio label="#{survey.q4.prompt}" 
                                   required="true"
                                   value="#{survey.a4}">            
-              <af:selectItem label="#{survey.q4.answerString}" value="0"/>
-              <af:selectItem label="#{survey.q4.answerString}" value="1"/>
-              <af:selectItem label="#{survey.q4.answerString}" value="2"/>
-              <af:selectItem label="#{survey.q4.answerString}" value="3"/>
-            </af:selectOneRadio >        
+              <tr:selectItem label="#{survey.q4.answerString}" value="0"/>
+              <tr:selectItem label="#{survey.q4.answerString}" value="1"/>
+              <tr:selectItem label="#{survey.q4.answerString}" value="2"/>
+              <tr:selectItem label="#{survey.q4.answerString}" value="3"/>
+            </tr:selectOneRadio >        
         
-        </af:panelForm>
-       </af:panelHeader>
+        </tr:panelForm>
+       </tr:panelHeader>
             <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Return to Index"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Return to Index"
                     immediate="true"
                     action="home"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
         
-         <af:panelButtonBar>
-           <af:commandButton action="#{survey.check}" text="check answers" rendered="true" />  
-         </af:panelButtonBar>
-       </af:panelPage>
+         <tr:panelButtonBar>
+           <tr:commandButton action="#{survey.check}" text="check answers" rendered="true" />  
+         </tr:panelButtonBar>
+       </tr:panelPage>
 
 
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

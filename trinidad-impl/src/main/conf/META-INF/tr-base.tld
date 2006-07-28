@@ -20,9 +20,9 @@
 <taglib>
   <tlib-version>11-m3</tlib-version>
   <jsp-version>1.2</jsp-version>
-  <short-name>af</short-name>
-  <uri>http://myfaces.apache.org/adf/faces</uri>
-  <display-name>ADF Faces Core</display-name>    
+  <short-name>tr</short-name>
+  <uri>http://myfaces.apache.org/trinidad</uri>
+  <display-name>Apache Trinidad Core</display-name>    
         
     <tag>
       <name>attribute</name>   
@@ -83,9 +83,9 @@
       <tag-class>org.apache.myfaces.trinidadinternal.taglib.ForEachTag</tag-class>
       <description>
 The forEach tag is a replacement for the JSTL &amp;lt;c:forEach&amp;gt; tag
-                that works with ADF Faces components.  Today, &amp;lt;c:forEach&amp;gt; cannot
+                that works with Apache Trinidad components.  Today, &amp;lt;c:forEach&amp;gt; cannot
                 be used with any JSF components or tags.  This tag brings that functionality
-        to JSF, but it is limited to ADF Faces tags. This tag also has several limitations not found in &amp;lt;c:forEach&amp;gt;:
+        to JSF, but it is limited to Apache Trinidad tags. This tag also has several limitations not found in &amp;lt;c:forEach&amp;gt;:
         &lt;ul&gt;
         &lt;li&gt;&amp;lt;af:forEach&amp;gt; does not currently support scenarios where the size of the "items" list or array changes from one request to the next. It may be possible to work around this in specific scenarios by manually deleting all children of the parent component (&amp;lt;af:selectOneListbox&amp;gt; in the above example), but this has not yet been tested.&lt;/li&gt;
         &lt;li&gt;&amp;lt;af:forEach&amp;gt; does not support arbitrary java.util.Collections; it can only iterate over java.util.Lists or arrays.&lt;/li&gt;

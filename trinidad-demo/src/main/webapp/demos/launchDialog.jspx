@@ -16,52 +16,52 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Dialog Demo">
-      <af:form>
-        <af:panelPage>
+    <tr:document title="Dialog Demo">
+      <tr:form>
+        <tr:panelPage>
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Feature Demos page"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Feature Demos page"
                                   immediate="true"
                                   action="demos"/>
-            </af:menuButtons>
+            </tr:menuButtons>
           </f:facet>
          
-          <af:messages/>
-        <af:panelHeader text="Click &quot;...&quot; or &quot;Add&quot; to change a value">
-         <af:inputText label="Pick a number:" value="(Empty)"
+          <tr:messages/>
+        <tr:panelHeader text="Click &quot;...&quot; or &quot;Add&quot; to change a value">
+         <tr:inputText label="Pick a number:" value="(Empty)"
                        binding="#{launchDialog.input}"/>
-         <af:commandButton text="Add" action="#{launchDialog.doLaunch}"
+         <tr:commandButton text="Add" action="#{launchDialog.doLaunch}"
                           partialSubmit="true" useWindow="true"
                           windowWidth="250" windowHeight="250"
                           launchListener="#{launchDialog.addParameter}"
                           returnListener="#{launchDialog.returned}"/>
-         <af:objectSeparator/>
+         <tr:objectSeparator/>
 
-         <af:table value="#{table}" var="row" width="40%">
-           <af:column>
-             <af:outputText value="#{row.int}"/>
-           </af:column>
-           <af:column noWrap="true" width="100%">
-             <af:panelBorder>
-               <af:inputText readOnly="true" value="(Empty)" binding="#{launchDialog.tableInput}"/>
+         <tr:table value="#{table}" var="row" width="40%">
+           <tr:column>
+             <tr:outputText value="#{row.int}"/>
+           </tr:column>
+           <tr:column noWrap="true" width="100%">
+             <tr:panelBorder>
+               <tr:inputText readOnly="true" value="(Empty)" binding="#{launchDialog.tableInput}"/>
                <f:facet name="end">
-                 <af:commandButton text="..." action="dialog:chooseInteger"
+                 <tr:commandButton text="..." action="dialog:chooseInteger"
                                   windowWidth="300" windowHeight="150"
                                   useWindow="true"
                                   returnListener="#{launchDialog.tableReturned}"/>
                </f:facet>
-             </af:panelBorder>
-           </af:column>
-         </af:table>
-         <af:goLink text="Demo of launching a dialog from &lt;af:poll&gt;"
+             </tr:panelBorder>
+           </tr:column>
+         </tr:table>
+         <tr:goLink text="Demo of launching a dialog from &lt;tr:poll&gt;"
                     destination="launchFromPoll.jspx"/>
-        </af:panelHeader>
-       </af:panelPage>
-      </af:form>
-    </af:document>
+        </tr:panelHeader>
+       </tr:panelPage>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

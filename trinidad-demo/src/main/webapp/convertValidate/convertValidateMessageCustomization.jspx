@@ -16,159 +16,159 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title=" Trinidad Converters and Validators message customization">
-        <af:form>
-          <af:panelPage>
-            <af:messages/>
+    <tr:document title=" Trinidad Converters and Validators message customization">
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
             <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Converters and Validators"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Converters and Validators"
                                     action="convertValidateDemos"
                                     immediate="true"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
-          <af:panelHeader text="Custom messages for conversion and validation failures">
-            <af:panelHeader text="Message customization on input component for 'required' validation"/>
-            <af:panelForm>
-              <af:selectInputDate id="mdf1"
+          <tr:panelHeader text="Custom messages for conversion and validation failures">
+            <tr:panelHeader text="Message customization on input component for 'required' validation"/>
+            <tr:panelForm>
+              <tr:selectInputDate id="mdf1"
                                   value="#{messageCustomization.date1}"
                                   label="Date of birth" required="true"
-                                  requiredMessageDetail="#{messageCustomization.messages.DOB_REQD_ID}"></af:selectInputDate>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on reg exp validator"/>
-            <af:panelForm>
-              <af:inputText value="#{messageCustomization.regExpValue}"
+                                  requiredMessageDetail="#{messageCustomization.messages.DOB_REQD_ID}"></tr:selectInputDate>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on reg exp validator"/>
+            <tr:panelForm>
+              <tr:inputText value="#{messageCustomization.regExpValue}"
                             label="Pin" >
                 <f:facet name="help">
-                  <af:outputText value="Enter your three digit pin"/>
+                  <tr:outputText value="Enter your three digit pin"/>
                 </f:facet>
-                <af:validateRegExp pattern="[1-9][0-9][0-9]"
+                <tr:validateRegExp pattern="[1-9][0-9][0-9]"
                                    noMatchMessageDetail="#{messageCustomization.messages.PIN_NO_MATCH_ID}"/>
-              </af:inputText>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on byte length validator"/>
-            <af:panelForm>
-              <af:inputText value="#{messageCustomization.byteLengthValue}"
+              </tr:inputText>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on byte length validator"/>
+            <tr:panelForm>
+              <tr:inputText value="#{messageCustomization.byteLengthValue}"
                             label="Name">
                 <f:facet name="help">
-                  <af:outputText value="Enter your name. It should not exceed 4 characters"/>
+                  <tr:outputText value="Enter your name. It should not exceed 4 characters"/>
                 </f:facet>
-                <af:validateByteLength encoding="ISO-8859-1" maximum="4"
+                <tr:validateByteLength encoding="ISO-8859-1" maximum="4"
                                        maximumMessageDetail='The "{0}" "{1}" exceeds {2} characters'/>
-              </af:inputText>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on date time range validator"/>
-            <af:panelForm>
-              <af:selectInputDate id="mdf3"
+              </tr:inputText>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on date time range validator"/>
+            <tr:panelForm>
+              <tr:selectInputDate id="mdf3"
                                   value="#{messageCustomization.date1}"
                                   label="Start date for submission">
                 <f:facet name="help">
-                  <af:outputText value="min=#{messageCustomization.minDateTip}"/>
+                  <tr:outputText value="min=#{messageCustomization.minDateTip}"/>
                 </f:facet>
-                <af:validateDateTimeRange minimum="#{messageCustomization.minDate}"
+                <tr:validateDateTimeRange minimum="#{messageCustomization.minDate}"
                                           maximumMessageDetail='Date "{1}" in "{0}" is farther than {2}'
                                           minimumMessageDetail='Date "{1}" in "{0}" is before the accepted date - {2} for receving forms. '
                                           notInRangeMessageDetail='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}'/>
-              </af:selectInputDate>
-              <af:selectInputDate id="mdf4"
+              </tr:selectInputDate>
+              <tr:selectInputDate id="mdf4"
                                   value="#{messageCustomization.date1}"
                                   label="Last date">
                 <f:facet name="help">
-                  <af:outputText value="max=#{messageCustomization.maxDateTip}"/>
+                  <tr:outputText value="max=#{messageCustomization.maxDateTip}"/>
                 </f:facet>
-                <af:validateDateTimeRange maximum="#{date.maxDate}"
+                <tr:validateDateTimeRange maximum="#{date.maxDate}"
                                           maximumMessageDetail='The date "{1}" in "{0}" which you have chosen, falls after the final acceptable date - {2}.'
                                           minimumMessageDetail='Date "{1}" in "{0}" is less than the minimum acceptable: {2}.'
                                           notInRangeMessageDetail='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}.'/>
-              </af:selectInputDate>
-              <af:selectInputDate id="mdf5"
+              </tr:selectInputDate>
+              <tr:selectInputDate id="mdf5"
                                   value="#{messageCustomization.date1}"
                                   label="Submission period">
                 <f:facet name="help">
-                  <af:outputText value="min=#{messageCustomization.minDateTip} max=#{messageCustomization.maxDateTip}"/>
+                  <tr:outputText value="min=#{messageCustomization.minDateTip} max=#{messageCustomization.maxDateTip}"/>
                 </f:facet>
-                <af:validateDateTimeRange minimum="#{messageCustomization.minDate}"
+                <tr:validateDateTimeRange minimum="#{messageCustomization.minDate}"
                                           maximum="#{messageCustomization.maxDate}"
                                           notInRangeMessageDetail='Submission date "{1}" in "{0}" is not with in the specified period {2}-{3}.'/>
-              </af:selectInputDate>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on color converter"/>
-            <af:panelForm>
-              <af:selectInputColor id="sicConvx" label="Enter or choose color"
+              </tr:selectInputDate>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on color converter"/>
+            <tr:panelForm>
+              <tr:selectInputColor id="sicConvx" label="Enter or choose color"
                                    value="#{messageCustomization.color}">
                 <f:facet name="help">
-                  <af:outputText value="HTML hex color pattern:#RRGGBB"/>
+                  <tr:outputText value="HTML hex color pattern:#RRGGBB"/>
                 </f:facet>
-                <af:convertColor patterns="#RRGGBB" transparentAllowed="true"
+                <tr:convertColor patterns="#RRGGBB" transparentAllowed="true"
                                  convertMessageDetail='The color "{1}" you have chosen in "{0}" is not a valid HTML hex pattern {2}.'/>
-              </af:selectInputColor>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on date time converter"/>
-            <af:panelForm>
-              <af:selectInputDate id="mdf6" value="2004/09/06"
+              </tr:selectInputColor>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on date time converter"/>
+            <tr:panelForm>
+              <tr:selectInputDate id="mdf6" value="2004/09/06"
                                   label="Date of birth">
                 <f:facet name="help">
-                  <af:outputText value="1/20/1972 or 1972/20/2"/>
+                  <tr:outputText value="1/20/1972 or 1972/20/2"/>
                 </f:facet>
                 <!--All custom messages need not be set. It is just enough if we set 'convertDateMessageDetail' -->
-                <af:convertDateTime secondaryPattern="d/M/yyyy"
+                <tr:convertDateTime secondaryPattern="d/M/yyyy"
                                     pattern="yyyy/M/d"
                                     convertDateMessageDetail='"{1}" in "{0}" is not a valid date. Example is {2}'
                                     convertTimeMessageDetail='"{1}" in "{0}", is not valid date. Example is {2}.'
                                     convertBothMessageDetail='"{1}" in "{0}", is not valid Date and time. The format is {2}.'/>
-              </af:selectInputDate>
-              <af:selectInputDate id="mdf7" value="11:36:15 AM"
+              </tr:selectInputDate>
+              <tr:selectInputDate id="mdf7" value="11:36:15 AM"
                                   label="Time of birth">
                 <f:facet name="help">
-                  <af:outputText value="11:36:15 AM"/>
+                  <tr:outputText value="11:36:15 AM"/>
                 </f:facet>
-                <af:convertDateTime type="time" timeStyle="medium"
+                <tr:convertDateTime type="time" timeStyle="medium"
                                     convertTimeMessageDetail='"{1}" in "{0}", is not a valid time. Example: {2}.'/>
-              </af:selectInputDate>
-              <af:selectInputDate id="mdf8" value="12/20/2004 8:11 AM"
+              </tr:selectInputDate>
+              <tr:selectInputDate id="mdf8" value="12/20/2004 8:11 AM"
                                   label="Date and time of birth">
                 <f:facet name="help">
-                  <af:outputText value="2/26/2005 8:11 AM"/>
+                  <tr:outputText value="2/26/2005 8:11 AM"/>
                 </f:facet>
-                <af:convertDateTime type="both"
+                <tr:convertDateTime type="both"
                                     convertBothMessageDetail='"{1}" in "{0}", is not a valid Date and time. Example: {2}.'/>
-              </af:selectInputDate>
-            </af:panelForm>
-            <af:panelHeader text="Message customization on number converter"/>
-            <af:panelForm>
-              <af:inputText value="555" label="Your lucky number">
+              </tr:selectInputDate>
+            </tr:panelForm>
+            <tr:panelHeader text="Message customization on number converter"/>
+            <tr:panelForm>
+              <tr:inputText value="555" label="Your lucky number">
                 <f:facet name="help">
-                  <af:outputText value="type='number' locale='en_US' Valid input=44444456 Invalid value=555o"/>
+                  <tr:outputText value="type='number' locale='en_US' Valid input=44444456 Invalid value=555o"/>
                 </f:facet>
-                <af:convertNumber type="number" locale="en_US"
+                <tr:convertNumber type="number" locale="en_US"
                                   convertCurrencyMessageDetail='"{1}" in "{0}" is not a valid currency value.'
                                   convertNumberMessageDetail='"{1}" in "{0}" is not valid. Please choose a number.'
                                   convertPatternMessageDetail='"{1}" in "{0}" does not match the pattern {2}'
                                   convertPercentMessageDetail='"{1}" in "{0}" is not a valid percentile.'/>
-              </af:inputText>
-              <af:inputText value="5%" label="Machine efficieny"
+              </tr:inputText>
+              <tr:inputText value="5%" label="Machine efficieny"
                             readOnly="false">
                 <f:facet name="help">
-                  <af:outputText value="type='percent' locale='en_US' Valid value=75% Invalid value=75"/>
+                  <tr:outputText value="type='percent' locale='en_US' Valid value=75% Invalid value=75"/>
                 </f:facet>
-                <af:convertNumber type="percent" locale="en_US"
+                <tr:convertNumber type="percent" locale="en_US"
                                   convertPercentMessageDetail='"{1}" in "{0}" is not a valid efficiency value.'/>
-              </af:inputText>
-              <af:inputText value="10.88" label="Pattern based number">
+              </tr:inputText>
+              <tr:inputText value="10.88" label="Pattern based number">
                 <f:facet name="help">
-                  <af:outputText value="'pattern=##.000' locale='en_US' Invalid value=10e.88"/>
+                  <tr:outputText value="'pattern=##.000' locale='en_US' Invalid value=10e.88"/>
                 </f:facet>
-                <af:convertNumber pattern="##.000" locale="en_US"
+                <tr:convertNumber pattern="##.000" locale="en_US"
                                   convertPatternMessageDetail='"{1}" in "{0}" does not match pattern {2}.'/>
-              </af:inputText>
-            </af:panelForm>
-           </af:panelHeader>
-           <af:commandButton text="Submit"/>
-          </af:panelPage>
-        </af:form>
-    </af:document>
+              </tr:inputText>
+            </tr:panelForm>
+           </tr:panelHeader>
+           <tr:commandButton text="Submit"/>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

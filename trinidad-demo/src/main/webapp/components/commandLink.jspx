@@ -17,26 +17,26 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="CommandLink Demo">
-        <af:form>       
-          <af:panelGroup layout="vertical">
+ <tr:document title="CommandLink Demo">
+        <tr:form>       
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>              
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>A simple commandLink &lt;/b>"/>            
-            <af:commandLink binding="#{editor.component}" text="Page 1" action="#{action.app1}"/>            
+            <tr:commandLink binding="#{editor.component}" text="Page 1" action="#{action.app1}"/>            
             
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

@@ -17,40 +17,40 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0" 
   xmlns:f="http://java.sun.com/jsf/core" 
   xmlns:h="http://java.sun.com/jsf/html" 
-  xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-  xmlns:af="http://myfaces.apache.org/adf/faces" >
+  xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+  xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Welcome to AddRow and TotalRow demos">
-      <af:form >
-        <af:panelPage>
+    <tr:document title="Welcome to AddRow and TotalRow demos">
+      <tr:form >
+        <tr:panelPage>
           <f:facet name="navigationGlobal">
-          <af:menuButtons>
-            <af:commandNavigationItem text="Return to Feature Demos page"
+          <tr:menuButtons>
+            <tr:commandNavigationItem text="Return to Feature Demos page"
                                 immediate="true"
                                 action="demos"/>
-           </af:menuButtons>
+           </tr:menuButtons>
           </f:facet>
-          <af:outputFormatted styleUsage="instruction" 
+          <tr:outputFormatted styleUsage="instruction" 
             value="These demos show how you can play around with table data"/>
-          <af:panelGroup layout="vertical">
-            <af:panelHeader text="Add Row Demo">
-              <af:outputFormatted styleUsage="instruction" 
+          <tr:panelGroup layout="vertical">
+            <tr:panelHeader text="Add Row Demo">
+              <tr:outputFormatted styleUsage="instruction" 
                 value="This demo shows you how to add a row to your model 
                       based on user input"/>
-              <af:commandButton id="AddRowButton" 
+              <tr:commandButton id="AddRowButton" 
                 text="go to AddRow Demo" action="addRow"/>
-            </af:panelHeader>
-            <af:panelHeader text="Total Row Demo">
-              <af:outputFormatted styleUsage="instruction" 
+            </tr:panelHeader>
+            <tr:panelHeader text="Total Row Demo">
+              <tr:outputFormatted styleUsage="instruction" 
                 value="This demo shows you how to calculate totals for
                 a particular column in your table."/>
-              <af:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
+              <tr:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
                 action="totalRow"/>
-            </af:panelHeader>
-          </af:panelGroup>
-        </af:panelPage>
-      </af:form>
-    </af:document>
+            </tr:panelHeader>
+          </tr:panelGroup>
+        </tr:panelPage>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -55,7 +55,7 @@ public class PasswordValidator implements Validator, ClientValidator
       }
     }
 
-    // Using the LabeledFacesMessage allows the <af:messages> component to
+    // Using the LabeledFacesMessage allows the <tr:messages> component to
     // properly prepend the label as a link.
     LabeledFacesMessage lfm =
       new LabeledFacesMessage(FacesMessage.SEVERITY_ERROR,

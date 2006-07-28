@@ -16,7 +16,7 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <!-- 
   Load a resource bundle localized for the Locale of the current view, 
@@ -29,84 +29,84 @@
                 basename="org.apache.myfaces.adfdemo.email.resource.EmailDemoBundle"/>
   
   <f:view>
-    <af:document title="New Message">
-       <af:form usesUpload="true">
-        <af:panelPage>
-          <af:messages/>
+    <tr:document title="New Message">
+       <tr:form usesUpload="true">
+        <tr:panelPage>
+          <tr:messages/>
 
           <f:facet name="infoStatus">
-            <af:objectLegend name="required" />
+            <tr:objectLegend name="required" />
           </f:facet>
           
           <f:facet name="branding">
-            <af:panelGroup layout="vertical">
-              <af:panelGroup>
-                <af:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <af:objectImage source="/email/images/pbs.gif"/>
-              </af:panelGroup>
-              <af:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
+            <tr:panelGroup layout="vertical">
+              <tr:panelGroup>
+                <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
+                <tr:objectImage source="/email/images/pbs.gif"/>
+              </tr:panelGroup>
+              <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </af:panelGroup>
+            </tr:panelGroup>
           </f:facet>
           
           <f:facet name="navigationGlobal">
-              <af:menuButtons>
-                <af:commandNavigationItem text="Return to Index"
+              <tr:menuButtons>
+                <tr:commandNavigationItem text="Return to Index"
                     immediate="true"
                     action="home"/>
-                <af:commandNavigationItem text="Logout" 
+                <tr:commandNavigationItem text="Logout" 
                                   action="#{email.logout}"/>
-                <af:commandNavigationItem text="Preferences"
+                <tr:commandNavigationItem text="Preferences"
                                   action="preferences"/>
-                <af:commandNavigationItem text="Help"
+                <tr:commandNavigationItem text="Help"
                                   action="action.none"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
             
             <f:facet name="infoUser">
-              <af:outputFormatted value="Logged in as #{email.username}"
+              <tr:outputFormatted value="Logged in as #{email.username}"
                              styleUsage="pageStamp"/>
             </f:facet>
 
-         <af:panelHeader text="New Message">
-          <af:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
-            <af:inputText label="Subject:" 
+         <tr:panelHeader text="New Message">
+          <tr:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
+            <tr:inputText label="Subject:" 
                           required="true"
                           value="#{newMessageBacking.subject}"/>
-            <af:inputText label="To:" 
+            <tr:inputText label="To:" 
                           required="true"
                           value="#{newMessageBacking.to}"
                           validator="#{newMessageBacking.validateEmailList}"/>
-            <af:inputText label="Cc:" 
+            <tr:inputText label="Cc:" 
                           value="#{newMessageBacking.cc}"
                           validator="#{newMessageBacking.validateEmailList}"/>
-            <af:inputFile label="Attachment:"
+            <tr:inputFile label="Attachment:"
                           value="#{newMessageBacking.attachment1}"/>
-            <af:inputFile label="Attachment:"
+            <tr:inputFile label="Attachment:"
                           value="#{newMessageBacking.attachment2}"/>
-            <af:inputFile label="Attachment:"
+            <tr:inputFile label="Attachment:"
                           value="#{newMessageBacking.attachment3}"/>
-            <af:inputText label="Content:" columns="80" rows="20" wrap="soft"
+            <tr:inputText label="Content:" columns="80" rows="20" wrap="soft"
                           value="#{newMessageBacking.content}"/>
-          </af:panelForm>
-         </af:panelHeader>
+          </tr:panelForm>
+         </tr:panelHeader>
           <!--
           <f:facet name="infoReturn">
-            <af:commandLink text="Return to #{email.currentFolder.name}"
+            <tr:commandLink text="Return to #{email.currentFolder.name}"
                             action="messages" immediate="true"/>
           </f:facet>
           -->
-          <af:panelButtonBar>
-            <af:commandButton textAndAccessKey="&amp;Send Message"
+          <tr:panelButtonBar>
+            <tr:commandButton textAndAccessKey="&amp;Send Message"
                               action="#{newMessageBacking.send}"/>
-            <af:commandButton textAndAccessKey="Save as &amp;Draft"
+            <tr:commandButton textAndAccessKey="Save as &amp;Draft"
                               action="#{newMessageBacking.saveAsDraft}"/>
-            <af:commandButton textAndAccessKey="Cance&amp;l" immediate="true"
+            <tr:commandButton textAndAccessKey="Cance&amp;l" immediate="true"
                               action="cancel"/>                                
-          </af:panelButtonBar>
-        </af:panelPage>
+          </tr:panelButtonBar>
+        </tr:panelPage>
     
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

@@ -16,59 +16,59 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces"
+          xmlns:tr="http://myfaces.apache.org/trinidad"
           version="1.2">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Group Demo">
-      <af:form>
-        <af:panelGroup layout="vertical">
+    <tr:document title="Group Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
           <f:facet name="separator">
-            <af:objectSeparator/>
+            <tr:objectSeparator/>
           </f:facet>
-          <af:commandLink immediate="true" text="Component Guide"
+          <tr:commandLink immediate="true" text="Component Guide"
             action="guide"/>
-          <af:outputText
+          <tr:outputText
             value="The group component is an invisible control that aggregates semantically-related children.
 The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children.
 The panelForm is an example of one of the components that has support for grouping its children components.
 If you place panelForm child items inside of a group, separators will be drawn around the group of form items if adjacent to other form items (separators won't be drawn at the top if the group is the first item in the column or, similarly, at the bottom if the group is the last item in the column).
 Grouped panelForm items are kept in the same column of the panelForm even when the assigned rows attribute is set to a value smaller than the number of items in the group.
 The panelForm component also supports the group component in its footer facet so you can place more than one item in the footer.  You can even group footer items one additional time to get separators to appear."/>
-          <af:outputText
+          <tr:outputText
             value="This is a demo page for a panelForm (drawn with a thick red border) that uses various group components around its form items."/>
-          <af:panelForm labelWidth="50%" fieldWidth="50%" rows="6"
+          <tr:panelForm labelWidth="50%" fieldWidth="50%" rows="6"
             inlineStyle="border: 4px solid red;">
-            <af:inputText columns="10" label="main item 1"/>
-            <af:inputText columns="10" label="main item 2"/>
-            <af:inputText columns="10" label="main item 3"/>
-            <af:inputText columns="10" label="main item 4"/>
-            <af:inputText columns="10" label="main item 5"/>
-            <af:inputText columns="10" label="main item 6"/>
-            <af:inputText columns="10" label="main item 7"/>
-            <af:group binding="#{editor.component}">
-              <af:inputText columns="10" label="grouped item 1"/>
-              <af:inputText columns="10" label="grouped item 2"/>
-            </af:group>
-            <af:inputText columns="10" label="main item 8"/>
-            <af:inputText columns="10" label="main item 9"/>
-            <af:inputText columns="10" label="main item 10"/>
+            <tr:inputText columns="10" label="main item 1"/>
+            <tr:inputText columns="10" label="main item 2"/>
+            <tr:inputText columns="10" label="main item 3"/>
+            <tr:inputText columns="10" label="main item 4"/>
+            <tr:inputText columns="10" label="main item 5"/>
+            <tr:inputText columns="10" label="main item 6"/>
+            <tr:inputText columns="10" label="main item 7"/>
+            <tr:group binding="#{editor.component}">
+              <tr:inputText columns="10" label="grouped item 1"/>
+              <tr:inputText columns="10" label="grouped item 2"/>
+            </tr:group>
+            <tr:inputText columns="10" label="main item 8"/>
+            <tr:inputText columns="10" label="main item 9"/>
+            <tr:inputText columns="10" label="main item 10"/>
             <f:facet name="footer">
-              <af:group>
-                <af:inputText columns="10" label="grouped footer item 1"/>
-                <af:inputText columns="10" label="grouped footer item 2"/>
-                <af:group>
-                  <af:inputText columns="10" label="double grouped footer item 1"/>
-                  <af:inputText columns="10" label="double grouped footer item 2"/>
-                </af:group>
-                <af:inputText columns="10" label="grouped footer item 3"/>
-                <af:inputText columns="10" label="grouped footer item 4"/>
-              </af:group>
+              <tr:group>
+                <tr:inputText columns="10" label="grouped footer item 1"/>
+                <tr:inputText columns="10" label="grouped footer item 2"/>
+                <tr:group>
+                  <tr:inputText columns="10" label="double grouped footer item 1"/>
+                  <tr:inputText columns="10" label="double grouped footer item 2"/>
+                </tr:group>
+                <tr:inputText columns="10" label="grouped footer item 3"/>
+                <tr:inputText columns="10" label="grouped footer item 4"/>
+              </tr:group>
             </f:facet>
-          </af:panelForm>
+          </tr:panelForm>
           <jsp:directive.include file="editor.jspf"/>
-        </af:panelGroup>
-      </af:form>
-    </af:document>
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

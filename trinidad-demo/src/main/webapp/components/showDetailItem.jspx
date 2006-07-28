@@ -17,123 +17,123 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="ShowDetailItem Demo">
-        <af:form>
+ <tr:document title="ShowDetailItem Demo">
+        <tr:form>
         
-            <af:panelGroup layout="vertical">
+            <tr:panelGroup layout="vertical">
               <f:facet name="separator">
-                <af:objectSeparator/>
+                <tr:objectSeparator/>
               </f:facet>
-            <af:commandLink 
+            <tr:commandLink 
                 immediate="true" 
                 text="Component Guide"
                 action="guide"/>                   
 
-                <af:outputFormatted 
+                <tr:outputFormatted 
                   styleUsage="instruction" 
                   value="&lt;b>A showOneTab component with showDetailItem children &lt;/b>"/>  
-                <af:panelForm>
-                  <af:inputText 
+                <tr:panelForm>
+                  <tr:inputText 
                     readOnly="true" 
                     label="Date/Time from last full page refresh" 
                     value="#{date.currentDate}"
                     styleClass="AFDataText">
-                    <af:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                  </af:inputText>
-                </af:panelForm>
-                <af:showOneTab>
-                  <af:showDetailItem binding="#{editor.component}" text="Tab 1">
-                    <af:panelHeader text="Header 1">
-                      <af:panelForm>
-                        <af:inputText 
+                    <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
+                  </tr:inputText>
+                </tr:panelForm>
+                <tr:showOneTab>
+                  <tr:showDetailItem binding="#{editor.component}" text="Tab 1">
+                    <tr:panelHeader text="Header 1">
+                      <tr:panelForm>
+                        <tr:inputText 
                           readOnly="true" 
                           label="Label 1-1" 
                           value="Value"
                           styleClass="AFDataText"/>
-                        <af:inputText readOnly="true" 
+                        <tr:inputText readOnly="true" 
                           label="Date/Time from last partial refresh" 
                           value="#{date.currentDate}"
                           styleClass="AFDataText">
-                          <af:convertDateTime 
+                          <tr:convertDateTime 
                             pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </af:inputText>
-                      </af:panelForm>
-                    </af:panelHeader>
-                  </af:showDetailItem>
-                  <af:showDetailItem text="Tab 2">
-                    <af:panelHeader text="Header 2 - This ShowDetailItem contains a ShowDetail in it">
-                      <af:panelGroup>
-                        <af:showDetail
+                        </tr:inputText>
+                      </tr:panelForm>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
+                  <tr:showDetailItem text="Tab 2">
+                    <tr:panelHeader text="Header 2 - This ShowDetailItem contains a ShowDetail in it">
+                      <tr:panelGroup>
+                        <tr:showDetail
                           id="hs1"
                           partialTriggers="hs1">
-                          <af:panelForm>
-                            <af:inputText readOnly="true" 
+                          <tr:panelForm>
+                            <tr:inputText readOnly="true" 
                               label="Date/Time from last partial refresh" 
                               value="#{date.currentDate}"
                               styleClass="AFDataText">
-                              <af:convertDateTime 
+                              <tr:convertDateTime 
                                   pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                              </af:inputText>
-                              <af:selectInputColor label="Color" />
-                            </af:panelForm>
-                          </af:showDetail>
-                        </af:panelGroup>
-                    </af:panelHeader>
-                  </af:showDetailItem>
-                  <af:showDetailItem 
+                              </tr:inputText>
+                              <tr:selectInputColor label="Color" />
+                            </tr:panelForm>
+                          </tr:showDetail>
+                        </tr:panelGroup>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
+                  <tr:showDetailItem 
                     text="Tab 3" 
                     disclosed="true" 
                     immediate="false">
-                    <af:panelHeader 
+                    <tr:panelHeader 
                       text="Header 3 - This showDetailItem has its immediate attribute set to false">
-                      <af:panelForm>
-                        <af:inputText 
+                      <tr:panelForm>
+                        <tr:inputText 
                           readOnly="true" 
                           label="Label 3-1" 
                           value="Value"
                           styleClass="AFDataText"/>
-                        <af:inputText readOnly="true" 
+                        <tr:inputText readOnly="true" 
                           label="Date/Time from last partial refresh" 
                           value="#{date.currentDate}"
                           styleClass="AFDataText">
-                          <af:convertDateTime 
+                          <tr:convertDateTime 
                             pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </af:inputText>
-                        <af:inputText 
+                        </tr:inputText>
+                        <tr:inputText 
                           label="This is a required field" 
                           required="true"/>
-                      </af:panelForm>
-                    </af:panelHeader>
-                  </af:showDetailItem>
-                  <af:showDetailItem text="Tab 4" disabled="true"/>
-                  <af:showDetailItem text="Tab 5">
-                    <af:panelHeader text="Header 5">
-                      <af:panelForm>
-                        <af:inputText 
+                      </tr:panelForm>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
+                  <tr:showDetailItem text="Tab 4" disabled="true"/>
+                  <tr:showDetailItem text="Tab 5">
+                    <tr:panelHeader text="Header 5">
+                      <tr:panelForm>
+                        <tr:inputText 
                           readOnly="true" 
                           label="Label 5-1" 
                           value="Value"
                           styleClass="AFDataText"/>
-                        <af:inputText readOnly="true" 
+                        <tr:inputText readOnly="true" 
                           label="Date/Time from last partial refresh" 
                           value="#{date.currentDate}"
                           styleClass="AFDataText">
-                          <af:convertDateTime 
+                          <tr:convertDateTime 
                             pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
-                        </af:inputText>
-                      </af:panelForm>
-                    </af:panelHeader>
-                  </af:showDetailItem>
-                </af:showOneTab>
+                        </tr:inputText>
+                      </tr:panelForm>
+                    </tr:panelHeader>
+                  </tr:showDetailItem>
+                </tr:showOneTab>
                 
                 <jsp:directive.include file="editor.jspf" />
     
-            </af:panelGroup>
-        </af:form>
- </af:document>
+            </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

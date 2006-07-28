@@ -17,38 +17,38 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Messages Demo">
-   <af:form defaultCommand="message">
-          <af:panelGroup layout="vertical">
+ <tr:document title="Messages Demo">
+   <tr:form defaultCommand="message">
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>            
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Type 'cat' to see an error message&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Type 'cat' to see an error message&lt;/b>"/>
               
-            <af:panelGroup layout="vertical">
-              <af:outputLabel for="foo" value="Label"/>
-              <af:message for="foo" binding="#{editor.component}" 
+            <tr:panelGroup layout="vertical">
+              <tr:outputLabel for="foo" value="Label"/>
+              <tr:message for="foo" binding="#{editor.component}" 
               inlineStyle="background-color:red">
                 <f:facet name="help">
-                  <af:outputText value="Help facet text"/>
+                  <tr:outputText value="Help facet text"/>
                 </f:facet>
-              </af:message>
-              <af:inputText id="foo" simple="true" label="BigInteger field">
+              </tr:message>
+              <tr:inputText id="foo" simple="true" label="BigInteger field">
                 <f:converter converterId="javax.faces.BigInteger"/>
-              </af:inputText>                      
-              <af:commandButton id="message" text="Submit"/>
-            </af:panelGroup>
+              </tr:inputText>                      
+              <tr:commandButton id="message" text="Submit"/>
+            </tr:panelGroup>
 
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

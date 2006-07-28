@@ -17,66 +17,66 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Column Group Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
-             <af:commandLink immediate="true" text="Component Guide"
+ <tr:document title="Column Group Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
+             <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>
-            <af:commandLink immediate="true" text="Column Demo"
+            <tr:commandLink immediate="true" text="Column Demo"
                   action="guide.column"/>
-            <af:commandLink immediate="true" text="Column Group"
+            <tr:commandLink immediate="true" text="Column Group"
                   action="guide.column.group"/>
-            <af:commandLink immediate="true" text="RowHeader Column"
+            <tr:commandLink immediate="true" text="RowHeader Column"
                   action="guide.column.rowHeader"/>
-            <af:commandLink immediate="true" text="Sortable Column"
+            <tr:commandLink immediate="true" text="Sortable Column"
                   action="guide.column.sortable"/>
 
-            <af:outputFormatted styleUsage="instruction" value="&lt;p>&lt;b>Column Group&lt;/b>"/>
-            <af:table value="#{periodicTable.tableData}" rows="7"
+            <tr:outputFormatted styleUsage="instruction" value="&lt;p>&lt;b>Column Group&lt;/b>"/>
+            <tr:table value="#{periodicTable.tableData}" rows="7"
               var="row" summary="Column Group Demo">
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Atom"/>
+                  <tr:outputText value="Atom"/>
                 </f:facet>
-                <af:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Symbol"/>
+                    <tr:outputText value="Symbol"/>
                   </f:facet>
-                  <af:outputText value="#{row.symbol}"/>
-                </af:column>
-                <af:column>
+                  <tr:outputText value="#{row.symbol}"/>
+                </tr:column>
+                <tr:column>
                   <f:facet name="header">
-                    <af:outputText value="Description"/>
+                    <tr:outputText value="Description"/>
                   </f:facet>
-                  <af:column>
+                  <tr:column>
                     <f:facet name="header">
-                      <af:outputText value="Name"/>
+                      <tr:outputText value="Name"/>
                     </f:facet>
-                    <af:outputText value="#{row.name}"/>
-                  </af:column>
-                  <af:column>
+                    <tr:outputText value="#{row.name}"/>
+                  </tr:column>
+                  <tr:column>
                     <f:facet name="header">
-                      <af:outputText value="Number"/>
+                      <tr:outputText value="Number"/>
                     </f:facet>
-                    <af:outputText value="#{row.number}"/>
-                  </af:column>
-                  <af:column>
+                    <tr:outputText value="#{row.number}"/>
+                  </tr:column>
+                  <tr:column>
                     <f:facet name="header">
-                      <af:outputText value="Group"/>
+                      <tr:outputText value="Group"/>
                     </f:facet>
-                    <af:outputText value="#{row.group}"/>
-                  </af:column>
-                </af:column>
-              </af:column>
-            </af:table>
+                    <tr:outputText value="#{row.group}"/>
+                  </tr:column>
+                </tr:column>
+              </tr:column>
+            </tr:table>
 
 
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

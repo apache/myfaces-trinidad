@@ -20,7 +20,7 @@
 <taglib>
   <tlib-version>11-m3</tlib-version>
   <jsp-version>1.2</jsp-version>
-  <short-name>afh</short-name>
-  <uri>http://myfaces.apache.org/adf/faces/html</uri>
-  <display-name>ADF Faces HTML</display-name>
+  <short-name>trh</short-name>
+  <uri>http://myfaces.apache.org/trinidad/html</uri>
+  <display-name>Apache Trinidad HTML</display-name>
 </taglib>

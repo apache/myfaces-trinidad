@@ -17,88 +17,88 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="tableSelectMany Demo">
-      <af:form>
-        <af:panelGroup layout="vertical">
-          <af:commandLink immediate="true" text="Component Guide"
+    <tr:document title="tableSelectMany Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
+          <tr:commandLink immediate="true" text="Component Guide"
                           action="guide"/>
-        </af:panelGroup>
-        <af:panelGroup layout="vertical">
+        </tr:panelGroup>
+        <tr:panelGroup layout="vertical">
           <f:facet name="separator">
-            <af:objectSeparator/>
+            <tr:objectSeparator/>
           </f:facet>
-          <af:messages/>
-          <af:selectOneChoice value="#{sessionScope.tableSelection}"
+          <tr:messages/>
+          <tr:selectOneChoice value="#{sessionScope.tableSelection}"
               autoSubmit="true"
                id="selType"
               label="Selection Type">
-            <af:selectItem label="Single" value="#{null}"/>
-            <af:selectItem label="Multiple" value="#{true}"/>
-          </af:selectOneChoice>
-          <af:table summary="Periodic table"
+            <tr:selectItem label="Single" value="#{null}"/>
+            <tr:selectItem label="Multiple" value="#{true}"/>
+          </tr:selectOneChoice>
+          <tr:table summary="Periodic table"
                     binding="#{tableActions.table}" 
                     partialTriggers="selType"
                     rowSelection="#{sessionScope.tableSelection ? 'multiple' : 'single'}"
                     value="#{periodicTable.tableData}" var="row" rows="10">
             <f:facet name="footer">
-              <af:commandButton text="Report" 
+              <tr:commandButton text="Report" 
                    actionListener="#{tableActions.performReport}"/>
             </f:facet>
-            <af:column>
+            <tr:column>
               <f:facet name="header">
-                <af:outputText value="Name"/>
+                <tr:outputText value="Name"/>
               </f:facet>
-              <af:outputText value="#{row.name}"/>
-            </af:column>
-            <af:column>
+              <tr:outputText value="#{row.name}"/>
+            </tr:column>
+            <tr:column>
               <f:facet name="header">
-                <af:outputText value="Symbol"/>
+                <tr:outputText value="Symbol"/>
               </f:facet>
-              <af:outputText value="#{row.symbol}"/>
-            </af:column>
-            <af:column>
+              <tr:outputText value="#{row.symbol}"/>
+            </tr:column>
+            <tr:column>
               <f:facet name="header">
-                <af:outputText value="Action Column"/>
+                <tr:outputText value="Action Column"/>
               </f:facet>
-              <af:commandButton immediate="true" text="Action"
+              <tr:commandButton immediate="true" text="Action"
                                 action="#{row.action}"/>
-            </af:column>
-          </af:table>
-          <af:panelHeader text="Report Items">
-            <af:table emptyText="Report is Empty" summary="Report"
+            </tr:column>
+          </tr:table>
+          <tr:panelHeader text="Report Items">
+            <tr:table emptyText="Report is Empty" summary="Report"
                       value="#{tableActions.reportItems}" var="row" rows="0">
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Name"/>
+                  <tr:outputText value="Name"/>
                 </f:facet>
-                <af:outputText value="#{row.name}"/>
-              </af:column>
-              <af:column>
+                <tr:outputText value="#{row.name}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Symbol"/>
+                  <tr:outputText value="Symbol"/>
                 </f:facet>
-                <af:outputText value="#{row.symbol}"/>
-              </af:column>
-              <af:column>
+                <tr:outputText value="#{row.symbol}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Number"/>
+                  <tr:outputText value="Number"/>
                 </f:facet>
-                <af:outputText value="#{row.number}"/>
-              </af:column>
-              <af:column>
+                <tr:outputText value="#{row.number}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Group"/>
+                  <tr:outputText value="Group"/>
                 </f:facet>
-                <af:outputText value="#{row.group}"/>
-              </af:column>
-            </af:table>
-          </af:panelHeader>
-        </af:panelGroup>
-      </af:form>
-    </af:document>
+                <tr:outputText value="#{row.group}"/>
+              </tr:column>
+            </tr:table>
+          </tr:panelHeader>
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

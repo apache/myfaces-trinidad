@@ -17,29 +17,29 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="PanelTip Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="PanelTip Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
-            <af:panelTip binding="#{editor.component}">
-              <af:goLink text="link inside panelTip"
+            <tr:panelTip binding="#{editor.component}">
+              <tr:goLink text="link inside panelTip"
                         destination="http://www.apache.org"/>
-            </af:panelTip>
+            </tr:panelTip>
     
             <jsp:directive.include file="editor.jspf" />
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

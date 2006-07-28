@@ -16,32 +16,32 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="SelectOneRadio Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="SelectOneRadio Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>selectOneRadio&lt;/b>"/>
-            <af:selectOneRadio binding="#{editor.component}" label="Label" 
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectOneRadio&lt;/b>"/>
+            <tr:selectOneRadio binding="#{editor.component}" label="Label" 
                                  value="#{data.string}">
-              <af:selectItem label="eagles" value="eagles" />
-              <af:selectItem label="wolves"  value="wolves" />
-            </af:selectOneRadio>
+              <tr:selectItem label="eagles" value="eagles" />
+              <tr:selectItem label="wolves"  value="wolves" />
+            </tr:selectOneRadio>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

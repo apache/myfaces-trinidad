@@ -17,29 +17,29 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Test of hideShow in the table"/>
+    <trh:html>
+      <trh:head title="Test of hideShow in the table"/>
 
-      <afh:body>
-       <af:form>
-         <af:messages/>
-         <af:table value="#{table}" var="row">
-          <af:column>
-            <af:showDetail>
-              <af:inputText columns="2" required="true" value="#{row.int}"/>
-            </af:showDetail>
-          </af:column>
-          <af:column>
-            <af:inputText value="#{row.string}"/>
-          </af:column>
-         </af:table>
-         <af:commandButton text="Submit"/>
-       </af:form>
-      </afh:body>
-    </afh:html>
+      <trh:body>
+       <tr:form>
+         <tr:messages/>
+         <tr:table value="#{table}" var="row">
+          <tr:column>
+            <tr:showDetail>
+              <tr:inputText columns="2" required="true" value="#{row.int}"/>
+            </tr:showDetail>
+          </tr:column>
+          <tr:column>
+            <tr:inputText value="#{row.string}"/>
+          </tr:column>
+         </tr:table>
+         <tr:commandButton text="Submit"/>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

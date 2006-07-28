@@ -17,39 +17,39 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Enter Shipping Information"/>
-      <afh:body>
-       <af:form>
+    <trh:html>
+      <trh:head title="Enter Shipping Information"/>
+      <trh:body>
+       <tr:form>
        
-        <af:panelPage>
-          <af:messages/>
-          <af:panelHeader text="Shipping Address">
-            <af:panelForm>
-              <af:inputText label="First Name"  value="#{order.shippingAddress.firstName}"/>   
-              <af:inputText label="Last Name"  value="#{order.shippingAddress.lastName}"/>    
-              <af:inputText label="Street Address" value="#{order.shippingAddress.streetAddress}"/>   
-              <af:inputText label="City" value="#{order.shippingAddress.city}"/>   
-              <af:inputText label="State" value="#{order.shippingAddress.state}"/>   
-              <af:inputText label="Zip Code" value="#{order.shippingAddress.zip}"/>   
-            </af:panelForm>
-            <af:panelButtonBar>        
-             <af:singleStepButtonBar selectedStep="4" maxStep="5"
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelHeader text="Shipping Address">
+            <tr:panelForm>
+              <tr:inputText label="First Name"  value="#{order.shippingAddress.firstName}"/>   
+              <tr:inputText label="Last Name"  value="#{order.shippingAddress.lastName}"/>    
+              <tr:inputText label="Street Address" value="#{order.shippingAddress.streetAddress}"/>   
+              <tr:inputText label="City" value="#{order.shippingAddress.city}"/>   
+              <tr:inputText label="State" value="#{order.shippingAddress.state}"/>   
+              <tr:inputText label="Zip Code" value="#{order.shippingAddress.zip}"/>   
+            </tr:panelForm>
+            <tr:panelButtonBar>        
+             <tr:singleStepButtonBar selectedStep="4" maxStep="5"
                                 nextActionListener="#{order.processNext}" 
                                 nextAction="#{order.getNextAction}"
                                 previousActionListener="#{order.processPrevious}" 
                                 previousAction="#{order.getPreviousAction}"
                                 />
-            </af:panelButtonBar>
-          </af:panelHeader>
-        </af:panelPage>
+            </tr:panelButtonBar>
+          </tr:panelHeader>
+        </tr:panelPage>
     
-       </af:form>
-      </afh:body>
-    </afh:html>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

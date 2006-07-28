@@ -92,12 +92,12 @@
   <!-- Trinidad Tag Library -->
   <taglib>
     <taglib-uri>http://myfaces.apache.org/trinidad</taglib-uri>
-    <taglib-location>/WEB-INF/af.tld</taglib-location>
+    <taglib-location>/WEB-INF/tr.tld</taglib-location>
   </taglib>
 
   <taglib>
     <taglib-uri>http://myfaces.apache.org/trinidad/html</taglib-uri>
-    <taglib-location>/WEB-INF/afh.tld</taglib-location>
+    <taglib-location>/WEB-INF/trh.tld</taglib-location>
   </taglib>
 
   <!-- Faces Core Tag Library -->

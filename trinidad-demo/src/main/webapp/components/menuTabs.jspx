@@ -16,36 +16,36 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <afh:html>
-      <afh:head title="menuTabs Demo"/>
-      <afh:body>
-        <af:form>
-          <af:panelGroup layout="vertical">
+    <trh:html>
+      <trh:head title="menuTabs Demo"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>  
-            <af:outputFormatted styleUsage="instruction" 
+            <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>A menuTabs bound to a menuModel&lt;/b>"/>
-            <af:commandLink immediate="true" text="Link to example"
+            <tr:commandLink immediate="true" text="Link to example"
                 action="guide.page_a1b2c2"/>          
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Basic basic menuTabs&lt;/b>"/>
-            <af:menuTabs binding="#{editor.component}"  shortDesc="Select Page">
-              <af:commandNavigationItem text="Page 1" targetFrame="_blank" destination="/components/tree.jspx"/>
-              <af:commandNavigationItem text="Page 2" selected="true"/>
-              <af:commandNavigationItem text="Page 3" destination="/components/table.jspx"/>
-            </af:menuTabs>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Basic basic menuTabs&lt;/b>"/>
+            <tr:menuTabs binding="#{editor.component}"  shortDesc="Select Page">
+              <tr:commandNavigationItem text="Page 1" targetFrame="_blank" destination="/components/tree.jspx"/>
+              <tr:commandNavigationItem text="Page 2" selected="true"/>
+              <tr:commandNavigationItem text="Page 3" destination="/components/table.jspx"/>
+            </tr:menuTabs>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelGroup>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

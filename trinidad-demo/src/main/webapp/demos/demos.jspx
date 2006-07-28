@@ -17,43 +17,43 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Apache Trinidad Feature Demos">
-       <af:form>
+    <tr:document title="Apache Trinidad Feature Demos">
+       <tr:form>
 
-        <af:panelPage>
+        <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <af:menuButtons>
-           <af:commandNavigationItem text="Return to Index"
+          <tr:menuButtons>
+           <tr:commandNavigationItem text="Return to Index"
                                    immediate="true"
                                    action="home"/>
-           </af:menuButtons>
+           </tr:menuButtons>
           </f:facet>
 
-          <af:panelHeader text="Welcome to the Apache Trinidad Feature Demos">
-           <af:panelHeader text="Basics">
-            <af:panelGroup layout="vertical">
-              <af:commandLink text="Converters and Validators" action="convertValidateDemos" />
-              <af:commandLink text="Partial Page Rendering Demos"
+          <tr:panelHeader text="Welcome to the Apache Trinidad Feature Demos">
+           <tr:panelHeader text="Basics">
+            <tr:panelGroup layout="vertical">
+              <tr:commandLink text="Converters and Validators" action="convertValidateDemos" />
+              <tr:commandLink text="Partial Page Rendering Demos"
                               action="demos.ppr" />
-              <af:commandLink text="Dialog Framework Demo"
+              <tr:commandLink text="Dialog Framework Demo"
                               action="demos.dialog" />
-              <af:commandLink text="Progress steps Demo"
+              <tr:commandLink text="Progress steps Demo"
                               action="demos.progressSteps" />
-              <af:commandLink text="Change Persistence Demos"
+              <tr:commandLink text="Change Persistence Demos"
                               action="demos.changePersistence" />
-              <af:commandLink text="Table Demos" action="demos.tableDemos" />
-              <af:commandLink text="Skin Demo" action="demos.skin" />
+              <tr:commandLink text="Table Demos" action="demos.tableDemos" />
+              <tr:commandLink text="Skin Demo" action="demos.skin" />
               
-            </af:panelGroup>
-           </af:panelHeader>
-          </af:panelHeader>
-        </af:panelPage>
+            </tr:panelGroup>
+           </tr:panelHeader>
+          </tr:panelHeader>
+        </tr:panelPage>
 
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

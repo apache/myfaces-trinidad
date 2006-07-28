@@ -17,30 +17,30 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"          
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Test of Trinidad EL bindings"/>
-      <afh:body>
-       <af:panelPage>
-       <af:form>
-         <af:messages/>
-         <af:panelGroup layout="vertical">
-           <af:outputText value="Current context is #{requestContext}"/>
-           <af:outputText value="Right to left? :  #{requestContext.rightToLeft}"/>
-           <af:outputText value="Look and feel? :  #{requestContext.lookAndFeel}"/>
-           <af:outputText value="Accessibility mode? :  #{requestContext.accessibilityMode}"/>
-           <af:outputText value="Time zone? :  #{requestContext.timeZone}"/>
+    <trh:html>
+      <trh:head title="Test of Trinidad EL bindings"/>
+      <trh:body>
+       <tr:panelPage>
+       <tr:form>
+         <tr:messages/>
+         <tr:panelGroup layout="vertical">
+           <tr:outputText value="Current context is #{requestContext}"/>
+           <tr:outputText value="Right to left? :  #{requestContext.rightToLeft}"/>
+           <tr:outputText value="Look and feel? :  #{requestContext.lookAndFeel}"/>
+           <tr:outputText value="Accessibility mode? :  #{requestContext.accessibilityMode}"/>
+           <tr:outputText value="Time zone? :  #{requestContext.timeZone}"/>
            
-           <af:outputText value="#{requestContext.formatter['Test {0} MessageFormat']['of']}"/>
-           <af:goLink destination="#{requestContext.helpSystem.frontPage}" text="Get Help"/>
-           <af:goLink destination="#{requestContext.helpTopic.ui_table}" text="Get Help"/>
-         </af:panelGroup>
-       </af:form>
-       </af:panelPage>
-      </afh:body>
-    </afh:html>
+           <tr:outputText value="#{requestContext.formatter['Test {0} MessageFormat']['of']}"/>
+           <tr:goLink destination="#{requestContext.helpSystem.frontPage}" text="Get Help"/>
+           <tr:goLink destination="#{requestContext.helpTopic.ui_table}" text="Get Help"/>
+         </tr:panelGroup>
+       </tr:form>
+       </tr:panelPage>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

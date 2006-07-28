@@ -17,99 +17,99 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="PanelPage Demo">
-        <af:form>
-          <af:panelGroup layout="vertical">
+ <tr:document title="PanelPage Demo">
+        <tr:form>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator/>
+              <tr:objectSeparator/>
             </f:facet>
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
-            <af:outputFormatted styleUsage="instruction"
+            <tr:outputFormatted styleUsage="instruction"
                                value="&lt;b>basic panelPage &lt;/b>"/>
-            <af:panelPage binding="#{editor.component}">
+            <tr:panelPage binding="#{editor.component}">
               <f:facet name="navigation1">
-                <af:menuTabs shortDesc="Select tab">
-                  <af:commandNavigationItem text="tab 1" action="guide.menuTabs"/>
-                  <af:commandNavigationItem text="tab 2" action="guide.menuTabs" 
+                <tr:menuTabs shortDesc="Select tab">
+                  <tr:commandNavigationItem text="tab 1" action="guide.menuTabs"/>
+                  <tr:commandNavigationItem text="tab 2" action="guide.menuTabs" 
                                    selected="true" />
-                  <af:commandNavigationItem text="tab 3" action="guide.menuTabs"/>
-                  <af:commandNavigationItem text="tab 4" action="guide.menuTabs"/>
-                  <af:commandNavigationItem text="tab 5" action="guide.menuTabs"/>
-                  <af:commandNavigationItem text="tab 6" action="guide.menuTabs"
+                  <tr:commandNavigationItem text="tab 3" action="guide.menuTabs"/>
+                  <tr:commandNavigationItem text="tab 4" action="guide.menuTabs"/>
+                  <tr:commandNavigationItem text="tab 5" action="guide.menuTabs"/>
+                  <tr:commandNavigationItem text="tab 6" action="guide.menuTabs"
                                    disabled="true" />
-                </af:menuTabs>
+                </tr:menuTabs>
               </f:facet>
               <f:facet name="navigation2">
-                <af:menuBar>
-                  <af:commandNavigationItem text="item 1" action="guide.menuBar" 
+                <tr:menuBar>
+                  <tr:commandNavigationItem text="item 1" action="guide.menuBar" 
                                    selected="true" />
-                  <af:commandNavigationItem text="item 2" action="guide.menuBar"
+                  <tr:commandNavigationItem text="item 2" action="guide.menuBar"
                                    disabled="true" />
-                  <af:commandNavigationItem text="item 3" action="guide.menuBar"/>
-                  <af:commandNavigationItem text="item 4" action="guide.menuBar"/>
-                </af:menuBar>
+                  <tr:commandNavigationItem text="item 3" action="guide.menuBar"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.menuBar"/>
+                </tr:menuBar>
               </f:facet>
               <f:facet name="navigation3">
-                <af:menuList>
-                  <af:commandNavigationItem text="item 1" action="guide.menuList" 
+                <tr:menuList>
+                  <tr:commandNavigationItem text="item 1" action="guide.menuList" 
                                    selected="true" />
-                  <af:commandNavigationItem text="item 2" action="guide.menuList"
+                  <tr:commandNavigationItem text="item 2" action="guide.menuList"
                                    disabled="true" />
-                  <af:commandNavigationItem text="item 3" action="guide.menuList"/>
-                  <af:commandNavigationItem text="item 4" action="guide.menuList"/>
-                </af:menuList>
+                  <tr:commandNavigationItem text="item 3" action="guide.menuList"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.menuList"/>
+                </tr:menuList>
               </f:facet>
               <f:facet name="navigationGlobal">
-                <af:menuButtons>
-                  <af:commandNavigationItem text="help"
+                <tr:menuButtons>
+                  <tr:commandNavigationItem text="help"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons"/>
-                  <af:commandNavigationItem text="help more"
+                  <tr:commandNavigationItem text="help more"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons"/>
-                  <af:commandNavigationItem text="Disabled"
+                  <tr:commandNavigationItem text="Disabled"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons" disabled="true"/>
-                  <af:commandNavigationItem text="Disabled"
+                  <tr:commandNavigationItem text="Disabled"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.menuButtons" disabled="true"/>                                   
-                </af:menuButtons>
+                </tr:menuButtons>
               </f:facet>
               <f:facet name="branding">
-                <af:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
+                <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
                                    styleUsage="inContextBranding"/>
               </f:facet>
               <f:facet name="location">
-                <af:navigationPath>
-                  <af:commandNavigationItem text="item 1" action="guide.navigationPath" />
-                  <af:commandNavigationItem text="item 2" action="guide.navigationPath" />
-                  <af:commandNavigationItem text="item 3" action="guide.navigationPath" />
-                  <af:commandNavigationItem text="item 4" action="guide.navigationPath" />
-                </af:navigationPath>
+                <tr:navigationPath>
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPath" />
+                  <tr:commandNavigationItem text="item 2" action="guide.navigationPath" />
+                  <tr:commandNavigationItem text="item 3" action="guide.navigationPath" />
+                  <tr:commandNavigationItem text="item 4" action="guide.navigationPath" />
+                </tr:navigationPath>
               </f:facet>
               <f:facet name="appCopyright">
-                <af:outputText value="copyright facet"/>
+                <tr:outputText value="copyright facet"/>
               </f:facet>
               <f:facet name="appPrivacy">
-                <af:commandLink text="privacy facet" action="action.none" />
+                <tr:commandLink text="privacy facet" action="action.none" />
               </f:facet>
               <f:facet name="appAbout">
-                <af:commandLink text="about facet" action="action.none" />
+                <tr:commandLink text="about facet" action="action.none" />
               </f:facet>
-              <af:panelHeader text="Title">
-                <af:outputText value="Content here" />
-              </af:panelHeader>
-            </af:panelPage>
+              <tr:panelHeader text="Title">
+                <tr:outputText value="Content here" />
+              </tr:panelHeader>
+            </tr:panelPage>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </af:panelGroup>
-        </af:form>
- </af:document>
+          </tr:panelGroup>
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

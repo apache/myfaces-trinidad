@@ -17,34 +17,34 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core" 
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html"
-          xmlns:af="http://myfaces.apache.org/adf/faces">
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Enter Credit Card Information"/>
-      <afh:body>
-        <af:form>
-          <af:panelPage>
-            <af:messages/>
-            <af:panelForm>
-              <af:panelHeader text="Credit Card">
-                <af:inputText label="First Name" value="#{order.creditCard.firstName}"/>
-                <af:inputText label="Last Name" value="#{order.creditCard.lastName}"/>
-                <af:inputText label="Card Number" value="#{order.creditCard.number}"/>
-                <af:inputText label="Expiration Date" value="#{order.creditCard.expirationDate}"/>
-              </af:panelHeader>
-            </af:panelForm>
-            <af:panelButtonBar>
-              <af:singleStepButtonBar selectedStep="2" maxStep="5"
+    <trh:html>
+      <trh:head title="Enter Credit Card Information"/>
+      <trh:body>
+        <tr:form>
+          <tr:panelPage>
+            <tr:messages/>
+            <tr:panelForm>
+              <tr:panelHeader text="Credit Card">
+                <tr:inputText label="First Name" value="#{order.creditCard.firstName}"/>
+                <tr:inputText label="Last Name" value="#{order.creditCard.lastName}"/>
+                <tr:inputText label="Card Number" value="#{order.creditCard.number}"/>
+                <tr:inputText label="Expiration Date" value="#{order.creditCard.expirationDate}"/>
+              </tr:panelHeader>
+            </tr:panelForm>
+            <tr:panelButtonBar>
+              <tr:singleStepButtonBar selectedStep="2" maxStep="5"
                                       nextActionListener="#{order.processNext}"
                                       nextAction="#{order.getNextAction}"
                                       previousActionListener="#{order.processPrevious}"
                                       previousAction="#{order.getPreviousAction}"/>
-            </af:panelButtonBar>
-          </af:panelPage>
-        </af:form>
-      </afh:body>
-    </afh:html>
+            </tr:panelButtonBar>
+          </tr:panelPage>
+        </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

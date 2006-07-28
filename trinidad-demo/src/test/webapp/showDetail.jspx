@@ -17,31 +17,31 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
-    <afh:html>
-      <afh:head title="Show Detail Page"/>
-      <afh:body>
-       <af:form>
-        <af:panelPage>
-          <af:messages/>
-          <af:panelHeader text="Detail of #{pageFlowScope.detail.string}">
-            <af:panelForm>
-              <af:panelLabelAndMessage label="Int:">
-                <af:outputText value="#{pageFlowScope.detail.int}"/>
-              </af:panelLabelAndMessage>
-              <af:panelLabelAndMessage label="String:">
-                <af:outputText value="#{pageFlowScope.detail.string}"/>
-              </af:panelLabelAndMessage>
-            </af:panelForm>
-            <af:commandButton text="Return..."
+    <trh:html>
+      <trh:head title="Show Detail Page"/>
+      <trh:body>
+       <tr:form>
+        <tr:panelPage>
+          <tr:messages/>
+          <tr:panelHeader text="Detail of #{pageFlowScope.detail.string}">
+            <tr:panelForm>
+              <tr:panelLabelAndMessage label="Int:">
+                <tr:outputText value="#{pageFlowScope.detail.int}"/>
+              </tr:panelLabelAndMessage>
+              <tr:panelLabelAndMessage label="String:">
+                <tr:outputText value="#{pageFlowScope.detail.string}"/>
+              </tr:panelLabelAndMessage>
+            </tr:panelForm>
+            <tr:commandButton text="Return..."
                                action="sample"/>
-          </af:panelHeader>
-        </af:panelPage>
-       </af:form>
-      </afh:body>
-    </afh:html>
+          </tr:panelHeader>
+        </tr:panelPage>
+       </tr:form>
+      </trh:body>
+    </trh:html>
   </f:view>
 </jsp:root>

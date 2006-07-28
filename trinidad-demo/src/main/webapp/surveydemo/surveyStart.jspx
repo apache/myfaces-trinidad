@@ -17,33 +17,33 @@
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
           xmlns:h="http://java.sun.com/jsf/html"
-          xmlns:afh="http://myfaces.apache.org/adf/faces/html" 
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:trh="http://myfaces.apache.org/trinidad/html" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Survey">
-      <af:form>
+    <tr:document title="Survey">
+      <tr:form>
        
-       <af:panelPage>
+       <tr:panelPage>
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Index"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </af:menuButtons>
+            </tr:menuButtons>
           </f:facet>
         
-         <af:panelHeader text="Welcome to the Survey Demo">    
-          <af:outputText value="Test your knowledge of California Driving Laws"
+         <tr:panelHeader text="Welcome to the Survey Demo">    
+          <tr:outputText value="Test your knowledge of California Driving Laws"
                           styleClass="AFInstructionText"/>
         
-          <af:objectSpacer height="20"/>
-          <af:commandButton action="#{survey.start}" text="begin survey"/>
-         </af:panelHeader>
-       </af:panelPage>
+          <tr:objectSpacer height="20"/>
+          <tr:commandButton action="#{survey.start}" text="begin survey"/>
+         </tr:panelHeader>
+       </tr:panelPage>
 
 
-     </af:form>
-   </af:document>
+     </tr:form>
+   </tr:document>
   </f:view>
 </jsp:root>

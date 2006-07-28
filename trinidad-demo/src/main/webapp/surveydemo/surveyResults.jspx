@@ -16,104 +16,104 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" 
+          xmlns:tr="http://myfaces.apache.org/trinidad" 
           xmlns:survey="http://myfaces.apache.org/trinidad/demo" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Survey">
-       <af:form>
+ <tr:document title="Survey">
+       <tr:form>
        
-          <af:panelPage>
-           <af:panelHeader text="Please review your responses:">
+          <tr:panelPage>
+           <tr:panelHeader text="Please review your responses:">
        
-            <af:panelForm>
+            <tr:panelForm>
 <!-- question 1 -->
-             <af:selectOneRadio label="#{survey.q0.prompt}" 
+             <tr:selectOneRadio label="#{survey.q0.prompt}" 
                                     required="true"
                                     value="#{survey.a0}">            
-              <af:forEach var="item" varStatus="iter"
+              <tr:forEach var="item" varStatus="iter"
                           items="#{survey.q0.answerStrings}">
                 <!-- The strange EL syntax for "value" forces it to be a string -->
-                <af:selectItem label="#{item}" value="#{''}#{iter.index}"/>
-              </af:forEach>
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
               <survey:validate_answer questionIndex="0"/>
-             </af:selectOneRadio >
+             </tr:selectOneRadio >
       
        
 <!-- question 2 -->
-            <af:inputText label="#{survey.q1.prompt}" 
+            <tr:inputText label="#{survey.q1.prompt}" 
                                    required="true"
                                    value="#{survey.a1}"
                                    immediate="true">
                                    
               <survey:validate_answer questionIndex="1"/>  
-            </af:inputText>
+            </tr:inputText>
             
 <!-- question 3 -->
-             <af:selectOneRadio label="#{survey.q2.prompt}" 
+             <tr:selectOneRadio label="#{survey.q2.prompt}" 
                                   required="true"
                                   value="#{survey.a2}">            
-              <af:forEach var="item" varStatus="iter"
+              <tr:forEach var="item" varStatus="iter"
                           items="#{survey.q2.answerStrings}">
                 <!-- The strange EL syntax for "value" forces it to be a string -->
-                <af:selectItem label="#{item}" value="#{''}#{iter.index}"/>
-              </af:forEach>
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
               
               <survey:validate_answer questionIndex="2"/>
-            </af:selectOneRadio >
+            </tr:selectOneRadio >
                                    
           
 <!-- question 4 -->
-          <af:panelLabelAndMessage label="#{survey.q3.prompt}"
+          <tr:panelLabelAndMessage label="#{survey.q3.prompt}"
             labelStyle="vertical-align: top;">
-            <af:selectBooleanCheckbox text="#{survey.q3.text1}" value="#{survey.a30}" >
+            <tr:selectBooleanCheckbox text="#{survey.q3.text1}" value="#{survey.a30}" >
               <survey:validate_answer questionIndex="3A"/>
-            </af:selectBooleanCheckbox>
+            </tr:selectBooleanCheckbox>
             
-            <af:selectBooleanCheckbox text="#{survey.q3.text2}" value="#{survey.a31}" >
+            <tr:selectBooleanCheckbox text="#{survey.q3.text2}" value="#{survey.a31}" >
               <survey:validate_answer questionIndex="3B"/>
-            </af:selectBooleanCheckbox>
+            </tr:selectBooleanCheckbox>
             
-            <af:selectBooleanCheckbox text="#{survey.q3.text3}" value="#{survey.a32}" >
+            <tr:selectBooleanCheckbox text="#{survey.q3.text3}" value="#{survey.a32}" >
               <survey:validate_answer questionIndex="3C"/> 
-            </af:selectBooleanCheckbox>
+            </tr:selectBooleanCheckbox>
           
-            <af:selectBooleanCheckbox text="#{survey.q3.text4}" value="#{survey.a33}" > 
+            <tr:selectBooleanCheckbox text="#{survey.q3.text4}" value="#{survey.a33}" > 
               <survey:validate_answer questionIndex="3D"/> 
-            </af:selectBooleanCheckbox>
+            </tr:selectBooleanCheckbox>
             
-          </af:panelLabelAndMessage>     
+          </tr:panelLabelAndMessage>     
      
 <!-- question 5 -->   
-            <af:selectOneRadio label="#{survey.q4.prompt}" 
+            <tr:selectOneRadio label="#{survey.q4.prompt}" 
                                   required="true"
                                   value="#{survey.a4}">            
-              <af:forEach var="item" varStatus="iter"
+              <tr:forEach var="item" varStatus="iter"
                           items="#{survey.q4.answerStrings}">
                 <!-- The strange EL syntax for "value" forces it to be a string -->
-                <af:selectItem label="#{item}" value="#{''}#{iter.index}"/>
-              </af:forEach>
+                <tr:selectItem label="#{item}" value="#{''}#{iter.index}"/>
+              </tr:forEach>
               
               <survey:validate_answer questionIndex="4"/>
-            </af:selectOneRadio >        
+            </tr:selectOneRadio >        
         
-        </af:panelForm>
-       </af:panelHeader>
+        </tr:panelForm>
+       </tr:panelHeader>
           <f:facet name="navigationGlobal">
-            <af:menuButtons>
-              <af:commandNavigationItem text="Return to Index"
+            <tr:menuButtons>
+              <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </af:menuButtons>
+            </tr:menuButtons>
           </f:facet>
-          <af:panelButtonBar>  
-            <af:commandButton action="#{survey.check}" text="check answers"
+          <tr:panelButtonBar>  
+            <tr:commandButton action="#{survey.check}" text="check answers"
               rendered="true"/>  
-          </af:panelButtonBar>
-        </af:panelPage>
-        <af:commandButton action="#{survey.start}" text="start over"
+          </tr:panelButtonBar>
+        </tr:panelPage>
+        <tr:commandButton action="#{survey.start}" text="start over"
           rendered="true"/>
-      </af:form>
-    </af:document>
+      </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

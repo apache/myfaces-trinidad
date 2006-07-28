@@ -16,20 +16,20 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <af:document title="Dynamic Table Demo">
-        <af:form >
-          <af:messages/>
-          <af:panelGroup layout="vertical">
+ <tr:document title="Dynamic Table Demo">
+        <tr:form >
+          <tr:messages/>
+          <tr:panelGroup layout="vertical">
             <f:facet name="separator">
-              <af:objectSeparator />
+              <tr:objectSeparator />
             </f:facet>   
-            <af:commandLink immediate="true" text="Component Guide"
+            <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
   
-            <af:outputFormatted styleUsage="instruction" value="&lt;b>Dynamic table&lt;/b>"/>
+            <tr:outputFormatted styleUsage="instruction" value="&lt;b>Dynamic table&lt;/b>"/>
             
             <f:verbatim>
               &lt;ul>
@@ -45,55 +45,55 @@
               &lt;/ul>
             </f:verbatim>
             
-            <af:panelForm>
-              <af:inputText label="RowCount" value="#{dynamicTable.rowCount}"
+            <tr:panelForm>
+              <tr:inputText label="RowCount" value="#{dynamicTable.rowCount}"
                 accessKey="R">
                 <f:facet name="help">
-                  <af:outputText value="Minimum -1. Maximum 400"/>
+                  <tr:outputText value="Minimum -1. Maximum 400"/>
                 </f:facet>
                 <f:validateLongRange minimum="-1" maximum="400" />
-              </af:inputText>
-              <af:inputText label="RowCount (Actual)"
+              </tr:inputText>
+              <tr:inputText label="RowCount (Actual)"
                 accessKey="A"
                 value="#{dynamicTable.actualRowCount}">
                 <f:facet name="help">
-                  <af:outputText value="Minimum 0. Maximum 400"/>
+                  <tr:outputText value="Minimum 0. Maximum 400"/>
                 </f:facet>
                 <f:validateLongRange minimum="0" maximum="400"/>
-              </af:inputText>
-              <af:inputText label="Block Size"
+              </tr:inputText>
+              <tr:inputText label="Block Size"
                 accessKey="B"
                 value="#{dynamicTable.blockSize}">
                 <f:facet name="help">
-                  <af:outputText value="Minimum 0"/>
+                  <tr:outputText value="Minimum 0"/>
                 </f:facet>
                 <f:validateLongRange minimum="0"/>
-              </af:inputText>
+              </tr:inputText>
               <f:facet name="footer">
-                <af:commandButton textAndAccessKey="&amp;Update"/>
+                <tr:commandButton textAndAccessKey="&amp;Update"/>
               </f:facet>
-            </af:panelForm>
+            </tr:panelForm>
             
-            <af:table var="row"
+            <tr:table var="row"
                       emptyText="No Data"
                       value="#{dynamicTable}" 
                       rows="#{dynamicTable.blockSize}"
                       summary="Dynamic Table">
-              <af:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Row"/>
+                  <tr:outputText value="Row"/>
                 </f:facet>
-                <af:outputText value="#{empty row ? 'NULL - This is bad!' : row}"/>
-              </af:column>
-              <af:column>
+                <tr:outputText value="#{empty row ? 'NULL - This is bad!' : row}"/>
+              </tr:column>
+              <tr:column>
                 <f:facet name="header">
-                  <af:outputText value="Number"/>
+                  <tr:outputText value="Number"/>
                 </f:facet>
-                <af:outputText value="#{row * 100}"/>
-              </af:column>
-            </af:table>
-          </af:panelGroup>    
-        </af:form>
- </af:document>
+                <tr:outputText value="#{row * 100}"/>
+              </tr:column>
+            </tr:table>
+          </tr:panelGroup>    
+        </tr:form>
+ </tr:document>
   </f:view>
 </jsp:root>

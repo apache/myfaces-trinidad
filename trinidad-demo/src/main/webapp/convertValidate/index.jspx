@@ -16,28 +16,28 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="Converter and Validator Demos">
-        <af:form>
-          <af:panelPage>
+    <tr:document title="Converter and Validator Demos">
+        <tr:form>
+          <tr:panelPage>
             <f:facet name="navigationGlobal">
-              <af:menuButtons>
-               <af:commandNavigationItem text="Return to Feature Demos page"
+              <tr:menuButtons>
+               <tr:commandNavigationItem text="Return to Feature Demos page"
                                        immediate="true"
                                        action="demos"/>
-              </af:menuButtons>
+              </tr:menuButtons>
             </f:facet>
-            <af:panelHeader text="Converter and Validator Demos">
-              <af:panelGroup layout="vertical">
-                <af:commandLink text="client converters and validators" action="clientConvert"/>
-                <af:commandLink text="converters and validators" action="convertValidate"/>
-                <af:commandLink text="message customization on validators and converters" action="messageCustomization"/>
-              </af:panelGroup>
-            </af:panelHeader>
-          </af:panelPage>
-        </af:form>
-    </af:document>
+            <tr:panelHeader text="Converter and Validator Demos">
+              <tr:panelGroup layout="vertical">
+                <tr:commandLink text="client converters and validators" action="clientConvert"/>
+                <tr:commandLink text="converters and validators" action="convertValidate"/>
+                <tr:commandLink text="message customization on validators and converters" action="messageCustomization"/>
+              </tr:panelGroup>
+            </tr:panelHeader>
+          </tr:panelPage>
+        </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

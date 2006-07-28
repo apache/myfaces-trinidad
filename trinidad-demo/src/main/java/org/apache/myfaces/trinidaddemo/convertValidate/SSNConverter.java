@@ -150,7 +150,7 @@ public class SSNConverter implements Converter, ClientConverter
    UIComponent component,
    String text)
   {
-    // Using the LabeledFacesMessage allows the <af:messages> component to
+    // Using the LabeledFacesMessage allows the <tr:messages> component to
     // properly prepend the label as a link.
     LabeledFacesMessage lfm =
       new LabeledFacesMessage(FacesMessage.SEVERITY_ERROR,

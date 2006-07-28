@@ -32,7 +32,7 @@ public class TLDTest extends XMLValidityTestCase
     URL dtdSource = getClass().getResource("/javax/servlet/jsp/resources/web-jsptaglibrary_1_2.dtd");
     String publicID = 
       "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN";
-    URL tldSource = getClass().getResource("/META-INF/af.tld");
+    URL tldSource = getClass().getResource("/META-INF/tr.tld");
     executeValidityTest(dtdSource,
                         publicID,
                         tldSource);
@@ -43,7 +43,7 @@ public class TLDTest extends XMLValidityTestCase
     URL dtdSource = getClass().getResource("/javax/servlet/jsp/resources/web-jsptaglibrary_1_2.dtd");
     String publicID = 
       "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN";
-    URL tldSource = getClass().getResource("/META-INF/afh.tld");
+    URL tldSource = getClass().getResource("/META-INF/trh.tld");
     executeValidityTest(dtdSource,
                         publicID,
                         tldSource);
