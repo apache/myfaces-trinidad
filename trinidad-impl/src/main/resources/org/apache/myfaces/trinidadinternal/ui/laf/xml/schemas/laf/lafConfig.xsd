@@ -16,21 +16,21 @@
 -->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns="http://www.w3.org/2001/XMLSchema"
-            xmlns:skin="http://myfaces.apache.org/adf/view/faces/skin"
+            xmlns:skin="http://myfaces.apache.org/trinidad/skin"
             xmlns:cabotool="http://bali.us.oracle.com/cabo/tool"
             xmlns:html="http://www.w3.org/TR/REC-html40"
-            targetNamespace="http://myfaces.apache.org/adf/view/faces/skin"
+            targetNamespace="http://myfaces.apache.org/trinidad/skin"
             elementFormDefault="qualified">
   <xsd:element name="skins" type="skin:skinsType">
     <xsd:annotation>
       <xsd:documentation>
         <cabotool:summary>
-          The root element defined in the adf-faces-skins document.
+          The root element defined in the trinidad-skins document.
         </cabotool:summary>
         <cabotool:description>
           <html:p>
-            The root element in the adf-faces-skins configuration file. The
-            adf-faces-skins configuration files define all of the properties of
+            The root element in the trinidad-skins configuration file. The
+            trinidad-skins configuration files define all of the properties of
             custom skins.
           </html:p>
         </cabotool:description>
@@ -43,7 +43,7 @@
           <cabotool:sampleCode>
             &lt;?xml version="1.0" encoding="ISO-8859-1"?&gt; &lt;skins&gt;
             &lt;!-- A custom skin --&gt; &lt;skin
-            xmlns="http://myfaces.apache.org/adf/view/faces/skin"&gt; &lt;id&gt;
+            xmlns="http://myfaces.apache.org/trinidad/skin"&gt; &lt;id&gt;
             custom.desktop &lt;/id&gt; &lt;family&gt; custom &lt;/family&gt;
             &lt;style-sheet-name&gt; custom.xss &lt;/style-sheet-name&gt;
             &lt;/skin&gt; &lt;/skins&gt;
@@ -104,7 +104,7 @@
                 &lt;?xml version="1.0" encoding="ISO-8859-1"?&gt; &lt;!-- A
                 custom skin that extends the Simple Desktop Look And
                 Feel --&gt; &lt;look-and-feel
-                xmlns="http://myfaces.apache.org/adf/view/faces/skin" id="custom.desktop"
+                xmlns="http://myfaces.apache.org/trinidad/skin" id="custom.desktop"
                 family="custom" extends="simple.desktop"&gt; &lt;!-- Define some
                 custom icons --&gt; &lt;icons&gt; &lt;!-- Replace the error icon
                 with a context-relative icon. --&gt; &lt;icon
@@ -145,7 +145,7 @@
               <cabotool:sampleCode>
   &lt;?xml version="1.0" encoding="ISO-8859-1"?&gt;
   &lt;!-- A custom skin that extends the Simple Desktop Look And Feel --&gt;
-  &lt;look-and-feel xmlns="http://myfaces.apache.org/adf/view/faces/skin"
+  &lt;look-and-feel xmlns="http://myfaces.apache.org/trinidad/skin"
          id="custom.desktop" family="custom" extends="simple.desktop"&gt;
     &lt;!-- Register a custom ResourceBundle --&gt;
     &lt;bundle-name&gt;

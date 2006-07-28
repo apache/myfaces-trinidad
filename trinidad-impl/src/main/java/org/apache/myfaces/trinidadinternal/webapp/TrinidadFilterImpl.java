@@ -137,9 +137,9 @@ public class TrinidadFilterImpl implements Filter
       f.init(filterConfig);
     }
     // after the 'services' filters are initialized, then register
-    // the skin extensions found in adf-faces-skins.xml. This
+    // the skin extensions found in trinidad-skins.xml. This
     // gives a chance to the 'services' filters to create more base
-    // skins that the skins in adf-faces-skins.xml can extend.
+    // skins that the skins in trinidad-skins.xml can extend.
     SkinUtils.registerSkinExtensions(_servletContext);
 
     
