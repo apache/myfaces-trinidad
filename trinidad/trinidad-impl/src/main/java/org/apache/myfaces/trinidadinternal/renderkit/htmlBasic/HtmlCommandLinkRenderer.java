@@ -55,7 +55,7 @@ public class HtmlCommandLinkRenderer extends Renderer
   public void encodeEnd(FacesContext context,
                      UIComponent component) throws IOException
   {
-    // The af:commandLink is not a rendersChildren component,
+    // The tr:commandLink is not a rendersChildren component,
     // but h:commandLink is.  Hence, the difference in behavior
     Renderer renderer = createRenderer(component);
     renderer.encodeBegin(context, component);

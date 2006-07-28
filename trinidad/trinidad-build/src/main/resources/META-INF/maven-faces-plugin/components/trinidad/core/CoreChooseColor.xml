@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -200,7 +200,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Choose</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Color</mfp:renderer-type>
-      <mfp:tag-name>af:chooseColor</mfp:tag-name>
+      <mfp:tag-name>tr:chooseColor</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreChooseColorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The chooseColor control creates a palette for picking colors.
           A chooseColor can display two sets of colors:
@@ -240,16 +240,16 @@
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[<!-- A chooseColor which uses the standard "default49" palette -->
-<af:chooseColor id="cc0"
+<tr:chooseColor id="cc0"
                 colorData="#{requestContext.colorPalette.default49}"/>
 
 <!-- A chooseColor which defines custom colors using inline data -->
-<af:chooseColor id="cc1" colorData="#{requestContext.colorPalette.default49}"
+<tr:chooseColor id="cc1" colorData="#{requestContext.colorPalette.default49}"
                          customColorData="#{myBean.listOfColors}">
 
 <!-- A chooseColor that is associated with a selectInputColor -->
-<af:selectInputColor id="sic1" chooseId="cc2"/>
-<af:chooseColor id="cc2" width="18"
+<tr:selectInputColor id="sic1" chooseId="cc2"/>
+<tr:chooseColor id="cc2" width="18"
                 colorData="#{requestContext.colorPalette.web216}"/>]]>
         </mfp:source-code>
       </mfp:example>

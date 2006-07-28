@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml"
               xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -113,14 +113,14 @@ is set to false (e.g., "styleClass" is not output).</html>]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Output</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Text</mfp:renderer-type>
-      <mfp:tag-name>af:outputText</mfp:tag-name>
+      <mfp:tag-name>tr:outputText</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreOutputTextTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The outputText component supports styled text.  The text
 can optionally be left unescaped, and supports
 conversion to and from Java objects.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;af:outputText value="AFFieldText"
+        <mfp:source-code>&lt;tr:outputText value="AFFieldText"
                      styleClass="AFFieldText"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

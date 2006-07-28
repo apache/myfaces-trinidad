@@ -137,7 +137,7 @@ public interface SimpleDesktopConstants extends BaseDesktopConstants
     "af|menuBar::title";
   
     
-  // af:messages style classes
+  // tr:messages style classes
   // when we combine base and simple renders, this will move up to 
   // BaseDesktopConstants. In fact, all the styles in this class will.
     
@@ -147,7 +147,7 @@ public interface SimpleDesktopConstants extends BaseDesktopConstants
     "af|messages::body";
 
     
-  // af:panelSideBar style classes
+  // tr:panelSideBar style classes
   public static final String AF_PANEL_SIDE_BAR_BODY_STYLE_CLASS = 
     "af|panelSideBar::body";
 }

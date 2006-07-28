@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -34,7 +34,7 @@
       <facet-name>filter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:selectOneChoice</mfp:preferred-children>
+          <mfp:preferred-children>tr:selectOneChoice</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -43,7 +43,7 @@
       <facet-name>leadingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -52,7 +52,7 @@
       <facet-name>trailingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -321,7 +321,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectOrder</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Shuttle</mfp:renderer-type>
-      <mfp:tag-name>af:selectOrderShuttle</mfp:tag-name>
+      <mfp:tag-name>tr:selectOrderShuttle</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectOrderShuttleTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The selectOrderShuttle component provides a mechanism for selecting
    multiple values from a list of values by allowing the user to move
@@ -337,11 +337,11 @@
           on using the shuttle.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectOrderShuttle value="#{bean.valueList}">
+        <mfp:source-code><![CDATA[<tr:selectOrderShuttle value="#{bean.valueList}">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</af:selectOrderShuttle>]]>
+</tr:selectOrderShuttle>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Marissa Treinen</mfp:author>

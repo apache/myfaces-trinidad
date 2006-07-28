@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -328,28 +328,28 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectOne</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Choice</mfp:renderer-type>
-      <mfp:tag-name>af:selectOneChoice</mfp:tag-name>
+      <mfp:tag-name>tr:selectOneChoice</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectOneChoiceTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html>The selectOneChoice component creates a menu-style component,
           which allows the user to select a single value from a list of items.
           The selectOneChoice component contains any number of
           &lt;f:selectItem&gt;, &lt;f:selectItems&gt;, or
-          &lt;af:selectItem&gt; components,  each of which
+          &lt;tr:selectItem&gt; components,  each of which
           represents an available option that the user may select.</html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectOneChoice value="#{bean.aValue}" required="true">
+        <mfp:source-code><![CDATA[<tr:selectOneChoice value="#{bean.aValue}" required="true">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</af:selectOneChoice>]]>
+</tr:selectOneChoice>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-        <mfp:preferred-children>af:selectItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:selectItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>selectOneChoice</mfp:uix2-local-name>
     </component-extension>

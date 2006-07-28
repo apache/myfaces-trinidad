@@ -56,7 +56,7 @@ public class FacetRefTag extends TagSupport
     UIComponent region = _getRegionComponent(component);
     if (region == null)
     {
-      _LOG.warning("Cannot find parent <af:componentRef>");
+      _LOG.warning("Cannot find parent <tr:componentRef>");
       return SKIP_BODY;
     }
     if (_facet != null)

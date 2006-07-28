@@ -545,7 +545,7 @@ public class SimpleSelectInputDateRenderer
     // adjust the date; first, get this into GMT
     long tzOffset = calendar.get(Calendar.ZONE_OFFSET) +
                    calendar.get(Calendar.DST_OFFSET);
-    // get the timeZone specified in adf-faces-config, if any or the
+    // get the timeZone specified in trinidad-config, if any or the
     // client timeZone and find out the difference in timeZone
     TimeZone timeZone = RequestContext.getCurrentInstance().getTimeZone();
     if(timeZone == null)

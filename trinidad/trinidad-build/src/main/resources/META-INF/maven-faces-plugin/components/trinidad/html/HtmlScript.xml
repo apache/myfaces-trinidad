@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -67,7 +67,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.Script</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Script</mfp:renderer-type>
-      <mfp:tag-name>afh:script</mfp:tag-name>
+      <mfp:tag-name>trh:script</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlScriptTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The script component supports both the importing of libraries and
@@ -76,7 +76,7 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>Example of a simple Javascript function script.</xhtml:p>
-        <mfp:source-code>&lt;afh:script text="function doubleOrTriple()
+        <mfp:source-code>&lt;trh:script text="function doubleOrTriple()
                     {
                       var p = new TableProxy('table1');
                       var c = p.getFormElement('numbers', 0);

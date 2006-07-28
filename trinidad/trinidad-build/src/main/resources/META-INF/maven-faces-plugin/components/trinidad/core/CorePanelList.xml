@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -215,7 +215,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.List</mfp:renderer-type>
-      <mfp:tag-name>af:panelList</mfp:tag-name>
+      <mfp:tag-name>tr:panelList</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelListTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>The panelList component outputs each visible child
           in a list with a bullet next to it. 
@@ -242,23 +242,23 @@
           not on their size.</p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelList rows="5">
-  <af:goLink text="link 1" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 2" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 3" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 4" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 5" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 6" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 7" destination="http://myfaces.apache.org"/>
-  <af:goLink text="link 8" destination="http://myfaces.apache.org"/>
-</af:panelList>]]>
+        <mfp:source-code><![CDATA[<tr:panelList rows="5">
+  <tr:goLink text="link 1" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 2" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 3" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 4" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 5" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 6" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 7" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="link 8" destination="http://myfaces.apache.org"/>
+</tr:panelList>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>rows</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+        <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>bulletedList</mfp:uix2-local-name>
     </component-extension>

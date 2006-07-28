@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -69,7 +69,7 @@ may select from a list, choice, radio, or shuttle ADF control.]]>
     </property>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectItem</mfp:component-supertype>
-      <mfp:tag-name>af:selectItem</mfp:tag-name>
+      <mfp:tag-name>tr:selectItem</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectItemTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The selectItem tag represents a single item that the user
 may select from a list, choice, radio, or shuttle ADF control.
@@ -78,11 +78,11 @@ tags, but is very similar (largely not requiring &quot;item&quot; in front
 of its attributes.)]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectOneRadio value="#{bean.aValue}" required="true">
-  <af:selectItem label="Option1" value="1"/>
-  <af:selectItem label="Option1" value="2"/>
-  <af:selectItem label="Option1" value="3"/>
-</af:selectOneRadio>]]>
+        <mfp:source-code><![CDATA[<tr:selectOneRadio value="#{bean.aValue}" required="true">
+  <tr:selectItem label="Option1" value="1"/>
+  <tr:selectItem label="Option1" value="2"/>
+  <tr:selectItem label="Option1" value="3"/>
+</tr:selectOneRadio>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>

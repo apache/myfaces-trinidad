@@ -17,7 +17,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             xmlns="http://www.w3.org/2001/XMLSchema"
             xmlns:skin="http://myfaces.apache.org/trinidad/skin"
-            xmlns:cabotool="http://bali.us.oracle.com/cabo/tool"
+            xmlns:cabotool="http://myfaces.apache.org/trinidad/cabo/tool"
             xmlns:html="http://www.w3.org/TR/REC-html40"
             targetNamespace="http://myfaces.apache.org/trinidad/skin"
             elementFormDefault="qualified">

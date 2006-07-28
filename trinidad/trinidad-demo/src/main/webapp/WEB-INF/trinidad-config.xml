@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<adf-faces-config xmlns="http://myfaces.apache.org/trinidad/config">
+<trinidad-config xmlns="http://myfaces.apache.org/trinidad/config">
   <debug-output>true</debug-output>
   <!--client-validation-disabled>true</client-validation-disabled-->
 
@@ -25,4 +25,4 @@
 
   <!--  Uncomment any of these to enable them -->
   <!-- accessibility-mode>inaccessible</accessibility-mode -->  
-</adf-faces-config>
+</trinidad-config>

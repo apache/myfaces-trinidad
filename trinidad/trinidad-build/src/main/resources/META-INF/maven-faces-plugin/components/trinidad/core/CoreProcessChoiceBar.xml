@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -172,7 +172,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Process</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ChoiceBar</mfp:renderer-type>
-      <mfp:tag-name>af:processChoiceBar</mfp:tag-name>
+      <mfp:tag-name>tr:processChoiceBar</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreProcessChoiceBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[ProcessChoiceBar is a UIXProcess component that renders a previous
           button, a choice bar, and a next button.
@@ -202,14 +202,14 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>This is an example of a processChoiceBar.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:processChoiceBar var="node" value="#{processMenuModel}">
+        <mfp:source-code><![CDATA[<tr:processChoiceBar var="node" value="#{processMenuModel}">
   <f:facet name="nodeStamp">
-    <af:commandNavigationItem text="#{node.label}"
+    <tr:commandNavigationItem text="#{node.label}"
                         action="#{node.getOutcome}"
                         immediate="#{processMenuModel.immediate}"
                         readOnly="#{processMenuModel.readOnly}"/>
   </f:facet>
-</af:processChoiceBar>]]>
+</tr:processChoiceBar>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

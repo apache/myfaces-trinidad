@@ -1,6 +1,6 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreSelectInputColor"/>  
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreSelectInputColor"/>  
   <!--attribute-test name="accessKey" value="l" /-->  
   <attribute-test name="chooseId"/>
   <boolean-test name="compact"/>

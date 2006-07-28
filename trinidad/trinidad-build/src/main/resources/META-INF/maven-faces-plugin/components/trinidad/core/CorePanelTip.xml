@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -171,7 +171,7 @@ to the user.]]></description>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Tip</mfp:renderer-type>
-      <mfp:tag-name>af:panelTip</mfp:tag-name>
+      <mfp:tag-name>tr:panelTip</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelTipTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The panelTip Component provides a container for page or
@@ -180,15 +180,15 @@ section level hints to the user.
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>Basic example.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:panelTip>
-     <af:outputFormatted value="Don't forget to go to the <a href='http://myfaces.apache.org'>MyFaces</a> website."/>
-   </af:panelTip>]]>
+        <mfp:source-code><![CDATA[<tr:panelTip>
+     <tr:outputFormatted value="Don't forget to go to the <a href='http://myfaces.apache.org'>MyFaces</a> website."/>
+   </tr:panelTip>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:outputText af:outputFormatted af:goLink</mfp:preferred-children>
+        <mfp:preferred-children>tr:outputText tr:outputFormatted tr:goLink</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>tip</mfp:uix2-local-name>
     </component-extension>

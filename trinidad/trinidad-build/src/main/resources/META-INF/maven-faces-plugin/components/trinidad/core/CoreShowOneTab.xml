@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -185,7 +185,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ShowOne</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Tab</mfp:renderer-type>
-      <mfp:tag-name>af:showOneTab</mfp:tag-name>
+      <mfp:tag-name>tr:showOneTab</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowOneTabTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The showOneTab control can be used to display a group of contents that belongs to
            a showDetailItem that is shown. Tab bar(s) with tabs representing the showDetailItem children is displayed.
@@ -203,43 +203,43 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>The following is an example of showOneTab.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:showOneTab>
-          <af:showDetailItem text="ADF Faces Components">
-            <af:panelHeader text="ADF Faces Components First Child"/>
-            <af:panelHeader text="ADF Faces Components Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Architecture" disabled="true">
-            <af:panelHeader text="Architecture First Child"/>
-            <af:panelHeader text="Architecture Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Release">
-            <af:panelHeader text="Release First Child"/>
-            <af:panelHeader text="Release Second Child"/>
-          </af:showDetailItem>
-        </af:showOneTab>]]>
+        <mfp:source-code><![CDATA[<tr:showOneTab>
+          <tr:showDetailItem text="ADF Faces Components">
+            <tr:panelHeader text="ADF Faces Components First Child"/>
+            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Architecture" disabled="true">
+            <tr:panelHeader text="Architecture First Child"/>
+            <tr:panelHeader text="Architecture Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Release">
+            <tr:panelHeader text="Release First Child"/>
+            <tr:panelHeader text="Release Second Child"/>
+          </tr:showDetailItem>
+        </tr:showOneTab>]]>
         </mfp:source-code>
         <xhtml:p>The following example renders with the tab bar appearing only above the contents.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:showOneTab>
-          <af:showDetailItem text="ADF Faces Components" position="above">
-            <af:panelHeader text="ADF Faces Components First Child"/>
-            <af:panelHeader text="ADF Faces Components Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Architecture">
-            <af:panelHeader text="Architecture First Child"/>
-            <af:panelHeader text="Architecture Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Release" disabled="true">
-            <af:panelHeader text="Release First Child"/>
-            <af:panelHeader text="Release Second Child"/>
-          </af:showDetailItem>
-        </af:showOneTab>]]>
+        <mfp:source-code><![CDATA[<tr:showOneTab>
+          <tr:showDetailItem text="ADF Faces Components" position="above">
+            <tr:panelHeader text="ADF Faces Components First Child"/>
+            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Architecture">
+            <tr:panelHeader text="Architecture First Child"/>
+            <tr:panelHeader text="Architecture Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Release" disabled="true">
+            <tr:panelHeader text="Release First Child"/>
+            <tr:panelHeader text="Release Second Child"/>
+          </tr:showDetailItem>
+        </tr:showOneTab>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:showDetailItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>showOneTab</mfp:uix2-local-name>
       <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>

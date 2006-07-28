@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -431,7 +431,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Media</mfp:renderer-type>
-      <mfp:tag-name>af:objectMedia</mfp:tag-name>
+      <mfp:tag-name>tr:objectMedia</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreObjectMediaTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The objectMedia component displays media content, such as audio, video,
@@ -496,7 +496,7 @@
             and the control is sized just large enough to display the controls,
             since the default inner size of audio files is 0 by 0 pixels.
         </xhtml:p>
-        <mfp:source-code>&lt;af:objectMedia source="house.wma" /&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:objectMedia source="house.wma" /&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -48,7 +48,7 @@ should be rendered.]]></description>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Switcher</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
-      <mfp:tag-name>af:switcher</mfp:tag-name>
+      <mfp:tag-name>tr:switcher</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXSwitcherTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The switcher component dynamically decides which facet component
 should be rendered.  It has two properties.  The switcher will render
@@ -61,17 +61,17 @@ simpler.  Ordinary children of the switcher component are not rendered at
 all.)]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:switcher facetName="#{userData.person}" defaultFacet="default">
+        <mfp:source-code><![CDATA[<tr:switcher facetName="#{userData.person}" defaultFacet="default">
  <f:facet name="default">
-  <af:outputText value="You have not picked anyone I know"/>
+  <tr:outputText value="You have not picked anyone I know"/>
  </f:facet >
  <f:facet name="Roger">
-  <af:outputText value="You have picked Roger"/>
+  <tr:outputText value="You have picked Roger"/>
  </f:facet >
  <f:facet name="Peter">
-  <af:outputText value="You have picked Peter"/>
+  <tr:outputText value="You have picked Peter"/>
  </f:facet >
-</af:switcher>]]>
+</tr:switcher>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

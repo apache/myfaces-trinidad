@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -231,7 +231,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.ResetButton</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Reset</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ResetButton</mfp:renderer-type>
-      <mfp:tag-name>af:resetButton</mfp:tag-name>
+      <mfp:tag-name>tr:resetButton</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreResetButtonTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The reset button control creates a push button which will
@@ -241,13 +241,13 @@
       <mfp:example>
         <xhtml:p/>
         <mfp:source-code><![CDATA[<h:form>
-     <af:panelGroup type="horizontal">
-       <af:panelHeader text="Reset Elements." /> 
-       <af:selectBooleanCheckbox text="Box1" /> 
-       <af:selectBooleanCheckbox text="Box2" selected="true"/> 
-       <af:selectBooleanCheckbox text="Box3" /> 
-       <af:resetButton textAndAccessKey="&amp;Reset"/> 
-     </af:panelGroup>
+     <tr:panelGroup type="horizontal">
+       <tr:panelHeader text="Reset Elements." /> 
+       <tr:selectBooleanCheckbox text="Box1" /> 
+       <tr:selectBooleanCheckbox text="Box2" selected="true"/> 
+       <tr:selectBooleanCheckbox text="Box3" /> 
+       <tr:resetButton textAndAccessKey="&amp;Reset"/> 
+     </tr:panelGroup>
    </h:form>]]>
         </mfp:source-code>
       </mfp:example>

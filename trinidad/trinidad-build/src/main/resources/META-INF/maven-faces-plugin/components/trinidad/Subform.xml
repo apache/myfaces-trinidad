@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -70,7 +70,7 @@ event is queued by one of its children or facets for a phase later
 than &quot;Apply Request Values&quot; (that is, for later than
 <html:code>decode()</html:code>).  The most common example is a
 (non-immediate) &quot;command&quot; component (like an &lt;h:commandButton&gt;
-or &lt;af:commandButton&gt;).
+or &lt;tr:commandButton&gt;).
 </html:p>
 <html:p>
 A <html:code>UIXSubform</html:code> will always allow the

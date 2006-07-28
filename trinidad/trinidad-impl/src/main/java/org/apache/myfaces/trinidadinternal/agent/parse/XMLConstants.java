@@ -20,7 +20,7 @@ package org.apache.myfaces.trinidadinternal.agent.parse;
  */
 interface XMLConstants
 {
-  public static final String NS_URI = "http://myfaces.apache.org/adf/view/faces/agent/capabilities";
+  public static final String NS_URI = "http://myfaces.apache.org/trinidad/agent/capabilities";
   public static final String ELEMENT_ROOT = "capabilitiesDocument";
   public static final String ELEMENT_AGENT_CAPABILITIES = "agentCapabilities";
   public static final String ELEMENT_CAPABILITIES = "capabilities";

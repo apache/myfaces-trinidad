@@ -54,13 +54,13 @@ public class ComponentDefTag extends TagSupport
       if (!(component instanceof UIXComponentRef))
       {
         throw new JspException(
-          "componentDef must be included as a child of an <af:componentRef>.");
+          "componentDef must be included as a child of an <tr:componentRef>.");
       }
 
       if (_var != null)
       {
         if (TagUtils.isValueReference(_var))
-          throw new JspException("af:componentDef does not support EL on 'var'");
+          throw new JspException("tr:componentDef does not support EL on 'var'");
           
         ((UIXComponentRef) component).setVar(_var);
       }

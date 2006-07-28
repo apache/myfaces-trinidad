@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <converter>
     <description><![CDATA[Converts string into java.util.Date and vice versa based on the pattern
@@ -222,7 +222,7 @@
     </property>
 
     <converter-extension>
-      <mfp:tag-name>af:convertDateTime</mfp:tag-name>
+      <mfp:tag-name>tr:convertDateTime</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.convert.ConvertDateTimeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[Converts string into java.util.Date and vice versa based on the pattern
           and style set.
@@ -278,10 +278,10 @@
           <html:code>&lt;f:convertDateTime&gt;</html:code> tag is used.</html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:inputText id="mdf5" value="2004/09/06"
+        <mfp:source-code><![CDATA[<tr:inputText id="mdf5" value="2004/09/06"
                         label="Date">
-  <af:convertDateTime pattern="yyyy/M/d"  secondaryPattern="d/M/yyyy" />
-</af:inputText>]]>
+  <tr:convertDateTime pattern="yyyy/M/d"  secondaryPattern="d/M/yyyy" />
+</tr:inputText>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Vijay Venkataraman</mfp:author>

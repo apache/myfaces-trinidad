@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -336,27 +336,27 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectMany</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Checkbox</mfp:renderer-type>
-      <mfp:tag-name>af:selectManyCheckbox</mfp:tag-name>
+      <mfp:tag-name>tr:selectManyCheckbox</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectManyCheckboxTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>The selectManyCheckbox component creates a component which allows
           the user to select many values from a series of checkboxes.
           It can contain any number of
           &lt;f:selectItem&gt;, &lt;f:selectItems&gt;, or
-   &lt;af:selectItem&gt; components,  each of which represents an available checkbox that the user may select.</p></html>]]>
+   &lt;tr:selectItem&gt; components,  each of which represents an available checkbox that the user may select.</p></html>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:selectManyCheckbox value="#{bean.aValue}" required="yes">
+        <mfp:source-code><![CDATA[<tr:selectManyCheckbox value="#{bean.aValue}" required="yes">
   <f:selectItem itemLabel="Option1" itemValue="1"/>
   <f:selectItem itemLabel="Option1" itemValue="2"/>
   <f:selectItem itemLabel="Option1" itemValue="3"/>
-</af:selectManyCheckbox>]]>
+</tr:selectManyCheckbox>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>label</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-        <mfp:preferred-children>af:selectItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:selectItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>selectManyCheckbox</mfp:uix2-local-name>
     </component-extension>

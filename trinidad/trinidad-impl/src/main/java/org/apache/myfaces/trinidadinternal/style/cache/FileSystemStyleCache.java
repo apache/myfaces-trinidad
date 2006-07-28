@@ -1397,7 +1397,7 @@ public class FileSystemStyleCache implements StyleProvider
   private static final Map _STYLE_KEY_MAP = new HashMap();
   static
   {
-    // we don't use a styleClass on af:body. Instead we use the html element
+    // we don't use a styleClass on tr:body. Instead we use the html element
     // BODY to style it. This makes it easier for users to use an external
     // stylesheet and not have to know our styleClass names.
     _STYLE_KEY_MAP.put("af|body", "BODY");

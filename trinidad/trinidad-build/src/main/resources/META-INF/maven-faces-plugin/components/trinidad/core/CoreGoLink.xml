@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -104,7 +104,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Go</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Link</mfp:renderer-type>
-      <mfp:tag-name>af:goLink</mfp:tag-name>
+      <mfp:tag-name>tr:goLink</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreGoLinkTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The goLink component wraps its children inside
@@ -117,9 +117,9 @@
       <mfp:example>
         <xhtml:p>To create an anchor with a link element, you should use the
             "id" attribute:</xhtml:p>
-        <mfp:source-code>&lt;af:goLink id="foo"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:goLink id="foo"/&gt;</mfp:source-code>
         <xhtml:p>A standard goLink:</xhtml:p>
-        <mfp:source-code>&lt;af:goLink text="ADF Faces"
+        <mfp:source-code>&lt;tr:goLink text="ADF Faces"
               destination="http://myfaces.apache.org"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>

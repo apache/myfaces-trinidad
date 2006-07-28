@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -92,7 +92,7 @@ the content container.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Box</mfp:renderer-type>
-      <mfp:tag-name>af:panelBox</mfp:tag-name>
+      <mfp:tag-name>tr:panelBox</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelBoxTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
   The panelBox is used to place ancillary information on a page,
@@ -135,19 +135,19 @@ the content container.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code>
-          <![CDATA[<af:panelBox text="Header"
+          <![CDATA[<tr:panelBox text="Header"
             background="light"
             contentStyle="background:blue;"
             icon="/images/info.gif"
             inlineStyle = "width: 25%;" >
-  <af:panelGroup layout="vertical">
-    <af:goLink text="point 1" destination="http://myfaces.apache.org"/>
-    <af:goLink text="point 2" destination="http://myfaces.apache.org"/>
-    <af:goLink text="point 3" destination="http://myfaces.apache.org"/>
-    <af:goLink text="point 4" destination="http://myfaces.apache.org"/>
-    <af:goLink text="point 5" destination="http://myfaces.apache.org"/>
-  </af:panelGroup>
-</af:panelBox>]]>
+  <tr:panelGroup layout="vertical">
+    <tr:goLink text="point 1" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 2" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 3" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 4" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="point 5" destination="http://myfaces.apache.org"/>
+  </tr:panelGroup>
+</tr:panelBox>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Marissa Treinen</mfp:author>

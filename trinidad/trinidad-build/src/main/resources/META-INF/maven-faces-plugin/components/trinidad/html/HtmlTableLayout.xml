@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -216,42 +216,42 @@
       <mfp:component-family>org.apache.myfaces.trinidad.TableLayout</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.TableLayout</mfp:renderer-type>
-      <mfp:tag-name>afh:tableLayout</mfp:tag-name>
+      <mfp:tag-name>trh:tableLayout</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlTableLayoutTag</mfp:tag-class>
       <mfp:long-description><![CDATA[A TableLayout is a thin wrapper around the HTML &lt;table&gt;
           element.  It contains a series of row layout elements.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:tableLayout width="75%"
+        <mfp:source-code><![CDATA[<trh:tableLayout width="75%"
              borderWidth="3"
              cellSpacing="10"
              halign="center">
-  <afh:rowLayout>
+  <trh:rowLayout>
      First Column
 
-    <afh:cellFormat valign="bottom">
+    <trh:cellFormat valign="bottom">
       SecondColumn
-    </afh:cellFormat>
+    </trh:cellFormat>
 
-    <af:panelGroup layout="horizontal">
+    <tr:panelGroup layout="horizontal">
       Third Column
-      <af:objectSpacer height="100" width="1"/>
-    </af:panelGroup>
+      <tr:objectSpacer height="100" width="1"/>
+    </tr:panelGroup>
 
-  </afh:rowLayout>
+  </trh:rowLayout>
 
-  <afh:rowLayout>
-    <af:panelHeader text="ADF Faces Components"/>
-    <afh:cellFormat columnSpan="2">
-      <af:panelHeader text="Faces Servlet"/>
-    </afh:cellFormat>
-  </afh:rowLayout>
-</afh:tableLayout>]]>
+  <trh:rowLayout>
+    <tr:panelHeader text="ADF Faces Components"/>
+    <trh:cellFormat columnSpan="2">
+      <tr:panelHeader text="Faces Servlet"/>
+    </trh:cellFormat>
+  </trh:rowLayout>
+</trh:tableLayout>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
-        <mfp:preferred-children>afh:rowLayout</mfp:preferred-children>
+        <mfp:preferred-children>trh:rowLayout</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>width</mfp:property-name>

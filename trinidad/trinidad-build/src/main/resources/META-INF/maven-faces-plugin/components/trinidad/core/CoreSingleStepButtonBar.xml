@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -172,7 +172,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SingleStep</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.ButtonBar</mfp:renderer-type>
-      <mfp:tag-name>af:singleStepButtonBar</mfp:tag-name>
+      <mfp:tag-name>tr:singleStepButtonBar</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreSingleStepButtonBarTag</mfp:tag-class>
       <mfp:long-description><![CDATA[SingleStepButtonBar renders a Previous button,
           text indicating the current step and the maximum steps, and a Next button.
@@ -209,10 +209,10 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>A simple example of a singleStepButtonBar.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:singleStepButtonBar selectedStep="2" maxStep="5" previousAction="cart"
+        <mfp:source-code><![CDATA[<tr:form>
+     <tr:singleStepButtonBar selectedStep="2" maxStep="5" previousAction="cart"
      nextAction="checkout"/>
-   </af:form>]]>
+   </tr:form>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

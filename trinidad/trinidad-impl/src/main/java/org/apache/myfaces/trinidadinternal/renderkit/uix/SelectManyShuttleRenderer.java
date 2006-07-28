@@ -160,7 +160,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
         if (!isItemDisabled || agentSupportsDisabledOptions)
         {
           SelectItem item = null;
-          // this allows values to be bound to SelectItems for af:selectItem.
+          // this allows values to be bound to SelectItems for tr:selectItem.
           if (itemValue instanceof SelectItem)
           {
             item = (SelectItem)itemValue;

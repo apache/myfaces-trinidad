@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="windows-1252" ?>
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreTable" value="#{simpleList}" var="row" rows="5"
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreTable" value="#{simpleList}" var="row" rows="5"
     rowSelection="single">
     
-    <component af:type="org.apache.myfaces.trinidad.CoreColumn">
-      <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="StringHeader"/>
-      <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.string}"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreColumn">
+      <component tr:facet="header" tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="StringHeader"/>
+      <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.string}"/>
     </component>
-    <component af:type="org.apache.myfaces.trinidad.CoreColumn">
-      <component af:facet="header" af:type="org.apache.myfaces.trinidad.CoreOutputText" value="IntHeader"/>
-      <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreColumn">
+      <component tr:facet="header" tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="IntHeader"/>
+      <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="#{row.int}"/>
     </component>
   </base-component>
 </test>

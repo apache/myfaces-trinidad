@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -119,21 +119,21 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Command</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Button</mfp:renderer-type>
-      <mfp:tag-name>af:commandButton</mfp:tag-name>
+      <mfp:tag-name>tr:commandButton</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreCommandButtonTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The commandButton control creates a button representation of a UIXCommand.]]></mfp:long-description>
       <mfp:example>
         <xhtml:p>A simple example of a button saying "Enter" that submits
             an input field.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:inputText value="Default input text" />
-     <af:commandButton text="Enter"/>
-   </af:form>]]>
+        <mfp:source-code><![CDATA[<tr:form>
+     <tr:inputText value="Default input text" />
+     <tr:commandButton text="Enter"/>
+   </tr:form>]]>
         </mfp:source-code>
         <xhtml:p>An button which submits the form without doing any validation.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:inputText value="Default input text"/>
-     <af:commandButton text="Unvalidated Submit"
+        <mfp:source-code><![CDATA[<tr:form>
+     <tr:inputText value="Default input text"/>
+     <tr:commandButton text="Unvalidated Submit"
                        immediate="true" />
    </form>]]>
         </mfp:source-code>

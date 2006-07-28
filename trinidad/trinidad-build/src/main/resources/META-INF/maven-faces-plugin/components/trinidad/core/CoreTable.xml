@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -47,7 +47,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Table</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Table</mfp:renderer-type>
-      <mfp:tag-name>af:table</mfp:tag-name>
+      <mfp:tag-name>tr:table</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTableTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The ADF Table is used to display tabular data. It also supports selection
 (both single and multiple), sorting, record navigation and
@@ -70,7 +70,7 @@ detail-disclosure.
         <section name="Columns">
           <P>
             The immediate children of a Table component must all be
-            <code>&lt;af:column&gt;</code> components. Each visible ADF Column
+            <code>&lt;tr:column&gt;</code> components. Each visible ADF Column
             component creates a separate column in the Table.
             For more information see the documentation for
             <code>&lt;column&gt;</code>
@@ -110,11 +110,11 @@ detail-disclosure.
             displayed in the details section:
 
             <pre>
-    <af:table var="row">
+    <tr:table var="row">
       <f:facet name="detailStamp">
-        <af:outputText value="#{row.age}"/>
+        <tr:outputText value="#{row.age}"/>
       </f:facet>
-    </af:table>
+    </tr:table>
             </pre>
           </P>
           <P>
@@ -135,8 +135,8 @@ detail-disclosure.
           <p>
             There are two types of selection - single and multiple. The type of
             selection is determined by the component defined as the &quot;selection&quot; facet.
-            Use the <code>&lt;af:tableSelectOne&gt;</code> component to enable
-            single selection, and <code>&lt;af:tableSelectMany&gt;</code> for
+            Use the <code>&lt;tr:tableSelectOne&gt;</code> component to enable
+            single selection, and <code>&lt;tr:tableSelectMany&gt;</code> for
             multiple selection.
           </p>
         </section>
@@ -189,20 +189,20 @@ detail-disclosure.
             property.
           </P>
           <pre>
-    <af:table value="...">
-      <af:column sortProperty="firstname" sortable="true">
+    <tr:table value="...">
+      <tr:column sortProperty="firstname" sortable="true">
         <f:facet name="header">
-          <af:outputText value="Firstname" />
+          <tr:outputText value="Firstname" />
         </f:facet>
         ...
-      </af:column>
-      <af:column>
+      </tr:column>
+      <tr:column>
         <f:facet name="header" sortProperty="lastname" sortable="true">
-          <af:outputText value="Lastname" />
+          <tr:outputText value="Lastname" />
         </f:facet>
         ...
-      </af:column>
-    </af:table>
+      </tr:column>
+    </tr:table>
           </pre>
         </section>
 
@@ -224,28 +224,28 @@ detail-disclosure.
         </section>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:table value="#{myManagedBean.allEmployees}"  
+        <mfp:source-code><![CDATA[<tr:table value="#{myManagedBean.allEmployees}"  
    bandingInterval="2" banding="row" var="emp">
-  <af:column>
+  <tr:column>
     <f:facet name="header">
-      <af:outputText value="Name"/>
+      <tr:outputText value="Name"/>
     </f:facet>
-    <af:outputText value="#{emp.ename}"/>
-  </af:column>
-  <af:column>
+    <tr:outputText value="#{emp.ename}"/>
+  </tr:column>
+  <tr:column>
     <f:facet name="header">
-      <af:outputText value="Department Number"/>
+      <tr:outputText value="Department Number"/>
     </f:facet>
-    <af:outputText value="#{emp.deptno}"/>
-  </af:column>
-</af:table>]]>
+    <tr:outputText value="#{emp.deptno}"/>
+  </tr:column>
+</tr:table>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>af:column af:columnGroup</mfp:preferred-children>
+        <mfp:preferred-children>tr:column tr:columnGroup</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>table</mfp:uix2-local-name>
     </component-extension>

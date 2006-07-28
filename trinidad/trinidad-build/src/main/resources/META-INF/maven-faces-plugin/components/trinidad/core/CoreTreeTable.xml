@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -44,16 +44,16 @@
                   the focus path will not be rendered.
         </mfp:long-description>
         <mfp:example>
-          <mfp:source-code><![CDATA[<af:treeTable ...>
+          <mfp:source-code><![CDATA[<tr:treeTable ...>
                      <f:facet name="pathStamp">
-                      <af:outputText value="#{node.Ename}" />
+                      <tr:outputText value="#{node.Ename}" />
                      </f:facet>
                      ...
-                    </af:treeTable>]]>
+                    </tr:treeTable>]]>
           </mfp:source-code>
         </mfp:example>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:outputText af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -68,7 +68,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.TreeTable</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.TreeTable</mfp:renderer-type>
-      <mfp:tag-name>af:treeTable</mfp:tag-name>
+      <mfp:tag-name>tr:treeTable</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTreeTableTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The ADF TreeTable is used to display data that is structured in a hierarchical format.
@@ -96,35 +96,35 @@
           the "Employee Name" Column. For each element (that is, employee) the
           TreeTable stamps out the name, ID and the department.
         </xhtml:p>
-        <mfp:source-code><![CDATA[<af:treeTable var="node" value="#{myBean.orgChart.root}">
+        <mfp:source-code><![CDATA[<tr:treeTable var="node" value="#{myBean.orgChart.root}">
   <f:facet name="nodeStamp">
-    <af:column>
+    <tr:column>
       <f:facet name="header">
-        <af:outputText value="Employee Name"/>
+        <tr:outputText value="Employee Name"/>
       </f:facet>
-      <af:outputText value="#{node.ename}"/>
-    </af:column>
+      <tr:outputText value="#{node.ename}"/>
+    </tr:column>
   </f:facet>
-  <af:column>
+  <tr:column>
     <f:facet name="header">
-      <af:outputText value="Employee Id"/>
+      <tr:outputText value="Employee Id"/>
     </f:facet>
-    <af:outputText value="#{node.empid}"/>
-  </af:column>
-  <af:column>
+    <tr:outputText value="#{node.empid}"/>
+  </tr:column>
+  <tr:column>
     <f:facet name="header">
-      <af:outputText value="Department"/>
+      <tr:outputText value="Department"/>
     </f:facet>
-    <af:outputText value="#{node.dname}"/>
-  </af:column>
-</af:treeTable>]]>
+    <tr:outputText value="#{node.dname}"/>
+  </tr:column>
+</tr:treeTable>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>af:column af:columnGroup</mfp:preferred-children>
+        <mfp:preferred-children>tr:column tr:columnGroup</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>hGrid</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

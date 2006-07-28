@@ -1,14 +1,14 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CoreOutputDocument" 
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreOutputDocument" 
                   value="#{simpleDocument}"
                   titleClass="titleClass"
                   separatorClass="separatorClass">
-     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
-                af:facet="title"
+     <component tr:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
+                tr:facet="title"
                 value="The title facet"/>
-     <component af:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
-                af:facet="separator"
+     <component tr:type="org.apache.myfaces.trinidad.CoreOutputFormatted"
+                tr:facet="separator"
                 value="The paragraph separator"/>
   </base-component>
   <!-- test the facets seperately so output not too big - see outputDocument.xml for attribute tests -->

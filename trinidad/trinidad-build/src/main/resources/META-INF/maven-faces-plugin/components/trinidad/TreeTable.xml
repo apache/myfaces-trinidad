@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -96,7 +96,7 @@
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>af:column</mfp:preferred-children>
+        <mfp:preferred-children>tr:column</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

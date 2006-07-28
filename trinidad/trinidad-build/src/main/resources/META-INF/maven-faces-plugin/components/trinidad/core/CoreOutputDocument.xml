@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml"
               xmlns:xi="http://www.w3.org/2001/XInclude">
@@ -33,7 +33,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -44,7 +44,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:objectImage af:objectSeparator</mfp:preferred-children>
+          <mfp:preferred-children>tr:objectImage tr:objectSeparator</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -119,14 +119,14 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Output</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Document</mfp:renderer-type>
-      <mfp:tag-name>af:outputDocument</mfp:tag-name>
+      <mfp:tag-name>tr:outputDocument</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreOutputDocumentTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The outputText component supports styled text.  The text
 can optionally be left unescaped, and supports
 conversion to and from Java objects.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;af:outputDocument value="A long text including"
+        <mfp:source-code>&lt;tr:outputDocument value="A long text including"
                      styleClass="AFFieldText"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Simon Lessard</mfp:author>

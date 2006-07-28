@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -247,7 +247,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.CellFormat</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.CellFormat</mfp:renderer-type>
-      <mfp:tag-name>afh:cellFormat</mfp:tag-name>
+      <mfp:tag-name>trh:cellFormat</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlCellFormatTag</mfp:tag-class>
       <mfp:long-description><![CDATA[CellFormat components are used to format cells in a
           rowLayout.  It is a container of other layout elements which
@@ -255,28 +255,28 @@
           alignment, width, or colspan.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<afh:tableLayout width="75%"
+        <mfp:source-code><![CDATA[<trh:tableLayout width="75%"
              borderWidth="3"
              cellSpacing="10"
              halign="center">
-  <afh:rowLayout halign="right">
+  <trh:rowLayout halign="right">
     First Column
 
-    <afh:cellFormat valign="bottom">
+    <trh:cellFormat valign="bottom">
       SecondColumn
-    </afh:cellFormat>
-    <af:panelGroup laytou="horizontal">
+    </trh:cellFormat>
+    <tr:panelGroup laytou="horizontal">
       Third Column
-      <af:objectSpacer height="100" width="1"/>
-    </af:panelGroup>
-  </afh:rowLayout>
-  <afh:rowLayout>
-    <af:panelHeader text="ADF Faces Components"/>
-    <afh:cellFormat columnSpan="2">
-      <af:panelHeader text="Faces Servlet"/>
-    </afh:cellFormat>
-  </afh:rowLayout>
-</afh:tableLayout>]]>
+      <tr:objectSpacer height="100" width="1"/>
+    </tr:panelGroup>
+  </trh:rowLayout>
+  <trh:rowLayout>
+    <tr:panelHeader text="ADF Faces Components"/>
+    <trh:cellFormat columnSpan="2">
+      <tr:panelHeader text="Faces Servlet"/>
+    </trh:cellFormat>
+  </trh:rowLayout>
+</trh:tableLayout>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

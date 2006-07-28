@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -39,7 +39,7 @@
       <mfp:author>Adam Winer</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
-        <mfp:preferred-children>af:selectItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:selectItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>localName</mfp:property-name>

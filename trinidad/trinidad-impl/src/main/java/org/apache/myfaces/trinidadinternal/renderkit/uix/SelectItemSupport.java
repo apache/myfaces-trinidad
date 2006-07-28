@@ -90,7 +90,7 @@ public class SelectItemSupport
           items = new ArrayList(childCount);
         addSelectItems((UISelectItems) child, items);
       }
-      // af:selectItem
+      // tr:selectItem
       else if (child instanceof UIXSelectItem)
       {
         if (items == null)

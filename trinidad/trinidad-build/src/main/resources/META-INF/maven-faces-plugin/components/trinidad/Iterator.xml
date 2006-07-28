@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -110,7 +110,7 @@ which range of rows to display to the user.]]>
       <mfp:component-family>org.apache.myfaces.trinidad.Iterator</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:component-superclass>UIXCollection</mfp:component-superclass>
-      <mfp:tag-name>af:iterator</mfp:tag-name>
+      <mfp:tag-name>tr:iterator</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXIteratorTag</mfp:tag-class>
       <mfp:long-description><![CDATA[UIXIterator is a component that does iteration. It is similar to UIXTable
 but has no chrome.
@@ -121,12 +121,12 @@ but has no chrome.
  there are no more elements in the underlying data.
  <html:br/>
  
-  While the &lt;af:forEach&gt;
+  While the &lt;tr:forEach&gt;
 will be sufficient for most user's needs, it does not work with a JSF
 DataModel, or CollectionModel. It also cannot be bound to EL expressions that
 use component-managed EL variables
-(such as the &quot;var&quot; variable on an &lt;af:table&gt;).
-The &lt;af:iterator&gt; tag was created to
+(such as the &quot;var&quot; variable on an &lt;tr:table&gt;).
+The &lt;tr:iterator&gt; tag was created to
 address these issues.]]>
       </mfp:long-description>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

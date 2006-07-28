@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -33,7 +33,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.StyleSheet</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.StyleSheet</mfp:renderer-type>
-      <mfp:tag-name>afh:styleSheet</mfp:tag-name>
+      <mfp:tag-name>trh:styleSheet</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreStyleSheetTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The styleSheet component generates the style
           sheet link reference to a generated ADF Faces style sheet.

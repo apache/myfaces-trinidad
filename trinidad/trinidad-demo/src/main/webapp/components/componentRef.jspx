@@ -34,7 +34,7 @@
                 
             <tr:outputText value="This demo uses three regions:"/>
             
-            <tr:componentRef id="reg1" componentType="org.apache.myfaces.adfdemo.region.stock"
+            <tr:componentRef id="reg1" componentType="org.apache.myfaces.trinidaddemo.region.stock"
               value="Watch this stock">
               <f:attribute name="symbol" value="XYZ"/>
               <f:attribute name="company" value="XYZ Incorp"/>
@@ -44,7 +44,7 @@
               </f:facet>
             </tr:componentRef>
 
-            <tr:componentRef id="reg2" componentType="org.apache.myfaces.adfdemo.region.stock">
+            <tr:componentRef id="reg2" componentType="org.apache.myfaces.trinidaddemo.region.stock">
               <f:attribute name="symbol" value="PQR"/>
               <f:attribute name="company" value="PQR Corp"/>
               <f:attribute name="description" value="Power and Utilities"/>
@@ -54,7 +54,7 @@
               </f:facet>
             </tr:componentRef>
 
-            <tr:componentRef id="reg3" componentType="org.apache.myfaces.adfdemo.region.stock">
+            <tr:componentRef id="reg3" componentType="org.apache.myfaces.trinidaddemo.region.stock">
               <f:attribute name="symbol" value="DFLT"/>
             </tr:componentRef>
 

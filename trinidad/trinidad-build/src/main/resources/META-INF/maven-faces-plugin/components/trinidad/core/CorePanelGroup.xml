@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -48,7 +48,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Group</mfp:renderer-type>
-      <mfp:tag-name>af:panelGroup</mfp:tag-name>
+      <mfp:tag-name>tr:panelGroup</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelGroupTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The panelGroup control is a layout element that
 arranges its children in one of a few simple patterns.
@@ -58,17 +58,17 @@ children consecutively (wrapping as needed), or in a single
 horizontal line, or vertically.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelGroup layout="horizontal">
+        <mfp:source-code><![CDATA[<tr:panelGroup layout="horizontal">
   <f:facet name="separator">
-    <af:objectSpacer width="10" height="1"/>
+    <tr:objectSpacer width="10" height="1"/>
   </f:facet>
-  <af:goLink text="ADF Faces 1"
+  <tr:goLink text="ADF Faces 1"
         destination="http://myfaces.apache.org"/>
-  <af:goLink text="ADF Faces 2"
+  <tr:goLink text="ADF Faces 2"
         destination="http://myfaces.apache.org"/>
-  <af:goLink text="ADF Faces 3"
+  <tr:goLink text="ADF Faces 3"
         destination="http://myfaces.apache.org"/>
-</af:panelGroup>]]>
+</tr:panelGroup>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Jeanne Waldman</mfp:author>

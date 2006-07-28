@@ -1,7 +1,7 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CorePanelTip">
-    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="Tip content"/>
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelTip">
+    <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Tip content"/>
   </base-component>
   
   <!-- Core attribute tests -->

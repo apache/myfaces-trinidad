@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate the byte length of strings when encoded.]]></description>
@@ -75,7 +75,7 @@
       </property-extension>
     </property>
    <validator-extension>
-      <mfp:tag-name>af:validateByteLength</mfp:tag-name>
+      <mfp:tag-name>tr:validateByteLength</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateByteLengthTag</mfp:tag-class>
       <mfp:long-description><![CDATA[
           <html:p>Validates the byte length of strings when encoded.
@@ -788,9 +788,9 @@
         ]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:inputText value="Four" label="Byte Length validation">
-  <af:validateByteLength encoding="ISO-8859-1" maximum="4"/>
-</af:inputText>]]>
+        <mfp:source-code><![CDATA[<tr:inputText value="Four" label="Byte Length validation">
+  <tr:validateByteLength encoding="ISO-8859-1" maximum="4"/>
+</tr:inputText>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

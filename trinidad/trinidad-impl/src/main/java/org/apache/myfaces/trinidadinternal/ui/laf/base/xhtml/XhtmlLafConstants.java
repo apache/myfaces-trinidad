@@ -636,7 +636,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String P_AF_DISABLED = "p_AFDisabled";
 
   // BREADCRUMBS STYLES
-  // used in af:navigationPath, af:treeTable
+  // used in tr:navigationPath, tr:treeTable
   public static final String AF_NAVIGATION_PATH_STYLE_CLASS =
     "af|navigationPath";
   public static final String AF_NAVIGATION_PATH_STEP_STYLE_CLASS =
@@ -775,11 +775,11 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String HIDDEN_LABEL_STYLE_CLASS =
     "p_OraHiddenLabel";
 
-  // af:panelList style
+  // tr:panelList style
   public static final String AF_PANEL_LIST_STYLE_CLASS =
     "af|panelList";
 
-  // af:showManyAccordion styles
+  // tr:showManyAccordion styles
   public static final String AF_SHOWMANYACCORDION_CONTAINER_STYLE_CLASS =
     "af|showManyAccordion::container";
 
@@ -801,7 +801,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_SHOWMANYACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS =
     "af|showManyAccordion::title-disabled-link";
 
-  // af:showOneAccordion styles
+  // tr:showOneAccordion styles
   public static final String AF_SHOWONEACCORDION_CONTAINER_STYLE_CLASS =
     "af|showOneAccordion::container";
 
@@ -912,7 +912,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "AFHeaderConfirmationIcon";
 
   // the alias icon for navigationPath separator icon that is shared
-  // by af:navigationPath and af:treeTable.
+  // by tr:navigationPath and tr:treeTable.
   public static final String PATH_SEPARATOR_ICON_ALIAS_NAME =
     "AFPathSeparatorIcon";
 

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -337,7 +337,7 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.SelectInput</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Date</mfp:renderer-type>
-      <mfp:tag-name>af:selectInputDate</mfp:tag-name>
+      <mfp:tag-name>tr:selectInputDate</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectInputDateTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The selectInputDate component creates a text field for entering dates and
           a button for picking dates from a calendar.
@@ -352,15 +352,15 @@ tip), and may use simpler layout primitives]]>
         <xhtml:p>Two selectInputDate, the first converts the dateStyle to "long",
             the second sets the maximum date:
         </xhtml:p>
-        <mfp:source-code><![CDATA[<af:selectInputDate id="mdf2" value="#{date.date2}"
+        <mfp:source-code><![CDATA[<tr:selectInputDate id="mdf2" value="#{date.date2}"
                             label="has converter">
         <f:convertDateTime dateStyle="long"/>
-      </af:selectInputDate>
+      </tr:selectInputDate>
 
-      <af:selectInputDate id="mdf3" value="#{date.date3}"
+      <tr:selectInputDate id="mdf3" value="#{date.date3}"
                             label="max validator">
-        <af:validateDateTimeRange maximum="#{date.maxDate}"/>
-      </af:selectInputDate>]]>
+        <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
+      </tr:selectInputDate>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>

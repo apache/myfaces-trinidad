@@ -16,9 +16,9 @@
 -->
 <faces-config>
   <component>
-    <component-type>org.apache.myfaces.adfdemo.region.stock</component-type>
+    <component-type>org.apache.myfaces.trinidaddemo.region.stock</component-type>
     <component-class>
-      org.apache.myfaces.adf.component.UIXRegion
+      org.apache.myfaces.trinidad.component.UIXRegion
     </component-class>
     <component-extension>
       <region-jsp-ui-def>/components/regions/stock.jspx</region-jsp-ui-def>

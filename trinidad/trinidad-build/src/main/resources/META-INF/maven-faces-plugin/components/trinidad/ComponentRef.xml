@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
@@ -48,12 +48,12 @@ time the page renders.</html>]]>
     </property>
     <property>
       <description><![CDATA[<html> The name of the EL variable that will be set when encoding the component.  
-        This attribute is set by the af:componentDef on behalf of the UIXComponentRef, and not the af:componentRef. 
+        This attribute is set by the tr:componentDef on behalf of the UIXComponentRef, and not the tr:componentRef. 
         For example,
               let's say this "var" attribute is set to the value "attrs";
-              if the &lt;af:componentRef&gt; tag has an attribute called "bar",
+              if the &lt;tr:componentRef&gt; tag has an attribute called "bar",
               The value of "bar" can be referenced from a child within 
-              &lt;af:componentDef&gt; using the expression
+              &lt;tr:componentDef&gt; using the expression
               <code>#{attrs.bar}</code>.</html>]]>
       </description>
       <property-name>var</property-name>
@@ -67,29 +67,29 @@ time the page renders.</html>]]>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXComponentRefTag</mfp:tag-class>
       <mfp:long-description><![CDATA[This component inserts a component (defined by a separate page
-          that starts with &lt;af:componentDef&gt;)
+          that starts with &lt;tr:componentDef&gt;)
           into the current page. The &quot;id&quot; attribute is required on this
           component, which implements NamingContainer.  This component may have
           a value, custom attributes, or both.  The value will be
           made available to within component definition using the &quot;binding&quot;
           EL attribute.  Custom attributes, defined with
-          &lt;f:attribute&gt; or &lt;af:attribute&gt;, will also
+          &lt;f:attribute&gt; or &lt;tr:attribute&gt;, will also
           be made available within the component definition - see the
-          &lt;af:componentDef&gt; tag documentation for more information.
+          &lt;tr:componentDef&gt; tag documentation for more information.
 
           This component may also have facets. Each facet may be referenced
-          exactly once from within a &lt;af:componentDef&gt; tag by
-          using a &lt;af:facetRef&gt; - see the
-          &lt;af:componentRef&gt; tag documentation for more information.]]>
+          exactly once from within a &lt;tr:componentDef&gt; tag by
+          using a &lt;tr:facetRef&gt; - see the
+          &lt;tr:componentRef&gt; tag documentation for more information.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:componentRef componentType="org.apache.myfaces.trinidaddemo.region.stock" >
+        <mfp:source-code><![CDATA[<tr:componentRef componentType="org.apache.myfaces.trinidaddemo.region.stock" >
    <f:attribute name="symbol" value="ORCL"/>
    <f:attribute name="desc" value="Oracle Corp"/>
    <f:facet name="actions">
-     <af:commandButton text="Update Stock Quote"/>
+     <tr:commandButton text="Update Stock Quote"/>
    </f:facet>
- </af:region>]]>
+ </tr:region>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Arjuna Wijeyekoon</mfp:author>

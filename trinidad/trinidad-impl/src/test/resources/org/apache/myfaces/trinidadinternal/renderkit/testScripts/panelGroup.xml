@@ -1,10 +1,10 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.trinidad.CorePanelGroup">
-    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="1"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="2"/>
-    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" value="3"/>
-    <component af:facet="separator" af:type="org.apache.myfaces.trinidad.CoreObjectSpacer" width="10" height="1"/>
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+       xmlns:tr="http://myfaces.apache.org/trinidad">
+  <base-component tr:type="org.apache.myfaces.trinidad.CorePanelGroup">
+    <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="1"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="2"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="3"/>
+    <component tr:facet="separator" tr:type="org.apache.myfaces.trinidad.CoreObjectSpacer" width="10" height="1"/>
   </base-component>
   
   <enum-test name="layout" default="default"/>

@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -395,7 +395,7 @@ tip), and may use simpler layout primitives]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Input</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Text</mfp:renderer-type>
-      <mfp:tag-name>af:inputText</mfp:tag-name>
+      <mfp:tag-name>tr:inputText</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreInputTextTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html><p>
             The inputText component creates a browser input text widget.
@@ -408,13 +408,13 @@ tip), and may use simpler layout primitives]]>
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>Simple text input box with the some default text and a label.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:form>
-     <af:inputText label="Input:" value="Some text"/>
-   </af:form>]]></mfp:source-code>
+        <mfp:source-code><![CDATA[<tr:form>
+     <tr:inputText label="Input:" value="Some text"/>
+   </tr:form>]]></mfp:source-code>
         <xhtml:p>A slightly more interesting example showing a text box
       twenty five characters in length with hidden input text.
         </xhtml:p>
-        <mfp:source-code>&lt;af:inputText label="Password:"
+        <mfp:source-code>&lt;tr:inputText label="Password:"
                 columns="25"
                 required="no"
                 secret="true"/&gt;
@@ -423,7 +423,7 @@ tip), and may use simpler layout primitives]]>
             input text, with a vertical scrollbar. If the value is
             changed, an alert will say so.
         </xhtml:p>
-        <mfp:source-code>&lt;af:inputText label="Alert:"
+        <mfp:source-code>&lt;tr:inputText label="Alert:"
                 rows="3"
                 wrap="soft"
                 onchange="alert('Text box has changed.')"

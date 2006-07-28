@@ -142,12 +142,12 @@ abstract public class FormInputRenderer extends FormElementRenderer
   }
   /*
    * override to return the content style class, like af|inputText::content
-   * if component is af:inputText.
+   * if component is tr:inputText.
    */
   abstract protected String getContentStyleClass(FacesBean bean); 
   /*
    * override to return the root style class, like af|inputText
-   * if component is af:inputText.
+   * if component is tr:inputText.
    */  
   abstract protected String getRootStyleClass(FacesBean bean);
   

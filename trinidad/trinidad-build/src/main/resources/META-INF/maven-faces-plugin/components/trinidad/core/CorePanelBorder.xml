@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -100,7 +100,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Border</mfp:renderer-type>
-      <mfp:tag-name>af:panelBorder</mfp:tag-name>
+      <mfp:tag-name>tr:panelBorder</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelBorderTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The panelBorder component is a layout element which lays out all of its
           children consecutively in its middle, and supports twelve other
@@ -109,26 +109,26 @@
           left/right &quot;wins&quot;.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelBorder>
+        <mfp:source-code><![CDATA[<tr:panelBorder>
   <f:facet name="top">
-    <af:objectImage source="/images/globalhelp.gif"/>
+    <tr:objectImage source="/images/globalhelp.gif"/>
   </f:facet>
 
   <f:facet name="bottom">
-    <af:objectImage source="/images/warnl.gif"/>
+    <tr:objectImage source="/images/warnl.gif"/>
   </f:facet>
 
   <f:facet name="end">
-    <af:objectImage source="/images/cobrand.gif"/>
+    <tr:objectImage source="/images/cobrand.gif"/>
   </f:facet>
 
   <f:facet name="start">
-    <af:objectImage source="/images/info.gif"/>
+    <tr:objectImage source="/images/info.gif"/>
   </f:facet>
 
-  <af:outputText value="Here is some content"
+  <tr:outputText value="Here is some content"
                  styleClass="AFInstructionText"/>
-</af:panelBorder>]]>
+</tr:panelBorder>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

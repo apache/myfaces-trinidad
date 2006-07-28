@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -121,14 +121,14 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Command</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Link</mfp:renderer-type>
-      <mfp:tag-name>af:commandLink</mfp:tag-name>
+      <mfp:tag-name>tr:commandLink</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CoreCommandLinkTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           The commandLink control creates a link representation of a UIXCommand.
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;af:commandLink text="Return to Portal"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;tr:commandLink text="Return to Portal"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>
       <mfp:component-metadata>

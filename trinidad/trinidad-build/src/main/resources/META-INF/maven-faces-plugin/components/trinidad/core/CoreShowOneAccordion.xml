@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -45,7 +45,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ShowOne</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Accordion</mfp:renderer-type>
-      <mfp:tag-name>af:showOneAccordion</mfp:tag-name>
+      <mfp:tag-name>tr:showOneAccordion</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowOneAccordionTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The showOneAccordion control can be used to display a group of contents belonging to a showDetailItem.
           Accordion bar(s) with panels representing showDetailItem children is displayed.
@@ -55,27 +55,27 @@
       </mfp:long-description>
       <mfp:example>
         <xhtml:p>The following is an example of showOneAccordion.</xhtml:p>
-        <mfp:source-code><![CDATA[<af:showOneAccordion>
-          <af:showDetailItem text="ADF Faces Components">
-            <af:panelHeader text="ADF Faces Components First Child"/>
-            <af:panelHeader text="ADF Faces Components Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Architecture" disabled="true">
-            <af:panelHeader text="Architecture First Child"/>
-            <af:panelHeader text="Architecture Second Child"/>
-          </af:showDetailItem>
-          <af:showDetailItem text="Release">
-            <af:panelHeader text="Release First Child"/>
-            <af:panelHeader text="Release Second Child"/>
-          </af:showDetailItem>
-        </af:showOneAccordion>]]>
+        <mfp:source-code><![CDATA[<tr:showOneAccordion>
+          <tr:showDetailItem text="ADF Faces Components">
+            <tr:panelHeader text="ADF Faces Components First Child"/>
+            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Architecture" disabled="true">
+            <tr:panelHeader text="Architecture First Child"/>
+            <tr:panelHeader text="Architecture Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Release">
+            <tr:panelHeader text="Release First Child"/>
+            <tr:panelHeader text="Release Second Child"/>
+          </tr:showDetailItem>
+        </tr:showOneAccordion>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Ravi Baranwal</mfp:author>
       <mfp:component-metadata>
         <mfp:favorite-property>id</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>af:showDetailItem</mfp:preferred-children>
+        <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>showOnePanel</mfp:uix2-local-name>
       <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

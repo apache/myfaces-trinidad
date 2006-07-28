@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -33,7 +33,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>false</mfp:preferred>
-          <mfp:preferred-children>af:menuChoice</mfp:preferred-children>
+          <mfp:preferred-children>tr:menuChoice</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -43,7 +43,7 @@
       <facet-name>contextSwitcher</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:rowLayout af:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:rowLayout tr:panelGroup</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -53,7 +53,7 @@
       <facet-name>messages</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:messages</mfp:preferred-children>
+          <mfp:preferred-children>tr:messages</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -66,7 +66,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -78,7 +78,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -101,7 +101,7 @@
       <facet-name>search</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:inputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:inputText</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -116,7 +116,7 @@
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:processTrain af:navigationPath</mfp:preferred-children>
+          <mfp:preferred-children>tr:processTrain tr:navigationPath</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -130,7 +130,7 @@
       <facet-name>actions</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelButtonBar af:processChoiceBar</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelButtonBar tr:processChoiceBar</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -142,7 +142,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -156,7 +156,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -166,7 +166,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -178,7 +178,7 @@
       <facet-name>infoSupplemental</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelBox</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelBox</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -189,7 +189,7 @@
       <facet-name>infoReturn</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:commandLink</mfp:preferred-children>
+          <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -201,7 +201,7 @@
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -213,7 +213,7 @@
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -228,7 +228,7 @@
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:panelGroup af:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -388,32 +388,32 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Page</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Page</mfp:renderer-type>
-      <mfp:tag-name>af:page</mfp:tag-name>
+      <mfp:tag-name>tr:page</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.nav.CorePageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The Page component is similar to the PanelPage component, except that instead of having navigation1, navigation2 and navigation3 facets for adding navigation item information, the user binds a model object and a stamp to render these areas. The model object is of type MenuModel. A commandNavigationItem should be used as the stamp and placed in the &quot;nodeStamp&quot; facet.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:page var="foo" value="#{nav.menuModel}">
+        <mfp:source-code><![CDATA[<tr:page var="foo" value="#{nav.menuModel}">
               <f:facet name="nodeStamp">
-                <af:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
+                <tr:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
               </f:facet>                   
               <f:facet name="branding">
-                <af:panelGroup layout="horizontal">
-                  <af:objectImage source="/components/images/corporateBrand.gif"/>
-                  <af:objectImage source="/components/images/applicationBrand.gif"/>
-                </af:panelGroup>
+                <tr:panelGroup layout="horizontal">
+                  <tr:objectImage source="/components/images/corporateBrand.gif"/>
+                  <tr:objectImage source="/components/images/applicationBrand.gif"/>
+                </tr:panelGroup>
               </f:facet>
               <f:facet name="appCopyright">
-                <af:outputText value="copyright facet"/>
+                <tr:outputText value="copyright facet"/>
               </f:facet>
               <f:facet name="appPrivacy">
-                <af:commandLink text="privacy facet" action="action.none" />
+                <tr:commandLink text="privacy facet" action="action.none" />
               </f:facet>
               <f:facet name="appAbout">
-                <af:commandLink text="about facet" action="action.none" />
+                <tr:commandLink text="about facet" action="action.none" />
               </f:facet>
-              <af:outputText value="Content here" />
-            </af:page>]]>
+              <tr:outputText value="Content here" />
+            </tr:page>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

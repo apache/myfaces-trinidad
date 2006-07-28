@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
@@ -32,7 +32,7 @@
       <facet-name>help</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>af:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -124,7 +124,7 @@
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Panel</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.LabelAndMessage</mfp:renderer-type>
-      <mfp:tag-name>af:panelLabelAndMessage</mfp:tag-name>
+      <mfp:tag-name>tr:panelLabelAndMessage</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CorePanelLabelAndMessageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           This component lays out a label, children, tip, and associated message.
@@ -145,12 +145,12 @@
         </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelLabelAndMessage for="selectDate">
+        <mfp:source-code><![CDATA[<tr:panelLabelAndMessage for="selectDate">
   <f:facet name="help">
-    <af:outputText value="Pick a date"/>
+    <tr:outputText value="Pick a date"/>
   </f:facet>
-  <af:selectInputDate id="selectDate" simple="true"/>
-</af:panelLabelAndMessage>]]>
+  <tr:selectInputDate id="selectDate" simple="true"/>
+</tr:panelLabelAndMessage>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

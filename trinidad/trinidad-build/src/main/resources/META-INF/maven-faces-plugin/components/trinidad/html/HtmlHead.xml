@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:afh="http://myfaces.apache.org/trinidad/html"
+              xmlns:trh="http://myfaces.apache.org/trinidad/html"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
@@ -51,7 +51,7 @@
       <mfp:component-family>org.apache.myfaces.trinidad.Head</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Head</mfp:renderer-type>
-      <mfp:tag-name>afh:head</mfp:tag-name>
+      <mfp:tag-name>trh:head</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.html.HtmlHeadTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             Tag for the HTML head element, including the
@@ -62,7 +62,7 @@
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code>&lt;afh:head title="The Title"/&gt;</mfp:source-code>
+        <mfp:source-code>&lt;trh:head title="The Title"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Blake Sullivan</mfp:author>
       <mfp:component-metadata>

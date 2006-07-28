@@ -1,9 +1,9 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-      xmlns:af="http://myfaces.apache.org/adf/view/faces">
+<test xmlns="http://myfaces.apache.org/trinidad/test"
+      xmlns:tr="http://myfaces.apache.org/trinidad">
 
-  <base-component af:type="org.apache.myfaces.trinidad.HtmlBody">
+  <base-component tr:type="org.apache.myfaces.trinidad.HtmlBody">
   
-    <component af:type="org.apache.myfaces.trinidad.CoreOutputText" id="id_text" value="Enter"/>
+    <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" id="id_text" value="Enter"/>
 
   </base-component>
   

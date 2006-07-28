@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -64,22 +64,22 @@ messages will be rendered.]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Messages</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Messages</mfp:renderer-type>
-      <mfp:tag-name>af:messages</mfp:tag-name>
+      <mfp:tag-name>tr:messages</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreMessagesTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The messages bean is used at the top of an application page to 
 give the user important messaging information. It will 
 automatically show any messages added to the FacesContext.]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelPage>
-  <af:messages/>
+        <mfp:source-code><![CDATA[<tr:panelPage>
+  <tr:messages/>
   ...
-</af:panelPage>]]></mfp:source-code>
+</tr:panelPage>]]></mfp:source-code>
       </mfp:example>
       <mfp:author>Brian Albers</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_OUTPUT")}</mfp:group>
-        <mfp:preferred-children>af:goLink</mfp:preferred-children>
+        <mfp:preferred-children>tr:goLink</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:java-constructor>
         <mfp:property-name>message</mfp:property-name>

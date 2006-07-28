@@ -21,44 +21,44 @@
   <!--messages for validators -->
   <!--Eg for input value test and maximum value set to 3 message would be
       test exceeds byte length of 3 -->
-  <resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM">inputValue={0} maxLength={1}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM">inputValue={0} maxLength={1}</resource>
   
-  <resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.MAXIMUM_FAILED_AT_INDEX">inputValue={0} maxLength={1} errorIndex={2}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_FAILED_AT_INDEX">inputValue={0} maxLength={1} errorIndex={2}</resource>
   
   <!-- {0} represent the wrong encoding set by the user -->
-  <resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.UNSUPPORTED_ENCODING">unsupportedEncoding={0}</resource>   
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.UNSUPPORTED_ENCODING">unsupportedEncoding={0}</resource>   
   <!-- {0} represent Date which the user has set -->  
   
   <!-- {0} the component id -->
-  <resource key="org.apache.myfaces.adf.validator.ByteLengthValidator.TYPE">componentId={0}</resource> 
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.TYPE">componentId={0}</resource> 
   
   
-  <resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MAXIMUM">maxDate={0}</resource>  
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM">maxDate={0}</resource>  
   <!-- {0} represent Date which the user has set -->
-  <resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.MINIMUM">minDate={0}</resource>     
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM">minDate={0}</resource>     
   <!-- {0} represent the minimum date set and {1} represent the maximum date set -->
-  <resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.NOT_IN_RANGE">minDate={0} maxDate={1}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE">minDate={0} maxDate={1}</resource>
   <!-- {0} the component id -->
-  <resource key="org.apache.myfaces.adf.validator.DateTimeRangeValidator.TYPE">componentId={0}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.TYPE">componentId={0}</resource>
   
   <!--{0} represent the pattern, which is invalid -->  
-  <resource key="org.apache.myfaces.adf.validator.RegExpValidator.INVALID_FORMAT">invalidFormat={0}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.INVALID_FORMAT">invalidFormat={0}</resource>
   <!-- {0} represent the input value {1} represent the 'pattern' expected in input 
        which i again set by user
        Eg input value = 9912 pattern="[9]*" 
        9912 does not have a matching patern [9]* -->
-  <resource key="org.apache.myfaces.adf.validator.RegExpValidator.NO_MATCH">inputValue={0} pattern={1}</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH">inputValue={0} pattern={1}</resource>
   
   <!-- {0} the component id -->
-  <resource key="org.apache.myfaces.adf.validator.RegExpValidator.TYPE">componentId={0}</resource>  
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.TYPE">componentId={0}</resource>  
   
   <!-- messages for converters -->
   
   <!-- {0} value entered by the user -->
   <!-- {1} patterns set in the converter -->
-  <resource key="org.apache.myfaces.adf.converter.ColorConverter.NO_MATCH">inputValue={0} pattern={1}</resource>
+  <resource key="org.apache.myfaces.trinidad.converter.ColorConverter.NO_MATCH">inputValue={0} pattern={1}</resource>
   
   <!-- {0} the component id -->
-  <resource key="org.apache.myfaces.adf.converter.ColorConverter.TYPE">componentId={0}</resource>
+  <resource key="org.apache.myfaces.trinidad.converter.ColorConverter.TYPE">componentId={0}</resource>
 
 </resources>

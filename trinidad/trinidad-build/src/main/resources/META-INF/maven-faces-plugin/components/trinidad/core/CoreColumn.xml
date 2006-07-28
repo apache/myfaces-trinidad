@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -107,11 +107,11 @@ should be allowed to wrap]]></description>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Column</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Column</mfp:renderer-type>
-      <mfp:tag-name>af:column</mfp:tag-name>
+      <mfp:tag-name>tr:column</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreColumnTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<P>
             The immediate children of a Table component must all be
-            <code>&lt;af:column&gt;</code> components. Each visible ADF Column
+            <code>&lt;tr:column&gt;</code> components. Each visible ADF Column
             component creates a separate column in the Table.
           </P>
           <P>
@@ -120,20 +120,20 @@ should be allowed to wrap]]></description>
             &quot;Firstname&quot; and &quot;Lastname&quot;:
           </P>
           <pre>
-  <af:table>
-    <af:column>
+  <tr:table>
+    <tr:column>
       <f:facet name="header">
-        <af:outputText value="Firstname"/>
+        <tr:outputText value="Firstname"/>
       </f:facet>
       ...
-    </af:column>
-    <af:column>
+    </tr:column>
+    <tr:column>
       <f:facet name="header">
-        <af:outputText value="Lastname"/>
+        <tr:outputText value="Lastname"/>
       </f:facet>
       ...
-    </af:column>
-  </af:table>
+    </tr:column>
+  </tr:table>
           </pre>
           <P>
             The child components of each Column display the data for each row in
@@ -157,14 +157,14 @@ should be allowed to wrap]]></description>
             further properties from the &quot;row&quot; property:
           </P>
           <pre>
-  <af:table var="row" value="#{myBean.employees}">
-    <af:column>
-      <af:outputText value="#{row.firstname}"/>
-    </af:column>
-    <af:column>
-      af:outputText value="#{row.lastname}"/>
-    </af:column>
-  </af:table>
+  <tr:table var="row" value="#{myBean.employees}">
+    <tr:column>
+      <tr:outputText value="#{row.firstname}"/>
+    </tr:column>
+    <tr:column>
+      tr:outputText value="#{row.lastname}"/>
+    </tr:column>
+  </tr:table>
           </pre>
 
           <section name="Formatting">
@@ -218,32 +218,32 @@ should be allowed to wrap]]></description>
 
           <section name="Column Groups">
             <P>
-              <code>&lt;af:column&gt; </code> tags can be nested to produce
+              <code>&lt;tr:column&gt; </code> tags can be nested to produce
               groups of columns. The header of a column group spans across
               all the columns it contains. The following example creates
               a column group that has the header &quot;Name&quot; and contains
               two sub columns with headers &quot;First&quot; and &quot;Last&quot;:
             </P>
           <pre>
-  <af:table var="row" value="#{myBean.employees}">
-    <af:column>
+  <tr:table var="row" value="#{myBean.employees}">
+    <tr:column>
       <f:facet name="header">
-        <af:outputText value="Name"/>
+        <tr:outputText value="Name"/>
       </f:facet>
-      <af:column>
+      <tr:column>
         <f:facet name="header">
-          <af:outputText value="First"/>
+          <tr:outputText value="First"/>
         </f:facet>
-        <af:outputText value="#{row.firstname}"/>
-      </af:column>
-      <af:column>
+        <tr:outputText value="#{row.firstname}"/>
+      </tr:column>
+      <tr:column>
         <f:facet name="header">
-          <af:outputText value="Last"/>
+          <tr:outputText value="Last"/>
         </f:facet>
-        af:outputText value="#{row.lastname}"/>
-      </af:column>
-    </af:column>
-  </af:table>
+        tr:outputText value="#{row.lastname}"/>
+      </tr:column>
+    </tr:column>
+  </tr:table>
           </pre>
           </section>]]>
       </mfp:long-description>
@@ -254,7 +254,7 @@ should be allowed to wrap]]></description>
       <mfp:component-metadata>
         <mfp:favorite-property>headerText</mfp:favorite-property>
         <mfp:group>${md:getTranslatedString("PALETTE_DATA")}</mfp:group>
-        <mfp:preferred-children>af:outputText</mfp:preferred-children>
+        <mfp:preferred-children>tr:outputText</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>column</mfp:uix2-local-name>
     </component-extension>

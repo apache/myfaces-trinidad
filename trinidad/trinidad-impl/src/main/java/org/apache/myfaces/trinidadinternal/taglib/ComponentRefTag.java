@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 
 
 /**
- * This tag inserts a region (defined by &lt;af:regionDef&gt;)
+ * This tag inserts a region (defined by &lt;tr:regionDef&gt;)
  * into the current page. The "id" attribute is required on this
  * tag.
  *

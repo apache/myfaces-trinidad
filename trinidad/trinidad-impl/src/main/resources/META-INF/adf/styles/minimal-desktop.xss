@@ -204,7 +204,7 @@
   </style>
 
   <!--
-    af:messages Styles
+    tr:messages Styles
   -->
 
   <style selector="af|messages">

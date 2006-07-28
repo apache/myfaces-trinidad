@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:af="http://myfaces.apache.org/trinidad"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
               xmlns:xi="http://www.w3.org/2001/XInclude"
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
@@ -184,7 +184,7 @@ be described.  Only one value is currently supported: "required".]]>
     <component-extension>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Object</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Legend</mfp:renderer-type>
-      <mfp:tag-name>af:objectLegend</mfp:tag-name>
+      <mfp:tag-name>tr:objectLegend</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreObjectLegendTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
             The objectLegend adds a legend describing the meaning of an icon.  The
@@ -194,12 +194,12 @@ be described.  Only one value is currently supported: "required".]]>
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<af:panelPage>
+        <mfp:source-code><![CDATA[<tr:panelPage>
   <f:facet name="infoStatus">
-    <af:objectLegend name="required"/>
+    <tr:objectLegend name="required"/>
   </f:facet>
   ...
-</af:panelPage>]]>
+</tr:panelPage>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Adam Winer</mfp:author>

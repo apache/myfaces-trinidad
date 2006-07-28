@@ -59,7 +59,7 @@ class TestScriptParser extends BaseNodeParser
     return script;
   }
 
-  static public final String NAMESPACE = "http://myfaces.apache.org/adf/view/faces";
+  static public final String NAMESPACE = "http://myfaces.apache.org/trinidad";
 
   public TestScriptParser(TestScript script, FacesConfigInfo info)
   {
@@ -164,7 +164,7 @@ class TestScriptParser extends BaseNodeParser
     {
       _type = attrs.getValue(NAMESPACE, "type");
       if (_type == null)
-        logError(context, "af:type attribute not on component", null);
+        logError(context, "tr:type attribute not on component", null);
       String facet = attrs.getValue(NAMESPACE, "facet");
       _definition = new ComponentDefinition(_type, _info);
       for (int i = 0; i < attrs.getLength(); i++)
