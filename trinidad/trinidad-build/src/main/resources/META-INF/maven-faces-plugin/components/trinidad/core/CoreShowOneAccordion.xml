@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
+              xmlns:xi="http://www.w3.org/2001/XInclude"
+              xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <component>
+    <description><![CDATA[The showOneAccordion control creates, contains and shows a series of items defined by showDetailItem nodes.]]>
+    </description>
+    <icon>
+      <small-icon>/org/apache/myfaces/trinidad/metadata/icons/showOneAccordion.png</small-icon>
+    </icon>
+    <component-type>org.apache.myfaces.trinidad.CoreShowOneAccordion</component-type>
+    <component-class>org.apache.myfaces.trinidad.component.core.layout.CoreShowOneAccordion</component-class>
+
+    <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
+    <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
+
+    <property>
+      <description>Indicates whether a minimum of one detail item must be disclosed at a time.  Use "false" (the default) to keep a minimum of one detail item disclosedat all times.  Use "true" to make it possible for zero detail items to be disclosed.
+      </description>
+      <property-name>discloseNone</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+      </property-extension>
+    </property>
+
+    <component-extension>
+      <mfp:component-supertype>org.apache.myfaces.trinidad.ShowOne</mfp:component-supertype>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Accordion</mfp:renderer-type>
+      <mfp:tag-name>tr:showOneAccordion</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.layout.CoreShowOneAccordionTag</mfp:tag-class>
+      <mfp:long-description><![CDATA[The showOneAccordion control can be used to display a group of contents belonging to a showDetailItem.
+          Accordion bar(s) with panels representing showDetailItem children is displayed.
+          The panel for the showDetailItem that is selected to be shown is shown as expanded and contents of 
+          selected showDetailItem is displayed. If none of the showDetailItem children are selected, the first showDetailItem
+          that is enabled is considered to be selected.]]>
+      </mfp:long-description>
+      <mfp:example>
+        <xhtml:p>The following is an example of showOneAccordion.</xhtml:p>
+        <mfp:source-code><![CDATA[<tr:showOneAccordion>
+          <tr:showDetailItem text="ADF Faces Components">
+            <tr:panelHeader text="ADF Faces Components First Child"/>
+            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Architecture" disabled="true">
+            <tr:panelHeader text="Architecture First Child"/>
+            <tr:panelHeader text="Architecture Second Child"/>
+          </tr:showDetailItem>
+          <tr:showDetailItem text="Release">
+            <tr:panelHeader text="Release First Child"/>
+            <tr:panelHeader text="Release Second Child"/>
+          </tr:showDetailItem>
+        </tr:showOneAccordion>]]>
+        </mfp:source-code>
+      </mfp:example>
+      <mfp:author>Ravi Baranwal</mfp:author>
+      <mfp:component-metadata>
+        <mfp:favorite-property>id</mfp:favorite-property>
+        <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
+        <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
+      </mfp:component-metadata>
+      <mfp:uix2-local-name>showOnePanel</mfp:uix2-local-name>
+      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+    </component-extension>
+  </component>
+</faces-config>

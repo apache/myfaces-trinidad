@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<!--
+ Copyright 2000-2006 The Apache Software Foundation.
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<!-- Resource file for all BLAF resources -->
+
+<!-- order of parameters is:   -->
+<!-- label                     -->
+<!-- input value (if present)  -->
+<!-- min value (if present)    -->
+<!-- max value (if present)    -->
+<!-- pattern (if present)      -->
+
+
+<!DOCTYPE resources SYSTEM "rts.dtd">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts"
+    package="org.apache.myfaces.trinidad.resource">
+
+  <!-- The FacesMessage class supports both summary and detailed messages. -->
+  <!-- The convention is that the summary will be the main key. The key    -->
+  <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
+  <!-- message will be of the form <classname>.MSG_KEY_detail.             -->
+  <!-- {0} the label that identifies the selection  -->
+  <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED">Value required.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXEditableValue.REQUIRED_detail">A value must be entered.</resource>
+
+  <!-- {0} the label that identifies the selection  -->
+  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED">Selection required.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.REQUIRED_detail">At least one value must be selected.</resource> 
+  
+  <!-- {0} the label that identifies the selection  -->
+  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED">Selection required.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXSelectOne.REQUIRED_detail">A value must be selected.</resource>
+  
+
+  <!-- {0} the label that identifies the selection  -->
+  <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED">Row must be selected.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXTableSelectOne.REQUIRED_detail">A row must be selected.</resource>
+
+  <!-- {0} the label that identifies the selection  -->
+  <resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED">A row must be selected.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXTableSelectMany.REQUIRED_detail">At least one row must be selected.</resource>
+
+
+  <!-- SelectManyRenderer ConversionException messages -->
+  <!-- {0} modelClass                                  -->
+  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE">Unsupported model type.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXSelectMany.UNSUPPORTED_MODEL_TYPE_detail">SelectMany does not support a model of type {0}.</resource>
+
+
+  <!-- {0} the label that identifies the component               -->
+  <!-- {1} value entered by the user                             -->
+  <!-- {2} the message string returned by the ConverterException -->
+  <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION">Conversion failed.</resource>
+  <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail">The value "{1}" was not understood: {2}</resource>
+
+  <!-- messages for validators -->
+
+  <!-- Note: The parameter numbers of these faces messages do not match -->
+  <!-- the parameter numbers of the rest of the ADF Faces messages      -->
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the minimum number allowed              -->
+  <resource key="javax.faces.validator.LongRangeValidator.MINIMUM">Value is too small.</resource>
+  <resource key="javax.faces.validator.LongRangeValidator.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the maximum number allowed              -->
+  <resource key="javax.faces.validator.LongRangeValidator.MAXIMUM">Value is too large.</resource>
+  <resource key="javax.faces.validator.LongRangeValidator.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+
+  <!-- {0} the label that identifies the component  -->
+  <!-- {1} value entered by the user                -->
+  <!-- NOTE: The format of this message must match the format of the    -->
+  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+  <resource key="javax.faces.LongRange">Not an integer.</resource>
+  <resource key="javax.faces.LongRange_detail">Value "{1}" is not an integer.</resource>
+
+  <!-- E.g. for input value "test" and maximum value set to "3" -->
+  <!--      the message would be:                               -->
+  <!-- The length of the value entered, "test", exceeds the     -->
+  <!--  maximum allowed byte length of 3                        -->
+  <!--                                                          -->
+  <!-- {0} the label that identifies the component              -->
+  <!-- {1} value entered by the user                            -->
+  <!-- {2} the maximum length                                   -->
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM">Value is too long.</resource>
+
+  <resource
+    key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_detail">The length of the value entered, "{1}", exceeds the maximum allowed byte length of {2}.</resource>
+
+  <!-- Date exceeds date range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the maximum allowed date     -->
+  <resource
+    key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM">Date is past valid range.</resource>
+
+  <resource
+    key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_detail">The date entered, "{1}", is beyond the last valid date {2}.</resource>
+
+  <!-- Date preceeds date range error                -->
+  <!-- {0} the label that identifies the component   -->
+  <!-- {1} represent Date which the user has set     -->
+  <!-- {2} represents the minimum allowed date       -->
+  <resource
+     key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM">Date is before valid range.</resource>
+  <resource
+    key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_detail">The date entered, "{1}", is before the first valid date {2}.</resource>
+
+  <!-- Date outside date range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the minimum allowed date     -->
+  <!-- {3} represents the maximum allowed date     -->
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE">Date is not within valid range.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail">The date entered, "{1}", is not within the range of valid dates {2} and {3}.</resource>
+
+  <!-- Input does not match regular expression error                        -->
+  <!-- {0} the label that identifies the component                          -->
+  <!-- {1} represents the input value                                       -->
+  <!-- {2} represents the 'pattern' expected in the input                   -->
+  <!-- E.g. for input value "9912" and pattern "[9]*" the message would be: -->
+  <!--  9912 does not match patern [9]*                                     -->
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH">Value does not match pattern.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail">The value "{1}" does not match the regular expression pattern "{2}".</resource>
+  
+    <!-- Length of input is less than the minimum specified length -->
+    <!-- {0} the label that identifies the component               -->
+    <!-- {1} value entered by the user                             -->
+    <!-- {2} the minimum length                                    -->
+    <resource
+      key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_detail">The length of the value entered, "{1}", is less than the minimum allowed length of {2}.</resource>
+  
+    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM">Value is too short.</resource>
+   
+     <!-- Length of input violates specified allowable range       -->
+     <!-- {0} the label that identifies the component              -->
+     <!-- {1} value entered by the user                            -->
+     <!-- {2} the minimum length                                   -->
+     <!-- {3} the maximum length                                   -->
+   <resource
+      key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE_detail">The length of the value entered, "{1}", must be between the allowed lengths of {2} and {3}.</resource>
+      
+    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE">Value is out of range.</resource>
+    
+    <!-- Length of input exceeds the specified maximum length     -->
+    <!-- {0} the label that identifies the component              -->
+    <!-- {1} value entered by the user                            -->
+    <!-- {2} the maximum length                                   -->
+    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM">Value is too long.</resource> 
+    <resource
+      key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail">The length of the value entered, "{1}",  exceeds the maximum allowed length of {2}.</resource>
+  
+
+
+  <!-- messages for converters -->
+
+  <!-- {0} the label that identifies the component             -->
+  <!-- {1} value entered by the user                           -->
+  <!-- {2} an example of the format the converter is expecting -->
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE">Not a date.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_DATE_detail">The value "{1}" is not a valid date. Valid example: "{2}".</resource>
+
+  <!-- {0} the label that identifies the component             -->
+  <!-- {1} value entered by the user                           -->
+  <!-- {2} an example of the format the converter is expecting -->
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME">Not a time.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_TIME_detail">The value "{1}" is not a valid time. Valid example: "{2}".</resource>
+
+
+  <!-- {0} the label that identifies the component             -->
+  <!-- {1} value entered by the user                           -->
+  <!-- {2} an example of the format the converter is expecting -->
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH">Not a date and time.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.CONVERT_BOTH_detail">The value "{1}" is not a valid date and time. Valid example: "{2}".</resource>
+
+
+  <!-- {0} the label that identifies the component    -->
+  <!-- {1} value entered by the user                  -->
+  <!-- {2} the pattern the converter is expecting     -->
+  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT">Not a color.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT_detail">The value "{1}" does not match any of the valid color patterns: {2}.</resource>
+
+  <!-- Color converter transparent string -->
+  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.TRANSPARENT">Transparent</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT">Not an integer.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.CONVERT_detail">The value "{1}" is not an integer.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the minimum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM">Value is too small.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the maximum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM">Value is too large.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT">Not an integer.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.CONVERT_detail">The value "{1}" is not an integer.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the minimum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM">Value is too small.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the maximum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM">Value is too large.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the specified conversion pattern        -->
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN">Not a number.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PATTERN_detail">The value "{1}" is not a number that matches the pattern "{2}".</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER">Not a number.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_NUMBER_detail">The value "{1}" is not a number.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY">Not a currency.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_CURRENCY_detail">The value "{1}" is not a valid currency value.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT">Not a percent.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.NumberConverter.CONVERT_PERCENT_detail">The value "{1}" is not a valid percentage value.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT">Not an integer.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.CONVERT_detail">The value "{1}" is not an integer.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the minimum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM">Value is too small.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the maximum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM">Value is too large.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT">Not an integer.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT_detail">The value "{1}" is not an integer.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the minimum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM">Value is too small.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} the maximum number allowed              -->
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM">Value is too large.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT">Not a number.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT_detail">The value "{1}" is not a number.</resource>
+
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT">Not a number.</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT_detail">The value "{1}" is not a number.</resource>
+
+  
+  <!-- format for message in a javascript alert window                 -->
+  <!-- This should match the af_messages.LIST_FORMAT_private           -->
+  <!-- in BLAFBundle.xrts!!                                            -->
+  <!-- Both summary and detail are here, but the detail is never used  -->
+  <!-- {0} = label of the component                                    -->
+  <!-- {1} = full formatted error message detail                       -->
+  <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT">{0} - {1}</resource>
+  <resource key="org.apache.myfaces.trinidad.convert.ALERT_FORMAT_detail">{0} - {1}</resource>
+
+</resources>

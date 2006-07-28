@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<document>
+ <properties>
+  <title>tr:regionDef</title>
+ </properties>
+ <body>
+ <section name="Summary">
+ <p>
+   <b>Tag name:</b> &lt;tr:regionDef&gt;
+   <br/>
+
+          This tag, in conjunction with tr:region, allows
+a common UI (a region) to be defined. Once 
+          defined, the region must be registered in "WEB-INF/region-metadata.xml". 
+          A registered region is referenced with the &lt;tr:region&gt; tag.
+          A region can be used
+          many times, either on the same page, or on multiple pages.
+          A single region must be defined in its own page, and
+          the &lt;tr:regionDef&gt; must be the top level tag on that page (it
+          replaces &lt;f:subview&gt;). See the &lt;tr:region&gt; tag to see
+          how a region is used (or referenced).
+        <h4>Example:</h4><source>
+ &lt;tr:regionDef var="stuff" &gt;
+   &lt;tr:panelHeader text="Info for Stock Symbol:#{stuff.symbol}"&gt;
+     &lt;tr:inputText readOnly="true" 
+        label="Description" value="#{stuff.desc}"/&gt;
+    &lt;/tr:panelHeader&gt;
+ &lt;/tr:regionDef&gt;</source><p> If the above is defined in "/regions/stock.jspx", then you need
+to register the above region in "WEB-INF/region-metadata.xml". Here's an
+example:</p><source>
+&lt;faces-config&gt;
+  &lt;component&gt;
+    &lt;component-type&gt;org.apache.myfaces.trinidaddemo.region.stock&lt;/component-type&gt;
+    &lt;component-class&gt;
+      org.apache.myfaces.trinidad.component.UIXRegion
+    &lt;/component-class&gt;
+    &lt;component-extension&gt;
+      &lt;region-jsp-ui-def&gt;/regions/stock.jspx&lt;/region-jsp-ui-def&gt;
+    &lt;/component-extension&gt;
+    &lt;attribute&gt;
+      &lt;attribute-name&gt;symbol&lt;/attribute-name&gt;
+      &lt;attribute-class&gt;java.lang.String&lt;/attribute-class&gt;
+      &lt;attribute-extension&gt;
+        &lt;required&gt;true&lt;/required&gt;
+      &lt;/attribute-extension&gt;
+    &lt;/attribute&gt;
+    &lt;attribute&gt;
+      &lt;attribute-name&gt;description&lt;/attribute-name&gt;
+      &lt;attribute-class&gt;java.lang.String&lt;/attribute-class&gt;
+      &lt;default-value&gt;Default Description&lt;/default-value&gt;
+    &lt;/attribute&gt;
+  &lt;/component&gt;
+&lt;/faces-config&gt;</source><p>And after it is registered, you can use the above
+          region in say "master.jspx", like this:</p><source>
+  &lt;tr:region regionType="org.apache.myfaces.trinidaddemo.region.stock" &gt;
+   &lt;f:attribute name="symbol" value="ORCL"/&gt;
+   &lt;f:attribute name="desc" value="Oracle Corp"/&gt;
+ &lt;/tr:region&gt;</source>
+ </p>
+ </section>
+ <section name="Attributes">
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Supports EL?</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>var</td><td>String</td><td>Yes</td><td>
+
+              The name of the EL variable to use to reference attributes on the
+              parent &lt;tr:region>. For example,
+              let's say this "var" attribute is set to the value "attrs";
+              if the &lt;tr:region> tag has an attribute called "bar",
+              The value of "bar" can be referenced from a child within 
+              &lt;tr:regionDef> using the expression
+              <code>#{attrs.bar}</code>.
+            </td>
+</tr>
+</table>
+ </section>
+ </body>
+</document>

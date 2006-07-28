@@ -1,8 +1,0 @@
-<test xmlns="http://myfaces.apache.org/adf/view/faces/test"
-       xmlns:af="http://myfaces.apache.org/adf/view/faces">
-  <base-component af:type="org.apache.myfaces.adf.CoreMessage" for="other">
-    <component af:type="org.apache.myfaces.adf.CoreOutputText"
-                af:facet="help"
-                value="help text"/>
-  </base-component>
-</test>

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root version="1.2"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="commandNavigationItem Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
+          <f:facet name="separator">
+            <tr:objectSeparator/>
+          </f:facet>
+          <tr:navigationLevel hint="buttons">
+            <tr:commandNavigationItem immediate="true" text="Component Guide"
+              action="guide"/>
+            <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+              action="guide.page"/>
+            <tr:commandNavigationItem immediate="true" text="NavigationLevel Demo"
+              action="guide.navigationLevel"/>
+            <tr:commandNavigationItem immediate="true" text="NavigationPath Demo"
+              action="guide.navigationPath"/>
+            <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
+              action="guide.panelPage"/>
+          </tr:navigationLevel>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A commandNavigationItem&lt;/b>"/>
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;tabs&quot;&lt;/b>"/>
+            <tr:navigationLevel hint="tabs" shortDesc="Select Page"
+              id="editorExample">
+              <tr:commandNavigationItem
+                binding="#{editor.component}"
+                text="Editor Item"
+                shortDesc="Item with an assigned actionListener"
+                partialSubmit="true"
+                accessKey="A"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem
+                text="Apache"
+                shortDesc="Apache's website"
+                destination="http://www.apache.org/"/>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+          <jsp:directive.include file="editor.jspf"/>
+
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;bar&quot;&lt;/b>"/>
+            <tr:navigationLevel hint="bar" id="barExample">
+              <tr:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="B"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;list&quot;&lt;/b>"/>
+            <tr:navigationLevel hint="list" id="listExample">
+              <tr:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="C"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;buttons&quot;&lt;/b>"/>
+            <tr:navigationLevel hint="buttons" id="buttonsExample">
+              <tr:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="D"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;choice&quot;&lt;/b>"/>
+            <tr:navigationLevel hint="choice" shortDesc="Switch application"
+              id="choiceExample">
+              <tr:commandNavigationItem text="Component Guide" action="guide"
+                shortDesc="Return to the component guide"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                accessKey="E"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
+            </tr:navigationLevel>
+          </tr:panelGroup>
+
+          <tr:panelGroup layout="vertical">
+            <tr:outputFormatted
+              value="&lt;b>commandNavigationItem's inside of a navigationPath&lt;/b>"/>
+            <tr:navigationPath id="pathExample">
+              <tr:commandNavigationItem text="Component Guide"
+                action="guide"
+                shortDesc="Return to the component guide"
+                accessKey="F"/>
+              <tr:commandNavigationItem text="Selected Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                partialSubmit="true"
+                selected="true"/>
+              <tr:commandNavigationItem text="Icon Item"
+                actionListener="#{demoCommandNavigationItem.navigationItemAction}"
+                icon="/components/images/file.gif"
+                partialSubmit="true"/>
+              <tr:commandNavigationItem text="Disabled Item"
+                disabled="true"
+                action="guide"
+                destination="http://www.apache.org/"/>
+              <tr:commandNavigationItem text="Apache"
+                destination="http://www.apache.org/"/>
+            </tr:navigationPath>
+          </tr:panelGroup>
+
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>

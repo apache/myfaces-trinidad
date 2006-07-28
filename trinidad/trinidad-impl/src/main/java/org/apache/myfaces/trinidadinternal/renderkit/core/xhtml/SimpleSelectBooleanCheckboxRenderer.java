@@ -1,0 +1,127 @@
+/*
+ * Copyright  2005,2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanCheckbox;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+
+/**
+ */
+public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRenderer
+{
+  public SimpleSelectBooleanCheckboxRenderer()
+  {
+    this(CoreSelectBooleanCheckbox.TYPE);
+  }
+
+  public SimpleSelectBooleanCheckboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
+  //**********************
+  //decode
+  //**********************
+  
+  public Object getSubmittedValue(
+    FacesContext context,
+    UIComponent  component)
+  {
+    if (super.getSubmittedValue(context, component) == null)
+      return Boolean.FALSE;
+
+    return Boolean.TRUE;
+  }
+
+  
+  //**********************
+  //encode
+  //**********************
+
+  protected Object getValueAttr(RenderingContext arc)
+  {
+    // HTML 3.2 specification, default value for checkboxes
+    return "t";
+  }
+
+  protected Object getType()
+  {
+    return "checkbox";
+  }
+
+  protected String getIconAltTextName(
+    boolean selected
+  )
+  {
+    return (selected
+      ? "af_selectBooleanCheckbox.READONLY_CHECKED_TIP" 
+      : "af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP");
+  }
+  
+  protected String getIconName(
+    boolean selected,
+    boolean disabled
+  )
+  {
+    final String iconName;
+    if (disabled)
+    {
+      iconName = (selected ? 
+              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME : 
+              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME);
+    }
+    else
+    {
+      iconName = (selected ? 
+              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME : 
+              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME);
+    }
+    
+    return iconName;           
+  }
+  
+
+  protected String getOnclick(
+    FacesBean bean
+    )
+  {
+    String onClick = super.getOnclick(bean);
+    if (isAutoSubmit(bean))
+    {
+      String auto = getAutoSubmitScript(bean);
+      if (onClick == null)
+        onClick = auto;
+      else if (auto != null)
+        onClick = XhtmlUtils.getChainedJS(onClick, auto, true).toString();
+    }
+
+    return onClick;
+  }  
+  
+  protected String getContentStyleClass(FacesBean bean)
+  {
+   return "af|selectBooleanCheckbox::content";
+  }
+  
+  protected String getRootStyleClass(FacesBean bean)
+  {
+   return "af|selectBooleanCheckbox";
+  }                                 
+}

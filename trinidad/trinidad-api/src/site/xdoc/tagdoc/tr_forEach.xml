@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<document>
+ <properties>
+  <title>tr:forEach</title>
+ </properties>
+ <body>
+ <section name="Summary">
+ <p>
+   <b>Tag name:</b> &lt;tr:forEach&gt;
+   <br/>
+<p>
+        The forEach tag is a replacement for the JSTL
+&lt;c:forEach&gt; tag that works with ADF Faces components.  In JSF
+1.1, &lt;c:forEach&gt; cannot be used with any JSF components or tags.
+(<b>Note</b>: this tag is not supported in Facelets, because c:forEach
+is functional in Facelets.  It will also be removed in JSF 1.2/JSP
+2.1, because c:forEach will become functional there too.)  This tag
+brings that functionality to JSF, but it is limited to ADF Faces tags.
+This tag also has several limitations not found in &lt;c:forEach&gt;:
+
+<ul>
+
+<li>&lt;tr:forEach&gt; does not currently support scenarios where the
+size of the "items" list or array changes from one request to the
+next. It may be possible to work around this in specific scenarios by
+manually deleting all children of the parent component
+(&lt;tr:selectOneListbox&gt; in the above example), but this has not
+yet been tested.</li>
+
+<li>&lt;tr:forEach&gt; does not support arbitrary
+java.util.Collections; it can only iterate over java.util.Lists or
+arrays.</li>
+
+<li>&lt;tr:forEach&gt; executes at the time the JSP tag executes. So
+it does not have access to any EL variables that are created by JSF
+components.  For example, the &lt;tr:table&gt; creates an EL variable
+using the value of the "var" attribute. However, this EL variable is
+not available to &lt;tr:forEach&gt;</li>
+
+</ul></p><h4>Example:</h4><source>
+            &lt;tr:selectOneListbox value="#{someValue}"&gt;
+              &lt;tr:forEach var="item" items="#{model.listOfItems}"&gt;
+                &lt;tr:selectItem value="#{item.value}" text="#{item.text}"/&gt;
+              &lt;/tr:forEach&gt;
+            &lt;/tr:selectOneListbox&gt;</source><source>
+            &lt;tr:forEach varStatus="vs" begin="1" end="5"&gt;
+              &lt;tr:outputText id="ot2" value="#{vs.index} #{vs.count} #{vs.begin} #{vs.current}"/&gt;
+            &lt;/tr:forEach&gt;</source>
+ </p>
+ </section>
+ <section name="Attributes">
+<table>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Supports EL?</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>begin</td><td>int</td><td>No</td><td>
+
+          index at which iteration begins
+        </td>
+</tr>
+<tr>
+<td>end</td><td>int</td><td>No</td><td>
+
+          index at which iteration ends
+        </td>
+</tr>
+<tr>
+<td>items</td><td>Object</td><td>Only EL</td><td>
+
+          the collection to iterate over
+        </td>
+</tr>
+<tr>
+<td>step</td><td>int</td><td>No</td><td>
+
+          number to increment on each iteration
+        </td>
+</tr>
+<tr>
+<td>var</td><td>String</td><td>No</td><td>
+
+          name of the variable exposed when iterating
+        </td>
+</tr>
+<tr>
+<td>varStatus</td><td>String</td><td>No</td><td>
+
+          name of the loop status exposed when iterating. The properties
+		'index','count','begin','end','step','current','first','last'
+		are available through this
+        </td>
+</tr>
+</table>
+ </section>
+ </body>
+</document>

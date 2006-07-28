@@ -1,0 +1,532 @@
+/*
+ * Copyright  2005,2006 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
+
+import java.io.IOException;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
+import org.apache.myfaces.trinidad.component.UIXIterator;
+import org.apache.myfaces.trinidad.component.UIXComponentRef;
+import org.apache.myfaces.trinidad.component.UIXSubform;
+import org.apache.myfaces.trinidad.component.UIXSwitcher;
+
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
+
+import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
+
+
+/**
+ * XHTML rendering utilities.
+ */
+public class XhtmlUtils
+{
+  /**
+   * Skip over pure iteration components to find a "structural" parent.
+   * This code is not guaranteed to work, but will work well enough.
+   * @return a structural parent, or null if none exists
+   */
+  static public UIComponent getStructuralParent(UIComponent component)
+  {
+    while (true)
+    {
+      component = component.getParent();
+      if (component == null)
+        return null;
+
+      if (_NON_STRUCTURAL_COMPONENT_FAMILIES.contains(component.getFamily()))
+        continue;
+
+      return component;
+    }
+  }
+
+
+  /**
+   * Returns true if the agent has enough support for ADF Faces
+   * to launch separate windows.  We require both multiple window
+   * support and PPR support.
+   */
+  static public final boolean supportsSeparateWindow(
+    TrinidadAgent agent)
+  {
+    return (Boolean.TRUE.equals(
+             agent.getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)) &&
+            Boolean.TRUE.equals(
+             agent.getCapability(TrinidadAgent.CAP_PARTIAL_RENDERING)));
+  }
+
+  /** Library key for the locale lib */
+  public static final String CORE_LIB =
+    XhtmlScriptletFactory.CORE_LIB;
+
+  /**
+   * Returns a composite ID based on a base and a suffix.
+   */
+  public static String getCompositeId(String baseid, String suffix)
+  {
+    int length = baseid.length() +
+                 XhtmlConstants.COMPOSITE_ID_EXTENSION.length();
+    if (suffix != null)
+      length += suffix.length();
+    StringBuffer compID
+      = new StringBuffer(length);
+    compID.append(baseid);
+    compID.append(XhtmlConstants.COMPOSITE_ID_EXTENSION);
+    if (suffix != null)
+      compID.append(suffix);
+    return compID.toString();
+  }
+
+
+  /**
+   * Registers a scriptlet.
+   */
+  public static  void registerScriptlet(Object key, Scriptlet scriptlet)
+  {
+    _sScriptletTable.put(key, scriptlet);
+  }
+
+  /**
+   */
+  static public void addLib(
+    FacesContext        context,
+    RenderingContext arc,
+    Object              libKey) throws IOException
+  {
+    if ((XhtmlRenderer.supportsScripting(arc)) && (libKey != null))
+    {
+      Scriptlet scriptlet = (Scriptlet) _sScriptletTable.get(libKey);
+      if (scriptlet == null)
+      {
+        if (_LOG.isWarning())
+          _LOG.warning("Couldn't find scriptlet: " + libKey);
+      }
+      else
+      {
+        scriptlet.outputScriptlet(context, arc);
+      }
+    }
+  }
+
+
+  /**
+   * Write out a script element importing a library.
+   */
+  public static void writeLibImport(
+    FacesContext        context,
+    RenderingContext arc,
+    Object              libURL) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement("script", null);
+    XhtmlRenderer.renderScriptDeferAttribute(context, arc);
+    // Bug #3426092:
+    // render the type="text/javascript" attribute in accessibility mode
+    XhtmlRenderer.renderScriptTypeAttribute(context, arc);
+
+    // For portlets, we want to make sure that we only import
+    // each script once.  Employ document.write() to achieve this
+    // effect.  However, DON'T try this on Netscape 4.x (even though
+    // that's the platform that would benefit the most from this trick),
+    // as this same trick once caused really problems when resizing windows!
+    if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()) &&
+        !(TrinidadAgent.APPLICATION_NETSCAPE ==
+          arc.getAgent().getAgentApplication()))
+    {
+      if (arc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
+      {
+        arc.getProperties().put(_PORTLET_LIB_TABLE_KEY, Boolean.TRUE);
+        writer.writeText("var _uixJSL;" +
+                         "if(!_uixJSL)_uixJSL={};" +
+                         "function _addJSL(u)" +
+                         "{" +
+                           "if(!_uixJSL[u])" +
+                           "{" +
+                             "_uixJSL[u]=1;" +
+                             "document.write(\"<scrip\"+" +
+                                            "\"t src=\\\"\"+u+" +
+                                            "\"\\\"></scrip\"+" +
+                                            "\"t>\")" +
+                           "}" +
+                         "}",
+             null);
+      }
+      writer.writeText("_addJSL(\"", null);
+      writer.writeText(libURL, null);
+      writer.writeText("\")", null);
+    }
+    else
+    {
+      // The "safe" case: just write out the source
+      writer.writeAttribute("src", libURL, null);
+    }
+
+    writer.endElement("script");
+  }
+
+
+   /**
+   * Return the chained JavaScript
+   */
+  public static String getChainedJS(
+    String evh1,
+    String evh2,
+    boolean shortCircuit
+    )
+  {
+    //
+    // don't chain if one of the Strings is null or empty
+    //
+    if (evh1 == null)
+      return evh2;
+
+    if (evh2 == null)
+      return evh1;
+
+    int evh1Length = evh1.length();
+
+    if (evh1Length == 0)
+      return evh2;
+
+    int evh2Length = evh2.length();
+
+    if (evh2Length == 0)
+      return evh1;
+
+    //
+    // Chain the results together
+    //
+
+    // allocate enough room for the constants plus double the length
+    // of the possible-escaped strings
+    //
+    StringBuffer outBuffer = new StringBuffer(15 +
+                                              evh1Length * 2 +
+                                              3 +
+                                              evh2Length * 2 +
+                                              18);
+
+    outBuffer.append("return _chain('");
+    _escapeSingleQuotes(outBuffer, evh1);
+    outBuffer.append("','");
+    _escapeSingleQuotes(outBuffer, evh2);
+
+    if ( shortCircuit )
+      outBuffer.append("',this,event,true)");
+    else
+      outBuffer.append("',this,event)");
+
+    return outBuffer.toString();
+  }
+
+
+  /**
+   * Handle escaping '/', and single quotes, plus escaping text inside of
+   * quotes with just a String for input.  If a String in and a String out is
+   * all that is required, this version is more efficient if the String
+   * does not need to be escaped.
+   */
+  public static String escapeJS(
+    String inString
+    )
+  {
+    return escapeJS(inString, false /* inQuotes */);
+  }
+
+
+
+  /**
+   * Handle escaping '/', and single quotes, plus escaping text inside of
+   * quotes with just a String for input.  If a String in and a String out is
+   * all that is required, this version is more efficient if the String
+   * does not need to be escaped.
+   */
+  public static String escapeJS(
+    String  inString,
+    boolean inQuotes
+    )
+  {
+    int charCount = inString.length();
+
+    StringBuffer outBuffer = new StringBuffer(charCount * 2);
+
+    escapeJS(outBuffer, inString, inQuotes);
+
+    // since we only add characters, if the character count is different, we
+    // will have a different output string, otherwise, reuse the input string,
+    // as it is unchanged
+    if (charCount != outBuffer.length())
+    {
+      return outBuffer.toString();
+    }
+    else
+    {
+      return inString;
+    }
+  }
+
+
+  /**
+   * Handle escaping '/', and single quotes, plus escaping text inside of
+   * quotes.
+   */
+  public static void escapeJS(
+    StringBuffer outBuffer,
+    String       inString
+    )
+  {
+    escapeJS(outBuffer, inString, false /* inQuotes */);
+  }
+
+
+  /**
+   * Handle escaping '/', and single quotes, plus escaping text inside of
+   * quotes.
+   */
+  public static void escapeJS(
+    StringBuffer outBuffer,
+    String       inString,
+    boolean      inQuotes)
+  {
+    escapeJS(outBuffer, inString, inQuotes, 1 /* escapeCount */);
+  }
+
+  /**
+   * Handle escaping '/', and single quotes, plus escaping text inside of
+   * quotes.
+   */
+  public static void escapeJS(
+    StringBuffer outBuffer,
+    String       inString,
+    boolean      inQuotes,
+    int          escapeCount
+    )
+  {
+    int leadSlashCount = (int)Math.pow(2, escapeCount) - 2;
+    int charCount = inString.length();
+
+    char    prevChar  = '\u0000';
+
+    //
+    // loop through the string escaping the single quotes at the \'s as
+    // necessary
+    //
+    for (int i = 0; i < charCount; i++)
+    {
+      char currChar = inString.charAt(i);
+
+      if (currChar == '\'')
+      {
+        if (!(inQuotes && (prevChar == '\\')))
+        {
+          // only toggle whetehr we are in quotes if the quote isn't escaped
+          inQuotes = !inQuotes;
+        }
+
+        // handle double-escaping case
+        // eg. "\'" + escapeJS(buffer,"a'b",true,2) + "\'" -> "\'a\\\'b\'"
+        for (int j=0; j < leadSlashCount; j++)
+        {
+          outBuffer.append('\\');
+        }
+
+        // always escape quotes
+        outBuffer.append('\\');
+
+        // output the current character
+        outBuffer.append(currChar);
+      }
+      else
+      {
+        if (inQuotes)
+        {
+          if (currChar > 255)
+          {
+            outBuffer.append("\\u");
+            _appendHexString(outBuffer, currChar, 4);
+          }
+          else
+          {
+            if ((currChar > 31) &&
+                (currChar < 128))
+            {
+              if (currChar == '\\')
+              {
+                // escape all \'s in strings
+                outBuffer.append('\\');
+              }
+
+              // output the current character
+              outBuffer.append(currChar);
+            }
+            else
+            {
+              outBuffer.append("\\x");
+              _appendHexString(outBuffer, currChar, 2);
+            }
+          }
+        }
+        else
+        {
+          // Double up backslashes (see bug 1676002)
+          if (currChar == '\\')
+            outBuffer.append('\\');
+
+          // output the current character
+          outBuffer.append(currChar);
+        }
+      }
+
+      // keep track of the previous character to determine whether
+      // single quotes are escaped
+      prevChar = currChar;
+    }
+  }
+
+  private static void _appendHexString(
+    StringBuffer buffer,
+    int          number,
+    int          minDigits
+    )
+  {
+    String hexString = Integer.toHexString(number);
+
+    int hexLength = hexString.length();
+
+    int zeroPadding = minDigits - hexLength;
+
+    if (zeroPadding > 0)
+    {
+      buffer.append('0');
+
+      while (zeroPadding > 1)
+      {
+        buffer.append('0');
+        zeroPadding--;
+      }
+    }
+    else
+    {
+      if (zeroPadding < 0)
+      {
+        throw new IllegalArgumentException();
+      }
+    }
+
+    buffer.append(hexString);
+  }
+
+
+  private static void _escapeSingleQuotes(
+    StringBuffer outBuffer,
+    String       inString
+    )
+  {
+    int     charCount = inString.length();
+    char    prevChar  = '\u0000';
+    boolean inQuotes  = false;
+
+    //
+    // loop through the string escaping the single quotes at the \'s as
+    // necessary
+    //
+    for (int i = 0; i < charCount; i++)
+    {
+      char currChar = inString.charAt(i);
+
+      if (currChar == '\'')
+      {
+        if (!(inQuotes && (prevChar == '\\')))
+        {
+          // only toggle whetehr we are in quotes if the quote isn't escaped
+          inQuotes = !inQuotes;
+        }
+
+        // always escape quotes
+        outBuffer.append('\\');
+      }
+      else if ((currChar == '\\') && inQuotes)
+      {
+        // escape all \'s in strings
+        outBuffer.append('\\');
+      }
+
+      // output the current character
+      outBuffer.append(currChar);
+
+      // keep track of the previous character to determine whether
+      // single quotes are escaped
+      prevChar = currChar;
+    }
+  }
+  public static String getJSIdentifier(String clientId)
+  {
+    if (clientId == null)
+      return null;
+
+    // Bug 3931544:  don't use colons in Javascript variable names.
+    // We'll just replace colons with underscores;  not perfect, but adequate
+    return clientId.replace(':','_');
+  }
+
+  public static String getFormattedString(String pattern, String[] parameters)
+  {
+    FastMessageFormat formatter = new FastMessageFormat(pattern);
+    return formatter.format(parameters);
+  }
+
+  /** HashMap mapping names to their scriptlets */
+  private static Map _sScriptletTable =
+    Collections.synchronizedMap(new HashMap(37));
+
+  // Key for storing whether we've written out the script
+  // for storing loaded libraries
+  static private final Object _PORTLET_LIB_TABLE_KEY = new Object();
+  static private final Set
+    _NON_STRUCTURAL_COMPONENT_FAMILIES = new HashSet();
+
+  static
+  {
+    _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXIterator.COMPONENT_FAMILY);
+    _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXComponentRef.COMPONENT_FAMILY);
+    _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXSubform.COMPONENT_FAMILY);
+    _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXSwitcher.COMPONENT_FAMILY);
+  }
+
+  static
+  {
+    XhtmlScriptletFactory.registerAllScriptlets();
+  }
+
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(XhtmlUtils.class);
+
+}

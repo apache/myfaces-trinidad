@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:trh="http://myfaces.apache.org/trinidad/html"
+          xmlns:tr="http://myfaces.apache.org/trinidad">
+ <jsp:directive.page contentType="text/html;charset=utf-8"/>
+ <f:view>
+  <trh:html>
+   <trh:head title="panelPartialRoot Demo"/>
+   <tr:panelPartialRoot>
+    <tr:form>
+     <tr:panelGroup layout="vertical">
+      <f:facet name="separator">
+       <tr:objectSeparator/>
+      </f:facet>
+      <tr:commandLink immediate="true"
+                      text="Component Guide"
+                      action="guide"/>
+      <tr:outputFormatted styleUsage="instruction"
+                          value="The panelPartialRoot component simply sets the page up for partial page rendering without an &amp;lt;trh:body&amp;gt; or &amp;lt;tr:document&amp;gt;"/>
+      <trh:tableLayout width="80%">
+       <trh:rowLayout>
+        <tr:inputText autoSubmit="true"
+                      value="Change this text"
+                      label="Enter text here and tab out: "
+                      valueChangeListener="#{partialDemoUtil.valueChanged}"/>
+        <tr:panelLabelAndMessage label="You entered: ">
+         <tr:outputFormatted id="itTarget"
+                             styleUsage="instruction"
+                             binding="#{partialDemoUtil.textUpdate}"
+                             value="nothing yet"/>
+        </tr:panelLabelAndMessage>
+       </trh:rowLayout>
+      </trh:tableLayout>
+     </tr:panelGroup>
+    </tr:form>
+   </tr:panelPartialRoot>
+  </trh:html>
+ </f:view>
+</jsp:root>

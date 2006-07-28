@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:tr="http://myfaces.apache.org/trinidad"
+          version="1.2">
+  <jsp:directive.page contentType="text/html;charset=utf-8"/>
+  <f:view>
+    <tr:document title="NavigationPath Demo">
+      <tr:form>
+        <tr:panelGroup layout="vertical">
+          <f:facet name="separator">
+            <tr:objectSeparator/>
+          </f:facet>
+          <tr:navigationLevel hint="buttons">
+            <tr:commandNavigationItem immediate="true" text="Component Guide"
+              action="guide"/>
+            <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
+              action="guide.page"/>
+            <tr:commandNavigationItem immediate="true" text="NavigationLevel Demo"
+              action="guide.navigationLevel"/>
+            <tr:commandNavigationItem immediate="true" text="CommandNavigationItem Demo"
+              action="guide.commandNavigationItem"/>
+            <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
+              action="guide.panelPage"/>
+          </tr:navigationLevel>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath&lt;/b>"/>
+          <tr:navigationPath binding="#{editor.component}">
+            <tr:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
+            <tr:commandNavigationItem text="Apache.org" destination="http://www.apache.org" targetFrame="_new"/>
+            <tr:commandNavigationItem text="Disabled Item" disabled="true" action="guide.tree"/>
+            <tr:commandNavigationItem text="NavigationLevel Demo" action="guide.navigationLevel"/>
+            <tr:commandNavigationItem text="Current Page" action="guide.navigationPath"/>
+          </tr:navigationPath>
+          <jsp:directive.include file="editor.jspf"/>
+          <tr:outputFormatted styleUsage="instruction" value="&lt;b>A navigationPath with the 'orientation' attribute set to 'vertical'&lt;/b>"/>
+          <tr:navigationPath orientation="vertical">
+            <tr:commandNavigationItem text="Table Demo" action="guide.table"/>
+            <tr:commandNavigationItem text="Tree Demo" action="guide.tree"/>
+            <tr:commandNavigationItem text="PanelPage Demo" action="guide.panelPage"/>
+            <tr:commandNavigationItem text="NavigationPath Demo" action="guide.navigationPath"/>
+          </tr:navigationPath>
+        </tr:panelGroup>
+      </tr:form>
+    </tr:document>
+  </f:view>
+</jsp:root>
