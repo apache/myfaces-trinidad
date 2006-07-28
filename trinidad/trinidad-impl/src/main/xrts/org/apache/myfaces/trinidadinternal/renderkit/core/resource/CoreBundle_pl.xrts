@@ -16,7 +16,7 @@
 -->
 <!--Resource file for all BLAF resources-->
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidadinternal.renderkit.core.resource">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.renderkit.core.resource">
 <!-- =-=jmw known bugs: -->
 <!-- af_page has a bunch of errors: -->
 <!-- 

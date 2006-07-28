@@ -11,7 +11,7 @@
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
+ See the License for the specific language governing permissions and                                                               
  limitations under the License.
 -->
 <!-- Resource file for all BLAF resources -->
@@ -25,7 +25,7 @@
 
 
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidad.resource">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
 <!-- The FacesMessage class supports both summary and detailed messages. -->
 <!-- The convention is that the summary will be the main key. The key    -->
 <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->

@@ -16,7 +16,7 @@
 -->
 <!--Resource file for all BLAF resources-->
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.adf.resource">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
 
   <!--messages for validators -->
   <!--Eg for input value test and maximum value set to 3 message would be
