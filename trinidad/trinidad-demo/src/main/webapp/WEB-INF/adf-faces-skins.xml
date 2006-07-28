@@ -23,13 +23,13 @@
             purple
         </family>
         <render-kit-id>
-            org.apache.myfaces.adf.desktop
+            org.apache.myfaces.trinidad.desktop
         </render-kit-id>
         <style-sheet-name>
             skins/purple/purpleSkin.css
         </style-sheet-name>
         <bundle-name>
-            org.apache.myfaces.adfdemo.resource.SkinBundle
+            org.apache.myfaces.trinidaddemo.resource.SkinBundle
         </bundle-name>
     </skin>
     <skin>
@@ -40,7 +40,7 @@
             beach
         </family>
         <render-kit-id>
-            org.apache.myfaces.adf.desktop
+            org.apache.myfaces.trinidad.desktop
         </render-kit-id>
         <style-sheet-name>
             skins/beach/beach.css
