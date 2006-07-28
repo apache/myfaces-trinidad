@@ -160,7 +160,7 @@
     <module>maven-jdev-plugin</module>
     <module>maven-javascript-plugin</module>
     <module>maven-xrts-plugin</module>
-    <!--module>maven-adf-archetype</module-->
+    <module>myfaces-archetype-trinidad</module>
   </modules>
 
   <distributionManagement>

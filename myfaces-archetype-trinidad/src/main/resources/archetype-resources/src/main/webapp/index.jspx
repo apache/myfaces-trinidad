@@ -16,18 +16,18 @@
 -->
 <jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
           xmlns:f="http://java.sun.com/jsf/core"
-          xmlns:af="http://myfaces.apache.org/adf/faces" >
+          xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
-    <af:document title="ADF Archetype Demo">
-       <af:form>
+    <tr:document title="Apache MyFaces Trinidad Archetype Demo">
+       <tr:form>
        
-        <af:panelPage>
-          <af:inputText label="Your name" id="input1" value="#{helloWorldBacking.name}" required="true"/>
-          <af:commandButton id="button1" text="press me" action="#{helloWorldBacking.send}" />
-        </af:panelPage>
+        <tr:panelPage>
+          <tr:inputText label="Your name" id="input1" value="#{helloWorldBacking.name}" required="true"/>
+          <tr:commandButton id="button1" text="press me" action="#{helloWorldBacking.send}" />
+        </tr:panelPage>
        
-       </af:form>
-    </af:document>
+       </tr:form>
+    </tr:document>
   </f:view>
 </jsp:root>

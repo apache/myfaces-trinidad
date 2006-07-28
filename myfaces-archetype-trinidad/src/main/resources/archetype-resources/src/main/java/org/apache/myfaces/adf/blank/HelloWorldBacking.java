@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.adf.blank;
+package org.apache.myfaces.trinidad.blank;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.adf.render.ExtendedRenderKitService;
-import org.apache.myfaces.adf.util.Service;
+import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
+import org.apache.myfaces.trinidad.util.Service;
 
 /**
  * A typical simple backing bean, that is backed to <code>helloworld.jsp</code>

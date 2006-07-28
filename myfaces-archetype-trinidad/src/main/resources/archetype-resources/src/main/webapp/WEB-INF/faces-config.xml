@@ -20,9 +20,9 @@
 <faces-config>
   
   <application>
-    <!-- Use the ADF RenderKit -->
+    <!-- Use the Trinidad RenderKit -->
     <default-render-kit-id>
-      org.apache.myfaces.adf.core
+      org.apache.myfaces.trinidad.core
     </default-render-kit-id>
   </application>
 
@@ -30,7 +30,7 @@
   <managed-bean>
     <managed-bean-name>helloWorldBacking</managed-bean-name>
     <managed-bean-class>
-       org.apache.myfaces.adf.blank.HelloWorldBacking
+       org.apache.myfaces.trinidad.blank.HelloWorldBacking
     </managed-bean-class>
     <managed-bean-scope>
        request
