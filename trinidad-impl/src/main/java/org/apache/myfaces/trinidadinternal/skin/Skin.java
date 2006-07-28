@@ -69,7 +69,7 @@ abstract public class Skin
   /**
    * Returns the name of the skin "family" for this skin.
    * The family name is used when specifying a preferred skin
-   * in adf-faces-config.xml.
+   * in trinidad-config.xml.
    * This provides a way to refer to a group of
    * related skin implementations while allowing the
    * particular skin instance to be selected based on the

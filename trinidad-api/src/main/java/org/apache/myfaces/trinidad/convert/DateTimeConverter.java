@@ -59,9 +59,9 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * If dateStyle is not set, then <code>dateStyle</code> defaults to
  * <code>shortish</code>.
  *
- *  <p>Timezone can be set per web-app in adf-faces-config.xml configuration file.
+ *  <p>Timezone can be set per web-app in trinidad-config.xml configuration file.
  * If <code>timeZone</code> is not set on the converter, then timezone will be defaulted to the
- * value set in adf-faces-config.xml configuration file. If it is not set in the
+ * value set in trinidad-config.xml configuration file. If it is not set in the
  * configuration file, then it will be defaulted to GMT.</p>
  *
  * <p>The converter always allows a level of <code>leniency</code> while converting

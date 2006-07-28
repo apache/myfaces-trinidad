@@ -50,16 +50,16 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * ConverterException.
  *
  * If <code>number grouping separator, decimal separator</code>
- * is configured in <code>adf-faces-config.xml</code> file,
+ * is configured in <code>trinidad-config.xml</code> file,
  * it will be used during call to <code>getAsObject()</code> and
  * <code>getAsString()</code> for parsing and formatting. If it has not been set,
  * <code>number grouping separator, decimal separator</code> is
  * defaulted based on the locale.</p>
  *
  * <p>If <code>currencyCode</code> is set on the converter then it will be used.
- * Else uses the <code>currencyCode</code> set on <code>adf-faces-config.xml</code>
+ * Else uses the <code>currencyCode</code> set on <code>trinidad-config.xml</code>
  * file. If it is not set, then it is defaulted based on the locale. The
- * value registered in adf-faces-config.xml is obtained using
+ * value registered in trinidad-config.xml is obtained using
  * api from {@link org.apache.myfaces.trinidad.context.RequestContext}.</p>
  *
  * <p>Since ADF Faces is compatible only with JDK 1.4 and higher versions,

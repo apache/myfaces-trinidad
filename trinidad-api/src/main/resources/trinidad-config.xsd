@@ -28,7 +28,7 @@
     <annotation>
       <documentation>
         The adf-faces-config element is the root element of all
-        adf-faces-config.xml files.
+        trinidad-config.xml files.
       </documentation>
     </annotation>
     

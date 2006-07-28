@@ -195,7 +195,7 @@
     <property>
       <description><![CDATA[Time zone in which to interpret any time information in the date
                string. If not set here, picks this value from
-               adf-faces-config.xml configuration file. If not defined there, then
+               trinidad-config.xml configuration file. If not defined there, then
                it is defaulted to GMT.]]>
       </description>
       <property-name>timeZone</property-name>
@@ -233,9 +233,9 @@
             if it was not set.
           </html:p>
 
-          <html:p>Timezone can be set per web-app in adf-faces-config.xml configuration file.
+          <html:p>Timezone can be set per web-app in trinidad-config.xml configuration file.
           If <code>timeZone</code> is not set on the converter, then timezone will be defaulted to the
-          value set in adf-faces-config.xml configuration file. If it is not set in the
+          value set in trinidad-config.xml configuration file. If it is not set in the
           configuration file, then it will be defaulted to GMT.</html:p>
 
           <html:p>
