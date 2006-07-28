@@ -55,7 +55,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconParserFactory;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
- * Utility functions for creating Skins from the adf-faces-skins.xml file
+ * Utility functions for creating Skins from the trinidad-skins.xml file
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinUtils.java#0 $) $Date: 10-nov-2005.18:59:00 $
  * @author The Oracle ADF Faces Team
  */
@@ -85,12 +85,12 @@ public class SkinUtils
   
   /**
    * Register any custom skin extensions found in the
-   * adf-faces-skins.xml file with the SkinFactory.
+   * trinidad-skins.xml file with the SkinFactory.
    * 
    * Make sure the SkinFactory.getFactory() does not return null before
    * calling this method.
    * You should call registerBaseSkins() before calling this method.
-   * @param context ServletContext, used to get the adf-faces-skins.xml file.
+   * @param context ServletContext, used to get the trinidad-skins.xml file.
    */
   static public void registerSkinExtensions(
     ServletContext context)
@@ -310,7 +310,7 @@ public class SkinUtils
   }
 
   /**
-   * Parse the adf-faces-skins.xml file for SkinExtensions and add each
+   * Parse the trinidad-skins.xml file for SkinExtensions and add each
    * SkinExtension to the skinFactory.
    * @param context
    * @param skinFactory
@@ -322,7 +322,7 @@ public class SkinUtils
     if (context == null)
       return;
 
-    // =-=jmw @todo find adf-faces-skins.xml in jar
+    // =-=jmw @todo find trinidad-skins.xml in jar
     InputStream in = context.getResourceAsStream(_CONFIG_FILE);
     if (in != null)
     {
@@ -377,7 +377,7 @@ public class SkinUtils
   // Property for storing/retrieving the SkinFactory
   static private final String _SKIN_FACTORY_PROPERTY = "_skinFactory";
 
-  static private final String _CONFIG_FILE = "/WEB-INF/adf-faces-skins.xml";
+  static private final String _CONFIG_FILE = "/WEB-INF/trinidad-skins.xml";
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinUtils.class);
 

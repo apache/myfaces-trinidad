@@ -25,7 +25,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml;
 public interface XMLConstants
 {
   public static final String SKIN_NAMESPACE = 
-      "http://myfaces.apache.org/adf/view/faces/skin";
+      "http://myfaces.apache.org/trinidad/skin";
 
   public static final String ICONS_NAME            = "icons";
   public static final String PROPERTIES_NAME       = "properties";
