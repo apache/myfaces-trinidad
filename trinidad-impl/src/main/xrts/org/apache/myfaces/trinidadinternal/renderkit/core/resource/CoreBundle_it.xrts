@@ -16,7 +16,7 @@
 -->
 <!--Resource file for all BLAF resources-->
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidadinternal.renderkit.core.resource">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidadinternal.renderkit.core.resource">
 <!-- =-=jmw known bugs: -->
 <!-- af_page has a bunch of errors: -->
 <!-- 
@@ -337,8 +337,8 @@
        content -->
 <resource key="af_panelPage.SKIP_PAST_NAVIGATION" dnt="false">Vai al contenuto della pagina saltando gli elementi di navigazione</resource>
 <!-- Nav block titles for screenReader mode -->
-<resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
-<resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Pulsanti globali</resource>
+<resource key="af_menuButtons.BLOCK_TITLE" dnt="false">Pulsanti glotrinidad</resource>
+<resource key="af_panelButtonBar.BLOCK_TITLE" dnt="false">Pulsanti glotrinidad</resource>
 <resource key="af_menuTabs.BLOCK_TITLE" dnt="false">Elementi di navigazione primo livello</resource>
 <resource key="af_menuBar.BLOCK_TITLE" dnt="false">Elementi di navigazione secondo livello</resource>
 <resource key="af_panelSideBar.BLOCK_TITLE" dnt="false">Elementi di navigazione terzo livello</resource>

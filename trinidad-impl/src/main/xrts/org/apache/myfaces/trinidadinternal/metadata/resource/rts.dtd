@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 <!ELEMENT resources (author*, resource+)>
-<!ATTLIST resources xmlns CDATA #FIXED "http://myfaces.apache.org/bali/rts">
+<!ATTLIST resources xmlns CDATA #FIXED "http://myfaces.apache.org/trinidad/rts">
 <!ATTLIST resources package CDATA #REQUIRED>
 <!ATTLIST resources version CDATA #IMPLIED>
 <!ATTLIST resources baseversion CDATA #IMPLIED>

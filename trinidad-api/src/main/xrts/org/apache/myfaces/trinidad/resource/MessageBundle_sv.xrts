@@ -25,7 +25,7 @@
 
 
 <!DOCTYPE resources SYSTEM "rts.dtd">
-<resources xmlns="http://myfaces.apache.org/bali/rts" package="org.apache.myfaces.trinidad.resource">
+<resources xmlns="http://myfaces.apache.org/trinidad/rts" package="org.apache.myfaces.trinidad.resource">
 <!-- The FacesMessage class supports both summary and detailed messages. -->
 <!-- The convention is that the summary will be the main key. The key    -->
 <!-- value will be of the form <classname>.MSG_KEY, and the detailed     -->
