@@ -148,10 +148,10 @@
 
   <scm>
     <connection>
-      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/adf-faces/
+      scm:svn:http://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
     </connection>
     <developerConnection>
-      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/adf-faces/
+      scm:svn:https://svn.apache.org/repos/asf/incubator/adffaces/trunk/trinidad/
     </developerConnection>
   </scm>
 
