@@ -70,16 +70,19 @@ public class AttributeChangeEvent extends FacesEvent
     return _newValue;
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((AttributeChangeListener) listener).processAttributeChange(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof AttributeChangeListener);
   }
   
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();

@@ -15,10 +15,6 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import org.apache.myfaces.trinidad.model.CollectionModel;
-import org.apache.myfaces.trinidad.model.MenuModel;
-import org.apache.myfaces.trinidad.model.ModelUtils;
-
 
 /**
  * Base class for the Menu component.

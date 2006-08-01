@@ -79,27 +79,27 @@ public class PropertyKey
   }
   
   PropertyKey(
-    String name,
-    Class  type)
+    String   name,
+    Class<?> type)
   {
     this(name, type, null);
   }
 
   PropertyKey(
-    String name,
-    Class  type,
-    Object defaultValue)
+    String   name,
+    Class<?> type,
+    Object   defaultValue)
   {
     this(name, type, defaultValue, _CAPS_DEFAULT, -1);
   }
 
   // Needs to be protected for UINodePropertyKey implementation
   protected PropertyKey(
-    String name,
-    Class  type,
-    Object defaultValue,
-    int    capabilities,
-    int    index)
+    String   name,
+    Class<?> type,
+    Object   defaultValue,
+    int      capabilities,
+    int      index)
   {
     if (name == null)
       throw new NullPointerException();
@@ -110,7 +110,7 @@ public class PropertyKey
     if (defaultValue != null)
     {
       // Ensure that default value is legal for this property type.
-      Class boxedType = _getBoxedType(type);
+      Class<?> boxedType = _getBoxedType(type);
       if (!boxedType.isAssignableFrom(defaultValue.getClass()))
       {
         throw new IllegalStateException(
@@ -149,7 +149,7 @@ public class PropertyKey
   /**
    * Returns the type of this property.
    */
-  public Class getType()
+  public Class<?> getType()
   {
     return _type;
   }
@@ -238,6 +238,7 @@ public class PropertyKey
   }
 
   
+  @Override
   public boolean equals(Object o)
   {
     if (o == this)
@@ -269,11 +270,13 @@ public class PropertyKey
     return false;
   }
 
+  @Override
   public int hashCode()
   {
     return _hashCode;
   }
 
+  @Override
   public String toString()
   {
     String className = getClass().getName();
@@ -292,21 +295,21 @@ public class PropertyKey
   }
 
   static private Object _getJavaDefault(
-    Class type)
+    Class<?> type)
   {
     return _PRIMITIVE_DEFAULTS.get(type);
   }
   
-  static private Class _getBoxedType(
-    Class type)
+  static private Class<?> _getBoxedType(
+    Class<?> type)
   {
-    Class boxedType = (Class)_BOXED_PRIMITIVES.get(type);
+    Class<?> boxedType = _BOXED_PRIMITIVES.get(type);
     return (boxedType != null ? boxedType : type);
   }
   
-  static private Map _createPrimitiveDefaults()
+  static private Map<Class<?>, Object> _createPrimitiveDefaults()
   {
-    Map map = new HashMap();
+    Map<Class<?>, Object> map = new HashMap<Class<?>, Object>();
     map.put(Boolean.TYPE, Boolean.FALSE);
     map.put(Byte.TYPE, new Byte((byte)0));
     map.put(Character.TYPE, new Character('\0'));
@@ -319,9 +322,9 @@ public class PropertyKey
     return Collections.unmodifiableMap(map);
   }
 
-  static private Map _createBoxedPrimitives()
+  static private Map<Class<?>, Class<?>> _createBoxedPrimitives()
   {
-    Map map = new HashMap();
+    Map<Class<?>, Class<?>> map = new HashMap<Class<?>, Class<?>>();
     map.put(Boolean.TYPE, Boolean.class);
     map.put(Byte.TYPE, Byte.class);
     map.put(Character.TYPE, Character.class);
@@ -334,15 +337,15 @@ public class PropertyKey
     return Collections.unmodifiableMap(map);
   }
 
-  static private final Map _PRIMITIVE_DEFAULTS = _createPrimitiveDefaults();
-  static private final Map _BOXED_PRIMITIVES   = _createBoxedPrimitives();
+  static private final Map<Class<?>, Object>   _PRIMITIVE_DEFAULTS = _createPrimitiveDefaults();
+  static private final Map<Class<?>, Class<?>> _BOXED_PRIMITIVES   = _createBoxedPrimitives();
 
-  private final int _hashCode;
-  private final String _name;
-  private final int    _index;
-  private final int    _capabilities;
-  private final Class  _type;
-  private final Object _default;
+  private final int     _hashCode;
+  private final String   _name;
+  private final int      _index;
+  private final int      _capabilities;
+  private final Class<?> _type;
+  private final Object   _default;
   private       FacesBean.Type _owner;
 
   static private final int _CAPS_DEFAULT = 
@@ -354,7 +357,7 @@ public class PropertyKey
     CAP_LIST |
     CAP_STATE_HOLDER;
 
-  static private final Class _TYPE_DEFAULT = Object.class;
+  static private final Class<Object> _TYPE_DEFAULT = Object.class;
 
   static private final Object _OBJECT_NULL = new Object();
 }

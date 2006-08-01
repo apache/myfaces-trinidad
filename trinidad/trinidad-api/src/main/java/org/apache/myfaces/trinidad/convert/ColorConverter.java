@@ -334,6 +334,7 @@ public class ColorConverter implements Converter, StateHolder
    * @return true if and only if the specified Object is a ColorConverter
    * and if the values patterns, transparentAllowed and transient are equal.
    */
+  @Override
   public boolean equals(Object obj)
   {
     if ( null == obj)
@@ -359,6 +360,7 @@ public class ColorConverter implements Converter, StateHolder
    * <p>Returns the hash code for this converter.</p>
    * @return a hash code value for this object.
    */
+  @Override
   public int hashCode()
   {
     int result = 17;
@@ -534,6 +536,11 @@ public class ColorConverter implements Converter, StateHolder
     return patterns[0];
   }
 
+  private Object _getRawConvertMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_MESSAGE_DETAIL_KEY);
+  }
+
   private boolean _isEqualPatterns(String[] patterns)
   {
     String[]  thisPattern = getPatterns();
@@ -560,7 +567,7 @@ public class ColorConverter implements Converter, StateHolder
     String[]       patternsArray
     )
   {
-    String noMatchMsgDet = getConvertMessageDetail();
+    Object noMatchMsgDet = _getRawConvertMessageDetail();
 
     Object label = ConverterUtils.getComponentLabel(component);
 

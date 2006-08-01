@@ -55,14 +55,15 @@ public class Base64InputStream extends InputStream
    * @return The byte read, as an integer, 
    *         or -1 if the end of the stream has been reached 
    * 
-   * */
+   */
+  @Override
   public int read() throws IOException
   {
     int result = -1;
     
     if ( _byteBufferIndex <= _maxByteBufferIndex ) 
     {
-      result = (int)_byteBuffer[ _byteBufferIndex ];
+      result = _byteBuffer[_byteBufferIndex];
       result = result & 0xff;
       _byteBufferIndex++;
     } 
@@ -182,6 +183,10 @@ public class Base64InputStream extends InputStream
       return 0;
     }
   }
+
+  /** the number of base64 encoded characters to read from reader at a time **/
+  /** this number should be a multiple of 4 **/
+  private static final int _QUANTUM_SIZE = 512;
   
   /** input stream of base64 encoded data **/
   private final Reader  _in;
@@ -194,8 +199,4 @@ public class Base64InputStream extends InputStream
  
   /** contains decoded bytes  **/
   private byte[]  _byteBuffer;
-
-  /** the number of base64 encoded characters to read from reader at a time **/
-  /** this number should be a multiple of 4 **/
-  private static final int _QUANTUM_SIZE = 512;
 }

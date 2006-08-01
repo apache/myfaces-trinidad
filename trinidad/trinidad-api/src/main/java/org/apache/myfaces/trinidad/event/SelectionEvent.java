@@ -31,7 +31,11 @@ public class SelectionEvent extends RowKeySetChangeEvent
    * @param unselected the set of rowKeys that have just been unselected.
    * @param selected the set of rowKeys that have just been selected.
    */
-  public SelectionEvent(UIComponent source, RowKeySet unselected, RowKeySet selected)
+  // FIXME: What is the parametrized type inside RowKeySet?
+  public SelectionEvent(
+      UIComponent       source, 
+      RowKeySet<Object> unselected, 
+      RowKeySet<Object> selected)
   {
     super(source, unselected, selected);
   }
@@ -41,18 +45,23 @@ public class SelectionEvent extends RowKeySetChangeEvent
    * @param oldSet the set of rowKeys before any changes.
    * @param newSet the set of rowKeys after any changes.
    */
-  public SelectionEvent(RowKeySet oldSet, RowKeySet newSet, UIComponent source)
+  public SelectionEvent(
+      RowKeySet<Object> oldSet, 
+      RowKeySet<Object> newSet, 
+      UIComponent       source)
   {
     super(oldSet, newSet, source);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((SelectionListener) listener).processSelection(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof SelectionListener);
-  }  
+  }
 }

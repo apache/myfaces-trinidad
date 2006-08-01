@@ -55,6 +55,7 @@ public class ServletContextResourceLoader extends ResourceLoader
     _context = context;
   }
   
+  @Override
   protected URL findResource(
     String path) throws IOException
   {

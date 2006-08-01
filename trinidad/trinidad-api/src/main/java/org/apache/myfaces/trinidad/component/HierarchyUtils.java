@@ -33,10 +33,11 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 public final class HierarchyUtils 
 {
 
+  // FIXME: What is the param type of RowKeySet here?
   static void __handleBroadcast(
-    UIXHierarchy  comp, 
-    FacesEvent    event,
-    RowKeySet       state,
+    UIXHierarchy      comp, 
+    FacesEvent        event,
+    RowKeySet<Object> state,
     MethodBinding disclosureListener) throws AbortProcessingException
   {
   
@@ -45,11 +46,12 @@ public final class HierarchyUtils
     {
       RowDisclosureEvent dEvent = (RowDisclosureEvent) event;
       state.removeAll(dEvent.getRemovedSet());
-      RowKeySet added = dEvent.getAddedSet();
+      RowKeySet<Object> added = dEvent.getAddedSet();
       int size = 0;
       // only do an unbounded expandAll if the number of new nodes is not
       // too large:
-      for(Object key:added)
+      // FIXME: Wouldn't .size() do the work instead of looping 100 times...
+      for(Object key : added)
       {
         if (++size > 100)
           break;
@@ -71,8 +73,8 @@ public final class HierarchyUtils
 
 
   static void __handleEncodeBegin(
-    UIXHierarchy    comp,
-    RowKeySet         set
+    UIXHierarchy      comp,
+    RowKeySet<Object> set
     )
   {
     if (comp.__isFirstRender())
@@ -82,7 +84,8 @@ public final class HierarchyUtils
       Object focusRowKey = comp.getFocusRowKey();
       if ( focusRowKey != null)
       {
-        List focusPath = new ArrayList(comp.getAllAncestorContainerRowKeys(focusRowKey));
+        List<Object> focusPath = 
+          new ArrayList<Object>(comp.getAllAncestorContainerRowKeys(focusRowKey));
         focusPath.add(focusRowKey);
         int size = focusPath.size();
         for ( int i = 0 ; i < size; i++)
@@ -121,11 +124,11 @@ public final class HierarchyUtils
 
 
   static void __iterateOverTree(
-    FacesContext context,
-    PhaseId      phaseId,
-    UIXHierarchy comp,
-    RowKeySet      state,
-    boolean      processChildrenAsStamps
+    FacesContext      context,
+    PhaseId           phaseId,
+    UIXHierarchy      comp,
+    RowKeySet<Object> state,
+    boolean           processChildrenAsStamps
     )
   {
     UIComponent nodeStamp = comp.getFacet("nodeStamp");
@@ -174,8 +177,8 @@ public final class HierarchyUtils
     
     if (focusKey != null )  
     {
-      List focusPath = component.getAllAncestorContainerRowKeys(focusKey);
-      focusPath = new ArrayList(focusPath);
+      List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusKey);
+      focusPath = new ArrayList<Object>(focusPath);
       focusPath.add(focusKey);
       int focusSize =  focusPath.size();
       if ( focusSize > startDepth )

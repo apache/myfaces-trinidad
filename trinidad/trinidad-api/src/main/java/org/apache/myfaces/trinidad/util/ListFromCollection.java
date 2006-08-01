@@ -66,7 +66,7 @@ public class ListFromCollection
     _size = _DEFAULT_SIZE;
   }
 
-  public Map<Collection, List> getList()
+  public Map<Collection<?>, List<?>> getList()
   {
     return _map;
   }
@@ -81,9 +81,10 @@ public class ListFromCollection
     _size = size;
   }
 
-  private class MakeList extends AbstractMap<Collection, List>
+  private class MakeList extends AbstractMap<Collection<?>, List<?>>
   {
-    public List get(Object o)
+    @Override
+    public List<?> get(Object o)
     {
       if (!(o instanceof Collection))
         return null;
@@ -94,14 +95,15 @@ public class ListFromCollection
           (o instanceof RandomAccess))
         return (List) o;
 
-      Collection c = (Collection) o;
+      Collection<?> c = (Collection) o;
       if (c.isEmpty())
         return Collections.EMPTY_LIST;
 
       return new ListImpl(c, getSize());
     }
 
-    public Set<Map.Entry<Collection, List>> entrySet()
+    @Override
+    public Set<Map.Entry<Collection<?>, List<?>>> entrySet()
     {
       // Not worth implementing at the moment;  this Map is only
       // accessed from 
@@ -109,9 +111,9 @@ public class ListFromCollection
     }
   }
 
-  static private class ListImpl extends AbstractList
+  private static class ListImpl extends AbstractList<Object>
   {
-    public ListImpl(Collection c, int size)
+    public ListImpl(Collection<?> c, int size)
     {
       _c = c;
       _cSize = c.size();
@@ -120,15 +122,17 @@ public class ListFromCollection
       else
         _bufferSize = Math.min(size, _cSize);
 
-      _buffer = new ArrayList(_bufferSize);
+      _buffer = new ArrayList<Object>(_bufferSize);
       _offset = -1;
     }
 
+    @Override
     public int size()
     {
       return _cSize;
     }
 
+    @Override
     public Object get(int index)
     {
       if ((index < 0) || (index >= _cSize))
@@ -146,7 +150,7 @@ public class ListFromCollection
 
     private void _loadBuffer(int offset)
     {
-      Iterator iter = _c.iterator();
+      Iterator<? extends Object> iter = _c.iterator();
       int i = 0;
 
       while (i < offset)
@@ -168,14 +172,14 @@ public class ListFromCollection
       }
     }
 
-    private final Collection _c;
-    private final int        _bufferSize;
-    private final int        _cSize;
-    private int       _offset;
-    private ArrayList _buffer;
+    private final Collection<? extends Object> _c;
+    private final int         _bufferSize;
+    private final int         _cSize;
+    private int               _offset;
+    private ArrayList<Object> _buffer;
   }
 
-  private Map<Collection, List> _map;
+  private Map<Collection<?>, List<?>> _map;
   private int                   _size;
 
   static private int _DEFAULT_SIZE = 50;

@@ -57,11 +57,13 @@ public class DefaultBoundedRangeModel extends BoundedRangeModel implements Seria
     _value = value;
   }
 
+  @Override
   public long getMaximum()
   {
     return _maximum;
   }
   
+  @Override
   public long getValue()
   {
     return _value;

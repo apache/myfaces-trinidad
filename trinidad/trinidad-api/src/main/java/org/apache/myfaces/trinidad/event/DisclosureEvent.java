@@ -41,16 +41,19 @@ public class DisclosureEvent extends FacesEvent
     return _expanded;
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((DisclosureListener) listener).processDisclosure(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof DisclosureListener);
   }
   
+  @Override
   public int hashCode()
   {
     int expandedHC = (_expanded ? Boolean.TRUE.hashCode() 
@@ -60,8 +63,8 @@ public class DisclosureEvent extends FacesEvent
            (getComponent().hashCode());
   }
   
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o instanceof DisclosureEvent)
     {
@@ -74,6 +77,7 @@ public class DisclosureEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();

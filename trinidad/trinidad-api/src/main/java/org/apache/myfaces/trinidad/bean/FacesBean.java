@@ -136,21 +136,21 @@ public interface FacesBean
    *   universally needed by all consumers, so...
    * @exception IllegalArgumentException if the key is not a list key.
    */
-  public Object[] getEntries(PropertyKey listKey, Class clazz);
+  public Object[] getEntries(PropertyKey listKey, Class<?> clazz);
 
   /**
    * Return true if at least one element of the list identified by
    * this key is an instance of the specified class.
    * @exception IllegalArgumentException if the key is not a list key.
    */
-  public boolean containsEntry(PropertyKey listKey, Class clazz);
+  public boolean containsEntry(PropertyKey listKey, Class<?> clazz);
 
   /**
    * Returns an iterator over all entries at this key.
    * @todo is this iterator read-only or read-write?
    * @exception IllegalArgumentException if the key is not a list key.
    */
-  public Iterator entries(PropertyKey listKey);
+  public Iterator<Object> entries(PropertyKey listKey);
 
   /**
    * Copies all properties, bindings, and list entries from
@@ -166,12 +166,12 @@ public interface FacesBean
    * Returns a Set of all PropertyKeys that have either lists
    *  or values attached.
    */
-  public Set keySet();
+  public Set<PropertyKey> keySet();
 
   /**
    * Returns a Set of all PropertyKeys that have ValueBindings attached.
    */
-  public Set bindingKeySet();
+  public Set<PropertyKey> bindingKeySet();
 
   public void markInitialState();
 
@@ -226,9 +226,9 @@ public interface FacesBean
      *    or the key does not already exists.
      */
     public final PropertyKey registerKey(
-      String name,
-      Class  type,
-      Object defaultValue)
+      String   name,
+      Class<?> type,
+      Object   defaultValue)
     {
       return registerKey(name, type, defaultValue, 0);
     }
@@ -239,8 +239,8 @@ public interface FacesBean
      *    or the key does not already exists.
      */
     public final PropertyKey registerKey(
-      String name,
-      Class  type)
+      String   name,
+      Class<?> type)
     {
       return registerKey(name, type, null, 0);
     }
@@ -274,9 +274,9 @@ public interface FacesBean
      *    or the key does not already exists.
      */
     public final PropertyKey registerKey(
-      String name,
-      Class  type,
-      int    capabilities)
+      String   name,
+      Class<?> type,
+      int      capabilities)
     {
       return registerKey(name, type, null, capabilities);
     }
@@ -304,10 +304,10 @@ public interface FacesBean
      *    or the key already exists.
      */
     public PropertyKey registerKey(
-      String name, 
-      Class  type,
-      Object defaultValue,
-      int    capabilities)
+      String   name, 
+      Class<?> type,
+      Object   defaultValue,
+      int      capabilities)
     {
       _checkLocked();
       _checkName(name);
@@ -355,11 +355,11 @@ public interface FacesBean
     }
 
     protected PropertyKey createPropertyKey(
-      String name,
-      Class  type,
-      Object defaultValue,
-      int    capabilities,
-      int    index)
+      String   name,
+      Class<?> type,
+      Object   defaultValue,
+      int      capabilities,
+      int      index)
     {
       if (_superType != null)
       {

@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  */
 abstract public class UIXHierarchy extends UIXCollection implements CollectionComponent
 {
-
   /**
    * Create a Page component with the given render-type
    */
@@ -49,6 +48,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
     this(null);
   }
 
+  @Override
   public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     TreeModel model = ModelUtils.toTreeModel(value);
@@ -168,7 +168,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
    * Gets the all the rowKeys of the ancestors of the given child row.
    * @see TreeModel#getAllAncestorContainerRowKeys(Object)
    */
-  public List getAllAncestorContainerRowKeys(Object childRowKey)
+  public List<Object> getAllAncestorContainerRowKeys(Object childRowKey)
   {
     return getTreeModel().getAllAncestorContainerRowKeys(childRowKey);
   }
@@ -182,7 +182,9 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
     return model;
   } 
   
-  protected List getStamps()
+  @SuppressWarnings("unchecked")
+  @Override
+  protected List<UIComponent> getStamps()
   {
     UIComponent nodeStamp = getFacet("nodeStamp");
     if (nodeStamp != null)

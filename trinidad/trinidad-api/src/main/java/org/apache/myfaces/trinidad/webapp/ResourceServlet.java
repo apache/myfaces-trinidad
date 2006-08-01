@@ -81,16 +81,22 @@ import javax.faces.event.PhaseListener;
 public class ResourceServlet extends HttpServlet
 {
   /**
-   * Context parameter for activating debug mode, which will disable
-   * caching.
+   * Override of Servlet.destroy();
    */
-  static public final String DEBUG_INIT_PARAM =
-    "org.apache.myfaces.trinidad.resource.DEBUG";
+  @Override
+  public void destroy()
+  {
+    _loaders = null;
+    _facesContextFactory = null;
+    _lifecycle = null;
 
-
+    super.destroy();
+  }
+  
   /**
    * Override of Servlet.init();
    */
+  @Override
   public void init(
     ServletConfig config
     ) throws ServletException
@@ -120,22 +126,10 @@ public class ResourceServlet extends HttpServlet
     // Acquire our Lifecycle instance
     _lifecycle = new _ResourceLifecycle();
     _initDebug(config);
-    _loaders = new HashMap();
+    _loaders = new HashMap<String, ResourceLoader>();
   }
 
-  /**
-   * Override of Servlet.destroy();
-   */
-  public void destroy()
-  {
-    _loaders = null;
-    _facesContextFactory = null;
-    _lifecycle = null;
-
-    super.destroy();
-  }
-
-
+  @Override
   public void service(
     ServletRequest  request,
     ServletResponse response
@@ -168,6 +162,7 @@ public class ResourceServlet extends HttpServlet
   /**
    * Override of HttpServlet.doGet()
    */
+  @Override
   protected void doGet(
     HttpServletRequest request,
     HttpServletResponse response
@@ -215,6 +210,7 @@ public class ResourceServlet extends HttpServlet
   /**
    * Override of HttpServlet.getLastModified()
    */
+  @Override
   protected long getLastModified(
     HttpServletRequest request)
   {
@@ -260,7 +256,7 @@ public class ResourceServlet extends HttpServlet
     HttpServletRequest request)
   {
     final String servletPath = request.getServletPath();
-    ResourceLoader loader = (ResourceLoader)_loaders.get(servletPath);
+    ResourceLoader loader = _loaders.get(servletPath);
 
     if (loader == null)
     {
@@ -277,10 +273,10 @@ public class ResourceServlet extends HttpServlet
           Reader r = new InputStreamReader(url.openStream());
           BufferedReader br = new BufferedReader(r);
           String className = br.readLine().trim();
-          Class clazz = cl.loadClass(className);
+          Class<?> clazz = cl.loadClass(className);
           try
           {
-            Constructor decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
+            Constructor<?> decorator = clazz.getConstructor(_DECORATOR_SIGNATURE);
             ServletContext context = getServletContext();
             File tempdir = (File)
                       context.getAttribute("javax.servlet.context.tempdir");
@@ -308,8 +304,9 @@ public class ResourceServlet extends HttpServlet
                        new Object[] {servletPath, key});
           loader = new ServletContextResourceLoader(getServletContext())
                    {
+                     @Override
                      public URL getResource(
-                      String path) throws IOException
+                       String path) throws IOException
                      {
                        return super.getResource(path);
                      }
@@ -431,7 +428,7 @@ public class ResourceServlet extends HttpServlet
     }
   }
 
-  static private boolean _canIgnore(Throwable t)
+  private static boolean _canIgnore(Throwable t)
   {
     if (t instanceof InterruptedIOException)
     {
@@ -461,44 +458,56 @@ public class ResourceServlet extends HttpServlet
 
   private class _ResourceLifecycle extends Lifecycle
   {
+    @Override
     public void execute(FacesContext p0) throws FacesException
     {
     }
 
+    @Override
     public PhaseListener[] getPhaseListeners()
     {
       return null;
     }
 
+    @Override
     public void removePhaseListener(PhaseListener p0)
     {
     }
 
+    @Override
     public void render(FacesContext p0) throws FacesException
     {
     }
 
+    @Override
     public void addPhaseListener(PhaseListener p0)
     {
     }
   }
 
-
-  private boolean   _debug;
-  private Map       _loaders;
-  private FacesContextFactory _facesContextFactory;
-  private Lifecycle _lifecycle;
-
-  // Size of buffer used to read in resource contents
-  static private final int _BUFFER_SIZE = 2048;
+  /**
+   * Context parameter for activating debug mode, which will disable
+   * caching.
+   */
+  public static final String DEBUG_INIT_PARAM =
+    "org.apache.myfaces.trinidad.resource.DEBUG";
 
   // One year in milliseconds.  (Actually, just short of on year, since
   // RFC 2616 says Expires should not be more than one year out, so
   // cutting back just to be safe.)
-  static public final long ONE_YEAR_MILLIS = 31363200000L;
+  public static final long ONE_YEAR_MILLIS = 31363200000L;
 
-  static private final Class[] _DECORATOR_SIGNATURE =
+  
+  private static final Class[] _DECORATOR_SIGNATURE =
                                   new Class[]{ResourceLoader.class};
 
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ResourceServlet.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ResourceServlet.class);
+
+  // Size of buffer used to read in resource contents
+  private static final int _BUFFER_SIZE = 2048;
+
+  private boolean _debug;
+  private Map<String, ResourceLoader> _loaders;
+  private FacesContextFactory _facesContextFactory;
+  private Lifecycle _lifecycle;
 }

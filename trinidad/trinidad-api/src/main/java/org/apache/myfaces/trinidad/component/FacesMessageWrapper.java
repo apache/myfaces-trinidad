@@ -34,31 +34,37 @@ class FacesMessageWrapper extends LabeledFacesMessage
     setLabel(label);
   }
 
+  @Override
   public String getDetail()
   {
     return _wrapped.getDetail();
   }
 
+  @Override
   public FacesMessage.Severity getSeverity()
   {
     return _wrapped.getSeverity();
   }
 
+  @Override
   public String getSummary()
   {
     return _wrapped.getSummary();
   }
 
+  @Override
   public void setDetail(String detail)
   {
     _wrapped.setDetail(detail);
   }
 
+  @Override
   public void setSeverity(FacesMessage.Severity severity)
   {
     _wrapped.setSeverity(severity);
   }
 
+  @Override
   public void setSummary(String summary)
   {
     _wrapped.setSummary(summary);

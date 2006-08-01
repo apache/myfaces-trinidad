@@ -23,8 +23,11 @@ import java.util.List;
  */
 class PathHelper 
 {
+  @SuppressWarnings("unchecked")
   protected PathHelper()
   {
+    _path = Collections.EMPTY_LIST;
+    _rowKey = null;
   }
   
   /**
@@ -56,10 +59,10 @@ class PathHelper
    * Gets the current path.
    * @return a List, with each element a rowKey String
    */
-  public final List getPath()
+  public final List<String> getPath()
   {
     int sz = _path.size();
-    List path = new ArrayList(sz+1);
+    List<String> path = new ArrayList<String>(sz+1);
     if (sz > 0)
     {
       for(int i=0; i<sz; i++)
@@ -85,13 +88,14 @@ class PathHelper
    * Sets the path.
    * @param path a List with each element a rowKey String
    */
-  public final void setPath(List path)
+  @SuppressWarnings("unchecked")
+  public final void setPath(List<String> path)
   {
     int sz = (path==null) ? 0 : path.size();
 
     if (sz > 0)
     {
-      _path = new ArrayList(sz);
+      _path = new ArrayList<PathElement>(sz);
       int lastIndex = sz - 1;
   
       for(int i=0; i<lastIndex; i++)
@@ -99,7 +103,7 @@ class PathHelper
         setRowKey(path.get(i).toString());
         pushPath();
       }
-      setRowKey((String) path.get(lastIndex));
+      setRowKey(path.get(lastIndex));
     }
     else
     {
@@ -140,7 +144,7 @@ class PathHelper
     Object data = pushPath(parentData, _rowKey);
 
     if (_path == Collections.EMPTY_LIST)
-      _path = new ArrayList(5);
+      _path = new ArrayList<PathElement>(5);
 
     _path.add(new PathHelper.PathElement(_rowKey, data));
     
@@ -168,7 +172,7 @@ class PathHelper
     int sz = _path.size();
     if (sz > 0)
     {
-      PathHelper.PathElement lastPath = (PathElement) _path.remove(sz-1);
+      PathHelper.PathElement lastPath = _path.remove(sz-1);
       _rowKey = lastPath.rowKey;
     }
     else
@@ -177,11 +181,11 @@ class PathHelper
 
   private PathHelper.PathElement _getPathElement(int index)
   {
-    return (PathElement) _path.get(index);
+    return _path.get(index);
   }
   
-  private String _rowKey = null;
-  private List _path = Collections.EMPTY_LIST;
+  private String _rowKey;
+  private List<PathElement> _path;
   
   private static final class PathElement
   {

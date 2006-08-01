@@ -38,27 +38,27 @@ public class FocusEvent extends FacesEvent
   {
     super(source);
   }
-
-
-
+  
+  @Override
   public void processListener(FacesListener listener)
   {
     ((FocusListener) listener).processFocus(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof FocusListener);
   }
 
-
+  @Override
   public int hashCode()
   {
     return (getComponent() == null) ? 0 : getComponent().hashCode();
   }
 
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o instanceof FocusEvent)
     {
@@ -69,6 +69,7 @@ public class FocusEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();

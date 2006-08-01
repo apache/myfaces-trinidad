@@ -58,9 +58,11 @@ public class RemoveFacetComponentChange extends ComponentChange
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
-    Map facets = uiComponent.getFacets();
+    Map<String, UIComponent> facets = uiComponent.getFacets();
     facets.remove(_facetName);
   }
 

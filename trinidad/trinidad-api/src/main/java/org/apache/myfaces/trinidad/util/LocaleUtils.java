@@ -73,15 +73,6 @@ class LocaleUtils
     return new ErrorMessages(summary, detail);
   }
 
-  private static ClassLoader _getClassLoader()
-  {
-    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    if (loader == null)
-      loader = ClassLoader.getSystemClassLoader();
-
-    return loader;
-  }
-
   static String __getSummaryString(
     FacesContext context,
     String messageId)
@@ -105,6 +96,15 @@ class LocaleUtils
     String detailKey = _getDetailKey(messageId);
     return _getBundleString(bundle, detailKey);
 
+  }
+
+  private static ClassLoader _getClassLoader()
+  {
+    ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    if (loader == null)
+      loader = ClassLoader.getSystemClassLoader();
+
+    return loader;
   }
 
   private static String _getDetailKey(
@@ -218,7 +218,7 @@ class LocaleUtils
 
   private static ResourceBundle _getCachedBundle(Locale locale)
   {
-    return (ResourceBundle) _bundleCache.get(locale);
+    return _bundleCache.get(locale);
   }
 
   private static void _cacheBundle(Locale locale, ResourceBundle bundle)
@@ -283,11 +283,11 @@ class LocaleUtils
     = "org.apache.myfaces.trinidad.resource.MessageBundle";
 
   // cache Bundles based on locale
-  private static  Map  _bundleCache;
+  private static  Map<Locale, ResourceBundle>  _bundleCache;
 
   static
   {
-    _bundleCache = Collections.synchronizedMap(new HashMap(13));
+    _bundleCache = Collections.synchronizedMap(new HashMap<Locale, ResourceBundle>(13));
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(LocaleUtils.class);

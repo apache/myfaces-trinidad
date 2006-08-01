@@ -39,6 +39,11 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class ClassLoaderUtils
 {
+  // Utility class only, no instances
+  private ClassLoaderUtils()
+  {
+  }
+  
   /**
    * Loads the class with the specified name.  For Java 2 callers, the
    * current thread's context class loader is preferred, falling back on the
@@ -49,7 +54,7 @@ public class ClassLoaderUtils
    * @return    the resulting <code>Class</code> object
    * @exception ClassNotFoundException if the class was not found
    */
-  static public Class loadClass(
+  public static Class<?> loadClass(
     String name) throws ClassNotFoundException
   {
     return loadClass(name, null);
@@ -64,7 +69,7 @@ public class ClassLoaderUtils
    * @param     name  the name of the resource
    * @return    the resulting <code>URL</code> object
    */
-  static public URL getResource(
+  public static URL getResource(
     String name)
   {
     return getResource(name, null);
@@ -79,7 +84,7 @@ public class ClassLoaderUtils
    * @param     name  the name of the resource
    * @return    the resulting <code>InputStream</code> object
    */
-  static public InputStream getResourceAsStream(
+  public static InputStream getResourceAsStream(
     String name)
   {
     return getResourceAsStream(name, null);
@@ -97,11 +102,11 @@ public class ClassLoaderUtils
    * @return    the resulting <code>Class</code> object
    * @exception ClassNotFoundException if the class was not found
    */
-  static public Class loadClass(
+  public static Class<?> loadClass(
     String      name,
     ClassLoader callerClassLoader) throws ClassNotFoundException
   {
-    Class clazz = null;
+    Class<?> clazz = null;
 
     try
     {
@@ -138,7 +143,7 @@ public class ClassLoaderUtils
    * @param     callerClassLoader  the calling class loader context
    * @return    the resulting <code>URL</code> object
    */
-  static public URL getResource(
+  public static URL getResource(
     String      name,
     ClassLoader callerClassLoader)
   {
@@ -171,7 +176,7 @@ public class ClassLoaderUtils
    * @param     callerClassLoader  the calling class loader context
    * @return    the resulting <code>InputStream</code> object
    */
-  static public InputStream getResourceAsStream(
+  public static InputStream getResourceAsStream(
     String      name,
     ClassLoader callerClassLoader)
   {
@@ -197,7 +202,7 @@ public class ClassLoaderUtils
    * Dynamically accesses the current context class loader.
    * Returns null if there is no per-thread context class loader.
    */
-  static public ClassLoader getContextClassLoader()
+  public static ClassLoader getContextClassLoader()
   {
     return Thread.currentThread().getContextClassLoader();
   }
@@ -218,19 +223,20 @@ public class ClassLoaderUtils
    * @param service the classname of the abstract service class.
    * eg: javax.servlet.Filter
    */
-  static public <T> List<T> getServices(String service)
+  @SuppressWarnings("unchecked")
+  public static <T> List<T> getServices(String service)
   {
     String serviceUri ="META-INF/services/" + service;
     ClassLoader loader = Thread.currentThread().getContextClassLoader();
     try
     {
-      Enumeration urls = loader.getResources(serviceUri);
+      Enumeration<URL> urls = loader.getResources(serviceUri);
       if (urls.hasMoreElements())
       {
         List<T> services = new ArrayList<T>(1);
         do
         {
-          URL url = (URL) urls.nextElement();
+          URL url = urls.nextElement();
           _LOG.finest("Processing:{0}", url);
           try
           {
@@ -281,15 +287,10 @@ public class ClassLoaderUtils
     line = line.trim();
     if (line.length() > 0)
     {
-      Class clazz = loader.loadClass(line);
+      Class<?> clazz = loader.loadClass(line);
       return clazz.newInstance();
     }
     return null;
-  }
-
-  // Utility class only, no instances
-  private ClassLoaderUtils()
-  {
   }
 
 

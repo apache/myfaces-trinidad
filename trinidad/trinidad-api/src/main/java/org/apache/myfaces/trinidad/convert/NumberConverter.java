@@ -187,6 +187,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @exception ConverterException {@inheritDoc}
    *
    */
+  @Override
   public Object getAsObject(
     FacesContext context,
     UIComponent component,
@@ -261,6 +262,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    *            type other than {@link java.lang.Number}, {@link java.lang.String}.
    *            <code>value</code> can be null.
    */
+  @Override
   public String getAsString(
     FacesContext context,
     UIComponent component,
@@ -305,6 +307,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return formatter.format(value);
   }
 
+  @Override
   public void restoreState(
     FacesContext context,
     Object state)
@@ -312,6 +315,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     _facesBean.restoreState(context, state);
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     return _facesBean.saveState(context);
@@ -457,45 +461,53 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return ComponentUtils.resolveString(msg);
   }
 
+  @Override
   public void setCurrencyCode(String currencyCode)
   {
     _facesBean.setProperty(_CURRENCY_CODE_KEY, currencyCode);
   }
 
+  @Override
   public String getCurrencyCode()
   {
     Object currCode = _facesBean.getProperty(_CURRENCY_CODE_KEY);
     return ComponentUtils.resolveString(currCode);
   }
 
+  @Override
   public void setCurrencySymbol(String currencySymbol)
   {
     _facesBean.setProperty(_CURRENCY_SYMBOL_KEY, currencySymbol);
   }
 
+  @Override
   public String getCurrencySymbol()
   {
     Object currSymbol = _facesBean.getProperty(_CURRENCY_SYMBOL_KEY);
     return ComponentUtils.resolveString(currSymbol);
   }
 
+  @Override
   public void setGroupingUsed(boolean groupingUsed)
   {
     Boolean grpUsed = _getBooleanValue(groupingUsed);
     _facesBean.setProperty(_GROUPING_USED_KEY, grpUsed);
   }
 
+  @Override
   public  boolean isGroupingUsed()
   {
     Object grpUSed = _facesBean.getProperty(_GROUPING_USED_KEY);
     return ComponentUtils.resolveBoolean(grpUSed);
   }
 
+  @Override
   public void setIntegerOnly(boolean integerOnly)
   {
     _facesBean.setProperty(_INTEGER_ONLY_KEY, _getBooleanValue(integerOnly));
   }
 
+  @Override
   public boolean isIntegerOnly()
   {
     Object isInt = _facesBean.getProperty(_INTEGER_ONLY_KEY);
@@ -510,6 +522,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    *
    * @param locale The new <code>Locale</code> (or <code>null</code>)
    */
+  @Override
   public void setLocale(Locale locale)
   {
     _facesBean.setProperty(_LOCALE_KEY, locale);
@@ -522,6 +535,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * in the {@link javax.faces.component.UIViewRoot} for the current request
    * will be utilized during parsing.</p>
    */
+  @Override
   public Locale getLocale()
   {
     Object locale = _facesBean.getProperty(_LOCALE_KEY);
@@ -531,66 +545,78 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   // All these overrides are mainly to identify whether these were set or nor in
   // the first place
 
+  @Override
   public void setMaxFractionDigits(int maxFractionDigits)
   {
     _facesBean.setProperty(_MAX_FRACTION_DIGITS_KEY, _getIntValue(maxFractionDigits));
   }
 
+  @Override
   public int getMaxFractionDigits()
   {
     Object value = _facesBean.getProperty(_MAX_FRACTION_DIGITS_KEY);
     return ComponentUtils.resolveInteger(value);
   }
 
+  @Override
   public void setMaxIntegerDigits(int maxIntegerDigits)
   {
     _facesBean.setProperty(_MAX_INTEGER_DIGITS_KEY, _getIntValue(maxIntegerDigits));
   }
 
+  @Override
   public int getMaxIntegerDigits()
   {
     Object value = _facesBean.getProperty(_MAX_INTEGER_DIGITS_KEY);
     return ComponentUtils.resolveInteger(value);
   }
 
+  @Override
   public void setMinFractionDigits(int minFractionDigits)
   {
     _facesBean.setProperty(_MIN_FRACTION_DIGITS_KEY, _getIntValue(minFractionDigits));
   }
 
+  @Override
   public int getMinFractionDigits()
   {
     Object value = _facesBean.getProperty(_MIN_FRACTION_DIGITS_KEY);
     return ComponentUtils.resolveInteger(value);
   }
 
+  @Override
   public void setMinIntegerDigits(int minIntegerDigits)
   {
     _facesBean.setProperty(_MIN_INTEGER_DIGITS_KEY, _getIntValue(minIntegerDigits));
   }
 
+  @Override
   public int getMinIntegerDigits()
   {
     Object value = _facesBean.getProperty(_MIN_INTEGER_DIGITS_KEY);
     return ComponentUtils.resolveInteger(value);
   }
 
+  @Override
   public void setPattern(String pattern)
   {
     _facesBean.setProperty(_PATTERN_KEY, pattern);
   }
 
+  @Override
   public String getPattern()
   {
     Object pattern = _facesBean.getProperty(_PATTERN_KEY);
     return ComponentUtils.resolveString(pattern);
   }
 
+  @Override
   public void setType(String type)
   {
     _facesBean.setProperty(_TYPE_KEY, type);
   }
 
+  @Override
   public String getType()
   {
     Object type = _facesBean.getProperty(_TYPE_KEY);
@@ -600,6 +626,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   /**
    * Returns the hash code for this Converter.
    */
+  @Override
   public int hashCode()
   {
     int result = 17;
@@ -625,6 +652,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   /**
    * <p>Compares this NumberConverter with the specified Object for equality.</p>
    */
+  @Override
   public boolean equals(Object numberConverter)
   {
     if (this == numberConverter)
@@ -688,11 +716,15 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   {
     synchronized(_SYMBOLS_LOCK)
     {
+      // -= Simon Lessard =- That if looks paranoid, the map get instanciated 
+      //                     during static initialization and is never set to 
+      //                     null
        if (_patternFormatSymbolsHolder == null)
-        _patternFormatSymbolsHolder = new HashMap();
+        _patternFormatSymbolsHolder = new HashMap<Locale, DecimalFormatSymbols>();
        else
        // to clone here or at the point of creation??
-      _patternFormatSymbolsHolder.put(locale, symbols.clone());
+      // FIXME: Is that line really supposed to go in the else????
+      _patternFormatSymbolsHolder.put(locale, (DecimalFormatSymbols)symbols.clone());
     }
   }
 
@@ -716,15 +748,15 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       // get the map for the appropriate type('number','currency', 'percent') or
       // based on diff patterns - pattern1.. pattern2 for diff locales.
       String key = ((pattern != null) ? pattern : type);
-      Map nfMap = (Map)_numberFormatHolder.get(key);
+      Map<Locale, NumberFormat> nfMap = _numberFormatHolder.get(key);
 
       if (nfMap == null)
         return null;
       else
       {
-        Object nf = nfMap.get(locale);
+        NumberFormat nf = nfMap.get(locale);
         if (nf != null)
-          return (NumberFormat) ((NumberFormat) nf).clone();
+          return (NumberFormat) nf.clone();
       }
       return null;
     }
@@ -738,8 +770,11 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   {
     synchronized(_TYPE_LOCK)
     {
+      // -= Simon Lessard =- That if looks paranoid, the map get instanciated 
+      //                     during static initialization and is never set to 
+      //                     null
       if (_numberFormatHolder == null)
-      _numberFormatHolder = new HashMap();
+        _numberFormatHolder = new HashMap<String, Map<Locale, NumberFormat>>();
 
       else
       {
@@ -747,14 +782,14 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         // stored or it can be based on the pattern also.
         String key = ((pattern != null) ? pattern : type);
 
-        Map nfMap = (Map) _numberFormatHolder.get(key);
+        Map<Locale, NumberFormat> nfMap = _numberFormatHolder.get(key);
 
         // if we have not cached any NumberFormat for this type, then create a
         // map for that type and add to it based on the locale
         if (nfMap == null)
         {
-          nfMap = new HashMap();
-          nfMap.put(locale, format.clone());
+          nfMap = new HashMap<Locale, NumberFormat>();
+          nfMap.put(locale, (NumberFormat)format.clone());
         }
         // add this based on the type ('number','currency','percent') or
         // pattern1, pattern2.. patternN to the main holder
@@ -931,6 +966,26 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     return nfmt;
   }
 
+  private Object _getRawConvertCurrencyMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_CURRENCY_MESSAGE_DETAIL_KEY);
+  }
+
+  private Object _getRawConvertNumberMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_NUMBER_MESSAGE_DETAIL_KEY);
+  }
+
+  private Object _getRawConvertPatternMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_PATTERN_MESSAGE_DETAIL_KEY);
+  }
+
+  private Object _getRawConvertPercentMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY);
+  }
+
   protected final FacesMessage getConvertMessage(
     FacesContext context,
     UIComponent component,
@@ -939,41 +994,40 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     )
   {
     int type = _getType(getPattern(), getType());
+    Object convMsgDet;
+    String msgId;
 
     // Always check for pattern first.
     if (_PATTERN_TYPE == type)
     {
-      String convPatMsgDet = getConvertPatternMessageDetail();
-      return MessageFactory.getMessage(context, CONVERT_PATTERN_MESSAGE_ID,
-                                       convPatMsgDet, params, component);
+      convMsgDet = _getRawConvertPatternMessageDetail();
+      msgId = CONVERT_PATTERN_MESSAGE_ID;
     }
     else if(_NUMBER_TYPE == type)
     {
-      String convNumMsgDet = getConvertNumberMessageDetail();
-      FacesMessage msg = MessageFactory.getMessage(context,
-                                                   CONVERT_NUMBER_MESSAGE_ID,
-                                                   convNumMsgDet,
-                                                   params,
-                                                   component);
-      return msg;
-
+      convMsgDet = _getRawConvertNumberMessageDetail();
+      msgId = CONVERT_NUMBER_MESSAGE_ID;
     }
     else if(_CURRENCY_TYPE == type)
     {
-      String convCurMsgDet = getConvertCurrencyMessageDetail();
-      return MessageFactory.getMessage(context, CONVERT_CURRENCY_MESSAGE_ID,
-                                       convCurMsgDet, params, component);
+      convMsgDet = _getRawConvertCurrencyMessageDetail();
+      msgId = CONVERT_CURRENCY_MESSAGE_ID;
     }
     else if(_PERCENT_TYPE == type)
     {
-      String convPercMsgDet = getConvertPercentMessageDetail();
-      return MessageFactory.getMessage(context, CONVERT_PERCENT_MESSAGE_ID,
-                                       convPercMsgDet, params, component);
+      convMsgDet = _getRawConvertPercentMessageDetail();
+      msgId = CONVERT_PERCENT_MESSAGE_ID;
     }
     else
     {
       throw new IllegalArgumentException("Invalid type: " + getType());
     }
+    
+    return MessageFactory.getMessage(context, 
+                                     msgId, 
+                                     convMsgDet, 
+                                     params, 
+                                     component);
   }
 
   private Locale _getLocale(FacesContext context)
@@ -1011,7 +1065,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     NumberFormat numberFormatter
    )
   {
-    if (numberFormatter instanceof NumberFormat)
+    // Useless if... should be instanceof DecimalFormat
+    // Potential ClassCastException before the change
+    //if (numberFormatter instanceof NumberFormat)
+    if (numberFormatter instanceof DecimalFormat)
     {
       DecimalFormat dfmt = (DecimalFormat)numberFormatter;
       DecimalFormatSymbols symbols = dfmt.getDecimalFormatSymbols();
@@ -1122,14 +1179,16 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   // hold a Map as its value.
   // This Map (value part of the type) will hold locale as its key and Number
   // formats as its values.
-  private static Map _numberFormatHolder = new HashMap();
+  private static Map<String, Map<Locale, NumberFormat>> _numberFormatHolder = 
+    new HashMap<String, Map<Locale, NumberFormat>>();
 
   // This is map to hold DecimalFormatSymbols when the converter is used,
   // by specifying a pattern. When a pattern is specified we take care of
   // creating the DecimalFormatSymbols. We are caching decimal format symbols
   // based on the locale so that we can make use of it, when a new number
   // converters is instantiated and used based on pattern and not by type.
-  private static Map _patternFormatSymbolsHolder = new HashMap();
+  private static Map<Locale, DecimalFormatSymbols> _patternFormatSymbolsHolder = 
+    new HashMap<Locale, DecimalFormatSymbols>();
 
   private static final Object _TYPE_LOCK = new Object();
 

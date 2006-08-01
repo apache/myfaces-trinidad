@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -41,8 +40,8 @@ public class FacesBeanFactory
    * @todo change from ownerClass to componentFamily
    */
   static public FacesBean createFacesBean(
-    Class  ownerClass,
-    String rendererType)
+    Class<?> ownerClass,
+    String   rendererType)
   {
     if (ownerClass == null)
       return null;
@@ -73,7 +72,7 @@ public class FacesBeanFactory
 
     try
     {
-      Class type = _getClassLoader().loadClass(className);
+      Class<?> type = _getClassLoader().loadClass(className);
       return (FacesBean) type.newInstance();
     }
     catch (ClassNotFoundException cnfe)
@@ -94,13 +93,13 @@ public class FacesBeanFactory
 
   static private void _initializeBeanTypes()
   {
-    _TYPES_MAP = new HashMap();
+    _TYPES_MAP = new HashMap<Object, Object>();
 
-    List list = new ArrayList();
+    List<URL> list = new ArrayList<URL>();
     try
     {
-      Enumeration en = _getClassLoader().getResources(
-                             "META-INF/faces-bean.properties");
+      Enumeration<URL> en = _getClassLoader().getResources(
+                                "META-INF/faces-bean.properties");
       while (en.hasMoreElements())
       {
         list.add(en.nextElement());
@@ -120,10 +119,9 @@ public class FacesBeanFactory
         _LOG.info("No faces-bean.properties files located");
     }
 
-    Iterator iterator = list.iterator();
-    while (iterator.hasNext())
+    for(URL url : list)
     {
-      _initializeBeanTypes((URL) iterator.next());
+      _initializeBeanTypes(url);
     }
   }
 
@@ -154,7 +152,7 @@ public class FacesBeanFactory
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FacesBeanFactory.class);
-  static private       Map    _TYPES_MAP;
+  static private       Map<Object, Object> _TYPES_MAP;
 
   static
   {

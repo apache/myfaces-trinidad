@@ -31,7 +31,6 @@ import javax.faces.event.FacesListener;
  */
 public class RangeChangeEvent extends FacesEvent
 {
-
   /**
    * Construct a new event object from the specified source component, 
    * old start (inclusive), old end (exclusive), new start (inclusive)
@@ -96,16 +95,19 @@ public class RangeChangeEvent extends FacesEvent
     return _newEnd;
   }
    
+  @Override
   public void processListener(FacesListener listener)
   {
     ((RangeChangeListener)listener).processRangeChange(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof RangeChangeListener);
   }
 
+  @Override
   public int hashCode()
   {
     return (_newStart << 4) ^
@@ -113,8 +115,8 @@ public class RangeChangeEvent extends FacesEvent
            (getComponent().hashCode());
   }
 
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o instanceof RangeChangeEvent)
     {
@@ -130,6 +132,7 @@ public class RangeChangeEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();

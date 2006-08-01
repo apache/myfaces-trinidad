@@ -33,7 +33,10 @@ public class RowDisclosureEvent extends RowKeySetChangeEvent
    * @param collapsed the set of rowKeys that have just been collapsed.
    * @param expanded the set of rowKeys that have just been expanded.
    */
-  public RowDisclosureEvent(UIComponent source, RowKeySet collapsed, RowKeySet expanded)
+  public RowDisclosureEvent(
+      UIComponent source, 
+      RowKeySet<Object> collapsed, 
+      RowKeySet<Object> expanded)
   {
     super(source, collapsed, expanded);
   }
@@ -43,18 +46,24 @@ public class RowDisclosureEvent extends RowKeySetChangeEvent
    * @param oldSet the set of rowKeys before any changes.
    * @param newSet the set of rowKeys after any changes.
    */
-  public RowDisclosureEvent(RowKeySet oldSet, RowKeySet newSet, UIComponent source)
+  public RowDisclosureEvent(
+      RowKeySet<Object> oldSet, 
+      RowKeySet<Object> newSet, 
+      UIComponent source)
   {
     super(oldSet, newSet, source);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((RowDisclosureListener) listener).processDisclosure(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof RowDisclosureListener);
-  }  
+  }
+  
 }

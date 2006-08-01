@@ -68,7 +68,7 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
   public ViewIdPropertyMenuModel()
   {
     super();
-    _focusPathMap = new HashMap();
+    _focusPathMap = new HashMap<Object, Object>();
   }
   /**
    *
@@ -82,11 +82,12 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
     throws IntrospectionException
   {
     super(instance);
-    _focusPathMap = new HashMap();
+    _focusPathMap = new HashMap<Object, Object>();
     setViewIdProperty(viewIdProperty);
     setWrappedData(instance);
   }
 
+  @Override
   public void setWrappedData(Object data)
   {
     super.setWrappedData(data);
@@ -116,7 +117,7 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
    *
    * @return  the rowKey to the node with the current viewId or null if the current viewId can't be found
    */
-
+  @Override
   public Object getFocusRowKey()
   {
     String currentViewId = getCurrentViewId();
@@ -182,7 +183,7 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
   private static void _addToMap(
     FacesContext context,
     TreeModel tree,
-    Map       focusPathMap,
+    Map<Object, Object> focusPathMap,
     String viewIdProperty
     )
   {
@@ -214,7 +215,7 @@ public class ViewIdPropertyMenuModel extends BaseMenuModel
   }
 
 
-  private final Map _focusPathMap;
+  private final Map<Object, Object> _focusPathMap;
   private String _viewIdProperty = null;
 
 

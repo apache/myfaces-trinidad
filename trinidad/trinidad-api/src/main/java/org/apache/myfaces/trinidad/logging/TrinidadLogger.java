@@ -15,12 +15,8 @@
  */
 package org.apache.myfaces.trinidad.logging;
 
-
-import java.io.ObjectStreamException;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Filter;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -36,23 +32,12 @@ import java.util.logging.Logger;
 public class TrinidadLogger 
 {
   
-  private TrinidadLogger(String name)
-  {
-    _log = Logger.getLogger(name);
-  }
-
   private TrinidadLogger(Logger log)
   {
     if (log == null)
       throw new IllegalArgumentException("Logger required");    
     _log = log;
   }
-
-  private TrinidadLogger(String name, String resourceBundleName)
-  {
-    _log = Logger.getLogger(name, resourceBundleName);
-  }
-
 
   /**
    * Get the Java logger from an ADF Logger.
@@ -143,7 +128,7 @@ public class TrinidadLogger
    * @param	c		A class instance for the logger.  
    * @return a suitable Logger
    */
-  public static TrinidadLogger createTrinidadLogger(Class c) 
+  public static TrinidadLogger createTrinidadLogger(Class<?> c) 
   {
     if (c == null)
       throw new IllegalArgumentException("Class required");
@@ -167,7 +152,7 @@ public class TrinidadLogger
    *        
    * @return a suitable Logger
    */
-  public static TrinidadLogger createTrinidadLogger(Class c, String resourceBundleName) 
+  public static TrinidadLogger createTrinidadLogger(Class<?> c, String resourceBundleName) 
   {
     if (c == null)
       throw new IllegalArgumentException("Class required");

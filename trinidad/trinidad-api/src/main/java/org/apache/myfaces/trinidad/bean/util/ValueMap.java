@@ -35,13 +35,14 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  *
  * @author The Oracle ADF Faces Team
  */
-public class ValueMap extends AbstractMap
+public class ValueMap extends AbstractMap<Object, Object>
 {
   public ValueMap(FacesBean bean)
   {
     _bean = bean;
   }
 
+  @Override
   public Object get(Object key)
   {
     if (key == null)
@@ -52,7 +53,7 @@ public class ValueMap extends AbstractMap
     // properties
     if (propertyKey.isList())
     {
-      Class type = propertyKey.getType();
+      Class<?> type = propertyKey.getType();
       if (type.isArray())
         type = type.getComponentType();
 
@@ -65,6 +66,7 @@ public class ValueMap extends AbstractMap
     }
   }
 
+  @Override
   public Object put(Object key, Object value)
   {
     if (key == null)
@@ -87,6 +89,7 @@ public class ValueMap extends AbstractMap
   /**
    * @todo Should remove just remove values, or also remove bindings?
    */
+  @Override
   public Object remove(Object key)
   {
     PropertyKey propertyKey = _getPropertyKey(key);
@@ -98,11 +101,12 @@ public class ValueMap extends AbstractMap
     return oldValue;
   }
 
-  public Set entrySet()
+  @Override
+  public Set<Map.Entry<Object, Object>> entrySet()
   {
     if (_entries == null)
     {
-      HashSet keySet = new HashSet();
+      HashSet<PropertyKey> keySet = new HashSet<PropertyKey>();
       keySet.addAll(_bean.keySet());
       keySet.addAll(_bean.bindingKeySet());
       _entries = new MakeEntries(keySet);
@@ -111,18 +115,20 @@ public class ValueMap extends AbstractMap
     return _entries;
   }
 
-  private class MakeEntries extends AbstractSet
+  private class MakeEntries extends AbstractSet<Map.Entry<Object, Object>>
   {
-    public MakeEntries(Set keys)
+    public MakeEntries(Set<PropertyKey> keys)
     {
       _keys = keys;
     }
 
+    @Override
     public int size()
     {
       return _keys.size();
     }
 
+    @Override
     public boolean remove(Object o)
     {
       if (!(o instanceof EntryImpl))
@@ -133,19 +139,20 @@ public class ValueMap extends AbstractMap
       return (ValueMap.this.remove(key) != null);
     }
 
-    public Iterator iterator()
+    @Override
+    public Iterator<Map.Entry<Object, Object>> iterator()
     {
-      final Iterator base = _keys.iterator();
-      return new Iterator()
+      final Iterator<PropertyKey> base = _keys.iterator();
+      return new Iterator<Map.Entry<Object, Object>>()
       {
         public boolean hasNext()
         {
           return base.hasNext();
         }
 
-        public Object next()
+        public Map.Entry<Object, Object> next()
         {
-          _lastEntry = new EntryImpl((PropertyKey) base.next());
+          _lastEntry = new EntryImpl(base.next());
           return _lastEntry;
         }
 
@@ -164,10 +171,10 @@ public class ValueMap extends AbstractMap
       };
     }
 
-    private Set _keys;
+    private Set<PropertyKey> _keys;
   }
 
-  private class EntryImpl implements Entry
+  private class EntryImpl implements Entry<Object, Object>
   {
     public EntryImpl(PropertyKey key)
     {
@@ -189,6 +196,8 @@ public class ValueMap extends AbstractMap
       return put(_key, value);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public boolean equals(Object o)
     {
       if (o == this)
@@ -197,7 +206,7 @@ public class ValueMap extends AbstractMap
       if (!(o instanceof Map.Entry))
         return false;
 
-      Map.Entry e = (Map.Entry)o;
+      Map.Entry<Object, Object> e = (Map.Entry<Object, Object>)o;
       Object k1 = getKey();
       Object k2 = e.getKey();
       if (k1 == k2 || (k1 != null && k1.equals(k2)))
@@ -211,6 +220,7 @@ public class ValueMap extends AbstractMap
       return false;
     }
     
+    @Override
     public int hashCode()
     {
       Object value = getValue();

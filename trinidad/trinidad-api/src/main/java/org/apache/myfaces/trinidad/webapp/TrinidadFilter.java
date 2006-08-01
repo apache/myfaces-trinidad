@@ -46,7 +46,7 @@ public class TrinidadFilter implements Filter
     {
       try
       {
-        Class proxiedClass = loader.loadClass(
+        Class<?> proxiedClass = loader.loadClass(
                       "org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl");
         _proxied = (Filter) proxiedClass.newInstance();
         _proxied.init(filterConfig);
@@ -92,7 +92,7 @@ public class TrinidadFilter implements Filter
       chain.doFilter(request, response);
   }
 
-  private Filter _proxied;
-
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadFilter.class);
+
+  private Filter _proxied;
 }

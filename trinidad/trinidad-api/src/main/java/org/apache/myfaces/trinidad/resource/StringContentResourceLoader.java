@@ -32,17 +32,18 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
   {
     super(path, parent);
   }
-
-  protected URL getURL(String path) throws IOException
-  {
-    return new URL("dynamic", null, -1, path, new StringContentURLStreamHandler(getString(path), getContentType(path)));
-  }
-  
-  protected abstract String getString(String path) throws IOException;
   
   protected String getContentType(String path)
   {
     return "text";
+  }
+  
+  protected abstract String getString(String path) throws IOException;
+
+  @Override
+  protected URL getURL(String path) throws IOException
+  {
+    return new URL("dynamic", null, -1, path, new StringContentURLStreamHandler(getString(path), getContentType(path)));
   }
   
   /**
@@ -73,6 +74,7 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
      * @return a connection containing the string of data
      * @throws IOException when something bad happens
      */
+    @Override
     protected URLConnection openConnection(URL u) throws IOException
     {
       return new StringContentURLConnection(u, _buff, _contentType); 
@@ -92,27 +94,32 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
       _contentType = contentType;
     }
   
+    @Override
     public void connect() throws IOException
     {
       connected = true;
     }
   
+    @Override
     public String getContentEncoding()
     {
       //No content Encoding in Strings (like gzip or deflate)
       return null;
     }
   
+    @Override
     public int getContentLength()
     {
       return _buff.length;
     }
   
+    @Override
     public String getContentType()
     {
       return _contentType;
     }
   
+    @Override
     public String getHeaderField(String name)
     {
       if("content-encoding".equals(name))
@@ -131,6 +138,7 @@ public abstract class StringContentResourceLoader extends DynamicResourceLoader
       return null;
     }
   
+    @Override
     public InputStream getInputStream() throws IOException
     {
       return new ByteArrayInputStream(_buff);

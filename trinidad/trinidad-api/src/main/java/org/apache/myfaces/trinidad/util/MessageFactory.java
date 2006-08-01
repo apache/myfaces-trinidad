@@ -525,11 +525,13 @@ public class MessageFactory
       _messageStrings = messageStrings;
     }
 
+    @Override
     public String getDetail()
     {
       return _messageStrings.getDetailMessage();
     }
 
+    @Override
     public String getSummary()
     {
       return _messageStrings.getMessage();
@@ -559,6 +561,7 @@ public class MessageFactory
         throw new NullPointerException();
     }
 
+    @Override
     public String getMessage()
     {
       String pattern = super.getMessage();
@@ -566,6 +569,7 @@ public class MessageFactory
       return _getFormattedString(pattern, _resolvedParameters);
     }
 
+    @Override
     public String getDetailMessage()
     {
       String pattern = super.getDetailMessage();
@@ -617,6 +621,7 @@ public class MessageFactory
     // Currently only detail message can be customized. So we override the
     // detail message. If summary is to be overridden we have to do the
     // same to it also.
+    @Override
     public String getDetailMessage()
     {
       FacesContext context    = FacesContext.getCurrentInstance();
@@ -656,11 +661,13 @@ public class MessageFactory
       _parameters = parameters;
     }
 
+    @Override
     public String getMessage()
     {
       return _getFormattedString(super.getMessage(), _parameters);
     }
 
+    @Override
     public String getDetailMessage()
     {
       return _getFormattedString(super.getDetailMessage(), _parameters);

@@ -282,6 +282,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * type other than {@link java.util.Date}, {@link java.lang.String}. The
    * <code>value</code> can be null.
    */
+  @Override
   public Object getAsObject(
     FacesContext context,
     UIComponent component,
@@ -313,6 +314,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @exception NullPointerException if <code>context</code> or
    *  <code>component</code> is <code>null</code>
    */
+  @Override
   public String getAsString(
     FacesContext context,
     UIComponent component,
@@ -678,6 +680,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *
    * @param locale The new <code>Locale</code> (or <code>null</code>)
    */
+  @Override
   public void setLocale(Locale locale)
   {
     _facesBean.setProperty(_LOCALE_KEY, locale);
@@ -690,6 +693,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * request is used during call to <code>getAsObject</code> and
   * <code>getAsString</code>.</p>
   */
+  @Override
   public Locale getLocale()
   {
     Object locale = _facesBean.getProperty(_LOCALE_KEY);
@@ -705,15 +709,17 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *
    * @param pattern The new format pattern
    */
-    public void setPattern(String pattern)
-    {
-      _facesBean.setProperty(_PATTERN_KEY, pattern);
-    }
+  @Override
+  public void setPattern(String pattern)
+  {
+    _facesBean.setProperty(_PATTERN_KEY, pattern);
+  }
 
   /**
    * <p>Return the format pattern to be used when formatting and
    * parsing dates and times.</p>
    */
+  @Override
   public String getPattern()
   {
     Object pattern = _facesBean.getProperty(_PATTERN_KEY);
@@ -725,6 +731,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *
    * @param timeZone The new time zone
    */
+  @Override
   public void setTimeZone(TimeZone timeZone)
   {
     _facesBean.setProperty(_TIME_ZONE_KEY, timeZone);
@@ -737,6 +744,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * for the web-app is used. If time zone is not set for the web-app then
   * the default time zone of <code>GMT</code> is used.</p>
   */
+  @Override
   public TimeZone getTimeZone()
   {
     Object timeZone = _facesBean.getProperty(_TIME_ZONE_KEY);
@@ -752,6 +760,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   *
   * @param type The new date style
   */
+  @Override
   public void setType(String type)
   {
     _facesBean.setProperty(_TYPE_KEY, type);
@@ -762,6 +771,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * If not explicitly set, the default type, <code>date</code>
    * is returned.</p>
    */
+  @Override
   public String getType()
   {
     Object type = _facesBean.getProperty(_TYPE_KEY);
@@ -778,6 +788,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *
    * @param dateStyle The new style code
    */
+  @Override
   public void setDateStyle(String dateStyle)
   {
     _facesBean.setProperty(_DATE_STYLE_KEY, dateStyle);
@@ -789,6 +800,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @see #setDateStyle(java.lang.String)
    * @return date style
    */
+  @Override
   public String getDateStyle()
   {
     Object dateStyle = _facesBean.getProperty(_DATE_STYLE_KEY);
@@ -804,6 +816,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    *
    * @param timeStyle The new style code
    */
+  @Override
   public void setTimeStyle(String timeStyle)
   {
     _facesBean.setProperty(_TIME_STYLE_KEY, timeStyle);
@@ -813,6 +826,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Return the style to be used to format or parse times.  If not set,
    * the default value, <code>short</code>, is returned.</p>
    */
+  @Override
   public String getTimeStyle()
   {
     Object timeStyle = _facesBean.getProperty(_TIME_STYLE_KEY);
@@ -842,21 +856,25 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     return ComponentUtils.resolveString(secPattern);
   }
 
+  @Override
   public boolean isTransient()
   {
     return _isTransient;
   }
 
+  @Override
   public void setTransient(boolean isTransient)
   {
     _isTransient = isTransient;
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     return _facesBean.saveState(context);
   }
 
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     _facesBean.restoreState(context, state);
@@ -905,6 +923,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return true if and only if the specified Object is a DateTimeConverter
    * and if all parameters are equal.
    */
+  @Override
   public boolean equals(Object object)
   {
     if (this == object)
@@ -940,6 +959,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * <p>Returns the hash code for this Converter.</p>
    * @return a hash code value for this object.
    */
+  @Override
   public int hashCode()
   {
     int result = 17;
@@ -1174,7 +1194,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     // 03/Oct/99 --> 03-Oct-99
     // 03.Oct.99 --> 03-Oct-99
 
-    Set patterns = new HashSet();
+    Set<String> patterns = new HashSet<String>();
 
     String[] leniencyApplicablePatterns = new String[1];
     leniencyApplicablePatterns[0] = pattern;
@@ -1213,7 +1233,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         patterns.add(leniencyApplicablePatterns[i].replaceAll("\\.", "-"));
       }
     }
-    return (String[]) patterns.toArray(_EMTPTY_ARRAY);
+    return patterns.toArray(_EMTPTY_ARRAY);
   }
 
   private Object[] _getPlaceHolderParameters(
@@ -1227,6 +1247,21 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
      return params;
   }
 
+  private Object _getRawConvertBothMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_BOTH_MESSAGE_DETAIL_KEY);
+  }
+
+  private Object _getRawConvertDateMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_DATE_MESSAGE_DETAIL_KEY);
+  }
+
+  private Object _getRawConvertTimeMessageDetail()
+  {
+    return _facesBean.getRawProperty(_CONVERT_TIME_MESSAGE_DETAIL_KEY);
+  }
+
   private FacesMessage _getConvertErrorFacesMessage(
     FacesContext context,
     String key,
@@ -1234,18 +1269,18 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     UIComponent component
     )
   {
-    String msgPattern = null;
+    Object msgPattern;
     if (key == CONVERT_DATE_MESSAGE_ID)
     {
-      msgPattern = getConvertDateMessageDetail();
+      msgPattern = _getRawConvertDateMessageDetail();
     }
     else if (key == CONVERT_TIME_MESSAGE_ID)
     {
-      msgPattern = getConvertTimeMessageDetail();
+      msgPattern = _getRawConvertTimeMessageDetail();
     }
     else if (key == CONVERT_BOTH_MESSAGE_ID)
     {
-      msgPattern = getConvertBothMessageDetail();
+      msgPattern = _getRawConvertBothMessageDetail();
     }
     else
     {

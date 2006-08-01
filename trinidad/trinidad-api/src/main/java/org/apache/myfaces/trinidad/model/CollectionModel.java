@@ -111,7 +111,8 @@ public abstract class CollectionModel extends DataModel
    * An empty list is returned if this collection is not sorted.
    * @see SortCriterion
    */
-  public List getSortCriteria()
+  @SuppressWarnings("unchecked")
+  public List<SortCriterion> getSortCriteria()
   {
     return Collections.EMPTY_LIST;
   }
@@ -123,7 +124,7 @@ public abstract class CollectionModel extends DataModel
    * the same as an empty list.
    * @see SortCriterion
    */
-  public void setSortCriteria(List criteria)
+  public void setSortCriteria(List<SortCriterion> criteria)
   {
   }
 

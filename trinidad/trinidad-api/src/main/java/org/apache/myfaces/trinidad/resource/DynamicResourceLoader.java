@@ -68,6 +68,7 @@ public abstract class DynamicResourceLoader extends ResourceLoader
    * @return a URL for this resource
    * @throws IOException when something bad happens
    */
+  @Override
   protected URL findResource(String path) throws IOException
   {
     if (_path.equals(path))

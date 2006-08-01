@@ -146,7 +146,7 @@ abstract public class FacesBeanImpl implements FacesBean
   {
     _checkListKey(listKey);
 
-    List l = (List) getLocalPropertyImpl(listKey);
+    List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l == null)
     {
       l = _createList();
@@ -161,11 +161,12 @@ abstract public class FacesBeanImpl implements FacesBean
       setPropertyImpl(listKey, l);
   }
 
+  @SuppressWarnings("unchecked")
   final public void removeEntry(PropertyKey listKey, Object value)
   {
     _checkListKey(listKey);
 
-    List l = (List) getLocalPropertyImpl(listKey);
+    List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l != null)
     {
       l.remove(value);
@@ -199,11 +200,12 @@ abstract public class FacesBeanImpl implements FacesBean
                                                          tempList.size()));
   }
 
-  final public boolean containsEntry(PropertyKey listKey, Class clazz)
+  @SuppressWarnings("unchecked")
+  final public boolean containsEntry(PropertyKey listKey, Class<?> clazz)
   {
     _checkListKey(listKey);
 
-    List l = (List) getLocalPropertyImpl(listKey);
+    List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l == null)
       return false;
 
@@ -218,11 +220,12 @@ abstract public class FacesBeanImpl implements FacesBean
     return false;
   }
 
-  final public Iterator entries(PropertyKey listKey)
+  @SuppressWarnings("unchecked")
+  final public Iterator<Object> entries(PropertyKey listKey)
   {
     _checkListKey(listKey);
 
-    List l = (List) getLocalPropertyImpl(listKey);
+    List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l == null)
       return Collections.EMPTY_LIST.iterator();
 
@@ -238,10 +241,8 @@ abstract public class FacesBeanImpl implements FacesBean
     if (from == this)
       return;
 
-    Iterator keys = from.keySet().iterator();
-    while (keys.hasNext())
+    for(PropertyKey fromKey : from.keySet())
     {
-      PropertyKey fromKey = (PropertyKey) keys.next();
       PropertyKey toKey = _convertKey(fromKey);
       if ((toKey != null) &&
           _isCompatible(fromKey, toKey))
@@ -252,17 +253,15 @@ abstract public class FacesBeanImpl implements FacesBean
         }
         else
         {
-          Iterator entries = from.entries(fromKey);
+          Iterator<Object> entries = from.entries(fromKey);
           while (entries.hasNext())
             addEntry(toKey, entries.next());
         }
       }
     }
 
-    Iterator bindings = from.bindingKeySet().iterator();
-    while (bindings.hasNext())
+    for(PropertyKey fromKey : from.bindingKeySet())
     {
-      PropertyKey fromKey = (PropertyKey) bindings.next();
       PropertyKey toKey = _convertKey(fromKey);
       if (toKey.getSupportsBinding())
       {
@@ -272,7 +271,8 @@ abstract public class FacesBeanImpl implements FacesBean
   }
 
 
-  final public Set keySet()
+  @SuppressWarnings("unchecked")
+  final public Set<PropertyKey> keySet()
   {
     if (_properties == null)
       return Collections.EMPTY_SET;
@@ -280,7 +280,8 @@ abstract public class FacesBeanImpl implements FacesBean
     return _properties.keySet();
   }
 
-  final public Set bindingKeySet()
+  @SuppressWarnings("unchecked")
+  final public Set<PropertyKey> bindingKeySet()
   {
     if (_bindings == null)
       return Collections.EMPTY_SET;
@@ -401,9 +402,9 @@ abstract public class FacesBeanImpl implements FacesBean
   // "listKey" is unused, but it seems plausible that
   // if this ever gets converted to a protected hook that
   // "listKey" may be useful in that context.
-  private List _createList(/*PropertyKey listKey*/)
+  private List<Object> _createList(/*PropertyKey listKey*/)
   {
-    return new ArrayList();
+    return new ArrayList<Object>();
   }
 
   /**

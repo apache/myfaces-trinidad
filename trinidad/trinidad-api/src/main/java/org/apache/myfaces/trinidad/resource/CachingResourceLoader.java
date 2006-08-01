@@ -48,7 +48,7 @@ public class CachingResourceLoader extends ResourceLoader
   {
     super(parent);
 
-    _cache = new HashMap();
+    _cache = new HashMap<String, URL>();
   }
 
   /**
@@ -61,11 +61,12 @@ public class CachingResourceLoader extends ResourceLoader
    *
    * @throws java.io.IOException  if an I/O error occurs
    */
+  @Override
   protected URL findResource(
     String path
     ) throws IOException
   {
-    URL url = (URL)_cache.get(path);
+    URL url = _cache.get(path);
 
     if (url == null)
     {
@@ -81,7 +82,7 @@ public class CachingResourceLoader extends ResourceLoader
     return url;
   }
 
-  private final Map _cache;
+  private final Map<String, URL> _cache;
 
   /**
    * URLStreamHandler to cache URL contents and URLConnection headers.
@@ -94,6 +95,7 @@ public class CachingResourceLoader extends ResourceLoader
       _delegate = delegate;
     }
 
+    @Override
     protected URLConnection openConnection(
       URL url
       ) throws IOException
@@ -156,32 +158,38 @@ public class CachingResourceLoader extends ResourceLoader
       _handler = handler;
     }
 
+    @Override
     public void connect() throws IOException
     {
       // cache: no-op
     }
 
+    @Override
     public String getContentType()
     {
       return _conn.getContentType();
     }
 
+    @Override
     public int getContentLength()
     {
       return _conn.getContentLength();
     }
 
+    @Override
     public long getLastModified()
     {
       return _conn.getLastModified();
     }
 
+    @Override
     public String getHeaderField(
       String name)
     {
       return _conn.getHeaderField(name);
     }
 
+    @Override
     public InputStream getInputStream() throws IOException
     {
       return _handler.getInputStream(_conn);

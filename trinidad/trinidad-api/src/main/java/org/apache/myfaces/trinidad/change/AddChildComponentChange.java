@@ -70,6 +70,8 @@ public class AddChildComponentChange extends AddComponentChange
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
     UIComponent child = getComponent();
@@ -78,7 +80,7 @@ public class AddChildComponentChange extends AddComponentChange
       return;
       
     String newChildId = child.getId();
-    List children = uiComponent.getChildren();
+    List<UIComponent> children = uiComponent.getChildren();
     
     //pu: If there were to be a child already with the ID same as the
     //  to-be-added child, remove it and get the new one added.

@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidad.component;
+
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
@@ -35,22 +36,26 @@ class WrapperEvent extends FacesEvent
     _event = wrappedEvent;
   }
 
+  @Override
   public PhaseId getPhaseId()
   {
     return _event.getPhaseId();
   }
 
+  @Override
   public void setPhaseId(PhaseId phaseId)
   {
     _event.setPhaseId(phaseId);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     // This event is never delivered to a listener
     throw new IllegalStateException();
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     // This event is never delivered to a listener

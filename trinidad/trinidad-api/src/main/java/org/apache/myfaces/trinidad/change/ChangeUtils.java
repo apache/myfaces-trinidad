@@ -41,14 +41,17 @@ class ChangeUtils
    *  the children for a child with the specified identifier and returns.
    * Returns null if there were to be no such child
    */
+  @SuppressWarnings("unchecked")
   public static UIComponent getChildForId(UIComponent parent, String childId)
   {
     if (parent == null)
       return null;
-    List children = parent.getChildren();
+
     int numChildren = parent.getChildCount();
     if (numChildren == 0)
       return null;
+
+    List children = parent.getChildren();
     UIComponent child;
     for (int i=0; i<numChildren; i++)
     {

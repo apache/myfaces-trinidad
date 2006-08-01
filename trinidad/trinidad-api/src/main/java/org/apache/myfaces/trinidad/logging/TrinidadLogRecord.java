@@ -29,6 +29,7 @@ class TrinidadLogRecord extends LogRecord
   }
 
 
+  @Override
   public String getSourceClassName()
   {
     if (_needToInferCaller)
@@ -37,12 +38,14 @@ class TrinidadLogRecord extends LogRecord
     return super.getSourceClassName();
   }
 
+  @Override
   public void setSourceClassName(String sourceClassName)
   {
     _needToInferCaller = false;
     super.setSourceClassName(sourceClassName);
   }
 
+  @Override
   public String getSourceMethodName()
   {
     if (_needToInferCaller)
@@ -51,6 +54,7 @@ class TrinidadLogRecord extends LogRecord
     return super.getSourceMethodName();
   }
 
+  @Override
   public void setSourceMethodName(String sourceMethodName)
   {
     _needToInferCaller = false;
@@ -114,9 +118,10 @@ class TrinidadLogRecord extends LogRecord
   transient private boolean _needToInferCaller = true;
 
 
-  static private final String _JDK_LOG_CLASS =
-  "java.util.logging.Logger";
-  static private final String _ADF_LOG_CLASS =
-  "org.apache.myfaces.trinidad.logging.TrinidadLogger";
+  private static final String _JDK_LOG_CLASS = 
+    "java.util.logging.Logger";
+  
+  private static final String _ADF_LOG_CLASS =
+    "org.apache.myfaces.trinidad.logging.TrinidadLogger";
 }
 

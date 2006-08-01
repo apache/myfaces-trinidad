@@ -36,7 +36,7 @@ public abstract class RegionManager
    *  Each key is a regionType String.
    *  Each value is of type {@link RegionConfig}.
    */
-  public abstract Map getRegionConfigs();
+  public abstract Map<String, RegionConfig> getRegionConfigs();
   
   /**
    * Gets the RegionConfig for a particular regionType

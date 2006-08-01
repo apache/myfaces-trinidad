@@ -58,7 +58,7 @@ class ChangeComponentProxy implements Serializable
   public UIComponent createComponent()
   {
     UIComponent uic = null;
-    Class clazz = _getComponentClass();
+    Class<? extends UIComponent> clazz = _getComponentClass();
     if (clazz == null)
     {
       // An error must have already been logged in _getComponentClass();
@@ -67,7 +67,7 @@ class ChangeComponentProxy implements Serializable
 
     try
     {
-      uic = (UIComponent) clazz.newInstance();
+      uic = clazz.newInstance();
       uic.restoreState(FacesContext.getCurrentInstance(), _state);
     }
     catch (InstantiationException ie)
@@ -87,15 +87,16 @@ class ChangeComponentProxy implements Serializable
     return uic;
   }
 
-  private Class _getComponentClass()
+  @SuppressWarnings("unchecked")
+  private Class<? extends UIComponent> _getComponentClass()
   {
-    Class clazz = _class;
+    Class<? extends UIComponent> clazz = _class;
     if (clazz == null)
     {
       try
       {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
-        clazz = cl.loadClass(_className);
+        clazz = (Class<? extends UIComponent>)cl.loadClass(_className);
         _class = clazz;
       }
       catch (ClassNotFoundException e)
@@ -107,9 +108,10 @@ class ChangeComponentProxy implements Serializable
     return clazz;
   }
 
-  private transient Class _class;
+  private static final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(ChangeComponentProxy.class);
+
+  private transient Class<? extends UIComponent> _class;
   private String _className;
   private Object _state;
-  static private final TrinidadLogger _LOG =
-    TrinidadLogger.createTrinidadLogger(org.apache.myfaces.trinidad.change.ChangeComponentProxy.class);
 }

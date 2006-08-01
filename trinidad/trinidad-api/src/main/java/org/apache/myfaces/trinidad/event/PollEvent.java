@@ -33,16 +33,19 @@ public class PollEvent extends FacesEvent
     super(source);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((PollListener) listener).processPoll(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof PollListener);
   }
 
+  @Override
   public int hashCode()
   {
     //A simple implementation to differentiate based on component that
@@ -50,8 +53,8 @@ public class PollEvent extends FacesEvent
     return (getComponent() == null) ? 0 : getComponent().hashCode();
   }
 
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o instanceof PollEvent)
     {
@@ -62,6 +65,7 @@ public class PollEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();

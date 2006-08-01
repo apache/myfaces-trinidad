@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidad.bean.PropertyMap;
 public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
                                 implements PropertyMap
 {
+  @Override
   public boolean containsKey(
     Object key)
   {
@@ -44,10 +45,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       return ((_flags & (1L << index)) == 0);
     }
 
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     return (map != null) ? map.containsKey(pKey) : false;
   }
 
+  @Override
   public Object get(
     Object key)
   {
@@ -63,10 +65,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       }
     }
 
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     return (map != null) ? map.get(key) : null;
   }
 
+  @Override
   public Object put(
     PropertyKey key,
     Object      value)
@@ -79,10 +82,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       _flags |= (1L << index);
     }
 
-    Map map = getPropertyMap(true);
+    Map<PropertyKey, Object> map = getPropertyMap(true);
     return map.put(key, value);
   }
 
+  @Override
   public Object remove(
     Object key)
   {
@@ -103,10 +107,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       _flags &= ~propertyMask;
     }
 
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     return (map != null) ? map.remove(key) : null;
   }
 
+  @Override
   public void putAll(Map<? extends PropertyKey, ? extends Object> t)
   {
     Iterator<? extends PropertyKey> iter = t.keySet().iterator();
@@ -126,13 +131,15 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
       }
     }
 
-    Map map = getPropertyMap(true);
+    Map<PropertyKey, Object> map = getPropertyMap(true);
     map.putAll(t);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Set<Map.Entry<PropertyKey, Object>> entrySet()
   {
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
       return Collections.EMPTY_SET;
 
@@ -142,9 +149,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
   /**
    * @todo Optimize to take advantage of flags.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public Set<PropertyKey> keySet()
   {
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
       return Collections.EMPTY_SET;
 
@@ -152,9 +161,11 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
   }
 
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Collection<Object> values()
   {
-    Map map = getPropertyMap(false);
+    Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
       return Collections.EMPTY_SET;
 

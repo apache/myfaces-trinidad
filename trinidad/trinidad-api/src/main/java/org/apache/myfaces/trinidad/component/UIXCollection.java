@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.AbstractMap;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +34,7 @@ import javax.faces.event.PhaseId;
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
+import org.apache.myfaces.trinidad.model.SortCriterion;
 
 /**
  * Base class for components that do stamping.
@@ -63,6 +63,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * currency will be restored.
    * @param event a FacesEvent
    */
+  @Override
   public void queueEvent(FacesEvent event)
   {
     if (event.getSource() == this)
@@ -90,6 +91,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @param event a FacesEvent
    * @throws javax.faces.event.AbortProcessingException
    */
+  @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -115,6 +117,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * Decodes the children as many times as they are stamped.
    * @param context the FacesContext
    */
+  @Override
   public final void processDecodes(FacesContext context)
   {
     if (context == null)
@@ -146,16 +149,19 @@ public abstract class UIXCollection extends UIXComponentBase
     decodeChildren(context);
   }
 
+  @Override
   protected void decodeChildrenImpl(FacesContext context)
   {
     processFacetsAndChildren(context, PhaseId.APPLY_REQUEST_VALUES);
   }
 
+  @Override
   protected void validateChildrenImpl(FacesContext context)
   {
     processFacetsAndChildren(context, PhaseId.PROCESS_VALIDATIONS);
   }
 
+  @Override
   protected void updateChildrenImpl(FacesContext context)
   {
     processFacetsAndChildren(context, PhaseId.UPDATE_MODEL_VALUES);
@@ -175,6 +181,7 @@ public abstract class UIXCollection extends UIXComponentBase
     iState._stampState.clear(initKey);
   }
 
+  @Override
   public Object processSaveState(FacesContext context)
   {
     // If we saved state in the middle of processing a row,
@@ -199,13 +206,14 @@ public abstract class UIXCollection extends UIXComponentBase
     return savedState;
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     // _stampState is stored as an instance variable, so it isn't
     // automatically saved
     Object superState = super.saveState(context);
     Object stampState;
-    ValueMap currencyCache;
+    ValueMap<Object> currencyCache;
 
     // becareful not to create the internal state too early:
     // otherwise, the internal state will be shared between
@@ -230,6 +238,8 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     final Object superState, stampState, currencyCache;
@@ -250,7 +260,7 @@ public abstract class UIXCollection extends UIXComponentBase
     {
       InternalState iState = _getInternalState(true);
       iState._stampState = (StampState) stampState;
-      iState._currencyCache = (ValueMap) currencyCache;
+      iState._currencyCache = (ValueMap<Object>) currencyCache;
     }
     else
     {
@@ -413,7 +423,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @see org.apache.myfaces.trinidad.model.SortCriterion
    * @see CollectionModel#setSortCriteria
    */
-  public void setSortCriteria(List criteria)
+  public void setSortCriteria(List<SortCriterion> criteria)
   {
     getCollectionModel().setSortCriteria(criteria);
   }
@@ -425,7 +435,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @see org.apache.myfaces.trinidad.model.SortCriterion
    * @see CollectionModel#getSortCriteria
    */
-  public final List getSortCriteria()
+  public final List<SortCriterion> getSortCriteria()
   {
     return getCollectionModel().getSortCriteria();
   }
@@ -433,6 +443,7 @@ public abstract class UIXCollection extends UIXComponentBase
   /**
    * Clears all the currency strings.
    */
+  @Override
   public final void encodeBegin(FacesContext context) throws IOException
   {
     _init();
@@ -447,6 +458,7 @@ public abstract class UIXCollection extends UIXComponentBase
     assert _assertKeyPreserved(assertKey) : "CurrencyKey not preserved";
   }
 
+  @Override
   public void encodeEnd(FacesContext context) throws IOException
   {
     Object assertKey = null;
@@ -510,7 +522,7 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     assert rowKey != null;
 
-    ValueMap currencyCache = _getCurrencyCache();
+    ValueMap<Object> currencyCache = _getCurrencyCache();
     String key = (String) currencyCache.get(rowKey);
     if (key == null)
     {
@@ -548,7 +560,7 @@ public abstract class UIXCollection extends UIXComponentBase
     return ((key.length() > 0) && (!Character.isDigit(key.charAt(0))));
   }
 
-  private String _createToken(ValueMap currencyCache)
+  private String _createToken(ValueMap<Object> currencyCache)
   {
     String key = String.valueOf(currencyCache.size());
     return key;
@@ -619,6 +631,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @see #getCurrencyString
    * @return the local clientId
    */
+  @Override
   protected final String getLocalClientId()
   {
     String id = super.getLocalClientId();
@@ -691,7 +704,7 @@ public abstract class UIXCollection extends UIXComponentBase
       // varStatus yet:
       if ((iState._varStatus != null) && (iState._prevVarStatus == _NULL))
       {
-        Map varStatusMap = createVarStatusMap();
+        Map<String, Object> varStatusMap = createVarStatusMap();
         iState._prevVarStatus = _setELVar(iState._varStatus, varStatusMap);
       }
     }
@@ -704,7 +717,8 @@ public abstract class UIXCollection extends UIXComponentBase
    * This implementation simply returns the children of this component.
    * @return each element must be of type UIComponent.
    */
-  protected List getStamps()
+  @SuppressWarnings("unchecked")
+  protected List<UIComponent> getStamps()
   {
     return getChildren();
   }
@@ -731,6 +745,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @return this object must be Serializable if client-side state saving is
    * used.
    */
+  @SuppressWarnings("unchecked")
   protected Object saveStampState(FacesContext context, UIComponent stamp)
   {
     Object[] state = new Object[3];
@@ -743,14 +758,14 @@ public abstract class UIXCollection extends UIXComponentBase
     else
     {
       facetState = new Object[facetCount * 2];
-      Map facetMap = stamp.getFacets();
-      Iterator facets = facetMap.entrySet().iterator();
-      for (int i=0; facets.hasNext(); i++)
+      Map<String, UIComponent> facetMap = stamp.getFacets();
+      int i = 0;
+      for(Map.Entry<String, UIComponent> entry : facetMap.entrySet())
       {
-        Map.Entry entry = (Map.Entry) facets.next();
-        facetState[i * 2] = entry.getKey();
-        facetState[(i * 2) + 1] = saveStampState(context,
-                                                 (UIComponent) entry.getValue());
+        int base = i * 2;
+        facetState[base] = entry.getKey();
+        facetState[base + 1] = saveStampState(context, entry.getValue());
+        i++;
       }
     }
 
@@ -764,11 +779,11 @@ public abstract class UIXCollection extends UIXComponentBase
     }
     else
     {
-      List children = stamp.getChildren();
+      List<UIComponent> children = stamp.getChildren();
       childState = new Object[childCount];
       for(int i=0; i < childCount; i++)
       {
-        UIComponent child = (UIComponent) children.get(i);
+        UIComponent child = children.get(i);
         childState[i] = saveStampState(context, child);
       }
     }
@@ -784,6 +799,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * to match the new currency.
    * This method recurses for the children and facets of the stamp.
    */
+  @SuppressWarnings("unchecked")
   protected void restoreStampState(FacesContext context, UIComponent stamp,
                                    Object stampState)
   {
@@ -797,12 +813,11 @@ public abstract class UIXCollection extends UIXComponentBase
       restoreStampState(context, stamp.getFacet(facetName), facetState[i + 1]);
     }
 
-    List children = stamp.getChildren();
+    List<UIComponent> children = stamp.getChildren();
     Object[] childState = (Object[]) state[2];
     for(int i=0; i<childState.length; i++)
     {
-      UIComponent child = (UIComponent) children.get(i);
-      restoreStampState(context, child, childState[i]);
+      restoreStampState(context, children.get(i), childState[i]);
     }
   }
 
@@ -911,10 +926,11 @@ public abstract class UIXCollection extends UIXComponentBase
    * <li>current - returns the current rowData
    * </ul>
    */
-  protected Map createVarStatusMap()
+  protected Map<String, Object> createVarStatusMap()
   {
-    return new AbstractMap()
+    return new AbstractMap<String, Object>()
     {
+      @Override
       public Object get(Object key)
       {
         // some of these keys are from <c:forEach>, ie:
@@ -930,7 +946,9 @@ public abstract class UIXCollection extends UIXComponentBase
         return null;
       }
 
-      public Set entrySet()
+      @SuppressWarnings("unchecked")
+      @Override
+      public Set<Map.Entry<String, Object>> entrySet()
       {
         return Collections.EMPTY_SET;
       }
@@ -1018,15 +1036,15 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   private void _saveStampState()
   {
-    InternalState iState = _getInternalState(true);
+    // Never read and created by _getStampState
+    //InternalState iState = _getInternalState(true);
+    
     StampState stampState = _getStampState();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
-    Iterator stamps = getStamps().iterator();
     int position = 0;
-    while(stamps.hasNext())
+    for(UIComponent stamp : getStamps())
     {
-      UIComponent stamp = (UIComponent) stamps.next();
       Object state = saveStampState(context, stamp);
 //      String stampId = stamp.getId();
       // TODO
@@ -1052,11 +1070,9 @@ public abstract class UIXCollection extends UIXComponentBase
     StampState stampState = _getStampState();
     FacesContext context = getFacesContext();
     Object currencyObj = getRowKey();
-    Iterator stamps = getStamps().iterator();
     int position = 0;
-    while(stamps.hasNext())
+    for(UIComponent stamp : getStamps())
     {
-      UIComponent stamp = (UIComponent) stamps.next();
 //      String stampId = stamp.getId();
       // TODO
       // temporarily use position. later we need to use ID's to access
@@ -1097,11 +1113,11 @@ public abstract class UIXCollection extends UIXComponentBase
     return iState._stampState;
   }
 
-  private ValueMap _getCurrencyCache()
+  private ValueMap<Object> _getCurrencyCache()
   {
     InternalState iState = _getInternalState(true);
     if (iState._currencyCache == null)
-      iState._currencyCache = new ValueMap();
+      iState._currencyCache = new ValueMap<Object>();
     return iState._currencyCache;
   }
 
@@ -1158,7 +1174,7 @@ public abstract class UIXCollection extends UIXComponentBase
     private transient Object _initialStampStateKey = _NULL;
 
     private StampState _stampState = null;
-    private ValueMap _currencyCache = null;
+    private ValueMap<Object> _currencyCache = null;
   }
 
   // do not assign a non-null value. values should be assigned lazily. this is

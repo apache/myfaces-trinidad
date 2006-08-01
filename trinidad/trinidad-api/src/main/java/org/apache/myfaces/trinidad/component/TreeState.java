@@ -22,9 +22,9 @@ import java.io.ObjectInput;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -49,6 +49,7 @@ class TreeState implements Externalizable
     return _empty;
   }
 
+  @SuppressWarnings("unchecked")
   public void restoreState(FacesContext context, UIXComponentBase component)
   {
     component.restoreState(context, _state);
@@ -153,6 +154,7 @@ class TreeState implements Externalizable
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void saveState(FacesContext context, UIXComponentBase component)
   {
     // Save the component's state
@@ -206,12 +208,11 @@ class TreeState implements Externalizable
     else
     {
       _facets = new Object[facetCount * 2];
-      Iterator facets = component.getFacets().entrySet().iterator();
       int i = 0;
-      while (facets.hasNext())
+      Set<Map.Entry<String, UIComponent>> entries = component.getFacets().entrySet();
+      for(Map.Entry<String, UIComponent> entry : entries)
       {
-        Map.Entry entry = (Map.Entry) facets.next();
-        UIComponent facet = (UIComponent) entry.getValue();
+        UIComponent facet = entry.getValue();
 
         // Just skip over transient facets
         if (facet.isTransient())
@@ -255,10 +256,10 @@ class TreeState implements Externalizable
   }
 
 
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeState.class);
+
   private Object[] _facets;
   private Object[] _children;
   private Object _state;
   private boolean _empty;
-
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeState.class);
 }

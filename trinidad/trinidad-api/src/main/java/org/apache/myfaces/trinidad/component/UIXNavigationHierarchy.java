@@ -46,6 +46,7 @@ abstract public class UIXNavigationHierarchy extends UIXHierarchy
     this(null);
   }
 
+  @Override
   public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     MenuModel model = ModelUtils.toMenuModel(value);
@@ -68,6 +69,7 @@ abstract public class UIXNavigationHierarchy extends UIXHierarchy
    * @see MenuModel#getFocusRowKey
    * @return the focus rowKey for the current viewId
    */
+  @Override
   public Object getFocusRowKey()
   {
     MenuModel model = getMenuModel();

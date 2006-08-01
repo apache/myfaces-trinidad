@@ -17,14 +17,12 @@ package org.apache.myfaces.trinidad.component;
 
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Properties;
 
 import javax.faces.component.NamingContainer;
@@ -136,6 +134,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return TYPE;
   }
 
+  @Override
   public FacesBean getFacesBean()
   {
     if (_facesBean == null)
@@ -145,27 +144,32 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  @Override
   public void addAttributeChangeListener(AttributeChangeListener acl)
   {
     addFacesListener(acl);
   }
 
+  @Override
   public void removeAttributeChangeListener(AttributeChangeListener acl)
   {
     removeFacesListener(acl);
   }
 
+  @Override
   public AttributeChangeListener[] getAttributeChangeListeners()
   {
     return (AttributeChangeListener[])
       getFacesListeners(AttributeChangeListener.class);
   }
 
+  @Override
   public void setAttributeChangeListener(MethodBinding mb)
   {
     setProperty(_ATTRIBUTE_CHANGE_LISTENER_KEY, mb);
   }
 
+  @Override
   public MethodBinding getAttributeChangeListener()
   {
     return (MethodBinding) getProperty(_ATTRIBUTE_CHANGE_LISTENER_KEY);
@@ -174,6 +178,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    */
+  @Override
   public ValueBinding getValueBinding(String name)
   {
     if (name == null)
@@ -191,6 +196,7 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  @Override
   public void setValueBinding(String name, ValueBinding binding)
   {
     if (name == null)
@@ -201,6 +207,8 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Map getAttributes()
   {
     if (_attributes == null)
@@ -212,6 +220,7 @@ abstract public class UIXComponentBase extends UIXComponent
   // ------------------------------------------------------------- Properties
 
 
+  @Override
   public String getClientId(FacesContext context)
   {
     // NOTE - client ids cannot be cached because the generated
@@ -251,12 +260,14 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  @Override
   public String getId()
   {
     return (String) getProperty(ID_KEY);
   }
 
 
+  @Override
   public void setId(String id)
   {
     // =-=AEW Currently, setId() assumes that resetting to
@@ -268,9 +279,11 @@ abstract public class UIXComponentBase extends UIXComponent
 
 
 
+  @Override
   abstract public String getFamily();
 
 
+  @Override
   public UIComponent getParent()
   {
     return _parent;
@@ -284,34 +297,39 @@ abstract public class UIXComponentBase extends UIXComponent
    * @param parent The new parent, or <code>null</code> for the root node
    *  of a component tree
    */
+  @Override
   public void setParent(UIComponent parent)
   {
     _parent = parent;
   }
 
 
+  @Override
   public boolean isRendered()
   {
     return getBooleanProperty(RENDERED_KEY, true);
   }
 
 
+  @Override
   public void setRendered(boolean rendered)
   {
     setBooleanProperty(RENDERED_KEY, rendered);
   }
 
+  @Override
   public boolean isTransient()
   {
     return getBooleanProperty(TRANSIENT_KEY, false);
   }
 
+  @Override
   public void setTransient(boolean newTransient)
   {
     setBooleanProperty(TRANSIENT_KEY, newTransient);
   }
 
-
+  @Override
   public String getRendererType()
   {
     // Don't create the FacesBean just to get the renderer type;
@@ -324,7 +342,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return (String) getProperty(RENDERER_TYPE_KEY);
   }
 
-
+  @Override
   public void setRendererType(String rendererType)
   {
     String oldRendererType = getRendererType();
@@ -347,6 +365,7 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * @todo Pass through to Renderer
    */
+  @Override
   public boolean getRendersChildren()
   {
     Renderer renderer = getRenderer(getFacesContext());
@@ -366,6 +385,7 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * @exception NullPointerException {@inheritDoc}
    */
+  @Override
   public UIComponent findComponent(String id)
   {
     if (id == null)
@@ -438,6 +458,8 @@ abstract public class UIXComponentBase extends UIXComponent
    * <p>Create (if necessary) and return a List of the children associated
    * with this component.</p>
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public List getChildren()
   {
     if (_children == null)
@@ -446,6 +468,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return _children;
   }
 
+  @Override
   public int getChildCount()
   {
     if (_children == null)
@@ -458,6 +481,8 @@ abstract public class UIXComponentBase extends UIXComponent
    * <p>Create (if necessary) and return a Map of the facets associated
    * with this component.</p>
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public Map getFacets()
   {
 
@@ -468,7 +493,7 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
-
+  @Override
   public UIComponent getFacet(String facetName)
   {
     if (facetName == null)
@@ -486,10 +511,10 @@ abstract public class UIXComponentBase extends UIXComponent
    * no facets.  (Note that this is not part of the
    * UIComponent API.)
    */
-  public Iterator getFacetNames()
+  public Iterator<String> getFacetNames()
   {
     if (_facets == null)
-      return _EMPTY_ITERATOR;
+      return _EMPTY_STRING_ITERATOR;
     return _facets.keySet().iterator();
   }
 
@@ -497,13 +522,15 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * @todo optimize to a compound iterator
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public Iterator getFacetsAndChildren()
   {
     // =-=AEW Is this supposed to be an immutable Iterator?
     if (_facets == null)
     {
       if (_children == null)
-        return _EMPTY_ITERATOR;
+        return _EMPTY_UICOMPONENT_ITERATOR;
 
       return _children.iterator();
     }
@@ -513,18 +540,19 @@ abstract public class UIXComponentBase extends UIXComponent
         return _facets.values().iterator();
     }
 
-    ArrayList childrenAndFacets = new ArrayList();
-    Iterator facetsItr = _facets.values().iterator();
-    while (facetsItr.hasNext())
-      childrenAndFacets.add(facetsItr.next());
+    ArrayList<UIComponent> childrenAndFacets = new ArrayList<UIComponent>();
+    for(UIComponent facet : _facets.values())
+    {
+      childrenAndFacets.add(facet);
+    }
+    
+    for(UIComponent child : _children)
+    {
+      childrenAndFacets.add(child);
+    }
 
-
-    Iterator kidsItr = _children.iterator();
-    while (kidsItr.hasNext())
-      childrenAndFacets.add(kidsItr.next());
-
-    if (childrenAndFacets.size() == 0 )
-      return _EMPTY_ITERATOR;
+    if (childrenAndFacets.isEmpty())
+      return _EMPTY_UICOMPONENT_ITERATOR;
 
     return childrenAndFacets.iterator();
   }
@@ -532,6 +560,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ------------------------------------------- Event processing methods
 
+  @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -549,7 +578,7 @@ abstract public class UIXComponentBase extends UIXComponent
         adfContext.partialUpdateNotify(component);
     }
 
-    Iterator iter = getFacesBean().entries(_LISTENERS_KEY);
+    Iterator<Object> iter = getFacesBean().entries(_LISTENERS_KEY);
     while (iter.hasNext())
     {
       FacesListener listener = (FacesListener) iter.next();
@@ -569,13 +598,17 @@ abstract public class UIXComponentBase extends UIXComponent
   // ------------------------------------------- Lifecycle Processing Methods
 
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context)
   {
     if (context == null)
       throw new NullPointerException();
 
     // Find all the partialTriggers and save on the context
-    Map attrs = getAttributes();
+    // FIXME: -= Simon Lessard =-
+    //        JSF 1.2 specify <String, Object>
+    Map<Object, Object> attrs = getAttributes();
     Object triggers = attrs.get("partialTriggers");
     if (triggers instanceof String[])
     {
@@ -587,6 +620,7 @@ abstract public class UIXComponentBase extends UIXComponent
     __rendererDecode(context);
   }
 
+  @Override
   public void encodeBegin(FacesContext context) throws IOException
   {
     if (context == null)
@@ -604,6 +638,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  @Override
   public void encodeChildren(FacesContext context) throws IOException
   {
     if (context == null)
@@ -620,6 +655,7 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext context) throws IOException
   {
     if (context == null)
@@ -642,6 +678,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * is false, each child whose "rendered" property is true
    * will be sequentially rendered;  facets will be ignored.
    */
+  @Override
   public void encodeAll(FacesContext context) throws IOException
   {
     if (context == null)
@@ -657,6 +694,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * @exception IllegalStateException {@inheritDoc}
    * @exception NullPointerException {@inheritDoc}
    */
+  @Override
   public void queueEvent(FacesEvent event)
   {
     if (event == null)
@@ -671,6 +709,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ----------------------------------------------- Lifecycle Phase Handlers
 
+  @Override
   public void processDecodes(FacesContext context)
   {
     if (context == null)
@@ -687,6 +726,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   }
 
+  @Override
   public void processValidators(FacesContext context)
   {
     if (context == null)
@@ -699,6 +739,7 @@ abstract public class UIXComponentBase extends UIXComponent
     validateChildren(context);
   }
 
+  @Override
   public void processUpdates(FacesContext context)
   {
     if (context == null)
@@ -711,6 +752,7 @@ abstract public class UIXComponentBase extends UIXComponent
     updateChildren(context);
   }
 
+  @Override
   public Object processSaveState(FacesContext context)
   {
     if (context == null)
@@ -742,6 +784,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * @todo crashes and burns if there are fewer children or missing
    *  facets from when state was saved.
    */
+  @Override
   public void processRestoreState(FacesContext context, Object state)
   {
     if (context == null)
@@ -763,23 +806,29 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  @Override
   public void markInitialState()
   {
-    _initialStateMarked = true;
+    // FIXME: -= Simon Lessard =-
+    //        Set to true, but never read
+    //_initialStateMarked = true;
     getFacesBean().markInitialState();
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     return getFacesBean().saveState(context);
   }
 
+  @Override
   public void restoreState(FacesContext context, Object stateObj)
   {
     getFacesBean().restoreState(context, stateObj);
   }
 
 
+  @Override
   public String toString()
   {
     String className = getClass().getName();
@@ -793,6 +842,7 @@ abstract public class UIXComponentBase extends UIXComponent
   /**
    * <p>Return the {@link FacesContext} instance for the current request.</p>
    */
+  @Override
   protected FacesContext getFacesContext()
   {
     // If we ever have a way for a component to get notified
@@ -827,12 +877,13 @@ abstract public class UIXComponentBase extends UIXComponent
    * component.
    * @param context the current FacesContext
    */
+  @SuppressWarnings("unchecked")
   protected void decodeChildrenImpl(FacesContext context)
   {
-    Iterator kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       kid.processDecodes(context);
     }
   }
@@ -863,13 +914,14 @@ abstract public class UIXComponentBase extends UIXComponent
    * component.
    * @param context the current FacesContext
    */
+  @SuppressWarnings("unchecked")
   protected void validateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       kid.processValidators(context);
     }
   }
@@ -895,17 +947,19 @@ abstract public class UIXComponentBase extends UIXComponent
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected void updateChildrenImpl(FacesContext context)
   {
     // Process all the facets and children of this component
-    Iterator kids = getFacetsAndChildren();
+    Iterator<UIComponent> kids = getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       kid.processUpdates(context);
     }
   }
 
+  @Override
   protected void addFacesListener(FacesListener listener)
   {
     if (listener == null)
@@ -914,6 +968,7 @@ abstract public class UIXComponentBase extends UIXComponent
     getFacesBean().addEntry(_LISTENERS_KEY, listener);
   }
 
+  @Override
   protected void removeFacesListener(FacesListener listener)
   {
     if (listener == null)
@@ -922,7 +977,8 @@ abstract public class UIXComponentBase extends UIXComponent
     getFacesBean().removeEntry(_LISTENERS_KEY, listener);
   }
 
-
+  @SuppressWarnings("unchecked")
+  @Override
   protected FacesListener[] getFacesListeners(Class clazz)
   {
     if (clazz == null)
@@ -1002,6 +1058,7 @@ abstract public class UIXComponentBase extends UIXComponent
     return null;
   }
 
+  @Override
   protected Renderer getRenderer(FacesContext context)
   {
     Renderer renderer = _cachedRenderer;
@@ -1073,6 +1130,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * Return the number of facets.  This is more efficient than
    * calling getFacets().size();
    */
+  @Override
   public int getFacetCount()
   {
     if (_facets == null)
@@ -1111,6 +1169,7 @@ abstract public class UIXComponentBase extends UIXComponent
    * render a component. this is called by renderers whose
    * getRendersChildren() return true.
    */
+  @SuppressWarnings("unchecked")
   void __encodeRecursive(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -1125,9 +1184,10 @@ abstract public class UIXComponentBase extends UIXComponent
       {
         if (component.getChildCount() > 0)
         {
-          Iterator children = component.getChildren().iterator();
-          while (children.hasNext())
-            __encodeRecursive(context, (UIComponent) children.next());
+          for(UIComponent child : (List<UIComponent>)component.getChildren())
+          {
+            __encodeRecursive(context, child);
+          }
         }
       }
 
@@ -1136,14 +1196,15 @@ abstract public class UIXComponentBase extends UIXComponent
   }
 
 
+  @SuppressWarnings("unchecked")
   static private UIComponent _findInsideOf(
     UIComponent from,
     String id)
   {
-    Iterator kids = from.getFacetsAndChildren();
+    Iterator<UIComponent> kids = from.getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       if (id.equals(kid.getId()))
         return kid;
 
@@ -1211,24 +1272,35 @@ abstract public class UIXComponentBase extends UIXComponent
     if (oldBean != null)
       _facesBean.addAll(oldBean);
 
+    // FIXME: -= Simon Lessard =- 
+    //        JSF 1.2 specify <String, Object>, but ValueMap
+    //        accept PropertyKey as key as well
     _attributes = new ValueMap(_facesBean);
   }
 
-  private FacesBean   _facesBean;
-  private List        _children;
-  private Map         _attributes;
-  private Map         _facets;
-  private UIComponent _parent;
+  private FacesBean                _facesBean;
+  private List<UIComponent>        _children;
+  // FIXME: -= Simon Lessard =- JSF 1.2 specify <String, Object>
+  private Map<Object, Object>      _attributes;
+  private Map<String, UIComponent> _facets;
+  private UIComponent              _parent;
 
   // Cached instance of the Renderer for this component.
   // The instance will be re-retrieved in encodeBegin()
   private transient Renderer _cachedRenderer = _UNDEFINED_RENDERER;
   private transient LifecycleRenderer _cachedLifecycleRenderer =
                                                 _UNDEFINED_LIFECYCLE_RENDERER;
-  private transient boolean _initialStateMarked;
+  
+  // FIXME: -= Simon Lessard =- 
+  //        _initialStateMarked is never read 
+  //        So commented out, is that ok? If so, this attribute should be deleted
+  //private transient boolean _initialStateMarked;
 
-  static private Iterator _EMPTY_ITERATOR =
-    Collections.EMPTY_LIST.iterator();
+  private static final Iterator<String> _EMPTY_STRING_ITERATOR =
+    new EmptyIterator<String>();
+
+  private static final Iterator<UIComponent> _EMPTY_UICOMPONENT_ITERATOR =
+    new EmptyIterator<UIComponent>();
 
   static private FacesBean.Type _createType()
   {
@@ -1268,6 +1340,25 @@ abstract public class UIXComponentBase extends UIXComponent
 
   static private class ExtendedRendererImpl extends ExtendedRenderer
   {
+  }
+  
+  private static class EmptyIterator<T> implements Iterator<T>
+  {
+    public boolean hasNext()
+    {
+      return false;
+    }
+
+    public T next()
+    {
+      throw new NoSuchElementException();
+    }
+
+    public void remove()
+    {
+      throw new UnsupportedOperationException();
+    }
+    
   }
 
   static private final LifecycleRenderer _UNDEFINED_LIFECYCLE_RENDERER =
