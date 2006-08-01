@@ -46,10 +46,11 @@ public abstract class UIXObjectTestCase extends UIComponentTestCase
   public void testApplyRequestValues()
   {
     // for decode we don't use renderers:
-    setRendererUsed(false);
+    // =-=AEW But now, we do... see ADFFACES-42
+    //    setRendererUsed(false);
     UIXObject component = createTestComponent();
     doTestApplyRequestValues(component);
-    setRendererUsed(true);
+    //    setRendererUsed(true);
 
     component = createTestComponent();
     component.setRendered(false);

@@ -24,8 +24,11 @@ import javax.faces.context.FacesContext;
  */
 abstract public class UIXObjectTemplate extends UIXComponentBase
 {
+  /* See ADFFACES-42: switching decode on and off should
+   * not be done up here.
   void __rendererDecode(FacesContext context)
   {
     // do nothing. we have no behaviour
   }
+  */
 }
