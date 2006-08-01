@@ -92,12 +92,15 @@ public class TextIcon extends Icon
     Object id = null;
     Object styleClass = _styleClass;
     Object title = null;
+    Object attrInlineStyle = null;
+    Object attrStyles = null;
     boolean embedded = false;
 
     if (attrs != null)
     {
+      attrInlineStyle = _getInlineStyle(attrs);
+      attrStyles = _getStyles(attrs);
       id = attrs.get(Icon.ID_KEY);
-
       title = _getTitle(attrs);
       embedded = _isEmbedded(attrs);
     }
@@ -116,7 +119,7 @@ public class TextIcon extends Icon
       writer.writeAttribute("id", id, null);
 
     // If we have a title that isn't "", render it on the span
-    if ((title != null) && (title != ""))
+    if ((title != null) && !"".equals(title))
       writer.writeAttribute("title", title, null);
 
     // Handle style attributes (or elements)
@@ -126,28 +129,73 @@ public class TextIcon extends Icon
     // we map the styleClass in case it is used in a composite
     // Then, since we aren't shortening it, which we need to!, we need
     // to at least make sure it is valid.
+    StringBuilder styleClasses = new StringBuilder();
     if (styleClass != null)
     {
       String convertedStyleClass = 
         StyleUtils.convertToValidSelector(arc.getStyleClass(_styleClass));
    
-      writer.writeAttribute("class", convertedStyleClass, null);
+      styleClasses.append(convertedStyleClass);
     }
-  
-    if (_inlineStyle != null)
-      writer.writeAttribute("style", _inlineStyle.toInlineString(), null);
 
-    
+    if (attrStyles != null)
+    {
+      if (styleClasses.length() > 0)
+        styleClasses.append(" ");
+
+      styleClasses.append(attrStyles.toString());
+    }
+
+    if (styleClasses.length() > 0)
+      writer.writeAttribute("class", styleClasses.toString(), null);
+  
+    StringBuilder inline = new StringBuilder(100);
+    if (_inlineStyle != null)
+    {
+      inline.append(_inlineStyle.toInlineString());
+    }
+
+    if ((attrInlineStyle != null) && !"".equals(attrInlineStyle))
+    {
+      inline.append(attrInlineStyle.toString());
+    }
+ 
+    if (inline.length() > 0)
+      writer.writeAttribute("style", inline.toString(), null);    
 
     String text = getText(arc);
 
-  // don't know how to map this back to the source, so using null...
+    // don't know how to map this back to the source, so using null...
     writer.writeText(text, null);
 
 
 
     if (useSpan)
       writer.endElement("span");
+  }
+
+  /**
+   * Returns the inlineStyle to render.
+   */
+  protected Style getInlineStyle()
+  {
+    return _inlineStyle;
+  }
+
+  /**
+   * Returns the text to render when in RTL mode.
+   */
+  protected String getRtlText()
+  {
+    return _rtlText;
+  }
+
+  /**
+   * Returns the styleClass to render.
+   */
+  protected String getStyleClass()
+  {
+    return _styleClass;
   }
 
   /**
@@ -159,6 +207,60 @@ public class TextIcon extends Icon
       return _rtlText;
 
     return _text;
+  }
+
+  /**
+   * Sets the inlineStyle of the icon
+   */
+  public void setInlineStyle(Style inlineStyle)
+  {
+    _inlineStyle = inlineStyle;
+  }
+
+  /**
+   * Sets the text to render if in RTL mode
+   */
+  public void setRtlText(String rtlText)
+  {
+    _rtlText = rtlText;
+  }
+
+  /**
+   * Sets the styleClass of the icon
+   */
+  public void setStyleClass(String styleClass)
+  {
+    _styleClass = styleClass;
+  }
+
+
+  /**
+   * Sets the text to render.
+   */
+  public void setText(String text)
+  {
+    _text = text;
+  }
+
+
+  // Returns the inlineStyle for the icon
+  private Object _getInlineStyle(
+    Map              attrs
+    )
+  {
+    assert (attrs != null);
+
+    return attrs.get(Icon.INLINE_STYLE_KEY);
+  }
+
+  // Returns the styleClasses for the icon
+  private Object _getStyles(
+    Map              attrs
+    )
+  {
+    assert (attrs != null);
+
+    return attrs.get(Icon.STYLE_CLASS_KEY);
   }
 
   // Returns the title text for the icon
@@ -191,7 +293,7 @@ public class TextIcon extends Icon
   {
     return (!embedded &&
              ((styleClass != null)  ||
-              (title != null && title != "")       ||
+              (title != null && !"".equals(title)) ||
               (inlineStyle != null) ||
               (title != null)));
   }
