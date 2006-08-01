@@ -69,6 +69,7 @@ public class DirectoryResourceLoader extends ResourceLoader
     _directory = directory;
   }
 
+  @Override
   protected URL findResource(
     String path) throws IOException
   {
@@ -84,7 +85,11 @@ public class DirectoryResourceLoader extends ResourceLoader
     // return null if relative paths were used, 
     // or if the file does not exist,
     // otherwise return an URL to the file resource
-    return (isContained && file.exists()) ? file.toURL() : null;
+    // 2006-08-01: -= Simon Lessard =-
+    //             File.toURL is deprecated in JDK 6.0 because the method 
+    //             does not escape invalid characters, toURI().toURL is the 
+    //             preferred way as of JDK 6.0.
+    return (isContained && file.exists()) ? file.toURI().toURL() : null;
   }
 
   private final File _directory;

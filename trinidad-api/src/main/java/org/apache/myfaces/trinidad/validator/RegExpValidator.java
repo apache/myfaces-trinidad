@@ -206,6 +206,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return true if and only if the specified Object is a PatternValidator
    * and if the values pattern and transient are equal.
    */
+  @Override
   public boolean equals(Object object)
   {
     if (this == object)
@@ -231,6 +232,7 @@ public class RegExpValidator implements StateHolder, Validator
    * <p>Returns the hash code for this Validator.</p>
    * @return a hash code value for this object.
    */
+  @Override
   public int hashCode()
   {
     int result = 17;

@@ -63,6 +63,8 @@ public class SetFacetChildComponentChange extends AddComponentChange
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
     UIComponent facetComponent = getComponent();

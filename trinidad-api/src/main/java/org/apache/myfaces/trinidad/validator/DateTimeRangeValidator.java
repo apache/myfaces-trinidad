@@ -372,6 +372,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     return ValidatorUtils.getValueBinding(_facesBean, name);
   }
 
+  @Override
   public boolean equals(Object o)
   {
     if ( o instanceof DateTimeRangeValidator)
@@ -395,6 +396,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     return false;
   }
 
+  @Override
   public int hashCode()
   {
     int result = 17;

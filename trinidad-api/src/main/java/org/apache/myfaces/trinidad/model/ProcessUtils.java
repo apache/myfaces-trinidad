@@ -319,6 +319,7 @@ public class ProcessUtils
    * session and request map.
    * @return the rowKey to the "max visited" node.
    */
+  @SuppressWarnings("unchecked")
   public static Object getMaxVisitedRowKey(
     MenuModel model,
     Object    maxPathKey
@@ -326,7 +327,8 @@ public class ProcessUtils
   {
     //TODO - what if maxPathKey is null
     ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-    Map requestMap = externalContext.getRequestMap();
+    //FIXME As of JSF 1.2, the request map is <String, Object> 
+    Map<Object, Object> requestMap = externalContext.getRequestMap();
 
 
 
@@ -398,13 +400,15 @@ public class ProcessUtils
     return maxPath;
   }
 
+  @SuppressWarnings("unchecked")
   public static void clearMaxPath(
     Object maxPathKey
   )
   {
     if (maxPathKey != null)
     {
-      Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+      // FIXME As of JSF 1.2, the request map is <String, Object> 
+      Map<Object, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
       sessionMap.put(maxPathKey, null);
     }
   }

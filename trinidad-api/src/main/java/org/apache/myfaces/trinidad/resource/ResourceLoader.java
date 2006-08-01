@@ -31,6 +31,16 @@ import java.net.URLConnection;
 public class ResourceLoader
 {
   /**
+   * Returns the shared resource loader that always returns null.
+   * 
+   * @return null for any resource path
+   */
+  public static ResourceLoader getNullResourceLoader()
+  {
+    return _NULL_RESOURCE_LOADER;
+  }
+  
+  /**
    * Finds the resource with the given name.  A resource is some data
    * (images, audio, text, etc) that can be accessed by class code in a way
    * that is independent of the location of the code.
@@ -120,20 +130,10 @@ public class ResourceLoader
   {
     this(null);
   }
-  
-  /**
-   * Returns the shared resource loader that always returns null.
-   * 
-   * @return null for any resource path
-   */
-  static public ResourceLoader getNullResourceLoader()
-  {
-    return _NULL_RESOURCE_LOADER;
-  }
+
+  private static final ResourceLoader _NULL_RESOURCE_LOADER = 
+                                                      new ResourceLoader();
 
   private final ResourceLoader _parent;
-
-  static private final ResourceLoader _NULL_RESOURCE_LOADER = 
-                                                      new ResourceLoader();
 
 }

@@ -119,10 +119,10 @@ abstract public class DialogService
    */
   public abstract void launchDialog(
     UIViewRoot  dialogRoot,
-    Map         dialogParameters,
+    Map<Object, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map         windowProperties);
+    Map<Object, Object> windowProperties);
 
 
   /**
@@ -139,7 +139,7 @@ abstract public class DialogService
    *   displayed within the same window might be reached by the back button.
    */
   public abstract boolean returnFromDialog(Object returnValue,
-                                           Map returnParameters);
+                                           Map<Object, Object> returnParameters);
 
 
   /**
@@ -165,17 +165,17 @@ abstract public class DialogService
    */
   public abstract void queueReturnEvent(
     Object returnValue,
-    Map    returnParams);
+    Map<Object, Object> returnParams);
 
   //
   // OBSOLETE METHODS THAT WILL BE DELETED
   // 
   public abstract void pushPageFlowScope(boolean copyParent);
-  public abstract Map popPageFlowScope(boolean discardScope);
-  public abstract void restorePageFlowScope(Map pageFlowScope);
+  public abstract Map<String, Object> popPageFlowScope(boolean discardScope);
+  public abstract void restorePageFlowScope(Map<String, Object> pageFlowScope);
   public abstract boolean isPageFlowScopeInvalid();
   public abstract String getPageFlowScopeToken();
-  public abstract Map getPageFlowScope(String token);
+  public abstract Map<String, Object> getPageFlowScope(String token);
 
   private UIComponent _currentLaunchSource;
 }

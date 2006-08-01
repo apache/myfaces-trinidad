@@ -36,6 +36,7 @@ abstract public class ExtendedRenderer extends Renderer
    *
    * @return true, always
    */
+  @Override
   public final boolean getRendersChildren()
   {
     return true;
@@ -47,16 +48,16 @@ abstract public class ExtendedRenderer extends Renderer
    * @param context    the Faces context
    * @param component  the component to render
    */
+  @SuppressWarnings("unchecked")
   public void decodeChildren(
     FacesContext context,
     UIComponent  component)
   {
     // Process all the facets and children of this component
-    Iterator kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
-      kid.processDecodes(context);
+      kids.next().processDecodes(context);
     }
   }
 
@@ -66,16 +67,16 @@ abstract public class ExtendedRenderer extends Renderer
    * @param context    the Faces context
    * @param component  the component to render
    */
+  @SuppressWarnings("unchecked")
   public void validateChildren(
     FacesContext context,
     UIComponent  component)
   {
     // Process all the facets and children of this component
-    Iterator kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
-      kid.processValidators(context);
+      kids.next().processValidators(context);
     }
   }
 
@@ -85,16 +86,16 @@ abstract public class ExtendedRenderer extends Renderer
    * @param context    the Faces context
    * @param component  the component to render
    */
+  @SuppressWarnings("unchecked")
   public void updateChildren(
     FacesContext context,
     UIComponent  component)
   {
     // Process all the facets and children of this component
-    Iterator kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
-      kid.processUpdates(context);
+      kids.next().processUpdates(context);
     }
   }
 }

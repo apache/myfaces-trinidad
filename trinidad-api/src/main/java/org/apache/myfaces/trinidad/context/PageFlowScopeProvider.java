@@ -45,7 +45,7 @@ public abstract class PageFlowScopeProvider
    * 
    * @param context the current FacesContext
    */
-  public abstract Map getPageFlowScope(FacesContext context); 
+  public abstract Map<String, Object> getPageFlowScope(FacesContext context); 
 
   /**
    * Pushes a new process scope onto the stack.
@@ -55,7 +55,7 @@ public abstract class PageFlowScopeProvider
    *   scope will be copied into the new process scope.
    * @return the new scope
    */
-  public abstract Map pushPageFlowScope(
+  public abstract Map<String, Object> pushPageFlowScope(
     FacesContext context,
     boolean copyParent);
 
@@ -68,7 +68,7 @@ public abstract class PageFlowScopeProvider
    *   example), but this is at the discretion of the implementation,
    *   which may aggressively destroy page flow scopes in some circumstances.
    */
-  public abstract Map popPageFlowScope(FacesContext context, boolean discardScope);
+  public abstract Map<String, Object> popPageFlowScope(FacesContext context, boolean discardScope);
 
   /**
    * Encode the page flow scope into the current URL for processing

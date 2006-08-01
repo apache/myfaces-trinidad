@@ -67,6 +67,8 @@ public class AttributeComponentChange extends ComponentChange
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
     uiComponent.getAttributes().put(_attributeName, _attributeValue);

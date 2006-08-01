@@ -284,6 +284,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return true if and only if the specified Object is a ByteLengthValidator
    * and if the values encoding, maximum and transient are equal.
    */
+  @Override
   public boolean equals(Object object)
   {
 
@@ -314,6 +315,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
   * <p>Returns the hash code for this Validator.</p>
   * @return a hash code value for this object.
   */
+  @Override
   public int hashCode()
   {
     int result = 17;

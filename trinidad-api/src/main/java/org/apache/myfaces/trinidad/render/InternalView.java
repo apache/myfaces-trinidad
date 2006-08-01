@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
  * InternalViews should be registered with a .properties-syntax file at
  * <code>/META-INF/org.apache.myfaces.trinidad.render.InternalView.properties</code>
  */
-abstract public class InternalView
+public abstract class InternalView
 {  
   /**
    * Creates the UIViewRoot.

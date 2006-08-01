@@ -40,9 +40,9 @@ public final class ModelUtils
    * The collection must not be modified while this iterator is being used.
    * The Iterator is not modifiable.
    */
-  public static Iterator getRowKeyIterator(final CollectionModel model)
+  public static Iterator<Object> getRowKeyIterator(final CollectionModel model)
   {
-    Iterator iter = new Iterator()
+    Iterator<Object> iter = new Iterator<Object>()
     {
       public boolean hasNext()
       {

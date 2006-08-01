@@ -57,6 +57,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * Tests to see if the given rowKey is included in this Set.
    * @return true If the rowKey is included in this Set.
    */
+  @SuppressWarnings("unchecked")
   @Override
   public boolean contains(Object rowKey)
   {
@@ -66,6 +67,9 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   /**
    * @deprecated do not use. this will be removed post Tier 1.
    */
+  @SuppressWarnings("unchecked")
+  @Override
+  @Deprecated
   public boolean isContainedByDefault()
   {
     TreeModel model = getCollectionModel();
@@ -73,6 +77,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     return new Search().find(rowkey).isDefaultContained;
   }
 
+  @Override
   public Iterator<E> iterator()
   {
     return new PathIterator();
@@ -84,6 +89,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #remove(Object)
    * @see #addAll()
    */
+  @Override
   public boolean add(E rowKey)
   {
     return _setContained(rowKey, true);    
@@ -95,6 +101,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #add(E)
    * @see #removeAll()
    */
+  @SuppressWarnings("unchecked")
   @Override
   public boolean remove(Object rowKey)
   {
@@ -107,6 +114,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #add(E)
    * @see #removeAll()
    */
+  @Override
   public void addAll()
   {
     _selectAll(true);
@@ -119,6 +127,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #clear()
    * @see #addAll()
    */
+  @Override
   public void removeAll()
   {
     _selectAll(false);
@@ -135,7 +144,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   {
     if (other instanceof RowKeySetTreeImpl)
     {
-      RowKeySetTreeImpl otherset = (RowKeySetTreeImpl) other;
+      RowKeySetTreeImpl<E> otherset = (RowKeySetTreeImpl<E>) other;
       return _processOperation(this._root, otherset._root, true);
     }
     return super.addAll(other);
@@ -152,7 +161,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   {
     if (other instanceof RowKeySetTreeImpl)
     {
-      RowKeySetTreeImpl otherset = (RowKeySetTreeImpl) other;
+      RowKeySetTreeImpl<E> otherset = (RowKeySetTreeImpl<E>) other;
       return _processOperation(this._root, otherset._root, false);
     }
     return super.removeAll(other);
@@ -259,6 +268,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * Does not force the underlying model to compute its size. 
    * @return -1 if the number of elements is unknown.
    */
+  @Override
   public int getSize()
   {
     return _getSize(null, _root, getCollectionModel(), false);
@@ -269,6 +279,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * This might force the underlying model to compute its size.
    * @return a non-negative number.
    */
+  @Override
   public int size()
   {
     return _getSize(null, _root, getCollectionModel(), true);
@@ -284,6 +295,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * Sets the TreeModel associated with this Set.
    * @param model This must be of type {@link TreeModel}
    */
+  @Override
   public final void setCollectionModel(CollectionModel model)
   {
     _model = (TreeModel) model;
@@ -293,9 +305,10 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * Creates a clone of this Set. RowKeys may be added/removed from the
    * clone without affecting this instance.
    */
-  public RowKeySetTreeImpl clone()
+  @Override
+  public RowKeySetTreeImpl<E> clone()
   {
-    RowKeySetTreeImpl clone = (RowKeySetTreeImpl) super.clone();
+    RowKeySetTreeImpl<E> clone = (RowKeySetTreeImpl<E>) super.clone();
     clone._root = _root.clone();
     return clone;
   }
@@ -303,6 +316,8 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   /**
    * @deprecated not implemented.
    */
+  @Deprecated
+  @Override
   public void invertAll()
   {
     // TODO
@@ -315,6 +330,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * get parent rowKeys, from child rowKeys.
    * @see TreeModel#getRowKey
    */
+  @Override
   protected TreeModel getCollectionModel()
   {
     return _model;
@@ -328,6 +344,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * 
    * @param exclusions any rowKeys present in this Set are excluded from the count.
    */
+  @SuppressWarnings("unchecked")
   private int _getTreeSize(TreeModel model, Set<E> exclusions)
   {
     int sz = 0;
@@ -399,10 +416,12 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * adds or removes all the paths rooted at the current path 
    * @param isSelectAll if true does an add-all. else does remove-all.
    */
+  @SuppressWarnings("unchecked")
   private void _selectAll(final boolean isSelectAll)
   {
     Search search = new Search()
     {
+      @Override
       protected boolean create(Node<E> parent, E rowkey)
       {
         // if the parent does not have the correct default, then
@@ -411,6 +430,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
         return (parent.isDefaultContained != isSelectAll);
       }
       
+      @Override
       protected Node<E> found(Node<E> child)
       {
         child.isDefaultContained = isSelectAll;
@@ -429,11 +449,13 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   {
     Search search = new Search()
     {
+      @Override
       protected Node<E> notFound(Node<E> parent, E rowkey)
       {
         return parent.isDefaultContained ? parent : null;
       }
       
+      @Override
       protected Node<E> found(Node<E> child)
       {
         return (child.isDefaultContained ^ child.isDifferent) ? child : null;
@@ -453,6 +475,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   {
     Search search = new Search()
     {
+      @Override
       protected boolean create(Node<E> parent, E rowkey)
       {
         // only need to create child deltas, if the parent's
@@ -460,6 +483,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
         return parent.isDefaultContained != isContained;
       }
       
+      @Override
       protected Node<E> notFound(Node<E> parent, E rowkey)
       {
         return null;
@@ -538,6 +562,8 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       }
     }
     
+    @SuppressWarnings("unchecked")
+    @Override
     public Node<K> clone()
     {
       Node<K> clone = (Node<K>) super.clone();
@@ -567,13 +593,14 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       return result;
     }
 
+    @SuppressWarnings("unchecked")
     public Node<E> find(E rowkey)
     {
       Node<E> current = _root;
       if (rowkey != null)
       {
         TreeModel model = getCollectionModel();
-        List<E> parentkeys = model.getAllAncestorContainerRowKeys(rowkey);
+        List<E> parentkeys = (List<E>)model.getAllAncestorContainerRowKeys(rowkey);
         List<E> allkeys = new ArrayList<E>(parentkeys.size() + 1);
         allkeys.addAll(parentkeys);
         allkeys.add(rowkey);
@@ -624,6 +651,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     {
       Search search = new Search()
       {
+        @Override
         protected Node<E> notFound(Node<E> parent, E rowkey)
         {
           return parent.isDefaultContained ? parent : null;
@@ -634,6 +662,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
         ((!current.isEmpty()) || current.isDefaultContained);
     }
     
+    @SuppressWarnings("unchecked")
     private E _next()
     {
       TreeModel model = getCollectionModel();

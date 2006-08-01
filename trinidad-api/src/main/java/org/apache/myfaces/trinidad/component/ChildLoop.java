@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidad.component;
+
 import java.util.Collection;
-import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -40,17 +40,16 @@ abstract class ChildLoop
       runAlways(context, child);
   }
   
+  @SuppressWarnings("unchecked")
   public final void runAlways(FacesContext context, UIComponent comp)
   {
     runAlways(context, comp.getChildren());
   }
 
-  public final void runAlways(FacesContext context, Collection kids)
+  public final void runAlways(FacesContext context, Collection<UIComponent> kids)
   {
-    Iterator children = kids.iterator();
-    while (children.hasNext())
+    for(UIComponent child : kids)
     {
-      UIComponent child = (UIComponent) children.next();
       process(context, child);
     }
   }
@@ -69,6 +68,7 @@ abstract class ChildLoop
   
   static final class Update extends ChildLoop
   {
+    @Override
     protected void process(FacesContext context, UIComponent child)
     {
       child.processUpdates(context);
@@ -77,6 +77,7 @@ abstract class ChildLoop
 
   static final class Validate extends ChildLoop
   {
+    @Override
     protected void process(FacesContext context, UIComponent child)
     {
       child.processValidators(context);
@@ -85,6 +86,7 @@ abstract class ChildLoop
 
   static final class Decode extends ChildLoop
   {
+    @Override
     protected void process(FacesContext context, UIComponent child)
     {
       child.processDecodes(context);

@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidad.bean.util;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -88,12 +87,10 @@ public class StateUtils
       return null;
 
     Object[] values = new Object[2 * size];
-    Iterator entries = map.entrySet().iterator();
     int i = 0;
-    while (entries.hasNext())
+    for(Map.Entry<PropertyKey, Object> entry : map.entrySet())
     {
-      Map.Entry entry = (Map.Entry) entries.next();
-      PropertyKey key = (PropertyKey) entry.getKey();
+      PropertyKey key = entry.getKey();
       if (key.isTransient())
         continue;
 
@@ -206,6 +203,7 @@ public class StateUtils
   /**
    * Saves a List whose elements may implement StateHolder.
    */
+  @SuppressWarnings("unchecked")
   static public Object saveList(
     FacesContext context,
     Object       value)
@@ -213,14 +211,24 @@ public class StateUtils
     if (value == null)
       return null;
 
-    List list = (List) value;
+    List<Object> list = (List<Object>) value;
     int size = list.size();
     if (size == 0)
       return null;
 
     Object[] array = new Object[size];
-    for (int i = 0; i < size; i++)
-      array[i] = saveStateHolder(context, list.get(i));
+    // 2006-08-01: -= Simon Lessard =-
+    //             Inefficient loop if the list implementation 
+    //             ever change to a linked data structure. Use 
+    //             iterators instead
+    //for (int i = 0; i < size; i++)
+    //  array[i] = saveStateHolder(context, list.get(i));
+    int index = 0;
+    for(Object object : list)
+    {
+      array[index++] = saveStateHolder(context, object);
+    }
+    
     return array;
   }
 
@@ -239,12 +247,14 @@ public class StateUtils
     if (length == 0)
       return null;
 
-    List list = new ArrayList(length);
-    for (int i = 0; i < length; i++)
+    List<Object> list = new ArrayList<Object>(length);
+    for(Object state : array)
     {
-      Object restored = restoreStateHolder(context, array[i]);
+      Object restored = restoreStateHolder(context, state);
       if (restored != null)
+      {
         list.add(restored);
+      }
     }
 
     return list;
@@ -256,7 +266,7 @@ public class StateUtils
    * Instance used to save generic instances;  simply saves
    * the class name.
    */
-  static private class Saver implements java.io.Serializable
+  static private class Saver implements Serializable
   {
     public void saveState(FacesContext context, Object saved)
     {
@@ -268,7 +278,7 @@ public class StateUtils
       ClassLoader cl = _getClassLoader();
       try
       {
-        Class clazz = cl.loadClass(_name);
+        Class<?> clazz = cl.loadClass(_name);
         return clazz.newInstance();
       }
       catch (Throwable t)
@@ -287,12 +297,14 @@ public class StateUtils
    */
   static private class SHSaver extends Saver
   {
+    @Override
     public void saveState(FacesContext context, Object value)
     {
       super.saveState(context, value);
       _save = ((StateHolder) value).saveState(context);
     }
 
+    @Override
     public Object restoreState(FacesContext context)
     {
       Object o = super.restoreState(context);

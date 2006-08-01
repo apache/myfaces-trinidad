@@ -90,6 +90,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Returns the key at a specific index in the map.
    */
+  @SuppressWarnings("unchecked")
   public K getKey(int index)
   {
     if ((index < 0) || (index >= size()))
@@ -101,6 +102,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Returns the value at a specific index in the map.
    */
+  @SuppressWarnings("unchecked")
   public V getValue(int index)
   {
     if ((index < 0) || (index >= size()))
@@ -247,11 +249,13 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   //
   // GENERIC MAP API
   //
+  @Override
   public int size()
   {
     return _size;
   }
 
+  @Override
   public boolean containsValue(Object value)
   {
     int entryCount = size() * 2;
@@ -265,6 +269,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   }
 
 
+  @Override
   public boolean containsKey(Object key)
   {
     int entryCount = size() * 2;
@@ -277,12 +282,13 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
     return false;
   }
 
- /**
+  /**
    * Returns an enumeration of the keys in this map.
    * the Iterator methods on the returned object to fetch the elements
    * sequentially.
    */
-   public Iterator<K> keys()
+  @SuppressWarnings("unchecked")
+  public Iterator<K> keys()
   {
     int size = _size;
 
@@ -301,11 +307,11 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Returns an Iterator of keys in the array.
    */
-  static public Iterator getKeys(Object[] array)
+  public static Iterator<Object> getKeys(Object[] array)
   {
     if (array == null)
       return null;
-      ArrayList keyList = new ArrayList();
+      ArrayList<Object> keyList = new ArrayList<Object>();
       int i = array.length-2;
       while(i>=0)
       {
@@ -319,11 +325,11 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Returns an Iterator of values in the array.
    */
-  static public Iterator getValues(Object[] array)
+  public static Iterator<Object> getValues(Object[] array)
   {
     if (array == null)
       return null;
-      ArrayList valueList = new ArrayList();
+      ArrayList<Object> valueList = new ArrayList<Object>();
       int i = array.length-1;
       while(i>=0)
       {
@@ -337,13 +343,15 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Clones the map.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public Object clone()
   {
     try
     {
-      ArrayMap am = (ArrayMap) super.clone();
+      ArrayMap<K, V> am = (ArrayMap<K, V>) super.clone();
 
-      am._array     = (Object[]) _array.clone();
+      am._array     = _array.clone();
       am._size      = _size;
       am._increment = _increment;
       return am;
@@ -355,20 +363,23 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
     }
   }
 
+  @Override
   public Set<Map.Entry<K,V>> entrySet()
   {
     if (_entrySet == null)
     {
       _entrySet = new AbstractSet<Map.Entry<K,V>>()
       {
+        @Override
         public int size()
         {
           return ArrayMap.this.size();
         }
 
+        @Override
         public Iterator<Map.Entry<K,V>> iterator()
         {
-          return new Iterator()
+          return new Iterator<Map.Entry<K,V>>()
           {
             public boolean hasNext()
             {
@@ -419,12 +430,12 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
               {
                 public K getKey()
                 {
-                  return (K) ArrayMap.this.getKey(index);
+                  return ArrayMap.this.getKey(index);
                 }
 
                 public V getValue()
                 {
-                  return (V) ArrayMap.this.getValue(index);
+                  return ArrayMap.this.getValue(index);
                 }
 
                 public V setValue(V value)
@@ -434,15 +445,18 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
                   return oldValue;
                 }
 
+                @SuppressWarnings("unchecked")
+                @Override
                 public boolean equals(Object o)
                 {
                   if (!(o instanceof Map.Entry))
                     return false;
-                  Map.Entry e = (Map.Entry)o;
+                  Map.Entry<K,V> e = (Map.Entry<K,V>)o;
                   return _equals(getKey(), e.getKey()) &&
                          _equals(getValue(), e.getValue());
                 }
 
+                @Override
                 public int hashCode()
                 {
                   Object key = getKey();
@@ -464,17 +478,22 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
     return _entrySet;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public V get(Object key)
   {
     return (V) getByEquality(_array, key);
     //return getByIdentity(_array, key);
   }
 
+  @SuppressWarnings("unchecked")
   public V getByIdentity(Object key)
   {
     return (V) getByIdentity(_array, key);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public V put(K key, V value)
   {
     if (value == null)
@@ -512,6 +531,8 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
     return (V) o;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public V remove(Object key)
   {
     Object[] array = _array;
@@ -529,6 +550,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   /**
    * Removes all elements from the ArrayMap.
    */
+  @Override
   public void clear()
   {
     int size = _size;
@@ -547,7 +569,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
    * Adds the key/value pair to the array, returning a
    * new array if necessary.
    */
-  static private Object[] _addToArray(Object[] array,
+  private static Object[] _addToArray(Object[] array,
                                       Object key,
                                       Object value,
                                       int    increment)
@@ -569,7 +591,7 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
     return newArray;
   }
 
-  static private boolean _equals(Object a, Object b)
+  private static boolean _equals(Object a, Object b)
   {
     if (a == null)
       return b == null;
@@ -580,5 +602,5 @@ public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
   private Object[] _array;
   private int      _size;
   private int      _increment;
-  private Set<Map.Entry<K,V>>    _entrySet;
+  private Set<Map.Entry<K,V>> _entrySet;
 }

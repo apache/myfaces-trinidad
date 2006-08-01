@@ -51,6 +51,7 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     super();
   }
 
+  @Override
   public Object put(
     PropertyKey key,
     Object      value)
@@ -65,6 +66,7 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     return retValue;
   }
 
+  @Override
   public Object remove(
     Object key)
   {
@@ -81,6 +83,7 @@ public class PropertyHashMap extends HashMap<PropertyKey,Object>
     return super.remove(key);
   }
 
+  @Override
   public void putAll(Map<? extends PropertyKey, ? extends Object> t)
   {
     if (_createDeltas())

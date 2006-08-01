@@ -51,16 +51,19 @@ public final class SortableModel extends CollectionModel
   {
   }
 
+  @Override
   public Object getRowData()
   {
     return _model.getRowData();
   }
 
+  @Override
   public Object getWrappedData()
   {
     return _wrappedData;
   }
 
+  @Override
   public boolean isRowAvailable()
   {
     return _model.isRowAvailable();
@@ -72,6 +75,7 @@ public final class SortableModel extends CollectionModel
    * {@link DataModel}.
    * @see ModelUtils#toDataModel
    */
+  @Override
   public void setWrappedData(Object data)
   {
     _baseIndicesList = null;
@@ -81,17 +85,20 @@ public final class SortableModel extends CollectionModel
     _wrappedData = data;
   }
 
+  @Override
   public int getRowCount()
   {
     return _model.getRowCount();
   }
 
+  @Override
   public void setRowIndex(int rowIndex)
   {
     int baseIndex = _toBaseIndex(rowIndex);
     _model.setRowIndex(baseIndex);
   }
 
+  @Override
   public int getRowIndex()
   {
     int baseIndex = _model.getRowIndex();
@@ -102,6 +109,7 @@ public final class SortableModel extends CollectionModel
    * Gets the row key of the current row
    * @inheritDoc
    */
+  @Override
   public Object getRowKey()
   {
     return isRowAvailable()
@@ -113,6 +121,7 @@ public final class SortableModel extends CollectionModel
    * Finds the row with the matching key and makes it current
    * @inheritDoc
    */
+  @Override
   public void setRowKey(Object key)
   {
     setRowIndex(_toRowIndex((String) key));
@@ -123,6 +132,7 @@ public final class SortableModel extends CollectionModel
    * @param property The name of the property to sort the underlying collection by.
    * @return true, if the property implements java.lang.Comparable
    */
+  @Override
   public boolean isSortable(String property)
   {
     final int oldIndex = _model.getRowIndex();
@@ -159,14 +169,17 @@ public final class SortableModel extends CollectionModel
     }
   }
 
-  public List getSortCriteria()
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<SortCriterion> getSortCriteria()
   {
     return (_sortCriterion == null)
       ? Collections.EMPTY_LIST
       : Collections.singletonList(_sortCriterion);
   }
 
-  public void setSortCriteria(List criteria)
+  @Override
+  public void setSortCriteria(List<SortCriterion> criteria)
   {
     if ((criteria == null) || (criteria.isEmpty()))
     {
@@ -176,7 +189,7 @@ public final class SortableModel extends CollectionModel
     }
     else
     {
-      SortCriterion sc = (SortCriterion) criteria.get(0);
+      SortCriterion sc = criteria.get(0);
       if ((_sortCriterion == null) || (!_sortCriterion.equals(sc)))
       {
         _sortCriterion = sc;
@@ -185,6 +198,7 @@ public final class SortableModel extends CollectionModel
     }
   }
 
+  @Override
   public String toString()
   {
     return "SortableModel[" + _model + "]";
@@ -229,10 +243,10 @@ public final class SortableModel extends CollectionModel
     if (_model.isRowAvailable())
     {
       FacesContext context = FacesContext.getCurrentInstance();
-      Comparator comp =
+      Comparator<Integer> comp =
         new Comp(context. getApplication().getPropertyResolver(), property);
       if (!isAscending)
-        comp = new Inverter(comp);
+        comp = new Inverter<Integer>(comp);
 
       Collections.sort(_baseIndicesList, comp);
       _sortedIndicesList = null;
@@ -248,7 +262,7 @@ public final class SortableModel extends CollectionModel
       _sortedIndicesList = (IntList) _baseIndicesList.clone();
       for(int i=0; i<_baseIndicesList.size(); i++)
       {
-        Integer base = (Integer) _baseIndicesList.get(i);
+        Integer base = _baseIndicesList.get(i);
         _sortedIndicesList.set(base.intValue(), new Integer(i));
       }
     }
@@ -261,14 +275,14 @@ public final class SortableModel extends CollectionModel
     return _convertIndex(sortedIndex, _baseIndicesList);
   }
 
-  private int _convertIndex(int index, List indices)
+  private int _convertIndex(int index, List<Integer> indices)
   {
     if (index < 0) // -1 is special
       return index;
 
     if ((indices != null) && (indices.size() > index))
     {
-      index = ((Integer) indices.get(index)).intValue();
+      index = indices.get(index).intValue();
     }
     return index;
   }
@@ -290,7 +304,7 @@ public final class SortableModel extends CollectionModel
   }
 
 
-  private static final class IntList extends ArrayList implements Cloneable
+  private static final class IntList extends ArrayList<Integer> implements Cloneable
   {
     public IntList(int size)
     {
@@ -307,7 +321,7 @@ public final class SortableModel extends CollectionModel
     }
   }
 
-  private final class Comp implements Comparator
+  private final class Comp implements Comparator<Integer>
   {
     public Comp(PropertyResolver resolver, String property)
     {
@@ -315,10 +329,11 @@ public final class SortableModel extends CollectionModel
       _prop = property;
     }
 
-    public int compare(Object o1, Object o2)
+    @SuppressWarnings("unchecked")
+    public int compare(Integer o1, Integer o2)
     {
-      int index1 = ((Integer) o1).intValue();
-      int index2 = ((Integer) o2).intValue();
+      int index1 = o1.intValue();
+      int index2 = o2.intValue();
 
       _model.setRowIndex(index1);
       Object instance1 = _model.getRowData();
@@ -340,7 +355,7 @@ public final class SortableModel extends CollectionModel
       // So test before we cast:
       if (value1 instanceof Comparable)
       {
-        return ((Comparable) value1).compareTo(value2);
+        return ((Comparable<Object>) value1).compareTo(value2);
       }
       else
       {
@@ -354,19 +369,19 @@ public final class SortableModel extends CollectionModel
     private final String _prop;
   }
 
-  private static final class Inverter implements Comparator
+  private static final class Inverter<T> implements Comparator<T>
   {
-    public Inverter(Comparator comp)
+    public Inverter(Comparator<T> comp)
     {
       _comp = comp;
     }
 
-    public int compare(Object o1, Object o2)
+    public int compare(T o1, T o2)
     {
       return _comp.compare(o2, o1);
     }
 
-    private final Comparator _comp;
+    private final Comparator<T> _comp;
   }
 
   private SortCriterion _sortCriterion = null;

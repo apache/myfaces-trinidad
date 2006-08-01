@@ -71,6 +71,7 @@ public class Service
    * @return an object of type <code>serviceClass</code>, or null
    *   if no such object could be located
    */
+  @SuppressWarnings("unchecked")
   static public <T> T getService(Object from, Class<T> serviceClass)
   {
     if (from == null)

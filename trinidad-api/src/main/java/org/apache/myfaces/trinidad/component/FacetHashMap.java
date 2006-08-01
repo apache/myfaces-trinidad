@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidad.component;
 
 import javax.faces.component.UIComponent;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
@@ -27,7 +26,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  *
  * @author The Oracle ADF Faces Team
  */
-class FacetHashMap extends ArrayMap
+class FacetHashMap extends ArrayMap<String, UIComponent>
 {
   public FacetHashMap(UIComponent parent)
   {
@@ -35,71 +34,63 @@ class FacetHashMap extends ArrayMap
     _parent = parent;
   }
 
+  @Override
   public void clear()
   {
-    Iterator values = values().iterator();
-    while (values.hasNext())
+    for(UIComponent value : values())
     {
-      UIComponent value = (UIComponent) values.next();
       value.setParent(null);
     }
 
     super.clear();
   }
   
-  public Object put(Object key, Object value)
+  @Override
+  public UIComponent put(String key, UIComponent value)
   {
     if ((key == null) || (value == null))
     {
       throw new NullPointerException();
     }
 
-    else if (!(key instanceof String) ||
-             !(value instanceof UIComponent))
-    {
-      throw new ClassCastException();
-    }
-
-    UIComponent previous = (UIComponent) super.get(key);
+    UIComponent previous = super.get(key);
     if (previous != null)
     {
       previous.setParent(null);
     }
     
-    UIComponent current = (UIComponent) value;
-    if (current.getParent() != null)
+    if (value.getParent() != null)
     {
-      ChildArrayList.__removeFromParent(current, -1);
+      ChildArrayList.__removeFromParent(value, -1);
     }
 
-    current.setParent(_parent);
+    value.setParent(_parent);
     return (super.put(key, value));
   }
 
-  public void putAll(Map map)
+  @Override
+  public void putAll(Map<? extends String, ? extends UIComponent> map)
   {
     if (map == null)
     {
       throw new NullPointerException();
     }
 
-    Iterator keys = map.keySet().iterator();
-    while (keys.hasNext())
+    for(Map.Entry<? extends String, ? extends UIComponent> entry : map.entrySet())
     {
-      Object key = keys.next();
-      put(key, map.get(key));
+      put(entry.getKey(), entry.getValue());
     }
   }
   
-  public Object remove(Object key)
+  @Override
+  public UIComponent remove(Object key)
   {
-    UIComponent previous = (UIComponent) get(key);
+    UIComponent previous = super.remove(key);
     if (previous != null)
     {
       previous.setParent(null);
     }
     
-    super.remove(key);
     return (previous);
   }
 

@@ -42,15 +42,21 @@ public class ReturnEvent extends FacesEvent
     this(source, returnValue, null);
   }
 
-  public ReturnEvent(UIComponent source, Object returnValue, Map returnParams)
+  @SuppressWarnings("unchecked")
+  public ReturnEvent(
+      UIComponent source, 
+      Object returnValue, 
+      Map<Object, Object> returnParams)
   {
     super(source);
     _returnValue = returnValue;
-    _returnParams = new HashMap();
+    // -= Simon Lessard =- 
+    // Useless and expensive instanciation 
+    //_returnParams = new HashMap<Object, Object>();
     if (returnParams == null)
       _returnParams = Collections.EMPTY_MAP;
     else
-      _returnParams = new HashMap(returnParams);
+      _returnParams = new HashMap<Object, Object>(returnParams);
   }
 
 
@@ -59,22 +65,25 @@ public class ReturnEvent extends FacesEvent
     return _returnValue;
   }
 
-  public Map getReturnParameters()
+  public Map<Object, Object> getReturnParameters()
   {
     return Collections.unmodifiableMap(_returnParams);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((ReturnListener) listener).processReturn(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof ReturnListener);
   }
 
 
+  @Override
   public int hashCode()
   {
     return ((getComponent() == null) ? 0 : getComponent().hashCode()) +
@@ -82,8 +91,8 @@ public class ReturnEvent extends FacesEvent
             37 * ((_returnParams == null) ? 0 : _returnParams.hashCode())));
   }
 
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o == this)
       return true;
@@ -122,6 +131,7 @@ public class ReturnEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();
@@ -142,6 +152,6 @@ public class ReturnEvent extends FacesEvent
   }
 
   private Object _returnValue;
-  private Map    _returnParams;
+  private Map<Object, Object> _returnParams;
 }
 

@@ -70,9 +70,9 @@ public interface DialogRenderKitService
     FacesContext context,
     UIViewRoot   targetRoot,
     UIComponent  source,
-    Map          processParameters,
+    Map<?, ?>    processParameters,
     boolean      useWindow,
-    Map          windowProperties);
+    Map<?, ?>    windowProperties);
 
   /**
    * Called to return from a dialog.

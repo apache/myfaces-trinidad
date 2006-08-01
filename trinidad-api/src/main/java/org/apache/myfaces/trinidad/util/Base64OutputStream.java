@@ -44,7 +44,8 @@ public class Base64OutputStream extends OutputStream
    *  Takes a byte writes it out to the writer
    * 
    * @param b   a byte
-   **/
+   */
+  @Override
   public void write(int b) throws IOException
   {
     _single[0] = (byte)b;
@@ -72,8 +73,8 @@ public class Base64OutputStream extends OutputStream
    * @param b        the data
    * @param off      the start offset in the data
    * @param len      the number of bytes to read
-   **/
-   
+   */
+  @Override
   public void write(byte[] b, int off, int len) 
                                       throws IOException, NullPointerException
   {
@@ -175,8 +176,7 @@ public class Base64OutputStream extends OutputStream
    * called only if there will be no subsequent calls to a write method.  
    * Subsequent calls to the write method will result in incorrect encoding.
    * 
-   **/
-  
+   */
   public void finish() throws IOException
   {
     if (_numLeftoverBytes==1) 
@@ -309,8 +309,8 @@ public class Base64OutputStream extends OutputStream
    * 
    * @param c an integer whose lower 6 bits contain the base64 representation
    *          all other bits should be zero
-   * **/
-  static private char _encode(int c) 
+   */
+  private static char _encode(int c) 
   {
     if (c < 26)
       return (char)('A' + c);
@@ -319,9 +319,9 @@ public class Base64OutputStream extends OutputStream
     if (c < 62)
       return (char)('0' + (c-52));
     if (c == 62)
-      return (char)'+';
+      return '+';
     if (c == 63)
-      return (char)'/';
+      return '/';
       
     // error, not a valid B64 char
     return (char)0;

@@ -175,7 +175,8 @@ public abstract class TreeModel extends CollectionModel
    * The first rowKey (in this list) is the top most container. The last
    * rowKey is the immediate container of the given childRowKey.
    */
-  public List getAllAncestorContainerRowKeys(Object childRowKey)
+  @SuppressWarnings("unchecked")
+  public List<Object> getAllAncestorContainerRowKeys(Object childRowKey)
   {
     if (childRowKey == null)
       return Collections.EMPTY_LIST;

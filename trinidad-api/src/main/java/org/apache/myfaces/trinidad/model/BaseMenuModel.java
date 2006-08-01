@@ -44,41 +44,49 @@ public abstract class BaseMenuModel extends MenuModel
   {
   }
 
+  @Override
   public Object getContainerRowKey(Object childKey)
   {
     return _treeModel.getContainerRowKey(childKey);
   }
 
+  @Override
   public void enterContainer()
   {
     _treeModel.enterContainer();
   }
 
+  @Override
   public void exitContainer()
   {
     _treeModel.exitContainer();
   }
 
+  @Override
   public int getRowCount()
   {
     return _treeModel.getRowCount();
   }
 
+  @Override
   public Object getRowData()
   {
     return _treeModel.getRowData();
   }
 
+  @Override
   public int getRowIndex()
   {
     return _treeModel.getRowIndex();
   }
 
+  @Override
   public Object getRowKey()
   {
     return _treeModel.getRowKey();
   }
 
+  @Override
   public Object getWrappedData()
   {
     // since we don't know how to adapt an ordinary POJO into a
@@ -86,26 +94,31 @@ public abstract class BaseMenuModel extends MenuModel
     return _treeModel;
   }
 
+  @Override
   public boolean isContainer()
   {
     return _treeModel.isContainer();
   }
 
+  @Override
   public boolean isRowAvailable()
   {
     return _treeModel.isRowAvailable();
   }
 
+  @Override
   public void setRowIndex(int index)
   {
     _treeModel.setRowIndex(index);
   }
 
+  @Override
   public void setRowKey(Object key)
   {
     _treeModel.setRowKey(key);
   }
 
+  @Override
   public void setWrappedData(Object data)
   {
     // since we don't know how to adapt an ordinary POJO into a

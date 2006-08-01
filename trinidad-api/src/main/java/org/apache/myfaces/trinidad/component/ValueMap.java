@@ -14,12 +14,12 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidad.component;
+
 import java.io.Externalizable;
 
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.io.ObjectOutput;
@@ -34,7 +34,7 @@ import java.io.ObjectInput;
  * 
  * @author The Oracle ADF Faces Team
  */
-final class ValueMap extends AbstractMap implements Externalizable 
+final class ValueMap<T> extends AbstractMap<T, T> implements Externalizable 
 {
   public ValueMap()
   {
@@ -44,7 +44,8 @@ final class ValueMap extends AbstractMap implements Externalizable
   /**
    * Gets the value associated with the given key
    */
-  public Object get(Object key)
+  @Override
+  public T get(Object key)
   {
     return _cache.get(key);
   }
@@ -57,45 +58,48 @@ final class ValueMap extends AbstractMap implements Externalizable
     return _valueMap.get(value);
   }
   
-  public Object put(Object key, Object value)
+  @Override
+  public T put(T key, T value)
   {
-    Object oldKey = _valueMap.put(value, key);
+    T oldKey = _valueMap.put(value, key);
     assert oldKey == null : "value:"+value+" is referenced by both key:"+key+
       " and key:"+oldKey;                          
 
-    Object old = _cache.put(key, value);
+    T old = _cache.put(key, value);
     assert old == null : "can't put the same key twice";
     return old;
   }
     
+  @Override
   public void clear()
   {
     _cache.clear();
     _valueMap.clear();
   }
   
+  @Override
   public int size()
   {
     return _cache.size();
   }
   
-  public Set entrySet()
+  @Override
+  public Set<Map.Entry<T, T>> entrySet()
   {
     return Collections.unmodifiableSet(_cache.entrySet());
   }
   
-  private static Map _setupValueMap(Map cache)
+  private static <T> Map<T, T> _setupValueMap(Map<T, T> cache)
   {
-    Map valueMap = new HashMap(cache.size());
-    Iterator entries = cache.entrySet().iterator();
-    while(entries.hasNext())
+    Map<T, T> valueMap = new HashMap<T, T>(cache.size());
+    for(Map.Entry<T, T> entry : cache.entrySet())
     {
-      Map.Entry entry = (Map.Entry) entries.next();
-      Object old = valueMap.put(entry.getValue(), entry.getKey());
+      T old = valueMap.put(entry.getValue(), entry.getKey());
       assert old == null : "the value:"+entry.getValue()+
                            " was bound to both key:"+old+
                            " and key:"+entry.getKey();
     }
+    
     return valueMap;
   }
   
@@ -104,14 +108,15 @@ final class ValueMap extends AbstractMap implements Externalizable
     out.writeObject(_cache);
   }
 
+  @SuppressWarnings("unchecked")
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
   {
-    _cache = (Map) in.readObject();
+    _cache = (Map<T, T>) in.readObject();
     _valueMap = _setupValueMap(_cache);
   }
 
-  private Map _cache = new HashMap(13);
-  private transient Map _valueMap = new HashMap(13);
+  private Map<T, T> _cache = new HashMap<T, T>(13);
+  private transient Map<T, T> _valueMap = new HashMap<T, T>(13);
 
   //private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InvertibleMap.class);
 }

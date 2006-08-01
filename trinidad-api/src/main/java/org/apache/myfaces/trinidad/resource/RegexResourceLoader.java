@@ -29,6 +29,12 @@ import java.util.regex.Pattern;
  * A resource loader implementation which loads resources
  * by pattern matching the requested resource path to a
  * registered resource loader.
+ * 
+ * Change history
+ * 2006-08-01: -= Simon Lessard =-
+ *             Changed to use a list of entry rather than a dual typed
+ *             one to add more type safety with minimal memory overhaul
+ *             and get a really small performance gain. 
  *
  * @author The Oracle ADF Faces Team
  */
@@ -39,23 +45,19 @@ public class RegexResourceLoader extends ResourceLoader
    */
   public RegexResourceLoader()
   {
-    _loaders = new ArrayList();
+    _loaders = new ArrayList<RegexResourceNode>();
   }
   
+  @Override
   protected URL findResource(
     String path) throws IOException
   {
-    Iterator iter = _loaders.iterator();
-    while (iter.hasNext())
+    for(RegexResourceNode node : _loaders)
     {
-      Pattern pattern = (Pattern) iter.next();
-      assert iter.hasNext();
-      ResourceLoader loader = (ResourceLoader) iter.next();
-
-      Matcher matcher = pattern.matcher(path);
+      Matcher matcher = node.getPattern().matcher(path);
       if (matcher.matches())
       {
-        return loader.getResource(matcher.group(1));
+        return node.getResourceLoader().getResource(matcher.group(1));
       }
     }
     
@@ -74,8 +76,7 @@ public class RegexResourceLoader extends ResourceLoader
   {
     Pattern pattern = Pattern.compile(regex);
     _checkPathRegex(regex);
-    _loaders.add(pattern);
-    _loaders.add(loader);
+    _loaders.add(new RegexResourceNode(pattern,loader));
   }
   
   /**
@@ -86,14 +87,19 @@ public class RegexResourceLoader extends ResourceLoader
   protected void deregister(
     String regex)
   {
-    Pattern pattern = Pattern.compile(regex);
+    // -= Simon Lessard =- 
+    // Regex compilation can be expensive and the variable 
+    // is only used for equals purpose, so use the other way 
+    // around instead, that is get the expression out of the 
+    // compiled patterns through Pattern.pattern().
+    // Pattern pattern = Pattern.compile(regex);
 
-    for (int i = 0; i < _loaders.size(); i += 2)
+    Iterator<RegexResourceNode> nodeIterator = _loaders.iterator();
+    while(nodeIterator.hasNext())
     {
-      if (pattern.equals(_loaders.get(i)))
+      if(regex.equals(nodeIterator.next().getPattern().pattern()))
       {
-        _loaders.remove(i);
-        _loaders.remove(i);
+        nodeIterator.remove();
         return;
       }
     }
@@ -116,6 +122,28 @@ public class RegexResourceLoader extends ResourceLoader
                                          "\" does not have leading slash");
     }
   }
+  
+  private static class RegexResourceNode
+  {
+    public RegexResourceNode(Pattern pattern, ResourceLoader loader)
+    {
+      _pattern = pattern;
+      _loader  = loader;
+    }
+    
+    public Pattern getPattern()
+    {
+      return _pattern;
+    }
+    
+    public ResourceLoader getResourceLoader()
+    {
+      return _loader;
+    }
 
-  private final List _loaders;
+    private ResourceLoader _loader;
+    private Pattern _pattern;
+  }
+
+  private final List<RegexResourceNode> _loaders;
 }

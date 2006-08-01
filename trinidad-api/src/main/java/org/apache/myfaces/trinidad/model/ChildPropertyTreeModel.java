@@ -119,6 +119,7 @@ public class ChildPropertyTreeModel extends TreeModel
   /**
    * Gets the rowKey of the current row.
    */
+  @Override
   public Object getRowKey()
   {
     final int sz = _path.size() - 1;
@@ -129,7 +130,7 @@ public class ChildPropertyTreeModel extends TreeModel
     // have to clone the path here. otherwise, we have to say that
     // this tree model cannot be mutated while accessing the path
     // returned by this method.
-    List path = new ArrayList(sz+1);
+    List<Object> path = new ArrayList<Object>(sz+1);
     if (sz > 0)
     {
       for(int i=0; i<sz; i++)
@@ -147,13 +148,15 @@ public class ChildPropertyTreeModel extends TreeModel
    * is made current.
    * @param rowKey use null to access the root collection 
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void setRowKey(Object rowKey)
   {
     Node root = _getNode(0);
     _path.clear();
     _path.add(root);
     
-    List path = (List) rowKey;
+    List<Object> path = (List<Object>) rowKey;
     if ((path == null) || (path.size() == 0))
     {
       setRowIndex(-1);
@@ -171,29 +174,35 @@ public class ChildPropertyTreeModel extends TreeModel
     _setRowKey(path.get(lastIndex));
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Object getContainerRowKey(Object childKey)
   {
-    List path = (List) childKey;
+    List<Object> path = (List<Object>) childKey;
     if ((path == null) || (path.size() <= 1))
       return null;
     return path.subList(0, path.size() - 1);
   }
 
+  @Override
   public int getRowCount()
   {
     return _getModel().getRowCount();
   }
 
+  @Override
   public Object getRowData()
   {
     return _getModel().getRowData();
   }
 
+  @Override
   public boolean isRowAvailable()
   {
     return _getModel().isRowAvailable();
   }
 
+  @Override
   public boolean isContainer()
   {
     Object rowData = getRowData();
@@ -201,6 +210,7 @@ public class ChildPropertyTreeModel extends TreeModel
     return (value != null);
   }
 
+  @Override
   public void enterContainer()
   {
     Object rowData = getRowData();
@@ -210,6 +220,7 @@ public class ChildPropertyTreeModel extends TreeModel
     _path.add(node);
   }
 
+  @Override
   public void exitContainer()
   {
     int sz = _path.size();
@@ -222,6 +233,7 @@ public class ChildPropertyTreeModel extends TreeModel
   /**
    * Gets the instance being wrapped by this TreeModel.
    */
+  @Override
   public Object getWrappedData()
   {
     return _wrappedData;
@@ -231,6 +243,7 @@ public class ChildPropertyTreeModel extends TreeModel
    * Sets the instance being wrapped by this TreeModel.
    * Calling this method sets the path to empty.
    */
+  @Override
   public void setWrappedData(Object data)
   {
     Node root = _getNode(0);
@@ -255,27 +268,32 @@ public class ChildPropertyTreeModel extends TreeModel
     _childProperty = childProperty;
   }
 
+  @Override
   public int getRowIndex()
   {
     return _getModel().getRowIndex();
   }
 
+  @Override
   public void setRowIndex(int rowIndex)
   {
     _getModel().setRowIndex(rowIndex);
   }
 
+  @Override
   public boolean isSortable(String property)
   {
     return _getModel().isSortable(property);
   }
 
-  public List getSortCriteria()
+  @Override
+  public List<SortCriterion> getSortCriteria()
   {
     return _getModel().getSortCriteria();
   }
 
-  public void setSortCriteria(List criteria)
+  @Override
+  public void setSortCriteria(List<SortCriterion> criteria)
   {
     _getModel().setSortCriteria(criteria);
   }
@@ -328,8 +346,7 @@ public class ChildPropertyTreeModel extends TreeModel
 
   private Node _getNode(int index)
   {
-    Node node = (Node) _path.get(index);
-    return node;    
+    return _path.get(index);    
   }
 
   private CollectionModel _getModel()
@@ -357,7 +374,7 @@ public class ChildPropertyTreeModel extends TreeModel
     }
   }
 
-  private final List _path = new ArrayList(5);
+  private final List<Node> _path = new ArrayList<Node>(5);
   private String _childProperty = null;
   private Object _wrappedData = null;
 }

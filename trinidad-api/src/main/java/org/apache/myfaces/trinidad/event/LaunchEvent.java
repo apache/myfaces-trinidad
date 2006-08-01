@@ -52,8 +52,8 @@ public class LaunchEvent extends FacesEvent
   {
     super(source);
     _viewRoot = viewRoot;
-    _dialogParameters = new HashMap();
-    _windowProperties  = new HashMap();
+    _dialogParameters = new HashMap<Object, Object>();
+    _windowProperties  = new HashMap<Object, Object>();
 
     // LaunchEvents should always be queued for the current phase
     setPhaseId(PhaseId.ANY_PHASE);
@@ -84,7 +84,7 @@ public class LaunchEvent extends FacesEvent
    * A map of parameters to pass to the dialog.  All entries
    * in the map will be added to the pageFlowScope.
    */
-  public Map getDialogParameters()
+  public Map<Object, Object> getDialogParameters()
   {
     return _dialogParameters;
   }
@@ -96,23 +96,24 @@ public class LaunchEvent extends FacesEvent
    * The map will be ignored if a dialog is not used.
    * =-=AEW getWindowProperties or getDialogProperties or ??
    */
-  public Map getWindowProperties()
+  public Map<Object, Object> getWindowProperties()
   {
     return _windowProperties;
   }
 
-
+  @Override
   public void processListener(FacesListener listener)
   {
     ((LaunchListener) listener).processLaunch(this);
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof LaunchListener);
   }
 
-
+  @Override
   public int hashCode()
   {
     int result = (getComponent() == null) ? 0 : getComponent().hashCode();
@@ -122,8 +123,8 @@ public class LaunchEvent extends FacesEvent
     return result;
   }
 
-  public boolean equals(
-   Object o)
+  @Override
+  public boolean equals(Object o)
   {
     if (o == this)
       return true;
@@ -157,6 +158,7 @@ public class LaunchEvent extends FacesEvent
     return false;
   }
 
+  @Override
   public String toString()
   {
     StringBuffer sb = new StringBuffer();
@@ -173,7 +175,7 @@ public class LaunchEvent extends FacesEvent
     return sb.toString();
   }
 
-  private UIViewRoot _viewRoot;
-  private Map        _dialogParameters;
-  private Map        _windowProperties;
+  private UIViewRoot          _viewRoot;
+  private Map<Object, Object> _dialogParameters;
+  private Map<Object, Object> _windowProperties;
 }

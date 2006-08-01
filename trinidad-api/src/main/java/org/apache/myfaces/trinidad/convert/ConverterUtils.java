@@ -45,6 +45,7 @@ class ConverterUtils
  {
    FacesBeanImpl bean = new FacesBeanImpl()
                            {
+                             @Override
                              public FacesBean.Type getType()
                              {
                                return type;

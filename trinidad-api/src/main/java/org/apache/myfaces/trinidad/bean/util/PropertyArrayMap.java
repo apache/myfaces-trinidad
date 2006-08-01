@@ -46,6 +46,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
     return getByIdentity(pKey);
   }
 
+  @Override
   public Object put(
     PropertyKey key,
     Object      value)
@@ -60,6 +61,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
     return retValue;
   }
 
+  @Override
   public Object remove(
     Object key)
   {
@@ -76,6 +78,7 @@ public class PropertyArrayMap extends ArrayMap<PropertyKey,Object>
     return super.remove(key);
   }
 
+  @Override
   public void putAll(Map<? extends PropertyKey, ? extends Object> t)
   {
     if (_createDeltas())

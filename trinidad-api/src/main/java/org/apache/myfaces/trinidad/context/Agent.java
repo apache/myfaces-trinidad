@@ -163,5 +163,5 @@ public interface Agent {
    * <br><i>accessKeys</i>- returns a Boolean value signifying whether or not the Agent
    * supports accessKeys.
    */
-  public Map getCapabilities ();
+  public Map<String, Object> getCapabilities();
 }

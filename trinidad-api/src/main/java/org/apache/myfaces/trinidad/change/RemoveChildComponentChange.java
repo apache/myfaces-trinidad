@@ -58,12 +58,14 @@ public class RemoveChildComponentChange extends ComponentChange
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
     if (uiComponent.getChildCount() == 0)
       return;
       
-    List children = uiComponent.getChildren();
+    List<UIComponent> children = uiComponent.getChildren();
     children.remove(ChangeUtils.getChildForId(uiComponent, _childId));
   }
 

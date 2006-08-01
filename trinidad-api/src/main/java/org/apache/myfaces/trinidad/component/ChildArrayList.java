@@ -19,7 +19,6 @@ import javax.faces.component.UIComponent;
 
 import java.util.Collection;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -28,15 +27,15 @@ import java.util.List;
  *
  * @author The Oracle ADF Faces Team
  */
-class ChildArrayList extends ArrayList
+class ChildArrayList extends ArrayList<UIComponent>
 {
   public ChildArrayList(UIComponent parent)
   {
     _parent = parent;
   }
 
-
-  public void add(int index, Object element)
+  @Override
+  public void add(int index, UIComponent element)
   {
     if (element == null)
       throw new NullPointerException();
@@ -44,12 +43,10 @@ class ChildArrayList extends ArrayList
     if ((index < 0) || (index > size()))
       throw new IndexOutOfBoundsException("index:"+index+" size:"+size());
 
-    UIComponent child = (UIComponent) element;
-
-    UIComponent oldParent = child.getParent();
+    UIComponent oldParent = element.getParent();
     if (oldParent != null)
     {
-      int adjustedIndex = __removeFromParent(child, index);
+      int adjustedIndex = __removeFromParent(element, index);
       // Only adjust the index when the child is re-added to the same parent
       if (oldParent == _parent)
       {
@@ -57,30 +54,32 @@ class ChildArrayList extends ArrayList
       }
     }
 
-    child.setParent(_parent);
-    super.add(index, child);
+    element.setParent(_parent);
+    super.add(index, element);
   }
 
   
-  public boolean add(Object element)
+  @Override
+  public boolean add(UIComponent element)
   {
     add(size(), element);
     return true;
   }
   
-  
-  public boolean addAll(Collection collection)
+  @Override
+  public boolean addAll(Collection<? extends UIComponent> collection)
   {
     return addAll(size(), collection);
   }
 
-  public boolean addAll(int index, Collection collection)
+  @Override
+  public boolean addAll(
+      int index, 
+      Collection<? extends UIComponent> collection)
   {
-    Iterator elements = collection.iterator();
     boolean changed = false;
-    while (elements.hasNext())
+    for(UIComponent element : collection)
     {
-      UIComponent element = (UIComponent) elements.next();
       if (element == null)
         throw new NullPointerException();
 
@@ -91,15 +90,16 @@ class ChildArrayList extends ArrayList
     return changed;
   }
 
-  public Object remove(int index)
+  @Override
+  public UIComponent remove(int index)
   {
-    UIComponent child = (UIComponent) get(index);
-    super.remove(index);
+    UIComponent child = super.remove(index);
     child.setParent(null);
 
     return child;
   }
 
+  @Override
   public boolean remove(Object element)
   {
     if (element == null)
@@ -118,40 +118,40 @@ class ChildArrayList extends ArrayList
     return false;
   }
   
-  public boolean removeAll(Collection collection)
+  @Override
+  public boolean removeAll(Collection<?> collection)
   {
     boolean result = false;
-    Iterator elements = collection.iterator();
-    while (elements.hasNext())
+    for(Object element : collection)
     {
-      if (remove(elements.next()))
+      if (remove(element))
         result = true;
     }
     
     return result;
   }
 
-  public Object set(int index, Object element)
+  @Override
+  public UIComponent set(int index, UIComponent element)
   {
     if (element == null)
       throw new NullPointerException();
     
-    if (!(element instanceof UIComponent))
-      throw new ClassCastException();
-    
     if ((index < 0) || (index >= size()))
       throw new IndexOutOfBoundsException();
 
-    UIComponent child = (UIComponent) element;
-    UIComponent previous = (UIComponent) get(index);
+    UIComponent child = element;
+    UIComponent previous = get(index);
 
     previous.setParent(null);
     
     child.setParent(_parent);
     super.set(index, element);
+    
     return previous;
   }
 
+  @SuppressWarnings("unchecked")
   static int __removeFromParent(
     UIComponent component,
     int index)
@@ -161,7 +161,7 @@ class ChildArrayList extends ArrayList
 
     if (parent.getChildCount() > 0)
     {
-      List children = parent.getChildren();
+      List<UIComponent> children = parent.getChildren();
       int size = children.size();
       for  (int i = 0; i < size; i++)
       {
@@ -175,7 +175,7 @@ class ChildArrayList extends ArrayList
       }
     }
     
-    Collection facets = parent.getFacets().values();
+    Collection<UIComponent> facets = parent.getFacets().values();
     if (facets.contains(component))
     {
       facets.remove(component);

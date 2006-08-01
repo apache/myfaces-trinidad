@@ -56,6 +56,7 @@ public final class SortCriterion implements Serializable
     return _property;
   }
 
+  @Override
   public boolean equals(Object obj)
   {
     if (this == obj)
@@ -71,6 +72,7 @@ public final class SortCriterion implements Serializable
     return false;
   }
   
+  @Override
   public int hashCode()
   {
     int hc = getProperty().hashCode();

@@ -75,6 +75,7 @@ public class ClassLoaderResourceLoader extends ResourceLoader
     _resourcePrefix = _getResourcePrefix(rootPackage);
   }
 
+  @Override
   protected URL findResource(
     String path) throws IOException
   {

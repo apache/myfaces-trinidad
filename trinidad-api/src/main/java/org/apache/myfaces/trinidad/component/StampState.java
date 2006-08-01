@@ -37,10 +37,10 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 final class StampState implements Externalizable
 {
-
-
+  @SuppressWarnings("unchecked")
   public StampState()
   {
+    _rows = Collections.EMPTY_MAP;
   }
 
   /**
@@ -52,10 +52,10 @@ final class StampState implements Externalizable
   {
     if (!_rows.isEmpty())
     {
-      Iterator iter = _rows.keySet().iterator();
+      Iterator<DualKey> iter = _rows.keySet().iterator();
       while(iter.hasNext())
       {
-        DualKey dk = (DualKey) iter.next();
+        DualKey dk = iter.next();
         if (_eq(dk._key1, skipCurrencyObj))
           continue;
         iter.remove();
@@ -68,7 +68,7 @@ final class StampState implements Externalizable
     if (_rows == Collections.EMPTY_MAP)
     {
       // =-=AEW Better default sizes
-      _rows = new HashMap(109);
+      _rows = new HashMap<DualKey, Object>(109);
     }
 
     DualKey dk = new DualKey(currencyObj, key);
@@ -119,17 +119,18 @@ final class StampState implements Externalizable
   /**
    * save the stamp state of the children of the given column in the given table.
    */
+  @SuppressWarnings("unchecked")
   public static Object saveChildStampState(
     FacesContext context,
     UIComponent column,
     UIXCollection table)
   {
-    List kids = column.getChildren();
+    List<UIComponent> kids = column.getChildren();
     int sz = kids.size();
     Object[] state = new Object[sz];
     for(int i=0; i<sz; i++)
     {
-      state[i] = table.saveStampState(context, (UIComponent) kids.get(i));
+      state[i] = table.saveStampState(context, kids.get(i));
     }
     return state;
   }
@@ -137,17 +138,18 @@ final class StampState implements Externalizable
   /**
    * restore the stamp state of the children of the given column in the given table.
    */
+  @SuppressWarnings("unchecked")
   public static void restoreChildStampState(
     FacesContext context,
     UIComponent column,
     UIXCollection table,
     Object stampState)
   {
-    List kids = column.getChildren();
+    List<UIComponent> kids = column.getChildren();
     Object[] state = (Object[]) stampState;
     for(int i=0; i<state.length; i++)
     {
-      table.restoreStampState(context, (UIComponent) kids.get(i), state[i]);
+      table.restoreStampState(context, kids.get(i), state[i]);
     }
   }
 
@@ -161,15 +163,13 @@ final class StampState implements Externalizable
     if (_rows.isEmpty())
       return;
 
-    HashMap map = new HashMap(_rows.size());
+    HashMap<DualKey, Object> map = new HashMap<DualKey, Object>(_rows.size());
     map.putAll(_rows);
 
     if (_LOG.isFinest())
     {
-      Iterator entries = map.entrySet().iterator();
-      while (entries.hasNext())
+      for(Map.Entry<DualKey, Object> entry : map.entrySet())
       {
-        Map.Entry entry = (Map.Entry) entries.next();
         _LOG.finest("Saving " + entry.getKey() + ", " + entry.getValue());
       }
     }
@@ -177,20 +177,19 @@ final class StampState implements Externalizable
     out.writeObject(map);
   }
 
+  @SuppressWarnings("unchecked")
   public void readExternal(ObjectInput in)
     throws IOException, ClassNotFoundException
   {
     int size = in.readInt();
 
     if (size > 0)
-    _rows = (Map) in.readObject();
+    _rows = (Map<DualKey, Object>) in.readObject();
 
     if (_LOG.isFinest())
     {
-      Iterator entries = _rows.entrySet().iterator();
-      while (entries.hasNext())
+      for(Map.Entry<DualKey, Object> entry : _rows.entrySet())
       {
-        Map.Entry entry = (Map.Entry) entries.next();
         _LOG.finest("Restoring " + entry.getKey() + ", " + entry.getValue());
       }
     }
@@ -235,25 +234,34 @@ final class StampState implements Externalizable
     {
     }
 
+    @Override
     public void saveRowState(UIComponent child)
     {
       _disclosed = ((UIXShowDetail) child).isDisclosed();
     }
 
+    @Override
     public void restoreRowState(UIComponent child)
     {
       ((UIXShowDetail) child).setDisclosed(_disclosed);
     }
 
+    @Override
     public boolean isNull()
     {
       return !_disclosed;
     }
 
+    @Override
     public String toString()
     {
       return "SDState[disclosed=" + _disclosed + "]";
     }
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8605916495935317932L;
 
     private boolean _disclosed;
   }
@@ -264,16 +272,19 @@ final class StampState implements Externalizable
     {
     }
 
+    @Override
     public void saveRowState(UIComponent child)
     {
       _state = ((UIXCollection) child).__getMyStampState();
     }
 
+    @Override
     public void restoreRowState(UIComponent child)
     {
       ((UIXCollection) child).__setMyStampState(_state);
     }
 
+    @Override
     public boolean isNull()
     {
       return _state == null;
@@ -289,6 +300,7 @@ final class StampState implements Externalizable
       _valid = true;
     }
 
+    @Override
     public void saveRowState(UIComponent child)
     {
       assert _assertIsStampCorrect(child);
@@ -300,6 +312,7 @@ final class StampState implements Externalizable
       _valid = evh.isValid();
     }
 
+    @Override
     public void restoreRowState(UIComponent child)
     {
       assert _assertIsStampCorrect(child);
@@ -313,12 +326,14 @@ final class StampState implements Externalizable
       assert _assertStampHonoursState(evh);
     }
 
+    @Override
     public boolean isNull()
     {
       return (_valid && (!_localSet) && (_submitted == null));
     }
 
 
+    @Override
     public String toString()
     {
       return "EVHState[value=" + _local + ",submitted=" + _submitted + "]";
@@ -373,6 +388,7 @@ final class StampState implements Externalizable
       _hash = _hash(key1) + _hash(key2);
     }
 
+    @Override
     public boolean equals(Object other)
     {
       if (other == this)
@@ -388,11 +404,13 @@ final class StampState implements Externalizable
       return false;
     }
 
+    @Override
     public int hashCode()
     {
       return _hash;
     }
 
+    @Override
     public String toString()
     {
       return "<"+_key1+","+_key2+">";
@@ -407,7 +425,8 @@ final class StampState implements Externalizable
     private final int _hash;
   }
 
-  private Map _rows = Collections.EMPTY_MAP;
+  private static final TrinidadLogger _LOG =
+     TrinidadLogger.createTrinidadLogger(StampState.class);
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StampState.class);
+  private Map<DualKey, Object> _rows;
 }

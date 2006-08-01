@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidad.change;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import org.w3c.dom.Node;
 import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Attr;
 
 /**
  * Change specialization for re-ordering of children.
@@ -46,7 +44,7 @@ public class ReorderChildrenComponentChange extends ComponentChange
    * @throws IllegalArgumentException if supplied childIds were to be null.
    */
   public ReorderChildrenComponentChange(
-    List childIds
+    List<String> childIds
     )
   {
     if (childIds == null)
@@ -54,13 +52,13 @@ public class ReorderChildrenComponentChange extends ComponentChange
         "Cannot construct a ReorderChange with null childIds.");
   
     // make serializable copy of list        
-    _childIds = Collections.unmodifiableList(new ArrayList(childIds));
+    _childIds = Collections.unmodifiableList(new ArrayList<String>(childIds));
   }
   
   /**
    * Returns an unmodifiable List of the identifiers for the  children.
    */
-  public List getChildIds()
+  public List<String> getChildIds()
   {
     return _childIds;
   }
@@ -76,24 +74,21 @@ public class ReorderChildrenComponentChange extends ComponentChange
    *  preserving the order in which they were added (that is they appear at 
    *  the end).
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void changeComponent(UIComponent uiComponent)
   {
     int childCount = uiComponent.getChildCount();
-    
     if (childCount == 0)
       return;
  
     // build order map of of current Nodes, keyed by id
-    Map childrenMap = new LinkedHashMap();
+    Map<String, UIComponent> childrenMap = new LinkedHashMap<String, UIComponent>();
     
-    List children = uiComponent.getChildren();
-    
-    Iterator kids = children.iterator();
-
-    while (kids.hasNext())
+    List<UIComponent> children = uiComponent.getChildren();
+    for(UIComponent child : children)
     {
-      UIComponent currChild = (UIComponent)kids.next();
-      childrenMap.put(currChild.getId(), currChild );      
+      childrenMap.put(child.getId(), child);
     }
 
     // remove the children so that we can add them back in
@@ -102,13 +97,9 @@ public class ReorderChildrenComponentChange extends ComponentChange
     //
     // put children back in, in order
     //
-    Iterator childIds = _childIds.iterator();
-    
-    while (childIds.hasNext())
+    for(String currReorderID : _childIds)
     {
-      Object currReorderID = childIds.next();
-      
-      UIComponent currChild = (UIComponent)childrenMap.remove(currReorderID);
+      UIComponent currChild = childrenMap.remove(currReorderID);
       
       if (currChild != null)
       {
@@ -136,7 +127,7 @@ public class ReorderChildrenComponentChange extends ComponentChange
     Node componentNode)
   {
     // build order map of of current Nodes, keyed by id
-    LinkedHashMap currChildrenMap = new LinkedHashMap(13);
+    LinkedHashMap<String, Node> currChildrenMap = new LinkedHashMap<String, Node>(13);
         
     Node currChild = componentNode.getFirstChild();
     
@@ -145,10 +136,10 @@ public class ReorderChildrenComponentChange extends ComponentChange
       int fakeIndex = 0;
       NamedNodeMap attributes = currChild.getAttributes();
       
-      Object currKey = null;
+      String currKey = null;
       if (attributes != null)
       {
-        Node idAttr = (Attr)attributes.getNamedItem("id");
+        Node idAttr = attributes.getNamedItem("id");
         
         if (idAttr != null)
         {
@@ -160,7 +151,7 @@ public class ReorderChildrenComponentChange extends ComponentChange
       if (currKey == null)
       {
         // =-= bts What about insignificant whitespace?
-        currKey = new Integer(fakeIndex++);
+        currKey = new Integer(fakeIndex++).toString();
       }
 
       currChildrenMap.put(currKey, currChild);
@@ -175,14 +166,9 @@ public class ReorderChildrenComponentChange extends ComponentChange
     //
     // put children back in, in order
     //
-    Iterator childIds = _childIds.iterator();
-    
-    while (childIds.hasNext())
+    for(String currReorderID : _childIds)
     {
-      Object currReorderID = childIds.next();
-      
-      currChild = (Node)currChildrenMap.remove(currReorderID);
-      
+      currChild = currChildrenMap.remove(currReorderID);
       if (currChild != null)
       {
         componentNode.appendChild(currChild);
@@ -191,13 +177,10 @@ public class ReorderChildrenComponentChange extends ComponentChange
     
     // add in all of the rest of the children in
     // relative order they originally appeared
-    Iterator restOfChildren = currChildrenMap.entrySet().iterator();
-    
-    while (restOfChildren.hasNext())
+    for(Map.Entry<String, Node> entry : currChildrenMap.entrySet())
     {
-      currChild = (Node)((Map.Entry)restOfChildren.next()).getValue();
-      componentNode.appendChild(currChild);
-    }    
+      componentNode.appendChild(entry.getValue());
+    } 
   }
   
   /** 
@@ -209,5 +192,5 @@ public class ReorderChildrenComponentChange extends ComponentChange
     return false;
   }
 
-  private final List _childIds;
+  private final List<String> _childIds;
 }

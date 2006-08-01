@@ -16,9 +16,12 @@
 package org.apache.myfaces.trinidad.event;
 
 import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
+
+import org.apache.myfaces.trinidad.model.SortCriterion;
 
 /**
  * The Event generated when a Collection is to be sorted.
@@ -26,14 +29,12 @@ import javax.faces.event.FacesListener;
  */
 public final class SortEvent extends FacesEvent
 {
-  private final List _criteria;
-
   /**
    * Creates a new SortEvent.
    * @param criteria each element must be of type SortCriterion
    * @see org.apache.myfaces.trinidad.model.SortCriterion
    */
-  public SortEvent(UIComponent source, List criteria)
+  public SortEvent(UIComponent source, List<SortCriterion> criteria)
   {
     super(source);
     _criteria = criteria;
@@ -43,18 +44,23 @@ public final class SortEvent extends FacesEvent
    * Each element of this List is of type SortCriterion
    * @see org.apache.myfaces.trinidad.model.SortCriterion
    */
-  public List getSortCriteria()
+  public List<SortCriterion> getSortCriteria()
   {
     return _criteria;
   }
 
+  @Override
   public boolean isAppropriateListener(FacesListener listener)
   {
     return (listener instanceof SortListener);
   }
 
+  @Override
   public void processListener(FacesListener listener)
   {
     ((SortListener) listener).processSort(this);
   }
+  
+  
+  private final List<SortCriterion> _criteria;
 }

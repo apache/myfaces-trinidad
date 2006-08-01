@@ -15,6 +15,9 @@
  */
 package org.apache.myfaces.trinidad.context;
 
+import java.awt.Color;
+import java.net.URL;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -71,7 +74,7 @@ abstract public class RequestContext
    */
   static public RequestContext getCurrentInstance()
   {
-    return (RequestContext) _CURRENT_CONTEXT.get();
+    return _CURRENT_CONTEXT.get();
   }
 
   
@@ -92,12 +95,13 @@ abstract public class RequestContext
   /**
    * Returns a Map of objects at "pageFlow" scope.
    */
-  public abstract Map getPageFlowScope();
+  public abstract Map<String, Object> getPageFlowScope();
 
   /**
    * @deprecated use getPageFlowScope()
    */
-  final public Map getProcessScope()
+  @SuppressWarnings("dep-ann")
+  final public Map<String, Object> getProcessScope()
   {
     return getPageFlowScope();
   }
@@ -121,7 +125,7 @@ abstract public class RequestContext
    */
   public abstract void returnFromDialog(
     Object returnValue,
-    Map    returnParameters);
+    Map<Object, Object> returnParameters);
 
 
   /**
@@ -155,10 +159,10 @@ abstract public class RequestContext
    */
   public abstract void launchDialog(
     UIViewRoot  dialogRoot,
-    Map         dialogParameters,
+    Map<Object, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map         windowProperties);
+    Map<Object, Object> windowProperties);
 
   //
   // General ADF Faces
@@ -282,13 +286,13 @@ abstract public class RequestContext
    * Returns a Map that will accept topic names as keys, and return
    * an URL as a result.
    */
-  public abstract Map getHelpTopic();
+  public abstract Map<String, URL> getHelpTopic();
 
   /**
    * Returns a Map that will accept help system properties as keys, and return
    * an URL as a result.
    */
-  public abstract Map getHelpSystem();
+  public abstract Map<String, URL> getHelpSystem();
 
   //
   // Date formatting
@@ -356,7 +360,7 @@ abstract public class RequestContext
    * Returns a Map that takes color palette names as keys, and returns
    * the color palette as a result.
    */
-  public abstract Map getColorPalette();
+  public abstract Map<String, List<Color>> getColorPalette();
 
   /**
    * Returns a Map that performs message formatting with a recursive Map
@@ -364,7 +368,7 @@ abstract public class RequestContext
    * second the first parameter into the message. (The formatter Map supports
    * only a single parameter at this time.)
    */
-  public abstract Map getFormatter();
+  public abstract Map<Object, String> getFormatter();
 
   /**
    * Returns the Agent information for the current context
@@ -386,7 +390,8 @@ abstract public class RequestContext
     if (o != this)
       throw new IllegalStateException("Trying to release a different " +
                      "RequestContext than the current context.");
-    _CURRENT_CONTEXT.set(null);
+    
+    _CURRENT_CONTEXT.remove();
   }
 
   /**
@@ -404,6 +409,7 @@ abstract public class RequestContext
     _CURRENT_CONTEXT.set(this);
   }
 
-  static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
+  static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT = 
+    new ThreadLocal<RequestContext>();
   
 }

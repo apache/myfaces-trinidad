@@ -42,6 +42,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
   /**
    * @deprecated  remove asap
    */
+  @Deprecated
   public abstract boolean isContainedByDefault();
 
   /**
@@ -85,6 +86,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
    * it otherwise.
    * @return true if the row is now added. false otherwise.
    */
+  @SuppressWarnings("unchecked")
   public final boolean invert()
   {
     E rowkey = (E) getCollectionModel().getRowKey();
@@ -119,6 +121,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
    * @return true if this set changed. ie: true is returned if this set
    * did not previously contain the current key.
    */
+  @SuppressWarnings("unchecked")
   public final boolean add()
   {
     E rowkey = (E) getCollectionModel().getRowKey();
@@ -189,11 +192,13 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
    * This implementation simply calls
    * {@link Object#clone}
    */
-  public RowKeySet clone()
+  @SuppressWarnings("unchecked")
+  @Override
+  public RowKeySet<E> clone()
   {
     try
     {
-      return (RowKeySet) super.clone();
+      return (RowKeySet<E>) super.clone();
     }
     catch (CloneNotSupportedException e)
     {

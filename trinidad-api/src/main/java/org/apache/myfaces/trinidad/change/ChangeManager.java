@@ -57,7 +57,7 @@ public abstract class ChangeManager
   protected static DocumentChange createDocumentChange(
     ComponentChange change)
   {
-    Class changeClass = change.getClass();
+    Class<? extends ComponentChange> changeClass = change.getClass();
 
     Object converterObject = null;
     DocumentChangeFactory converter = null;
@@ -88,7 +88,7 @@ public abstract class ChangeManager
           ClassLoader contextClassLoader =
             Thread.currentThread().getContextClassLoader();
 
-          Class converterClass = contextClassLoader.loadClass(converterName);
+          Class<?> converterClass = contextClassLoader.loadClass(converterName);
           if (DocumentChangeFactory.class.isAssignableFrom(converterClass))
           {
             converter = (DocumentChangeFactory)converterClass.newInstance();
@@ -163,7 +163,7 @@ public abstract class ChangeManager
    *         are associated with the UIComponent.
    *         Returns <code>null<code> if there are no such Changes
    */
-  public abstract Iterator getComponentChanges(
+  public abstract Iterator<ComponentChange> getComponentChanges(
     FacesContext facesContext,
     UIComponent uiComponent);
 
@@ -173,11 +173,12 @@ public abstract class ChangeManager
   * @return An Iterator that can be used to access the collection of component
   *          identifiers. Returns null if there are no such components.
   */
-  public abstract Iterator getComponentIdsWithChanges(
+  public abstract Iterator<String> getComponentIdsWithChanges(
     FacesContext facesContext);
 
   private static class AttributeConverter extends DocumentChangeFactory
   {
+    @Override
     public DocumentChange convert(ComponentChange compChange)
     {
       if (compChange instanceof AttributeComponentChange)
@@ -208,7 +209,9 @@ public abstract class ChangeManager
 
   private static HashMap<String, String> _CLASSNAME_TO_CONVERTER_NAME_MAP =
     new HashMap<String, String>();
-  private static HashMap _CLASS_TO_CONVERTER_MAP = new HashMap();
+  
+  private static HashMap<Class<? extends ComponentChange>, DocumentChangeFactory> _CLASS_TO_CONVERTER_MAP = 
+    new HashMap<Class<? extends ComponentChange>, DocumentChangeFactory>();
 
   static private final TrinidadLogger _LOG = 
      TrinidadLogger.createTrinidadLogger(ChangeManager.class);

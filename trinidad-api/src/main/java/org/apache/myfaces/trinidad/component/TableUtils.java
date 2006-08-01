@@ -87,9 +87,10 @@ public final class TableUtils
    * @return any old value that was bound to the EL variable, or null
    * if there was no old value.
    */
+  @SuppressWarnings("unchecked")
   public static Object setupELVariable(FacesContext context, String name, Object value)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
     if (value == null)
       return requestMap.remove(name);
     else
@@ -108,7 +109,10 @@ public final class TableUtils
    * @param model this tree model must have its path pointing to a particular 
    * node which must be a container.
    */
-  static void __doSafeExpandAll(TreeModel model, RowKeySet state, int maxSize)
+  static void __doSafeExpandAll(
+      TreeModel model, 
+      RowKeySet<Object> state, 
+      int maxSize)
   {
     int size = _getSizeOfTree(model, maxSize);
     if ((size < 0) || (size > maxSize))
@@ -209,6 +213,7 @@ public final class TableUtils
    * @param skipFacet the name of any facet that should not be processed 
    * at this time.
    */
+  @SuppressWarnings("unchecked")
   static void __processFacets(
     FacesContext context,
     final UIXCollection table,
@@ -216,13 +221,14 @@ public final class TableUtils
     final PhaseId phaseId,
     String skipFacet)
   {
-    Map facets = component.getFacets();
+    Map<String, UIComponent> facets = component.getFacets();
     final UIComponent skip = (skipFacet != null)
       ? (UIComponent) facets.get(skipFacet)
       : null;
                                            
     new ChildLoop()
     {
+      @Override
       protected void process(FacesContext context, UIComponent facet)
       {
         if (facet != skip)
@@ -243,6 +249,7 @@ public final class TableUtils
   {
     new ChildLoop()
     {
+      @Override
       protected void process(FacesContext context, UIComponent child)
       {
         if (child instanceof UIXColumn)
@@ -266,6 +273,7 @@ public final class TableUtils
   {
     new ChildLoop()
     {
+      @Override
       protected void process(FacesContext context, UIComponent child)
       {
         table.processComponent(context, child, phaseId);
@@ -276,6 +284,7 @@ public final class TableUtils
   /**
    * Process all the children of the given table
    */
+  @SuppressWarnings("unchecked")
   static void __processChildren(
     FacesContext context,
     final UIXCollection comp,

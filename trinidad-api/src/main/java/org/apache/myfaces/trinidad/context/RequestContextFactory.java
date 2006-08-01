@@ -16,6 +16,7 @@
 package org.apache.myfaces.trinidad.context;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Factory for creating RequestContext objects.
@@ -31,7 +32,7 @@ abstract public class RequestContextFactory
   {
     synchronized (_FACTORIES)
     {
-      return (RequestContextFactory) _FACTORIES.get(_getClassLoader());
+      return _FACTORIES.get(_getClassLoader());
     }
   }
 
@@ -66,5 +67,6 @@ abstract public class RequestContextFactory
     return Thread.currentThread().getContextClassLoader();
   }
 
-  static private final HashMap _FACTORIES = new HashMap();
+  static private final Map<ClassLoader, RequestContextFactory> _FACTORIES = 
+    new HashMap<ClassLoader, RequestContextFactory>();
 }

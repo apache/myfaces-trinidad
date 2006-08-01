@@ -106,6 +106,7 @@ public class SetFacetChildDocumentChange extends AddComponentDocumentChange
    * Returns true if adding the DocumentChange should force the JSP Document
    * to reload
    */
+  @Override
   public boolean getForcesDocumentReload()
   {
     return false;

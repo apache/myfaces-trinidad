@@ -95,10 +95,11 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
    * @return a aggregate url
    * @throws IOException when something bad happens
    */
+  @Override
   protected URL getURL(String path) throws IOException
   {
     int len = _paths.length;
-    ArrayList urls = new ArrayList(len);
+    ArrayList<URL> urls = new ArrayList<URL>(len);
     for(int i = 0; i < len; i++)
     {
       URL u = _target.getResource(_paths[i]);
@@ -114,7 +115,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
     }
 
     urls.trimToSize();
-    URL[] urlArray = (URL[])urls.toArray(new URL[0]);
+    URL[] urlArray = urls.toArray(new URL[0]);
 
     AggregatingURLStreamHandler handler = new AggregatingURLStreamHandler(urlArray, _separator);
     return new URL("aggregating", null, -1, path, handler);
@@ -168,6 +169,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
      * @return a URLConnection
      * @throws IOException when something bad happens
      */
+    @Override
     protected URLConnection openConnection(URL u) throws IOException
     {
       int len = _urls.length;
@@ -198,6 +200,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
+    @Override
     public void connect() throws IOException
     {
       for (int i=0, len = _connections.length; i < len; i++)
@@ -206,6 +209,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
+    @Override
     public InputStream getInputStream() throws IOException
     {
       boolean hasseparator = (_separator!=null);
@@ -229,14 +233,16 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
           streams[++streamCounter] = new separatorInputStream(_separator);
         }
       }
-      return new SequenceInputStream(new ArrayEnumeration(streams));
+      return new SequenceInputStream(new ArrayEnumeration<InputStream>(streams));
     }
 
+    @Override
     public String getContentType()
     {
       return _connections[0].getContentType();
     }
 
+    @Override
     public int getContentLength()
     {
       int totalContentLength = _contentLength;
@@ -276,6 +282,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return totalContentLength;
     }
 
+    @Override
     public long getLastModified()
     {
       long maxLastModified = -1;
@@ -294,6 +301,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return maxLastModified;
     }
 
+    @Override
     public String getHeaderField(
       String name)
     {
@@ -321,12 +329,12 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
 
   }
 
-  private class ArrayEnumeration implements Enumeration
+  private class ArrayEnumeration<T> implements Enumeration<T>
   {
-    private Object[] _array;
-    private int      _len;
-    private int      _pointer = 0;
-    public ArrayEnumeration(Object[] array)
+    private T[] _array;
+    private int _len;
+    private int _pointer = 0;
+    public ArrayEnumeration(T[] array)
     {
       _array = array;
       _len = array.length;
@@ -337,7 +345,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return _pointer < _len;
     }
 
-    public Object nextElement() throws NoSuchElementException
+    public T nextElement() throws NoSuchElementException
     {
       try
       {
@@ -366,6 +374,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       _length = _separator.length;
     }
 
+    @Override
     public int read() throws IOException
     {
       if(_index < _length)
@@ -376,6 +385,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       return -1;
     }
 
+    @Override
     public int read(byte[] b, int off, int len) throws IOException
     {
       int bytesLeft = available();
@@ -394,6 +404,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
+    @Override
     public long skip(long n) throws IOException
     {
       int bytesLeft = available();
@@ -414,6 +425,7 @@ public class AggregatingResourceLoader extends DynamicResourceLoader
       }
     }
 
+    @Override
     public int available() throws IOException
     {
       return _length - _index;

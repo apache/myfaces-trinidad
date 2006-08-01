@@ -52,11 +52,13 @@ abstract public class UIXComponentTag extends UIComponentTag
   {
   }
 
+  @Override
   public void setId(String id)
   {
     _id = id;
   }
 
+  @Override
   public void setRendered(String rendered)
   {
     _rendered = rendered;
@@ -67,6 +69,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     _attributeChangeListener = attributeChangeListener;
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     _parentELContext = (ELContextTag)
@@ -102,6 +105,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     return retVal;
   }
 
+  @Override
   public int doEndTag() throws JspException
   {
     UIComponent component = getComponentInstance();
@@ -110,6 +114,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     return super.doEndTag();
   }
 
+  @Override
   protected void encodeBegin() throws java.io.IOException
   {
     UIComponent component = getComponentInstance();
@@ -118,6 +123,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     super.encodeBegin();
   }
 
+  @Override
   protected final void setProperties(UIComponent component)
   {
     super.setProperties(component);
@@ -430,7 +436,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     if (stringValue == null)
       return null;
 
-    ArrayList list = new ArrayList(5);
+    ArrayList<String> list = new ArrayList<String>(5);
 
     int     length = stringValue.length();
     boolean inSpace = true;
@@ -471,7 +477,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     if (list.isEmpty())
       return null;
 
-    return (String[]) list.toArray(new String[list.size()]);
+    return list.toArray(new String[list.size()]);
   }
 
   private static void _applyChanges(
@@ -480,14 +486,14 @@ abstract public class UIXComponentTag extends UIComponentTag
     boolean isCreated)
   {
     RequestContext afc = RequestContext.getCurrentInstance();
-    Iterator changeIter =
+    Iterator<ComponentChange> changeIter =
                   afc.getChangeManager().getComponentChanges(facesContext, uiComponent);
 
     if (changeIter == null)
       return;
     while (changeIter.hasNext())
     {
-      ComponentChange change = (ComponentChange)changeIter.next();
+      ComponentChange change = changeIter.next();
 
       //pu: If we did not create the component during tag execution, do not
       //  apply any AttributeChange. This is because we do not have enough
@@ -516,15 +522,15 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
 
-  private String       _rendered;
-  private String       _id;
-  private String       _attributeChangeListener;
-  private String       _validationError;
-  private ELContextTag _parentELContext;
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
 
   // We rely strictly on ISO 8601 formats
   private static DateFormat  _ISO_DATE_FORMAT =
     new SimpleDateFormat("yyyy-MM-dd");
 
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXComponentTag.class);
+  private String       _rendered;
+  private String       _id;
+  private String       _attributeChangeListener;
+  private String       _validationError;
+  private ELContextTag _parentELContext;
 }
