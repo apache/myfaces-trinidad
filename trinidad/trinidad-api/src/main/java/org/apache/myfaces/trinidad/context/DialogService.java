@@ -167,15 +167,5 @@ abstract public class DialogService
     Object returnValue,
     Map<Object, Object> returnParams);
 
-  //
-  // OBSOLETE METHODS THAT WILL BE DELETED
-  // 
-  public abstract void pushPageFlowScope(boolean copyParent);
-  public abstract Map<String, Object> popPageFlowScope(boolean discardScope);
-  public abstract void restorePageFlowScope(Map<String, Object> pageFlowScope);
-  public abstract boolean isPageFlowScopeInvalid();
-  public abstract String getPageFlowScopeToken();
-  public abstract Map<String, Object> getPageFlowScope(String token);
-
   private UIComponent _currentLaunchSource;
 }
