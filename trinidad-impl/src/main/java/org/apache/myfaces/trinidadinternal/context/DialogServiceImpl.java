@@ -46,64 +46,6 @@ public class DialogServiceImpl extends DialogService
     _context = context;
   }
 
-  //
-  // OBSOLETE METHODS THAT WILL BE DELETED
-  //
-  public void pushPageFlowScope(boolean copyParent)
-  {
-    FacesContext context = _getFacesContext();
-    _context.getPageFlowScopeProvider().pushPageFlowScope(context,
-                                                          copyParent);
-  }
-
-  public Map popPageFlowScope(boolean discardScope)
-  {
-    FacesContext context = _getFacesContext();
-    return _context.getPageFlowScopeProvider().popPageFlowScope(context,
-                                                                discardScope);
-  }
-
-  public void restorePageFlowScope(Map pageFlowScope)
-  {
-    FacesContext context = _getFacesContext();
-    PageFlowScopeProviderImpl.__setPageFlowScope(context,
-                                                 (PageFlowScopeMap) pageFlowScope);
-  }
-
-  public boolean isPageFlowScopeInvalid()
-  {
-    PageFlowScopeMap pageFlowScope =
-      (PageFlowScopeMap) _context.getPageFlowScope();
-    if (pageFlowScope == null)
-      return false;
-    return pageFlowScope.__invalid;
-  }
-
-  public String getPageFlowScopeToken()
-  {
-    PageFlowScopeMap pageFlowScope =
-      (PageFlowScopeMap) _context.getPageFlowScope();
-    if (pageFlowScope == null)
-      return null;
-
-    return pageFlowScope.getToken(_getFacesContext());
-  }
-
-  public Map getPageFlowScope(String token)
-  {
-    if (token != null)
-    {
-      int lifetime = _context.__getPageFlowScopeLifetime();
-      FacesContext context = _getFacesContext();
-      return PageFlowScopeMap.getPageFlowScopeMap(context,
-                                                  token,
-                                                  lifetime);
-    }
-
-    return null;
-  }
-  /// END OF OBSOLETE METHODS
-
   public void pushView(UIViewRoot viewRoot)
   {
     FacesContext context = _getFacesContext();
