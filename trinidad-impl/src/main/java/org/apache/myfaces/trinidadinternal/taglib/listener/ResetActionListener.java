@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXForm;
 import org.apache.myfaces.trinidad.component.UIXSubform;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 /**
  * An action listener that will reset all the editable values
@@ -84,15 +85,21 @@ public class ResetActionListener
     while (kids.hasNext())
     {
       UIComponent kid = (UIComponent) kids.next();
+      
       if (kid instanceof UIXEditableValue)
+      {
         ((UIXEditableValue) kid).resetValue();
+        RequestContext.getCurrentInstance().addPartialTarget(kid);
+      }
       else if (kid instanceof EditableValueHolder)
       {
         _resetEditableValueHolder((EditableValueHolder) kid);
+        RequestContext.getCurrentInstance().addPartialTarget(kid);
       }
       else if (kid instanceof UIXCollection)
       {
         ((UIXCollection) kid).resetStampState();
+        RequestContext.getCurrentInstance().addPartialTarget(kid);
       }
 
       _resetChildren(kid);
