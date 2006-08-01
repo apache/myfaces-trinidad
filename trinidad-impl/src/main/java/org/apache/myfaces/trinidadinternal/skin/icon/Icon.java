@@ -51,6 +51,7 @@ abstract public class Icon
   public static final String EMBEDDED_KEY = "embedded";
   public static final String ID_KEY = "id";
   public static final String STYLE_CLASS_KEY = "styleClass";
+  public static final String INLINE_STYLE_KEY = "inlineStyle";
 
   /**
    * Renders the Icon.
