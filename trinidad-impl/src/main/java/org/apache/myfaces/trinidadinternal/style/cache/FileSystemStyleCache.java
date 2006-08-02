@@ -1491,12 +1491,12 @@ public class FileSystemStyleCache implements StyleProvider
     _STYLE_KEY_MAP.put("af|panelList::unordered-list",
                  "af|panelList UL");
 
-    _STYLE_KEY_MAP.put("af|selectInputDate::nav-link",
-                 "af|selectInputDate::nav A");
-    _STYLE_KEY_MAP.put("af|selectInputDate::content-link",
-                 "af|selectInputDate::content A");
-    _STYLE_KEY_MAP.put("af|selectInputDate::disabled-link",
-                 "af|selectInputDate::disabled A");
+    _STYLE_KEY_MAP.put("af|inputDate::nav-link",
+                 "af|inputDate::nav A");
+    _STYLE_KEY_MAP.put("af|inputDate::content-link",
+                 "af|inputDate::content A");
+    _STYLE_KEY_MAP.put("af|inputDate::disabled-link",
+                 "af|inputDate::disabled A");
     _STYLE_KEY_MAP.put("af|chooseDate::nav-link",
                  "af|chooseDate::nav A");
     _STYLE_KEY_MAP.put("af|chooseDate::content-link",
@@ -1516,10 +1516,17 @@ public class FileSystemStyleCache implements StyleProvider
         XhtmlLafConstants.AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|showOneAccordion::title-disabled-link");
 
-    _STYLE_KEY_MAP.put("af|showOneTab::tab-link",
-        "af|showOneTab::tab A");
-    _STYLE_KEY_MAP.put("af|showOneTab::tab-selected-link",
-        "af|showOneTab::tab-selected A");
+    _STYLE_KEY_MAP.put(
+        XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
+        "A.af|panelAccordion::title-link");
+    _STYLE_KEY_MAP.put(
+        XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        "A.af|panelAccordion::title-disabled-link");
+
+    _STYLE_KEY_MAP.put("af|panelTabbed::tab-link",
+        "af|panelTabbed::tab A");
+    _STYLE_KEY_MAP.put("af|panelTabbed::tab-selected-link",
+        "af|panelTabbed::tab-selected A");
 
     _STYLE_KEY_MAP.put(":read-only",
                        ".p_AFReadOnly");

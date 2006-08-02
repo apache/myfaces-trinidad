@@ -24,11 +24,11 @@
        
         <tr:panelPage>
       <tr:panelHeader text="Question 2 of 5">
-        <tr:panelForm>
+        <tr:panelFormLayout>
           <tr:inputText label="#{survey.q1.prompt}" 
                                 required="true"
                                 value="#{survey.a1}"/>
-        </tr:panelForm>
+        </tr:panelFormLayout>
       </tr:panelHeader>
           <f:facet name="navigationGlobal">
             <tr:menuButtons>
@@ -39,13 +39,13 @@
           </f:facet>
           
           <f:facet name="location">   
-            <tr:processTrain  value="#{surveyMenuModel}" var="surveyNode">
+            <tr:train  value="#{surveyMenuModel}" var="surveyNode">
               <f:facet name="nodeStamp">
                 <tr:commandNavigationItem text="#{surveyNode.label}"
                                     action="#{surveyNode.getOutcome}"
                                     readOnly="true"/>
               </f:facet>
-            </tr:processTrain>
+            </tr:train>
           </f:facet>          
           
          <tr:singleStepButtonBar selectedStep="2" maxStep="5"

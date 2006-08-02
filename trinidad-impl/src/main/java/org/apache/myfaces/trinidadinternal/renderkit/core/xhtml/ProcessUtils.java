@@ -17,9 +17,11 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -34,8 +36,6 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  */
 public class ProcessUtils
 {
-
-
   /**
    * Returns a String with the javascript function call _navSubmit
    */
@@ -74,6 +74,43 @@ public class ProcessUtils
   }
 
   /**
+ * @param component
+ * @param stamp
+ * @param startIndex
+ * @return
+ */
+  public static int getBackIndex(
+    UIXProcess component,
+    UIComponent stamp,
+    int startIndex)
+  {
+    int i = startIndex - 1;
+    while (i >= 0)
+    {
+      component.setRowIndex(i);
+      boolean disabled = Boolean.TRUE.equals(
+        stamp.getAttributes().get("disabled"));
+      boolean readOnly = Boolean.TRUE.equals(
+        stamp.getAttributes().get("readOnly"));
+      boolean rendered = stamp.isRendered();
+
+      // if this node is rendered and not disabled and not readOnly
+      // then it can be used as the back button node.
+      if (!disabled && !readOnly && rendered)
+      {
+        component.setRowIndex(startIndex);
+        return i;
+      }
+
+      i--;
+    }
+
+    component.setRowIndex(startIndex);
+    return NO_INDEX;
+
+  }
+
+  /**
    */
   public static String getChoiceOnChangeFormSubmitted(
     String           form,
@@ -104,6 +141,43 @@ public class ProcessUtils
     return buffer.toString();
   }
 
+
+  /**
+   * @param component
+   * @param stamp
+   * @param startIndex
+   * @return
+   */
+  public static int getNextIndex(
+    UIXProcess component, 
+    UIComponent stamp,
+    int startIndex)
+  {
+    int i = startIndex + 1;
+    int rowCount = component.getRowCount();
+    while (i < rowCount)
+    {
+      component.setRowIndex(i);
+      boolean disabled = Boolean.TRUE.equals(
+        stamp.getAttributes().get("disabled"));
+      boolean readOnly = Boolean.TRUE.equals(
+        stamp.getAttributes().get("readOnly"));
+      boolean rendered = stamp.isRendered();
+
+      // if this node is rendered and not disabled and not readOnly
+      // then it can be used as the back button node.
+      if (!disabled && !readOnly && rendered)
+      {
+        component.setRowIndex(startIndex);
+        return i;
+      }
+
+      i++;
+    }
+
+    component.setRowIndex(startIndex);
+    return NO_INDEX;
+  }
 
   public static void renderNavSubmitScript(
     FacesContext        context,

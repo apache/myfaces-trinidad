@@ -39,7 +39,6 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.NavigationPathRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
@@ -519,7 +518,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   private static final CoreRenderer _TREE_NODE = new TreeNodeColumnRenderer();
   private static final CoreRenderer _CRUMBS = new BreadCrumbsRenderer();
 
-  private static final class BreadCrumbsRenderer extends NavigationPathRenderer
+  private static final class BreadCrumbsRenderer extends org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.BreadCrumbsRenderer
   {
     protected void renderLink(
       FacesContext context,
@@ -576,7 +575,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       FacesContext context,
       UIComponent  component)
     {
-      // the ID is rendered by TreeTableRenderer and not NavigationPathRenderer:
+      // the ID is rendered by TreeTableRenderer and not org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.BreadCrumbsRenderer:
       // bug 4587950:
       return false;
     }

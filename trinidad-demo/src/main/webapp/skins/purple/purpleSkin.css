@@ -81,63 +81,63 @@ component. **/
 /** when the panelBox is dark, this is the background color */
 .AFPanelBoxDarkBackground:alias {background-color:green}
 
-/** showOneTab **/
+/** panelTabbed **/
 /** ---------- **/
-/** .AFShowOneTab:alias is included in af|showOneTab::orientation-top and 
-    af|showOneTab::orientation-bottom which are the styles on the table. **/
-.AFShowOneTab:alias {
+/** .AFPanelTabbed:alias is included in af|panelTabbed::orientation-top and 
+    af|panelTabbed::orientation-bottom which are the styles on the table. **/
+.AFPanelTabbed:alias {
   background-color:#BB95BB; 
   text-align:center;
 }
 /** make the top tab bar have a solid border underneath **/
-af|showOneTab::orientation-top
+af|panelTabbed::orientation-top
 {
   border-bottom: 3px solid black;
 }
 /** make the bottom tab bar have a solid border on top **/
-af|showOneTab::orientation-bottom
+af|panelTabbed::orientation-bottom
 {
   border-top: 3px solid black;
 }
 
-af|showOneTab::separator {
+af|panelTabbed::separator {
   margin:4px;
   border-top: #BB95BB; solid 4pt ;
   border-bottom: #BB95BB; solid 4pt ;
   BACKGROUND-COLOR: white;
   PADDING-LEFT: 1px;}
 
-af|showOneTab::tab {
+af|panelTabbed::tab {
   font-weight:bold;
   font-family:Tahoma; 
   padding:2px 8px;
 }
 
-af|showOneTab::tab-selected {
+af|panelTabbed::tab-selected {
   font-family:Tahoma;
   padding:2px 8px; 
   text-decoration: none; 
   background-color:white
 }  
 
-af|showOneTab::tab-link {
+af|panelTabbed::tab-link {
   color:white;
   text-decoration: none;
 }
 
-af|showOneTab::tab-link:hover
+af|panelTabbed::tab-link:hover
 {
   -ora-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 /* put some space in the
 first cell */
-af|showOneTab::cell-start {
+af|panelTabbed::cell-start {
   background-color:transparent; 
   padding-left:10px
 }
 /** put some space between the tabs and the body */
-af|showOneTab::body
+af|panelTabbed::body
 {
   padding: 10px;
 }
@@ -353,7 +353,7 @@ af|panelHeader
 }
 
 
-/** processTrain **/
+/** train **/
 /** ------------ **/
 /**  We override the AFTrainStation alias style to add some
        padding, and also to display the station indicator
@@ -364,7 +364,7 @@ af|panelHeader
   border-width:3px 0px 0px 0px;
   padding:3pt;
 }
-af|processTrain::visited af|processTrain::link
+af|train::visited af|train::link
 {
   color: Fuchsia;
 }
@@ -390,13 +390,13 @@ af|selectBooleanCheckbox::disabled-only-checked-icon
 }
 
 /** selectInputDate launch icon **/
-af|selectInputDate::launch-icon
+af|inputDate::launch-icon
 {
   content:url(/skins/purple/images/dateButtonPurple.gif); 
   width:19px; 
   height:24px
 }
-af|selectInputDate::launch-icon:rtl
+af|inputDate::launch-icon:rtl
 {
   content:url(/skins/purple/images/dateButtonPurpleRTL.gif); 
   width:19px; 
@@ -404,13 +404,13 @@ af|selectInputDate::launch-icon:rtl
 }
 
 /* use special properties to change the ui **/
-/* don't show the last item in navigationPath (the default is to show it)*/
+/* don't show the last item in breadCrumbs (the default is to show it)*/
 
-af|navigationPath {-ora-show-last-item:false}
+af|breadCrumbs {-ora-show-last-item:false}
 
-af|navigationPath::step {color: purple;}
-af|navigationPath::step:hover {color: green}
-af|navigationPath::selected-step:hover {color: green;}
+af|breadCrumbs::step {color: purple;}
+af|breadCrumbs::step:hover {color: green}
+af|breadCrumbs::selected-step:hover {color: green;}
 
 af|treeTable::path-step {color: purple; text-decoration:none}
 af|treeTable::path-step:hover {color: green}
@@ -421,7 +421,7 @@ af|treeTable::path-selected-step:hover {color: green;}
     can hide it like this (this feature will be more useful when skins can
     extends other skins besides simple)
 
-af|navigationPath::separator-icon {content:inhibit}    
+af|breadCrumbs::separator-icon {content:inhibit}    
 */
 
 .AFHeaderErrorIcon:alias 

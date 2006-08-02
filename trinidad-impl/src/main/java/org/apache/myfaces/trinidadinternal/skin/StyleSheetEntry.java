@@ -153,7 +153,7 @@ class StyleSheetEntry
    * Returns the SkinProperties List for this
    * StyleSheetEntry. This is a list of SkinProperyNodes
    * a node contains the selector, the -ora- property, and the value.
-   * e.g, selector: af|navigationPath, property: -ora-show-last-item,
+   * e.g, selector: af|breadCrumbs, property: -ora-show-last-item,
    * value: true
    */
   public List <SkinPropertyNode> getSkinProperties()

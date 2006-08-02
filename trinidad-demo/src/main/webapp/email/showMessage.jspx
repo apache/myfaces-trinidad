@@ -35,14 +35,14 @@
           <tr:messages/>
           
           <f:facet name="branding">
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <tr:objectImage source="/email/images/pbs.gif"/>
-              </tr:panelGroup>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
               <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </f:facet>
           
           <f:facet name="navigationGlobal">
@@ -65,29 +65,29 @@
           </f:facet>
           
         <tr:panelHeader text="Message">
-          <tr:panelBorder>
+          <tr:panelBorderLayout>
             <!-- Top section: include the headers -->
             <f:facet name="innerTop">
-              <tr:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
+              <tr:panelFormLayout inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
                 <tr:panelLabelAndMessage label="From:">
                   <tr:outputText value="#{showMessageBacking.message.sender}"/>
                 </tr:panelLabelAndMessage>
                 <tr:panelLabelAndMessage label="To:">
-                  <tr:panelGroup layout="vertical">
+                  <tr:panelGroupLayout layout="vertical">
                     <tr:forEach items="#{showMessageBacking.message.tos}"
                                 var="address">  
                       <tr:outputText value="#{address}"/>
                     </tr:forEach>
-                 </tr:panelGroup>
+                 </tr:panelGroupLayout>
                 </tr:panelLabelAndMessage>
                 <tr:panelLabelAndMessage label="Cc:"
                   labelStyle="vertical-align: top;">
-                  <tr:panelGroup layout="vertical">
+                  <tr:panelGroupLayout layout="vertical">
                     <tr:forEach items="#{showMessageBacking.message.ccs}"
                                 var="address">
                       <tr:outputText value="#{address}"/>
                     </tr:forEach>
-                  </tr:panelGroup>
+                  </tr:panelGroupLayout>
                 </tr:panelLabelAndMessage>
                 <tr:inputText label="Subject:" readOnly="true"
                               value="#{showMessageBacking.message.subject}"/>
@@ -97,7 +97,7 @@
                 <tr:inputText label="Content type:" readOnly="true"
                               value="#{showMessageBacking.message.contentType}"/>
                 -->
-              </tr:panelForm>
+              </tr:panelFormLayout>
 
             </f:facet>
 
@@ -121,7 +121,7 @@
             <f:facet name="auxiliary2">
               <tr:panelBox text="Attachments"
                     rendered="#{showMessageBacking.message.attachmentPresent}">
-                <tr:panelGroup layout="vertical">
+                <tr:panelGroupLayout layout="vertical">
                   <tr:forEach items="#{showMessageBacking.message.attachments}"
                               var="attachment">
                     <tr:commandLink text="#{attachment.fileName}"
@@ -130,10 +130,10 @@
                          to="#{showMessageBacking.attachmentToDownload}"/>
                     </tr:commandLink>
                   </tr:forEach>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
               </tr:panelBox>
             </f:facet>
-          </tr:panelBorder>
+          </tr:panelBorderLayout>
         </tr:panelHeader>
           <!--
           <f:facet name="infoReturn">

@@ -43,7 +43,7 @@
       <facet-name>leadingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -52,7 +52,7 @@
       <facet-name>trailingFooter</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>

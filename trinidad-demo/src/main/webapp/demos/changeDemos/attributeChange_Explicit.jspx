@@ -34,29 +34,29 @@
            </tr:menuButtons>
           </f:facet>
          <tr:panelHeader text="Explicit AttributeChange Persistence Feature Demo">
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
-            <tr:panelGroup layout="horizontal">
-              <tr:objectImage 
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:image 
                 id="oi1" 
                 source="/adf/images/error.gif"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 text="Change Image" 
                 actionListener="#{change.modifyObjectImage}"/>
-            </tr:panelGroup>
-            <tr:panelGroup layout="horizontal">
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout layout="horizontal">
               <tr:panelBox 
                 id="pb1" 
                 text="PanelBoxText"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 text="Change panelBox text" 
                 actionListener="#{change.modifyPanelBox}"/>
-            </tr:panelGroup>
-            <tr:panelGroup layout="horizontal">
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout layout="horizontal">
               <tr:table 
                 id="t1"
                 summary="Periodic table elements" 
@@ -70,19 +70,19 @@
                   <tr:outputText value="#{row.name}"/>
                 </tr:column>
               </tr:table>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 text="Toggle sortablity" 
                 actionListener="#{change.modifyColumn}"/>
-            </tr:panelGroup>
-            <tr:panelGroup layout="horizontal">
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout layout="horizontal">
               <tr:inputText id="it1" label="Label One"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 text="Change label" 
                 actionListener="#{change.modifyInputText}"/>
-            </tr:panelGroup>
-          </tr:panelGroup>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
          </tr:panelHeader>
         </tr:panelPage>
       </tr:form>

@@ -23,13 +23,13 @@
   <f:view>
     <tr:document title="tableSelectMany Demo">
       <tr:form>
-        <tr:panelGroup layout="vertical">
+        <tr:panelGroupLayout layout="vertical">
           <tr:commandLink immediate="true" text="Component Guide"
                           action="guide"/>
-        </tr:panelGroup>
-        <tr:panelGroup layout="vertical">
+        </tr:panelGroupLayout>
+        <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
-            <tr:objectSeparator/>
+            <tr:separator/>
           </f:facet>
           <tr:messages/>
           <tr:selectOneChoice value="#{sessionScope.tableSelection}"
@@ -97,7 +97,7 @@
               </tr:column>
             </tr:table>
           </tr:panelHeader>
-        </tr:panelGroup>
+        </tr:panelGroupLayout>
       </tr:form>
     </tr:document>
   </f:view>

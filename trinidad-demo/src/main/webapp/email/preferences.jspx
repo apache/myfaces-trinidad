@@ -36,14 +36,14 @@
           <tr:messages/>
 
           <f:facet name="branding">
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <tr:objectImage source="/email/images/pbs.gif"/>
-              </tr:panelGroup>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
               <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </f:facet>
           
           <f:facet name="navigationGlobal">
@@ -66,7 +66,7 @@
             </f:facet>
     
         <tr:panelHeader text="Update Preferences">
-          <tr:panelForm> 
+          <tr:panelFormLayout> 
             <tr:selectOneChoice label="Skin-family:"
                               value="#{email.preferences.skinFamily}">
               <f:selectItems value="#{email.preferences.skinFamilyItems}"/>
@@ -83,16 +83,16 @@
               <f:validateLongRange minimum="5" maximum="100"/>
             </tr:inputText>
             <tr:panelLabelAndMessage label="Columns:">
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:selectBooleanCheckbox text="Sender"
                      value="#{email.preferences.displaySenderColumn}"/>
                 <tr:selectBooleanCheckbox text="Date"
                      value="#{email.preferences.displayDateColumn}"/>
                 <tr:selectBooleanCheckbox text="Size"
                      value="#{email.preferences.displaySizeColumn}"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
             </tr:panelLabelAndMessage>
-          </tr:panelForm>
+          </tr:panelFormLayout>
          </tr:panelHeader>
           <tr:panelButtonBar>  
             <tr:commandButton textAndAccessKey="&amp;Save"

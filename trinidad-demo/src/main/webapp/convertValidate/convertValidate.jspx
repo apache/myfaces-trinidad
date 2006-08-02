@@ -32,7 +32,7 @@
             </f:facet>
           <tr:panelHeader text="Converters and Validators">
             <tr:panelHeader text="Server Side Number Converter"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="99.99" label="number converter1">
                 <f:facet name="help">
                   <tr:outputText value="type='number' integerOnly='true' - This will result in fraction part to be omitted"/>
@@ -69,9 +69,9 @@
                 <f:convertNumber type="currency" locale="en_US"
                                  currencySymbol="#"/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Validators"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="9999" label="reg exp validator">
                 <f:facet name="help">
                   <tr:outputText value="pattern='[9]*'"/>
@@ -91,10 +91,10 @@
                 <tr:validateRegExp pattern="[1-9][2][0-9]"/>
                 <f:validateLongRange maximum="920"/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Date time range validator with ISO date format support"/>
-            <tr:panelForm>
-              <tr:selectInputDate id="mdf3" value="2004-11-25"
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf3" value="2004-11-25"
                                   label="Submission period">
                 <f:facet name="help">
                   <tr:outputText value="min=2004-11-16  max=2004-12-16"/>
@@ -103,8 +103,8 @@
                 <tr:validateDateTimeRange minimum="2004-11-16"
                                           maximum="2004-12-16"
                                           notInRangeMessageDetail='Date "{0}" does not fall within {1} : {2}'/>
-              </tr:selectInputDate>
-            </tr:panelForm>
+              </tr:inputDate>
+            </tr:panelFormLayout>
            </tr:panelHeader>
            <tr:commandButton text="Submit"/>
           </tr:panelPage>

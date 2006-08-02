@@ -25,10 +25,10 @@ import javax.faces.convert.Converter;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseColor;
-import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputColor;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputColor;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
-import org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer;
+import org.apache.myfaces.trinidad.component.core.output.CoreSpacer;
 import org.apache.myfaces.trinidad.component.html.HtmlCellFormat;
 import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlScript;
@@ -60,7 +60,7 @@ class ColorPickerJSP
     CoreDocument doc = new CoreDocument();
     context.getViewRoot().getChildren().add(doc);
 
-    doc.setTitle(arc.getTranslatedString("af_selectInputColor.PICKER_TITLE"));
+    doc.setTitle(arc.getTranslatedString("af_inputColor.PICKER_TITLE"));
     
     CoreForm form = new CoreForm();
     form.setId("d");
@@ -75,7 +75,7 @@ class ColorPickerJSP
     rl1.getChildren().add(cf1);
     cf1.setHalign("center");
     
-    CoreSelectInputColor sic = new CoreSelectInputColor();
+    CoreInputColor sic = new CoreInputColor();
     cf1.getChildren().add(sic);
     sic.setId("c");
     sic.setOnkeypress("if(_getKC(event)==13){selectColor();return false}");
@@ -85,11 +85,11 @@ class ColorPickerJSP
     sic.setConverter(converter);
     sic.setValue(value);
     sic.setChooseId("choose");
-    sic.setLabel(arc.getTranslatedString("af_selectInputColor.PICKER_PROMPT"));
+    sic.setLabel(arc.getTranslatedString("af_inputColor.PICKER_PROMPT"));
 
     HtmlRowLayout rl2 = new HtmlRowLayout();
     tl.getChildren().add(rl2);
-    CoreObjectSpacer spacer = new CoreObjectSpacer();
+    CoreSpacer spacer = new CoreSpacer();
     rl2.getChildren().add(spacer);
     spacer.setHeight("8");
     
@@ -106,7 +106,7 @@ class ColorPickerJSP
     
     HtmlRowLayout rl4 = new HtmlRowLayout();
     tl.getChildren().add(rl4);
-    CoreObjectSpacer spacer2 = new CoreObjectSpacer();
+    CoreSpacer spacer2 = new CoreSpacer();
     rl4.getChildren().add(spacer2);
     spacer2.setHeight("8");
     
@@ -120,12 +120,12 @@ class ColorPickerJSP
 
 
     CoreGoButton cancel = 
-       JspUtils.createGoButton(arc, "af_selectInputColor.CANCEL");
+       JspUtils.createGoButton(arc, "af_inputColor.CANCEL");
     bar.getChildren().add(cancel);
     cancel.setOnclick("doCancel()");
 
     CoreGoButton select = 
-       JspUtils.createGoButton(arc, "af_selectInputColor.APPLY");
+       JspUtils.createGoButton(arc, "af_inputColor.APPLY");
     bar.getChildren().add(select);
     select.setOnclick("return selectColor()");
 

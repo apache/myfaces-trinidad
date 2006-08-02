@@ -76,7 +76,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
     )
     throws IOException
   {
-    renderRelatedLinksBlockStart(context, "af_showOneTab.BLOCK_TITLE");
+    renderRelatedLinksBlockStart(context, "af_panelTabbed.BLOCK_TITLE");
     super.prerender(context, node);
 
     // Disable default link style classes - subTabBar items
@@ -248,8 +248,8 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   
   /**
    * Override of renderBetweenIndexedChildren() which renders a separator
-   * style on the td. The style will be af|showOneTab::separator-before-selected,
-   * af|showOneTab::separator-after-selected, or af|showOneTab::separator.
+   * style on the td. The style will be af|panelTabbed::separator-before-selected,
+   * af|panelTabbed::separator-after-selected, or af|panelTabbed::separator.
    */
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
@@ -285,18 +285,18 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   
   // style classes used in this showOneTabs renderer.
   private static final String _SEPARATOR_AFTER_SELECTED_STYLE =
-    "af|showOneTab::separator-after-selected";   
+    "af|panelTabbed::separator-after-selected";   
   private static final String _SEPARATOR_BEFORE_SELECTED_STYLE =
-    "af|showOneTab::separator-before-selected";    
+    "af|panelTabbed::separator-before-selected";    
   private static final String _SEPARATOR_STYLE =
-    "af|showOneTab::separator";
+    "af|panelTabbed::separator";
   private static final String _CELL_START_STYLE =    
-    "af|showOneTab::cell-start";
+    "af|panelTabbed::cell-start";
   private static final String _CELL_END_STYLE =    
-    "af|showOneTab::cell-end";
+    "af|panelTabbed::cell-end";
   private static final String _ORIENTATION_BOTTOM_STYLE =    
-    "af|showOneTab::orientation-bottom";
+    "af|panelTabbed::orientation-bottom";
   private static final String  _ORIENTATION_TOP_STYLE =
-    "af|showOneTab::orientation-top";
+    "af|panelTabbed::orientation-top";
     
 }

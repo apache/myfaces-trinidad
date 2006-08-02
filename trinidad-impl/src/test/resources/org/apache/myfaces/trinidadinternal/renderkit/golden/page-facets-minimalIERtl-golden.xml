@@ -394,14 +394,14 @@
                 
               </div>
               <span
-                   class="af_navigationPath"
+                   class="af_breadCrumbs"
                   >
                 
                 <nobr
                     >
                   
                   <a
-                       class="af_navigationPath_step"
+                       class="af_breadCrumbs_step"
                        onclick="submitForm('formId',1,{source:'mainId:0:stamp'});return false;"
                        href="uri-attr:encoded-action-url:#"
                        id="uri-attr:mainId:0:stamp"
@@ -414,7 +414,7 @@
                     >
                   
                   <a
-                       class="af_navigationPath_selected-step"
+                       class="af_breadCrumbs_selected-step"
                        id="uri-attr:mainId:3:stamp"
                        name="uri-attr:mainId:3:stamp"
                       >

@@ -30,38 +30,38 @@
           <tr:messages/>
           <tr:panelHeader text="Review Order Information">
             <tr:panelHeader text="Customer Information">
-              <tr:panelForm>        
+              <tr:panelFormLayout>        
                 <tr:inputText readOnly="true" label="First Name"  value="#{order.customer.firstName}"/>   
                 <tr:inputText readOnly="true" label="Last Name"  value="#{order.customer.lastName}"/>   
-              </tr:panelForm>
+              </tr:panelFormLayout>
             </tr:panelHeader>
             <tr:panelHeader text="Credit Card Information">
-              <tr:panelForm>       
+              <tr:panelFormLayout>       
                <tr:inputText readOnly="true" label="First Name"  value="#{order.creditCard.firstName}"/>   
                <tr:inputText readOnly="true" label="Last Name"  value="#{order.creditCard.lastName}"/>      
                <tr:inputText readOnly="true" label="Card Number" value="#{order.creditCard.number}"/>   
                <tr:inputText readOnly="true" label="Expiration Date" value="#{order.creditCard.expirationDate}"/>   
-              </tr:panelForm>
+              </tr:panelFormLayout>
             </tr:panelHeader>
             <tr:panelHeader text="Billing Address">
-              <tr:panelForm>     
+              <tr:panelFormLayout>     
                <tr:inputText readOnly="true" label="First Name"  value="#{order.billingAddress.firstName}"/>   
                <tr:inputText readOnly="true" label="Last Name"  value="#{order.billingAddress.lastName}"/>         
                <tr:inputText readOnly="true" label="Street Address" value="#{order.billingAddress.streetAddress}"/>   
                <tr:inputText readOnly="true" label="City" value="#{order.billingAddress.city}"/>   
                <tr:inputText readOnly="true" label="State" value="#{order.billingAddress.state}"/>   
                <tr:inputText readOnly="true" label="Zip Code" value="#{order.billingAddress.zip}"/>   
-              </tr:panelForm>
+              </tr:panelFormLayout>
             </tr:panelHeader> 
             <tr:panelHeader text="Shipping Address">
-              <tr:panelForm>     
+              <tr:panelFormLayout>     
                 <tr:inputText readOnly="true" label="First Name"  value="#{order.shippingAddress.firstName}"/>   
                 <tr:inputText readOnly="true" label="Last Name"  value="#{order.shippingAddress.lastName}"/>      
                 <tr:inputText readOnly="true" label="Street Address" value="#{order.shippingAddress.streetAddress}"/>   
                 <tr:inputText readOnly="true" label="City" value="#{order.shippingAddress.city}"/>   
                 <tr:inputText readOnly="true" label="State" value="#{order.shippingAddress.state}"/>   
                 <tr:inputText readOnly="true" label="Zip Code" value="#{order.shippingAddress.zip}"/>    
-              </tr:panelForm>
+              </tr:panelFormLayout>
             </tr:panelHeader>
             <tr:panelButtonBar>        
               <tr:singleStepButtonBar selectedStep="5" maxStep="5" 

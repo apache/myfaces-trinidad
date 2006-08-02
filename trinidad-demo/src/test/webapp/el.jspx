@@ -27,7 +27,7 @@
        <tr:panelPage>
        <tr:form>
          <tr:messages/>
-         <tr:panelGroup layout="vertical">
+         <tr:panelGroupLayout layout="vertical">
            <tr:outputText value="Current context is #{requestContext}"/>
            <tr:outputText value="Right to left? :  #{requestContext.rightToLeft}"/>
            <tr:outputText value="Look and feel? :  #{requestContext.lookAndFeel}"/>
@@ -37,7 +37,7 @@
            <tr:outputText value="#{requestContext.formatter['Test {0} MessageFormat']['of']}"/>
            <tr:goLink destination="#{requestContext.helpSystem.frontPage}" text="Get Help"/>
            <tr:goLink destination="#{requestContext.helpTopic.ui_table}" text="Get Help"/>
-         </tr:panelGroup>
+         </tr:panelGroupLayout>
        </tr:form>
        </tr:panelPage>
       </trh:body>

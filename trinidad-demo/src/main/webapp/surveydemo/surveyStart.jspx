@@ -37,7 +37,7 @@
           <tr:outputText value="Test your knowledge of California Driving Laws"
                           styleClass="AFInstructionText"/>
         
-          <tr:objectSpacer height="20"/>
+          <tr:spacer height="20"/>
           <tr:commandButton action="#{survey.start}" text="begin survey"/>
          </tr:panelHeader>
        </tr:panelPage>

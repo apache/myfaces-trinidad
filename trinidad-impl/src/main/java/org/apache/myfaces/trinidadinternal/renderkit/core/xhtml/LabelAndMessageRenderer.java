@@ -85,8 +85,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     if (UIXPanel.COMPONENT_FAMILY.equals(family))
     {
       String rendererType = parent.getRendererType();
-      if ("org.apache.myfaces.trinidad.Form".equals(rendererType) ||
-          "org.apache.myfaces.trinidad.rich.Form".equals(rendererType))
+      if (_isFormRendererType(rendererType))
         return false;
     }
     else if (HtmlTableLayout.COMPONENT_FAMILY.equals(family))
@@ -121,12 +120,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     if (UIXPanel.COMPONENT_FAMILY.equals(family))
     {
       String rendererType = parentComponent.getRendererType();
-      if ("org.apache.myfaces.trinidad.Form".equals(rendererType) ||
-          "org.apache.myfaces.trinidad.rich.Form".equals(rendererType))
+      if (_isFormRendererType(rendererType))
         return true;
     }
     return false;
   }
+
    // put the outer style class here, like af_selectManyRadio, styleClass,
   // inlineStyle, 'state' styles like p_AFDisabled, etc.  
   protected void renderRootDomElementStyles(
@@ -232,7 +231,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       
       if (needsPanelFormLayout)
       {
-        PanelFormRenderer.encodeBetweenLabelAndFieldCells(context, arc, rw);
+        PanelFormLayoutRenderer.encodeBetweenLabelAndFieldCells(context, arc, rw);
       }
       
       _renderFieldCell(context, arc, component, bean, labelExists,
@@ -699,6 +698,14 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
             (String) keyMap.get(styleClass) :
             null;
   }
+  
+  private boolean _isFormRendererType(String rendererType)
+  {
+    return "org.apache.myfaces.trinidad.Form".equals(rendererType) ||
+        "org.apache.myfaces.trinidad.FormLayout".equals(rendererType) ||
+        "org.apache.myfaces.trinidad.rich.Form".equals(rendererType);
+  }
+
   
   // THESE VALUES MUST MATCH THOSE IN INLINEMESSAGERENDERER
   // (at least for as long as both classes exist)

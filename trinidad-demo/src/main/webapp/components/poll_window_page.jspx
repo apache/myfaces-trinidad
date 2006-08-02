@@ -23,11 +23,11 @@
   <f:view>
     <tr:document title="Apache Logo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
-            <tr:objectImage 
+          <tr:panelGroupLayout layout="vertical">
+            <tr:image 
                 source="http://www.apache.org/images/asf_logo_wide.gif" 
                 shortDesc="Apache Logo"/>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
     </tr:document>
   </f:view>

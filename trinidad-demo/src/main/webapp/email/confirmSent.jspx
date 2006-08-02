@@ -33,14 +33,14 @@
         <tr:panelPage>
           
           <f:facet name="branding">
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <tr:objectImage source="/email/images/pbs.gif"/>
-              </tr:panelGroup>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
               <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </f:facet>
           
           <f:facet name="navigationGlobal">

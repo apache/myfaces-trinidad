@@ -23,9 +23,9 @@
   <f:view>
 <tr:document title="ShowDetail Component">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>
@@ -49,7 +49,7 @@
               <h:outputText value="You have toggled a total of #{toggle.totalCount} times"/>
               </f:verbatim>
             </tr:showDetail>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

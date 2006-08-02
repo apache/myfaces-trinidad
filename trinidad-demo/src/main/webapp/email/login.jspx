@@ -33,16 +33,16 @@
           <tr:panelPage>
             <tr:messages/>
             <f:facet name="branding">
-              <tr:panelGroup layout="vertical">
-                <tr:panelGroup>
+              <tr:panelGroupLayout layout="vertical">
+                <tr:panelGroupLayout>
                   <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}"
                                       styleClass="AFHeaderLevelOne"/>
-                  <tr:objectImage source="/email/images/pbs.gif"
+                  <tr:image source="/email/images/pbs.gif"
                                   shortDesc="Email demo"/>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
                 <tr:outputFormatted value="Customer &lt;b>Foo - Anywhere, U.S.A. &lt;/b>"
                                     styleUsage="inContextBranding"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
             </f:facet>
             <f:facet name="navigationGlobal">
               <tr:menuButtons>
@@ -56,7 +56,7 @@
                              value="Note: The Trinidad Email Demo application is not                  configured to use a secure communication channel between                  the browser and the application server - or between the                  application server and the IMAP server.                   This means that your data (including your user name/password                  and email contents) are transmitted in a non-secure manner.                   Thus, this sample application should only be used in environments                 that are known to be secure."/>
             </f:facet>
            <tr:panelHeader text="Email Log In">
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText required="true" labelAndAccessKey="&amp;Username"
                             value="#{email.username}">
                 <f:facet name="help">
@@ -75,7 +75,7 @@
                             value="#{email.server}"/>
               <tr:inputText required="true" label="SMTP Server"
                             value="#{email.smtpServer}"/>
-            </tr:panelForm>
+            </tr:panelFormLayout>
            </tr:panelHeader>
             <tr:panelButtonBar>
               <tr:commandButton textAndAccessKey="&amp;Log In"

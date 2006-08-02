@@ -29,9 +29,9 @@
         <tr:panelPage>
           <tr:messages/>
           <tr:panelHeader text="Items">
-            <tr:panelForm>        
+            <tr:panelFormLayout>        
               <tr:inputText readOnly="true" value="foobar" label="Items" />
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelButtonBar>        
               <tr:singleStepButtonBar selectedStep="1" maxStep="5"
                 nextActionListener="#{order.processNext}" 

@@ -25,6 +25,9 @@ public class PdaRenderKit extends RenderKitDecorator
     addRenderer("org.apache.myfaces.trinidad.Table",
 		"org.apache.myfaces.trinidad.Table",
                 new PdaTableRenderer());
+    addRenderer("org.apache.myfaces.trinidad.Process",
+    "org.apache.myfaces.trinidad.Train",
+                new TrainRenderer());
   }
 
   protected String getDecoratedRenderKitId()

@@ -30,11 +30,11 @@
               </tr:menuButtons>
             </f:facet>
             <tr:panelHeader text="Converter and Validator Demos">
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink text="client converters and validators" action="clientConvert"/>
                 <tr:commandLink text="converters and validators" action="convertValidate"/>
                 <tr:commandLink text="message customization on validators and converters" action="messageCustomization"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
             </tr:panelHeader>
           </tr:panelPage>
         </tr:form>

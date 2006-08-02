@@ -20,7 +20,7 @@
           xmlns:trh="http://myfaces.apache.org/trinidad/html"
           xmlns:tr="http://myfaces.apache.org/trinidad">
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
-  <tr:objectSpacer height="5px"/>    
+  <tr:spacer height="5px"/>    
   <tr:outputFormatted styleUsage="instruction"
                       value="In both cases most of the content of the page is in a jsp include, so as you navigate around the content of the pages does not change. This is just for demo purposes, in a real application each page would be defined separately but bind to the same model."/>
   <tr:panelHeader text="Model Attached to Tree Component">
@@ -41,7 +41,7 @@
                           value="stop the servlet engine"/>
       <tr:outputFormatted styleUsage="instruction"
                           value="create a new .jspx page"/>
-      <tr:panelGroup>
+      <tr:panelGroupLayout>
         <tr:outputFormatted styleUsage="instruction"
                             value="In faces-config.xml"/>
         <tr:panelList>
@@ -52,7 +52,7 @@
           <tr:outputFormatted styleUsage="instruction"
                               value="either attach the node created above to a parent node or add it as a root node"/>
         </tr:panelList>
-      </tr:panelGroup>
+      </tr:panelGroupLayout>
     </tr:panelList>
   </tr:panelHeader>
 </jsp:root>

@@ -35,11 +35,11 @@
 
          <tr:panelHeader text="Change Persistence Feature Demos">
           <tr:panelHeader text="Demos and overview">
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator/>
+                <tr:separator/>
               </f:facet>
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink 
                   text="Attribute Change Demo - Implicit Change registration" 
                   action="demos.attributeChange_Implicit"/>
@@ -62,8 +62,8 @@
                     styleUsage="instruction" 
                     value="tree: The expansion state of the nodes"/>
                 </tr:menuList>
-              </tr:panelGroup>
-              <tr:panelGroup layout="vertical">
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink 
                   text="Attribute Change Demo - Explicit Change registration"
                   action="demos.attributeChange_Explicit"/>
@@ -78,8 +78,8 @@
                     a change in the UI. A managed bean behind the scene, changes 
                     the attributes, and in addition creates and registers 
                     AttributeChanges."/>
-              </tr:panelGroup>
-              <tr:panelGroup layout="vertical">
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink 
                   text="Add, Remove or Reorder Children Change Demo - 
                     Explicit Change registration" 
@@ -95,8 +95,8 @@
                     these Changes explicitly. Upon re-visit to the page, one can
                     see that these Changes are automatically applied, resulting
                     in the component tree being restored to the last known state."/>
-              </tr:panelGroup>
-              <tr:panelGroup layout="vertical">
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink 
                   text="Add or Remove Facets Change Demo - 
                     Explicit Change registration"
@@ -111,8 +111,8 @@
                     explicitly, so that the UI state is restored upon re-visit 
                     to this page. All this is done by a managed bean behind the 
                     scene."/>
-              </tr:panelGroup>
-            </tr:panelGroup>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
           </tr:panelHeader>
          </tr:panelHeader>
         </tr:panelPage>

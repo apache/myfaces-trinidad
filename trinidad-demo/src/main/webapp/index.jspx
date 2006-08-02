@@ -26,30 +26,30 @@
          <tr:messages/>
          <tr:panelHeader text="Welcome to the Apache Trinidad Demos">  
           <tr:panelHeader text="Basics">    
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <tr:commandLink text="Component Guide" action="guide" />
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </tr:panelHeader>
           
           <tr:panelHeader text="Simple Demos">     
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <tr:commandLink text="Feature Demos"
                        action="demos" />
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </tr:panelHeader>
 
           <tr:panelHeader text="Sample Applications">     
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:commandLink text="Email" action="emaildemo" />
                 <tr:outputText styleClass="AFInstructionText" value=" - Trinidad Email Demo"/>
-              </tr:panelGroup>
-              <tr:panelGroup>
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout>
                 <tr:commandLink text="Survey" action="survey" />                
                 <tr:outputText styleClass="AFInstructionText" value=" - simple application"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
 
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </tr:panelHeader>
          </tr:panelHeader>
         </tr:panelPage>

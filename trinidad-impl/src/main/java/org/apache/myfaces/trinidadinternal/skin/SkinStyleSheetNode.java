@@ -26,7 +26,7 @@ import java.util.Map;
  * @todo honor the namespaces that are set in the css file. For now, we ignore
  * them. We need to honor them for icons, properties, and styles at the same
  * time so they are consistent. By honoring, I mean if the namespace is
- * af http://uix.faces.abc and the style name is af|navigationPath, we store the 
+ * af http://uix.faces.abc and the style name is af|breadCrumbs, we store the 
  * icon or property as http://uix.faces.abc|navigationPath. We need to do something
  * similar with styles.
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinStyleSheetNode.java#0 $) $Date: 10-nov-2005.18:58:59 $

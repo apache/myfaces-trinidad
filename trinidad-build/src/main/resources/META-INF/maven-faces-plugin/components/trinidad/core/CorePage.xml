@@ -43,7 +43,7 @@
       <facet-name>contextSwitcher</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:rowLayout tr:panelGroup</mfp:preferred-children>
+          <mfp:preferred-children>tr:rowLayout tr:panelGroupLayout</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -59,26 +59,26 @@
     </facet>
     <facet>
       <description><![CDATA[The corporate or organization branding region of the page.  This section typically
-                contains a medium size objectImage of the logo of the organization 
+                contains a medium size image of the logo of the organization 
                 owning the page.]]>
       </description>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:image</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[The application, module, or product branding region of the page.
-                This section typically contains a objectImage of the application logo.]]>
+                This section typically contains a image of the application logo.]]>
       </description>
       <facet-name>brandingApp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:image</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -116,7 +116,7 @@
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:processTrain tr:navigationPath</mfp:preferred-children>
+          <mfp:preferred-children>tr:train tr:breadCrumbs</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -201,7 +201,7 @@
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -213,7 +213,7 @@
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -228,7 +228,7 @@
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -398,10 +398,10 @@
                 <tr:commandNavigationItem text="#{foo.label}" action="#{foo.action}"/>
               </f:facet>                   
               <f:facet name="branding">
-                <tr:panelGroup layout="horizontal">
-                  <tr:objectImage source="/components/images/corporateBrand.gif"/>
-                  <tr:objectImage source="/components/images/applicationBrand.gif"/>
-                </tr:panelGroup>
+                <tr:panelGroupLayout layout="horizontal">
+                  <tr:image source="/components/images/corporateBrand.gif"/>
+                  <tr:image source="/components/images/applicationBrand.gif"/>
+                </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="appCopyright">
                 <tr:outputText value="copyright facet"/>

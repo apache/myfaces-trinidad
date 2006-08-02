@@ -335,7 +335,7 @@ public class UINodeFacesBean extends FacesBeanImpl
     _ALWAYS_RENDER_ID.add(CoreTreeTable.COMPONENT_FAMILY);
     _ALWAYS_RENDER_ID.add(CoreMessages.COMPONENT_FAMILY);
     _ALWAYS_RENDER_ID.add(CoreSingleStepButtonBar.COMPONENT_FAMILY);
-    _ALWAYS_RENDER_ID.add(CoreShowOneTab.COMPONENT_FAMILY);
+    _ALWAYS_RENDER_ID.add(CorePanelTabbed.COMPONENT_FAMILY);
     _ALWAYS_RENDER_ID.add(CoreSelectRangeChoiceBar.COMPONENT_FAMILY);*/
 
     _ALWAYS_RENDER_ID.add(UIXInput.COMPONENT_FAMILY);

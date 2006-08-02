@@ -36,18 +36,18 @@
               <tr:tree var="component" value="#{componentTree.model}"
                 binding="#{componentTreeBean.tree}">
                 <f:facet name="nodeStamp">
-                  <tr:panelGroup>
+                  <tr:panelGroupLayout>
                     <tr:outputText value="Example:" rendered="#{component.example}"/>
                     <tr:commandLink text="#{component.label}"
                       disabled="#{empty component.filename}"
                       action="#{component.view}"/>
-                  </tr:panelGroup>
+                  </tr:panelGroupLayout>
                 </f:facet>
               </tr:tree>
             </tr:panelHeader>
   
             <tr:panelHeader text="Html Components">
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink text="body" action="guide.body"/>
                 <tr:commandLink text="cellFormat" action="guide.cellFormat"/>
                 <tr:outputFormatted value="frame - see FrameBorderLayout" styleUsage="instruction"/>
@@ -55,7 +55,7 @@
                 <tr:commandLink text="html" action="guide.html"/>
                 <tr:commandLink text="rowLayout" action="guide.rowLayout"/>
                 <tr:commandLink text="tableLayout" action="guide.tableLayout"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
             </tr:panelHeader>
           </tr:panelHeader>
         </tr:panelPage>

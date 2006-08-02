@@ -36,14 +36,14 @@
           <tr:messages/>
           
           <f:facet name="branding">
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <tr:objectImage source="/email/images/pbs.gif"/>
-              </tr:panelGroup>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
               <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </f:facet>
           
           <f:facet name="navigationGlobal">
@@ -98,8 +98,8 @@
                 <f:facet name="header">
                   <tr:outputText value="Subject"/>
                 </f:facet>
-                <tr:panelGroup>
-                  <tr:objectImage rendered="#{currentMessage.deleted}"
+                <tr:panelGroupLayout>
+                  <tr:image rendered="#{currentMessage.deleted}"
                                   source="/email/images/deleted.gif"/>
                   <tr:commandLink action="showMessage">
                     <tr:outputText
@@ -109,7 +109,7 @@
                     <tr:setActionListener from="#{currentMessage}"
                                           to="#{pageFlowScope.message}"/>
                   </tr:commandLink>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
               </tr:column>
               <tr:column rendered="#{email.preferences.displaySenderColumn}">
                 <f:facet name="header">

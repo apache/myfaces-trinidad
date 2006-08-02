@@ -29,12 +29,12 @@
        <tr:panelPage>
        <tr:form>
          <tr:messages/>
-         <tr:panelGroup layout="vertical">
+         <tr:panelGroupLayout layout="vertical">
            <afdemo:dateField id="dateField" value="#{date.date1}"/>
            <tr:message for="dateField"/>
            <tr:outputText value="Date is now #{date.date1}"/>
 
-           <tr:objectSeparator/>
+           <tr:separator/>
 
     <!-- Use a normal inputText, but use binding to force the renderer type -->
            <h:inputText id="dateInput" value="#{date.date2}" binding="#{compositeTest.dateInput}"/>
@@ -42,10 +42,10 @@
            <tr:message for="dateInput"/>
            <tr:outputText value="Date is now #{date.date2}"/>
 
-           <tr:objectSeparator/>
+           <tr:separator/>
 
            <tr:commandButton text="Submit"/>
-         </tr:panelGroup>
+         </tr:panelGroupLayout>
        </tr:form>
        </tr:panelPage>
       </trh:body>

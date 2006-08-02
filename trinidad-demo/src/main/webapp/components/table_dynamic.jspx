@@ -22,9 +22,9 @@
  <tr:document title="Dynamic Table Demo">
         <tr:form >
           <tr:messages/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
@@ -45,7 +45,7 @@
               &lt;/ul>
             </f:verbatim>
             
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText label="RowCount" value="#{dynamicTable.rowCount}"
                 accessKey="R">
                 <f:facet name="help">
@@ -72,7 +72,7 @@
               <f:facet name="footer">
                 <tr:commandButton textAndAccessKey="&amp;Update"/>
               </f:facet>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             
             <tr:table var="row"
                       emptyText="No Data"
@@ -92,7 +92,7 @@
                 <tr:outputText value="#{row * 100}"/>
               </tr:column>
             </tr:table>
-          </tr:panelGroup>    
+          </tr:panelGroupLayout>    
         </tr:form>
  </tr:document>
   </f:view>

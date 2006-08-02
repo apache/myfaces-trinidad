@@ -32,14 +32,14 @@
             </f:facet>
           <tr:panelHeader text="Custom messages for conversion and validation failures">
             <tr:panelHeader text="Message customization on input component for 'required' validation"/>
-            <tr:panelForm>
-              <tr:selectInputDate id="mdf1"
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf1"
                                   value="#{messageCustomization.date1}"
                                   label="Date of birth" required="true"
-                                  requiredMessageDetail="#{messageCustomization.messages.DOB_REQD_ID}"></tr:selectInputDate>
-            </tr:panelForm>
+                                  requiredMessageDetail="#{messageCustomization.messages.DOB_REQD_ID}"></tr:inputDate>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on reg exp validator"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="#{messageCustomization.regExpValue}"
                             label="Pin" >
                 <f:facet name="help">
@@ -48,9 +48,9 @@
                 <tr:validateRegExp pattern="[1-9][0-9][0-9]"
                                    noMatchMessageDetail="#{messageCustomization.messages.PIN_NO_MATCH_ID}"/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on byte length validator"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="#{messageCustomization.byteLengthValue}"
                             label="Name">
                 <f:facet name="help">
@@ -59,10 +59,10 @@
                 <tr:validateByteLength encoding="ISO-8859-1" maximum="4"
                                        maximumMessageDetail='The "{0}" "{1}" exceeds {2} characters'/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on date time range validator"/>
-            <tr:panelForm>
-              <tr:selectInputDate id="mdf3"
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf3"
                                   value="#{messageCustomization.date1}"
                                   label="Start date for submission">
                 <f:facet name="help">
@@ -72,8 +72,8 @@
                                           maximumMessageDetail='Date "{1}" in "{0}" is farther than {2}'
                                           minimumMessageDetail='Date "{1}" in "{0}" is before the accepted date - {2} for receving forms. '
                                           notInRangeMessageDetail='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}'/>
-              </tr:selectInputDate>
-              <tr:selectInputDate id="mdf4"
+              </tr:inputDate>
+              <tr:inputDate id="mdf4"
                                   value="#{messageCustomization.date1}"
                                   label="Last date">
                 <f:facet name="help">
@@ -83,8 +83,8 @@
                                           maximumMessageDetail='The date "{1}" in "{0}" which you have chosen, falls after the final acceptable date - {2}.'
                                           minimumMessageDetail='Date "{1}" in "{0}" is less than the minimum acceptable: {2}.'
                                           notInRangeMessageDetail='Date "{1}" in "{0}" not within minimum {2} and maximum range {3}.'/>
-              </tr:selectInputDate>
-              <tr:selectInputDate id="mdf5"
+              </tr:inputDate>
+              <tr:inputDate id="mdf5"
                                   value="#{messageCustomization.date1}"
                                   label="Submission period">
                 <f:facet name="help">
@@ -93,22 +93,22 @@
                 <tr:validateDateTimeRange minimum="#{messageCustomization.minDate}"
                                           maximum="#{messageCustomization.maxDate}"
                                           notInRangeMessageDetail='Submission date "{1}" in "{0}" is not with in the specified period {2}-{3}.'/>
-              </tr:selectInputDate>
-            </tr:panelForm>
+              </tr:inputDate>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on color converter"/>
-            <tr:panelForm>
-              <tr:selectInputColor id="sicConvx" label="Enter or choose color"
+            <tr:panelFormLayout>
+              <tr:inputColor id="sicConvx" label="Enter or choose color"
                                    value="#{messageCustomization.color}">
                 <f:facet name="help">
                   <tr:outputText value="HTML hex color pattern:#RRGGBB"/>
                 </f:facet>
                 <tr:convertColor patterns="#RRGGBB" transparentAllowed="true"
                                  convertMessageDetail='The color "{1}" you have chosen in "{0}" is not a valid HTML hex pattern {2}.'/>
-              </tr:selectInputColor>
-            </tr:panelForm>
+              </tr:inputColor>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on date time converter"/>
-            <tr:panelForm>
-              <tr:selectInputDate id="mdf6" value="2004/09/06"
+            <tr:panelFormLayout>
+              <tr:inputDate id="mdf6" value="2004/09/06"
                                   label="Date of birth">
                 <f:facet name="help">
                   <tr:outputText value="1/20/1972 or 1972/20/2"/>
@@ -119,26 +119,26 @@
                                     convertDateMessageDetail='"{1}" in "{0}" is not a valid date. Example is {2}'
                                     convertTimeMessageDetail='"{1}" in "{0}", is not valid date. Example is {2}.'
                                     convertBothMessageDetail='"{1}" in "{0}", is not valid Date and time. The format is {2}.'/>
-              </tr:selectInputDate>
-              <tr:selectInputDate id="mdf7" value="11:36:15 AM"
+              </tr:inputDate>
+              <tr:inputDate id="mdf7" value="11:36:15 AM"
                                   label="Time of birth">
                 <f:facet name="help">
                   <tr:outputText value="11:36:15 AM"/>
                 </f:facet>
                 <tr:convertDateTime type="time" timeStyle="medium"
                                     convertTimeMessageDetail='"{1}" in "{0}", is not a valid time. Example: {2}.'/>
-              </tr:selectInputDate>
-              <tr:selectInputDate id="mdf8" value="12/20/2004 8:11 AM"
+              </tr:inputDate>
+              <tr:inputDate id="mdf8" value="12/20/2004 8:11 AM"
                                   label="Date and time of birth">
                 <f:facet name="help">
                   <tr:outputText value="2/26/2005 8:11 AM"/>
                 </f:facet>
                 <tr:convertDateTime type="both"
                                     convertBothMessageDetail='"{1}" in "{0}", is not a valid Date and time. Example: {2}.'/>
-              </tr:selectInputDate>
-            </tr:panelForm>
+              </tr:inputDate>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Message customization on number converter"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="555" label="Your lucky number">
                 <f:facet name="help">
                   <tr:outputText value="type='number' locale='en_US' Valid input=44444456 Invalid value=555o"/>
@@ -164,7 +164,7 @@
                 <tr:convertNumber pattern="##.000" locale="en_US"
                                   convertPatternMessageDetail='"{1}" in "{0}" does not match pattern {2}.'/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
            </tr:panelHeader>
            <tr:commandButton text="Submit"/>
           </tr:panelPage>

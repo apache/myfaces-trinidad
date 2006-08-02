@@ -22,7 +22,7 @@
   <jsp:directive.page contentType="text/html;charset=iso-8859-1"/>
   <f:view>
    <tr:form>
-   <tr:panelGroup layout="vertical">
+   <tr:panelGroupLayout layout="vertical">
    
    <!-- EACH OF THE BLOCK BELOW IS A SINGLE TEST CASE, UNCOMMENT EACH AND TEST -->
    
@@ -108,7 +108,7 @@
     <!--<tr:forEach varStatus="outer" var="outer" begin="1" end="10" step="20">
     </tr:forEach>-->
 
-   </tr:panelGroup>
+   </tr:panelGroupLayout>
    </tr:form>   
   </f:view>
 </jsp:root>

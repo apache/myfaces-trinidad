@@ -29,14 +29,14 @@
         <tr:panelPage>
           <tr:messages/>
           <tr:panelHeader text="Billing Address">
-            <tr:panelForm>     
+            <tr:panelFormLayout>     
               <tr:inputText label="First Name"  value="#{order.billingAddress.firstName}"/>   
               <tr:inputText label="Last Name"  value="#{order.billingAddress.lastName}"/>   
               <tr:inputText label="Street Address" value="#{order.billingAddress.streetAddress}"/>   
               <tr:inputText label="City" value="#{order.billingAddress.city}"/>   
               <tr:inputText label="State" value="#{order.billingAddress.state}"/>   
               <tr:inputText label="Zip Code" value="#{order.billingAddress.zip}"/>   
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelButtonBar>        
              <tr:singleStepButtonBar selectedStep="3" maxStep="5"
                                 nextActionListener="#{order.processNext}" 

@@ -38,14 +38,14 @@ import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
-import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroup;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroupLayout;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputHidden;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneRadio;
-import org.apache.myfaces.trinidad.component.core.input.CoreSelectInputDate;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputDate;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
 
 
@@ -287,8 +287,8 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
 
   public void testPanelGroupPerf() throws IOException
   {
-    CorePanelGroup group = new CorePanelGroup();
-    group.setLayout(CorePanelGroup.LAYOUT_VERTICAL);
+    CorePanelGroupLayout group = new CorePanelGroupLayout();
+    group.setLayout(CorePanelGroupLayout.LAYOUT_VERTICAL);
     for (int i = 0; i < 8; i++)
     {
       /*
@@ -328,7 +328,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
 
   public void notestSelectInputDate() throws IOException
   {
-    CoreSelectInputDate date = new CoreSelectInputDate();
+    CoreInputDate date = new CoreInputDate();
     date.setLabel("Label");
 
     UIViewRoot root = createTestTree(date, "testSelectInputDate");

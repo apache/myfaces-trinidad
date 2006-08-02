@@ -107,6 +107,12 @@
     <servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
   </servlet>
 
+  <!-- source code servlet -->
+  <servlet>
+    <servlet-name>source</servlet-name>
+    <servlet-class>org.apache.myfaces.trinidaddemo.webapp.SourceCodeServlet</servlet-class>
+  </servlet>
+
   <!-- On some version of OC4J, the following is needed when using jsf 1.0 -->
   <!--servlet>
     <servlet-name>jsp</servlet-name>
@@ -126,6 +132,11 @@
   <servlet-mapping>
     <servlet-name>resources</servlet-name>
     <url-pattern>/adf/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>source</servlet-name>
+    <url-pattern>*.source</url-pattern>
   </servlet-mapping>
 
 

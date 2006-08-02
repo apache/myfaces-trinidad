@@ -22,9 +22,9 @@
   <f:view>
  <tr:document title="Components using style resource maps">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
         
             <tr:commandLink immediate="true" text="Component Guide"
@@ -93,12 +93,12 @@
                                    styleUsage="inContextBranding"/>
               </f:facet>
               <f:facet name="location">
-                <tr:navigationPath>
-                  <tr:commandNavigationItem text="item 1" action="guide.navigationPath" />
-                  <tr:commandNavigationItem text="item 2" action="guide.navigationPath" />
-                  <tr:commandNavigationItem text="item 3" action="guide.navigationPath" />
-                  <tr:commandNavigationItem text="item 4" action="guide.navigationPath" />
-                </tr:navigationPath>
+                <tr:breadCrumbs>
+                  <tr:commandNavigationItem text="item 1" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 2" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 3" action="guide.breadCrumbs" />
+                  <tr:commandNavigationItem text="item 4" action="guide.breadCrumbs" />
+                </tr:breadCrumbs>
               </f:facet>
               <f:facet name="appCopyright">
                 <tr:outputText value="copyright facet"/>
@@ -214,7 +214,7 @@
             
             <jsp:directive.include file="../components/editor.jspf" />
     
-          </tr:panelGroup>           
+          </tr:panelGroupLayout>           
         
         </tr:form>        
  </tr:document>

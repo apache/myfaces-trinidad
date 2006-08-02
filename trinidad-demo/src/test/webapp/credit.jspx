@@ -27,14 +27,14 @@
         <tr:form>
           <tr:panelPage>
             <tr:messages/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:panelHeader text="Credit Card">
                 <tr:inputText label="First Name" value="#{order.creditCard.firstName}"/>
                 <tr:inputText label="Last Name" value="#{order.creditCard.lastName}"/>
                 <tr:inputText label="Card Number" value="#{order.creditCard.number}"/>
                 <tr:inputText label="Expiration Date" value="#{order.creditCard.expirationDate}"/>
               </tr:panelHeader>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelButtonBar>
               <tr:singleStepButtonBar selectedStep="2" maxStep="5"
                                       nextActionListener="#{order.processNext}"

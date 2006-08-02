@@ -35,9 +35,9 @@
 
           <tr:messages/>
         <tr:panelHeader text="Implicit AttributeChange Persistence Feature Demo">
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:showDetail 
               id="hs1" 
@@ -75,7 +75,7 @@
                 <tr:inputText simple="true" shortDesc="Example" value="#{foo.text}"/>
               </f:facet>
             </tr:tree>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
          </tr:panelHeader>
         </tr:panelPage>
 

@@ -23,9 +23,9 @@
   <f:view>
  <tr:document title="GoLink Demo">
         <tr:form>        
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-             <tr:objectSeparator />
+             <tr:separator />
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>      
@@ -33,7 +33,7 @@
                       destination="http://www.apache.org"/>
     
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

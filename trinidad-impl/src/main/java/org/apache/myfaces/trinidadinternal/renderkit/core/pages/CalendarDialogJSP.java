@@ -26,9 +26,9 @@ import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.core.CoreImportScript;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
-import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroup;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroupLayout;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
-import org.apache.myfaces.trinidad.component.core.output.CoreObjectSpacer;
+import org.apache.myfaces.trinidad.component.core.output.CoreSpacer;
 import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -92,7 +92,7 @@ class CalendarDialogJSP
     // Create a spacer
     //
     UIComponent spacerRow = _createRow(isDesktop, null);
-    CoreObjectSpacer cos = new CoreObjectSpacer();
+    CoreSpacer cos = new CoreSpacer();
     spacerRow.getChildren().add(cos);
     cos.setHeight("8");
 
@@ -170,10 +170,10 @@ class CalendarDialogJSP
     }
     else
     {
-      CorePanelGroup cpg = new CorePanelGroup();
+      CorePanelGroupLayout cpg = new CorePanelGroupLayout();
       form.getChildren().add(cpg);
 
-      cpg.setLayout(CorePanelGroup.LAYOUT_VERTICAL);
+      cpg.setLayout(CorePanelGroupLayout.LAYOUT_VERTICAL);
       cpg.getChildren().add(calendarRow);
       cpg.getChildren().add(spacerRow);
       cpg.getChildren().add(buttonRow);
@@ -239,7 +239,7 @@ class CalendarDialogJSP
     String  halign)
   {
     if (!isDesktop)
-      return new CorePanelGroup();
+      return new CorePanelGroupLayout();
 
     HtmlRowLayout hrl = new HtmlRowLayout();
     if (halign != null)

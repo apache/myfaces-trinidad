@@ -233,10 +233,10 @@
       SecondColumn
     </trh:cellFormat>
 
-    <tr:panelGroup layout="horizontal">
+    <tr:panelGroupLayout layout="horizontal">
       Third Column
-      <tr:objectSpacer height="100" width="1"/>
-    </tr:panelGroup>
+      <tr:spacer height="100" width="1"/>
+    </tr:panelGroupLayout>
 
   </trh:rowLayout>
 

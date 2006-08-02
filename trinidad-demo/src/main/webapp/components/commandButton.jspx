@@ -23,17 +23,17 @@
   <f:view>
  <tr:document title="commandButton Demo">
         <tr:form>       
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator />
+                <tr:separator />
               </f:facet>   
               <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>      
               <tr:outputFormatted styleUsage="instruction" value="&lt;b>Command button&lt;/b>"/>
               <tr:commandButton binding="#{editor.component}"
-                  text="Go to navigationPath demo" action="guide.navigationPath"/>
+                  text="Go to breadCrumbs demo" action="guide.breadCrumbs"/>
               <jsp:directive.include file="editor.jspf" />
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

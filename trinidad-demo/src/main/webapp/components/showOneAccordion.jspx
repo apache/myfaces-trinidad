@@ -21,24 +21,24 @@
           xmlns:tr="http://myfaces.apache.org/trinidad" >
   <jsp:directive.page contentType="text/html;charset=utf-8"/>
   <f:view>
- <tr:document title="showOneAccordion Demo">
+ <tr:document title="panelAccordion Demo">
         <tr:form>
         
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator/>
+                <tr:separator/>
               </f:facet>
             <tr:commandLink immediate="true" 
                             text="Component Guide"
                             action="guide"/>                   
              
                 <tr:outputFormatted styleUsage="instruction" 
-                                    value="&lt;b> A showOneAccordion component - takes default selection among showDetailItem children&lt;/b>"/>  
-                <tr:showOneAccordion>
+                                    value="&lt;b> A panelAccordion component - takes default selection among showDetailItem children&lt;/b>"/>  
+                <tr:panelAccordion discloseNone="true">
                   <tr:showDetailItem text="Panel 1" 
                                      disclosureListener="#{toggle.onDisclosure}">
                     <tr:panelHeader text="Header 1">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 1-1" 
                                       value="Value"
@@ -54,12 +54,12 @@
                                        styleClass="AFDataText"
                                        value="You have expanded / collapsed panel 1 a total of #{toggle.totalCount} times"/>
                         
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 2">
                     <tr:panelHeader text="Header 2">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 2-1" 
                                       value="Value"
@@ -70,12 +70,12 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 3">
                     <tr:panelHeader text="Header 3">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 3-1" 
                                       value="Value"
@@ -86,12 +86,12 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 4">
                     <tr:panelHeader text="Header 4">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 4-1" 
                                       value="Value"
@@ -102,29 +102,29 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
-                </tr:showOneAccordion>
+                </tr:panelAccordion>
                 
                 
                 <tr:outputFormatted styleUsage="instruction" 
                                     value="&lt;b>This block is to show the current date for reference - Note that this does not change until there is a full page refresh &lt;/b>"/>  
-                <tr:panelForm>
+                <tr:panelFormLayout>
                   <tr:inputText readOnly="true" 
                                 label="Date/Time from last full page refresh" 
                                 value="#{date.currentDate}"
                                 styleClass="AFDataText">
                     <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                   </tr:inputText>
-                </tr:panelForm>
+                </tr:panelFormLayout>
 
                 <tr:outputFormatted styleUsage="instruction" 
-                                    value="&lt;b>A standard showOneAccordion component - Update its properties from the table below &lt;/b>"/>  
-                <tr:showOneAccordion binding="#{editor.component}">
+                                    value="&lt;b>A standard panelAccordion component - Update its properties from the table below &lt;/b>"/>  
+                <tr:panelAccordion binding="#{editor.component}" discloseNone="true">
                   <tr:showDetailItem text="Panel 1" id="detailItem1">
                     <tr:panelHeader text="Header 1">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 1-1" 
                                       value="Value"
@@ -135,12 +135,12 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 2" id="detailItem2">
                     <tr:panelHeader text="Header 2">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 2-1" value="Value"
                                       styleClass="AFDataText"/>
@@ -150,12 +150,12 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 3" id="detailItem3" disclosed="true">
                     <tr:panelHeader text="Header 3">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 3-1" 
                                       value="Value"
@@ -166,13 +166,13 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Panel 4" id="detailItem4" disabled="true"/>
                   <tr:showDetailItem text="Panel 5" id="detailItem5">
                     <tr:panelHeader text="Header 5">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText readOnly="true" 
                                       label="Label 5-1" 
                                       value="Value"
@@ -183,14 +183,14 @@
                                       styleClass="AFDataText">
                           <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
-                </tr:showOneAccordion>
+                </tr:panelAccordion>
                 
                 <jsp:directive.include file="editor.jspf" />
     
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

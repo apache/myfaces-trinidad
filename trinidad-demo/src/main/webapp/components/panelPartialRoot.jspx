@@ -25,9 +25,9 @@
    <trh:head title="panelPartialRoot Demo"/>
    <tr:panelPartialRoot>
     <tr:form>
-     <tr:panelGroup layout="vertical">
+     <tr:panelGroupLayout layout="vertical">
       <f:facet name="separator">
-       <tr:objectSeparator/>
+       <tr:separator/>
       </f:facet>
       <tr:commandLink immediate="true"
                       text="Component Guide"
@@ -48,7 +48,7 @@
         </tr:panelLabelAndMessage>
        </trh:rowLayout>
       </trh:tableLayout>
-     </tr:panelGroup>
+     </tr:panelGroupLayout>
     </tr:form>
    </tr:panelPartialRoot>
   </trh:html>

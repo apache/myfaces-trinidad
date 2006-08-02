@@ -22,27 +22,27 @@
   <f:view>
     <tr:document title="commandNavigationItem Demo">
       <tr:form>
-        <tr:panelGroup layout="vertical">
+        <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
-            <tr:objectSeparator/>
+            <tr:separator/>
           </f:facet>
-          <tr:navigationLevel hint="buttons">
+          <tr:navigationPane hint="buttons">
             <tr:commandNavigationItem immediate="true" text="Component Guide"
               action="guide"/>
             <tr:commandNavigationItem immediate="true" text="Page Hierarchy Demo"
               action="guide.page"/>
-            <tr:commandNavigationItem immediate="true" text="NavigationLevel Demo"
-              action="guide.navigationLevel"/>
-            <tr:commandNavigationItem immediate="true" text="NavigationPath Demo"
-              action="guide.navigationPath"/>
+            <tr:commandNavigationItem immediate="true" text="NavigationPane Demo"
+              action="guide.navigationPane"/>
+            <tr:commandNavigationItem immediate="true" text="BreadCrumbs Demo"
+              action="guide.breadCrumbs"/>
             <tr:commandNavigationItem immediate="true" text="PanelPage Demo"
               action="guide.panelPage"/>
-          </tr:navigationLevel>
+          </tr:navigationPane>
           <tr:outputFormatted styleUsage="instruction" value="&lt;b>A commandNavigationItem&lt;/b>"/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;tabs&quot;&lt;/b>"/>
-            <tr:navigationLevel hint="tabs" shortDesc="Select Page"
+              value="&lt;b>commandNavigationItem's inside of a navigationPane with hint=&quot;tabs&quot;&lt;/b>"/>
+            <tr:navigationPane hint="tabs" shortDesc="Select Page"
               id="editorExample">
               <tr:commandNavigationItem
                 binding="#{editor.component}"
@@ -67,14 +67,14 @@
                 text="Apache"
                 shortDesc="Apache's website"
                 destination="http://www.apache.org/"/>
-            </tr:navigationLevel>
-          </tr:panelGroup>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
           <jsp:directive.include file="editor.jspf"/>
 
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;bar&quot;&lt;/b>"/>
-            <tr:navigationLevel hint="bar" id="barExample">
+              value="&lt;b>commandNavigationItem's inside of a navigationPane with hint=&quot;bar&quot;&lt;/b>"/>
+            <tr:navigationPane hint="bar" id="barExample">
               <tr:commandNavigationItem text="Component Guide" action="guide"
                 shortDesc="Return to the component guide"/>
               <tr:commandNavigationItem text="Selected Item"
@@ -92,13 +92,13 @@
                 destination="http://www.apache.org/"/>
               <tr:commandNavigationItem text="Apache"
                 destination="http://www.apache.org/"/>
-            </tr:navigationLevel>
-          </tr:panelGroup>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
 
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;list&quot;&lt;/b>"/>
-            <tr:navigationLevel hint="list" id="listExample">
+              value="&lt;b>commandNavigationItem's inside of a navigationPane with hint=&quot;list&quot;&lt;/b>"/>
+            <tr:navigationPane hint="list" id="listExample">
               <tr:commandNavigationItem text="Component Guide" action="guide"
                 shortDesc="Return to the component guide"/>
               <tr:commandNavigationItem text="Selected Item"
@@ -116,13 +116,13 @@
                 destination="http://www.apache.org/"/>
               <tr:commandNavigationItem text="Apache"
                 destination="http://www.apache.org/"/>
-            </tr:navigationLevel>
-          </tr:panelGroup>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
 
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;buttons&quot;&lt;/b>"/>
-            <tr:navigationLevel hint="buttons" id="buttonsExample">
+              value="&lt;b>commandNavigationItem's inside of a navigationPane with hint=&quot;buttons&quot;&lt;/b>"/>
+            <tr:navigationPane hint="buttons" id="buttonsExample">
               <tr:commandNavigationItem text="Component Guide" action="guide"
                 shortDesc="Return to the component guide"/>
               <tr:commandNavigationItem text="Selected Item"
@@ -140,13 +140,13 @@
                 destination="http://www.apache.org/"/>
               <tr:commandNavigationItem text="Apache"
                 destination="http://www.apache.org/"/>
-            </tr:navigationLevel>
-          </tr:panelGroup>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
 
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationLevel with hint=&quot;choice&quot;&lt;/b>"/>
-            <tr:navigationLevel hint="choice" shortDesc="Switch application"
+              value="&lt;b>commandNavigationItem's inside of a navigationPane with hint=&quot;choice&quot;&lt;/b>"/>
+            <tr:navigationPane hint="choice" shortDesc="Switch application"
               id="choiceExample">
               <tr:commandNavigationItem text="Component Guide" action="guide"
                 shortDesc="Return to the component guide"/>
@@ -165,13 +165,13 @@
                 destination="http://www.apache.org/"/>
               <tr:commandNavigationItem text="Apache"
                 destination="http://www.apache.org/"/>
-            </tr:navigationLevel>
-          </tr:panelGroup>
+            </tr:navigationPane>
+          </tr:panelGroupLayout>
 
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:outputFormatted
-              value="&lt;b>commandNavigationItem's inside of a navigationPath&lt;/b>"/>
-            <tr:navigationPath id="pathExample">
+              value="&lt;b>commandNavigationItem's inside of a breadCrumbs&lt;/b>"/>
+            <tr:breadCrumbs id="pathExample">
               <tr:commandNavigationItem text="Component Guide"
                 action="guide"
                 shortDesc="Return to the component guide"
@@ -190,10 +190,10 @@
                 destination="http://www.apache.org/"/>
               <tr:commandNavigationItem text="Apache"
                 destination="http://www.apache.org/"/>
-            </tr:navigationPath>
-          </tr:panelGroup>
+            </tr:breadCrumbs>
+          </tr:panelGroupLayout>
 
-        </tr:panelGroup>
+        </tr:panelGroupLayout>
       </tr:form>
     </tr:document>
   </f:view>

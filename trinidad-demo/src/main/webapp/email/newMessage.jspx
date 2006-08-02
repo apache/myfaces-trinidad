@@ -35,18 +35,18 @@
           <tr:messages/>
 
           <f:facet name="infoStatus">
-            <tr:objectLegend name="required" />
+            <tr:legend name="required" />
           </f:facet>
           
           <f:facet name="branding">
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup>
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout>
                 <tr:outputFormatted value="#{nls.EMAIL_DEMO_TITLE}" styleClass="AFHeaderLevelOne"/>
-                <tr:objectImage source="/email/images/pbs.gif"/>
-              </tr:panelGroup>
+                <tr:image source="/email/images/pbs.gif"/>
+              </tr:panelGroupLayout>
               <tr:outputFormatted value="Customer &lt;b&gt;Foo - Anywhere, U.S.A. &lt;/b&gt;"
                                  styleUsage="inContextBranding"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
           </f:facet>
           
           <f:facet name="navigationGlobal">
@@ -69,7 +69,7 @@
             </f:facet>
 
          <tr:panelHeader text="New Message">
-          <tr:panelForm inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
+          <tr:panelFormLayout inlineStyle="width: 100%" labelWidth="15%" fieldWidth="85%">
             <tr:inputText label="Subject:" 
                           required="true"
                           value="#{newMessageBacking.subject}"/>
@@ -88,7 +88,7 @@
                           value="#{newMessageBacking.attachment3}"/>
             <tr:inputText label="Content:" columns="80" rows="20" wrap="soft"
                           value="#{newMessageBacking.content}"/>
-          </tr:panelForm>
+          </tr:panelFormLayout>
          </tr:panelHeader>
           <!--
           <f:facet name="infoReturn">

@@ -1,11 +1,11 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CorePanelBox">
-    <component tr:type="org.apache.myfaces.trinidad.CorePanelGroup" layout="vertical">
+    <component tr:type="org.apache.myfaces.trinidad.CorePanelGroupLayout" layout="vertical">
       <component tr:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 1" destination="http://www.oracle.com"/>
       <component tr:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 2" destination="http://www.oracle.com"/>
     </component>
-    <component tr:type="org.apache.myfaces.trinidad.CorePanelGroup" layout="vertical">
+    <component tr:type="org.apache.myfaces.trinidad.CorePanelGroupLayout" layout="vertical">
       <component tr:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 3" destination="http://www.oracle.com"/>
       <component tr:type="org.apache.myfaces.trinidad.CoreGoLink" text="link 4" destination="http://www.oracle.com"/>
     </component>

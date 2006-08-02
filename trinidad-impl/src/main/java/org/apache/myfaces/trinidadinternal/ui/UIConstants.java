@@ -103,6 +103,7 @@ public interface UIConstants
   public static final AttributeKey READ_ONLY_ATTR  = new AttributeKey("readOnly", 12);
   public static final AttributeKey RENDERED_ATTR  = new AttributeKey("rendered", 13);
   public static final AttributeKey DISCLOSE_NONE_ATTR  = new AttributeKey("discloseNone");
+  public static final AttributeKey DISCLOSE_MANY_ATTR  = new AttributeKey("discloseMany");
   public static final AttributeKey DISCLOSED_ATTR  = new AttributeKey("disclosed");
   public static final AttributeKey USES_UPLOAD_ATTR  = new AttributeKey("usesUpload");
   public static final AttributeKey DEFAULT_COMMAND_ATTR  = new AttributeKey("defaultCommand");
@@ -458,7 +459,7 @@ public interface UIConstants
   public static final String SEPARATOR_NAME = "separator";
   public static final String SERVLET_INCLUDE_NAME = "servletInclude";
   public static final String SHOW_ITEM_NAME = "showItem";
-  public static final String SHOW_ONE_TAB_NAME = "showOneTab";
+  public static final String SHOW_ONE_TAB_NAME = "panelTabbed";
   public static final String SIDE_BAR_NAME = "sideBar";
   public static final String SIDE_NAV_NAME = "sideNav";
   public static final String SINGLE_SELECTION_NAME = "singleSelection";

@@ -151,12 +151,12 @@
         Validate that the date entered is within a given range.
 </html:p>]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:selectInputDate id="mdf3" value="#{date.date3}"
+        <mfp:source-code><![CDATA[<tr:inputDate id="mdf3" value="#{date.date3}"
                                label="max validator">
   <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
-</tr:selectInputDate>
+</tr:inputDate>
 
-<tr:selectInputDate id="mdf3" value="2004-11-25"
+<tr:inputDate id="mdf3" value="2004-11-25"
                                 tip="min=2004-11-16  max=2004-12-16"
                                 label="Submission period">
   <tr:convertDateTime pattern="yyyy-MM-dd"/>
@@ -166,7 +166,7 @@
        minimum="2004-11-16"
        maximum="2004-12-16"
        notInRangeMessageDetail="Date &quot;{1}&quot; does not fall within the range {2} : {3}"/>
-</tr:selectInputDate>]]>
+</tr:inputDate>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Gabrielle Crawford</mfp:author>

@@ -94,11 +94,11 @@ user's locale.]]>
       <mfp:example>
         <mfp:source-code>
           <![CDATA[
-<tr:selectInputColor id="sicConv" chooseId="cpConv"
+<tr:inputColor id="sicConv" chooseId="cpConv"
   label="Enter or select color from palette below"
   value="#{color.colorValue1}">
   <tr:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
-</tr:selectInputColor>
+</tr:inputColor>
 <tr:chooseColor id="cpConv"
   colorData="#{requestContext.colorPalette.default49}"/>
            ]]>

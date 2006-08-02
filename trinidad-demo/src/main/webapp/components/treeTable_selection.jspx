@@ -25,10 +25,10 @@
       <trh:head title="tableSelectMany Demo"/>
       <trh:body>
         <tr:form >
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/> 
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
           <tr:panelPage>
             <tr:messages/>
             <tr:selectOneChoice value="#{sessionScope.tableSelection}"

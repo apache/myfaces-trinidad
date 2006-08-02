@@ -23,7 +23,7 @@
   <f:view>
  <tr:document title="Row Header Column Demo">
         <tr:form >
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>
             <tr:commandLink immediate="true" text="Column Demo"
@@ -69,7 +69,7 @@
             <tr:outputFormatted styleUsage="instruction" 
               value="&lt;br&gt;This Editor controls the RowHeader Column:"/>
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
   </tr:document>
   </f:view>

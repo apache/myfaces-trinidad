@@ -452,11 +452,11 @@ abstract public class Skin
               SkinPropertyNode property = (SkinPropertyNode)e.next();
               Object propValueObj = property.getPropertyValue();
               // convert to a type if possible first
-              // =-=jmw should I get the type for af|navigationPath-ora-show-last-item or just
+              // =-=jmw should I get the type for af|breadCrumbs-ora-show-last-item or just
               // -ora-show-last-item. in other words, will the property name be the same type
               // no matter which component it is being used for? If so, then
               // just storing -ora-show-last-item in the map is good enough.
-              // For now, just for the heck of it, use af|navigationPath-ora-show-last-item
+              // For now, just for the heck of it, use af|breadCrumbs-ora-show-last-item
 
               String key = property.getPropertySelector() +
                            property.getPropertyName();

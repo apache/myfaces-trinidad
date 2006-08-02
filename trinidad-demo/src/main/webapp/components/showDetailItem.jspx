@@ -24,9 +24,9 @@
  <tr:document title="ShowDetailItem Demo">
         <tr:form>
         
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator/>
+                <tr:separator/>
               </f:facet>
             <tr:commandLink 
                 immediate="true" 
@@ -35,8 +35,8 @@
 
                 <tr:outputFormatted 
                   styleUsage="instruction" 
-                  value="&lt;b>A showOneTab component with showDetailItem children &lt;/b>"/>  
-                <tr:panelForm>
+                  value="&lt;b>A panelTabbed component with showDetailItem children &lt;/b>"/>  
+                <tr:panelFormLayout>
                   <tr:inputText 
                     readOnly="true" 
                     label="Date/Time from last full page refresh" 
@@ -44,11 +44,11 @@
                     styleClass="AFDataText">
                     <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                   </tr:inputText>
-                </tr:panelForm>
-                <tr:showOneTab>
+                </tr:panelFormLayout>
+                <tr:panelTabbed>
                   <tr:showDetailItem binding="#{editor.component}" text="Tab 1">
                     <tr:panelHeader text="Header 1">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText 
                           readOnly="true" 
                           label="Label 1-1" 
@@ -61,16 +61,16 @@
                           <tr:convertDateTime 
                             pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Tab 2">
                     <tr:panelHeader text="Header 2 - This ShowDetailItem contains a ShowDetail in it">
-                      <tr:panelGroup>
+                      <tr:panelGroupLayout>
                         <tr:showDetail
                           id="hs1"
                           partialTriggers="hs1">
-                          <tr:panelForm>
+                          <tr:panelFormLayout>
                             <tr:inputText readOnly="true" 
                               label="Date/Time from last partial refresh" 
                               value="#{date.currentDate}"
@@ -78,10 +78,10 @@
                               <tr:convertDateTime 
                                   pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                               </tr:inputText>
-                              <tr:selectInputColor label="Color" />
-                            </tr:panelForm>
+                              <tr:inputColor label="Color" />
+                            </tr:panelFormLayout>
                           </tr:showDetail>
-                        </tr:panelGroup>
+                        </tr:panelGroupLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem 
@@ -90,7 +90,7 @@
                     immediate="false">
                     <tr:panelHeader 
                       text="Header 3 - This showDetailItem has its immediate attribute set to false">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText 
                           readOnly="true" 
                           label="Label 3-1" 
@@ -106,13 +106,13 @@
                         <tr:inputText 
                           label="This is a required field" 
                           required="true"/>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
                   <tr:showDetailItem text="Tab 4" disabled="true"/>
                   <tr:showDetailItem text="Tab 5">
                     <tr:panelHeader text="Header 5">
-                      <tr:panelForm>
+                      <tr:panelFormLayout>
                         <tr:inputText 
                           readOnly="true" 
                           label="Label 5-1" 
@@ -125,14 +125,14 @@
                           <tr:convertDateTime 
                             pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                         </tr:inputText>
-                      </tr:panelForm>
+                      </tr:panelFormLayout>
                     </tr:panelHeader>
                   </tr:showDetailItem>
-                </tr:showOneTab>
+                </tr:panelTabbed>
                 
                 <jsp:directive.include file="editor.jspf" />
     
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

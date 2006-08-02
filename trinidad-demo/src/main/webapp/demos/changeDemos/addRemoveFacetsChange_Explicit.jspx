@@ -65,12 +65,12 @@
               </tr:menuButtons>
             </f:facet>
             <f:facet name="location">
-              <tr:navigationPath>
+              <tr:breadCrumbs>
                 <tr:commandNavigationItem text="item 1"/>
                 <tr:commandNavigationItem text="item 2"/>
                 <tr:commandNavigationItem text="item 3"/>
                 <tr:commandNavigationItem text="item 4"/>
-              </tr:navigationPath>
+              </tr:breadCrumbs>
             </f:facet>
             <f:facet name="appCopyright">
               <tr:outputText value="copyright facet"/>
@@ -83,9 +83,9 @@
             </f:facet>
           <tr:panelHeader
             text="Explicit AddFacetChange/RemoveFacetChange Persistence Feature Demo">
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator/>
+                <tr:separator/>
               </f:facet>
               <tr:commandButton 
                 text="navigation1: Remove facet for menu tabs" 
@@ -105,7 +105,7 @@
               <tr:commandButton 
                 text="Add facet for application branding" 
                 actionListener="#{change.addFacet}"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
            </tr:panelHeader>
           </tr:panelPage>
 

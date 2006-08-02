@@ -23,9 +23,9 @@
   <f:view>
  <tr:document title="PanelList Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
@@ -57,30 +57,30 @@
                       
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Nested bulleted List&lt;/b>" />
             <tr:panelList rows="1" maxColumns="1">            
-                <tr:panelGroup>
+                <tr:panelGroupLayout>
                   <tr:commandLink text="item 1" action="action.nothing" />
                   <tr:panelList rows="2" maxColumns="2"> 
                     <tr:commandLink text="item 1.1" action="action.nothing" />
                     <tr:commandLink text="item 1.2" action="action.nothing" />
                   </tr:panelList>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
             </tr:panelList>
             
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Another nested bulleted List&lt;/b>" />
             <tr:panelList rows="1" maxColumns="1">            
-                <tr:panelGroup>
+                <tr:panelGroupLayout>
                   <tr:commandLink text="item 1" action="action.nothing" />
-                </tr:panelGroup>
-                <tr:panelGroup>
+                </tr:panelGroupLayout>
+                <tr:panelGroupLayout>
                   <tr:commandLink text="item 2" action="action.nothing" />                
                   <tr:panelList rows="2" maxColumns="2"> 
                     <tr:commandLink text="item 2.1" action="action.nothing" />
                     <tr:commandLink text="item 2.2" action="action.nothing" />
                   </tr:panelList>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
             </tr:panelList>
                               
-          </tr:panelGroup>          
+          </tr:panelGroupLayout>          
         </tr:form>
  </tr:document>
   </f:view>

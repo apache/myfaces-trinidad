@@ -409,7 +409,7 @@
                       >
                     
                     <span
-                         class="af_navigationPath"
+                         class="af_breadCrumbs"
                         >
                       
                       <nobr
@@ -420,7 +420,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_step"
+                               class="af_breadCrumbs_step"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
                                href="uri-attr:encoded-action-url:#"
                               >
@@ -436,7 +436,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_step"
+                               class="af_breadCrumbs_step"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
                                href="uri-attr:encoded-action-url:#"
                               >
@@ -452,7 +452,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_selected-step"
+                               class="af_breadCrumbs_selected-step"
                               >
                             path3
                           </a>
@@ -1111,7 +1111,7 @@
                       >
                     
                     <span
-                         class="af_navigationPath"
+                         class="af_breadCrumbs"
                         >
                       
                       <nobr
@@ -1122,7 +1122,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_step"
+                               class="af_breadCrumbs_step"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
                                href="uri-attr:encoded-action-url:#"
                               >
@@ -1138,7 +1138,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_step"
+                               class="af_breadCrumbs_step"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
                                href="uri-attr:encoded-action-url:#"
                               >
@@ -1154,7 +1154,7 @@
                             >
                           
                           <a
-                               class="af_navigationPath_selected-step"
+                               class="af_breadCrumbs_selected-step"
                               >
                             path3
                           </a>

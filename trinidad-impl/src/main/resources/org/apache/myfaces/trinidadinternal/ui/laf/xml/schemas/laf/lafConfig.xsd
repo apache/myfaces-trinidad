@@ -548,11 +548,11 @@
             <cabotool:example>
               <html:p>
                 In the following example, the null Icon is used to indicate that
-                the af|selectInputColor::swatch-overlay-icon Icon should not be
+                the af|inputColor::swatch-overlay-icon Icon should not be
                 rendered.
               </html:p>
               <cabotool:sampleCode>
-                &lt;icon name="af|selectInputColor::swatch-overlay-icon"&gt;
+                &lt;icon name="af|inputColor::swatch-overlay-icon"&gt;
                 &lt;null/&gt; &lt;/icon&gt;
               </cabotool:sampleCode>
             </cabotool:example>

@@ -21,10 +21,10 @@
   <f:view>
     <tr:document title="Page Hierarchy Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:commandLink immediate="true" text="Component Guide"
                             action="guide"/>
-            <tr:objectSeparator/>
+            <tr:separator/>
             <tr:panelPage>
               <f:facet name="navigationGlobal">
                 <tr:menuButtons var="foo" value="#{menuModel.model}">
@@ -44,13 +44,13 @@
                 </tr:menuTabs>
               </f:facet>
               <f:facet name="location">
-                <tr:navigationPath var="foo" value="#{menuModel.model}">
+                <tr:breadCrumbs var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
                     <tr:commandNavigationItem text="#{foo.label}"
                                         action="#{foo.getOutcome}"
                                         icon="#{foo.ico}"/>
                   </f:facet>
-                </tr:navigationPath>
+                </tr:breadCrumbs>
               </f:facet>
               <f:facet name="appAbout">
                 <tr:outputText value="appAbout facet"/>
@@ -91,7 +91,7 @@
                 <jsp:include page="/components/pageContent_include.jspx"/>
               </tr:panelHeader>
             </tr:panelPage>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
     </tr:document>
   </f:view>

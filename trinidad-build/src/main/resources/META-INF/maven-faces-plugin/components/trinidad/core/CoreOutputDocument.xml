@@ -44,7 +44,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:objectImage tr:objectSeparator</mfp:preferred-children>
+          <mfp:preferred-children>tr:image tr:separator</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>

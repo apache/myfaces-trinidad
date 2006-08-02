@@ -24,13 +24,13 @@
   <f:view>
  <tr:document title="selectRangeChoiceBar Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide" action="guide"/>
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>selectRangeChoiceBar&lt;/b>"/>
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:outputFormatted styleUsage="instruction"
                 value="selectRangeChoiceBar with no rangeLabel facet;
                 we get default labels."/>
@@ -38,9 +38,9 @@
                   id="selectRangeChoiceBarID2" first="0" rows="5" value="#{table}"/>
 
                 <jsp:directive.include file="editor.jspf"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
 
-              <tr:panelGroup layout="vertical">
+              <tr:panelGroupLayout layout="vertical">
                 <tr:outputFormatted styleUsage="instruction"
                 value="selectRangeChoiceBar with rangeLabel facet to customize range
                 labels and tied to a list of data"/>
@@ -53,16 +53,16 @@
                     <f:selectItem itemLabel="#{range.start} - #{range.end}"/>
                   </f:facet>
                 </tr:selectRangeChoiceBar>
-                <tr:panelGroup partialTriggers="selectRangeCBId1">
+                <tr:panelGroupLayout partialTriggers="selectRangeCBId1">
                    <tr:forEach items="#{animals.namesInRange}" var="animalName">
                     <tr:outputText value="#{animalName}, "/>
                   </tr:forEach>
-                </tr:panelGroup>
-              </tr:panelGroup>
+                </tr:panelGroupLayout>
+              </tr:panelGroupLayout>
 
 
 
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
 
         </tr:form>
  </tr:document>

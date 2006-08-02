@@ -24,9 +24,9 @@
  <tr:document title="Tree Demo">
         <tr:form>
           <tr:messages/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>  
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>                
@@ -51,7 +51,7 @@
                 <tr:commandLink text="#{foo.name}" action="#{foo.action}"/>
               </f:facet>
             </tr:tree>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

@@ -175,25 +175,25 @@
     DatePicker Styles
   -->
 
-  <style selector="af|selectInputDate::header">
+  <style selector="af|inputDate::header">
     <includeStyle name="AFDarkAccentBackground"/>
   </style>
 
-  <style selector="af|selectInputDate::content">    
+  <style selector="af|inputDate::content">    
     <includeStyle name="AFLightAccentBackground"/>
-    <includeProperty selector="af|selectInputDate::header"
+    <includeProperty selector="af|inputDate::header"
                      propertyName="background-color"
                      localPropertyName="border-color"/>    
     <property name="line-height">1.5</property>
   </style>
 
-  <style selector="af|selectInputDate::selected">
+  <style selector="af|inputDate::selected">
     <includeStyle name="AFVeryDarkAccentBackground"/>
     <includeStyle name="AFSelectedTextForeground"/>
     <property name="padding">2px</property>
   </style>
 
-  <style selector="af|selectInputDate::content-link">
+  <style selector="af|inputDate::content-link">
     <includeStyle name="AFDarkForeground"/>
     <property name="text-decoration">none</property>
   </style>
@@ -232,7 +232,7 @@
   </style>
   
   <!-- panelForm -->
-  <style selector="af|panelForm::cell">
+  <style selector="af|panelFormLayout::cell">
     <property name="padding">1px 0px</property>
   </style>
 
@@ -595,135 +595,135 @@
   </style>
 
   <!--
-    showOneTab Styles (uses base renderers)
+    panelTabbed Styles (uses base renderers)
   -->
 
   
   
-  <style selector="af|showOneTab::body">
+  <style selector="af|panelTabbed::body">
     <property name="padding-top">10px</property>
     <property name="padding-bottom">10px</property>
   </style>
 
-  <style selector="af|showOneTab::tab">
+  <style selector="af|panelTabbed::tab">
     <includeStyle name="AFLightAccentBackground"/>
     <property name="padding">2pt 8pt</property>
   </style>
 
 
   
-  <style selector="af|showOneTab::orientation-top">
+  <style selector="af|panelTabbed::orientation-top">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>  
  
-  <style selector="af|showOneTab::orientation-bottom">
+  <style selector="af|panelTabbed::orientation-bottom">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>
   
-  <style selector="af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::cell-end">
     <includeStyle name="AFLightAccentBackground"/>
   </style> 
   <!-- using regular borders for the separator
   doesn't work in IE. The borders don't line up. So I have to use
   background color and padding-->
-  <style selector="af|showOneTab::separator-before-selected">
+  <style selector="af|panelTabbed::separator-before-selected">
     <includeStyle name="AFVeryDarkAccentBackground"/>
     <property name="padding-left">1pt</property>
   </style>
-  <style selector="af|showOneTab::separator-after-selected">
+  <style selector="af|panelTabbed::separator-after-selected">
     <includeStyle name="AFVeryDarkAccentBackground"/>
     <property name="padding-right">1pt</property>
   </style>
 
-  <style selector="af|showOneTab::orientation-top af|showOneTab::cell-start">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::cell-start">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>  
-  <style selector="af|showOneTab::orientation-top af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::cell-end">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-top af|showOneTab::tab">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::tab">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-top af|showOneTab::tab-selected">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::tab-selected">
     <property name="border-bottom">none</property>
   </style>
   
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::cell-start">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::cell-start">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>  
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::cell-end">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::tab">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::tab">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::tab-selected">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected">
     <property name="border-top">none</property>
   </style>
  
-  <style selector="af|showOneTab::orientation-top">
+  <style selector="af|panelTabbed::orientation-top">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>  
  
-  <style selector="af|showOneTab::orientation-bottom">
+  <style selector="af|panelTabbed::orientation-bottom">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style> 
   
-  <style selector="af|showOneTab::orientation-top af|showOneTab::cell-start">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::cell-start">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>  
-  <style selector="af|showOneTab::orientation-top af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::cell-end">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-top af|showOneTab::tab">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::tab">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-bottom-width">1pt</property>
     <property name="border-bottom-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-top af|showOneTab::tab-selected">
+  <style selector="af|panelTabbed::orientation-top af|panelTabbed::tab-selected">
     <property name="border-bottom">none</property>
   </style>
   
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::cell-start">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::cell-start">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>  
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::cell-end">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::tab">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::tab">
     <includeStyle name="AFVeryDarkAccentBorder"/>
     <property name="border-top-width">1pt</property>
     <property name="border-top-style">solid</property>
   </style>
-  <style selector="af|showOneTab::orientation-bottom af|showOneTab::tab-selected">
+  <style selector="af|panelTabbed::orientation-bottom af|panelTabbed::tab-selected">
     <property name="border-top">none</property>
   </style>
 
@@ -789,12 +789,12 @@
   </style>
 
   <!-- Reset foreground for visisted stations: use dark accent -->
-  <style selector="af|processTrain::step-visited">
+  <style selector="af|train::step-visited">
     <includeStyle name="AFDarkAccentForeground"/>
   </style>
 
   <!-- Reset foreground for visisted links: use link foreground -->
-  <style selector="af|processTrain::step-visited af|processTrain::link">
+  <style selector="af|train::step-visited af|train::link">
     <includeStyle name="AFLinkForeground"/>
   </style>
 
@@ -1009,13 +1009,13 @@
 <!-- The base derivation for Netscape browsers -->
 <styleSheet browsers="netscape">
 
-  <style selector="af|selectInputDate::disabled">
+  <style selector="af|inputDate::disabled">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFCenterTextAlign"/>
     <includeStyle name="MediumExtraAccentForeground"/>
   </style>
 
-  <style selector="af|selectInputDate::disabled-link">
+  <style selector="af|inputDate::disabled-link">
     <includeStyle name="AFDefaultFont"/>
     <includeStyle name="AFCenterTextAlign"/>
     <includeStyle name="AFDarkForeground"/>
@@ -1125,7 +1125,7 @@
 
   
   <!-- panelForm -->
-  <style selector="af|panelForm::cell">
+  <style selector="af|panelFormLayout::cell">
     <property name="padding">0px</property>
   </style>
   

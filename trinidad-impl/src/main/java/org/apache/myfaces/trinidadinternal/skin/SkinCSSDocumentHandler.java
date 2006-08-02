@@ -73,7 +73,7 @@ public class SkinCSSDocumentHandler
    
   /**
   * Call this at the beginning of parsing one set of selectors/properties.
-  * e.g., .AFDefaultFont, af|navigationPath::font 
+  * e.g., .AFDefaultFont, af|breadCrumbs::font 
   * {font-family:Arial,Helvetica; font-size:small}
   */
   public void startSelector()
@@ -86,10 +86,10 @@ public class SkinCSSDocumentHandler
    * Call this at the end of parsing one set of selectors/properties.
    * @param selectors A List of Strings, each String is a selector.
    * e.g., given the selectors/properties:
-   * .AFDefaultFont, af|navigationPath::font 
+   * .AFDefaultFont, af|breadCrumbs::font 
    * {font-family:Arial,Helvetica; font-size:small}
    * The selectors in the List are 
-   * ".AFDefaultFont" and "af|navigationPath::font"
+   * ".AFDefaultFont" and "af|breadCrumbs::font"
   */
   public void endSelector(List selectors)
   {
@@ -116,7 +116,7 @@ public class SkinCSSDocumentHandler
    /**
     * Call this when a property name/value is found.
     * e.g., given the selectors/properties:
-    * .AFDefaultFont, af|navigationPath::font 
+    * .AFDefaultFont, af|breadCrumbs::font 
     * {font-family:Arial,Helvetica; font-size:small}
     * One property name/value pair is "font-family"/"Arial,Helvetica"
     * @param name 

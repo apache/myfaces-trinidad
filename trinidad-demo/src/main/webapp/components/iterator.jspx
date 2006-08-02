@@ -24,9 +24,9 @@
  <tr:document title="Iterator Demo">
         <tr:form >
           <tr:messages/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
@@ -40,14 +40,14 @@
               <tr:inputText label="Atomic Number" value="#{row.number}"/>
               <tr:inputText label="Symbol" value="#{row.symbol}"/>
               <tr:inputText label="Group" value="#{row.group}"/>
-              <tr:objectSeparator/>
+              <tr:separator/>
             </tr:iterator>
 
             <tr:outputFormatted styleUsage="instruction" 
               value="&lt;b>Use the editor to change the range:&lt;/b>"/>
             <jsp:directive.include file="editor.jspf" />
             
-          </tr:panelGroup>    
+          </tr:panelGroupLayout>    
         </tr:form>
  </tr:document>
   </f:view>

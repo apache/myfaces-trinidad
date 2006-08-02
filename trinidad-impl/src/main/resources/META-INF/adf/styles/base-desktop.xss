@@ -596,13 +596,13 @@
   <style selector="af|selectBooleanRadio::label">
     <includeStyle name="AFLabel"/>
   </style>
-  <style selector="af|selectInputColor::label">
+  <style selector="af|inputColor::label">
     <includeStyle name="AFLabel"/>
   </style>   
-  <style selector="af|selectInputDate::label">
+  <style selector="af|inputDate::label">
     <includeStyle name="AFLabel"/>
   </style>
-  <style selector="af|selectInputText::label">
+  <style selector="af|inputListOfValues::label">
     <includeStyle name="AFLabel"/>
   </style>  
   <style selector="af|selectManyCheckbox::label">
@@ -639,13 +639,13 @@
   <style selector="af|selectBooleanRadio:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>
-  <style selector="af|selectInputColor:disabled::label">
+  <style selector="af|inputColor:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>  
-  <style selector="af|selectInputDate:disabled::label">
+  <style selector="af|inputDate:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>
-  <style selector="af|selectInputText:disabled::label">
+  <style selector="af|inputListOfValues:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>  
   <style selector="af|selectManyCheckbox:disabled::label">
@@ -679,13 +679,13 @@
   <style selector="af|selectBooleanRadio::content">
     <includeStyle name="AFFormControlContent"/>
   </style>
-  <style selector="af|selectInputColor::content">
+  <style selector="af|inputColor::content">
     <includeStyle name="AFFormControlContent"/>
   </style>  
-  <style selector="af|selectInputDate::content">
+  <style selector="af|inputDate::content">
     <includeStyle name="AFFormControlContent"/>
   </style>
-  <style selector="af|selectInputText::content">
+  <style selector="af|inputListOfValues::content">
     <includeStyle name="AFFormControlContent"/>
   </style>  
   <style selector="af|selectManyCheckbox::content">
@@ -810,7 +810,7 @@
   <style selector="af|selectBooleanRadio::required-icon-style">
     <includeStyle name="AFRequiredIconStyle"/>
   </style>
-  <style selector="af|selectInputDate::required-icon-style">
+  <style selector="af|inputDate::required-icon-style">
     <includeStyle name="AFRequiredIconStyle"/>
   </style> 
   <style selector="af|selectManyCheckbox::required-icon-style">
@@ -849,7 +849,7 @@
   <style selector="af|selectBooleanRadio::group-icon-style">
     <includeStyle name="AFRequiredGroupIconStyle"/>
   </style>
-  <style selector="af|selectInputDate::group-icon-style">
+  <style selector="af|inputDate::group-icon-style">
     <includeStyle name="AFRequiredGroupIconStyle"/>
   </style> 
   <style selector="af|selectManyCheckbox::group-icon-style">
@@ -994,183 +994,183 @@
   <!-- 
     ColorField styles 
   -->
-  <style selector="af|selectInputColor::swatch-overlay">
+  <style selector="af|inputColor::swatch-overlay">
     <property name="position">relative</property>
     <property name="left">-7px</property>
     <property name="top">5px</property>
   </style>
 
   <!-- navigationLevel styles -->
-  <style selector="af|navigationLevelBar">
+  <style selector="af|navigationPane::bar">
     <property name="background-color">#EFEFEF</property>
     <property name="padding-left">6px</property>
     <property name="padding-right">6px</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-disabled">
+  <style selector="af|navigationPane::bar::bar-active-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-enabled">
+  <style selector="af|navigationPane::bar::bar-active-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-disabled">
+  <style selector="af|navigationPane::bar::bar-inactive-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-enabled">
+  <style selector="af|navigationPane::bar::bar-inactive-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-enabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-active-enabled af|navigationPane::bar::bar-content">
     <property name="color">black</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-enabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-inactive-enabled af|navigationPane::bar::bar-content">
     <property name="color">black</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-enabled af|navigationLevelBar::bar-content a">
+  <style selector="af|navigationPane::bar::bar-active-enabled af|navigationPane::bar::bar-content a">
     <property name="color">black</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-enabled af|navigationLevelBar::bar-content a">
+  <style selector="af|navigationPane::bar::bar-inactive-enabled af|navigationPane::bar::bar-content a">
     <property name="color">black</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-enabled af|navigationLevelBar::bar-content a:hover">
+  <style selector="af|navigationPane::bar::bar-active-enabled af|navigationPane::bar::bar-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-enabled af|navigationLevelBar::bar-content a:hover">
+  <style selector="af|navigationPane::bar::bar-inactive-enabled af|navigationPane::bar::bar-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-disabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-active-disabled af|navigationPane::bar::bar-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-disabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-inactive-disabled af|navigationPane::bar::bar-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-disabled af|navigationLevelBar::bar-content a">
+  <style selector="af|navigationPane::bar::bar-active-disabled af|navigationPane::bar::bar-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-inactive-disabled af|navigationLevelBar::bar-content a">
+  <style selector="af|navigationPane::bar::bar-inactive-disabled af|navigationPane::bar::bar-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-enabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-active-enabled af|navigationPane::bar::bar-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-active-disabled af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-active-disabled af|navigationPane::bar::bar-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-content">
+  <style selector="af|navigationPane::bar::bar-content">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-top">3px</property>
     <property name="padding-bottom">3px</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-content a">
+  <style selector="af|navigationPane::bar::bar-content a">
     <property name="text-decoration">none</property>
   </style>
-  <style selector="af|navigationLevelBar::bar-separator">
+  <style selector="af|navigationPane::bar::bar-separator">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-left">6px</property>
     <property name="padding-right">6px</property>
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-disabled">
+  <style selector="af|navigationPane::buttons-active-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-enabled">
+  <style selector="af|navigationPane::buttons-active-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevel::buttons-inactive-disabled">
+  <style selector="af|navigationPane::buttons-inactive-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevel::buttons-inactive-enabled">
+  <style selector="af|navigationPane::buttons-inactive-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-enabled af|navigationLevel::buttons-content a:hover">
+  <style selector="af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevel::buttons-inactive-enabled af|navigationLevel::buttons-content a:hover">
+  <style selector="af|navigationPane::buttons-inactive-enabled af|navigationPane::buttons-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-disabled af|navigationLevel::buttons-content">
+  <style selector="af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::buttons-inactive-disabled af|navigationLevel::buttons-content">
+  <style selector="af|navigationPane::buttons-inactive-disabled af|navigationPane::buttons-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-disabled af|navigationLevel::buttons-content a">
+  <style selector="af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::buttons-inactive-disabled af|navigationLevel::buttons-content a">
+  <style selector="af|navigationPane::buttons-inactive-disabled af|navigationPane::buttons-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-enabled af|navigationLevel::buttons-content">
+  <style selector="af|navigationPane::buttons-active-enabled af|navigationPane::buttons-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevel::buttons-active-disabled af|navigationLevel::buttons-content">
+  <style selector="af|navigationPane::buttons-active-disabled af|navigationPane::buttons-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevel::buttons-content">
+  <style selector="af|navigationPane::buttons-content">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-top">3px</property>
     <property name="padding-bottom">3px</property>
   </style>
-  <style selector="af|navigationLevel::buttons-content a">
+  <style selector="af|navigationPane::buttons-content a">
     <property name="text-decoration">none</property>
   </style>
-  <style selector="af|navigationLevel::buttons-separator">
+  <style selector="af|navigationPane::buttons-separator">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-left">6px</property>
     <property name="padding-right">6px</property>
   </style>
-  <style selector="af|navigationLevel::choice-label">
+  <style selector="af|navigationPane::choice-label">
     <includeStyle name="AFDefaultFont"/>
   </style>
-  <style selector="af|navigationLevel::choice-options">
+  <style selector="af|navigationPane::choice-options">
     <includeStyle name="AFDefaultFont"/>
   </style>
-  <style selector="af|navigationLevel::choice-button">
+  <style selector="af|navigationPane::choice-button">
     <includeStyle name="AFDefaultFont"/>
   </style>
-  <style selector="af|navigationLevel::list-active-disabled">
+  <style selector="af|navigationPane::list-active-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevel::list-active-enabled">
+  <style selector="af|navigationPane::list-active-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevel::list-inactive-disabled">
+  <style selector="af|navigationPane::list-inactive-disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevel::list-inactive-enabled">
+  <style selector="af|navigationPane::list-inactive-enabled">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevel::list-active-enabled af|navigationLevel::list-content a:hover">
+  <style selector="af|navigationPane::list-active-enabled af|navigationPane::list-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevel::list-inactive-enabled af|navigationLevel::list-content a:hover">
+  <style selector="af|navigationPane::list-inactive-enabled af|navigationPane::list-content a:hover">
     <property name="text-decoration">underline</property>
   </style>
-  <style selector="af|navigationLevel::list-active-disabled af|navigationLevel::list-content">
+  <style selector="af|navigationPane::list-active-disabled af|navigationPane::list-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::list-inactive-disabled af|navigationLevel::list-content">
+  <style selector="af|navigationPane::list-inactive-disabled af|navigationPane::list-content">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::list-active-disabled af|navigationLevel::list-content a">
+  <style selector="af|navigationPane::list-active-disabled af|navigationPane::list-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::list-inactive-disabled af|navigationLevel::list-content a">
+  <style selector="af|navigationPane::list-inactive-disabled af|navigationPane::list-content a">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevel::list-active-enabled af|navigationLevel::list-content">
+  <style selector="af|navigationPane::list-active-enabled af|navigationPane::list-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevel::list-active-disabled af|navigationLevel::list-content">
+  <style selector="af|navigationPane::list-active-disabled af|navigationPane::list-content">
     <property name="font-weight">bold</property>
   </style>
-  <style selector="af|navigationLevel::list-content">
+  <style selector="af|navigationPane::list-content">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-top">3px</property>
     <property name="padding-bottom">3px</property>
   </style>
-  <style selector="af|navigationLevel::list-content a">
+  <style selector="af|navigationPane::list-content a">
     <property name="text-decoration">none</property>
   </style>
-  <style selector="af|navigationLevel::list-bullet">
+  <style selector="af|navigationPane::list-bullet">
     <includeStyle name="AFDefaultFont"/>
     <property name="vertical-align">middle</property>
     <property name="width">17px</property>
@@ -1178,7 +1178,7 @@
     <property name="background-position">center</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs">
+  <style selector="af|navigationPaneTabs">
     <property name="height">26px</property>
     <property name="overflow">hidden</property>
   </style>
@@ -1188,232 +1188,232 @@
   <style name=".p_AFOverlappingTabBottomHeight">
     <property name="height">4px</property>
   </style> 
-  <style selector="af|navigationLevelTabs::tabs-active">
+  <style selector="af|navigationPaneTabs::tabs-active">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive">
+  <style selector="af|navigationPaneTabs::tabs-inactive">
     <property name="cursor">pointer</property>
   </style>
-  <style selector="af|navigationLevelTabs af|navigationLevelTabs::tabs-active:disabled">
+  <style selector="af|navigationPaneTabs af|navigationPaneTabs::tabs-active:disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevelTabs af|navigationLevelTabs::tabs-inactive:disabled">
+  <style selector="af|navigationPaneTabs af|navigationPaneTabs::tabs-inactive:disabled">
     <property name="cursor">default</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start">
+  <style selector="af|navigationPaneTabs::tabs-start">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join">
+  <style selector="af|navigationPaneTabs::tabs-start-join">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join-from-active">
+  <style selector="af|navigationPaneTabs::tabs-start-join-from-active">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join-from-inactive">
+  <style selector="af|navigationPaneTabs::tabs-start-join-from-inactive">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs::tabs-mid">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-end-join-to-inactive">
+  <style selector="af|navigationPaneTabs::tabs-end-join-to-inactive">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-end">
+  <style selector="af|navigationPaneTabs::tabs-end">
     <includeStyle name=".p_AFOverlappingTabTopHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-start">
+  <style selector="af|navigationPaneTabs::tabs-bottom-start">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-start-content">
+  <style selector="af|navigationPaneTabs::tabs-bottom-start-content">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-mid">
+  <style selector="af|navigationPaneTabs::tabs-bottom-mid">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-mid-content">
+  <style selector="af|navigationPaneTabs::tabs-bottom-mid-content">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-end">
+  <style selector="af|navigationPaneTabs::tabs-bottom-end">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-end-content">
+  <style selector="af|navigationPaneTabs::tabs-bottom-end-content">
     <includeStyle name=".p_AFOverlappingTabBottomHeight"/>
   </style>
   <!-- =-= mcc TODO the following tab styles need corresponding RTL versions, images too -->
-  <style selector="af|navigationLevelTabs::tabs-start">
+  <style selector="af|navigationPaneTabs::tabs-start">
     <property name="width">26px</property>
     <property name="background-position">top right</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join">
+  <style selector="af|navigationPaneTabs::tabs-start-join">
     <property name="width">26px</property>
     <property name="background-position">top right</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-start">
+  <style selector="af|navigationPaneTabs::tabs-bottom-start">
     <property name="background-repeat">repeat-x</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-start-content">
+  <style selector="af|navigationPaneTabs::tabs-bottom-start-content">
     <property name="width">17px</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join-from-active">
+  <style selector="af|navigationPaneTabs::tabs-start-join-from-active">
     <property name="width">14px</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-start-join-from-inactive">
+  <style selector="af|navigationPaneTabs::tabs-start-join-from-inactive">
     <property name="width">14px</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-end-join-to-inactive">
+  <style selector="af|navigationPaneTabs::tabs-end-join-to-inactive">
     <property name="width">12px</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs::tabs-mid">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding-left">3px</property>
     <property name="color">#000000</property>
     <property name="white-space">nowrap</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-mid A">
+  <style selector="af|navigationPaneTabs::tabs-mid A">
     <includeStyle name="AFDefaultFont"/>
     <property name="color">#000000</property>
     <property name="text-decoration">none</property>
   </style>
-  <style selector="af|navigationLevelTabs af|navigationLevelTabs::tabs-active:disabled af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs af|navigationPaneTabs::tabs-active:disabled af|navigationPaneTabs::tabs-mid">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelTabs af|navigationLevelTabs::tabs-inactive:disabled af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs af|navigationPaneTabs::tabs-inactive:disabled af|navigationPaneTabs::tabs-mid">
     <property name="color">gray</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-mid">
+  <style selector="af|navigationPaneTabs::tabs-bottom-mid">
     <property name="background-repeat">repeat-x</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-end">
+  <style selector="af|navigationPaneTabs::tabs-end">
     <property name="width">15px</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-end">
+  <style selector="af|navigationPaneTabs::tabs-bottom-end">
     <property name="background-repeat">repeat-x</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-end-join">
+  <style selector="af|navigationPaneTabs::tabs-bottom-end-join">
     <property name="background-repeat">repeat-x</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-bottom-end-content">
+  <style selector="af|navigationPaneTabs::tabs-bottom-end-content">
     <property name="width">100%</property>
     <property name="background-repeat">no-repeat</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-start">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-start">
     <property name="background-image">url('../../images/tab3-start-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-start-join">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-start-join">
     <property name="background-image">url('../../images/tab3-start-join-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-start-join">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-start-join">
     <property name="background-image">url('../../images/tab3-start-join-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-start">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-start">
     <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-start-content">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-start-content">
     <property name="background-image">url('../../images/tab3-bot-start-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-mid">
     <property name="background-image">url('../../images/tab3-mid-selected.gif')</property>
     <property name="font-weight">bold</property>
     <property name="color">#585955</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-mid A">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-mid A">
     <property name="font-weight">bold</property>
     <property name="color">#585955</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-mid">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-mid">
     <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-end-join-to-inactive">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-end-join-to-inactive">
     <property name="background-image">url('../../images/tab3-end-join-selected-to-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-end">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-end">
     <property name="background-image">url('../../images/tab3-end-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-end">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-end">
     <property name="background-image">url('../../images/tab3-bot-mid-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-end-join">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-end-join">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-active af|navigationLevelTabs::tabs-bottom-end-content">
+  <style selector="af|navigationPaneTabs::tabs-active af|navigationPaneTabs::tabs-bottom-end-content">
     <property name="background-image">url('../../images/tab3-bot-end-selected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-start">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-start">
     <property name="background-image">url('../../images/tab3-start-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-start">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-start">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-start-content">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-start-content">
     <property name="background-image">none</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-start-join-from-active">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-start-join-from-active">
     <property name="background-image">url('../../images/tab3-start-join-selected-to-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-start-join-from-inactive">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-start-join-from-inactive">
     <property name="background-image">url('../../images/tab3-start-join-deselected-to-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-mid">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-mid">
     <property name="background-image">url('../../images/tab3-mid-deselected.gif')</property>
     <property name="color">#000000</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-mid A">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-mid A">
     <property name="color">#000000</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-mid">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-mid">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-end-join-to-inactive">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-end-join-to-inactive">
     <property name="background-image">url('../../images/tab3-end-join-deselected-to-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-end">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-end">
     <property name="background-image">url('../../images/tab3-end-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-end">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-end">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-end-join">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-end-join">
     <property name="background-image">url('../../images/tab3-bot-deselected.gif')</property>
   </style>
-  <style selector="af|navigationLevelTabs::tabs-inactive af|navigationLevelTabs::tabs-bottom-end-content">
+  <style selector="af|navigationPaneTabs::tabs-inactive af|navigationPaneTabs::tabs-bottom-end-content">
     <property name="background-image">none</property>
   </style>
   <!-- =-= mcc TODO Doc the navigationLevel style classes -->
 
-  <style selector="af|navigationPath">
+  <style selector="af|breadCrumbs">
     <includeStyle name="AFDefaultFont"/>
   </style>
 
   <!-- panelForm styles -->
-  <style selector="af|panelForm::column">
+  <style selector="af|panelFormLayout::column">
     <property name="vertical-align">top</property>
   </style>
-  <style selector="af|panelForm::separator">
+  <style selector="af|panelFormLayout::separator">
     <property name="background-color">gray</property>
     <property name="height">1px</property>
     <property name="font-size">1px</property>
     <property name="margin-top">3px</property>
     <property name="margin-bottom">3px</property>
   </style>
-  <style selector="af|panelForm::cell">
+  <style selector="af|panelFormLayout::cell">
     <property name="padding">0px</property>
   </style>
-  <style selector="af|panelForm::label-cell">
+  <style selector="af|panelFormLayout::label-cell">
     <includeStyle name="AFLabel"/>
   </style>
-  <style selector="af|panelForm::label-stacked-cell">
-    <includeStyle selector="af|panelForm::cell"/>
+  <style selector="af|panelFormLayout::label-stacked-cell">
+    <includeStyle selector="af|panelFormLayout::cell"/>
     <property name="text-align">left</property>
   </style>
-  <style selector="af|panelForm::content-cell">
-    <includeStyle selector="af|panelForm::cell"/>
+  <style selector="af|panelFormLayout::content-cell">
+    <includeStyle selector="af|panelFormLayout::cell"/>
   </style>
-  <style selector="af|panelForm::message-cell">
-    <includeStyle selector="af|panelForm::cell"/>
+  <style selector="af|panelFormLayout::message-cell">
+    <includeStyle selector="af|panelFormLayout::cell"/>
   </style> 
    <!--
       panelBox Styles
@@ -2269,20 +2269,20 @@
     Train Styles
   -->
 
-  <style name="af|processTrain"/>
+  <style name="af|train"/>
   
   <style name="AFTrainStation">  
     <includeStyle name="AFDefaultFont"/>
   </style>
 
-  <style selector="af|processTrain::step-active">
+  <style selector="af|train::step-active">
     <includeStyle name="AFTrainStation"/>
     <includeStyle name="AFDarkBorder"/>
     <includeStyle name="AFDarkForeground"/>
     <property name="font-weight">bold</property>
   </style>
 
-  <style selector="af|processTrain::step-visited">
+  <style selector="af|train::step-visited">
     <includeStyle name="AFTrainStation"/>
     <includeStyle name="DarkExtraAccentForeground"/>
     <includeProperty name="MediumExtraAccentBackground"
@@ -2290,11 +2290,11 @@
                      localPropertyName="border-color"/>
   </style>
 
-  <style selector="af|processTrain::visited af|processTrain::link">
+  <style selector="af|train::visited af|train::link">
     <includeStyle name="DarkExtraAccentForeground"/>
   </style>
 
-  <style selector="af|processTrain::step-disabled">
+  <style selector="af|train::step-disabled">
     <includeStyle name="AFTrainStation"/>
     <includeStyle name="MediumExtraAccentForeground"/>
     <includeProperty name="LightExtraAccentBackground"
@@ -2302,25 +2302,25 @@
                      localPropertyName="border-color"/>
   </style>
   
-  <style selector="af|processTrain::step-unvisited">
+  <style selector="af|train::step-unvisited">
     <includeStyle name="AFTrainStation"/>
     <includeStyle name="AFDarkBorder"/>
     <includeStyle name="AFDarkForeground"/>
   </style>
 
-  <style selector="af|processTrain::step-visited af|processTrain::link">
+  <style selector="af|train::step-visited af|train::link">
     <includeStyle name="AFDarkForeground"/>
   </style>
 
   
-  <style selector="af|processTrain::sub-start">
+  <style selector="af|train::sub-start">
     <includeStyle name="AFDarkBorder"/>
     <property name="border-style">solid</property>
     <property name="border-width">2px 2px 0px 0px</property>
     <property name="padding">0pt</property>
   </style>
 
-  <style selector="af|processTrain::sub-end">
+  <style selector="af|train::sub-end">
     <includeStyle name="AFDarkBorder"/>
     <property name="border-style">solid</property>
     <property name="border-width">2px 0px 0px 2px</property>
@@ -2715,23 +2715,23 @@
   Date Picker Styles.
 -->
 
-  <style selector="af|selectInputDate::nav-link">
+  <style selector="af|inputDate::nav-link">
     <includeStyle name="AFDatePickerNavLink"/>
   </style>
     
-  <style selector="af|selectInputDate::title">
+  <style selector="af|inputDate::title">
     <includeStyle name="AFDatePickerTitle"/>
   </style>
 
-  <style selector="af|selectInputDate::header">
+  <style selector="af|inputDate::header">
     <includeStyle name="AFDatePickerHeader"/>
   </style>
 
-  <style selector="af|selectInputDate::selected">
+  <style selector="af|inputDate::selected">
     <includeStyle name="AFDatePickerSelected"/>
   </style>
 
-  <style selector="af|selectInputDate::content-link">
+  <style selector="af|inputDate::content-link">
     <includeStyle name="AFDatePickerContentLink"/>
   </style>
 
@@ -3013,46 +3013,46 @@
     style classes - like tabBar and globalHeader.
   -->
 
-  <style name="AFShowOneTab">  
+  <style name="AFPanelTabbed">  
   </style>
 
 
-  <style selector="af|showOneTab::orientation-top">
-    <includeStyle name="AFShowOneTab"/>
+  <style selector="af|panelTabbed::orientation-top">
+    <includeStyle name="AFPanelTabbed"/>
   </style>
 
-  <style selector="af|showOneTab::orientation-bottom">
-    <includeStyle name="AFShowOneTab"/>
+  <style selector="af|panelTabbed::orientation-bottom">
+    <includeStyle name="AFPanelTabbed"/>
   </style>  
   
-  <style selector="af|showOneTab::tab">
+  <style selector="af|panelTabbed::tab">
     <includeStyle name="AFDefaultFont"/>
     <property name="padding">0px 8px</property>  
   </style>
 
-  <style selector="af|showOneTab::tab-link">
+  <style selector="af|panelTabbed::tab-link">
     <includeStyle name="AFLinkForeground"/>
   </style>
 
-  <style selector="af|showOneTab::tab .p_OraDisabled">
+  <style selector="af|panelTabbed::tab .p_OraDisabled">
     <includeStyle name="AFVeryDarkAccentForeground"/>
   </style>
  
-  <style selector="af|showOneTab::tab-selected">
+  <style selector="af|panelTabbed::tab-selected">
     <includeStyle name="AFDefaultBoldFont"/>
     <property name="padding">0px 8px</property>  
   </style>
 
-  <style selector="af|showOneTab::tab-selected-link">
+  <style selector="af|panelTabbed::tab-selected-link">
     <includeStyle name="AFDarkForeground"/>
     <property name="text-decoration">none</property>
   </style>
   
-  <style selector="af|showOneTab::cell-start">
+  <style selector="af|panelTabbed::cell-start">
     <property name="width">0%</property>
   </style>
 
-  <style selector="af|showOneTab::cell-end">
+  <style selector="af|panelTabbed::cell-end">
     <property name="width">100%</property>
   </style>  
   <!-- 
@@ -3671,13 +3671,13 @@
     <property name="text-align">right</property>
   </style>
   
-  <style selector="af|selectInputColor::swatch-overlay">
+  <style selector="af|inputColor::swatch-overlay">
     <property name="position">relative</property>
     <property name="right">-7px</property>
     <property name="top">5px</property>
   </style>
   
-  <style selector="af|selectInputColor::swatch-overlay">
+  <style selector="af|inputColor::swatch-overlay">
     <property name="position">relative</property>
     <property name="right">-7px</property>
     <property name="top">5px</property>
@@ -3769,7 +3769,7 @@
     <property name="width">100%</property>
   </style>
 
-  <style selector="af|navigationLevelTabs">
+  <style selector="af|navigationPaneTabs">
     <property name="height">25px</property>
   </style>
 </styleSheet>
@@ -3999,7 +3999,7 @@
      <property name="border-style">inset</property>
   </style>
 
-  <style selector="af|selectInputDate::content">
+  <style selector="af|inputDate::content">
     <property name="line-height">1.8</property>
   </style>
   

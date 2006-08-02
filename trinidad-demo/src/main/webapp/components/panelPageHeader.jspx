@@ -25,21 +25,21 @@
       <trh:head title="PanelPageHeader Demo"/>
       <trh:body>
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>             
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>panelPageHeader demo &lt;/b>"/>
             <tr:panelPageHeader binding="#{editor.component}">                          
               <f:facet name="branding">
-                <tr:panelGroup>
-                  <tr:objectImage source="/components/images/corporateBrand.gif"
+                <tr:panelGroupLayout>
+                  <tr:image source="/components/images/corporateBrand.gif"
                              shortDesc="corporate"/>
                   <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"
                                      styleUsage="inContextBranding"/>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="navigationGlobal">
                 <tr:menuButtons>
@@ -61,7 +61,7 @@
             
             <jsp:directive.include file="editor.jspf" />
     
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>
