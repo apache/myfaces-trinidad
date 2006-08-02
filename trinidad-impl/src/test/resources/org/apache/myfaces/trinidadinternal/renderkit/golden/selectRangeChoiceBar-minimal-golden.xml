@@ -73,11 +73,11 @@
 
       <script
           >
-        function _navSubmit(formName, event, node, vld, val, sze, partialTargets){var i = val.indexOf(',');if (i >= 0){sze = val.substring(i+1);val = val.substring(0, i);}var submitFunc = (partialTargets == (void 0)) ? submitForm : _submitPartialChange;return submitFunc(formName,vld,{event:event,source:node,value:val,size:sze,partialTargets:partialTargets});}
+        function _navSubmit(formName, event, id, vld, val){return _submitPartialChange(formName,vld,{event:event,source:id,value:val});}
       </script>
       <script
           >
-        function _navChoiceSubmit(choice, formName, event, node, vld, sze, partialTargets){if (!_navSubmit(formName, event, node, vld, choice.options[choice.selectedIndex].value, sze, partialTargets)){choice.selectedIndex = choice._lastValue;}}
+        function _navChoiceSubmit(choice, formName, event, id, vld){if (!_navSubmit(formName, event, id, vld, choice.options[choice.selectedIndex].value)){choice.selectedIndex = choice._lastValue;}}
       </script>
       <table
            border="0"
