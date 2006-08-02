@@ -491,8 +491,8 @@ public class ProcessUtils
   }
 
   // Name for our scriptlets
-  private static final String _NAV_SUBMIT_SCRIPTLET = "NavSubmit";
-  private static final String _NAV_CHOICE_SUBMIT_SCRIPTLET = "NavChoiceSubmit";
+  private static final String _NAV_SUBMIT_SCRIPTLET = "ui.NavSubmit";
+  private static final String _NAV_CHOICE_SUBMIT_SCRIPTLET = "ui.NavChoiceSubmit";
 
   static
   {
