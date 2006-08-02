@@ -28,14 +28,14 @@
         <tr:panelPage>
           <tr:messages/>
           <tr:panelHeader text="Detail of #{pageFlowScope.detail.string}">
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:panelLabelAndMessage label="Int:">
                 <tr:outputText value="#{pageFlowScope.detail.int}"/>
               </tr:panelLabelAndMessage>
               <tr:panelLabelAndMessage label="String:">
                 <tr:outputText value="#{pageFlowScope.detail.string}"/>
               </tr:panelLabelAndMessage>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:commandButton text="Return..."
                                action="sample"/>
           </tr:panelHeader>

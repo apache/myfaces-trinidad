@@ -70,14 +70,14 @@
     </facet>
     <facet>
       <description><![CDATA[The branding region of the page.  This section typically
-                contains a horizontal panelGroup for an objectImage of a logo and an
+                contains a horizontal panelGroup for an image of a logo and an
                 outputText for a title.]]>
       </description>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:panelGroup tr:objectImage tr:outputText</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:image tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -102,7 +102,7 @@
       <facet-name>infoFootnote</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -126,7 +126,7 @@
       <facet-name>infoStatus</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -137,7 +137,7 @@
       <facet-name>infoUser</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:panelGroup tr:outputFormatted</mfp:preferred-children>
+          <mfp:preferred-children>tr:panelGroupLayout tr:outputFormatted</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -152,7 +152,7 @@
       <facet-name>location</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:processTrain tr:navigationPath</mfp:preferred-children>
+          <mfp:preferred-children>tr:train tr:breadCrumbs</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -162,7 +162,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -171,7 +171,7 @@
       <facet-name>navigation2</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -180,7 +180,7 @@
       <facet-name>navigation3</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:navigationLevel tr:navigationTree</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationPane tr:navigationTree</mfp:preferred-children>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>
@@ -191,7 +191,7 @@
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
-          <mfp:preferred-children>tr:navigationLevel</mfp:preferred-children>
+          <mfp:preferred-children>tr:navigationPane</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -273,21 +273,21 @@
       <mfp:example>
         <mfp:source-code><![CDATA[<tr:panelPage>
             <f:facet name="branding">
-              <tr:panelGroup layout="horizontal">
-                <tr:objectImage source="/images/corporateBrand.gif"/>
+              <tr:panelGroupLayout layout="horizontal">
+                <tr:image source="/images/corporateBrand.gif"/>
                 <tr:outputText value="My Company"/>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
             </f:facet>
             <f:facet name="location">
-              <tr:navigationPath>
+              <tr:breadCrumbs>
                 <tr:commandNavigationItem text="crumb 1" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="crumb 2" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="crumb 3" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="crumb 4" action="guide.navigationLevel"/>
-              </tr:navigationPath>
+              </tr:breadCrumbs>
             </f:facet>
             <f:facet name="navigation1">
-              <tr:navigationLevel>
+              <tr:navigationPane>
                 <tr:commandNavigationItem text="tab 1" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="tab 2" action="guide.navigationLevel" 
                   selected="true"/>
@@ -296,31 +296,31 @@
                 <tr:commandNavigationItem text="tab 5" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="tab 6" action="guide.navigationLevel"
                   disabled="true"/>
-              </tr:navigationLevel>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigation2">
-              <tr:navigationLevel>
+              <tr:navigationPane>
                 <tr:commandNavigationItem text="item 1" action="guide.navigationLevel" 
                   selected="true"/>
                 <tr:commandNavigationItem text="item 2" action="guide.navigationLevel"
                   disabled="true"/>
                 <tr:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="item 4" action="guide.navigationLevel"/>
-              </tr:navigationLevel>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigation3">
-              <tr:navigationLevel>
+              <tr:navigationPane>
                 <tr:commandNavigationItem text="item 1" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="item 2" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="item 3" action="guide.navigationLevel"/>
-              </tr:navigationLevel>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigationGlobal">
-              <tr:navigationLevel>
+              <tr:navigationPane>
                 <tr:commandNavigationItem text="Home" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="Help" action="guide.navigationLevel"/>
                 <tr:commandNavigationItem text="Sign Out" action="guide.navigationLevel"/>
-              </tr:navigationLevel>
+              </tr:navigationPane>
             </f:facet>
             <tr:outputText value="Content here"/>
           </tr:panelPage>]]>

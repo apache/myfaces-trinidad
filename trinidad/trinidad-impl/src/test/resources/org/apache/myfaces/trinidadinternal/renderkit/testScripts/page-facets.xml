@@ -53,10 +53,10 @@
              <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                         text="choice3"/>
     </component>
-    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+    <component tr:type="org.apache.myfaces.trinidad.CoreImage"
                 tr:facet="branding"
                 source="/foo/foo.gif"/>
-    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+    <component tr:type="org.apache.myfaces.trinidad.CoreImage"
                 tr:facet="brandingApp"
                 source="/foo/bar.gif"/>
      <component tr:type="org.apache.myfaces.trinidad.CoreOutputFormatted"

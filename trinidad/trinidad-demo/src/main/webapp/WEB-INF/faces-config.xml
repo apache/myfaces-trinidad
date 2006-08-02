@@ -15,8 +15,8 @@
   limitations under the License.
 -->
 <!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
-  "http://java.sun.com/dtd/web-facesconfig_1_0.dtd" >
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd" >
 <faces-config>
   
   <application>
@@ -307,7 +307,7 @@
   <!-- processChoiceBar Demo end -->
 
 
-  <!-- processTrain Demo start -->
+  <!-- train Demo start -->
 
   <managed-bean>
     <managed-bean-name>processTrainList</managed-bean-name>
@@ -371,11 +371,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain.jspx</value>
+      <value>/components/train.jspx</value>
     </managed-property> 
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain</value>
+      <value>guide.train</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -388,11 +388,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain2.jspx</value>
+      <value>/components/train2.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain2</value>
+      <value>guide.train2</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -405,11 +405,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain3.jspx</value>
+      <value>/components/train3.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain3</value>
+      <value>guide.train3</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -422,11 +422,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain4.jspx</value>
+      <value>/components/train4.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain4</value>
+      <value>guide.train4</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -448,11 +448,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain4a.jspx</value>
+      <value>/components/train4a.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain4a</value>
+      <value>guide.train4a</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -465,11 +465,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain4b.jspx</value>
+      <value>/components/train4b.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain4b</value>
+      <value>guide.train4b</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -482,11 +482,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain4c.jspx</value>
+      <value>/components/train4c.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain4c</value>
+      <value>guide.train4c</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -499,11 +499,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain5.jspx</value>
+      <value>/components/train5.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain5</value>
+      <value>guide.train5</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -516,11 +516,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain6.jspx</value>
+      <value>/components/train6.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain6</value>
+      <value>guide.train6</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -533,11 +533,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain7.jspx</value>
+      <value>/components/train7.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain7</value>
+      <value>guide.train7</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -550,11 +550,11 @@
     <managed-bean-scope>none</managed-bean-scope>
     <managed-property>
       <property-name>viewId</property-name>
-      <value>/components/processTrain8.jspx</value>
+      <value>/components/train8.jspx</value>
     </managed-property>
     <managed-property>
       <property-name>outcome</property-name>
-      <value>guide.processTrain8</value>
+      <value>guide.train8</value>
     </managed-property>
     <managed-property>
       <property-name>label</property-name>
@@ -564,14 +564,14 @@
 
 
 
-  <!-- processTrain Demo end -->
+  <!-- train Demo end -->
 
-  <!-- selectInputText Demo start -->
+  <!-- inputListOfValues Demo start -->
   <navigation-rule>
-    <from-view-id>/components/selectInputText.jspx</from-view-id>
+    <from-view-id>/components/inputListOfValues.jspx</from-view-id>
     <navigation-case>
       <from-outcome>dialog:periodicTable</from-outcome>
-      <to-view-id>/components/selectInputText_dialog.jspx</to-view-id>
+      <to-view-id>/components/inputListOfValues_dialog.jspx</to-view-id>
     </navigation-case>
   </navigation-rule>
 
@@ -584,7 +584,7 @@
        request
     </managed-bean-scope>
   </managed-bean>
-  <!-- selectInputText Demo end -->
+  <!-- inputListOfValues Demo end -->
 
   <managed-bean>
     <managed-bean-name>color</managed-bean-name>
@@ -768,27 +768,27 @@
         <value>menuTabs.jspx</value>
         <value>message.jspx</value>
         <value>messages.jspx</value>
-        <value>navigationLevel.jspx</value>
-        <value>navigationPath.jspx</value>
+        <value>navigationPane.jspx</value>
+        <value>breadCrumbs.jspx</value>
         <value>navigationTree.jspx</value>
-        <value>objectIcon.jspx</value>
-        <value>objectImage.jspx</value>
-        <value>objectLegend.jspx</value>
-        <value>objectMedia.jspx</value>
-        <value>objectSeparator.jspx</value>
-        <value>objectSpacer.jspx</value>
+        <value>icon.jspx</value>
+        <value>image.jspx</value>
+        <value>legend.jspx</value>
+        <value>media.jspx</value>
+        <value>separator.jspx</value>
+        <value>spacer.jspx</value>
         <value>outputDocument.jspx</value>
         <value>outputFormatted.jspx</value>
         <value>outputLabel.jspx</value>
         <value>outputText.jspx</value>
         <value>page.jspx</value>
-        <value>panelBorder.jspx</value>
+        <value>panelBorderLayout.jspx</value>
         <value>panelBox.jspx</value>
         <value>panelButtonBar.jspx</value>
-        <value>panelForm.jspx</value>
-        <value>panelGroup.jspx</value>
+        <value>panelFormLayout.jspx</value>
+        <value>panelGroupLayout.jspx</value>
         <value>panelHeader.jspx</value>
-        <value>panelHorizontal.jspx</value>
+        <value>panelHorizontalLayout.jspx</value>
         <value>panelLabelAndMessage.jspx</value>
         <value>panelList.jspx</value>
         <value>panelPage.jspx</value>
@@ -797,15 +797,15 @@
         <value>panelTip.jspx</value>
         <value>poll.jspx</value>
         <value>processChoiceBar.jspx</value>
-        <value>processTrain.jspx</value>
+        <value>train.jspx</value>
         <value>progressIndicator.jspx</value>
         <!--value>region.jspx</value -->
         <value>resetButton.jspx</value>
         <value>selectBooleanCheckbox.jspx</value>
         <value>selectBooleanRadio.jspx</value>
-        <value>selectInputColor.jspx</value>
-        <value>selectInputDate.jspx</value>
-        <value>selectInputText.jspx</value>
+        <value>inputColor.jspx</value>
+        <value>inputDate.jspx</value>
+        <value>inputListOfValues.jspx</value>
         <value>selectItem.jspx</value>
         <value>selectManyCheckbox.jspx</value>
         <value>selectManyListbox.jspx</value>
@@ -820,9 +820,9 @@
         <value>showDetailItem.jspx</value>
         <value>showManyAccordion.jspx</value>
         <value>showOneAccordion.jspx</value>
-        <value>showOneChoice.jspx</value>
-        <value>showOneRadio.jspx</value>
-        <value>showOneTab.jspx</value>
+        <value>panelChoice.jspx</value>
+        <value>panelRadio.jspx</value>
+        <value>panelTabbed.jspx</value>
         <value>singleStepButtonBar.jspx</value>
         <value>styleSheet.jspx</value>
         <value>table.jspx</value>
@@ -1835,8 +1835,8 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectSeparator</from-outcome>
-      <to-view-id>/components/objectSeparator.jspx</to-view-id>
+      <from-outcome>guide.separator</from-outcome>
+      <to-view-id>/components/separator.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -1859,8 +1859,8 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.panelBorder</from-outcome>
-      <to-view-id>/components/panelBorder.jspx</to-view-id>
+      <from-outcome>guide.panelBorderLayout</from-outcome>
+      <to-view-id>/components/panelBorderLayout.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -1871,14 +1871,14 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.panelGroup</from-outcome>
-      <to-view-id>/components/panelGroup.jspx</to-view-id>
+      <from-outcome>guide.panelGroupLayout</from-outcome>
+      <to-view-id>/components/panelGroupLayout.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.panelHorizontal</from-outcome>
-      <to-view-id>/components/panelHorizontal.jspx</to-view-id>
+      <from-outcome>guide.panelHorizontalLayout</from-outcome>
+      <to-view-id>/components/panelHorizontalLayout.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
@@ -1894,14 +1894,14 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.navigationLevel</from-outcome>
-      <to-view-id>/components/navigationLevel.jspx</to-view-id>
+      <from-outcome>guide.navigationPane</from-outcome>
+      <to-view-id>/components/navigationPane.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.navigationPath</from-outcome>
-      <to-view-id>/components/navigationPath.jspx</to-view-id>
+      <from-outcome>guide.breadCrumbs</from-outcome>
+      <to-view-id>/components/breadCrumbs.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2021,20 +2021,20 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectIcon</from-outcome>
-      <to-view-id>/components/objectIcon.jspx</to-view-id>
+      <from-outcome>guide.icon</from-outcome>
+      <to-view-id>/components/icon.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectLegend</from-outcome>
-      <to-view-id>/components/objectLegend.jspx</to-view-id>
+      <from-outcome>guide.legend</from-outcome>
+      <to-view-id>/components/legend.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectImage</from-outcome>
-      <to-view-id>/components/objectImage.jspx</to-view-id>
+      <from-outcome>guide.image</from-outcome>
+      <to-view-id>/components/image.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2082,8 +2082,8 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectMedia</from-outcome>
-      <to-view-id>/components/objectMedia.jspx</to-view-id>
+      <from-outcome>guide.media</from-outcome>
+      <to-view-id>/components/media.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2138,8 +2138,8 @@
     <!-- the navegation rules for page are next to the menu managed beans -->
   
     <navigation-case>
-      <from-outcome>guide.panelForm</from-outcome>
-      <to-view-id>/components/panelForm.jspx</to-view-id>
+      <from-outcome>guide.panelFormLayout</from-outcome>
+      <to-view-id>/components/panelFormLayout.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2216,58 +2216,58 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.processTrain</from-outcome>
-      <to-view-id>/components/processTrain.jspx</to-view-id>
+      <from-outcome>guide.train</from-outcome>
+      <to-view-id>/components/train.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain2</from-outcome>
-      <to-view-id>/components/processTrain2.jspx</to-view-id>
+      <from-outcome>guide.train2</from-outcome>
+      <to-view-id>/components/train2.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain3</from-outcome>
-      <to-view-id>/components/processTrain3.jspx</to-view-id>
+      <from-outcome>guide.train3</from-outcome>
+      <to-view-id>/components/train3.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain4</from-outcome>
-      <to-view-id>/components/processTrain4.jspx</to-view-id>
+      <from-outcome>guide.train4</from-outcome>
+      <to-view-id>/components/train4.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain4a</from-outcome>
-      <to-view-id>/components/processTrain4a.jspx</to-view-id>
+      <from-outcome>guide.train4a</from-outcome>
+      <to-view-id>/components/train4a.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain4b</from-outcome>
-      <to-view-id>/components/processTrain4b.jspx</to-view-id>
+      <from-outcome>guide.train4b</from-outcome>
+      <to-view-id>/components/train4b.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain4c</from-outcome>
-      <to-view-id>/components/processTrain4c.jspx</to-view-id>
+      <from-outcome>guide.train4c</from-outcome>
+      <to-view-id>/components/train4c.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain5</from-outcome>
-      <to-view-id>/components/processTrain5.jspx</to-view-id>
+      <from-outcome>guide.train5</from-outcome>
+      <to-view-id>/components/train5.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain6</from-outcome>
-      <to-view-id>/components/processTrain6.jspx</to-view-id>
+      <from-outcome>guide.train6</from-outcome>
+      <to-view-id>/components/train6.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain7</from-outcome>
-      <to-view-id>/components/processTrain7.jspx</to-view-id>
+      <from-outcome>guide.train7</from-outcome>
+      <to-view-id>/components/train7.jspx</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
-      <from-outcome>guide.processTrain8</from-outcome>
-      <to-view-id>/components/processTrain8.jspx</to-view-id>
+      <from-outcome>guide.train8</from-outcome>
+      <to-view-id>/components/train8.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2303,20 +2303,20 @@
 
 
     <navigation-case>
-      <from-outcome>guide.selectInputColor</from-outcome>
-      <to-view-id>/components/selectInputColor.jspx</to-view-id>
+      <from-outcome>guide.inputColor</from-outcome>
+      <to-view-id>/components/inputColor.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.selectInputDate</from-outcome>
-      <to-view-id>/components/selectInputDate.jspx</to-view-id>
+      <from-outcome>guide.inputDate</from-outcome>
+      <to-view-id>/components/inputDate.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.selectInputText</from-outcome>
-      <to-view-id>/components/selectInputText.jspx</to-view-id>
+      <from-outcome>guide.inputListOfValues</from-outcome>
+      <to-view-id>/components/inputListOfValues.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2395,8 +2395,8 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.objectSpacer</from-outcome>
-      <to-view-id>/components/objectSpacer.jspx</to-view-id>
+      <from-outcome>guide.spacer</from-outcome>
+      <to-view-id>/components/spacer.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
@@ -2413,20 +2413,20 @@
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.showOneChoice</from-outcome>
-      <to-view-id>/components/showOneChoice.jspx</to-view-id>
+      <from-outcome>guide.panelChoice</from-outcome>
+      <to-view-id>/components/panelChoice.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.showOneRadio</from-outcome>
-      <to-view-id>/components/showOneRadio.jspx</to-view-id>
+      <from-outcome>guide.panelRadio</from-outcome>
+      <to-view-id>/components/panelRadio.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
     <navigation-case>
-      <from-outcome>guide.showOneTab</from-outcome>
-      <to-view-id>/components/showOneTab.jspx</to-view-id>
+      <from-outcome>guide.panelTabbed</from-outcome>
+      <to-view-id>/components/panelTabbed.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 

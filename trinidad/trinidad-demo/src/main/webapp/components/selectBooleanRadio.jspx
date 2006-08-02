@@ -23,24 +23,24 @@
   <f:view>
  <tr:document title="SelectBooleanRadio Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>SelectBooleanRadio&lt;/b>"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:selectBooleanRadio group="theGroup" selected="true" binding="#{editor.component}" label="Label" text="item"
                                      autoSubmit="true"
                                      onclick="alert('hi'); return true;"/>
               <tr:selectBooleanRadio group="theGroup" text="item 2" />
               <tr:selectBooleanRadio group="theGroup" text="item 3" />
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:commandButton text="Submit"/>
 
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

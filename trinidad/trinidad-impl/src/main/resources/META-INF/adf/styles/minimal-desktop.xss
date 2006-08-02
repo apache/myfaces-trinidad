@@ -87,17 +87,17 @@
   </style>  
 
   <!-- panelForm -->
-  <style selector="af|panelForm::column">
+  <style selector="af|panelFormLayout::column">
     <property name="vertical-align">top</property>
   </style>
-  <style selector="af|panelForm::separator">
+  <style selector="af|panelFormLayout::separator">
     <property name="background-color">gray</property>
     <property name="height">1px</property>
     <property name="font-size">1px</property>
     <property name="margin-top">3px</property>
     <property name="margin-bottom">3px</property>
   </style>
-  <style selector="af|panelForm::cell">
+  <style selector="af|panelFormLayout::cell">
     <property name="padding">1px 0px</property>
   </style>
 
@@ -294,9 +294,9 @@
     <property name="padding">3pt</property>
   </style>
 
-  <!-- showOneTab styles -->
+  <!-- panelTabbed styles -->
   
-  <style name="AFShowOneTab">
+  <style name="AFPanelTabbed">
     <includeStyle name="AFLightAccentBackground"/>
     <includeStyle name="AFMediumBorder"/>
     <property name="border-style">solid</property>
@@ -305,13 +305,13 @@
     <property name="margin">4px 0px</property>    
   </style>
   
-  <style selector="af|showOneTab::orientation-top">
-    <includeStyle name="AFShowOneTab"/>
+  <style selector="af|panelTabbed::orientation-top">
+    <includeStyle name="AFPanelTabbed"/>
     <property name="border-width">1px 0px 0px</property>
   </style>
 
-  <style selector="af|showOneTab::orientation-bottom">
-    <includeStyle name="AFShowOneTab"/>
+  <style selector="af|panelTabbed::orientation-bottom">
+    <includeStyle name="AFPanelTabbed"/>
     <property name="border-width">0px 0px 1px</property>
   </style>    
 

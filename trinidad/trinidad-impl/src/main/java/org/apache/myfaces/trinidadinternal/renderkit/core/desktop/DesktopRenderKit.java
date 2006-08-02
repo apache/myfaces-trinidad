@@ -25,6 +25,9 @@ public class DesktopRenderKit extends RenderKitDecorator
     addRenderer("org.apache.myfaces.trinidad.Table",
 		"org.apache.myfaces.trinidad.Table",
                 new DesktopTableRenderer());
+    addRenderer("org.apache.myfaces.trinidad.Process",
+    "org.apache.myfaces.trinidad.Train",
+                new TrainRenderer());
   }
 
   protected String getDecoratedRenderKitId()

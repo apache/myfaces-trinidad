@@ -23,22 +23,22 @@
   <f:view>
  <tr:document title="OutputLabel Demo">
          <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>outputLabel&lt;/b>"/>
-            <tr:panelGroup>
+            <tr:panelGroupLayout>
               <tr:outputLabel binding="#{editor.component}" accessKey="S" value="Some text" for="inputId"/>
-              <tr:objectSpacer width="5"/>
+              <tr:spacer width="5"/>
               <tr:inputText simple="true" id="inputId"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

@@ -21,9 +21,9 @@
   <f:view>
  <tr:document title="InputText Demo">
         <tr:form>     
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
@@ -46,7 +46,7 @@
                 <tr:outputText value="Help facet text"/>
               </f:facet>
             </tr:inputText>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

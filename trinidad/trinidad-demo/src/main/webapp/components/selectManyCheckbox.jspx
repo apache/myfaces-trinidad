@@ -25,9 +25,9 @@
       <trh:head title="SelectManyCheckbox Demo"/>
       <trh:body>
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/> 
@@ -107,7 +107,7 @@
             </tr:selectManyCheckbox>
 
              <tr:commandButton text="Submit"/>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>

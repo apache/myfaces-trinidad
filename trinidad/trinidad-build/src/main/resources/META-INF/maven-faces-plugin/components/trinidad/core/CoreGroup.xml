@@ -20,7 +20,7 @@
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
     <description><![CDATA[The group component is an invisible control that aggregates semantically-related children.
-The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the panelForm.]]>
+The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the panelFormLayout.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/group.png</small-icon>
@@ -34,11 +34,11 @@ The children of the group will not be displayed unless the parent of the group h
       <mfp:tag-name>tr:group</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreGroupTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The group component is an invisible control that aggregates semantically-related children.
-The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the rich panelForm.]]>
+The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children, e.g. the rich panelFormLayout.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[
-          <tr:panelForm labelWidth="33%" fieldWidth="67%">
+          <tr:panelFormLayout labelWidth="33%" fieldWidth="67%">
   <tr:inputText label="non-group item 1"/>
   <tr:group>
     <tr:inputText label="group item 1"/>
@@ -46,7 +46,7 @@ The children of the group will not be displayed unless the parent of the group h
     <tr:inputText label="group item 3"/>
   </tr:group>
   <tr:inputText label="non-group item 2"/>
-</tr:panelForm>]]>
+</tr:panelFormLayout>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>ADF Faces</mfp:author>

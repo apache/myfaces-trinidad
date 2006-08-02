@@ -25,14 +25,14 @@
        <tr:panelPage>
         <tr:messages/>
         <tr:panelHeader text="Choose options">
-         <tr:panelForm>
+         <tr:panelFormLayout>
            <tr:panelLabelAndMessage label="Options:" for="options">
             <h:selectManyCheckbox value="#{carOptionsBacking.options}" id="options">
               <f:selectItems value="#{carOptionsBacking.optionsItems}"/>
             </h:selectManyCheckbox>
                
            </tr:panelLabelAndMessage>
-         </tr:panelForm>
+         </tr:panelFormLayout>
         </tr:panelHeader>
         <tr:panelButtonBar>
           <tr:commandButton text="OK" action="#{carOptionsBacking.pickOptions}"/>

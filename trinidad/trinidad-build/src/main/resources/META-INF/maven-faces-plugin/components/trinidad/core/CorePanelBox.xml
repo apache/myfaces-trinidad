@@ -140,13 +140,13 @@ the content container.]]>
             contentStyle="background:blue;"
             icon="/images/info.gif"
             inlineStyle = "width: 25%;" >
-  <tr:panelGroup layout="vertical">
+  <tr:panelGroupLayout layout="vertical">
     <tr:goLink text="point 1" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 2" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 3" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 4" destination="http://myfaces.apache.org"/>
     <tr:goLink text="point 5" destination="http://myfaces.apache.org"/>
-  </tr:panelGroup>
+  </tr:panelGroupLayout>
 </tr:panelBox>]]>
         </mfp:source-code>
       </mfp:example>

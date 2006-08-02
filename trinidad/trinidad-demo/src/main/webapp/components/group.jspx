@@ -22,9 +22,9 @@
   <f:view>
     <tr:document title="Group Demo">
       <tr:form>
-        <tr:panelGroup layout="vertical">
+        <tr:panelGroupLayout layout="vertical">
           <f:facet name="separator">
-            <tr:objectSeparator/>
+            <tr:separator/>
           </f:facet>
           <tr:commandLink immediate="true" text="Component Guide"
             action="guide"/>
@@ -37,7 +37,7 @@ Grouped panelForm items are kept in the same column of the panelForm even when t
 The panelForm component also supports the group component in its footer facet so you can place more than one item in the footer.  You can even group footer items one additional time to get separators to appear."/>
           <tr:outputText
             value="This is a demo page for a panelForm (drawn with a thick red border) that uses various group components around its form items."/>
-          <tr:panelForm labelWidth="50%" fieldWidth="50%" rows="6"
+          <tr:panelFormLayout labelWidth="50%" fieldWidth="50%" rows="6"
             inlineStyle="border: 4px solid red;">
             <tr:inputText columns="10" label="main item 1"/>
             <tr:inputText columns="10" label="main item 2"/>
@@ -65,9 +65,9 @@ The panelForm component also supports the group component in its footer facet so
                 <tr:inputText columns="10" label="grouped footer item 4"/>
               </tr:group>
             </f:facet>
-          </tr:panelForm>
+          </tr:panelFormLayout>
           <jsp:directive.include file="editor.jspf"/>
-        </tr:panelGroup>
+        </tr:panelGroupLayout>
       </tr:form>
     </tr:document>
   </f:view>

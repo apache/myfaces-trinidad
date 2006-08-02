@@ -23,9 +23,9 @@
   <f:view>
  <tr:document title="MenuBar Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>
@@ -36,14 +36,14 @@
             <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>A simple menuBar&lt;/b>"/>
             <tr:menuBar binding="#{editor.component}">  
-              <tr:commandNavigationItem text="Page 1" action="guide.navigationPath"/>
+              <tr:commandNavigationItem text="Page 1" action="guide.breadCrumbs"/>
               <tr:commandNavigationItem text="Page 2" selected="true"/>
               <tr:commandNavigationItem text="Page 3" action="guide.panelButtonBar"/>
             </tr:menuBar>
             
             <jsp:directive.include file="editor.jspf" />
     
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

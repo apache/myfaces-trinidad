@@ -23,14 +23,14 @@
   <f:view>
    <tr:document title="ChooseColor Demo" >
         <tr:form>       
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <f:facet name="separator">
-                <tr:objectSeparator/>
+                <tr:separator/>
               </f:facet>
               <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/> 
               <tr:outputFormatted styleUsage="instruction" value="&lt;b>A chooseColor associated with a selectInputColor&lt;/b>"/>                
-              <tr:selectInputColor id="sic1" chooseId="cp1"
+              <tr:inputColor id="sic1" chooseId="cp1"
                 shortDesc="Select color from pallette"                
                 label="Enter or select color from palette below"
                 value="#{color.colorValue1}"/>                              
@@ -38,11 +38,11 @@
                 colorData="#{requestContext.colorPalette.default49}"/>
                           
               <tr:outputFormatted styleUsage="instruction" value="&lt;b>Color Converter with patterns &quot;rrr-ggg-bbb #RRGGBB&quot; associated with selectInputColor component&lt;/b>"/>                
-              <tr:selectInputColor id="sicConv" chooseId="cpConv"
+              <tr:inputColor id="sicConv" chooseId="cpConv"
                 label="Enter or select color from palette below"
                 value="#{color.colorValue1}">
                 <tr:convertColor  patterns="rrr-ggg-bbb #RRGGBB" transparentAllowed="false" />
-              </tr:selectInputColor>
+              </tr:inputColor>
               <tr:chooseColor id="cpConv" 
                 colorData="#{requestContext.colorPalette.default49}"/>
 
@@ -55,7 +55,7 @@
               <tr:chooseColor binding="#{editor.component}" id="cp3" 
                 colorData="#{requestContext.colorPalette.default80}" width="16"/>
               <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
     </tr:document>
   </f:view>

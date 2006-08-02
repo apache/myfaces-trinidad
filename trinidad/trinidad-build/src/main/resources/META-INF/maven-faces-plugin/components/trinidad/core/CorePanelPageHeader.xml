@@ -66,24 +66,24 @@
     </facet>
     <facet>
       <description><![CDATA[The corporate or organization branding region of the page.  This section typically
-                contains a medium size objectImage of the logo of the organization 
+                contains a medium size image of the logo of the organization 
                 owning the page.]]>
       </description>
       <facet-name>branding</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:image</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
     <facet>
       <description><![CDATA[The application, module, or product branding region of the page.
-                This section typically contains a objectImage of the application logo.]]>
+                This section typically contains a image of the application logo.]]>
       </description>
       <facet-name>brandingApp</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
-          <mfp:preferred-children>tr:objectImage</mfp:preferred-children>
+          <mfp:preferred-children>tr:image</mfp:preferred-children>
         </mfp:facet-metadata>
       </facet-extension>
     </facet>
@@ -272,12 +272,12 @@
       <mfp:example>
         <mfp:source-code><![CDATA[<tr:panelPageHeader>
               <f:facet name="branding">
-                <tr:panelGroup layout="horizontal">
-                  <tr:objectImage source="/components/images/corporateBrand.gif"/>
-                  <tr:objectImage source="/components/images/applicationBrand.gif"/>
+                <tr:panelGroupLayout layout="horizontal">
+                  <tr:image source="/components/images/corporateBrand.gif"/>
+                  <tr:image source="/components/images/applicationBrand.gif"/>
                   <tr:outputFormatted value="Customer &lt;b&gt;Contextual Application Branding - Menlo Park&lt;/b&gt;"
                                       styleUsage="inContextBranding"/>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="navigationGlobal">
                 <tr:menuButtons>

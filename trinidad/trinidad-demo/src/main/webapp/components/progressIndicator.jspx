@@ -23,9 +23,9 @@
   <f:view>
  <tr:document title="ProgressIndicator Demo">
     <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
               action="guide" actionListener="#{progress.cancelProcess}"/> 
@@ -37,7 +37,7 @@
               <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
             </tr:inputText>
               
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>ProgressIndicator component linked to a Poll 
                 component - Navigates to a different page once the background
@@ -53,14 +53,14 @@
                   value="#{progress.progressModel.value} of #{progress.progressModel.maximum} files copied"
                   rendered="#{progress.progressModel.value > -1 and progress.progressModel.value > -1}"/>
               </tr:progressIndicator>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
 
             <tr:commandButton text="Cancel" action="progressCancel" 
               actionListener="#{progress.cancelProcess}"/>
             
             <jsp:directive.include file="editor.jspf" />
 
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

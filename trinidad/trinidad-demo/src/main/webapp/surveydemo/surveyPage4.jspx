@@ -41,13 +41,13 @@
             </tr:menuButtons>
           </f:facet>
           <f:facet name="location">               
-            <tr:processTrain  value="#{surveyMenuModel}" var="surveyNode" >
+            <tr:train  value="#{surveyMenuModel}" var="surveyNode" >
               <f:facet name="nodeStamp">
                 <tr:commandNavigationItem text="#{surveyNode.label}"
                                     action="#{surveyNode.getOutcome}"
                                     readOnly="true"/>
               </f:facet>
-            </tr:processTrain>
+            </tr:train>
           </f:facet>
           <tr:panelButtonBar>
             <tr:singleStepButtonBar selectedStep="4" maxStep="5"

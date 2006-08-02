@@ -34,9 +34,9 @@
            <tr:panelHeader text="Client-side Converters and Validators">
             <tr:outputText styleClass="AFInstructionText"
                            value="In the following examples, converters and validators run on the client, avoiding a round trip."/>
-            <tr:objectSpacer height="10"/>
+            <tr:spacer height="10"/>
             <tr:panelHeader text="Client Converters"/>
-            <tr:panelForm>
+            <tr:panelFormLayout>
               <tr:inputText value="#{clientValidation.integer}"
                             label="integer converter">
                 <f:facet name="help">
@@ -73,20 +73,20 @@
                   <tr:outputText value="examples of unconvertable values: 'a' or 'cat'"/>
                 </f:facet>
               </tr:inputText>
-              <tr:selectInputColor label="color converter">
+              <tr:inputColor label="color converter">
                 <f:facet name="help">
                   <tr:outputText value="examples of unconvertable values: '9/05' or 'cat'"/>
                 </f:facet>
-              </tr:selectInputColor>
-              <tr:selectInputDate label="date converter">
+              </tr:inputColor>
+              <tr:inputDate label="date converter">
                 <f:facet name="help">
                   <tr:outputText value="examples of unconvertable values: '#FFFF' or 'cat'"/>
                 </f:facet>
-              </tr:selectInputDate>
-            </tr:panelForm>
+              </tr:inputDate>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Client Validators"/>
-            <tr:objectSpacer height="10"/>
-            <tr:panelForm>
+            <tr:spacer height="10"/>
+            <tr:panelFormLayout>
               <tr:inputText value="#{clientValidation.long}"
                             label="long range validator">
                 <f:facet name="help">
@@ -108,15 +108,15 @@
                 </f:facet>
                 <tr:validateByteLength encoding="ISO-8859-1" maximum="4"/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Required"/>
-            <tr:objectSpacer height="10"/>
-            <tr:panelForm>
+            <tr:spacer height="10"/>
+            <tr:panelFormLayout>
               <tr:inputText required="true" label="required field"/>
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelHeader text="Example of 3rd party Converter and Validator"/>
-            <tr:objectSpacer height="10"/>
-            <tr:panelForm>
+            <tr:spacer height="10"/>
+            <tr:panelFormLayout>
               <tr:inputText value="#{clientValidation.ssn}"
                             label="ssn converter">
                 <f:facet name="help">
@@ -131,7 +131,7 @@
                 </f:facet>
                 <trdemo:validatePassword/>
               </tr:inputText>
-            </tr:panelForm>
+            </tr:panelFormLayout>
            </tr:panelHeader>
             <tr:panelButtonBar>
               <tr:commandButton text="Submit"/>

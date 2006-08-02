@@ -534,7 +534,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
     return getSkinResourceMappedKey(key);
     /*** =-=jmw @todo get the style class from the skin.
      * the skin should return a short style class given a long style class
-     * like af|navigationPath::step-selected
+     * like af|breadCrumbs::step-selected
     if (mappedKey != null)
     {
       return getSkin().getStyleClass(mappedKey);

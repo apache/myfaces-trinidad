@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
  * Context class for all per-request and per-webapp information
- * required by ADF Faces.  A <code>RequestContext</code> object can be
+ * required by Trinidad.  A <code>RequestContext</code> object can be
  * retrieved with the static {@link #getCurrentInstance} method.
  * There is one and only one <code>RequestContext</code> object
  * active in any one thread.

@@ -149,7 +149,7 @@
   <f:facet name="help">
     <tr:outputText value="Pick a date"/>
   </f:facet>
-  <tr:selectInputDate id="selectDate" simple="true"/>
+  <tr:inputDate id="selectDate" simple="true"/>
 </tr:panelLabelAndMessage>]]>
         </mfp:source-code>
       </mfp:example>

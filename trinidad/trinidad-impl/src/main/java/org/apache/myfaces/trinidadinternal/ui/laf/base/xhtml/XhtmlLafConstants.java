@@ -246,19 +246,19 @@ public interface XhtmlLafConstants extends BaseLafConstants
 
   // panelForm's styles
   public static final String AF_PANEL_FORM_STYLE_CLASS =
-     "af|panelForm";
+     "af|panelFormLayout";
   public static final String AF_PANEL_FORM_COLUMN_STYLE_CLASS =
-    "af|panelForm::column";
+    "af|panelFormLayout::column";
   public static final String AF_PANEL_FORM_SEPARATOR_STYLE_CLASS =
-    "af|panelForm::separator";
+    "af|panelFormLayout::separator";
   public static final String AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS =
-    "af|panelForm::label-cell";
+    "af|panelFormLayout::label-cell";
   public static final String AF_PANEL_FORM_LABEL_STACKED_CELL_STYLE_CLASS =
-    "af|panelForm::label-stacked-cell";
+    "af|panelFormLayout::label-stacked-cell";
   public static final String AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS =
-    "af|panelForm::content-cell";
+    "af|panelFormLayout::content-cell";
   public static final String AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS =
-    "af|panelForm::message-cell";
+    "af|panelFormLayout::message-cell";
     
   // Link style classes
   public static final String LINK_STYLE_CLASS =
@@ -517,21 +517,21 @@ public interface XhtmlLafConstants extends BaseLafConstants
 
   // processTrain styles
    public static final String AF_PROCESS_TRAIN_STYLE_CLASS =
-     "af|processTrain";  
+     "af|train";  
   public static final String AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS =
-    "af|processTrain::step-active";
+    "af|train::step-active";
   public static final String AF_PROCESS_TRAIN_VISITED_STYLE_CLASS  =
-    "af|processTrain::step-visited";
+    "af|train::step-visited";
   public static final String AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS =
-    "af|processTrain::step-unvisited";
+    "af|train::step-unvisited";
   public static final String AF_PROCESS_TRAIN_LINK_STYLE_CLASS =
-    "af|processTrain::link";    
+    "af|train::link";    
   public static final String AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS =
-    "af|processTrain::step-disabled";
+    "af|train::step-disabled";
   public static final String AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS =
-    "af|processTrain::sub-start";
+    "af|train::sub-start";
   public static final String TRAIN_SUB_RIGHT_STYLE_CLASS =
-    "af|processTrain::sub-end";
+    "af|train::sub-end";
 
   // HEADER STYLES (panelHeader and messages header)
   public static final String AF_PANEL_HEADER_STYLE_CLASS =
@@ -554,95 +554,95 @@ public interface XhtmlLafConstants extends BaseLafConstants
 
   // NAVIGATION LEVEL STYLES
   public static final String AF_NAVIGATION_LEVEL_STYLE_CLASS =
-    "af|navigationLevel";
+    "af|navigationPane";
   public static final String AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS =
-    "af|navigationLevelBar";
+    "af|navigationPane::bar";
   public static final String AF_NAVIGATION_LEVEL_BAR_ACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevelBar::bar-active-disabled";
+    "af|navigationPane::bar::bar-active-disabled";
   public static final String AF_NAVIGATION_LEVEL_BAR_ACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevelBar::bar-active-enabled";
+    "af|navigationPane::bar::bar-active-enabled";
   public static final String AF_NAVIGATION_LEVEL_BAR_INACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevelBar::bar-inactive-disabled";
+    "af|navigationPane::bar::bar-inactive-disabled";
   public static final String AF_NAVIGATION_LEVEL_BAR_INACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevelBar::bar-inactive-enabled";
+    "af|navigationPane::bar::bar-inactive-enabled";
   public static final String AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS =
-    "af|navigationLevelBar::bar-content";
+    "af|navigationPane::bar::bar-content";
   public static final String AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS =
-    "af|navigationLevelBar::bar-separator";
+    "af|navigationPane::bar::bar-separator";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevel::buttons-active-disabled";
+    "af|navigationPane::buttons-active-disabled";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevel::buttons-active-enabled";
+    "af|navigationPane::buttons-active-enabled";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevel::buttons-inactive-disabled";
+    "af|navigationPane::buttons-inactive-disabled";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevel::buttons-inactive-enabled";
+    "af|navigationPane::buttons-inactive-enabled";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS =
-    "af|navigationLevel::buttons-content";
+    "af|navigationPane::buttons-content";
   public static final String AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS =
-    "af|navigationLevel::buttons-separator";
+    "af|navigationPane::buttons-separator";
   public static final String AF_NAVIGATION_LEVEL_CHOICE_LABEL_STYLE_CLASS =
-    "af|navigationLevel::choice-label";
+    "af|navigationPane::choice-label";
   public static final String AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS =
-    "af|navigationLevel::choice-options";
+    "af|navigationPane::choice-options";
   public static final String AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS =
-    "af|navigationLevel::choice-button";
+    "af|navigationPane::choice-button";
   public static final String AF_NAVIGATION_LEVEL_LIST_ACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevel::list-active-disabled";
+    "af|navigationPane::list-active-disabled";
   public static final String AF_NAVIGATION_LEVEL_LIST_ACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevel::list-active-enabled";
+    "af|navigationPane::list-active-enabled";
   public static final String AF_NAVIGATION_LEVEL_LIST_INACTIVE_DISABLED_STYLE_CLASS =
-    "af|navigationLevel::list-inactive-disabled";
+    "af|navigationPane::list-inactive-disabled";
   public static final String AF_NAVIGATION_LEVEL_LIST_INACTIVE_ENABLED_STYLE_CLASS =
-    "af|navigationLevel::list-inactive-enabled";
+    "af|navigationPane::list-inactive-enabled";
   public static final String AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS =
-    "af|navigationLevel::list-content";
+    "af|navigationPane::list-content";
   public static final String AF_NAVIGATION_LEVEL_LIST_BULLET_STYLE_CLASS =
-    "af|navigationLevel::list-bullet";
+    "af|navigationPane::list-bullet";
   public static final String AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS =
-    "af|navigationLevelTabs";
+    "af|navigationPaneTabs";
   public static final String AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-active";
+    "af|navigationPaneTabs::tabs-active";
   public static final String AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-inactive";
+    "af|navigationPaneTabs::tabs-inactive";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-start";
+    "af|navigationPaneTabs::tabs-bottom-start";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-start-content";
+    "af|navigationPaneTabs::tabs-bottom-start-content";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-end";
+    "af|navigationPaneTabs::tabs-bottom-end";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-end-content";
+    "af|navigationPaneTabs::tabs-bottom-end-content";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_JOIN_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-end-join";
+    "af|navigationPaneTabs::tabs-bottom-end-join";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-mid";
+    "af|navigationPaneTabs::tabs-bottom-mid";
   public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-bottom-mid-content";
+    "af|navigationPaneTabs::tabs-bottom-mid-content";
   public static final String AF_NAVIGATION_LEVEL_TABS_END_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-end";
+    "af|navigationPaneTabs::tabs-end";
   public static final String AF_NAVIGATION_LEVEL_TABS_END_JOIN_TO_INACTIVE_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-end-join-to-inactive";
+    "af|navigationPaneTabs::tabs-end-join-to-inactive";
   public static final String AF_NAVIGATION_LEVEL_TABS_MID_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-mid";
+    "af|navigationPaneTabs::tabs-mid";
   public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_ACTIVE_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-start-join-from-active";
+    "af|navigationPaneTabs::tabs-start-join-from-active";
   public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_INACTIVE_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-start-join-from-inactive";
+    "af|navigationPaneTabs::tabs-start-join-from-inactive";
   public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-start-join";
+    "af|navigationPaneTabs::tabs-start-join";
   public static final String AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS =
-    "af|navigationLevelTabs::tabs-start";
+    "af|navigationPaneTabs::tabs-start";
   public static final String P_AF_DISABLED = "p_AFDisabled";
 
   // BREADCRUMBS STYLES
-  // used in tr:navigationPath, tr:treeTable
+  // used in tr:breadCrumbs, tr:treeTable
   public static final String AF_NAVIGATION_PATH_STYLE_CLASS =
-    "af|navigationPath";
+    "af|breadCrumbs";
   public static final String AF_NAVIGATION_PATH_STEP_STYLE_CLASS =
-    "af|navigationPath::step";
+    "af|breadCrumbs::step";
   public static final String AF_NAVIGATION_PATH_SELECTED_STEP_STYLE_CLASS =
-    "af|navigationPath::selected-step";
+    "af|breadCrumbs::selected-step";
   public static final String AF_TREE_TABLE_MP_STYLE_CLASS =
     "af|treeTable::path";
   public static final String AF_TREE_TABLE_MP_SELECTED_STYLE_CLASS =
@@ -685,15 +685,15 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String STYLED_LIST_STYLE_CLASS =
     "OraStyledList";
 
-  // ShowOneTab STYLES
+  // panelTabbed STYLES
   public static final String AF_SHOW_ONE_TAB_STYLE_CLASS =
-    "af|showOneTab::tab";
+    "af|panelTabbed::tab";
 
   public static final String AF_SHOW_ONE_TAB_SELECTED_STYLE_CLASS =
-         "af|showOneTab::tab-selected";
+         "af|panelTabbed::tab-selected";
 
   public static final String AF_SHOW_ONE_TAB_BODY_STYLE_CLASS =
-    "af|showOneTab::body";
+    "af|panelTabbed::body";
 
   // TREE STYLES
   public static final String TREE_NODE_ADJUST_STYLE_CLASS =
@@ -724,19 +724,19 @@ public interface XhtmlLafConstants extends BaseLafConstants
 
   // Calendar styles
   public static final String AF_SELECT_INPUT_DATE_NAV_STYLE_CLASS =
-    "af|selectInputDate::nav";
+    "af|inputDate::nav";
   public static final String AF_SELECT_INPUT_DATE_TITLE_STYLE_CLASS =
-    "af|selectInputDate::title";
+    "af|inputDate::title";
   public static final String AF_SELECT_INPUT_DATE_HEADER_STYLE_CLASS =
-    "af|selectInputDate::header";
+    "af|inputDate::header";
   public static final String AF_SELECT_INPUT_DATE_DISABLED_STYLE_CLASS =
-    "af|selectInputDate::disabled";
+    "af|inputDate::disabled";
   public static final String AF_SELECT_INPUT_DATE_ENABLED_STYLE_CLASS =
-    "af|selectInputDate::enabled";
+    "af|inputDate::enabled";
   public static final String AF_SELECT_INPUT_DATE_SELECTED_STYLE_CLASS =
-    "af|selectInputDate::selected";
+    "af|inputDate::selected";
   public static final String AF_SELECT_INPUT_DATE_CONTENT_STYLE_CLASS =
-    "af|selectInputDate::content";
+    "af|inputDate::content";
 
 
   // Inline calendar styles
@@ -823,11 +823,33 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS =
     "af|showOneAccordion::title-disabled-link";
 
+  // tr:panelAccordion styles
+  public static final String AF_PANELACCORDION_CONTAINER_STYLE_CLASS =
+    "af|panelAccordion::container";
+
+  public static final String AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS =
+    "af|panelAccordion::header-expanded";
+
+  public static final String AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS =
+    "af|panelAccordion::header-collapsed";
+
+  public static final String AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS =
+    "af|panelAccordion::header-disabled";
+
+  public static final String AF_PANELACCORDION_CONTENT_STYLE_CLASS =
+    "af|panelAccordion::content";
+
+  public static final String AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS =
+    "af|panelAccordion::title-link";
+
+  public static final String AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS =
+    "af|panelAccordion::title-disabled-link";
+
 
   // =============PROPERTY NAMES================
 
   public static final String AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY =
-    "af|navigationPath-ora-show-last-item";
+    "af|breadCrumbs-ora-show-last-item";
   public static final String AF_PANEL_LIST_DEFAULT_COLUMNS =
     "af|panelList-ora-default-columns";    
   public static final String AF_TABLE_SELECTION_BAR_IN_TABLE =
@@ -912,12 +934,12 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "AFHeaderConfirmationIcon";
 
   // the alias icon for navigationPath separator icon that is shared
-  // by tr:navigationPath and tr:treeTable.
+  // by tr:breadCrumbs and tr:treeTable.
   public static final String PATH_SEPARATOR_ICON_ALIAS_NAME =
     "AFPathSeparatorIcon";
 
   public static final String AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME =
-    "af|navigationPath::separator-icon";
+    "af|breadCrumbs::separator-icon";
 
   public static final String AF_TREE_TABLE_MP_SEPARATOR_ICON_NAME =
     "af|treeTable::separator-icon";
@@ -926,7 +948,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|panelPage::separator-icon";
   // this renders a button that launches the modal date picker.
   public static final String AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME =
-    "af|selectInputDate::launch-icon";
+    "af|inputDate::launch-icon";
 
   // ProcessIndicator icons
   public static final String AF_PROGRESS_INDICATOR_INDETERMINATE_ICON_NAME =
@@ -981,13 +1003,13 @@ public interface XhtmlLafConstants extends BaseLafConstants
   // Defined in BaseDesktopSkin and OracleDesktopSkinExtension
   // not sure under what circumstances the code runs that renders this.
   public static final String AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME =
-    "af|selectInputColor::launch-icon";
+    "af|inputColor::launch-icon";
 
   // (selectInput)
   // Doesn't render in pda. Not supported in pda, that's why.
   // Defined in BaseDesktopSkin and OracleDesktopSkinExtension
   public static final String AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME =
-    "af|selectInputColor::swatch-overlay-icon";
+    "af|inputColor::swatch-overlay-icon";
 
 
   // checkbox icons
@@ -1073,7 +1095,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   // , so it picks up base.xhtml's
   // and that renders null for the icon.
   public static final String AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME =
-    "af|selectInputText::button-icon";
+    "af|inputListOfValues::button-icon";
 
   // SortableHeader Icons (column, sortable=true)
   // used by base.desktop and base.pda SortableHeaderRenderer.
@@ -1131,13 +1153,13 @@ public interface XhtmlLafConstants extends BaseLafConstants
    "af|chooseDate::next-disabled-icon";
 
   public static final String AF_SELECT_INPUT_DATE_PREV_ICON_NAME =
-   "af|selectInputDate::prev-icon";
+   "af|inputDate::prev-icon";
   public static final String AF_SELECT_INPUT_DATE_NEXT_ICON_NAME =
-   "af|selectInputDate::next-icon";
+   "af|inputDate::next-icon";
   public static final String AF_SELECT_INPUT_DATE_PREV_DISABLED_ICON_NAME =
-   "af|selectInputDate::prev-disabled-icon";
+   "af|inputDate::prev-disabled-icon";
   public static final String AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME =
-   "af|selectInputDate::next-disabled-icon";
+   "af|inputDate::next-disabled-icon";
 
   /**
    * Constant string appended to various IDs to make another related

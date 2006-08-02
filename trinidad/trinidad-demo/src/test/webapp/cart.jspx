@@ -30,9 +30,9 @@
           <tr:messages/>
     
           <tr:panelHeader text="Shopping Cart">
-          <tr:panelForm>        
+          <tr:panelFormLayout>        
             <tr:inputText readOnly="true" value="foobar" label="Items" />
-          </tr:panelForm>
+          </tr:panelFormLayout>
           
           <tr:panelButtonBar>
             <tr:commandButton action="checkout" text="Proceed to Checkout"/>        

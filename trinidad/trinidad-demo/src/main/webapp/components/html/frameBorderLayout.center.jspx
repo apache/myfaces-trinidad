@@ -23,14 +23,14 @@
   <f:view>
  <tr:document title="FrameBorderLayout Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:outputFormatted styleUsage="instruction" 
                                value="&lt;b>A frameBorderLayout&lt;/b>"/>
             <!--jsp:directive.include file="editor.jspf" /-->
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

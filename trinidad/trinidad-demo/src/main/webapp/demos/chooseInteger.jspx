@@ -24,7 +24,7 @@
      <tr:panelPage>
        <tr:messages/>
       <tr:panelHeader text="Add two numbers">
-      <tr:panelForm>
+      <tr:panelFormLayout>
        <tr:inputText label="Number 1:" value="#{chooseInteger.value1}"
                      required="true">
         <f:facet name="help">
@@ -37,7 +37,7 @@
          <tr:outputText value="Enter an integer."/>
         </f:facet>
        </tr:inputText>
-       </tr:panelForm>
+       </tr:panelFormLayout>
       </tr:panelHeader>
        <tr:panelButtonBar>
         <tr:commandButton text="Show Dialog" action="dialog:simpleDialog"

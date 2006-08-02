@@ -150,10 +150,10 @@ container.]]>
       <mfp:example>
         <xhtml:p>Two showDetailItems, the first of which is "disclosed":</xhtml:p>
         <mfp:source-code>
-          <![CDATA[<tr:showOneTab>
+          <![CDATA[<tr:panelTabbed>
             <tr:showDetailItem text="First" disclosed="true"/>
             <tr:showDetailItem text="Second"/>
-           </tr:showOneTab>]]>
+           </tr:panelTabbed>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Prakash Udupa</mfp:author>

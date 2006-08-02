@@ -23,27 +23,27 @@
   <f:view>
    <tr:document title="ChooseDate Demo" >
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Simple chooseDate &lt;/b>"/>
             <tr:chooseDate binding="#{editor.component}" id="idp1" shortDesc="Choose Date"/>
-            <tr:selectInputDate id="df1a"
+            <tr:inputDate id="df1a"
                            chooseId="idp1"
                            shortDesc="Choose Date"/>
             <tr:inputText id="ti1a" value="Not a Date Field" shortDesc="Enter value"/>
-            <tr:selectInputDate id="df1b"
+            <tr:inputDate id="df1b"
                            chooseId="idp1"
                            shortDesc="Choose Date"/>
-            <tr:selectInputDate id="df1c"
+            <tr:inputDate id="df1c"
                            chooseId="idp1"
                            shortDesc="Choose Date"/>
 
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
      </tr:document>
   </f:view>

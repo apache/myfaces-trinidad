@@ -89,8 +89,8 @@ public final class NamespaceURI
     String uri;
     String name;
     // jmw test
-    // af|navigationPath::separator-icon fails, because it thinks that
-    // af|navigationPath is the prefix.
+    // af|breadCrumbs::separator-icon fails, because it thinks that
+    // af|breadCrumbs is the prefix.
     // distinguish between single quotes and double quotes for now.
 
     // jmw test

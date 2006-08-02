@@ -416,14 +416,14 @@ class SkinStyleSheetParserUtils
     // Icon selectors that end with :rtl will be a separate Icon object.
     // I won't combine :rtl icons with regular icons into the same object
     // like we did in 2.2.
-    // af|navigationPath::separatorIcon {content: ">"}
-    // af|navigationPath::separatorIcon:rtl {content: "<"}
+    // af|breadCrumbs::separatorIcon {content: ">"}
+    // af|breadCrumbs::separatorIcon:rtl {content: "<"}
     // this will create
-    // key=af|navigationPath::separatorIcon with TextIcon(">", ">", style, inlineStyle)
+    // key=af|breadCrumbs::separatorIcon with TextIcon(">", ">", style, inlineStyle)
     // and
-    // key=af|navigationPath::separatorIcon:rtl with TextIcon("<", "<", rtlstyle, rtlinlineStyle)
-    // then when I go to get the icon af|navigationPath::separatorIcon, the skin
-    // will know to ask for af|navigationPath::separatorIcon:rtl or af|navigationPath::separatorIcon
+    // key=af|breadCrumbs::separatorIcon:rtl with TextIcon("<", "<", rtlstyle, rtlinlineStyle)
+    // then when I go to get the icon af|breadCrumbs::separatorIcon, the skin
+    // will know to ask for af|breadCrumbs::separatorIcon:rtl or af|breadCrumbs::separatorIcon
     // depending upon the DIRECTION that is set on the context.
     // The current Icon classes code will not have to change.
 
@@ -712,7 +712,7 @@ class SkinStyleSheetParserUtils
 /** unused for now. we want to do this for icons, properties and styles at once
   // substitute the prefix (the part that comes before the |) with
   // its namespace
-  // e.g., selectorName = af|navigationPath
+  // e.g., selectorName = af|breadCrumbs
   // af maps to http://myfaces.apache.org/adf/faces
   // return
   // http://myfaces.apache.org/adf/faces|navigationPath

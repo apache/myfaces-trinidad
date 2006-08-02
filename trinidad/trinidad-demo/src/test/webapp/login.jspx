@@ -29,10 +29,10 @@
         <tr:panelPage>
           <tr:messages/>
           <tr:panelHeader text="Log In">
-            <tr:panelForm> 
+            <tr:panelFormLayout> 
               <tr:inputText label="UserName" value="#{order.customer.userName}"/>
               <tr:inputText label="Password" value="#{order.customer.password}" secret="true"/>   
-            </tr:panelForm>
+            </tr:panelFormLayout>
             <tr:panelButtonBar>  
               <tr:commandButton text="Log In" action="loggedIn"/>
               <tr:commandButton text="New User" action="newUser"/>   

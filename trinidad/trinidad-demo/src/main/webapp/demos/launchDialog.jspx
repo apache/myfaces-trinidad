@@ -39,14 +39,14 @@
                           windowWidth="250" windowHeight="250"
                           launchListener="#{launchDialog.addParameter}"
                           returnListener="#{launchDialog.returned}"/>
-         <tr:objectSeparator/>
+         <tr:separator/>
 
          <tr:table value="#{table}" var="row" width="40%">
            <tr:column>
              <tr:outputText value="#{row.int}"/>
            </tr:column>
            <tr:column noWrap="true" width="100%">
-             <tr:panelBorder>
+             <tr:panelBorderLayout>
                <tr:inputText readOnly="true" value="(Empty)" binding="#{launchDialog.tableInput}"/>
                <f:facet name="end">
                  <tr:commandButton text="..." action="dialog:chooseInteger"
@@ -54,7 +54,7 @@
                                   useWindow="true"
                                   returnListener="#{launchDialog.tableReturned}"/>
                </f:facet>
-             </tr:panelBorder>
+             </tr:panelBorderLayout>
            </tr:column>
          </tr:table>
          <tr:goLink text="Demo of launching a dialog from &lt;tr:poll&gt;"

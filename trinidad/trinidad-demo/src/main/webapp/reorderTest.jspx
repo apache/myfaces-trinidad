@@ -22,14 +22,14 @@
   <f:view>
     <tr:document title="Reordering Test">
       <tr:form>
-        <tr:panelGroup binding="#{reorder.panel}" layout="vertical">
+        <tr:panelGroupLayout binding="#{reorder.panel}" layout="vertical">
           <tr:outputText value="Item 1"/>
           <tr:outputText value="Item 2"/>
           <tr:outputText value="Item 3"/>
           <f:facet name="separator">
             <tr:outputText value="----------"/>
           </f:facet>
-        </tr:panelGroup>
+        </tr:panelGroupLayout>
         <f:verbatim><br /></f:verbatim>
         <tr:commandButton text="Add" actionListener="#{reorder.add}"/>
         <tr:commandButton text="Remove last" actionListener="#{reorder.remove}"/>

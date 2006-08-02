@@ -16,7 +16,7 @@
       <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="Introduced for separateRows attribute check"/>
     </component>
     
-    <component tr:facet="detailStamp" tr:type="org.apache.myfaces.trinidad.CorePanelGroup" layout="vertical">
+      <component tr:facet="detailStamp" tr:type="org.apache.myfaces.trinidad.CorePanelGroupLayout" layout="vertical">
       <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="testStamp One"/>
       <component tr:type="org.apache.myfaces.trinidad.CoreOutputText" value="testStamp Two"/>
     </component>

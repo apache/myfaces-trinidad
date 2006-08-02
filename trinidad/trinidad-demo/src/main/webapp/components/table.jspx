@@ -24,9 +24,9 @@
  <tr:document title="table Demo">
         <tr:form >
           <tr:messages/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>     
@@ -56,12 +56,12 @@
                 <tr:commandButton text="Action" action="#{row.action}"/>
               </tr:column>
               <f:facet name="detailStamp" >
-                <tr:panelGroup layout="vertical" >
+                <tr:panelGroupLayout layout="vertical" >
                   <tr:outputText value="Element Name: #{row.name}"/>
                   <tr:outputText value="Atomic Number: #{row.number}"/>
                   <tr:outputText value="Symbol: #{row.symbol}"/>
                   <tr:outputText value="Group: #{row.group}"/>
-                </tr:panelGroup>
+                </tr:panelGroupLayout>
               </f:facet>
             </tr:table>
 
@@ -107,7 +107,7 @@
             </tr:table>
 
             
-          </tr:panelGroup>    
+          </tr:panelGroupLayout>    
         </tr:form>
  </tr:document>
   </f:view>

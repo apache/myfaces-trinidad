@@ -35,7 +35,7 @@
 
           <tr:panelHeader text="Welcome to the Apache Trinidad Feature Demos">
            <tr:panelHeader text="Basics">
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <tr:commandLink text="Converters and Validators" action="convertValidateDemos" />
               <tr:commandLink text="Partial Page Rendering Demos"
                               action="demos.ppr" />
@@ -48,7 +48,7 @@
               <tr:commandLink text="Table Demos" action="demos.tableDemos" />
               <tr:commandLink text="Skin Demo" action="demos.skin" />
               
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
            </tr:panelHeader>
           </tr:panelHeader>
         </tr:panelPage>

@@ -87,67 +87,67 @@ component. **/
 
 
 
-/** showOneTab **/
+/** panelTabbed **/
 /** ---------- **/
-/** .AFShowOneTab:alias is included in af|showOneTab::orientation-top and 
-    af|showOneTab::orientation-bottom which are the styles on the table. **/
-.AFShowOneTab:alias {
+/** .AFPanelTabbed:alias is included in af|panelTabbed::orientation-top and 
+    af|panelTabbed::orientation-bottom which are the styles on the table. **/
+.AFPanelTabbed:alias {
   background-color:#A4CACA; 
   text-align:center;
 }
 /** make the top tab bar have a solid border underneath **/
-af|showOneTab::orientation-top
+af|panelTabbed::orientation-top
 {
   border-bottom:3px solid #367FA8;border-top:3px solid #367FA8;
 }
 /** make the bottom tab bar have a solid border on top **/
-af|showOneTab::orientation-bottom
+af|panelTabbed::orientation-bottom
 {
   border-bottom:3px solid #367FA8;border-top:3px solid #367FA8;
 }
 
-af|showOneTab::separator {
+af|panelTabbed::separator {
   margin-width:4px;
   border-top: #ADBCC5; solid 4pt ;
   border-bottom: #ADBCC5; solid 4pt ;
   BACKGROUND-COLOR: white;
   PADDING-LEFT: 1px;}
 
-af|showOneTab::tab {
+af|panelTabbed::tab {
   font-weight:bold;
   font-family:Tahoma; 
   padding:6px 8px;
 }
 
-af|showOneTab::tab-selected {
+af|panelTabbed::tab-selected {
   font-family:Tahoma;
   padding:6px 8px; 
   text-decoration: none; 
   background-color:white
 }  
 
-af|showOneTab::tab-link {
+af|panelTabbed::tab-link {
   color:white;
   text-decoration: none;
 }
 
-af|showOneTab::tab-link:hover
+af|panelTabbed::tab-link:hover
 {
   -ora-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 /* put some space in the
 first cell */
-af|showOneTab::cell-start {
+af|panelTabbed::cell-start {
   background-color:transparent; 
   padding-left:10px;
   width:50%;
 }
-af|showOneTab::cell-end {
+af|panelTabbed::cell-end {
   width:50%;
 }
 /** put some space between the tabs and the body */
-af|showOneTab::body
+af|panelTabbed::body
 {
   padding: 10px;
 }
@@ -331,7 +331,7 @@ af|panelHeader
 }
 
 
-/** processTrain **/
+/** train **/
 /** ------------ **/
 /**  We override the AFTrainStation alias style to add some
        padding, and also to display the station indicator
@@ -364,14 +364,14 @@ af|selectBooleanCheckbox::disabled-only-checked-icon
 }
 
 /* use special properties to change the ui **/
-/* don't show the last item in navigationPath (the default is to show it)*/
-af|navigationPath {-ora-show-last-item:false}
+/* don't show the last item in breadCrumbs (the default is to show it)*/
+af|breadCrumbs {-ora-show-last-item:false}
 
 /** if, for some reason, you don't want an icon to show up, you
     can hide it like this (this feature will be more useful when skins can
     extends other skins besides simple)
 
-af|navigationPath::separator-icon {content:inhibit}    
+af|breadCrumbs::separator-icon {content:inhibit}    
 */
 
 .AFHeaderErrorIcon:alias 
@@ -441,7 +441,7 @@ Trinidad components */
   font-size:small;
 }
 
-af|panelForm::label-cell
+af|panelFormLayout::label-cell
 {
   -ora-rule-ref: selector(".AFStartTextAlign:alias");
 }

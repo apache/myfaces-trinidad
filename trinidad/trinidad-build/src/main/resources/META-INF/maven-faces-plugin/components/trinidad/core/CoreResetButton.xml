@@ -241,13 +241,13 @@
       <mfp:example>
         <xhtml:p/>
         <mfp:source-code><![CDATA[<h:form>
-     <tr:panelGroup type="horizontal">
+     <tr:panelGroupLayout type="horizontal">
        <tr:panelHeader text="Reset Elements." /> 
        <tr:selectBooleanCheckbox text="Box1" /> 
        <tr:selectBooleanCheckbox text="Box2" selected="true"/> 
        <tr:selectBooleanCheckbox text="Box3" /> 
        <tr:resetButton textAndAccessKey="&amp;Reset"/> 
-     </tr:panelGroup>
+     </tr:panelGroupLayout>
    </h:form>]]>
         </mfp:source-code>
       </mfp:example>

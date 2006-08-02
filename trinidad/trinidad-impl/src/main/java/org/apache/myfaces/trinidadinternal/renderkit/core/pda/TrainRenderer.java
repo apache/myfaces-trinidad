@@ -1,0 +1,123 @@
+/*
+ * Copyright  2003-2006 The Apache Software Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
+
+import java.io.IOException;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import javax.faces.context.ResponseWriter;
+
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.component.UIXProcess;
+import org.apache.myfaces.trinidad.component.core.nav.CoreTrain;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+
+public class TrainRenderer
+  extends XhtmlRenderer
+{
+
+  /**
+   * Constructor.
+   */
+  public TrainRenderer()
+  {
+    super(CoreTrain.TYPE);
+  }
+
+  protected void encodeAll(
+    FacesContext        context,
+    RenderingContext    arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
+    UIXProcess process = (UIXProcess) component;          
+    UIComponent stamp = process.getNodeStamp();
+    
+    if(stamp != null)
+    { 
+      Object oldPath = process.getRowKey();      
+      boolean isNewPath = _setNewPath(process);
+      if (isNewPath)
+      {
+        int selectedIndex = process.getRowIndex();
+        int length = process.getRowCount();      
+        String pattern;
+        String[] parameters;
+        
+        selectedIndex++; 
+        
+        if (length == XhtmlConstants.MAX_VALUE_UNKNOWN)
+        {
+          pattern = arc.getTranslatedString(
+            _SINGLE_RANGE_FORMAT_NO_TOTAL_STRING);
+    
+          parameters = new String[]
+          {
+            arc.getTranslatedString(_STEP_TEXT_KEY),
+            IntegerUtils.getString(selectedIndex)
+          };
+          
+        }
+        else
+        {
+          pattern = arc.getTranslatedString(_SINGLE_RANGE_FORMAT_TOTAL_STRING);
+    
+          parameters = new String[]
+          {
+            arc.getTranslatedString(_STEP_TEXT_KEY),
+            IntegerUtils.getString(selectedIndex),
+            IntegerUtils.getString(length)
+          };
+        }
+
+        ResponseWriter writer = context.getResponseWriter();
+        String outputText = XhtmlUtils.getFormattedString(pattern, parameters); 
+        writer.writeText(outputText, null);
+        
+        process.setRowKey(oldPath);
+      }
+    }
+  }
+
+
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+  
+  private boolean _setNewPath(
+    UIXProcess component)
+  {
+    Object focusPath = component.getFocusRowKey();
+    component.setRowKey(focusPath);
+    return true;
+  }
+  
+  static private final String _STEP_TEXT_KEY = 
+    "af_train.STEP";
+  static private final String _SINGLE_RANGE_FORMAT_TOTAL_STRING =
+    "af_train.FORMAT_TOTAL";
+  static private final String _SINGLE_RANGE_FORMAT_NO_TOTAL_STRING =
+    "af_train.FORMAT_NO_TOTAL";
+
+}

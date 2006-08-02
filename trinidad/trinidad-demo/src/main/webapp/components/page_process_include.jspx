@@ -21,10 +21,10 @@
   <f:view>
     <tr:document title="Page Hierarchy Demo">
       <tr:form>
-        <tr:panelGroup layout="vertical">
+        <tr:panelGroupLayout layout="vertical">
           <tr:commandLink immediate="true" text="Component Guide"
                           action="guide"/>
-          <tr:objectSeparator/>
+          <tr:separator/>
           <tr:page var="foo" value="#{menuModel.model}">
             <f:facet name="nodeStamp">
               <tr:commandNavigationItem
@@ -32,7 +32,7 @@
                 icon="#{foo.ico}"/>
             </f:facet>
             <f:facet name="location">
-               <tr:processTrain var="foo" value="#{processPageMenuModel}">
+               <tr:train var="foo" value="#{processPageMenuModel}">
                  <f:facet name="nodeStamp">
                    <tr:commandNavigationItem
                      text="#{foo.label}"
@@ -40,7 +40,7 @@
                      immediate="#{processPageMenuModel.immediate}"
                      readOnly="#{processPageMenuModel.readOnly}"/>
                  </f:facet>
-              </tr:processTrain>    
+              </tr:train>    
             </f:facet>   
             <f:facet name="appAbout">
               <tr:outputText value="appAbout facet"/>
@@ -89,7 +89,7 @@
               </f:facet>
             </tr:processChoiceBar>
           </tr:page>
-        </tr:panelGroup>
+        </tr:panelGroupLayout>
       </tr:form>
     </tr:document>
   </f:view>

@@ -2,10 +2,10 @@
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CorePanelPageHeader">
      
-    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+    <component tr:type="org.apache.myfaces.trinidad.CoreImage"
                 tr:facet="branding"
                 source="/foo/foo.gif"/>
-    <component tr:type="org.apache.myfaces.trinidad.CoreObjectImage"
+    <component tr:type="org.apache.myfaces.trinidad.CoreImage"
                 tr:facet="brandingApp"
                 source="/foo/bar.gif"/>
    

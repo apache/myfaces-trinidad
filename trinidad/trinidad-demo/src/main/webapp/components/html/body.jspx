@@ -25,9 +25,9 @@
       <trh:head title="Body Demo"/>
       <trh:body onload="alert('body loading')"  binding="#{editor.component}">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                   action="guide"/>               
@@ -35,7 +35,7 @@
               
             <jsp:directive.include file="../editor.jspf" />
     
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>

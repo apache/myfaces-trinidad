@@ -25,7 +25,7 @@
       <trh:head title="Test of selectItemSupport"/>
       <trh:body>
        <tr:form>
-         <tr:panelForm rows="5" maxColumns="3">
+         <tr:panelFormLayout rows="5" maxColumns="3">
            <tr:selectOneChoice label="Explicit selectItem">
              <f:selectItem itemValue="foo" itemLabel="Foo"/>
              <f:selectItem itemValue="bar" itemLabel="Bar"/>
@@ -98,7 +98,7 @@
              <f:selectItems value="#{selectItemTest.itemMap}"/>
            </tr:selectOneRadio>
 
-         </tr:panelForm>
+         </tr:panelFormLayout>
     
          <tr:selectOrderShuttle>
            <f:selectItems value="#{selectItemTest.itemList}"/>

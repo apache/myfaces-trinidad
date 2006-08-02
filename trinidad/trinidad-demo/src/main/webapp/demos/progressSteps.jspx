@@ -52,56 +52,56 @@
 
             <!--Represents a check list-->
             <tr:panelHeader text="Progress steps as a check list"/>
-            <tr:panelGroup layout="horizontal">
-              <tr:objectSpacer width="30"/>
-              <tr:panelGroup layout="vertical" partialTriggers="pollid" id="pg1">
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg1">
                 <tr:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
                   end="#{progressSteps.progressModel.maximum - 1}" 
                   items="#{progressSteps.progressSteps}">
-                  <tr:panelGroup layout="horizontal">
-                    <tr:objectSpacer 
+                  <tr:panelGroupLayout layout="horizontal">
+                    <tr:spacer 
                       width="13"
                       rendered="#{vs.index > progressSteps.progressModel.value}"/>
-                    <tr:objectImage 
+                    <tr:image 
                       source="/components/images/processCheck.gif" 
                       rendered="#{progressSteps.progressModel.value >= vs.index}"/>
-                    <tr:objectSpacer width="5"/>
+                    <tr:spacer width="5"/>
                     <tr:outputText 
                       value="#{progressStep}" 
                       styleClass="AFFieldText"/>
-                  </tr:panelGroup>
+                  </tr:panelGroupLayout>
                 </tr:forEach>
-              </tr:panelGroup>
-            </tr:panelGroup>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
 
             <!--Represents a growing list-->
             <tr:panelHeader text="Progress steps as a growing list"/>
-            <tr:panelGroup layout="horizontal">
-              <tr:objectSpacer width="30"/>
-              <tr:panelGroup layout="vertical" partialTriggers="pollid" id="pg2">
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical" partialTriggers="pollid" id="pg2">
                 <tr:forEach 
                   var="progressStep" 
                   varStatus="vs" 
                   begin="0" 
                   end="#{progressSteps.progressModel.maximum - 1}" 
                   items="#{progressSteps.progressSteps}">
-                  <tr:panelGroup layout="horizontal">
+                  <tr:panelGroupLayout layout="horizontal">
                     <tr:outputText 
                       value="#{progressStep}" 
                       styleClass="AFFieldText"
                       rendered="#{progressSteps.progressModel.value >= vs.index}"/>
-                  </tr:panelGroup>
+                  </tr:panelGroupLayout>
                 </tr:forEach>
-              </tr:panelGroup>
-            </tr:panelGroup>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
 
             <tr:panelHeader/>
-            <tr:panelGroup layout="horizontal">
-              <tr:objectSpacer width="30"/>
-              <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="horizontal">
+              <tr:spacer width="30"/>
+              <tr:panelGroupLayout layout="vertical">
                 <tr:inputText 
                   readOnly="true" 
                   label="Date/Time from last full page refresh" 
@@ -110,13 +110,13 @@
                   <tr:convertDateTime 
                     pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                 </tr:inputText>
-                <tr:objectSpacer height="10"/>
+                <tr:spacer height="10"/>
                 <tr:commandButton 
                   text="Cancel" 
                   action="progressCancel" 
                   actionListener="#{progressSteps.cancelProcess}"/>
-              </tr:panelGroup>
-            </tr:panelGroup>
+              </tr:panelGroupLayout>
+            </tr:panelGroupLayout>
           </tr:panelHeader>
 
           </tr:panelPage>

@@ -29,7 +29,7 @@
     <body>
       <tr:form >
         <tr:messages/>
-        <tr:panelForm>
+        <tr:panelFormLayout>
           <tr:inputText label="First:" value="1"/>
           <tr:inputText label="Second:" value="2"/>
           <tr:inputText label="Third:" value="3"/>
@@ -48,7 +48,7 @@
           <tr:inputText label="Textarea:" value="Long text" rows="5" />
           <tr:selectBooleanCheckbox label="Checked:" selected="true"
                text="True or false"/>
-        </tr:panelForm>
+        </tr:panelFormLayout>
         <tr:commandButton text="Submit"/>
       </tr:form>
      </body>

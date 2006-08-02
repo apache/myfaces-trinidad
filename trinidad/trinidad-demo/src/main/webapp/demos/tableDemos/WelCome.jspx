@@ -33,7 +33,7 @@
           </f:facet>
           <tr:outputFormatted styleUsage="instruction" 
             value="These demos show how you can play around with table data"/>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:panelHeader text="Add Row Demo">
               <tr:outputFormatted styleUsage="instruction" 
                 value="This demo shows you how to add a row to your model 
@@ -48,7 +48,7 @@
               <tr:commandButton id="TotalRowButton" text="go to TotalRow Demo" 
                 action="totalRow"/>
             </tr:panelHeader>
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:panelPage>
       </tr:form>
     </tr:document>

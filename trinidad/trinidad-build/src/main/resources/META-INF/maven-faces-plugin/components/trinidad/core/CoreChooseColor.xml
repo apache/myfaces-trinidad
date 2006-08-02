@@ -248,7 +248,7 @@
                          customColorData="#{myBean.listOfColors}">
 
 <!-- A chooseColor that is associated with a selectInputColor -->
-<tr:selectInputColor id="sic1" chooseId="cc2"/>
+<tr:inputColor id="sic1" chooseId="cc2"/>
 <tr:chooseColor id="cc2" width="18"
                 colorData="#{requestContext.colorPalette.web216}"/>]]>
         </mfp:source-code>

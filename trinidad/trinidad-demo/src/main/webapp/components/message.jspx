@@ -23,15 +23,15 @@
   <f:view>
  <tr:document title="Messages Demo">
    <tr:form defaultCommand="message">
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>            
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>Type 'cat' to see an error message&lt;/b>"/>
               
-            <tr:panelGroup layout="vertical">
+            <tr:panelGroupLayout layout="vertical">
               <tr:outputLabel for="foo" value="Label"/>
               <tr:message for="foo" binding="#{editor.component}" 
               inlineStyle="background-color:red">
@@ -43,11 +43,11 @@
                 <f:converter converterId="javax.faces.BigInteger"/>
               </tr:inputText>                      
               <tr:commandButton id="message" text="Submit"/>
-            </tr:panelGroup>
+            </tr:panelGroupLayout>
 
             <jsp:directive.include file="editor.jspf" />
     
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

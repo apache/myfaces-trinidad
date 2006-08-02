@@ -31,14 +31,14 @@
       </trh:head>
       <trh:body>
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
             <tr:commandLink immediate="true" text="Component Guide"
                             action="guide"/>
-            <tr:panelGroup layout="vertical">
-              <tr:panelGroup layout="horizontal" styleClass="tabsPanelGroup">
+            <tr:panelGroupLayout layout="vertical">
+              <tr:panelGroupLayout layout="horizontal" styleClass="tabsPanelGroup">
                 <tr:menuTabs shortDesc="Select tab">
                   <tr:commandNavigationItem text="Home" action="guide.menuTabs"
                                       selected="true"/>
@@ -49,13 +49,13 @@
                   <tr:commandNavigationItem text="Your Account"
                                       action="guide.menuButtons"/>
                   <tr:outputText value="|"/>
-                  <tr:objectIcon name="required"/>
+                  <tr:icon name="required"/>
                   <tr:commandNavigationItem text="SALES!" action="guide.menuButtons"/>
-                  <tr:objectIcon name="required"/>
+                  <tr:icon name="required"/>
                   <tr:outputText value="|"/>
                   <tr:commandNavigationItem text="Help" action="guide.menuButtons"/>
                 </tr:menuButtons>
-              </tr:panelGroup>
+              </tr:panelGroupLayout>
               <tr:menuBar>
                 <tr:commandNavigationItem text="Jackets" action="guide.menuBar"
                                     selected="true"/>
@@ -65,10 +65,10 @@
                 <tr:commandNavigationItem text="Swimwear" action="guide.menuBar"/>
                 <tr:commandNavigationItem text="Sale Items" action="guide.menuBar"/>
               </tr:menuBar>
-              <tr:panelGroup layout="horizontal"
+              <tr:panelGroupLayout layout="horizontal"
                              styleClass="adfFacesDemoSearchPanelGroup">
                 <f:facet name="separator">
-                  <tr:objectSpacer width="10px"/>
+                  <tr:spacer width="10px"/>
                 </f:facet>
                 <tr:selectOneChoice label="Search">
                   <tr:selectItem label="Cycling"/>
@@ -82,12 +82,12 @@
                   <tr:selectItem label="beach" value="beach"/>
                 </tr:selectOneChoice>
                 <tr:commandButton text="Go"/>
-              </tr:panelGroup>
-              <tr:panelGroup layout="horizontal" styleClass="welcomePanel">
+              </tr:panelGroupLayout>
+              <tr:panelGroupLayout layout="horizontal" styleClass="welcomePanel">
                 <tr:outputFormatted styleUsage="instruction"
                                     value="&lt;b>Welcome!&lt;/b> We hope you find something you like."></tr:outputFormatted>
-              </tr:panelGroup>
-              <tr:panelHorizontal valign="top" inlineStyle="padding:5px;">
+              </tr:panelGroupLayout>
+              <tr:panelHorizontalLayout valign="top" inlineStyle="padding:5px;">
                 <tr:panelBox background="medium" text="Browse" inlineStyle="width:160px">
                   <tr:outputText value="Recent Purchases"
                                  styleClass="panelBoxHeader"/>
@@ -118,21 +118,21 @@
                                destination="http://www.apache.org"/>
                   </tr:panelList>
                 </tr:panelBox>
-                <tr:panelGroup layout="vertical">
+                <tr:panelGroupLayout layout="vertical">
                   <tr:panelHeader text="Recommendations for you">
                     <tr:outputText value="Everything in Camping  is on sale! Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
                                    styleClass="mainContentText"/>
                   </tr:panelHeader>
-                  <tr:objectSpacer height="5px"/>
+                  <tr:spacer height="5px"/>
                   <tr:panelHeader text="New in Down Jackets!">
                     <tr:outputText value="You might be sweltering in 100 degree heat, but think ahead to the cold winters and buy                     a down jacket!"
                                    styleClass="mainContentText"/>
                   </tr:panelHeader>
-                  <tr:objectSpacer height="15px"/>
-                  <tr:showOneTab>
+                  <tr:spacer height="15px"/>
+                  <tr:panelTabbed>
                     <tr:showDetailItem text="Tab 1">
                       <tr:panelHeader text="Tab Header 1">
-                        <tr:panelForm>
+                        <tr:panelFormLayout>
                           <tr:inputText readOnly="true" label="Label 2-1"
                                         value="Value" styleClass="AFDataText"/>
                           <tr:inputText readOnly="true"
@@ -141,25 +141,25 @@
                                         styleClass="AFDataText">
                             <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                           </tr:inputText>
-                          <tr:selectInputDate label="Birthdate:"/>
-                        </tr:panelForm>
+                          <tr:inputDate label="Birthdate:"/>
+                        </tr:panelFormLayout>
                       </tr:panelHeader>
                     </tr:showDetailItem>
                     <tr:showDetailItem text="Tab 2" disclosed="true">
-                      <tr:panelHeader text="ShowOneTab details">
+                      <tr:panelHeader text="PanelTabbed details">
                         <tr:outputText value="Everything in Camping  is on sale!  Enjoy huge savings on our most popular tents                     and sleeping bags. We even have dried food and mattresses"
                                        styleClass="mainContentText"/>
-                        <tr:panelGroup layout="horizontal">
+                        <tr:panelGroupLayout layout="horizontal">
                           <tr:goButton text="Sorry, Disabled" disabled="true"/>
-                          <tr:objectSpacer width="10px"/>
+                          <tr:spacer width="10px"/>
                           <tr:goButton text="Go!" disabled="false"/>
-                        </tr:panelGroup>
+                        </tr:panelGroupLayout>
                       </tr:panelHeader>
                     </tr:showDetailItem>
                     <tr:showDetailItem text="Tab 4" disabled="true"/>
                     <tr:showDetailItem text="Tab 5">
                       <tr:panelHeader text="Header 5">
-                        <tr:panelForm>
+                        <tr:panelFormLayout>
                           <tr:inputText readOnly="true" label="Label 5-1"
                                         value="Value" styleClass="AFDataText"/>
                           <tr:inputText readOnly="true"
@@ -168,46 +168,46 @@
                                         styleClass="AFDataText">
                             <tr:convertDateTime pattern="EEEEEEEEE, ddMMMyyyy, HH:mm:ss z"/>
                           </tr:inputText>
-                        </tr:panelForm>
+                        </tr:panelFormLayout>
                       </tr:panelHeader>
                     </tr:showDetailItem>
-                  </tr:showOneTab>
-                </tr:panelGroup>
-                <tr:panelGroup layout="vertical">
+                  </tr:panelTabbed>
+                </tr:panelGroupLayout>
+                <tr:panelGroupLayout layout="vertical">
                   <f:facet name="separator">
-                    <tr:objectSpacer height="10px"/>
+                    <tr:spacer height="10px"/>
                   </f:facet>
                   <tr:panelBox background="medium" inlineStyle="width:160px">
-                    <tr:panelGroup layout="vertical">
+                    <tr:panelGroupLayout layout="vertical">
                       <tr:outputText value="New Releases"
                                      styleClass="panelBoxHeader"/>
-                      <tr:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
                       <tr:outputFormatted styleUsage="instruction"
                                           value="Check this out!"/>
-                    </tr:panelGroup>
+                    </tr:panelGroupLayout>
                   </tr:panelBox>
                   <tr:panelBox background="medium" inlineStyle="width:160px">
-                    <tr:panelGroup layout="vertical">
+                    <tr:panelGroupLayout layout="vertical">
                       <tr:outputText value="More Stuff"
                                      styleClass="panelBoxHeader"/>
-                      <tr:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
                       <tr:outputFormatted styleUsage="instruction"
                                           value="Check this out!"/>
-                    </tr:panelGroup>
+                    </tr:panelGroupLayout>
                   </tr:panelBox>
                   <tr:panelBox background="medium" inlineStyle="width:160px">
-                    <tr:panelGroup layout="vertical">
+                    <tr:panelGroupLayout layout="vertical">
                       <tr:outputText value="Your New Releases"
                                      styleClass="panelBoxHeader"/>
-                      <tr:objectImage source="/skins/beach/images/otn_logo_small.gif"/>
+                      <tr:image source="/skins/beach/images/otn_logo_small.gif"/>
                       <tr:outputFormatted styleUsage="instruction"
                                           value="Check this out!"/>
-                    </tr:panelGroup>
+                    </tr:panelGroupLayout>
                   </tr:panelBox>
-                </tr:panelGroup>
-              </tr:panelHorizontal>
-            </tr:panelGroup>
-          </tr:panelGroup>
+                </tr:panelGroupLayout>
+              </tr:panelHorizontalLayout>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>

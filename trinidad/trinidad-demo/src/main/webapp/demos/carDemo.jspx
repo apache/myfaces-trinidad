@@ -33,7 +33,7 @@
           </tr:menuButtons>
          </f:facet>
          <tr:messages/>
-         <tr:panelForm>
+         <tr:panelFormLayout>
 
           <tr:selectOneChoice id="makesChoice" label="Makes:"
                               autoSubmit="true"
@@ -48,17 +48,17 @@
            <f:selectItems binding="#{carBacking.modelItems}"/>
           </tr:selectOneChoice>
 
-         </tr:panelForm>
+         </tr:panelFormLayout>
 
          <!-- Show the price -->
-         <tr:panelGroup layout="vertical">
+         <tr:panelGroupLayout layout="vertical">
           <tr:outputText value="Price: "/>
           <tr:outputText id="price" 
                          partialTriggers="modelsChoice makesChoice launchOptions"
                          binding="#{carBacking.price}">
            <f:convertNumber type="currency"/>
           </tr:outputText>
-          <tr:objectSpacer width="10"/>
+          <tr:spacer width="10"/>
           <!-- A link to show the options;  it starts out disabled -->
           <tr:commandLink id="launchOptions" disabled="true"
                          shortDesc="Click to pick new options"
@@ -70,7 +70,7 @@
           <tr:outputText id="options"
                          binding="#{carBacking.options}"
                          partialTriggers="launchOptions modelsChoice makeChoice"/>
-         </tr:panelGroup>
+         </tr:panelGroupLayout>
 
         </tr:panelPage>
        </tr:form>

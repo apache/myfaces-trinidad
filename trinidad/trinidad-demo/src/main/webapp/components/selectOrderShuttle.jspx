@@ -23,9 +23,9 @@
   <f:view>
  <tr:document title="SelectOrderShuttle Demo">
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/> 
@@ -78,7 +78,7 @@
 -->
              <tr:commandButton text="Submit"/>
 
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
  </tr:document>
   </f:view>

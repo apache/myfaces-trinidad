@@ -35,18 +35,18 @@
           </f:facet>
         <tr:panelHeader text="Explicit AddChildChange/RemoveChildChange/ReorderChildrenChange 
           Persistence Feature Demo">
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator/>
+              <tr:separator/>
             </f:facet>
-            <tr:panelGroup id="pg1">
-              <tr:objectImage 
+            <tr:panelGroupLayout id="pg1">
+              <tr:image 
                 id="oi1" 
   shortDesc="Corporate Brand"
                 source="/components/images/corporateBrand.gif"/>
               <tr:panelBox id="pb1" text="PanelBoxText"/>
               <tr:inputText id="it1" label="Label"/>
-              <tr:selectInputColor 
+              <tr:inputColor 
                 id="sic1" 
                 chooseId="cc1"
                 label="Color:"
@@ -54,41 +54,41 @@
                 <f:facet name="help">
                   <tr:outputText value="Use format (#RRGGBB) or (r,g,b)"/>
                 </f:facet>
-              </tr:selectInputColor>
+              </tr:inputColor>
               <tr:chooseColor 
                 id="cc1" 
                 colorData="#{requestContext.colorPalette.default49}"/>
               <tr:chooseDate id="cd1"/>
-              <tr:selectInputDate label="Date:" id="sid1" chooseId="cd1"/>
-            </tr:panelGroup>
-            <tr:panelGroup>
+              <tr:inputDate label="Date:" id="sid1" chooseId="cd1"/>
+            </tr:panelGroupLayout>
+            <tr:panelGroupLayout>
               <tr:commandButton 
                 id="cb1" 
                 text="Reorder children" 
                 actionListener="#{change.reorderChildren}"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 id="cb2" 
                 text="Remove color child components" 
                 actionListener="#{change.removeChildren}"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 id="cb3" 
                 text="Remove date child components" 
                 actionListener="#{change.removeChildren}"/>
-              <tr:objectSpacer width="10"/>
+              <tr:spacer width="10"/>
               <tr:commandButton 
                 id="cb4" 
                 text="Add an object image child" 
                 actionListener="#{change.appendChild}"/>
-              <tr:objectSpacer width="10" rendered="false"/>
+              <tr:spacer width="10" rendered="false"/>
               <tr:commandButton 
                 id="cb5" 
                 text="Add an object image child to document" 
                 actionListener="#{change.appendChildToDocument}"
                 rendered="false"/>
-            </tr:panelGroup>
-          </tr:panelGroup>
+            </tr:panelGroupLayout>
+          </tr:panelGroupLayout>
          </tr:panelHeader>
         </tr:panelPage>
 

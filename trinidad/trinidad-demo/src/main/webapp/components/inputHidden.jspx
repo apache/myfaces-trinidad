@@ -25,9 +25,9 @@
       <trh:head title="InputHidden Demo"/>
       <trh:body>
         <tr:form>
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <f:facet name="separator">
-              <tr:objectSeparator />
+              <tr:separator />
             </f:facet>   
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>      
@@ -36,7 +36,7 @@
             <tr:commandButton text="Submit"/>
     
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
       </trh:body>
     </trh:html>

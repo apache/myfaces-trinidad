@@ -224,12 +224,12 @@ public interface BaseDesktopConstants extends XhtmlLafConstants
     
   // showOneTab style/icon constants
   public static final String AF_SELECT_ONE_TAB_SEPARATOR_ICON_NAME =
-    "af|showOneTab::separator-icon";
+    "af|panelTabbed::separator-icon";
     
 
   // ColorField style classes
   public static final String AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_STYLE_CLASS =
-    "af|selectInputColor::swatch-overlay";
+    "af|inputColor::swatch-overlay";
 
   // Header style classes
   // if icon attribute is set, this is the style for it.

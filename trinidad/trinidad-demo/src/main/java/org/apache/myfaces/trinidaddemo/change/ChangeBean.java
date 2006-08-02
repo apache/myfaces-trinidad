@@ -45,7 +45,7 @@ import org.apache.myfaces.trinidad.change.RemoveFacetComponentChange;
 import org.apache.myfaces.trinidad.change.ReorderChildrenComponentChange;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
-import org.apache.myfaces.trinidad.component.core.output.CoreObjectImage;
+import org.apache.myfaces.trinidad.component.core.output.CoreImage;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
@@ -62,7 +62,7 @@ import java.io.ByteArrayInputStream;
 public class ChangeBean 
 {
   /**
-   * Picks up an image randomly from a list and changes it on the objectImage.
+   * Picks up an image randomly from a list and changes it on the image.
    */
   public void modifyObjectImage(ActionEvent event)
   {
@@ -116,7 +116,7 @@ public class ChangeBean
   }
 
   /**
-   * Appends an objectImage child to the panelGroup in the underlying JSP document
+   * Appends an image child to the panelGroup in the underlying JSP document
    */
   public void appendChildToDocument(ActionEvent event)
   {
@@ -142,7 +142,7 @@ public class ChangeBean
   }
 
   /**
-   * Appends an objectImage child to the panelGroup.
+   * Appends an image child to the panelGroup.
    */
   public void appendChild(ActionEvent event)
   {
@@ -152,9 +152,9 @@ public class ChangeBean
       return;
     FacesContext fc = FacesContext.getCurrentInstance();
     
-    CoreObjectImage newChild = 
-      (CoreObjectImage) fc.getApplication().createComponent(
-        "org.apache.myfaces.trinidad.CoreObjectImage");
+    CoreImage newChild = 
+      (CoreImage) fc.getApplication().createComponent(
+        "org.apache.myfaces.trinidad.CoreImage");
     newChild.setId("oi2");
     newChild.setInlineStyle("height: 100px, width: 120px");
     newChild.setSource(
@@ -385,7 +385,7 @@ public class ChangeBean
 
   // markup to use for image added to document
   private static final String _IMAGE_MARK_UP = 
-   "<tr:objectImage id='oi3' inlineStyle='height: 100px; width: 120px;' " +
+   "<tr:Image id='oi3' inlineStyle='height: 100px; width: 120px;' " +
    "source='http://homepage.mac.com/awiner/.Pictures/WindyHill/PaleSwallowtail.jpg' " +
    "xmlns:af='http://myfaces.apache.org/adf/faces/EA17'/>";
 

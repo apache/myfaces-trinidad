@@ -23,16 +23,16 @@
   <f:view>
  <tr:document title="InputFile Demo">
         <tr:form usesUpload="true">         
-          <tr:panelGroup layout="vertical">
+          <tr:panelGroupLayout layout="vertical">
             <tr:commandLink immediate="true" text="Component Guide"
                 action="guide"/>
             <tr:outputFormatted styleUsage="instruction" value="&lt;b>InputFile&lt;/b>"/>
-            <tr:objectSeparator/>
+            <tr:separator/>
             <tr:inputFile binding="#{editor.component}" label="Label" valueChangeListener="#{ui.fileUploaded}" />  
             <tr:commandButton text="Submit"/>
-            <tr:objectSeparator/>
+            <tr:separator/>
             <jsp:directive.include file="editor.jspf" />
-          </tr:panelGroup>
+          </tr:panelGroupLayout>
         </tr:form>
     </tr:document>
   </f:view>

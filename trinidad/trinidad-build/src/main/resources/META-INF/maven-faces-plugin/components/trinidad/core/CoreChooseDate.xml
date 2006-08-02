@@ -230,7 +230,7 @@ ISO 8601 dates are of the form "yyyy-MM-dd"
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:selectInputDate chooseId="cd1"/>
+        <mfp:source-code><![CDATA[<tr:inputDate chooseId="cd1"/>
 <tr:chooseDate id="cd1"
                minValue="2004-07-01"
                maxValue="2014-12-31"/>]]>

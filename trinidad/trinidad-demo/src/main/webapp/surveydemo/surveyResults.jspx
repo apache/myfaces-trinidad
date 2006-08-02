@@ -26,7 +26,7 @@
           <tr:panelPage>
            <tr:panelHeader text="Please review your responses:">
        
-            <tr:panelForm>
+            <tr:panelFormLayout>
 <!-- question 1 -->
              <tr:selectOneRadio label="#{survey.q0.prompt}" 
                                     required="true"
@@ -97,7 +97,7 @@
               <survey:validate_answer questionIndex="4"/>
             </tr:selectOneRadio >        
         
-        </tr:panelForm>
+        </tr:panelFormLayout>
        </tr:panelHeader>
           <f:facet name="navigationGlobal">
             <tr:menuButtons>
