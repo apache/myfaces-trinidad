@@ -251,10 +251,16 @@ function _ldp(
 
 // _dfgv(): Date Field Get Value function
 // Returns the value of the dateField as a Date object
+// or null if there was an error.
 function _dfgv(dateField)
 {
   if (dateField.value != "")
-    return _getDateFieldFormat(dateField).getAsObject(dateField.value);
+  {
+    var value = _getDateFieldFormat(dateField).getAsObject(dateField.value);
+    
+    if (!_instanceof(value, ConverterException))
+      return value;
+  }
 
   return null;
 }

@@ -37,7 +37,7 @@ function _fixCFF(
   {
     var value = format.getAsObject(colorField.value);
 
-    if (value != (void 0))
+    if (!_instanceof(value, ConverterException))
       colorField.value = format.getAsString(value);
   }
 }

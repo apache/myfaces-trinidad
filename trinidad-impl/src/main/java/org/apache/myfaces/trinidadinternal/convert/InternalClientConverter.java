@@ -33,12 +33,5 @@ public interface InternalClientConverter extends ClientConverter
    FacesContext context,
    UIComponent component); 
   
-  /**
-   * Called to retrieve the format to display a conversion error.
-   * This method should not return a value that is Javascript-escaped.
-   */
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component);
   
 }

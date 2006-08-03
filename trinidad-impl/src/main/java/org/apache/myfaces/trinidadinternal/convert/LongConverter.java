@@ -113,20 +113,10 @@ public class LongConverter extends javax.faces.convert.LongConverter
     return ConverterUtils.getClientConversion(context, component,
                                               MAXIMUM_MESSAGE_ID,
                                               MINIMUM_MESSAGE_ID,
+                                              CONVERT_MESSAGE_ID,
                                               _LONG_MAX, _LONG_MIN);
   }
 
-
-  /**
-  * @todo - translate!!
-  */
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
-  }
 
   private static final String _LONG_MIN
     = IntegerUtils.getString(Long.MIN_VALUE);

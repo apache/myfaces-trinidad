@@ -32,13 +32,6 @@ public interface InternalClientValidator extends ClientValidator
   public String getLibKey(
    FacesContext context,
    UIComponent component); 
-  
-  /**
-   * Called to retrieve the format to display a validation error
-   * This method should not return a value that is Javascript-escaped.
-   */
-  public String getClientValidationFormat(
-   FacesContext context,
-   UIComponent component);
+
   
 }

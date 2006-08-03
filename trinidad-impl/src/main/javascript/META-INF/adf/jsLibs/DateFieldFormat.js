@@ -34,7 +34,7 @@ function _fixDFF(dateField)
   {
     var value = format.getAsObject(dateField.value);
 
-    if (value != (void 0))
+    if (!_instanceof(value, ConverterException))
       dateField.value = format.getAsString(value);
   }
 }

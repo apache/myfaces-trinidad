@@ -62,7 +62,8 @@ function _rgbColorParse(
   if (typeof pattern == "string")
   {
     return _rgbColorParseImpl(parseString,
-                              pattern);
+                              pattern,
+                              this._msg);
   }
   else
   { 
@@ -70,8 +71,10 @@ function _rgbColorParse(
     for (i = 0; i < pattern.length; i++)
     {
       var color = _rgbColorParseImpl(parseString,
-                                     pattern[i]);
-      if (color != (void 0))
+                                     pattern[i],
+                                     this._msg);
+                                     
+      if (!(_instanceof(color, ConverterException)) || i == pattern.length-1)
         return color;
     }
   }
@@ -79,13 +82,14 @@ function _rgbColorParse(
 
 function _rgbColorParseImpl(
   parseString,
-  parsePattern)
+  parsePattern,
+  msg)
 {
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
-  parseContext.parseException = new ConverterException();
-
+  parseContext.parseException = new ConverterException(msg);
+  
   var parsedColor = new Color(0x00, 0x00, 0x00);
 
   // parse the color
@@ -96,7 +100,7 @@ function _rgbColorParseImpl(
   {
     if (parseString.length != parseContext.currIndex)
     {
-      return (void 0);
+      return parseContext.parseException;
     }
 
     return parsedColor;
@@ -104,7 +108,7 @@ function _rgbColorParseImpl(
   else
   {
     // failure
-    return (void 0);
+    return parseContext.parseException;
   }
 }
 
@@ -542,11 +546,13 @@ function _cfoGetPaddedNumber(
  */
 function RGBColorFormat(
   pattern,
-  allowsTransparent)
+  allowsTransparent,
+  msg)
 {
   // for debugging
   this._class = "RGBColorFormat";
   this._allowsTransparent = allowsTransparent;
+  this._msg = msg;
   
   if (pattern != (void 0))
   {

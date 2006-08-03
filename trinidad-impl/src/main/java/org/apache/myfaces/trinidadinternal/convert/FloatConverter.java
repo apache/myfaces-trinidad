@@ -76,14 +76,6 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
    FacesContext context,
    UIComponent component)
   {
-    return "new DecimalFormat()";
-  }
-
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
+    return ConverterUtils.getClientConversion(context,component,CONVERT_MESSAGE_ID);
   }
 }

@@ -2391,7 +2391,7 @@ function _multiValidate(
               !((typeof value == "string") && (value == "")))
           {
             // evaluate the converter
-            var converterConstructor = validations[converterInfo[0]];
+            var converterConstructor = validations[converterInfo];
             var converterResult = void(0);
 
             if (converterConstructor)
@@ -2404,14 +2404,7 @@ function _multiValidate(
               {
                 converterError = converterResult;
               }
-              // the following is old 2.2 behavior that should be removed
-
-              else if (converterResult == (void 0))
-              {
-                converterError = "Conversion failed for value:" + value;
-              }
             }
-
 
             if (converterError)
             {
@@ -2427,7 +2420,7 @@ function _multiValidate(
               // get the formatted error string for the current input and
               // formatIndex
               var errorString1 = _getErrorString(currInput,
-                                                converterInfo[1],
+                                                 null,
                                                 converterError);
 
               if (errorString1)
@@ -2449,7 +2442,7 @@ function _multiValidate(
         {
           var validatorInfo = validators[i+4];
 
-          for ( var j = 0; j < validatorInfo.length; j = j + 2)
+          for ( var j = 0; j < validatorInfo.length; j = j + 1)
           {
             // do the validation if this element has a value
             // Don't just compare against "", since the value has
@@ -2471,9 +2464,6 @@ function _multiValidate(
                 validationResult = validator.validate(value);
                 if (_instanceof(validationResult, ValidatorException))
                   validationError = validationResult;
-                // the following is old 2.2 behavior that should be removed
-                else if (validationResult == (void 0))
-                  validationError = "Validation Failed for value:" + currInput;
 
               }
 
@@ -2491,7 +2481,7 @@ function _multiValidate(
                 // get the formatted error string for the current input and
                 // formatIndex
                 var errorString = _getErrorString(currInput,
-                                                  validatorInfo[j + 1],
+                                                  null,
                                                   validationError);
 
                 if (errorString)

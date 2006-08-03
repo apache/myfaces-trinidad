@@ -66,7 +66,8 @@ function _simpleDateParse(
   {
     return _simpleDateParseImpl(parseString,
                                 pattern,
-                                this._localeSymbols);
+                                this._localeSymbols,
+                                this._msg);
   }
   else
   { 
@@ -75,8 +76,9 @@ function _simpleDateParse(
     {
       var date = _simpleDateParseImpl(parseString,
                                       pattern[i],
-                                      this._localeSymbols);
-      if (date != (void 0))
+                                      this._localeSymbols,
+                                      this._msg);
+      if ( !_instanceof(date, ConverterException)|| i == pattern.length-1 )
         return date;
     }
   }
@@ -85,7 +87,8 @@ function _simpleDateParse(
 function _simpleDateParseImpl(
   parseString,
   parsePattern,
-  localeSymbols)
+  localeSymbols,
+  msg)
 {
   var parseContext = new Object();
   parseContext.currIndex = 0;
@@ -99,7 +102,7 @@ function _simpleDateParseImpl(
   parseContext.parsedFullYear = (void 0);
   parseContext.parsedMonth = (void 0);
   parseContext.parsedDate = (void 0);
-  parseContext.parseException = new ConverterException();
+  parseContext.parseException = new ConverterException(msg);
 
   var parsedTime = new Date(0);
   parsedTime.setDate(1);
@@ -113,7 +116,7 @@ function _simpleDateParseImpl(
   {
     if (parseString.length != parseContext.currIndex)
     {
-      return (void 0);
+      return parseContext.parseException;
     }
 
     // Set the parsed year, if any;  adjust for AD vs. BC
@@ -172,7 +175,7 @@ function _simpleDateParseImpl(
     // now we check for strictness
     if (!_isStrict(parseContext, parsedTime))
     {
-      return (void 0);
+      return parseContext.parseException;
     }
 
     return parsedTime;
@@ -180,7 +183,7 @@ function _simpleDateParseImpl(
   else
   {
     // failure
-    return (void 0);
+    return parseContext.parseException;
   }
 }
 
@@ -1233,12 +1236,14 @@ function _initPatterns(
  * the specified locale.
  */
 function SimpleDateFormat(
-  pattern,
-  locale
+  pattern,  
+  locale,
+  msg
   )
 {
   // for debugging
   this._class = "SimpleDateFormat";
+  this._msg = msg;
   
   // save the Locale elements for the specified locale, or client locale
   // if no locale is specified

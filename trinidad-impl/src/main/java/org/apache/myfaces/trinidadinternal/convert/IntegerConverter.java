@@ -116,16 +116,10 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
     return ConverterUtils.getClientConversion(context, component,
                                               MAXIMUM_MESSAGE_ID,
                                               MINIMUM_MESSAGE_ID,
+                                              CONVERT_MESSAGE_ID,
                                               _INT_MAX, _INT_MIN);
   }
 
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
-  }
 
   private static final String  _INT_MIN
     = IntegerUtils.getString(Integer.MIN_VALUE);

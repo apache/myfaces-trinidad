@@ -31,7 +31,7 @@ function _decimalParse(
   )
 {
   if (!numberString)
-    return (void 0);
+    return new ConverterException(messages[DecimalFormat.D]);
        
 
   // Get LocaleSymbols (from Locale.js)
@@ -42,7 +42,7 @@ function _decimalParse(
     var grouping = symbols.getGroupingSeparator();
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
-      return (void 0);
+      return new ConverterException(messages[DecimalFormat.D]);
 
     // Remove the thousands separator - which Javascript doesn't want to see
     var thousands = new RegExp("\\" + grouping, "g");
@@ -114,7 +114,7 @@ function _decimalParse(
           
           if ((messages == (void 0)) ||
               (messages[messageKey] == (void 0)))
-            return (void 0);  // default error format
+            return  new ConverterException("Conversion failed, but no appropriate message found");  // default error format
           else
             return new ConverterException(messages[messageKey]);
         }
@@ -124,7 +124,7 @@ function _decimalParse(
     }
   }
 
-  return (void 0);
+  return new ConverterException(messages[DecimalFormat.D]);
 }
 
 function _decimalGetAsObject(
@@ -163,11 +163,13 @@ DecimalFormat.prototype.getAsObject  = _decimalGetAsObject;
 // Less fraction digits
 DecimalFormat.LFD = 'LFD';
 // Less integer digits
-DecimalFormat.LID   = 'LID';
+DecimalFormat.LID = 'LID';
 // Less value
-DecimalFormat.LV        = 'LV';
+DecimalFormat.LV  = 'LV';
 // More value
-DecimalFormat.MV        = 'MV';
+DecimalFormat.MV  = 'MV';
+// default
+DecimalFormat.D   = 'D';
 
 
 function _decimalValidate(

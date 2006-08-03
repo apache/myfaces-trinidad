@@ -561,22 +561,18 @@ public class FormRenderer extends XhtmlRenderer
 
         writer.writeText(",", null);
 
-        Object[] converterInfo = convertValidate.converter;
+        Object converterInfo = convertValidate.converter;
 
         if (converterInfo != null)
         {
-          writer.writeText("[", null);
-          writer.writeText(converterInfo[0], null);
-          writer.writeText(",", null);
-          writer.writeText(converterInfo[1], null);
-          writer.writeText("],", null);
+          writer.writeText(converterInfo, null);
         }
         else
         {
-          writer.writeText("(void 0),", null);
+          writer.writeText("(void 0)", null);
         }
 
-        writer.writeText("[", null);
+        writer.writeText(",[", null);
 
         ArrayList validatorInfo = convertValidate.validators;
 
@@ -600,18 +596,7 @@ public class FormRenderer extends XhtmlRenderer
             // write the validation string for the validater
             writer.writeText(validatorInfo.get(i).toString(), null);
 
-
-            writer.writeText(",", null);
-
-            // write the index of the format for handling errors
-            Integer formatIndex = (Integer)validatorInfo.get(i + 1);
-            if (formatIndex != null)
-            {
-              writer.writeText(IntegerUtils.getString(formatIndex.intValue()),
-                               null);
-            }
-
-            i = i + 2;
+            i = i + 1;
           }
         }
       }
