@@ -111,16 +111,10 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
     return ConverterUtils.getClientConversion(context, component,
                                               MAXIMUM_MESSAGE_ID,
                                               MINIMUM_MESSAGE_ID,
+                                              CONVERT_MESSAGE_ID,
                                               _SHORT_MAX, _SHORT_MIN);
   }
 
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
-  }
 
   private static final String _SHORT_MAX = Short.toString(Short.MAX_VALUE);
   private static final String _SHORT_MIN = Short.toString(Short.MIN_VALUE);

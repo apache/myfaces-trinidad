@@ -108,16 +108,10 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
     return ConverterUtils.getClientConversion(context, component,
                                               MAXIMUM_MESSAGE_ID,
                                               MINIMUM_MESSAGE_ID,
+                                              CONVERT_MESSAGE_ID,
                                               _BYTE_MAX, _BYTE_MIN);
   }
 
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
-  }
 
   private static final String _BYTE_MAX = Byte.toString(Byte.MAX_VALUE);
   private static final String _BYTE_MIN = Byte.toString(Byte.MIN_VALUE);

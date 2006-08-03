@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.convert;
 
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -25,6 +26,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 
@@ -40,12 +42,6 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     return "ColorFormat()";
   }
 
-  public String getClientConversionFormat(
-    FacesContext context,
-    UIComponent component)
-  {
-    return _getConvertMessageDetail(context);
-  }
 
   public String getClientScript(FacesContext context, UIComponent component)
   {
@@ -148,14 +144,17 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
 
     if (isTransparentAllowed())
     {
-      sb.append(",true");
+      sb.append(",true,'");
     }
     else
     {
-      sb.append(",false");
+      sb.append(",false,'");
     }
+    
+    String msg = _getConvertMessageDetail(context);
+    sb.append(XhtmlLafUtils.escapeJS(msg)); 
 
-    sb.append(")");
+    sb.append("')");
 
     return sb.toString();
   }

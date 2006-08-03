@@ -71,18 +71,6 @@ public class ByteLengthValidator
 
   /**
    * {@inheritDoc}
-   * @todo see if we can get rid of this method
-   */
-  public String getClientValidationFormat(
-    FacesContext context,
-    UIComponent component
-    )
-  {
-    return _getEscapedJsMaximumMessageDetail(context);
-  }
-
-  /**
-   * {@inheritDoc}
    */
   public String getClientScript(
     FacesContext context,

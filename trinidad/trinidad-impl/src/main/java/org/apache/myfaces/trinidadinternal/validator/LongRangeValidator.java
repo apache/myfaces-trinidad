@@ -116,17 +116,8 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     return  ConverterUtils.getClientValidation(context, component,
                                                MAXIMUM_MESSAGE_ID,
                                                MINIMUM_MESSAGE_ID,
+                                               VALIDATOR_ID,
                                                maxStr, minStr);
-  }
-
-  public String getClientValidationFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    FacesMessage validateMessage = MessageFactory.getMessage(context,
-                                                             VALIDATOR_ID,
-                                                             component);
-    return validateMessage.getDetail();
   }
 
   // not overriding getMaximum because I'll suddenly

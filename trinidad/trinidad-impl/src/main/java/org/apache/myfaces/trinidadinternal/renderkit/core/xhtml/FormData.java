@@ -389,7 +389,6 @@ public class FormData
    */
   private void _addFormConverterInfo(
     String                    converter,
-    Integer                   formatIndex,
     FormData.ConvertValidate  convertValidate
    )
   {
@@ -404,9 +403,7 @@ public class FormData
 
 
       // add the converter
-      convertValidate.converter[0] = (_addValidation(converter));
-      convertValidate.converter[1] = (formatIndex == null? "(void 0)" :
-                                              formatIndex.toString());
+      convertValidate.converter = (_addValidation(converter));
 
     }
   }
@@ -416,7 +413,6 @@ public class FormData
    */
   private void _addFormValidatorInfo(
     String                    validator,
-    Integer                   formatIndex,
     FormData.ConvertValidate  convertValidate
    )
   {
@@ -427,7 +423,6 @@ public class FormData
 
       // add the validator
       convertValidate.validators.add(_addValidation(validator));
-      convertValidate.validators.add(formatIndex);
     }
   }
 
@@ -452,11 +447,6 @@ public class FormData
 
     }
 
-    // Should we remove getClientConversionFormat altogether???
-    // For validation it may apply, but for conversion will you ever
-    // have 2 different converter constructors?
-    Integer formatIndex = null;
-
     FacesContext fcontext = FacesContext.getCurrentInstance();
     if (submitConverter instanceof InternalClientConverter)
     {
@@ -467,13 +457,6 @@ public class FormData
 
       _writeDependencies(fcontext, clientLibrary);
 
-
-      // register the validation format string on the form
-      String conversionFormat =
-             internalConverter.getClientConversionFormat(fcontext, component);
-
-      // get the format index of this error format in the registered formats
-      formatIndex = _addErrorFormat(conversionFormat);
     }
 
     Object clientDependency = submitConverter.getClientScript(fcontext,
@@ -490,7 +473,7 @@ public class FormData
     if (converter != null)
     {
 
-      _addFormConverterInfo( converter, formatIndex, convertValidate);
+      _addFormConverterInfo( converter, convertValidate);
       _addValidatedInput(clientId);
     }
   }
@@ -510,10 +493,6 @@ public class FormData
   {
     FacesContext fContext = FacesContext.getCurrentInstance();
 
-    // Should we remove getClientValidationFormat altogether???
-    // It would be unusual that it's much of an optimization
-    Integer formatIndex = null;
-
     if (submitValidator instanceof InternalClientValidator)
     {
       InternalClientValidator internalValidator =
@@ -523,16 +502,6 @@ public class FormData
       String clientLibrary = internalValidator.getLibKey(fContext, component);
 
       _writeDependencies(fContext, clientLibrary);
-
-
-
-      // register the validation format string on the form
-      String validatorFormat = internalValidator.getClientValidationFormat(
-                                                  fContext,
-                                                  component);
-
-      // get the format index of this error format in the registered formats
-      formatIndex = _addErrorFormat( validatorFormat);
     }
     else
     {
@@ -551,7 +520,7 @@ public class FormData
 
     if (validator != null)
     {
-      _addFormValidatorInfo(validator, formatIndex, convertValidate);
+      _addFormValidatorInfo(validator, convertValidate);
       _addValidatedInput( clientId);
     }
   }
@@ -791,7 +760,7 @@ public class FormData
     public boolean   required = false;
     public Integer   requiredFormatIndex;
     public ArrayList validators;
-    public Object[]  converter;
+    public Object    converter;
   }
 
 

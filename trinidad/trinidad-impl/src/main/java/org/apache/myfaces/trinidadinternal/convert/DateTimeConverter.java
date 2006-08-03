@@ -37,6 +37,8 @@ import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
+
 /**
  * <p>This class implements client side equivalent of DateTimeConverter.
  * This class pushes all relevant information to the client side so
@@ -205,11 +207,27 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
     if (jsPattern != null)
     {
-      StringBuffer outBuffer = new StringBuffer(22 + jsPattern.length());
+      String pattern = getPattern();
 
+      if (pattern == null)
+        pattern = getSecondaryPattern();
+
+      String label = "{0}"; // will get replaced in javascript
+      Object[] params = new Object[] {label, "{1}", getExample(context)};
+      String msg = getParseErrorMessage(context, component,
+                                        pattern, params).getDetail();
+      String message = XhtmlLafUtils.escapeJS(
+                      MessageUtils.createErrorAlertMessage(context,
+                                                  label,
+                                                  msg));
+                                                  
+      StringBuffer outBuffer = new StringBuffer(30 + jsPattern.length() +
+                                                message.length());
       outBuffer.append("new SimpleDateFormat("); // 21
       outBuffer.append(jsPattern);               // jsPattern.length
-      outBuffer.append(")");                     // 1
+      outBuffer.append(",null,'");               // 7
+      outBuffer.append(message);                 // message.length
+      outBuffer.append("')");                    // 2
 
       return outBuffer.toString();
     }
@@ -225,31 +243,6 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return "SimpleDateFormat()";
   }
 
-  public String getClientConversionFormat(
-    FacesContext context,
-    UIComponent component
-    )
-  {
-    // for now, we are disabling the client-side validation when the
-    // locale is not the page's locale.
-    if (_isDifferentLocale())
-    {
-      return null;
-    }
-
-    String pattern = getPattern();
-
-    if (pattern == null)
-      pattern = getSecondaryPattern();
-
-    String label = "{0}"; // will get replaced in javascript
-    Object[] params = new Object[] {label, "{1}", getExample(context)};
-    String msg = getParseErrorMessage(context, component,
-                                      pattern, params).getDetail();
-    return MessageUtils.createErrorAlertMessage(context,
-                                                label,
-                                                msg);
-  }
 
    /**
    * Returns the number of columns of text a field should

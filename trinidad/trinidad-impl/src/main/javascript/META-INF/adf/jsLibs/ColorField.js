@@ -42,7 +42,7 @@ function _cfsw(
       value = cff.getAsObject(colorField.value);
     }
 
-    if (value != (void 0))
+    if (!_instanceof(value, ConverterException))
     {
       if (value.alpha == 0)
       {
@@ -282,7 +282,7 @@ function _lcp(
     var format = _getColorFieldFormat(colorField);
     var color = format.getAsObject(colorField.value);
 
-    if (color != (void 0))
+    if (!_instanceof(color, ConverterException))
     {
       destination += "&value=";
 

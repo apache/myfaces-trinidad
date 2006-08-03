@@ -177,26 +177,16 @@ public class ConverterUtils
     }
   }
 
-  public static String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component,
-   String msgId)
-  {
-    FacesMessage convertMessage = MessageFactory.getMessage(context, msgId);
-    return MessageUtils.createErrorAlertMessage(context,
-                                                component,
-                                                convertMessage.getDetail());
-  }
-
   public static String getClientValidation(
     FacesContext context,
     UIComponent component,
     String maxId,
     String minId,
+    String defaultId,
     String maxVal,
     String minVal)
   {
-    return _getClientConversion(context, component, maxId, minId,
+    return _getClientConversion(context, component, maxId, minId, defaultId,
                                 maxVal, minVal, false);
   }
 
@@ -205,10 +195,11 @@ public class ConverterUtils
     UIComponent component,
     String maxId,
     String minId,
+    String defaultId,
     String maxVal,
     String minVal)
   {
-    return _getClientConversion(context, component, maxId, minId,
+    return _getClientConversion(context, component, maxId, minId, defaultId,
                                 maxVal, minVal, true);
   }
 
@@ -217,6 +208,7 @@ public class ConverterUtils
     UIComponent component,
     String maxId,
     String minId,
+    String defaultId,
     String maxVal,
     String minVal,
     boolean isConverter)
@@ -233,24 +225,57 @@ public class ConverterUtils
       MessageFactory.getMessage(context, maxId,
                                 new Object[]{"{0}", "{1}", maxVal});
 
-    String msg = MessageUtils.createErrorAlertMessage(context, component,
+    String msg = MessageUtils.createErrorAlertMessage(context, "{0}",
                                                       maxMessage.getDetail());
     outBuffer.append(XhtmlLafUtils.escapeJS(msg));
-    outBuffer.append("',");
-    outBuffer.append("MV:'");
+    outBuffer.append("',MV:'");
 
     FacesMessage minMessage =
       MessageFactory.getMessage(context, minId,
                                 new Object[]{"{0}", "{1}", minVal});
 
-    msg = MessageUtils.createErrorAlertMessage(context, component,
+    msg = MessageUtils.createErrorAlertMessage(context, "{0}",
                                                minMessage.getDetail());
     outBuffer.append(XhtmlLafUtils.escapeJS(msg));
+
+    outBuffer.append("',D:'");
+
+    FacesMessage defaultMessage =
+      MessageFactory.getMessage(context, defaultId,
+                                new Object[]{"{0}", "{1}"});
+
+    msg = MessageUtils.createErrorAlertMessage(context, "{0}",
+                                               defaultMessage.getDetail());
+    outBuffer.append(XhtmlLafUtils.escapeJS(msg));    
     outBuffer.append("'},(void 0),0,");
     outBuffer.append(maxVal);
     outBuffer.append(',');
     outBuffer.append(minVal);
     outBuffer.append(")");
+
+    return outBuffer.toString();
+  }
+
+
+  public static String getClientConversion(
+    FacesContext context,
+    UIComponent component,
+    String defaultId)
+  {
+    StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new DecimalFormat(");
+
+    outBuffer.append("{D:'");
+
+    FacesMessage defaultMessage =
+      MessageFactory.getMessage(context, defaultId,
+                                new Object[]{"{0}", "{1}"});
+
+    String msg = MessageUtils.createErrorAlertMessage(context, "{0}",
+                                               defaultMessage.getDetail());
+    outBuffer.append(XhtmlLafUtils.escapeJS(msg));    
+    outBuffer.append("'})");
 
     return outBuffer.toString();
   }

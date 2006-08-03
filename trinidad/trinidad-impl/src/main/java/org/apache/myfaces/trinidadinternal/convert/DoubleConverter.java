@@ -77,14 +77,7 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
     FacesContext context,
     UIComponent component)
   {
-    return "new DecimalFormat()";
+    return ConverterUtils.getClientConversion(context,component,CONVERT_MESSAGE_ID);
   }
 
-  public String getClientConversionFormat(
-   FacesContext context,
-   UIComponent component)
-  {
-    return ConverterUtils.getClientConversionFormat(context, component,
-                                                    CONVERT_MESSAGE_ID);
-  }
 }

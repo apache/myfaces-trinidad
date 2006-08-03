@@ -66,7 +66,13 @@ public class RegExpValidator
    */
   public String getClientValidation(FacesContext context, UIComponent component)
   {
+    String clientId = component.getClientId(context);
 
+    if (clientId != null)
+    {
+      FormRenderer.addPatternMapping( clientId, getPattern());
+    }
+    
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
     String esNoMatchMsgPattern = XhtmlUtils.escapeJS(
                   _getNoMatchMessageDetail(context));
@@ -115,7 +121,7 @@ public class RegExpValidator
     FacesContext context,
     UIComponent component
     )
-  {
+  {/*
     String clientId = component.getClientId(context);
 
     if (clientId != null)
@@ -129,7 +135,7 @@ public class RegExpValidator
      * @todo Think it's worth to cache it here and then blow that away once
      * this method gets called. The best would be get rid of this method contract
      */
-    return _getNoMatchMessageDetail(context);
+    return null;//_getNoMatchMessageDetail(context);
   }
 
   private String _getNoMatchMessageDetail(
