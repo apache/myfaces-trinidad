@@ -172,7 +172,7 @@
       <plugin>
         <groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-tagdoc-plugin</artifactId>
-        <version>incubator-alpha-3-SNAPSHOT</version>
+        <version>incubator-m1-SNAPSHOT</version>
         <configuration>
           <taglibs>
             <tr>http://myfaces.apache.org/trinidad</tr>
