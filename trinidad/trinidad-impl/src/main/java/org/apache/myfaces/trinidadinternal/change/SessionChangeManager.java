@@ -17,10 +17,12 @@
 package org.apache.myfaces.trinidadinternal.change;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.w3c.dom.Document;
 
 /**
@@ -42,29 +44,32 @@ public class SessionChangeManager extends BaseChangeManager
    *        already present
    * @return Map of componentID tokens to Lists of Changes
    */
-  protected Map getComponentToChangesMapForView(
+  @SuppressWarnings("unchecked")
+  @Override
+  protected Map<String, List<ComponentChange>> getComponentToChangesMapForView(
     FacesContext facesContext,
     String viewId,
     boolean createIfNecessary)
   {
-    Map sessMap = facesContext.getExternalContext().getSessionMap();
+    Map<String, Object> sessMap = facesContext.getExternalContext().getSessionMap();
     //pu: Get datastructure #1 described at the end of this file.
-    Map viewToChangesMap = (Map) sessMap.get(_CHANGE_KEY);
+    Map<String, Map<String, List<ComponentChange>>> viewToChangesMap = 
+      (Map<String, Map<String, List<ComponentChange>>>)sessMap.get(_CHANGE_KEY);
     if (viewToChangesMap == null)
     {
       if (!createIfNecessary)
         return null;
-      viewToChangesMap = new HashMap();
+      viewToChangesMap = new HashMap<String, Map<String, List<ComponentChange>>>();
       sessMap.put(_CHANGE_KEY, viewToChangesMap);
     }
     
     //pu: Get datastructure #2 described at the end of this file.
-    Map componentToChangesMap = (Map) viewToChangesMap.get(viewId);
+    Map<String, List<ComponentChange>> componentToChangesMap = viewToChangesMap.get(viewId);
     if (componentToChangesMap == null)
     {
       if (!createIfNecessary)
         return null;
-      componentToChangesMap = new HashMap();
+      componentToChangesMap = new HashMap<String, List<ComponentChange>>();
       viewToChangesMap.put(viewId, componentToChangesMap);
     }
     return componentToChangesMap;
@@ -73,6 +78,7 @@ public class SessionChangeManager extends BaseChangeManager
   /** 
    * We don't support DocumentAspect persistence
    */
+  @Override
   protected Document getDocument(FacesContext context)
   {
     return null;

@@ -79,7 +79,7 @@ public class SkinCSSDocumentHandler
   public void startSelector()
   {
     _inStyleRule = true;
-    _propertyNodeList = new ArrayList();
+    _propertyNodeList = new ArrayList<PropertyNode>();
   }
    
   /**
@@ -91,7 +91,7 @@ public class SkinCSSDocumentHandler
    * The selectors in the List are 
    * ".AFDefaultFont" and "af|breadCrumbs::font"
   */
-  public void endSelector(List selectors)
+  public void endSelector(List<String> selectors)
   {
     if (selectors == null)
       return;
@@ -100,7 +100,7 @@ public class SkinCSSDocumentHandler
     
     for (int i = 0; i < selectorNum; i++)
     {
-       String selector = (String)selectors.get(i);
+       String selector = selectors.get(i);
        CompleteSelectorNode node =
          _createCompleteSelectorNode(selector, 
                                      _propertyNodeList,
@@ -224,7 +224,7 @@ public class SkinCSSDocumentHandler
    // additional info, like 'rtl' direction
   private CompleteSelectorNode _createCompleteSelectorNode(
     String selector, 
-    List  propertyNodeList,
+    List<PropertyNode> propertyNodeList,
     int[] selectorAgents,
     int[] selectorPlatforms)
   {
@@ -264,10 +264,11 @@ public class SkinCSSDocumentHandler
     * @return a List of SkinStyleSheetNodes
     */
   private List <SkinStyleSheetNode> _createSkinStyleSheetNodes(
-    List <CompleteSelectorNode> selectorList, 
-    Map namespaceMap)
+    List<CompleteSelectorNode> selectorList, 
+    Map<String, String> namespaceMap)
   {  
-    List <SkinStyleSheetNode> skinStyleSheetNodes = new ArrayList();
+    List<SkinStyleSheetNode> skinStyleSheetNodes = 
+      new ArrayList<SkinStyleSheetNode>();
      
     for (CompleteSelectorNode completeSelectorNode : selectorList) 
     {
@@ -322,7 +323,7 @@ public class SkinCSSDocumentHandler
     {
       String types = atRule.substring(firstSpace, openBrace);
       String[] typeArray = types.split(",");
-      List <Integer> list = new ArrayList();
+      List<Integer> list = new ArrayList<Integer>();
       
       if (type == _AT_AGENT)
       {
@@ -395,7 +396,7 @@ public class SkinCSSDocumentHandler
   {
     public CompleteSelectorNode(
       String selectorName,
-      List   propertyNodes,
+      List<PropertyNode> propertyNodes,
       int    direction,
       int[]  agents,
       int[]  platforms
@@ -454,7 +455,7 @@ public class SkinCSSDocumentHandler
   // below are properties that we set and reset 
   // as the methods of this documentHandler get called.
   private boolean _inStyleRule = false;
-  private List _propertyNodeList = null;
+  private List<PropertyNode> _propertyNodeList = null;
   // we build this list as we parse the skinning css file. We use this 
   // list to create a list of SkinStyleSheetNodes
   private List <CompleteSelectorNode> _completeSelectorNodeList = 
@@ -463,7 +464,7 @@ public class SkinCSSDocumentHandler
   // are currently parsing in this document.
   private int[] _selectorPlatforms = null;
   private int[] _selectorAgents = null;
-  private Map _namespaceMap = new HashMap();
+  private Map<String, String> _namespaceMap = new HashMap<String, String>();
   
 }  
    

@@ -114,6 +114,7 @@ public class SkinExtension extends Skin
   /**
    * Returns the id of this custom Skin.
    */
+  @Override
   public String getId()
   {
     return _id;
@@ -123,6 +124,7 @@ public class SkinExtension extends Skin
    * Returns the name of the Skin family that this
    * SkinExtension belongs to.
    */
+  @Override
   public String getFamily()
   {
     return _family;
@@ -133,6 +135,7 @@ public class SkinExtension extends Skin
    * on has been set
    * @see setStyleSheetName
    */
+  @Override
   public String getStyleSheetName()
   {
     return _styleSheetName;
@@ -141,6 +144,7 @@ public class SkinExtension extends Skin
   /**
    * Returns the name of the render-kit-id for this Skin.
    */
+  @Override
   public String getRenderKitId()
   {
     return _renderKitId;
@@ -150,6 +154,7 @@ public class SkinExtension extends Skin
   /**
    * Returns the name of the bundle for the extension.
    */
+  @Override
   public String getBundleName()
   {
     if (_bundleName != null)
@@ -168,6 +173,7 @@ public class SkinExtension extends Skin
   /**
    * Override of Skin.registerIcon().
    */
+  @Override
   public void registerIcon(
     String  iconName,
     Icon    icon
@@ -187,6 +193,7 @@ public class SkinExtension extends Skin
    * supports pulling translations from component providers
    * as well as the base Skin.
    */
+  @Override
   public Object getTranslatedValue(
     LocaleContext lContext,
     String        key
@@ -253,6 +260,7 @@ public class SkinExtension extends Skin
    * This means you cannot set a local property to null and expect it to
    * "null out" a property on the base skin.
    */
+  @Override
   public Object getProperty(Object key)
   {
     Object value = super.getProperty(key);
@@ -271,6 +279,7 @@ public class SkinExtension extends Skin
    * Override of Skin.getIcon() to look in the base skin for the icon
    * if it isn't registered yet with this skin.
    */
+  @Override
   public Icon getIcon(
     String  iconName,
     boolean resolve
@@ -350,6 +359,7 @@ public class SkinExtension extends Skin
    * styles from the base Skin's style sheet and the
    * SkinExtension's style sheet.
    */
+  @Override
   public StyleSheetDocument getStyleSheetDocument(StyleContext context)
   {
     // The SkinExtension's StyleSheetDocument is produced
@@ -399,8 +409,7 @@ public class SkinExtension extends Skin
     Locale locale = lContext.getTranslationLocale();
 
     // Get all of the translations for the current translation Locale
-    OptimisticHashMap localeTranslations =
-      (OptimisticHashMap)_translations.get(locale);
+    Map<String, Object> localeTranslations = _translations.get(locale);
 
     if (localeTranslations != null)
       return localeTranslations.get(key);
@@ -425,14 +434,13 @@ public class SkinExtension extends Skin
     Locale locale = lContext.getTranslationLocale();
 
     // Get all of the translations for the current translation locale
-    OptimisticHashMap localeTranslations =
-      (OptimisticHashMap)_translations.get(locale);
+    Map<String, Object> localeTranslations = _translations.get(locale);
 
     if (localeTranslations == null)
     {
       // If we didn't previously have any translations for this
       // Locale, create storage for translations now...
-      localeTranslations = new OptimisticHashMap();
+      localeTranslations = new OptimisticHashMap<String, Object>();
       _translations.put(locale, localeTranslations);
     }
 
@@ -455,19 +463,21 @@ public class SkinExtension extends Skin
     if (bundleName == null)
       return false;
 
-    Map keys = _getTranslationKeys(lContext);
+    Map<String, Boolean> keys = _getTranslationKeys(lContext);
 
     return keys.containsKey(key);
   }
 
   // Returns the a Map which contains the translation keys for
   // the specified locale.
-  private Map _getTranslationKeys(
+  @SuppressWarnings("unchecked")
+  private Map<String, Boolean> _getTranslationKeys(
     LocaleContext lContext
     )
   {
    // We store the translation keys map in the translation cache
-    Map keys = (Map)_getCachedTranslatedValue(lContext,
+    Map<String, Boolean> keys = 
+      (Map<String, Boolean>)_getCachedTranslatedValue(lContext,
                                               _TRANSLATION_KEYS_KEY);
 
     if (keys == null)
@@ -475,7 +485,7 @@ public class SkinExtension extends Skin
       String bundleName = getBundleName();
       assert bundleName != null;
 
-      keys = new HashMap();
+      keys = new HashMap<String, Boolean>();
 
       ResourceBundle bundle = null;
 
@@ -494,7 +504,7 @@ public class SkinExtension extends Skin
 
       if (bundle != null)
       {
-        Enumeration en = bundle.getKeys();
+        Enumeration<String> en = bundle.getKeys();
 
         if (en != null)
         {
@@ -524,7 +534,7 @@ public class SkinExtension extends Skin
    */
   private Icon _resolveReferenceIcon(
     ReferenceIcon refIcon,
-    Stack         referencedIconStack)
+    Stack<String> referencedIconStack)
   {
 
     String refName = refIcon.getName();
@@ -536,8 +546,13 @@ public class SkinExtension extends Skin
         _LOG.warning(_CIRCULAR_INCLUDE_ERROR + refName);
       return null;
     }
+    
     if (referencedIconStack == null)
-      referencedIconStack = new Stack();
+    {
+      // -= Simon Lessard =- 
+      // TODO: Check if something better than Stack can be used
+      referencedIconStack = new Stack<String>();
+    }
 
     referencedIconStack.push(refName);
     //
@@ -578,7 +593,9 @@ public class SkinExtension extends Skin
   }
 
     // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack stack, Object value)
+  private static boolean _stackContains(
+      Stack<String> stack, 
+      Object value)
   {
     if (stack == null)
       return false;
@@ -592,10 +609,11 @@ public class SkinExtension extends Skin
   // Icon class that we use as a placeholder for null icons
   private static class NullIcon extends Icon
   {
+    @Override
     public void renderIcon(
       FacesContext        context,
-      RenderingContext arc,
-      Map              attrs
+      RenderingContext    arc,
+      Map<String, Object> attrs
       ) throws IOException
     {
       // null icons don't render anything
@@ -622,7 +640,8 @@ public class SkinExtension extends Skin
   //
   // This HashMap hashes Locales -> HashMaps.
   // The HashMaps map translation key to message.
-  private OptimisticHashMap _translations = new OptimisticHashMap(13);
+  private OptimisticHashMap<Locale, Map<String, Object>> _translations = 
+    new OptimisticHashMap<Locale, Map<String, Object>>(13);
 
   // The StyleSheetDocument for the base LookAndFeel's style sheet
   private StyleSheetDocument _baseStyleSheetDocument;

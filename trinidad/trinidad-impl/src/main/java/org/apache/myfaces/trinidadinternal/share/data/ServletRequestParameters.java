@@ -45,8 +45,8 @@ public class ServletRequestParameters extends RequestParameters
    * If not modification is required the returned Dicitonary instance
    * will be the <cpde>requestParams</code> instance.
    */
-  public static Map createRequestMap(
-    Map requestParams
+  public static Map<String, Object> createRequestMap(
+    Map<String, Object> requestParams
     )
   {
     if (requestParams == null)
@@ -63,7 +63,7 @@ public class ServletRequestParameters extends RequestParameters
    * a ServletRequest.
    */
   public ServletRequestParameters(
-    Map requestParams
+    Map<String, Object> requestParams
     )
   {
     _params = createRequestMap(requestParams);
@@ -81,9 +81,9 @@ public class ServletRequestParameters extends RequestParameters
    * adapted from org.apache.myfaces.trinidadinternal.uix22.servlet.url.DefaultPageEncoder
    */
   public static void decodeCompoundKeyValues(
-    String     compoundValue,
-    int        startIndex,
-    Map keyValues
+    String              compoundValue,
+    int                 startIndex,
+    Map<String, Object> keyValues
     )
   {
     if (compoundValue == null)
@@ -177,9 +177,9 @@ public class ServletRequestParameters extends RequestParameters
    * the baseName, if any;
    */
   public static String encodeCompoundKeyValues(
-    String      namePrefix,
-    Iterator     keyValues,
-    int         keyValueSize
+    String           namePrefix,
+    Iterator<Object> keyValues,
+    int              keyValueSize
     )
   {
 
@@ -192,12 +192,12 @@ public class ServletRequestParameters extends RequestParameters
    * the baseName, if any;
    */
   public static String encodeCompoundKeyValues(
-    String      namePrefix,
-    Iterator    keyValues,
-    int         keyValueSize,
-    String      exchangePrefix,
-    Iterator    keyExchanges,
-    int         keyExchangesSize
+    String           namePrefix,
+    Iterator<Object> keyValues,
+    int              keyValueSize,
+    String           exchangePrefix,
+    Iterator<Object> keyExchanges,
+    int              keyExchangesSize
     )
   {
 
@@ -247,8 +247,8 @@ public class ServletRequestParameters extends RequestParameters
    * the baseName, if any;
    */
   public static String encodeCompoundKeyValues(
-    Iterator keyValues,
-    int         keyValueSize
+    Iterator<Object> keyValues,
+    int              keyValueSize
     )
   {
     return encodeCompoundKeyValues(_COMPOUND_NAME_PREFIX, keyValues, keyValueSize);
@@ -259,10 +259,10 @@ public class ServletRequestParameters extends RequestParameters
    * the baseName, if any.
    */
   public static String encodeCompoundKeyValues(
-    Iterator    keyValues,
-    int         keyValueSize,
-    Iterator    keyExchanges,
-    int         keyExchangesSize
+    Iterator<Object> keyValues,
+    int              keyValueSize,
+    Iterator<Object> keyExchanges,
+    int              keyExchangesSize
     )
   {
     return encodeCompoundKeyValues(_COMPOUND_NAME_PREFIX,
@@ -296,6 +296,7 @@ public class ServletRequestParameters extends RequestParameters
    * @see     #getParameterValues
    *
    */
+  @Override
   public String getParameter(
     String name
     )
@@ -327,7 +328,8 @@ public class ServletRequestParameters extends RequestParameters
    *      request has no parameters
    *
    */
-  public Iterator getParameterNames()
+  @Override
+  public Iterator<String> getParameterNames()
   {
     return _params.keySet().iterator();
   }
@@ -349,6 +351,7 @@ public class ServletRequestParameters extends RequestParameters
    * @see    #getParameter
    *
    */
+  @Override
   public String[] getParameterValues(
     String name
     )
@@ -362,7 +365,7 @@ public class ServletRequestParameters extends RequestParameters
 
       if (_cloneArrays)
       {
-        return (String[])paramArr.clone();
+        return paramArr.clone();
       }
       else
       {
@@ -376,8 +379,8 @@ public class ServletRequestParameters extends RequestParameters
   }
 
 
-  private static Map _processParameters(
-    Map requestParams,
+  private static Map<String, Object> _processParameters(
+    Map<String, Object> requestParams,
     int        dictionarySize
     )
   {
@@ -386,16 +389,18 @@ public class ServletRequestParameters extends RequestParameters
 
     if (hasCompoundName)
     {
-      Hashtable params = new Hashtable((int)(dictionarySize * 1.5));
-      HashMap keyExchangeMap = new HashMap();
+      Hashtable<String, Object> params = 
+        new Hashtable<String, Object>((int)(dictionarySize * 1.5));
+      
+      HashMap<String, String> keyExchangeMap = new HashMap<String, String>();
 
-      Iterator paramNames = requestParams.keySet().iterator();
+      Iterator<String> paramNames = requestParams.keySet().iterator();
 
       if (paramNames != null)
       {
         while (paramNames.hasNext())
         {
-          String currName = (String)paramNames.next();
+          String currName = paramNames.next();
 
           boolean putValue = true;
 
@@ -444,11 +449,11 @@ public class ServletRequestParameters extends RequestParameters
                   {
                     toIndex = currName.indexOf('=', fromIndex);
                     // get the old param name
-                    Object oldKey = currName.substring(fromIndex, toIndex);
+                    String oldKey = currName.substring(fromIndex, toIndex);
                     fromIndex = toIndex + 1;
                     toIndex = currName.indexOf(_PROPERTY_BOUNDARY, fromIndex);
                     // get the new param name
-                    Object newKey = currName.substring(fromIndex, toIndex);
+                    String newKey = currName.substring(fromIndex, toIndex);
                     fromIndex = toIndex + 1;
                     // add old and new keys to map
                     keyExchangeMap.put(oldKey, newKey);
@@ -482,16 +487,16 @@ public class ServletRequestParameters extends RequestParameters
       }
 
       // Exchange param names if needed
-      Iterator oldKeys = keyExchangeMap.keySet().iterator();
+      Iterator<String> oldKeys = keyExchangeMap.keySet().iterator();
       while (oldKeys.hasNext())
       {
-        Object oldKey = oldKeys.next();
+        String oldKey = oldKeys.next();
         Object value = params.get(oldKey);
 
         if ( value != null )
         {
           // Currently not removing old key/value pair
-          Object newKey = keyExchangeMap.get(oldKey);
+          String newKey = keyExchangeMap.get(oldKey);
           params.put(newKey, value);
         }
       }
@@ -505,9 +510,9 @@ public class ServletRequestParameters extends RequestParameters
   }
 
   private static void _encodeIterator(
-    Iterator  keyValues,
-    StringBuffer compoundValue,
-    String       prefix
+    Iterator<Object>  keyValues,
+    StringBuffer      compoundValue,
+    String            prefix
     )
   {
 
@@ -700,7 +705,7 @@ public class ServletRequestParameters extends RequestParameters
                                                 _COMPOUND_NAME_PREFIX.length();
 
   // Dictioanry of parameter keys and values
-  private Map _params;
+  private Map<String, Object> _params;
 
   // whether the String arrays returned need to be cloned
   private boolean _cloneArrays;

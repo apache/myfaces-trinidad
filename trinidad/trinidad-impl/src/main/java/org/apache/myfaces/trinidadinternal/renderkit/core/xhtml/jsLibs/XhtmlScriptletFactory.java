@@ -90,6 +90,8 @@ public class XhtmlScriptletFactory
   static private Scriptlet _sCharSetsScriptlet;
   static private Scriptlet _sShuttleScriptlet;
   static private Scriptlet _sTableProxyScriptlet;
+  // FIXME: Never read
+  @SuppressWarnings("unused")
   static private Scriptlet _sDiagrammerScriptlet;
   static private Scriptlet _sColorFormatScriptlet;
   static private Scriptlet _sColorFieldFormatScriptlet;
@@ -143,6 +145,7 @@ public class XhtmlScriptletFactory
         // =-=AEW  The MarlinCore library needs to be rendered even
         // when it's outside of a partial page request, since the
         // partial page library itself needs it.
+        @Override
         boolean __isOutsidePartialPage(RenderingContext context)
         {
           return false;

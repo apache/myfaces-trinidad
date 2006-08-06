@@ -22,7 +22,6 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
@@ -50,9 +49,12 @@ public final class PartialPageUtils
    * a "partial" parameter.
    * @todo This is probably unnecessary.
    */
+  @SuppressWarnings("unchecked")
   public static void forcePartialRendering(FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
     requestMap.put(_PARTIAL_KEY, Boolean.TRUE);
   }
 
@@ -125,20 +127,24 @@ public final class PartialPageUtils
   /**
    * Test if PPR is active during rendering.
    */
+  @SuppressWarnings("unchecked")
   public static boolean isPPRActive(FacesContext context)
   {
-    Map requestScope =
+    Map<String, Object> requestScope =
       context.getExternalContext().getRequestMap();
+    
     return Boolean.TRUE.equals(requestScope.get(_PPR_ACTIVE_FLAG_NAME));
   }
 
   /**
    * Mark that PPR is in fact active during rendering.
    */
+  @SuppressWarnings("unchecked")
   public static void markPPRActive(FacesContext context)
   {
-    Map requestScope =
+    Map<String, Object> requestScope =
       context.getExternalContext().getRequestMap();
+    
     requestScope.put(_PPR_ACTIVE_FLAG_NAME, Boolean.TRUE);
   }
 

@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * <p>
  * @author The Oracle ADF Faces Team
  */
-public class LRUCache extends LinkedHashMap
+public class LRUCache<K, V> extends LinkedHashMap<K, V>
 {
   public LRUCache(int maxSize)
   {
@@ -39,7 +39,8 @@ public class LRUCache extends LinkedHashMap
   {
   }
 
-  protected boolean removeEldestEntry(Map.Entry eldest)
+  @Override
+  protected boolean removeEldestEntry(Map.Entry<K, V> eldest)
   {
     if (size() > _maxSize)
     {

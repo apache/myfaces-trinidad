@@ -78,6 +78,7 @@ public class CompositeButtonPainter extends AbstractBorderPainter
         ));
   }
 
+  @Override
   protected ImmInsets getOwnInsets(
     PaintContext context
     )
@@ -130,6 +131,7 @@ public class CompositeButtonPainter extends AbstractBorderPainter
                          rightSize.width);
   }
 
+  @Override
   protected void paintBorder(
     PaintContext context,
     Graphics g,
@@ -359,6 +361,7 @@ public class CompositeButtonPainter extends AbstractBorderPainter
       super(wrappedPainter);
     }
 
+    @Override
     protected Color getColor(PaintContext context)
     {
       // If the foreground is explicitly set, just use it

@@ -61,7 +61,7 @@ public class TreeBuilder
    * @param rootClass the desired type of object to return as the root
    */
   public TreeBuilder(ParserManager manager,
-                     Class         rootClass)
+                     Class<?>      rootClass)
   {
     // Allow a null ParserManager.  It may sound wacky,
     // but it's sometimes easiest to always explicitly state
@@ -175,7 +175,7 @@ public class TreeBuilder
     public Handler(ParseContextWrapper context, NodeParser rootParser)
     {
       _context = context;
-      _parsers = new Stack();
+      _parsers = new Stack<StackEntry>();
       _rootParser = rootParser;
     }
 
@@ -542,7 +542,7 @@ public class TreeBuilder
           // Trim whitespace from both ends of the text.
           while (start <= end)
           {
-            if (!Character.isSpace(text[start]))
+            if (!Character.isWhitespace(text[start]))
               break;
 
             start++;
@@ -556,7 +556,7 @@ public class TreeBuilder
           int savedEnd = end;
           while (end > start + 1)
           {
-            if (!Character.isSpace(text[end]))
+            if (!Character.isWhitespace(text[end]))
               break;
 
             end--;
@@ -686,7 +686,7 @@ public class TreeBuilder
 
     private StackEntry _popParser()
     {
-      StackEntry entry = (StackEntry) _parsers.pop();
+      StackEntry entry = _parsers.pop();
       if (entry != null)
       {
         _current = _getLastNonNullParser();
@@ -732,7 +732,9 @@ public class TreeBuilder
 
     // A stack of parsers (stored in StackEntries);  null at any position means the
     // parser didn't change
-    private Stack            _parsers;
+    // -= Simon Lessard =- 
+    // TODO:  Check if synchronization is required since Stack is bad.
+    private Stack<StackEntry> _parsers;
 
     // The current parser.  This will always equal the last
     // non-null parser
@@ -790,19 +792,22 @@ public class TreeBuilder
     }
 
     // Get the index'th dictionary
-    public Map getMap(int index)
+    @SuppressWarnings("unchecked")
+    public Map<Object, Object> getMap(int index)
     {
-      return (Map) _dictionaries[index * 2 + 1];
+      return (Map<Object, Object>) _dictionaries[index * 2 + 1];
     }
 
     // Add a namespace/key value to the entry
+    @SuppressWarnings("unchecked")
     public void put(String namespace, Object key, Object value)
     {
-      Map subDict = (Map) ArrayMap.get(_dictionaries,
-                                                     namespace);
+      Map<Object, Object> subDict = 
+        (Map<Object, Object>) ArrayMap.get(_dictionaries, namespace);
+      
       if (subDict == null)
       {
-        subDict = new ArrayMap(5, 5);
+        subDict = new ArrayMap<Object, Object>(5, 5);
         _dictionaries = ArrayMap.put(_dictionaries, namespace, subDict);
       }
 
@@ -814,7 +819,7 @@ public class TreeBuilder
     private Object[]   _dictionaries;
   }
 
-  final Class                  _rootClass;
+  final Class<?>               _rootClass;
   private EntityResolver       _entityResolver;
   final private ParserManager  _manager;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TreeBuilder.class);

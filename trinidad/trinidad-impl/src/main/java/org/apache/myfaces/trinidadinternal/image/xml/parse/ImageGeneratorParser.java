@@ -39,6 +39,7 @@ public class ImageGeneratorParser extends BaseNodeParser
   /**
    * Implementations of NodeParser.startElement();
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -55,6 +56,7 @@ public class ImageGeneratorParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -76,6 +78,7 @@ public class ImageGeneratorParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -91,6 +94,7 @@ public class ImageGeneratorParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -101,6 +105,9 @@ public class ImageGeneratorParser extends BaseNodeParser
     _requests.addElement((ImageProviderRequest)child);
   }
 
-  private Vector _requests = new Vector();
+  // -= Simon Lessard =-
+  // FIXME: Wow! A Vector... Change that to ArrayList
+  //        or Collections.synchronizedList(ArrayList)
+  private Vector<ImageProviderRequest> _requests = new Vector<ImageProviderRequest>();
 }
 

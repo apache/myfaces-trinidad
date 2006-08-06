@@ -16,7 +16,6 @@
 
 package org.apache.myfaces.trinidadinternal.style.util;
 
-import java.awt.Color;
 import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
@@ -60,13 +59,13 @@ public class CSSGenerationUtils
    *   to their base names (e.g., 'af|menuPath::step' maps to 'af|menuPath A')
    */
   public static void writeCSS(
-    StyleContext context,
-    StyleNode[]  styles,
-    PrintWriter  out,
-    File         outputFile,
-    Map          shortStyleClassMap,
-    String       selectorNamespace,
-    Map          afSelectorMap
+    StyleContext        context,
+    StyleNode[]         styles,
+    PrintWriter         out,
+    File                outputFile,
+    Map<String, String> shortStyleClassMap,
+    String              selectorNamespace,
+    Map<String, String> afSelectorMap
     )
   {
     // writeCSS() attempts to produce a minimal set of style rules
@@ -94,7 +93,8 @@ public class CSSGenerationUtils
 
     // We track styles with matching properties in the following HashMap
     // which maps property strings to StyleNode[]s.
-    HashMap matchingStylesMap = new HashMap(101);
+    HashMap<String, StyleNode[]> matchingStylesMap = 
+      new HashMap<String, StyleNode[]>(101);
 
     // We also keep an array of the property strings that we generate
     // during this pass, since we need these strings during the second
@@ -112,8 +112,7 @@ public class CSSGenerationUtils
         String propertyString = _getSortedPropertyString(style);
 
         // See if we already have a StyleNode with the same properties
-        StyleNode[] matchingStyles = (StyleNode[])matchingStylesMap.get(
-                                                    propertyString);
+        StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);
 
         if (matchingStyles == null)
         {
@@ -130,7 +129,7 @@ public class CSSGenerationUtils
           int length = matchingStyles.length;
 
           StyleNode[] newMatchingStyles = new StyleNode[length + 1];
-          System.arraycopy((StyleNode[])matchingStyles,
+          System.arraycopy(matchingStyles,
                            0,
                            newMatchingStyles,
                            0,
@@ -161,8 +160,7 @@ public class CSSGenerationUtils
       if (propertyString != null)
       {
         // Get all of the styles which share this property string.
-        StyleNode[] matchingStyles = (StyleNode[])matchingStylesMap.get(
-                                                    propertyString);
+        StyleNode[] matchingStyles = matchingStylesMap.get(propertyString);
 
         // Actually, we should always have at least one StyleNode here
         assert (matchingStyles != null);
@@ -244,12 +242,12 @@ public class CSSGenerationUtils
         // of the properties as specified in the XSS document.  So,
         // we get the properties from the StyleNode object instead of
         // using the propertyString
-        Iterator properties = style.getProperties();
+        Iterator<PropertyNode> properties = style.getProperties();
         boolean first = true;
 
         while (properties.hasNext())
         {
-          PropertyNode property = (PropertyNode)properties.next();
+          PropertyNode property = properties.next();
           String propName = property.getName();
           String propValue = property.getValue();
 
@@ -304,9 +302,9 @@ public class CSSGenerationUtils
    * with ".OraNav1Enabled" and ".text".
    * .OraLink:visited returns .OraLink
    */
-  public static Iterator getStyleClasses(String selector)
+  public static Iterator<String> getStyleClasses(String selector)
   {
-    ArrayList styleClasses = null;
+    ArrayList<String> styleClasses = null;
     int styleClassStartIndex = -1;
     int length = selector.length();
 
@@ -344,7 +342,7 @@ public class CSSGenerationUtils
         {
           String styleClass = selector.substring(styleClassStartIndex + 1, i);
           if (styleClasses == null)
-            styleClasses = new ArrayList(3);
+            styleClasses = new ArrayList<String>(3);
 
           styleClasses.add(styleClass);
 
@@ -373,10 +371,10 @@ public class CSSGenerationUtils
    * e.g., "af|menuPath::step" maps to "af|menuPath A", so
    * ".OraNav1Enabled af|menuPath::step" returns "af|menuPath"
    */
-  public static Iterator getNamespacedSelectors(
-    String selector,
-    String namespace,
-    Map    afSelectorMap)
+  public static Iterator<String> getNamespacedSelectors(
+    String              selector,
+    String              namespace,
+    Map<String, String> afSelectorMap)
   {
     int afIndex = selector.indexOf(namespace);
 
@@ -384,7 +382,7 @@ public class CSSGenerationUtils
     if ((selector == null) || (afIndex == -1))
       return null;
 
-    ArrayList afUnmappedSelectorList = new ArrayList();
+    ArrayList<String> afUnmappedSelectorList = new ArrayList<String>();
 
     // now find each af| component selector and map
     // e.g., af|menuPath::step maps to af|menuPath A
@@ -413,17 +411,17 @@ public class CSSGenerationUtils
     // af|xxx component selectors. Now map them, and return the base key
     // in the selector.
     // loop through again and map them
-    ArrayList afSelectorList = new ArrayList();
+    ArrayList<String> afSelectorList = new ArrayList<String>();
 
     int size = afUnmappedSelectorList.size();
     for (int i=0; i < size; i++)
     {
-      String afComponentSelector = (String)afUnmappedSelectorList.get(i);
+      String afComponentSelector = afUnmappedSelectorList.get(i);
       String mappedSelector = null;
 
       if (afSelectorMap != null)
       {
-        mappedSelector = (String)afSelectorMap.get(afComponentSelector);
+        mappedSelector = afSelectorMap.get(afComponentSelector);
 
       }
       if (mappedSelector != null)
@@ -508,9 +506,9 @@ public class CSSGenerationUtils
   // there is a short version. does not shorten styles that start with the
   // namespace
   private static String _getShortSelector(
-    String selector,
-    Map    shortStyleClassMap,
-    String selectorNamespace)
+    String              selector,
+    Map<String, String> shortStyleClassMap,
+    String              selectorNamespace)
   {
     if (shortStyleClassMap == null)
       return null;
@@ -521,8 +519,7 @@ public class CSSGenerationUtils
     // selectors are "af|inputText" or ".AFFoo .AFBar" or ".foo:hover"
     if (isSingleStyleClassSelector(selector))
     {
-      String shortStyleClass = (String)shortStyleClassMap.get(
-                                         selector.substring(1));
+      String shortStyleClass = shortStyleClassMap.get(selector.substring(1));
 
       return (shortStyleClass == null) ? null : "." + shortStyleClass;
     }
@@ -574,7 +571,7 @@ public class CSSGenerationUtils
           String shortStyleClass = null;
           // don't shorten the styles that start with the namespace
           if (!styleClass.startsWith(selectorNamespace))
-            shortStyleClass = (String)shortStyleClassMap.get(styleClass);
+            shortStyleClass = shortStyleClassMap.get(styleClass);
 
 
           if (shortStyleClass == null)
@@ -622,10 +619,10 @@ public class CSSGenerationUtils
    * @return            the selector, mapped.
    */
   private static String _getMappedNSSelector (
-    Map     map,
-    String  namespace,
-    String  selector,
-    boolean shorten)
+    Map<String, String> map,
+    String              namespace,
+    String              selector,
+    boolean             shorten)
   {
     // break apart by spaces
     // map each piece; if namespace is not in the piece,
@@ -670,10 +667,10 @@ public class CSSGenerationUtils
   }
 
   private static String _getEachMappedSelector(
-    Map     map,
-    String  namespace,
-    String  selector,
-    boolean shorten)
+    Map<String, String> map,
+    String              namespace,
+    String              selector,
+    boolean             shorten)
   {
     // break apart the selector into 3 parts:
     // main
@@ -775,7 +772,7 @@ public class CSSGenerationUtils
       
     // now I have the pieces of the selector. I'll need to map each piece,
     // then piece back together.
-    String mappedMain = (String)map.get(pieces.getMain());
+    String mappedMain = map.get(pieces.getMain());
     if (mappedMain != null)
       buffer.append(mappedMain);
     else
@@ -784,7 +781,7 @@ public class CSSGenerationUtils
     List <String> pseudoClasses = pieces.getPseudoClasses();
     for (String pseudoClass : pseudoClasses )
     {
-      String mappedPseudoClass = (String)map.get(pseudoClass);
+      String mappedPseudoClass = map.get(pseudoClass);
       if (mappedPseudoClass != null)
         buffer.append(mappedPseudoClass);
       else
@@ -947,8 +944,13 @@ public class CSSGenerationUtils
   private static String _getSortedPropertyString(StyleNode style)
   {
     // First, pull the properties out of the StyleNode
-    Vector v = new Vector();
-    Iterator e = style.getProperties();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is needed, otherwise uses
+    //       an ArrayList instead. Even if synchronization is needed 
+    //       Collections.synchronizedList(ArrayList) would probably be
+    //       a better choice.
+    Vector<PropertyNode> v = new Vector<PropertyNode>();
+    Iterator<PropertyNode> e = style.getProperties();
     while (e.hasNext())
       v.addElement(e.next());
 
@@ -1037,17 +1039,17 @@ public class CSSGenerationUtils
   }
   
   // Comparator that sorts PropertyNodes by name
-  private static class PropertyNodeComparator implements Comparator
+  private static class PropertyNodeComparator implements Comparator<PropertyNode>
   {
-    public static Comparator sharedInstance()
+    public static Comparator<PropertyNode> sharedInstance()
     {
       return _sInstance;
     }
 
-    public int compare(Object o1, Object o2)
+    public int compare(PropertyNode o1, PropertyNode o2)
     {
-      String name1 = (o1 == null) ? null : ((PropertyNode)o1).getName();
-      String name2 = (o2 == null) ? null : ((PropertyNode)o2).getName();
+      String name1 = (o1 == null) ? null : o1.getName();
+      String name2 = (o2 == null) ? null : o2.getName();
 
       if ((name1 == null) || (name2 == null) )
       {
@@ -1064,7 +1066,8 @@ public class CSSGenerationUtils
 
     private PropertyNodeComparator() {}
 
-    private static final Comparator _sInstance = new PropertyNodeComparator();
+    private static final Comparator<PropertyNode> _sInstance = 
+      new PropertyNodeComparator();
   }
   
 }

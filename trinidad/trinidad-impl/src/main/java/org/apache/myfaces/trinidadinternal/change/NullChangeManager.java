@@ -34,6 +34,7 @@ public class NullChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
+  @Override
   public void addComponentChange(
     FacesContext facesContext,
     UIComponent uiComponent,
@@ -45,7 +46,8 @@ public class NullChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
-  public Iterator getComponentChanges(FacesContext facesContext,
+  @Override
+  public Iterator<ComponentChange> getComponentChanges(FacesContext facesContext,
                              UIComponent uiComponent)
   {
     return null;
@@ -54,7 +56,8 @@ public class NullChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
-  public Iterator getComponentIdsWithChanges(FacesContext facesContext)
+  @Override
+  public Iterator<String> getComponentIdsWithChanges(FacesContext facesContext)
   {
     return null;
   }

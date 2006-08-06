@@ -52,7 +52,8 @@ public class SelectItemSupport
    *         java.util.Collections.EMPTY_LIST if component has no children or
    *         the component isn't a javax.faces.component.ValueHolder. else
    */
-  static public List getSelectItems(
+  @SuppressWarnings("unchecked")
+  static public List<SelectItem> getSelectItems(
     UIComponent  component,
     Converter    converter)
   { 
@@ -67,16 +68,14 @@ public class SelectItemSupport
       return Collections.EMPTY_LIST;
 
     FacesContext context = FacesContext.getCurrentInstance();
-    List items = null;
-    List children = component.getChildren();
-    for (int i = 0; i < childCount; i++)
+    List<SelectItem> items = null;
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       // f:selectItem
       if (child instanceof UISelectItem)
       {
         if (items == null)
-          items = new ArrayList(childCount);
+          items = new ArrayList<SelectItem>(childCount);
         _addSelectItem(context, 
                        component, 
                        (UISelectItem) child, 
@@ -87,14 +86,14 @@ public class SelectItemSupport
       else if (child instanceof UISelectItems)
       {
         if (items == null)
-          items = new ArrayList(childCount);
+          items = new ArrayList<SelectItem>(childCount);
         addSelectItems((UISelectItems) child, items);
       }
       // tr:selectItem
       else if (child instanceof UIXSelectItem)
       {
         if (items == null)
-          items = new ArrayList(childCount);
+          items = new ArrayList<SelectItem>(childCount);
         _addUIXSelectItem(context,
                           component,
                           (UIXSelectItem) child, 
@@ -117,6 +116,7 @@ public class SelectItemSupport
    * @param component  UIComponent
    * @return item count
    */
+  @SuppressWarnings("unchecked")
   static public int getSelectItemCount(
     UIComponent  component)
   { 
@@ -130,11 +130,8 @@ public class SelectItemSupport
     if (!(component instanceof ValueHolder))
       return itemCount;
 
-    List children = component.getChildren();
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
-      
       if (child instanceof UISelectItem ||
           child instanceof UIXSelectItem)
       {
@@ -185,11 +182,11 @@ public class SelectItemSupport
    *                   itemValue is a String.
    */
   static private void _addSelectItem(
-    FacesContext  context,
-    UIComponent   component,
-    UISelectItem  uiItem,
-    List          items,
-    Converter     converter)
+    FacesContext     context,
+    UIComponent      component,
+    UISelectItem     uiItem,
+    List<SelectItem> items,
+    Converter        converter)
   {
     if (!uiItem.isRendered())
     {
@@ -230,8 +227,8 @@ public class SelectItemSupport
    * a UISelectItem component into the items List.
    */
   static public void addSelectItem(
-    UISelectItem  uiItem,
-    List          items)
+    UISelectItem     uiItem,
+    List<SelectItem> items)
   {
     Object value = uiItem.getValue();
     SelectItem item;
@@ -259,9 +256,10 @@ public class SelectItemSupport
    * Adds SelectItem objects derived from
    * a UISelectItems component into the items List.
    */
+  @SuppressWarnings("unchecked")
   static public void addSelectItems(
     UISelectItems uiItems,
-    List          items)
+    List<SelectItem> items)
   {
     if (!uiItems.isRendered())
     {
@@ -284,18 +282,16 @@ public class SelectItemSupport
     }
     else if (value instanceof Collection)
     {
-      Iterator iter = ((Collection) value).iterator();
+      Iterator<SelectItem> iter = ((Collection<SelectItem>) value).iterator();
       while (iter.hasNext())
       {
-        items.add((SelectItem) iter.next());
+        items.add(iter.next());
       }
     }
     else if (value instanceof Map)
     {
-      Iterator entries = ((Map) value).entrySet().iterator();
-      while (entries.hasNext())
+      for(Map.Entry<Object, Object> entry : ((Map<Object, Object>) value).entrySet())
       {
-        Map.Entry entry = (Map.Entry) entries.next();
         Object label = entry.getKey();
         SelectItem item =
           new SelectItem(entry.getValue(),
@@ -322,11 +318,11 @@ public class SelectItemSupport
    *                   itemValue is a String.
    */   
   static private void _addUIXSelectItem(
-    FacesContext  context,
-    UIComponent   component,
-    UIXSelectItem uixSelectItem,
-    List          items,
-    Converter     converter)
+    FacesContext     context,
+    UIComponent      component,
+    UIXSelectItem    uixSelectItem,
+    List<SelectItem> items,
+    Converter        converter)
   {  
     // check if rendered="false". If so, add null to the list.
     if (!uixSelectItem.isRendered())
@@ -372,7 +368,7 @@ public class SelectItemSupport
     FacesContext fContext = FacesContext.getCurrentInstance();
   
     Converter converter = null;
-    Class modelClass = null;
+    Class<?> modelClass = null;
     
     ValueBinding binding = component.getValueBinding("value");
     if (binding != null)
@@ -393,7 +389,7 @@ public class SelectItemSupport
     {
         // get the itemClass in the case where modelClass is an array or List
         // for instance, in the case of selectManyListbox
-        Class itemClass = modelClass.getComponentType();
+        Class<?> itemClass = modelClass.getComponentType();
         if (itemClass != null)
         {
            converter = ConverterUtils.createConverter(fContext, itemClass);           

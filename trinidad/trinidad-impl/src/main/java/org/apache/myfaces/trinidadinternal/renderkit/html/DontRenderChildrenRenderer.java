@@ -22,6 +22,7 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  */
 public class DontRenderChildrenRenderer extends UINodeRendererBase
 {
+  @Override
   public boolean getRendersChildren()
   {
     return false;

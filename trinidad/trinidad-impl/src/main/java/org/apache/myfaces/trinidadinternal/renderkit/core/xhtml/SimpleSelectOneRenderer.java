@@ -48,13 +48,14 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _valuePassThruKey = type.findKey("valuePassThru");
   }
 
-
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -160,6 +161,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   //
   // DECODE BEHAVIOR
   //
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -200,13 +202,14 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     if ( converter == null)
       converter = getDefaultConverter(context, bean);
 
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems =
+      SelectItemSupport.getSelectItems(component, converter);
+    
     int index = __getIndex(submittedValue, selectItems);
     if (index < 0)
       return null;
 
-    SelectItem item =
-      (SelectItem) selectItems.get(index);
+    SelectItem item = selectItems.get(index);
     if (item != null)
       return item.getValue();
     else
@@ -219,9 +222,10 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   //
   /*
    */
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
@@ -247,7 +251,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
                       getRequiredMessageKey());
     }
 
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = 
+      SelectItemSupport.getSelectItems(component, converter);
+    
     int selectedIndex = _getSelectedIndex(context,
                                           component,
                                           bean,
@@ -290,11 +296,12 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException;
 
+  @Override
   protected void renderNonElementContent(
     FacesContext        context,
     RenderingContext arc,
@@ -309,7 +316,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = 
+      SelectItemSupport.getSelectItems(component, converter);
+    
     int selectedIndex = _getSelectedIndex(context,
                                           component,
                                           bean,
@@ -321,7 +330,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     String text;
     if (selectedIndex >= 0)
     {
-      SelectItem item = (SelectItem) selectItems.get(selectedIndex);
+      SelectItem item = selectItems.get(selectedIndex);
       text = item.getLabel();
     }
     else
@@ -332,12 +341,11 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     context.getResponseWriter().writeText(text, null);
   }
 
-
+  @Override
   protected String getRequiredMessageKey()
   {
     return UIXSelectOne.REQUIRED_MESSAGE_ID;
   }
-
 
   protected boolean getValuePassThru(FacesBean bean)
   {
@@ -359,7 +367,9 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   /**
    * Convert a stringified index into an index, with range-checking.
    */
-  static int __getIndex(Object submittedValue, List selectItems)
+  static int __getIndex(
+      Object submittedValue, 
+      List<SelectItem> selectItems)
   {
     if ("".equals(submittedValue))
       return -1;
@@ -393,12 +403,14 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
   //
   // Find the selected item in the list
   //
-  private int _findIndex(Object value, List selectItems)
+  private int _findIndex(
+      Object value, 
+      List<SelectItem> selectItems)
   {
     int size = selectItems.size();
     for (int i = 0; i < size; i++)
     {
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       if (item == null)
         continue;
 
@@ -434,7 +446,7 @@ abstract public class SimpleSelectOneRenderer extends FormInputRenderer
     FacesContext        context,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     Converter           converter,
     boolean             valuePassThru)
   {

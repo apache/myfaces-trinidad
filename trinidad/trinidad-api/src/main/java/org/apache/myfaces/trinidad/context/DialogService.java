@@ -119,10 +119,10 @@ abstract public class DialogService
    */
   public abstract void launchDialog(
     UIViewRoot  dialogRoot,
-    Map<Object, Object> dialogParameters,
+    Map<String, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map<Object, Object> windowProperties);
+    Map<String, Object> windowProperties);
 
 
   /**

@@ -35,6 +35,7 @@ public class OutputTextRenderer extends ValueRenderer
     super(CoreOutputText.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -44,6 +45,7 @@ public class OutputTextRenderer extends ValueRenderer
     _descriptionKey = type.findKey("description");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -60,6 +62,7 @@ public class OutputTextRenderer extends ValueRenderer
     }
   }
 
+  @Override
   public void encodeEnd(
     FacesContext        context,
     RenderingContext arc,

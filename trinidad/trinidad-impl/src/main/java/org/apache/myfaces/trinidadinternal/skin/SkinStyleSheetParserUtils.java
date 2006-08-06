@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
@@ -73,7 +72,7 @@ class SkinStyleSheetParserUtils
     ParseContext  context,
     NameResolver  resolver,
     String        sourceName,
-    Class         expectedType) throws IOException
+    Class<?>      expectedType) throws IOException
   {
 
     if (expectedType == null)
@@ -182,9 +181,9 @@ class SkinStyleSheetParserUtils
     // styleNodeList. Also, build one iconNodeList and one skinPropertyNodeList.
     
     // initialize
-    List <IconNode> iconNodeList = new ArrayList();
-    List skinPropertyNodeList = new ArrayList();
-    List <StyleSheetNode> ssNodeList = new ArrayList();
+    List<IconNode> iconNodeList = new ArrayList<IconNode>();
+    List<SkinPropertyNode> skinPropertyNodeList = new ArrayList<SkinPropertyNode>();
+    List<StyleSheetNode> ssNodeList = new ArrayList<StyleSheetNode>();
     
     for (SkinStyleSheetNode skinSSNode : skinSSNodeList) 
     {
@@ -195,13 +194,13 @@ class SkinStyleSheetParserUtils
       //Map namespaceMap = styleSheetNode.getNamespaceMap();
      
       // initialize
-      List <StyleNode> styleNodeList = new ArrayList();
+      List <StyleNode> styleNodeList = new ArrayList<StyleNode>();
   
       for (SkinSelectorPropertiesNode cssSelector : selectorNodeList) 
       {
 
         String selectorName = cssSelector.getSelectorName();
-        List propertyList = cssSelector.getPropertyNodes();
+        List<PropertyNode> propertyList = cssSelector.getPropertyNodes();
         int direction     = skinSSNode.getDirection();
   
         ResolvedSkinProperties resolvedProperties =
@@ -212,7 +211,8 @@ class SkinStyleSheetParserUtils
   
         skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
   
-        List noOraPropertyList = resolvedProperties.getNoOraPropertyList();
+        List<PropertyNode> noOraPropertyList = 
+          resolvedProperties.getNoOraPropertyList();
   
         // =-=jmw There is no good way to tell if this is an icon.
         // for now, I look at the selector name.
@@ -310,14 +310,16 @@ class SkinStyleSheetParserUtils
    */
   private static ResolvedSkinProperties _resolveProperties(
     String selectorName,
-    List   propertyNodeList,
+    List<PropertyNode> propertyNodeList,
     String baseURI,
     String sourceName)
   {
 
-    List   noOraPropertyList = new ArrayList();
-    List   oraRuleRefList = new ArrayList();
-    List   skinPropertyNodeList = new ArrayList();
+    List<PropertyNode> noOraPropertyList = new ArrayList<PropertyNode>();
+    List<String> oraRuleRefList = new ArrayList<String>();
+    List<SkinPropertyNode> skinPropertyNodeList = 
+      new ArrayList<SkinPropertyNode>();
+    
     boolean oraTextAntialias = false;
 
     // loop through each property in the propertyList
@@ -328,11 +330,8 @@ class SkinStyleSheetParserUtils
     // skinPropertyNodeList (all other properties that start with -ora-)
     // These properties are all stored in th ResolvedSkinProperties inner class.
 
-    Iterator propertyIter = propertyNodeList.listIterator();
-
-    while (propertyIter.hasNext())
+    for(PropertyNode propertyNode : propertyNodeList)
     {
-      PropertyNode propertyNode = (PropertyNode)propertyIter.next();
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
 
@@ -401,9 +400,9 @@ class SkinStyleSheetParserUtils
    * @param iconNodeList
    */
   private static void _addIconNode(
-    String  selectorName,
-    List    noOraPropertyNodeList,
-    List <IconNode>    iconNodeList)
+    String             selectorName,
+    List<PropertyNode> noOraPropertyNodeList,
+    List<IconNode>     iconNodeList)
   {
 
     // these are icon properties.
@@ -440,10 +439,8 @@ class SkinStyleSheetParserUtils
     // inline style
     CSSStyle inlineStyle = new CSSStyle();
 
-    Iterator propertyIter = noOraPropertyNodeList.listIterator();
-    while (propertyIter.hasNext())
+    for(PropertyNode propertyNode : noOraPropertyNodeList)
     {
-      PropertyNode propertyNode = (PropertyNode)propertyIter.next();
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
       if (propertyName.equals("width"))
@@ -546,11 +543,11 @@ class SkinStyleSheetParserUtils
    * @param styleNodeList
    */
   private static void _addStyleNode(
-    String  selectorName,
-    List    propertyNodeList,
-    List    oraRuleRefList,
-    boolean oraTextAntialias,
-    List    <StyleNode> styleNodeList)
+    String             selectorName,
+    List<PropertyNode> propertyNodeList,
+    List<String>       oraRuleRefList,
+    boolean            oraTextAntialias,
+    List<StyleNode>    styleNodeList)
   {
 
     // these are the styles.
@@ -577,21 +574,16 @@ class SkinStyleSheetParserUtils
     }
     // convert to a PropertyNode[], because StyleNode takes this type.
     PropertyNode[] propertyArray =
-      (PropertyNode[])(propertyNodeList.toArray(
-                        new PropertyNode[propertyNodeList.size()]));
+      propertyNodeList.toArray(new PropertyNode[propertyNodeList.size()]);
 
     // if the oraRuleRefList is not empty, create IncludeStyleNodes.
     int length = oraRuleRefList.size();
-    List <IncludeStyleNode> includeStyleNodes = new ArrayList();
+    List<IncludeStyleNode> includeStyleNodes = new ArrayList<IncludeStyleNode>();
 
     if (length > 0)
     {
-      Iterator oraRuleRefIter = oraRuleRefList.listIterator();
-
-      while (oraRuleRefIter.hasNext())
+      for(String value : oraRuleRefList)
       {
-        String value = (String)oraRuleRefIter.next();
-
         // parse the value, which will be of this form:
         // -ora-rule-ref: selector(".AFBaseFont:alias") selector(".Foo")
         // where you have more than one selector in an -ora-rule-ref definition
@@ -632,8 +624,7 @@ class SkinStyleSheetParserUtils
       // selector(".AFBaseFont:alias")
       // if it ends with :alias, it is a namedstyle.
 
-
-      List <String> selectors = new ArrayList();
+      List<String> selectors = new ArrayList<String>();
       String[] test = value.split("selector\\(");
       for (int i=0; i < test.length; i++)
       {
@@ -651,7 +642,7 @@ class SkinStyleSheetParserUtils
 
       for (int i=0; i < size; i++)
       {
-        String includeStyle = (String)selectors.get(i);
+        String includeStyle = selectors.get(i);
         // if it has :alias at the end it is a named style
         if (includeStyle.endsWith(":alias"))
         {
@@ -897,9 +888,9 @@ class SkinStyleSheetParserUtils
 
 
     ResolvedSkinProperties(
-      List noOraPropertyList,
-      List oraRuleRefList,
-      List skinPropertyNodeList,
+      List<PropertyNode> noOraPropertyList,
+      List<String> oraRuleRefList,
+      List<SkinPropertyNode> skinPropertyNodeList,
       boolean oraTextAntialias)
     {
       _noOraPropertyList = noOraPropertyList;
@@ -908,17 +899,17 @@ class SkinStyleSheetParserUtils
       _oraTextAntialias = oraTextAntialias;
     }
 
-    public List getNoOraPropertyList()
+    public List<PropertyNode> getNoOraPropertyList()
     {
       return _noOraPropertyList;
     }
 
-    public List getOraRuleRefList()
+    public List<String> getOraRuleRefList()
     {
       return _oraRuleRefList;
     }
 
-    public List getSkinPropertyNodeList()
+    public List<SkinPropertyNode> getSkinPropertyNodeList()
     {
       return _skinPropertyNodeList;
     }
@@ -928,10 +919,10 @@ class SkinStyleSheetParserUtils
       return _oraTextAntialias;
     }
 
-    private List    _noOraPropertyList;
-    private List    _oraRuleRefList;
-    private List    _skinPropertyNodeList;
-    private boolean _oraTextAntialias;
+    private List<PropertyNode>     _noOraPropertyList;
+    private List<String>           _oraRuleRefList;
+    private List<SkinPropertyNode> _skinPropertyNodeList;
+    private boolean                _oraTextAntialias;
   }
 
 

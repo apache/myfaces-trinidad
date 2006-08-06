@@ -54,6 +54,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -66,6 +67,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -87,6 +89,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -132,6 +135,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -144,16 +148,16 @@ public class StyleSheetDocumentParser extends BaseNodeParser
       if (localName.equals(STYLE_SHEET_NAME))
       {
         if (_styleSheets == null)
-          _styleSheets = new Vector();
+          _styleSheets = new Vector<StyleSheetNode>();
 
-        _styleSheets.addElement(child);
+        _styleSheets.addElement((StyleSheetNode)child);
       }
       else if (localName.equals(COLOR_SCHEME_NAME))
       {
         if (_colorSchemes == null)
-          _colorSchemes = new Vector();
+          _colorSchemes = new Vector<ColorSchemeNode>();
 
-        _colorSchemes.addElement(child);
+        _colorSchemes.addElement((ColorSchemeNode)child);
       }
     }
   }
@@ -177,13 +181,14 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     {
       // If we've got imported documents, copy all style sheets
       // into a Vector first.
-      Vector v = new Vector();
-      for (int i = 0; i < _imports.size(); i++)
+      // -= Simon Lessard =-
+      // TODO: Check if synchronization is truly required.
+      Vector<StyleSheetNode> v = new Vector<StyleSheetNode>();
+      for(StyleSheetDocument doc : _imports)
       {
-        StyleSheetDocument doc = (StyleSheetDocument)_imports.get(i);
-        Iterator e = doc.getStyleSheets();
+        Iterator<StyleSheetNode> e = doc.getStyleSheets();
         while (e.hasNext())
-          v.addElement((StyleSheetNode)e.next());
+          v.addElement(e.next());
       }
 
       // Might as well add the rest of the style sheets in now too
@@ -208,19 +213,20 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   {
     // We collect ColorSchemeNodes in a dictionary (hashed by namespaceURI +
     // name) to simplify merging
-    Hashtable colorSchemesTable = new Hashtable(19);
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Hashtable<String, ColorSchemeNode> colorSchemesTable = 
+      new Hashtable<String, ColorSchemeNode>(19);
 
     // Merge in imported color schemes first
     if (_imports != null)
     {
-      for (int i = 0; i < _imports.size(); i++)
+      for(StyleSheetDocument doc : _imports)
       {
-        StyleSheetDocument doc = (StyleSheetDocument)_imports.get(i);
-        Iterator e = doc.getColorSchemes();
+        Iterator<ColorSchemeNode> e = doc.getColorSchemes();
         while (e.hasNext())
         {
-          _mergeColorScheme(colorSchemesTable,
-                            (ColorSchemeNode)e.next());
+          _mergeColorScheme(colorSchemesTable, e.next());
         }
       }
     }
@@ -230,20 +236,17 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     {
       for (int i = 0; i < _colorSchemes.size(); i++)
       {
-        _mergeColorScheme(colorSchemesTable,
-                          (ColorSchemeNode)_colorSchemes.elementAt(i));
+        _mergeColorScheme(colorSchemesTable, _colorSchemes.elementAt(i));
       }
     }
 
     // Now, copy everything into a single array
     int count = colorSchemesTable.size();
     ColorSchemeNode[] colorSchemes = new ColorSchemeNode[count];
-    Iterator values = colorSchemesTable.values().iterator();
     int i = 0;
-    while (values.hasNext())
+    for(ColorSchemeNode node : colorSchemesTable.values())
     {
-      colorSchemes[i] = (ColorSchemeNode)values.next();
-      i++;
+      colorSchemes[i++] = node;
     }
 
     return colorSchemes;
@@ -252,12 +255,12 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   // Merges the ColorSchemeNode into a Map of ColorSchemeNodes, hashed
   // by namespaceURI + name.
   private void _mergeColorScheme(
-    Map      colorSchemes,
+    Map<String, ColorSchemeNode> colorSchemes,
     ColorSchemeNode colorScheme
     )
   {
     String key = colorScheme.getNamespaceURI() + colorScheme.getName();
-    ColorSchemeNode oldColorScheme = (ColorSchemeNode)colorSchemes.get(key);
+    ColorSchemeNode oldColorScheme = colorSchemes.get(key);
 
     if (oldColorScheme == null)
     {
@@ -267,13 +270,15 @@ public class StyleSheetDocumentParser extends BaseNodeParser
 
     // If we've already got a color scheme, we need to merge the colors
     // from the new and old color schemes.  Brute force method here...
-    Hashtable colorsTable = new Hashtable();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is truly required.
+    Hashtable<String, ColorNode> colorsTable = new Hashtable<String, ColorNode>();
 
     // First, merge in the old colors
-    Iterator e = oldColorScheme.getColors();
+    Iterator<ColorNode> e = oldColorScheme.getColors();
     while (e.hasNext())
     {
-      ColorNode color = (ColorNode)e.next();
+      ColorNode color = e.next();
       colorsTable.put(color.getName(), color);
     }
 
@@ -281,18 +286,16 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     e = colorScheme.getColors();
     while (e.hasNext())
     {
-      ColorNode color = (ColorNode)e.next();
+      ColorNode color = e.next();
       colorsTable.put(color.getName(), color);
     }
 
     // Now, create the merged ColorSchemeNode
     ColorNode[] colors = new ColorNode[colorsTable.size()];
-    Iterator values = colorsTable.values().iterator();
     int i = 0;
-    while (values.hasNext())
+    for(ColorNode color : colorsTable.values())
     {
-      colors[i] = (ColorNode)values.next();
-      i++;
+      colors[i++] = color;
     }
 
     ColorSchemeNode newColorScheme = new ColorSchemeNode(
@@ -332,7 +335,7 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     if (doc != null)
     {
       if (_imports == null)
-        _imports = new ArrayList();
+        _imports = new ArrayList<StyleSheetDocument>();
 
       _imports.add(doc);
     }
@@ -351,27 +354,30 @@ public class StyleSheetDocumentParser extends BaseNodeParser
 
     // If we are the top level document, resolve all <colorProperty>
     // elements now.
-    Map defaultColors = _getDefaultColors(colorSchemes);
+    Map<String, String> defaultColors = _getDefaultColors(colorSchemes);
     for (int i = 0; i < styleSheets.length; i++)
     {
       StyleSheetNode styleSheet = styleSheets[i];
-      Vector stylesVector = new Vector();
-      Iterator stylesIterator = styleSheet.getStyles();
+      // -= Simon Lessard =- 
+      // TODO: Check if synchronization is really needed.
+      Vector<StyleNode> stylesVector = new Vector<StyleNode>();
+      Iterator<StyleNode> stylesIterator = styleSheet.getStyles();
       while (stylesIterator.hasNext())
       {
         boolean resolvedColorProperty = false;
-        StyleNode style = (StyleNode)stylesIterator.next();
-        Vector propertiesVector = new Vector();
-        Iterator propertiesIterator = style.getProperties();
+        StyleNode style = stylesIterator.next();
+        // -= Simon Lessard =- 
+        // TODO: Check if synchronization is really needed.
+        Vector<PropertyNode> propertiesVector = new Vector<PropertyNode>();
+        Iterator<PropertyNode> propertiesIterator = style.getProperties();
         while (propertiesIterator.hasNext())
         {
-          PropertyNode property =
-                         (PropertyNode)propertiesIterator.next();
+          PropertyNode property = propertiesIterator.next();
 
           if (property.__isColorProperty())
           {
             String name = property.getName();
-            String value = (String)defaultColors.get(property.getValue());
+            String value = defaultColors.get(property.getValue());
 
             assert (value != null);
 
@@ -407,9 +413,11 @@ public class StyleSheetDocumentParser extends BaseNodeParser
   }
 
   // Returns a Map of color names to (Strings) color values
-  private Map _getDefaultColors(ColorSchemeNode[] colorSchemes)
+  private Map<String, String> _getDefaultColors(ColorSchemeNode[] colorSchemes)
   {
-    Hashtable colors = new Hashtable();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Hashtable<String, String> colors = new Hashtable<String, String>();
 
     // Initialize the table with default values
     for (int i = 0; i < _DEFAULT_COLORS.length; i += 2)
@@ -423,10 +431,10 @@ public class StyleSheetDocumentParser extends BaseNodeParser
         ColorSchemeNode colorScheme = colorSchemes[i];
         if ("default".equals(colorScheme.getName()))
         {
-          Iterator e = colorScheme.getColors();
+          Iterator<ColorNode> e = colorScheme.getColors();
           while (e.hasNext())
           {
-            ColorNode color = (ColorNode)e.next();
+            ColorNode color = e.next();
             colors.put(color.getName(), color.getValue());
           }
 
@@ -451,10 +459,8 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     // Tack on versions from imported style sheets
     if (_imports != null)
     {
-      Iterator en = _imports.iterator();
-      while (en.hasNext())
+      for(StyleSheetDocument document : _imports)
       {
-        StyleSheetDocument document = (StyleSheetDocument)en.next();
         String documentVersion = document.getDocumentVersion();
         if (documentVersion != null)
           buffer.append(documentVersion);
@@ -489,10 +495,8 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     // Merge in timestamps of imported style sheets
     if (_imports != null)
     {
-      Iterator en = _imports.iterator();
-      while (en.hasNext())
+      for(StyleSheetDocument document : _imports)
       {
-        StyleSheetDocument document = (StyleSheetDocument)en.next();
         long importTimestamp = document.getDocumentTimestamp();
         if (importTimestamp > timestamp)
           timestamp = importTimestamp;
@@ -502,9 +506,11 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     return timestamp;
   }
 
-  private Vector _styleSheets;   // Vector of StyleSheetNode
-  private Vector _colorSchemes;  // Vector of ColorSchemeNodes
-  private ArrayList _imports;       // Vector of imported StyleSheetDocument
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is truly required
+  private Vector<StyleSheetNode> _styleSheets;   // Vector of StyleSheetNode
+  private Vector<ColorSchemeNode> _colorSchemes;  // Vector of ColorSchemeNodes
+  private ArrayList<StyleSheetDocument> _imports;       // Vector of imported StyleSheetDocument
   private String _documentVersion; // Version identifier for the document
 
   // Default values for BLAF color scheme

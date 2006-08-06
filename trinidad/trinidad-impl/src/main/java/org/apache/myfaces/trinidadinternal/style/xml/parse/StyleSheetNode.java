@@ -86,7 +86,8 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getStyles().
    */
-  public Iterator getStyles()
+  @SuppressWarnings("unchecked")
+  public Iterator<StyleNode> getStyles()
   {
   if(_styles!=null)
   {
@@ -112,7 +113,8 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getLocales().
    */
-  public Iterator getLocales()
+  @SuppressWarnings("unchecked")
+  public Iterator<Locale> getLocales()
   {
     if (_locales==null) 
     {
@@ -125,7 +127,7 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getBrowsers().
    */
-  public Iterator getBrowsers()
+  public Iterator<Integer> getBrowsers()
   {
     return Collections.list(new IntegerArrayEnumeration(_browsers)).iterator();
   }
@@ -133,7 +135,7 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getVersions().
    */
-  public Iterator getVersions()
+  public Iterator<Integer> getVersions()
   {
     return Collections.list(new IntegerArrayEnumeration(_versions)).iterator();
   }
@@ -141,7 +143,7 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getPlatforms().
    */
-  public Iterator getPlatforms()
+  public Iterator<Integer> getPlatforms()
   {
     return Collections.list(new IntegerArrayEnumeration(_platforms)).iterator();
   }
@@ -196,7 +198,7 @@ public class StyleSheetNode
     return (localeMatch | browserMatch | versionMatch | osMatch);
   }
 
-  
+  @Override
   public String toString()
   {
     return getClass().getName() + "[" +

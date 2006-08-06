@@ -32,6 +32,7 @@ abstract public class ValueRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -69,7 +70,7 @@ abstract public class ValueRenderer extends XhtmlRenderer
     if (binding == null)
       return null;
 
-    Class type = binding.getType(context);
+    Class<?> type = binding.getType(context);
     return ConverterUtils.createConverter(context, type);
   }
 

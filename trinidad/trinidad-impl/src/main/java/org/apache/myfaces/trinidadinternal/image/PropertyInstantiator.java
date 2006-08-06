@@ -46,7 +46,7 @@ public class PropertyInstantiator
   {
     try
     {
-      Class classInstance = ClassLoaderUtils.loadClass(_className);
+      Class<?> classInstance = ClassLoaderUtils.loadClass(_className);
       return classInstance.newInstance();
     }
     catch (ClassNotFoundException cnfe)

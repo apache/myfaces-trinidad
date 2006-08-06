@@ -55,18 +55,20 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
    * @param component the UIComponent object
    * @throws IOException when some issues while writing output
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
     throws IOException
   {
     _LOG.finer("Entering CorePanelAccordionRenderer.encodeBegin()");
-    List children = component.getChildren();
+    List<UIComponent> children = component.getChildren();
     int numChildren = children.size();
     UIComponent disclosedChild = null;
     UIXShowDetail renderableChild = null;
 
     for (int indxChild = 0; indxChild < numChildren ; indxChild++ )
     {
-      UIComponent child =  (UIComponent) children.get(indxChild);
+      UIComponent child =  children.get(indxChild);
       if (! (child instanceof UIXShowDetail) )
       {
         continue;
@@ -125,6 +127,8 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
    * @param component the UIComponent object
    * @throws IOException when some issues while writing output
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeChildren(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -135,7 +139,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
     ResponseWriter out = context.getResponseWriter();
 
-    ListIterator iter = component.getChildren().listIterator();
+    ListIterator<UIComponent> iter = component.getChildren().listIterator();
 
     if (iter == null)
     {
@@ -343,6 +347,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
    * @param component the UIComponent object
    * @throws IOException when some issues while writing output
    */
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent component)
     throws IOException
@@ -524,9 +529,9 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
     return discloseNone;
   }
 
-  private UIXShowDetail _getNextShowDetailChild(ListIterator iter)
+  private UIXShowDetail _getNextShowDetailChild(ListIterator<UIComponent> iter)
   {
-    UIComponent child = (UIComponent)iter.next();
+    UIComponent child = iter.next();
     if (! child.isRendered() )
     {
       return null;

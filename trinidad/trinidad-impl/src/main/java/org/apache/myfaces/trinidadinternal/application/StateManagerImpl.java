@@ -169,6 +169,8 @@ public class StateManagerImpl extends StateManager
     return root;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public SerializedView saveSerializedView(FacesContext context)
   {
     if (!isSavingStateInClient(context))
@@ -183,8 +185,8 @@ public class StateManagerImpl extends StateManager
 
     // See if we're going to use the application view cache for
     // this request
-    Map applicationViewCache = null;
-    Map perSessionApplicationViewCache = null;
+    Map<String, Object> applicationViewCache = null;
+    Map<String, Object> perSessionApplicationViewCache = null;
     if (_useApplicationViewCache(context))
     {
       // OK, we are: so find the application cache and
@@ -225,12 +227,14 @@ public class StateManagerImpl extends StateManager
         assert(cache != null);
 
         // Store bits of the session as subkeys off of the session
-        Map stateMap = new SubKeyMap(
+        Map<String, Object> stateMap = new SubKeyMap(
                          context.getExternalContext().getSessionMap(),
                          _VIEW_CACHE_KEY + ".");
         // Sadly, we can't save just a SerializedView, because we should
         // save a serialized object, and SerializedView is a *non*-static
         // inner class of StateManager
+        // -= Simon Lessard =-
+        // FIXME: pageState is never read
         PageState pageState = new PageState(
             structure,
             state,
@@ -278,12 +282,15 @@ public class StateManagerImpl extends StateManager
     return view;
   }
 
+  @Override
   public void writeState(FacesContext context,
                          SerializedView state) throws IOException
   {
     _delegate.writeState(context, state);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public UIViewRoot restoreView(FacesContext context, String viewId,
                                 String renderKitId)
   {
@@ -312,8 +319,8 @@ public class StateManagerImpl extends StateManager
       // Load from the application cache
       if (_APPLICATION_CACHE_TOKEN.equals(token))
       {
-        Map cache = _getApplicationViewCache(context);
-        Map perSessionCache =
+        Map<String, Object> cache = _getApplicationViewCache(context);
+        Map<String, Object> perSessionCache =
           _getPerSessionApplicationViewCache(context);
 
         // Synchronize on the application-level cache.
@@ -336,10 +343,10 @@ public class StateManagerImpl extends StateManager
       }
       else
       {
-        Map stateMap = new SubKeyMap(
+        Map<String, Object> stateMap = new SubKeyMap(
                          context.getExternalContext().getSessionMap(),
                          _VIEW_CACHE_KEY + ".");
-        viewState = (PageState) stateMap.get((String) token);
+        viewState = (PageState) stateMap.get(token);
 
         // Make sure that if the view state is present, the cache still
         // has the token, and vice versa
@@ -380,7 +387,7 @@ public class StateManagerImpl extends StateManager
         // newRoot.getChildren().addAll(root.getChildren());
         // because "root"'s child List is being mutated as the List
         // is traversed.
-        List temp = new ArrayList(root.getChildCount());
+        List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
         temp.addAll(root.getChildren());
         newRoot.getChildren().addAll(temp);
 
@@ -448,6 +455,7 @@ public class StateManagerImpl extends StateManager
     return null;
   }
 
+  @Override
   public boolean isSavingStateInClient(FacesContext context)
   {
     return _delegate.isSavingStateInClient(context);
@@ -457,22 +465,26 @@ public class StateManagerImpl extends StateManager
   // Protected APIs: we don't want
   //
 
+  @Override
   protected Object getTreeStructureToSave(FacesContext context)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   protected Object getComponentStateToSave(FacesContext context)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   protected UIViewRoot restoreTreeStructure
     (FacesContext context, String viewId, String renderKitId)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   protected void restoreComponentState
     (FacesContext context, UIViewRoot viewRoot, String renderKitId)
   {
@@ -530,15 +542,16 @@ public class StateManagerImpl extends StateManager
   // @todo Map is a bad structure
   // @todo a static size is bad
   //
-  static private Map _getApplicationViewCache(FacesContext context)
+  @SuppressWarnings("unchecked")
+  static private Map<String, Object> _getApplicationViewCache(FacesContext context)
   {
     synchronized (_APPLICATION_VIEW_CACHE_LOCK)
     {
-      Map appMap = context.getExternalContext().getApplicationMap();
-      Map cache = (Map) appMap.get(_APPLICATION_VIEW_CACHE_KEY);
+      Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
+      Map<String, Object> cache = (Map<String, Object>) appMap.get(_APPLICATION_VIEW_CACHE_KEY);
       if (cache == null)
       {
-        cache = new HashMap(128);
+        cache = new HashMap<String, Object>(128);
         appMap.put(_APPLICATION_VIEW_CACHE_KEY, cache);
       }
 
@@ -546,22 +559,24 @@ public class StateManagerImpl extends StateManager
     }
   }
 
-  static private Map _getPerSessionApplicationViewCache(FacesContext context)
+  @SuppressWarnings("unchecked")
+  static private Map<String, Object> _getPerSessionApplicationViewCache(FacesContext context)
   {
     ExternalContext external = context.getExternalContext();
     Object session = external.getSession(true);
     assert(session != null);
 
-    Map cache;
+    Map<String, Object> cache;
     // Synchronize on the session object to ensure that
     // we don't ever create two different caches
     synchronized (session)
     {
-      cache = (Map) external.getSessionMap().get(_APPLICATION_VIEW_CACHE_KEY);
+      Map<String, Object> sessionMap = external.getSessionMap();
+      cache = (Map<String, Object>) sessionMap.get(_APPLICATION_VIEW_CACHE_KEY);
       if (cache == null)
       {
         cache = _createPerSessionApplicationViewCache();
-        external.getSessionMap().put(_APPLICATION_VIEW_CACHE_KEY, cache);
+        sessionMap.put(_APPLICATION_VIEW_CACHE_KEY, cache);
       }
     }
 
@@ -572,9 +587,9 @@ public class StateManagerImpl extends StateManager
   // For the per-session mirror of the application view cache,
   // use an LRU LinkedHashMap to store the latest 16 pages.
   //
-  static private Map _createPerSessionApplicationViewCache()
+  static private Map<String, Object> _createPerSessionApplicationViewCache()
   {
-    return new LRUCache(_MAX_PER_SESSION_APPLICATION_SIZE);
+    return new LRUCache<String, Object>(_MAX_PER_SESSION_APPLICATION_SIZE);
   }
 
   static private final int _MAX_PER_SESSION_APPLICATION_SIZE = 16;
@@ -648,20 +663,21 @@ public class StateManagerImpl extends StateManager
     return kit.getResponseStateManager();
   }
 
+  @SuppressWarnings("unchecked")
   static private void _removeTransientComponents(
     UIComponent root)
   {
-    List components = new ArrayList();
+    List<UIComponent> components = new ArrayList<UIComponent>();
     _gatherTransientComponents(root, components);
-    Iterator iter = components.iterator();
+    Iterator<UIComponent> iter = components.iterator();
     while (iter.hasNext())
     {
-      UIComponent kid = (UIComponent) iter.next();
+      UIComponent kid = iter.next();
       UIComponent parent = kid.getParent();
       // First, see if its a child
       if (parent.getChildCount() > 0)
       {
-        List children = parent.getChildren();
+        List<UIComponent> children = parent.getChildren();
         if (children.remove(kid))
         {
           continue;
@@ -669,13 +685,21 @@ public class StateManagerImpl extends StateManager
       }
 
       // Nope, guess it's a facet
-      Iterator facetNames = parent.getFacets().keySet().iterator();
-      while (facetNames.hasNext())
+      // 2006-08-02: -= Simon Lessard
+      //             Not 1.5 structure and inefficient loop
+      //             values() is more efficient as you don't have 
+      //             to do a second lookup for the value.
+      Map<String, UIComponent> facets = parent.getFacets();
+      for(Iterator<UIComponent> facetIter = facets.values().iterator(); 
+          facetIter.hasNext();)
       {
-        String name = (String) facetNames.next();
-        if (parent.getFacet(name) == kid)
+        if(facetIter.next() == kid)
         {
-          parent.getFacets().remove(name);
+          facetIter.remove();
+          // FIXME: -= Simon Lessard
+          //        Is that continue need to labeled to go all the way up to 
+          //        the first while? Currently it won't cause any problem, but 
+          //        it's a performance loss.
           continue;
         }
       }
@@ -686,13 +710,14 @@ public class StateManagerImpl extends StateManager
     }
   }
 
+  @SuppressWarnings("unchecked")
   static private void _gatherTransientComponents(
-    UIComponent component, List componentsToRemove)
+    UIComponent component, List<UIComponent> componentsToRemove)
   {
-    Iterator kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       // UIXComponentBase doesn't mind transient components
       // in its saved state, so don't bother with this.
       if (!(component instanceof UIXComponentBase) &&
@@ -715,6 +740,7 @@ public class StateManagerImpl extends StateManager
                  getRequestMap().get(_CACHED_SERIALIZED_VIEW);
   }
 
+  @SuppressWarnings("unchecked")
   private void _saveCachedSerializedView(
     FacesContext context, SerializedView state)
   {

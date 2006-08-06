@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -215,7 +214,7 @@ abstract public class Skin
     if (iconName == null)
       throw new NullPointerException("Null iconName");
 
-    Icon icon = (Icon)_icons.get(iconName);
+    Icon icon = _icons.get(iconName);
     if (resolveIcon)
     {
       if (icon instanceof ReferenceIcon)
@@ -238,7 +237,7 @@ abstract public class Skin
    */
   private Icon _resolveReferenceIcon(
     ReferenceIcon refIcon,
-    Stack         referencedIconStack)
+    Stack<String> referencedIconStack)
   {
     String refName = refIcon.getName();
 
@@ -249,8 +248,11 @@ abstract public class Skin
         _LOG.warning(_CIRCULAR_INCLUDE_ERROR + refName);
       return null;
     }
+    
     if (referencedIconStack == null)
-      referencedIconStack = new Stack();
+    {
+      referencedIconStack = new Stack<String>();
+    }
 
     referencedIconStack.push(refName);
 
@@ -268,7 +270,7 @@ abstract public class Skin
   }
 
     // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack stack, Object value)
+  private static boolean _stackContains(Stack<String> stack, Object value)
   {
     if (stack == null)
       return false;
@@ -314,7 +316,9 @@ abstract public class Skin
       throw new NullPointerException("Null styleSheetName");
 
     if (_extensionStyleSheetNames == null)
-      _extensionStyleSheetNames = new ArrayList();
+    {
+      _extensionStyleSheetNames = new ArrayList<String>();
+    }
 
     _extensionStyleSheetNames.add(styleSheetName);
   }
@@ -368,7 +372,7 @@ abstract public class Skin
     )
   {
     if (_properties == null)
-      _properties = new OptimisticHashMap();
+      _properties = new OptimisticHashMap<Object, Object>();
 
     _properties.put(key, value);
   }
@@ -430,26 +434,23 @@ abstract public class Skin
         if (_skinStyleSheet != null)
         {
           // register icons
-          List icons = _skinStyleSheet.getIcons();
+          List<IconNode> icons = _skinStyleSheet.getIcons();
           if (icons != null)
           {
-            Iterator e = icons.listIterator();
-            while (e.hasNext())
+            for(IconNode iconNode : icons)
             {
-              IconNode iconNode = (IconNode)e.next();
-              registerIcon(iconNode.getIconName(),
-                           iconNode.getIcon());
-
+              registerIcon(iconNode.getIconName(), iconNode.getIcon());
             }
           }
+          
           // register properties
-          List skinProperties = _skinStyleSheet.getSkinProperties();
+          List<SkinPropertyNode> skinProperties = 
+            _skinStyleSheet.getSkinProperties();
+          
           if (skinProperties != null)
           {
-            Iterator e = skinProperties.listIterator();
-            while (e.hasNext())
+            for(SkinPropertyNode property : skinProperties)
             {
-              SkinPropertyNode property = (SkinPropertyNode)e.next();
               Object propValueObj = property.getPropertyValue();
               // convert to a type if possible first
               // =-=jmw should I get the type for af|breadCrumbs-ora-show-last-item or just
@@ -461,7 +462,7 @@ abstract public class Skin
               String key = property.getPropertySelector() +
                            property.getPropertyName();
               // look up in map to get conversion
-              Class type = (Class)_PROPERTY_CLASS_TYPE_MAP.get(key);
+              Class<?> type = _PROPERTY_CLASS_TYPE_MAP.get(key);
               if (type != null)
               {
                 try
@@ -530,7 +531,9 @@ abstract public class Skin
     // reason (maybe we don't have any style sheet, maybe there were
     // I/O problems), create a empty StyleSheetDocument so that we
     // don't repeatedly try to re-create the document.
-    return new StyleSheetDocument(null, null);
+    return new StyleSheetDocument(null, 
+                                  null, 
+                                  StyleSheetDocument.UNKNOWN_TIMESTAMP);
   }
 
   // Gets the StyleSheetEntries for UIExtensions
@@ -541,33 +544,30 @@ abstract public class Skin
 
     // Create a list to hold our StyleSheetEntries
     int count = _extensionStyleSheetNames.size();
-    ArrayList entries = new ArrayList(count);
+    List<StyleSheetEntry> entries = new ArrayList<StyleSheetEntry>(count);
 
     // Loop through all registered style sheet names and
     // try to create a StyleSheetEntry for each name.
-    Iterator iter = _extensionStyleSheetNames.iterator();
-    if (iter != null)
+    for(String name : _extensionStyleSheetNames)
     {
-      while (iter.hasNext())
+      StyleSheetEntry entry = StyleSheetEntry.createEntry(context, name);
+      if (entry != null)
       {
-        String name = (String)iter.next();
-        StyleSheetEntry entry = StyleSheetEntry.createEntry(context, name);
-        if (entry != null)
-          entries.add(entry);
+        entries.add(entry);
       }
     }
 
     if (!entries.isEmpty())
     {
       _extensionStyleSheets = new StyleSheetEntry[entries.size()];
-      return (StyleSheetEntry[])entries.toArray(_extensionStyleSheets);
+      return entries.toArray(_extensionStyleSheets);
     }
 
     return null;
   }
 
   // HashMap that maps icon name to Icons
-  private OptimisticHashMap _icons = new OptimisticHashMap();
+  private OptimisticHashMap<String, Icon> _icons = new OptimisticHashMap<String, Icon>();
 
   // The StyleSheetDocument which contains all of the styles
   // for this Skin - including styles contributed by UIExtensions.
@@ -579,18 +579,20 @@ abstract public class Skin
   private StyleSheetEntry _skinStyleSheet;
 
   // List of extension style sheet names
-  private List _extensionStyleSheetNames;
+  private List<String> _extensionStyleSheetNames;
 
   // Array of UIExtension StyleSheetEntries
   private StyleSheetEntry[] _extensionStyleSheets;
 
   // HashMap of Skin properties
-  private OptimisticHashMap _properties;
+  private OptimisticHashMap<Object, Object> _properties;
 
   // Map of property to class type
-  private static final Map _PROPERTY_CLASS_TYPE_MAP = new HashMap();
+  private static final Map<String, Class<?>> _PROPERTY_CLASS_TYPE_MAP;
   static
   {
+    _PROPERTY_CLASS_TYPE_MAP = new HashMap<String, Class<?>>();
+    
     _PROPERTY_CLASS_TYPE_MAP.put(
       XhtmlConstants.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.class);
     _PROPERTY_CLASS_TYPE_MAP.put(

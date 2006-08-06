@@ -50,8 +50,8 @@ abstract public class AbstractXMLEncoder
     ImageContext context,
     String       namespaceURI,
     String       localName,
-    Map properties,
-    Map responseProperties,
+    Map<Object, Object> properties,
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {
@@ -69,8 +69,8 @@ abstract public class AbstractXMLEncoder
 
   protected void encodeAttributes(
     ImageContext context,
-    Map properties,
-    Map responseProperties,
+    Map<Object, Object> properties,
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {
@@ -100,8 +100,8 @@ abstract public class AbstractXMLEncoder
    */
   protected void encodeBody(
     ImageContext context,
-    Map properties,
-    Map responseProperties,
+    Map<Object, Object> properties,
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {
@@ -340,7 +340,7 @@ abstract public class AbstractXMLEncoder
 
   private final void _encodeDirectionAttribute(
     ImageContext context,
-    Map properties,
+    Map<Object, Object> properties,
     PrintWriter out
     )
   {

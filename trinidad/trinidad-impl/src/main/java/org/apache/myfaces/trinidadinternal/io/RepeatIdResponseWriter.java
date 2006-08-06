@@ -52,12 +52,14 @@ public class RepeatIdResponseWriter extends ResponseWriterDecorator
     super(out);
   }
   
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     return new RepeatIdResponseWriter(
       getResponseWriter().cloneWithWriter(writer));
   }
 
+  @Override
   public void writeAttribute(String     name,
                              Object     value,
                              String     property) throws IOException

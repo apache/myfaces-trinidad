@@ -34,6 +34,7 @@ public class SpacerRenderer extends XhtmlRenderer
     super(CoreSpacer.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -41,6 +42,7 @@ public class SpacerRenderer extends XhtmlRenderer
     _widthKey = type.findKey("width");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,

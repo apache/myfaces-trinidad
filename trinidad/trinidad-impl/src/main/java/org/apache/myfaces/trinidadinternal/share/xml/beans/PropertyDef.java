@@ -57,8 +57,7 @@ public abstract class PropertyDef
    *
    * @return  the property type
    */
-  abstract public Class getPropertyType();
-
+  abstract public Class<?> getPropertyType();
 
   /**
    * Parses a string into the correct Java type for this

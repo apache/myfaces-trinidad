@@ -42,11 +42,12 @@ public class AgentFactoryImpl implements AgentFactory
     return agent;
   }
 
+  @SuppressWarnings("unchecked")
   public Agent createAgent(FacesContext facesContext)
   {
     AgentImpl agent = new AgentImpl();
 
-    Map headerMap;
+    Map<String, String> headerMap;
     if (facesContext != null)
     {
       headerMap = facesContext.getExternalContext().getRequestHeaderMap();
@@ -63,22 +64,25 @@ public class AgentFactoryImpl implements AgentFactory
   }
 
 
-  private void _populateAgentImpl(Map headerMap, AgentImpl agent)
+  private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
   {
-    String userAgent = (String) headerMap.get("User-Agent");
+    String userAgent = headerMap.get("User-Agent");
 
     if ((userAgent != null) && userAgent.startsWith("PTG"))
     {
       _populateIaswAgentImpl(userAgent,
-                             (String) headerMap.get(_IASW_DEVICE_HINT_PARAM),agent);
+                             headerMap.get(_IASW_DEVICE_HINT_PARAM),agent);
       return;
     }
 
     // determine the agent from the headers
-    _populateAgentImpl(userAgent, (String) headerMap.get("Accept"),agent);
+    _populateAgentImpl(userAgent, headerMap.get("Accept"), agent);
   }
 
-  private void _populateAgentImpl(String userAgent, String accept,AgentImpl agent)
+  private void _populateAgentImpl(
+      String userAgent, 
+      String accept, 
+      AgentImpl agent)
   {
     /* for testing PocketPC */
 

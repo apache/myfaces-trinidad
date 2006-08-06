@@ -29,7 +29,12 @@ import java.util.List;
  */
 class ComponentNodeParser extends BaseNodeParser implements XMLConstants
 {
-
+  ComponentNodeParser()
+  {
+    _includeNodes = new ArrayList<IncludeNode>();
+  }
+  
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -46,6 +51,7 @@ class ComponentNodeParser extends BaseNodeParser implements XMLConstants
 
   }
 
+  @Override
   public NodeParser startChildElement(ParseContext context,
                                       String       namespaceURI,
                                       String       localName,
@@ -60,6 +66,7 @@ class ComponentNodeParser extends BaseNodeParser implements XMLConstants
   }
 
 
+  @Override
   public void addCompletedChild (ParseContext context,
                                  String       namespaceURI,
                                  String       localName,
@@ -69,30 +76,31 @@ class ComponentNodeParser extends BaseNodeParser implements XMLConstants
     if (child == null)
       return;
 
-    _includeNodes.add(child);
+    _includeNodes.add((IncludeNode)child);
   }
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)
   {
-    ArrayList nodesWithRefList = new ArrayList(_includeNodes.size());
-    ArrayList nodesWithSrcList = new ArrayList(_includeNodes.size());
+    ArrayList<IncludeNode> nodesWithRefList = new ArrayList<IncludeNode>(_includeNodes.size());
+    ArrayList<IncludeNode> nodesWithSrcList = new ArrayList<IncludeNode>(_includeNodes.size());
     for (int i = 0; i < _includeNodes.size(); i++)
     {
-      IncludeNode node = (IncludeNode) _includeNodes.get(i);
+      IncludeNode node = _includeNodes.get(i);
       if (node.__getRefId() != null)
         nodesWithRefList.add(node);
       else
         nodesWithSrcList.add(node);
     }
-    IncludeNode[] nodesWithRef = (IncludeNode[])
+    IncludeNode[] nodesWithRef = 
             nodesWithRefList.toArray(new IncludeNode[nodesWithRefList.size()]);
-    IncludeNode[] nodesWithSrc = (IncludeNode[])
+    IncludeNode[] nodesWithSrc = 
             nodesWithSrcList.toArray(new IncludeNode[nodesWithSrcList.size()]);
     return new DeviceComponentNode(_type, nodesWithRef, nodesWithSrc);    
   }
 
-  private List _includeNodes = new ArrayList();
+  private List<IncludeNode> _includeNodes;
   private String _type;
 }

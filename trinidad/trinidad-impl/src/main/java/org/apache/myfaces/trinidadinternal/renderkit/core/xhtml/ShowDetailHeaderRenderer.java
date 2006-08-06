@@ -37,8 +37,8 @@ public class ShowDetailHeaderRenderer
   {
     super(CoreShowDetailHeader.TYPE);
   }
-
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -46,13 +46,14 @@ public class ShowDetailHeaderRenderer
     _disclosedKey = type.findKey("disclosed");
   }
 
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     // Delegate decoding to the showDetail renderer
     _detailRenderer.decode(context, component);
   }
 
-
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -61,7 +62,7 @@ public class ShowDetailHeaderRenderer
   {
     // map the resource value keys that are used in showDetail and header
     // to the keys we need to use in this renderer.
-    Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
     try
     {
 
@@ -75,6 +76,7 @@ public class ShowDetailHeaderRenderer
     }
   }
 
+  @Override
   protected void renderIcon(FacesContext context, RenderingContext arc, 
                             UIComponent component, FacesBean bean, String messageType)
     throws IOException
@@ -82,6 +84,7 @@ public class ShowDetailHeaderRenderer
     delegateRenderer(context, arc, component, bean, _detailRenderer);
   }
 
+  @Override
   protected String getMessageType(FacesBean bean)
   {
     // Not currently supported
@@ -97,6 +100,7 @@ public class ShowDetailHeaderRenderer
     return Boolean.TRUE.equals(o);
   }
 
+  @Override
   protected boolean shouldRenderChildren(FacesBean bean)
   {
     return getDisclosed(bean);
@@ -110,11 +114,13 @@ public class ShowDetailHeaderRenderer
       super(type);
     }
     
+    @Override
     protected void renderId(FacesContext context, UIComponent component)
       throws IOException
     {
     }
 
+    @Override
     protected void renderAllAttributes(FacesContext context, 
                                        RenderingContext arc, 
                                        FacesBean bean)
@@ -122,11 +128,13 @@ public class ShowDetailHeaderRenderer
     {
     }
 
+    @Override
     protected boolean renderAsInline()
     {
       return true;
     }
 
+    @Override
     protected String getDisclosureText(RenderingContext arc, 
                                        FacesBean bean, boolean disclosed)
     {
@@ -137,9 +145,11 @@ public class ShowDetailHeaderRenderer
   private CoreRenderer _detailRenderer;
   private PropertyKey  _disclosedKey;
   
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
+    _RESOURCE_KEY_MAP  =  new HashMap<String, String>();
+    
     _RESOURCE_KEY_MAP.put("af_showDetail.DISCLOSED" ,
                           "af_showDetailHeader.DISCLOSED");
     _RESOURCE_KEY_MAP.put("af_showDetail.UNDISCLOSED" ,

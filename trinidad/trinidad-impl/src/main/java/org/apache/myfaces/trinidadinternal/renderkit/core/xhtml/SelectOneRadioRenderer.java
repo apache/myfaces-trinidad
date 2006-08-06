@@ -27,12 +27,14 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectOneRadio.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
   } 
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneRadio";
@@ -43,6 +45,7 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
     return toString(bean.getProperty(_layoutKey));
   }
 
+  @Override
   protected String getDefaultLabelValign(FacesBean bean)
   {
     // Don't top-align for horizontal radio buttons.
@@ -55,16 +58,19 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
   /**
    * selectOneRadio should not render a &lt;label&gt; on itself.
    */ 
-   protected boolean hasOwnLabel(FacesBean bean)
-   {
-     return true;
-   }
+  @Override
+  protected boolean hasOwnLabel(FacesBean bean)
+  {
+    return true;
+  }
 
+  @Override
   protected boolean showAccessKeyOnLabel(FacesBean bean)
   {
     return true;
   }
   
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectOneRadio;

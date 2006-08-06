@@ -58,6 +58,7 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
     public static final String CONVERT_MESSAGE_ID =
         "org.apache.myfaces.trinidad.convert.ByteConverter.CONVERT";
 
+  @Override
   public Object getAsObject(
     FacesContext context, 
     UIComponent component,

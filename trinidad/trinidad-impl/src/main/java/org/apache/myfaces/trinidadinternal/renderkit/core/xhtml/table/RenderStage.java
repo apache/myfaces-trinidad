@@ -52,6 +52,7 @@ public final class RenderStage
     return ps;
   }
 
+  @Override
   public String toString()
   {
     return "RenderStage:"+_stage;

@@ -24,6 +24,7 @@ public class UIXEditableFacesBeanImpl extends UIXFacesBeanImpl
   {
   }
 
+  @Override
   public void setProperty(PropertyKey key, Object value)
   {
     super.setProperty(key, value);

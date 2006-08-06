@@ -75,7 +75,7 @@ public class TrinidadFilterImpl implements Filter
 
   static public FacesContext getPseudoFacesContext()
   {
-    return (FacesContext) _PSEUDO_FACES_CONTEXT.get();
+    return _PSEUDO_FACES_CONTEXT.get();
   }
 
   /**
@@ -154,6 +154,7 @@ public class TrinidadFilterImpl implements Filter
     _filters = null;
   }
 
+  @SuppressWarnings("unchecked")
   public void doFilter(
     ServletRequest  request,
     ServletResponse response,
@@ -218,7 +219,7 @@ public class TrinidadFilterImpl implements Filter
         mfh.setMaximumAllowedBytes(getMaximumAllowedBytes());
         mfh.setCharacterEncoding(request.getCharacterEncoding());
 
-        HashMap parameters = new HashMap();
+        HashMap<String, String[]> parameters = new HashMap<String, String[]>();
 
         // Copy over all parameters that were already present (for example,
         // query parameters)
@@ -274,6 +275,7 @@ public class TrinidadFilterImpl implements Filter
   }
 
 
+  @SuppressWarnings("unchecked")
   private void _doFilterImpl(
     ServletRequest  request,
     ServletResponse response,
@@ -292,7 +294,12 @@ public class TrinidadFilterImpl implements Filter
     // we've returned from a "launch", and we need to re-execute the
     // faces lifecycle.  ViewHandlerImpl will be responsible for ensuring
     // that we re-execute the lifecycle on the correct page.
-    Map launchParameters = (Map)
+    // -= Simon Lessard =-
+    // FIXME: Using <String, String[]> for now to accomodate ReplaceParametersRequestWrapper.
+    //        However, the Servlet specification suggest <String, Object> so this 
+    //        could lead to some nasty problems one day. Especially if JEE spec includes 
+    //        generics for its Servlet API soon.
+    Map<String, String[]> launchParameters = (Map<String, String[]>)
       request.getAttribute(RequestContextImpl.LAUNCH_PARAMETERS);
     if (launchParameters != null)
     {
@@ -321,7 +328,7 @@ public class TrinidadFilterImpl implements Filter
     }
     finally
     {
-      _PSEUDO_FACES_CONTEXT.set(null);
+      _PSEUDO_FACES_CONTEXT.remove();
     }
   }
 
@@ -361,8 +368,9 @@ public class TrinidadFilterImpl implements Filter
       _request = request;
     }
 
+    @Override
     public void sendRedirect(String location)
-      throws java.io.IOException
+      throws IOException
     {
       // We're only interested in redirects from partial events
       Object partial = _request.getParameter("partial");
@@ -475,9 +483,11 @@ public class TrinidadFilterImpl implements Filter
   private static final String _IFRAME_REDIRECT_FINISH
     = "';</script></html>";
 
-  private static ThreadLocal _PSEUDO_FACES_CONTEXT = new ThreadLocal()
+  private static ThreadLocal<PseudoFacesContext> _PSEUDO_FACES_CONTEXT = 
+    new ThreadLocal<PseudoFacesContext>()
   {
-    protected Object initialValue() { return (null); }
+    @Override
+    protected PseudoFacesContext initialValue() { return null; }
   };
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(TrinidadFilterImpl.class);

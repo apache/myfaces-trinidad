@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Properties;
@@ -43,17 +42,15 @@ public class AliasedScriptlet extends Scriptlet
    */
   static public void registerAliases()
   {
-    HashSet aliases = new HashSet();
-    Enumeration names = _ALIASES.propertyNames();
+    HashSet<String> aliases = new HashSet<String>();
+    Enumeration<?> names = _ALIASES.propertyNames();
     while (names.hasMoreElements())
     {
       aliases.add(_ALIASES.getProperty((String) names.nextElement()));
     }
 
-    Iterator iterator = aliases.iterator();
-    while (iterator.hasNext())
+    for(String libName : aliases)
     {
-      String libName = (String) iterator.next();
       Scriptlet scriptlet = null;
 
       if ("Common".equals(libName))
@@ -64,6 +61,7 @@ public class AliasedScriptlet extends Scriptlet
           // when it's outside of a partial page request, since the
           // partial page library itself needs it.
           // See comments in Scriptlet.__isOutsidePartialPage()
+          @Override
           boolean __isOutsidePartialPage(RenderingContext arc)
           {
             return false;
@@ -97,11 +95,13 @@ public class AliasedScriptlet extends Scriptlet
     _actualLibrary = _getAlias(name);
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return _name;
   }
 
+  @Override
   public void registerSelf()
   {
     super.registerSelf();
@@ -112,6 +112,7 @@ public class AliasedScriptlet extends Scriptlet
     }
   }
 
+  @Override
   protected void outputScriptletImpl(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -125,6 +126,7 @@ public class AliasedScriptlet extends Scriptlet
     outputDependency(context, arc, _actualLibrary);
   }
 
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -159,7 +161,7 @@ public class AliasedScriptlet extends Scriptlet
     _LOG = TrinidadLogger.createTrinidadLogger(AliasedScriptlet.class);
 
     // Load library versions
-    Class cl = AliasedScriptlet.class;
+    Class<AliasedScriptlet> cl = AliasedScriptlet.class;
     InputStream in = cl.getResourceAsStream(_JAVASCRIPT_ALIAS_FILE);
 
     if (in == null)

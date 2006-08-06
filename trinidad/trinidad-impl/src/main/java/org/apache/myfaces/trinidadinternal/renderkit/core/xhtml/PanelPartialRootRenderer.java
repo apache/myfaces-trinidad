@@ -59,6 +59,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -73,7 +74,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
     encodeAllChildren(context, component);
   }
 
-
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -185,7 +186,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
     PartialPageContext pprContext = arc.getPartialPageContext();
     if (_shouldRenderPartialScripts(pprContext))
     {
-      Iterator targets = pprContext.getRenderedPartialTargets();
+      Iterator<String> targets = pprContext.getRenderedPartialTargets();
       String scripts = scriptBufferingWriter.getBufferedScripts();
 
       ResponseWriter writer = context.getResponseWriter();
@@ -205,7 +206,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
         writer.startElement("pprtargets",null);
         while (targets.hasNext())
         {
-          String target = (String) targets.next();
+          String target = targets.next();
           if (pprContext.isPartialTargetRendered(target))
           {
             writer.startElement("pprtarget", null);
@@ -240,7 +241,8 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
         writer.endElement("script");
 
-        Iterator libraries = scriptBufferingWriter.getBufferedLibraries();
+        Iterator<Object> libraries = 
+          scriptBufferingWriter.getBufferedLibraries();
 
         writer.startElement("script", null);
         XhtmlRenderer.renderScriptTypeAttribute(context, arc);
@@ -287,7 +289,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
 
         while (targets.hasNext())
         {
-          String target = (String) targets.next();
+          String target = targets.next();
           if (pprContext.isPartialTargetRendered(target))
           {
             if (firstRenderedTarget)
@@ -496,11 +498,13 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
       return _sInstance;
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _PARTIAL_CACHE_LIBRARY_SCRIPTLET;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc) throws IOException

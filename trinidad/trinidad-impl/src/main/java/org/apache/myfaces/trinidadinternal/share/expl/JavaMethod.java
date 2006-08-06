@@ -32,6 +32,7 @@ public final class JavaMethod extends Function
     _met = method;
   }
 
+  @Override
   public Object invoke(Object instance, Object[] args)
     throws IllegalAccessException, IllegalArgumentException,
            InvocationTargetException
@@ -39,12 +40,14 @@ public final class JavaMethod extends Function
     return _met.invoke(instance, args);
   }
 
+  @Override
   public Class[] getParameterTypes()
   {
     return _met.getParameterTypes();
   }
 
-  public Class getReturnType()
+  @Override
+  public Class<?> getReturnType()
   {
     return _met.getReturnType();
   }

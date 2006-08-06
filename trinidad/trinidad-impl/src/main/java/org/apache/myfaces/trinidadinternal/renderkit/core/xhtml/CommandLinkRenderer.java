@@ -38,6 +38,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
     super(CoreCommandLink.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -45,6 +46,8 @@ public class CommandLinkRenderer extends GoLinkRenderer
     _partialSubmitKey = type.findKey("partialSubmit");
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     RequestContext afContext = RequestContext.getCurrentInstance();
@@ -56,7 +59,9 @@ public class CommandLinkRenderer extends GoLinkRenderer
     }
     else
     {
-      Map parameterMap = context.getExternalContext().getRequestParameterMap();
+      Map<String, String> parameterMap = 
+        context.getExternalContext().getRequestParameterMap();
+      
       Object source = parameterMap.get("source");
       String clientId = component.getClientId(context);
 
@@ -71,6 +76,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
     }
   }
   
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -99,6 +105,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
     arc.setCurrentClientId(null);
   }
 
+  @Override
   public void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -111,6 +118,7 @@ public class CommandLinkRenderer extends GoLinkRenderer
       fd.addNeededValue(XhtmlConstants.SOURCE_PARAM);
   }
 
+  @Override
   protected String getClientId(
     FacesContext context,
     UIComponent  component)
@@ -119,23 +127,26 @@ public class CommandLinkRenderer extends GoLinkRenderer
     return RenderingContext.getCurrentInstance().getCurrentClientId();
   }
 
+  @Override
   protected String getDestination(FacesBean bean)
   {
     return null;
   }
 
+  @Override
   protected String getTargetFrame(FacesBean bean)
   {
     return null;
   }
 
-
+  @Override
   protected boolean hasOnclick(FacesBean bean)
   {
     // More efficient
     return true;
   }
 
+  @Override
   protected String getOnclick(FacesBean bean)
   {
     String onclick = super.getOnclick(bean);

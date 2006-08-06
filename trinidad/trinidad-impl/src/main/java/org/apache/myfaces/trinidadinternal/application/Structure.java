@@ -35,6 +35,22 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  * <p>
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =-
+//     Why using an ArrayList as a map again? It is not type-safe.
+//     Using an object to store the key/value seems like a decent
+//     compromise memory wise. Or better, I would suggest a TreeMap 
+//     to lower the complexity to O(log(n)) instead of O(n) at 
+//     minimal memory cost. If balancing is still considered too 
+//     expensive and an additional class is not wanted, then parallel
+//     lists would also do the trick
+// =-=Adam Winer =-=
+//   To answer the question:  the explicit intent of this
+//   class is entirely to produce an optimal, minimally-sized
+//   structure for state saving.  Everything is iterated through
+//   straight away.  Type-safety is nearly irrelevant (it's
+//   one, self-encapsulated structure, with no relevant external API);
+//   everything is iterated through directly (there is no O(log n) anything)
+//   relevant.  Of overriding importance here is size and efficiency.
 final class Structure implements Externalizable
 {
   /**
@@ -59,33 +75,34 @@ final class Structure implements Externalizable
   /**
    * Re-create a component from a structure object
    */
+  @SuppressWarnings("unchecked")
   public UIComponent createComponent()
     throws ClassNotFoundException, InstantiationException,
            IllegalAccessException
   {
-    Class clazz = ClassLoaderUtils.loadClass(_class);
+    Class<?> clazz = ClassLoaderUtils.loadClass(_class);
     UIComponent component = (UIComponent) clazz.newInstance();
     if (_id != null)
       component.setId(_id);
     // Create any facets
     if (_facets != null)
     {
-      Map facets = component.getFacets();
+      Map<String, UIComponent> facets = component.getFacets();
       for (int i = 0 ; i < _facets.size(); i += 2)
       {
         UIComponent facet = ((Structure) _facets.get(i + 1)).
                                  createComponent();
-        facets.put(_facets.get(i), facet);
+        facets.put((String)_facets.get(i), facet);
       }
     }
 
     // Create any children
     if (_children != null)
     {
-      List children = component.getChildren();
+      List<UIComponent> children = component.getChildren();
       for (int i = 0 ; i < _children.size(); i++)
       {
-        UIComponent child = ((Structure) _children.get(i)).createComponent();
+        UIComponent child = _children.get(i).createComponent();
         children.add(child);
       }
     }
@@ -121,9 +138,14 @@ final class Structure implements Externalizable
     else
     {
       out.writeShort(_children.size());
+      
+      // 2006-08-02: -= Simon Lessard =-
+      //             get(index) is inefficient if the List ever
+      //             become something else than ArrayList
+      // =-=Adam Winer=-=:  yep, so we won't change it to be something else.
       for (int i = 0; i < _children.size(); i++)
       {
-        ((Structure) _children.get(i)).writeExternal(out);
+        _children.get(i).writeExternal(out);
       }
     }
   }
@@ -138,7 +160,7 @@ final class Structure implements Externalizable
     short facetCount = in.readShort();
     if (facetCount > 0)
     {
-      _facets = new ArrayList(facetCount);
+      _facets = new ArrayList<Object>(facetCount);
       for (int i = 0; i < facetCount; i += 2)
       {
         _facets.add(in.readObject());
@@ -152,7 +174,7 @@ final class Structure implements Externalizable
     short childCount = in.readShort();
     if (childCount > 0)
     {
-      _children = new ArrayList(childCount);
+      _children = new ArrayList<Structure>(childCount);
       for (int i = 0; i < childCount; i++)
       {
         Structure newStruct = new Structure();
@@ -165,18 +187,17 @@ final class Structure implements Externalizable
   /**
    * Store the structure of all the children.
    */
-  private List _getChildren(UIComponent component)
+  @SuppressWarnings("unchecked")
+  private List<Structure> _getChildren(UIComponent component)
   {
     if (component.getChildCount() == 0)
       return null;
 
-    List children = component.getChildren();
-    ArrayList list = new ArrayList(children.size());
+    List<UIComponent> children = component.getChildren();
+    ArrayList<Structure> list = new ArrayList<Structure>(children.size());
 
-    Iterator childIterator = children.iterator();
-    while (childIterator.hasNext())
+    for(UIComponent child : children)
     {
-      UIComponent child = (UIComponent) childIterator.next();
       if ((child != null) && !child.isTransient())
       {
         list.add(new Structure(child));
@@ -193,9 +214,10 @@ final class Structure implements Externalizable
   /**
    * Store the structure of all the facets.
    */
-  private List _getFacets(UIComponent component)
+  @SuppressWarnings("unchecked")
+  private List<Object> _getFacets(UIComponent component)
   {
-    Iterator facetNames;
+    Iterator<String> facetNames;
     if (component instanceof UIXComponentBase)
     {
       facetNames = ((UIXComponentBase) component).getFacetNames();
@@ -208,12 +230,12 @@ final class Structure implements Externalizable
     if (!facetNames.hasNext())
       return null;
 
-    Map facets = component.getFacets();
-    ArrayList list = new ArrayList(facets.size() * 2);
+    Map<String, UIComponent> facets = component.getFacets();
+    ArrayList<Object> list = new ArrayList<Object>(facets.size() * 2);
     while (facetNames.hasNext())
     {
-      Object name = facetNames.next();
-      UIComponent facet = (UIComponent) facets.get(name);
+      String name = facetNames.next();
+      UIComponent facet = facets.get(name);
       if ((facet != null) && !facet.isTransient())
       {
         list.add(name);
@@ -245,8 +267,8 @@ final class Structure implements Externalizable
 
   private String _class;
   private String _id;
-  private List _facets;
-  private List _children;
+  private List<Object> _facets;
+  private List<Structure> _children;
 
 
   static private final String _COMMON_CLASS_PREFIX =

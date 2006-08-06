@@ -44,5 +44,5 @@ public interface NameProvider
    * @param requestedProperties The client-provided properties which
    *   describe the requested image.
    */
-  public String getName(ImageContext context, Map requestedProperties);
+  public String getName(ImageContext context, Map<Object, Object> requestedProperties);
 }

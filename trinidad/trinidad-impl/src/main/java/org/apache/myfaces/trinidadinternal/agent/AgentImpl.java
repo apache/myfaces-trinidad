@@ -61,37 +61,44 @@ public class AgentImpl extends DefaultAgent
     _entry = _getAgentEntry(userAgent, accept);
   }
   */
+  @Override
   public Object getType()
   {
     return _entry._type;
   }
 
+  @Override
   public String getAgentName()
   {
     return _entry._agent;
   }
 
+  @Override
   public String getAgentVersion()
   {
     return _entry._agentVersion;
   }
 
+  @Override
   public String getPlatformName()
   {
     return _entry._platform;
   }
 
+  @Override
   public String getPlatformVersion()
   {
     return _entry._platformVersion;
   }
 
+  @Override
   public String getHardwareMakeModel()
   {
     return _entry._makeModel;
   }
 
-  public Map getCapabilities()
+  @Override
+  public Map<Object, Object> getCapabilities()
   {
     return _requestCapabilities;
   }
@@ -148,12 +155,12 @@ public class AgentImpl extends DefaultAgent
   {
      if (_requestCapabilities == null)
      {
-       _requestCapabilities = new HashMap();
+       _requestCapabilities = new HashMap<Object, Object>();
      }
     _requestCapabilities.put(key,value);
   }
 
-  private HashMap _requestCapabilities;
+  private HashMap<Object, Object> _requestCapabilities;
   private AgentEntry _entry;
   static private final AgentEntry _NULL_AGENT_ENTRY = new AgentEntry();
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(AgentImpl.class);

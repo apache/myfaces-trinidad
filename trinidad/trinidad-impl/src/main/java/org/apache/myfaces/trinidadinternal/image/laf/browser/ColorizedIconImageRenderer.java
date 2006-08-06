@@ -51,8 +51,8 @@ public class ColorizedIconImageRenderer implements ImageRenderer
    */
   public Image renderImage(
     ImageContext context,
-    Map requestedProperties,
-    Map responseProperties
+    Map<Object, Object> requestedProperties,
+    Map<Object, Object> responseProperties
     )
   {
     // Make sure we've got a graphical environment before we try rendering.
@@ -152,7 +152,7 @@ public class ColorizedIconImageRenderer implements ImageRenderer
   // Returns the target colors for a colorization based on the
   // specified context
   private static int[] _getTargetColors(
-    Map           properties
+    Map<Object, Object> properties
     )
   {
     // We derive the colors for the two color ramps based on the
@@ -219,6 +219,7 @@ public class ColorizedIconImageRenderer implements ImageRenderer
       canFilterIndexColorModel = true;
     }
 
+    @Override
     public int filterRGB(int x, int y, int rgb)
     {
       // First, see if we can short circuit

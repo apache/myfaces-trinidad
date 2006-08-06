@@ -36,6 +36,7 @@ public class CoreClassLoaderResourceLoader extends ClassLoaderResourceLoader
     super("META-INF", parent);
   }
 
+  @Override
   protected URL findResource(
     String path) throws IOException
   {

@@ -67,7 +67,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
     }
 
     _defaultOHWServletLocation = ohwServletLocation;
-    _localeSpecificServlets = new OptimisticHashMap(13);
+    _localeSpecificServlets = new OptimisticHashMap<Locale, String>(13);
   }
 
   /**
@@ -101,6 +101,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
    * <p>
    * @param key criterion (topic-id)
    */
+  @Override
   protected String getHelpTopicURL(Object key)
   {
     String helpURL = null;
@@ -124,6 +125,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
    * <p>
    * @param key criterion (HelpProvider key constant)
    */
+  @Override
   protected String getHelpSystemURL(Object key)
   {
     if (HelpProvider.FRONT_PAGE_KEY.equals(key))
@@ -163,7 +165,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
     //not then check language/country and lang only locales
     if (_localeSpecificServlets.containsKey(desiredLocale))
     {
-      servletLocation = (String) _localeSpecificServlets.get(desiredLocale);
+      servletLocation = _localeSpecificServlets.get(desiredLocale);
     }
     else
     {
@@ -184,7 +186,7 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
 
       if (matchingLocale != null)
       {
-        servletLocation = (String)_localeSpecificServlets.get(matchingLocale);
+        servletLocation = _localeSpecificServlets.get(matchingLocale);
       }
 
       //cache the result of the search
@@ -197,6 +199,6 @@ public class OracleHelpProvider extends SecondaryWindowHelpProvider
   private static final String _TOPIC_PARAM = "topic";
   private static final String _LOCALE_PARAM = "locale";
   private String _defaultOHWServletLocation = null;
-  private OptimisticHashMap _localeSpecificServlets = null;
+  private OptimisticHashMap<Locale, String> _localeSpecificServlets = null;
 }
 

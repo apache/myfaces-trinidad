@@ -47,7 +47,7 @@ public class SetActionListenerTag extends TagSupport
     _to = to;
   }
 
-
+  @Override
   public int doStartTag() throws JspException
   {
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
@@ -83,7 +83,7 @@ public class SetActionListenerTag extends TagSupport
         if (parentELContext != null)
           from = parentELContext.transformExpression(from);
 
-        listener.setValueBinding(listener.FROM_KEY,
+        listener.setValueBinding(SetActionListener.FROM_KEY,
                                  application.createValueBinding(from));
       }
       else
@@ -97,7 +97,7 @@ public class SetActionListenerTag extends TagSupport
         if (parentELContext != null)
           to = parentELContext.transformExpression(to);
 
-        listener.setValueBinding(listener.TO_KEY,
+        listener.setValueBinding(SetActionListener.TO_KEY,
                                  application.createValueBinding(to));
       }
       else
@@ -112,6 +112,7 @@ public class SetActionListenerTag extends TagSupport
     return super.doStartTag();
   }
 
+  @Override
   public void release()
   {
     super.release();

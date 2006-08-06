@@ -35,6 +35,7 @@ public class CapabilitiesDocument
   {
     _agents = agents;
     _devices = devices;
+    _includeNodeBySrcCaps = new HashMap<URL, Object>();
     _defaultAgentCapabilities = _getDefaultAgentCapabilities(_agents);
   }
 
@@ -174,7 +175,7 @@ public class CapabilitiesDocument
    */
   private Object[][] _getCapabilities(Agent agent,
                                       CapabilitiesNode[] capNodes,
-                                      List includedByRefs,
+                                      List<String> includedByRefs,
                                       CapabilitiesNode matchNode)
   {
     assert (matchNode != null);
@@ -187,7 +188,7 @@ public class CapabilitiesDocument
 
     //check for circular dependecy
     if (includedByRefs == null)
-      includedByRefs = new ArrayList();
+      includedByRefs = new ArrayList<String>();
 
     if (matchNode.__getId() != null)
     {
@@ -240,7 +241,7 @@ public class CapabilitiesDocument
     assert (capNodes != null);
     assert (dcNode != null);
 
-    ArrayList includedByRefs = new ArrayList();
+    ArrayList<String> includedByRefs = new ArrayList<String>();
 
     //process node that includes by reference
     IncludeNode[] refIncludes = dcNode.__getIncludesByRef();
@@ -279,7 +280,7 @@ public class CapabilitiesDocument
    */
   private Object[][] _getCapabilities(Agent agent,
                                       CapabilitiesNode[] capNodes,
-                                      List includedByRefs,
+                                      List<String> includedByRefs,
                                       String refId)
   {
     assert (capNodes != null);
@@ -305,15 +306,15 @@ public class CapabilitiesDocument
    */
   private Object[] _getCapabilities(URL srcUrl)
   {
-    Object o = includeNodeBySrcCaps.get(srcUrl);
+    Object o = _includeNodeBySrcCaps.get(srcUrl);
     if (o != null)
       return (Object[]) o;
 
     Object[] caps = null;
-    synchronized (includeNodeBySrcCaps)
+    synchronized (_includeNodeBySrcCaps)
     {
       caps = CapabilityDataDocumentParser.parse(srcUrl);
-      includeNodeBySrcCaps.put(srcUrl, caps);
+      _includeNodeBySrcCaps.put(srcUrl, caps);
     }
 
     return caps;
@@ -348,7 +349,7 @@ public class CapabilitiesDocument
 
   private CapabilitiesNode[] _agents;
   private DeviceNode[] _devices;
-  private HashMap includeNodeBySrcCaps = new HashMap();
+  private HashMap<URL, Object> _includeNodeBySrcCaps;
   private Object[][] _defaultAgentCapabilities;
 
   static final CapabilitiesDocument EMPTY_DOCUMENT = new CapabilitiesDocument();

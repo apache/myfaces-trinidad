@@ -70,28 +70,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  */
 class NamespaceSupport
 {
-  ////////////////////////////////////////////////////////////////////
-  // Constants.
-  ////////////////////////////////////////////////////////////////////
-
-
-  /**
-     * The XML Namespace as a constant.
-     *
-     * <p>This is the Namespace URI that is automatically mapped
-     * to the "xml" prefix.</p>
-     */
-  public final static String XMLNS =
-    "http://www.w3.org/XML/1998/namespace";
-
-
-    /**
-     * An empty enumeration.
-     */
-  private final static Iterator EMPTY_ITERATOR =
-    new ArrayList().iterator();
-
-
+  
     ////////////////////////////////////////////////////////////////////
     // Constructor.
     ////////////////////////////////////////////////////////////////////
@@ -123,10 +102,10 @@ class NamespaceSupport
     // =-=AEW Blow off double-resets (which ParserAdapter was doing)
     if (!_isReset)
     {
-      contexts = new Context[32];
-      contextPos = 0;
-      contexts[contextPos] = currentContext = new Context();
-      currentContext.declarePrefix("xml", XMLNS);
+      _contexts = new Context[32];
+      _contextPos = 0;
+      _contexts[_contextPos] = _currentContext = new Context();
+      _currentContext.declarePrefix("xml", XMLNS);
       _isReset = true;
     }
   }
@@ -150,36 +129,36 @@ class NamespaceSupport
   {
     _isReset = false;
 
-    int max = contexts.length;
-    contextPos++;
+    int max = _contexts.length;
+    _contextPos++;
 
     // Extend the array if necessary
-    if (contextPos >= max) {
+    if (_contextPos >= max) {
       Context newContexts[] = new Context[max*2];
-      System.arraycopy(contexts, 0, newContexts, 0, max);
+      System.arraycopy(_contexts, 0, newContexts, 0, max);
       max *= 2;
-      contexts = newContexts;
+      _contexts = newContexts;
     }
 
     // Allocate the context if necessary.
-    currentContext = contexts[contextPos];
+    _currentContext = _contexts[_contextPos];
 
     // Set the parent, if any.
-    if (contextPos > 0)
+    if (_contextPos > 0)
     {
-      if (currentContext == null)
+      if (_currentContext == null)
       {
-        currentContext = new Context(contexts[contextPos - 1]);
-        contexts[contextPos] = currentContext;
+        _currentContext = new Context(_contexts[_contextPos - 1]);
+        _contexts[_contextPos] = _currentContext;
       }
       else
       {
-        currentContext.setParent(contexts[contextPos - 1]);
+        _currentContext.setParent(_contexts[_contextPos - 1]);
       }
     }
-    else if (currentContext == null)
+    else if (_currentContext == null)
     {
-      contexts[contextPos] = currentContext = new Context();
+      _contexts[_contextPos] = _currentContext = new Context();
     }
   }
 
@@ -199,11 +178,11 @@ class NamespaceSupport
      */
   public void popContext ()
   {
-    contextPos--;
-    if (contextPos < 0) {
+    _contextPos--;
+    if (_contextPos < 0) {
       throw new EmptyStackException();
     }
-    currentContext = contexts[contextPos];
+    _currentContext = _contexts[_contextPos];
   }
 
 
@@ -246,7 +225,7 @@ class NamespaceSupport
     if (prefix.equals("xml") || prefix.equals("xmlns")) {
       return false;
     } else {
-      currentContext.declarePrefix(prefix, uri);
+      _currentContext.declarePrefix(prefix, uri);
       return true;
     }
   }
@@ -302,7 +281,7 @@ class NamespaceSupport
       if (isAttribute)
         parts[0] = "";
       else
-        parts[0] = currentContext.getURI("");
+        parts[0] = _currentContext.getURI("");
 
       qName = qName.intern();
       parts[1] = qName;
@@ -311,7 +290,7 @@ class NamespaceSupport
     }
     else
     {
-      String myParts[] = currentContext.processName(qName, isAttribute);
+      String myParts[] = _currentContext.processName(qName, isAttribute);
       if (myParts == null) {
         return null;
       } else {
@@ -338,7 +317,7 @@ class NamespaceSupport
      */
   public String getURI (String prefix)
   {
-    return currentContext.getURI(prefix);
+    return _currentContext.getURI(prefix);
   }
 
 
@@ -355,9 +334,9 @@ class NamespaceSupport
      * @see #getDeclaredPrefixes
      * @see #getURI
      */
-  public Iterator getPrefixes ()
+  public Iterator<String> getPrefixes ()
   {
-    return currentContext.getPrefixes();
+    return _currentContext.getPrefixes();
   }
 
 
@@ -384,7 +363,7 @@ class NamespaceSupport
      */
   public String getPrefix (String uri)
   {
-    return currentContext.getPrefix(uri);
+    return _currentContext.getPrefix(uri);
   }
 
 
@@ -409,16 +388,19 @@ class NamespaceSupport
      * @see #getDeclaredPrefixes
      * @see #getURI
      */
-  public Iterator getPrefixes (String uri)
+  public Iterator<String> getPrefixes (String uri)
   {
-    ArrayList prefixes = new ArrayList();
-    Iterator allPrefixes = getPrefixes();
-    while (allPrefixes.hasNext()) {
-      String prefix = (String)allPrefixes.next();
-      if (uri.equals(getURI(prefix))) {
+    ArrayList<String> prefixes = new ArrayList<String>();
+    Iterator<String> allPrefixes = getPrefixes();
+    while (allPrefixes.hasNext())
+    {
+      String prefix = allPrefixes.next();
+      if (uri.equals(getURI(prefix)))
+      {
         prefixes.add(prefix);
       }
     }
+    
     return prefixes.iterator();
   }
 
@@ -435,19 +417,39 @@ class NamespaceSupport
      * @see #getPrefixes
      * @see #getURI
      */
-  public Iterator getDeclaredPrefixes ()
+  public Iterator<String> getDeclaredPrefixes ()
   {
-    return currentContext.getDeclaredPrefixes();
+    return _currentContext.getDeclaredPrefixes();
   }
+
+  
+  ////////////////////////////////////////////////////////////////////
+  // Constants.
+  ////////////////////////////////////////////////////////////////////
+
+  /**
+     * The XML Namespace as a constant.
+     *
+     * <p>This is the Namespace URI that is automatically mapped
+     * to the "xml" prefix.</p>
+     */
+  public final static String XMLNS =
+    "http://www.w3.org/XML/1998/namespace";
+  
+    /**
+     * An empty enumeration.
+     */
+  private final static Iterator<String> _EMPTY_ITERATOR =
+    new ArrayList<String>().iterator();
 
 
   ////////////////////////////////////////////////////////////////////
   // Internal state.
   ////////////////////////////////////////////////////////////////////
 
-  private Context contexts[];
-  private Context currentContext;
-  private int contextPos;
+  private Context _contexts[];
+  private Context _currentContext;
+  private int _contextPos;
 
   private boolean _isReset;
 
@@ -485,13 +487,13 @@ class NamespaceSupport
 
     void setParent(Context parent)
     {
-      declarations = null;
-      prefixTable = parent.prefixTable;
-      uriTable = parent.uriTable;
-      elementNameTable = parent.elementNameTable;
-      attributeNameTable = parent.attributeNameTable;
-      defaultNS = parent.defaultNS;
-      tablesSharedWithParent = true;
+      _declarations = null;
+      _prefixTable = parent._prefixTable;
+      _uriTable = parent._uriTable;
+      _elementNameTable = parent._elementNameTable;
+      _attributeNameTable = parent._attributeNameTable;
+      _defaultNS = parent._defaultNS;
+      _tablesSharedWithParent = true;
     }
 
     /**
@@ -504,27 +506,27 @@ class NamespaceSupport
     void declarePrefix (String prefix, String uri)
     {
       // Lazy processing...
-      if (tablesSharedWithParent) {
+      if (_tablesSharedWithParent) {
         copyTables();
       }
 
-      if (declarations == null) {
-        declarations = new ArrayList();
+      if (_declarations == null) {
+        _declarations = new ArrayList<String>();
       }
 
       prefix = prefix.intern();
       uri = uri.intern();
       if ("".equals(prefix)) {
         if ("".equals(uri)) {
-          defaultNS = null;
+          _defaultNS = null;
         } else {
-          defaultNS = uri;
+          _defaultNS = uri;
         }
       } else {
-        prefixTable.put(prefix, uri);
-        uriTable.put(uri, prefix); // may wipe out another prefix
+        _prefixTable.put(prefix, uri);
+        _uriTable.put(uri, prefix); // may wipe out another prefix
       }
-      declarations.add(prefix);
+      _declarations.add(prefix);
     }
 
 
@@ -542,28 +544,38 @@ class NamespaceSupport
     String [] processName (String qName, boolean isAttribute)
     {
       String name[];
-      Hashtable table;
+      Hashtable<String, String[]> table;
 
       // Select the appropriate table.
-      if (isAttribute) {
-        table = elementNameTable;
+      if (isAttribute)
+      {
+        table = _elementNameTable;
         // =-=AEW Lazily allocate this table
         if (table == null)
+        {
           // =-=AEW Make this one big
-          elementNameTable = table = new Hashtable();
-      } else {
-        table = attributeNameTable;
+          table = new Hashtable<String, String[]>();
+          _elementNameTable = table;
+        }
+      }
+      else
+      {
+        table = _attributeNameTable;
         // =-=AEW Lazily allocate this table
         if (table == null)
+        {
           // =-=AEW Leave this one a little big...
-          elementNameTable = table = new Hashtable(37);
+          table = new Hashtable<String, String[]>(37);
+          _elementNameTable = table;
+        }
       }
 
       // Start by looking in the cache, and
       // return immediately if the name
       // is already known in this content
-      name = (String[])table.get(qName);
-      if (name != null) {
+      name = table.get(qName);
+      if (name != null)
+      {
         return name;
       }
 
@@ -575,10 +587,10 @@ class NamespaceSupport
 
       // No prefix.
       if (index == -1) {
-        if (isAttribute || defaultNS == null) {
+        if (isAttribute || _defaultNS == null) {
           name[0] = "";
         } else {
-          name[0] = defaultNS;
+          name[0] = _defaultNS;
         }
         name[1] = qName.intern();
         name[2] = name[1];
@@ -613,12 +625,17 @@ class NamespaceSupport
      */
     String getURI (String prefix)
     {
-      if ("".equals(prefix)) {
-        return defaultNS;
-      } else if (prefixTable == null) {
+      if ("".equals(prefix))
+      {
+        return _defaultNS;
+      }
+      else if (_prefixTable == null)
+      {
         return null;
-      } else {
-        return (String)prefixTable.get(prefix);
+      }
+      else
+      {
+        return _prefixTable.get(prefix);
       }
     }
 
@@ -635,10 +652,13 @@ class NamespaceSupport
      */
     String getPrefix (String uri)
     {
-      if (uriTable == null) {
+      if (_uriTable == null)
+      {
         return null;
-      } else {
-        return (String)uriTable.get(uri);
+      }
+      else
+      {
+        return _uriTable.get(uri);
       }
     }
 
@@ -649,12 +669,15 @@ class NamespaceSupport
      * @return An enumeration of prefixes (possibly empty).
      * @see org.xml.sax.helpers.NamespaceSupport#getDeclaredPrefixes
      */
-    Iterator getDeclaredPrefixes ()
+    Iterator<String> getDeclaredPrefixes ()
     {
-      if (declarations == null) {
-        return EMPTY_ITERATOR;
-      } else {
-        return declarations.iterator();
+      if (_declarations == null)
+      {
+        return _EMPTY_ITERATOR;
+      }
+      else
+      {
+        return _declarations.iterator();
       }
     }
 
@@ -668,12 +691,15 @@ class NamespaceSupport
      * @return An enumeration of prefixes (never empty).
      * @see org.xml.sax.helpers.NamespaceSupport#getPrefixes
      */
-    Iterator getPrefixes ()
+    Iterator<String> getPrefixes ()
     {
-      if (prefixTable == null) {
-        return EMPTY_ITERATOR;
-      } else {
-        return prefixTable.keySet().iterator();
+      if (_prefixTable == null)
+      {
+        return _EMPTY_ITERATOR;
+      }
+      else
+      {
+        return _prefixTable.keySet().iterator();
       }
     }
 
@@ -690,39 +716,49 @@ class NamespaceSupport
      * <p>This class is optimized for the normal case where most
      * elements do not contain Namespace declarations.</p>
      */
+    @SuppressWarnings("unchecked")
     private void copyTables ()
     {
       // =-=AEW Use small tables for the actual namespaces
-      if (prefixTable != null) {
-        prefixTable = (ArrayMap)prefixTable.clone();
-      } else {
-        prefixTable = new ArrayMap(5);
+      if (_prefixTable != null)
+      {
+        _prefixTable = (ArrayMap<String, String>)_prefixTable.clone();
       }
-      if (uriTable != null) {
-        uriTable = (ArrayMap) uriTable.clone();
-      } else {
-        uriTable = new ArrayMap(5);
+      else
+      {
+        _prefixTable = new ArrayMap<String, String>(5);
+      }
+      
+      if (_uriTable != null)
+      {
+        _uriTable = (ArrayMap<String, String>) _uriTable.clone();
+      }
+      else
+      {
+        _uriTable = new ArrayMap<String, String>(5);
       }
 
       // =-=AEW Lazily allocate these tables (so we can
       //  use NamespaceSupport just for keeping track of prefixes)
       //elementNameTable = new Hashtable();
-      elementNameTable = null;
+      _elementNameTable = null;
 
       // =-=AEW Leave this one a little big...
       //attributeNameTable = new Hashtable(37);
-      attributeNameTable = null;
+      _attributeNameTable = null;
 
-      tablesSharedWithParent = false;
+      _tablesSharedWithParent = false;
     }
 
 
-    private ArrayMap prefixTable;
-    private ArrayMap uriTable;
-    private Hashtable elementNameTable;
-    private Hashtable attributeNameTable;
-    private String defaultNS;
-    private ArrayList declarations;
-    private boolean tablesSharedWithParent;
+    private ArrayMap<String, String> _prefixTable;
+    private ArrayMap<String, String> _uriTable;
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required.
+    private Hashtable<String, String[]> _elementNameTable;
+    private Hashtable<String, String[]> _attributeNameTable;
+    private String _defaultNS;
+    private ArrayList<String> _declarations;
+    private boolean _tablesSharedWithParent;
   }
 }

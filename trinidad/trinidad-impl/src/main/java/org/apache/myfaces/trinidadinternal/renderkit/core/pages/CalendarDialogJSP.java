@@ -58,6 +58,7 @@ class CalendarDialogJSP
   /**
    * @todo Integrate the time zone with RequestContext (somehow)
    */
+  @SuppressWarnings("unchecked")
   static public void service(FacesContext context)
     throws IOException
   {
@@ -181,16 +182,18 @@ class CalendarDialogJSP
   }
 
 
+  @SuppressWarnings("unchecked")
   static public boolean processReturnDialog(
     FacesContext context
     )
   {
-    Map requestParameters = context.getExternalContext().
-                               getRequestParameterMap();
-    String event = (String) requestParameters.get(XhtmlConstants.EVENT_PARAM);
+    Map<String, String> requestParameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String event = requestParameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.DATE_EVENT.equals(event))
     {
-      String value = (String) requestParameters.get(XhtmlConstants.VALUE_PARAM);
+      String value = requestParameters.get(XhtmlConstants.VALUE_PARAM);
       Date date;
       try
       {
@@ -216,13 +219,16 @@ class CalendarDialogJSP
   }
 
 
+  @SuppressWarnings("unchecked")
   static String __getParam(
     FacesContext context,
     String name
     )
   {
-    Map requestParams = context.getExternalContext().getRequestParameterMap();
-    String value = (String) requestParams.get(name);
+    Map<String, String> requestParams = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String value = requestParams.get(name);
     if (value == null || value.equals(""))
     {
       RequestContext afContext = RequestContext.getCurrentInstance();

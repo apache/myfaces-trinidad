@@ -79,6 +79,7 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of ImageIcon.getImageURI().
    */
+  @Override
   public Object getImageURI(
     FacesContext        context,
     RenderingContext arc)
@@ -101,6 +102,7 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of Icon.getImageWidth().
    */
+  @Override
   public Integer getImageWidth(RenderingContext arc)
   {
     return _width;
@@ -109,6 +111,7 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of Icon.getImageHeight().
    */
+  @Override
   public Integer getImageHeight(RenderingContext arc)
   {
     return _height;
@@ -117,10 +120,11 @@ abstract public class BaseImageIcon extends Icon
   /**
    * Implementation of Icon.renderIcon().
    */
+  @Override
   public void renderIcon(
     FacesContext        context,
-    RenderingContext arc,
-    Map              attrs
+    RenderingContext    arc,
+    Map<String, Object> attrs
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -250,7 +254,7 @@ abstract public class BaseImageIcon extends Icon
 
   // Returns the alt text for the image
   private Object _getAltText(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     if (attrs == null)
@@ -261,7 +265,7 @@ abstract public class BaseImageIcon extends Icon
 
   // Returns the ID for the image
   private Object _getId(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     if (attrs == null)
@@ -272,8 +276,8 @@ abstract public class BaseImageIcon extends Icon
 
   // Returns the width of the icon
   private Object _getWidth(
-    RenderingContext arc,
-    Map                 attrs
+    RenderingContext    arc,
+    Map<String, Object> attrs
     )
   {
     Object width = null;
@@ -293,7 +297,7 @@ abstract public class BaseImageIcon extends Icon
   // Returns the height of the icon
   private Object _getHeight(
     RenderingContext arc,
-    Map                 attrs
+    Map<String, Object> attrs
     )
   {
     Object height = null;
@@ -313,7 +317,7 @@ abstract public class BaseImageIcon extends Icon
   // Write out the vertical alignment
   private void  _writeVerticalAlignment(
     ResponseWriter   writer,
-    Map              attrs
+    Map<String, Object> attrs
     ) throws IOException
   {
     if (attrs != null)

@@ -30,7 +30,10 @@ import java.util.Collections;
  * -- Also this impl assumes that the number of keys **will** change (increase) after init.
  *
  */
-public class CapabilityMap extends AbstractMap implements Cloneable
+// FIXME -= Simon Lessard =-
+//       This is another map that can accept both String and another type as keys.
+//       Shouldn't we force type safety with a single key type ?
+public class CapabilityMap extends AbstractMap<Object, Object> implements Cloneable
 {
 
   private CapabilityMap()
@@ -99,7 +102,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
    * @param capabilities
    * @return  returns a new capability map that merges key/values of the provided map
    */
-  public CapabilityMap merge(Map capabilities)
+  public CapabilityMap merge(Map<Object, Object> capabilities)
   {
     if ((capabilities == null) || (capabilities.isEmpty()))
       return this;
@@ -155,6 +158,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
    * @param key
    * @return
    */
+  @Override
   public Object get(Object key)
   {
     if (key == null)
@@ -171,6 +175,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
    * @param value
    * @return
    */
+  @Override
   public Object put(Object key, Object value)
   {
     return new UnsupportedOperationException();
@@ -179,7 +184,8 @@ public class CapabilityMap extends AbstractMap implements Cloneable
   /**
    * @return
    */
-  public Set entrySet()
+  @Override
+  public Set<Map.Entry<Object, Object>> entrySet()
   {
     if (_entrySet == null)
       _createEntrySet();
@@ -187,12 +193,13 @@ public class CapabilityMap extends AbstractMap implements Cloneable
     return _entrySet;
   }
 
+  @Override
   public Object clone()
   {
     try
     {
       CapabilityMap that = (CapabilityMap) super.clone();
-      that._indexedValues = (Object[]) _indexedValues.clone();
+      that._indexedValues = _indexedValues.clone();
       that._entrySet = null;
       return that;
     }
@@ -220,8 +227,9 @@ public class CapabilityMap extends AbstractMap implements Cloneable
   {
     if (_entrySet == null)
     {
-      HashSet hs = new HashSet();
-      Iterator iter = new KeyIterator();
+      HashSet<Map.Entry<Object, Object>> hs = 
+        new HashSet<Map.Entry<Object, Object>>();
+      Iterator<Object> iter = new KeyIterator();
       while (iter.hasNext())
       {
         CapabilityKey capKey = (CapabilityKey) iter.next();
@@ -241,9 +249,9 @@ public class CapabilityMap extends AbstractMap implements Cloneable
   }
 
 
-  private Object[] _getMapAsArray(Map capabilities)
+  private Object[] _getMapAsArray(Map<Object, Object> capabilities)
   {
-    Iterator iter = capabilities.keySet().iterator();
+    Iterator<Object> iter = capabilities.keySet().iterator();
     Object[] caps = new Object[capabilities.size() * 2];
     int i = 0;
     while (iter.hasNext())
@@ -260,7 +268,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
 
 
   //KeyIterator
-  private class KeyIterator implements Iterator
+  private class KeyIterator implements Iterator<Object>
   {
     public KeyIterator()
     {
@@ -315,7 +323,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
 
 
   //Map Entry
-  private class CEntry implements Entry
+  private class CEntry implements Entry<Object, Object>
   {
 
     private Object key;
@@ -327,6 +335,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
       this.value = value;
     }
 
+    @Override
     public boolean equals(Object o)
     {
       if (this == o)
@@ -355,6 +364,7 @@ public class CapabilityMap extends AbstractMap implements Cloneable
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public int hashCode()
     {
       return key.hashCode() ^ (value == null ? 0 : value.hashCode());
@@ -363,5 +373,5 @@ public class CapabilityMap extends AbstractMap implements Cloneable
 
 
   private Object[] _indexedValues;
-  private Set _entrySet;
+  private Set<Map.Entry<Object, Object>> _entrySet;
 }

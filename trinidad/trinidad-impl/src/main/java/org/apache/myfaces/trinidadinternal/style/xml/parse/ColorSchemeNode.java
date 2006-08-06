@@ -68,14 +68,17 @@ public class ColorSchemeNode
   /**
    * Returns an Iterator of ColorNodes contained by this ColorSchemeNode
    */
-  public Iterator getColors()
+  @SuppressWarnings("unchecked")
+  public Iterator<ColorNode> getColors()
   {
     if(_colors!=null)
     {
       return (Arrays.asList(_colors)).iterator();  
     }
     else
+    {
       return (Collections.EMPTY_LIST).iterator();
+    }
   }
 
   private String      _namespace;

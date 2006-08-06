@@ -99,20 +99,20 @@ public class FormData
     if (targetId == null || label == null)
       return;
 
-    Map labelMap = getLabelMap(true);
+    Map<String, String> labelMap = getLabelMap(true);
 
     labelMap.put(targetId, label);
   }
 
 
 
-  public Map getLabelMap(
+  public Map<String, String> getLabelMap(
     boolean  createIfNecessary
     )
   {
     if ((_labelMap == null) && createIfNecessary)
     {
-      _labelMap = new HashMap(31);
+      _labelMap = new HashMap<String, String>(31);
     }
 
     return _labelMap;
@@ -120,13 +120,13 @@ public class FormData
 
 
 
-  public Map getPatternMap(
+  public Map<String, String> getPatternMap(
     boolean createIfNecessary
     )
   {
     if ((_patternMap == null) && createIfNecessary)
     {
-      _patternMap = new HashMap();
+      _patternMap = new HashMap<String, String>();
     }
 
     return _patternMap;
@@ -141,7 +141,7 @@ public class FormData
     if (targetId == null || pattern == null)
       return;
 
-    Map patternMap = getPatternMap(true);
+    Map<String, String> patternMap = getPatternMap(true);
 
     patternMap.put(targetId, pattern);
   }
@@ -162,14 +162,14 @@ public class FormData
       return;
     }
 
-    List neededValues = getNeededValues(true);
+    List<String> neededValues = getNeededValues(true);
     neededValues.add(name);
   }
 
 
   public void addRenderedValue(String name)
   {
-    Set renderedSet = getRenderedValues(true);
+    Set<String> renderedSet = getRenderedValues(true);
     renderedSet.add(name);
   }
 
@@ -192,7 +192,7 @@ public class FormData
 
     if (call != null)
     {
-      List resetCalls = getResetCalls(true);
+      List<String> resetCalls = getResetCalls(true);
 
       // add the call
       resetCalls.add(call);
@@ -200,61 +200,61 @@ public class FormData
   }
 
 
-  public List getResetCalls(
+  public List<String> getResetCalls(
     boolean          createIfNecessary
     )
   {
 
     if (_resetCallsList == null && createIfNecessary)
     {
-      _resetCallsList = new ArrayList();
+      _resetCallsList = new ArrayList<String>();
     }
 
     return _resetCallsList;
   }
 
 
-  public List getClientDependencies(
+  public List<String> getClientDependencies(
     boolean          createIfNecessary
     )
   {
     if ((_clientDependencies == null) && createIfNecessary)
     {
-      _clientDependencies = new ArrayList(10);
+      _clientDependencies = new ArrayList<String>(10);
     }
 
     return _clientDependencies;
   }
 
-  public List getNeededValues(
+  public List<String> getNeededValues(
     boolean createIfNecessary
     )
   {
     if ((_neededValues == null) && createIfNecessary)
     {
-      _neededValues = new ArrayList(10);
+      _neededValues = new ArrayList<String>(10);
     }
 
     return _neededValues;
   }
 
 
-  public Set getRenderedValues(
+  public Set<String> getRenderedValues(
     boolean createIfNecessary
     )
   {
     if ((_renderedSet == null) && createIfNecessary)
     {
-      _renderedSet =  new HashSet(23);
+      _renderedSet =  new HashSet<String>(23);
     }
 
     return _renderedSet;
   }
 
 
-  public Iterator getValidationIterator()
+  public Iterator<String> getValidationIterator()
   {
-    Map validationMap = _getValidationMap(false);
+    Map<String, Integer> validationMap = _getValidationMap(false);
     if ( validationMap == null)
       return null;
 
@@ -262,36 +262,36 @@ public class FormData
   }
 
 
-  public Iterator getErrorFormatIterator()
+  public Iterator<String> getErrorFormatIterator()
   {
-    Map errorFormatMap = _getErrorFormatMap(false);
+    Map<String, Integer> errorFormatMap = _getErrorFormatMap(false);
     if ( errorFormatMap == null)
       return null;
 
     return errorFormatMap.keySet().iterator();
   }
 
-  public List getFormValidatorsInfo(
+  public List<ConvertValidate> getFormValidatorsInfo(
     boolean createIfNecessary
     )
   {
     // create the validators if they don't already exist
     if ((_formValidatorsInfo == null) && createIfNecessary)
     {
-      _formValidatorsInfo = new ArrayList();
+      _formValidatorsInfo = new ArrayList<ConvertValidate>();
     }
 
     return _formValidatorsInfo;
   }
 
 
-  public List getValidatedInputList(
+  public List<String> getValidatedInputList(
     boolean createIfNecessary
     )
   {
     if ((_validatedInputList == null) && createIfNecessary)
     {
-      _validatedInputList = new ArrayList();
+      _validatedInputList = new ArrayList<String>();
     }
 
     return _validatedInputList;
@@ -302,13 +302,13 @@ public class FormData
    * and this method should be killed.
    */
   public void addOnSubmitConverterValidators(
-    UIComponent      component,
-    Converter        converter,
-    Iterator         validators,
-    String           clientId,
-    boolean          immediate,
-    boolean          required,
-    String           requiredMessageKey
+    UIComponent         component,
+    Converter           converter,
+    Iterator<Validator> validators,
+    String              clientId,
+    boolean             immediate,
+    boolean             required,
+    String              requiredMessageKey
     ) throws IOException
   {
     if (clientId == null)
@@ -362,7 +362,7 @@ public class FormData
     {
       while (validators.hasNext())
       {
-        Validator validator = (Validator) validators.next();
+        Validator validator = validators.next();
 
         if (validator instanceof ClientValidator)
         {
@@ -419,7 +419,7 @@ public class FormData
     if (validator != null && convertValidate != null)
     {
       if (convertValidate.validators == null)
-        convertValidate.validators = new ArrayList();
+        convertValidate.validators = new ArrayList<Integer>();
 
       // add the validator
       convertValidate.validators.add(_addValidation(validator));
@@ -459,16 +459,16 @@ public class FormData
 
     }
 
-    Object clientDependency = submitConverter.getClientScript(fcontext,
-                                                                component);
+    String clientDependency = submitConverter.getClientScript(fcontext,
+                                                              component);
     if (clientDependency != null)
     {
-      List clientDependencies = getClientDependencies(true);
+      List<String> clientDependencies = getClientDependencies(true);
       clientDependencies.add(clientDependency);
     }
 
-    String converter = (String)submitConverter.getClientConversion(fcontext,
-                                                                   component);
+    String converter = submitConverter.getClientConversion(fcontext,
+                                                           component);
 
     if (converter != null)
     {
@@ -505,18 +505,17 @@ public class FormData
     }
     else
     {
-      Object clientDependency = submitValidator.getClientScript(fContext,
-                                                                  component);
+      String clientDependency = submitValidator.getClientScript(fContext,
+                                                                component);
       if (clientDependency != null)
       {
-        List clientDependencies = getClientDependencies(true);
+        List<String> clientDependencies = getClientDependencies(true);
         clientDependencies.add(clientDependency);
       }
     }
 
-    String validator = (String)submitValidator.getClientValidation(
-                                                     fContext,
-                                                     component);
+    String validator = submitValidator.getClientValidation(fContext,
+                                                           component);
 
     if (validator != null)
     {
@@ -535,9 +534,9 @@ public class FormData
     )
   {
     //TODO - not checking for null so map always getting created
-    Map validationMap = _getValidationMap(true);
+    Map<String, Integer> validationMap = _getValidationMap(true);
 
-    Integer validationIndex = (Integer)validationMap.get(validation);
+    Integer validationIndex = validationMap.get(validation);
 
     if (validationIndex == null)
     {
@@ -559,9 +558,9 @@ public class FormData
   {
     if (errorFormat != null)
     {
-      Map errorFormatMap = _getErrorFormatMap(true);
+      Map<String, Integer> errorFormatMap = _getErrorFormatMap(true);
 
-      Integer errorFormatIndex = (Integer)errorFormatMap.get(errorFormat);
+      Integer errorFormatIndex = errorFormatMap.get(errorFormat);
 
       if (errorFormatIndex == null)
       {
@@ -593,7 +592,7 @@ public class FormData
       convertValidateInfo.clientId = clientId;
 
       // add to list
-      List convertValidateList = getFormValidatorsInfo(true);
+      List<ConvertValidate> convertValidateList = getFormValidatorsInfo(true);
       convertValidateList.add(convertValidateInfo);
 
       return convertValidateInfo;
@@ -618,25 +617,25 @@ public class FormData
 
 
 
-  private Map _getValidationMap(
+  private Map<String, Integer> _getValidationMap(
     boolean          createIfNecessary
     )
   {
     if ((_validationMap == null) && createIfNecessary)
     {
-      _validationMap = new LinkedHashMap(31);
+      _validationMap = new LinkedHashMap<String, Integer>(31);
     }
 
     return _validationMap;
   }
 
-  private Map _getErrorFormatMap(
+  private Map<String, Integer> _getErrorFormatMap(
     boolean          createIfNecessary
     )
   {
     if ((_errorFormatMap == null) && createIfNecessary)
     {
-      _errorFormatMap = new LinkedHashMap(31);
+      _errorFormatMap = new LinkedHashMap<String, Integer>(31);
     }
 
     return _errorFormatMap;
@@ -716,51 +715,51 @@ public class FormData
   // map of unique validation string to index in map
   // used so that each converter and validator constructor
   // is only written out once
-  private Map _validationMap = null;
+  private Map<String, Integer> _validationMap = null;
 
   // map of unique error string to index in map
   // used so that each error string is only written out once
-  private Map _errorFormatMap = null;
+  private Map<String, Integer> _errorFormatMap = null;
 
   // List of ConvertValidate objects
-  private List _formValidatorsInfo;
+  private List<ConvertValidate> _formValidatorsInfo;
 
   // javascript needed for client validations
-  private List _clientDependencies;
+  private List<String> _clientDependencies;
 
 
   // List of id's of input controls that need to get validated
-  private List _validatedInputList;
+  private List<String> _validatedInputList;
 
 
   private boolean _useCompoundNames = false;
 
   // List of empty hidden fields that will be filled during event generation
-  private List _neededValues;
+  private List<String> _neededValues;
 
 
-  private Set _renderedSet;
+  private Set<String> _renderedSet;
 
   // maps labels to id's
   // need a label map because the label is not always an attribute
   // on the component
-  private Map _labelMap = null;
+  private Map<String, String> _labelMap = null;
 
   // List of reset calls
-  private List _resetCallsList = null;
+  private List<String> _resetCallsList = null;
 
   // maps patterns to id's
-  private Map _patternMap;
+  private Map<String, String> _patternMap;
 
   private String _formName = null;
 
  public static final class ConvertValidate
   {
-    public String    clientId;
-    public boolean   required = false;
-    public Integer   requiredFormatIndex;
-    public ArrayList validators;
-    public Object    converter;
+    public String             clientId;
+    public boolean            required = false;
+    public Integer            requiredFormatIndex;
+    public ArrayList<Integer> validators;
+    public Object             converter;
   }
 
 

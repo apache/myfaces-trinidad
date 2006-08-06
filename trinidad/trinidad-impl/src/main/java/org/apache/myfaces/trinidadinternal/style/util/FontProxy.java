@@ -89,6 +89,7 @@ public class FontProxy
   /**
    * Tests for equality.
    */
+  @Override
   public boolean equals(Object o)
   {
     if (this == o)
@@ -112,11 +113,13 @@ public class FontProxy
   /**
    * Returns a hashcode for this FontProxy.
    */
+  @Override
   public int hashCode()
   {
     return _hashCode;
   }
 
+  @Override
   public String toString()
   {
     return 

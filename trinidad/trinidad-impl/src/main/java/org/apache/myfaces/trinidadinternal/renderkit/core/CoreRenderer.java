@@ -145,6 +145,7 @@ public class CoreRenderer extends Renderer
   }
 
 
+  @Override
   public final void encodeBegin(FacesContext context,
                           UIComponent component) throws IOException
   {
@@ -159,12 +160,14 @@ public class CoreRenderer extends Renderer
     }
   }
 
+  @Override
   public final void encodeChildren(FacesContext context, UIComponent component)
   {
     // encodeChildren() is fairly useless - it's simpler to just
     // put the output in encodeEnd(), or use the encodeAll() hook
   }
 
+  @Override
   public final void encodeEnd(FacesContext context,
                         UIComponent component) throws IOException
   {
@@ -232,6 +235,7 @@ public class CoreRenderer extends Renderer
    * can be used if you don't need that check.)
    * =-=AEW Ugh.
    */
+  @SuppressWarnings("unchecked")
   protected void encodeChild(
     FacesContext context,
     UIComponent  child) throws IOException
@@ -246,9 +250,10 @@ public class CoreRenderer extends Renderer
     {
       if (child.getChildCount() > 0)
       {
-        Iterator children = child.getChildren().iterator();
-        while (children.hasNext())
-          RenderUtils.encodeRecursive(context, (UIComponent) children.next());
+        for(UIComponent subChild : (List<UIComponent>)child.getChildren())
+        {
+          RenderUtils.encodeRecursive(context, subChild);
+        }
       }
     }
     
@@ -256,6 +261,7 @@ public class CoreRenderer extends Renderer
   }
 
 
+  @SuppressWarnings("unchecked")
   protected final void encodeAllChildren(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -264,14 +270,12 @@ public class CoreRenderer extends Renderer
     if (childCount == 0)
       return;
     
-    List children   = component.getChildren();
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
-      if (!child.isRendered())
-        continue;
-
-      encodeChild(context, child);
+      if (child.isRendered())
+      {
+        encodeChild(context, child);
+      }
     }
   }
 
@@ -442,18 +446,19 @@ public class CoreRenderer extends Renderer
    * Returns true if the component has children and at least
    * one has rendered=="true".
    */
+  @SuppressWarnings("unchecked")
   static public boolean hasRenderedChildren(UIComponent component)
   {
     int count = component.getChildCount();
     if (count == 0)
       return false;
       
-    List children = component.getChildren();
-    for (int i = 0; i < count; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (child.isRendered())
+      {
         return true;
+      }
     }
     
     return false;
@@ -462,6 +467,7 @@ public class CoreRenderer extends Renderer
   /**
    * Returns the total number of children with rendered=="true".
    */
+  @SuppressWarnings("unchecked")
   static public int getRenderedChildCount(UIComponent component)
   {
     int count = component.getChildCount();
@@ -469,12 +475,12 @@ public class CoreRenderer extends Renderer
       return 0;
       
     int total = 0;
-    List children = component.getChildren();
-    for (int i = 0; i < count; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (child.isRendered())
+      {
         total++;
+      }
     }
     
     return total;
@@ -488,18 +494,15 @@ public class CoreRenderer extends Renderer
    * {@link #NO_CHILD_INDEX} if there is none.
    */
   public static int getNextRenderedChildIndex(
-    List components,
+    List<UIComponent> components,
     int  afterChildIndex
     )
   {
-    int childCount = components.size();
     int childIndex = afterChildIndex + 1;
-
-    for (; childIndex < childCount; childIndex++)
+    Iterator<UIComponent> iter = components.listIterator(childIndex);
+    for(; iter.hasNext(); childIndex++)
     {
-      UIComponent currChild = (UIComponent)components.get(childIndex);
-
-      if (currChild.isRendered())
+      if(iter.next().isRendered())
       {
         return childIndex;
       }
@@ -507,7 +510,4 @@ public class CoreRenderer extends Renderer
 
     return NO_CHILD_INDEX;
   }
-
-  
-
 }

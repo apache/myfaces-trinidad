@@ -45,7 +45,7 @@ public class CachingNameResolver implements NameResolver
    */
   public CachingNameResolver(
     NameResolver base,
-    Map   storage,
+    Map<Object, InputStreamProvider> storage,
     boolean      checkModified)
   {
     this(base,
@@ -67,7 +67,7 @@ public class CachingNameResolver implements NameResolver
    */
   public CachingNameResolver(
     NameResolver base,
-    Map   storage,
+    Map<Object, InputStreamProvider> storage,
     int          msBetweenChecks)
   {
     if (base == null)
@@ -75,7 +75,7 @@ public class CachingNameResolver implements NameResolver
 
     _base = base;
     if (storage == null)
-      storage = new Hashtable(197);
+      storage = new Hashtable<Object, InputStreamProvider>(197);
 
     _cachedFiles = storage;
 
@@ -118,6 +118,7 @@ public class CachingNameResolver implements NameResolver
                                    _msBetweenChecks);
   }
 
+  @Override
   public String toString()
   {
     return super.toString() + "[" + _base.toString() + "]";
@@ -133,7 +134,7 @@ public class CachingNameResolver implements NameResolver
     // We don't require the storage to be synchronized
     synchronized (_cachedFiles)
     {
-      CachingProvider provider = (CachingProvider) _cachedFiles.get(o);
+      InputStreamProvider provider = _cachedFiles.get(o);
       if ((provider != null) && _checkModified())
       {
         if (provider.hasSourceChanged())
@@ -147,7 +148,9 @@ public class CachingNameResolver implements NameResolver
     }
   }
 
-  static void __addToCache(CachingProvider provider, Map storage)
+  static void __addToCache(
+      CachingProvider provider, 
+      Map<Object, InputStreamProvider> storage)
   {
     // We don't require the storage to be synchronized
     synchronized (storage)
@@ -164,7 +167,7 @@ public class CachingNameResolver implements NameResolver
                                        implements CachingInputStreamProvider
   {
     public CachingProvider(InputStreamProvider wrapped,
-                           Map storage,
+                           Map<Object, InputStreamProvider> storage,
                            int msBetweenChecks)
     {
       _wrapped = wrapped;
@@ -172,6 +175,7 @@ public class CachingNameResolver implements NameResolver
       _msBetweenChecks = msBetweenChecks;
     }
 
+    @Override
     public void setCachedResult(Object value)
     {
       _lastChecked  = System.currentTimeMillis();
@@ -182,6 +186,7 @@ public class CachingNameResolver implements NameResolver
 
     // Check not just whether we've changed, but whether any
     // of our dependencies have.
+    @Override
     public boolean hasSourceChanged()
     {
       // Don't check unless at least _msBetweenChecks has passed
@@ -198,12 +203,12 @@ public class CachingNameResolver implements NameResolver
       if (changed)
         return true;
 
-      ArrayList dependencies = _dependencies;
+      ArrayList<InputStreamProvider> dependencies = _dependencies;
       if (dependencies != null)
       {
         for (int i = dependencies.size() - 1; i >= 0; i--)
         {
-          if (((InputStreamProvider) dependencies.get(i)).hasSourceChanged())
+          if (dependencies.get(i).hasSourceChanged())
           {
             return true;
           }
@@ -227,33 +232,34 @@ public class CachingNameResolver implements NameResolver
         return;
 
       if (_dependencies == null)
-        _dependencies = new ArrayList(5);
+        _dependencies = new ArrayList<InputStreamProvider>(5);
       _dependencies.add(dependency);
     }
 
-    public Iterator getCacheDependencies()
+    public Iterator<InputStreamProvider> getCacheDependencies()
     {
-      ArrayList dependencies = _dependencies;
+      ArrayList<InputStreamProvider> dependencies = _dependencies;
       if (dependencies == null)
         return null;
 
       return dependencies.iterator();
     }
 
+    @Override
     protected InputStreamProvider getProvider()
     {
       return _wrapped;
     }
 
-    private ArrayList  _dependencies;
-    private Map _storage;
+    private ArrayList<InputStreamProvider>  _dependencies;
+    private Map<Object, InputStreamProvider> _storage;
     private final InputStreamProvider _wrapped;
     private long       _lastChecked  = -1;
     private int       _msBetweenChecks;
   }
 
   private NameResolver   _base;
-  private Map     _cachedFiles;
+  private Map<Object, InputStreamProvider> _cachedFiles;
 
   // this param is set to _DO_NOT_CHECK_MODIFIED to indicate not to check at all
   private int            _msBetweenChecks;

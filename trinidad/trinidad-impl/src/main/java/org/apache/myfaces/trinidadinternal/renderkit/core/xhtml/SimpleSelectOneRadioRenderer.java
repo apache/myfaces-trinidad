@@ -44,6 +44,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     super(CoreSelectOneRadio.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -56,12 +57,13 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
   //
   // ENCODE BEHAVIOR
   //
+  @Override
   protected void encodeElementContent(
     FacesContext        context,
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -109,7 +111,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -144,7 +146,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
 
     for (int i = 0; i < size; i++)
     {
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       if (encodeSelectItem(context, arc, component, item, converter,
                            valuePassThru, accessKey,
                            i, selectedIndex == i, disabled,
@@ -240,6 +242,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     return true;
   }
 
+  @Override
   protected void renderId(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -256,6 +259,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
    * In Gecko, they bubble up, but in IE, they don't, so
    * they have to go on the items.
    */
+  @Override
   protected void renderFormEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException
@@ -267,6 +271,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
    * Disable rendering "onclick" on the parent;  it needs to
    * go on the individual radio buttons
    */
+  @Override
   protected String getOnclick(
     FacesBean bean
     )
@@ -317,6 +322,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
     return toString(bean.getProperty(_layoutKey));
   }
 
+  @Override
   protected String getUnselectedLabel(FacesBean bean)
   {
     return toString(bean.getProperty(_unselectedLabelKey));
@@ -324,16 +330,19 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
 
   // Never render the "hidden label";  labels entirely go on the individual
   // items
+  @Override
   protected boolean isHiddenLabelRequired(RenderingContext arc)
   {
     return false;
   }
    
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|selectOneRadio::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneRadio";

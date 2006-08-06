@@ -44,6 +44,7 @@ public class ServletNameResolver extends DefaultNameResolver
     _context = context;
   }
 
+  @Override
   protected File getFile(String name)
   {
     String rootName;
@@ -61,6 +62,8 @@ public class ServletNameResolver extends DefaultNameResolver
     if ((_request != null) && (file == null))
     {
       // Try a second way to make JServ happy
+      // -= Simon Lessard =-
+      // FIXME: That call is deprecated, is it really needed?
       file = _getFile(_request.getRealPath(rootName));
     }
 
@@ -70,6 +73,7 @@ public class ServletNameResolver extends DefaultNameResolver
     return super.getFile(name);
   }
 
+  @Override
   protected URL getURL(String name)
   {
     if (_context == null)

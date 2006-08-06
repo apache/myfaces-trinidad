@@ -49,16 +49,19 @@ public class IntrospectionPropertyDef extends BasePropertyDef
   /**
    * Returns the name of the property definition.
    */
+  @Override
   public String getName()
   {
     return _descriptor.getName();
   }
 
-  public Class getPropertyType()
+  @Override
+  public Class<?> getPropertyType()
   {
     return _descriptor.getPropertyType();
   }
 
+  @Override
   public Object getValue(ParseContext context, Object bean)
   {
     Method read = _descriptor.getReadMethod();
@@ -83,6 +86,7 @@ public class IntrospectionPropertyDef extends BasePropertyDef
     return null;
   }
 
+  @Override
   public void setValue(ParseContext context, Object bean, Object value)
   {
     Method write = _descriptor.getWriteMethod();

@@ -41,6 +41,7 @@ public class PanelBoxRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -50,11 +51,13 @@ public class PanelBoxRenderer
     _contentStyleKey = type.findKey("contentStyle");
   }
   
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -79,6 +82,7 @@ public class PanelBoxRenderer
     writer.endElement("table");
   }
   
+  @Override
   protected void renderAllAttributes(FacesContext context, 
     RenderingContext arc, 
     FacesBean bean) throws IOException
@@ -87,6 +91,7 @@ public class PanelBoxRenderer
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
   }
   
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext arc,

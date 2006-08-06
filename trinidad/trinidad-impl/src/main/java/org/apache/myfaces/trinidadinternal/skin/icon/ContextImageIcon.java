@@ -110,6 +110,7 @@ public class ContextImageIcon extends BaseImageIcon
   /**
    * Override of Icon.getImageIcon().
    */
+  @Override
   public InputStreamProvider getImageData(
     FacesContext        context,
     RenderingContext arc
@@ -138,6 +139,7 @@ public class ContextImageIcon extends BaseImageIcon
    * RenderingContext. context.getProperty(MARLIN_NAMESPACE, 
    * _TERMINATED_CONTEXT_URI_PROPERTY)
    */
+  @Override
   protected String getBaseURI(
   FacesContext        context,
   RenderingContext arc)

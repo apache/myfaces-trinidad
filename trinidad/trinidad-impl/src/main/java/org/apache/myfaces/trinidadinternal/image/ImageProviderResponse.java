@@ -17,6 +17,8 @@
 package org.apache.myfaces.trinidadinternal.image;
 import java.util.Collection;
 
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
+
 
 /**
  * ImageProviderResponse objects are returned by the ImageProvider
@@ -62,5 +64,5 @@ public interface ImageProviderResponse
    *
    * @see org.apache.myfaces.trinidadinternal.image.util.MapArea
    */
-  public Collection getMapAreas();
+  public Collection<MapArea> getMapAreas();
 }

@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 public class SelectionColumnRenderer extends SpecialColumnRenderer
 {
 
+  @Override
   protected void renderKids(FacesContext          context,
                             RenderingContext   arc,
                             TableRenderingContext trc,
@@ -40,7 +41,7 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
                      : _singleRenderer);
   }
   
-
+  @Override
   protected String getHeaderText(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -54,17 +55,19 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
     return arc.getTranslatedString(key);
   }  
 
+  @Override
   protected boolean getNoWrap(FacesBean bean)
   {
     return false;
   }
 
-
+  @Override
   protected String getFormatType(FacesBean bean)
   {
     return CoreColumn.ALIGN_CENTER;
   }
 
+  @Override
   protected String getHeaderStyleClass(TableRenderingContext tContext)
   {
     return XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE;

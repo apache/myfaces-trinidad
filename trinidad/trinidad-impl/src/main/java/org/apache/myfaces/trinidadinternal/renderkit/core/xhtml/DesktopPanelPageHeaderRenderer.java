@@ -47,17 +47,20 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     super(CorePanelPageHeader.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _chromeTypeKey = type.findKey("chromeType");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

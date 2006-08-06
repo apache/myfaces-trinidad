@@ -296,8 +296,10 @@ public class NameUtils
       StyleSheetDocument document)
   {
     // Copy the matching style sheets into an array
-    Iterator e = document.getStyleSheets(context);
-    Vector v = new Vector();
+    Iterator<StyleSheetNode> e = document.getStyleSheets(context);
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is truly required.
+    Vector<StyleSheetNode> v = new Vector<StyleSheetNode>();
     while (e.hasNext())
       v.addElement(e.next());
     StyleSheetNode[] styleSheets = new StyleSheetNode[v.size()];
@@ -512,10 +514,10 @@ public class NameUtils
 
     for (int i = 0; i < styleSheets.length; i++)
     {
-      Iterator e = styleSheets[i].getLocales();
+      Iterator<Locale> e = styleSheets[i].getLocales();
       while (e.hasNext())
       {
-        Locale tmpLocale = (Locale)e.next();
+        Locale tmpLocale = e.next();
 
         if (language.equals(tmpLocale.getLanguage()))
         {
@@ -631,7 +633,7 @@ public class NameUtils
   }
 
   // Tests whether the enumeration is empty.
-  private static final boolean _isIteratorEmpty(Iterator e)
+  private static final boolean _isIteratorEmpty(Iterator<?> e)
   {
     if (e == null)
       return true;

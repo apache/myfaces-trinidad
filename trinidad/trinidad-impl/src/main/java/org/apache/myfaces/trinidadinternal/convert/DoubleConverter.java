@@ -34,6 +34,7 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
     public static final String CONVERT_MESSAGE_ID =
         "org.apache.myfaces.trinidad.convert.DoubleConverter.CONVERT";
 
+  @Override
   public Object getAsObject(
     FacesContext context, 
     UIComponent component,

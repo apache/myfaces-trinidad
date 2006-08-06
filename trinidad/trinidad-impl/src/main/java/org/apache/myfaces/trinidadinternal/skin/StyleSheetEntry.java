@@ -100,8 +100,8 @@ class StyleSheetEntry
   StyleSheetEntry(
     String                 styleSheetName,
     StyleSheetDocument     document,
-    List <IconNode>        icons,
-    List <SkinPropertyNode> skinProperties
+    List<IconNode>         icons,
+    List<SkinPropertyNode> skinProperties
 
     )
   {
@@ -312,11 +312,11 @@ class StyleSheetEntry
   private static class CheckModifiedEntry extends StyleSheetEntry
   {
     public CheckModifiedEntry(
-      String             styleSheetName,
-      StyleSheetDocument document,
-      List               icons,
-      List               properties,
-      NameResolver       resolver
+      String                 styleSheetName,
+      StyleSheetDocument     document,
+      List<IconNode>         icons,
+      List<SkinPropertyNode> properties,
+      NameResolver           resolver
       )
     {
       super(styleSheetName, document, icons, properties);
@@ -329,6 +329,7 @@ class StyleSheetEntry
     // Override of checkModified() which uses the
     // InputStreamProvider to check for changes to the
     // style sheet source files.
+    @Override
     public boolean checkModified(StyleContext context)
     {
       // We would synchronize here, but at the moment synchronization

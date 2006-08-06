@@ -49,11 +49,11 @@ public class PartialPageContext
 {
   PartialPageContext()
   {
-    _targets = new HashMap();
-    _renderedTargets = new HashSet();
+    _targets = new HashMap<String, Boolean>();
+    _renderedTargets = new HashSet<String>();
 
     // Pre-allocate the rendered stack
-    _currentTargetStack = new Stack();
+    _currentTargetStack = new Stack<String>();
   }
 
   /**
@@ -71,7 +71,7 @@ public class PartialPageContext
     // target list.
     RequestContextImpl adfContext =
       (RequestContextImpl) afContext;
-    Iterator targetIter = adfContext.getPartialTargets();
+    Iterator<String> targetIter = adfContext.getPartialTargets();
     while (targetIter.hasNext())
       _targets.put(targetIter.next(), Boolean.FALSE);
 
@@ -85,10 +85,8 @@ public class PartialPageContext
   {
     if (_LOG.isWarning())
     {
-      Iterator entries = _targets.entrySet().iterator();
-      while (entries.hasNext())
+      for(Map.Entry<String, Boolean> entry : _targets.entrySet())
       {
-        Map.Entry entry = (Map.Entry) entries.next();
         if (entry.getValue() == Boolean.FALSE)
           _LOG.warning("PPR target {0} was not rendered.",
                        entry.getKey());
@@ -100,7 +98,7 @@ public class PartialPageContext
   /**
    * Returns the set of partial targets for this rendering pass.
    */
-  public Iterator getPartialTargets()
+  public Iterator<String> getPartialTargets()
   {
     return _targets.keySet().iterator();
   }
@@ -165,7 +163,7 @@ public class PartialPageContext
     _renderedTargets.add(id);
   }
 
-  public Iterator getRenderedPartialTargets()
+  public Iterator<String> getRenderedPartialTargets()
   {
     return _renderedTargets.iterator();
   }
@@ -237,14 +235,16 @@ public class PartialPageContext
     if (_currentTargetStack.empty())
       return null;
 
-    return (String)_currentTargetStack.peek();
+    return _currentTargetStack.peek();
   }
 
-  private Map _targets;
-  private Set _renderedTargets;
+  private Map<String, Boolean> _targets;
+  private Set<String> _renderedTargets;
 
   // The stack of partial targets that are currently being rendered
-  private Stack    _currentTargetStack;
+  // -= Simon Lessard =-
+  // FIXME: java.util.Stack... enough said... ArrayList or LinkedList please
+  private Stack<String> _currentTargetStack;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PartialPageContext.class);
 }

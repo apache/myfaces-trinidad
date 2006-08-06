@@ -69,26 +69,31 @@ class LazyValueBinding extends ValueBinding
     _expression = expression;
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     return _getValueBinding().getValue(context);
   }
 
+  @Override
   public void setValue(FacesContext context, Object value)
   {
     _getValueBinding().setValue(context, value);
   }
 
+  @Override
   public boolean isReadOnly(FacesContext context)
   {
     return _getValueBinding().isReadOnly(context);
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return _getValueBinding().getType(context);
   }
 
+  @Override
   public String getExpressionString()
   {
     return _expression;

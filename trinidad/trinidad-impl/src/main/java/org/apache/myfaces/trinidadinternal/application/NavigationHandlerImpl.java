@@ -29,6 +29,7 @@ public class NavigationHandlerImpl extends NavigationHandler
     _dialogPrefix = null;
   }
 
+  @Override
   public void handleNavigation(
     FacesContext context,
     String       fromAction,

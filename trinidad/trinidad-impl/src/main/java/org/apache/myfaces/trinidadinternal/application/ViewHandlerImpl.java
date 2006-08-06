@@ -64,20 +64,23 @@ public class ViewHandlerImpl extends ViewHandler
     ViewHandler delegate)
   {
     _delegate = delegate;
-    _timestamps = new HashMap();
+    _timestamps = new HashMap<String, Long>();
     _loadInternalViews();
   }
 
+  @Override
   public Locale calculateLocale(FacesContext context)
   {
     return _delegate.calculateLocale(context);
   }
 
+  @Override
   public String calculateRenderKitId(FacesContext context)
   {
     return _delegate.calculateRenderKitId(context);
   }
 
+  @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     _initIfNeeded(context);
@@ -98,7 +101,7 @@ public class ViewHandlerImpl extends ViewHandler
         String path = _getPath(viewId);
         synchronized (_timestamps)
         {
-          Long ts = (Long) _timestamps.get(path);
+          Long ts = _timestamps.get(path);
           if (ts != _NOT_FOUND)
           {
             URL url = context.getExternalContext().getResource(path);
@@ -116,6 +119,7 @@ public class ViewHandlerImpl extends ViewHandler
     return _delegate.createView(context, viewId);
   }
 
+  @Override
   public String getActionURL(FacesContext context, String viewId)
   {
     String actionURL = _delegate.getActionURL(context, viewId);
@@ -130,6 +134,7 @@ public class ViewHandlerImpl extends ViewHandler
     return actionURL;
   }
 
+  @Override
   public String getResourceURL(
     FacesContext context,
     String       path)
@@ -138,6 +143,7 @@ public class ViewHandlerImpl extends ViewHandler
   }
 
 
+  @Override
   public void renderView(
     FacesContext context,
     UIViewRoot   viewToRender) throws IOException, FacesException
@@ -181,6 +187,7 @@ public class ViewHandlerImpl extends ViewHandler
     }
   }
 
+  @Override
   public UIViewRoot restoreView(
     FacesContext context,
     String       viewId)
@@ -216,7 +223,7 @@ public class ViewHandlerImpl extends ViewHandler
         String path = _getPath(viewId);
         synchronized (_timestamps)
         {
-          Long ts = (Long)_timestamps.get(path);
+          Long ts = _timestamps.get(path);
           if (ts != _NOT_FOUND)
           {
             URL url = context.getExternalContext().getResource(path);
@@ -261,6 +268,7 @@ public class ViewHandlerImpl extends ViewHandler
     return result;
   }
 
+  @Override
   public void writeState(
     FacesContext context) throws IOException
   {
@@ -294,10 +302,10 @@ public class ViewHandlerImpl extends ViewHandler
         try
         {
           ClassLoader loader = Thread.currentThread().getContextClassLoader();
-          Class c = loader.loadClass(alternateViewHandler);
+          Class<?> c = loader.loadClass(alternateViewHandler);
           try
           {
-            Constructor constructor = c.getConstructor(
+            Constructor<?> constructor = c.getConstructor(
                new Class[]{ViewHandler.class});
             viewHandlerInstance =
                (ViewHandler) constructor.newInstance(new Object[]{_delegate});
@@ -393,16 +401,16 @@ public class ViewHandlerImpl extends ViewHandler
   //
   private void _loadInternalViews()
   {
-    _internalViews = new HashMap();
-    List<URL> list = new ArrayList();
+    _internalViews = new HashMap<String, InternalView>();
+    List<URL> list = new ArrayList<URL>();
     ClassLoader loader = _getClassLoader();
     try
     {
-      Enumeration en = loader.getResources(
+      Enumeration<URL> en = loader.getResources(
                "META-INF/org.apache.myfaces.trinidad.render.InternalView.properties");
       while (en.hasMoreElements())
       {
-        list.add((URL) en.nextElement());
+        list.add(en.nextElement());
       }
 
       // And, for some temporary backwards compatibility, also load
@@ -411,7 +419,7 @@ public class ViewHandlerImpl extends ViewHandler
                "META-INF/org.apache.myfaces.trinidad.InternalView.properties");
       while (en.hasMoreElements())
       {
-        list.add((URL) en.nextElement());
+        list.add(en.nextElement());
       }
 
 
@@ -432,11 +440,11 @@ public class ViewHandlerImpl extends ViewHandler
         _LOG.fine("Loading internal views from {0}",  url);
         properties.load(url.openStream());
 
-        for (Map.Entry entry : properties.entrySet())
+        for (Map.Entry<Object, Object> entry : properties.entrySet())
         {
           String name = (String) entry.getKey();
           String className = (String) entry.getValue();
-          Class clazz = loader.loadClass(className);
+          Class<?> clazz = loader.loadClass(className);
           InternalView view = (InternalView) clazz.newInstance();
           _internalViews.put(name, view);
         }
@@ -472,7 +480,7 @@ public class ViewHandlerImpl extends ViewHandler
   private Boolean           _checkTimestamp;
   // Mostly final, but see _initIfNeeded()
   private ViewHandler       _delegate;
-  private final Map         _timestamps;
+  private final Map<String, Long> _timestamps;
   private boolean           _inited;
   private Map<String, InternalView> _internalViews;
 

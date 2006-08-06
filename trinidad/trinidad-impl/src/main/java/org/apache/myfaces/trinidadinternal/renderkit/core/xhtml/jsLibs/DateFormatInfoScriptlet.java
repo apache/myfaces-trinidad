@@ -43,11 +43,13 @@ class DateFormatInfoScriptlet extends Scriptlet
   {
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return DATE_FORMAT_INFO_KEY;
   }
 
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException

@@ -37,7 +37,8 @@ public class GenericConverterFactory
 {
   private GenericConverterFactory()
   {
-    _converters = new ArrayList(3);
+    _cache = new HashMap<Key, GenericConverter>(16);
+    _converters = new ArrayList<GenericConverter>(3);
     registerConverter(new SqlConverter());
     registerConverter(new BaseConverter());
   }
@@ -55,7 +56,7 @@ public class GenericConverterFactory
    * requests for the same source and target types will be fast.
    * @return null if there is no such converter.
    */
-  public GenericConverter getConverter(Class sourceType, Class targetType)
+  public GenericConverter getConverter(Class<?> sourceType, Class<?> targetType)
   {
     Key key = new Key(sourceType, targetType);
     // check the cache first:
@@ -69,11 +70,11 @@ public class GenericConverterFactory
     // can be used to perform this conversion.
     // initial node in chain:
     Node start = new Node(null, null, sourceType);
-    LinkedList sourcesToBeSearched = new LinkedList();
+    LinkedList<Node> sourcesToBeSearched = new LinkedList<Node>();
     sourcesToBeSearched.add(start);
     // cache to store all the classes we've tested already. This is to
     // avoid our chains from looping indefinitely:
-    Set cache  = new HashSet(16);
+    Set<Class<?>> cache  = new HashSet<Class<?>>(16);
     GenericConverter converter = _findConverter(sourcesToBeSearched, targetType, cache);
     if (converter == null)
     {
@@ -98,19 +99,19 @@ public class GenericConverterFactory
    * @return null if no converter was found.
    */
   private GenericConverter _findConverter(
-    LinkedList sourcesToBeSearched,
-    Class targetType, 
-    Set cache)
+    LinkedList<Node> sourcesToBeSearched,
+    Class<?> targetType, 
+    Set<Class<?>> cache)
   {
     while(!sourcesToBeSearched.isEmpty())
     {
-      Node source = (Node) sourcesToBeSearched.removeFirst();
+      Node source = sourcesToBeSearched.removeFirst();
       // loop through all the converters and see what types they can turn 
       // the current sourceType into 
       // (the current sourceType is source.targetType):
       for(int j=0,jsz=_converters.size(); j<jsz; j++)
       {
-        GenericConverter conv = (GenericConverter) _converters.get(j);
+        GenericConverter conv = _converters.get(j);
         // loop though all the targetTypes on this converter to see
         // if we can find the one we're looking for:
         if (_searchTargetTypes(sourcesToBeSearched, source, conv, targetType,
@@ -142,17 +143,17 @@ public class GenericConverterFactory
    * currentSource.targetType into searchType.
    */
   private boolean _searchTargetTypes(
-    List sourcesToBeSearched,
+    List<Node> sourcesToBeSearched,
     Node currentSource,
     GenericConverter currentConverter,
-    Class searchType,
-    Set cache)
+    Class<?> searchType,
+    Set<Class<?>> cache)
   {
-    Class sourceType = currentSource.targetType;
-    List targetTypes = currentConverter.getTargetTypes(sourceType);
+    Class<?> sourceType = currentSource.targetType;
+    List<Class<?>> targetTypes = currentConverter.getTargetTypes(sourceType);
     for(int i=0,sz=targetTypes.size(); i<sz; i++)
     {
-      Class targetType = (Class) targetTypes.get(i);
+      Class<?> targetType = targetTypes.get(i);
       // check to see if we've seen this targetType before:
       if (cache.add(targetType))
       {
@@ -188,7 +189,7 @@ public class GenericConverterFactory
    * @param targetType the required type.
    * @return null, if the source is null.
    */
-  public Object convert(Object source, Class targetType)
+  public Object convert(Object source, Class<?> targetType)
   {
     if (source == null)
       return null;
@@ -209,7 +210,7 @@ public class GenericConverterFactory
    * into the specified targetType
    * @return true if conversion is possible.
    */
-  public boolean isConvertible(Object source, Class targetType)
+  public boolean isConvertible(Object source, Class<?> targetType)
   {
     if (source == null)
       return false; // bug 4589048
@@ -221,13 +222,30 @@ public class GenericConverterFactory
     return converter != null;
   }
   
-  private final Map _cache = new HashMap(16);
-  private final List _converters;
-  private static final Object _NULL = Node.class; // reuse an object
+  private final Map<Key, GenericConverter> _cache;
+  private final List<GenericConverter> _converters;
+  // 2006-08-02: -= Simon Lessard =-
+  //             Using a GenericConverter null value instead 
+  //             of Node.class to be typesafe
+  private static final GenericConverter _NULL = new GenericConverter()
+  {
+    @Override
+    public Object convert(Object source, Class<?> targetType)
+    {
+      return null;
+    }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Class<?>> getTargetTypes(Class<?> sourceType)
+    {
+      return Collections.EMPTY_LIST;
+    }
+  };
 
   private static final class Node
   {
-    public Node(Node previous, GenericConverter converter, Class targetType)
+    public Node(Node previous, GenericConverter converter, Class<?> targetType)
     {
       this.previous = previous;
       this.converter = converter;
@@ -244,7 +262,7 @@ public class GenericConverterFactory
       return source;
     }
     
-    public Class getSourceType()
+    public Class<?> getSourceType()
     {
       if (previous == null)
         return targetType;
@@ -253,12 +271,12 @@ public class GenericConverterFactory
     
     public final Node previous;
     public final GenericConverter converter;
-    public final Class targetType;
+    public final Class<?> targetType;
   }
   
   private static final class Key
   {
-    public Key(Class source, Class target)
+    public Key(Class<?> source, Class<?> target)
     {
       assert !source.equals(target);
 
@@ -268,11 +286,13 @@ public class GenericConverterFactory
       _hc = source.hashCode() + target.hashCode();
     }
   
+    @Override
     public int hashCode()
     {
       return _hc;
     }
     
+    @Override
     public boolean equals(Object other)
     {
       if (this == other)
@@ -286,18 +306,20 @@ public class GenericConverterFactory
     }
     
     private final int _hc;  
-    private final Class _source, _target;
+    private final Class<?> _source;
+    private final Class<?> _target;
   }
   
   private static final class CompositeConverter extends GenericConverter
   {
-    public CompositeConverter(Node source, GenericConverter conv, Class targetType)
+    public CompositeConverter(Node source, GenericConverter conv, Class<?> targetType)
     {
       assert source != null;
       _chain = new Node(source, conv, targetType) ;
     }
 
-    public Object convert(Object source, Class targetType)
+    @Override
+    public Object convert(Object source, Class<?> targetType)
     {
       if (targetType.isAssignableFrom(_chain.targetType))
       {
@@ -307,11 +329,15 @@ public class GenericConverterFactory
         throw new IllegalArgumentException("Cannot convert to:"+targetType);
     }
 
-    public List getTargetTypes(Class sourceType)
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Class<?>> getTargetTypes(Class<?> sourceType)
     {
       if (_chain.getSourceType().isAssignableFrom(sourceType))
       {
-        return Collections.singletonList(_chain.targetType);
+        List<Class<?>> list = new ArrayList<Class<?>>(1);
+        list.add(_chain.targetType);
+        return list;
       }
       return Collections.EMPTY_LIST;
     }

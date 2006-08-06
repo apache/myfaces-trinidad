@@ -339,11 +339,13 @@ public class ProcessUtils
 
       //TODO - if I change this to use pageFlowScope it doesn't work.
       // figure out why.
-      Map sessionMap  = externalContext.getSessionMap();
+      // FIXME: -= Simon Lessard
+      //        session map is <String, Object> as of JSF 1.2
+      Map<Object,Object> sessionMap  = externalContext.getSessionMap();
 
-      Map maxPathMap = (Map)sessionMap.get(maxPathKey);
+      Map<Object,Object> maxPathMap = (Map<Object,Object>)sessionMap.get(maxPathKey);
       if (maxPathMap == null)
-        maxPathMap = new HashMap();
+        maxPathMap = new HashMap<Object,Object>();
 
       Object focusRowKey = model.getFocusRowKey();
       Object parentRowKey = model.getContainerRowKey(focusRowKey);

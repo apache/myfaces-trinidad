@@ -19,7 +19,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +32,8 @@ class SqlConverter extends GenericConverter
   {
   }
 
-  public Object convert(Object source, Class targetType)
+  @Override
+  public Object convert(Object source, Class<?> targetType)
   {
     java.util.Date jDate = (java.util.Date) source;
     if (targetType.isAssignableFrom(Date.class))
@@ -50,16 +51,17 @@ class SqlConverter extends GenericConverter
     throw new ConvertException(source, targetType);
   }
 
-  public List getTargetTypes(Class sourceType)
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Class<?>> getTargetTypes(Class<?> sourceType)
   {
     if (java.util.Date.class.isAssignableFrom(sourceType))
     {
-      Class[] types = new Class[] {
-        Date.class,
-        Time.class,
-        Timestamp.class
-      };
-      return Arrays.asList(types);
+      List<Class<?>> list = new ArrayList<Class<?>>(3);
+      list.add(Date.class);
+      list.add(Time.class);
+      list.add(Timestamp.class);
+      return list;
     }
     return Collections.EMPTY_LIST;
   }

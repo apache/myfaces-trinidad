@@ -49,6 +49,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     super(CoreTable.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -58,6 +59,8 @@ public class TableSelectOneRenderer extends XhtmlRenderer
   //
   // Decode
   //
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     UIXCollection table = (UIXCollection) component;
@@ -70,14 +73,16 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
       String selectionParam = __getSelectionParameterName(context, table);
 
-      Map parameters =  context.getExternalContext().getRequestParameterMap();
+      Map<String, String> parameters =  
+        context.getExternalContext().getRequestParameterMap();
+      
       _LOG.finest("Params:{0}", parameters);
 
-      String selection = (String) parameters.get(selectionParam);
+      String selection = parameters.get(selectionParam);
 
       if (selection != null)
       {
-        final RowKeySet state;
+        final RowKeySet<Object> state;
         if (table instanceof UIXTable)
           state = ((UIXTable) table).getSelectedRowKeys();
         else
@@ -86,14 +91,14 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         table.setCurrencyString(selection);
         if (!state.isContained())
         {
-          RowKeySet unselected = state.clone();
+          RowKeySet<Object> unselected = state.clone();
           // TODO : do not mutate the selectedRowKeys here.
           // instead, mutate when event is broadcast:
           state.clear();
           state.add();
           // clone, so that subsequent mutations of "state" will
           // not affect the parameters of this event: bug 4733858:
-          RowKeySet selected = state.clone();
+          RowKeySet<Object> selected = state.clone();
           FacesEvent event = new SelectionEvent(table, unselected, selected);
           event.queue();
         }
@@ -109,11 +114,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
   //
   // Encode
   //
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -188,6 +195,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       super(type);
     }
 
+    @Override
     protected String getCompositeId(String clientId)
     {
       return null;
@@ -196,6 +204,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     /**
      * we do not want to render the simple span for the checkbox.
      */
+    @Override
     protected boolean getRenderSimpleSpan(FacesBean bean)
     {
       return false;
@@ -203,11 +212,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     /**
      * don't render a special content style class on the radio.
      */
+    @Override
     protected String getContentStyleClass(FacesBean bean)
     {
      return null;
     }
 
+    @Override
     protected void renderId(
       FacesContext context,
       UIComponent  component) throws IOException
@@ -225,6 +236,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         writer.writeAttribute("id", getClientId(context, component), null);
     }
 
+    @Override
     protected Object getSubmittedValue(FacesBean bean)
     {
       TableRenderingContext tContext =
@@ -233,12 +245,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         Boolean.TRUE : Boolean.FALSE;
     }
 
+    @Override
     protected Object getType()
     {
       return "radio";
     }
 
-
+    @Override
     protected Object getValueAttr(RenderingContext arc)
     {
       TableRenderingContext tContext =
@@ -247,7 +260,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
                 getCurrencyString();
     }
 
-
+    @Override
     protected String getShortDesc(FacesBean bean)
     {
       String key = getDefaultShortDescKey();
@@ -260,16 +273,19 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       return "af_tableSelectOne.SELECT_COLUMN_HEADER";
     }
 
+    @Override
     protected char getAccessKey(FacesBean bean)
     {
       return CHAR_UNDEFINED;
     }
 
+    @Override
     protected boolean isAutoSubmit(FacesBean bean)
     {
       return false;
     }
 
+    @Override
     protected boolean isImmediate(FacesBean bean)
     {
       TableRenderingContext tContext =
@@ -277,11 +293,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       return tContext.isImmediate();
     }
 
+    @Override
     protected boolean getReadOnly(FacesContext context, FacesBean bean)
     {
       return false;
     }
 
+    @Override
     protected boolean getDisabled(FacesBean bean)
     {
       return false;
@@ -290,6 +308,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     /**
      * @todo Support?
      */
+    @Override
     protected String getOnblur(FacesBean bean)
     {
       return null;
@@ -298,11 +317,13 @@ public class TableSelectOneRenderer extends XhtmlRenderer
     /**
      * @todo Support?
      */
+    @Override
     protected String getOnfocus(FacesBean bean)
     {
       return null;
     }
 
+    @Override
     protected String getOnchange(FacesBean bean)
     {
       return null;
@@ -313,6 +334,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       return null;
     }
 
+    @Override
     protected String getText(FacesBean bean)
     {
       return null;

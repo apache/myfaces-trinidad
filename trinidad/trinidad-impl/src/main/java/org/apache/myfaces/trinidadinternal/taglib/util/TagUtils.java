@@ -162,17 +162,17 @@ public class TagUtils
    *  java.util.List of java.awt.Color objects and returns it.
    * @throws ParseException In case of any parse errors upon such conversion.
    */
-  public static List getColorList(String value) throws ParseException
+  public static List<Color> getColorList(String value) throws ParseException
   {
     String[] tokenArray = _getTokensArray(value);
     if (tokenArray == null)
       return null;
 
     String colorCode;
-    List colorList = new ArrayList();
+    List<Color> colorList = new ArrayList<Color>();
     for (int index=0; index < tokenArray.length; index++)
     {
-      colorCode = (String)tokenArray[index];
+      colorCode = tokenArray[index];
 
       //pu: If we do not have correct starter, stop here
       if (!colorCode.startsWith("#"))

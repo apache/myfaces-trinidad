@@ -46,10 +46,10 @@ public class ColumnRenderer extends ColumnGroupRenderer
     super();
   }
 
-
   /**
    * @todo Will need to support TREE_NODE_STAGE
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -114,9 +114,10 @@ public class ColumnRenderer extends ColumnGroupRenderer
     colData.incrementColumnIndex();
   }
 
+  @SuppressWarnings("unchecked")
   private boolean _isColumnGroup(UIComponent column)
   {
-    Iterator kids = column.getChildren().iterator();
+    Iterator<UIComponent> kids = column.getChildren().iterator();
     // Special columns - nothing is a column group
     if (!kids.hasNext())
       return false;
@@ -125,17 +126,15 @@ public class ColumnRenderer extends ColumnGroupRenderer
   }
 
 
+  @SuppressWarnings("unchecked")
   protected void renderKids(FacesContext          context,
-                            RenderingContext   arc,
+                            RenderingContext      arc,
                             TableRenderingContext trc,
                             UIComponent           column) throws IOException
   {
-    List children = column.getChildren();
     boolean renderedOne = false;
-    int size = children.size();
-    for (int i = 0; i < size; i++)
+    for(UIComponent child : (List<UIComponent>)column.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (child.isRendered())
       {
         // Put each component on a separate line, separated by a div

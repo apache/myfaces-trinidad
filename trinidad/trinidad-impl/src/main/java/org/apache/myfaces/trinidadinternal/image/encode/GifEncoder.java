@@ -84,7 +84,11 @@ final class GifEncoder
 
     // A hashtable is used to keep track of colors already in the table
     // max. one-color entries
-    Hashtable hsh = new Hashtable(_MAXIMUM_COLOR_TABLE_SIZE);
+    // -= Simon Lessard =-
+    // FIXME: JDK 1.2 was truly evil... 
+    //        HashMap would be better
+    Hashtable<Integer, Integer> hsh = 
+      new Hashtable<Integer, Integer>(_MAXIMUM_COLOR_TABLE_SIZE);
 
     int colorIndex = 0;           // the code values of the colors
     int background = 0;           // the code of the background color
@@ -126,7 +130,7 @@ final class GifEncoder
         // color has already been added to the color table.  We use an
         // the Integer RGB value as our hash key
         Integer colorKey = IntegerUtils.getInteger(color & 0x00ffffff);
-        Integer colorIndexValue = (Integer) hsh.get(colorKey);
+        Integer colorIndexValue = hsh.get(colorKey);
 
         if (colorIndexValue != null)
         {
@@ -318,7 +322,10 @@ final class GifEncoder
     // Float is in the form a.b where a = sqnc, and b = 1/(newcol+2).
     // Now, we use a Integer where the top 16 bits store the sequence and
     // the bottom 16 bits store the newcol.
-    hsh = new Hashtable(_LARGEST_CODE); // max. compression entries
+    // -= Simon Lessard =-
+    // FIXME: Another line of code, another Hashtable,
+    //        Yet again HashMap would be more efficient
+    hsh = new Hashtable<Integer, Integer>(_LARGEST_CODE); // max. compression entries
 
     int code = (1<< codeSize)+2; // where code values start
     int clearCode = (code++)-2; // special codes
@@ -361,7 +368,7 @@ final class GifEncoder
       if (sqnc > 0)
       {
         fsqnc_newcol = IntegerUtils.getInteger(sqnc_newcol);
-        Integer sqnc_newcol_code = (Integer) hsh.get(fsqnc_newcol);
+        Integer sqnc_newcol_code = hsh.get(fsqnc_newcol);
         if (sqnc_newcol_code == null)
         {
           // string not in table.

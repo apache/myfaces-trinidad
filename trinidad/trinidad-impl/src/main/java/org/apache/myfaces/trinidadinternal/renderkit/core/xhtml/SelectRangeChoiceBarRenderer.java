@@ -58,6 +58,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -68,9 +69,13 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     _varKey = type.findKey("var");
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map parameters =  context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
 
     // get the goto event parameter values and queue a RangeChangeEvent.
@@ -153,7 +158,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                                 newStart, newEnd);
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -162,6 +167,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
   /**
    * Always render an ID, needed for proper PPR.
    */
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -269,6 +275,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
   /**
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -629,7 +636,8 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     }
     else
     {
-      List items = new ArrayList((int) _MAX_VISIBLE_OPTIONS);
+      List<SelectItem> items = 
+        new ArrayList<SelectItem>((int) _MAX_VISIBLE_OPTIONS);
 
       int selectedIndex = _getItems(context, arc, component, items,
                                     minValue, maxValue, currentValue,
@@ -685,8 +693,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         writer.startElement("span", null);
         renderStyleClass(context, arc,
                          XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS);
-        writer.writeText(((SelectItem) items.get(0)).getLabel(),
-                         null);
+        writer.writeText(items.get(0).getLabel(), null);
         writer.endElement("span");
       }
     }
@@ -694,15 +701,15 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
 
   private void _writeSelectItems(
-    FacesContext context,
-    List         items,
-    int          selectedIndex) throws IOException
+    FacesContext     context,
+    List<SelectItem> items,
+    int              selectedIndex) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     int count = items.size();
     for (int i = 0; i < count; i++)
     {
-      SelectItem item = (SelectItem) items.get(i);
+      SelectItem item = items.get(i);
       writer.startElement("option", null);
       writer.writeAttribute("value", item.getValue(), null);
       if (i == selectedIndex)
@@ -720,7 +727,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     FacesContext        context,
     RenderingContext arc,
     UIComponent         component,
-    List                items,
+    List<SelectItem>    items,
     long                minValue, long maxValue, long value,
     int                 blockSize,
     UIComponent         rangeLabel)
@@ -730,8 +737,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     boolean maxUnknown = (maxValue == XhtmlConstants.MAX_VALUE_UNKNOWN);
 
     // Zero-indexed block index.
-    long blockIndex = (value - minValue + ((long) blockSize) - 1L) /
-      (long) blockSize;
+    long blockIndex = (value - minValue + blockSize - 1L) / blockSize;
 
     // sometimes a record set won't start on a multiple of blockSize. So
     // remember to add any offset:
@@ -747,8 +753,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       maxBlockIndex = blockIndex + 1;
     else
     {
-      maxBlockIndex = (maxValue - minValue - offset) /
-                      ((long) blockSize);
+      maxBlockIndex = (maxValue - minValue - offset) / blockSize;
       if (offset > 0)
         maxBlockIndex++;
     }
@@ -798,7 +803,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
          blockIndex <= lastBlockIndex;
          blockIndex++)
     {
-      long blockStart = minValue + (blockIndex * ((long) blockSize));
+      long blockStart = minValue + (blockIndex * blockSize);
 
       // if there is an offset, then adjust accordingly. for example, if the
       // offset is 7 (and the blockSize is 10), then the new blockStarts are:
@@ -1094,6 +1099,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    *   {0}-{1}
    *  (and not bother with the "of" substitution)
    */
+  @SuppressWarnings("unchecked")
   private String _getRangeString(
     FacesContext        context,
     RenderingContext arc,
@@ -1138,7 +1144,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       String var = getVar(getFacesBean(component));
       if (var != null)
       {
-        Map requestMap =
+        Map<String, Object> requestMap =
           context.getExternalContext().getRequestMap();
         old = requestMap.put(var, range);
       }
@@ -1149,8 +1155,9 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 
       if (var != null)
       {
-        Map requestMap =
+        Map<String, Object> requestMap =
           context.getExternalContext().getRequestMap();
+        
         if (old == null)
           requestMap.remove(var);
         else

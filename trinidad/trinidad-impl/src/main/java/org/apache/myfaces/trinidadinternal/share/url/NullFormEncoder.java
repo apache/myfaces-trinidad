@@ -27,6 +27,7 @@ public class NullFormEncoder extends FormEncoder
   /**
    * Indicate that the form is now being encoded.
    */
+  @Override
   public void startForm(
     Object formName)
   {
@@ -36,6 +37,7 @@ public class NullFormEncoder extends FormEncoder
   /**
    * Indicate that the form is finished.
    */
+  @Override
   public void endForm()
   {
     // nop
@@ -44,6 +46,7 @@ public class NullFormEncoder extends FormEncoder
   /**
    * Encode a form value.
    */
+  @Override
   public Object encodeFormValue(
     Object inputName,
     Object inputValue)
@@ -55,6 +58,7 @@ public class NullFormEncoder extends FormEncoder
   /**
    * Encode a client parameter.
    */
+  @Override
   public Object encodeClientParameter(
     Object formName,
     Object inputName,

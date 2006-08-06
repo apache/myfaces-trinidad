@@ -76,6 +76,8 @@ public class AttributeTag extends TagSupport
    *
    * @exception JspException if a JSP error occurs
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public int doStartTag() throws JspException 
   {
     // Locate our parent UIComponentTag
@@ -118,6 +120,7 @@ public class AttributeTag extends TagSupport
   /**
    * <p>Release references to any acquired resources.
    */
+  @Override
   public void release() 
   {
     super.release();

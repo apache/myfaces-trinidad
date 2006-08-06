@@ -39,11 +39,13 @@ class DefaultTimeZoneScriptlet extends Scriptlet
   {
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return DEFAULT_TIME_ZONE_KEY;
   }
 
+  @Override
   protected void outputScriptletImpl(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -52,6 +54,7 @@ class DefaultTimeZoneScriptlet extends Scriptlet
     super.outputScriptletImpl(context, arc);
   }
 
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException

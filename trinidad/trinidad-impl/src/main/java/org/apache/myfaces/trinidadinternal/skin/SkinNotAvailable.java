@@ -34,6 +34,7 @@ public class SkinNotAvailable extends Skin
     return _INSTANCE;
   }
 
+  @Override
   public String getStyleSheetName()
   {
     return null;
@@ -48,6 +49,7 @@ public class SkinNotAvailable extends Skin
     return "!!!No Skin[" + key + "]!!!";
   }
   
+  @Override
   protected String getBundleName()
   {
     return null;

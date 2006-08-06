@@ -44,9 +44,11 @@ final public class UploadedFiles
   /**
    * Returns the map of uploaded files for the current request.
    */
+  @SuppressWarnings("unchecked")
   static public UploadedFiles getUploadedFiles(FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
     return (UploadedFiles) requestMap.get(_UPLOADED_FILES_KEY);
   }
 
@@ -72,7 +74,7 @@ final public class UploadedFiles
    */
   public UploadedFile getUploadedFile(String name)
   {
-    UploadedFile file = (UploadedFile) _map.get(name);
+    UploadedFile file = _map.get(name);
     if (file == null)
       return null;
 
@@ -83,7 +85,7 @@ final public class UploadedFiles
   /**
    * Returns an Iterator of the names of all uploaded files.
    */
-  public Iterator getUploadedNames()
+  public Iterator<String> getUploadedNames()
   {
     return _map.keySet().iterator();
   }
@@ -96,10 +98,10 @@ final public class UploadedFiles
    */
   public void dispose()
   {
-    Iterator iterator = _map.values().iterator();
+    Iterator<UploadedFile> iterator = _map.values().iterator();
     while (iterator.hasNext())
     {
-      UploadedFile file = (UploadedFile) iterator.next();
+      UploadedFile file = iterator.next();
       file.dispose();
     }
 
@@ -115,6 +117,7 @@ final public class UploadedFiles
   UploadedFiles(ServletRequest request)
   {
     request.setAttribute(_UPLOADED_FILES_KEY, this);
+    _map = new HashMap<String, UploadedFile>();
   }
 
   /**
@@ -148,7 +151,7 @@ final public class UploadedFiles
   private long   _totalMemory;
   private long   _totalDiskSpace;
   private String _characterEncoding;
-  private final Map _map = new HashMap();
+  private final Map<String, UploadedFile> _map;
 
   private static final String _UPLOADED_FILES_KEY = 
     "org.apache.myfaces.trinidadinternal.webapp.UploadedFiles";

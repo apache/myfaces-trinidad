@@ -43,6 +43,7 @@ public abstract class SecondaryWindowHelpProvider extends HelpProvider
    * <p>
    * @param key criterion (topic-id)
    */
+  @Override
   public Object getHelpTopicValue(Object key)
   {
     return _wrapURL(getHelpTopicURL(key));
@@ -55,6 +56,7 @@ public abstract class SecondaryWindowHelpProvider extends HelpProvider
    * <p>
    * @param key criterion (HelpProvider key constant)
    */
+  @Override
   public Object getHelpSystemValue(Object key)
   {
     return _wrapURL(getHelpSystemURL(key));

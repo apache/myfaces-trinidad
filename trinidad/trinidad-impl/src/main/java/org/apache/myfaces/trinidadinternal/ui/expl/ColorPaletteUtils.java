@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.util.AbstractMap;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,7 +36,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
  */
 public class ColorPaletteUtils
 {
-  public static Map getColorPaletteMap()
+  public static Map<String, List<Color>> getColorPaletteMap()
   {
     return _PALETTE_MAP;
   }
@@ -531,16 +532,21 @@ public class ColorPaletteUtils
   // The Map of color palette names to color palettes.
   // Use the same technique for creating an unmodifiable
   // Map that we use for the Maps in UIImplicitObject.
-  private static final Map _PALETTE_MAP = new AbstractMap()
+  private static final Map<String, List<Color>> _PALETTE_MAP = 
+    new AbstractMap<String, List<Color>>()
   {
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<String, List<Color>>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
 
-    public Object get(Object key)
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<Color> get(Object key)
     {
-      return ArrayMap.get(_PALETTE_ARRAY, key);
+      return (List<Color>)ArrayMap.get(_PALETTE_ARRAY, key);
     }
   };
 }

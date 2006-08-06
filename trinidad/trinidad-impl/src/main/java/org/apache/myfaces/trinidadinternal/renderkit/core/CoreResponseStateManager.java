@@ -59,6 +59,7 @@ public class CoreResponseStateManager extends ResponseStateManager
    *       instead of buffering it.
    * @todo Don't directly write out hidden input field;  use an abstraction
    */
+  @Override
   public void writeState(
     FacesContext context,
     StateManager.SerializedView serializedView) throws IOException
@@ -102,6 +103,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     return retVal;
   }
 
+  @Override
   public Object getTreeStructureToRestore(FacesContext context,
                                           String viewId)
   {
@@ -112,6 +114,7 @@ public class CoreResponseStateManager extends ResponseStateManager
     return view[0];
   }
 
+  @Override
   public Object getComponentStateToRestore(FacesContext context)
   {
     Object[] view = _restoreSerializedView(context);
@@ -127,17 +130,20 @@ public class CoreResponseStateManager extends ResponseStateManager
    * @todo ensure that the caching never gets confused by two
    *       different views being reconstituted in the same request?
    */
+  @SuppressWarnings("unchecked")
   private Object[] _restoreSerializedView(
      FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
     Object[] view = (Object[]) requestMap.get(_CACHED_SERIALIZED_VIEW);
     if (view == null)
     {
-      Map requestParamMap =
+      Map<String, String> requestParamMap =
          context.getExternalContext().getRequestParameterMap();
 
-      String stateString = (String) requestParamMap.get(_STATE_FIELD_NAME);
+      String stateString = requestParamMap.get(_STATE_FIELD_NAME);
       if (stateString == null)
         return null;
 

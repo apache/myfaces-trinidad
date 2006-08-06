@@ -38,12 +38,16 @@ public class PageRenderer extends UINodeRendererBase
 {
   public static final String TREE_SUFFIX = ":_navigationTree";
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(
     FacesContext context, 
     UIComponent component)
   {
-    Map parameters = context.getExternalContext().getRequestParameterMap();
-    String source = (String) parameters.get(UIConstants.SOURCE_PARAM);
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String source = parameters.get(UIConstants.SOURCE_PARAM);
     
     UIXPage page = (UIXPage)component;
     

@@ -18,9 +18,8 @@ package org.apache.myfaces.trinidadinternal.share.xml.beans;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-
-
+import java.util.List;
+import java.util.Map;
 
 import org.xml.sax.Attributes;
 
@@ -52,6 +51,7 @@ public class BeanParser extends BaseNodeParser
     _beanDef = beanDef;
   }
 
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -99,6 +99,7 @@ public class BeanParser extends BaseNodeParser
     }
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -120,7 +121,7 @@ public class BeanParser extends BaseNodeParser
       // An array - get a parser for the component type of the array
       if (_currentPropDefIsArray)
       {
-        Class cls = _currentPropDef.getPropertyType().getComponentType();
+        Class<?> cls = _currentPropDef.getPropertyType().getComponentType();
         return context.getParser(cls,
                                  namespaceURI,
                                  localName);
@@ -159,6 +160,7 @@ public class BeanParser extends BaseNodeParser
     return null;
   }
 
+  @Override
   public void endChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -182,6 +184,7 @@ public class BeanParser extends BaseNodeParser
     _currentPropDef = null;
   }
 
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,
@@ -203,8 +206,7 @@ public class BeanParser extends BaseNodeParser
     }
   }
 
-
-
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -227,7 +229,7 @@ public class BeanParser extends BaseNodeParser
       // Inline arrays - add the child to the correct list
       if (_currentPropDefInline)
       {
-        ((ArrayList) _inlineArrays.get(_currentPropDef)).add(child);
+        _inlineArrays.get(_currentPropDef).add(child);
         _currentPropDef = null;
       }
       else
@@ -247,6 +249,7 @@ public class BeanParser extends BaseNodeParser
     }
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -277,11 +280,10 @@ public class BeanParser extends BaseNodeParser
     // If we have any inline arrays, set those
     if (_inlineArrays != null)
     {
-      Iterator defs = _inlineArrays.keySet().iterator();
-      while (defs.hasNext())
+      for(Map.Entry<PropertyDef, List<Object>> entry : _inlineArrays.entrySet())
       {
-        PropertyDef def = (PropertyDef) defs.next();
-        Object[] array = _getArray(def, (ArrayList) _inlineArrays.get(def));
+        PropertyDef def = entry.getKey();
+        Object[] array = _getArray(def, entry.getValue());
         def.setValue(context, _bean, array);
       }
     }
@@ -338,7 +340,7 @@ public class BeanParser extends BaseNodeParser
     Attributes   attrs,
     PropertyDef def)
   {
-    Class cls = def.getPropertyType();
+    Class<?> cls = def.getPropertyType();
     boolean isArray = cls.isArray();
     if (isArray)
       cls = cls.getComponentType();
@@ -359,13 +361,17 @@ public class BeanParser extends BaseNodeParser
       if (isArray)
       {
         if (_inlineArrays == null)
-          _inlineArrays = new HashMap(3);
+        {
+          _inlineArrays = new HashMap<PropertyDef, List<Object>>(3);
+        }
 
         // =-=AEW  This assumes that either BeanDef is returning
         // the same PropertyDef each time, or PropertyDef implements
         // equals() correctly.
         if (_inlineArrays.get(def) == null)
-          _inlineArrays.put(def, new ArrayList());
+        {
+          _inlineArrays.put(def, new ArrayList<Object>());
+        }
       }
     }
 
@@ -402,7 +408,7 @@ public class BeanParser extends BaseNodeParser
     _currentPropDefIsArray = def.getPropertyType().isArray();
     if (_currentPropDefIsArray)
     {
-      _currentArray = new ArrayList();
+      _currentArray = new ArrayList<Object>();
     }
 
     return this;
@@ -550,7 +556,7 @@ public class BeanParser extends BaseNodeParser
   //
   static private Object[] _getArray(
     PropertyDef def,
-    ArrayList   list)
+    List<Object> list)
   {
     Object[] array = (Object[])
       Array.newInstance(def.getPropertyType().getComponentType(),
@@ -586,10 +592,10 @@ public class BeanParser extends BaseNodeParser
 
   // The list of the current property definition - used
   // only for "envelope" elements
-  private       ArrayList    _currentArray;
+  private       List<Object> _currentArray;
 
   // A map of all the "inline" array properties
-  private       HashMap      _inlineArrays;
+  private       Map<PropertyDef, List<Object>> _inlineArrays;
 
   // Text being accumulated for the default property
   private       String       _defaultPropertyText;

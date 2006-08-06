@@ -38,6 +38,8 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/LocaleContext.java#0 $) $Date: 10-nov-2005.19:00:03 $
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =-
+// FIXME: Deprecation within this class is strange...
 public class LocaleContext
 {
   /**
@@ -180,6 +182,7 @@ public class LocaleContext
    * @deprecated  use MutableLocaleContext.setReadingDirection() instead
    * @see org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext
    */
+  @Deprecated
   public void setReadingDirection(
     int newReadingDirection
     )
@@ -212,6 +215,7 @@ public class LocaleContext
    * @deprecated  use MutableLocaleContext.setTimeZone() instead
    * @see org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext
    */
+  @Deprecated
   public void setTimeZone(
     TimeZone newTimeZone
     )
@@ -228,6 +232,7 @@ public class LocaleContext
   /**
    * Override of Object.toString().
    */
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(super.toString());
@@ -263,10 +268,10 @@ public class LocaleContext
   {
     if (_bundles == null)
     {
-      _bundles = new Hashtable(13);
+      _bundles = new Hashtable<String, ResourceBundle>(13);
     }
 
-    ResourceBundle bundle = (ResourceBundle)_bundles.get(baseBundleName);
+    ResourceBundle bundle = _bundles.get(baseBundleName);
 
     if (bundle == null)
     {
@@ -326,6 +331,7 @@ public class LocaleContext
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     return getLocale().hashCode();
@@ -334,6 +340,7 @@ public class LocaleContext
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object obj)
   {
     if (obj == this)
@@ -378,11 +385,13 @@ public class LocaleContext
 
   static private class DefaultDecimal extends DecimalFormatContext
   {
+    @Override
     public char getGroupingSeparator()
     {
       return (char) 0;
     }
 
+    @Override
     public char getDecimalSeparator()
     {
       return (char) 0;
@@ -391,6 +400,7 @@ public class LocaleContext
 
   static private class DefaultDate extends DateFormatContext
   {
+    @Override
     public int getTwoDigitYearStart()
     {
       return 1950;
@@ -402,7 +412,9 @@ public class LocaleContext
   private static final DecimalFormatContext _sDefaultDecimalFormatContext =
                                                 new DefaultDecimal();
 
-  private Hashtable _bundles;
+  // -= Simon Lessard =-
+  // FIXME: Check if synchronization is really required
+  private Hashtable<String, ResourceBundle> _bundles;
 
   private Locale   _locale;
   private Locale   _transLocale;

@@ -36,6 +36,7 @@ public class ColorNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -49,6 +50,7 @@ public class ColorNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -67,6 +69,7 @@ public class ColorNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addText()
    */
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,

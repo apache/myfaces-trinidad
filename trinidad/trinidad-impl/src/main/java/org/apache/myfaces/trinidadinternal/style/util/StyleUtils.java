@@ -60,7 +60,7 @@ public class StyleUtils
    * @return A Map which maps the full style class names to
    *   the shorter equivalents.
    */
-  public static Map getShortStyleClasses(
+  public static Map<String, String> getShortStyleClasses(
     StyleContext  context,
     StyleProvider provider)
   {

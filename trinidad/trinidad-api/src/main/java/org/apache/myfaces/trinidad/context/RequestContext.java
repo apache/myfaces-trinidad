@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -100,7 +99,7 @@ abstract public class RequestContext
   /**
    * @deprecated use getPageFlowScope()
    */
-  @SuppressWarnings("dep-ann")
+  @Deprecated
   final public Map<String, Object> getProcessScope()
   {
     return getPageFlowScope();
@@ -159,10 +158,10 @@ abstract public class RequestContext
    */
   public abstract void launchDialog(
     UIViewRoot  dialogRoot,
-    Map<Object, Object> dialogParameters,
+    Map<String, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map<Object, Object> windowProperties);
+    Map<String, Object> windowProperties);
 
   //
   // General ADF Faces
@@ -286,13 +285,13 @@ abstract public class RequestContext
    * Returns a Map that will accept topic names as keys, and return
    * an URL as a result.
    */
-  public abstract Map<String, URL> getHelpTopic();
+  public abstract Map<String, Object> getHelpTopic();
 
   /**
    * Returns a Map that will accept help system properties as keys, and return
    * an URL as a result.
    */
-  public abstract Map<String, URL> getHelpSystem();
+  public abstract Map<String, Object> getHelpSystem();
 
   //
   // Date formatting
@@ -368,7 +367,7 @@ abstract public class RequestContext
    * second the first parameter into the message. (The formatter Map supports
    * only a single parameter at this time.)
    */
-  public abstract Map<Object, String> getFormatter();
+  public abstract Map<Object, Map<Object,String>> getFormatter();
 
   /**
    * Returns the Agent information for the current context

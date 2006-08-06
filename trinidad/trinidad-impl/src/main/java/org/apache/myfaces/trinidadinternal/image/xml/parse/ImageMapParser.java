@@ -37,6 +37,7 @@ public class ImageMapParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -51,6 +52,7 @@ public class ImageMapParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -78,5 +80,8 @@ public class ImageMapParser extends BaseNodeParser
     }
   }
 
-  private Vector _areas = new Vector();
+  // -= Simon Lessard =-
+  // FIXME: Wow! Another Vector... Change that to ArrayList
+  //        or Collections.synchronizedList(ArrayList)
+  private Vector<MapArea> _areas = new Vector<MapArea>();
 }

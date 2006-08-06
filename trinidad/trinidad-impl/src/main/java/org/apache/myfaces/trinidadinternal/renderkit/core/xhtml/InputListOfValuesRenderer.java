@@ -28,11 +28,13 @@ public class InputListOfValuesRenderer extends InputLabelAndMessageRenderer
     super(CoreInputListOfValues.TYPE);
   }  
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputListOfValues";
   } 
  
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputListOfValue;

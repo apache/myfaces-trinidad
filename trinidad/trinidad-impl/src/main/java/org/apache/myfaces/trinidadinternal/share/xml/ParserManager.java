@@ -54,7 +54,7 @@ public class ParserManager implements Cloneable
    */
   final public NodeParser getParser(
     ParseContext context,
-    Class        expectedType,
+    Class<?>     expectedType,
     String       namespaceURI,
     String       localName)
   {
@@ -71,8 +71,8 @@ public class ParserManager implements Cloneable
    * Gets the factory registered for the namespace.
    */
   public ParserFactory getFactory(
-    Class  expectedType,
-    String namespaceURI)
+    Class<?> expectedType,
+    String   namespaceURI)
   {
     return (ParserFactory)
       _factories.get(resolveNamespaceAlias(namespaceURI),
@@ -84,7 +84,7 @@ public class ParserManager implements Cloneable
    * Registers a factory for a type and namespace.
    */
   synchronized public void registerFactory(
-     Class         expectedType,
+     Class<?>      expectedType,
      String        namespaceURI,
      ParserFactory factory)
   {
@@ -99,8 +99,8 @@ public class ParserManager implements Cloneable
    * Unregisters a factory for a type and namespace.
    */
   synchronized public void unregisterFactory(
-    Class  expectedType,
-    String namespaceURI)
+    Class<?> expectedType,
+    String   namespaceURI)
   {
     _unshareState();
     _factories.remove(resolveNamespaceAlias(namespaceURI),
@@ -114,8 +114,7 @@ public class ParserManager implements Cloneable
   public ParserExtension getExtension(
     String namespaceURI)
   {
-    return (ParserExtension)
-      _extensions.get(resolveNamespaceAlias(namespaceURI));
+    return _extensions.get(resolveNamespaceAlias(namespaceURI));
   }
 
 
@@ -123,7 +122,7 @@ public class ParserManager implements Cloneable
    * Registers an extension for a namespace.
    */
   synchronized public void registerExtension(
-     String        namespaceURI,
+     String          namespaceURI,
      ParserExtension extension)
   {
     _unshareState();
@@ -179,13 +178,7 @@ public class ParserManager implements Cloneable
    */
   public final ExpressionParser getExpressionParser(String name)
   {
-    if (name == null)
-      return _defaultExpressionParser;
-    else
-    {
-      ExpressionParser parser = (ExpressionParser) _bindingParsers.get(name);
-      return parser;
-    }
+    return name == null ? _defaultExpressionParser : _bindingParsers.get(name);
   }
 
   /**
@@ -230,6 +223,7 @@ public class ParserManager implements Cloneable
   /**
    * Makes a deep copy of the ParserManager.
    */
+  @Override
   synchronized public Object clone()
   {
     try
@@ -250,15 +244,16 @@ public class ParserManager implements Cloneable
 
   // Unshare any parts of the state that have been shared.
   // Must be called by synchronized functions!
+  @SuppressWarnings("unchecked")
   private synchronized void _unshareState()
   {
     if (_sharedState)
     {
-      _functions = (NamespaceMap) _functions.clone();
-      _factories = (NamespaceMap) _factories.clone();
-      _extensions = (ArrayMap)    _extensions.clone();
-      _aliases = (ArrayMap)       _aliases.clone();
-      _bindingParsers = (ArrayMap) _bindingParsers.clone();
+      _functions      = (NamespaceMap) _functions.clone();
+      _factories      = (NamespaceMap) _factories.clone();
+      _extensions     = (ArrayMap<String, ParserExtension>)  _extensions.clone();
+      _aliases        = (ArrayMap<String, String>)           _aliases.clone();
+      _bindingParsers = (ArrayMap<String, ExpressionParser>) _bindingParsers.clone();
 
       _sharedState = false;
     }
@@ -266,9 +261,9 @@ public class ParserManager implements Cloneable
 
   private NamespaceMap _functions = new NamespaceMap();
   private NamespaceMap _factories = new NamespaceMap();
-  private ArrayMap     _extensions = new ArrayMap(5);
-  private ArrayMap     _aliases    = new ArrayMap(5);
-  private ArrayMap     _bindingParsers = new ArrayMap(2);
+  private ArrayMap<String, ParserExtension>  _extensions     = new ArrayMap<String, ParserExtension>(5);
+  private ArrayMap<String, String>           _aliases        = new ArrayMap<String, String>(5);
+  private ArrayMap<String, ExpressionParser> _bindingParsers = new ArrayMap<String, ExpressionParser>(2);
   private ExpressionParser _defaultExpressionParser = null;
 
   // If true, our state is shared with another parser manager - so

@@ -35,7 +35,7 @@ public class ClassParserFactory implements ParserFactory
    * @param classObject a Class instance that must be a subclass of
    *   NodeParser
    */
-  public ClassParserFactory(Class classObject)
+  public ClassParserFactory(Class<?> classObject)
   {
     if (classObject == null)
       throw new NullPointerException();
@@ -99,6 +99,6 @@ public class ClassParserFactory implements ParserFactory
     assert (NodeParser.class.isAssignableFrom(_class));
   }
 
-  private Class _class;
+  private Class<?> _class;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ClassParserFactory.class);
 }

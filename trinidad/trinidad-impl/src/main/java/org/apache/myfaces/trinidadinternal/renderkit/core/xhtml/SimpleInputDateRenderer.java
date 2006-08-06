@@ -30,6 +30,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
+import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -60,12 +61,14 @@ public class SimpleInputDateRenderer
     super(CoreInputDate.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _chooseIdKey = type.findKey("chooseId");
   }
 
+  @Override
   protected void queueActionEvent(FacesContext context, UIComponent component)
   {
     FacesBean bean = getFacesBean(component);
@@ -80,7 +83,7 @@ public class SimpleInputDateRenderer
     // a calendar window with the _ldp JS function)
     else
     {
-      Object submittedValue = (String) getSubmittedValue(bean);
+      Object submittedValue = getSubmittedValue(bean);
       Date date = null;
       try
       {
@@ -110,7 +113,7 @@ public class SimpleInputDateRenderer
       if (date == null)
         date = new Date();
 
-      Map parameters = new HashMap();
+      Map<String, Object> parameters = new HashMap<String, Object>();
       parameters.put(XhtmlConstants.VALUE_PARAM, _getDateAsString(date));
       parameters.put(XhtmlConstants.MIN_VALUE_PARAM,
                      dtrv == null
@@ -133,6 +136,7 @@ public class SimpleInputDateRenderer
   /**
    * Give subclasses a chance to override the ReturnEvent.
    */
+  @Override
   protected void queueReturnEvent(
     FacesContext context,
     UIComponent  component,
@@ -169,7 +173,7 @@ public class SimpleInputDateRenderer
     event.queue();
   }
 
-
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -191,6 +195,7 @@ public class SimpleInputDateRenderer
     }
   }
 
+  @Override
   protected void renderIcon(
     FacesContext        context,
     RenderingContext arc,
@@ -213,6 +218,7 @@ public class SimpleInputDateRenderer
    * may map to "medium"
    * @todo medium / default is  what it is defaulted to in faces
    */
+  @Override
   protected Converter getDefaultConverter(
     FacesContext context,
     FacesBean    bean)
@@ -258,6 +264,7 @@ public class SimpleInputDateRenderer
     return converter;
   }
 
+  @Override
   protected String getOnblur(FacesBean bean)
   {
     String onblur = super.getOnblur(bean);
@@ -283,6 +290,7 @@ public class SimpleInputDateRenderer
     return XhtmlUtils.getChainedJS(buffer.toString(), onblur, false);
   }
 
+  @Override
   protected String getOnfocus(FacesBean bean)
   {
     String onfocus = super.getOnfocus(bean);
@@ -317,7 +325,7 @@ public class SimpleInputDateRenderer
     }
   }
 
-
+  @Override
   protected String getLaunchOnclick(
     FacesContext        context,
     RenderingContext arc,
@@ -379,7 +387,7 @@ public class SimpleInputDateRenderer
     return onClickBuffer.toString();
   }
 
-
+  @Override
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     Converter converter = getConverter(bean);
@@ -397,7 +405,7 @@ public class SimpleInputDateRenderer
     return _DEFAULT_COLUMNS;
   }
 
-
+  @Override
   protected String getButtonIconName()
   {
     return XhtmlConstants.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME;
@@ -408,6 +416,7 @@ public class SimpleInputDateRenderer
     return toString(bean.getProperty(_chooseIdKey));
   }
 
+  @Override
   protected String getSearchDesc(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -417,12 +426,13 @@ public class SimpleInputDateRenderer
     return arc.getTranslatedString(_LAUNCH_PICKER_TIP_KEY);
   }
 
-
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|inputDate";
   }
 
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|inputDate::content";
@@ -447,6 +457,7 @@ public class SimpleInputDateRenderer
   // Checks to see whether the current dateField should
   // be active, and if so, renders a script that will activate
   // it.
+  @SuppressWarnings("unchecked")
   private void _checkIfActive(
     FacesContext        context,
     RenderingContext arc,
@@ -459,13 +470,12 @@ public class SimpleInputDateRenderer
 
     String id = getClientId(context, component);
 
-
-    Map activeDateFields = (Map)
+    Map<String, Boolean> activeDateFields = (Map<String, Boolean>)
       arc.getProperties().get(_ACTIVE_DATE_FIELDS_KEY);
 
     if (activeDateFields == null)
     {
-      activeDateFields = new HashMap();
+      activeDateFields = new HashMap<String, Boolean>();
       arc.getProperties().put(_ACTIVE_DATE_FIELDS_KEY, activeDateFields);
     }
 
@@ -500,7 +510,7 @@ public class SimpleInputDateRenderer
   //
   private DateTimeRangeValidator _findDateTimeRangeValidator(FacesBean bean)
   {
-    Iterator validators = getValidators(bean);
+    Iterator<Validator> validators = getValidators(bean);
     while (validators.hasNext())
     {
       Object validator = validators.next();
@@ -563,13 +573,11 @@ public class SimpleInputDateRenderer
     // properly ie. MIN_VALUE < (longValue + tzOffset) < MAX_VALUE.
     if (tzOffset < 0)
     {
-     tzOffset = (long)Math.max((float)tzOffset,
-                               (float)Long.MIN_VALUE - (float)dateValueInMs);
+      tzOffset = Math.max(tzOffset, Long.MIN_VALUE - dateValueInMs);
     }
     else
     {
-     tzOffset = (long)Math.min((float)tzOffset,
-                               (float)Long.MAX_VALUE - (float)dateValueInMs);
+      tzOffset = Math.min(tzOffset, Long.MAX_VALUE - dateValueInMs);
     }
 
     // adjust the date in ms to the adjusted time zone.
@@ -592,11 +600,13 @@ public class SimpleInputDateRenderer
     {
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _DATE_TIME_ZONE_OFFSET_KEY;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc)

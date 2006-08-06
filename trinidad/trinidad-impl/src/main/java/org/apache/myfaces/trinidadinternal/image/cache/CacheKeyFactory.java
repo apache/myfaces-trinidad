@@ -45,6 +45,6 @@ public interface CacheKeyFactory
    * @param context The image context
    * @param property The dictionary of requested image properties
    */
-  public Object getCacheKey(ImageContext context, Map properties);
+  public Object getCacheKey(ImageContext context, Map<Object, Object> properties);
 }
 

@@ -38,7 +38,8 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
   {
   }
 
-  public Map getPageFlowScope(FacesContext context)
+  @Override
+  public Map<String, Object> getPageFlowScope(FacesContext context)
   {
     PageFlowScopeMap pageFlowScope = _getPageFlowScope(context);
     if (pageFlowScope == null)
@@ -68,7 +69,8 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
     return pageFlowScope;
   }
 
-  public Map pushPageFlowScope(FacesContext context, boolean copyParent)
+  @Override
+  public Map<String, Object> pushPageFlowScope(FacesContext context, boolean copyParent)
   {
     PageFlowScopeMap oldPageFlowScope = (PageFlowScopeMap) getPageFlowScope(context);
     if (oldPageFlowScope.getToken(context) != null)
@@ -86,7 +88,8 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
     return oldPageFlowScope;
   }
 
-  public Map popPageFlowScope(FacesContext context, boolean discardScope)
+  @Override
+  public Map<String, Object> popPageFlowScope(FacesContext context, boolean discardScope)
   {
     PageFlowScopeMap oldPageFlowScope = _getPageFlowScope(context);
 
@@ -103,6 +106,7 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
     return oldPageFlowScope;
   }
 
+  @Override
   public String encodeCurrentPageFlowScopeURL(FacesContext context, String url)
   {
     PageFlowScopeMap pageFlowScope = (PageFlowScopeMap) getPageFlowScope(context);
@@ -137,6 +141,7 @@ public class PageFlowScopeProviderImpl extends PageFlowScopeProvider
   // Store the page flow scope
   // =-=AEW MAKE THIS PRIVATE WHNE OBSOLETE DIALOGSERVICE METHODS
   // ARE REMOVED
+  @SuppressWarnings("unchecked")
   static void __setPageFlowScope(FacesContext context,
                                  PageFlowScopeMap pageFlowScope)
   {

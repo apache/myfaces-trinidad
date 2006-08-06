@@ -55,6 +55,7 @@ abstract public class RenderKitBase extends RenderKit
    * @exception NullPointerException if <code>rendererType</code> or
    *  <code>renderer</code> is null
    */
+  @Override
   public void addRenderer(
      String family,
      String rendererType,
@@ -109,6 +110,7 @@ abstract public class RenderKitBase extends RenderKit
    * @exception NullPointerException if <code>rendererType</code>
    *  is <code>null</code>
    */
+  @Override
   public Renderer getRenderer(String family, String rendererType)
   {
     Renderer renderer = findRenderer(family, rendererType);

@@ -56,9 +56,9 @@ public class SetActionListenerTag extends TagHandler
                                                             Object.class);
       ActionSource actionSource= (ActionSource) parent;
       SetActionListener listener = new SetActionListener();
-      listener.setValueBinding(listener.FROM_KEY,
+      listener.setValueBinding(SetActionListener.FROM_KEY,
                                new LegacyValueBinding(fromExpression));
-      listener.setValueBinding(listener.TO_KEY,
+      listener.setValueBinding(SetActionListener.TO_KEY,
                                new LegacyValueBinding(toExpression));
       actionSource.addActionListener(listener);
     }

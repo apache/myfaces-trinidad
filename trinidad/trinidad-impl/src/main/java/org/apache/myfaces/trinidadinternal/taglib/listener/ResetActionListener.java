@@ -78,13 +78,14 @@ public class ResetActionListener
     return previous;
   }
 
+  @SuppressWarnings("unchecked")
   private void _resetChildren(UIComponent comp)
   {
-    Iterator kids = comp.getFacetsAndChildren();
+    Iterator<UIComponent> kids = comp.getFacetsAndChildren();
 
     while (kids.hasNext())
     {
-      UIComponent kid = (UIComponent) kids.next();
+      UIComponent kid = kids.next();
       
       if (kid instanceof UIXEditableValue)
       {

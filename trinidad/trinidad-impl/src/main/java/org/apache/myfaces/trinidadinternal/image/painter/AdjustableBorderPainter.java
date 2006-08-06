@@ -85,6 +85,7 @@ public class AdjustableBorderPainter extends AbstractBorderPainter
    * <p>
    * @see org.apache.myfaces.trinidadinternal.image.painter.AbstractBorderPainter#getInsets
    */
+  @Override
   protected ImmInsets getOwnInsets(
     PaintContext context
     )

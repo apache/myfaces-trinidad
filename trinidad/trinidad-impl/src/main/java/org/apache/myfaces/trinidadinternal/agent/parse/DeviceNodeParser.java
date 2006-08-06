@@ -31,6 +31,12 @@ import java.text.ParseException;
  */
 class DeviceNodeParser extends BaseNodeParser implements XMLConstants
 {
+  DeviceNodeParser()
+  {
+    _componentNodes = new ArrayList<DeviceComponentNode>();
+  }
+  
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -71,6 +77,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
   }
 
 
+  @Override
   public NodeParser startChildElement(ParseContext context,
                                       String       namespaceURI,
                                       String       localName,
@@ -85,6 +92,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
 
   }
 
+  @Override
   public void addCompletedChild (ParseContext context,
                                  String       namespaceURI,
                                  String       localName,
@@ -94,9 +102,10 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
     if (child == null)
       return;
 
-    _componentNodes.add(child);
+    _componentNodes.add((DeviceComponentNode)child);
   }
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)
@@ -104,7 +113,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
     if ((_id == null) && (_model == null))
       return null;
 
-    DeviceComponentNode[] cNodes = (DeviceComponentNode[])
+    DeviceComponentNode[] cNodes = 
             _componentNodes.toArray(
                     new DeviceComponentNode[_componentNodes.size()]);
     return new DeviceNode(_id, _model, _extendsId, cNodes);
@@ -114,7 +123,7 @@ class DeviceNodeParser extends BaseNodeParser implements XMLConstants
   private String _id;
   private NameVersion _model;
   private String _extendsId;
-  private List _componentNodes = new ArrayList();
+  private List<DeviceComponentNode> _componentNodes;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DeviceNodeParser.class);
 }

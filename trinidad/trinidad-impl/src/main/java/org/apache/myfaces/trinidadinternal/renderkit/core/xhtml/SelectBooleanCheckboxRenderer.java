@@ -28,11 +28,13 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
     
   }  
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectBooleanCheckbox";
   }
   
+  @Override
   protected boolean isIndented()
   {
     return true;
@@ -42,6 +44,7 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
    * Don't render <label> on the label portion if there's
    * a "text" attribute set.
    */
+  @Override
   protected boolean hasOwnLabel(FacesBean bean)
   {
     String text = _simpleSelectBooleanCheckbox.getText(bean);
@@ -52,6 +55,7 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
     return false;
   }
 
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectBooleanCheckbox;

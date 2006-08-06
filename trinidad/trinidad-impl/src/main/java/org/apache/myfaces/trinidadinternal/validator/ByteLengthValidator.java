@@ -203,9 +203,9 @@ public class ByteLengthValidator
   // Unsupported type - perform validation on the server only
   static private final int _UNSUPPORTED_TYPE = 3;
 
-  static private Set _cjkEncodings = new HashSet();
+  static private Set<String> _cjkEncodings = new HashSet<String>();
 
-  static private Set _singleByteEncodings = new HashSet();
+  static private Set<String> _singleByteEncodings = new HashSet<String>();
 
   static
   {

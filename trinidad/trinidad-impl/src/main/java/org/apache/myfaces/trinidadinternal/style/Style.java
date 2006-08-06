@@ -117,7 +117,11 @@ public interface Style
   /**
    * Returns the names of the properties defined by this style.
    */
-  public Iterator getPropertyNames();
+  // -= Simon Lessard =-
+  // FIXME: This should be changed to <String> once the issues 
+  //        with ArrayMap are fixed. ATM (2006-08-04) ArrayMap 
+  //        have huge problem working with anything but Object
+  public Iterator<Object> getPropertyNames();
 
   /**
    * Returns the value of the property with the specified name.

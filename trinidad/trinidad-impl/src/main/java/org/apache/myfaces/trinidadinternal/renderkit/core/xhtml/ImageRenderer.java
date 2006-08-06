@@ -35,6 +35,7 @@ public class ImageRenderer extends XhtmlRenderer
     super(CoreImage.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -43,6 +44,7 @@ public class ImageRenderer extends XhtmlRenderer
     _sourceKey = type.findKey("source");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -57,6 +59,7 @@ public class ImageRenderer extends XhtmlRenderer
     rw.endElement("img");
   }
 
+  @Override
   protected void renderAllAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -72,6 +75,7 @@ public class ImageRenderer extends XhtmlRenderer
     _renderImageMap(bean, rw);
   }
 
+  @Override
   protected void renderShortDescAttribute(
     FacesContext        context,
     RenderingContext arc,
@@ -95,7 +99,6 @@ public class ImageRenderer extends XhtmlRenderer
     return toUri(bean.getProperty(_longDescURLKey));
   }
 
-
   protected String getSource(FacesBean bean)
   {
     return toUri(bean.getProperty(_sourceKey));
@@ -118,7 +121,6 @@ public class ImageRenderer extends XhtmlRenderer
       writer.writeAttribute("name", clientId, null);
     }
   }
-
 
   private void _renderImageMap(
     FacesBean           bean,

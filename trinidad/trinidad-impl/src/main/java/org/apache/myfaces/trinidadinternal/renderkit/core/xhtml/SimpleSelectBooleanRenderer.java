@@ -37,6 +37,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -77,6 +78,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
    * @TODO use new renderAllAttributes that doesn't render styleclass once
    * Jeanne adds it.
    */
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -172,7 +174,7 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
       writer.endElement("span");      
   }
 
-
+  @Override
   protected void encodeAllAsNonElement(
     FacesContext        context,
     RenderingContext arc,

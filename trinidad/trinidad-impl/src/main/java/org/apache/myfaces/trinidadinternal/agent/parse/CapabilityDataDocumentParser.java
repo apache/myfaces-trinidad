@@ -45,6 +45,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
 
   private CapabilityDataDocumentParser()
   {
+    _capList = new ArrayList<Object>();
   }
 
   static public Object[] parse (URL srcUrl)
@@ -92,6 +93,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
     return new Object[0];
   }
 
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -105,6 +107,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
     }
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -144,6 +147,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
   }
 
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)
@@ -154,7 +158,7 @@ public class CapabilityDataDocumentParser  extends BaseNodeParser
     return null;
   }
 
-  private List _capList = new ArrayList();
+  private List<Object> _capList;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilityDataDocumentParser.class);
 

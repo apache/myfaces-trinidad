@@ -37,6 +37,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   //
   // DECODE BEHAVIOR
   // 
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -59,6 +60,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return result;
   }
 
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -79,6 +81,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   /**
    * <inputFile> cannot show a value.
    */
+  @Override
   protected String getConvertedString(
     FacesContext context,
     UIComponent  component,
@@ -87,6 +90,7 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
     return null;
   }
 
+  @Override
   protected String getDefaultInputType()
   {
     return "file";
@@ -98,44 +102,51 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
   // an inputFile
   // 
 
+  @Override
   public boolean isTextArea(
     FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected boolean isAutoSubmit(
     FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected boolean getSecret(FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected Number getMaximumLength(FacesBean bean)
   {
     return null;
   }
 
-
+  @Override
   protected boolean getReadOnly(FacesContext context, FacesBean bean)
   {
     return false;
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputFile";
   }
 
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|inputFile::content";
   }
 
+  @Override
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     return null;

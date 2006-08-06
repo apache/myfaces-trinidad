@@ -347,7 +347,7 @@ public class EncoderUtils
           else if ((ch & 0xFC00) == 0xD800)
           {
             // Clear high 6 bits.
-            int highSurrogate = ((int) ch) & 0x03FF;
+            int highSurrogate = ch & 0x03FF;
 
             // Middle 4 bits (wwww) + 1
             // "Note that the value of wwww from the high surrogate bit
@@ -372,7 +372,7 @@ public class EncoderUtils
 
 
             // Clear high 6 bits.
-            int lowSurrogate = ((int) ch) & 0x03FF;
+            int lowSurrogate = ch & 0x03FF;
 
             // put the middle 4 bits into the bottom of yyyyyy (byte 3)
             yyyyyy = yyyyyy | ((lowSurrogate & 0x03C0) >> 6);

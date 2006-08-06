@@ -45,7 +45,7 @@ public interface ParserExtension
     ParseContext context,
     String       namespaceURI,
     String       localName,
-    Map   attributes) throws SAXParseException;
+    Map<?, ?>    attributes) throws SAXParseException;
 
 
   /**
@@ -86,5 +86,5 @@ public interface ParserExtension
     String       namespaceURI,
     String       localName,
     Object       parsed,
-    Map   values) throws SAXParseException;
+    Map<?, ?>    values) throws SAXParseException;
 }

@@ -252,6 +252,7 @@ public class XhtmlRenderer extends CoreRenderer
    * that deliver events should always return "true".
    * @todo Profile and possibly optimize.
    */
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -878,7 +879,7 @@ public class XhtmlRenderer extends CoreRenderer
     // since IE has problems with deferred scripts.  This property is
     // enabled by PanelPartialRootRenderer when rendering the contents
     // of the body.
-    Map props = arc.getProperties();
+    Map<Object, Object> props = arc.getProperties();
     if (isEnabled)
     {
       // Turn script deferring on

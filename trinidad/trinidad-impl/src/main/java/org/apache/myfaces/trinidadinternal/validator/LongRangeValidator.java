@@ -36,9 +36,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
                                 implements InternalClientValidator
 {
-
-
-
+  @Override
   public void validate(
     FacesContext context,
     UIComponent component,
@@ -145,6 +143,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * @param maximum The new maximum value
    *
    */
+  @Override
   public void setMaximum(long maximum)
   {
     super.setMaximum(maximum);
@@ -158,12 +157,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    * @param minimum The new minimum value
    *
    */
+  @Override
   public void setMinimum(long minimum)
   {
     super.setMinimum(minimum);
     _minimumSet = true;
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     Object values[] = new Object[2];
@@ -177,7 +178,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     return (values);
   }
 
-
+  @Override
   public void restoreState(FacesContext context, Object state)
   {
     Object values[] = (Object[]) state;

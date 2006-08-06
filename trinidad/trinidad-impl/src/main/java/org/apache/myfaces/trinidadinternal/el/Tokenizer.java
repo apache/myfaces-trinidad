@@ -22,7 +22,7 @@ import java.util.NoSuchElementException;
  * converts a EL expression into tokens.
  * @author The Oracle ADF Faces Team
  */
-public class Tokenizer implements Iterator
+public class Tokenizer implements Iterator<Tokenizer.Token>
 {
   /**
    * Creates a new Tokenizer
@@ -44,7 +44,7 @@ public class Tokenizer implements Iterator
     return _curToken != null;
   }
     
-  public Object next()
+  public Tokenizer.Token next()
   {
     if (_curToken == null)
       throw new NoSuchElementException();

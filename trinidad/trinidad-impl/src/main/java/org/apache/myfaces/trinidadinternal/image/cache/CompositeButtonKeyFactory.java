@@ -31,7 +31,7 @@ public class CompositeButtonKeyFactory implements CacheKeyFactory
   /**
    * Implementation of CacheKeyFactory.getCacheKey().
    */
-  public Object getCacheKey(ImageContext context, Map properties)
+  public Object getCacheKey(ImageContext context, Map<Object, Object> properties)
   {
     return new CompositeButtonKey(context, properties);
   }

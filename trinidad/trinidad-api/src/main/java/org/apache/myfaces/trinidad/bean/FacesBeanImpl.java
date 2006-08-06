@@ -253,7 +253,7 @@ abstract public class FacesBeanImpl implements FacesBean
         }
         else
         {
-          Iterator<Object> entries = from.entries(fromKey);
+          Iterator<? extends Object> entries = from.entries(fromKey);
           while (entries.hasNext())
             addEntry(toKey, entries.next());
         }

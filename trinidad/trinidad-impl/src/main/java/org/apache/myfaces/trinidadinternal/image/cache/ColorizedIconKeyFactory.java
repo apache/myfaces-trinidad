@@ -32,7 +32,7 @@ public class ColorizedIconKeyFactory implements CacheKeyFactory
   /**
    * Implementation of CacheKeyFactory.getCacheKey().
    */
-  public Object getCacheKey(ImageContext context, Map properties)
+  public Object getCacheKey(ImageContext context, Map<Object, Object> properties)
   {
     if (properties.get(ImageConstants.DARK_COLOR_KEY) != null)
       return new CoreColorizedIconKey(context, properties);

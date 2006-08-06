@@ -31,7 +31,7 @@ public abstract class Function
 
   public abstract Class[] getParameterTypes();
 
-  public abstract Class getReturnType();
+  public abstract Class<?> getReturnType();
 
   // package private constructor:
   Function()

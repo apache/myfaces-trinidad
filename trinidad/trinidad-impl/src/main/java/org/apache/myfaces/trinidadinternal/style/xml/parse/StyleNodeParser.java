@@ -43,6 +43,7 @@ public class StyleNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -63,6 +64,7 @@ public class StyleNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -113,6 +115,7 @@ public class StyleNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -151,7 +154,7 @@ public class StyleNodeParser extends BaseNodeParser
       else
       {
         if (_includedStyles == null)
-          _includedStyles = new Vector();
+          _includedStyles = new Vector<IncludeStyleNode>();
 
         _includedStyles.addElement(new IncludeStyleNode(name, selector));
       }
@@ -167,6 +170,7 @@ public class StyleNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -180,7 +184,7 @@ public class StyleNodeParser extends BaseNodeParser
       if (child != null)
       {
         if (_properties == null)
-          _properties = new Vector();
+          _properties = new Vector<PropertyNode>();
 
         if (!(child instanceof PropertyNode))
         {
@@ -188,7 +192,7 @@ public class StyleNodeParser extends BaseNodeParser
         }
 
         if (child instanceof PropertyNode)
-          _properties.addElement(child);
+          _properties.addElement((PropertyNode)child);
       }
     }
     else if (localName.equals(COMPOUND_PROPERTY_NAME))
@@ -201,9 +205,9 @@ public class StyleNodeParser extends BaseNodeParser
       if (child instanceof CompoundPropertyNode)
       {
         if (_compoundProperties == null)
-          _compoundProperties = new Vector();
+          _compoundProperties = new Vector<CompoundPropertyNode>();
 
-        _compoundProperties.addElement(child);
+        _compoundProperties.addElement((CompoundPropertyNode)child);
       }
 
     }
@@ -217,9 +221,9 @@ public class StyleNodeParser extends BaseNodeParser
       if (child instanceof IncludePropertyNode)
       {
         if (_includedProperties == null)
-          _includedProperties = new Vector();
+          _includedProperties = new Vector<IncludePropertyNode>();
 
-        _includedProperties.addElement(child);
+        _includedProperties.addElement((IncludePropertyNode)child);
       }
     }
   }
@@ -227,10 +231,12 @@ public class StyleNodeParser extends BaseNodeParser
   private String  _name;
   private String  _selector;
   private boolean _resetProperties;
-  private Vector  _properties;
-  private Vector  _compoundProperties;
-  private Vector  _includedStyles;
-  private Vector  _includedProperties;
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is truly required
+  private Vector<PropertyNode>  _properties;
+  private Vector<CompoundPropertyNode>  _compoundProperties;
+  private Vector<IncludeStyleNode>  _includedStyles;
+  private Vector<IncludePropertyNode>  _includedProperties;
 
   // Error messages
   private static final String _INCLUDE_STYLE_ID_ERROR =

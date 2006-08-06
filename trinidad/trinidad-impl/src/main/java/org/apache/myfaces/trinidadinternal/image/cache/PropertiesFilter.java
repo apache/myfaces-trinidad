@@ -49,8 +49,8 @@ public interface PropertiesFilter
    * @param properties The dictionary of properties to filter
    * @return The filtered dictionary of properties
    */
-  public Map filterProperties(
+  public Map<Object, Object> filterProperties(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     );
 }

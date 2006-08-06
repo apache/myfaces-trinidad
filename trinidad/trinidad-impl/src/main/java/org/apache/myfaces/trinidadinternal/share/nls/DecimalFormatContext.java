@@ -41,6 +41,7 @@ abstract public class DecimalFormatContext implements Cloneable
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     char grouping = getGroupingSeparator();
@@ -52,6 +53,7 @@ abstract public class DecimalFormatContext implements Cloneable
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object obj)
   {
     if (obj == this)
@@ -72,6 +74,7 @@ abstract public class DecimalFormatContext implements Cloneable
     return (thisDecimal == thatDecimal);
   }
 
+  @Override
   public Object clone()
   {
     try
@@ -88,6 +91,7 @@ abstract public class DecimalFormatContext implements Cloneable
   /**
    * Override of Object.toString().
    */
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(super.toString());

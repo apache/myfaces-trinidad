@@ -34,6 +34,7 @@ public class TrinidadVariableResolver extends VariableResolver
     _decorated = decorated;
   }
 
+  @Override
   public Object resolveVariable(FacesContext context, String name)
   {
     if (RequestContext.VARIABLE_NAME.equals(name))

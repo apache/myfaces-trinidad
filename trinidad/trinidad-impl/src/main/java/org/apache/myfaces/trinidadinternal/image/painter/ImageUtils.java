@@ -74,7 +74,7 @@ public class ImageUtils
    * @param cl the class used to load the resource
    * @param name the path to the resource, relative to the class
    */
-  static public Image getImageResource(Class cl, String name)
+  static public Image getImageResource(Class<?> cl, String name)
   {
     Image image = _getImageResource(cl, name);
     if (image == null)
@@ -198,7 +198,7 @@ public class ImageUtils
    * @param cl the class used to load the resource
    * @param name the path to the resource, relative to the class
    */
-  static private Image _getImageResource(Class cl, String name)
+  static private Image _getImageResource(Class<?> cl, String name)
   {
      //
     // =-=  bts completely rewrite this method to use getResourceAsStream()

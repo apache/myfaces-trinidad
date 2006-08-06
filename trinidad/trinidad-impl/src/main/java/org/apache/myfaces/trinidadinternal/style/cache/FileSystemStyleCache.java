@@ -78,6 +78,10 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =- 
+// TODO: Synchronization does not seem to be needed since there's 
+//       synchronized blocks in the code, using HashMap hence 
+//       looks like a better choice than Hashtable.
 public class FileSystemStyleCache implements StyleProvider
 {
   /**
@@ -113,10 +117,10 @@ public class FileSystemStyleCache implements StyleProvider
       throw new IllegalArgumentException("No target specified.");
 
     // First, get the key to use to look up the cache
-    Object key = _getSharedCacheKey(source, target);
+    String key = _getSharedCacheKey(source, target);
 
     // See if we've got a shared cache
-    StyleProvider cache = (StyleProvider)_sSharedCaches.get(key);
+    StyleProvider cache = _sSharedCaches.get(key);
 
     // If we didn't find a shared cache, create a new cache
     // and cache it in the shared cache cache.  :-)
@@ -130,7 +134,7 @@ public class FileSystemStyleCache implements StyleProvider
       // _sSharedCaches.
       synchronized (_sSharedCaches)
       {
-        StyleProvider tmp = (StyleProvider)_sSharedCaches.get(key);
+        StyleProvider tmp = _sSharedCaches.get(key);
         if (tmp != null)
         {
           // Stick with tmp
@@ -244,7 +248,7 @@ public class FileSystemStyleCache implements StyleProvider
    * @return A Map which maps the full style class names to
    *   the shorter equivalents.
    */
-  public Map getShortStyleClasses(StyleContext context)
+  public Map<String, String> getShortStyleClasses(StyleContext context)
   {
     return _shortStyleClassMap;
   }
@@ -352,10 +356,10 @@ public class FileSystemStyleCache implements StyleProvider
   // And Entry contains the style sheet URI.
   private Entry _getEntry(StyleContext context)
   {
-    Hashtable cache = null;
-    Hashtable entryCache = null;
+    Hashtable<Key, Entry> cache = null;
+    Hashtable<Object, Entry> entryCache = null;
     StyleSheetDocument document = null;
-    Map shortStyleClassMap = null;
+    Map<String, String> shortStyleClassMap = null;
 
     boolean checkModified  = context.checkStylesModified();
 
@@ -394,9 +398,9 @@ public class FileSystemStyleCache implements StyleProvider
       // synchronization.  Thus the somewhat ugly explicit references
       // to Hashtable everywhere.
       if (_cache == null)
-        _cache = new Hashtable();
+        _cache = new Hashtable<Key, Entry>();
       if (_entryCache == null)
-        _entryCache = new Hashtable(19);
+        _entryCache = new Hashtable<Object, Entry>(19);
 
       cache = _cache;
       entryCache = _entryCache;
@@ -437,11 +441,11 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Returns the cache entry with the specified key
   private Entry _getEntry(
-    Hashtable cache,
-    Key       key,
-    boolean   checkModified)
+    Hashtable<Key, Entry> cache,
+    Key                   key,
+    boolean               checkModified)
   {
-    Entry entry = (Entry)cache.get(key);
+    Entry entry = cache.get(key);
     if (entry == null)
       return null;
 
@@ -467,13 +471,13 @@ public class FileSystemStyleCache implements StyleProvider
   // This generates a style sheet for the specific StyleContext
   // (locale, direction, etc), and puts that style sheet's uri in the Entry.
   private Entry _createEntry(
-    StyleContext       context,
-    StyleSheetDocument document,
-    Hashtable          cache,
-    Key                key,
-    Hashtable          entryCache,
-    Map                shortStyleClassMap,
-    boolean            checkModified
+    StyleContext             context,
+    StyleSheetDocument       document,
+    Hashtable<Key, Entry>    cache,
+    Key                      key,
+    Hashtable<Object, Entry> entryCache,
+    Map<String, String>      shortStyleClassMap,
+    boolean                  checkModified
     )
   {
     // Next, get the fully resolved styles for this context. This will be
@@ -506,16 +510,16 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Look in the entry cache for a compatible entry.
   private Entry _getCompatibleEntry(
-    StyleContext       context,
-    StyleSheetDocument document,
-    Hashtable          cache,
-    Key                key,
-    Hashtable          entryCache,
-    boolean            checkModified
+    StyleContext             context,
+    StyleSheetDocument       document,
+    Hashtable<Key, Entry>    cache,
+    Key                      key,
+    Hashtable<Object, Entry> entryCache,
+    boolean                  checkModified
     )
   {
     DerivationKey derivationKey = _getDerivationKey(context, document);
-    Entry entry = (Entry)entryCache.get(derivationKey);
+    Entry entry = entryCache.get(derivationKey);
     if (entry == null)
       return null;
 
@@ -549,8 +553,10 @@ public class FileSystemStyleCache implements StyleProvider
   {
     // Entries with the same style sheet derivation are compatible.
     // Get the style sheet derivation list.
-    Iterator e = document.getStyleSheets(context);
-    Vector v = _copyIterator(e);
+    Iterator<StyleSheetNode> e = document.getStyleSheets(context);
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
+    Vector<StyleSheetNode> v = _copyIterator(e);
     StyleSheetNode[] styleSheets;
     if (v == null)
     {
@@ -600,7 +606,7 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument document
     )
   {
-    Iterator e = document.getStyles(context);
+    Iterator<StyleNode> e = document.getStyles(context);
     if (e == null)
     {
       if (_LOG.isWarning())
@@ -608,7 +614,9 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
     }
 
-    Vector v = new Vector();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
+    Vector<StyleNode> v = new Vector<StyleNode>();
     while (e.hasNext())
       v.addElement(e.next());
 
@@ -620,12 +628,12 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Generates the CSS file for the specified context and styles.
   // Returns the name of the generated CSS file.
-  private String       _createStyleSheetFile(
-    StyleContext       context,
-    StyleSheetDocument document,
-    StyleNode[]        styles,
-    Map                shortStyleClassMap,
-    boolean            checkModified)
+  private String        _createStyleSheetFile(
+    StyleContext        context,
+    StyleSheetDocument  document,
+    StyleNode[]         styles,
+    Map<String, String> shortStyleClassMap,
+    boolean             checkModified)
   {
     // Get a name for the new style sheet
     File outputFile = _getOutputFile(context, document);
@@ -804,7 +812,7 @@ public class FileSystemStyleCache implements StyleProvider
           // so we use a smaller hash table.  Also, always enable
           // modification checking.
           resolver = new CachingNameResolver(resolver,
-                                             new Hashtable(17),
+                                             new Hashtable<Object, InputStreamProvider>(17),
                                              true);
         }
 
@@ -814,12 +822,12 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Copies an enumeration into a Vector
-  private Vector _copyIterator(Iterator e)
+  private <T> Vector<T> _copyIterator(Iterator<T> e)
   {
     if (e == null)
       return null;
 
-    Vector v = new Vector();
+    Vector<T> v = new Vector<T>();
     while (e.hasNext())
       v.addElement(e.next());
 
@@ -828,7 +836,7 @@ public class FileSystemStyleCache implements StyleProvider
 
   // Return a key which we can use to look up the cache with
   // the specifeid properties
-  private static Object _getSharedCacheKey(String source, String target)
+  private static String _getSharedCacheKey(String source, String target)
   {
     // Make sure we used canonical paths when looking up the cache.
     // Otherwise, slight difference in how the paths are specified might
@@ -842,26 +850,26 @@ public class FileSystemStyleCache implements StyleProvider
   }
 
   // Create the map of full style classes to short style classes
-  private static Map _getShortStyleClassMap(
+  private static Map<String, String> _getShortStyleClassMap(
     StyleContext       context,
     StyleSheetDocument document)
   {
     // Use a HashMap to avoid unnecessary synchronization of Hashtable
-    HashMap map = new HashMap();
+    Map<String, String> map = new HashMap<String, String>();
 
     assert (document != null);
 
-    Iterator styleSheets = document.getStyleSheets(context);
+    Iterator<StyleSheetNode> styleSheets = document.getStyleSheets(context);
     assert (styleSheets != null);
 
     while (styleSheets.hasNext())
     {
-      StyleSheetNode styleSheet = (StyleSheetNode)styleSheets.next();
-      Iterator styles = styleSheet.getStyles();
+      StyleSheetNode styleSheet = styleSheets.next();
+      Iterator<StyleNode> styles = styleSheet.getStyles();
       assert (styles != null);
       while (styles.hasNext())
       {
-        StyleNode style = (StyleNode)styles.next();
+        StyleNode style = styles.next();
         String selector = style.getSelector();
 
         if (selector != null)
@@ -879,12 +887,14 @@ public class FileSystemStyleCache implements StyleProvider
           }
           else
           {
-            Iterator styleClasses = CSSGenerationUtils.getStyleClasses(selector);
+            Iterator<String> styleClasses = 
+              CSSGenerationUtils.getStyleClasses(selector);
+            
             if (styleClasses != null)
             {
               while (styleClasses.hasNext())
               {
-                String styleClass = (String)styleClasses.next();
+                String styleClass = styleClasses.next();
 
                 if (!map.containsKey(styleClass))
                   map.put(styleClass, _getShortStyleClass(map.size()));
@@ -894,7 +904,7 @@ public class FileSystemStyleCache implements StyleProvider
 
           // now go through the selectors and get the list of af| selectors and
           // put those into the map
-          Iterator afSelectors =
+          Iterator<String> afSelectors =
             CSSGenerationUtils.getNamespacedSelectors(selector,
                                                       AF_STYLE_NAMESPACE,
                                                       _STYLE_KEY_MAP);
@@ -902,7 +912,7 @@ public class FileSystemStyleCache implements StyleProvider
           {
             while (afSelectors.hasNext())
             {
-              String styleClass = (String)afSelectors.next();
+              String styleClass = afSelectors.next();
 
               if (!map.containsKey(styleClass))
                 map.put(styleClass, _getShortStyleClass(map.size()));
@@ -918,7 +928,7 @@ public class FileSystemStyleCache implements StyleProvider
     // each time it is requested.
     // =-ags We could just clone the Map and wrap it in a Map
     //       if we want to allow clients to modify the Map.
-    return new ImmutableMapAdapter(map);
+    return new ImmutableMapAdapter<String, String>(map);
   }
 
   // Helper method used by _getShortStyleClassMap().  Returns a new
@@ -941,7 +951,7 @@ public class FileSystemStyleCache implements StyleProvider
   //        add this as a generic utility method somewhere, but where?
   private static String _getCanonicalPath(String path)
   {
-    String canonicalPath = (String)_sCanonicalPaths.get(path);
+    String canonicalPath = _sCanonicalPaths.get(path);
     if (canonicalPath != null)
       return canonicalPath;
 
@@ -984,6 +994,7 @@ public class FileSystemStyleCache implements StyleProvider
        true);
     }
 
+    @Override
     public int hashCode()
     {
       // We treat the UserStyleSheet specially.  We want to have one and
@@ -1007,6 +1018,7 @@ public class FileSystemStyleCache implements StyleProvider
                userStyleSheetHashCode);
     }
 
+    @Override
     public boolean equals(Object o)
     {
       // As documented in our hashCode() implementation, we treat
@@ -1110,6 +1122,7 @@ public class FileSystemStyleCache implements StyleProvider
       _short = true;
     }
 
+    @Override
     public boolean equals(Object o)
     {
       if (o == this)
@@ -1149,6 +1162,7 @@ public class FileSystemStyleCache implements StyleProvider
       return true;
     }
 
+    @Override
     public int hashCode()
     {
       int hashCode = 0;
@@ -1212,11 +1226,11 @@ public class FileSystemStyleCache implements StyleProvider
 
     // Do all of the real work
     private Style _getStyle(
-      StyleContext context,
-      Map   map,
-      String       id,
-      String       prefix,
-      boolean      isName
+      StyleContext       context,
+      Map<String, Style> map,
+      String             id,
+      String             prefix,
+      boolean            isName
       )
     {
       CSSStyle style = (CSSStyle)map.get(id);
@@ -1252,10 +1266,10 @@ public class FileSystemStyleCache implements StyleProvider
       style = new CSSStyle();
 
       // Add in the properties for the style
-      Iterator e = styleNode.getProperties();
+      Iterator<PropertyNode> e = styleNode.getProperties();
       while (e.hasNext())
       {
-        PropertyNode property = (PropertyNode)e.next();
+        PropertyNode property = e.next();
         String name = property.getName();
         String value = property.getValue();
 
@@ -1267,70 +1281,81 @@ public class FileSystemStyleCache implements StyleProvider
     }
 
     // Creates a map of the specified size
-    private Hashtable _createMap()
+    private Hashtable<String, Style> _createMap()
     {
-      return new Hashtable(19);
+      return new Hashtable<String, Style>(19);
     }
 
 
     // Our local Style maps
-    private Hashtable _selectorMap;
-    private Hashtable _classMap;
-    private Hashtable _nameMap;
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly needed
+    private Hashtable<String, Style> _selectorMap;
+    private Hashtable<String, Style> _classMap;
+    private Hashtable<String, Style> _nameMap;
   }
 
   // Wraps a Map in an immutable Map
-  private static class ImmutableMapAdapter extends HashMap
+  // -= Simon Lessard =-
+  // FIXME: WAHHHH! This is BAD... extending HashMap creates a
+  //        big array that will never be used... Furthermore,
+  //        Collections.unmodifiableMap does just that!!!
+  private static class ImmutableMapAdapter<K, V> extends HashMap<K, V>
   {
-    public ImmutableMapAdapter(Map map)
+    public ImmutableMapAdapter(Map<K, V> map)
     {
       _map = map;
     }
 
+    @Override
     public int size()
     {
       return _map.size();
     }
 
+    @Override
     public boolean isEmpty()
     {
       return _map.isEmpty();
     }
 
-    public Iterator keys()
+    public Iterator<K> keys()
     {
-      Set keys = _map.keySet();
+      Set<K> keys = _map.keySet();
       if (keys == null)
         return null;
 
       return keys.iterator();
     }
 
-    public Iterator elements()
+    public Iterator<V> elements()
     {
-      Collection values = _map.values();
+      Collection<V> values = _map.values();
       if (values == null)
         return null;
 
       return values.iterator();
     }
 
-    public Object get(Object key)
+    @Override
+    public V get(Object key)
     {
       return _map.get(key);
     }
 
-    public Object put(Object key, Object value)
+    @Override
+    public V put(K key, V value)
     {
       throw new IllegalArgumentException();
     }
 
-    public Object remove(Object key)
+    @Override
+    public V remove(Object key)
     {
       throw new IllegalArgumentException();
     }
 
-    private final Map _map;
+    private final Map<K, V> _map;
   }
 
 
@@ -1347,15 +1372,15 @@ public class FileSystemStyleCache implements StyleProvider
   private StyleSheetDocument _document;
 
   // The cache of style sheet URIs
-  private Hashtable _cache;
+  private Hashtable<Key, Entry> _cache;
 
   // We cache Entry objects, hashed by DerivationKey (ie.
   // hashed based on the StyleSheetNode derivation list).
-  private Hashtable _entryCache;
+  private Hashtable<Object, Entry> _entryCache;
 
   // Map which maps from full style class names to
   // our compressed names.
-  private Map _shortStyleClassMap;
+  private Map<String, String> _shortStyleClassMap;
 
   // Constants
 
@@ -1368,14 +1393,15 @@ public class FileSystemStyleCache implements StyleProvider
   // Table of shared FileSystemStyleCaches, hashed by path.
   // Note on table size: We don't expect to have very many instances
   // running in a single VM - table can be small.
-  private static final Hashtable _sSharedCaches = new Hashtable(19);
+  private static final Hashtable<String, StyleProvider> _sSharedCaches = 
+    new Hashtable<String, StyleProvider>(19);
 
   // Java name for UTF8 encoding
   private static String _UTF8_ENCODING = "UTF8";
 
   // Stub StyleSheetDocument instance
   private static final StyleSheetDocument _EMPTY_DOCUMENT =
-    new StyleSheetDocument(null, null);
+    new StyleSheetDocument(null, null, StyleSheetDocument.UNKNOWN_TIMESTAMP);
 
   // Style used to represent misses in the StyleMap.
   // Package private to allow access from nested StyleMapImpl class
@@ -1384,7 +1410,9 @@ public class FileSystemStyleCache implements StyleProvider
   // Prefix to use for short style classes
   private static final String _SHORT_CLASS_PREFIX = "x";
 
-  private static final Hashtable _sCanonicalPaths = new Hashtable(19);
+  // -= Simon Lessard =- 
+  // TODO: Check if synchronization is truly needed
+  private static final Hashtable<String, String> _sCanonicalPaths = new Hashtable<String, String>(19);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemStyleCache.class);
 
 
@@ -1394,9 +1422,11 @@ public class FileSystemStyleCache implements StyleProvider
   // names may. We write out the shortened version of the mapped
   // selector names to the css file.
   // jmw. @todo Need to find a better spot for this, like the skin?
-  private static final Map _STYLE_KEY_MAP = new HashMap();
+  private static final Map<String, String> _STYLE_KEY_MAP;
+  
   static
   {
+    _STYLE_KEY_MAP =  new HashMap<String, String>();
     // we don't use a styleClass on tr:body. Instead we use the html element
     // BODY to style it. This makes it easier for users to use an external
     // stylesheet and not have to know our styleClass names.

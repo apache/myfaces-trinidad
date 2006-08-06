@@ -30,23 +30,27 @@ import org.apache.myfaces.trinidad.component.UIXSubform;
  */
 public class SubformRenderer extends Renderer
 {
-  static public List getSubformList(
+  @SuppressWarnings("unchecked")
+  static public List<String> getSubformList(
     FacesContext context,
     boolean      isDefault,
     boolean      createIfNeeded)
   {
     String key = isDefault ? _DEFAULT_LIST_KEY : _LIST_KEY;
-    Map requestMap = context.getExternalContext().getRequestMap();
-    List list = (List) requestMap.get(key);
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
+    List<String> list = (List<String>) requestMap.get(key);
     if ((list == null) && createIfNeeded)
     {
-      list = new ArrayList();
+      list = new ArrayList<String>();
       requestMap.put(key, list);
     }
     
     return list;
   }
 
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
   {
     boolean isDefault = ((UIXSubform) component).isDefault();
@@ -56,7 +60,7 @@ public class SubformRenderer extends Renderer
       getSubformList(context, true, true).add(clientId);
   }
 
-  
+  @Override
   public boolean getRendersChildren()
   {
     return false;

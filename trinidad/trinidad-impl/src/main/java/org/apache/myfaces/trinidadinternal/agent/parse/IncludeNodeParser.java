@@ -30,6 +30,7 @@ import java.net.MalformedURLException;
 class IncludeNodeParser extends BaseNodeParser implements XMLConstants
 {
 
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -57,6 +58,7 @@ class IncludeNodeParser extends BaseNodeParser implements XMLConstants
     _refId = refId;
   }
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)

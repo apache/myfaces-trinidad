@@ -41,16 +41,17 @@ public class MessageUtils
 {
   private MessageUtils(){}
 
+  @SuppressWarnings("unchecked")
   public static FacesMessage getFacesMessage(
     FacesContext context,
     String       clientId)
   {
     if (clientId != null)
     {
-      Iterator messages = context.getMessages(clientId);
+      Iterator<FacesMessage> messages = context.getMessages(clientId);
       if (messages.hasNext())
       {
-        return (FacesMessage) messages.next();
+        return messages.next();
       }
     }
 

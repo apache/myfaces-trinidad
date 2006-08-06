@@ -41,7 +41,7 @@ class SourceUtils
 {
   public static Image getSourceIcon(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     return getSourceIcon(context,
@@ -54,7 +54,7 @@ class SourceUtils
    */
   public static Image getSourceIcon(
     ImageContext context,
-    Map properties,
+    Map<Object, Object> properties,
     Object     key
     )
   {
@@ -104,7 +104,7 @@ class SourceUtils
 
   // Logs a warning
   private static void _log(
-    Map properties,
+    Map<Object, Object> properties,
     String message,
     Throwable t
     )

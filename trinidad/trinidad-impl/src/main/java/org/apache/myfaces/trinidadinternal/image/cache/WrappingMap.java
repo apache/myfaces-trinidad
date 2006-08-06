@@ -26,9 +26,9 @@ import java.util.Set;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/image/cache/WrappingMap.java#0 $) $Date: 10-nov-2005.19:06:16 $
  * @author The Oracle ADF Faces Team
  */
-class WrappingMap implements Map
+class WrappingMap<K, V> implements Map<K, V>
 {
-  public WrappingMap(Map map)
+  public WrappingMap(Map<K, V> map)
   {
     _wrappedMap = map;
   }
@@ -43,27 +43,27 @@ class WrappingMap implements Map
     return _wrappedMap.isEmpty();
   }
 
-  public Iterator keys()
+  public Iterator<K> keys()
   {
     return _wrappedMap.keySet().iterator();
   }
 
-  public Set entrySet()
+  public Set<Map.Entry<K, V>> entrySet()
   {
     return _wrappedMap.entrySet();
   }
 
-  public Set keySet()
+  public Set<K> keySet()
   {
     return _wrappedMap.keySet();
   }
 
-  public void putAll(Map map)
+  public void putAll(Map<? extends K, ? extends V> map)
   {
     throw new UnsupportedOperationException("putAll operation not supported for WrappingMap");
   }
 
-  public Collection values()
+  public Collection<V> values()
   {
     return _wrappedMap.values();
   }
@@ -83,30 +83,30 @@ class WrappingMap implements Map
     throw new UnsupportedOperationException("clear operation not supported for WrappingMap");
   }
 
-  public Iterator elements()
+  public Iterator<V> elements()
   {
     return _wrappedMap.values().iterator();
   }
 
-  public Object get(Object key)
+  public V get(Object key)
   {
     return _wrappedMap.get(key);
   }
 
-  public Object put(Object key, Object value)
+  public V put(K key, V value)
   {
     return _wrappedMap.put(key, value);
   }
 
-  public Object remove(Object key)
+  public V remove(Object key)
   {
     return _wrappedMap.remove(key);
   }
 
-  protected Map getWrappedMap()
+  protected Map<K, V> getWrappedMap()
   {
     return _wrappedMap;
   }
 
-  private Map _wrappedMap;
+  private Map<K, V> _wrappedMap;
 }

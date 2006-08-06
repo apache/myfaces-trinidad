@@ -91,7 +91,7 @@ public class DefaultAgent implements Agent
    *
    * @return Map of capability name and value for the current Agent.
    */
-  public Map getCapabilities ()
+  public Map<Object, Object> getCapabilities ()
   {
     return null;
   }  

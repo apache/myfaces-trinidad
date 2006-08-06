@@ -39,7 +39,7 @@ abstract public class RenderingContext
    */
   static public RenderingContext getCurrentInstance()
   {
-    return (RenderingContext) _CURRENT_CONTEXT.get();
+    return _CURRENT_CONTEXT.get();
   }
 
   static public final Object INACCESSIBLE_MODE =
@@ -55,7 +55,7 @@ abstract public class RenderingContext
   /**
    * A map of properties specific to rendering.
    */
-  abstract public Map           getProperties();
+  abstract public Map<Object, Object> getProperties();
 
   abstract public TrinidadAgent getAgent();
   /**
@@ -101,8 +101,8 @@ abstract public class RenderingContext
 
 
   abstract public String getStyleClass(String styleClass);
-  abstract public void   setSkinResourceKeyMap(Map mapping);
-  abstract public Map    getSkinResourceKeyMap();
+  abstract public void   setSkinResourceKeyMap(Map<String, String> mapping);
+  abstract public Map<String, String> getSkinResourceKeyMap();
   abstract public boolean isRightToLeft();
   abstract public String getOutputMode();
   abstract public Object getAccessibilityMode();
@@ -128,7 +128,7 @@ abstract public class RenderingContext
   {
     Object o = _CURRENT_CONTEXT.get();
     // Clean up first...
-    _CURRENT_CONTEXT.set(null);
+    _CURRENT_CONTEXT.remove();
 
     // Then see if there's a problem, and scream if there is one
     if (o == null)
@@ -164,7 +164,9 @@ abstract public class RenderingContext
   }
 
 
-  static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
+  static private final ThreadLocal<RenderingContext> _CURRENT_CONTEXT = 
+    new ThreadLocal<RenderingContext>();
+  
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RenderingContext.class);
 }

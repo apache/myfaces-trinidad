@@ -36,22 +36,26 @@ abstract public class ValueBindingAdapter extends ValueBinding
     _base = base;
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     return _base.getValue(context);
   }
 
+  @Override
   public void setValue(FacesContext context, Object value)
   {
     throw new PropertyNotFoundException("Can't set value");
   }
   
+  @Override
   public boolean isReadOnly(FacesContext context)
   {
     return true;
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return _base.getType(context);
   }

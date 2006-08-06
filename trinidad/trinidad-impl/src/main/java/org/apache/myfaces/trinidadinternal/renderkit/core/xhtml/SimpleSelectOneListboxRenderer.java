@@ -43,6 +43,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
     super(CoreSelectOneListbox.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -71,12 +72,13 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
   //
   // ENCODE BEHAVIOR
   // 
+  @Override
   protected void encodeElementContent(
     FacesContext        context,
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -104,7 +106,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
 
     for (int i = 0; i < count; i++)
     {
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       encodeOption(context, arc, component, item, converter,
                    valuePassThru, i, selectedIndex == i);
     }
@@ -112,6 +114,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
     writer.endElement("select");
   }
 
+  @Override
   protected String getUnselectedLabel(FacesBean bean)
   {
     return toString(bean.getProperty(_unselectedLabelKey));
@@ -120,6 +123,7 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
   /**
    * Add autosubmit script
    */
+  @Override
   protected String getOnchange(
     FacesBean bean
     )
@@ -146,11 +150,13 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
     return toInt(o);
   }
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|selectOneListbox::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneListbox";

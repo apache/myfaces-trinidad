@@ -57,9 +57,10 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
     super(new CompositeButtonPainter());
   }
 
+  @Override
   protected boolean isRenderable(
       ImageContext imageContext,
-      Map requestedProperties
+      Map<Object, Object> requestedProperties
       )
   {
     if (!super.isRenderable(imageContext, requestedProperties))
@@ -68,11 +69,12 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
     return GraphicsUtils.isFontName(_getFontName(requestedProperties));
   }
 
+  @Override
   protected PaintContext createPaintContext(
     ImageContext imageContext,
     BufferedImage image,
-    Map requestedProperties,
-    Map responseProperties
+    Map<Object, Object> requestedProperties,
+    Map<Object, Object> responseProperties
     )
   {
     Image startImage = SourceUtils.getSourceIcon(imageContext,
@@ -102,6 +104,7 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
                             bottomBackgroundImage);
   }
 
+  @Override
   protected void disposePaintContext(PaintContext context)
   {
     if (context instanceof ProxyContext)
@@ -112,7 +115,10 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
    * Returns the foreground color to use when painting an image
    * with the specified dictionary.
    */
-  protected Color getPaintForeground(ImageContext context, Map d)
+  @Override
+  protected Color getPaintForeground(
+      ImageContext context, 
+      Map<Object, Object> d)
   {
     Color foreground = super.getPaintForeground(context, d);
 
@@ -126,7 +132,10 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
    * Returns the background color to use when painting an image
    * with the specified dictionary.
    */
-  protected Color getPaintBackground(ImageContext context, Map d)
+  @Override
+  protected Color getPaintBackground(
+      ImageContext context, 
+      Map<Object, Object> d)
   {
     Color background = super.getPaintBackground(context, d);
 
@@ -140,7 +149,8 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
    * Returns the font color to use when painting an image
    * with the specified dictionary.
    */
-  protected Font getPaintFont(Map d)
+  @Override
+  protected Font getPaintFont(Map<Object, Object> d)
   {
     Font font = super.getPaintFont(d);
 
@@ -150,7 +160,7 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
     return ButtonPainter.getDefaultFont().getFont();
   }
 
-  private String _getFontName(Map requestedProperties)
+  private String _getFontName(Map<Object, Object> requestedProperties)
   {
     // Make sure we've got a valid font
     Object o = requestedProperties.get(FONT_KEY);
@@ -163,7 +173,7 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
     return name;
   }
 
-  private boolean _isDisabled(Map properties)
+  private boolean _isDisabled(Map<Object, Object> properties)
   {
     Boolean disabled = (Boolean)properties.get(DISABLED_KEY);
 
@@ -190,6 +200,7 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
       _bottomBackgroundImage = bottomBackgroundImage;
     }
 
+    @Override
     public Object getPaintData(Object key)
     {
       Object o = super.getPaintData(key);
@@ -238,6 +249,7 @@ public class CompositeButtonImageRenderer extends PainterImageRenderer
       }
     }
 
+    @Override
     protected PaintContext getPaintContext()
     {
       return _context;

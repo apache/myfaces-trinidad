@@ -37,9 +37,9 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
   /**
    * Implementation of PropertiesFilter.filterProperties()
    */
-  public Map filterProperties(
+  public Map<Object, Object> filterProperties(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     return new Defaults(context, properties);
@@ -50,12 +50,12 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
    * WrappingMap which provides default values for
    * missing properties.
    */
-  static private class Defaults extends WrappingMap
+  static private class Defaults extends WrappingMap<Object, Object>
     implements ImageConstants
   {
     public Defaults(
       ImageContext context,
-      Map   properties
+      Map<Object, Object> properties
       )
     {
       super(properties);
@@ -63,6 +63,7 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
       _context = context;
     }
 
+    @Override
     public Object get(Object key)
     {
       Object value = super.get(key);
@@ -90,7 +91,7 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
         return value;
       }
 
-      Map properties = getWrappedMap();
+      Map<Object, Object> properties = getWrappedMap();
 
       if (key.equals(ImageConstants.FOREGROUND_KEY))
         return _getDefaultForeground(properties);
@@ -104,20 +105,20 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
       return null;
     }
 
-    private Color _getDefaultForeground(Map properties)
+    private Color _getDefaultForeground(Map<Object, Object> properties)
     {
       return ButtonPainter.getDefaultForeground(_context,
                                                 _isDisabled(properties));
     }
 
-    private Color _getDefaultBackground(Map properties)
+    private Color _getDefaultBackground(Map<Object, Object> properties)
     {
       return ButtonPainter.getDefaultBackground(_context,
                                                 _isDisabled(properties));
     }
 
 
-    private boolean _isDisabled(Map properties)
+    private boolean _isDisabled(Map<Object, Object> properties)
     {
       Boolean disabled = (Boolean)properties.get(DISABLED_KEY);
 
@@ -127,7 +128,7 @@ public class CompositeButtonPropertiesFilter implements PropertiesFilter
       return disabled.booleanValue();
     }
 
-    private Color _getDefaultBorderColor(Map properties)
+    private Color _getDefaultBorderColor(Map<Object, Object> properties)
     {
       return ButtonPainter.getDefaultBorderColor(_context,
                                                  _isDisabled(properties));

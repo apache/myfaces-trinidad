@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
  */
 abstract public class BasePropertyDef extends PropertyDef
 {
+  @Override
   public Object parseText(
     ParseContext context,
     String       text) throws IllegalArgumentException

@@ -51,11 +51,13 @@ public class ComponentRefTag extends UIXComponentRefTag
 {
 
 
+  @Override
   public String getComponentType()
   {
     return "org.apache.myfaces.trinidad.ComponentRef";
   }
 
+  @Override
   public String getRendererType()
   {
     return null;
@@ -72,15 +74,17 @@ public class ComponentRefTag extends UIXComponentRefTag
    * @param facet the facet that was moved.
    * @param component the component that the facet was moved to.
    */
+  @SuppressWarnings("unchecked")
   public static void addRelocatedFacet(
     UIComponent region,
     String facet,
     UIComponent component)
   {
-    Map map = (Map) region.getAttributes().get(_RELOCATED_FACETS_ATTRIBUTE);
+    Map<String, RelocatedFacet> map = 
+      (Map<String, RelocatedFacet>) region.getAttributes().get(_RELOCATED_FACETS_ATTRIBUTE);
     if (map == null)
     {
-      map = new HashMap(3);
+      map = new HashMap<String, RelocatedFacet>(3);
       region.getAttributes().put(_RELOCATED_FACETS_ATTRIBUTE, map);
     }
 
@@ -100,11 +104,14 @@ public class ComponentRefTag extends UIXComponentRefTag
     map.put(facet, new RelocatedFacet(component, findId.toString()));
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public int doStartTag() throws JspException
   {
     int returnVal = super.doStartTag();
     UIComponent region = getComponentInstance();
-    Map<String,RelocatedFacet> map = (Map) region.getAttributes().get(_RELOCATED_FACETS_ATTRIBUTE);
+    Map<String,RelocatedFacet> map = 
+      (Map<String,RelocatedFacet>) region.getAttributes().get(_RELOCATED_FACETS_ATTRIBUTE);
     if ((map != null) && (!map.isEmpty()))
     {
       // restore all the facets that were moved. Otherwise
@@ -123,6 +130,8 @@ public class ComponentRefTag extends UIXComponentRefTag
     return returnVal;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public int doEndTag() throws JspException
   {
     UIXComponentRef region = (UIXComponentRef) getComponentInstance();
@@ -185,20 +194,21 @@ processRegion:
     return super.doEndTag();
   }
 
+  @SuppressWarnings("unchecked")
   private boolean _typeConvertAndDefaultAttrs(
     String regionType,
     ComponentMetaData cmd)
   {
     boolean hasErrors = false;
     UIComponent region = getComponentInstance();
-    Map compAttrs = region.getAttributes();
-    List attrs = cmd.getAttributes();
+    Map<String, Object> compAttrs = region.getAttributes();
+    List<AttributeMetaData> attrs = cmd.getAttributes();
     int sz = attrs.size();
     for(int i=0; i<sz; i++)
     {
-      AttributeMetaData attr = (AttributeMetaData) attrs.get(i);
+      AttributeMetaData attr = attrs.get(i);
       String name = attr.getAttrName();
-      Class klass = attr.getAttrClass();
+      Class<?> klass = attr.getAttrClass();
       if (region.getValueBinding(name) != null)
         continue;
 
@@ -229,7 +239,10 @@ processRegion:
     return hasErrors;
   }
 
-  private boolean _typeConvert(Map compAttrs, String name, String value, Class klass)
+  private boolean _typeConvert(
+      Map<String, Object> compAttrs, 
+      String name, String value, 
+      Class<?> klass)
   {
     try
     {
@@ -252,11 +265,11 @@ processRegion:
       // OC4J does not unwrap the following exceptions:
       if (t instanceof JspException)
       {
-        causedBy = ((JspException) t).getRootCause();
+        causedBy = ((JspException) t).getCause();
       }
       else if (t instanceof ServletException)
       {
-        causedBy = ((ServletException) t).getRootCause();
+        causedBy = ((ServletException) t).getCause();
       }
       if ((causedBy == null) || (causedBy == t))
         return t;
@@ -278,6 +291,7 @@ processRegion:
       assert findComponentId != null;
     }
 
+    @SuppressWarnings("unchecked")
     public void restoreFacet(UIComponent region, String facet)
     {
       UIComponent relocatedFacet = _facet;

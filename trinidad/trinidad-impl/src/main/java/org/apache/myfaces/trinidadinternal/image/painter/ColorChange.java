@@ -38,6 +38,7 @@ public abstract class ColorChange extends AbstractWrappingPainter
   /**
    * Paints the text at the specified coordinates.
    */
+  @Override
   public void paint(
     PaintContext context,
     Graphics     g,

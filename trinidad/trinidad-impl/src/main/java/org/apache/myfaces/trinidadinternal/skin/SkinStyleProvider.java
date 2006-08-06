@@ -66,17 +66,17 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
     // Create the key object that we use to look up our
     // shared SkinStyleProvider instance
-    Object key = new ProviderKey(skin, 
-                                 targetDirectoryPath);
+    ProviderKey key = new ProviderKey(skin, 
+                                      targetDirectoryPath);
 
     // Get our cache of existing StyleProviders
-    Map providers = _getProviders();
+    Map<ProviderKey, StyleProvider> providers = _getProviders();
 
     StyleProvider provider = null;
 
     synchronized (providers)
     {
-      provider = (StyleProvider)providers.get(key);
+      provider = providers.get(key);
 
       if (provider == null)
       {
@@ -126,6 +126,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
    * Merges the Skin's styles with custom styles to
    * produce a single StyleSheetDocument
    */
+  @Override
   protected StyleSheetDocument createStyleSheetDocument(
     StyleContext context
     )
@@ -155,6 +156,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
    * Override of FileSystemStyleCache.hasSourceDocumentChanged()
    * which checks for changes to the Skin's style sheet.
    */
+  @Override
   protected boolean hasSourceDocumentChanged(StyleContext context)
   {
     if (super.hasSourceDocumentChanged(context))
@@ -173,6 +175,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
   /**
    * Override of FileSystemStyleCache.getTargetStyleSheetName().
    */
+  @Override
   protected String getTargetStyleSheetName(
     StyleContext       context,
     StyleSheetDocument document
@@ -201,7 +204,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
 
   // Returns a Map which hashes ProviderKeys to shared instances
   // of SkinStyleProviders.
-  private static Map _getProviders()
+  private static Map<ProviderKey, StyleProvider> _getProviders()
   {
     // =-=ags For now, we just use a global variable.  But 
     //        really, our cache should probably be hanging off
@@ -223,6 +226,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     }
 
     // Test for equality
+    @Override
     public boolean equals(Object o)
     {
       ProviderKey key = (ProviderKey)o;
@@ -232,6 +236,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     }
 
     // Produce the hash code
+    @Override
     public int hashCode()
     {
       int hashCode = _skin.hashCode();
@@ -263,5 +268,6 @@ public class SkinStyleProvider extends FileSystemStyleCache
   private StyleSheetDocument _skinDocument;
 
   // Cache of shared SkinStyleProvider instances
-  private static final Map _sSharedProviders = new HashMap(31);
+  private static final Map<ProviderKey, StyleProvider> _sSharedProviders = 
+    new HashMap<ProviderKey, StyleProvider>(31);
 }

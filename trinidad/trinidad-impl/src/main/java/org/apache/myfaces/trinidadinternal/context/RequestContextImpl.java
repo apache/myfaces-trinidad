@@ -15,10 +15,11 @@
  */
 package org.apache.myfaces.trinidadinternal.context;
 
-
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -82,6 +83,7 @@ public class RequestContextImpl extends RequestContext
   {
     _bean = bean;
     _dialogService = new DialogServiceImpl(this);
+    _partialTargets = new HashSet<String>();
   }
 
   public void init(Object request)
@@ -90,28 +92,33 @@ public class RequestContextImpl extends RequestContext
   }
 
 
+  @Override
   public DialogService getDialogService()
   {
     return _dialogService;
   }
 
+  @Override
   public PageResolver getPageResolver()
   {
     return _pageResolver;
   }
 
+  @Override
   public PageFlowScopeProvider getPageFlowScopeProvider()
   {
     return _pageFlowScopeProvider;
   }
 
-  public Map getPageFlowScope()
+  @Override
+  public Map<String, Object> getPageFlowScope()
   {
     return _pageFlowScopeProvider.getPageFlowScope(__getFacesContext());
   }
 
 
-  public void returnFromDialog(Object returnValue, Map returnParameters)
+  @Override
+  public void returnFromDialog(Object returnValue, Map<Object, Object> returnParameters)
   {
     boolean dialogIsInaccessible =
       _dialogService.returnFromDialog(returnValue, returnParameters);
@@ -125,12 +132,13 @@ public class RequestContextImpl extends RequestContext
    * Launch a dialog.
    * @todo Don't save parameters for state-saving, page-flow scope, etc.
    */
+  @Override
   public void launchDialog(
     UIViewRoot  dialogRoot,
-    Map         dialogParameters,
+    Map<String, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map         windowProperties)
+    Map<String, Object> windowProperties)
   {
     _pageFlowScopeProvider.pushPageFlowScope(__getFacesContext(),
                                              true);
@@ -141,6 +149,7 @@ public class RequestContextImpl extends RequestContext
                                 windowProperties);
   }
 
+  @Override
   public UploadedFileProcessor getUploadedFileProcessor()
   {
     return (UploadedFileProcessor)
@@ -148,6 +157,7 @@ public class RequestContextImpl extends RequestContext
   }
 
 
+  @Override
   public boolean isPostback()
   {
     FacesContext context = __getFacesContext();
@@ -175,13 +185,15 @@ public class RequestContextImpl extends RequestContext
     return true;
   }
   
+  @SuppressWarnings("unchecked")
+  @Override
   public boolean isPartialRequest(FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
     if (Boolean.TRUE.equals(requestMap.get(XhtmlConstants.PARTIAL_PARAM)))
       return true;
     
-    Map parameters = context.getExternalContext().getRequestParameterMap();
+    Map<String, Object> parameters = context.getExternalContext().getRequestParameterMap();
     if ("true".equals(parameters.get("partial")))
       return true;
 
@@ -189,24 +201,28 @@ public class RequestContextImpl extends RequestContext
   }
 
 
+  @Override
   public boolean isDebugOutput()
   {
     return Boolean.TRUE.equals(
        _bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY));
   }
 
+  @Override
   public boolean isClientValidationDisabled()
   {
     return Boolean.TRUE.equals(
        _bean.getProperty(RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY));
   }
 
+  @Override
   public String getOutputMode()
   {
     return (String) _bean.getProperty(RequestContextBean.OUTPUT_MODE_KEY);
   }
 
   // get skinFamily; default to minimal if nothing is specified.
+  @Override
   public String getSkinFamily()
   {
     String skinFamily =
@@ -216,6 +232,7 @@ public class RequestContextImpl extends RequestContext
     return skinFamily;
   }
 
+  @Override
   public String getAccessibilityMode()
   {
     String s = (String) _bean.getProperty(
@@ -233,6 +250,7 @@ public class RequestContextImpl extends RequestContext
     return null;
   }
 
+  @Override
   public char getNumberGroupingSeparator()
   {
     Character c = (Character) _bean.getProperty(
@@ -243,6 +261,7 @@ public class RequestContextImpl extends RequestContext
     return (char) 0;
   }
 
+  @Override
   public char getDecimalSeparator()
   {
     Character c = (Character) _bean.getProperty(
@@ -254,6 +273,7 @@ public class RequestContextImpl extends RequestContext
   }
 
 
+  @Override
   public TimeZone getTimeZone()
   {
     TimeZone tz = (TimeZone) _bean.getProperty(RequestContextBean.TIME_ZONE_KEY);
@@ -277,10 +297,12 @@ public class RequestContextImpl extends RequestContext
   /**
    * {@inheritDoc}
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public ChangeManager getChangeManager()
   {
     FacesContext context = __getFacesContext();
-    Map appMap = context.getExternalContext().getApplicationMap();
+    Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
     ChangeManager changeManager = (ChangeManager)appMap.get(_CHANGE_MANAGER_KEY);
 
     if (changeManager == null)
@@ -325,7 +347,7 @@ public class RequestContextImpl extends RequestContext
   {
     try
     {
-      Class managerClass = ClassLoaderUtils.loadClass(className);
+      Class<?> managerClass = ClassLoaderUtils.loadClass(className);
       return (ChangeManager)managerClass.newInstance();
     }
     catch (Throwable throwable)
@@ -337,23 +359,27 @@ public class RequestContextImpl extends RequestContext
   }
 
 
+  @Override
   public RegionManager getRegionManager()
   {
     FacesContext context = __getFacesContext();
     return RegionMetadata.getRegionMetadata(context);
   }
 
+  @Override
   public String getCurrencyCode()
   {
     return (String) _bean.getProperty(RequestContextBean.CURRENCY_CODE_KEY);
   }
 
+  @Override
   public String getOracleHelpServletUrl()
   {
     return (String) _bean.getProperty(
      RequestContextBean.ORACLE_HELP_SERVLET_URL_KEY);
   }
 
+  @Override
   public boolean isRightToLeft()
   {
     Boolean b = (Boolean) _bean.getProperty(RequestContextBean.RIGHT_TO_LEFT_KEY);
@@ -372,7 +398,8 @@ public class RequestContextImpl extends RequestContext
   }
 
 
-  public Map getHelpTopic()
+  @Override
+  public Map<String, Object> getHelpTopic()
   {
     HelpProvider provider = _getHelpProvider();
     if (provider == null)
@@ -381,7 +408,8 @@ public class RequestContextImpl extends RequestContext
     return provider.getHelpTopicMap();
   }
 
-  public Map getHelpSystem()
+  @Override
+  public Map<String, Object> getHelpSystem()
   {
     HelpProvider provider = _getHelpProvider();
     if (provider == null)
@@ -394,6 +422,7 @@ public class RequestContextImpl extends RequestContext
   // Partial Page Rendering support
   //
 
+  @Override
   public void addPartialTarget(UIComponent newTarget)
   {
     FacesContext fContext = __getFacesContext();
@@ -437,6 +466,7 @@ public class RequestContextImpl extends RequestContext
     }
   }
 
+  @Override
   public void addPartialTriggerListeners
     (UIComponent listener,
      String[] triggers)
@@ -444,31 +474,30 @@ public class RequestContextImpl extends RequestContext
     if ((listener == null) || (triggers == null))
       return;
 
-    Map pl = _getPartialListeners();
+    Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
 
     for (int i = 0; i < triggers.length; i++)
     {
       String trigger = triggers[i];
 
-      Object master;
-
       // Wildcards removed for now....
       // if ("*".equals(trigger))
       //   master = _GLOBAL_TRIGGER;
       // else
-      master = listener.getParent().findComponent(trigger);
+      UIComponent master = listener.getParent().findComponent(trigger);
 
       // Get the set of listeners on this trigger and add this component.
-      Set listeners = (Set) pl.get(master);
+      Set<UIComponent> listeners = pl.get(master);
       if (listeners == null)
       {
-        listeners = new HashSet();
+        listeners = new HashSet<UIComponent>();
         pl.put(master, listeners);
       }
       listeners.add(listener);
     }
   }
 
+  @Override
   public void partialUpdateNotify(UIComponent updated)
   {
     if (updated != null)
@@ -487,7 +516,7 @@ public class RequestContextImpl extends RequestContext
   /**
    * Get the clientIds of all components that have requested partial update
    */
-  public Iterator getPartialTargets()
+  public Iterator<String> getPartialTargets()
   {
     return _partialTargets.iterator();
   }
@@ -497,21 +526,24 @@ public class RequestContextImpl extends RequestContext
    * is listening on this component, it will add itself to the partialTargets
    * list).
    */
-  public Set getPartialUpdates()
+  public Set<String> getPartialUpdates()
   {
     return _partialTargets;
   }
 
-  public Map getColorPalette()
+  @Override
+  public Map<String, List<Color>> getColorPalette()
   {
     return ColorPaletteUtils.getColorPaletteMap();
   }
 
-  public Map getFormatter()
+  @Override
+  public Map<Object, Map<Object,String>> getFormatter()
   {
     return FormatterMap.sharedInstance();
   }
 
+  @Override
   public int getTwoDigitYearStart()
   {
     Integer twoDigitYearStart  = (Integer) _bean.getProperty(
@@ -523,6 +555,7 @@ public class RequestContextImpl extends RequestContext
     return 1950;
   }
 
+  @Override
   public Agent getAgent()
   {
     if (_agent == null)
@@ -559,17 +592,15 @@ public class RequestContextImpl extends RequestContext
 
   private void _addTargets(Object key)
   {
-    Map pl = _getPartialListeners();
-    Set listeners = (Set) pl.get(key);
+    Map<UIComponent, Set<UIComponent>> pl = _getPartialListeners();
+    Set<UIComponent> listeners = pl.get(key);
     if (listeners != null)
     {
       // protect from infinite recursion
       pl.remove(key);
 
-      Iterator iter = listeners.iterator();
-      while (iter.hasNext())
+      for(UIComponent listener : listeners)
       {
-        UIComponent listener = (UIComponent) iter.next();
         addPartialTarget(listener);
         // This target will be re-rendered, re-render anything that's
         // listening on it also.
@@ -630,10 +661,10 @@ public class RequestContextImpl extends RequestContext
     return null;
   }
 
-  private Map _getPartialListeners()
+  private Map<UIComponent, Set<UIComponent>> _getPartialListeners()
   {
     if (_partialListeners == null)
-      _partialListeners = new HashMap();
+      _partialListeners = new HashMap<UIComponent, Set<UIComponent>>();
 
     return _partialListeners;
   }
@@ -641,8 +672,8 @@ public class RequestContextImpl extends RequestContext
 
   private RequestContextBean _bean;
   private HelpProvider        _provider;
-  private Map                 _partialListeners;
-  private Set                 _partialTargets = new HashSet();
+  private Map<UIComponent, Set<UIComponent>> _partialListeners;
+  private Set<String>         _partialTargets;
   private Agent               _agent;
 
   private DialogServiceImpl   _dialogService;

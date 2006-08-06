@@ -17,6 +17,8 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 
 
@@ -34,7 +36,7 @@ abstract public class SkinFactory
   {
     synchronized (_FACTORIES)
     {
-      return (SkinFactory) _FACTORIES.get(_getClassLoader());
+      return _FACTORIES.get(_getClassLoader());
     }
   }
 
@@ -106,7 +108,7 @@ abstract public class SkinFactory
    * identifiers registered with this factory.
    * </p>
    */
-  public abstract Iterator getSkinIds();
+  public abstract Iterator<String> getSkinIds();
 
 
   static private ClassLoader _getClassLoader()
@@ -114,5 +116,6 @@ abstract public class SkinFactory
     return Thread.currentThread().getContextClassLoader();
   }
 
-  static private final HashMap _FACTORIES = new HashMap();
+  static private final Map<ClassLoader, SkinFactory> _FACTORIES = 
+    new HashMap<ClassLoader, SkinFactory>();
 }

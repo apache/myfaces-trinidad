@@ -92,17 +92,17 @@ public class ComponentFacesBean implements FacesBean
     throw new UnsupportedOperationException();
   }
 
-  final public Object[] getEntries(PropertyKey listKey, Class clazz)
+  final public Object[] getEntries(PropertyKey listKey, Class<?> clazz)
   {
     throw new UnsupportedOperationException();
   }
 
-  final public boolean containsEntry(PropertyKey listKey, Class clazz)
+  final public boolean containsEntry(PropertyKey listKey, Class<?> clazz)
   {
     throw new UnsupportedOperationException();
   }
 
-  final public Iterator entries(PropertyKey listKey)
+  final public Iterator<? extends Object> entries(PropertyKey listKey)
   {
     throw new UnsupportedOperationException();
   }
@@ -117,12 +117,12 @@ public class ComponentFacesBean implements FacesBean
   }
   
 
-  final public Set keySet()
+  final public Set<PropertyKey> keySet()
   {
     throw new UnsupportedOperationException();
   }
 
-  final public Set bindingKeySet()
+  final public Set<PropertyKey> bindingKeySet()
   {
     throw new UnsupportedOperationException();
   }

@@ -149,7 +149,7 @@ public class ConverterUtils
    */
   static public Converter createConverter(
     FacesContext context,
-    Class        converterType)
+    Class<?>     converterType)
   {
     // Don't bother for Strings and Objects;  note that the 1.1_01 RI
     // returns null, but the spec requires a FacesException, and MyFaces

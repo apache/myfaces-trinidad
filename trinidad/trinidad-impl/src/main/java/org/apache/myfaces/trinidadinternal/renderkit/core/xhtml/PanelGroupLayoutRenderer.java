@@ -36,18 +36,20 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
     super(CorePanelGroupLayout.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -102,6 +104,7 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
   /**
    * Render all the children of the PanelGroup
    */
+  @SuppressWarnings("unchecked")
   private void _encodeChildren(
     FacesContext context,
     UIComponent  component,
@@ -111,16 +114,12 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
   {
     ResponseWriter rw = context.getResponseWriter();
 
-    List children   = component.getChildren();
-    int  childCount = component.getChildCount();
-
     UIComponent separator = getFacet(component,
                                      CorePanelGroupLayout.SEPARATOR_FACET);
 
     boolean needSeparator = false;
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (!child.isRendered())
         continue;
 

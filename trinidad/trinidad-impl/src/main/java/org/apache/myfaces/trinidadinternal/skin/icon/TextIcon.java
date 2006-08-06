@@ -82,10 +82,11 @@ public class TextIcon extends Icon
    *             Icon.EMBEDDED_KEY. It does not render SHORT_DESC_KEY if it
    *             is null or "", because there is no point to this for TextIcons.
    */
+  @Override
   public void renderIcon(
     FacesContext        context,
-    RenderingContext arc,
-    Map              attrs
+    RenderingContext    arc,
+    Map<String, Object> attrs
     ) throws IOException
   {
     // See if we have an id
@@ -245,7 +246,7 @@ public class TextIcon extends Icon
 
   // Returns the inlineStyle for the icon
   private Object _getInlineStyle(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     assert (attrs != null);
@@ -255,7 +256,7 @@ public class TextIcon extends Icon
 
   // Returns the styleClasses for the icon
   private Object _getStyles(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     assert (attrs != null);
@@ -265,7 +266,7 @@ public class TextIcon extends Icon
 
   // Returns the title text for the icon
   private Object _getTitle(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     assert (attrs != null);
@@ -274,7 +275,7 @@ public class TextIcon extends Icon
   }
 
   private boolean _isEmbedded(
-    Map              attrs
+    Map<String, Object> attrs
     )
   {
     assert (attrs != null);

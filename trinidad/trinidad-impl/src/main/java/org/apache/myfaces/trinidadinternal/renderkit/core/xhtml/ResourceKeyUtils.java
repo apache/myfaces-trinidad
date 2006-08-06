@@ -34,8 +34,8 @@ public class ResourceKeyUtils
    * @param toComponent eg: treeTable
    * @return A new map with the replacesment values.
    */
-  public static Map convertResourceKeyMap(
-    Map original, 
+  public static Map<String, String> convertResourceKeyMap(
+    Map<String, String> original, 
     String fromComponent, 
     String toComponent)
   {
@@ -44,18 +44,27 @@ public class ResourceKeyUtils
     String pattern2 = "af|"+fromComponent+":";
     String replace2 = "af|"+toComponent+":";
     
-    Map result = new HashMap(original.size());
-    Iterator entries = original.entrySet().iterator();
-    while(entries.hasNext())
+    Map<String, String> result = 
+      new HashMap<String, String>(original.size());
+    
+    Iterator<Map.Entry<String, String>> entries = 
+      original.entrySet().iterator();
+    
+    for(Map.Entry<String, String> entry : original.entrySet())
     {
-      Map.Entry en = (Map.Entry) entries.next();
-      String value = (String) en.getValue();
+      String value = entry.getValue();
       if (value.startsWith(pattern1))
+      {
         value = _replace(value, pattern1, replace1);
+      }
       else if (value.startsWith(pattern2))
+      {
         value = _replace(value, pattern2, replace2);
-      result.put(en.getKey(), value);
+      }
+      
+      result.put(entry.getKey(), value);
     }
+    
     return result;
   }
   

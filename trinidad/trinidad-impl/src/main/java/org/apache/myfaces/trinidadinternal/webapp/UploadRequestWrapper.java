@@ -19,7 +19,6 @@ import java.io.UnsupportedEncodingException;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Enumeration;
 
@@ -40,7 +39,9 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  */
 class UploadRequestWrapper extends HttpServletRequestWrapper
 {
-  public UploadRequestWrapper(HttpServletRequest request, Map extractedParams)
+  public UploadRequestWrapper(
+      HttpServletRequest request, 
+      Map<String, String[]> extractedParams)
   {
     super(request);
     _extractedParams = extractedParams;
@@ -50,6 +51,7 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
    * Hide the content type so that no one tries to re-download the
    * uploaded files.
    */
+  @Override
   public String getContentType()
   {
     return _WWW_FORM_URLENCODED_TYPE;
@@ -58,6 +60,7 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
   /**
    * Trap calls to setCharacterEncoding() to decode parameters correctly
    */
+  @Override
   public void setCharacterEncoding(String encoding)
     throws UnsupportedEncodingException
   {
@@ -65,18 +68,17 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
     if (_LOG.isFine())
       _LOG.fine("Switching encoding of wrapper to " + encoding);
 
-    _extractedAndDecodedParams = new HashMap(_extractedParams.size());
-    Iterator entries = _extractedParams.entrySet().iterator();
-
+    _extractedAndDecodedParams = 
+      new HashMap<String, String[]>(_extractedParams.size());
+      
     byte[] buffer = new byte[256];
-
-    while (entries.hasNext())
+    
+    for(Map.Entry<String, String[]> entry : _extractedParams.entrySet())
     {
-      Map.Entry entry = (Map.Entry) entries.next();
-      String key = (String) entry.getKey();
+      String key = entry.getKey();
       key = CaboHttpUtils.decodeRequestParameter(key, encoding, buffer);
 
-      String[] oldValue = (String[]) entry.getValue();
+      String[] oldValue = entry.getValue();
       int length = oldValue.length;
       String[] newValue = new String[length];
       for (int i = 0; i < length; i++)
@@ -95,6 +97,7 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
     UploadedFiles.setCharacterEncoding(this, encoding);
   }
 
+  @Override
   public String getParameter(String param)
   {
     String[] value = _getParameterValues(param);
@@ -104,36 +107,39 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
     return value[0];
   }
 
-  public Map getParameterMap()
+  @Override
+  public Map<String, String[]> getParameterMap()
   {
-    Map map = _getMap();
+    Map<String, String[]> map = _getMap();
     return Collections.unmodifiableMap(map);
   }
 
-  public Enumeration getParameterNames()
+  @Override
+  public Enumeration<String> getParameterNames()
   {
     return Collections.enumeration(_getMap().keySet());
   }
 
+  @Override
   public String[] getParameterValues(String param)
   {
     String[] value = _getParameterValues(param);
     if (value == null)
       return null;
 
-    return (String[]) value.clone();
+    return value.clone();
   }
 
   private String[] _getParameterValues(String param)
   {
-    return (String[]) _getMap().get(param);
+    return _getMap().get(param);
   }
 
   /**
    * Get the correct map of parameters whether or not setCharacterEncoding()
    * was called.
    */
-  private Map _getMap()
+  private Map<String, String[]> _getMap()
   {
     if (_extractedAndDecodedParams != null)
       return _extractedAndDecodedParams;
@@ -141,8 +147,8 @@ class UploadRequestWrapper extends HttpServletRequestWrapper
     return _extractedParams;
   }
 
-  private Map _extractedAndDecodedParams;
-  private Map _extractedParams;
+  private Map<String, String[]> _extractedAndDecodedParams;
+  private Map<String, String[]> _extractedParams;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UploadRequestWrapper.class);
   private static final String _WWW_FORM_URLENCODED_TYPE =

@@ -38,7 +38,7 @@ class SkinStyleSheetNode
     
     SkinStyleSheetNode(
       List <SkinSelectorPropertiesNode> skinSelectorNodeList,
-      Map  namespaceMap,
+      Map<String, String> namespaceMap,
       int  direction,
       int[] agents
       )
@@ -51,7 +51,7 @@ class SkinStyleSheetNode
     
   
   SkinStyleSheetNode(
-    Map  namespaceMap,
+    Map<String, String> namespaceMap,
     int  direction,
     int[] agents,
     int[] platforms
@@ -66,7 +66,10 @@ class SkinStyleSheetNode
   public void add(SkinSelectorPropertiesNode node)
   {
     if (_skinSelectorNodeList == null)
-      _skinSelectorNodeList = new ArrayList();
+    {
+      _skinSelectorNodeList = new ArrayList<SkinSelectorPropertiesNode>();
+    }
+    
     _skinSelectorNodeList.add(node);
   } 
   
@@ -75,7 +78,7 @@ class SkinStyleSheetNode
    * @return Map containing Strings keys/values of namespace prefix and 
    * namespaces specified in the style sheet.
    */
-    public Map getNamespaceMap()
+    public Map<String, String> getNamespaceMap()
     {
       return _namespaceMap;
     }
@@ -134,7 +137,7 @@ class SkinStyleSheetNode
       return Arrays.equals(a1, a2); 
     }
     
-    private Map  _namespaceMap;
+    private Map<String, String> _namespaceMap;
     private List <SkinSelectorPropertiesNode> _skinSelectorNodeList;
     private int  _direction;  // reading direction
     private int[] _agents;

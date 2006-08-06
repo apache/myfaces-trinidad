@@ -38,12 +38,16 @@ public class NavigationTreeRenderer extends UINodeRendererBase
   /**
    * @todo do not mess with selection here. queue an event.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(
     FacesContext context, 
     UIComponent component)
   {
-    Map parameters = context.getExternalContext().getRequestParameterMap();
-    String source = (String) parameters.get(UIConstants.SOURCE_PARAM);
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String source = parameters.get(UIConstants.SOURCE_PARAM);
 
     if (!component.getClientId(context).equals(source))
       return;

@@ -83,10 +83,11 @@ public class PainterImageRenderer extends AbstractImageRenderer
       * properties that describe what to render.  A PaintContext
       * object is created using the given Map of properties.
       */
+    @Override
     public Image renderImage(
       ImageContext imageContext,
-      Map requestedProperties,
-      Map responseProperties
+      Map<Object, Object> requestedProperties,
+      Map<Object, Object> responseProperties
       )
     {
         if (!isRenderable(imageContext, requestedProperties))
@@ -155,7 +156,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
      */
     protected Painter getPainter(
       ImageContext imageContext,
-      Map requestedProperties
+      Map<Object, Object> requestedProperties
       )
     {
       return getPainter();
@@ -173,7 +174,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
      */
     protected boolean isRenderable(
       ImageContext imageContext,
-      Map requestedProperties
+      Map<Object, Object> requestedProperties
       )
     {
       return GraphicsUtils.isGraphicalEnvironment();
@@ -183,7 +184,9 @@ public class PainterImageRenderer extends AbstractImageRenderer
      * Returns the foreground color to use when painting an image
      * with the specified Map.
      */
-    protected Color getPaintForeground(ImageContext context, Map d)
+    protected Color getPaintForeground(
+        ImageContext context, 
+        Map<Object,Object> d)
     {
       return (Color)d.get(FOREGROUND_KEY);
     }
@@ -192,7 +195,9 @@ public class PainterImageRenderer extends AbstractImageRenderer
      * Returns the background color to use when painting an image
      * with the specified Map.
      */
-    protected Color getPaintBackground(ImageContext context, Map d)
+    protected Color getPaintBackground(
+        ImageContext context, 
+        Map<Object,Object> d)
     {
       return (Color)d.get(BACKGROUND_KEY);
     }
@@ -201,7 +206,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
      * Returns the font color to use when painting an image
      * with the specified Map.
      */
-    protected Font getPaintFont(Map d)
+    protected Font getPaintFont(Map<Object,Object> d)
     {
       Object o = d.get(FONT_KEY);
 
@@ -211,7 +216,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
       return (Font)d.get(FONT_KEY);
     }
 
-    protected Object getPaintData(Object key, Map d)
+    protected Object getPaintData(Object key, Map<Object,Object> d)
     {
       return d.get(key);
     }
@@ -223,8 +228,8 @@ public class PainterImageRenderer extends AbstractImageRenderer
     protected PaintContext createPaintContext(
       ImageContext imageContext,
       BufferedImage image,
-      Map requestedProperties,
-      Map responseProperties
+      Map<Object,Object> requestedProperties,
+      Map<Object,Object> responseProperties
       )
     {
       return
@@ -250,8 +255,8 @@ public class PainterImageRenderer extends AbstractImageRenderer
         public Context(
           ImageContext imageContext,
           BufferedImage image,
-          Map requestedProperties,
-          Map responseProperties
+          Map<Object,Object> requestedProperties,
+          Map<Object,Object> responseProperties
           )
 
         {
@@ -395,8 +400,8 @@ public class PainterImageRenderer extends AbstractImageRenderer
 
         private Graphics2D            _graphics;
         private ImageContext          _imageContext;
-        private Map            _requested;
-        private Map            _response;
+        private Map<Object,Object>    _requested;
+        private Map<Object,Object>    _response;
         private int                   _direction;
 
     }

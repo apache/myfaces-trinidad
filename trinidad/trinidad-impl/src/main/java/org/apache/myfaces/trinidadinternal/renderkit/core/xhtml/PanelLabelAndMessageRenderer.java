@@ -39,6 +39,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     super(CorePanelLabelAndMessage.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -46,18 +47,20 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     _labelInlineStyleKey = type.findKey("labelStyle");
   }    
 
+  @Override
   protected boolean labelShowRequired(FacesBean bean)
   {
     // Simpler algorithm for panelLabelAndMessage
     return getShowRequired(bean);
-  }
-  
+  } 
  
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|panelLabelAndMessage";
   }
   
+  @Override
   protected String getLabelFor(
     FacesContext        context,
     RenderingContext arc,
@@ -71,6 +74,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
                                        forValue);
   }
 
+  @Override
   protected void renderFieldCellContents(
     FacesContext        context,
     RenderingContext arc,
@@ -124,6 +128,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     rw.endElement("table");
   }
 
+  @Override
   protected boolean hasMessage(
     FacesContext        context,
     RenderingContext arc,
@@ -138,6 +143,7 @@ public class PanelLabelAndMessageRenderer extends LabelAndMessageRenderer
     return toString(bean.getProperty(_forKey));
   }
 
+  @Override
   protected String getLabelInlineStyleKey(FacesBean bean)
   {
     return toString(bean.getProperty(_labelInlineStyleKey));

@@ -37,8 +37,8 @@ public interface XMLEncoder
     ImageContext context,
     String     namespaceURI,
     String     localName,
-    Map properties,
-    Map responseProperties,
+    Map<Object, Object> properties,
+    Map<Object, Object> responseProperties,
     PrintWriter out
     );
 }

@@ -42,22 +42,23 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
     super(CoreSelectOneChoice.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _unselectedLabelKey = type.findKey("unselectedLabel");
   }
 
-
   //
   // ENCODE BEHAVIOR
   // 
+  @Override
   protected void encodeElementContent(
     FacesContext        context,
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -79,7 +80,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int                 selectedIndex,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -116,7 +117,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
 
     for (int i = 0; i < size; i++)
     {
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       encodeOption(context, arc, component, item, converter,
                    valuePassThru, i, selectedIndex == i);
     }
@@ -127,6 +128,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   /**
    * In Internet Explorer, handle autosubmit.
    */
+  @Override
   protected String getOnclick(
     FacesBean bean)
   {
@@ -155,6 +157,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   /**
    * In Internet Explorer, handle autosubmit.
    */
+  @Override
   protected String getOnblur(
     FacesBean bean)
   {
@@ -175,6 +178,7 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   /**
    * Add autosubmit script, and autosync script.
    */
+  @Override
   protected String getOnchange(
     FacesBean bean
     )
@@ -207,16 +211,19 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
     return XhtmlUtils.getChainedJS(onchange, auto, true);
   }
 
+  @Override
   protected String getUnselectedLabel(FacesBean bean)
   {
     return toString(bean.getProperty(_unselectedLabelKey));
   }
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|selectOneChoice::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneChoice";

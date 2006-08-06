@@ -27,11 +27,13 @@ public class InputTextRenderer extends InputLabelAndMessageRenderer
     super(CoreInputText.TYPE);
   } 
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputText";
   } 
   
+  @Override
   protected String getDefaultLabelValign(FacesBean bean)
   {
     if (_simpleInputText.isTextArea(bean))
@@ -40,6 +42,7 @@ public class InputTextRenderer extends InputLabelAndMessageRenderer
     return null;
   }
 
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputText;

@@ -45,6 +45,7 @@ class AlphaMultiplyFilter extends RGBImageFilter
   /**
    * Implementation of abstract method from RGBImageFilter
    */
+  @Override
   public int filterRGB(int x, int y, int rgb)
   {
 

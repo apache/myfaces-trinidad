@@ -34,6 +34,7 @@ public final class MutableDecimalFormatContext extends DecimalFormatContext
   /**
    * Returns the character used to separate number groupings.
    */
+  @Override
   public char getGroupingSeparator()
   {
     return _groupingSeparator;
@@ -52,6 +53,7 @@ public final class MutableDecimalFormatContext extends DecimalFormatContext
   /**
    * Returns the character used as a decimal separator.
    */
+  @Override
   public char getDecimalSeparator()
   {
     return _decimalSeparator;

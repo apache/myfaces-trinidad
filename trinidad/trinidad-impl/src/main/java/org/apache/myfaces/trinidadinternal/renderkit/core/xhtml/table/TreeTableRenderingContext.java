@@ -87,7 +87,9 @@ public final class TreeTableRenderingContext extends TableRenderingContext
    * Gets the selection state for this table.
    * This is overwritten in HGridRenderingContext
    */
-  public RowKeySet getSelectedRowKeys()
+  @SuppressWarnings("unchecked")
+  @Override
+  public RowKeySet<Object> getSelectedRowKeys()
   {
     return ((UIXTree) getCollectionComponent()).getSelectedRowKeys();
   }
@@ -142,6 +144,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
    * Get the actual column count, taking selection,  focus
    * and object-hierarchy columns into account.
    */
+  @Override
   public int getSpecialColumnCount()
   {
     // we need to add one for the object hierarchy column and possibly another
@@ -153,6 +156,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
   /**
    * @return null. HGrids cannot have detail-disclosure.
    */
+  @Override
   public UIComponent getDetail()
   {
     return null;

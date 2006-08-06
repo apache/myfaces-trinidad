@@ -45,6 +45,7 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
   /**
    *  {@inheritDoc}
    */
+  @Override
   protected void writeAdditionalJS(FacesContext context,
                                    UIComponent component)
     throws IOException
@@ -108,6 +109,7 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
    * @inheritDoc
    *
    */
+  @Override
   protected void renderListDisplay(FacesContext context,
                                    UIComponent component,
                                    String disclosedChildId)
@@ -152,6 +154,7 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
   /**
    *  {@inheritDoc}
    */
+  @Override
   protected String getHTMLControlID(String compId)
   {
     return compId + _CHOICE_SELECT_SUFFIX_ID_CONST;
@@ -162,6 +165,7 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
    *
    *  The select control markup is contained within a TD element.
    */
+  @SuppressWarnings("unchecked")
   private void _renderSelectItemInTD(FacesContext context,
                                      UIComponent component,
                                      String disclosedChildId)
@@ -190,10 +194,10 @@ public class CorePanelChoiceRenderer extends ShowOneListRendererBase
 
     URLEncoder encoder = rCtx.getURLEncoder();
     // Render options now.
-    ListIterator children = component.getChildren().listIterator();
+    ListIterator<UIComponent> children = component.getChildren().listIterator();
     while (children.hasNext())
     {
-      UIComponent child = (UIComponent) children.next();
+      UIComponent child = children.next();
       if (child instanceof UIXShowDetail)
       {
         UIXShowDetail detailItem = (UIXShowDetail) child;

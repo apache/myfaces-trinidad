@@ -43,25 +43,23 @@ abstract public class BaseStyle implements Style, Serializable
    * @param properties The properties of this style.  The
    *   values must be Strings.
    */
-  public BaseStyle(Map properties)
+  public BaseStyle(Map<String, String> properties)
   {
     if ((properties != null) && (properties.size() > 0))
     {
       // Initialize the properties array
       int length = properties.size() * 2;
-      _properties = new Object[length];
+      _properties = new String[length];
 
-      Iterator keys = properties.keySet().iterator();
       int i = 0;
-      while (keys.hasNext())
+      for(Map.Entry<String, String> entry : properties.entrySet())
       {
-        Object key = keys.next();
-        Object value = properties.get(key);
+        String key   = entry.getKey();
+        String value = entry.getValue();
 
-        assert (key instanceof String);
-        assert (value instanceof String);
-
-        _properties[i*2] = ((String)key).toLowerCase();
+        // -= Simon Lessard =-
+        // FIXME: If key is ever null, NullPointerException will occurs
+        _properties[i*2]   = key.toLowerCase();
         _properties[i*2+1] = value;
         i++;
       }
@@ -73,13 +71,12 @@ abstract public class BaseStyle implements Style, Serializable
    */
   public BaseStyle(Style style)
   {
-
     if ( style != null)
     {
 
       // First, loop through to get the property count
       int propertyCount = 0;
-      Iterator e = style.getPropertyNames();
+      Iterator<Object> e = style.getPropertyNames();
       while (e.hasNext())
       {
         e.next();
@@ -94,7 +91,7 @@ abstract public class BaseStyle implements Style, Serializable
 
       // Now, loop through to initialize the properties
       int i = 0;
-      Iterator names = style.getPropertyNames();
+      Iterator<Object> names = style.getPropertyNames();
       while (names.hasNext())
       {
         String name = (String)names.next();
@@ -115,7 +112,7 @@ abstract public class BaseStyle implements Style, Serializable
    * <p>
    * The property names can be any valid property name.
    */
-  public Iterator getPropertyNames()
+  public Iterator<Object> getPropertyNames()
   {
     return ArrayMap.getKeys(_properties);
   }

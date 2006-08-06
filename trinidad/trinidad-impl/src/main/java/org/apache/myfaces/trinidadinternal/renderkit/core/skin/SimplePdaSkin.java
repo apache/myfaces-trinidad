@@ -28,6 +28,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   public String getStyleSheetName()
   {
     return "META-INF/adf/styles/simple-pda.xss";
@@ -37,6 +38,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
    * Returns the id for the PDA implementation of the Simple
    * Skin: "simple.pda".
    */
+  @Override
   public String getId()
   {
     return "simple.pda";
@@ -46,6 +48,7 @@ public class SimplePdaSkin extends PdaHtmlSkin
    * Returns the family for the PDA implementation of the Simple
    * Skin: "simple.pda".
    */
+  @Override
   public String getFamily()
   {
     return "simple";
@@ -55,10 +58,9 @@ public class SimplePdaSkin extends PdaHtmlSkin
    * Returns the renderKitId for the PDA implementation of the Simple
    * Skin: "org.apache.myfaces.trinidad.pda".
    */  
+  @Override
   public String getRenderKitId()
   {
     return ORACLE_ADF_PDA;
   }
-
-
 }

@@ -116,7 +116,7 @@ public class JavaIntrospector
    *              introspection.
    */
   public static BeanInfo getBeanInfo(
-    Class beanClass
+    Class<?> beanClass
     ) throws IntrospectionException
   {
     // first look for the bean info in the cache
@@ -161,8 +161,8 @@ public class JavaIntrospector
    *              introspection.
    */
   public static BeanInfo getBeanInfo(
-    Class beanClass,
-    int   flags
+    Class<?> beanClass,
+    int      flags
     ) throws IntrospectionException
   {
     // if they want all of the bean info, call the caching version of this
@@ -193,8 +193,8 @@ public class JavaIntrospector
    *              introspection.
    */
   public static BeanInfo getBeanInfo(
-    Class beanClass,
-    Class stopClass
+    Class<?> beanClass,
+    Class<?> stopClass
     ) throws IntrospectionException
   {
     // if they don't want to stop at any class, call the caching version of this
@@ -301,7 +301,7 @@ public class JavaIntrospector
    */
 
   public static void flushFromCaches(
-    Class targetClass
+    Class<?> targetClass
     )
   {
     _sBeanInfoCache.remove(targetClass);
@@ -314,8 +314,8 @@ public class JavaIntrospector
   //======================================================================
 
   private JavaIntrospector(
-    Class beanClass,
-    Class stopClass,
+    Class<?> beanClass,
+    Class<?> stopClass,
     int   flags
     ) throws IntrospectionException
   {
@@ -326,7 +326,7 @@ public class JavaIntrospector
     {
       boolean isSuper = false;
 
-      for (Class c = beanClass.getSuperclass();
+      for (Class<?> c = beanClass.getSuperclass();
            c != null;
            c = c.getSuperclass())
       {
@@ -351,7 +351,7 @@ public class JavaIntrospector
       _informant = _findInformant(beanClass);
     }
 
-    Class superClass = beanClass.getSuperclass();
+    Class<?> superClass = beanClass.getSuperclass();
 
     if (superClass != stopClass)
     {
@@ -369,7 +369,7 @@ public class JavaIntrospector
       {
         // We avoid going through getBeanInfo as we don't need
         // it to copy the BeanInfo.
-        _superBeanInfo = (BeanInfo)_sBeanInfoCache.get(superClass);
+        _superBeanInfo = _sBeanInfoCache.get(superClass);
 
         if (_superBeanInfo == null)
         {
@@ -414,7 +414,7 @@ public class JavaIntrospector
    * have left around for us
    */
   private BeanInfo _findInformant(
-    Class beanClass
+    Class<?> beanClass
     )
   {
     String name = beanClass.getName() + "BeanInfo";
@@ -477,7 +477,10 @@ public class JavaIntrospector
   {
 
     // properties maps from String names to PropertyDescriptors
-    Hashtable properties = new Hashtable();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Hashtable<String, PropertyDescriptor> properties = 
+      new Hashtable<String, PropertyDescriptor>();
 
     // Check if the bean has its own BeanInfo that will provide
     // explicit information.
@@ -572,9 +575,9 @@ public class JavaIntrospector
           continue;
         }
 
-        String name      = method.getName();
-        Class argTypes[] = method.getParameterTypes();
-        Class resultType = method.getReturnType();
+        String     name       = method.getName();
+        Class<?>[] argTypes   = method.getParameterTypes();
+        Class<?>   resultType = method.getReturnType();
 
         int argCount = argTypes.length;
 
@@ -695,7 +698,7 @@ public class JavaIntrospector
     //
     // prune the list of properties, removing bogusly introspected properties.
     //
-    Enumeration elements = properties.elements();
+    Enumeration<PropertyDescriptor> elements = properties.elements();
 
     while (elements.hasMoreElements())
     {
@@ -734,7 +737,7 @@ public class JavaIntrospector
 
     for (int i = 0; i < result.length; i++)
     {
-      result[i] = (PropertyDescriptor)elements.nextElement();
+      result[i] = elements.nextElement();
 
       if ((_defaultPropertyName != null) &&
           _defaultPropertyName.equals(result[i].getName()))
@@ -752,8 +755,8 @@ public class JavaIntrospector
    * is a conflict.
    */
   private void _addProperty(
-    Hashtable          properties,
-    PropertyDescriptor newDescriptor
+    Hashtable<String, PropertyDescriptor> properties,
+    PropertyDescriptor                    newDescriptor
     )
   {
     //
@@ -767,8 +770,7 @@ public class JavaIntrospector
     //
     String name = newDescriptor.getName();
 
-    PropertyDescriptor oldDescriptor =
-                                     (PropertyDescriptor)properties.get(name);
+    PropertyDescriptor oldDescriptor = properties.get(name);
 
     //
     // A descriptor with this name is already in the cache, so determine
@@ -779,8 +781,8 @@ public class JavaIntrospector
       //
       // If the property type hasn't changed we need to merge the descriptors.
       //
-      Class oldDescriptorType = oldDescriptor.getPropertyType();
-      Class newDescriptorType = newDescriptor.getPropertyType();
+      Class<?> oldDescriptorType = oldDescriptor.getPropertyType();
+      Class<?> newDescriptorType = newDescriptor.getPropertyType();
 
       if (!((oldDescriptorType != newDescriptorType) &&
             (oldDescriptorType != null)              &&
@@ -828,7 +830,10 @@ public class JavaIntrospector
   {
 
     // events maps from String names to EventSetDescriptors
-    Hashtable events = new Hashtable();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Hashtable<String, EventSetDescriptor> events = 
+      new Hashtable<String, EventSetDescriptor>();
 
     // Check if the bean has its own BeanInfo that will provide
     // explicit information.
@@ -893,8 +898,10 @@ public class JavaIntrospector
       Method methodList[] = _getPublicMethods(_beanClass);
 
       // Find all suitable "add" and "remove" methods.
-      Hashtable adds    = new Hashtable();
-      Hashtable removes = new Hashtable();
+      // -= Simon Lessard =-
+      // TODO: Check if synchronization is really needed.
+      Hashtable<String, Method> adds    = new Hashtable<String, Method>();
+      Hashtable<String, Method> removes = new Hashtable<String, Method>();
 
       for (int i = 0; i < methodList.length; i++)
       {
@@ -910,8 +917,8 @@ public class JavaIntrospector
 
         String name = method.getName();
 
-        Class argTypes[] = method.getParameterTypes();
-        Class resultType = method.getReturnType();
+        Class<?>[] argTypes   = method.getParameterTypes();
+        Class<?>   resultType = method.getReturnType();
 
         if (name.startsWith("add") &&
             (argTypes.length == 1) &&
@@ -930,11 +937,11 @@ public class JavaIntrospector
       }
 
       // Now look for matching addFooListener+removeFooListener pairs.
-      Enumeration keys = adds.keys();
+      Enumeration<String> keys = adds.keys();
 
       while (keys.hasMoreElements())
       {
-        String compound = (String)keys.nextElement();
+        String compound = keys.nextElement();
 
         // Skip any "add" which doesn't have a matching "remove".
         if (removes.get(compound) == null)
@@ -952,9 +959,9 @@ public class JavaIntrospector
         String eventName    = decapitalize(
                              listenerName.substring(0,
                                                     listenerName.length() - 8));
-        Method addMethod    = (Method)adds.get(compound);
-        Method removeMethod = (Method)removes.get(compound);
-        Class  argType      = addMethod.getParameterTypes()[0];
+        Method   addMethod    = adds.get(compound);
+        Method   removeMethod = removes.get(compound);
+        Class<?> argType      = addMethod.getParameterTypes()[0];
 
         // Check if the argument type is a subtype of EventListener
         if (!JavaIntrospector._isSubclass(argType, _EVENT_LISTENER_TYPE))
@@ -1009,12 +1016,12 @@ public class JavaIntrospector
     }
 
     // Allocate and populate the result array.
-    EventSetDescriptor result[] = new EventSetDescriptor[events.size()];
-    Enumeration        elements = events.elements();
+    EventSetDescriptor[]            result   = new EventSetDescriptor[events.size()];
+    Enumeration<EventSetDescriptor> elements = events.elements();
 
     for (int i = 0; i < result.length; i++)
     {
-      result[i] = (EventSetDescriptor)elements.nextElement();
+      result[i] = elements.nextElement();
 
       if ((_defaultEventName != null)
           && _defaultEventName.equals(result[i].getName()))
@@ -1028,7 +1035,7 @@ public class JavaIntrospector
 
 
   private void _addEvent(
-    Hashtable          events,
+    Hashtable<String, EventSetDescriptor> events,
     EventSetDescriptor descriptor
     )
   {
@@ -1039,7 +1046,7 @@ public class JavaIntrospector
       _propertyChangeSource = true;
     }
 
-    EventSetDescriptor oldDescriptor = (EventSetDescriptor)events.get(key);
+    EventSetDescriptor oldDescriptor = events.get(key);
 
     if (oldDescriptor == null)
     {
@@ -1067,7 +1074,10 @@ public class JavaIntrospector
 
     // hash table to associate the method objects with their method
     // descriptors
-    Hashtable methods = new Hashtable();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Hashtable<String, MethodDescriptor> methods = 
+      new Hashtable<String, MethodDescriptor>();
 
     if (_informant != null)
     {
@@ -1124,11 +1134,11 @@ public class JavaIntrospector
     // Allocate and populate the result array.
     MethodDescriptor result[] = new MethodDescriptor[methods.size()];
 
-    Enumeration elements = methods.elements();
+    Enumeration<MethodDescriptor> elements = methods.elements();
 
     for (int i = 0; i < result.length; i++)
     {
-      result[i] = (MethodDescriptor)elements.nextElement();
+      result[i] = elements.nextElement();
     }
 
     return result;
@@ -1136,7 +1146,7 @@ public class JavaIntrospector
 
 
   private void _addMethod(
-    Hashtable        methods,
+    Hashtable<String, MethodDescriptor> methods,
     MethodDescriptor descriptor
     )
   {
@@ -1145,7 +1155,7 @@ public class JavaIntrospector
     // This method gets called a *lot, so we try to be efficient.
     String name = descriptor.getMethod().getName();
 
-    MethodDescriptor old = (MethodDescriptor)methods.get(name);
+    MethodDescriptor old = methods.get(name);
 
     if (old == null)
     {
@@ -1186,7 +1196,7 @@ public class JavaIntrospector
     // This is very rare.
     String longKey = _makeQualifiedMethodName(descriptor);
 
-    old = (MethodDescriptor)methods.get(longKey);
+    old = methods.get(longKey);
 
     if (old == null)
     {
@@ -1281,12 +1291,12 @@ public class JavaIntrospector
    * Return all of the public methods for the target class
    */
   private static synchronized Method[] _getPublicMethods(
-    Class targetClass
+    Class<?> targetClass
     )
   {
     // Looking up Class.getMethods is relatively expensive,
     // so we cache the results.
-    Method[] declaredMethods = (Method[])_sPublicMethodCache.get(targetClass);
+    Method[] declaredMethods = _sPublicMethodCache.get(targetClass);
 
     //
     // if the declared methods aren't in the cache, generate them and stuff
@@ -1344,7 +1354,9 @@ public class JavaIntrospector
         //
         if (numDeclaredMethods > 0)
         {
-          Vector publicMethods = new Vector(numDeclaredMethods);
+          // -= Simon Lessard =-
+          // TODO: Check if synchronization is really needed.
+          Vector<Method> publicMethods = new Vector<Method>(numDeclaredMethods);
 
           for (int i = 0; i < numDeclaredMethods; i++)
           {
@@ -1383,15 +1395,18 @@ public class JavaIntrospector
   /**
    * Internal support for finding a target methodName on a given class.
    */
+  // -= Simon Lessard
+  // FIXME: Never used locally
+  @SuppressWarnings("unused")
   private static Method _internalFindMethod(
-    Class  start,
-    String methodName,
-    int    argCount
+    Class<?> start,
+    String   methodName,
+    int      argCount
     )
   {
     // For overriden methods we need to find the most derived version.
     // So we start with the given class and walk up the superclass chain.
-    for (Class cl = start; cl != null; cl = cl.getSuperclass())
+    for (Class<?> cl = start; cl != null; cl = cl.getSuperclass())
     {
       Method methods[] = _getPublicMethods(cl);
 
@@ -1440,8 +1455,8 @@ public class JavaIntrospector
    * Note tht either or both "Class" objects may represent interfaces.
    */
   static  boolean _isSubclass(
-    Class a,
-    Class b
+    Class<?> a,
+    Class<?> b
     )
   {
     // We rely on the fact that for any given java class or
@@ -1457,7 +1472,7 @@ public class JavaIntrospector
       return false;
     }
 
-    for (Class x = a; x != null; x = x.getSuperclass())
+    for (Class<?> x = a; x != null; x = x.getSuperclass())
     {
       if (x == b)
       {
@@ -1487,7 +1502,7 @@ public class JavaIntrospector
    */
   private boolean _throwsException(
     Method method,
-    Class exception
+    Class<?> exception
     )
   {
     Class exs[] = method.getExceptionTypes();
@@ -1510,8 +1525,8 @@ public class JavaIntrospector
    * classloader.
    */
   private static Object _instantiate(
-    Class  sibling,
-    String className
+    Class<?> sibling,
+    String   className
     ) throws InstantiationException,
              IllegalAccessException,
              ClassNotFoundException
@@ -1523,7 +1538,7 @@ public class JavaIntrospector
     {
       try
       {
-        Class cls = cl.loadClass(className);
+        Class<?> cls = cl.loadClass(className);
 
         return cls.newInstance();
       }
@@ -1535,7 +1550,7 @@ public class JavaIntrospector
     }
 
     // Now try the system classloader.
-    Class cls = ClassLoaderUtils.loadClass(className);
+    Class<?> cls = ClassLoaderUtils.loadClass(className);
     return cls.newInstance();
   }
 
@@ -1852,7 +1867,7 @@ public class JavaIntrospector
     //
     // merge the property editor class
     //
-    Class editorClass = primaryDescriptor.getPropertyEditorClass();
+    Class<?> editorClass = primaryDescriptor.getPropertyEditorClass();
 
     // Give priority to the primary propertyEditor.
     if (editorClass == null)
@@ -1947,13 +1962,13 @@ public class JavaIntrospector
     FeatureDescriptor destinationDescriptor
     )
   {
-    Enumeration keys = addingDescriptor.attributeNames();
+    Enumeration<String> keys = addingDescriptor.attributeNames();
 
     if (keys != null)
     {
       while (keys.hasMoreElements())
       {
-        String key = (String)keys.nextElement();
+        String key = keys.nextElement();
         Object value = addingDescriptor.getValue(key);
         destinationDescriptor.setValue(key, value);
       }
@@ -1964,7 +1979,7 @@ public class JavaIntrospector
 
 //===========================================================================
 
-  private static final Class _EVENT_LISTENER_TYPE = EventListener.class;
+  private static final Class<EventListener> _EVENT_LISTENER_TYPE = EventListener.class;
   private static final String _READ_PREFIX = "get";
   private static final String _WRITE_PREFIX = "set";
   private static final String[] _BOOLEAN_READ_PREFIXES = {"is", "has"};
@@ -1972,7 +1987,7 @@ public class JavaIntrospector
   private boolean _propertyChangeSource = false;
 
   // clas of object that we are building the BeanInfo of
-  private Class _beanClass;
+  private Class<?> _beanClass;
 
   // the BeanInof of the bean class' is superClass
   private BeanInfo _superBeanInfo;
@@ -1988,10 +2003,14 @@ public class JavaIntrospector
   private int _defaultPropertyIndex = -1;
 
   // cache mapping classes to their BeanInfos
-  private static Hashtable _sBeanInfoCache = new Hashtable();
+  private static Hashtable<Class<?>, BeanInfo> _sBeanInfoCache = 
+    new Hashtable<Class<?>, BeanInfo>();
 
   // Cache of public Class.getDeclaredMethods:
-  private static Hashtable _sPublicMethodCache = new Hashtable();
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is really needed.
+  private static Hashtable<Class<?>, Method[]> _sPublicMethodCache = 
+    new Hashtable<Class<?>, Method[]>();
 
   // true if SecurityManager will give us access to all declared fields
   // of the class.
@@ -2031,7 +2050,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     _targetBeanInfo = old._targetBeanInfo;
   }
 
-
+  @Override
   public PropertyDescriptor[] getPropertyDescriptors()
   {
     if (_properties == null)
@@ -2087,6 +2106,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _properties;
   }
 
+  @Override
   public int getDefaultPropertyIndex()
   {
     if (_defaultProperty == _DEFAULT_VALUE)
@@ -2099,6 +2119,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _defaultProperty;
   }
 
+  @Override
   public EventSetDescriptor[] getEventSetDescriptors()
   {
     if (_events == null)
@@ -2148,7 +2169,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _events;
   }
 
-
+  @Override
   public int getDefaultEventIndex()
   {
     if (_defaultEvent == _DEFAULT_VALUE)
@@ -2161,7 +2182,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _defaultEvent;
   }
 
-
+  @Override
   public MethodDescriptor[] getMethodDescriptors()
   {
     if (_methods == null)
@@ -2200,6 +2221,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _methods;
   }
 
+  @Override
   public BeanDescriptor getBeanDescriptor()
   {
     if (_beanDescriptor == null)
@@ -2226,6 +2248,7 @@ class GenericBeanInfo extends SimpleBeanInfo
     return _beanDescriptor;
   }
 
+  @Override
   public Image getIcon(
     int iconKind
     )

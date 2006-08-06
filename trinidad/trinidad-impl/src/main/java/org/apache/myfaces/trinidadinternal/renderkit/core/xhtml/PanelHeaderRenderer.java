@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
 
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -48,6 +49,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -57,12 +59,13 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     _messageTypeKey = type.findKey("messageType");
   }
   
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -138,7 +141,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     // need to clear after the header or you get strange behavior
     if ( nesting &&
          isIE(arc) &&
-         arc.getAgent().OS_WINDOWS == arc.getAgent().getAgentOS())
+         TrinidadAgent.OS_WINDOWS == arc.getAgent().getAgentOS())
     {
       writer.startElement("div", component);
       writer.writeAttribute("style","clear:both", null);

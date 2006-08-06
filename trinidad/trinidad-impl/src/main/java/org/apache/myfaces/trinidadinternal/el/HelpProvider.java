@@ -61,12 +61,12 @@ public abstract class HelpProvider
 {
   public static final String FRONT_PAGE_KEY = "frontPage";
 
-  public Map getHelpTopicMap()
+  public Map<String, Object> getHelpTopicMap()
   {
     return _topicMap;
   }
 
-  public Map getHelpSystemMap()
+  public Map<String, Object> getHelpSystemMap()
   {
     return _systemMap;
   }
@@ -99,33 +99,39 @@ public abstract class HelpProvider
    */
   protected abstract Object getHelpSystemValue(Object key);
 
-  private class HelpTopicMap extends AbstractMap
+  private class HelpTopicMap extends AbstractMap<String, Object>
   {
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<String, Object>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
 
+    @Override
     public Object get(Object key)
     {
       return getHelpTopicValue(key);
     }
   }
 
-  private class HelpSystemMap extends AbstractMap
+  private class HelpSystemMap extends AbstractMap<String, Object>
   {
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<String, Object>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
 
+    @Override
     public Object get(Object key)
     {
       return getHelpSystemValue(key);
     }
   }
 
-  private Map _topicMap = new HelpTopicMap();
-  private Map _systemMap = new HelpSystemMap();
+  private Map<String, Object> _topicMap = new HelpTopicMap();
+  private Map<String, Object> _systemMap = new HelpSystemMap();
 }
 

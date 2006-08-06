@@ -45,7 +45,7 @@ public class CSSStyle extends BaseStyle
    * @param properties The properties of this style.  The
    *   values must be Strings.
    */
-  public CSSStyle(Map properties)
+  public CSSStyle(Map<String, String> properties)
   {
     super(properties);
   }
@@ -64,6 +64,7 @@ public class CSSStyle extends BaseStyle
    * Converts the style to a String suitable for use as an inline style
    * attribute value.
    */
+  @Override
   public String toInlineString()
   {
     String inline = _inline;
@@ -71,7 +72,7 @@ public class CSSStyle extends BaseStyle
     if (inline != null)
       return inline;
 
-    Iterator e = getPropertyNames();
+    Iterator<Object> e = getPropertyNames();
     StringBuffer buffer = new StringBuffer(_DEFAULT_BUFFER_SIZE);
     boolean first = true;
 
@@ -106,6 +107,7 @@ public class CSSStyle extends BaseStyle
   /**
    * Sets the specified property value.
    */
+  @Override
   public void setProperty(String name, String value)
   {
     super.setProperty(name, value);
@@ -120,6 +122,7 @@ public class CSSStyle extends BaseStyle
   /**
    * Parses the property for the specified key.
    */
+  @Override
   protected Object parseProperty(Object key)
     throws PropertyParseException
   {
@@ -165,6 +168,7 @@ public class CSSStyle extends BaseStyle
     return value;
   }
 
+  @Override
   public String toString()
   {
     return "CSSStyle[css=" + toInlineString() + "]"; 

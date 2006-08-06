@@ -69,6 +69,7 @@ public abstract class AbstractWrappingPainter extends  AbstractPainter
    * <p>
    * @return The preferred size of the Painter.
    */
+  @Override
   public Dimension getPreferredSize(
     PaintContext context
     )

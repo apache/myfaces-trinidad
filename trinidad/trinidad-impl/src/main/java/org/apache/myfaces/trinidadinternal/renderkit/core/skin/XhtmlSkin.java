@@ -44,6 +44,7 @@ public class XhtmlSkin extends BaseSkin
   /**
    * @todo Move the "BLAF" bundle to a more generic location.
    */
+  @Override
   protected String getBundleName()
   {
     return _BUNDLE_CLASS;

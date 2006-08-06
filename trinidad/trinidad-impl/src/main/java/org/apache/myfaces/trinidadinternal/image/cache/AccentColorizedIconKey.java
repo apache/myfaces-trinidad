@@ -36,7 +36,7 @@ public class AccentColorizedIconKey extends BaseColorizedIconKey
    */
   public AccentColorizedIconKey(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     super(context, properties);
@@ -47,11 +47,11 @@ public class AccentColorizedIconKey extends BaseColorizedIconKey
    */
   protected AccentColorizedIconKey(
     ImageContext context,
-    String source,
-    Class  lookAndFeel,
-    int    direction,
-    Color  color,
-    Color  surroundingColor)
+    String   source,
+    Class<?> lookAndFeel,
+    int      direction,
+    Color    color,
+    Color    surroundingColor)
   {
     super(context, source, lookAndFeel, direction, color, surroundingColor);
   }
@@ -62,6 +62,7 @@ public class AccentColorizedIconKey extends BaseColorizedIconKey
    * @deprecated in favor of
    * {@link #AccentColorizedIconKey( ImageContext, String, Class, int, Color, Color)}
    */
+  @Deprecated
   protected AccentColorizedIconKey(
     ImageContext context,
     String source,
@@ -83,6 +84,7 @@ public class AccentColorizedIconKey extends BaseColorizedIconKey
    * Returns the color key for accent colorized icons: 
    * ImageConstants.DARK_ACCENT_COLOR_KEY.
    */
+  @Override
   public Object getColorKey()
   {
     return ImageConstants.DARK_ACCENT_COLOR_KEY;

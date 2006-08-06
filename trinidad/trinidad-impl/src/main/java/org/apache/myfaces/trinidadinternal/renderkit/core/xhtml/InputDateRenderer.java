@@ -26,11 +26,13 @@ public class InputDateRenderer extends InputLabelAndMessageRenderer
     super(CoreInputDate.TYPE);
   }  
   
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputDate;
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputDate";

@@ -48,6 +48,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     super(CorePanelFormLayout.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -58,6 +59,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     _maxColumnsKey = type.findKey("maxColumns");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -67,6 +69,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * This is how we can render both the user defined styleClass and our
    * component style class.
    */
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -130,6 +133,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     return XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -197,6 +202,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     rw.endElement("div"); // the root element
   }
   
+  @SuppressWarnings("unchecked")
   private void _encodeChildren(
     FacesContext        context,
     RenderingContext arc,
@@ -208,7 +214,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   {
     // We cannot render a nested panelForm with any more than a single column
     // so we must monitor whether we are nested or not:
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
     Integer nestLevelObject = (Integer)requestMap.get(PANEL_FORM_NEST_LEVEL_KEY);
     int nestLevel = 0;
     if (nestLevelObject != null)
@@ -220,7 +228,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // Iterate through the childPeers extracting and counting the number of
     // visible children, also count the visible children inside of visible
     // DhtmlGroupPeers:
-    List childComponents = component.getChildren();
+    List<UIComponent> childComponents = component.getChildren();
     FormItemInfo visibleFormItemInfo = _extractVisibleItems(childComponents);
     List<FormItem> visibleFormItems = visibleFormItemInfo.getFormItems();
     int totalFormItemCount = visibleFormItemInfo.getTotalFormItemCount();
@@ -353,6 +361,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * UIXGroups.
    * @param 
    */
+  @SuppressWarnings("unchecked")
   private FormItemInfo _extractVisibleItems(List<UIComponent> children)
   {
     FormItemInfo formItemInfo = new FormItemInfo();
@@ -568,6 +577,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       outerTableWidth);
   }
 
+  @SuppressWarnings("unchecked")
   private void _encodeFormColumns(
     FacesContext        context,
     RenderingContext arc,
@@ -717,7 +727,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       // If a peer wants to play well with panelForm, it must use the proper
       // PanelForm wrapper APIs to ensure proper DOM structure.
       _encodeBeforeLabelTd(context, arc, rw, startAlignedLabels);
-      Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
+      Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
       try
       {
         if (startAlignedLabels)
@@ -797,12 +807,15 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param rw ResponseWriter
    * @throws IOException
    */
+  @SuppressWarnings("unchecked")
   protected static void encodeBetweenLabelAndFieldCells(
     FacesContext        context,
     RenderingContext arc,
     ResponseWriter      rw) throws IOException
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
     Integer nestLevelObject = (Integer)requestMap.get(PANEL_FORM_NEST_LEVEL_KEY);
     if ( (nestLevelObject != null) &&
       (nestLevelObject.intValue() > 0) ) // top-aligned (labels stacked above fields)
@@ -942,9 +955,10 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   private PropertyKey _maxColumnsKey;
 
   // Overallocate because we basically want everything to miss
-  private static final Set _UNSUPPORTED_RENDERER_TYPES = new HashSet(64);
+  private static final Set<String> _UNSUPPORTED_RENDERER_TYPES;
   static
   {
+    _UNSUPPORTED_RENDERER_TYPES = new HashSet<String>(64);
     _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.Hidden");
     _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.Shuttle");
     _UNSUPPORTED_RENDERER_TYPES.add("org.apache.myfaces.trinidad.rich.Hidden");
@@ -957,8 +971,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   private static final int _COLUMNS_DEFAULT = 3;
 
   // we need a  resource key map since we are using LabelAndMessageRenderer.
-  private static final Map _RESOURCE_KEY_SIDE_BY_SIDE_MAP = new HashMap();
-  private static final Map _RESOURCE_KEY_STACKED_MAP = new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_SIDE_BY_SIDE_MAP;
+  private static final Map<String, String> _RESOURCE_KEY_STACKED_MAP;
 
   static
   {
@@ -967,6 +981,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     // instead of the generic prompt cell style.
 
     // Start-aligned labels for side-by-side orientation:
+    _RESOURCE_KEY_SIDE_BY_SIDE_MAP = new HashMap<String, String>();
+    
     _RESOURCE_KEY_SIDE_BY_SIDE_MAP.put(
       XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS,
       XhtmlConstants.AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS);
@@ -978,6 +994,8 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       XhtmlConstants.AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS);
 
     // Stacked labels for one-over-the-other orientation:
+    _RESOURCE_KEY_STACKED_MAP = new HashMap<String, String>();
+    
     _RESOURCE_KEY_STACKED_MAP.put(
       XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS,
       XhtmlConstants.AF_PANEL_FORM_LABEL_STACKED_CELL_STYLE_CLASS);

@@ -53,6 +53,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -65,6 +66,8 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
   // DECODE BEHAVIOR
   //
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     super.decode(context, component);
@@ -81,7 +84,9 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     }
     else
     {
-      Map parameterMap = context.getExternalContext().getRequestParameterMap();
+      Map<String, String> parameterMap = 
+        context.getExternalContext().getRequestParameterMap();
+      
       Object source = parameterMap.get("source");
       String clientId = component.getClientId(context);
       if ((source != null) && source.equals(clientId))
@@ -125,6 +130,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
   // Encode behavior
   //
 
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -147,6 +153,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
       rw.endElement("span");
   }
   
+  @Override
   protected void encodeAllAsNonElement(
     FacesContext        context,
     RenderingContext arc,
@@ -171,6 +178,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
    * the span and root dom element styles on the text field, which we 
    * don't, since we do it ourselves on our root dom element.
    */
+  @Override
   protected boolean isSimpleInputText(FacesBean bean)
   {
     return false;
@@ -317,12 +325,14 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     }
   }
 
+  @Override
   public boolean isTextArea(
     FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected boolean getSecret(FacesBean bean)
   {
     return false;
@@ -332,6 +342,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
    * We want onclick to move from the input field to the button;
    * @see #getButtonOnclick
    */
+  @Override
   protected String getOnclick(FacesBean bean)
   {
     return null;
@@ -360,11 +371,13 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     return toUri(bean.getProperty(_iconKey));
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputListOfValues";
   }
 
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|inputListOfValues::content";

@@ -39,10 +39,12 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  */
 public class ProgressRenderer extends UINodeRendererBase
 {
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     UIXProgress progressComponent = (UIXProgress)component;
-    Map attrs = component.getAttributes();
+    Map<String, Object> attrs = component.getAttributes();
 
     Object modelValue= attrs.get(UIConstants.VALUE_PARAM);
     if (modelValue instanceof BoundedRangeModel)
@@ -61,11 +63,13 @@ public class ProgressRenderer extends UINodeRendererBase
     }
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
     throws IOException
   {
     //pu: This seems to be the best place to validate the model for the value
-    Map attrs = component.getAttributes();
+    Map<String, Object> attrs = component.getAttributes();
     Object modelObject = attrs.get(UIConstants.VALUE_PARAM);
     if (modelObject == null || !(modelObject instanceof BoundedRangeModel))
     {

@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
 public class MessageBoxRenderer extends UINodeRendererBase
 {
+  @Override
   public void encodeBegin(
     FacesContext context,
     UIComponent  component) throws IOException

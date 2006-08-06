@@ -42,6 +42,7 @@ public class AccessKeyBinding extends ValueBindingAdapter
     super(base);
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     Object o = super.getValue(context);
@@ -56,7 +57,8 @@ public class AccessKeyBinding extends ValueBindingAdapter
     return new Character(text.charAt(accessKeyIndex + 1));
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return Character.class;
   }

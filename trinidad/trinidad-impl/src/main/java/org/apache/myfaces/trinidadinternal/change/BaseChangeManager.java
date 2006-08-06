@@ -57,6 +57,7 @@ abstract class BaseChangeManager extends ChangeManager
    * @todo =-=pu : Maybe we need to allow adding Changes for specific viewId's -
    *  BIBeans req. - external customizer dialog
    */
+  @Override
   public void addComponentChange(
     FacesContext facesContext,
     UIComponent uiComponent,
@@ -94,6 +95,7 @@ abstract class BaseChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
+  @Override
   public void addDocumentChange(
     FacesContext facesContext,
     UIComponent uiComponent,
@@ -140,7 +142,8 @@ abstract class BaseChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
-  public Iterator getComponentChanges(
+  @Override
+  public Iterator<ComponentChange> getComponentChanges(
     FacesContext facesContext,
     UIComponent uiComponent)
   {
@@ -148,14 +151,14 @@ abstract class BaseChangeManager extends ChangeManager
       return null;
 
     String viewId = facesContext.getViewRoot().getViewId();
-    Map componentToChangesMap =
+    Map<String, List<ComponentChange>> componentToChangesMap =
        getComponentToChangesMapForView(facesContext, viewId, false);
 
     if (componentToChangesMap == null)
       return null;
 
     String uniqueIdForComponent = _getUniqueIdForComponent(uiComponent);
-    List changesList = (List) componentToChangesMap.get(uniqueIdForComponent);
+    List<ComponentChange> changesList = componentToChangesMap.get(uniqueIdForComponent);
     if (changesList == null)
       return null;
 
@@ -165,10 +168,11 @@ abstract class BaseChangeManager extends ChangeManager
   /**
    * {@inheritDoc}
    */
-  public Iterator getComponentIdsWithChanges(FacesContext facesContext)
+  @Override
+  public Iterator<String> getComponentIdsWithChanges(FacesContext facesContext)
   {
     String viewId = facesContext.getViewRoot().getViewId();
-    Map componentToChangesMap =
+    Map<String, List<ComponentChange>> componentToChangesMap =
        getComponentToChangesMapForView(facesContext, viewId, false);
 
     if (componentToChangesMap == null)
@@ -187,7 +191,7 @@ abstract class BaseChangeManager extends ChangeManager
    *        already present
    * @return Map of componentID tokens to Lists of Changes
    */
-  protected abstract Map getComponentToChangesMapForView(
+  protected abstract Map<String, List<ComponentChange>> getComponentToChangesMapForView(
     FacesContext facesContext,
     String viewId,
     boolean createIfNecessary);
@@ -203,18 +207,18 @@ abstract class BaseChangeManager extends ChangeManager
   {
     String viewId = facesContext.getViewRoot().getViewId();
 
-    Map componentToChangesMap = getComponentToChangesMapForView(facesContext,
+    Map<String, List<ComponentChange>> componentToChangesMap = getComponentToChangesMapForView(facesContext,
                                                                 viewId,
                                                                 true);
 
     String uniqueIdForComponent = _getUniqueIdForComponent(uiComponent);
 
-    List changeListForComponent =
-      (List) componentToChangesMap.get(uniqueIdForComponent);
+    List<ComponentChange> changeListForComponent = 
+      componentToChangesMap.get(uniqueIdForComponent);
 
     if (changeListForComponent == null)
     {
-      changeListForComponent = new LinkedList();
+      changeListForComponent = new LinkedList<ComponentChange>();
       componentToChangesMap.put(uniqueIdForComponent, changeListForComponent);
     }
 
@@ -283,11 +287,11 @@ abstract class BaseChangeManager extends ChangeManager
   {
     if (document instanceof DocumentTraversal)
     {
-      List idPath = _getIdPath(component);
+      List<String> idPath = _getIdPath(component);
 
       if (!idPath.isEmpty())
       {
-        Iterator pathIds = idPath.iterator();
+        Iterator<String> pathIds = idPath.iterator();
 
         DocumentTraversal traversalFactory = (DocumentTraversal)document;
         TreeWalker walker = traversalFactory.createTreeWalker(
@@ -296,9 +300,9 @@ abstract class BaseChangeManager extends ChangeManager
                                    null,
                                    true);
 
-        Node currElement = (Element)walker.getCurrentNode();
+        Node currElement = walker.getCurrentNode();
         Node stopElement = walker.getRoot();
-        String neededID = (String)pathIds.next();
+        String neededID = pathIds.next();
 
         do
         {
@@ -319,7 +323,7 @@ abstract class BaseChangeManager extends ChangeManager
                 return currElement;
 
               // update the id we need
-              neededID = (String)pathIds.next();
+              neededID = pathIds.next();
 
               // don't pop back up to this parent
               stopElement = currElement;
@@ -391,7 +395,8 @@ abstract class BaseChangeManager extends ChangeManager
    * @param component
    * @return
    */
-  private List _getIdPath(UIComponent component)
+  @SuppressWarnings("unchecked")
+  private List<String> _getIdPath(UIComponent component)
   {
     String componentID = component.getId();
 
@@ -399,7 +404,7 @@ abstract class BaseChangeManager extends ChangeManager
     if ((componentID == null) || (componentID.length() == 0))
       return Collections.EMPTY_LIST;
 
-    LinkedList pathList = new LinkedList();
+    LinkedList<String> pathList = new LinkedList<String>();
     pathList.addFirst(componentID);
 
     UIComponent currAncestor = component.getParent();

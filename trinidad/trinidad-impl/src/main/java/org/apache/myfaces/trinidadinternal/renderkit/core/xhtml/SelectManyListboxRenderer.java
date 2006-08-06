@@ -27,16 +27,19 @@ public class SelectManyListboxRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectManyListbox.TYPE);
   }  
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectManyListbox";
   }
   
+  @Override
   protected String getDefaultLabelValign(FacesBean bean)
   {
     return "top";
   }
 
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectManyListbox;

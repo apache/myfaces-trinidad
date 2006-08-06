@@ -146,7 +146,8 @@ public class StyleSheetDocumentUtils
                                       document2.getDocumentTimestamp());
 
     // Now get the merged set of StyleSheetNodes
-    ArrayList styleSheetsList = new ArrayList();
+    List<StyleSheetNode> styleSheetsList = 
+      new ArrayList<StyleSheetNode>();
 
     _addStyleSheets(styleSheetsList, document1);
     _addStyleSheets(styleSheetsList, document2);
@@ -165,13 +166,13 @@ public class StyleSheetDocumentUtils
   // Adds the StyleSheetNodes from the specified StyleSheetDocument
   // into the List of StyleSheetNodes.
   private static void _addStyleSheets(
-    List               styleSheets,
-    StyleSheetDocument document
+    List<StyleSheetNode> styleSheets,
+    StyleSheetDocument   document
     )
   {
-    Iterator e = document.getStyleSheets();
+    Iterator<StyleSheetNode> e = document.getStyleSheets();
     while (e.hasNext())
-      styleSheets.add((StyleSheetNode)e.next());
+      styleSheets.add(e.next());
   }
 
   // Merges the StyleSheetDocument versions of two documents
@@ -223,7 +224,7 @@ public class StyleSheetDocumentUtils
 
   private static void _registerFactory(
     ParserManager manager,
-    Class expectedType,
+    Class<?> expectedType,
     String baseName
     )
   {

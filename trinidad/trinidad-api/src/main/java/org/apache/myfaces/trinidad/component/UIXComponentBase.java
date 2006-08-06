@@ -560,6 +560,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
   // ------------------------------------------- Event processing methods
 
+  @SuppressWarnings("unchecked")
   @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
@@ -578,10 +579,12 @@ abstract public class UIXComponentBase extends UIXComponent
         adfContext.partialUpdateNotify(component);
     }
 
-    Iterator<Object> iter = getFacesBean().entries(_LISTENERS_KEY);
+    Iterator<FacesListener> iter = 
+      (Iterator<FacesListener>)getFacesBean().entries(_LISTENERS_KEY);
+    
     while (iter.hasNext())
     {
-      FacesListener listener = (FacesListener) iter.next();
+      FacesListener listener = iter.next();
       if (event.isAppropriateListener(listener))
       {
         event.processListener(listener);
@@ -606,8 +609,8 @@ abstract public class UIXComponentBase extends UIXComponent
       throw new NullPointerException();
 
     // Find all the partialTriggers and save on the context
-    // FIXME: -= Simon Lessard =-
-    //        JSF 1.2 specify <String, Object>
+    // -= Simon Lessard =-
+    // FIXME: JSF 1.2 specify <String, Object>
     Map<Object, Object> attrs = getAttributes();
     Object triggers = attrs.get("partialTriggers");
     if (triggers instanceof String[])
@@ -809,8 +812,8 @@ abstract public class UIXComponentBase extends UIXComponent
   @Override
   public void markInitialState()
   {
-    // FIXME: -= Simon Lessard =-
-    //        Set to true, but never read
+    // -= Simon Lessard =-
+    // FIXME: Set to true, but never read
     //_initialStateMarked = true;
     getFacesBean().markInitialState();
   }
@@ -1272,15 +1275,16 @@ abstract public class UIXComponentBase extends UIXComponent
     if (oldBean != null)
       _facesBean.addAll(oldBean);
 
-    // FIXME: -= Simon Lessard =- 
-    //        JSF 1.2 specify <String, Object>, but ValueMap
+    // -= Simon Lessard =-
+    // FIXME: JSF 1.2 specify <String, Object>, but ValueMap
     //        accept PropertyKey as key as well
     _attributes = new ValueMap(_facesBean);
   }
 
   private FacesBean                _facesBean;
   private List<UIComponent>        _children;
-  // FIXME: -= Simon Lessard =- JSF 1.2 specify <String, Object>
+  // -= Simon Lessard =-
+  // FIXME: JSF 1.2 specify <String, Object>
   private Map<Object, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
@@ -1291,8 +1295,8 @@ abstract public class UIXComponentBase extends UIXComponent
   private transient LifecycleRenderer _cachedLifecycleRenderer =
                                                 _UNDEFINED_LIFECYCLE_RENDERER;
   
-  // FIXME: -= Simon Lessard =- 
-  //        _initialStateMarked is never read 
+  // -= Simon Lessard =-
+  // FIXME: _initialStateMarked is never read 
   //        So commented out, is that ok? If so, this attribute should be deleted
   //private transient boolean _initialStateMarked;
 

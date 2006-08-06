@@ -17,10 +17,9 @@ package org.apache.myfaces.trinidadinternal.util;
 
 import java.util.AbstractMap;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
-
-
 
 
 /**
@@ -40,7 +39,7 @@ import java.util.Set;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/util/OptimisticHashMap.java#0 $) $Date: 10-nov-2005.19:56:01 $
  * @author The Oracle ADF Faces Team
  */
-public class OptimisticHashMap extends AbstractMap implements Cloneable
+public class OptimisticHashMap<K, V> extends AbstractMap<K, V> implements Cloneable
 {
   /**
    * Constructs a new, empty OptimisticHashMap with the specified initial
@@ -51,6 +50,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @exception  IllegalArgumentException  if the initial capacity is less
    *             than zero, or if the load factor is nonpositive.
    */
+  @SuppressWarnings("unchecked")
   public OptimisticHashMap(
     int   initialCapacity,
     float loadFactor
@@ -99,7 +99,8 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
   /**
    *
    */
-  public Set entrySet()
+  @Override
+  public Set<Map.Entry<K, V>> entrySet()
   {
     throw new UnsupportedOperationException("entrySet not supported for OptimisticHashMap");
   }
@@ -109,6 +110,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    *
    * @return  the number of keys in this hashtable.
    */
+  @Override
   public int size()
   {
     return _entryCount;
@@ -120,6 +122,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @return  <code>true</code> if this hashtable maps no keys to values;
    *          <code>false</code> otherwise.
    */
+  @Override
   public boolean isEmpty()
   {
     return (_entryCount == 0);
@@ -131,9 +134,9 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @return  an enumeration of the keys in this hashtable.
    * @see     Enumeration
    */
-  public synchronized Enumeration keys()
+  public synchronized Enumeration<K> keys()
   {
-    return new Enumerator(true);
+    return new KeyEnumerator();
   }
 
   /**
@@ -145,9 +148,9 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @see     java.util.Enumeration
    * @see     #keys()
    */
-  public synchronized Enumeration elements()
+  public synchronized Enumeration<V> elements()
   {
-    return new Enumerator(false);
+    return new ValueEnumerator();
   }
 
 
@@ -173,11 +176,11 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
       throw new NullPointerException();
     }
 
-    Entry[] bins = _bins;
+    Entry<K, V>[] bins = _bins;
 
     for (int i = bins.length ; i-- > 0 ;)
     {
-      for (Entry entry = bins[i] ; entry != null ; entry = entry.next)
+      for (Entry<K, V> entry = bins[i] ; entry != null ; entry = entry.next)
       {
         if (value.equals(entry.value))
         {
@@ -195,7 +198,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
 
       for (int i = bins.length ; i-- > 0 ;)
       {
-        for (Entry entry = bins[i] ; entry != null ; entry = entry.next)
+        for (Entry<K, V> entry = bins[i] ; entry != null ; entry = entry.next)
         {
           if (value.equals(entry.value))
           {
@@ -218,6 +221,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    *          <tt>equals</tt> method; <code>false</code> otherwise.
    * @see     #contains(Object)
    */
+  @Override
   public boolean containsKey(
     Object key
     )
@@ -234,20 +238,21 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    *          this hashtable.
    * @see     #put(Object, Object)
    */
-  public Object get(
+  @Override
+  public V get(
     Object key
     )
   {
     if (key == null)
       throw new IllegalArgumentException();
 
-    int     hash  = key.hashCode();
-    Entry[] bins  = _bins;
-    int     index = (hash & 0x7FFFFFFF) % bins.length;
+    int           hash  = key.hashCode();
+    Entry<K, V>[] bins  = _bins;
+    int           index = (hash & 0x7FFFFFFF) % bins.length;
 
-    Object result = null;
+    V result = null;
 
-    for (Entry entry = bins[index]; entry != null ; entry = entry.next)
+    for (Entry<K, V> entry = bins[index]; entry != null ; entry = entry.next)
     {
       if ((entry.hash == hash) && key.equals(entry.key))
       {
@@ -266,7 +271,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
         bins  = _bins;
         index = (hash & 0x7FFFFFFF) % bins.length;
 
-        for (Entry entry = bins[index]; entry != null ; entry = entry.next)
+        for (Entry<K, V> entry = bins[index]; entry != null ; entry = entry.next)
         {
           if ((hash == entry.hash) && key.equals(entry.key))
           {
@@ -286,9 +291,10 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * number of keys in the hashtable exceeds this hashtable's capacity
    * and load factor.
    */
+  @SuppressWarnings("unchecked")
   protected void rehash()
   {
-    Entry[] oldBins = _bins;
+    Entry<K, V>[] oldBins = _bins;
     int oldCapacity = oldBins.length;
 
     // detemine the percentage of of the load that was real entries
@@ -306,7 +312,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
       //
       // we have a lot of empty entries, so increase the capacity by
       // the empty factor
-      newCapacity = (int)(((double)oldCapacity) * (1.0 / realFactor) + 1.0);
+      newCapacity = (int)(oldCapacity * (1.0 / realFactor) + 1.0);
 
       // make sure that the new bin size is at least odd
       if ((newCapacity & 1) == 1)
@@ -316,14 +322,14 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
     }
 
     // allocate the new bins
-    Entry[] newBins = new Entry[newCapacity];
+    Entry<K, V>[] newBins = new Entry[newCapacity];
 
     // calculate the new load factor
     _threshold = (int)(newCapacity * _loadFactor);
 
     for (int i = oldCapacity ; i-- > 0 ;)
     {
-      for (Entry oldEntry = oldBins[i];
+      for (Entry<K, V> oldEntry = oldBins[i];
           oldEntry != null;
           oldEntry = oldEntry.next)
       {
@@ -335,10 +341,10 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
 
           // create a new entry instance of the new entry to avoid hosing
           // unsynchronized readers
-          Entry newEntry = new Entry(oldEntry.hash,
-                                     oldEntry.key,
-                                     oldEntry.value,
-                                     newBins[newBinIndex]);
+          Entry<K, V> newEntry = new Entry<K, V>(oldEntry.hash,
+                                                 oldEntry.key,
+                                                 oldEntry.value,
+                                                 newBins[newBinIndex]);
 
 
           // add the entry to the front of the correct bin
@@ -371,9 +377,10 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @see     Object#equals(Object)
    * @see     #get(Object)
    */
-  public synchronized Object put(
-    Object key,
-    Object value
+  @Override
+  public synchronized V put(
+    K key,
+    V value
     )
   {
     // make sure that the key isn't null
@@ -389,15 +396,15 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
     //
     // Check if the key is already in the Hashtable
     //
-    Entry[] bins  = _bins;
-    int     hash  = key.hashCode();
-    int     index = (hash & 0x7FFFFFFF) % bins.length;
+    Entry<K, V>[] bins  = _bins;
+    int           hash  = key.hashCode();
+    int           index = (hash & 0x7FFFFFFF) % bins.length;
 
-    for (Entry entry = bins[index] ; entry != null; entry = entry.next)
+    for (Entry<K, V> entry = bins[index] ; entry != null; entry = entry.next)
     {
       if ((entry.hash == hash) && key.equals(entry.key))
       {
-        Object returnValue = entry.value;
+        V returnValue = entry.value;
 
         // assign the new value
         entry.value = value;
@@ -420,7 +427,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
     }
 
     // Creates the new entry
-    bins[index] = new Entry(hash, key, value, bins[index]);
+    bins[index] = new Entry<K, V>(hash, key, value, bins[index]);
     _entryCount++;
     _realCount++;
 
@@ -435,7 +442,8 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    * @return  the value to which the key had been mapped in this hashtable,
    *          or <code>null</code> if the key did not have a mapping.
    */
-  public synchronized Object remove(
+  @Override
+  public synchronized V remove(
     Object key
     )
   {
@@ -446,15 +454,15 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
     //
     // Check if the key is already in the Hashtable
     //
-    Entry[] bins  = _bins;
-    int     hash  = key.hashCode();
-    int     index = (hash & 0x7FFFFFFF) % bins.length;
+    Entry<K, V>[] bins  = _bins;
+    int           hash  = key.hashCode();
+    int           index = (hash & 0x7FFFFFFF) % bins.length;
 
-    for (Entry entry = bins[index] ; entry != null; entry = entry.next)
+    for (Entry<K, V> entry = bins[index] ; entry != null; entry = entry.next)
     {
       if ((entry.hash == hash) && key.equals(entry.key))
       {
-        Object returnValue = entry.value;
+        V returnValue = entry.value;
 
         // mark the entry as removed
         entry.value = null;
@@ -474,6 +482,8 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
   /**
    * Clears this hashtable so that it contains no keys.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public synchronized void clear()
   {
     // reset the count of the number of entries
@@ -494,22 +504,25 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    *
    * @return  a clone of the hashtable.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public synchronized Object clone()
   {
     try
     {
-      OptimisticHashMap newHashtable = (OptimisticHashMap)super.clone();
+      OptimisticHashMap<K, V> newHashtable = 
+        (OptimisticHashMap<K, V>)super.clone();
 
-      Entry[] oldBins = newHashtable._bins;
-      Entry[] newBins = new Entry[oldBins.length];
+      Entry<K, V>[] oldBins = newHashtable._bins;
+      Entry<K, V>[] newBins = new Entry[oldBins.length];
 
       for (int i = newBins.length ; i-- > 0 ;)
       {
-        Entry currBin = oldBins[i];
+        Entry<K, V> currBin = oldBins[i];
 
         // clone the list of bins (Entry does this for us)
         newBins[i] = ((currBin != null) && (currBin.value != null))
-                       ? (Entry)currBin.clone()
+                       ? (Entry<K, V>)currBin.clone()
                        : null;
       }
 
@@ -540,6 +553,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
    *
    * @return  a string representation of this hashtable.
    */
+  @Override
   public String toString()
   {
     //
@@ -549,7 +563,7 @@ public class OptimisticHashMap extends AbstractMap implements Cloneable
     //
     StringBuffer buff = new StringBuffer();
 
-    Enumeration keys = keys();
+    Enumeration<K> keys = keys();
 
     buff.append('{');
 
@@ -641,18 +655,18 @@ return h;
    * Hashtable collision list.
    *
    */
-  private static class Entry implements Cloneable
+  private static class Entry<K, V> implements Cloneable
   {
-    int    hash;
-    Object key;
-    Object value;
-    Entry  next;
+    int         hash;
+    K           key;
+    V           value;
+    Entry<K, V> next;
 
     protected Entry(
-      int    hash,
-      Object key,
-      Object value,
-      Entry  next
+      int         hash,
+      K           key,
+      V           value,
+      Entry<K, V> next
       )
     {
       this.hash  = hash;
@@ -662,43 +676,37 @@ return h;
     }
 
     // clone the entire entry chain
+    @Override
     protected Object clone()
     {
       //
       // Don't clone any chains to empty entrys
       //
-      Entry nextEntry = next;
+      Entry<K, V> nextEntry = next;
 
       while ((nextEntry != null) && (nextEntry.value == null))
       {
         nextEntry = nextEntry.next;
       }
 
-      return new Entry(hash, key, value, nextEntry);
+      return new Entry<K, V>(hash, key, value, nextEntry);
     }
   }
-
-  /**
-   * A hashtable enumerator class.  This implementation tries to return almost
-   * all of the request keys or values, but may not
-   */
-  private class Enumerator implements Enumeration
+  
+  private abstract class BaseEnumerator<T> implements Enumeration<T>
   {
-    public Enumerator(
-      boolean returnKeys
-      )
+    public BaseEnumerator()
     {
-      _returnKeys = returnKeys;
-
       // get a reference to the current bins to avoid
-      _bins = OptimisticHashMap.this._bins;
       _binIndex = _bins.length;
     }
 
     public boolean hasMoreElements()
     {
       if (_currEntry != null)
+      {
         return true;
+      }
       else
       {
         while (_binIndex-- > 0)
@@ -706,7 +714,7 @@ return h;
           _currEntry = _bins[_binIndex];
 
           // skip the empty entries that haven't been removed yet
-          while ((_currEntry != null) && (_currEntry.value == null))
+          while (_currEntry != null && _currEntry.value == null)
           {
             _currEntry = _currEntry.next;
           }
@@ -720,8 +728,8 @@ return h;
 
       return false;
     }
-
-    public Object nextElement()
+    
+    public T nextElement()
     {
       if (_currEntry == null)
       {
@@ -731,35 +739,50 @@ return h;
         }
       }
 
-      Entry result = _currEntry;
+      Entry<K, V> result = _currEntry;
 
       _currEntry = _currEntry.next;
 
       // skip the empty entries that haven't been removed yet
-      while ((_currEntry != null) && (_currEntry.value == null))
+      while (_currEntry != null && _currEntry.value == null)
       {
         _currEntry = _currEntry.next;
       }
 
-      if (_returnKeys)
-      {
-        return result.key;
-      }
-      else
-      {
-        return result.value;
-      }
+      return getData(result);
+      
     }
+    
+    protected abstract T getData(Entry<K, V> entry);
 
-    private Entry[] _bins;
-    private Entry _currEntry;
-    private int _binIndex;
+    private Entry<K, V> _currEntry;
+    private int         _binIndex;
+  }
 
-    private boolean _returnKeys;
+  /**
+   * A hashtable enumerator class.  This implementation tries to return almost
+   * all of the request keys or values, but may not
+   */
+  private class KeyEnumerator extends BaseEnumerator<K>
+  {
+    @Override
+    protected K getData(Entry<K, V> entry)
+    {
+      return entry.key;
+    }
+  }
+  
+  private class ValueEnumerator extends BaseEnumerator<V>
+  {
+    @Override
+    protected V getData(Entry<K, V> entry)
+    {
+      return entry.value;
+    }
   }
 
   // The hash table data.
-  private transient Entry _bins[];
+  private transient Entry<K, V>[] _bins;
 
   // The total number of entries in the hash table.
   private transient int _entryCount;

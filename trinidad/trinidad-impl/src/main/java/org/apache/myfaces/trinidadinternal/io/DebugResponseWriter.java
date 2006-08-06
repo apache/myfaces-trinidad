@@ -45,23 +45,25 @@
    public DebugResponseWriter(ResponseWriter decorated)
    {
      super(decorated);
-     _elementStack = new Stack();
-     _idMap = new HashMap();
-     _attributes = new HashSet();
+     _elementStack = new Stack<String>();
+     _idMap = new HashMap<Object, Boolean>();
+     _attributes = new HashSet<String>();
    }
 
    /**
     * Creates a new instance of this DebugResponseWriter, using a different
     * Writer.
     */
-   public ResponseWriter cloneWithWriter(Writer writer)
+   @Override
+  public ResponseWriter cloneWithWriter(Writer writer)
    {
      return new DebugResponseWriter(
        getResponseWriter().cloneWithWriter(writer));
    }
 
 
-   public void endDocument() throws IOException
+   @Override
+  public void endDocument() throws IOException
    {
      super.endDocument();
      if (!_elementStack.empty())
@@ -75,7 +77,8 @@
    /**
     * Writes a comment.
     */
-   public void writeComment(Object text) throws IOException
+   @Override
+  public void writeComment(Object text) throws IOException
    {
      if ((text != null) && (text.toString().indexOf("--") >= 0))
        _LOG.warning("Comments cannot include \"--\"");
@@ -88,7 +91,8 @@
    /**
     * Writes a String, escaped properly for this method.
     */
-   public void writeText(Object text, String componentPropertyName) throws IOException
+   @Override
+  public void writeText(Object text, String componentPropertyName) throws IOException
    {
      _inElement = false;
      super.writeText(text, componentPropertyName);
@@ -97,7 +101,8 @@
    /**
     * Writes a character array, escaped properly for this method.
     */
-   public void writeText(
+   @Override
+  public void writeText(
      char[]      text,
      int         start,
      int         length) throws IOException
@@ -110,7 +115,8 @@
    /**
     * Writes a string, without performing any escaping.
     */
-   public void write(String text) throws IOException
+   @Override
+  public void write(String text) throws IOException
    {
      _inElement = false;
      super.write(text);
@@ -119,7 +125,8 @@
    /**
     * Writes a character array, without performing any escaping.
     */
-   public void write(
+   @Override
+  public void write(
      char[]      text,
      int         start,
      int         length) throws IOException
@@ -132,7 +139,8 @@
    /**
     * Writes a character, without performing any escaping.
     */
-   public void write(
+   @Override
+  public void write(
      int ch
      ) throws IOException
    {
@@ -141,7 +149,8 @@
    }
 
 
-   public void startElement(String name, UIComponent component) throws IOException
+   @Override
+  public void startElement(String name, UIComponent component) throws IOException
    {
      if ((component != null) && (_lastComponentStarted != component))
      {
@@ -164,7 +173,8 @@
    }
 
 
-   public void endElement(String name) throws IOException
+   @Override
+  public void endElement(String name) throws IOException
    {
      _inElement = false;
      _lastComponentStarted = null;
@@ -195,7 +205,8 @@
      super.endElement(name);
    }
 
-   public void writeAttribute(String name,
+   @Override
+  public void writeAttribute(String name,
                               Object value,
                               String componentPropertyName)
          throws IOException
@@ -223,7 +234,8 @@
      super.writeAttribute(name, value, componentPropertyName);
    }
 
-   public void writeURIAttribute(
+   @Override
+  public void writeURIAttribute(
      String     name,
      Object     value,
      String     componentPropertyName) throws IOException
@@ -300,15 +312,15 @@
    private boolean      _inElement;
    // Yes, Stack is slow and lame.  This code is used for debugging
    // only, so that is of little concern.
-   private Stack        _elementStack;
+   private Stack<String> _elementStack;
    // the following is used to keep track of how many time endElement is called.
    // This is to help in debuggin. An often error is that some element was
    // too many times or too few times. But by the time the error is detected
    // it is too late. Now we can print out this count, and you can set the
    // debugger to stop when the count-1 'th endElement is called:
-   private int          _endElementCount = 0;
-   private Map          _idMap;
-   private Set          _attributes;
+   private int                  _endElementCount = 0;
+   private Map<Object, Boolean> _idMap;
+   private Set<String>          _attributes;
    // Last component that had a "start" component output;  used
    // to avoid multiple "start" comments
    private UIComponent  _lastComponentStarted;

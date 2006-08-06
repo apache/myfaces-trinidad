@@ -33,6 +33,7 @@ public class StringParser extends BaseNodeParser
   {
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -41,6 +42,7 @@ public class StringParser extends BaseNodeParser
     return _buffer.toString();
   }
 
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,
@@ -56,6 +58,7 @@ public class StringParser extends BaseNodeParser
     _buffer.append(text, start, length);
   }
   
+  @Override
   public void addWhitespace(
     ParseContext context,
     char[]       text,
@@ -72,6 +75,7 @@ public class StringParser extends BaseNodeParser
     }
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,

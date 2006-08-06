@@ -101,7 +101,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
       int size = _buffers.size();
       for (int i = 0; i < size; i++)
       {
-        byte[] buffer = (byte[]) _buffers.get(i);
+        byte[] buffer = _buffers.get(i);
         int bytes;
         if (i == (size - 1))
           bytes = _sizeOfLastBuffer;
@@ -179,7 +179,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
       _length           = _length + bytes;
 
       if (_buffers == null)
-        _buffers = new ArrayList();
+        _buffers = new ArrayList<byte[]>();
       _buffers.add(buffer);
       
       // If we're done, bail right here.
@@ -237,8 +237,8 @@ public class UploadedFileImpl implements UploadedFile, Serializable
       }
     }
   }
-
-
+  
+  @Override
   public int hashCode()
   {
     if (_filename == null)
@@ -246,6 +246,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
     return _filename.hashCode();
   }
 
+  @Override
   public boolean equals(Object o)
   {
     // UploadedFiles are only equal to themselves.
@@ -316,14 +317,14 @@ public class UploadedFileImpl implements UploadedFile, Serializable
   //
   static private class BufferIS extends InputStream
   {
-    public BufferIS(List bufferList, int sizeOfLastBuffer)
+    public BufferIS(List<byte[]> bufferList, int sizeOfLastBuffer)
     {
       _bufferList = bufferList;
       _sizeOfLastBuffer = sizeOfLastBuffer;
     }
 
-    
     // Read a single byte.
+    @Override
     public int read()
     {
       int bufferIndex = _bufferIndex;
@@ -339,8 +340,8 @@ public class UploadedFileImpl implements UploadedFile, Serializable
       return currByte & 0xff; 
     }
     
-
     // Read into a buffer.
+    @Override
     public int read(byte b[], int off, int len)
     {
       int bufferIndex = _bufferIndex;
@@ -367,6 +368,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
     // Returns the number of bytes that will be made avaialable
     // in the next call to read(byte[], int, int);
     //
+    @Override
     public int available()
     {
       int bufferIndex = _bufferIndex;
@@ -408,11 +410,11 @@ public class UploadedFileImpl implements UploadedFile, Serializable
     // Return a buffer.
     private byte[] _getBuffer(int bufferIndex)
     {
-      return (byte[]) _bufferList.get(bufferIndex);
+      return _bufferList.get(bufferIndex);
     }
 
     // ArrayList of all the buffers
-    private List _bufferList;
+    private List<byte[]> _bufferList;
     // The number of bytes in the last buffer (which may not be full)
     private int  _sizeOfLastBuffer;
 
@@ -436,7 +438,7 @@ public class UploadedFileImpl implements UploadedFile, Serializable
 
   // ArrayList of all the in-memory buffers (or null if it's in
   // a File)
-  transient private ArrayList  _buffers;
+  transient private ArrayList<byte[]> _buffers;
   // The number of bytes in the last buffer (which may not be full)
   transient private int        _sizeOfLastBuffer;
 

@@ -58,9 +58,12 @@ public class TrainRenderer
   
   /**
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map requestMap = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestMap = 
+      context.getExternalContext().getRequestParameterMap();
 
     Object event = requestMap.get(XhtmlConstants.EVENT_PARAM);
 
@@ -135,11 +138,13 @@ public class TrainRenderer
   /**
    * @return
    */
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext context, 
     RenderingContext arc, 
@@ -190,6 +195,7 @@ public class TrainRenderer
    * This is how we can render both the user defined styleClass and our
    * component style class
    */
+  @Override
   protected void renderStyleAttributes(
     FacesContext context, 
     RenderingContext arc, 
@@ -536,7 +542,7 @@ public class TrainRenderer
 
     renderStyleClass(context, arc, styleClass);
 
-    Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
     try
     {
       arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -799,7 +805,8 @@ public class TrainRenderer
 
   // for now keep the OraLink/OraDisabledLink styles on the 'a', and
   // append train link style class.
-  private static final Map _RESOURCE_KEY_MAP = new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP = 
+    new HashMap<String, String>();
   private static final String _TRAIN_DISABLED_LINK = 
     XhtmlConstants.LINK_DISABLED_STYLE_CLASS + " " + 
     XhtmlConstants.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;

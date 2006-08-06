@@ -61,6 +61,7 @@ public class HtmlRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -116,6 +117,7 @@ public class HtmlRenderer extends XhtmlRenderer
     }
   }
 
+  @Override
   public void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -198,19 +200,15 @@ public class HtmlRenderer extends XhtmlRenderer
    * Determines whether we have a frameset component as a child
    * for determining which doctype to return
    */
+  @SuppressWarnings("unchecked")
   private boolean _hasFrameSet(UIComponent component)
   {
-    List children = component.getChildren();
-    int childCount = component.getChildCount();
-    
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent currChild = (UIComponent) children.get(i);
-      
-      if (HtmlFrameBorderLayout.COMPONENT_FAMILY.equals(currChild.getFamily()))
+      if (HtmlFrameBorderLayout.COMPONENT_FAMILY.equals(child.getFamily()))
       {
         return true;
-      }
+      }     
     }
 
     return false;

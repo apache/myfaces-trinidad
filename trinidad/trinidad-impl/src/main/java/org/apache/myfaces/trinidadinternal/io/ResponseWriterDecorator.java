@@ -46,38 +46,45 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
     return _decorated;
   }
 
+  @Override
   public String getCharacterEncoding()
   {
     return getResponseWriter().getCharacterEncoding();
   }
 
+  @Override
   public String getContentType()
   {
     return getResponseWriter().getContentType();
   }
 
+  @Override
   public void startDocument() throws IOException
   {
     getResponseWriter().startDocument();
   }
 
 
+  @Override
   public void endDocument() throws IOException
   {
     getResponseWriter().endDocument();
   }
 
+  @Override
   public void flush() throws IOException
   {
     getResponseWriter().flush();
   }
 
 
+  @Override
   public void close()throws IOException
   {
     getResponseWriter().close();
   }
 
+  @Override
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
@@ -85,12 +92,14 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
   }
 
   
+  @Override
   public void endElement(String name) throws IOException
   {
     getResponseWriter().endElement(name);
   }
 
 
+  @Override
   public void writeAttribute(String name,
                              Object value,
                              String componentPropertyName)
@@ -100,6 +109,7 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
   }
 
 
+  @Override
   public void writeURIAttribute(String name,
                                 Object value,
                                 String componentPropertyName)
@@ -108,51 +118,60 @@ abstract public class ResponseWriterDecorator extends ResponseWriter
     getResponseWriter().writeURIAttribute(name, value, componentPropertyName);
   }
 
+  @Override
   public void writeComment(Object comment) throws IOException
   {
     getResponseWriter().writeComment(comment);
   }
 
   
+  @Override
   public void writeText(Object text, String componentPropertyName) throws IOException
   {
     getResponseWriter().writeText(text, componentPropertyName);
   }
 
 
+  @Override
   public void writeText(char text[], int off, int len)
         throws IOException
   {
     getResponseWriter().writeText(text, off, len);
   }
 
+  @Override
   public void write(char cbuf[], int off, int len) throws IOException
   {
     getResponseWriter().write(cbuf, off, len);
   }
 
+  @Override
   public void write(String str) throws IOException
   {
     getResponseWriter().write(str);
   }
 
+  @Override
   public void write(int c) throws IOException
   {
     getResponseWriter().write((char) c);
   }
 
+  @Override
   public void write(char[] cbuf)
     throws IOException
   {
     getResponseWriter().write(cbuf);
   }
 
+  @Override
   public void write(String str, int off, int len)
     throws IOException
   {
     getResponseWriter().write(str, off, len);
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     return getResponseWriter().cloneWithWriter(writer);

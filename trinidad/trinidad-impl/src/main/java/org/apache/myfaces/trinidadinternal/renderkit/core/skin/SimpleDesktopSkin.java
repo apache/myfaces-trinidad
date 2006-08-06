@@ -38,6 +38,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   public String getStyleSheetName()
   {
     return "META-INF/adf/styles/simple-desktop.xss";
@@ -46,6 +47,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   /**
    * Returns the id of this simple desktop Skin "simple.desktop".
    */
+  @Override
   public String getId()
   {
     return "simple.desktop";
@@ -55,6 +57,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
    * Returns the family for the Simple
    * Skin: "simple".
    */
+  @Override
   public String getFamily()
   {
     return "simple";
@@ -63,6 +66,7 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   /**
    * Returns the renderKitId for the SimpleDesktopSkin: "org.apache.myfaces.trinidad.desktop".
    */  
+  @Override
   public String getRenderKitId()
   {
     return ORACLE_ADF_DESKTOP;

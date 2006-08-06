@@ -67,6 +67,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     _resourceKeyMap = createResourceKeyMap();
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -75,19 +76,22 @@ abstract public class TableRenderer extends XhtmlRenderer
     _emptyTextKey  = type.findKey("emptyText");
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
-
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     decodeSelection(context, component);
 
-    Map parameters =  context.getExternalContext().getRequestParameterMap();
-    Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
+    Map<String, String> parameters =  
+      context.getExternalContext().getRequestParameterMap();
+    
+    String source = parameters.get(XhtmlConstants.SOURCE_PARAM);
     String id = component.getClientId(context);
     if (!id.equals(source))
       return;
@@ -141,9 +145,9 @@ abstract public class TableRenderer extends XhtmlRenderer
   }
    private void _decodeSort(
     UIXTable table,
-    Map parameters)
+    Map<String, String> parameters)
   {
-    String property = (String) parameters.get(XhtmlConstants.VALUE_PARAM);
+    String property = parameters.get(XhtmlConstants.VALUE_PARAM);
     Object state = parameters.get(XhtmlConstants.STATE_PARAM);
     boolean sortOrder = !XhtmlConstants.SORTABLE_ASCENDING.equals(state);
     SortCriterion criterion = new SortCriterion(property, sortOrder);
@@ -155,9 +159,9 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private void _decodeGoto(
     UIXTable table,
-    Map parameters)
+    Map<String, String> parameters)
   {
-    String value = (String) parameters.get(XhtmlConstants.VALUE_PARAM);
+    String value = parameters.get(XhtmlConstants.VALUE_PARAM);
     if (value != null)
     {
       final FacesEvent event;
@@ -190,17 +194,18 @@ abstract public class TableRenderer extends XhtmlRenderer
   }
 
 
+  @SuppressWarnings("unchecked")
   private void _decodeHideShow(
     UIXTable table,
-    Map parameters,
+    Map<String, String> parameters,
     Object eventParam)
   {
     boolean doExpand = XhtmlConstants.SHOW_EVENT.equals(eventParam);
     Object value = parameters.get(XhtmlConstants.VALUE_PARAM);
     if (value != null)
     {
-      RowKeySet old = table.getDisclosedRowKeys();
-      RowKeySet newset = old.clone();
+      RowKeySet<Object> old = table.getDisclosedRowKeys();
+      RowKeySet<Object> newset = old.clone();
       if ("all".equals(value))
       {
         if (doExpand)
@@ -223,6 +228,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -230,7 +236,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     // save current skin resource map, if any, on the local property
-    Map oldSkinResourceMap = arc.getSkinResourceKeyMap();
+    Map<String, String> oldSkinResourceMap = arc.getSkinResourceKeyMap();
 
     // store TableRenderer's skin resource map, so that called to
     // context.getTranslatedValue will get the correct key.
@@ -456,6 +462,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    * used to render special column headers, like select and details.
    * @return the next physicalColumnIndex
    */
+  @SuppressWarnings("unchecked")
   protected int renderSpecialColumns(
     FacesContext          context,
     RenderingContext   arc,
@@ -468,7 +475,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     // depending on the RenderStage
     final ColumnData colData = tContext.getColumnData();
     int[] hidden = tContext.getHiddenColumns();
-    List children = treeTable.getChildren();
+    List<UIComponent> children = treeTable.getChildren();
     int colCount  = children.size();
     for (int i = 0;  i < colCount;  i++)
     {
@@ -529,7 +536,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     RenderingContext   arc,
     TableRenderingContext tContext) throws IOException
   {
-    Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
     setSelectionResourceKeyMap(arc, tContext);
     try
     {
@@ -717,7 +724,9 @@ abstract public class TableRenderer extends XhtmlRenderer
   {
     if (tContext.hasSelection())
     {
-      Map selectionColumnStylesMap = new HashMap();
+      Map<String, String> selectionColumnStylesMap = 
+        new HashMap<String, String>();
+      
       // if selection is multiple-selection:
       if (tContext.hasSelectAll())
       {
@@ -738,12 +747,13 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   }
 
+  @Override
   protected boolean shouldRenderId(FacesContext context, UIComponent component)
   {
     return true;
   }
 
-  protected Map createResourceKeyMap()
+  protected Map<String, String> createResourceKeyMap()
   {
     // map the skin resource keys that are used in components used
     // by the table renderer to table keys.
@@ -751,7 +761,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     // components that it uses within it. For example, we can customize
     // af_table.DISCLOSED translation key
     // separately from af_showDetail.DISCLOSED.
-    Map map = new HashMap(6);
+    Map<String, String> map = new HashMap<String, String>(6);
     map.put("af_showDetail.DISCLOSED",
             "af_table.DISCLOSED");
     map.put("af_showDetail.UNDISCLOSED",
@@ -786,11 +796,13 @@ abstract public class TableRenderer extends XhtmlRenderer
       super(type);
     }
 
+    @Override
     protected void renderAllAttributes(
       FacesContext context, RenderingContext arc, FacesBean bean)
     {
     }
 
+    @Override
     protected boolean getShowAll(FacesBean bean)
     {
       TableRenderingContext tContext =
@@ -806,6 +818,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     }
 
     // For now, disable showAll except on UIXTable
+    @Override
     protected boolean showAllSupported()
     {
       TableRenderingContext tContext =
@@ -815,6 +828,7 @@ abstract public class TableRenderer extends XhtmlRenderer
       }
 
 
+    @Override
     protected String getSource()
     {
       TableRenderingContext tContext =
@@ -825,6 +839,7 @@ abstract public class TableRenderer extends XhtmlRenderer
     /**
      * @todo Deal with repeating!
      */
+    @Override
     protected String getClientId(FacesContext context, UIComponent component)
     {
       TableRenderingContext tContext =
@@ -832,52 +847,62 @@ abstract public class TableRenderer extends XhtmlRenderer
       return tContext.getTableId() + "-nb";
     }
 
+    @Override
     protected String getVar(FacesBean bean)
     {
       return null;
     }
 
     // No support for range labels
+    @Override
     protected UIComponent getRangeLabel(UIComponent component)
     {
       return null;
     }
 
+    @Override
     protected int getRowCount(UIComponent component)
     {
       return ((CollectionComponent) component).getRowCount();
     }
 
+    @Override
     protected int getRowIndex(UIComponent component)
     {
       return ((CollectionComponent) component).getRowIndex();
     }
 
+    @Override
     protected void setRowIndex(UIComponent component, int index)
     {
       ((CollectionComponent) component).setRowIndex(index);
     }
 
+    @Override
     protected boolean isRowAvailable(UIComponent component)
     {
       return ((CollectionComponent) component).isRowAvailable();
     }
 
+    @Override
     protected boolean isRowAvailable(UIComponent component, int rowIndex)
     {
       return ((UIXCollection) component).isRowAvailable(rowIndex);
     }
 
+    @Override
     protected Object getRowData(UIComponent component)
     {
       return ((CollectionComponent) component).getRowData();
     }
 
+    @Override
     protected int getRows(UIComponent component, FacesBean bean)
     {
       return ((CollectionComponent) component).getRows();
     }
 
+    @Override
     protected int getFirst(UIComponent component, FacesBean bean)
     {
       return ((CollectionComponent) component).getFirst();
@@ -887,7 +912,7 @@ abstract public class TableRenderer extends XhtmlRenderer
 
   private PropertyKey _widthKey;
   private PropertyKey _emptyTextKey;
-  private final Map _resourceKeyMap;
+  private final Map<String, String> _resourceKeyMap;
 
   // Key for RenderingContext property used to store the generated ID
   // to use for the upper navigation bar.  (Part of fix for 2275703.)

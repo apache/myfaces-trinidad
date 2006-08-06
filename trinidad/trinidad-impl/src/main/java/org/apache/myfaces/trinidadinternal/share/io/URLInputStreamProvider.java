@@ -50,7 +50,7 @@ public class URLInputStreamProvider implements InputStreamProvider
     InputStream base = connection.getInputStream();
     
     if (base instanceof BufferedInputStream)
-      return (BufferedInputStream) base;
+      return base;
     else
       return new BufferedInputStream(base);
   }

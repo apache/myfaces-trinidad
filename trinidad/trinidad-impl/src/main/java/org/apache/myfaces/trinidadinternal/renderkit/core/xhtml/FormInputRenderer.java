@@ -33,6 +33,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -42,6 +43,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
   /**
    * Render the client ID as both an "id" and a "name"
    */
+  @Override
   protected void renderId(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -90,6 +92,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
    * attribute values on the 'content' piece. This is usually false.
    * @throws IOException
    */
+  @Override
   protected void renderAllAttributes(
     FacesContext        context,
     RenderingContext arc,

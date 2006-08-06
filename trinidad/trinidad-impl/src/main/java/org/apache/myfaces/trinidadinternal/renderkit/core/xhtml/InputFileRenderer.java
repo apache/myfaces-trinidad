@@ -34,6 +34,7 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
     super(CoreInputFile.TYPE);
   }
   
+  @Override
   protected final void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -48,11 +49,13 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
     }
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputFile";
   }
   
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputFile;
@@ -63,6 +66,7 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
    * @param bean
    * @return false, since inputFile does not support the readOnly attribute
    */
+  @Override
   protected boolean isReadOnly(FacesBean bean)
   {
     return false;

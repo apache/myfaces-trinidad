@@ -45,6 +45,7 @@ final class StringArrayPropertyTagRule extends MetaRule
       _attribute = attribute;
     }
     
+    @Override
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
       if (_params == null)
@@ -73,6 +74,7 @@ final class StringArrayPropertyTagRule extends MetaRule
   }
    
 
+  @Override
   public Metadata applyRule(
      String name,
      TagAttribute attribute,
@@ -98,13 +100,15 @@ final class StringArrayPropertyTagRule extends MetaRule
     if (str == null)
       return null;
 
-    ArrayList list = new ArrayList();
+    ArrayList<String> list = new ArrayList<String>();
     StringTokenizer tokens = new StringTokenizer(str);
     while (tokens.hasMoreTokens())
+    {
       list.add(tokens.nextToken());
-    String[] strArray = new String[list.size()];
-    return (String[]) list.toArray(strArray);
+    }
+    
+    return list.toArray(new String[list.size()]);
   }
 
-  static private final Class _STRING_ARRAY_TYPE = (new String[0]).getClass();
+  static private final Class<? extends String[]> _STRING_ARRAY_TYPE = (new String[0]).getClass();
 }

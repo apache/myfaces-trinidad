@@ -232,13 +232,13 @@ public class OutputUtils
     if (icon.isNull())
       return;
 
-    Map attrs = null;
+    Map<String, Object> attrs = null;
 
     if ((shortDesc != null)  ||
         (align != null)      ||
          embedded)
     {
-      attrs = new ArrayMap(3);
+      attrs = new ArrayMap<String, Object>(3);
       attrs.put(Icon.SHORT_DESC_KEY, shortDesc);
       attrs.put(Icon.ALIGN_KEY, align);
       attrs.put(Icon.EMBEDDED_KEY, Boolean.valueOf(embedded));

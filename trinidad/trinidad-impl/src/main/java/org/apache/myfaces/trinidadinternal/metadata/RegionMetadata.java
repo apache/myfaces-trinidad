@@ -51,13 +51,20 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public final class RegionMetadata extends RegionManager
 {
-
+  @SuppressWarnings("unchecked")
+  private RegionMetadata()
+  {
+    _map = Collections.EMPTY_MAP;
+  }
+  
+  @Override
   public RegionConfig getRegionConfig(String regionType)
   {
-    return (ComponentMetaData) _map.get(regionType);
+    return _map.get(regionType);
   }
 
-  public Map getRegionConfigs()
+  @Override
+  public Map<String, RegionConfig> getRegionConfigs()
   {
     return Collections.unmodifiableMap(_map);
   }
@@ -69,10 +76,11 @@ public final class RegionMetadata extends RegionManager
    * All resources with the name "/META-INF/region-metadata.xml" will be searched.
    * /WEB-INF/region-metadata.xml will also be searched.
    */
+  @SuppressWarnings("unchecked")
   public static synchronized RegionMetadata getRegionMetadata(
     FacesContext context)
   {
-    Map appMap = context.getExternalContext().getApplicationMap();
+    Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
     RegionMetadata bean = (RegionMetadata) appMap.get(_KEY);
     if (bean == null)
     {
@@ -109,9 +117,10 @@ public final class RegionMetadata extends RegionManager
    * The next time {@link #getRegionMetadata} is called, it
    * will reparse all the region-metadata.xml files.
    */
+  @SuppressWarnings("unchecked")
   public static synchronized void invalidate(FacesContext context)
   {
-    Map appMap = context.getExternalContext().getApplicationMap();
+    Map<String, Object> appMap = context.getExternalContext().getApplicationMap();
     appMap.remove(_KEY);
   }
 
@@ -126,10 +135,10 @@ public final class RegionMetadata extends RegionManager
     }
     try
     {
-      Enumeration files = loader.getResources(regionMDFile);
+      Enumeration<URL> files = loader.getResources(regionMDFile);
       while(files.hasMoreElements())
       {
-        URL url = (URL)files.nextElement();
+        URL url = files.nextElement();
         String publicId = url.toString();
         try
         {
@@ -196,18 +205,14 @@ public final class RegionMetadata extends RegionManager
     }
     if (_map == Collections.EMPTY_MAP)
     {
-      _map = new HashMap(5);
+      _map = new HashMap<String, RegionConfig>(5);
     }
-    ComponentMetaData old = (ComponentMetaData) _map.put(componentType, comp);
+    RegionConfig old = _map.put(componentType, comp);
     if (old != null)
     {
       _LOG.warning("Replaced jspUri {0} with {1} for componentType:{2}",
         new Object[] {old.getJspUIDef(), comp.getJspUIDef(), componentType});
     }
-  }
-
-  private RegionMetadata()
-  {
   }
 
 
@@ -218,6 +223,7 @@ public final class RegionMetadata extends RegionManager
       _bean = bean;
     }
 
+    @Override
     public InputSource resolveEntity (String publicId, String systemId)
     	throws SAXException
     {
@@ -226,12 +232,14 @@ public final class RegionMetadata extends RegionManager
       return new InputSource(new StringReader(""));
     }
 
+    @Override
     public void setDocumentLocator(Locator locator)
     {
       super.setDocumentLocator(locator);
       _loc = locator;
     }
 
+    @Override
     public void startElement(String uri,
                              String localName,
                              String qName,
@@ -315,6 +323,7 @@ public final class RegionMetadata extends RegionManager
       return false;
     }
 
+    @Override
     public void characters(char[] ch, int start, int length)
     {
       switch(_state)
@@ -330,6 +339,7 @@ public final class RegionMetadata extends RegionManager
       }
     }
 
+    @Override
     public void endElement(String uri,
                            String localName,
                            String qName)
@@ -398,7 +408,7 @@ public final class RegionMetadata extends RegionManager
       _comp._trim(); // no more attributes will be added, so trim-to-size
     }
 
-    private Class _getClass(String javaType)
+    private Class<?> _getClass(String javaType)
     {
       String className = ConvertBoundValue.getClassName(javaType);
       try
@@ -477,8 +487,9 @@ public final class RegionMetadata extends RegionManager
 
   public static final class AttributeMetaData
   {
-    private String _name, _default;
-    private Class _class;
+    private String _default;
+    private String _name;
+    private Class<?> _class;
     private boolean _required = false;
 
     public String getAttrName()
@@ -486,7 +497,7 @@ public final class RegionMetadata extends RegionManager
       return _name;
     }
 
-    public Class getAttrClass()
+    public Class<?> getAttrClass()
     {
       return _class;
     }
@@ -504,30 +515,37 @@ public final class RegionMetadata extends RegionManager
 
   public static final class ComponentMetaData extends RegionConfig
   {
-    private String _jsp, _regionType;
-    private List _attrs = Collections.EMPTY_LIST;
+    @SuppressWarnings("unchecked")
+    public ComponentMetaData()
+    {
+      _attrs = Collections.EMPTY_LIST;
+    }
 
+    @Override
     public String getDescription()
     {
       return null;
     }
 
+    @Override
     public String getDisplayName()
     {
       return null;
     }
 
+    @Override
     public String getComponentType()
     {
       return _regionType;
     }
 
+    @Override
     public String getJspUIDef()
     {
       return _jsp;
     }
 
-    public List getAttributes()
+    public List<AttributeMetaData> getAttributes()
     {
       return _attrs;
     }
@@ -536,7 +554,7 @@ public final class RegionMetadata extends RegionManager
     {
       if (_attrs == Collections.EMPTY_LIST)
       {
-        _attrs = new ArrayList(5);
+        _attrs = new ArrayList<AttributeMetaData>(5);
       }
       _attrs.add(attr);
     }
@@ -546,9 +564,13 @@ public final class RegionMetadata extends RegionManager
       if (_attrs instanceof ArrayList)
         ((ArrayList) _attrs).trimToSize();
     }
+    
+    private String _jsp;
+    private String _regionType;
+    private List<AttributeMetaData> _attrs;
   }
 
-  private Map _map = Collections.EMPTY_MAP;
+  private Map<String, RegionConfig> _map;
 
   private static final int _STATE_INIT = 0;
   private static final int _STATE_SKIP = 10;

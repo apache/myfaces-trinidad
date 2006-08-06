@@ -50,12 +50,14 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
    * Creates a new instance of this DebugResponseWriter, using a different
    * Writer.
    */
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     return new IndentingResponseWriter(
       getResponseWriter().cloneWithWriter(writer));
   }
 
+  @Override
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
@@ -74,6 +76,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
     super.startElement(name, component);
   }
 
+  @Override
   public void endElement(String name) throws IOException
   {
     _depth--;
@@ -93,6 +96,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a comment.
    */
+  @Override
   public void writeComment(Object comment) throws IOException
   {
     // start a new line only if an element just ended and
@@ -105,6 +109,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a String, escaped properly for this method.
    */
+  @Override
   public void writeText(Object text, String componentPropertyName) throws IOException
   {
     _seeIfJustEndedElement();
@@ -115,6 +120,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a character array, escaped properly for this method.
    */
+  @Override
   public void writeText(
     char[]      text, 
     int         start,
@@ -127,6 +133,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a string, without performing any escaping.
    */
+  @Override
   public void write(String text) throws IOException
   {
     _seeIfJustEndedElement();
@@ -136,6 +143,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a character array, without performing any escaping.
    */
+  @Override
   public void write(
     char[]      text, 
     int         start,
@@ -148,6 +156,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
   /**
    * Writes a character, without performing any escaping.
    */
+  @Override
   public void write(
     int c
     ) throws IOException
@@ -229,7 +238,7 @@ public class IndentingResponseWriter extends ResponseWriterDecorator
     }
   }
 
-  static private final Set _HTML_TYPES = new HashSet();
+  static private final Set<String> _HTML_TYPES = new HashSet<String>();
   static
   {
     _HTML_TYPES.add(HtmlResponseWriter.HTML_CONTENT_TYPE);

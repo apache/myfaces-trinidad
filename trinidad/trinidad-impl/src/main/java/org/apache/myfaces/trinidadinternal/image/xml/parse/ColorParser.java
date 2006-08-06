@@ -41,6 +41,7 @@ public class ColorParser extends LeafNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public Object getNodeValue(
     ParseContext context,
     String       namespaceURI,

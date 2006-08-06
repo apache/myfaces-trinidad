@@ -39,6 +39,7 @@ public final class ImmutableDecimalFormatContext extends DecimalFormatContext
   /**
    * Returns the character used to separate number groupings.
    */
+  @Override
   public char getGroupingSeparator()
   {
     return _dfc.getGroupingSeparator();
@@ -47,16 +48,19 @@ public final class ImmutableDecimalFormatContext extends DecimalFormatContext
   /**
    * Returns the character used as a decimal separator.
    */
+  @Override
   public char getDecimalSeparator()
   {
     return _dfc.getDecimalSeparator();
   }
 
+  @Override
   public boolean equals(Object obj)
   {
     return super.equals(obj);
   }
 
+  @Override
   public int hashCode()
   {
     return _hashCode;

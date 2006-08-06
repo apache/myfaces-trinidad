@@ -72,5 +72,5 @@ public class CapabilityValue
     return value;
   }
   
-  private static HashMap _values = new HashMap(32);
+  private static HashMap<Object, Object> _values = new HashMap<Object, Object>(32);
 }

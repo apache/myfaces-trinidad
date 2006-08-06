@@ -50,7 +50,7 @@ class CacheUtils
 
   public static int getReadingDirection(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     LocaleContext localeContext = context.getLocaleContext();
@@ -75,7 +75,7 @@ class CacheUtils
 
   // Gets a Boolean value
   public static boolean getBoolean(
-    Map properties,
+    Map<Object, Object> properties,
     Object key,
     boolean defaultValue
     )
@@ -89,7 +89,7 @@ class CacheUtils
 
   // Puts a Boolean value into a dictionary
   public static void putBoolean(
-    Map properties,
+    Map<Object, Object> properties,
     Object key,
     boolean value
     )
@@ -98,7 +98,7 @@ class CacheUtils
   }
 
   // Tests for TEXT_ANTIALIAS_KEY
-  public static boolean isTextAntialiased(Map properties)
+  public static boolean isTextAntialiased(Map<Object, Object> properties)
   {
     return getBoolean(properties, ImageConstants.TEXT_ANTIALIAS_KEY, false);
   }
@@ -123,7 +123,7 @@ class CacheUtils
     if (font == null)
       return null;
 
-    FontProxy sharedFont = (FontProxy)_sFontProxyCache.get(font);
+    FontProxy sharedFont = _sFontProxyCache.get(font);
     if (sharedFont != null)
       return sharedFont;
 
@@ -141,7 +141,7 @@ class CacheUtils
    * Convenience method for getting a shared FontProxy for a font
    * specified in a properties dictionary.
    */
-  public static FontProxy getSharedFont(Map properties, Object key)
+  public static FontProxy getSharedFont(Map<Object, Object> properties, Object key)
   {
     return getSharedFont((FontProxy)properties.get(key));
   }
@@ -167,8 +167,8 @@ class CacheUtils
     return buffer.toString();
   }
 
-  private static final Map _sFontProxyCache = 
-    Collections.synchronizedMap(new LRUCache(50));
+  private static final Map<FontProxy, FontProxy> _sFontProxyCache = 
+    Collections.synchronizedMap(new LRUCache<FontProxy, FontProxy>(50));
 
   // Characters for base 64 encodings
   private static final char[] _BASE_64_CHARS =

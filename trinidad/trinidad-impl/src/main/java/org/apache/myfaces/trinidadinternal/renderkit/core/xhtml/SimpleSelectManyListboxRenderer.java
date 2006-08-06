@@ -46,18 +46,20 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
     super(CoreSelectManyListbox.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _sizeKey = type.findKey("size");
   }
 
+  @Override
   protected void encodeElementContent(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int[]               selectedIndices,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -83,7 +85,7 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
       if (selected)
         selectedEntry++;
 
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       SimpleSelectOneRenderer.encodeOption(
            context, arc, component, item, converter,
            valuePassThru, i, selected);
@@ -96,6 +98,7 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
   /**
    * Add autosubmit script
    */
+  @Override
   protected String getOnchange(
     FacesBean bean
     )
@@ -124,11 +127,13 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
     return toInt(o);
   }
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|selectManyListbox::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectManyListbox";

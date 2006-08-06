@@ -38,12 +38,14 @@ public class IconRenderer extends XhtmlRenderer
     super(CoreIcon.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _nameKey = type.findKey("name");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -111,6 +113,7 @@ public class IconRenderer extends XhtmlRenderer
     }
   }
 
+  @Override
   protected void renderShortDescAttribute(
     FacesContext        context,
     RenderingContext arc,
@@ -124,14 +127,14 @@ public class IconRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_nameKey));
   }
 
-  private Map _getNodeAttributeMap(
+  private Map<String, Object> _getNodeAttributeMap(
     FacesContext        context,
     UIComponent         comp,
     FacesBean           bean,
     boolean             embed)
   {
-    Map attrs = null;
-    attrs = new ArrayMap(1);
+    Map<String, Object> attrs = null;
+    attrs = new ArrayMap<String, Object>(1);
 
     attrs.put(Icon.SHORT_DESC_KEY, getShortDesc(bean));
 

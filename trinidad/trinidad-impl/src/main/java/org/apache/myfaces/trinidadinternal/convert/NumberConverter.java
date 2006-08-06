@@ -25,6 +25,7 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
   {
   }
   
+  @Override
   public Object getAsObject(
     FacesContext context,
     UIComponent component,
@@ -41,6 +42,7 @@ public final class NumberConverter extends org.apache.myfaces.trinidad.convert.N
     return number;
   }
   
+  @Override
   public String getAsString(
     FacesContext context, 
     UIComponent component,

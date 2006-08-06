@@ -64,6 +64,7 @@ public class StyleSheetDocument
    * Creates a StyleSheetDocument
    * @deprecated colorScheme elements are no longer supported
    */
+  @Deprecated
   public StyleSheetDocument(
     StyleSheetNode[] styleSheets,
     ColorSchemeNode[] colorSchemes
@@ -76,6 +77,7 @@ public class StyleSheetDocument
    * Creates a StyleSheetDocument
    * @deprecated colorScheme elements are no longer supported
    */
+  @Deprecated
   public StyleSheetDocument(
     StyleSheetNode[] styleSheets,
     ColorSchemeNode[] colorSchemes,
@@ -135,33 +137,39 @@ public class StyleSheetDocument
   /**
    * Implementation of StyleSheetDocument.getStyleSheets();
    */
-  public Iterator getStyleSheets()
+  public Iterator<StyleSheetNode> getStyleSheets()
   {
     if(_styleSheets==null)
     {
-      return  (Arrays.asList(new Object[0])).iterator();
+      // -= Simon Lessard =- 
+      // TODO: Collections.EMPTY_LIST maybe?
+      return  (Arrays.asList(new StyleSheetNode[0])).iterator();
     }
     else
-    return (Arrays.asList(_styleSheets)).iterator();
+    {
+      return (Arrays.asList(_styleSheets)).iterator();
+    }
   }
 
   /**
    * Implementation of StyleSheetDocument.getColorSchemes();
    */
-  public Iterator getColorSchemes()
+  public Iterator<ColorSchemeNode> getColorSchemes()
   {
-    return (Arrays.asList(new Object[0])).iterator();
+    // -= Simon Lessard =- 
+    // TODO: Wouldn't Collections.EMPTY_LIST be better?
+    return (Arrays.asList(new ColorSchemeNode[0])).iterator();
   }
 
   /**
    * Returns all StyleSheetNodes which can be applied to the specified
    * context, sorted from lowest to highest precedence.
    */
-  public Iterator getStyleSheets(StyleContext context)
+  public Iterator<StyleSheetNode> getStyleSheets(StyleContext context)
   {
     // =-=ags Should this include the UserStyleSheet?
     if(_getStyleSheets(context,false)==null)
-      return (Arrays.asList(new Object[0])).iterator();
+      return (Arrays.asList(new StyleSheetNode[0])).iterator();
     else
       return (Arrays.asList(_getStyleSheets(context, false))).iterator();
   }
@@ -169,7 +177,8 @@ public class StyleSheetDocument
   /**
    * Returns an Iterator of StyleNode objects for the specified context.
    */
-  public Iterator getStyles(StyleContext context)
+  @SuppressWarnings("unchecked")
+  public Iterator<StyleNode> getStyles(StyleContext context)
   {
     // Get the matching style sheets, including the UserStyleSheet
     StyleSheetNode[] styleSheets = _getStyleSheets(context, true);
@@ -180,13 +189,19 @@ public class StyleSheetDocument
     // resolving each one along the way.  We store resolved StyleNodes in
     // a Vector, so that the generated CSS somewhat matches the order that
     // the style elements appear in the XSS document.
-    ArrayList styles = new ArrayList();
+    ArrayList<StyleNode> styles = new ArrayList<StyleNode>();
 
     // We also need to provide a Map for storing selector-based
     // styles and another for storing name-based styles, used by
     // _resolveStyle() to store results
-    Hashtable resolvedStyles = new Hashtable();
-    Hashtable resolvedNamedStyles = new Hashtable();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
+    Hashtable<String, StyleNode> resolvedStyles = 
+      new Hashtable<String, StyleNode>();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required    
+    Hashtable<String, StyleNode> resolvedNamedStyles = 
+      new Hashtable<String, StyleNode>();
 
     // Now, loop through all StyleNodes in all StyleSheetNodes
     // Note: The algorithm used here is actually much more inefficient
@@ -202,12 +217,12 @@ public class StyleSheetDocument
     for (int i = 0; i < styleSheets.length; i++)
     {
       StyleSheetNode styleSheet = styleSheets[i];
-      Iterator e = styleSheet.getStyles();
+      Iterator<StyleNode> e = styleSheet.getStyles();
       if (e != null)
       {
         while (e.hasNext())
         {
-          StyleNode node = (StyleNode)e.next();
+          StyleNode node = e.next();
           String id = null;
           boolean isNamed = false;
 
@@ -297,13 +312,15 @@ public class StyleSheetDocument
     int mode = NameUtils.getMode(ModeUtils.getCurrentMode(context));
     TrinidadAgent agent = context.getAgent();
 
-    Vector v = new Vector();           // Vector of matching style sheets
-    Iterator e = getStyleSheets();  // Enum of all style sheets
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required    
+    Vector<StyleSheetNode> v = new Vector<StyleSheetNode>(); // Vector of matching style sheets
+    Iterator<StyleSheetNode> e = getStyleSheets();  // Enum of all style sheets
 
     // Loop through the style sheets, storing matches in the Vector
     while (e.hasNext())
     {
-      StyleSheetNode styleSheet = (StyleSheetNode)e.next();
+      StyleSheetNode styleSheet = e.next();
 
       if (styleSheet.compareVariants(locale, direction, agent, mode) > 0)
         v.addElement(styleSheet);
@@ -316,11 +333,12 @@ public class StyleSheetDocument
     // Sort the matching style sheets by specificity
     StyleSheetNode[] styleSheets = new StyleSheetNode[count];
     v.copyInto(styleSheets);
-    Comparator comparator = new StyleSheetComparator(locale,
-                                                     direction,
-                                                     agent,
-                                                     mode,
-                                                     _styleSheets);
+    Comparator<StyleSheetNode> comparator = 
+      new StyleSheetComparator(locale,
+                               direction,
+                               agent,
+                               mode,
+                               _styleSheets);
 
     Arrays.sort(styleSheets, comparator);
 
@@ -357,10 +375,12 @@ public class StyleSheetDocument
     if (styleSheets == null)
       return null;
 
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
     return _resolveStyle(context,
                          styleSheets,
-                         new Hashtable(19),  // Resolved styles
-                         new Hashtable(19),  // Resolved named styles
+                         new Hashtable<String, StyleNode>(19),  // Resolved styles
+                         new Hashtable<String, StyleNode>(19),  // Resolved named styles
                          null,               // Include stack
                          null,               // Named include stack
                          id,
@@ -388,14 +408,14 @@ public class StyleSheetDocument
    *           Map.
    */
   private StyleNode _resolveStyle(
-    StyleContext     context,
-    StyleSheetNode[] styleSheets,
-    Map       resolvedStyles,
-    Map       resolvedNamedStyles,
-    Stack            includesStack,
-    Stack            namedIncludesStack,
-    String           id,
-    boolean          isNamed
+    StyleContext           context,
+    StyleSheetNode[]       styleSheets,
+    Map<String, StyleNode> resolvedStyles,
+    Map<String, StyleNode> resolvedNamedStyles,
+    Stack<String>          includesStack,
+    Stack<String>          namedIncludesStack,
+    String                 id,
+    boolean                isNamed
     )
   {
     assert (styleSheets != null);
@@ -411,12 +431,12 @@ public class StyleSheetDocument
 
     if (isNamed)
     {
-      style = (StyleNode)resolvedNamedStyles.get(id);
+      style = resolvedNamedStyles.get(id);
       name = id;
     }
     else
     {
-      style = (StyleNode)resolvedStyles.get(id);
+      style = resolvedStyles.get(id);
       selector = id;
     }
 
@@ -447,15 +467,19 @@ public class StyleSheetDocument
     // Push this style onto the appropriate include stack
     if (isNamed)
     {
+      // -= Simon Lessard =- 
+      // TODO: Check if synchronization is truly required
       if (namedIncludesStack == null)
-        namedIncludesStack = new Stack();
+        namedIncludesStack = new Stack<String>();
 
       namedIncludesStack.push(id);
     }
     else
     {
+      // -= Simon Lessard =- 
+      // TODO: Check if synchronization is truly required
       if (includesStack == null)
-        includesStack = new Stack();
+        includesStack = new Stack<String>();
 
       includesStack.push(id);
     }
@@ -465,12 +489,12 @@ public class StyleSheetDocument
     // included styles along the way.
     for (int i = 0; i < styleSheets.length; i++)
     {
-      Iterator nodes = styleSheets[i].getStyles();
+      Iterator<StyleNode> nodes = styleSheets[i].getStyles();
       if (nodes != null)
       {
         while (nodes.hasNext())
         {
-          StyleNode node = (StyleNode)nodes.next();
+          StyleNode node = nodes.next();
 
           if ((isNamed && name.equals(node.getName())) ||
                (!isNamed && selector.equals(node.getSelector())))
@@ -491,13 +515,12 @@ public class StyleSheetDocument
               entry.resetProperties();
 
             // 1. Resolve included styles
-            Iterator includedStyles = node.getIncludedStyles();
+            Iterator<IncludeStyleNode> includedStyles = node.getIncludedStyles();
             if (includedStyles != null)
             {
               while (includedStyles.hasNext())
               {
-                IncludeStyleNode includeStyle = (IncludeStyleNode)
-                                                  includedStyles.next();
+                IncludeStyleNode includeStyle = includedStyles.next();
                 String includeID = null;
                 boolean includeIsNamed = false;
 
@@ -526,13 +549,13 @@ public class StyleSheetDocument
             }
 
             // 2. Resolve included properties
-            Iterator includedProperties = node.getIncludedProperties();
+            Iterator<IncludePropertyNode> includedProperties = 
+              node.getIncludedProperties();
             if (includedProperties != null)
             {
               while (includedProperties.hasNext())
               {
-                IncludePropertyNode includeProperty = (IncludePropertyNode)
-                                              includedProperties.next();
+                IncludePropertyNode includeProperty = includedProperties.next();
                 String includeID = null;
                 boolean includeIsNamed = false;
 
@@ -566,17 +589,18 @@ public class StyleSheetDocument
             }
 
             // 3. Add compound properties
-            Iterator compoundProperties = node.getCompoundProperties();
+            Iterator<CompoundPropertyNode> compoundProperties = 
+              node.getCompoundProperties();
+            
             if (compoundProperties != null)
             {
               while (compoundProperties.hasNext())
               {
-                CompoundPropertyNode compoundProperty  =
-                  (CompoundPropertyNode)compoundProperties.next();
+                CompoundPropertyNode compoundProperty = compoundProperties.next();
 
                 // Build up the value String for the compound property
                 StringBuffer buffer = new StringBuffer();
-                Iterator values = compoundProperty.getValues();
+                Iterator<Object> values = compoundProperty.getValues();
                 if (values != null)
                 {
                   while (values.hasNext())
@@ -638,11 +662,11 @@ public class StyleSheetDocument
             }
 
             // 4. Add non-included properties
-            Iterator properties = node.getProperties();
+            Iterator<PropertyNode> properties = node.getProperties();
             if (properties != null)
             {
               while (properties.hasNext())
-                entry.addProperty((PropertyNode)properties.next());
+                entry.addProperty(properties.next());
             }
           }
         }
@@ -673,11 +697,11 @@ public class StyleSheetDocument
     if (node == null)
       return;
 
-    Iterator properties = node.getProperties();
+    Iterator<PropertyNode> properties = node.getProperties();
     if (properties != null)
     {
       while (properties.hasNext())
-        entry.addIncludedProperty((PropertyNode)properties.next());
+        entry.addIncludedProperty(properties.next());
     }
   }
 
@@ -692,12 +716,12 @@ public class StyleSheetDocument
     if (node == null)
       return;
 
-    Iterator properties = node.getProperties();
+    Iterator<PropertyNode> properties = node.getProperties();
     if (properties != null)
     {
       while (properties.hasNext())
       {
-        PropertyNode property = (PropertyNode)properties.next();
+        PropertyNode property = properties.next();
         if (propertyName.equals(property.getName()))
         {
           if (!propertyName.equals(localPropertyName))
@@ -713,7 +737,7 @@ public class StyleSheetDocument
   }
 
   // Returns a count of the non-null items in the Vector
-  private static int _getNonNullCount(ArrayList list)
+  private static int _getNonNullCount(ArrayList<?> list)
   {
     if (list == null)
       return 0;
@@ -776,12 +800,12 @@ public class StyleSheetDocument
   // Returns the value of the property with the specified name
   private String _getPropertyValue(StyleNode style, String propertyName)
   {
-    Iterator properties = style.getProperties();
+    Iterator<PropertyNode> properties = style.getProperties();
     if (properties != null)
     {
       while (properties.hasNext())
       {
-        PropertyNode property = (PropertyNode)properties.next();
+        PropertyNode property = properties.next();
         if (propertyName.equals(property.getName()))
           return property.getValue();
       }
@@ -794,10 +818,12 @@ public class StyleSheetDocument
   private StyleSheetNode _createStyleSheetNode(UserStyleSheet userStyleSheet)
   {
     // Convert each Style in the userStyleSheet to a StyleNode
-    Vector v = new Vector();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
+    Vector<StyleNode> v = new Vector<StyleNode>();
 
     // First, add the selector-based styles
-    Iterator selectors = userStyleSheet.getSelectors();
+    Iterator<Object> selectors = userStyleSheet.getSelectors();
     while (selectors.hasNext())
     {
       String selector = (String)selectors.next();
@@ -807,7 +833,7 @@ public class StyleSheetDocument
     }
 
     // Now, add in the named styles
-    Iterator names = userStyleSheet.getNames();
+    Iterator<Object> names = userStyleSheet.getNames();
     while (names.hasNext())
     {
       String name = (String)names.next();
@@ -833,8 +859,10 @@ public class StyleSheetDocument
   private StyleNode _createStyleNode(String key, Style style, boolean isNamed)
   {
     // Covert the properties into PropertyNodes
-    Vector v = new Vector();
-    Iterator names = style.getPropertyNames();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is truly required
+    Vector<PropertyNode> v = new Vector<PropertyNode>();
+    Iterator<Object> names = style.getPropertyNames();
 
     while (names.hasNext())
     {
@@ -854,7 +882,7 @@ public class StyleSheetDocument
   }
 
   // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _stackContains(Stack stack, Object value)
+  private static boolean _stackContains(Stack<?> stack, Object value)
   {
     if (stack == null)
       return false;
@@ -863,7 +891,7 @@ public class StyleSheetDocument
   }
 
   // Tests whether the value is present in the (possibly null) stack.
-  private static boolean _containsStyle(List v, StyleNode node)
+  private static boolean _containsStyle(List<StyleNode> v, StyleNode node)
   {
     String id = null;
     boolean isNamed = false;
@@ -877,10 +905,9 @@ public class StyleSheetDocument
     {
       id = node.getSelector();
     }
-
-    for (int i = 0; i < v.size(); i++)
+    
+    for(StyleNode otherNode : v)
     {
-      StyleNode otherNode = (StyleNode)v.get(i);
       if ((isNamed && id.equals(otherNode.getName())) ||
            (!isNamed && id.equals(otherNode.getSelector())))
         return true;
@@ -890,7 +917,7 @@ public class StyleSheetDocument
   }
 
   // Comparator for StyleSheetNodes which sorts by variant specificity
-  private static class StyleSheetComparator implements Comparator
+  private static class StyleSheetComparator implements Comparator<StyleSheetNode>
   {
     public StyleSheetComparator(
       Locale locale,
@@ -907,20 +934,20 @@ public class StyleSheetDocument
       _mode = mode;
     }
 
-    public int compare(Object item1, Object item2)
+    public int compare(StyleSheetNode item1, StyleSheetNode item2)
     {
-      if (!(item1 instanceof StyleSheetNode)||!(item2 instanceof StyleSheetNode))
-      {
-        throw new IllegalArgumentException("Argument not an instance of StyleSheetNode");
-      }
-
       if (item1 == item2)
         return 0;
 
-      int match1 = ((StyleSheetNode)item1).compareVariants(
-                      _locale, _direction, _agent, _mode);
-      int match2 = ((StyleSheetNode)item2).compareVariants(
-                     _locale, _direction, _agent, _mode);
+      int match1 = item1.compareVariants(_locale, 
+                                         _direction, 
+                                         _agent, 
+                                         _mode);
+      
+      int match2 = item2.compareVariants(_locale, 
+                                         _direction, 
+                                         _agent, 
+                                         _mode);
 
       if (match1 == match2)
       {
@@ -996,7 +1023,7 @@ public class StyleSheetDocument
     public void addProperty(PropertyNode property)
     {
       if (_properties == null)
-        _properties = new ArrayList(5);
+        _properties = new ArrayList<PropertyNode>(5);
 
 
       // Relative font sizes are a special case - they get added to
@@ -1047,14 +1074,14 @@ public class StyleSheetDocument
     }
 
     // Returns an Iterator of the properties defined by this style
-    public Iterator getProperties()
+    public Iterator<PropertyNode> getProperties()
     {
       if (_properties == null)
         return null;
 
       return new
         FontSizeConverter(
-          new NonNullIterator(
+          new NonNullIterator<PropertyNode>(
             _properties.iterator()),
           _relativeFontSize);
     }
@@ -1110,15 +1137,18 @@ public class StyleSheetDocument
 
     // Tests whether a property with the specified name is
     // contained within the Vector of PropertyNodes
-    private boolean _containsProperty(ArrayList properties, String name)
+    // -= Simon Lessard =-
+    // FIXME: Never used locally as of 2006-08-04
+    @SuppressWarnings("unused")
+    private boolean _containsProperty(
+        ArrayList<PropertyNode> properties, 
+        String name)
     {
       if (properties == null)
         return false;
-
-      for (int i = 0; i < properties.size(); i++)
+      
+      for(PropertyNode property : properties)
       {
-        PropertyNode property = (PropertyNode)properties.get(i);
-
         if ((property != null) && (name.equals(property.getName())))
           return true;
       }
@@ -1131,14 +1161,16 @@ public class StyleSheetDocument
     // Vector will contain at most one property with the specified
     // name.  Returns a boolean indicating whether the specified
     // property was found (and thus removed).
-    private boolean _removeProperty(ArrayList properties, String name)
+    private boolean _removeProperty(
+        ArrayList<PropertyNode> properties, 
+        String name)
     {
       if (properties == null)
         return false;
 
       for (int i = 0; i < properties.size(); i++)
       {
-        PropertyNode property = (PropertyNode)properties.get(i);
+        PropertyNode property = properties.get(i);
 
         if ((property != null) && property.getName().equals(name))
         {
@@ -1157,7 +1189,10 @@ public class StyleSheetDocument
 
     // Copies the non-null entries from the source vector to the
     // target Object array, starting at the specified index
-    private void _nonNullCopyInto(ArrayList source, Object[] target, int start)
+    private void _nonNullCopyInto(
+        ArrayList<? extends Object> source, 
+        Object[] target, 
+        int start)
     {
       if (source == null)
         return;
@@ -1321,10 +1356,8 @@ public class StyleSheetDocument
     {
       if (_properties != null)
       {
-        for (int i = 0; i < _properties.size(); i++)
+        for(PropertyNode property : _properties)
         {
-          PropertyNode property =
-            (PropertyNode)_properties.get(i);
           if ((property != null) && (name.equals(property.getName())))
             return property.getValue();
         }
@@ -1334,7 +1367,7 @@ public class StyleSheetDocument
     }
 
     // The set of properties (PropertyNodes) defined by this style
-    private ArrayList _properties;
+    private ArrayList<PropertyNode> _properties;
 
     // We keep count of the number of non-null values in each vector
     private int _propertyCount;
@@ -1348,9 +1381,9 @@ public class StyleSheetDocument
   // from a wrapped Iterator.  StyleEntry uses this to avoid
   // exposing null properties which result from removal of duplicate
   // properties (really, nulling out of duplicate properties).
-  private static class NonNullIterator implements Iterator
+  private static class NonNullIterator<T> implements Iterator<T>
   {
-    public NonNullIterator(Iterator wrappedIterator)
+    public NonNullIterator(Iterator<T> wrappedIterator)
     {
       _wrappedIterator = wrappedIterator;
 
@@ -1363,9 +1396,9 @@ public class StyleSheetDocument
       return (_next != null);
     }
 
-    public Object next()
+    public T next()
     {
-      Object next = _next;
+      T next = _next;
       _next = _getNonNullNext();
 
       return next;
@@ -1377,11 +1410,11 @@ public class StyleSheetDocument
     }
 
     // Returns the next non null value in the wrapped enum
-    private Object _getNonNullNext()
+    private T _getNonNullNext()
     {
       while (_wrappedIterator.hasNext())
       {
-        Object next = _wrappedIterator.next();
+        T next = _wrappedIterator.next();
 
         if (next != null)
           return next;
@@ -1391,21 +1424,21 @@ public class StyleSheetDocument
     }
 
     // The wrapped enumeration
-    private Iterator _wrappedIterator;
+    private Iterator<T> _wrappedIterator;
 
     // The next non-null value in the wrapped enumeration
-    private Object _next;
+    private T _next;
   }
 
   // Iterator implementation for empty set
-  private static class EmptyIterator implements Iterator
+  private static class EmptyIterator<T> implements Iterator<T>
   {
     private EmptyIterator() {}
 
-    public static Iterator getInstance()
+    public static Iterator<StyleNode> getInstance()
     {
       if (_sInstance == null)
-        _sInstance = new EmptyIterator();
+        _sInstance = new EmptyIterator<StyleNode>();
 
       return _sInstance;
     }
@@ -1415,7 +1448,7 @@ public class StyleSheetDocument
       return false;
     }
 
-    public Object next()
+    public T next()
     {
       throw new NoSuchElementException();
     }
@@ -1425,16 +1458,16 @@ public class StyleSheetDocument
       throw new UnsupportedOperationException();
     }
 
-    private static Iterator _sInstance;
+    private static Iterator<StyleNode> _sInstance;
   }
 
 
   // A silly Iterator which converts "font-size" PropertyNodes to
   // absolute values, using a specified relative font size
-  private static class FontSizeConverter implements Iterator
+  private static class FontSizeConverter implements Iterator<PropertyNode>
   {
     public FontSizeConverter(
-      Iterator wrappedIterator,
+      Iterator<PropertyNode> wrappedIterator,
       int relativeFontSize
       )
     {
@@ -1452,9 +1485,9 @@ public class StyleSheetDocument
       _wrappedIterator.remove();
     }
 
-    public Object next()
+    public PropertyNode next()
     {
-      PropertyNode property = (PropertyNode)_wrappedIterator.next();
+      PropertyNode property = _wrappedIterator.next();
 
       if ((_relativeFontSize == 0) ||
            !_FONT_SIZE_NAME.equals(property.getName()))
@@ -1466,7 +1499,7 @@ public class StyleSheetDocument
     }
 
     // The wrapped enumeration
-    private Iterator _wrappedIterator;
+    private Iterator<PropertyNode> _wrappedIterator;
     private int         _relativeFontSize;
   }
 

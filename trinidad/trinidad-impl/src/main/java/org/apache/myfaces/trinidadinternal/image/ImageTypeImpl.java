@@ -17,8 +17,6 @@
 package org.apache.myfaces.trinidadinternal.image;
 
 import java.util.Map;
-import java.util.Iterator;
-
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
@@ -33,10 +31,11 @@ class ImageTypeImpl implements ImageType
   public ImageTypeImpl(
     String namespaceURI,
     String name,
-    Map properties)
+    Map<Object, Object> properties)
   {
     _namespace = namespaceURI;
     _name = name;
+    _properties = new ArrayMap<Object, Object>();
 
     setProperties(properties);
   }
@@ -105,21 +104,18 @@ class ImageTypeImpl implements ImageType
    * This method is not defined on ImageType or MutableImageType -
    * it is provided as a convenience for ImageTypeManager.
    */
-  public void setProperties(Map properties)
+  public void setProperties(Map<Object, Object> properties)
   {
     if (properties == null)
       return;
-
-    Iterator keys = properties.keySet().iterator();
-    while (keys.hasNext())
+    
+    for(Map.Entry<Object, Object> entry : properties.entrySet())
     {
-      Object key = keys.next();
-      Object value = properties.get(key);
-
-      setProperty(key, value);
+      setProperty(entry.getKey(), entry.getValue());
     }
   }
 
+  @Override
   public String toString()
   {
     return getClass().getName() + "[" + _namespace + ", " + _name + "]";
@@ -127,5 +123,5 @@ class ImageTypeImpl implements ImageType
 
   private String   _namespace;
   private String   _name;
-  private ArrayMap _properties = new ArrayMap();
+  private ArrayMap<Object, Object> _properties;
 }

@@ -31,7 +31,7 @@ public abstract class GenericConverter
    * targetType.
    * @return an instance of the targetType.
    */
-  public abstract Object convert(Object source, Class targetType);
+  public abstract Object convert(Object source, Class<?> targetType);
     
   /**
    * Gets all the supported targetTypes for the given sourceType.
@@ -40,5 +40,5 @@ public abstract class GenericConverter
    * @return Each item is of type {@link Class}. An empty list must be
    * returned if the given sourceType cannot be converted into anything.
    */
-  public abstract List getTargetTypes(Class sourceType);
+  public abstract List<Class<?>> getTargetTypes(Class<?> sourceType);
 }

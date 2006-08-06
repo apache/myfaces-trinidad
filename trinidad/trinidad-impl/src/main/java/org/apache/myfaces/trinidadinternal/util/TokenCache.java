@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.context.ExternalContext;
@@ -45,6 +43,7 @@ public class TokenCache implements Serializable
   /**
    * Gets a TokenCache from the session, creating it if needed.
    */
+  @SuppressWarnings("unchecked")
   static public TokenCache getTokenCacheFromSession(
     FacesContext context,
     String       cacheName,
@@ -112,7 +111,9 @@ public class TokenCache implements Serializable
    * Create a new token;  and use that token to store a value into
    * a target Map.
    */
-  public String addNewEntry(Object value, Map targetStore)
+  public String addNewEntry(
+      Object value, 
+      Map<String, Object> targetStore)
   {
     Object remove = null;
     String token = null;
@@ -150,7 +151,9 @@ public class TokenCache implements Serializable
    * Removes a value from the cache.
    * @return previous value associated with the token, if any
    */
-  public Object removeOldEntry(String token, Map targetStore)
+  public Object removeOldEntry(
+      String token, 
+      Map<String, Object> targetStore)
   {
     synchronized (this)
     {
@@ -163,14 +166,12 @@ public class TokenCache implements Serializable
   /**
    * Clear a cache, without resetting the token.
    */
-  public void clear(Map targetStore)
+  public void clear(Map<String, Object> targetStore)
   {
     synchronized (this)
     {
-      Iterator keys = _cache.keySet().iterator();
-      while (keys.hasNext())
+      for(String keyToRemove : _cache.keySet())
       {
-        Object keyToRemove = keys.next();
         _LOG.finest("Clearing token {0} from cache", keyToRemove);
         targetStore.remove(keyToRemove);
       }
@@ -196,20 +197,21 @@ public class TokenCache implements Serializable
     _lock = new Object();
   }
 
-  private class LRU extends LRUCache
+  private class LRU extends LRUCache<String, String>
   {
     public LRU(int maxSize)
     {
       super(maxSize);
     }
 
+    @Override
     protected void removing(Object key)
     {
       _removed = key;
     }
   }
 
-  private final Map _cache;
+  private final Map<String, String> _cache;
   private int      _count;
   private transient Object   _lock = new Object();
 

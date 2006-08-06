@@ -25,18 +25,20 @@ import javax.servlet.http.HttpServletRequestWrapper;
 public class ReplaceParametersRequestWrapper extends HttpServletRequestWrapper
 {
   public ReplaceParametersRequestWrapper(
-    HttpServletRequest request,
-    Map                parameters)
+    HttpServletRequest    request,
+    Map<String, String[]> parameters)
   {
     super(request);
     _parameters = parameters;
   }
 
+  @Override
   public void setCharacterEncoding(String encoding)
   {
     // Do nothing
   }
 
+  @Override
   public String getParameter(String param)
   {
     String[] value = _getParameterValues(param);
@@ -46,29 +48,32 @@ public class ReplaceParametersRequestWrapper extends HttpServletRequestWrapper
     return value[0];
   }
 
-  public Map getParameterMap()
+  @Override
+  public Map<String, String[]> getParameterMap()
   {
     return Collections.unmodifiableMap(_parameters);
   }
 
-  public Enumeration getParameterNames()
+  @Override
+  public Enumeration<String> getParameterNames()
   {
     return Collections.enumeration(_parameters.keySet());
   }
 
+  @Override
   public String[] getParameterValues(String param)
   {
     String[] value = _getParameterValues(param);
     if (value == null)
       return null;
 
-    return (String[]) value.clone();
+    return value.clone();
   }
 
   private String[] _getParameterValues(String param)
   {
-    return (String[]) _parameters.get(param);
+    return _parameters.get(param);
   }
 
-  private Map _parameters;
+  private Map<String, String[]> _parameters;
 }

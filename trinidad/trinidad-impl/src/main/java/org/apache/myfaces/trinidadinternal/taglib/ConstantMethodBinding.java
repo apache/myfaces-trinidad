@@ -38,12 +38,14 @@ public class ConstantMethodBinding extends MethodBinding implements StateHolder
     _o = o;
   }
   
+  @Override
   public Object invoke(FacesContext context, Object[] params)
   {
     return _o;
   }
   
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return _o.getClass();
   }

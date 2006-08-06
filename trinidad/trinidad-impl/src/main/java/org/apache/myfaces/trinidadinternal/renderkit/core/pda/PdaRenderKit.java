@@ -30,6 +30,7 @@ public class PdaRenderKit extends RenderKitDecorator
                 new TrainRenderer());
   }
 
+  @Override
   protected String getDecoratedRenderKitId()
   {
     return CoreRenderKit.BASE_RENDER_KIT_ID;

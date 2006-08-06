@@ -34,6 +34,7 @@ public class DispatchServletResponse extends HttpServletResponseWrapper
     _request = request;
   }
 
+  @Override
   public void setContentType(
     String contentTypeAndCharset)
   {
@@ -64,10 +65,11 @@ public class DispatchServletResponse extends HttpServletResponseWrapper
     super.setContentType(contentTypeAndCharset);
   }
   
+  @SuppressWarnings("unchecked")
   static public String getContentType(
     FacesContext context)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
     return (String) requestMap.get(_CONTENT_TYPE_KEY);
   }
   

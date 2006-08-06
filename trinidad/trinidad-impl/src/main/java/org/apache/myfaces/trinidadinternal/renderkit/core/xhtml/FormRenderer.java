@@ -28,6 +28,7 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
+import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
@@ -46,8 +47,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 // TODO: Remove this class
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/FormRenderer.java#0 $) $Date: 10-nov-2005.18:53:51 $
  * @author The Oracle ADF Faces Team
@@ -59,10 +58,14 @@ public class FormRenderer extends XhtmlRenderer
     super(CoreForm.TYPE);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context,
                      UIComponent component)
   {
-    Map paramMap = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> paramMap = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object formName = paramMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
     boolean submitted = false;
 
@@ -76,11 +79,13 @@ public class FormRenderer extends XhtmlRenderer
       ((UIXForm) component).setSubmitted(submitted);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return false;
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -91,7 +96,7 @@ public class FormRenderer extends XhtmlRenderer
     _targetFrameKey = type.findKey("targetFrame");
   }
 
-
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -193,7 +198,7 @@ public class FormRenderer extends XhtmlRenderer
     }
   }
 
-
+  @Override
   protected void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -307,6 +312,7 @@ public class FormRenderer extends XhtmlRenderer
   /**
    * Returns the inline Style used to render this node.
    */
+  @Override
   protected String getInlineStyle(FacesBean bean)
   {
     String inlineStyle = super.getInlineStyle(bean);
@@ -320,6 +326,7 @@ public class FormRenderer extends XhtmlRenderer
   /**
    * Render the client ID as both an "id" and a "name"
    */
+  @Override
   protected void renderId(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -334,6 +341,7 @@ public class FormRenderer extends XhtmlRenderer
   /**
    * All editable components need IDs.
    */
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -355,7 +363,7 @@ public class FormRenderer extends XhtmlRenderer
     // Write the array of reset calls
     //
     FormData fData = arc.getFormData();
-    List resetCallList = fData.getResetCalls(false);
+    List<String> resetCallList = fData.getResetCalls(false);
 
     int resetCallCount = (resetCallList != null)
                             ? resetCallList.size()
@@ -380,7 +388,7 @@ public class FormRenderer extends XhtmlRenderer
 
       for (int i = 0; i < resetCallCount; i++)
       {
-        String currCall = (String)resetCallList.get(i);
+        String currCall = resetCallList.get(i);
 
         if (firstCall)
         {
@@ -436,7 +444,7 @@ public class FormRenderer extends XhtmlRenderer
     // The dependencies may be needed - see bug
     // 4409339 TURNING OFF CLIENT SIDE VALIDATION CAUSES
     //                                ERRORS IN SELECTINPUTCOLOR & DATE
-    List clientDependencies = fData.getClientDependencies( false);
+    List<String> clientDependencies = fData.getClientDependencies( false);
     if (clientDependencies != null)
     {
       for (int d = 0; d < clientDependencies.size(); d++)
@@ -471,7 +479,7 @@ public class FormRenderer extends XhtmlRenderer
     // Write the array of validation calls
     //
 
-    Iterator validationIterator = fData.getValidationIterator();
+    Iterator<String> validationIterator = fData.getValidationIterator();
 
     if (validationIterator != null)
     {
@@ -483,7 +491,7 @@ public class FormRenderer extends XhtmlRenderer
 
       while(validationIterator.hasNext())
       {
-        String currValidation = (String)validationIterator.next();
+        String currValidation = validationIterator.next();
 
         if (firstValidation)
         {
@@ -514,7 +522,8 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeText(jsID, null);
 
     // get the form validators
-    List validatorInfoList = fData.getFormValidatorsInfo(false);
+    List<FormData.ConvertValidate> validatorInfoList = 
+      fData.getFormValidatorsInfo(false);
 
     if (validatorInfoList == null)
     {
@@ -540,8 +549,7 @@ public class FormRenderer extends XhtmlRenderer
           writer.writeText("],", null);
         }
 
-        FormData.ConvertValidate convertValidate =
-          (FormData.ConvertValidate)validatorInfoList.get(j);
+        FormData.ConvertValidate convertValidate = validatorInfoList.get(j);
 
         writer.writeText("\"", null);
 
@@ -574,7 +582,7 @@ public class FormRenderer extends XhtmlRenderer
 
         writer.writeText(",[", null);
 
-        ArrayList validatorInfo = convertValidate.validators;
+        ArrayList<Integer> validatorInfo = convertValidate.validators;
 
         if (validatorInfo != null)
         {
@@ -615,7 +623,7 @@ public class FormRenderer extends XhtmlRenderer
     //
 
     // list of labels used for validation on this form
-    List inputList = fData.getValidatedInputList(false);
+    List<String> inputList = fData.getValidatedInputList(false);
 
     int inputCount = (inputList != null)
                          ? inputList.size()
@@ -623,7 +631,7 @@ public class FormRenderer extends XhtmlRenderer
 
     if (inputCount > 0)
     {
-      Map labelMap = fData.getLabelMap(false);
+      Map<String, String> labelMap = fData.getLabelMap(false);
 
       if (labelMap != null)
       {
@@ -635,11 +643,11 @@ public class FormRenderer extends XhtmlRenderer
 
         for (int i = 0; i < inputCount; i++)
         {
-          String currID = (String)inputList.get(i);
+          String currID = inputList.get(i);
 
           // remove the ID entry to prevent multiple labels from
           // being written
-          String currLabel = (String)labelMap.remove(currID);
+          String currLabel = labelMap.remove(currID);
 
           if (currLabel != null)
           {
@@ -671,7 +679,7 @@ public class FormRenderer extends XhtmlRenderer
       // =-= jrf: optimize pattern reuse?
       // BUG 2024773
 
-      Map patternMap = fData.getPatternMap(false);
+      Map<String, String> patternMap = fData.getPatternMap(false);
 
       if (patternMap != null)
       {
@@ -683,11 +691,11 @@ public class FormRenderer extends XhtmlRenderer
 
         for (int i = 0; i < inputCount; i++)
         {
-          String currID = (String)inputList.get(i);
+          String currID = inputList.get(i);
 
           // remove the ID entry to prevent multiple labels from
           // being written
-          String currPattern = (String)patternMap.remove(currID);
+          String currPattern = patternMap.remove(currID);
 
           if (currPattern != null)
           {
@@ -722,7 +730,7 @@ public class FormRenderer extends XhtmlRenderer
     //
 
     // list of error formats used for validation on this form
-    Iterator errorFormatIterator = fData.getErrorFormatIterator();
+    Iterator<String> errorFormatIterator = fData.getErrorFormatIterator();
 
     if (errorFormatIterator != null)
     {
@@ -734,7 +742,7 @@ public class FormRenderer extends XhtmlRenderer
 
       while(errorFormatIterator.hasNext())
       {
-        String currErrorFormat = (String)errorFormatIterator.next();
+        String currErrorFormat = errorFormatIterator.next();
 
         if (firstFormat)
         {
@@ -767,19 +775,21 @@ public class FormRenderer extends XhtmlRenderer
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    List subforms =
+    List<String> subforms =
       SubformRenderer.getSubformList(context, false, false);
+    
     writer.writeText("var ", null);
     writer.writeText(jsID, null);
     writer.writeText("_SF={", null);
     if ((subforms != null) && !subforms.isEmpty())
     {
-      List defaultSubforms =
+      List<String> defaultSubforms =
         SubformRenderer.getSubformList(context, true, false);
-      Iterator ids = subforms.iterator();
+      
+      Iterator<String> ids = subforms.iterator();
       while (ids.hasNext())
       {
-        String id = (String) ids.next();
+        String id = ids.next();
         writer.writeText("\"", null);
         writer.writeText(id, null);
         writer.writeText("\":", null);
@@ -836,13 +846,13 @@ public class FormRenderer extends XhtmlRenderer
   }
 
  public static void addOnSubmitConverterValidators(
-    UIComponent      component,
-    Converter        converter,
-    Iterator         validators,
-    String           clientId,
-    boolean          immediate,
-    boolean          required,
-    String           requiredMessageKey
+    UIComponent         component,
+    Converter           converter,
+    Iterator<Validator> validators,
+    String              clientId,
+    boolean             immediate,
+    boolean             required,
+    String              requiredMessageKey
     ) throws IOException
   {
     FormData fData = RenderingContext.getCurrentInstance().getFormData();
@@ -1017,6 +1027,7 @@ public class FormRenderer extends XhtmlRenderer
     return onKeypress;
   }
 
+  @Override
   protected String getOnkeypress(FacesBean bean)
   {
     // Back out the default keypress, since we need more info
@@ -1070,7 +1081,7 @@ public class FormRenderer extends XhtmlRenderer
     else
     {
       int realNeededIndex = 0;
-      List neededValues = fData.getNeededValues(false);
+      List<String> neededValues = fData.getNeededValues(false);
 
       //
       // loop over the list of needed names, creating hidden fields
@@ -1090,11 +1101,11 @@ public class FormRenderer extends XhtmlRenderer
                                 ? null
                                 : "a";
 
-        Set renderedValues = fData.getRenderedValues(true);
+        Set<String> renderedValues = fData.getRenderedValues(true);
 
         for (int i = 0; i < neededCount; i++)
         {
-          Object currName = neededValues.get(i);
+          String currName = neededValues.get(i);
 
           // if the needed name hasn't been rendered, add it to our
           // list of unrendered elements
@@ -1152,6 +1163,8 @@ public class FormRenderer extends XhtmlRenderer
   private PropertyKey _onsubmitKey;
   private PropertyKey _targetFrameKey;
 
-
+  // -= Simon Lessard =-
+  // FIXME: Nothing in this class is logged as of 2006-08-03
+  @SuppressWarnings("unused")
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormRenderer.class);
 }

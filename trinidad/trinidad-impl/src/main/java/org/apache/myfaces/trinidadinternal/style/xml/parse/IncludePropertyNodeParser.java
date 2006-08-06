@@ -38,6 +38,7 @@ public class IncludePropertyNodeParser extends LeafNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public Object getNodeValue(
     ParseContext context,
     String       namespaceURI,

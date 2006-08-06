@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidadinternal.share.util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
@@ -70,9 +71,12 @@ public class NamespaceMap implements Cloneable
    * @return null if such a namespace/key does not exist. else returns the
    *  associated value.
    */
+  @SuppressWarnings("unchecked")
   public Object get(String namespace, Object key)
   {
-    HashMap map = (HashMap) ArrayMap.get(_namespaces, namespace);
+    Map<Object, Object> map = 
+      (Map<Object, Object>) ArrayMap.get(_namespaces, namespace);
+    
     if (map!=null)
       return map.get(key);
 
@@ -85,9 +89,12 @@ public class NamespaceMap implements Cloneable
    * @param key the key to search the namespace for.
    * @return the associated value, or null if the namespace/key does not exist.
    */
+  @SuppressWarnings("unchecked")
   public Object remove(String namespace, Object key)
   {
-    HashMap map = (HashMap) ArrayMap.get(_namespaces, namespace);
+    Map<Object, Object> map = 
+      (Map<Object, Object>) ArrayMap.get(_namespaces, namespace);
+    
     if (map!=null)
     {
       Object o = map.remove(key);
@@ -119,18 +126,27 @@ public class NamespaceMap implements Cloneable
   /**
    * Returns an Iterator over all the namespaces added to the map.
    */
-  public Iterator getNamespaceIterator()
+  @SuppressWarnings("unchecked")
+  public Iterator<Map<Object, Object>> getNamespaceIterator()
   {
     Object[] namespaces = _namespaces;
     if (namespaces == null)
       return null;
     int i = namespaces.length - 2;
-    ArrayList namespacesList = new ArrayList();
+    
+    ArrayList<Map<Object, Object>> namespacesList = 
+      new ArrayList<Map<Object, Object>>();
+    
+    // -= Simon Lessard =-
+    // FIXME: Extremely strong coupling to with ArrayMap's internal structure.
+    //        This is some bad design, this map should instead extends ArrayMap
+    //        or use one as its internal state rather than Object[].
     while(i>=0)
     {
-      namespacesList.add(namespaces[i]);
+      namespacesList.add((Map<Object, Object>)namespaces[i]);
       i=i-2;
     }
+    
     return namespacesList.iterator();
   }
 
@@ -138,7 +154,7 @@ public class NamespaceMap implements Cloneable
   /**
    * Returns an Enumeration over all the values added to the map.
    */
-  public Iterator getValueIterator()
+  public Iterator<Object> getValueIterator()
   {
     return new Enum();
   }
@@ -146,9 +162,12 @@ public class NamespaceMap implements Cloneable
   /**
    * Returns an Iterator over all of the values for a particular namespace.
    */
-  public Iterator getValueIterator(String namespace)
+  @SuppressWarnings("unchecked")
+  public Iterator<Object> getValueIterator(String namespace)
   {
-    HashMap map = (HashMap)ArrayMap.get(_namespaces, namespace);
+    Map<Object, Object> map = 
+      (Map<Object, Object>)ArrayMap.get(_namespaces, namespace);
+    
     if (map == null)
       return null;
 
@@ -158,9 +177,12 @@ public class NamespaceMap implements Cloneable
   /**
    * Returns an Iterator over all of the keys for a particular namespace.
    */
-  public Iterator getKeysIterator(String namespace)
+  @SuppressWarnings("unchecked")
+  public Iterator<Object> getKeysIterator(String namespace)
   {
-    HashMap map = (HashMap)ArrayMap.get(_namespaces, namespace);
+    Map<Object, Object> map = 
+      (Map<Object, Object>)ArrayMap.get(_namespaces, namespace);
+    
     if (map == null)
       return null;
 
@@ -171,6 +193,8 @@ public class NamespaceMap implements Cloneable
   /**
    * Returns a clone of the NamespaceMap
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public Object clone()
   {
     NamespaceMap namespaceMap;
@@ -193,11 +217,13 @@ public class NamespaceMap implements Cloneable
       int length = _namespaces.length;
       Object[] namespaces = new Object[length];
       System.arraycopy(_namespaces, 0, namespaces, 0, length);
+      // -= Simon Lessard =-
+      // FIXME: Strong ArrayMap's internal functionality coupling here as well
       for (int i = 1; i < length; i += 2)
       {
-        HashMap hm = (HashMap) namespaces[i];
+        HashMap<Object, Object> hm = (HashMap<Object, Object>) namespaces[i];
         if (hm != null)
-          namespaces[i] = (HashMap) hm.clone();
+          namespaces[i] = hm.clone();
       }
 
       namespaceMap._namespaces = namespaces;
@@ -206,6 +232,7 @@ public class NamespaceMap implements Cloneable
     return namespaceMap;
   }
 
+  @SuppressWarnings("unchecked")
   //
   // =-=AEW Package-private version, needed by BindableNamespaceMap
   // since it returns the old value.  It'd be nice to change the
@@ -224,10 +251,12 @@ public class NamespaceMap implements Cloneable
     }
     else
     {
-      HashMap map = (HashMap) ArrayMap.get(_namespaces, namespace);
+      Map<Object, Object> map = 
+        (Map<Object, Object>) ArrayMap.get(_namespaces, namespace);
+      
       if (map==null)
       {
-        map = new HashMap(_defaultSize);
+        map = new HashMap<Object, Object>(_defaultSize);
         _namespaces = ArrayMap.put(_namespaces, namespace, map);
       }
 
@@ -250,7 +279,7 @@ public class NamespaceMap implements Cloneable
   //
   // Internal enumeration class
   //
-  private class Enum implements Iterator
+  private class Enum implements Iterator<Object>
   {
     public Enum()
     {
@@ -290,16 +319,17 @@ public class NamespaceMap implements Cloneable
     }
 
     // Advance to the next iterator (actually, we go backwards)
+    @SuppressWarnings("unchecked")
     private void _advanceIterator()
     {
       int index = _index - 2;
       _index = index;
       if (index > 0)
-        _iterator = ((HashMap) _namespaces[index]).values().iterator();
+        _iterator = ((Map<Object, Object>)_namespaces[index]).values().iterator();
     }
 
     // Current iterator
-    private Iterator _iterator;
+    private Iterator<Object> _iterator;
 
     // Index into the _namespaces array
     private int      _index;

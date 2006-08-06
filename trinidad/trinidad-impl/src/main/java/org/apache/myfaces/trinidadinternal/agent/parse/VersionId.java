@@ -32,6 +32,7 @@ public class VersionId
     _version = _parseVersion(version);
   }
 
+  @Override
   public String toString()
   {
     return _versionString;
@@ -53,7 +54,7 @@ public class VersionId
         char currChar = _versionString.charAt(currIndex);
         if ((currChar >= '0') && (currChar <= '9'))
         {
-          double addValue = (double) (currChar - '0');
+          double addValue = (currChar - '0');
           if (hasDecimal)
           {
             // handle digits to right of decimal
@@ -88,7 +89,7 @@ public class VersionId
   }
 
 
-  public Iterator iterator()
+  public Iterator<String> iterator()
   {
     return new VIterator();
   }
@@ -112,7 +113,9 @@ public class VersionId
     while (i < length + 1)
     {
       //Ignore spaces. TODO: This should happen only for start and end (trim).
-      while (Character.isSpace(ch))
+      // 2006-08-02: -= Simon Lessard =-
+      //while (Character.isSpace(ch))
+      while (Character.isWhitespace(ch))
         ch = data[++i];
 
       switch (ch)
@@ -151,7 +154,7 @@ public class VersionId
     Entry next;
   }
 
-  private class VIterator implements Iterator
+  private class VIterator implements Iterator<String>
   {
     public VIterator()
     {
@@ -168,7 +171,7 @@ public class VersionId
       return (null != _current);
     }
 
-    public Object next()
+    public String next()
     {
       String part = _current.text;
       _current = _current.next;

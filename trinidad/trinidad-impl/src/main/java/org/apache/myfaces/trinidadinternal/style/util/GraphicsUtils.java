@@ -163,7 +163,7 @@ public class GraphicsUtils
 
   // Called by FontLoader thread upon completion
   static void __setFontsLoaded(
-    Map names
+    Map<String, Boolean> names
     )
   {
     synchronized (GraphicsUtils.class)
@@ -178,7 +178,9 @@ public class GraphicsUtils
         _LOG.warning(_FONT_FAILURE_MESSAGE);
 
         // If we didn't get any fonts, just use the built-in JAVA virutal fonts
-        ArrayMap defaultFonts = new ArrayMap(_DEFAULT_FONT_NAMES.length);
+        ArrayMap<String, Boolean> defaultFonts = 
+          new ArrayMap<String, Boolean>(_DEFAULT_FONT_NAMES.length);
+        
         for (int i = 0; i < _DEFAULT_FONT_NAMES.length; i++)
           defaultFonts.put(_DEFAULT_FONT_NAMES[i].toLowerCase(), Boolean.TRUE);
 
@@ -267,6 +269,10 @@ public class GraphicsUtils
           else if ((current - start) > abortTimeout)
           {
             // Stop the graphics loader thread
+            // -= Simon Lessard =-
+            // FIXME: stop() is bad, especially with all that synchronized 
+            //        class used, it's deadlock prone, should stop it 
+            //        differently.
             if (_sGraphicsLoaderThread != null)
               _sGraphicsLoaderThread.stop();
 
@@ -347,7 +353,9 @@ public class GraphicsUtils
     public void run()
     {
       GraphicsEnvironment ge = null;
-      Hashtable fontNames = null;
+      // -= Simon Lessard =-
+      // TODO: Check if synchronization is required
+      Hashtable<String, Boolean> fontNames = null;
 
       try
       {
@@ -359,7 +367,7 @@ public class GraphicsUtils
 
           if ((families != null) && (families.length > 0))
           {
-            fontNames = new Hashtable(families.length);
+            fontNames = new Hashtable<String, Boolean>(families.length);
             for (int i = 0; i < families.length; i++)
             {
               String name = families[i].toLowerCase();
@@ -387,7 +395,7 @@ public class GraphicsUtils
   private static boolean _sIsGraphical = false;
 
   // Map of valid font names
-  private static Map _sFontNames = null;
+  private static Map<String, Boolean> _sFontNames = null;
 
   // Have we loaded the graphical environment yet?
   private static boolean _sGraphicsLoaded = false;

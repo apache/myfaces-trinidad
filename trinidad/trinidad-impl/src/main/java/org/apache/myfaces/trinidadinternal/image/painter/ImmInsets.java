@@ -107,6 +107,7 @@ public class ImmInsets implements Cloneable
   /**
    * Checks whether two insets objects are equal.
    */
+  @Override
   public boolean equals(Object obj)
   {
     if (obj instanceof ImmInsets)
@@ -139,6 +140,7 @@ public class ImmInsets implements Cloneable
   /**
    * Override of Object.hashCode()
    */
+  @Override
   public int hashCode()
   {
     // We need to override hashCode since we override equals().
@@ -154,6 +156,7 @@ public class ImmInsets implements Cloneable
   /**
    * Returns a String object representing this Inset's values.
    */
+  @Override
   public String toString()
   {
     return getClass().getName() +
@@ -164,6 +167,7 @@ public class ImmInsets implements Cloneable
   }
 
 
+  @Override
   public Object clone()
   {
     try

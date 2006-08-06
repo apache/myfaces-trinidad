@@ -39,12 +39,16 @@ public class TreeRenderer extends UINodeRendererBase
   /**
    * @todo do not mess with selection here. queue an event.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(
     FacesContext context, 
     UIComponent component)
   {
-    Map parameters = context.getExternalContext().getRequestParameterMap();
-    String source = (String) parameters.get(UIConstants.SOURCE_PARAM);
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String source = parameters.get(UIConstants.SOURCE_PARAM);
 
     if (!component.getClientId(context).equals(source))
       return;
@@ -52,7 +56,7 @@ public class TreeRenderer extends UINodeRendererBase
     TreeUtils.decodeExpandEvents(parameters, component, Collections.EMPTY_LIST);
     String currencyStrParam = 
       source + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
-    String currencyStr = (String) parameters.get(currencyStrParam);
+    String currencyStr = parameters.get(currencyStrParam);
     if ((currencyStr != null) && (!"".equals(currencyStr)))
     {
       UIXTree tree = (UIXTree) component;

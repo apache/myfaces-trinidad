@@ -17,14 +17,11 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.CoreGroup;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -36,11 +33,13 @@ public class GroupRenderer extends XhtmlRenderer
     super(CoreGroup.TYPE);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

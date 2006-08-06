@@ -50,6 +50,7 @@ public final class NamespaceURI
     return _name;
   }
 
+  @Override
   public boolean equals(Object obj)
   {
     if (obj instanceof NamespaceURI)
@@ -60,6 +61,7 @@ public final class NamespaceURI
     return false;
   }
 
+  @Override
   public int hashCode()
   {
     // =-= ACW: we need a better function to combine hashcodes. for now lets
@@ -124,6 +126,7 @@ public final class NamespaceURI
    * @deprecated since 2.2.0. use
    * {@link #create(ExpressionContext,String,String)}
    */
+  @Deprecated
   public static NamespaceURI create(ParseContext context,
                                     String qname,
                                     String defaultURI)

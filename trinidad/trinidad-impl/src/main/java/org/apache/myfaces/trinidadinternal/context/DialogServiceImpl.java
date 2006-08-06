@@ -46,17 +46,19 @@ public class DialogServiceImpl extends DialogService
     _context = context;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void pushView(UIViewRoot viewRoot)
   {
     FacesContext context = _getFacesContext();
     Object savedOld = StateManagerImpl.saveViewRoot(context, viewRoot);
 
-    List list = (List) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
+    List<Object> list = (List<Object>) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
     if (list == null)
-      list = new ArrayList(1);
+      list = new ArrayList<Object>(1);
     else
     {
-      List tmp = new ArrayList(list.size() + 1);
+      List<Object> tmp = new ArrayList<Object>(list.size() + 1);
       tmp.addAll(list);
       list = tmp;
     }
@@ -67,6 +69,8 @@ public class DialogServiceImpl extends DialogService
     _LOG.fine("Pushed view {0}", viewRoot.getViewId());
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void popView(boolean navigateToPoppedView)
   {
     FacesContext context = _getFacesContext();
@@ -86,7 +90,7 @@ public class DialogServiceImpl extends DialogService
     }
 
     // Make a copy of the List;  never mutate the original list
-    List list = (List) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
+    List<Object> list = (List<Object>) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
     if (list == null)
     {
       // For starters, this should only happen if we weren't navigating
@@ -100,18 +104,20 @@ public class DialogServiceImpl extends DialogService
     }
     else
     {
-      list = new ArrayList(list);
+      list = new ArrayList<Object>(list);
       list.remove(list.size() - 1);
       _getPageFlowScope().put(_PUSHED_VIEWS_KEY, list);
     }
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public UIViewRoot peekView()
   {
     FacesContext context = _getFacesContext();
     Object savedRoot = null;
 
-    List list = (List) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
+    List<Object> list = (List<Object>) _getPageFlowScope().get(_PUSHED_VIEWS_KEY);
     if (list != null)
       savedRoot = list.get(list.size() - 1);
 
@@ -140,8 +146,10 @@ public class DialogServiceImpl extends DialogService
     return null;
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public boolean returnFromDialog(Object returnValue,
-                                  Map returnParameters)
+                                  Map<Object, Object> returnParameters)
   {
     FacesContext context = _getFacesContext();
     context.getExternalContext().getSessionMap().
@@ -172,7 +180,7 @@ public class DialogServiceImpl extends DialogService
     // do that;  we'll mark the response as complete, because we'll need
     // the AdfFacesFilter to re-execute the faces lifecycle with the
     // new parameters
-    Map launchParameters = (Map)
+    Map<Object, Object> launchParameters = (Map<Object, Object>)
       poppedView.getAttributes().get(RequestContextImpl.LAUNCH_PARAMETERS);
 
     if (launchParameters != null)
@@ -181,7 +189,7 @@ public class DialogServiceImpl extends DialogService
       // AdfFacesFilterImpl and ViewHandlerImpl
       poppedView.getAttributes().remove(RequestContextImpl.LAUNCH_PARAMETERS);
 
-      Map requestMap = context.getExternalContext().getRequestMap();
+      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       requestMap.put(RequestContextImpl.LAUNCH_PARAMETERS, launchParameters);
       requestMap.put(RequestContextImpl.LAUNCH_VIEW, poppedView);
 
@@ -194,12 +202,14 @@ public class DialogServiceImpl extends DialogService
 
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public ReturnEvent getReturnEvent(UIComponent source)
   {
     FacesContext context = _getFacesContext();
     if (TrinidadFilterImpl.isExecutingDialogReturn(context))
     {
-      Map parameterMap = context.getExternalContext().getRequestParameterMap();
+      Map<String, Object> parameterMap = context.getExternalContext().getRequestParameterMap();
       Object returnParam = parameterMap.get(_RETURN_PARAM);
       if (returnParam == null)
         return null;
@@ -225,11 +235,11 @@ public class DialogServiceImpl extends DialogService
              remove(_DIALOG_RETURN_KEY);
 
     Object returnValue = null;
-    Map    returnParams = null;
+    Map<Object, Object> returnParams = null;
     if (o != null)
     {
       returnValue = ((Object[]) o)[0];
-      returnParams = (Map) ((Object[]) o)[1];
+      returnParams = (Map<Object, Object>)((Object[]) o)[1];
     }
 
     ReturnEvent returnEvent =
@@ -241,6 +251,7 @@ public class DialogServiceImpl extends DialogService
     return returnEvent;
   }
 
+  @Override
   public void queueLaunchEvent(UIViewRoot viewRoot)
   {
     UIComponent source = getCurrentLaunchSource();
@@ -254,9 +265,10 @@ public class DialogServiceImpl extends DialogService
     }
   }
 
+  @Override
   public void queueReturnEvent(
     Object returnValue,
-    Map    returnParams)
+    Map<Object, Object> returnParams)
   {
     UIComponent source = getCurrentLaunchSource();
     if (source == null)
@@ -274,15 +286,17 @@ public class DialogServiceImpl extends DialogService
    * Launch a dialog.
    * @todo Don't save parameters for state-saving, page-flow scope, etc.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void launchDialog(
     UIViewRoot  dialogRoot,
-    Map         dialogParameters,
+    Map<String, Object> dialogParameters,
     UIComponent source,
     boolean     useWindow,
-    Map         windowProperties)
+    Map<String, Object> windowProperties)
   {
     if (dialogParameters == null)
-      dialogParameters = new HashMap();
+      dialogParameters = new HashMap<String, Object>();
 
     FacesContext context = _getFacesContext();
 
@@ -323,7 +337,7 @@ public class DialogServiceImpl extends DialogService
       // Save the parameters used to launch the dialog so we can
       // simulate a postback when coming back to the dialog;  and
       // write in a "returnId" with the "id" that will be used.
-      Map savedRequestParameters = new HashMap();
+      Map<String, Object> savedRequestParameters = new HashMap<String, Object>();
       savedRequestParameters.putAll(
             context.getExternalContext().getRequestParameterValuesMap());
       if (source != null)
@@ -365,7 +379,8 @@ public class DialogServiceImpl extends DialogService
     return _context.__getFacesContext();
   }
 
-  private Map _getPageFlowScope()
+  @SuppressWarnings("unchecked")
+  private Map<String, Object> _getPageFlowScope()
   {
     return _context.getPageFlowScope();
   }
@@ -374,7 +389,7 @@ public class DialogServiceImpl extends DialogService
     FacesContext context)
   {
     RenderKit rk = context.getRenderKit();
-    DialogRenderKitService service = (DialogRenderKitService)
+    DialogRenderKitService service = 
        Service.getService(rk, DialogRenderKitService.class);
 
     if (service == null)
@@ -391,15 +406,16 @@ public class DialogServiceImpl extends DialogService
    * Execute any "binding" attributes so that a popped view
    * is properly set up
    */
+  @SuppressWarnings("unchecked")
   private void _executeBindings(FacesContext context, UIComponent component)
   {
     ValueBinding binding = component.getValueBinding("binding");
     if (binding != null)
       binding.setValue(context, component);
 
-    Iterator kids = component.getFacetsAndChildren();
+    Iterator<UIComponent> kids = component.getFacetsAndChildren();
     while (kids.hasNext())
-      _executeBindings(context, (UIComponent) kids.next());
+      _executeBindings(context, kids.next());
   }
 
   private RequestContextImpl _context;
@@ -417,6 +433,7 @@ public class DialogServiceImpl extends DialogService
       super(source, viewRoot);
     }
 
+    @Override
     public void launchDialog(boolean useWindow)
     {
       RequestContext afContext = RequestContext.getCurrentInstance();

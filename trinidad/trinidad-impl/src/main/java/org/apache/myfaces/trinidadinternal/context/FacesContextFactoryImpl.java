@@ -48,8 +48,12 @@ public class FacesContextFactoryImpl
     _factory = factory;
   }
 
-  public FacesContext getFacesContext(Object context, Object request,
-                                      Object response, Lifecycle lifecycle)
+  @Override
+  public FacesContext getFacesContext(
+      Object context,
+      Object request,
+      Object response, 
+      Lifecycle lifecycle)
   {
     return new CacheRenderKit(_factory.getFacesContext(context,
                                                        request,
@@ -66,36 +70,46 @@ public class FacesContextFactoryImpl
       setCurrentInstance(this);
     }
 
+    @Override
     public Application getApplication()
     {
       return _base.getApplication();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public Iterator getClientIdsWithMessages()
     {
       return _base.getClientIdsWithMessages();
     }
 
+    @Override
     public ExternalContext getExternalContext()
     {
       return _external;
     }
 
+    @Override
     public FacesMessage.Severity getMaximumSeverity()
     {
       return _base.getMaximumSeverity();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public Iterator getMessages()
     {
       return _base.getMessages();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public Iterator getMessages(String clientId)
     {
       return _base.getMessages(clientId);
     }
 
+    @Override
     public RenderKit getRenderKit()
     {
       if (_kit == null)
@@ -124,61 +138,73 @@ public class FacesContextFactoryImpl
       return _kit;
     }
 
+    @Override
     public boolean getRenderResponse()
     {
       return _base.getRenderResponse();
     }
 
+    @Override
     public boolean getResponseComplete()
     {
       return _base.getResponseComplete();
     }
 
+    @Override
     public ResponseStream getResponseStream()
     {
       return _base.getResponseStream();
     }
 
+    @Override
     public void setResponseStream(ResponseStream responseStream)
     {
       _base.setResponseStream(responseStream);
     }
 
+    @Override
     public ResponseWriter getResponseWriter()
     {
       return _base.getResponseWriter();
     }
 
+    @Override
     public void setResponseWriter(ResponseWriter responseWriter)
     {
       _base.setResponseWriter(responseWriter);
     }
 
+    @Override
     public UIViewRoot getViewRoot()
     {
       return _base.getViewRoot();
     }
 
+    @Override
     public void setViewRoot(UIViewRoot viewRoot)
     {
       _base.setViewRoot(viewRoot);
     }
 
+    @Override
     public void addMessage(String clientId, FacesMessage facesMessage)
     {
       _base.addMessage(clientId, facesMessage);
     }
 
+    @Override
     public void release()
     {
       _base.release();
     }
 
+    @Override
     public void renderResponse()
     {
       _base.renderResponse();
     }
 
+    @Override
     public void responseComplete()
     {
       _base.responseComplete();
@@ -197,6 +223,7 @@ public class FacesContextFactoryImpl
       _decorated = decorated;
     }
 
+    @Override
     public void dispatch(String path) throws IOException
     {
       RequestContext afc = RequestContext.getCurrentInstance();
@@ -209,6 +236,7 @@ public class FacesContextFactoryImpl
     }
 
 
+    @Override
     protected ExternalContext getExternalContext()
     {
       return _decorated;
@@ -219,6 +247,9 @@ public class FacesContextFactoryImpl
 
   private final FacesContextFactory _factory;
 
+  // 2006-08-02; -= Simon Lessard =-
+  // There's nothing logged in this class at this time.
+  @SuppressWarnings("unused")
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(FacesContextFactoryImpl.class);
 }

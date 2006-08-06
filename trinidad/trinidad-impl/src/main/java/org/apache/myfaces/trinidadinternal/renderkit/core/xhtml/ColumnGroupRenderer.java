@@ -61,6 +61,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     super(CoreColumn.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -76,7 +77,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     _defaultSortOrderKey = type.findKey("defaultSortOrder");
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -180,6 +181,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   /**
    * @todo Will need to support TREE_NODE_STAGE
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -513,7 +515,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     String sortJS = buffer.toString();
     if (onclick != null)
     {
-      sortJS = (String) XhtmlUtils.getChainedJS(onclick, sortJS, true);
+      sortJS = XhtmlUtils.getChainedJS(onclick, sortJS, true);
     }
 
     return sortJS;
@@ -632,11 +634,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     // Otherwise, look at the first sort criteria
     // =-=AEW This seems slow...
     UIXCollection table = (UIXCollection) tContext.getTable();
-    List criteria = table.getSortCriteria();
+    List<SortCriterion> criteria = table.getSortCriteria();
     // We currently only show anything for the primary sort criterion
     if (criteria.size() > 0)
     {
-      SortCriterion criterion = (SortCriterion) criteria.get(0);
+      SortCriterion criterion = criteria.get(0);
       if (property.equals(criterion.getProperty()))
       {
         return criterion.isAscending() ? SORT_ASCENDING : SORT_DESCENDING;
@@ -717,24 +719,27 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     _setParentNode(tContext, parentNode);
   }
 
-
+  @SuppressWarnings("unchecked")
   private void _renderChildren(FacesContext context,
                                UIComponent  component,
                                NodeData     parentNode)
     throws IOException
   {
-    List children = component.getChildren();
-    int size = children.size();
-    for (int i = 0; i < size; i++)
+    int i = 0;
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (child.isRendered())
       {
         // Tell the parent node - if there is one - which child we're rendering
         if (parentNode != null)
+        {
           parentNode.currentChild = i;
+        }
+        
         encodeChild(context, child);
       }
+      
+      i++;
     }
   }
 
@@ -790,7 +795,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
   private static final class NodeList
   {
-    private final ArrayList _list = new ArrayList(10);
+    private final ArrayList<NodeData> _list = new ArrayList<NodeData>(10);
     private int _index = 0;
 
     public NodeData currentNode = null;
@@ -805,7 +810,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       if (_index >= _list.size())
         _index = 0;
 
-      return (NodeData) _list.get(_index++);
+      return _list.get(_index++);
     }
   }
 
