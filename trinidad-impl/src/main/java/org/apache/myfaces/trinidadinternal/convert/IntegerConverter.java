@@ -62,6 +62,7 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
 
 
  
+  @Override
   public Object getAsObject(
     FacesContext context, 
     UIComponent component,

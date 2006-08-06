@@ -48,6 +48,7 @@ class SourceCheckingCacheEntry extends CacheEntry
     super(uri, width, height, encoding);
   }
 
+  @Override
   public boolean isValid(
     ImageContext context,
     ImageProviderRequest request
@@ -82,7 +83,7 @@ class SourceCheckingCacheEntry extends CacheEntry
     ImageProviderRequest request
     )
   {
-    Map properties = request.getRenderProperties(context);
+    Map<Object, Object> properties = request.getRenderProperties(context);
     assert (properties != null);
 
     InputStreamProvider provider = (InputStreamProvider)properties.get(

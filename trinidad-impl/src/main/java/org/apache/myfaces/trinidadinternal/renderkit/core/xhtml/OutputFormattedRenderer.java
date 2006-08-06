@@ -37,13 +37,14 @@ public class OutputFormattedRenderer extends ValueRenderer
     super(CoreOutputFormatted.TYPE);
   }
   
-  
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _styleUsageKey = type.findKey("styleUsage");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -57,6 +58,7 @@ public class OutputFormattedRenderer extends ValueRenderer
     renderAllAttributes(context, arc, bean);
   }
 
+  @Override
   public void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -74,6 +76,7 @@ public class OutputFormattedRenderer extends ValueRenderer
     return toString(bean.getProperty(_styleUsageKey));
   }
 
+  @Override
   protected String getStyleClass(FacesBean bean)
   {
     String styleClass = super.getStyleClass(bean);
@@ -82,16 +85,17 @@ public class OutputFormattedRenderer extends ValueRenderer
       String usage = getStyleUsage(bean);
       if (usage != null)
       {
-        styleClass = (String) _USAGES.get(usage);
+        styleClass = _USAGES.get(usage);
       }
     }
 
     return styleClass;
   }
 
-  static private final Map _USAGES = new HashMap();
+  static private final Map<String, String> _USAGES;
   static
   {
+    _USAGES = new HashMap<String, String>();
     _USAGES.put(CoreOutputFormatted.STYLE_USAGE_IN_CONTEXT_BRANDING,
                 XhtmlConstants.IN_CONTEXT_TEXT_STYLE_CLASS);
     _USAGES.put(CoreOutputFormatted.STYLE_USAGE_INSTRUCTION,

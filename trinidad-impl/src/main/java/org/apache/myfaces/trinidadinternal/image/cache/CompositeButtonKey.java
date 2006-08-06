@@ -46,7 +46,7 @@ public class CompositeButtonKey
    */
   public CompositeButtonKey(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     String lookAndFeelId = (String)properties.get(LOOK_AND_FEEL_ID_KEY);
@@ -144,6 +144,7 @@ public class CompositeButtonKey
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object o)
   {
     if (this == o)
@@ -172,6 +173,7 @@ public class CompositeButtonKey
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     // In order to implement font name wildcarding, we don't hash on font
@@ -197,9 +199,9 @@ public class CompositeButtonKey
   /**
    * Implementation of ImageProviderRequest.getRenderProperties().
    */
-  public Map getRenderProperties(ImageContext context)
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    ArrayMap properties = new ArrayMap(_MAP_SIZE);
+    ArrayMap<Object, Object> properties = new ArrayMap<Object, Object>(_MAP_SIZE);
     properties.put(LOOK_AND_FEEL_ID_KEY, _lookAndFeelId);
     properties.put(NAME_KEY, _name);
     properties.put(TEXT_KEY, _text);
@@ -251,6 +253,7 @@ public class CompositeButtonKey
     return null;
   }
 
+  @Override
   public String toString()
   {
     String propertiesString =
@@ -398,7 +401,7 @@ public class CompositeButtonKey
   }
 
   private char _getChar(
-    Map properties,
+    Map<Object, Object> properties,
     Object key
     )
   {
@@ -410,7 +413,7 @@ public class CompositeButtonKey
   }
 
   private void _putChar(
-    Map properties,
+    Map<Object, Object> properties,
     Object key,
     char value
     )
@@ -482,7 +485,7 @@ public class CompositeButtonKey
   // Returns the InputStreamProvider for the icon with
   // the specific key.
   private InputStreamProvider _getIcon(
-    Map properties,
+    Map<Object, Object> properties,
     Object     iconKey
     )
   {
@@ -490,7 +493,7 @@ public class CompositeButtonKey
   }
 
   // Put the start icon in the specified properties dictionary
-  private void _putStartIcon(Map properties)
+  private void _putStartIcon(Map<Object, Object> properties)
   {
     if (_startIcon == null)
       _startIcon = getStartIcon();
@@ -500,7 +503,7 @@ public class CompositeButtonKey
   }
 
   // Put the end icon in the specified properties dictionary
-  private void _putEndIcon(Map properties)
+  private void _putEndIcon(Map<Object, Object> properties)
   {
     if (_endIcon == null)
       _endIcon = getEndIcon();
@@ -510,7 +513,7 @@ public class CompositeButtonKey
   }
 
   // Put the top background icon in the specified properties dictionary
-  private void _putTopBackgroundIcon(Map properties)
+  private void _putTopBackgroundIcon(Map<Object, Object> properties)
   {
     if (_topBackgroundIcon == null)
       _topBackgroundIcon = getTopBackgroundIcon();
@@ -520,7 +523,7 @@ public class CompositeButtonKey
   }
 
   // Put the bottom background icon in the specified properties dictionary
-  private void _putBottomBackgroundIcon(Map properties)
+  private void _putBottomBackgroundIcon(Map<Object, Object> properties)
   {
     if (_bottomBackgroundIcon == null)
       _bottomBackgroundIcon = getBottomBackgroundIcon();

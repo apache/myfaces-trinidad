@@ -53,9 +53,9 @@ public class UserStyleSheet
    * @param namedStyles A Map or names Style objects, hashed by name
    */
   public UserStyleSheet(
-    String     id,
-    Map styles,
-    Map namedStyles
+    String             id,
+    Map<String, Style> styles,
+    Map<String, Style> namedStyles
     )
   {
     _init(id, styles, namedStyles);
@@ -86,14 +86,16 @@ public class UserStyleSheet
     UserStyleSheet styleSheet2
     )
   {
-    Hashtable namedStyles = new Hashtable();
-    Hashtable styles = new Hashtable();
+    // -= Simon Lessard =- 
+    // TODO: Check if synchronization is required
+    Hashtable<String, Style> namedStyles = new Hashtable<String, Style>();
+    Hashtable<String, Style> styles = new Hashtable<String, Style>();
 
     // First, put all of the styles from style sheet 2 into our hash tables
     if (styleSheet2 != null)
     {
       // First, do the named styles
-      Iterator e = styleSheet2.getNames();
+      Iterator<Object> e = styleSheet2.getNames();
       if (e != null)
       {
         while (e.hasNext())
@@ -121,7 +123,7 @@ public class UserStyleSheet
     if (styleSheet1 != null)
     {
       // First merge the named styles
-      Iterator e = styleSheet1.getNames();
+      Iterator<Object> e = styleSheet1.getNames();
       if (e != null)
       {
         while (e.hasNext())
@@ -177,7 +179,7 @@ public class UserStyleSheet
    * by calling getStyle().
    * @see #getStyle
    */
-  public Iterator getSelectors()
+  public Iterator<Object> getSelectors()
   {
     return ArrayMap.getKeys(_styles);
   }
@@ -189,7 +191,7 @@ public class UserStyleSheet
    * by calling getNamedStyle().
    * @see #getNamedStyle
    */
-  public Iterator getNames()
+  public Iterator<Object> getNames()
   {
     return ArrayMap.getKeys(_namedStyles);
   }
@@ -213,6 +215,7 @@ public class UserStyleSheet
   /**
    * Tests for equality.
    */
+  @Override
   public boolean equals(Object o)
   {
     if (!(o instanceof UserStyleSheet))
@@ -246,6 +249,7 @@ public class UserStyleSheet
   /**
    * Returns the hash code.
    */
+  @Override
   public int hashCode()
   {
     return _hashCode;
@@ -256,7 +260,7 @@ public class UserStyleSheet
   // resulting ArrayMap is actually sorted lexicographically by key.  This
   // is done to support fast comparisons between two UserStyleSheet
   // instances.
-  private Object[] _createSortedMap(Map styles)
+  private Object[] _createSortedMap(Map<String, Style> styles)
   {
     if ((styles == null) || (styles.size() == 0))
       return _EMPTY_MAP;
@@ -264,10 +268,10 @@ public class UserStyleSheet
     // First, copy all of the style keys into an Array
     int i = 0;
     String keys[] = new String[styles.size()];
-    Iterator e = styles.keySet().iterator();
+    Iterator<String> e = styles.keySet().iterator();
 
     while (e.hasNext())
-      keys[i++] = (String)e.next();
+      keys[i++] = e.next();
 
     // Now, sort the array
     Arrays.sort(keys);
@@ -279,7 +283,7 @@ public class UserStyleSheet
     for (i = 0; i < keys.length; i++)
     {
       String key = keys[i];
-      Style style = new SortedStyle((Style)styles.get(key));
+      Style style = new SortedStyle(styles.get(key));
       int index = i * 2;
       map[index] = key;
       map[index + 1] = style;
@@ -305,9 +309,9 @@ public class UserStyleSheet
 
   // Initializes a new UserStyleSheet instance
   private void _init(
-    String     id,
-    Map styles,
-    Map namedStyles)
+    String             id,
+    Map<String, Style> styles,
+    Map<String, Style> namedStyles)
   {
     assert (id != null);
 
@@ -324,12 +328,12 @@ public class UserStyleSheet
   // the properties of the two styles are merged, with the properties
   // of the new style taking precedence.
   private static void _mergeStyle(
-    Map styles,
-    String     id,
-    Style      style
+    Map<String, Style> styles,
+    String             id,
+    Style              style
     )
   {
-    Style oldStyle = (Style)styles.get(id);
+    Style oldStyle = styles.get(id);
     if (oldStyle == null)
     {
       styles.put(id, style);
@@ -338,10 +342,11 @@ public class UserStyleSheet
 
     // If we already had a style with the same ID, merge the properties
     // from the two styles.
-    ArrayMap properties = new ArrayMap(10);
+    ArrayMap<String, String> properties = 
+      new ArrayMap<String, String>(10);
 
     // First, copy in properties from the old style
-    Iterator names = oldStyle.getPropertyNames();
+    Iterator<Object> names = oldStyle.getPropertyNames();
     while (names.hasNext())
     {
       String name = (String)names.next();
@@ -374,10 +379,12 @@ public class UserStyleSheet
     public SortedStyle(Style style)
     {
       // First, copy the property names into an array
-      Vector v = new Vector();
-      Iterator e = style.getPropertyNames();
+      // -= Simon Lessard =- 
+      // TODO: Check if synchronization is truly required
+      Vector<String> v = new Vector<String>();
+      Iterator<Object> e = style.getPropertyNames();
       while (e.hasNext())
-        v.addElement(e.next());
+        v.addElement((String)e.next());
 
       String[] names = new String[v.size()];
       v.copyInto(names);
@@ -399,7 +406,7 @@ public class UserStyleSheet
       _properties = properties;
     }
 
-    public Iterator getPropertyNames()
+    public Iterator<Object> getPropertyNames()
     {
       return ArrayMap.getKeys(_properties);
     }
@@ -423,6 +430,7 @@ public class UserStyleSheet
       return null;
     }
 
+    @Override
     public int hashCode()
     {
       // Hashcode doesn't need to be very fast, as it is
@@ -437,6 +445,7 @@ public class UserStyleSheet
       return hashCode;
     }
 
+    @Override
     public boolean equals(Object o)
     {
       SortedStyle style = (SortedStyle)o;

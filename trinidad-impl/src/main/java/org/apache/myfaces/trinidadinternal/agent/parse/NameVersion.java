@@ -107,7 +107,7 @@ class NameVersion
     int i = 0;
     char ch = data[i];
 
-    ArrayList entries = new ArrayList(5);
+    ArrayList<Object[]> entries = new ArrayList<Object[]>(5);
     VersionEntry vEntry = null;
     NameEntry head, curr;
     head = curr = new NameEntry();
@@ -173,7 +173,9 @@ class NameVersion
           }
           else
           {
-            while (!Character.isSpace(ch) && (ch != (char) 0x1000000))
+            // 2006-08-02: -= Simon Lessard =-
+            //while (!Character.isSpace(ch) && (ch != (char) 0x1000000))
+            while (!Character.isWhitespace(ch) && (ch != (char) 0x1000000))
               ch = data[++i];
           }
 
@@ -207,7 +209,9 @@ class NameVersion
           i++;
           break;
         default:
-          if ((!inQuote) && (Character.isSpace(ch)))
+          // 2006-08-02: -= Simon Lessard =-
+          //if ((!inQuote) && (Character.isSpace(ch)))
+          if ((!inQuote) && (Character.isWhitespace(ch)))
           {
             if (start != i)
             {
@@ -228,7 +232,9 @@ class NameVersion
             }
             //Skip space
             ch = data[++i];
-            while (Character.isSpace(ch))
+            // 2006-08-02: -= Simon Lessard =-
+            //while (Character.isSpace(ch))
+            while (Character.isWhitespace(ch))
               ch = data[++i];
             start = i;
           }
@@ -280,7 +286,9 @@ class NameVersion
           version = value.substring(0, i);
           for (++i; i < length; i++)
           {
-            if (!Character.isSpace(ch))
+            // 2006-08-02: -= Simon Lessard =-
+            //if (!Character.isSpace(ch))
+            if (!Character.isWhitespace(ch))
               throw new ParseException("Unexpected char.", offset + i);
           }
           //if the version string was simpley "*" or "+"
@@ -370,15 +378,15 @@ class NameVersion
 
     if (entry._type == VersionEntry.STAR_TYPE)
     {
-      Iterator vIterator1 = version.iterator();
-      Iterator vIterator2 = entry._versionId.iterator();
+      Iterator<String> vIterator1 = version.iterator();
+      Iterator<String> vIterator2 = entry._versionId.iterator();
 
       //Check upto where both have values
       int matchedParts = 0;
       while ((vIterator1.hasNext()) && (vIterator2.hasNext()))
       {
-        String part1 = (String) vIterator1.next();
-        String part2 = (String) vIterator2.next();
+        String part1 = vIterator1.next();
+        String part2 = vIterator2.next();
         if (!part1.equals(part2))
           return NO_MATCH;
         matchedParts++;
@@ -388,7 +396,7 @@ class NameVersion
       //parts (sub versions), then it must be .0's
       while (vIterator2.hasNext())
       {
-        if (!"0".equals((String) vIterator2.next()))
+        if (!"0".equals(vIterator2.next()))
           return NO_MATCH;
       }
 
@@ -405,16 +413,16 @@ class NameVersion
     }
     else if (entry._type == VersionEntry.PLUS_TYPE)
     {
-      Iterator vIterator1 = version.iterator();
-      Iterator vIterator2 = entry._versionId.iterator();
+      Iterator<String> vIterator1 = version.iterator();
+      Iterator<String> vIterator2 = entry._versionId.iterator();
 
       //Check upto where both have values
       while ((vIterator1.hasNext()) && (vIterator2.hasNext()))
       {
         try
         {
-          int v1 = Integer.parseInt((String) vIterator1.next());
-          int v2 = Integer.parseInt((String) vIterator2.next());
+          int v1 = Integer.parseInt(vIterator1.next());
+          int v2 = Integer.parseInt(vIterator2.next());
           if (v1 > v2)
             return (VERSION_GE_MATCH * (entry._versionId.getVersion() / version.getVersion()));
           else if (v1 < v2)
@@ -432,7 +440,7 @@ class NameVersion
       {
         try
         {
-          if (Integer.parseInt((String) vIterator2.next()) != 0)
+          if (Integer.parseInt(vIterator2.next()) != 0)
             return NO_MATCH;
         }
         catch (NumberFormatException npe)
@@ -446,27 +454,27 @@ class NameVersion
     else
     {
       //exact match
-      Iterator vIterator1 = version.iterator();
-      Iterator vIterator2 = entry._versionId.iterator();
+      Iterator<String> vIterator1 = version.iterator();
+      Iterator<String> vIterator2 = entry._versionId.iterator();
 
       //Check upto where both have values
       while ((vIterator1.hasNext()) && (vIterator2.hasNext()))
       {
-        String part1 = (String) vIterator1.next();
-        String part2 = (String) vIterator2.next();
+        String part1 = vIterator1.next();
+        String part2 = vIterator2.next();
         if (!part1.equals(part2))
           return NO_MATCH;
       }
 
       while (vIterator1.hasNext())
       {
-        if (!"0".equals((String) vIterator1.next()))
+        if (!"0".equals(vIterator1.next()))
           return NO_MATCH;
       }
 
       while (vIterator2.hasNext())
       {
-        if (!"0".equals((String) vIterator2.next()))
+        if (!"0".equals(vIterator2.next()))
           return NO_MATCH;
       }
 

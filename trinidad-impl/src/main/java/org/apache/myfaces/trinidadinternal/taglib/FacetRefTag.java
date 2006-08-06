@@ -43,6 +43,7 @@ public class FacetRefTag extends TagSupport
     _facet = f;
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
@@ -80,6 +81,7 @@ public class FacetRefTag extends TagSupport
     return SKIP_BODY;
   }
 
+  @Override
   public void release()
   {
     super.release();
@@ -88,6 +90,7 @@ public class FacetRefTag extends TagSupport
 
   // adds the given child to the given parent as either a facet or a
   // direct child.
+  @SuppressWarnings("unchecked")
   private void _addChild(UIComponent parent, UIComponent child)
   {
     String facet = _getParentFacetName();

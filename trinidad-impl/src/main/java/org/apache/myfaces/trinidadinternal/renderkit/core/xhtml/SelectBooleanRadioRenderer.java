@@ -27,6 +27,7 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
     
   } 
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectBooleanRadio";
@@ -36,6 +37,7 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
    * selectBooleanRadio should not render a &lt;label&gt; on itself
    * if "text" is set.
    */ 
+  @Override
   protected boolean hasOwnLabel(FacesBean bean)
   {
     String text = _simpleSelectBooleanRadio.getText(bean);
@@ -46,11 +48,13 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
     return false;
   }
 
+  @Override
   protected boolean isIndented()
   {
     return true;
   }  
  
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectBooleanRadio;

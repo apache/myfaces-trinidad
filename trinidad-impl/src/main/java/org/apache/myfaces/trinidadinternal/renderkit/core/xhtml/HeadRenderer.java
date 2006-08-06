@@ -52,12 +52,14 @@ public class HeadRenderer extends XhtmlRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _titleKey = type.findKey("title");
   }
 
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -87,7 +89,7 @@ public class HeadRenderer extends XhtmlRenderer
     _writeCookieScript(context, arc);
   }
 
-
+  @Override
   protected void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -187,6 +189,7 @@ public class HeadRenderer extends XhtmlRenderer
   private CoreRenderer _styleSheetRenderer = new StyleSheetRenderer()
   {
     // Don't render the ID
+    @Override
     protected void renderId(
       FacesContext context,
       UIComponent  component)

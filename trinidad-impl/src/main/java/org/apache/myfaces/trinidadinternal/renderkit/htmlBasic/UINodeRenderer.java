@@ -39,6 +39,7 @@ import org.apache.myfaces.trinidadinternal.uinode.FacesRenderingContext;
  */
 abstract public class UINodeRenderer extends javax.faces.render.Renderer
 {
+  @Override
   public void encodeBegin(FacesContext context,
                           UIComponent component)
     throws IOException
@@ -53,12 +54,14 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
     }
   }
 
+  @Override
   public void encodeChildren(FacesContext context,
                              UIComponent component)
   {
     // Children-encoding is always handled in getRendersChildren()
   }
 
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent component)
     throws IOException
@@ -104,6 +107,7 @@ abstract public class UINodeRenderer extends javax.faces.render.Renderer
       node.setAttributeValue(attrKey, value);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;

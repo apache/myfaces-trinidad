@@ -58,6 +58,7 @@ public class TrinidadPhaseListener implements PhaseListener
     context.getExternalContext().getRequestMap().remove(_POSTBACK_KEY);
   }
 
+  @SuppressWarnings("unchecked")
   public void afterPhase(PhaseEvent event)
   {
     if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
@@ -83,6 +84,7 @@ public class TrinidadPhaseListener implements PhaseListener
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void beforePhase(PhaseEvent event)
   {
     // Ensure that the implicit object gets created.  In general,
@@ -123,9 +125,10 @@ public class TrinidadPhaseListener implements PhaseListener
   // Create the RequestContext if necessary;  ideally, this is unnecessary
   // because our filter will have executed - but if not, deal.
   //
+  @SuppressWarnings("unchecked")
   static private void _createContextIfNecessary(FacesContext fContext)
   {
-    Map requestMap = fContext.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = fContext.getExternalContext().getRequestMap();
     Boolean createdContext = (Boolean)
       requestMap.get(_CREATED_CONTEXT_KEY);
     if (createdContext == null)

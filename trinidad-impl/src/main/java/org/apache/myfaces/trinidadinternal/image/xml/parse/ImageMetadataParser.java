@@ -39,6 +39,7 @@ public class ImageMetadataParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -60,6 +61,7 @@ public class ImageMetadataParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -72,6 +74,7 @@ public class ImageMetadataParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -87,6 +90,7 @@ public class ImageMetadataParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,

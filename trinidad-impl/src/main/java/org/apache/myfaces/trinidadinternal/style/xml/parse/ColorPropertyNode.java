@@ -33,6 +33,7 @@ class ColorPropertyNode extends PropertyNode
   }
 
   // Package-level accessor necessary to support deprecated color properties
+  @Override
   boolean __isColorProperty()
   {
     return true;

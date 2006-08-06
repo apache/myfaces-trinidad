@@ -50,5 +50,5 @@ public interface ImageProviderRequest
    * @see ImageRenderer
    * @see ImageConstants
    */
-  public Map getRenderProperties(ImageContext context);
+  public Map<Object, Object> getRenderProperties(ImageContext context);
 }

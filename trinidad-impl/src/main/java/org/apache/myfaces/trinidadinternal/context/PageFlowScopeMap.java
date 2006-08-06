@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.util.TokenCache;
  *
  * @author The Oracle ADF Faces Team
  */
-class PageFlowScopeMap implements Map, Serializable
+class PageFlowScopeMap implements Map<String, Object>, Serializable
 {
   /**
    * Return a PageFlowScopeMap stored with a token.
@@ -87,7 +87,7 @@ class PageFlowScopeMap implements Map, Serializable
       childToken = token.substring(lastSeparator + 1);
     }
 
-    Map storeMap = _createMapToStore(context, parentToken);
+    Map<String, Object> storeMap = _createMapToStore(context, parentToken);
     return (PageFlowScopeMap) storeMap.get(childToken);
   }
 
@@ -101,11 +101,11 @@ class PageFlowScopeMap implements Map, Serializable
 
   public PageFlowScopeMap(int lifetime)
   {
-    this(new HashMap(13), null, new SharedData(lifetime));
+    this(new HashMap<String, Object>(13), null, new SharedData(lifetime));
   }
 
   private PageFlowScopeMap(
-    HashMap map,
+    HashMap<String, Object> map,
     String token,
     SharedData sharedData)
   {
@@ -124,7 +124,7 @@ class PageFlowScopeMap implements Map, Serializable
     _sharedData = new SharedData(parent._sharedData._lifetime);
     _sharedData._parent = parent;
 
-    _map = new HashMap();
+    _map = new HashMap<String, Object>();
     if (copyParent)
       _map.putAll(parent._map);
   }
@@ -160,7 +160,7 @@ class PageFlowScopeMap implements Map, Serializable
       cache = _getRootTokenCache(context, _sharedData._lifetime);
     }
 
-    Map store = _createMapToStore(context, parentToken);
+    Map<String, Object> store = _createMapToStore(context, parentToken);
 
     String token = cache.addNewEntry(this, store);
 
@@ -181,7 +181,8 @@ class PageFlowScopeMap implements Map, Serializable
     return _token;
   }
 
-  static private Map _createMapToStore(
+  @SuppressWarnings("unchecked")
+  static private Map<String, Object> _createMapToStore(
     FacesContext context,
     String       parentToken)
   {
@@ -201,6 +202,7 @@ class PageFlowScopeMap implements Map, Serializable
                          fullToken);
   }
 
+  @Override
   public boolean equals(Object o)
   {
     if (o instanceof PageFlowScopeMap)
@@ -209,6 +211,7 @@ class PageFlowScopeMap implements Map, Serializable
     return _map.equals(o);
   }
 
+  @Override
   public int hashCode()
   {
     return _map.hashCode();
@@ -234,7 +237,7 @@ class PageFlowScopeMap implements Map, Serializable
     return _map.containsValue(value);
   }
 
-  public Collection values()
+  public Collection<Object> values()
   {
     // Use an unmodifiableCollection to save me the headache
     // of catching mutations
@@ -242,14 +245,14 @@ class PageFlowScopeMap implements Map, Serializable
   }
 
 
-  public Set entrySet()
+  public Set<Map.Entry<String, Object>> entrySet()
   {
     // Use an unmodifiableSet to save me the headache
     // of catching mutations
     return Collections.unmodifiableSet(_map.entrySet());
   }
 
-  public Set keySet()
+  public Set<String> keySet()
   {
     // Use an unmodifiableSet to save me the headache
     // of catching mutations
@@ -261,7 +264,7 @@ class PageFlowScopeMap implements Map, Serializable
     return _map.get(key);
   }
 
-  public Object put(Object key, Object value)
+  public Object put(String key, Object value)
   {
     _detachIfNeeded();
     if (_LOG.isFine())
@@ -283,7 +286,7 @@ class PageFlowScopeMap implements Map, Serializable
     return _map.remove(key);
   }
 
-  public void putAll(Map t)
+  public void putAll(Map<? extends String, ? extends Object> t)
   {
     _detachIfNeeded();
     if (_LOG.isFine())
@@ -332,7 +335,7 @@ class PageFlowScopeMap implements Map, Serializable
     // Remove ourselves
     if (_sharedData._parent != null)
     {
-      Map storeMap = _createMapToStore(context, parentToken);
+      Map<String, Object> storeMap = _createMapToStore(context, parentToken);
       _sharedData._parent._sharedData._children.removeOldEntry(childToken,
                                                                storeMap);
     }
@@ -347,11 +350,12 @@ class PageFlowScopeMap implements Map, Serializable
     // this will in fact automatically recurse through all children
     // grandchildren etc. - which is kind of a design flaw of SubKeyMap,
     // but one we're relying on
-    Map store = _createMapToStore(context, token);
+    Map<String, Object> store = _createMapToStore(context, token);
     store.clear();
     _sharedData._children = null;
   }
 
+  @Override
   public String toString()
   {
     return "PageFlowScopeMap@" + System.identityHashCode(this) +
@@ -383,11 +387,12 @@ class PageFlowScopeMap implements Map, Serializable
   // repeatedly during Render Response *without further
   // mutations*.  Both of these assumptions seem very
   // dubious!
+  @SuppressWarnings("unchecked")
   private void _detachIfNeeded()
   {
     if (_token != null)
     {
-      _map = (HashMap) _map.clone();
+      _map = (HashMap<String, Object>) _map.clone();
       _token = null;
 
       // =-=AEW When do we discard children?
@@ -416,7 +421,7 @@ class PageFlowScopeMap implements Map, Serializable
 
   private SharedData _sharedData;
   private String     _token;
-  private HashMap    _map;
+  private HashMap<String, Object> _map;
 
   static private final String _PAGE_FLOW_SCOPE_CACHE =
     "org.apache.myfaces.trinidadinternal.application.PageFlowScope";

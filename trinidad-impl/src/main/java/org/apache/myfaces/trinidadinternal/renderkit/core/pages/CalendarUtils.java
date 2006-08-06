@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
  */
 class CalendarUtils
 {
+  @SuppressWarnings("unchecked")
   public static CoreChooseDate createChooseDate(FacesContext context)
   {
     final String id = CalendarDialogJSP.__getParam(context,
@@ -43,6 +44,7 @@ class CalendarUtils
     
     CoreChooseDate ccd = new CoreChooseDate()
     {
+      @Override
       public String getClientId(FacesContext context)
       {
         return id;
@@ -68,7 +70,7 @@ class CalendarUtils
     if (selectedTimeString != null)
     {
       ccd.getAttributes().put("value",
-                                   parseTime(selectedTimeString));
+                              parseTime(selectedTimeString));
     }
 
     String displayTimeString = CalendarDialogJSP.__getParam(context,
@@ -76,7 +78,7 @@ class CalendarUtils
     if (displayTimeString != null)
     {
       ccd.getAttributes().put("scrolledValue",
-                                   parseTime(displayTimeString));
+                              parseTime(displayTimeString));
     }
 
     return ccd;
@@ -140,13 +142,11 @@ class CalendarUtils
     // maximum date (in ChooseDateRenderer).
     if (tzOffset < 0)
     {
-      tzOffset = (long)Math.max((float)tzOffset, 
-                                (float)Long.MIN_VALUE - (float)dateValueInMs);
+      tzOffset = Math.max(tzOffset, Long.MIN_VALUE - dateValueInMs);
     }
     else
     {
-      tzOffset = (long)Math.min((float)tzOffset, 
-                                (float)Long.MAX_VALUE - (float)dateValueInMs);
+      tzOffset = Math.min(tzOffset, Long.MAX_VALUE - dateValueInMs);
     }
     
     return dateValueInMs + tzOffset;

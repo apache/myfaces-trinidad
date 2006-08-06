@@ -48,6 +48,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -66,6 +67,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -94,6 +96,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -110,6 +113,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -120,9 +124,9 @@ public class StyleSheetNodeParser extends BaseNodeParser
     if (child instanceof StyleNode)
     {
       if (_styles == null)
-        _styles = new Vector();
+        _styles = new Vector<StyleNode>();
 
-      _styles.addElement(child);
+      _styles.addElement((StyleNode)child);
     }
   }
 
@@ -149,11 +153,13 @@ public class StyleSheetNodeParser extends BaseNodeParser
     if (localeAttr == null)
       return;
 
-    Vector locales = new Vector();
-    Iterator tokens = _getTokens(localeAttr);
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Vector<Locale> locales = new Vector<Locale>();
+    Iterator<String> tokens = _getTokens(localeAttr);
     while (tokens.hasNext())
     {
-      Locale locale = _getLocale((String)tokens.next());
+      Locale locale = _getLocale(tokens.next());
 
       if (locale != null)
         locales.addElement(locale);
@@ -169,14 +175,16 @@ public class StyleSheetNodeParser extends BaseNodeParser
   // Initialize browsers
   private void _initBrowsers(String browserAttr)
   {
-    Iterator browsers = _getTokens(browserAttr);
+    Iterator<String> browsers = _getTokens(browserAttr);
     if (browsers == null)
       return;
 
-    Vector v = new Vector();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Vector<Integer> v = new Vector<Integer>();
     while (browsers.hasNext())
     {
-      int browser = NameUtils.getBrowser((String)browsers.next());
+      int browser = NameUtils.getBrowser(browsers.next());
 
       if (browser != TrinidadAgent.APPLICATION_UNKNOWN)
         v.addElement(IntegerUtils.getInteger(browser));
@@ -188,18 +196,20 @@ public class StyleSheetNodeParser extends BaseNodeParser
   // Initialize version
   private void _initVersions(String versionAttr)
   {
-    Iterator versions = _getTokens(versionAttr);
+    Iterator<String> versions = _getTokens(versionAttr);
     if (versions == null)
       return;
 
-    Vector v = new Vector();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Vector<Integer> v = new Vector<Integer>();
     while (versions.hasNext())
     {
       int version = 0;
 
       try
       {
-        version = Integer.parseInt((String)versions.next());
+        version = Integer.parseInt(versions.next());
       }
       catch (NumberFormatException e)
       {
@@ -216,14 +226,16 @@ public class StyleSheetNodeParser extends BaseNodeParser
   // Initialize platforms
   private void _initPlatforms(String platformAttr)
   {
-    Iterator platforms = _getTokens(platformAttr);
+    Iterator<String> platforms = _getTokens(platformAttr);
     if (platforms == null)
       return;
 
-    Vector v = new Vector();
+    // -= Simon Lessard =-
+    // TODO: Check if synchronization is really needed.
+    Vector<Integer> v = new Vector<Integer>();
     while (platforms.hasNext())
     {
-      String platformName = (String)platforms.next();
+      String platformName = platforms.next();
       int platform = NameUtils.getPlatform(platformName);
 
       // If we didn't find the platform, check for special "unix" platform
@@ -238,7 +250,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
   }
 
   // Copies Integers from a Vector into an int array
-  private int[] _getIntegers(Vector v)
+  private int[] _getIntegers(Vector<Integer> v)
   {
     int count = v.size();
 
@@ -248,13 +260,13 @@ public class StyleSheetNodeParser extends BaseNodeParser
     int[] array = new int[count];
 
     for (int i = 0; i < count; i++)
-      array[i] = ((Integer)v.elementAt(i)).intValue();
+      array[i] = v.elementAt(i).intValue();
 
     return array;
   }
 
   // Converts a NMTOKENS attribute into the individual tokens
-  private Iterator _getTokens(String attr)
+  private Iterator<String> _getTokens(String attr)
   {
     if (attr == null)
       return null;
@@ -262,11 +274,13 @@ public class StyleSheetNodeParser extends BaseNodeParser
     return (Arrays.asList(XMLUtils.parseNameTokens(attr))).iterator();
   }
 
-  private Vector   _styles;
-  private Locale[] _locales;
-  private int      _direction;
-  private int      _mode;
-  private int[]    _browsers;
-  private int[]    _versions;
-  private int[]    _platforms;
+  // -= Simon Lessard =- 
+  // TODO: Check if synchronization is really needed.
+  private Vector<StyleNode> _styles;
+  private Locale[]          _locales;
+  private int               _direction;
+  private int               _mode;
+  private int[]             _browsers;
+  private int[]             _versions;
+  private int[]             _platforms;
 }

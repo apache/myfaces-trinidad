@@ -60,6 +60,7 @@ public class LongConverter extends javax.faces.convert.LongConverter
         "org.apache.myfaces.trinidad.convert.LongConverter.CONVERT";
 
 
+  @Override
   public Object getAsObject(
     FacesContext context, 
     UIComponent component,

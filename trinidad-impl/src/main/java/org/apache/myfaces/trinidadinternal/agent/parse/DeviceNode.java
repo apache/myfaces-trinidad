@@ -47,8 +47,12 @@ class DeviceNode
     return _makeModel.match(makeModel, null);
   }
 
+  // -= Simon Lessard =-
+  // FIXME: _id and _extendsId are never read locally
+  @SuppressWarnings("unused")
   private String _id;
   private NameVersion _makeModel;
+  @SuppressWarnings("unused")
   private String _extendsId;
   private DeviceComponentNode[] _componentNodes;
 }

@@ -72,12 +72,13 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
   protected BaseImageProviderRequestParser(int capacity)
   {
     // Tack on an extra bucket for the encoding
-    _properties = new ArrayMap(capacity + 1);
+    _properties = new ArrayMap<Object, Object>(capacity + 1);
   }
 
   /**
    * Implementation of NodeParser.startElement
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -135,6 +136,7 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -152,6 +154,7 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -177,6 +180,7 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -185,9 +189,9 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
     )
   {
     if (isColorElement(namespaceURI, localName))
-      setProperty(getColorKey(namespaceURI, localName), (Color)child);
+      setProperty(getColorKey(namespaceURI, localName), child);
     else if (isFontElement(namespaceURI, localName))
-      setProperty(getFontKey(namespaceURI, localName), (FontProxy)child);
+      setProperty(getFontKey(namespaceURI, localName), child);
   }
 
   /**
@@ -482,7 +486,7 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
 
   private String     _namespaceURI;
   private String     _localName;
-  private Map _properties;
+  private Map<Object, Object> _properties;
 
   private boolean   _error;
 

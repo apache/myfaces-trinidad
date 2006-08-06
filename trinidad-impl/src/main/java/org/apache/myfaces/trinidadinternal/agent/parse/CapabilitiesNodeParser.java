@@ -33,7 +33,12 @@ import java.text.ParseException;
  */
 class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
 {
-
+  CapabilitiesNodeParser()
+  {
+    _includeNodes = new ArrayList<IncludeNode>();
+  }
+  
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -84,6 +89,7 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
   }
 
 
+  @Override
   public NodeParser startChildElement(ParseContext context,
                                       String       namespaceURI,
                                       String       localName,
@@ -98,6 +104,7 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
   }
 
 
+  @Override
   public void addCompletedChild (ParseContext context,
                                  String       namespaceURI,
                                  String       localName,
@@ -108,9 +115,10 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
       return;
 
     if (ELEMENT_INCLUDE.equals(localName))
-      _includeNodes.add(child);
+      _includeNodes.add((IncludeNode)child);
   }
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)
@@ -118,19 +126,19 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
     if ((_id == null) && (_agent == null))
       return null;
 
-    ArrayList nodesWithRefList = new ArrayList(_includeNodes.size());
-    ArrayList nodesWithSrcList = new ArrayList(_includeNodes.size());
+    ArrayList<IncludeNode> nodesWithRefList = new ArrayList<IncludeNode>(_includeNodes.size());
+    ArrayList<IncludeNode> nodesWithSrcList = new ArrayList<IncludeNode>(_includeNodes.size());
     for (int i = 0; i < _includeNodes.size(); i++)
     {
-      IncludeNode node = (IncludeNode) _includeNodes.get(i);
+      IncludeNode node = _includeNodes.get(i);
       if (node.__getRefId() != null)
         nodesWithRefList.add(node);
       else
         nodesWithSrcList.add(node);
     }
-    IncludeNode[] nodesWithRef = (IncludeNode[])
+    IncludeNode[] nodesWithRef = 
             nodesWithRefList.toArray(new IncludeNode[nodesWithRefList.size()]);
-    IncludeNode[] nodesWithSrc = (IncludeNode[])
+    IncludeNode[] nodesWithSrc = 
             nodesWithSrcList.toArray(new IncludeNode[nodesWithSrcList.size()]);
 
     return new CapabilitiesNode(_id, _isDefault, _agent,
@@ -143,7 +151,7 @@ class CapabilitiesNodeParser extends BaseNodeParser implements XMLConstants
   private boolean _isDefault;
   private NameVersion _agent;
   private NameVersion _platform;
-  private List _includeNodes = new ArrayList();
+  private List<IncludeNode> _includeNodes;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilitiesNodeParser.class);
 }

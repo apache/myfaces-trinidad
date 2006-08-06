@@ -46,6 +46,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -56,6 +57,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
 
   /**
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -193,6 +195,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
   /**
    * Always render an ID, needed for proper PPR.
    */
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)

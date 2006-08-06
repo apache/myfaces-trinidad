@@ -48,6 +48,13 @@ public class OutputLabelRenderer extends ValueRenderer
     super(type);
   }
 
+  @Override
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -57,18 +64,13 @@ public class OutputLabelRenderer extends ValueRenderer
     _showRequiredKey       = type.findKey("showRequired");
   }
 
-
-  public boolean getRendersChildren()
-  {
-    return true;
-  }
-
   /**
    * @todo Often, we can get by with just a single label, not
    * a span and a label
    * @todo If all that is set is "required", it seems that we
    *  *don't* render a span, but do render the icon.  This is strange.
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -273,6 +275,7 @@ public class OutputLabelRenderer extends ValueRenderer
   // OVERRIDES
   //
   
+  @Override
    protected void renderAllAttributes(
      FacesContext        context,
      RenderingContext arc,

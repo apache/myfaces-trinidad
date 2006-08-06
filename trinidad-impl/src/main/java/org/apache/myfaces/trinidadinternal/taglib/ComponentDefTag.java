@@ -38,6 +38,7 @@ public class ComponentDefTag extends TagSupport
     _var = var;
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     UIComponentTag tag = UIComponentTag.getParentUIComponentTag(pageContext);
@@ -69,6 +70,7 @@ public class ComponentDefTag extends TagSupport
     return EVAL_PAGE;
   }
 
+  @Override
   public void release()
   {
     super.release();

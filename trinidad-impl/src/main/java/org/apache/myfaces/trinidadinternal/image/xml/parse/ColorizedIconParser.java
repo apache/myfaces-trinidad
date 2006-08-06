@@ -38,6 +38,7 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
     super(_PROPERTY_COUNT);
   }
 
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -67,7 +68,7 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
     if (newLafString != null)
       lafString = newLafString;
 
-    Class laf = null;
+    Class<?> laf = null;
     try
     {
       laf = Class.forName(lafString);
@@ -89,6 +90,8 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
       return "org.apache.myfaces.trinidadinternal.ui.laf.oracle.desktop.BrowserLookAndFeel";
     return null;
   }
+  
+  @Override
   protected boolean isColorElement(String namespaceURI, String localName)
   {
     if ((XMLConstants.DARK_COLOR_NAME.equals(localName)) ||
@@ -102,6 +105,7 @@ public class ColorizedIconParser extends BaseImageProviderRequestParser
    * Override of BaseImageProviderRequestParser.getColorKey() for
    * borderColor.
    */
+  @Override
   protected Object getColorKey(String namespaceURI, String localName)
   {
     if (XMLConstants.DARK_COLOR_NAME.equals(localName))

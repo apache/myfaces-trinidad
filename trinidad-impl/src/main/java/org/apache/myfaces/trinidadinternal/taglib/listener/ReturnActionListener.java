@@ -60,6 +60,7 @@ public class ReturnActionListener extends FacesBeanImpl
     setProperty(VALUE_KEY, value);
   }
 
+  @Override
   public Type getType()
   {
     return TYPE;

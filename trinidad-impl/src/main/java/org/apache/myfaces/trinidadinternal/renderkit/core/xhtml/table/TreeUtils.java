@@ -193,7 +193,7 @@ public final class TreeUtils
     return jsVarName+".multiSelect("+(isSelectAll ? "true" : "false")+")";
   }
 
-  public static void decodeGotoEvent(final Map parameters,
+  public static void decodeGotoEvent(final Map<String, String> parameters,
                                      UIComponent tree)
   {
     Object event = parameters.get(EVENT_PARAM);
@@ -201,14 +201,15 @@ public final class TreeUtils
     {
       PreserveState preserve = new PreserveState()
       {
+        @Override
         protected void process(UIXHierarchy tree)
         {
           final int newStart;
-          String startParam = (String) parameters.get(_START_PARAM);
+          String startParam = parameters.get(_START_PARAM);
           if ((startParam == null) || ("".equals(startParam)))
           {
             // this must be a root level range change:
-            startParam = (String) parameters.get(XhtmlConstants.VALUE_PARAM);
+            startParam = parameters.get(XhtmlConstants.VALUE_PARAM);
             newStart = Integer.parseInt(startParam) - 1; // value is based at one.
             tree.setRowKey(tree.getFocusRowKey());
             tree.setRowIndex(newStart);
@@ -228,7 +229,7 @@ public final class TreeUtils
     }
   }
 
-  public static void decodeFocusEvent(final Map parameters,
+  public static void decodeFocusEvent(final Map<String, String> parameters,
                                       UIComponent tree)
   {
     Object event = parameters.get(EVENT_PARAM);
@@ -236,6 +237,7 @@ public final class TreeUtils
     {
       PreserveState preserve = new PreserveState()
       {
+        @Override
         protected void process(UIXHierarchy tree)
         {
           _restorePathFromParam(parameters, tree);
@@ -246,7 +248,7 @@ public final class TreeUtils
     }
   }
 
-  public static void decodeExpandEvents(final Map parameters,
+  public static void decodeExpandEvents(final Map<String, String> parameters,
                                         final UIComponent tree,
                                         final Object focusRowKey)
   {
@@ -267,6 +269,7 @@ public final class TreeUtils
 
     PreserveState preserve = new PreserveState()
     {
+      @Override
       protected void process(UIXHierarchy tree)
       {
         final FacesEvent event;
@@ -283,8 +286,8 @@ public final class TreeUtils
           else
           {
             tree.setRowKey(focusRowKey);
-            RowKeySet old = _getExpandedRowKeys(tree);
-            RowKeySet newset = old.clone();
+            RowKeySet<Object> old = _getExpandedRowKeys(tree);
+            RowKeySet<Object> newset = old.clone();
             if (expand)
               newset.addAll();
             else
@@ -295,8 +298,8 @@ public final class TreeUtils
         else  // expand/collapse event
         {
           _restorePathFromParam(parameters, tree);
-          RowKeySet old = _getExpandedRowKeys(tree);
-          RowKeySet newset = old.clone();
+          RowKeySet<Object> old = _getExpandedRowKeys(tree);
+          RowKeySet<Object> newset = old.clone();
           newset.setContained(expand);
           event = new RowDisclosureEvent(old, newset, tree);
         }
@@ -307,7 +310,8 @@ public final class TreeUtils
     preserve.run((UIXHierarchy) tree);
   }
 
-  private static RowKeySet _getExpandedRowKeys(UIXHierarchy tree)
+  @SuppressWarnings("unchecked")
+  private static RowKeySet<Object> _getExpandedRowKeys(UIXHierarchy tree)
   {
     if (tree instanceof UIXTree)
       return ((UIXTree) tree).getDisclosedRowKeys();
@@ -318,9 +322,11 @@ public final class TreeUtils
     throw new IllegalArgumentException("Don't know how to get disclosedRowKeys from:"+tree);
   }
 
-  private static void _restorePathFromParam(Map parameters, UIXHierarchy tree)
+  private static void _restorePathFromParam(
+      Map<String, String> parameters, 
+      UIXHierarchy tree)
   {
-    String currencyString = (String) parameters.get(_PATH_PARAM);
+    String currencyString = parameters.get(_PATH_PARAM);
     tree.setCurrencyString(currencyString);
   }
 

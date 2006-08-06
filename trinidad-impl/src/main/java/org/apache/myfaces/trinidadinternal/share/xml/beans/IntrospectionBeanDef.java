@@ -67,19 +67,19 @@ public class IntrospectionBeanDef extends BeanDef
     _defaultProperty = defaultProperty;
   }
 
-
-
+  @Override
   public PropertyDef getPropertyDef(String name)
   {
-    Map defs = _getPropertyDefs();
+    Map<String, PropertyDef> defs = _getPropertyDefs();
     if (defs != null)
     {
-      return (PropertyDef) defs.get(name);
+      return defs.get(name);
     }
 
     return null;
   }
 
+  @Override
   public PropertyDef getPropertyDef(String namespace, String name)
   {
     if ("".equals(namespace))
@@ -88,30 +88,33 @@ public class IntrospectionBeanDef extends BeanDef
     return null;
   }
 
-
-
+  @Override
   public Object createBean(
     String    namespaceURI,
     String    localName) throws ClassNotFoundException,
                                 InstantiationException,
                                 IllegalAccessException
   {
-    Class cls = _getClass();
+    Class<?> cls = _getClass();
     return cls.newInstance();
   }
 
-
+  @Override
   public Object finishBean(Object bean)
   {
     return bean;
   }
 
+  @Override
   public PropertyDef getElementPropertyDef(
-    String namespace, String name, Attributes attrs)
+    String namespace, 
+    String name, 
+    Attributes attrs)
   {
     return getPropertyDef(namespace, name);
   }
 
+  @Override
   public PropertyDef getDefaultPropertyDef()
   {
     if (_defaultProperty == null)
@@ -120,9 +123,11 @@ public class IntrospectionBeanDef extends BeanDef
     return getPropertyDef(_defaultProperty);
   }
 
-
+  @Override
   public boolean isInlineChildProperty(
-    String namespace, String name, PropertyDef def)
+    String namespace, 
+    String name, 
+    PropertyDef def)
   {
     return false;
   }
@@ -136,17 +141,17 @@ public class IntrospectionBeanDef extends BeanDef
   {
     if (_defs == null)
     {
-      Map defs;
+      Map<String, PropertyDef> defs;
 
       try
       {
-        Class objClass = _getClass();
+        Class<?> objClass = _getClass();
         // Grab all the getters and setters using JavaBeans
         BeanInfo info = JavaIntrospector.getBeanInfo(objClass);
         PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
 
         int length = (descriptors != null) ? descriptors.length : 0;
-        defs = new HashMap(Math.max(length, 1));
+        defs = new HashMap<String, PropertyDef>(Math.max(length, 1));
         _defs = defs;
 
         for (int i = 0; i < length; i++)
@@ -162,7 +167,7 @@ public class IntrospectionBeanDef extends BeanDef
       catch (Exception e)
       {
         // =-=AEW ERROR???
-        _defs = new HashMap(1);
+        _defs = new HashMap<String, PropertyDef>(1);
       }
     }
   }
@@ -194,7 +199,7 @@ public class IntrospectionBeanDef extends BeanDef
   }
 
   // Lazily retrive property defs.
-  private Map _getPropertyDefs()
+  private Map<String, PropertyDef> _getPropertyDefs()
   {
     // Force the properties to be loaded
     loadProperties();
@@ -202,17 +207,19 @@ public class IntrospectionBeanDef extends BeanDef
   }
 
   // Lazily retrive the class.
-  private Class _getClass() throws ClassNotFoundException
+  private Class<?> _getClass() throws ClassNotFoundException
   {
     if (_class == null)
+    {
       _class = ClassLoaderUtils.loadClass(_className);
+    }
 
     return _class;
   }
 
 
-  private final String   _className;
-  private final String   _defaultProperty;
-  private Class        _class;
-  private Map          _defs;
+  private final String _className;
+  private final String _defaultProperty;
+  private Class<?>     _class;
+  private Map<String, PropertyDef> _defs;
 }

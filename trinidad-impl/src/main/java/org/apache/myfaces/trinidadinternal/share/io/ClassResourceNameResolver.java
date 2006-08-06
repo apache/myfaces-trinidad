@@ -31,18 +31,20 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
  */
 public class ClassResourceNameResolver extends DefaultNameResolver
 {
-  public ClassResourceNameResolver(Class base)
+  public ClassResourceNameResolver(Class<?> base)
   {
     super(null, null);
 
     _base = base;
   }
 
+  @Override
   protected File getFile(String name)
   {
     return null;
   }
 
+  @Override
   protected URL getURL(String name)
   {
     if (_base == null)
@@ -51,5 +53,5 @@ public class ClassResourceNameResolver extends DefaultNameResolver
     return _base.getResource(name);
   }
 
-  private final Class _base;
+  private final Class<?> _base;
 }

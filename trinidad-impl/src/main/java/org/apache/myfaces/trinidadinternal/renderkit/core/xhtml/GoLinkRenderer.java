@@ -41,6 +41,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -53,7 +54,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     _textKey = type.findKey("text");
   }
 
-
+  @Override
   protected void encodeBegin(
     FacesContext        context,
     RenderingContext arc,
@@ -111,6 +112,7 @@ public class GoLinkRenderer extends XhtmlRenderer
                                        "b");
   }
 
+  @Override
   public void encodeEnd(
     FacesContext        context,
     RenderingContext arc,
@@ -124,6 +126,7 @@ public class GoLinkRenderer extends XhtmlRenderer
   /**
    * Renders the client ID as both "id" and "name"
    */
+  @Override
   protected void renderId(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -137,6 +140,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     }
   }
 
+  @Override
   protected void renderEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException
@@ -196,6 +200,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_textKey));
   }
 
+  @Override
   protected String getStyleClass(FacesBean bean)
   {
     String styleClass = super.getStyleClass(bean);

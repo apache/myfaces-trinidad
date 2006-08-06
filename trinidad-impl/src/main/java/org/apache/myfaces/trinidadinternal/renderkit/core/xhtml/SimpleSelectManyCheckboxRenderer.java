@@ -44,6 +44,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
     super(CoreSelectManyCheckbox.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -55,12 +56,13 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
   //
   // ENCODE BEHAVIOR
   //
+  @Override
   protected void encodeElementContent(
     FacesContext        context,
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int[]               selectedIndices,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -108,7 +110,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int[]               selectedIndices,
     Converter           converter,
     boolean             valuePassThru) throws IOException
@@ -141,7 +143,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
       if (selected)
         selectedEntry++;
 
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       if (encodeSelectItem(context, arc, component, item, converter,
                            valuePassThru, accessKey,
                            i, selected, disabled,
@@ -237,6 +239,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
     return true;
   }
 
+  @Override
   protected void renderBetweenNonElements(
     FacesContext        context,
     RenderingContext arc,
@@ -249,6 +252,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
       super.renderBetweenNonElements(context, arc, component, bean);
   }
 
+  @Override
   protected void renderId(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -265,6 +269,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
    * In Gecko, they bubble up, but in IE, they don't, so
    * they have to go on the items.
    */
+  @Override
   protected void renderFormEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException
@@ -276,6 +281,7 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
    * Disable rendering "onclick" on the parent;  it needs to
    * go on the individual radio buttons
    */
+  @Override
   protected String getOnclick(
     FacesBean bean
     )
@@ -328,15 +334,19 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 
   // Never render the "hidden label";  labels entirely go on the individual
   // items
+  @Override
   protected boolean isHiddenLabelRequired(RenderingContext arc)
   {
     return false;
   } 
+  
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
    return "af|selectManyCheckbox::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
    return "af|selectManyCheckbox";

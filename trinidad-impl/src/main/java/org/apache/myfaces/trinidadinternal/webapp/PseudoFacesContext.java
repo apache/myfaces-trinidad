@@ -62,96 +62,115 @@ class PseudoFacesContext extends FacesContext
                              (HttpServletResponse) response);
   }
 
+  @Override
   public ResponseWriter getResponseWriter()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void setResponseWriter(ResponseWriter responseWriter)
   {
     throw new UnsupportedOperationException();
   }
 
-  public Iterator getMessages()
+  @Override
+  public Iterator<FacesMessage> getMessages()
   {
     throw new UnsupportedOperationException();
   }
 
-  public Iterator getMessages(String id)
+  @Override
+  public Iterator<FacesMessage> getMessages(String id)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void addMessage(String id, FacesMessage message)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public FacesMessage.Severity getMaximumSeverity()
   {
     throw new UnsupportedOperationException();
   }
 
-  public Iterator getClientIdsWithMessages()
+  @Override
+  public Iterator<String> getClientIdsWithMessages()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Application getApplication()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public UIViewRoot getViewRoot()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void setViewRoot(UIViewRoot viewRoot)
   {
      throw new UnsupportedOperationException();
   }
 
+  @Override
   public ExternalContext getExternalContext()
   {
     return _external;
   }
 
+  @Override
   public RenderKit getRenderKit()
   {
      throw new UnsupportedOperationException();
   }
 
+  @Override
   public boolean getRenderResponse()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public boolean getResponseComplete()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public ResponseStream getResponseStream()
   {
     throw new UnsupportedOperationException();
   }
   
+  @Override
   public void setResponseStream(ResponseStream responseStream)
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void release()
   {
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public void renderResponse()
   {
     throw new UnsupportedOperationException();
   }
   
+  @Override
   public void responseComplete()
   {
     throw new UnsupportedOperationException();
@@ -171,15 +190,21 @@ class PseudoFacesContext extends FacesContext
     }
     
     // Can't very well have a ServletContext before a servlet!!!
+    @Override
     public Object getContext() { throw new UnsupportedOperationException(); }
+    @Override
     public Object getRequest() { return _request; }
+    @Override
     public Object getResponse() { return _response; }
+    @Override
     public Object getSession(boolean create)
     {
       return _request.getSession(create);
     }
 
-    public Map getSessionMap()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<String, Object> getSessionMap()
     {
       Object o = getSession(true);
       if (o == null)
@@ -188,147 +213,180 @@ class PseudoFacesContext extends FacesContext
       return new SessionMap((HttpSession) o);
     }
 
-
+    @Override
     public String getRequestContextPath()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getRequestServletPath()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getInitParameter(String name)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String encodeResourceURL(String url)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String encodeActionURL(String url)
     {
       throw new UnsupportedOperationException();
     }
 
-    public Map getRequestMap()
+    @Override
+    public Map<String, Object> getRequestMap()
     {
       throw new UnsupportedOperationException();
     }
 
-    public Map getApplicationMap()
+    @Override
+    public Map<String, Object> getApplicationMap()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void dispatch(String path)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String encodeNamespace(String name)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getAuthType()
     {
       throw new UnsupportedOperationException();
     }
 
+    // -= Simon Lessard =- 
+    // FIXME: Odd... JSF 1.2 does not give generics type for this map
+    @SuppressWarnings("unchecked")
+    @Override
     public Map getInitParameterMap()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getRemoteUser()
     {
       throw new UnsupportedOperationException();
     }
 
-    public Map getRequestCookieMap()
+    @Override
+    public Map<String, Object> getRequestCookieMap()
     {
       throw new UnsupportedOperationException();
     }
     
-    public Map getRequestHeaderMap()
+    @Override
+    public Map<String, String> getRequestHeaderMap()
     {
       throw new UnsupportedOperationException();
     }
 
-    public Map getRequestHeaderValuesMap()
+    @Override
+    public Map<String, String[]> getRequestHeaderValuesMap()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Locale getRequestLocale()
     {
       throw new UnsupportedOperationException();
     }
     
-    public Iterator getRequestLocales()
+    @Override
+    public Iterator<Locale> getRequestLocales()
     {
       throw new UnsupportedOperationException();
     }
 
-    public Map getRequestParameterMap()
+    @Override
+    public Map<String, String> getRequestParameterMap()
     {
       return new ParameterMap(_request);
     }
 
-    public Iterator getRequestParameterNames()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Iterator<String> getRequestParameterNames()
     {
       return _request.getParameterMap().keySet().iterator();
     }
 
-    public Map getRequestParameterValuesMap()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<String, String[]> getRequestParameterValuesMap()
     {
       return _request.getParameterMap();
     }
 
+    @Override
     public String getRequestPathInfo()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public URL getResource(String path)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public InputStream getResourceAsStream(String path)
     {
       throw new UnsupportedOperationException();
     }
 
-    public Set getResourcePaths(String path)
+    @Override
+    public Set<String> getResourcePaths(String path)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Principal getUserPrincipal()
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean isUserInRole(String role)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void log(String message)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void log(String message, Throwable exception)
     {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public void redirect(String url)
     {
       throw new UnsupportedOperationException();
@@ -338,19 +396,21 @@ class PseudoFacesContext extends FacesContext
     private HttpServletResponse _response;
   }
 
-  private static final class ParameterMap extends AbstractMap
+  private static final class ParameterMap extends AbstractMap<String, String>
   {
     public ParameterMap(ServletRequest request)
     {
       _request = request;
     }
     
-    public Object get(Object key)
+    @Override
+    public String get(Object key)
     {
       return _request.getParameter((String) key);
     }
         
-    public Set entrySet()
+    @Override
+    public Set<Map.Entry<String, String>> entrySet()
     {
       throw new UnsupportedOperationException();
     }
@@ -358,25 +418,28 @@ class PseudoFacesContext extends FacesContext
     private ServletRequest _request;
   }
 
-  private static final class SessionMap extends AbstractMap
+  private static final class SessionMap extends AbstractMap<String, Object>
   {
     public SessionMap(HttpSession session)
     {
       _session = session;
     }
     
+    @Override
     public Object get(Object key)
     {
       return _session.getAttribute((String) key);
     }
     
-    public Object put(Object key, Object value)
+    @Override
+    public Object put(String key, Object value)
     {
-      Object old = _session.getAttribute((String) key);
-      _session.setAttribute((String) key, value);
+      Object old = _session.getAttribute(key);
+      _session.setAttribute(key, value);
       return old;
     }
     
+    @Override
     public Object remove(Object key)
     {
       Object old = _session.getAttribute((String) key);
@@ -384,7 +447,8 @@ class PseudoFacesContext extends FacesContext
       return old;
     }
     
-    public Set entrySet()
+    @Override
+    public Set<Map.Entry<String, Object>> entrySet()
     {
       throw new UnsupportedOperationException();
     }

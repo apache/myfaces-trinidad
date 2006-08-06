@@ -40,6 +40,7 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
   //decode
   //**********************
   
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -55,17 +56,20 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
   //encode
   //**********************
 
+  @Override
   protected Object getValueAttr(RenderingContext arc)
   {
     // HTML 3.2 specification, default value for checkboxes
     return "t";
   }
 
+  @Override
   protected Object getType()
   {
     return "checkbox";
   }
 
+  @Override
   protected String getIconAltTextName(
     boolean selected
   )
@@ -75,6 +79,7 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
       : "af_selectBooleanCheckbox.READONLY_NOT_CHECKED_TIP");
   }
   
+  @Override
   protected String getIconName(
     boolean selected,
     boolean disabled
@@ -97,7 +102,7 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     return iconName;           
   }
   
-
+  @Override
   protected String getOnclick(
     FacesBean bean
     )
@@ -115,11 +120,13 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     return onClick;
   }  
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
    return "af|selectBooleanCheckbox::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
    return "af|selectBooleanCheckbox";

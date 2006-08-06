@@ -30,7 +30,9 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
 public class CompositeButtonNameProvider
   implements NameProvider, ImageConstants
 {
-  public String getName(ImageContext context, Map requestedProperties)
+  public String getName(
+      ImageContext context, 
+      Map<Object, Object> requestedProperties)
   {
     String name = (String)requestedProperties.get(ImageConstants.NAME_KEY);
 
@@ -65,7 +67,7 @@ public class CompositeButtonNameProvider
   // Produces a hash code based on the requested properties
   private int _hashCode(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     Object text = properties.get(TEXT_KEY);

@@ -28,16 +28,19 @@ public class SelectOneListboxRenderer extends InputLabelAndMessageRenderer
     
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneListbox";
   }
   
+  @Override
   protected String getDefaultLabelValign(FacesBean bean)
   {
     return "top";
   }
 
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectOneListbox;

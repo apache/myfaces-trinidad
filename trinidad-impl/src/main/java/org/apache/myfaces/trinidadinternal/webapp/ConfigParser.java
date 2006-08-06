@@ -97,32 +97,32 @@ public class ConfigParser
     }
 
     String className = (String)
-      bean.getProperty(bean.UPLOADED_FILE_PROCESSOR_KEY);
+      bean.getProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY);
     if (className != null)
     {
       className = className.trim();
 
       try
       {
-        Class clazz = ClassLoaderUtils.loadClass(className);
-        bean.setProperty(bean.UPLOADED_FILE_PROCESSOR_KEY,
+        Class<?> clazz = ClassLoaderUtils.loadClass(className);
+        bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
                          clazz.newInstance());
       }
       catch (Exception e)
       {
         _LOG.severe("Could not instantiate UploadedFileProcessor", e);
-        bean.setProperty(bean.UPLOADED_FILE_PROCESSOR_KEY,
+        bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
                          new UploadedFileProcessorImpl());
       }
     }
     else
     {
-      bean.setProperty(bean.UPLOADED_FILE_PROCESSOR_KEY,
+      bean.setProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY,
                        new UploadedFileProcessorImpl());
     }
 
     UploadedFileProcessor ufp = (UploadedFileProcessor)
-      bean.getProperty(bean.UPLOADED_FILE_PROCESSOR_KEY);
+      bean.getProperty(RequestContextBean.UPLOADED_FILE_PROCESSOR_KEY);
 
     ufp.init(context);
 
@@ -144,6 +144,7 @@ public class ConfigParser
       _bean = bean;
     }
 
+    @Override
     public void startElement(String uri,
                              String localName,
                              String qName,
@@ -152,12 +153,14 @@ public class ConfigParser
       _currentText = "";
     }
 
+    @Override
     public void characters(char[] ch, int start, int length)
     {
       if (_currentText != null)
         _currentText = _currentText + new String(ch, start, length);
     }
 
+    @Override
     public void endElement(String uri,
                            String localName,
                            String qName)

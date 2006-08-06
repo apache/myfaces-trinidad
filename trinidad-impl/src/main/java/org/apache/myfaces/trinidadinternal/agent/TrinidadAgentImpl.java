@@ -121,7 +121,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   /**
    * @return Map of capability name and value for the current Agent.
    */
-  public Map getCapabilities()
+  public Map<Object, Object> getCapabilities()
   {
     return _capMap;
   }
@@ -154,6 +154,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   }
 
 
+  @Override
   public Object clone()
   {
     try
@@ -170,6 +171,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   }
 
 
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer("Agent[");
@@ -231,7 +233,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
       _major = _getMajorVersion(getAgentVersion());
 
     _capMap = _getCapabilityMap(context);
-    Map requestCaps = _delegate.getCapabilities();
+    Map<Object, Object> requestCaps = _delegate.getCapabilities();
     if (requestCaps != null)
     {
       _capMap = _capMap.merge(requestCaps);
@@ -370,7 +372,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
     return (int) version;
   }
 
-  void __mergeCapabilities(Map capabilities)
+  void __mergeCapabilities(Map<Object, Object> capabilities)
   {
     _capMap = _capMap.merge(capabilities);
   }

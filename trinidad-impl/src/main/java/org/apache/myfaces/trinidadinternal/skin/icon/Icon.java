@@ -65,8 +65,8 @@ abstract public class Icon
    */
   abstract public void renderIcon(
     FacesContext        context,
-    RenderingContext arc,
-    Map              attrs
+    RenderingContext    arc,
+    Map<String, Object> attrs
     ) throws IOException;
 
   /**

@@ -54,6 +54,7 @@ public abstract class ColorFormat extends Format
    *
    * @exception ParseException if the specified string is invalid.
    */
+  @Override
   public Object parseObject(
     String source) throws ParseException 
   {
@@ -72,6 +73,7 @@ public abstract class ColorFormat extends Format
   /**
    * Returns the value as a Color.
    */
+  @Override
   abstract public Object parseObject(
     String        source, 
     ParsePosition status);
@@ -89,6 +91,7 @@ public abstract class ColorFormat extends Format
     return format(color, new StringBuffer(),new FieldPosition(0)).toString();
   }
 
+  @Override
   public final StringBuffer format(
     Object obj, 
     StringBuffer toAppendTo,

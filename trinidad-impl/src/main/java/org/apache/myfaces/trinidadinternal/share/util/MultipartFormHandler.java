@@ -358,9 +358,13 @@ public class MultipartFormHandler
           assert false;
         }
       }
-
       else
+      {
+        // -= Simon Lessard =- 
+        // TODO:  Check if a non deprecated constructor
+        //                           would do the trick
         return new String(data, 0, start, bytes);
+      }
     }
 
     return "";
@@ -551,7 +555,7 @@ public class MultipartFormHandler
                 }
               }
 
-              totalBytesWritten += (long) bufferedBytes;
+              totalBytesWritten += bufferedBytes;
               if (totalBytesWritten <= _maxAllowedBytes)
                 out.write(buffer, 0, bufferedBytes);
               position += bufferedBytes;
@@ -582,7 +586,7 @@ public class MultipartFormHandler
              bufferedBytes -= 2;
         }
 
-        totalBytesWritten += (long) bufferedBytes;
+        totalBytesWritten += bufferedBytes;
         if (totalBytesWritten <= _maxAllowedBytes)
           out.write(buffer, 0, bufferedBytes);
         position += bufferedBytes;
@@ -780,6 +784,7 @@ public class MultipartFormHandler
         return _finished;
       }
 
+      @Override
       public int read(byte[] buffer, int offset, int length)
         throws IOException
       {
@@ -820,12 +825,14 @@ public class MultipartFormHandler
         return bytes;
       }
 
+      @Override
       public int read(byte[] buffer)
         throws IOException
       {
         return read(buffer, 0, buffer.length);
       }
 
+      @Override
       public int read()
         throws IOException
       {

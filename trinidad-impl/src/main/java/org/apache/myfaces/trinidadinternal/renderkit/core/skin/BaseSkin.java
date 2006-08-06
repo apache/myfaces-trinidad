@@ -31,11 +31,13 @@ public class BaseSkin extends Skin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   public String getStyleSheetName()
   {
     return null;
   }
 
+  @Override
   protected String getBundleName()
   {
     return null;

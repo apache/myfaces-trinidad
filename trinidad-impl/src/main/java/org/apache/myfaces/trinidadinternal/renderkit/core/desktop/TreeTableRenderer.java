@@ -69,6 +69,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     super(CoreTreeTable.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -83,13 +84,17 @@ public class TreeTableRenderer extends DesktopTableRenderer
    *  DisclosureEvent
    * @todo deal with null and exceptions
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(
     FacesContext context,
     UIComponent component)
   {
     decodeSelection(context, component);
 
-    Map parameters = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object source = parameters.get(XhtmlConstants.SOURCE_PARAM);
     if (component.getClientId(context).equals(source))
     {
@@ -107,6 +112,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    * Creates the correct subclass of the TableRenderingContext to
    * use for this Renderer.
    */
+  @Override
   protected TableRenderingContext createRenderingContext(
     FacesContext        context,
     RenderingContext arc,
@@ -121,6 +127,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    * @return true if the table was empty, and an alternative empty
    * version was shown, false otherwise.
    */
+  @Override
   protected boolean renderTableWithoutColumns(
     FacesContext          context,
     RenderingContext   arc,
@@ -133,6 +140,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   /**
    * render all pieces of the table
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -180,6 +188,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    * Render the navigation header bars, i.e. all the bars that appear above the
    * actual data table including the breadcrumbs at the end.
    */
+  @Override
   protected void renderNavigationHeaderBars(
     FacesContext          context,
     RenderingContext   arc,
@@ -191,6 +200,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     _renderBreadCrumbs(context, arc, tContext, component, bean);
   }
 
+  @Override
   protected final void renderRangePagingControl(
     FacesContext          context,
     RenderingContext   arc,
@@ -213,6 +223,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     }
   }
 
+  @Override
   protected boolean hasControlBarLinks(
     FacesContext context,
     RenderingContext arc,
@@ -224,6 +235,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       isExpandAllEnabled(component);
   }
 
+  @Override
   protected void renderControlBarLinks(
     FacesContext context,
     RenderingContext arc,
@@ -269,6 +281,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
    * used to render special column headers, like select and details.
    * @return the next physicalColumnIndex
    */
+  @Override
   protected int renderSpecialColumns(
     FacesContext          context,
     RenderingContext   arc,
@@ -310,6 +323,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   /**
    * render all the table rows
    */
+  @Override
   protected void renderTableRows(
     FacesContext          context,
     RenderingContext   arc,
@@ -413,6 +427,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     }
   }
 
+  @SuppressWarnings("unchecked")
   private void _renderTableRows(
     FacesContext          context,
     final RenderingContext   arc,
@@ -420,11 +435,12 @@ public class TreeTableRenderer extends DesktopTableRenderer
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
     final ResponseWriter writer = context.getResponseWriter();
-    final RowKeySet treeState = treeTableBase.getDisclosedRowKeys();
+    final RowKeySet<Object> treeState = treeTableBase.getDisclosedRowKeys();
     final int specialColCount = _getSpecialColCount(ttrc);
 
     TableUtils.RowLoop loop = new TableUtils.RowLoop()
     {
+      @Override
       protected void loop(FacesContext context, CollectionComponent treeTable)
         throws IOException
       {
@@ -433,6 +449,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
         processRow(context, treeTable);
       }
 
+      @Override
       protected void processRowImpl(FacesContext context, CollectionComponent treeTable)
         throws IOException
       {
@@ -520,6 +537,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
 
   private static final class BreadCrumbsRenderer extends org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.BreadCrumbsRenderer
   {
+    @Override
     protected void renderLink(
       FacesContext context,
       RenderingContext arc,
@@ -547,7 +565,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       }
       Object oldPath = tree.getRowKey();
       Object focusRowKey = ttrc.getFocusRowKey();
-      List focusPath = tree.getAllAncestorContainerRowKeys(focusRowKey);
+      List<Object> focusPath = tree.getAllAncestorContainerRowKeys(focusRowKey);
       Object crumbPath = (renderedCount < focusPath.size())
         ? focusPath.get(renderedCount)
         : focusRowKey;
@@ -566,11 +584,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
       out.endElement("a");
     }
 
+    @Override
     protected boolean hasChildren(UIComponent component)
     {
       return false; // do not render the columns. only the pathStamp
     }
 
+    @Override
     protected boolean shouldRenderId(
       FacesContext context,
       UIComponent  component)
@@ -580,6 +600,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       return false;
     }
 
+    @Override
     protected UIComponent getStamp(
       FacesContext        context,
       RenderingContext arc,
@@ -592,10 +613,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
     }
   }
 
-  protected Map createResourceKeyMap()
+  @Override
+  protected Map<String, String> createResourceKeyMap()
   {
-    Map tablemap = super.createResourceKeyMap();
-    Map map = ResourceKeyUtils.convertResourceKeyMap(tablemap, "table", "treeTable");
+    Map<String, String> tablemap = super.createResourceKeyMap();
+    Map<String, String> map = 
+      ResourceKeyUtils.convertResourceKeyMap(tablemap, "table", "treeTable");
+    
     // we need a resource key map since we are using a navigationPath.
     // and we are using table for the styles
     map.put(XhtmlConstants.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
@@ -610,6 +634,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
             XhtmlConstants.AF_TREE_TABLE_CONTROL_BAR_TOP_STYLE);
     map.put(XhtmlConstants.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE,
             XhtmlConstants.AF_TREE_TABLE_CONTROL_BAR_BOTTOM_STYLE);
+    
     return Collections.unmodifiableMap(map);
   }
 

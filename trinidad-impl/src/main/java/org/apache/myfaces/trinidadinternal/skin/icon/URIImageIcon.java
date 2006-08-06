@@ -98,8 +98,9 @@ public class URIImageIcon extends BaseImageIcon
    * The base URI for URIImageIcon is always null,
    * as a full URI has already been provided.
    */
+  @Override
   protected String getBaseURI(
-    FacesContext        context,
+    FacesContext     context,
     RenderingContext arc)
   {
     return null;

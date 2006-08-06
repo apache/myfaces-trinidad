@@ -139,6 +139,7 @@ public class ButtonPainter extends AbstractBorderPainter
   /**
    * Returns the insets of just the ButtonPainter.
    */
+  @Override
   protected ImmInsets getOwnInsets(PaintContext context)
   {
     int start  = _START;
@@ -168,6 +169,7 @@ public class ButtonPainter extends AbstractBorderPainter
   /**
    * Paint just the border of the ButtonPainter.
    */
+  @Override
   protected void paintBorder(
     PaintContext context,
     Graphics g,
@@ -563,7 +565,7 @@ public class ButtonPainter extends AbstractBorderPainter
   {
     // The curve width is about 3/4 of the height
 
-    return (int)(((float)height) * 0.75);
+    return (int)(height * 0.75);
 
   }
 
@@ -608,6 +610,7 @@ public class ButtonPainter extends AbstractBorderPainter
       super(wrappedPainter);
     }
 
+    @Override
     protected Color getColor(PaintContext context)
     {
       // If the foreground is explicitly set, just use it

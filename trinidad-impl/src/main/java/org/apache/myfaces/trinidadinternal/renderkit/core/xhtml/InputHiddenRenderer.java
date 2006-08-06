@@ -33,6 +33,7 @@ public class InputHiddenRenderer extends EditableValueRenderer
     super(CoreInputHidden.TYPE);
   }
   
+  @Override
   protected boolean wasSubmitted(
     FacesContext context,
     UIComponent  component)
@@ -40,11 +41,13 @@ public class InputHiddenRenderer extends EditableValueRenderer
     return true;
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected final void encodeAll(
     FacesContext        context,
     RenderingContext arc,

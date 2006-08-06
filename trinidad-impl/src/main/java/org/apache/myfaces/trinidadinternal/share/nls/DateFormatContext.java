@@ -32,6 +32,7 @@ abstract public class DateFormatContext implements Cloneable
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     int twoDigitYearStart = getTwoDigitYearStart();
@@ -42,6 +43,7 @@ abstract public class DateFormatContext implements Cloneable
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object obj)
   {
     if (obj == this)
@@ -58,6 +60,7 @@ abstract public class DateFormatContext implements Cloneable
     return (thisTwoDigitYearStart == thatTwoDigitYearStart);
   }
 
+  @Override
   public Object clone()
   {
     try
@@ -74,6 +77,7 @@ abstract public class DateFormatContext implements Cloneable
   /**
    * Override of Object.toString().
    */
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(super.toString());

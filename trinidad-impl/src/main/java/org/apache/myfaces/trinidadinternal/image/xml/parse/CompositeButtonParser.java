@@ -37,6 +37,7 @@ public class CompositeButtonParser extends BaseImageProviderRequestParser
     super(_PROPERTY_COUNT);
   }
 
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -87,6 +88,7 @@ public class CompositeButtonParser extends BaseImageProviderRequestParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -106,6 +108,7 @@ public class CompositeButtonParser extends BaseImageProviderRequestParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,

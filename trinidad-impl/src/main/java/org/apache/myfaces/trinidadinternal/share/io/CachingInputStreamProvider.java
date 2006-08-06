@@ -40,5 +40,5 @@ public interface CachingInputStreamProvider extends InputStreamProvider
    * only valid after the target has been processed.  If there
    * are no dependencies, returns null.
    */
-  public Iterator getCacheDependencies();
+  public Iterator<InputStreamProvider> getCacheDependencies();
 }

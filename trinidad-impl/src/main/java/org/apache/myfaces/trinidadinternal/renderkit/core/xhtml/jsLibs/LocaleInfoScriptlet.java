@@ -56,6 +56,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
    * @todo Revisit separate translation and internationalization
    * locales.
    */ 
+  @Override
   protected void outputScriptletImpl(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -108,6 +109,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     super.outputScriptletImpl(context, arc);
   }
 
+  @Override
   protected String getLibraryName(
     FacesContext        context,
     RenderingContext arc)
@@ -163,7 +165,9 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     Locale inLocale
     )
   {
-    HashMap supportedMap = LocaleList.getSupportedLocales();
+    HashMap<Locale, Locale> supportedMap = 
+      LocaleList.getSupportedLocales();
+    
     Locale outLocale = inLocale;
     if(supportedMap.containsKey(outLocale))
     {

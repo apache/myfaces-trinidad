@@ -50,6 +50,7 @@ public class AutoSubmitUtils
    * Find all UIParameter children of a component, and
    * return it as a JS string of "name1:value1,name2:value2".
    */
+  @SuppressWarnings("unchecked")
   public static String getParameters(UIComponent comp)
   {
     int childCount = comp.getChildCount();
@@ -57,10 +58,8 @@ public class AutoSubmitUtils
       return null;
       
     StringBuffer buffer = null;
-    List children = comp.getChildren();
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)comp.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (child instanceof UIParameter)
       {
         UIParameter param = (UIParameter) child;
@@ -283,11 +282,13 @@ public class AutoSubmitUtils
       return _sInstance;
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _AUTO_SUBMIT_SCRIPTLET;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc)

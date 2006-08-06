@@ -44,6 +44,7 @@ public class ColorFieldInfoScriptlet extends Scriptlet
     return _sInstance;
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return COLOR_FIELD_INFO_KEY;
@@ -52,6 +53,7 @@ public class ColorFieldInfoScriptlet extends Scriptlet
   /**
    * @todo Rebuild in Faces-major land
    */
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException

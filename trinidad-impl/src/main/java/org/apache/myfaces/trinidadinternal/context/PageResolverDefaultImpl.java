@@ -37,6 +37,7 @@ public class PageResolverDefaultImpl extends PageResolver
    * @param viewId {@inheritDoc}
    * @return {@inheritDoc}
    */
+  @Override
   public String getPhysicalURI(String viewId)
   {
     return viewId;
@@ -45,6 +46,7 @@ public class PageResolverDefaultImpl extends PageResolver
   /**
    * Encodes an action URI.
    */
+  @Override
   public String encodeActionURI(String actionURI)
   {
     return actionURI;

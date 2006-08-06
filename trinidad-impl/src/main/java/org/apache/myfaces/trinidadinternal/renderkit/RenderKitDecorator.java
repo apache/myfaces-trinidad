@@ -37,6 +37,7 @@ abstract public class RenderKitDecorator extends RenderKitBase
     return Service.getService(getRenderKit(), serviceClass);
   }
 
+  @Override
   public ResponseWriter createResponseWriter(
     Writer writer,
     String contentTypeList,
@@ -49,17 +50,17 @@ abstract public class RenderKitDecorator extends RenderKitBase
     return createDecoratedResponseWriter(out);
   }
 
+  @Override
   public ResponseStream createResponseStream(
     OutputStream out)
   {
-    RenderKit renderKit = getRenderKit();
-    return renderKit.createResponseStream(out);
+    return getRenderKit().createResponseStream(out);
   }
 
+  @Override
   public ResponseStateManager getResponseStateManager()
   {
-    RenderKit renderKit = getRenderKit();
-    return renderKit.getResponseStateManager();
+    return getRenderKit().getResponseStateManager();
   }
 
   protected ResponseWriter createDecoratedResponseWriter(
@@ -68,6 +69,7 @@ abstract public class RenderKitDecorator extends RenderKitBase
     return delegate;
   }
 
+  @Override
   protected Renderer findRenderer(
     String componentFamily,
     String rendererType)

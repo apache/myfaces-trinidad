@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
@@ -40,6 +40,7 @@ public class RenderUtils
   /**
    * Encodes a component and all of its children.
    */
+  @SuppressWarnings("unchecked")
   static public void encodeRecursive(FacesContext context,
                                      UIComponent component)
     throws IOException
@@ -55,9 +56,10 @@ public class RenderUtils
       {
         if (component.getChildCount() > 0)
         {
-          Iterator children = component.getChildren().iterator();
-          while (children.hasNext())
-            encodeRecursive(context, (UIComponent) children.next());
+          for(UIComponent child : (List<UIComponent>)component.getChildren())
+          {
+            encodeRecursive(context, child);
+          }
         }
       }
 

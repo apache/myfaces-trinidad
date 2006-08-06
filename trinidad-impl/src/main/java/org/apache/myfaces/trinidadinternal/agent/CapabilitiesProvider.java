@@ -54,10 +54,10 @@ public class CapabilitiesProvider
     //getCapabilitiesProvider
     //--Are we really going to support multiple files??
     CapabilitiesProvider provider = null;
-    Map providerMap = _getProviderMap();
+    Map<URL, CapabilitiesProvider> providerMap = _getProviderMap();
     synchronized (providerMap)
     {
-      provider = (CapabilitiesProvider) providerMap.get(capUrl);
+      provider = providerMap.get(capUrl);
       if (provider == null)
       {
         provider = new CapabilitiesProvider(capUrl);
@@ -83,7 +83,7 @@ public class CapabilitiesProvider
     synchronized (this) {
       try
       {
-        caps = (CapabilityMap) _sCache.get(key);
+        caps = _sCache.get(key);
 
         //if not in cache, acquire
         if (caps == null)
@@ -134,7 +134,7 @@ public class CapabilitiesProvider
     return _document;
   }
 
-  static private Map _getProviderMap()
+  static private Map<URL, CapabilitiesProvider> _getProviderMap()
   {
     return _providerMap;
   }
@@ -175,11 +175,13 @@ public class CapabilitiesProvider
 
     }
 
+    @Override
     public int hashCode()
     {
       return _hashCode;
     }
 
+    @Override
     public boolean equals(Object obj)
     {
       if (obj == this)
@@ -216,10 +218,12 @@ public class CapabilitiesProvider
 
   //@todo: The caches are global. Should we store in SC?
   //@todo: Use an LRU, to limit number of entries
-  static private HashMap _sCache = new HashMap(64);
+  static private HashMap<CacheKey, CapabilityMap> _sCache = 
+    new HashMap<CacheKey, CapabilityMap>(64);
 
 
-  static private Map _providerMap = new HashMap(4);
+  static private Map<URL, CapabilitiesProvider> _providerMap = 
+    new HashMap<URL, CapabilitiesProvider>(4);
   static final private TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CapabilitiesProvider.class);
 
 }

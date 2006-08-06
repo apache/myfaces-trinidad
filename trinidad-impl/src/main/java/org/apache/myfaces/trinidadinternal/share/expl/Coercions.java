@@ -53,7 +53,7 @@ public final class Coercions
    */
   public static Object coerce(ExpressionContext context,
                               String text,
-                              Class type) throws IllegalArgumentException
+                              Class<?> type) throws IllegalArgumentException
   {
     if (type != null)
     {
@@ -188,7 +188,8 @@ public final class Coercions
   /**
    * coerces an instance into an instance of the given type
    */
-  public static Object coerce(Object value, Class type)
+  @SuppressWarnings("unchecked")
+  public static Object coerce(Object value, Class<?> type)
   {
     if (type != null)
     {
@@ -246,14 +247,14 @@ public final class Coercions
         // 2. coerce a single value into an array of size 1.
         // 3. coerce an array into an array.
 
-        Class arrayType = type.getComponentType();
+        Class<?> arrayType = type.getComponentType();
         Object res = Array.newInstance(arrayType, 1);
 
         if (value instanceof List)
         {
           // we probably should coerce each element of this list; however,
           // let's not worry about it until we have a requirement:
-          res = ((List) value).toArray((Object[]) res);
+          res = ((List<Object>) value).toArray((Object[]) res);
         }
         else if (value.getClass().isArray())
         {
@@ -537,6 +538,7 @@ public final class Coercions
       _toString = toString;
     }
 
+    @Override
     public String toString()
     {
       return _toString;

@@ -32,18 +32,21 @@ public final class BandingData
   /**
    * @param context gets the appropriate banding data from this context.
    */
+  @SuppressWarnings("unchecked")
   public static BandingData create(TableRenderingContext context)
   {
     // using the variable name "hgrid" so that we don't forget that
     // the table instance might infact be an hgrid:
     UIComponent hgrid = context.getTable();
-    Map attrs = hgrid.getAttributes();
+    Map<String, Object> attrs = hgrid.getAttributes();
     int row = _getInterval(attrs, CoreTable.ROW_BANDING_INTERVAL_KEY);
     int col = _getInterval(attrs, CoreTable.COLUMN_BANDING_INTERVAL_KEY);
     return new BandingData(col, row);
   }
 
-  private static int _getInterval(Map attrs, PropertyKey key)
+  private static int _getInterval(
+      Map<String, Object> attrs, 
+      PropertyKey key)
   {
     Number num = (Number) attrs.get(key.getName());
     int interval = (num != null) ? num.intValue() : 0;

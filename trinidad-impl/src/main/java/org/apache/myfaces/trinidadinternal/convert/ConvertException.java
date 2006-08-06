@@ -17,17 +17,17 @@ package org.apache.myfaces.trinidadinternal.convert;
 
 class ConvertException extends RuntimeException
 {
-  public ConvertException(Object source, Class targetType, Throwable error)
+  public ConvertException(Object source, Class<?> targetType, Throwable error)
   {
     super(_getMessage(source, targetType), error);
   }
   
-  public ConvertException(Object source, Class targetType)
+  public ConvertException(Object source, Class<?> targetType)
   {
     super(_getMessage(source, targetType));
   }
   
-  private static String _getMessage(Object source, Class targetType)
+  private static String _getMessage(Object source, Class<?> targetType)
   {
     return "Could not convert instance:"+source +
       " of type:"+source.getClass()+" into type:"+targetType;

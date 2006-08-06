@@ -52,8 +52,8 @@ public class LaunchEvent extends FacesEvent
   {
     super(source);
     _viewRoot = viewRoot;
-    _dialogParameters = new HashMap<Object, Object>();
-    _windowProperties  = new HashMap<Object, Object>();
+    _dialogParameters = new HashMap<String, Object>();
+    _windowProperties  = new HashMap<String, Object>();
 
     // LaunchEvents should always be queued for the current phase
     setPhaseId(PhaseId.ANY_PHASE);
@@ -84,7 +84,7 @@ public class LaunchEvent extends FacesEvent
    * A map of parameters to pass to the dialog.  All entries
    * in the map will be added to the pageFlowScope.
    */
-  public Map<Object, Object> getDialogParameters()
+  public Map<String, Object> getDialogParameters()
   {
     return _dialogParameters;
   }
@@ -96,7 +96,7 @@ public class LaunchEvent extends FacesEvent
    * The map will be ignored if a dialog is not used.
    * =-=AEW getWindowProperties or getDialogProperties or ??
    */
-  public Map<Object, Object> getWindowProperties()
+  public Map<String, Object> getWindowProperties()
   {
     return _windowProperties;
   }
@@ -176,6 +176,6 @@ public class LaunchEvent extends FacesEvent
   }
 
   private UIViewRoot          _viewRoot;
-  private Map<Object, Object> _dialogParameters;
-  private Map<Object, Object> _windowProperties;
+  private Map<String, Object> _dialogParameters;
+  private Map<String, Object> _windowProperties;
 }

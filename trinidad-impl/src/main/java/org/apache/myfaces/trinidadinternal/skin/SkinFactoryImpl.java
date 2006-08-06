@@ -17,6 +17,8 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -36,10 +38,11 @@ public class SkinFactoryImpl extends SkinFactory
   public SkinFactoryImpl()
   {
     super();
-    _skins = new HashMap();
+    _skins = new HashMap<String, Skin>();
 
   }
 
+  @Override
   public  void addSkin(
     String skinId,
     Skin   skin)
@@ -63,6 +66,7 @@ public class SkinFactoryImpl extends SkinFactory
    * @param skinId
    * @return Skin that is in this SkinFactory and has the skinId.
    */
+  @Override
   public Skin getSkin(
     FacesContext context,
     String       skinId)
@@ -79,7 +83,7 @@ public class SkinFactoryImpl extends SkinFactory
     {
       if (_skins.containsKey(skinId))
       {
-        skin = (Skin) _skins.get(skinId);
+        skin = _skins.get(skinId);
       }
     }
 
@@ -94,6 +98,7 @@ public class SkinFactoryImpl extends SkinFactory
    * @param renderKitId RenderKit identifier of the requested
    *  {@link Skin} instance
    */
+  @Override
   public Skin getSkin(
     FacesContext context,
     String       family,
@@ -112,15 +117,9 @@ public class SkinFactoryImpl extends SkinFactory
 
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
-    Iterator skinIterator = getSkinIds();
-
-    Skin skin = null;
-
-    while (skinIterator.hasNext())
+    
+    for(Skin skin : _skins.values())
     {
-      String skinId = (String)skinIterator.next();
-      skin = getSkin(context, skinId);
-
       if (family.equalsIgnoreCase(skin.getFamily()) &&
           renderKitId.equalsIgnoreCase(skin.getRenderKitId()))
       {
@@ -150,14 +149,15 @@ public class SkinFactoryImpl extends SkinFactory
 
   }
 
-  public Iterator getSkinIds()
+  @Override
+  public Iterator<String> getSkinIds()
   {
     return (_skins.keySet().iterator());
   }
 
 
   // Stores all the Skins in this SkinFactory
-  private HashMap _skins = null;
+  private Map<String, Skin> _skins = null;
 
   static private final String _RENDER_KIT_ID_CORE = "org.apache.myfaces.trinidad.desktop";
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";

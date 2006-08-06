@@ -25,6 +25,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
+import javax.faces.validator.Validator;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -40,6 +41,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
    {
     super.findTypeConstants(type);
@@ -54,6 +56,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
   //
   // DECODING IMPLEMENTATION
   //
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     if (skipDecode(context))
@@ -91,6 +94,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
    * @param component the component
    * @param newValue the unconverted string value
    */
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -128,6 +132,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
   /**
    * All editable components need IDs.
    */
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -138,6 +143,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
   /**
    * Override to include "submitted value".
    */
+  @Override
   protected String getConvertedString(
     FacesContext context,
     UIComponent  component,
@@ -180,7 +186,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
       if ( converter == null)
         converter = getDefaultConverter(context, bean);
 
-      Iterator validators = getValidators(bean);
+      Iterator<Validator> validators = getValidators(bean);
 
       if (requiredField ||
           (converter != null) ||
@@ -265,9 +271,10 @@ abstract public class EditableValueRenderer extends ValueRenderer
     return Boolean.TRUE.equals(o);
   }
 
-  protected Iterator getValidators(FacesBean bean)
+  @SuppressWarnings("unchecked")
+  protected Iterator<Validator> getValidators(FacesBean bean)
   {
-    return bean.entries(_validatorsKey);
+    return (Iterator<Validator>)bean.entries(_validatorsKey);
   }
 
   private PropertyKey _submittedValueKey;

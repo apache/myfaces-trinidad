@@ -64,6 +64,7 @@ public class RequestContextBean extends FacesBeanImpl
     TYPE.lock();
   }
 
+  @Override
   public Type getType()
   {
     return TYPE;

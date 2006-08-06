@@ -25,6 +25,7 @@ public class UIXFacesBeanImpl extends FacesBeanImpl implements UIXFacesBean
   {
   }
 
+  @Override
   public Type getType()
   {
     return _type;

@@ -38,7 +38,7 @@ public class ImageProviderRequestImpl implements ImageProviderRequest
   public ImageProviderRequestImpl(
     String     namespaceURI,
     String     name,
-    Map renderProperties)
+    Map<Object, Object> renderProperties)
   {
     if (namespaceURI == null) 
     {
@@ -74,12 +74,12 @@ public class ImageProviderRequestImpl implements ImageProviderRequest
   /**
    * Implementation of ImageProviderRequest.getRenderProperties().
    */
-  public Map getRenderProperties(ImageContext context)
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
     return _properties;
   }
 
   private String     _namespace;
   private String     _name;
-  private Map _properties;
+  private Map<Object, Object> _properties;
 }

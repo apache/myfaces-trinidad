@@ -35,10 +35,11 @@ public class FlippedIconEncoder extends AbstractXMLEncoder
   {
   }
 
+  @Override
   protected void encodeAttributes(
     ImageContext context,
-    Map properties, 
-    Map responseProperties,
+    Map<Object, Object> properties, 
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {

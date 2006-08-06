@@ -98,6 +98,7 @@ public class TextPainter extends AbstractPainter
    * @param context Context for determining the preferred size.
    * @return The preferred size of the Painter.
    */
+  @Override
   public Dimension getPreferredSize(
     PaintContext context
     )
@@ -331,6 +332,7 @@ public class TextPainter extends AbstractPainter
   }
 
 
+  @Override
   protected Object getData(
     PaintContext context
     )
@@ -348,6 +350,7 @@ public class TextPainter extends AbstractPainter
   }
 
 
+  @Override
   protected Object getDataKey()
   {
     return _dataKey;

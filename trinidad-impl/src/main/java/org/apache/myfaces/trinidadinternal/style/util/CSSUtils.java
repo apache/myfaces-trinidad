@@ -215,7 +215,8 @@ public class CSSUtils
     if ((value == null) || (value.length() == 0))
       return null;
 
-    Vector v = new Vector();
+    // TODO: -= Simon Lessard
+    Vector<String> v = new Vector<String>();
     StringTokenizer tokens = new StringTokenizer(value, ",\"");
     while (tokens.hasMoreTokens())
     {
@@ -549,7 +550,7 @@ public class CSSUtils
 
   private static Color _getSharedColor(int rgb)
   {
-    Color sharedColor = (Color)_sColorCache.get(new Integer(rgb));
+    Color sharedColor = _sColorCache.get(new Integer(rgb));
 
     if (sharedColor == null)
     {
@@ -622,8 +623,8 @@ public class CSSUtils
   // We keep a cache of shared Color instances, hashed by RGB value, so
   // that we don't end up with one Color instance for each color in each
   // cache key in the Tecate image cache.
-  private static final Map _sColorCache = 
-    Collections.synchronizedMap(new LRUCache(50));
+  private static final Map<Integer, Color> _sColorCache = 
+    Collections.synchronizedMap(new LRUCache<Integer, Color>(50));
 
   // CSS named color values
   private static final Object[] _NAMED_COLORS = new Object[]

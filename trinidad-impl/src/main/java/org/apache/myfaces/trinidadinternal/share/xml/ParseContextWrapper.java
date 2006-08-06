@@ -56,6 +56,7 @@ final class ParseContextWrapper implements ParseContext
     final NSFunctionMapper fmapper =
       new NSFunctionMapper()
       {
+        @Override
         public Function resolveFunction(String namespaceURI,
                                         String name)
         {
@@ -87,7 +88,7 @@ final class ParseContextWrapper implements ParseContext
    * @param localName the local name of the XML element
    */
   public NodeParser getParser(
-    Class      expectedType,
+    Class<?>   expectedType,
     String     namespaceURI,
     String     localName)
   {
@@ -135,6 +136,7 @@ final class ParseContextWrapper implements ParseContext
    * @deprecated since 2.2.0 use {@link #getExpressionContext()} and
    * {@ExpressionContext#getPrefixMapper()}
    */
+  @Deprecated
   public final String getNamespaceURI(String prefix)
   {
     return getExpressionContext().getPrefixMapper().getNamespaceURI(prefix);
@@ -179,6 +181,7 @@ final class ParseContextWrapper implements ParseContext
   /**
    *
    */
+  @Override
   public Object clone()
   {
     return _base.clone();

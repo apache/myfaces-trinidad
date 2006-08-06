@@ -45,6 +45,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
   /**
    *  {@inheritDoc}
    */
+  @Override
   protected void renderListDisplay(FacesContext context,
                                    UIComponent component,
                                    String disclosedChildId)
@@ -111,6 +112,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
    *  Each radio control is corresponding to a rendered UIXShowDetail child.
    *  The disable showDetail children are shown as disabled radio buttons.
    */
+  @SuppressWarnings("unchecked")
   private void _renderRadioItemsInTD(FacesContext context,
                                      UIComponent component,
                                      ResponseWriter out,
@@ -137,10 +139,10 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     URLEncoder encoder = rCtx.getURLEncoder();
 
-    ListIterator children = component.getChildren().listIterator();
+    ListIterator<UIComponent> children = component.getChildren().listIterator();
     while (children.hasNext())
     {
-      UIComponent child = (UIComponent) children.next();
+      UIComponent child = children.next();
       if (! (child instanceof UIXShowDetail) )
       {
         continue;

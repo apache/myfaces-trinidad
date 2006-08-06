@@ -46,14 +46,16 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
  */
 class InlineDatePickerJSP
 {
+  @SuppressWarnings("unchecked")
   static public void service(FacesContext context)
     throws IOException
   {
-    Map requestParams = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestParams = 
+      context.getExternalContext().getRequestParameterMap();
 
     RenderingContext arc = RenderingContext.getCurrentInstance();
     arc.getPartialPageContext().addPartialTarget(
-              (String) requestParams.get(XhtmlConstants.SOURCE_PARAM));
+              requestParams.get(XhtmlConstants.SOURCE_PARAM));
 
     // Use Html and Body to avoid the cost of the stylesheet
     HtmlHtml html = new HtmlHtml();

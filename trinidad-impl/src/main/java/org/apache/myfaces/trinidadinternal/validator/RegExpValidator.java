@@ -154,6 +154,9 @@ public class RegExpValidator
                                                 noMatchDetMsg);
   }
 
+  // -= Simon Lessard =-
+  // TODO: Nothing is logged in this class as of 2006-08-04
+  @SuppressWarnings("unused")
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(
      RegExpValidator.class);
 }

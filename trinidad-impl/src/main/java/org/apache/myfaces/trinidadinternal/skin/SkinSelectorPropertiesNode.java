@@ -18,6 +18,8 @@ package org.apache.myfaces.trinidadinternal.skin;
 
 import java.util.List;
 
+import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
+
 /**
  * Stores each selector and its properties that
  * was found in the css file. This is similar to StyleNode
@@ -35,7 +37,7 @@ class SkinSelectorPropertiesNode
 
     SkinSelectorPropertiesNode(
       String selectorName,
-      List   propertyNodes
+      List<PropertyNode> propertyNodes
       )
     {
       _selectorName  = selectorName;
@@ -46,12 +48,12 @@ class SkinSelectorPropertiesNode
     {
       return _selectorName;
     }
-    public List getPropertyNodes()
+    public List<PropertyNode> getPropertyNodes()
     {
       return _propertyNodes;
     }
   
     private String _selectorName;
-    private List   _propertyNodes;
+    private List<PropertyNode> _propertyNodes;
 
 }

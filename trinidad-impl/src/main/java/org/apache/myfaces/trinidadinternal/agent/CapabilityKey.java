@@ -106,11 +106,13 @@ public final class CapabilityKey
     return null;
   }
 
+  @Override
   public boolean equals(Object obj)
   {
     return this == obj;
   }
 
+  @Override
   public int hashCode()
   {
     return _capIndex;
@@ -126,6 +128,7 @@ public final class CapabilityKey
     return key;
   }
 
+  @Override
   public String toString()
   {
     return _capName;
@@ -136,7 +139,8 @@ public final class CapabilityKey
 
   static final private int DEFAULT_SIZE = 50;
 
-  static private HashMap _capKeyNames = new HashMap();
+  static private HashMap<String, CapabilityKey> _capKeyNames = 
+    new HashMap<String, CapabilityKey>();
   static private CapabilityKey[] _keys = new CapabilityKey[DEFAULT_SIZE];
   private static int _count = 0;
 }

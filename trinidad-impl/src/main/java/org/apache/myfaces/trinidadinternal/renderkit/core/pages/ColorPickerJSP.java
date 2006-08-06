@@ -51,10 +51,12 @@ import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
  */
 class ColorPickerJSP
 {
+  @SuppressWarnings("unchecked")
   static public void service(FacesContext context)
     throws IOException
   {
-    Map requestParams = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestParams = 
+      context.getExternalContext().getRequestParameterMap();
     
     RenderingContext arc = RenderingContext.getCurrentInstance();
     CoreDocument doc = new CoreDocument();
@@ -81,7 +83,7 @@ class ColorPickerJSP
     sic.setOnkeypress("if(_getKC(event)==13){selectColor();return false}");
     Converter converter = _getConverter(requestParams);
     Object value = 
-      converter.getAsObject(context, sic, (String)requestParams.get("value"));
+      converter.getAsObject(context, sic, requestParams.get("value"));
     sic.setConverter(converter);
     sic.setValue(value);
     sic.setChooseId("choose");
@@ -134,9 +136,9 @@ class ColorPickerJSP
     doc.getChildren().add(script);
   }
 
-  static private Converter _getConverter(Map requestParams)
+  static private Converter _getConverter(Map<String, String> requestParams)
   {
-    String pattern = (String) requestParams.get("pattern");
+    String pattern = requestParams.get("pattern");
     boolean allowsTransparent =
       "true".equals(requestParams.get("allowsTransparent"));
     ColorConverter converter = new ColorConverter();

@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidadinternal.convert;
 
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -43,6 +42,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
   }
 
 
+  @SuppressWarnings("unchecked")
   public String getClientScript(FacesContext context, UIComponent component)
   {
 
@@ -66,7 +66,9 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       // FIX - figure out size!!!
       StringBuffer buff = new StringBuffer();
 
-      Map requestMap = context.getExternalContext().getRequestMap();
+      // -= Simon Lessard =-
+      // FIXME: JSF 1.2 specifies <String, Object>
+      Map<Object, Object> requestMap = context.getExternalContext().getRequestMap();
       // =-=JRF Only if Javascript...
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {

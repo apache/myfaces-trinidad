@@ -37,9 +37,13 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  */
 public class SingleStepRenderer extends UINodeRendererBase
 {
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map parameters =  context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters =  
+      context.getExternalContext().getRequestParameterMap();
+    
     Object event = parameters.get(UIConstants.EVENT_PARAM);
 
     if (UIConstants.GOTO_EVENT.equals(event))

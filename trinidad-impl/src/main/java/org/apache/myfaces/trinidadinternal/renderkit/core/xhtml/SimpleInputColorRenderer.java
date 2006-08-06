@@ -62,6 +62,7 @@ public class SimpleInputColorRenderer
     super(CoreInputColor.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -69,6 +70,7 @@ public class SimpleInputColorRenderer
     _chooseIdKey = type.findKey("chooseId");
   }
 
+  @Override
   protected void queueActionEvent(FacesContext context, UIComponent component)
   {
     FacesBean bean = getFacesBean(component);
@@ -83,7 +85,7 @@ public class SimpleInputColorRenderer
     // a calendar window with the _ldp JS function)
     else
     {
-      Object submittedValue = (String) getSubmittedValue(bean);
+      Object submittedValue = getSubmittedValue(bean);
       Color color = null;
       try
       {
@@ -104,7 +106,7 @@ public class SimpleInputColorRenderer
       RequestContext afContext = RequestContext.getCurrentInstance();
 
       // =-=AEW Parameters?  Shouldn't we pass in the color?
-      Map parameters = null;
+      Map<String, Object> parameters = null;
       afContext.launchDialog(GenericEntry.getGenericEntryViewRoot(context),
                              parameters,
                              component,
@@ -117,6 +119,7 @@ public class SimpleInputColorRenderer
   /**
    * Give subclasses a chance to override the ReturnEvent.
    */
+  @Override
   protected void queueReturnEvent(
     FacesContext context,
     UIComponent  component,
@@ -152,7 +155,7 @@ public class SimpleInputColorRenderer
     event.queue();
   }
 
-
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -176,6 +179,7 @@ public class SimpleInputColorRenderer
     arc.getProperties().remove(_CACHED_CHOOSE_ID);
   }
 
+  @Override
   protected void renderTextField(
     FacesContext        context,
     RenderingContext arc,
@@ -210,6 +214,7 @@ public class SimpleInputColorRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     FacesContext        context,
     RenderingContext arc,
@@ -228,6 +233,7 @@ public class SimpleInputColorRenderer
     }
   }
 
+  @Override
   protected void renderAfterTextField(
     FacesContext        context,
     RenderingContext arc,
@@ -249,6 +255,7 @@ public class SimpleInputColorRenderer
     }
   }
 
+  @Override
   protected void renderIcon(
     FacesContext        context,
     RenderingContext arc,
@@ -271,6 +278,7 @@ public class SimpleInputColorRenderer
   /**
    * Return a default converter.
    */
+  @Override
   protected Converter getDefaultConverter(
     FacesContext context,
     FacesBean    bean)
@@ -278,7 +286,7 @@ public class SimpleInputColorRenderer
     return _DEFAULT_CONVERTER;
   }
 
-
+  @Override
   protected String getLaunchOnclick(
     FacesContext        context,
     RenderingContext arc,
@@ -310,6 +318,7 @@ public class SimpleInputColorRenderer
     return onClickBuffer.toString();
   }
 
+  @Override
   protected String getOnfocus(FacesBean bean)
   {
     String onfocus = super.getOnfocus(bean);
@@ -337,6 +346,7 @@ public class SimpleInputColorRenderer
     }
   }
 
+  @Override
   protected String getOnblur(FacesBean bean)
   {
     String onblur = super.getOnblur(bean);
@@ -349,8 +359,7 @@ public class SimpleInputColorRenderer
                                    onblur, false);
   }
 
-
-
+  @Override
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
     Converter converter = getConverter(bean);
@@ -366,6 +375,7 @@ public class SimpleInputColorRenderer
     return _DEFAULT_COLUMNS;
   }
 
+  @Override
   protected Number getMaximumLength(FacesBean bean)
   {
     // Not supported for selectInputColor
@@ -373,7 +383,7 @@ public class SimpleInputColorRenderer
     return null;
   }
 
-
+  @Override
   protected String getButtonIconName()
   {
     return XhtmlConstants.AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME;
@@ -393,11 +403,13 @@ public class SimpleInputColorRenderer
     return Boolean.TRUE.equals(o);
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|inputColor";
   }
 
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|inputColor::content";
@@ -425,6 +437,7 @@ public class SimpleInputColorRenderer
     return (arc.getAgent().getAgentType() != TrinidadAgent.TYPE_PDA);
   }
 
+  @Override
   protected String getSearchDesc(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -531,6 +544,7 @@ public class SimpleInputColorRenderer
 
   // Checks to see whether this is the first color field for
   // a given chooseId, and if so renders a script
+  @SuppressWarnings("unchecked")
   private void _renderFirstColorFieldScript(
     FacesContext        context,
     RenderingContext arc,
@@ -550,12 +564,12 @@ public class SimpleInputColorRenderer
     String id = getClientId(context, component);
 
 
-    Map chooseColorIds = (Map)
+    Map<String, Boolean> chooseColorIds = (Map<String, Boolean>)
       arc.getProperties().get(_CHOOSE_COLOR_IDS_KEY);
 
     if (chooseColorIds == null)
     {
-      chooseColorIds = new HashMap();
+      chooseColorIds = new HashMap<String, Boolean>();
       arc.getProperties().put(_CHOOSE_COLOR_IDS_KEY, chooseColorIds);
     }
 

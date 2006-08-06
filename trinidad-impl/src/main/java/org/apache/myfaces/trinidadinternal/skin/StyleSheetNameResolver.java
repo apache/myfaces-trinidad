@@ -277,6 +277,7 @@ class StyleSheetNameResolver implements NameResolver
       super(url);
     }
 
+    @Override
     public boolean hasSourceChanged()
     {
       return false;

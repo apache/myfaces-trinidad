@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 public class DetailColumnRenderer extends SpecialColumnRenderer
 {
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -55,17 +56,20 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
     super.encodeAll(context, arc, component, bean);
   }  
   
+  @Override
   protected String getHeaderText(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     return arc.getTranslatedString("af_table.DETAIL_COLUMN_HEADER");
   }
   
+  @Override
   protected boolean getNoWrap(FacesBean bean)
   {
     return true;
   }
 
+  @Override
   protected void renderKids(FacesContext          context,
                             RenderingContext   arc,
                             TableRenderingContext tContext,
@@ -87,6 +91,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       super(CoreTable.TYPE);
     }
     
+    @Override
     protected void renderAllAttributes(
        FacesContext        context,
        RenderingContext arc,
@@ -107,6 +112,7 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       super.renderPromptStart(context, arc, component, bean);
     }
     
+    @Override
     protected String getValueParameter(UIComponent component)
     {
       UIXCollection cb = (UIXCollection) component;
@@ -114,11 +120,13 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       return IntegerUtils.getString(rowIndex);
     }
     
+    @Override
     protected boolean isTableDetailDisclosure()
     {
       return true;
     }
     
+    @Override
     protected boolean getDisclosed(FacesBean bean)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();
@@ -126,11 +134,13 @@ public class DetailColumnRenderer extends SpecialColumnRenderer
       return (table.getDisclosedRowKeys().isContained());
     }
 
+    @Override
    protected String getLinkId(String rootId, boolean disclosed)
    {
      return _getDetailLinkId(TableRenderingContext.getCurrentInstance());
    }
    
+    @Override
     protected String getClientId(FacesContext context, UIComponent component)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();

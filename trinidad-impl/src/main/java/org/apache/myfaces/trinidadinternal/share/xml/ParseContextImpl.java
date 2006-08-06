@@ -84,7 +84,7 @@ public class ParseContextImpl implements ParseContext, Cloneable
    * @param localName the local name of the XML element
    */
   public NodeParser getParser(
-    Class      expectedType,
+    Class<?>   expectedType,
     String     namespaceURI,
     String     localName)
   {
@@ -128,6 +128,7 @@ public class ParseContextImpl implements ParseContext, Cloneable
    * @deprecated since 2.2.0 use {@link #getExpressionContext()} and
    * {@link ExpressionContext#getPrefixMapper()}
    */
+  @Deprecated
   public String getNamespaceURI(String prefix)
   {
     return null;
@@ -179,6 +180,7 @@ public class ParseContextImpl implements ParseContext, Cloneable
   /**
    *
    */
+  @Override
   public Object clone()
   {
     try

@@ -37,8 +37,11 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     super(out);
     _pprContext = pprContext;
     _useXMLDom = useXMLDom;
+    _componentStack = new ArrayList<PPRTag>(50);
+    _facesContext = FacesContext.getCurrentInstance();
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     return new PPRResponseWriter(
@@ -47,24 +50,28 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       _useXMLDom);
   }
 
+  @Override
   public void startDocument() throws IOException
   {
     if (_isInsideTarget())
       super.startDocument();
   }
 
+  @Override
   public void endDocument() throws IOException
   {
     if (_isInsideTarget())
       super.endDocument();
   }
 
+  @Override
   public void flush() throws IOException
   {
     if (_isInsideTarget())
       super.flush();
   }
 
+  @Override
   public void writeComment(Object text) throws IOException
   {
     if (_isInsideTarget())
@@ -72,28 +79,31 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   }
 
 
+  @Override
   public void writeText(Object text, String property) throws IOException
   {
     if (_isInsideTarget())
       super.writeText(text, property);
   }
 
+  @Override
   public void writeText(
-                        char[]      text,
-                        int         start,
-                        int         length) throws IOException
+      char[]      text,
+      int         start,
+      int         length) throws IOException
   {
     if (_isInsideTarget())
       super.writeText(text, start, length);
   }
 
-
+  @Override
   public void write(String text) throws IOException
   {
     if (_isInsideTarget())
       super.write(text);
   }
 
+  @Override
   public void write(
                     char[]      text,
                     int         start,
@@ -103,12 +113,14 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       super.write(text, start, length);
   }
 
+  @Override
   public void write(int ch) throws IOException
   {
     if (_isInsideTarget())
       super.write(ch);
   }
 
+  @Override
   public void startElement(String name, UIComponent component)
      throws IOException
   {
@@ -137,7 +149,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
   }
 
-
+  @Override
   public void endElement(String name) throws IOException
   {
     if (_isInsideTarget())
@@ -148,6 +160,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     _popPartialTarget();
   }
 
+  @Override
   public void writeAttribute(String     name,
                              Object     value,
                              String     property) throws IOException
@@ -165,6 +178,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
   }
 
+  @Override
   public void writeURIAttribute(
                                 String     name,
                                 Object     value,
@@ -230,7 +244,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   private void _popPartialTarget() throws IOException
   {
     int pos = _componentStack.size() - 1;
-    PPRTag tag = (PPRTag) _componentStack.get(pos);
+    PPRTag tag = _componentStack.get(pos);
     _componentStack.remove(pos);
 
     if (tag != null)
@@ -329,6 +343,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       _tags = tags;
     }
 
+    @Override
     public void start(PartialPageContext pprContext) throws IOException
     {
       super.start(pprContext);
@@ -340,6 +355,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       }
     }
 
+    @Override
     public void finish(PartialPageContext pprContext) throws IOException
     {
       // And then end them in reverse order...
@@ -358,10 +374,9 @@ public class PPRResponseWriter extends ResponseWriterDecorator
 
   private boolean _writingForm;
   private final boolean _useXMLDom;
-  private final List _componentStack = new ArrayList(50);
+  private final List<PPRTag> _componentStack;
   private final PartialPageContext _pprContext;
-  private final FacesContext _facesContext =
-     FacesContext.getCurrentInstance();
+  private final FacesContext _facesContext;
 
   static private final String[] _ADD_TABLE_AND_TR =
      new String[]{"table", "tr"};

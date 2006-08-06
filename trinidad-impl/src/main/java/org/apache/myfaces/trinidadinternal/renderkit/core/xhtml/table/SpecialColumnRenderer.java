@@ -36,23 +36,25 @@ public class SpecialColumnRenderer extends ColumnRenderer
     return _specialColumn;
   }
 
+  @Override
   protected boolean getHeaderNoWrap(FacesBean bean)
   {
     return true;
   }
 
-
+  @Override
   protected boolean getSortable(FacesBean bean)
   {
     return false;
   }
 
-
+  @Override
   protected String getSortProperty(FacesBean bean)
   {
     return null;
   }
 
+  @Override
   protected String getHeaderInlineStyle(RenderingContext arc)
   {
     if (XhtmlRenderer.isIE(arc))
@@ -61,6 +63,7 @@ public class SpecialColumnRenderer extends ColumnRenderer
     return null;
   }
   
+  @Override
   protected boolean isSpecialColumn()
   {
     return true;

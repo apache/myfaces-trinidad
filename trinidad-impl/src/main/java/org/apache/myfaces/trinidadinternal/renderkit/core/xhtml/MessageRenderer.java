@@ -45,6 +45,7 @@ public class MessageRenderer extends ValueRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -53,11 +54,13 @@ public class MessageRenderer extends ValueRenderer
     _messageKey     = type.findKey("message");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

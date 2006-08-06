@@ -270,7 +270,7 @@ public class SkinUtils
   // Registers a ParserFactory for the LAF namespace
   static private void _registerFactory(
     ParserManager manager,
-    Class expectedType,
+    Class<?> expectedType,
     String baseName
     )
   {

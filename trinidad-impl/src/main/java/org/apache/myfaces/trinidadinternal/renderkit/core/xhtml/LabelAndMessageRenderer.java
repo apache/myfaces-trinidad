@@ -49,6 +49,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -63,6 +64,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   }
 
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -137,6 +139,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     // do nothing for now
   } 
 
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -158,6 +161,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   /**
    */
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -403,6 +407,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   /**
    * Returns the client ID.
    */
+  @Override
   protected String getClientId(
     FacesContext context,
     UIComponent  component)
@@ -489,6 +494,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       _inTable = inTable;
     }
 
+    @Override
     protected boolean shouldRenderId(
       FacesContext context,
       UIComponent  component)
@@ -496,6 +502,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       return false;
     }
 
+    @Override
     protected void renderAllAttributes(
       FacesContext        context,
       RenderingContext arc,
@@ -504,6 +511,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       // Block everything
     }
 
+    @Override
     protected String getDefaultValign(FacesBean bean)
     {
       // get the defaultLabelValign from the form component.
@@ -511,6 +519,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     }
 
 
+    @Override
     protected String getConvertedString(
       FacesContext context,
       UIComponent  component,
@@ -526,6 +535,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
      * Only display the required icon indicator if we're required
      * or showRequired is on.
      */
+    @Override
     protected boolean getShowRequired(FacesBean bean)
     {
       // Inside the table, never show the required icon.
@@ -535,6 +545,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       return (LabelAndMessageRenderer.this.labelShowRequired(bean));
     }
 
+    @Override
     protected char getAccessKey(FacesBean bean)
     {
       if (LabelAndMessageRenderer.this.showAccessKeyOnLabel(bean))
@@ -543,6 +554,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       return CHAR_UNDEFINED;
     }
 
+    @Override
     protected String getShortDesc(FacesBean bean)
     {
       String shortDesc = super.getShortDesc(bean);
@@ -556,6 +568,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       return shortDesc;
     }
 
+    @Override
     protected String getForId(
       FacesContext context,
       UIComponent  component,
@@ -567,6 +580,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
                          bean);
     }
 
+    @Override
     protected boolean isLabelTagNeeded(
       RenderingContext arc,
       FacesBean           bean,
@@ -590,6 +604,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       super(type);
     }
 
+    @Override
     protected boolean shouldRenderId(
       FacesContext context,
       UIComponent  component)
@@ -597,16 +612,19 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       return false;
     }
 
+    @Override
     protected String getShortDesc(FacesBean bean)
     {
       return null;
     }
 
+    @Override
     protected boolean getIndented(FacesBean bean)
     {
       return LabelAndMessageRenderer.this.isIndented();
     }
 
+    @Override
     protected void renderAllAttributes(
       FacesContext        context,
       RenderingContext arc,
@@ -614,6 +632,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     {
     }
 
+    @Override
     protected String getForId(
       FacesContext context,
       UIComponent  component,
@@ -693,9 +712,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     RenderingContext arc,
     String              styleClass)  
   {
-    Map keyMap = arc.getSkinResourceKeyMap();
+    Map<String, String> keyMap = arc.getSkinResourceKeyMap();
     return (keyMap != null) ?
-            (String) keyMap.get(styleClass) :
+            keyMap.get(styleClass) :
             null;
   }
   

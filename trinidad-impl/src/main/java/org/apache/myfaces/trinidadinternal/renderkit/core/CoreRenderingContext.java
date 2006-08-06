@@ -62,6 +62,8 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext context = FacesContext.getCurrentInstance();
     RequestContext afContext = RequestContext.getCurrentInstance();
 
+    _properties = new HashMap<Object, Object>();
+    
     _outputMode = afContext.getOutputMode();
     _agent = _initializeAgent(context, afContext.getAgent(), _outputMode);
 
@@ -122,16 +124,19 @@ public class CoreRenderingContext extends RenderingContext
 
   // Implementation of AdfRenderingContext
 
-  public Map getProperties()
+  @Override
+  public Map<Object, Object> getProperties()
   {
     return _properties;
   }
 
+  @Override
   public TrinidadAgent getAgent()
   {
     return _agent;
   }
 
+  @Override
   public boolean isRightToLeft()
   {
     if (_localeContext != null)
@@ -142,12 +147,14 @@ public class CoreRenderingContext extends RenderingContext
     return RequestContext.getCurrentInstance().isRightToLeft();
   }
 
+  @Override
   public String getOutputMode()
   {
     return _outputMode;
   }
 
 
+  @Override
   public Object getAccessibilityMode()
   {
     return _accessibilityMode;
@@ -156,23 +163,27 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * This will create a FormData object if it's null.
    */
+  @Override
   public FormData getFormData()
   {
     assert(_formData != null);
     return _formData;
   }
 
+  @Override
   public void setFormData(FormData formData)
   {
     _formData = formData;
   }
 
+  @Override
   public void clearFormData()
   {
     _formData = null;
   }
 
 
+  @Override
   public Skin getSkin()
   {
     return _skin;
@@ -181,6 +192,7 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Get an interface that can be used for style lookups and generation.
    */
+  @Override
   public StyleContext getStyleContext()
   {
     if (_styleContext == null)
@@ -195,6 +207,7 @@ public class CoreRenderingContext extends RenderingContext
   }
 
 
+  @Override
   public LocaleContext getLocaleContext()
   {
     // Initialize the locale context lazily, because we may
@@ -209,11 +222,13 @@ public class CoreRenderingContext extends RenderingContext
     return _localeContext;
   }
 
+  @Override
   public PartialPageContext getPartialPageContext()
   {
     return _pprContext;
   }
 
+  @Override
   public String getStyleClass(String styleClass)
   {
     if (styleClass == null) return null;
@@ -222,7 +237,7 @@ public class CoreRenderingContext extends RenderingContext
     String shortenedStyle = null;
     if (_styleMap != null)
     {
-      shortenedStyle = (String) _styleMap.get(styleClass);
+      shortenedStyle = _styleMap.get(styleClass);
     }
 
     if (shortenedStyle != null)
@@ -238,7 +253,7 @@ public class CoreRenderingContext extends RenderingContext
     return styleClass;
   }
 
-
+  @Override
   public Icon getIcon(String iconName)
   {
     iconName = getSkinResourceMappedKey(iconName);
@@ -280,7 +295,7 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Store a map that provides abbreviations of styles.
    */
-  public void setStyleMap(Map mapping)
+  public void setStyleMap(Map<String, String> mapping)
   {
     _styleMap = mapping;
   }
@@ -289,7 +304,8 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Store a Map that maps a skin's resource keys from one key to another.
    */
-  public void setSkinResourceKeyMap(Map mapping)
+  @Override
+  public void setSkinResourceKeyMap(Map<String, String> mapping)
   {
     _skinResourceKeyMap = mapping;
   }
@@ -298,18 +314,19 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Get the _skinResourceKeyMap Map.
    */
-  public Map getSkinResourceKeyMap()
+  @Override
+  public Map<String, String> getSkinResourceKeyMap()
   {
     return _skinResourceKeyMap;
   }
 
   protected String getSkinResourceMappedKey(String key)
   {
-    Map keyMap = getSkinResourceKeyMap();
+    Map<String, String> keyMap = getSkinResourceKeyMap();
 
     if (keyMap != null)
     {
-      String mappedKey = (String) keyMap.get(key);
+      String mappedKey = keyMap.get(key);
       // if it isn't in the map, just use the key itself.
       if (mappedKey != null)
       {
@@ -415,11 +432,14 @@ public class CoreRenderingContext extends RenderingContext
    * Get the directory for temporary files.
    * @todo: move into the util package?
    */
+  @SuppressWarnings("unchecked")
   static public String getTemporaryDirectory(FacesContext fContext)
   {
     String path = null;
 
-    Map applicationMap = fContext.getExternalContext().getApplicationMap();
+    Map<String, Object> applicationMap = 
+      fContext.getExternalContext().getApplicationMap();
+    
     if (applicationMap != null)
     {
       // In general, write to the Servlet spec'd temporary directory
@@ -482,23 +502,32 @@ public class CoreRenderingContext extends RenderingContext
   }
 
 
-  private Skin               _skin;
-  private FormData           _formData;
-  private TrinidadAgent      _agent;
-  private Map                _styleMap;
-  private Map                _skinResourceKeyMap;
-  private String             _outputMode;
-  private Object             _accessibilityMode;
-  private PartialPageContext _pprContext;
-  private LocaleContext      _localeContext;
-  private StyleContext       _styleContext;
-  private Map                _properties = new HashMap();
-  private int                _linkStyleDisabledCount = 0;
-  private boolean            _isLinkDisabled = false;
+  private Skin                _skin;
+  private FormData            _formData;
+  private TrinidadAgent       _agent;
+  private Map<String, String> _styleMap;
+  private Map<String, String> _skinResourceKeyMap;
+  private String              _outputMode;
+  private Object              _accessibilityMode;
+  private PartialPageContext  _pprContext;
+  private LocaleContext       _localeContext;
+  private StyleContext        _styleContext;
+  private Map<Object, Object> _properties;
+  private int                 _linkStyleDisabledCount = 0;
+  private boolean             _isLinkDisabled = false;
 
   // Maps describing the capabilities of our output modes
-  static private final Map _PRINTABLE_CAPABILITIES = new HashMap();
-  static private final Map _EMAIL_CAPABILITIES = new HashMap();
+  // -= Simon Lessard =-
+  // FIXME: Cannot use CapabilityKey in the generic definition because 
+  //        CapabilityKey is not in the public API and those map are 
+  //        used as a parameter in an API call receiving a 
+  //        Map<Object, Object> argument
+  static private final Map<Object, Object> _PRINTABLE_CAPABILITIES = 
+    new HashMap<Object, Object>();
+  
+  static private final Map<Object, Object> _EMAIL_CAPABILITIES = 
+    new HashMap<Object, Object>();
+  
   static
   {
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,

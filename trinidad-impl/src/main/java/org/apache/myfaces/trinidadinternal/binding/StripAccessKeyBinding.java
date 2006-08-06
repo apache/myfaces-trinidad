@@ -42,6 +42,7 @@ public class StripAccessKeyBinding extends ValueBindingAdapter
     super(base);
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     Object o = super.getValue(context);
@@ -56,7 +57,8 @@ public class StripAccessKeyBinding extends ValueBindingAdapter
     return StringUtils.stripMnemonic(text);
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return String.class;
   }

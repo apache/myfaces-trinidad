@@ -267,6 +267,7 @@ public interface TrinidadAgent extends Agent
    * based on it (like Netscape 6).
    * @deprecated since 2.2.0. Use {@link #APPLICATION_GECKO}.
    */
+  @Deprecated
   static public final int APPLICATION_MOZILLA   = APPLICATION_GECKO;
 
   /**

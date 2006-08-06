@@ -38,6 +38,7 @@ public class PanelListRenderer extends XhtmlRenderer
     super(CorePanelList.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -51,6 +52,7 @@ public class PanelListRenderer extends XhtmlRenderer
    * We want to render the styleClass/inlineStyle attributes as well
    * as our component styleClass.
    */
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -60,12 +62,13 @@ public class PanelListRenderer extends XhtmlRenderer
                           XhtmlConstants.AF_PANEL_LIST_STYLE_CLASS);
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -126,6 +129,7 @@ public class PanelListRenderer extends XhtmlRenderer
 
   // render without columns. Called when rows > children or when we have
   // multiple columns, and we are rendering a single column.
+  @SuppressWarnings("unchecked")
   private int _renderNoColumns(
     FacesContext context,
     RenderingContext arc,
@@ -139,14 +143,14 @@ public class PanelListRenderer extends XhtmlRenderer
     int maxChildIndex = component.getChildCount();
     int numRendered = 0;
     int childIndex = start;
-    List children   = component.getChildren();
+    List<UIComponent> children   = component.getChildren();
 
     writer.startElement("ul", null);
     _renderListStyle(context, bean);
 
     while ( numRendered < numToRender  && childIndex < maxChildIndex)
     {
-      UIComponent child = (UIComponent) children.get(childIndex);
+      UIComponent child = children.get(childIndex);
 
       // if visible child
       if ( child != null && child.isRendered())

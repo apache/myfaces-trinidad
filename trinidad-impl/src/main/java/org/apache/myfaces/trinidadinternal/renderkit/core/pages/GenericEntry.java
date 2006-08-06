@@ -75,16 +75,19 @@ public class GenericEntry extends InternalView
   {
   }
 
+  @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     return null;
   }
 
+  @Override
   public UIViewRoot restoreView(FacesContext context, String viewId)
   {
     return null;
   }
 
+  @Override
   public void renderView(
     FacesContext context,
     UIViewRoot   viewToRender) throws IOException, FacesException
@@ -171,6 +174,7 @@ public class GenericEntry extends InternalView
   }
 
 
+  @SuppressWarnings("unchecked")
   static private void service(FacesContext context, String name)
     throws IOException
   {
@@ -184,7 +188,7 @@ public class GenericEntry extends InternalView
 
     if (!_isValidEntry(name))
     {
-      response.sendError(response.SC_BAD_REQUEST);
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST);
       return;
     }
 
@@ -207,8 +211,10 @@ public class GenericEntry extends InternalView
       encoding);
     context.setResponseWriter(responseWriter);
 
-    Map requestParams = context.getExternalContext().getRequestParameterMap();
-    String localeName = (String) requestParams.get("loc");
+    Map<String, String> requestParams = 
+      context.getExternalContext().getRequestParameterMap();
+    
+    String localeName = requestParams.get("loc");
     if (localeName != null)
     {
       Locale locale =
@@ -266,11 +272,11 @@ public class GenericEntry extends InternalView
   // Parameter that is used to store the key for the JSP name.
   //
   static final String __ENTRY_KEY_PARAM = "_t";
-  static private final Set _VALID_ENTRIES;
+  static private final Set<String> _VALID_ENTRIES;
 
   static
   {
-    _VALID_ENTRIES = new HashSet();
+    _VALID_ENTRIES = new HashSet<String>();
     _VALID_ENTRIES.add(NEW_FRAME_REDIRECT_ENTRY);
     _VALID_ENTRIES.add(CALENDAR_DIALOG_ENTRY);
     _VALID_ENTRIES.add(INLINE_DATE_PICKER_ENTRY);

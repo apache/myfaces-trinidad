@@ -30,16 +30,19 @@ public class InputColorRenderer extends InputLabelAndMessageRenderer
     super(CoreInputColor.TYPE);
   }  
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputColor";
   }  
     
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputColor;
   }
   
+  @Override
   protected String getLabelFor(
     FacesContext        context,
     RenderingContext arc,

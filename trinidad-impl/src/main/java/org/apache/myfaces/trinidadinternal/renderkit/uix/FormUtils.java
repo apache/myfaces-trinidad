@@ -27,11 +27,14 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManag
  */ 
 public class FormUtils
 {
+  @SuppressWarnings("unchecked")
   static public boolean wasSubmitted(
     FacesContext context,
     UIComponent component)
   {
-    Map paramMap = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> paramMap = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object formName = paramMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
     boolean submitted = false;
     

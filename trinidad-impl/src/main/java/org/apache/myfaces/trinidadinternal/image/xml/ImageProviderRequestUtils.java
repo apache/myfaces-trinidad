@@ -105,8 +105,8 @@ public class ImageProviderRequestUtils
     String       namespaceURI,
     String       localName,
     ImageType    type,
-    Map   properties,
-    Map   responseProperties,
+    Map<Object, Object> properties,
+    Map<Object, Object> responseProperties,
     PrintWriter  writer
     ) throws IllegalArgumentException
   {
@@ -236,7 +236,7 @@ public class ImageProviderRequestUtils
    * objects for elements in the specified namespace.
    */
   public static void registerParserFactory(
-    Class expectedType,
+    Class<?> expectedType,
     String namespace,
     ParserFactory factory
     )
@@ -248,7 +248,7 @@ public class ImageProviderRequestUtils
    * Unregisters the ParserFactory for the specified namespace.
    */
   public static void unregisterParserFactory(
-    Class expectedType,
+    Class<?> expectedType,
     String namespace
     )
   {
@@ -282,7 +282,7 @@ public class ImageProviderRequestUtils
     ImageContext context,
     XMLProvider  provider,
     InputSource  source,
-    Class        expectedClass
+    Class<?>     expectedClass
     ) throws IOException, SAXException
   {
     // Get the ParserManager
@@ -323,5 +323,5 @@ public class ImageProviderRequestUtils
 
   // We use this empty dictionary as a stub for the response properties
   // dictionary when we encode the image properties with the XMLEncoder
-  private static final Map _EMPTY_MAP = new ArrayMap(0);
+  private static final Map<Object, Object> _EMPTY_MAP = new ArrayMap<Object, Object>(0);
 }

@@ -156,6 +156,7 @@ abstract public class Configuration
    *
    * @deprecated Use IMAGE_SERVLET_URL
    */
+  @Deprecated
   static public final Object TECATE_SERVLET_URL = IMAGE_SERVLET_URL;
 
   /**
@@ -245,5 +246,8 @@ abstract public class Configuration
   {
   }
 
+  // -= Simon Lessard =-
+  // FIXME: Never read locally
+  @SuppressWarnings("unused")
   private String _name;
 }

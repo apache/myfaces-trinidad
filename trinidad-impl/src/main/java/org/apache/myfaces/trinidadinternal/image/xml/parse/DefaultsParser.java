@@ -35,6 +35,7 @@ public class DefaultsParser extends BaseImageProviderRequestParser
    * Override of BaseImageProviderRequestParser.isColorElement()
    * which adds in the borderColor element.
    */
+  @Override
   protected boolean isColorElement(String namespaceURI, String localName)
   {
     if (localName.equals(XMLConstants.BORDER_COLOR_NAME)        ||
@@ -53,6 +54,7 @@ public class DefaultsParser extends BaseImageProviderRequestParser
    * Override of BaseImageProviderRequestParser.isFontElement()
    * which adds in the selected/disabled font elements.
    */
+  @Override
   protected boolean isFontElement(String namespaceURI, String localName)
   {
     if (localName.equals(XMLConstants.SELECTED_FONT_NAME)  ||
@@ -68,6 +70,7 @@ public class DefaultsParser extends BaseImageProviderRequestParser
    * Override of BaseImageProviderRequestParser.getColorKey() for
    * borderColor.
    */
+  @Override
   protected Object getColorKey(String namespaceURI, String localName)
   {
     if (localName.equals(XMLConstants.BORDER_COLOR_NAME))
@@ -88,6 +91,7 @@ public class DefaultsParser extends BaseImageProviderRequestParser
    * Override of BaseImageProviderRequestParser.getFontKey() for
    * selected/disabled fonts.
    */
+  @Override
   protected Object getFontKey(String namespaceURI, String localName)
   {
     if (localName.equals(XMLConstants.SELECTED_FONT_NAME))

@@ -17,10 +17,11 @@ package org.apache.myfaces.trinidadinternal.io;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import javax.faces.component.UIComponent;
@@ -45,13 +46,14 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
   public DebugHtmlResponseWriter(ResponseWriter decorated)
   {
     super(decorated);
-    _elementStack = new Stack();
+    _elementStack = new Stack<String>();
   }
 
   /**
    * Creates a new instance of this DebugHtmlResponseWriter, using a different
    * Writer.
    */
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     DebugHtmlResponseWriter cloned =
@@ -62,6 +64,7 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
 
 
 
+  @Override
   public void startElement(String name, UIComponent component) throws IOException
   {
     String lowerName = name.toLowerCase();
@@ -79,9 +82,9 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
     // Check for elements that are not allowed inside each other
     if (!_elementStack.empty())
     {
-      String parent = (String) _elementStack.peek();
-      Collection allowedParents = (Collection) _sAllowedParents.get(lowerName);
-      Collection allowedChildren = (Collection) _sAllowedChildren.get(parent);
+      String parent = _elementStack.peek();
+      Collection<String> allowedParents = _sAllowedParents.get(lowerName);
+      Collection<String> allowedChildren = _sAllowedChildren.get(parent);
       if (((allowedParents != null)  &&
            !allowedParents.contains(parent)) ||
           ((allowedChildren != null)  &&
@@ -100,6 +103,7 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
   }
 
 
+  @Override
   public void endElement(String name) throws IOException
   {
     if (!_elementStack.empty())
@@ -108,6 +112,7 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
     super.endElement(name);
   }
 
+  @Override
   public void writeAttribute(String name,
                              Object value,
                              String componentPropertyName)
@@ -165,10 +170,12 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
 
   // Yes, Stack is slow and lame.  This code is used for debugging
   // only, so that is of little concern.
-  private Stack        _elementStack;
+  private Stack<String> _elementStack;
 
-  static private final HashMap _sAllowedParents = new HashMap(13);
-  static private final HashMap _sAllowedChildren  = new HashMap(13);
+  static private final Map<String, List<String>> _sAllowedParents = 
+    new HashMap<String, List<String>>(13);
+  static private final Map<String, List<String>> _sAllowedChildren  = 
+    new HashMap<String, List<String>>(13);
 
   static
   {
@@ -178,70 +185,70 @@ public class DebugHtmlResponseWriter extends ResponseWriterDecorator
     // but we hardcode that rule.
     _sAllowedChildren.put("table",
        Arrays.asList(
-          new Object[]{"tr", "caption",
+          new String[]{"tr", "caption",
                        "thead", "tfoot", "tbody", "col", "colgroup"}));
 
     _sAllowedChildren.put("tr",
        Arrays.asList(
-          new Object[]{"th", "td"}));
+          new String[]{"th", "td"}));
 
     _sAllowedChildren.put("select",
        Arrays.asList(
-          new Object[]{"option", "optgroup"}));
+          new String[]{"option", "optgroup"}));
 
     _sAllowedChildren.put("ol",
        Arrays.asList(
-          new Object[]{"li"}));
+          new String[]{"li"}));
 
     _sAllowedChildren.put("ul",
        Arrays.asList(
-          new Object[]{"li"}));
+          new String[]{"li"}));
 
     _sAllowedChildren.put("input",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("hr",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("br",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("area",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("link",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("img",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("col",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("frame",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("base",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedChildren.put("meta",
-       Arrays.asList(new Object[0]));
+       Arrays.asList(new String[0]));
 
     _sAllowedParents.put("tr",
        Arrays.asList(
-          new Object[]{"table", "thead", "tfoot", "tbody"}));
+          new String[]{"table", "thead", "tfoot", "tbody"}));
 
     _sAllowedParents.put("td",
        Arrays.asList(
-          new Object[]{"tr"}));
+          new String[]{"tr"}));
 
     _sAllowedParents.put("th",
        Arrays.asList(
-          new Object[]{"tr"}));
+          new String[]{"tr"}));
 
     _sAllowedParents.put("option",
        Arrays.asList(
-          new Object[]{"select", "optgroup"}));
+          new String[]{"select", "optgroup"}));
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DebugHtmlResponseWriter.class);

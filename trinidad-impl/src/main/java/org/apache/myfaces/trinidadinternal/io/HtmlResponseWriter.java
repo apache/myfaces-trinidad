@@ -57,38 +57,45 @@ public class HtmlResponseWriter extends ResponseWriter
     CaboHttpUtils.validateEncoding(encoding);
   }
 
+  @Override
   public String getCharacterEncoding()
   {
     return _encoding;
   }
 
+  @Override
   public String getContentType()
   {
     return HTML_CONTENT_TYPE;
   }
 
+  @Override
   public void startDocument() throws IOException
   {
   }
 
 
+  @Override
   public void endDocument() throws IOException
   {
     _out.flush();
   }
 
+  @Override
   public void flush() throws IOException
   {
     _closeStartIfNecessary();
   }
 
 
+  @Override
   public void close()throws IOException
   {
     flush();
     // =-=AEW And anything else?
   }
 
+  @Override
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
@@ -120,6 +127,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void endElement(String name) throws IOException
   {
     // eliminate any <pending></pending> combinations
@@ -178,6 +186,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void writeAttribute(String name,
                              Object value,
                              String componentPropertyName)
@@ -192,7 +201,7 @@ public class HtmlResponseWriter extends ResponseWriter
 
     Writer out = _out;
 
-    Class valueClass = value.getClass();
+    Class<?> valueClass = value.getClass();
 
     // See what attribute we were involved in
     String currAttr = _currAttr;
@@ -234,6 +243,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void writeURIAttribute(String name,
                                 Object value,
                                 String componentPropertyName)
@@ -273,6 +283,7 @@ public class HtmlResponseWriter extends ResponseWriter
     out.write('"');
   }
 
+  @Override
   public void writeComment(Object comment) throws IOException
   {
     if (comment != null)
@@ -285,6 +296,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void writeText(Object text, String componentPropertyName)
      throws IOException
   {
@@ -304,6 +316,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void writeText(char text[], int off, int len)
         throws IOException
   {
@@ -318,18 +331,21 @@ public class HtmlResponseWriter extends ResponseWriter
     }
   }
 
+  @Override
   public void write(char cbuf[], int off, int len) throws IOException
   {
     _closeStartIfNecessary();
     _out.write(cbuf, off, len);
   }
 
+  @Override
   public void write(String str) throws IOException
   {
     _closeStartIfNecessary();
     _out.write(str);
   }
 
+  @Override
   public void write(int c) throws IOException
   {
     _closeStartIfNecessary();
@@ -337,6 +353,7 @@ public class HtmlResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     try
@@ -376,7 +393,7 @@ public class HtmlResponseWriter extends ResponseWriter
    * Writes the value of an object
    */
   private void _writeValue(
-    Class       valueClass,
+    Class<?>    valueClass,
     Object      value,
     boolean     isAttribute
     ) throws IOException
@@ -488,7 +505,7 @@ public class HtmlResponseWriter extends ResponseWriter
     if (size == 0)
       return null;
 
-    return (String)_skippedElements.remove(size - 1);
+    return _skippedElements.remove(size - 1);
   }
 
   /**
@@ -621,13 +638,13 @@ public class HtmlResponseWriter extends ResponseWriter
 
   // stack of skipped and unskipped elements used to determine when
   // to suppress the end tag of a skipped element
-  private final ArrayList   _skippedElements = new ArrayList(20);
+  private final ArrayList<String> _skippedElements = new ArrayList<String>(20);
 
 
-  private static final Class _CHAR_ARRAY_CLASS = (new char[0]).getClass();
-  private static final Class _BOOLEAN_CLASS = Boolean.class;
-  private static final Class _INTEGER_CLASS = Integer.class;
-  private static final Class _ESCAPED_TEXT_CLASS = EscapedText.class;
+  private static final Class<?> _CHAR_ARRAY_CLASS = (new char[0]).getClass();
+  private static final Class<?> _BOOLEAN_CLASS = Boolean.class;
+  private static final Class<?> _INTEGER_CLASS = Integer.class;
+  private static final Class<?> _ESCAPED_TEXT_CLASS = EscapedText.class;
 
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(HtmlResponseWriter.class);

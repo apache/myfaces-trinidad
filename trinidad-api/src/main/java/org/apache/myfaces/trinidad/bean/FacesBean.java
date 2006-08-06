@@ -150,7 +150,7 @@ public interface FacesBean
    * @todo is this iterator read-only or read-write?
    * @exception IllegalArgumentException if the key is not a list key.
    */
-  public Iterator<Object> entries(PropertyKey listKey);
+  public Iterator<? extends Object> entries(PropertyKey listKey);
 
   /**
    * Copies all properties, bindings, and list entries from

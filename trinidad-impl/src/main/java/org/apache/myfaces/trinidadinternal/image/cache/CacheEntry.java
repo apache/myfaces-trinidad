@@ -22,6 +22,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 
 import org.apache.myfaces.trinidadinternal.image.encode.ImageEncoderManager;
+import org.apache.myfaces.trinidadinternal.image.util.MapArea;
 
 /** 
  * Cache entry data structure
@@ -84,7 +85,7 @@ class CacheEntry implements ImageProviderResponse
     return _encoding;
   }
 
-  public Collection getMapAreas()
+  public Collection<MapArea> getMapAreas()
   {
     return null;
   }

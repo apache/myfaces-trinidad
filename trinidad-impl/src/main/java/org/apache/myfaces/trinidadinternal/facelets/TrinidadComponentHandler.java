@@ -57,6 +57,8 @@ public class TrinidadComponentHandler extends ComponentHandler
     }
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected MetaRuleset createMetaRuleset(Class type)
   {
     MetaRuleset m = super.createMetaRuleset(type);
@@ -67,6 +69,7 @@ public class TrinidadComponentHandler extends ComponentHandler
     return m;
   }
 
+  @Override
   protected void onComponentPopulated(FaceletContext context,
                                      UIComponent component,
                                      UIComponent parent)

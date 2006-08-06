@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import java.io.IOException;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.component.NamingContainer;
@@ -53,6 +52,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   //
   // Decode
   //
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     UIXCollection table = (UIXCollection) component;
@@ -61,9 +62,10 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     table.setRowIndex(-1);
     String tableId = table.getClientId(context);
 
-    Map parameters =  context.getExternalContext().getRequestParameterValuesMap();
+    Map<String, String[]> parameters = 
+      context.getExternalContext().getRequestParameterValuesMap();
 
-    String[] unselectedBoxes = (String[])
+    String[] unselectedBoxes = 
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+UNSELECTED_KEY);
 
     // check to see if there were any selection boxes in the request.
@@ -72,11 +74,11 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     if ((unselectedBoxes == null) || (unselectedBoxes.length == 0))
       return;
 
-    String[] selectedBoxes = (String[])
+    String[] selectedBoxes = 
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+SELECTED_KEY);
 
     // must work with both table and hgrid:
-    final RowKeySet selectionModel;
+    final RowKeySet<Object> selectionModel;
     if (table instanceof UIXTable)
       selectionModel = ((UIXTable) table).getSelectedRowKeys();
     else
@@ -100,9 +102,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 //      // have clicked select-all and then deselected some rows before submitting:
 //    }
 
-    RowKeySet selectedDelta = selectionModel.clone();
+    RowKeySet<Object> selectedDelta = selectionModel.clone();
     selectedDelta.clear();
-    RowKeySet unselectedDelta = selectedDelta.clone();
+    RowKeySet<Object> unselectedDelta = selectedDelta.clone();
 
     _setDeltas(table, selectedBoxes, unselectedBoxes,
                selectionModel, selectedDelta, unselectedDelta);
@@ -117,11 +119,12 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
   private void _setDeltas(UIXCollection table,
                           String[] selectedBoxes, String[] unselectedBoxes,
-                          RowKeySet current,
-                          RowKeySet selectedDelta,
-                          RowKeySet unselectedDelta)
+                          RowKeySet<Object> current,
+                          RowKeySet<Object> selectedDelta,
+                          RowKeySet<Object> unselectedDelta)
   {
-    Map deltas = new HashMap(unselectedBoxes.length);
+    Map<String, Boolean> deltas = 
+      new HashMap<String, Boolean>(unselectedBoxes.length);
     for(int i=0; i< unselectedBoxes.length; i++)
     {
       String currencyStr = unselectedBoxes[i];
@@ -137,10 +140,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
       }
     }
 
-    for(Iterator entries=deltas.entrySet().iterator(); entries.hasNext();)
+    for(Map.Entry<String, Boolean> entry : deltas.entrySet())
     {
-      Map.Entry entry = (Map.Entry) entries.next();
-      String currencyStr = (String) entry.getKey();
+      String currencyStr = entry.getKey();
       boolean select = (Boolean.TRUE == entry.getValue());
       table.setCurrencyString(currencyStr);
 
@@ -164,11 +166,13 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     }
   }
 
+  @Override
   protected CoreRenderer createCellRenderer(FacesBean.Type type)
   {
     return new Checkbox(type);
   }
 
+  @Override
   protected boolean isSelectOne()
   {
     return false;
@@ -204,7 +208,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
       arc.getFormData().addNeededValue(selectedModeName);
   }
 
-
+  @Override
   protected void renderCellContent(
     FacesContext          context,
     RenderingContext   arc,
@@ -245,6 +249,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
       super(type);
     }
 
+    @Override
     protected void renderId(
       FacesContext context,
       UIComponent  component) throws IOException
@@ -264,13 +269,13 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
     }
 
-
+    @Override
     protected Object getType()
     {
       return "checkbox";
     }
 
-
+    @Override
     protected String getDefaultShortDescKey()
     {
       return "af_tableSelectMany.SELECT_COLUMN_HEADER";
@@ -278,6 +283,8 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
   }
 
   private static final Object _JS_RENDERED_KEY = new Object();
+  // -= Simon Lessard =- nothing is logge in this class as of 2006-08-03
+  @SuppressWarnings("unused")
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(TableSelectManyRenderer.class);
 }

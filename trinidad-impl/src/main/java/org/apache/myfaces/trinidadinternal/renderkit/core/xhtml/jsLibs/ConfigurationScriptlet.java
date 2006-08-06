@@ -34,6 +34,7 @@ public class ConfigurationScriptlet extends Scriptlet
   {
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return _CONFIGURATION_SCRIPTLET_KEY;
@@ -52,6 +53,7 @@ public class ConfigurationScriptlet extends Scriptlet
   /**
    * @todo See if truly necessary.
    */
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc)

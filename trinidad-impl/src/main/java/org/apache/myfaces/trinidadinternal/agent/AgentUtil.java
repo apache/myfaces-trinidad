@@ -39,7 +39,11 @@ public class AgentUtil
    * @param platform
    * @return
    */
-  public static TrinidadAgent getAgent(int type, int browser, String agentVersion, int platform)
+  public static TrinidadAgent getAgent(
+      int type, 
+      int browser, 
+      String agentVersion, 
+      int platform)
   {
     final int fType = type;
     final int fBrowser = browser;
@@ -49,18 +53,23 @@ public class AgentUtil
     Agent agent =
             new DefaultAgent ()
             {
+              @Override
               public Object getType() {
                 return AgentNameUtil.getAgentName(fType);
               }
 
+              @Override
               public String getAgentName() {
                 return AgentNameUtil.getAgentName(fBrowser);
               }
 
+              @Override
               public String getAgentVersion() {
                 return fAgentVersion;
               }
 
+              // FIXME: This method is never used locally, should it be removed?
+              @SuppressWarnings("unused")
               public String getPlatFormName() {
                 return AgentNameUtil.getPlatformName(fPlatform);
               }
@@ -110,7 +119,9 @@ public class AgentUtil
   //=-=AEW: I don't believe this is a repository thing:  the concept
   //of output mode is entirely renderkit specific, and the tweaks
   //that are made to the capabilities are also renderkit specific.
-  public static TrinidadAgent mergeCapabilities(TrinidadAgent agent, Map capabilities)
+  public static TrinidadAgent mergeCapabilities(
+      TrinidadAgent agent, 
+      Map<Object, Object> capabilities)
   {
     if (!(agent instanceof TrinidadAgentImpl))
       throw new IllegalArgumentException("mergeCapabilities() may only be " +

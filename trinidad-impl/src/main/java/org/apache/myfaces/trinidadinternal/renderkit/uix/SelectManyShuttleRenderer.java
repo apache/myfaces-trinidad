@@ -57,6 +57,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
   static public final AttributeKey VALUE_ITEMS_ATTR =
     AttributeKey.getAttributeKey("valueItems");
 
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -67,8 +68,8 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     // We store this in a map, with the key
     // being a SelectItem's value and the value is the index.
 
-    List selectItems = _getSelectItems(selectMany, context);
-    Map allItems = null;
+    List<SelectItem> selectItems = _getSelectItems(selectMany, context);
+    Map<Object, Integer> allItems = null;
 
     if (!isValuePassThru)
     {
@@ -77,7 +78,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
        allItems = _getAllItems(selectItems);
     }
 
-    List valueItems;
+    List<SelectItem> valueItems;
 
     // The submitted values are in the form of a string array;
     // currently, we simply "toString()" the outgoing values,
@@ -115,7 +116,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     super.encodeBegin(context, component);
   }
 
-
+  @Override
   public void encodeEnd(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -133,16 +134,17 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
    * @todo Support ordinary UIXSelectItems?
    * @todo Support UISelectItems?
    */
-  private List _getSelectItems(
+  @SuppressWarnings("unchecked")
+  private List<SelectItem> _getSelectItems(
     UIXSelectMany many,FacesContext context)
   {
 
-    List childList = many.getChildren();
+    List<UIComponent> childList = many.getChildren();
     int childCount = childList.size();
-    List list = new ArrayList(childCount);
+    List<SelectItem> list = new ArrayList<SelectItem>(childCount);
     for (int i = 0; i < childCount; i++)
     {
-      UIComponent child = (UIComponent) childList.get(i);
+      UIComponent child = childList.get(i);
       if (child instanceof CoreSelectItem)
       {
         CoreSelectItem uiSelectItem = (CoreSelectItem) child;
@@ -192,12 +194,13 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     return list;
   }
 
-  private List _transferValueSelectItems(
-    List         selectItems,
-    Object       value,
-    boolean      toStringFirst)
+  @SuppressWarnings("unchecked")
+  private List<SelectItem> _transferValueSelectItems(
+    List<SelectItem> selectItems,
+    Object           value,
+    boolean          toStringFirst)
   {
-    List valueItemsList;
+    List<SelectItem> valueItemsList;
     if (value == null)
     {
       valueItemsList = Collections.EMPTY_LIST;
@@ -205,7 +208,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     else if (value.getClass().isArray())
     {
       int length = Array.getLength(value);
-      valueItemsList = new ArrayList(length);
+      valueItemsList = new ArrayList<SelectItem>(length);
       for (int i = 0; i < length; i++)
         _transferSelectItem(selectItems,
                             valueItemsList,
@@ -214,9 +217,9 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     }
     else if (value instanceof List)
     {
-      List valueList = (List) value;
+      List<Object> valueList = (List<Object>) value;
       int length = valueList.size();
-      valueItemsList = new ArrayList(length);
+      valueItemsList = new ArrayList<SelectItem>(length);
       for (int i = 0; i < length; i++)
         _transferSelectItem(selectItems,
                             valueItemsList,
@@ -225,7 +228,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     }
     else
     {
-      valueItemsList = new ArrayList(1);
+      valueItemsList = new ArrayList<SelectItem>(1);
       _transferSelectItem(selectItems, valueItemsList, value, toStringFirst);
     }
 
@@ -233,15 +236,15 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
   }
 
   private void _transferSelectItem(
-    List from,
-    List to,
+    List<SelectItem> from,
+    List<SelectItem> to,
     Object value,
     boolean toStringFirst)
   {
     int length = from.size();
     for (int i = 0; i < length; i++)
     {
-      SelectItem selectItem = (SelectItem) from.get(i);
+      SelectItem selectItem = from.get(i);
       Object selectItemValue = selectItem.getValue();
       if (selectItemValue == null)
       {
@@ -275,6 +278,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
                 " in list of available items.");
   }
 
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -288,7 +292,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     if ((paramValue == null) || "".equals(paramValue))
       return new String[0];
 
-    List list = new ArrayList();
+    List<String> list = new ArrayList<String>();
     StringTokenizer tokenizer = new StringTokenizer(paramValue, ";");
 
     // don't let the submitted list get any bigger than the number of
@@ -307,7 +311,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
         return new String[0];
       }
 
-      list.add(tokenizer.nextElement());
+      list.add(tokenizer.nextToken());
     }
 
     if (_LOG.isFiner())
@@ -319,13 +323,13 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
 
   }
 
-  static private Map _getAllItems(List allSelectItems)
+  static private Map<Object, Integer> _getAllItems(List<SelectItem> allSelectItems)
   {
     int length = allSelectItems.size();
-    Map allItems = new ArrayMap(length);
+    Map<Object, Integer> allItems = new ArrayMap<Object, Integer>(length);
     for (int i=0; i < length; i++)
     {
-      SelectItem selectItem = (SelectItem) allSelectItems.get(i);
+      SelectItem selectItem = allSelectItems.get(i);
       Object selectItemValue = selectItem.getValue();
       allItems.put(selectItemValue, IntegerUtils.getInteger(i));
 
@@ -348,8 +352,8 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
    *
    */
   static private void _convertSelectItemValueToIndex(
-    Map  allItems,
-    List itemsToConvert)
+    Map<Object, Integer> allItems,
+    List<SelectItem>     itemsToConvert)
   {
     if (allItems == null || itemsToConvert == null)
       return;
@@ -359,10 +363,10 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     // loop through each item to convert.
     for (int j=0; j < length; j++)
     {
-      SelectItem selectItem = (SelectItem) itemsToConvert.get(j);
+      SelectItem selectItem = itemsToConvert.get(j);
       Object selectItemValue = selectItem.getValue();
 
-      Integer index = (Integer)allItems.get(selectItemValue);
+      Integer index = allItems.get(selectItemValue);
       selectItem.setValue(index);
     }
 

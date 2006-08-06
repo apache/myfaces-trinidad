@@ -37,6 +37,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -45,11 +46,13 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
     _readOnlyKey   = type.findKey("readOnly");
   }  
   
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
      getFormInputRenderer().decode(context, component);
   }
   
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -60,6 +63,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
                                               submittedValue);
   }
 
+  @Override
   protected String getLabelFor(
     FacesContext        context,
     RenderingContext arc,
@@ -74,6 +78,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
   }
 
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -116,13 +121,14 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
    * If it's known that the field content is not editable, return false. 
    * Otherwise, assume it is editable and return true
    */
+  @Override
   protected boolean isContentEditable(FacesBean bean)
   {
     return !getFormInputRenderer().getReadOnly(
                                    FacesContext.getCurrentInstance(), bean);  
   }
  
-  
+  @Override
   protected void renderFieldCellContents(
     FacesContext        context,
     RenderingContext arc,
@@ -131,8 +137,6 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
   {
     delegateRenderer(context, arc, component, bean, getFormInputRenderer());
   }
-  
-
  
   protected boolean getSimple(FacesBean bean)
   {
@@ -152,6 +156,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
    * @param bean
    * @throws IOException
    */
+  @Override
   protected void renderRootDomElementStyles(
    FacesContext        context,
    RenderingContext arc,

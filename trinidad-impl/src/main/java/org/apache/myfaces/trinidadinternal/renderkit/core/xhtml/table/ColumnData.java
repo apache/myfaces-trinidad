@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import java.awt.Dimension;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
@@ -430,7 +431,7 @@ public final class ColumnData
 
   private Data _get(int physicalIndex)
   {
-    Data d = (Data) _data.get(physicalIndex);
+    Data d = _data.get(physicalIndex);
     assert (d != null)
         : "no column data for physicalIndex:" + physicalIndex;
     return d;
@@ -551,7 +552,7 @@ public final class ColumnData
   private int _rowIndex = -1;
 
   private final Dimension _currentSpan = new Dimension(1,1);
-  private final ArrayList _data = new ArrayList(10);
+  private final List<Data> _data = new ArrayList<Data>(10);
 
   // this constants is used for assert only:
   private boolean _assertInitMode = true;

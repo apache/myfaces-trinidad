@@ -40,6 +40,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     _isTop = isTop;
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     // we don't take any children. however, return true so that
@@ -47,6 +48,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

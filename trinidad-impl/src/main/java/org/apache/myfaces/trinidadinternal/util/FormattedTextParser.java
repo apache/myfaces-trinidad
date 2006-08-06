@@ -45,6 +45,7 @@ public class FormattedTextParser
    */
   public FormattedTextParser()
   {
+    _elements = new HashMap<String, ElementInfo>(23);
   }
 
   /**
@@ -69,7 +70,8 @@ public class FormattedTextParser
   {
     int length = text.length();
 
-    ArrayList elementStack = new ArrayList(10);
+    ArrayList<ElementInfo> elementStack = 
+      new ArrayList<ElementInfo>(10);
 
     // Constant for current parsing state
     int state = _OUT_OF_ELEMENT;
@@ -107,8 +109,7 @@ public class FormattedTextParser
 
             // Find out information about this element;  in particular,
             // is this an allowed element?
-            ElementInfo info =
-                      (ElementInfo) _elements.get(elementName);
+            ElementInfo info = _elements.get(elementName);
 
             // Allowed elements.
             if (info != null)
@@ -304,7 +305,7 @@ public class FormattedTextParser
     int size = elementStack.size() - 1;
     while (size >= 0)
     {
-      ElementInfo info = (ElementInfo) elementStack.get(size);
+      ElementInfo info = elementStack.get(size);
       info.endElement(context);
       // These _should_ all be elements that do not require being closed.
       if (info.isCloseRequired())
@@ -317,15 +318,15 @@ public class FormattedTextParser
   // Push an element onto the stack.  Close elements
   // if needed.
   static private void _pushElement(
-    FacesContext context,
-    ArrayList        elementStack,
-    ElementInfo      element) throws IOException
+    FacesContext           context,
+    ArrayList<ElementInfo> elementStack,
+    ElementInfo            element) throws IOException
   {
     int size = elementStack.size();
 
     if (size != 0)
     {
-      ElementInfo top = (ElementInfo) elementStack.get(size - 1);
+      ElementInfo top = elementStack.get(size - 1);
 
       // If we were working on a "no-close" element, and starting
       // exactly the same element, close it off now.
@@ -342,27 +343,27 @@ public class FormattedTextParser
   // Look at the top element on the stack (null if the stack
   // is empty)
   static private ElementInfo _peekElement(
-    ArrayList    elementStack)
+    ArrayList<ElementInfo> elementStack)
   {
     int size = elementStack.size();
     if (size == 0)
       return null;
 
-    return (ElementInfo) elementStack.get(size - 1);
+    return elementStack.get(size - 1);
   }
 
 
   // Pop an element from the stack.  Close elements if needed.
   static private boolean _popElement(
-    FacesContext context,
-    ArrayList        elementStack,
-    ElementInfo      element) throws IOException
+    FacesContext           context,
+    ArrayList<ElementInfo> elementStack,
+    ElementInfo            element) throws IOException
   {
     int size;
 
     while ((size = elementStack.size()) > 0)
     {
-      ElementInfo top = (ElementInfo) elementStack.remove(size - 1);
+      ElementInfo top = elementStack.remove(size - 1);
       // We've reached the correct element
       if (element == top)
       {
@@ -672,37 +673,42 @@ public class FormattedTextParser
       _closeRequired = closeRequired;
     }
 
+    @Override
     public void startElement(FacesContext context)
        throws IOException
     {
       context.getResponseWriter().startElement(getName(), null);
     }
 
+    @Override
     public void endElement(FacesContext context)
        throws IOException
     {
       context.getResponseWriter().endElement(getName());
     }
 
+    @Override
     public void writeInlineStyle(
       FacesContext context, String style) throws IOException
     {
       context.getResponseWriter().writeAttribute("style", style, null);
     }
 
+    @Override
     public void writeStyleClass(
       FacesContext context, String styleClass) throws IOException
     {
       context.getResponseWriter().writeAttribute("class", styleClass, null);
     }
 
+    @Override
     public void writeSize(FacesContext context, String fontSize)
       throws IOException
     {
       //no-op. This is for the FontElement only.
     }
 
-
+    @Override
     public void writeHRef(
       FacesContext context, String href) throws IOException
     {
@@ -720,12 +726,13 @@ public class FormattedTextParser
         context.getResponseWriter().writeURIAttribute("href", href, null);
     }
 
-
+    @Override
     public boolean isEmptyElement()
     {
       return _empty;
     }
 
+    @Override
     public boolean isCloseRequired()
     {
       return _closeRequired;
@@ -738,7 +745,7 @@ public class FormattedTextParser
 
   // Map of all the allowed elements;  maps input element
   // names to ElementInfo objects
-  private HashMap _elements = new HashMap(23);
+  private HashMap<String, ElementInfo> _elements;
 
 
   // Parsing state constants

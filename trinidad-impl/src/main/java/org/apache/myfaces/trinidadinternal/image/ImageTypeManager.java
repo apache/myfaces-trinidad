@@ -93,7 +93,7 @@ public class ImageTypeManager
   synchronized public ImageType registerImageType(
     String namespace,
     String name,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     ImageType type = getImageType(namespace, name);

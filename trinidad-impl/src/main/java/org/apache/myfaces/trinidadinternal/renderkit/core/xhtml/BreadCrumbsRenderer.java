@@ -45,18 +45,20 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     super(CoreBreadCrumbs.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _orientationKey = type.findKey("orientation");
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
   
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -96,6 +98,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     return stamp;
   }
 
+  @SuppressWarnings("unchecked")
   protected void renderContent(
     FacesContext        context,
     RenderingContext arc,
@@ -123,7 +126,9 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       if (focusPath == null)
         return;
       
-      List paths = new ArrayList(component.getAllAncestorContainerRowKeys(focusPath));
+      List<Object> paths = 
+        new ArrayList<Object>(component.getAllAncestorContainerRowKeys(focusPath));
+      
       paths.add(focusPath);
       int size = paths.size();        
 
@@ -153,11 +158,11 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     // now render children
     if (hasChildren(component))
     {
-      List children = component.getChildren();
+      List<UIComponent> children = component.getChildren();
       nextVisChildIndex = getNextRenderedChildIndex(children, -1);
       while (nextVisChildIndex != NO_CHILD_INDEX)
       {
-        UIComponent child = (UIComponent)children.get(nextVisChildIndex);        
+        UIComponent child = children.get(nextVisChildIndex);        
         nextVisChildIndex = getNextRenderedChildIndex(children, 
                                                       nextVisChildIndex);
         isLastChild = (nextVisChildIndex == NO_CHILD_INDEX);           
@@ -249,7 +254,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
       isBidi = Bidi.requiresBidi(firstChar, 0, 1);
     }
     
-    Map originalResourceKeyMap = arc.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
     try
     {
       arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -287,6 +292,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    * renderStyleAttributes - use the NavigationPath style class as the default
    * styleClass
    */
+  @Override
   protected void renderStyleAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -401,9 +407,11 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   private static final int _INDENT_SPACES = 10;  
   
   
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
+    _RESOURCE_KEY_MAP  =  new HashMap<String, String>();
+    
     _RESOURCE_KEY_MAP.put(
       XhtmlConstants.LINK_STYLE_CLASS,
       XhtmlConstants.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);

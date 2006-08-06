@@ -60,6 +60,7 @@ abstract public class InputStreamProviderProxy implements InputStreamProvider
     return getProvider().hasSourceChanged();
   }
 
+  @Override
   public boolean equals(Object o)
   {
     if (o instanceof InputStreamProviderProxy)
@@ -68,6 +69,7 @@ abstract public class InputStreamProviderProxy implements InputStreamProvider
     return getProvider().equals(o);
   }
 
+  @Override
   public int hashCode()
   {
     return getProvider().hashCode();

@@ -35,6 +35,8 @@ import java.util.TimeZone;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/MutableLocaleContext.java#0 $) $Date: 10-nov-2005.19:00:05 $
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =-
+// FIXME: Deprecation within this class is strange...
 public final class MutableLocaleContext extends LocaleContext
 {
   /**
@@ -99,6 +101,7 @@ public final class MutableLocaleContext extends LocaleContext
    * @see #getReadingDirection
    * @see org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils
    */
+  @Override
   public void setReadingDirection(
     int newReadingDirection
     )
@@ -110,6 +113,7 @@ public final class MutableLocaleContext extends LocaleContext
    * Sets the TimeZone that the user is running in.  Setting this value
    * to null will set the TimeZone to the default TimeZone.
    */
+  @Override
   public void setTimeZone(
     TimeZone newTimeZone
     )

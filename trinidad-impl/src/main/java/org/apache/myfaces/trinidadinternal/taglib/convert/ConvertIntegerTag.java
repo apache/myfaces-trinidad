@@ -32,6 +32,7 @@ public class ConvertIntegerTag extends ConverterTag
   {
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     super.setConverterId(IntegerConverter.CONVERTER_ID);
@@ -41,13 +42,11 @@ public class ConvertIntegerTag extends ConverterTag
   /**
    * 
    */
+  @Override
   protected Converter createConverter() throws JspException
   {
     IntegerConverter converter =
                               (IntegerConverter)super.createConverter();
     return converter;
   }
-
-
-
 }

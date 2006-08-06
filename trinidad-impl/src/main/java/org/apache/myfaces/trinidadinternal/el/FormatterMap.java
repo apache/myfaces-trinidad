@@ -27,9 +27,9 @@ import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
  * <p>
  * @author The Oracle ADF Faces Team
  */
-public class FormatterMap extends AbstractMap
+public class FormatterMap extends AbstractMap<Object, Map<Object,String>>
 {
-  static public Map sharedInstance()
+  static public Map<Object, Map<Object,String>> sharedInstance()
   {
     return _INSTANCE;
   }
@@ -38,7 +38,9 @@ public class FormatterMap extends AbstractMap
   {
   }
 
-  public Object get(Object key)
+  @SuppressWarnings("unchecked")
+  @Override
+  public Map<Object,String> get(Object key)
   {
     if (key == null)
       return Collections.EMPTY_MAP;
@@ -46,12 +48,14 @@ public class FormatterMap extends AbstractMap
     return new FunctorMap(key);
   }
 
-  public Set entrySet()
+  @SuppressWarnings("unchecked")
+  @Override
+  public Set<Map.Entry<Object, Map<Object,String>>> entrySet()
   {
     return Collections.EMPTY_SET;
   }
 
-  static private final class FunctorMap extends AbstractMap
+  static private final class FunctorMap extends AbstractMap<Object, String>
   {
     public FunctorMap(Object key)
     {
@@ -59,12 +63,15 @@ public class FormatterMap extends AbstractMap
       _format = new FastMessageFormat(key.toString());
     }
 
-    public Object get(Object key)
+    @Override
+    public String get(Object key)
     {
       return _format.format(new Object[]{key});
     }
 
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<Object, String>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
@@ -73,5 +80,5 @@ public class FormatterMap extends AbstractMap
   }
 
   
-  static private final Map _INSTANCE = new FormatterMap();
+  static private final Map<Object, Map<Object,String>> _INSTANCE = new FormatterMap();
 }

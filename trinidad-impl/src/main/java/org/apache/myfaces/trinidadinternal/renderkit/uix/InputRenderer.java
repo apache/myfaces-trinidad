@@ -31,11 +31,13 @@ import org.apache.myfaces.trinidadinternal.uinode.DecodingUINodeRenderer;
  */
 public class InputRenderer extends DecodingUINodeRenderer
 {
+  @SuppressWarnings("unchecked")
+  @Override
   protected boolean wasSubmitted(
       FacesContext context,
       UIComponent  component)
   {
-    Map attrs = component.getAttributes();
+    Map<String, Object> attrs = component.getAttributes();
 
     if (Boolean.TRUE.equals(attrs.get("readOnly")) ||
         Boolean.TRUE.equals(attrs.get("disabled")))

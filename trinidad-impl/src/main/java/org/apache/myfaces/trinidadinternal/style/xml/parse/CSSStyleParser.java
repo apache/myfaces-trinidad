@@ -38,6 +38,7 @@ public class CSSStyleParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -50,6 +51,7 @@ public class CSSStyleParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -71,6 +73,7 @@ public class CSSStyleParser extends BaseNodeParser
     return null;
   }
 
+  @Override
   public void endChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -88,6 +91,7 @@ public class CSSStyleParser extends BaseNodeParser
     _propertyValue = null;
   }
 
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,
@@ -106,7 +110,8 @@ public class CSSStyleParser extends BaseNodeParser
   }
 
   // The properties that have already been parsed
-  private ArrayMap  _properties = new ArrayMap(1);
+  private ArrayMap<String, String> _properties = 
+    new ArrayMap<String, String>(1);
 
   // The name of the current property
   private String    _propertyName;

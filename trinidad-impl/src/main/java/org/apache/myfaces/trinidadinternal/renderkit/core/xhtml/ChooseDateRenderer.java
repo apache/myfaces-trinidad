@@ -71,6 +71,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -81,11 +82,13 @@ public class ChooseDateRenderer extends XhtmlRenderer
     _destinationKey = PropertyKey.createPropertyKey("destination");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected boolean shouldRenderId(
     FacesContext context,
     UIComponent  component)
@@ -93,6 +96,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     return true;
   }
 
+  @Override
   protected final void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -1113,6 +1117,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
   }
 
 
+  @SuppressWarnings("deprecation")
   private static long _getTimeAttr(
     RenderingContext arc,
     FacesBean   bean,
@@ -1165,13 +1170,11 @@ public class ChooseDateRenderer extends XhtmlRenderer
         // maximum date.
         if (tzOffset < 0)
         {
-          tzOffset = (long)Math.max((float)tzOffset,
-                              (float)Long.MIN_VALUE - (float)dateValueInMs);
+          tzOffset = Math.max(tzOffset, Long.MIN_VALUE - dateValueInMs);
         }
         else
         {
-          tzOffset = (long)Math.min((float)tzOffset,
-                              (float)Long.MAX_VALUE - (float)dateValueInMs);
+          tzOffset = Math.min(tzOffset, Long.MAX_VALUE - dateValueInMs);
         }
 
         // adjust the date in ms to the adjusted time zone.
@@ -1542,12 +1545,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
   private static final int _MILLIS_IN_DAY = 1000 * 60 * 60 * 24;
 
-  // =-= bts
-  // default minimum date is 1AD so we don't have to deal with years in
-  // different eras.  Hopefully this won't be a problem in other calendars
-  // (but I think that it will)
-  private static final long _MIN_TIME =
-    (new Date(-1899, 1, 1, 0, 0)).getTime();
+  private static final long _MIN_TIME;
 
   private static final long _MAX_TIME = Long.MAX_VALUE;
 
@@ -1555,6 +1553,17 @@ public class ChooseDateRenderer extends XhtmlRenderer
   // Rendering Context cache keys
   //
   private static final Object _DATE_SYMBOLS_KEY = new Object();
+  
+  static
+  {
+    // =-= bts
+    // default minimum date is 1AD so we don't have to deal with years in
+    // different eras.  Hopefully this won't be a problem in other calendars
+    // (but I think that it will)
+    Calendar cal = Calendar.getInstance();
+    cal.set(1, 1, 1, 0, 0);
+    _MIN_TIME = cal.getTimeInMillis();
+  }
 
   private PropertyKey _maxValueKey;
   private PropertyKey _minValueKey;

@@ -36,6 +36,7 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     super(CorePanelHorizontalLayout.TYPE);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -43,12 +44,13 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     _halignKey = type.findKey("halign");
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -94,6 +96,7 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
   /**
    * Render all the children of the PanelGroup
    */
+  @SuppressWarnings("unchecked")
   private void _encodeChildren(
     FacesContext context,
     RenderingContext arc,
@@ -102,10 +105,6 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     Object       hAlign
     ) throws IOException
   {
-
-    List children   = component.getChildren();
-    int  childCount = component.getChildCount();
-
 
     UIComponent separator = getFacet(component,
                                      CorePanelHorizontalLayout.SEPARATOR_FACET);
@@ -123,9 +122,8 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     else
       isEndAlignment = false;
     
-    for (int i = 0; i < childCount; i++)
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) children.get(i);
       if (!child.isRendered())
         continue;
 

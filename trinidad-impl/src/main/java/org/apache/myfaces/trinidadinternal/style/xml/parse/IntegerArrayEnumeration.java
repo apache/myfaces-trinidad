@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/xml/parse/IntegerArrayEnumeration.java#0 $) $Date: 10-nov-2005.18:58:09 $
  * @author The Oracle ADF Faces Team
  */
-class IntegerArrayEnumeration implements Enumeration
+class IntegerArrayEnumeration implements Enumeration<Integer>
 {
   /**
    * Creates an Enumeration for the specified array.
@@ -53,7 +53,7 @@ class IntegerArrayEnumeration implements Enumeration
   /**
    * Implementation of Enumeration.nextElement().
    */
-  public Object nextElement()
+  public Integer nextElement()
   {
     return IntegerUtils.getInteger(_array[_index++]);
   }

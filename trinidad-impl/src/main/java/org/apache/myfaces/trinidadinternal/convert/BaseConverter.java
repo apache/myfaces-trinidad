@@ -15,9 +15,8 @@
 */
 package org.apache.myfaces.trinidadinternal.convert;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +26,8 @@ class BaseConverter extends GenericConverter
   {
   }
 
-  public Object convert(Object source, Class targetType)
+  @Override
+  public Object convert(Object source, Class<?> targetType)
   {
     if (source instanceof Calendar)
     {
@@ -62,25 +62,36 @@ class BaseConverter extends GenericConverter
       source.getClass() + " to:"+targetType);
   }
 
-  public List getTargetTypes(Class sourceType)
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<Class<?>> getTargetTypes(Class<?> sourceType)
   {
+    ArrayList<Class<?>> list = new ArrayList<Class<?>>(1);
     if (Date.class.isAssignableFrom(sourceType))
     {
-      return Collections.singletonList(Calendar.class);
+      list.add(Calendar.class);
     }
-    if (Calendar.class.isAssignableFrom(sourceType))
+    else if (Calendar.class.isAssignableFrom(sourceType))
     {
-      return Collections.singletonList(Date.class);
+      list.add(Date.class);
     }
-    if (Number.class.isAssignableFrom(sourceType))
+    else if (Number.class.isAssignableFrom(sourceType))
     {
-      return Arrays.asList(new Class[] {
-        Byte.class, Double.class, Float.class, 
-        Integer.class, Long.class, Short.class,
-        Byte.TYPE, Double.TYPE, Float.TYPE, // bug 4891181
-        Integer.TYPE, Long.TYPE, Short.TYPE}
-        );
+      list.ensureCapacity(12);
+      list.add(Byte.class);
+      list.add(Double.class);
+      list.add(Float.class);
+      list.add(Integer.class);
+      list.add(Long.class);
+      list.add(Short.class);
+      list.add(Byte.TYPE);
+      list.add(Double.TYPE);
+      list.add(Float.TYPE); // bug 4891181
+      list.add(Integer.TYPE);
+      list.add(Long.TYPE);
+      list.add(Short.TYPE);
     }
-    return Collections.EMPTY_LIST;
+    
+    return list;
   }
 }

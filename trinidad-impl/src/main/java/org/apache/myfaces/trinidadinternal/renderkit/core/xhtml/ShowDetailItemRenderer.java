@@ -43,15 +43,20 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
     _disclosedKey = type.findKey("disclosed");
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map parameters =  context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object event = parameters.get(XhtmlConstants.EVENT_PARAM);
     if (XhtmlConstants.HIDE_EVENT.equals(event) ||
         XhtmlConstants.SHOW_EVENT.equals(event))
@@ -68,7 +73,7 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
     }
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -83,6 +88,7 @@ public class ShowDetailItemRenderer extends XhtmlRenderer
     return Boolean.TRUE.equals(o);
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

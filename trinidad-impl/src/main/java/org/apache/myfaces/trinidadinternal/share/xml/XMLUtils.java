@@ -60,7 +60,7 @@ public class XMLUtils
     ParserManager manager,
     NameResolver  resolver,
     String        sourceName,
-    Class         expectedType) throws IOException, SAXException
+    Class<?>      expectedType) throws IOException, SAXException
   {
     if (manager == null)
       throw new NullPointerException();
@@ -119,10 +119,11 @@ public class XMLUtils
    * @param sourceName the name of the target, relative to the current file
    * @param expectedType the expected Java type of the target.
    */
+  @SuppressWarnings("unchecked")
   static public Object parseInclude(
     ParseContext context,
     String       sourceName,
-    Class        expectedType) throws IOException, SAXException
+    Class<?>     expectedType) throws IOException, SAXException
   {
     // Step 1. Find the name resolver.
     NameResolver resolver = getResolver(context);
@@ -142,8 +143,8 @@ public class XMLUtils
     }
 
     // Step 3. Detect if this will be a circular include.
-    ArrayList list = (ArrayList) context.getProperty(_SHARE_NAMESPACE,
-                                                     "_includeStack");
+    ArrayList<Object> list = 
+      (ArrayList<Object>) context.getProperty(_SHARE_NAMESPACE, "_includeStack");
     Object identifier = provider.getIdentifier();
 
     if ((list != null) && (list.contains(identifier)))
@@ -168,9 +169,9 @@ public class XMLUtils
     // Add the current identifer to the stack (used for detecting
     // circular includes) placed on the ParseContext
     if (list == null)
-      list = new ArrayList();
+      list = new ArrayList<Object>();
     else
-      list = (ArrayList) list.clone();
+      list = (ArrayList<Object>) list.clone();
     list.add(identifier);
     newContext.setProperty(_SHARE_NAMESPACE, "_includeStack", list);
 
@@ -341,7 +342,7 @@ public class XMLUtils
     if (stringValue == null)
       return null;
 
-    ArrayList list = new ArrayList(5);
+    ArrayList<String> list = new ArrayList<String>(5);
 
     int     length = stringValue.length();
     boolean inSpace = true;
@@ -356,7 +357,7 @@ public class XMLUtils
       // function instead of "isWhitespace"?  We're following XML rules
       // here for the meaning of whitespace, which specifically
       // EXCLUDES general Unicode spaces.
-      if (Character.isSpace(ch))
+      if (Character.isWhitespace(ch))
       {
         if (!inSpace)
         {
@@ -382,7 +383,7 @@ public class XMLUtils
     if (list.isEmpty())
       return null;
 
-    return (String[]) list.toArray(new String[list.size()]);
+    return list.toArray(new String[list.size()]);
   }
 
   /**
@@ -391,8 +392,10 @@ public class XMLUtils
    * @param klass only the public static methods declared on this class are
    * inspected
    */
-  public static void registerFunctions(ParserManager manager,
-                                       String namespace, Class klass)
+  public static void registerFunctions(
+      ParserManager manager,
+      String namespace,
+      Class<?> klass)
   {
     Method[] methods = klass.getDeclaredMethods();
     for(int i=0; i<methods.length; i++)

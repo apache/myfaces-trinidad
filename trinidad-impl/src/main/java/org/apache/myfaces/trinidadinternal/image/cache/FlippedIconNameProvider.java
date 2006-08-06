@@ -32,7 +32,9 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
  */
 public class FlippedIconNameProvider implements NameProvider
 {
-  public String getName(ImageContext context, Map properties)
+  public String getName(
+      ImageContext context, 
+      Map<Object, Object> properties)
   {
     String name = (String)properties.get(ImageConstants.NAME_KEY);
 

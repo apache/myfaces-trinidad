@@ -27,6 +27,7 @@ import java.awt.image.ImageFilter;
  */
 class MirrorImageFilter extends ImageFilter
 {
+  @Override
   public void setDimensions(int width, int height) 
   {
     if (!_done)
@@ -39,6 +40,7 @@ class MirrorImageFilter extends ImageFilter
     super.setDimensions(width, height);
   }
 
+  @Override
   public void setPixels(
     int x, 
     int y, 
@@ -67,6 +69,7 @@ class MirrorImageFilter extends ImageFilter
     }
   }
 
+  @Override
   public void setPixels(
     int x, 
     int y, 
@@ -95,6 +98,7 @@ class MirrorImageFilter extends ImageFilter
     }
   }
 
+  @Override
   public void imageComplete(int status) 
   {
     int[] pixels = _pixels;

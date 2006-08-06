@@ -52,6 +52,10 @@ import java.util.Set;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/ArrayMap.java#0 $) $Date: 10-nov-2005.19:08:36 $
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =-
+// FIXME: Using a single array for both the key and the value leads to many 
+//        problems, especially with type safety. Using parallel arrays or 
+//        a sigle array containing nodes would be a much cleaner/safer idea.
 public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
 {
   /**

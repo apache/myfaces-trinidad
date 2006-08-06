@@ -86,7 +86,9 @@ final class PNGEncoder
                                          " x "+height+" image.");
     }
 
-    Hashtable colors = new Hashtable();
+    // -= Simon Lessard =-
+    // FIXME: HashMap please if synchronization is not required...
+    Hashtable<Color, Integer> colors = new Hashtable<Color, Integer>();
     int   count = 0;
     Color lastColor = null;
     // Use -2 instead of -1 for last pixel because -1 is tranparent white
@@ -154,7 +156,7 @@ final class PNGEncoder
     int          width,
     int          height,
     int[]        pixels,
-    Map   colors,
+    Map<Color, Integer> colors,
     boolean      transparent,
     OutputStream out
     ) throws IOException
@@ -276,7 +278,7 @@ final class PNGEncoder
 
   // Write out the PLTE chunk
   private static void _writePalette(
-    Map colors,
+    Map<Color, Integer> colors,
     OutputStream out
     ) throws IOException
   {
@@ -284,12 +286,12 @@ final class PNGEncoder
     int count = colors.size();
     byte[] data = new byte[count * 3];
 
-    Iterator e = colors.keySet().iterator();
+    Iterator<Color> e = colors.keySet().iterator();
 
     while (e.hasNext())
     {
-      Color color = (Color)e.next();
-      int index = (((Integer)colors.get(color)).intValue() * 3);
+      Color color = e.next();
+      int index = colors.get(color).intValue() * 3;
 
       int rgb = color.getRGB();
       data[index]     = _getRed(rgb);
@@ -388,7 +390,7 @@ final class PNGEncoder
     int        height,
     int        depth,
     int[]      pixels,
-    Map colors
+    Map<Color, Integer> colors
     )
   {
 // =-=ags At the moment we only support 8-bit pixel depths
@@ -431,7 +433,7 @@ final class PNGEncoder
     int        width,
     int        height,
     int[]      pixels,
-    Map colors
+    Map<Color, Integer> colors
     )
   {
     // Convert pixels to an array of palette indices.  Each scanline
@@ -461,7 +463,7 @@ final class PNGEncoder
         else
           color = _createColor(pixel);
 
-        int index = ((Integer)colors.get(color)).intValue();
+        int index = colors.get(color).intValue();
 
         data[targetLine + j + 1] = (byte)index;
 

@@ -51,8 +51,8 @@ public class FlippedIconImageRenderer implements ImageRenderer
    */
   public Image renderImage(
     ImageContext context,
-    Map requestedProperties,
-    Map responseProperties
+    Map<Object, Object> requestedProperties,
+    Map<Object, Object> responseProperties
     )
   {
     // Make sure we've got a graphical environment before we try rendering.

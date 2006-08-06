@@ -93,6 +93,7 @@ public class SetActionListener extends FacesBeanImpl
     setProperty(FROM_KEY, from);
   }
 
+  @Override
   public Type getType()
   {
     return TYPE;

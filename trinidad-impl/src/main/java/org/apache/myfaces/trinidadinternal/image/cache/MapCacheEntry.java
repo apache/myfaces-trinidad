@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.image.util.MapArea;
  */
 class MapCacheEntry extends CacheEntry
 {
+  @SuppressWarnings("unchecked")
   public MapCacheEntry(
     String uri,
     int width,
@@ -47,10 +48,11 @@ class MapCacheEntry extends CacheEntry
       _areas = Collections.unmodifiableList(Arrays.asList(areas));
   }
 
-  public Collection getMapAreas()
+  @Override
+  public Collection<MapArea> getMapAreas()
   {
     return _areas;
   }
 
-  private Collection _areas;
+  private Collection<MapArea> _areas;
 }

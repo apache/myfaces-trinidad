@@ -44,6 +44,7 @@ public class TrainRenderer
     super(CoreTrain.TYPE);
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext    arc,
@@ -99,7 +100,7 @@ public class TrainRenderer
     }
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;

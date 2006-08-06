@@ -28,11 +28,13 @@ public class SelectOneChoiceRenderer extends InputLabelAndMessageRenderer
     
   }  
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectOneChoice";
   }
   
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleSelectOneChoice;

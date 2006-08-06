@@ -18,10 +18,8 @@ package org.apache.myfaces.trinidadinternal.taglib;
 import java.lang.reflect.Array;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
@@ -100,6 +98,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     _varStatus = varStatus;
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     _validateAttributes();
@@ -173,7 +172,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     if (null != _varStatus)
     {
       _updateLoopStatus();
-      _propertyReplacementMap = new HashMap(9, 1);
+      _propertyReplacementMap = new HashMap<String, Object>(9, 1);
       _propertyReplacementMap.put("begin", new Integer(_currentBegin));
       _propertyReplacementMap.put("end", new Integer(_currentEnd));
       _propertyReplacementMap.put("step", new Integer(_currentStep));
@@ -196,6 +195,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     return EVAL_BODY_INCLUDE;
   }
 
+  @Override
   public int doAfterBody()
   {
     _currentIndex += _currentStep;
@@ -258,7 +258,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     StringBuffer buf = new StringBuffer(expression.length());
     while(tokens.hasNext())
     {
-      Token tok = (Token) tokens.next();
+      Token tok = tokens.next();
       String exp = tok.getText();
       if (tok.type == Tokenizer.VAR_TYPE)
       {
@@ -299,6 +299,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
   /**
    * Release state.
    */
+  @Override
   public void release()
   {
     super.release();
@@ -348,6 +349,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     if (_currentStep < 1)
       throw new JspTagException("'step' < 1");
   }
+  
   private String _transformExpression(String expression)
   {
     boolean doVar = (_var != null);
@@ -361,7 +363,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
     String varStatusDot = _varStatus+".";
     while(tokens.hasNext())
     {
-      Token tok = (Token) tokens.next();
+      Token tok = tokens.next();
       String text = tok.getText();
       if (tok.type == Tokenizer.VAR_TYPE)
       {
@@ -391,21 +393,18 @@ public class ForEachTag extends TagSupport implements ELContextTag
     String subExpression,
     String variable,
     String variableReplacement,
-    Map propertyReplacementMap)
+    Map<String, Object> propertyReplacementMap)
   {
     int variableLength = variable.length();
     //pu: Now check whether the variable is followed by any property from
     //  the supplied map.
     if (null != propertyReplacementMap)
     {
-      Iterator propertySetIterator =
-        propertyReplacementMap.entrySet().iterator();
       String property;
       String propertyReplacement;
-      while(propertySetIterator.hasNext())
+      for(Map.Entry<String, Object> entry : propertyReplacementMap.entrySet())
       {
-        Entry entry = (Entry) propertySetIterator.next();
-        property = (String) entry.getKey();
+        property = entry.getKey();
         String expressionAfterVar = subExpression.substring(variableLength);
         if (expressionAfterVar.startsWith("."+property))
         {
@@ -516,7 +515,7 @@ public class ForEachTag extends TagSupport implements ELContextTag
   private String _var;
   private String _varStatus;
   //pu: Map for properties referred off from 'varStatus' and their replacements
-  private Map _propertyReplacementMap;
+  private Map<String, Object> _propertyReplacementMap;
   //pu: Represents replacement for 'var' upon every iteration
   private String _varReplacement;
 

@@ -81,7 +81,7 @@ public class ImageEncoderManager
    */
   public String getImageExtension(String type)
   {
-    return (String)_extensions.get(type);
+    return _extensions.get(type);
   }
 
   /**
@@ -156,10 +156,10 @@ public class ImageEncoderManager
   }
 
   // Maps mime type to ImageEncoder objects
-  private ArrayMap _encoders = new ArrayMap();
+  private ArrayMap<String, Object> _encoders = new ArrayMap<String, Object>();
 
   // Maps mime type to extension
-  private ArrayMap _extensions = new ArrayMap();
+  private ArrayMap<String, String> _extensions = new ArrayMap<String, String>();
 
   static private ImageEncoderManager _sDefaultInstance = 
     new ImageEncoderManager();

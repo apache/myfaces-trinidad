@@ -36,10 +36,11 @@ public class CompositeButtonEncoder extends AbstractXMLEncoder
   {
   }
 
+  @Override
   protected void encodeAttributes(
     ImageContext context,
-    Map properties, 
-    Map responseProperties,
+    Map<Object, Object> properties, 
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {
@@ -56,10 +57,11 @@ public class CompositeButtonEncoder extends AbstractXMLEncoder
   /**
    * Override of AbstractXMLEncoder.encodeBody.
    */
+  @Override
   protected void encodeBody(
     ImageContext context,
-    Map properties, 
-    Map responseProperties,
+    Map<Object, Object> properties, 
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {

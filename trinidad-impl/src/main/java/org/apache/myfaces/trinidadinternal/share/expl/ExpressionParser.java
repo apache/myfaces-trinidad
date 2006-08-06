@@ -36,7 +36,7 @@ public abstract class ExpressionParser
   public abstract Object parseExpression(
     ExpressionContext context,
     String         text,
-    Class          type) throws ExplException;
+    Class<?>       type) throws ExplException;
 
   /**
    * @param context   the binding context

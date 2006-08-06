@@ -42,12 +42,13 @@ public class ShowOneUtils
    * @param component the UIComponent object
    * @throws IOException when can't write onto response writer
    */
+  @SuppressWarnings("unchecked")
   static void renderGenericAttributes(UIXRenderingContext rCtx,
                                       UIComponent component,
                                       ResponseWriter out)
     throws IOException
   {
-    Map attrMap = component.getAttributes();
+    Map<String, Object> attrMap = component.getAttributes();
 
     // there is a certain amount of controversy about writing this attribute.
     // see bug 1606882

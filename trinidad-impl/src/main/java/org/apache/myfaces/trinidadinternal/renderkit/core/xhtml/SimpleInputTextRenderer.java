@@ -47,6 +47,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -59,7 +60,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   }
 
-
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -86,7 +87,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return submitted;
   }
 
-
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -152,6 +153,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   }    
        
+  @Override
   protected void renderAllAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -240,11 +242,13 @@ public class SimpleInputTextRenderer extends FormInputRenderer
 
   }
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)  
   {
     return "af|inputText::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputText";
@@ -280,6 +284,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException
@@ -290,6 +295,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     rw.writeAttribute("onselect", getOnselect(bean), "onselect");
   }
 
+  @Override
   protected void encodeAllAsNonElement(
     FacesContext        context,
     RenderingContext arc,
@@ -331,6 +337,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   /**
    * @todo Remove if never necessary
    */
+  @Override
   protected void renderNonElementContent(
     FacesContext        context,
     RenderingContext arc,
@@ -510,7 +517,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     }
   }
 
-
+  @Override
   protected String getOnkeypress(
     FacesBean bean
     )
@@ -529,7 +536,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     return onKeyPress;
   }
 
-
+  @Override
   protected String getOnkeydown(FacesBean bean)
   {
     String onKeydown = super.getOnkeydown(bean);
@@ -546,6 +553,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   /**
    * @todo We have to "getCurrentInstance()" *twice*.  UGH!
    */
+  @Override
   protected String getOnfocus(FacesBean bean)
   {
     String onfocus = super.getOnfocus(bean);
@@ -558,15 +566,16 @@ public class SimpleInputTextRenderer extends FormInputRenderer
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (!supportsReadonlyFormElements(arc))
       {
-        onfocus = (String) XhtmlUtils.getChainedJS("this.blur()",
-                                                   onfocus,
-                                                   true);
+        onfocus = XhtmlUtils.getChainedJS("this.blur()",
+                                          onfocus,
+                                          true);
       }
     }
 
     return onfocus;
   }
 
+  @Override
   protected String getOnchange(
     FacesBean bean
     )
@@ -641,6 +650,9 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   /**
    * @todo - Find a efficient way to identify that this is a numeric field
    */
+  //-= Simon Lessard =-
+  //TODO:  This method is not even used locally
+  @SuppressWarnings("unused")
   private boolean _isNumericField(
 //    FacesBean bean
     )
@@ -664,6 +676,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   /**
    * @todo RENABLE ONFOCUS HACK
    */
+  @Override
   protected boolean renderReadOnlyAsElement(
     RenderingContext arc,
     FacesBean           bean)
@@ -721,7 +734,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     if (userFunc == null)
       return functionCall;
 
-    return (String) XhtmlUtils.getChainedJS(functionCall, userFunc, true);
+    return XhtmlUtils.getChainedJS(functionCall, userFunc, true);
   }
 
   /**

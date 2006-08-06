@@ -36,13 +36,13 @@ public class CoreRenderKitFactory extends RenderKitFactory
     _factory = factory;
   }
 
-
+  @Override
   public void addRenderKit(String renderKitId, RenderKit renderKit)
   {
     _factory.addRenderKit(renderKitId, renderKit);
   }
 
-
+  @Override
   public RenderKit getRenderKit(FacesContext context, String renderKitId)
   {
     if (CoreRenderKit.getId().equals(renderKitId))
@@ -53,7 +53,9 @@ public class CoreRenderKitFactory extends RenderKitFactory
     return _factory.getRenderKit(context, renderKitId);
   }
 
-  public Iterator getRenderKitIds()
+  @SuppressWarnings("unchecked")
+  @Override
+  public Iterator<String> getRenderKitIds()
   {
     return _factory.getRenderKitIds();
   }

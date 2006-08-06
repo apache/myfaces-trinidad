@@ -46,7 +46,7 @@ public class LibraryScriptlet extends Scriptlet
     _dependencies = dependencies;
   }
 
-
+  @Override
   public void registerSelf()
   {
     super.registerSelf();
@@ -57,7 +57,7 @@ public class LibraryScriptlet extends Scriptlet
     }
   }
 
-
+  @Override
   public Object getScriptletKey()
   {
     return _libraryName;
@@ -81,6 +81,7 @@ public class LibraryScriptlet extends Scriptlet
     return libraryName;
   }
 
+  @Override
   protected void outputScriptletImpl(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -94,6 +95,7 @@ public class LibraryScriptlet extends Scriptlet
     XhtmlUtils.writeLibImport(context, arc, _getLibraryURL(context, arc));
   }
 
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException
@@ -101,6 +103,7 @@ public class LibraryScriptlet extends Scriptlet
     // No-op.
   }
 
+  @Override
   protected void embedInScriptTagImpl(
     FacesContext        context,
     RenderingContext arc) throws IOException

@@ -42,6 +42,7 @@ public class TextParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -56,6 +57,7 @@ public class TextParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -98,6 +100,7 @@ public class TextParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -111,6 +114,7 @@ public class TextParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addText().
    */
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,
@@ -128,6 +132,7 @@ public class TextParser extends BaseNodeParser
   /**
    * Implemenation of NodeParser.addWhitespace().
    */
+  @Override
   public void addWhitespace(
     ParseContext context,
     char[]       text,
@@ -143,6 +148,10 @@ public class TextParser extends BaseNodeParser
 
   private String _bundleName;
   private String _key;
+  // -= Simon Lessard =-
+  // FIXME: Using a StringBuilder could be MUCH more efficient
+  //        Currently String concatenation within a loop process
+  //        which is bad.
   private String _text;
 
   // Error messages

@@ -37,11 +37,12 @@ class Cache
 {
   public Cache()
   {
+    _cache = new OptimisticHashMap<Object, CacheEntry>(_CACHE_SIZE);
   }
 
   public CacheEntry get(ImageContext context, Object key)
   {
-    CacheEntry entry = (CacheEntry)_cache.get(key);
+    CacheEntry entry = _cache.get(key);
     if (entry == null)
       return null;
 
@@ -81,7 +82,7 @@ class Cache
     {
       // First check to see if we have already got an entry -
       // perhaps for some other encoding
-      CacheEntry topEntry = (CacheEntry)_cache.get(key);
+      CacheEntry topEntry = _cache.get(key);
       if (topEntry == null)
       {
         _cache.put(key, entry);
@@ -123,7 +124,7 @@ class Cache
   {
     synchronized (_cache)
     {
-      CacheEntry topEntry = (CacheEntry)_cache.get(key);
+      CacheEntry topEntry = _cache.get(key);
 
       if (topEntry == entry)
       {
@@ -258,7 +259,7 @@ class Cache
       return 0x5f;
 
     // Convert to hexidecimal string
-    String hex = Integer.toHexString((int)c);
+    String hex = Integer.toHexString(c);
 
     // To keep names short, just pick off the last character - it's the
     // most variable digit.
@@ -311,13 +312,17 @@ class Cache
   }
 
   // Hashtable of CacheKeys to CacheEntrys
-  private OptimisticHashMap _cache = new OptimisticHashMap(_CACHE_SIZE);
+  private OptimisticHashMap<Object, CacheEntry> _cache;
 
   // List of base names.
   // =-=ags We use a Hashtable so that lookups are quick.  However,
   // this probably should just be a sorted list and do a binary
   // search, since we don't care about the value, just the key.
-  private Hashtable _names = new Hashtable(_NAMES_SIZE);
+  // -= Simon Lessard =-
+  // FIXME: Hashtale is synchronized (thus slow). If thread safety is not 
+  //        required, HashMap would be better,
+  private Hashtable<String, Boolean> _names = 
+    new Hashtable<String, Boolean>(_NAMES_SIZE);
 
   private static final int _CACHE_SIZE = 101;
 

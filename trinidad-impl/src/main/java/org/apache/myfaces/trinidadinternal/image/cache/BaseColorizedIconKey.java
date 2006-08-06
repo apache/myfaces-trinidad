@@ -44,11 +44,11 @@ abstract public class BaseColorizedIconKey
    */
   protected BaseColorizedIconKey(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     String source = (String)properties.get(SOURCE_KEY);
-    Class lookAndFeel = (Class)properties.get(LAF_KEY);
+    Class<?> lookAndFeel = (Class)properties.get(LAF_KEY);
     int direction = CacheUtils.getReadingDirection(context, properties);
     Color color = (Color)properties.get(getColorKey());
     Color surroundingColor = (Color)properties.get(SURROUNDING_COLOR_KEY);
@@ -61,11 +61,11 @@ abstract public class BaseColorizedIconKey
    */
   protected BaseColorizedIconKey(
     ImageContext context,
-    String source,
-    Class  lookAndFeel,
-    int    direction,
-    Color  color,
-    Color  surroundingColor)
+    String   source,
+    Class<?> lookAndFeel,
+    int      direction,
+    Color    color,
+    Color    surroundingColor)
   {
     _init(source, lookAndFeel, direction, color, surroundingColor);
   }
@@ -75,6 +75,7 @@ abstract public class BaseColorizedIconKey
    * @deprecated in favor of
    * {@link #BaseColorizedIconKey( ImageContext, String, Class, int, Color, Color)}
    */
+  @Deprecated
   protected BaseColorizedIconKey(
     ImageContext context,
     String source,
@@ -111,6 +112,7 @@ abstract public class BaseColorizedIconKey
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object o)
   {
     // This equals implementation assumes that the same source icon name
@@ -132,6 +134,7 @@ abstract public class BaseColorizedIconKey
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     return (_source.hashCode() |
@@ -144,9 +147,9 @@ abstract public class BaseColorizedIconKey
   /**
    * Implementation of ImageProviderRequest.getRenderProperties().
    */
-  public Map getRenderProperties(ImageContext context)
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    ArrayMap properties = new ArrayMap(_MAP_SIZE);
+    ArrayMap<Object, Object> properties = new ArrayMap<Object, Object>(_MAP_SIZE);
     properties.put(ImageConstants.SOURCE_KEY, getSource());
     properties.put(getColorKey(), getColor());
     properties.put(SURROUNDING_COLOR_KEY, _surroundingColor);
@@ -168,7 +171,7 @@ abstract public class BaseColorizedIconKey
   /**
    * Returns the lookAndFeel property.
    */
-  protected Class getLookAndFeel()
+  protected Class<?> getLookAndFeel()
   {
     return _lookAndFeel;
   }
@@ -200,7 +203,7 @@ abstract public class BaseColorizedIconKey
   /**
    * Sets the lookAndFeel property.
    */
-  protected void setLookAndFeel(Class lookAndFeel)
+  protected void setLookAndFeel(Class<?> lookAndFeel)
   {
     _lookAndFeel = lookAndFeel;
   }
@@ -223,11 +226,11 @@ abstract public class BaseColorizedIconKey
   }
 
   private void _init(
-    String source,
-    Class  lookAndFeel,
-    int    direction,
-    Color  color,
-    Color  surroundingColor
+    String   source,
+    Class<?> lookAndFeel,
+    int      direction,
+    Color    color,
+    Color    surroundingColor
     )
   {
     _lookAndFeel = lookAndFeel;
@@ -248,7 +251,7 @@ abstract public class BaseColorizedIconKey
   private int         _direction;
   private Color       _color;
   private Color       _surroundingColor;
-  private Class       _lookAndFeel;
+  private Class<?>    _lookAndFeel;
 
   // The size for the render properties ArrayMap.  We leave room for
   // the SOURCE_INPUT_STREAM_PROVIDER_KEY property, typically provided

@@ -66,6 +66,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     super(pattern, secondaryPattern);
   }
 
+  @Override
   public String getAsString(FacesContext context, UIComponent component, Object value)
   {
     if (value == null)
@@ -81,6 +82,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   }
 
 
+  @Override
   public Object getAsObject(FacesContext context, UIComponent component, String value)
   {
     Object date = super.getAsObject(context, component, value);
@@ -107,7 +109,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     ValueBinding binding = component.getValueBinding("value");
     if (binding != null)
     {
-      Class expectedType = binding.getType(context);
+      Class<?> expectedType = binding.getType(context);
       // Sometimes the type might be null, if it cannot be determined:
       if ((expectedType != null) && (!expectedType.isAssignableFrom(value.getClass())))
       {
@@ -132,6 +134,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return value;
   }
 
+  @SuppressWarnings("unchecked")
   public String getClientScript(FacesContext context, UIComponent component)
   {
 
@@ -154,7 +157,9 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       FormRenderer.addPatternMapping( clientId,
                                       getExample(context));
       // =-=AEW Only if Javascript...
-      Map requestMap = context.getExternalContext().getRequestMap();
+      // -= Simon Lessard =-
+      // FIXME: JSF 1.2 specifies <String, Object>
+      Map<Object, Object> requestMap = context.getExternalContext().getRequestMap();
 
       // this fetch could be at the place where we append, but has been
       // moved ahead to optimize use of StringBuffer
@@ -305,6 +310,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return len;
   }
 
+  @Override
   protected Date getDate(FacesContext context, UIComponent component)
   {
     if (false)
@@ -339,6 +345,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
    * TimeZone names of Java, since these names are not available in
    * client side JavaScript.
    */
+  @Override
   protected TimeZone getFormattingTimeZone(TimeZone tZone)
   {
     TimeZone zone = (TimeZone)tZone.clone();

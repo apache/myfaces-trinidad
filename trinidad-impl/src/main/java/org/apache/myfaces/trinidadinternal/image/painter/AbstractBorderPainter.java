@@ -86,6 +86,7 @@ public abstract class AbstractBorderPainter extends AbstractWrappingPainter
    * <p>
    * @return The preferred size of the Painter.
    */
+  @Override
   public Dimension getPreferredSize(
     PaintContext context
     )
@@ -104,6 +105,7 @@ public abstract class AbstractBorderPainter extends AbstractWrappingPainter
    * <p>
    * @return The minimum size of the Painter.
    */
+  @Override
   public Dimension getMinimumSize(
     PaintContext context
     )
@@ -134,6 +136,7 @@ public abstract class AbstractBorderPainter extends AbstractWrappingPainter
    * <p>
    * @see #paintBorder
    */
+  @Override
   public final void paint(
     PaintContext context,
     Graphics     g,

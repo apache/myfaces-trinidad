@@ -53,6 +53,7 @@ public class PdaTableRenderer extends TableRenderer
     super(CoreTable.TYPE);
   }
   
+  @Override
   protected final void renderControlBar(
     FacesContext          context,
     RenderingContext   arc,
@@ -102,6 +103,7 @@ public class PdaTableRenderer extends TableRenderer
     }
   }
 
+  @Override
   protected void renderSubControlBar(
     FacesContext context,
     RenderingContext arc,
@@ -133,6 +135,7 @@ public class PdaTableRenderer extends TableRenderer
   }
 
   // render the actual table content, with headers
+  @Override
   protected void renderTableContent(
     FacesContext context,
     final RenderingContext arc,
@@ -235,6 +238,7 @@ public class PdaTableRenderer extends TableRenderer
     {
       TableUtils.RowLoop loop = new TableUtils.RowLoop()
         {
+          @Override
           protected void processRowImpl(FacesContext fc, CollectionComponent tableBase)
             throws IOException
           {
@@ -289,7 +293,8 @@ public class PdaTableRenderer extends TableRenderer
     //context.setDataResponseWriterUsed(false);
   }
   
-     private void _renderColumnFooter(
+     @SuppressWarnings("unchecked")
+    private void _renderColumnFooter(
        FacesContext          context,
        RenderingContext   arc,
        TableRenderingContext tContext,
@@ -331,14 +336,12 @@ public class PdaTableRenderer extends TableRenderer
            colData.setColumnIndex(tContext.getSpecialColumnCount(),
                                   0/*logicalColumnIndex*/);
 
-           List children = component.getChildren();
-           int count = children.size();
-
-           for (int i = 0; i < count; i++)
+           for(UIComponent child : (List<UIComponent>)component.getChildren())
            {
-             UIComponent child = (UIComponent) children.get(i);
              if (child.isRendered())
+             {
                encodeChild(context, child);
+             }
            }
          }
          writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
@@ -346,6 +349,7 @@ public class PdaTableRenderer extends TableRenderer
      }
 
 
+  @Override
   protected final void renderSingleRow(
     FacesContext          context,
     RenderingContext   arc,

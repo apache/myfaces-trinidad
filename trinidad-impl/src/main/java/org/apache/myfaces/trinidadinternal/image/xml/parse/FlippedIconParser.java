@@ -35,6 +35,7 @@ public class FlippedIconParser extends BaseImageProviderRequestParser
     super(_PROPERTY_COUNT);
   }
 
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,

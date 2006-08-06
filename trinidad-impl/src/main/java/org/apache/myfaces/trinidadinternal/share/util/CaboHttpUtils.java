@@ -74,6 +74,8 @@ public class CaboHttpUtils
     // As documented, this function doesn't convert "properly"
     // from characters to bytes.  But it happens to do
     // exactly the conversion we want
+    // -= Simon Lessard =- 
+    // TODO: Wouldn't getBytes() do the trick?
     string.getBytes(0, stringLength, buffer, 0);
 
     return new String(buffer, 0, stringLength, encoding);
@@ -90,8 +92,8 @@ public class CaboHttpUtils
     String string
     )
   {
-    ArrayList values = new ArrayList();
-    ArrayList qValues = new ArrayList();
+    ArrayList<String> values = new ArrayList<String>();
+    ArrayList<Float> qValues = new ArrayList<Float>();
     if (string != null)
     {
       StringTokenizer tokens = new StringTokenizer(string, ",");
@@ -141,7 +143,7 @@ public class CaboHttpUtils
         int i = values.size() - 1;
         while (i >= 0)
         {
-          float f = ((Float) qValues.get(i)).floatValue();
+          float f = qValues.get(i).floatValue();
           if (f >= currQ)
             break;
 
@@ -153,7 +155,7 @@ public class CaboHttpUtils
       }
     }
 
-    return (String[]) values.toArray(new String[values.size()]);
+    return values.toArray(new String[values.size()]);
   }
 
 

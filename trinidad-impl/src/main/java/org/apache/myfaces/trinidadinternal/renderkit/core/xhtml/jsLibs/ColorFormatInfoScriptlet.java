@@ -42,6 +42,7 @@ class ColorFormatInfoScriptlet extends Scriptlet
   {
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return COLOR_FORMAT_INFO_KEY;
@@ -50,6 +51,7 @@ class ColorFormatInfoScriptlet extends Scriptlet
   /**
    * @todo GET TRANSPARENT OFF OF SKIN, NOT HARDCODED BUNDLE
    */
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException

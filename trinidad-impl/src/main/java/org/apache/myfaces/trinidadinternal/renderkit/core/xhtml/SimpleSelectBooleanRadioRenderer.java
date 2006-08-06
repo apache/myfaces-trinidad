@@ -39,6 +39,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -49,6 +50,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   //decode
   //**********************
   
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -71,16 +73,19 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
   //encode
   //**********************
 
+  @Override
   protected Object getValueAttr(RenderingContext arc)
   {
     return arc.getCurrentClientId();
   }
 
+  @Override
   protected Object getType()
   {
     return "radio";
   }
 
+  @Override
   protected String getIconAltTextName(
     boolean selected
   )
@@ -90,6 +95,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
       : "af_selectBooleanRadio.READONLY_NOT_CHECKED_TIP");
   }
   
+  @Override
   protected String getIconName(
     boolean selected,
     boolean disabled
@@ -113,6 +119,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     return iconName;           
   }
 
+  @Override
   protected void renderNameAttribute(
     FacesContext        context,
     RenderingContext arc,
@@ -131,26 +138,27 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
    * Returns true if the component should render the ID as a name.
    * By default, don't if the component is readonly.
    */
+  @Override
   protected boolean shouldRenderName(
     FacesContext context,
     UIComponent  component)
   {
     return false;
   }
-
-
+  
+  @Override
   protected boolean isRadio()
   {
     return true;
   }
 
-
+  @Override
   protected String getCompositeId(String clientId)
   {
     return clientId + XhtmlConstants.COMPOSITE_ID_EXTENSION + "r";   
   }
   
-
+  @Override
   protected void renderSpanEventHandlers(
     FacesContext context, 
     FacesBean    bean) throws IOException
@@ -170,6 +178,7 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     rw.writeAttribute("onmouseup", getOnmouseup(bean),  "onmouseup");
   }
   
+  @Override
   protected void renderInputEventHandlers(
     FacesContext context, 
     FacesBean    bean) throws IOException
@@ -186,11 +195,13 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     return toString(bean.getProperty(_groupKey));
   }
   
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
    return "af|selectBooleanRadio::content";
   }
   
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
    return "af|selectBooleanRadio";

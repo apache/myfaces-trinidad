@@ -47,6 +47,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     super(CoreNavigationPane.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -55,11 +56,13 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     _titleKey = type.findKey("title");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -96,6 +99,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     return stamp;
   }
 
+  @SuppressWarnings("unchecked")
   protected void renderContent(
     FacesContext        context,
     RenderingContext arc,
@@ -110,13 +114,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     if (nodeStamp == null)
     {
       // we aren't stamping, but rather have explicitly defined children:
-      List<UIComponent> children = component.getChildren();
-      int childrenLength = children.size();
-      for (int i=0; i<childrenLength; i++)
+      for(UIComponent child : (List<UIComponent>)component.getChildren())
       {
         try
         {
-          UIXCommand navItem = (UIXCommand)children.get(i);
+          UIXCommand navItem = (UIXCommand)child;
           if (navItem.isRendered())
           {
             // collect the information needed to render this nav item:
@@ -174,7 +176,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       int nextActiveIndex = navItemData.getEffectiveActiveIndex() - 1;
       for (int i=0; i<visibleItemCount; i++)
       {
-        Map currentItemData = navItemData.getItemData(i);
+        Map<String, Object> currentItemData = navItemData.getItemData(i);
         currentItemData.put("isFirst", (i == 0));
         currentItemData.put("isLast", (i == lastRowIndex));
         currentItemData.put("previousActive", previousActive);
@@ -252,6 +254,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     return renderingHint;
   }
 
+  @Override
   protected String getShortDesc(FacesBean bean)
   {
     return toString(bean.getProperty(_shortDescKey));
@@ -314,7 +317,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         isActive = false; // there can only be 1 active item
       }
     }
-    HashMap itemDataMap = new HashMap();
+    HashMap<String, Object> itemDataMap = new HashMap<String, Object>();
     itemDataMap.put("accessKey", _getCommandChildProperty(commandChild, "accessKey"));
     itemDataMap.put("component", commandChild);
     itemDataMap.put("dataIndex", itemDataIndex);
@@ -378,7 +381,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
-    Map itemData,
+    Map<String, Object> itemData,
     String renderingHint,
     boolean isRtl
     ) throws IOException
@@ -456,7 +459,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     RenderingContext arc,
     ResponseWriter rw,
     String iconUri,
-    Map itemData,
+    Map<String, Object> itemData,
     boolean isDisabled,
     boolean isRtl
     ) throws IOException
@@ -501,7 +504,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
-    Map itemData,
+    Map<String, Object> itemData,
     boolean isDisabled
     ) throws IOException
   {
@@ -658,7 +661,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
-    Map itemData,
+    Map<String, Object> itemData,
     boolean isRtl,
     boolean isBar,
     boolean isList
@@ -845,7 +848,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
-    Map itemData
+    Map<String, Object> itemData
     ) throws IOException
   {
     // Choice items do not support icons at this time.
@@ -1016,7 +1019,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
-    Map itemData,
+    Map<String, Object> itemData,
     boolean isRtl
     ) throws IOException
   {
@@ -1211,7 +1214,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     String topStyleClass,
     String bottomStyleClass,
     String bottomContentStyleClass,
-    Map itemData,
+    Map<String, Object> itemData,
     boolean isDisabled,
     boolean isRtl
     ) throws IOException
@@ -1263,7 +1266,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     NavItemData()
     {
-      _list = new ArrayList<Map>();
+      _list = new ArrayList<Map<String, Object>>();
       _effectiveActiveIndex = -1;
     }
 
@@ -1282,17 +1285,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       return _list.size();
     }
 
-    void addItemData(Map itemData)
+    void addItemData(Map<String, Object> itemData)
     {
       _list.add(itemData);
     }
 
-    Map getItemData(int index)
+    Map<String, Object> getItemData(int index)
     {
       return _list.get(index);
     }
 
-    private List<Map> _list;
+    private List<Map<String, Object>> _list;
     private int _effectiveActiveIndex;
   }
 

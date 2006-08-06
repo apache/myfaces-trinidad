@@ -21,7 +21,6 @@ import java.io.Writer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -163,7 +162,9 @@ public class CoreRenderKit extends RenderKitBase
   static public void saveDialogPostbackValues(
     String returnId)
   {
-    Map pageFlowScope = RequestContext.getCurrentInstance().getPageFlowScope();
+    Map<String, Object> pageFlowScope = 
+      RequestContext.getCurrentInstance().getPageFlowScope();
+    
     pageFlowScope.put(_RETURN_ID, returnId);
   }
 
@@ -172,13 +173,14 @@ public class CoreRenderKit extends RenderKitBase
   //
 
 
+  @SuppressWarnings("unchecked")
   public boolean launchDialog(
-    FacesContext context,
-    UIViewRoot   targetRoot,
-    UIComponent  source,
-    Map          processParameters,
-    boolean      useWindow,
-    Map          windowProperties)
+    FacesContext       context,
+    UIViewRoot         targetRoot,
+    UIComponent        source,
+    Map<String,Object> processParameters,
+    boolean            useWindow,
+    Map<String,Object> windowProperties)
   {
     // If we're not being asked to use a separate window,
     // just fallback on the default launchDialog() code
@@ -194,17 +196,19 @@ public class CoreRenderKit extends RenderKitBase
     String formId = RenderUtils.getFormId(context, source);
 
     if (windowProperties == null)
-      windowProperties = new HashMap();
+      windowProperties = new HashMap<String,Object>();
 
     // Copy properties from the source component to the dialog properties
     if (source != null)
     {
-      Map sourceAttrs = source.getAttributes();
+      Map<String, Object> sourceAttrs = source.getAttributes();
       _copyProperty(windowProperties, "width", sourceAttrs, "windowWidth");
       _copyProperty(windowProperties, "height", sourceAttrs, "windowHeight");
     }
 
-    Map pageFlowScope = RequestContext.getCurrentInstance().getPageFlowScope();
+    Map<String, Object> pageFlowScope = 
+      RequestContext.getCurrentInstance().getPageFlowScope();
+    
     if (processParameters != null)
       pageFlowScope.putAll(processParameters);
 
@@ -254,12 +258,14 @@ public class CoreRenderKit extends RenderKitBase
     return true;
   }
 
-
+  @SuppressWarnings("unchecked")
   public boolean isReturning(
     FacesContext context,
     UIComponent  source)
   {
-    Map parameterMap = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> parameterMap = 
+      context.getExternalContext().getRequestParameterMap();
+    
     Object returning = parameterMap.get(RETURN_PARAM);
     if ((returning == null) || "".equals(returning))
       return false;
@@ -277,12 +283,14 @@ public class CoreRenderKit extends RenderKitBase
   // BEGIN ExtendedRenderKitService
   //
 
+  @SuppressWarnings("unchecked")
   public boolean shortCircuitRenderView(
     FacesContext context) throws IOException
   {
     if (PartialPageUtils.isPartialRequest(context))
     {
-      Map requestMap = context.getExternalContext().getRequestMap();
+      Map<String, Object> requestMap = 
+        context.getExternalContext().getRequestMap();
 
       UIViewRoot originalRoot = (UIViewRoot) requestMap.get(
                          TrinidadPhaseListener.INITIAL_VIEW_ROOT_KEY);
@@ -436,17 +444,20 @@ public class CoreRenderKit extends RenderKitBase
   //
 
 
+  @Override
   public ResponseStateManager getResponseStateManager()
   {
     return _rsm;
   }
 
+  @Override
   public ResponseStream createResponseStream(OutputStream out)
   {
     // =-=AEW What to do here???
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public ResponseWriter createResponseWriter(Writer writer,
                                              String contentTypeList,
                                              String characterEncoding)
@@ -555,31 +566,40 @@ public class CoreRenderKit extends RenderKitBase
   }
 
 
+  @SuppressWarnings("unchecked")
   private List<DialogRequest> _getDialogList(
     FacesContext context,
     boolean      createIfNew)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
-    List<DialogRequest> l = (List<DialogRequest>)
-      requestMap.get(_DIALOG_LIST_KEY);
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
+    List<DialogRequest> l = 
+      (List<DialogRequest>)requestMap.get(_DIALOG_LIST_KEY);
+    
     if ((l == null) && createIfNew)
     {
-      l = new ArrayList();
+      l = new ArrayList<DialogRequest>();
       requestMap.put(_DIALOG_LIST_KEY, l);
     }
 
     return l;
   }
 
+  @SuppressWarnings("unchecked")
   private List<String> _getScriptList(
     FacesContext context,
     boolean      createIfNew)
   {
-    Map requestMap = context.getExternalContext().getRequestMap();
-    List<String> l = (List<String>) requestMap.get(_SCRIPT_LIST_KEY);
+    Map<String, Object> requestMap = 
+      context.getExternalContext().getRequestMap();
+    
+    List<String> l = 
+      (List<String>) requestMap.get(_SCRIPT_LIST_KEY);
+    
     if ((l == null) && createIfNew)
     {
-      l = new ArrayList();
+      l = new ArrayList<String>();
       requestMap.put(_SCRIPT_LIST_KEY, l);
     }
 
@@ -640,15 +660,15 @@ public class CoreRenderKit extends RenderKitBase
   };
 
 
-  static private void _copyProperty(
-    Map    toMap,
-    Object toKey,
-    Map    fromMap,
-    Object fromKey)
+  static private <K1, K2, V> void _copyProperty(
+    Map<K1, V> toMap,
+    K1 toKey,
+    Map<K2, ? extends V> fromMap,
+    K2 fromKey)
   {
     if (!toMap.containsKey(toKey))
     {
-      Object o = fromMap.get(fromKey);
+      V o = fromMap.get(fromKey);
       if (o != null)
         toMap.put(toKey, o);
     }

@@ -57,6 +57,7 @@ public class OffscreenWrappingPainter extends AbstractWrappingPainter
     super(wrappedPainter);
   }
 
+  @Override
   public void paint(
     PaintContext context,
     Graphics     g,
@@ -135,6 +136,7 @@ public class OffscreenWrappingPainter extends AbstractWrappingPainter
     buffer.flush();
   }
 
+  @Override
   public Dimension getPreferredSize(PaintContext context)
   {
     Dimension size = null;
@@ -274,21 +276,25 @@ public class OffscreenWrappingPainter extends AbstractWrappingPainter
       _g = offscreenG;
     }
 
+    @Override
     protected PaintContext getPaintContext()
     {
       return _context;
     }
 
+    @Override
     public Graphics getPaintGraphics()
     {
       return _g;
     }
 
+    @Override
     public Font getPaintFont()
     {
       return _g.getFont();
     }
 
+    @Override
     public FontMetrics getFontMetrics(Font font)
     {
        return _g.getFontMetrics(font);
@@ -321,6 +327,7 @@ public class OffscreenWrappingPainter extends AbstractWrappingPainter
       canFilterIndexColorModel = false;
     }
 
+    @Override
     public int filterRGB(int x, int y, int rgb)
     {
       // Make sure we see pixels at y=0 before any other pixels.

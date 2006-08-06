@@ -78,6 +78,7 @@ public class RGBColorFormat extends ColorFormat
   /**
    * Returns the value as a Color.
    */
+  @Override
   public Object parseObject(
     String        text, 
     ParsePosition pos)
@@ -255,6 +256,7 @@ public class RGBColorFormat extends ColorFormat
                      rgba[_ALPHA_FIELD]);
   }
 
+  @Override
   public StringBuffer format(
     Color color,
     StringBuffer toAppendTo,

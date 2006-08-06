@@ -52,6 +52,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -61,7 +62,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     _onunloadKey = type.findKey("onunload");
   }
 
-
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -78,6 +79,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     _writeVersionInformation(context, arc);
   }
 
+  @Override
   protected void renderAtEnd(
     FacesContext context,
     RenderingContext arc) throws IOException
@@ -87,6 +89,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     _renderInitialFocusScript(context, arc);
   }
 
+  @Override
   protected void renderPPRSupport(
     FacesContext        context,
     RenderingContext arc,
@@ -105,6 +108,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     FacesContext        context,
     RenderingContext arc,
@@ -136,12 +140,13 @@ public class BodyRenderer extends PanelPartialRootRenderer
     }
   }
 
+  @Override
   protected String getStyleClass(FacesBean bean)
   {
-    String styleClass = super.getStyleClass(bean);
-    return styleClass;
+    return super.getStyleClass(bean);
   }
 
+  @Override
   protected void renderEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException
@@ -399,11 +404,11 @@ public class BodyRenderer extends PanelPartialRootRenderer
   {
     String comment = _VERSION_COMMENT;
 
-    Class implClass = BodyRenderer.class;
+    Class<BodyRenderer> implClass = BodyRenderer.class;
     Package implPkg = implClass.getPackage();
 
-    Class apiClass  =  FacesBean.class;
-    Package apiPkg  =  apiClass.getPackage();
+    Class<FacesBean> apiClass  =  FacesBean.class;
+    Package apiPkg = apiClass.getPackage();
 
     String versionInfo = _getVersionInfo(apiPkg, implPkg);
 

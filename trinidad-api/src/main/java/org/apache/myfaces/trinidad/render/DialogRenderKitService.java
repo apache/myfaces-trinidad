@@ -67,12 +67,12 @@ public interface DialogRenderKitService
    *   default dialog functionality.
    */
   public boolean launchDialog(
-    FacesContext context,
-    UIViewRoot   targetRoot,
-    UIComponent  source,
-    Map<?, ?>    processParameters,
-    boolean      useWindow,
-    Map<?, ?>    windowProperties);
+    FacesContext       context,
+    UIViewRoot         targetRoot,
+    UIComponent        source,
+    Map<String,Object> processParameters,
+    boolean            useWindow,
+    Map<String,Object> windowProperties);
 
   /**
    * Called to return from a dialog.

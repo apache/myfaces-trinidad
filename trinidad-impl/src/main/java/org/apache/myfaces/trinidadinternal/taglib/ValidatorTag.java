@@ -58,6 +58,7 @@ public final class ValidatorTag extends TagSupport
     _binding = binding;
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     UIComponentTag tag =
@@ -92,6 +93,7 @@ public final class ValidatorTag extends TagSupport
   /**
    * Release state.
    */
+  @Override
   public void release()
   {
     super.release();

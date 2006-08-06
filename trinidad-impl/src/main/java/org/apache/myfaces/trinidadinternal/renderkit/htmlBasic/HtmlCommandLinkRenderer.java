@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.io.IOException;
-import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -35,23 +35,28 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandLinkRende
  */
 public class HtmlCommandLinkRenderer extends Renderer
 {
+  @Override
   public void decode(FacesContext context,
                      UIComponent component)
   {
     createRenderer(component).decode(context, component);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   public void encodeChildren(FacesContext context,
                              UIComponent component) throws IOException
   {
     // Do nothing - we'll do it all in encodeEnd()
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeEnd(FacesContext context,
                      UIComponent component) throws IOException
   {
@@ -60,9 +65,10 @@ public class HtmlCommandLinkRenderer extends Renderer
     Renderer renderer = createRenderer(component);
     renderer.encodeBegin(context, component);
 
-    Iterator children = component.getChildren().iterator();
-    while (children.hasNext())
-      RenderUtils.encodeRecursive(context, (UIComponent) children.next());
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
+    {
+      RenderUtils.encodeRecursive(context, child);
+    }
 
     renderer.encodeEnd(context, component);
   }
@@ -72,26 +78,31 @@ public class HtmlCommandLinkRenderer extends Renderer
     final FacesBean bean = new ComponentFacesBean(component);
     return new CommandLinkRenderer()
     {
+      @Override
       public FacesBean getFacesBean(UIComponent comp)
       {
         return bean;
       }
 
+      @Override
       protected String getText(FacesBean bean)
       {
         return toString(component.getAttributes().get("value"));
       }
 
+      @Override
       protected String getShortDesc(FacesBean bean)
       {
         return toString(component.getAttributes().get("title"));
       }
 
+      @Override
       protected char getAccessKey(FacesBean bean)
       {
         return toChar(component.getAttributes().get("accesskey"));
       }
 
+      @Override
       protected String getInlineStyle(FacesBean bean)
       {
         return toString(component.getAttributes().get("style"));

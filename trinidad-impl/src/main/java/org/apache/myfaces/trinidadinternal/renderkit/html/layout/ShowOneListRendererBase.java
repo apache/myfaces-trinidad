@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 import java.io.IOException;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -52,6 +51,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *  {@inheritDoc}
    *  @return true always
    */
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -67,18 +67,20 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    * @param component
    * @throws IOException
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
     throws IOException
   {
     _LOG.entering("ShowOneListRendererBase", "encodeBegin");
-    List children = component.getChildren();
+    List<UIComponent> children = component.getChildren();
     int numChildren = children.size();
     UIComponent disclosedChild = null;
     UIXShowDetail renderableChild = null;
 
     for (int indxChild = 0; indxChild < numChildren ; indxChild++ )
     {
-      UIComponent child =  (UIComponent) children.get(indxChild);
+      UIComponent child = children.get(indxChild);
       if (! (child instanceof UIXShowDetail) )
       {
         continue;
@@ -90,7 +92,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
       {
         // Mark the first renderable child
         Object disabled =
-          (Object) detailChild.getAttributes().get(
+          detailChild.getAttributes().get(
             UIConstants.DISABLED_ATTR.getAttributeName());
         if (Boolean.TRUE.equals(disabled))
         {
@@ -126,6 +128,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *  to CoreShowDetailItem child. If no text attrbute value specified,
    *  the label remains blank.
    */
+  @Override
   public void encodeChildren(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -261,6 +264,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    * @param component the UIComponent object
    * @throws IOException when some issues while writing output
    */
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent component)
     throws IOException
@@ -458,12 +462,13 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *                and is disclosed
    * @throws IOException
    */
+  @SuppressWarnings("unchecked")
   private static String _getDisclosedItemId(FacesContext context,
                                             UIComponent component)
     throws IOException
   {
     String returnId = null;
-    ListIterator iter = component.getChildren().listIterator();
+    ListIterator<UIComponent> iter = component.getChildren().listIterator();
 
     if (iter == null)
     {
@@ -474,7 +479,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     // other children are ignored.
     while ( iter.hasNext())
     {
-      UIComponent child = (UIComponent) iter.next();
+      UIComponent child = iter.next();
       if (! child.isRendered() )
       {
         continue;
@@ -529,6 +534,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *
    *  @throws IOException when any IO error while writing markup
    */
+  @SuppressWarnings("unchecked")
   private static void _findAndEncodeChild(FacesContext context,
                                           UIComponent parent,
                                           String disclosedChildId)
@@ -552,9 +558,10 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     {
       if (disclosedChild.getChildCount() > 0)
       {
-        Iterator children = disclosedChild.getChildren().iterator();
-        while (children.hasNext())
-          RenderUtils.encodeRecursive(context, (UIComponent) children.next());
+        for(UIComponent child : (List<UIComponent>)disclosedChild.getChildren())
+        {
+          RenderUtils.encodeRecursive(context, child);
+        }
       }
     }
 
@@ -572,6 +579,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    *  @param disclosedChildId id of the child to be found among it's children
    *
    */
+  @SuppressWarnings("unchecked")
   private static UIComponent _findChild(FacesContext context,
                                         UIComponent component,
                                         String disclosedChildId)
@@ -580,18 +588,16 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
     {
       return null;
     }
-
-    Iterator childrenList = component.getChildren().iterator();
-
-    while (childrenList.hasNext())
+    
+    for(UIComponent child : (List<UIComponent>)component.getChildren())
     {
-      UIComponent child = (UIComponent) childrenList.next();
       String childId = child.getClientId(context);
       if (disclosedChildId.equals(childId))
       {
         return child;
       }
     }
+
     return null;
   }
 
@@ -667,10 +673,11 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
   private static final String _POSITION_BOTTOM  = "bottom";
   private static final String _POSITION_DEFAULT_VALUE = _POSITION_LEFT;
 
-  private static Map positionMap =  new HashMap(4);
+  private static Map<String, String> positionMap;
 
   static
   {
+    positionMap =  new HashMap<String, String>(4);
     positionMap.put(_POSITION_LEFT,   _POSITION_LEFT);
     positionMap.put(_POSITION_RIGHT,  _POSITION_RIGHT);
     positionMap.put(_POSITION_TOP,    _POSITION_TOP);

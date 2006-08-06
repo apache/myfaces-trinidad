@@ -37,12 +37,11 @@ class TranslatedTextIcon extends TextIcon
   /**
    * Returns the text to render.
    */
+  @Override
   protected String getText(RenderingContext arc)
   {
-   return arc.getTranslatedString(_key);
-
+    return arc.getTranslatedString(_key);
   }
-
 
   private String _key;
 }

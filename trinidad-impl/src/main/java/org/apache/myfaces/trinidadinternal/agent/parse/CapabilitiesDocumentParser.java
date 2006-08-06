@@ -43,7 +43,11 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
         implements XMLConstants
 {
 
-  private CapabilitiesDocumentParser() {}
+  private CapabilitiesDocumentParser()
+  {
+    _capabilitiesNodes = new ArrayList<CapabilitiesNode>();
+    _deviceNodes = new ArrayList<DeviceNode>();
+  }
 
   static public CapabilitiesDocument createInstance (URL capUrl)
   {
@@ -95,6 +99,7 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
   }
 
 
+  @Override
   public void startElement (ParseContext context,
                             String       namespaceURI,
                             String       localName,
@@ -115,6 +120,7 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
   }
 
 
+  @Override
   public NodeParser startChildElement(ParseContext context,
                                       String       namespaceURI,
                                       String       localName,
@@ -143,6 +149,7 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
   }
 
 
+  @Override
   public void addCompletedChild (ParseContext context,
                                  String       namespaceURI,
                                  String       localName,
@@ -153,13 +160,14 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
       return;
 
     if (ELEMENT_CAPABILITIES.equals(localName))
-      _capabilitiesNodes.add(child);
+      _capabilitiesNodes.add((CapabilitiesNode)child);
 
     if (ELEMENT_DEVICE.equals(localName))
-      _deviceNodes.add(child);
+      _deviceNodes.add((DeviceNode)child);
   }
 
 
+  @Override
   public Object endElement (ParseContext context,
                             String       namespaceURI,
                             String       localName)
@@ -170,14 +178,14 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
     CapabilitiesNode[] agents = null;
     if (_capabilitiesNodes.size() > 0)
     {
-      agents = (CapabilitiesNode[]) _capabilitiesNodes.toArray
+      agents = _capabilitiesNodes.toArray
               (new CapabilitiesNode[_capabilitiesNodes.size()]);
     }
 
     DeviceNode[] devices = null;
     if (_deviceNodes.size() > 0)
     {
-      devices = (DeviceNode[]) _deviceNodes.toArray
+      devices = _deviceNodes.toArray
               (new DeviceNode[_deviceNodes.size()]);
     }
 
@@ -185,8 +193,8 @@ public class CapabilitiesDocumentParser extends BaseNodeParser
     return document;
   }
 
-  private List _capabilitiesNodes = new ArrayList();
-  private List _deviceNodes = new ArrayList();
+  private List<CapabilitiesNode> _capabilitiesNodes;
+  private List<DeviceNode> _deviceNodes;
 
   static final String __BASE_URL = "baseURL";
 

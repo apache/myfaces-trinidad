@@ -35,6 +35,8 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  */
 public class CommandRenderer extends UINodeRendererBase
 {
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     RequestContext afContext = RequestContext.getCurrentInstance();
@@ -46,14 +48,16 @@ public class CommandRenderer extends UINodeRendererBase
     }
     else
     {
-      Map parameterMap = context.getExternalContext().getRequestParameterMap();
+      Map<String, String> parameterMap = 
+        context.getExternalContext().getRequestParameterMap();
+      
       Object source = parameterMap.get("source");
       String clientId = component.getClientId(context);
 
       if ((source != null) && source.equals(clientId))
       {
         (new ActionEvent(component)).queue();
-        Map attrs = component.getAttributes();
+        Map<String, Object> attrs = component.getAttributes();
         if (Boolean.TRUE.equals(attrs.get("partialSubmit")))
         {
           PartialPageUtils.forcePartialRendering(context);

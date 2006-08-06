@@ -38,10 +38,12 @@ public class PanelTabbedRenderer extends UINodeRendererBase
    * Make sure we've got at least one selected item;  if not,
    * the "decode" phase will have problems.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeBegin(FacesContext context, UIComponent component)
     throws IOException
   {
-    List children = component.getChildren();
+    List<UIComponent> children = component.getChildren();
     int childCount = children.size();
     boolean oneIsDisclosed = false;
     for (int i=0; i<childCount; i++)

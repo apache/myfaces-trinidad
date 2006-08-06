@@ -43,6 +43,7 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
     setSeparator(_NEWLINE_SEPARATOR);
   }
 
+  @Override
   protected String getContentType(
     URLConnection conn)
   {

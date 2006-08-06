@@ -63,8 +63,8 @@ class UnsupportedImageRenderer implements ImageRenderer
    */
   public Image renderImage(
     ImageContext context,
-    Map requestedProperties,
-    Map responseProperties
+    Map<Object, Object> requestedProperties,
+    Map<Object, Object> responseProperties
     )
   {
     if ((_LOG.isWarning()))

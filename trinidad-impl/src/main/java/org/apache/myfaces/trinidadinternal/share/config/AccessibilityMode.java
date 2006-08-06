@@ -35,7 +35,7 @@ package org.apache.myfaces.trinidadinternal.share.config;
  */
 public final class AccessibilityMode
 {
-
+  @Override
   public String toString()
   {
     return _text;

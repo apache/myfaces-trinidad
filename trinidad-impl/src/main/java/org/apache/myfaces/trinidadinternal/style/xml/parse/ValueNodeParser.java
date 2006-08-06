@@ -35,6 +35,7 @@ public class ValueNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -47,6 +48,7 @@ public class ValueNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addText().
    */
+  @Override
   public void addText(
     ParseContext context,
     char[]       text,

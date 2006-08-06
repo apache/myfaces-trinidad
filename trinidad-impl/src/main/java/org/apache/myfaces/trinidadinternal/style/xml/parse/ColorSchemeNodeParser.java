@@ -41,6 +41,7 @@ public class ColorSchemeNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -57,6 +58,7 @@ public class ColorSchemeNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -80,6 +82,7 @@ public class ColorSchemeNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -96,6 +99,7 @@ public class ColorSchemeNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -106,15 +110,17 @@ public class ColorSchemeNodeParser extends BaseNodeParser
     if (child instanceof ColorNode)
     {
       if (_colors == null)
-        _colors = new Vector();
+        _colors = new Vector<ColorNode>();
 
-      _colors.addElement(child);
+      _colors.addElement((ColorNode)child);
     }
   }
 
   private String _namespace;
   private String _name;
-  private Vector _colors;
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is truly required.
+  private Vector<ColorNode> _colors;
 
   private static final String _DEPRECATED_ERROR =
     "The <colorScheme> element is deprecated.  Colors must be explicitly specified using <property> elements.";

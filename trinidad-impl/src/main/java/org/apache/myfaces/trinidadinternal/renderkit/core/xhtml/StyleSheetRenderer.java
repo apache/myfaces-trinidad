@@ -66,12 +66,13 @@ public class StyleSheetRenderer extends XhtmlRenderer
     super(type);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
-
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -140,7 +141,9 @@ public class StyleSheetRenderer extends XhtmlRenderer
       {
         if (arc instanceof CoreRenderingContext)
         {
-          Map shortStyles = StyleUtils.getShortStyleClasses(sContext, provider);
+          Map<String, String> shortStyles = 
+            StyleUtils.getShortStyleClasses(sContext, provider);
+          
           ((CoreRenderingContext) arc).setStyleMap(shortStyles);
         }
       }

@@ -26,7 +26,6 @@ import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.component.core.CoreImportScript;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
@@ -35,7 +34,6 @@ import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlScript;
 
 import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
@@ -94,6 +92,7 @@ public class FredJSP
   }
 
 
+  @SuppressWarnings("unchecked")
   static void service(FacesContext context) throws IOException
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
@@ -103,10 +102,12 @@ public class FredJSP
     HtmlHtml root = new HtmlHtml();
     context.getViewRoot().getChildren().add(root);
 
-    Map requestParameters = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestParameters = 
+      context.getExternalContext().getRequestParameterMap();
+    
     // Save the return ID - and do so before generating the
     // link to the frames!
-    String returnId = (String) requestParameters.get(_RETURN_ID_PARAM);
+    String returnId = requestParameters.get(_RETURN_ID_PARAM);
     if (returnId != null)
       CoreRenderKit.saveDialogPostbackValues(returnId);
 
@@ -148,13 +149,13 @@ public class FredJSP
        context.getExternalContext().getRequestParameterValuesMap());
 
     // grab any sizing parameters
-    String widthParam = (String) requestParameters.get(_MIN_WIDTH_PARAM);
+    String widthParam = requestParameters.get(_MIN_WIDTH_PARAM);
     boolean gotWidth = (widthParam != null);
 
-    String heightParam = (String) requestParameters.get(_MIN_HEIGHT_PARAM);
+    String heightParam = requestParameters.get(_MIN_HEIGHT_PARAM);
     boolean gotHeight = (heightParam != null);
 
-    String viewIdRedirect = (String) requestParameters.get(_VIEW_ID_REDIRECT_PARAM);
+    String viewIdRedirect = requestParameters.get(_VIEW_ID_REDIRECT_PARAM);
     if (viewIdRedirect != null)
     {
       ViewHandler vh =
@@ -169,7 +170,7 @@ public class FredJSP
     }
     else
     {
-      String internalRedirect = (String) requestParameters.get("_red");
+      String internalRedirect = requestParameters.get("_red");
       if (internalRedirect != null)
       {
         String path = GenericEntry.getGenericEntryURL(context,
@@ -241,25 +242,25 @@ public class FredJSP
   }
 
   static private String _getQueryString(
-    Map                parameters) throws IOException
+    Map<String, String[]> parameters) throws IOException
   {
     // Bug #3419817 support request dispatch for Portal
     // build up the encoded query string from request parameters
     // this will work for both direct requests and include/forward requests
     StringBuffer buf = new StringBuffer();
-    Iterator paramNames = parameters.keySet().iterator();
+    Iterator<String> paramNames = parameters.keySet().iterator();
     boolean isFirst = true;
 
     // iterate through the request parameter names
     while (paramNames.hasNext())
     {
-      String paramName = (String)paramNames.next();
+      String paramName = paramNames.next();
 
       // add the parameter to the query string unless skipped
       if (!_SKIP_PARAMS.contains(paramName))
       {
         // the parameter might appear on the request more than once
-        String[] paramValues = (String[]) parameters.get(paramName);
+        String[] paramValues = parameters.get(paramName);
 
         for (int i=0; i < paramValues.length; i++)
         {
@@ -297,7 +298,7 @@ public class FredJSP
   static private final String _FRAMESET_ONUNLOAD_TEXT =
     "_checkUnload(event)";
 
-  static private final Collection _SKIP_PARAMS =
+  static private final Collection<String> _SKIP_PARAMS =
     Arrays.asList(new String[]
                   {
                     GenericEntry.__ENTRY_KEY_PARAM,

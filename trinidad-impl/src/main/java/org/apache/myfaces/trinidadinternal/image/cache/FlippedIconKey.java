@@ -40,7 +40,7 @@ public class FlippedIconKey
    * and properties.
    */
   public FlippedIconKey(
-    Map properties
+    Map<Object, Object> properties
     )
   {
     String source = (String)properties.get(SOURCE_KEY);
@@ -77,6 +77,7 @@ public class FlippedIconKey
   /**
    * Override of Object.equals().
    */
+  @Override
   public boolean equals(Object o)
   {
     // This equals implementation assumes that the same source icon name
@@ -92,6 +93,7 @@ public class FlippedIconKey
   /**
    * Override of Object.hashCode().
    */
+  @Override
   public int hashCode()
   {
     return (_source.hashCode() );
@@ -100,9 +102,9 @@ public class FlippedIconKey
   /**
    * Implementation of ImageProviderRequest.getRenderProperties().
    */
-  public Map getRenderProperties(ImageContext context)
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    ArrayMap properties = new ArrayMap(_MAP_SIZE);
+    ArrayMap<Object, Object> properties = new ArrayMap<Object, Object>(_MAP_SIZE);
     properties.put(ImageConstants.SOURCE_KEY, getSource());
 
     return properties;

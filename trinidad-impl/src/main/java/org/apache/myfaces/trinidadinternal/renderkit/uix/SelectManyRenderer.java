@@ -45,6 +45,7 @@ public class SelectManyRenderer extends InputRenderer
    * @todo This throws a ConverterException on the first unconvertable
    *  value;  it should wait
    */
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -56,7 +57,7 @@ public class SelectManyRenderer extends InputRenderer
 
     UIXSelectMany selectMany = (UIXSelectMany)component;
 
-    Class modelClass = null;
+    Class<?> modelClass = null;
     ValueBinding binding = component.getValueBinding("value");
     if (binding != null)
     {
@@ -95,7 +96,7 @@ public class SelectManyRenderer extends InputRenderer
           return Arrays.asList(values);
         }
 
-        ArrayList newList = new ArrayList(values.length);
+        ArrayList<Object> newList = new ArrayList<Object>(values.length);
         for (int i = 0; i < values.length; i++)
         {
           // Note - any error will result in an immediate ConverterException
@@ -106,7 +107,7 @@ public class SelectManyRenderer extends InputRenderer
       }
       else if (modelClass.isArray())
       {
-        Class itemClass = modelClass.getComponentType();
+        Class<?> itemClass = modelClass.getComponentType();
         if (converter == null)
         {
           converter = ConverterUtils.createConverter(context, itemClass);
@@ -149,8 +150,7 @@ public class SelectManyRenderer extends InputRenderer
     }
   }
 
-
-
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -182,10 +182,10 @@ public class SelectManyRenderer extends InputRenderer
     FacesContext context,
     UIComponent  component,
     Object       submittedValue,
-    Class        modelClass) throws ConverterException
+    Class<?>     modelClass) throws ConverterException
   {
     Converter converter = null;
-    Class itemClass = null;
+    Class<?> itemClass = null;
     // getComponentType returns the component type of an array, or null
     // if it isn't an array.
     if ( modelClass != null )
@@ -193,7 +193,7 @@ public class SelectManyRenderer extends InputRenderer
 
     if (itemClass != null)
       converter = ConverterUtils.createConverter(context, itemClass);
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = SelectItemSupport.getSelectItems(component, converter);
 
     if ((selectItems == null) || (selectItems.isEmpty()))
     {
@@ -211,7 +211,7 @@ public class SelectManyRenderer extends InputRenderer
     assert (submittedValue instanceof String[]);
 
     String[] submittedValueArray = (String[])submittedValue;
-    List submittedValuesList = new ArrayList();
+    List<Object> submittedValuesList = new ArrayList<Object>();
 
 
     for (int i=0; i < submittedValueArray.length; i++)
@@ -222,7 +222,7 @@ public class SelectManyRenderer extends InputRenderer
 
         if (( -1 < index) && (selectItems.size() > index))
         {
-          SelectItem item = (SelectItem)selectItems.get(index);
+          SelectItem item = selectItems.get(index);
 
           if (item != null)
             submittedValuesList.add(item.getValue());

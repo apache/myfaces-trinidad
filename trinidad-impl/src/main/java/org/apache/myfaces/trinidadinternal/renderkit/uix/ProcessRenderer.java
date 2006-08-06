@@ -39,9 +39,12 @@ public class ProcessRenderer extends UINodeRendererBase
 {
   /**
    */
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
-    Map requestMap = context.getExternalContext().getRequestParameterMap();
+    Map<String, String> requestMap = 
+      context.getExternalContext().getRequestParameterMap();
 
     Object event = requestMap.get("event");
 

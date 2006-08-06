@@ -35,16 +35,19 @@ public final class ImmutableDateFormatContext extends DateFormatContext
     _dfc = (DateFormatContext) dfc.clone();
   }
 
+  @Override
   public int getTwoDigitYearStart()
   {
     return _dfc.getTwoDigitYearStart();
   }
 
+  @Override
   public boolean equals(Object obj)
   {
     return super.equals(obj);
   }
 
+  @Override
   public int hashCode()
   {
     return _hashCode;

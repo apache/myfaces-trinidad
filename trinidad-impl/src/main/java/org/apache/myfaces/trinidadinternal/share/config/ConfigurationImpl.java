@@ -66,6 +66,7 @@ public class ConfigurationImpl extends Configuration
   /**
    * Returns whether the configuration is in debug mode.
    */
+  @Override
   public boolean isDebug()
   {
     return _debug;
@@ -99,6 +100,7 @@ public class ConfigurationImpl extends Configuration
    * @exception DirectoryUnavailableException if the directory is
    *    unavailable
    */
+  @Override
   public String getURI(Object key, String contextURI)
   {
     String uri = _getURI(key);
@@ -132,6 +134,7 @@ public class ConfigurationImpl extends Configuration
    * @exception DirectoryUnavailableException if the directory is
    *    unavailable
    */
+  @Override
   public String getPath(Object key, String contextPath)
   {
     String uri = _getURI(key);
@@ -158,6 +161,7 @@ public class ConfigurationImpl extends Configuration
    * @return the registered object, or null if no object
    *    was registered.
    */
+  @Override
   public Object getProperty(Object key)
   {
     return _properties.get(key);
@@ -263,11 +267,11 @@ public class ConfigurationImpl extends Configuration
   // Turn a key into a URI, deriving it if needed
   private String _getURI(Object key)
   {
-    String uri = (String) _resolvedURIs.get(key);
+    String uri = _resolvedURIs.get(key);
     if (uri != null)
       return uri;
 
-    uri = (String) _uris.get(key);
+    uri = _uris.get(key);
     if (uri == null)
     {
       if (BASE_DIRECTORY.equals(key))
@@ -310,7 +314,7 @@ public class ConfigurationImpl extends Configuration
 
   private String _getPath(Object key)
   {
-    String path = (String) _resolvedPaths.get(key);
+    String path = _resolvedPaths.get(key);
     if (path != null)
       return path;
 
@@ -365,11 +369,13 @@ public class ConfigurationImpl extends Configuration
   // full URI's MUST start with '/'.  This bogusness does
   // mean that we can't support registration of URIs to external
   // webservers.
-  private Hashtable _paths = new Hashtable(11);
-  private Hashtable _uris  = new Hashtable(11);
-  private Hashtable _resolvedURIs  = new Hashtable(11);
-  private Hashtable _resolvedPaths = new Hashtable(11);
-  private Hashtable _properties    = new Hashtable(11);
+  //-= Simon Lessard =-
+  //TODO: Check is synchronization is required
+  private Hashtable<Object, Object> _paths         = new Hashtable<Object, Object>(11);
+  private Hashtable<Object, String> _uris          = new Hashtable<Object, String>(11);
+  private Hashtable<Object, String> _resolvedURIs  = new Hashtable<Object, String>(11);
+  private Hashtable<Object, String> _resolvedPaths = new Hashtable<Object, String>(11);
+  private Hashtable<Object, Object> _properties    = new Hashtable<Object, Object>(11);
   private boolean   _debug;
 
   private static final String _DEFAULT_BASE_DIRECTORY   = "/adf/";

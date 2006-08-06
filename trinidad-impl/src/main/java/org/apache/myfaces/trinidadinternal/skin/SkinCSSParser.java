@@ -49,7 +49,7 @@ public class SkinCSSParser
       _documentHandler = documentHandler;
       _scanner = new CSSScanner(in);
       _documentHandler.startDocument();
-      List selectorList = null;
+      List<String> selectorList = null;
 
       // start scanning the document
       // return comments /* xxx */
@@ -97,7 +97,7 @@ public class SkinCSSParser
    * further into a list of selectors.
    * (the selectors are deliminated by commas)
    */
-  private List _parseSelectorString(
+  private List<String> _parseSelectorString(
     String selectors)
   {
     // give a list of selectors, deliminated by commas, parse into a List.
@@ -105,7 +105,7 @@ public class SkinCSSParser
     if (selectors == null)
       return null;
 
-    List selectorList = new ArrayList();
+    List<String> selectorList = new ArrayList<String>();
 
     // pull apart by the regexp that means
     // (zero or more whitespace) then (comma) then (zero or more whitespace)
@@ -116,12 +116,17 @@ public class SkinCSSParser
       // the first selector might have extra }
       // this is a common typo, to have extra }s.
       if (i == 0)
+      {
         trimmedSelector = _trimChar(selector[i].trim(), '}');
+      }
       else
+      {
         trimmedSelector = selector[i].trim();
+      }
 
       selectorList.add(trimmedSelector);
     }
+    
     return selectorList;
   }
 

@@ -41,11 +41,13 @@ public class PdaPanelPageHeaderRenderer extends XhtmlRenderer
     super(CorePanelPageHeader.TYPE);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,

@@ -38,9 +38,9 @@ public class BeanParserFactory implements ParserFactory
    *          BeanDef objects
    */
   public BeanParserFactory(
-    Class       parserType,
-    String      namespaceURI,
-    Map  beanTypes)
+    Class<?>             parserType,
+    String               namespaceURI,
+    Map<String, BeanDef> beanTypes)
   {
     _parserType   = parserType;
     _namespaceURI = namespaceURI;
@@ -76,7 +76,7 @@ public class BeanParserFactory implements ParserFactory
     String namespaceURI,
     String localName)
   {
-    return (BeanDef)_beanTypes.get(localName);
+    return _beanTypes.get(localName);
   }
 
   protected NodeParser createBeanParser(
@@ -86,7 +86,7 @@ public class BeanParserFactory implements ParserFactory
     return new BeanParser(beanDef);
   }
 
-  private Class       _parserType;
-  private String      _namespaceURI;
-  private Map  _beanTypes;
+  private Class<?>             _parserType;
+  private String               _namespaceURI;
+  private Map<String, BeanDef> _beanTypes;
 }

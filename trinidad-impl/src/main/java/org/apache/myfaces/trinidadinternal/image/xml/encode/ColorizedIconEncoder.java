@@ -37,10 +37,11 @@ public class ColorizedIconEncoder extends AbstractXMLEncoder
   {
   }
 
+  @Override
   protected void encodeAttributes(
     ImageContext context,
-    Map properties, 
-    Map responseProperties,
+    Map<Object, Object> properties, 
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {
@@ -49,7 +50,7 @@ public class ColorizedIconEncoder extends AbstractXMLEncoder
     String source = (String)properties.get(SOURCE_KEY);
     encodeAttribute(SOURCE_ATTR, source, out);
 
-    Class laf = (Class)properties.get(LAF_KEY);
+    Class<?> laf = (Class<?>)properties.get(LAF_KEY);
     
     if ( laf != null )
     {
@@ -61,10 +62,11 @@ public class ColorizedIconEncoder extends AbstractXMLEncoder
   /**
    * Override of AbstractXMLEncoder.encodeBody.
    */
+  @Override
   protected void encodeBody(
     ImageContext context,
-    Map properties, 
-    Map responseProperties,
+    Map<Object, Object> properties, 
+    Map<Object, Object> responseProperties,
     PrintWriter out
     )
   {

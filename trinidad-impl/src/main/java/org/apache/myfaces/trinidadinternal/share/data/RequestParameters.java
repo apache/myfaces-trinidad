@@ -83,7 +83,7 @@ public abstract class RequestParameters
    *      request has no parameters
    *
    */
-  public abstract Iterator getParameterNames();
+  public abstract Iterator<String> getParameterNames();
 
   /**
    * Returns an array of <code>String</code> objects containing

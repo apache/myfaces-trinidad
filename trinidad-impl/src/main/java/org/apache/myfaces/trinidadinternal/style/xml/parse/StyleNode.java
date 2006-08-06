@@ -136,7 +136,8 @@ public class StyleNode
   /**
    * Implementation of StyleNode.getProperties().
    */
-  public Iterator getProperties()
+  @SuppressWarnings("unchecked")
+  public Iterator<PropertyNode> getProperties()
   {
   if (_properties == null) 
   {
@@ -149,7 +150,8 @@ public class StyleNode
   /**
    * Returns an Iterator containing Strings and IncludePropertyNodes.
    */
-  public Iterator getCompoundProperties()
+  @SuppressWarnings("unchecked")
+  public Iterator<CompoundPropertyNode> getCompoundProperties()
   {
     if (_compoundProperties == null) 
     {
@@ -162,7 +164,8 @@ public class StyleNode
   /**
    * Returns an Iterator of IncludeStyleNodes.
    */
-  public Iterator getIncludedStyles()
+  @SuppressWarnings("unchecked")
+  public Iterator<IncludeStyleNode> getIncludedStyles()
   {
     if (_includedStyles == null) 
     {
@@ -175,7 +178,8 @@ public class StyleNode
   /**
    * Returns an Iterator of IncludePropertyNodes.
    */
-  public Iterator getIncludedProperties()
+  @SuppressWarnings("unchecked")
+  public Iterator<IncludePropertyNode> getIncludedProperties()
   {
     if(_includedProperties == null) 
     {

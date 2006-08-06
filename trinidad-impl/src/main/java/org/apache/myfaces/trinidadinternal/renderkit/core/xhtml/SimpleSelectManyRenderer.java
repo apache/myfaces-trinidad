@@ -57,6 +57,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -70,6 +71,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    * @todo This throws a ConverterException on the first unconvertable
    *  value;  it should wait
    */
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -88,7 +90,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     if ( converter == null)
       converter = getDefaultConverter(context, bean);
 
-    Class modelClass = null;
+    Class<?> modelClass = null;
     ValueBinding binding = getValueBinding(bean);
     if (binding != null)
     {
@@ -115,8 +117,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     }
   }
 
-
-
+  @Override
   public Object getSubmittedValue(
     FacesContext context,
     UIComponent  component)
@@ -137,6 +138,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    * Override to return a Converter for the items in the value,
    * not the value itself.
    */
+  @Override
   protected Converter getDefaultConverter(
     FacesContext context,
     FacesBean    bean)
@@ -145,13 +147,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     if (binding == null)
       return null;
 
-    Class type = binding.getType(context);
+    Class<?> type = binding.getType(context);
     if ((type == null) || type.isAssignableFrom(List.class))
       return null;
 
     if (type.isArray())
     {
-      Class itemClass = type.getComponentType();
+      Class<?> itemClass = type.getComponentType();
       return ConverterUtils.createConverter(context, itemClass);
     }
 
@@ -165,7 +167,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     UIComponent  component,
     Converter    converter,
     String[]     values,
-    Class        modelClass) throws ConverterException
+    Class<?>     modelClass) throws ConverterException
   {
     // Handle lists
     if ((modelClass == null) || modelClass.isAssignableFrom(List.class))
@@ -173,7 +175,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       if (converter == null)
         return Arrays.asList(values);
 
-      ArrayList newList = new ArrayList(values.length);
+      ArrayList<Object> newList = new ArrayList<Object>(values.length);
       for (int i = 0; i < values.length; i++)
       {
         // Note - any error will result in an immediate ConverterException
@@ -188,7 +190,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       if (converter == null)
         return values;
 
-      Class itemClass = modelClass.getComponentType();
+      Class<?> itemClass = modelClass.getComponentType();
       Object convertedArray = Array.newInstance(itemClass, values.length);
       for (int i = 0; i < values.length; i++)
       {
@@ -222,9 +224,10 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     UIComponent  component,
     Converter    converter,
     String[]     values,
-    Class        modelClass) throws ConverterException
+    Class<?>     modelClass) throws ConverterException
   {
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = 
+      SelectItemSupport.getSelectItems(component, converter);
 
     // No selectItems automatically means that we failed to convert
     if ((selectItems == null) || (selectItems.isEmpty()))
@@ -233,7 +236,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       _throwConversionError(context, component);
     }
 
-    assert (values instanceof String[]);
+    // -= Simon Lessard =- Useless assertion: assert (values instanceof String[]);
 
     // OK, is this a List or an array?
     boolean isList = ((modelClass == null) ||
@@ -247,17 +250,17 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
 
     // Create either a List or array
-    List     objectList;
-    Object   objectArray;
+    List<Object> objectList;
+    Object       objectArray;
     if (isList)
     {
-      objectList = new ArrayList(values.length);
+      objectList = new ArrayList<Object>(values.length);
       objectArray = null;
     }
     else
     {
       objectList = null;
-      Class itemClass = modelClass.getComponentType();
+      Class<?> itemClass = modelClass.getComponentType();
       // Use Array API instead of Object[] to support primitive types
       objectArray = Array.newInstance(itemClass, values.length);
     }
@@ -273,7 +276,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
         if (( -1 < index) && (selectItems.size() > index))
         {
-          SelectItem item = (SelectItem)selectItems.get(index);
+          SelectItem item = selectItems.get(index);
           if (item == null)
             continue;
 
@@ -301,7 +304,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       return objectArray;
   }
 
-
+  @Override
   protected void encodeAllAsElement(
     FacesContext        context,
     RenderingContext arc,
@@ -330,7 +333,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
                       getRequiredMessageKey());
     }
 
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = SelectItemSupport.getSelectItems(component, converter);
     int selectedIndices[] = _getSelectedIndices(context,
                                                 component,
                                                 bean,
@@ -379,11 +382,12 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     RenderingContext arc,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     int[]               selectedIndices,
     Converter           converter,
     boolean             valuePassThru) throws IOException;
 
+  @Override
   protected void renderNonElementContent(
     FacesContext        context,
     RenderingContext arc,
@@ -398,7 +402,9 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     // =-=AEW If needed, this could be made more efficient
     // by iterating through the list instead of getting
     // all the items
-    List selectItems = SelectItemSupport.getSelectItems(component, converter);
+    List<SelectItem> selectItems = 
+      SelectItemSupport.getSelectItems(component, converter);
+    
     int selectedIndices[] = _getSelectedIndices(context,
                                                 component,
                                                 bean,
@@ -414,7 +420,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
         renderBetweenNonElements(context, arc, component, bean);
       }
 
-      SelectItem item = (SelectItem) selectItems.get(selectedIndices[i]);
+      SelectItem item = selectItems.get(selectedIndices[i]);
       rw.writeText(item.getLabel(), null);
     }
   }
@@ -430,12 +436,11 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     rw.endElement("br");
   }
 
-
+  @Override
   protected String getRequiredMessageKey()
   {
     return UIXSelectMany.REQUIRED_MESSAGE_ID;
   }
-
 
   protected boolean getValuePassThru(FacesBean bean)
   {
@@ -451,11 +456,12 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    * Return all the selected indices, in sorted order.  (There
    * may be trailing -1's in case of an error)
    */
+  @SuppressWarnings("unchecked")
   private int[] _getSelectedIndices(
     FacesContext        context,
     UIComponent         component,
     FacesBean           bean,
-    List                selectItems,
+    List<SelectItem>    selectItems,
     Converter           converter,
     boolean             valuePassThru)
   {
@@ -495,7 +501,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       else
       {
         String[] values = (String[]) submittedValue;
-        List valuesList = new ArrayList(values.length);
+        List<Object> valuesList = new ArrayList<Object>(values.length);
         for (int i = 0; i < values.length; i++)
         {
           valuesList.add(converter.getAsObject(context,
@@ -511,16 +517,16 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       return _EMPTY_INT_ARRAY;
 
     // Now, get the value looking like a list
-    List valueList;
+    List<Object> valueList;
     if (value instanceof List)
     {
       // Make a copy of the list so we can mutate it safely
-      valueList = new ArrayList((List) value);
+      valueList = new ArrayList<Object>((List<Object>) value);
     }
     else if (value.getClass().isArray())
     {
       int length = Array.getLength(value);
-      valueList = new ArrayList(length);
+      valueList = new ArrayList<Object>(length);
       for (int i = 0; i < length; i++)
       {
         valueList.add(Array.get(value, i));
@@ -529,7 +535,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     else
     {
       // Let's just take the one value as a single element
-      valueList = new ArrayList(1);
+      valueList = new ArrayList<Object>(1);
       valueList.add(value);
     }
 
@@ -540,7 +546,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     int lastEntry = 0;
     for (int i = 0; i < itemCount; i++)
     {
-      SelectItem item = (SelectItem) selectItems.get(i);
+      SelectItem item = selectItems.get(i);
       if (item == null)
         continue;
 
@@ -595,7 +601,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
 
 
   static private void _throwUnsupportedModelType(
-    FacesContext context, Class type, UIComponent component)
+    FacesContext context, Class<?> type, UIComponent component)
       throws ConverterException
   {
     throw new ConverterException(

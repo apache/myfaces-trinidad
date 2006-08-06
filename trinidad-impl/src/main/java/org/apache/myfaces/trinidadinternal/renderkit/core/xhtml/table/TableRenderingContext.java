@@ -41,7 +41,7 @@ public class TableRenderingContext
 {
   static public TableRenderingContext getCurrentInstance()
   {
-    return (TableRenderingContext) _CURRENT_CONTEXT.get();
+    return _CURRENT_CONTEXT.get();
   }
 
   public TableRenderingContext(
@@ -219,7 +219,8 @@ public class TableRenderingContext
    * Gets the selection state for this table.
    * This is overwritten in HGridRenderingContext
    */
-  public RowKeySet getSelectedRowKeys()
+  @SuppressWarnings("unchecked")
+  public RowKeySet<Object> getSelectedRowKeys()
   {
     return ((UIXTable) getCollectionComponent()).getSelectedRowKeys();
   }
@@ -494,14 +495,15 @@ public class TableRenderingContext
     }
   }
 
+  @SuppressWarnings("unchecked")
   private void _gatherChildInformation(
     UIComponent      parent)
   {
-    List children = parent.getChildren();
+    List<UIComponent> children = parent.getChildren();
     int count = children.size();
     for (int index = 0; index < count; index++)
     {
-      UIComponent child = (UIComponent) children.get(index);
+      UIComponent child = children.get(index);
 
       if (!child.isRendered())
       {
@@ -517,8 +519,7 @@ public class TableRenderingContext
 
   public static boolean isInsideContentOfTable()
   {
-    TableRenderingContext tContext =
-      (TableRenderingContext) _CURRENT_CONTEXT.get();
+    TableRenderingContext tContext = _CURRENT_CONTEXT.get();
 
     if (tContext == null)
       return false;
@@ -533,7 +534,7 @@ public class TableRenderingContext
    */
   public final Object getTableProperty(Object key)
   {
-    Map props = _tableProps;
+    Map<Object, Object> props = _tableProps;
     return (props == null) ? null : props.get(key);
   }
 
@@ -545,10 +546,10 @@ public class TableRenderingContext
    */
   public final Object setTableProperty(Object key, Object value)
   {
-    Map props = _tableProps;
+    Map<Object, Object> props = _tableProps;
     if (props == null)
     {
-      props = new HashMap(5);
+      props = new HashMap<Object, Object>(5);
       _tableProps = props;
     }
     return props.put(key, value);
@@ -590,7 +591,7 @@ public class TableRenderingContext
 
   // this is a map of properties that are local to this table. This is to
   // support nested tables:
-  private Map _tableProps = null;
+  private Map<Object, Object> _tableProps = null;
 
 
   // general fields
@@ -603,5 +604,6 @@ public class TableRenderingContext
   public static final int DONT_KNOW = -1;
 
 
-  static private final ThreadLocal _CURRENT_CONTEXT = new ThreadLocal();
+  static private final ThreadLocal<TableRenderingContext> _CURRENT_CONTEXT = 
+    new ThreadLocal<TableRenderingContext>();
 }

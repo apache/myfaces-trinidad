@@ -38,13 +38,16 @@ import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
  */
 public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
 {
+  @SuppressWarnings("unchecked")
   public ScriptBufferingResponseWriter(
      FacesContext   context,
      ResponseWriter output)
   {
     this(output, null);
 
-    Map requestScope = context.getExternalContext().getRequestMap();
+    Map<String, Object> requestScope = 
+      context.getExternalContext().getRequestMap();
+    
     // To support multiple Partial Roots, always look for past
     // data from a rendered partial request.
     _data = (Data) requestScope.get(_STORED_DATA_KEY);
@@ -96,7 +99,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
    * Returns objects representing any JavaScript libraries that
    * have been rendered during buffering.
    */
-  public Iterator getBufferedLibraries()
+  public Iterator<Object> getBufferedLibraries()
   {
     if (_data.libraries == null)
       return null;
@@ -104,6 +107,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
     return _data.libraries.iterator();
   }
 
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     return new ScriptBufferingResponseWriter(
@@ -111,6 +115,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       _data);
   }
 
+  @Override
   public void writeComment(Object text) throws IOException
   {
     // Don't bother write out comments if we are buffering
@@ -118,6 +123,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.writeComment(text);
   }
 
+  @Override
   public void writeText(Object text, String property) throws IOException
   {
     if (_checkBuffer())
@@ -126,6 +132,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.writeText(text, property);
   }
 
+  @Override
   public void writeText(
     char[]      text,
     int         start,
@@ -138,6 +145,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   }
 
 
+  @Override
   public void write(String text) throws IOException
   {
     if (_checkBuffer())
@@ -146,6 +154,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.write(text);
   }
 
+  @Override
   public void write(
     char[]      text,
     int         start,
@@ -157,6 +166,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.write(text, start, length);
   }
 
+  @Override
   public void write(int ch) throws IOException
   {
     if (_checkBuffer())
@@ -165,6 +175,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.write(ch);
   }
 
+  @Override
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
@@ -192,6 +203,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.startElement(name, component);
   }
 
+  @Override
   public void endElement(String name) throws IOException
   {
     if (_isScript(name))
@@ -204,7 +216,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       {
         // Add the library to the our list
         if (_data.libraries == null)
-          _data.libraries = new ArrayList(10);
+          _data.libraries = new ArrayList<Object>(10);
 
         _data.libraries.add(source);
       }
@@ -241,6 +253,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.endElement(name);
   }
 
+  @Override
   public void writeAttribute(
     String     name,
     Object     value,
@@ -252,6 +265,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
       super.writeAttribute(name, value, property);
   }
 
+  @Override
   public void writeURIAttribute(
     String     name,
     Object     value,
@@ -296,12 +310,12 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
     // the script start element now.
     super.startElement("script", null);
 
-    Iterator keys = _data.attrs.keys();
+    Iterator<String> keys = _data.attrs.keys();
     if (keys != null)
     {
       while (keys.hasNext())
       {
-        String key = (String)keys.next();
+        String key = keys.next();
         super.writeAttribute(key, _data.attrs.get(key), null);
       }
     }
@@ -311,7 +325,7 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
     {
       while (keys.hasNext())
       {
-        String key = (String)keys.next();
+        String key = keys.next();
         super.writeURIAttribute(key, _data.uriAttrs.get(key), null);
       }
     }
@@ -355,17 +369,18 @@ public class ScriptBufferingResponseWriter extends ResponseWriterDecorator
   {
     public Data()
     {
-      attrs = new ArrayMap(3);
-      uriAttrs = new ArrayMap(1);
+      attrs = new ArrayMap<String, Object>(3);
+      uriAttrs = new ArrayMap<String, Object>(1);
+      objectSuffix = 0;
     }
 
-    public boolean      inScriptStart;  // Inside a script start element?
-    public ArrayMap     attrs;          // Attrs of the script element
-    public ArrayMap     uriAttrs;       // URI attrs of the script element
-    public boolean      buffering;      // Are currently buffering?
-    public StringBuffer buffer;         // The buffer
-    public ArrayList    libraries;      // Imported JavaScript libraries
-    public int          objectSuffix=0; // For the object element ppr bug
+    public boolean                  inScriptStart;        // Inside a script start element?
+    public ArrayMap<String, Object> attrs;                // Attrs of the script element
+    public ArrayMap<String, Object> uriAttrs;             // URI attrs of the script element
+    public boolean                  buffering;            // Are currently buffering?
+    public StringBuffer             buffer;               // The buffer
+    public ArrayList<Object>        libraries;            // Imported JavaScript libraries
+    public int                      objectSuffix;         // For the object element ppr bug
   }
 
   // This utility method is used to strip /**/ style comments out of

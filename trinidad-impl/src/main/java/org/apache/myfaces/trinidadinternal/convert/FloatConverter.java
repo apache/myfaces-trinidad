@@ -34,6 +34,7 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
     public static final String CONVERT_MESSAGE_ID =
         "org.apache.myfaces.trinidad.convert.FloatConverter.CONVERT";
 
+  @Override
   public Object getAsObject(
     FacesContext context, 
     UIComponent component,

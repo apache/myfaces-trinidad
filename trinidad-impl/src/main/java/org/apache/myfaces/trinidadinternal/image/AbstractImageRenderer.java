@@ -42,8 +42,8 @@ abstract public class AbstractImageRenderer
    */
   abstract public Image renderImage(
     ImageContext context,
-    Map requestedProperties,
-    Map responseProperties
+    Map<Object, Object> requestedProperties,
+    Map<Object, Object> responseProperties
     );
 
   /**

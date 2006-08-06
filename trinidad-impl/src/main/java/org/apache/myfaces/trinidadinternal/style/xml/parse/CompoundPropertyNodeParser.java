@@ -43,6 +43,7 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startElement()
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -56,6 +57,7 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.endElement()
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -78,6 +80,7 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.startChildElement()
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -109,6 +112,7 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
   /**
    * Implementation of NodeParser.addCompletedChild().
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -148,7 +152,9 @@ public class CompoundPropertyNodeParser extends BaseNodeParser
   }
 
   private String  _name;
-  private Vector  _values = new Vector();
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is truly required.
+  private Vector<Object> _values = new Vector<Object>();
 
   private static final String _INCLUDE_PROPERTY_ERROR =
     "The use of the includeProperty element inside of a compoundProperty element is now deprecated.  Please use the includeValue element instead.";

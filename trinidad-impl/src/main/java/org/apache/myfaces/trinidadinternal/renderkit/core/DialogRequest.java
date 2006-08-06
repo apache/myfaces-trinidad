@@ -34,15 +34,16 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
  */
 class DialogRequest
 {
+  @SuppressWarnings("unchecked")
   public DialogRequest(
-    UIViewRoot targetRoot,
-    String     clientId,
-    String     formId,
-    Map        dialogProperties
+    UIViewRoot         targetRoot,
+    String             clientId,
+    String             formId,
+    Map<String,Object> dialogProperties
     )
   {
-    _clientId          = clientId;
-    _formId             = formId;
+    _clientId = clientId;
+    _formId   = formId;
 
     if (dialogProperties == null)
       dialogProperties = Collections.EMPTY_MAP;
@@ -54,6 +55,7 @@ class DialogRequest
                                   targetRoot,
                                   CoreRenderer.toString(width),
                                   CoreRenderer.toString(height));
+    
     _dialogProperties  = dialogProperties;
   }
 
@@ -99,10 +101,10 @@ class DialogRequest
       out.writeText(_DEFAULT_HEIGHT, null);
     }
 
-    Iterator propertiesIter = _dialogProperties.keySet().iterator();
+    Iterator<String> propertiesIter = _dialogProperties.keySet().iterator();
     while (propertiesIter.hasNext())
     {
-      Object key = propertiesIter.next();
+      String key = propertiesIter.next();
       Object value = _dialogProperties.get(key);
       // =-=AEW When to put in quotes????
       if (value != null)
@@ -143,10 +145,10 @@ class DialogRequest
     return "ADFDialog" + _sCount++;
   }
 
-  private final String     _clientId;
-  private final String     _formId;
-  private final String     _url;
-  private final Map        _dialogProperties;
+  private final String             _clientId;
+  private final String             _formId;
+  private final String             _url;
+  private final Map<String,Object> _dialogProperties;
 
 
   // Some default widths and heights to avoid popping up huge

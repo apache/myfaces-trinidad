@@ -46,6 +46,7 @@ public class BaseDesktopSkin extends XhtmlSkin
    * Returns the id for the desktop implementation of the Base
    * Look And Feel: "base.desktop".
    */
+  @Override
   public String getId()
   {
     return BaseDesktopConstants.BASE_DESKTOP_ID;
@@ -55,6 +56,7 @@ public class BaseDesktopSkin extends XhtmlSkin
    * Returns the family for the Base
    * Look And Feel: "base".
    */
+  @Override
   public String getFamily()
   {
     return "base";
@@ -64,6 +66,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   /**
    * Returns the renderKitId for the BaseDesktopSkin: "org.apache.myfaces.trinidad.desktop".
    */
+  @Override
   public String getRenderKitId()
   {
     return ORACLE_ADF_DESKTOP;
@@ -72,6 +75,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   /**
    * Returns the name of the XSS style sheet for this Skin.
    */
+  @Override
   public String getStyleSheetName()
   {
     return "base-desktop.xss";

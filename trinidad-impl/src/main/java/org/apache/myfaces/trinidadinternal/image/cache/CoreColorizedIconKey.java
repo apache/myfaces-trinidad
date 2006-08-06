@@ -36,7 +36,7 @@ public class CoreColorizedIconKey extends BaseColorizedIconKey
    */
   public CoreColorizedIconKey(
     ImageContext context,
-    Map properties
+    Map<Object, Object> properties
     )
   {
     super(context, properties);
@@ -48,7 +48,7 @@ public class CoreColorizedIconKey extends BaseColorizedIconKey
   protected CoreColorizedIconKey(
     ImageContext context,
     String source,
-    Class  lookAndFeel,
+    Class<?> lookAndFeel,
     int    direction,
     Color  color,
     Color  surroundingColor)
@@ -61,6 +61,7 @@ public class CoreColorizedIconKey extends BaseColorizedIconKey
    * @deprecated in favor of
    * {@link #CoreColorizedIconKey( ImageContext, String, Class, int, Color, Color)}
    */
+  @Deprecated
   protected CoreColorizedIconKey(
     ImageContext context,
     String source,
@@ -75,6 +76,7 @@ public class CoreColorizedIconKey extends BaseColorizedIconKey
    * Returns the color key for core colorized icons:
    * ImageConstants.DARK_COLOR_KEY.
    */
+  @Override
   public Object getColorKey()
   {
     return ImageConstants.DARK_COLOR_KEY;

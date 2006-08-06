@@ -33,6 +33,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     super(type);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -44,11 +45,13 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     _contentStyleKey = type.findKey("contentStyle");
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected final void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -140,6 +143,7 @@ abstract public class FormElementRenderer extends EditableValueRenderer
   {
   }
 
+  @Override
   protected void renderEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException

@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.htmlBasic;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -25,7 +24,6 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 
 /**
@@ -36,24 +34,27 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
  */
 public class HtmlFormRenderer extends Renderer
 {
+  @Override
   public void decode(FacesContext context,
                      UIComponent component)
   {
     createRenderer(component).decode(context, component);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return false;
   }
 
-
+  @Override
   public void encodeBegin(FacesContext context,
                              UIComponent component) throws IOException
   {
     createRenderer(component).encodeBegin(context, component);
   }
 
+  @Override
   public void encodeEnd(FacesContext context,
                      UIComponent component) throws IOException
   {
@@ -65,29 +66,35 @@ public class HtmlFormRenderer extends Renderer
     final FacesBean bean = new ComponentFacesBean(component);
     return new FormRenderer()
     {
+      @Override
       public FacesBean getFacesBean(UIComponent comp)
       {
         return bean;
       }
 
+      @Override
       protected String getInlineStyle(FacesBean bean)
       {
         return toString(component.getAttributes().get("style"));
       }
 
+      @Override
       protected String getTargetFrame(FacesBean bean)
       {
         return toString(component.getAttributes().get("target"));
       }
 
+      @Override
       protected String getShortDesc(FacesBean bean)
       {
         return toString(component.getAttributes().get("title"));
       }
 
+      @SuppressWarnings("unchecked")
+      @Override
       protected boolean getUsesUpload(FacesBean bean)
       {
-        Map attrs = component.getAttributes();
+        Map<String, Object> attrs = component.getAttributes();
         return "multipart/form-data".equals(attrs.get("enctype"));
       }
     };

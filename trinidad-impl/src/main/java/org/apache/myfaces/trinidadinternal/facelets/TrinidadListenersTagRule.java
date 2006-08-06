@@ -48,6 +48,7 @@ final class TrinidadListenersTagRule extends MetaRule
       _paramList = paramList;
     }
     
+    @Override
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
       MethodExpression expr =
@@ -74,6 +75,7 @@ final class TrinidadListenersTagRule extends MetaRule
   }
    
 
+  @Override
   public Metadata applyRule(
      String name,
      TagAttribute attribute,
@@ -92,17 +94,17 @@ final class TrinidadListenersTagRule extends MetaRule
           return null;
 
         // It should return an array of FooListener objects
-        Class arrayType = listeners.getPropertyType();
+        Class<?> arrayType = listeners.getPropertyType();
         if (!arrayType.isArray())
           return null;
         
         // Ignore non-ADF types
-        Class listenerClass = arrayType.getComponentType();
+        Class<?> listenerClass = arrayType.getComponentType();
         if (!listenerClass.getName().startsWith("org.apache.myfaces.trinidad."))
           return null;
 
         // Turn that into an Event to get the signature
-        Class eventClass = _getEventClass(listenerClass);
+        Class<?> eventClass = _getEventClass(listenerClass);
         if (eventClass == null)
           return null;
 
@@ -114,7 +116,7 @@ final class TrinidadListenersTagRule extends MetaRule
     return null;
   }
 
-  static private Class _getEventClass(Class listenerClass)
+  static private Class<?> _getEventClass(Class<?> listenerClass)
   {
     String listenerName = listenerClass.getName();
     if (!listenerName.endsWith("Listener"))

@@ -33,6 +33,10 @@ import java.util.AbstractSet;
  * compute. Use the {@link #getSize()} method on this class for an inexpensive size.
  * @author The Oracle ADF Faces Team
  */
+// -= Simon Lessard =-
+// TODO: Since RowKeySet is used by so many components internally,
+//       I believe we shouldn't parametrize it. I would rather see 
+//       public abstract class RowKeySet extends AbstractSet<Object> implements Cloneable
 public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
 {
   public RowKeySet()

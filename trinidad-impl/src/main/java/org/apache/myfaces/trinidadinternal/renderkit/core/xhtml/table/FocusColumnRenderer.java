@@ -34,22 +34,26 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 public class FocusColumnRenderer extends SpecialColumnRenderer
 {
+  @Override
   protected String getHeaderText(FacesBean bean)
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     return arc.getTranslatedString("af_treeTable.FOCUS_COLUMN_HEADER");
   }
   
+  @Override
   protected String getHeaderStyleClass(TableRenderingContext tContext)
   {
     return XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE;
   }
 
+  @Override
   protected String getFormatType(FacesBean bean)
   {
     return CoreColumn.ALIGN_CENTER;
   }
 
+  @Override
   protected void renderKids(FacesContext          context,
                             RenderingContext   arc,
                             TableRenderingContext trc,

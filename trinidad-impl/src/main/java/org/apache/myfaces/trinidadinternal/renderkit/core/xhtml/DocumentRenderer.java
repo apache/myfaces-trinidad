@@ -45,6 +45,7 @@ public class DocumentRenderer extends XhtmlRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -53,11 +54,13 @@ public class DocumentRenderer extends XhtmlRenderer
     _body = new BodyRenderer(type);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @Override
   protected void encodeAll(
     FacesContext        context,
     RenderingContext arc,
@@ -83,6 +86,7 @@ public class DocumentRenderer extends XhtmlRenderer
       super(type);
     }
 
+    @Override
     protected String getClientId(
       FacesContext context,
       UIComponent  component)

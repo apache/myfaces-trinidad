@@ -36,6 +36,7 @@ public class GlobalVariablesScriptlet extends Scriptlet
   {
   }
 
+  @Override
   public Object getScriptletKey()
   {
     return GLOBAL_VARIABLES_KEY;
@@ -51,6 +52,7 @@ public class GlobalVariablesScriptlet extends Scriptlet
     return _sInstance;
   }
 
+  @Override
   protected void outputScriptletContent(
     FacesContext        context,
     RenderingContext arc) throws IOException

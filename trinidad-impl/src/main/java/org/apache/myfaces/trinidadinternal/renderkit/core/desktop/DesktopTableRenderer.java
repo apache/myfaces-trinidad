@@ -64,6 +64,7 @@ public class DesktopTableRenderer extends TableRenderer
     super(type);
   }
   
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -81,6 +82,7 @@ public class DesktopTableRenderer extends TableRenderer
     this(CoreTable.TYPE);
   }
 
+  @Override
   protected final void renderSingleRow(
     FacesContext context,
     RenderingContext arc,
@@ -226,6 +228,7 @@ public class DesktopTableRenderer extends TableRenderer
       writer.writeText(LINKS_DIVIDER_TEXT, null);
   }
 
+  @Override
   protected void renderSubControlBar(
     FacesContext context,
     RenderingContext arc,
@@ -241,6 +244,7 @@ public class DesktopTableRenderer extends TableRenderer
     renderSelectionLinks(context, arc, tContext, component);
   }
 
+  @Override
   protected void renderTableContent(
     FacesContext context,
     RenderingContext arc,
@@ -504,6 +508,7 @@ public class DesktopTableRenderer extends TableRenderer
 
 
   // render the control bar
+  @Override
   protected final void renderControlBar(
     FacesContext          context,
     RenderingContext   arc,
@@ -626,6 +631,7 @@ public class DesktopTableRenderer extends TableRenderer
    * renders attributes on the outermost table element.
    * this includes width, cellpadding, cellspacing, border.
    */
+  @Override
   protected void renderTableAttributes(
     FacesContext        context,
     RenderingContext arc,
@@ -815,6 +821,7 @@ public class DesktopTableRenderer extends TableRenderer
     final UIComponent detail = tContext.getDetail();
     final RenderStage renderStage = tContext.getRenderStage();
     TableUtils.RowLoop loop = new TableUtils.RowLoop() {
+      @Override
       protected void processRowImpl(FacesContext fc, CollectionComponent tableBase)
         throws IOException
       {
@@ -939,6 +946,7 @@ public class DesktopTableRenderer extends TableRenderer
     }
   }
 
+  @SuppressWarnings("unchecked")
   private void _renderRegularColumns(
     FacesContext          context,
     TableRenderingContext tContext,
@@ -948,7 +956,7 @@ public class DesktopTableRenderer extends TableRenderer
     // this renders a whole bunch of <TH>...</TH> elements.
     // part of #1313720, base column header count on
     // table child count
-    List children = component.getChildren();
+    List<UIComponent> children = component.getChildren();
     int colCount  = children.size();
     int[] hidden = tContext.getHiddenColumns();
     ColumnData colData = tContext.getColumnData();
@@ -975,6 +983,7 @@ public class DesktopTableRenderer extends TableRenderer
   /**
    * @todo Re-fix bug 3211593 (see below)
    */
+  @SuppressWarnings("unchecked")
   protected final void renderFooter(
     FacesContext          context,
     RenderingContext   arc,
@@ -1017,14 +1026,12 @@ public class DesktopTableRenderer extends TableRenderer
         colData.setColumnIndex(tContext.getSpecialColumnCount(),
                                0/*logicalColumnIndex*/);
 
-        List children = component.getChildren();
-        int count = children.size();
-
-        for (int i = 0; i < count; i++)
+        for(UIComponent child : (List<UIComponent>)component.getChildren())
         {
-          UIComponent child = (UIComponent) children.get(i);
           if (child.isRendered())
+          {
             encodeChild(context, child);
+          }
         }
       }
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
@@ -1058,6 +1065,7 @@ public class DesktopTableRenderer extends TableRenderer
       _disclosed = disclosed;
     }
 
+    @Override
     protected void renderAllAttributes(
        FacesContext        context,
        RenderingContext arc,
@@ -1065,45 +1073,53 @@ public class DesktopTableRenderer extends TableRenderer
     {
     }
 
+    @Override
     protected boolean isTableAllDisclosure()
     {
       return true;
     }
 
+    @Override
     protected boolean renderAsInline()
     {
       return true;
     }
 
+    @Override
     protected String getValueParameter(UIComponent component)
     {
       return "all";
     }
 
 
+    @Override
     protected boolean getDisclosed(FacesBean bean)
     {
       return _disclosed;
     }
 
+    @Override
     protected String getDisclosedText(FacesBean bean)
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_HIDE_ALL_DETAILS_TEXT_KEY);
     }
 
+    @Override
     protected String getUndisclosedText(FacesBean bean)
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       return arc.getTranslatedString(_SHOW_ALL_DETAILS_TEXT_KEY);
     }
 
+    @Override
     protected String getLinkId(String rootId, boolean disclosed)
     {
       String suffix = (disclosed ? "ha" : "sa");
       return XhtmlUtils.getCompositeId(rootId, suffix);
     }
 
+    @Override
     protected String getClientId(FacesContext context, UIComponent component)
     {
       TableRenderingContext tContext = TableRenderingContext.getCurrentInstance();

@@ -123,7 +123,7 @@ public class XhtmlUtils
   {
     if ((XhtmlRenderer.supportsScripting(arc)) && (libKey != null))
     {
-      Scriptlet scriptlet = (Scriptlet) _sScriptletTable.get(libKey);
+      Scriptlet scriptlet = _sScriptletTable.get(libKey);
       if (scriptlet == null)
       {
         if (_LOG.isWarning())
@@ -505,17 +505,17 @@ public class XhtmlUtils
   }
 
   /** HashMap mapping names to their scriptlets */
-  private static Map _sScriptletTable =
-    Collections.synchronizedMap(new HashMap(37));
+  private static Map<Object, Scriptlet> _sScriptletTable =
+    Collections.synchronizedMap(new HashMap<Object, Scriptlet>(37));
 
   // Key for storing whether we've written out the script
   // for storing loaded libraries
   static private final Object _PORTLET_LIB_TABLE_KEY = new Object();
-  static private final Set
-    _NON_STRUCTURAL_COMPONENT_FAMILIES = new HashSet();
+  static private final Set<String> _NON_STRUCTURAL_COMPONENT_FAMILIES;
 
   static
   {
+    _NON_STRUCTURAL_COMPONENT_FAMILIES = new HashSet<String>();
     _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXIterator.COMPONENT_FAMILY);
     _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXComponentRef.COMPONENT_FAMILY);
     _NON_STRUCTURAL_COMPONENT_FAMILIES.add(UIXSubform.COMPONENT_FAMILY);
