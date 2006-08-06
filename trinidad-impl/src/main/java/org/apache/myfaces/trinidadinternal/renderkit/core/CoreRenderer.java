@@ -152,7 +152,7 @@ public class CoreRenderer extends Renderer
     {
       RenderingContext arc = RenderingContext.getCurrentInstance();
       if (arc == null)
-        throw new IllegalStateException("No AdfRenderingContext");
+        throw new IllegalStateException("No RenderingContext");
       
       FacesBean bean = getFacesBean(component);
       encodeBegin(context, arc, component, bean);
@@ -170,7 +170,7 @@ public class CoreRenderer extends Renderer
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     if (arc == null)
-      throw new IllegalStateException("No AdfRenderingContext");
+      throw new IllegalStateException("No RenderingContext");
 
     FacesBean bean = getFacesBean(component);
     if (getRendersChildren())
