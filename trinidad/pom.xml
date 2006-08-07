@@ -254,6 +254,13 @@
       </snapshots>
       <id>java-net</id>
       <name>java.net repository</name>
+      <!-- NOTE: this URL must be HTTPS.  However, unfortunately this
+           doesn't work behind a firewall.  See:
+         http://jira.codehaus.org/browse/WAGONHTTP-6
+           ... for the source of that problem.  Users behind firewalls
+           will have to manually download the files from this repository
+           and transfer them to their local repository.
+      -->
       <url>https://maven-repository.dev.java.net/nonav/repository/</url>
       <layout>legacy</layout>
     </repository>
