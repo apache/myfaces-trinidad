@@ -26,7 +26,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 
 /**
@@ -238,16 +237,12 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       patterns.append(setPatterns[i]);
       patterns.append(' ');
     }
+    
     // will get replaced in javascript
-    String label = "{0}";
+    Object[] params = new Object[] {"{0}", "{1}", patterns.toString()};
 
-    Object[] params = new Object[] {label, "{1}", patterns.toString()};
-
-    convMsgDet = MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
+    return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
                                            convMsgDet, params).getDetail();
-
-    return MessageUtils.createErrorAlertMessage(context, label,
-                                                convMsgDet);
   }
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorConverter.class);

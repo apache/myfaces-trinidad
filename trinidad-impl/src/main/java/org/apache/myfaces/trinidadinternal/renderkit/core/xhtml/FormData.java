@@ -41,7 +41,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import org.apache.myfaces.trinidadinternal.validator.InternalClientValidator;
 
 /**
@@ -104,6 +103,14 @@ public class FormData
     labelMap.put(targetId, label);
   }
 
+  public Integer addGlobalMessageFormat(
+    RenderingContext rc)
+  {
+    String format = rc.getSkin().getTranslatedString(rc.getLocaleContext(),  
+                                                     _GLOBAL_FORMAT_KEY);
+    return _addErrorFormat(format);
+  }
+  
 
 
   public Map<String, String> getLabelMap(
@@ -684,7 +691,7 @@ public class FormData
                                          params).getDetail();
     }
 
-    return MessageUtils.createErrorAlertMessage(fContext, label, detail);
+    return detail;
   }
 
  /**
@@ -751,6 +758,7 @@ public class FormData
   // maps patterns to id's
   private Map<String, String> _patternMap;
 
+
   private String _formName = null;
 
  public static final class ConvertValidate
@@ -763,5 +771,6 @@ public class FormData
   }
 
 
+  static private final String _GLOBAL_FORMAT_KEY = "af_messages.GLOBAL_MESSAGE_FORMAT";
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormData.class);
 }

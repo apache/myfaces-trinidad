@@ -87,6 +87,11 @@ public interface Agent {
    * Constant for pocket pc platform
    */
   public static final String PLATFORM_PPC = "ppc";
+  
+  /**
+   * Constant for blackberry platform
+   */
+  public static final String PLATFORM_BLACKBERRY = "blackberry";
 
   /**
    * Constant for Internet Explorer agent
@@ -102,6 +107,15 @@ public interface Agent {
    * Constant for Apple Webkit agent. Used for all Webkit based agent like Safari
    */
   public static final String AGENT_WEBKIT = "webkit";
+  
+  /**
+   * Constant for BlackBerry Browser agent.  (Note the distinction from the
+   * BlackBerry platform.  The BlackBerry Browser agent runs on the
+   * BlackBerry platform.  It is possible for other agents to run on the
+   * BlackBerry platform.)
+   */
+  public static final String AGENT_BLACKBERRY = "blackberry";
+   
 
   /**
    *

@@ -91,6 +91,24 @@
     </capabilities>
   </agentCapabilities>
 
+   
+   <!-- BlackBerry Browser pre-4.0; 3.6 and 3.7 include support for
+        XHTML Basic; 3.2 and 3.3 support cHTML; we do not provide
+        explicit support for these browsers, but we use the "pda"
+        capabilities because it provides a stripped set of features
+        close to XHTML Basic -->
+   <capabilities id="blackberry" agents="blackberry" platforms="blackberry">
+     <include refid="pda"/>
+   </capabilities>
+
+   
+   <!-- BlackBerry Browser 4.0+ on BlackBerry devices -->
+   <capabilities id="blackberry4" agents="blackberry/4+" platforms="blackberry">
+     <include refid="pda"/>
+     <include src="blackberry4.xml"/>
+   </capabilities>
+
+
 
   <!--devices>
     <device id="Nokia6600" model="nokia6600">

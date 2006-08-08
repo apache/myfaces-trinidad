@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * <p>Enables byte length validation at the client side. </p>
@@ -187,8 +186,7 @@ public class ByteLengthValidator
                                   params).getDetail();
 
 
-    return MessageUtils.createErrorAlertMessage(context, label,
-                                                     detailMsg);
+    return detailMsg;
   }
 
 

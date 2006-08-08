@@ -23,7 +23,6 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 public class RegExpValidator
                        extends org.apache.myfaces.trinidad.validator.RegExpValidator
@@ -105,53 +104,20 @@ public class RegExpValidator
      return "RegExpFormat()";
   }
 
-  /**
-   * @todo I don't want to send any information through this method.
-   * since all relevant information is sent through the constructor.
-   * Need to evaluate if this method is really needed.
-   * @todo this method as a side effect sets the pattern on the FormRenderer.
-   * Since we are sending all the relevant information to the client script
-   * should find a way to apply the localized strings there instead of using
-   * the option
-   * {0} = inputValue
-   * {1} = id / label
-   * {4} = pattern. [As per Bud's proposal]
-   */
-  public String getClientValidationFormat(
-    FacesContext context,
-    UIComponent component
-    )
-  {/*
-    String clientId = component.getClientId(context);
-
-    if (clientId != null)
-    {
-      FormRenderer.addPatternMapping( clientId, getPattern());
-    }
-    else
-      _LOG.severe("Client id is null, no script rendered");
-
-    /**
-     * @todo Think it's worth to cache it here and then blow that away once
-     * this method gets called. The best would be get rid of this method contract
-     */
-    return null;//_getNoMatchMessageDetail(context);
-  }
+ 
 
   private String _getNoMatchMessageDetail(
     FacesContext context)
   {
     String noMatchMsg = getNoMatchMessageDetail();
-    String label = "{0}"; // this will get substituted on the client
-    Object[] params = new Object[] {label, "{1}", "{2}"};
+    Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
     String noMatchDetMsg
       = MessageFactory.getMessage(context,
                                   RegExpValidator.NO_MATCH_MESSAGE_ID,
                                   noMatchMsg,
                                   params).getDetail();
-    return MessageUtils.createErrorAlertMessage(context, label,
-                                                noMatchDetMsg);
+    return noMatchDetMsg;
   }
 
   // -= Simon Lessard =-

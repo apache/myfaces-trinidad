@@ -1,12 +1,12 @@
 /*
  * Copyright  2005,2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 
 /**
  * Private utilities for working with converters
@@ -225,18 +224,14 @@ public class ConverterUtils
       MessageFactory.getMessage(context, maxId,
                                 new Object[]{"{0}", "{1}", maxVal});
 
-    String msg = MessageUtils.createErrorAlertMessage(context, "{0}",
-                                                      maxMessage.getDetail());
-    outBuffer.append(XhtmlLafUtils.escapeJS(msg));
+    outBuffer.append(XhtmlLafUtils.escapeJS(maxMessage.getDetail()));
     outBuffer.append("',MV:'");
 
     FacesMessage minMessage =
       MessageFactory.getMessage(context, minId,
                                 new Object[]{"{0}", "{1}", minVal});
 
-    msg = MessageUtils.createErrorAlertMessage(context, "{0}",
-                                               minMessage.getDetail());
-    outBuffer.append(XhtmlLafUtils.escapeJS(msg));
+    outBuffer.append(XhtmlLafUtils.escapeJS(minMessage.getDetail()));
 
     outBuffer.append("',D:'");
 
@@ -244,9 +239,8 @@ public class ConverterUtils
       MessageFactory.getMessage(context, defaultId,
                                 new Object[]{"{0}", "{1}"});
 
-    msg = MessageUtils.createErrorAlertMessage(context, "{0}",
-                                               defaultMessage.getDetail());
-    outBuffer.append(XhtmlLafUtils.escapeJS(msg));    
+    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail()));
+
     outBuffer.append("'},(void 0),0,");
     outBuffer.append(maxVal);
     outBuffer.append(',');
@@ -272,9 +266,7 @@ public class ConverterUtils
       MessageFactory.getMessage(context, defaultId,
                                 new Object[]{"{0}", "{1}"});
 
-    String msg = MessageUtils.createErrorAlertMessage(context, "{0}",
-                                               defaultMessage.getDetail());
-    outBuffer.append(XhtmlLafUtils.escapeJS(msg));    
+    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail()));
     outBuffer.append("'})");
 
     return outBuffer.toString();

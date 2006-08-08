@@ -33,7 +33,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.trinidadinternal.util.MessageUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
@@ -217,14 +216,10 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       if (pattern == null)
         pattern = getSecondaryPattern();
 
-      String label = "{0}"; // will get replaced in javascript
-      Object[] params = new Object[] {label, "{1}", getExample(context)};
+      Object[] params = new Object[] {"{0}", "{1}", getExample(context)};
       String msg = getParseErrorMessage(context, component,
                                         pattern, params).getDetail();
-      String message = XhtmlLafUtils.escapeJS(
-                      MessageUtils.createErrorAlertMessage(context,
-                                                  label,
-                                                  msg));
+      String message = XhtmlLafUtils.escapeJS(msg);
                                                   
       StringBuffer outBuffer = new StringBuffer(30 + jsPattern.length() +
                                                 message.length());

@@ -206,6 +206,10 @@ function _supportsDOM()
   {
     retVal = true;
   }
+  else if(_agent.isBlackBerry)
+  {
+    retVal = false;
+  }
 
   return retVal;
 }
@@ -218,18 +222,25 @@ function _agentInit()
   // convert all characters to lowercase to simplify testing
   var agentString = navigator.userAgent.toLowerCase();
 
+  // note that this only returns m.n (e.g. if the
+  // version number is 2.3.4, this returns the float 2.3)
   var version = parseFloat(navigator.appVersion);
 
-  var isOpera   = false;
-  var isIE      = false;
-  var isNav     = false;
-  var isGecko   = false;
-  var isSafari  = false;
-  var isPIE     = false;
-  var kind      = "unknown";
-  var isWindows = false;
-  var isSolaris = false;
-  var isMac     = false;
+  // note that isBlackBerry refers to the BlackBerry browser
+  // we do not currently specify the BlackBerry platform
+  // because it is not necessary (if we decide to support
+  // other browsers on the BlackBerry platform it may become necessary)
+  var isOpera      = false;
+  var isIE         = false;
+  var isNav        = false;
+  var isGecko      = false;
+  var isSafari     = false;
+  var isPIE        = false;
+  var isBlackBerry = false;
+  var kind         = "unknown";
+  var isWindows    = false;
+  var isSolaris    = false;
+  var isMac        = false;
 
   if (agentString.indexOf("msie") != -1)
   {
@@ -281,6 +292,22 @@ function _agentInit()
       kind = "nn";
     }
   }
+  else if(agentString.indexOf("blackberry") != -1)
+  {
+    // if we support non-BlackBerry Browser agents on blackberry
+    // devices in the future, we may need to revisit this because
+    // those agents may include "blackberry" in the User-Agent
+    // string; we can't just check if the User-Agent "starts with"
+    // blackberry because navigator.userAgent on BlackBery Browser 4.0
+    // starts with Mozilla/4.0 (even though the User-Agent sent to the
+    // server starts with BlackBerry<model>/<version>)
+
+    // BlackBerry Browser 4.0+ supports navigator.appVersion,
+    // and earlier versions don't support script, so we can
+    // leave the version as defined above
+    isBlackBerry = true;
+    kind = "blackberry";
+  }
 
   if (agentString.indexOf('win') != -1)
   {
@@ -301,6 +328,7 @@ function _agentInit()
   _agent.isPIE = isPIE;
   _agent.isGecko = isGecko;
   _agent.isSafari = isSafari;
+  _agent.isBlackBerry = isBlackBerry;
   _agent.version = version
   _agent.kind = kind;
   _agent.isWindows = isWindows;
@@ -2248,7 +2276,8 @@ function _setFocus(currInput)
 function _multiValidate(
   form,
   source,
-  validators
+  validators,
+  globalMessageIndex
   )
 {
   var failures = "";
@@ -2371,7 +2400,12 @@ function _multiValidate(
                                                   requiredFormatIndex);
 
         if (requiredErrorString)
+        {
+          requiredErrorString = _getGlobalErrorString(currInput, 
+                                              globalMessageIndex, 
+                                              requiredErrorString);   
           failures += '\n' + requiredErrorString;
+        }
       }
       else if (validations)
       {
@@ -2417,14 +2451,18 @@ function _multiValidate(
                 firstFailure = false;
               }
 
-              // get the formatted error string for the current input and
-              // formatIndex
+              // get the formatted error string for the current input
               var errorString1 = _getErrorString(currInput,
                                                  null,
                                                 converterError);
 
               if (errorString1)
+              {                         
+                errorString1 = _getGlobalErrorString(currInput, 
+                                                     globalMessageIndex, 
+                                                     errorString1);                                         
                 failures += '\n' + errorString1;
+              }
             }
             else
             {
@@ -2485,7 +2523,12 @@ function _multiValidate(
                                                   validationError);
 
                 if (errorString)
+                {     
+                  errorString = _getGlobalErrorString(currInput, 
+                                                      globalMessageIndex, 
+                                                      errorString);       
                   failures += '\n' + errorString;
+                }
               }
             }
           }
@@ -2499,7 +2542,46 @@ function _multiValidate(
   return failures;
 }
 
+function _getGlobalErrorString(
+  input,
+  formatIndex,
+  errorString
+  )
+{
+  var form = _getForm(input);  
+  // get the list of different error formats
+  var errorFormats = window["_" + _getJavascriptId(form.name) + "_Formats"];
 
+  if (errorFormats)
+  {
+    // get the appropriate error format
+    var errorFormat = errorFormats[formatIndex];
+
+    if (errorFormat)
+    {
+      // get the mapping of id's to labels
+      var labelMap = window["_" + _getJavascriptId(form.name) + "_Labels"];
+    
+      // get the label for this input element, if one has been
+      // associated using the ID of the input element
+      if (labelMap)
+      {
+        var label = labelMap[_getID(input)];
+        
+        if (label)
+        {
+          return _formatErrorString(errorFormat,
+                                   {
+                                     "0":label,
+                                     "1":errorString
+                                   });
+        }
+      }
+    }
+  }   
+  
+  return errorString;  
+}                
 
 
 /**
@@ -2605,7 +2687,7 @@ function _multiValidate(
    else
    {
      var form = _getForm(input);
-     // for loser Netscape, use table lookup
+     // for Netscape, use table lookup
      var nameToID = window["_" + _getJavascriptId(form.name) + "_NameToID"];
 
      if (nameToID)
