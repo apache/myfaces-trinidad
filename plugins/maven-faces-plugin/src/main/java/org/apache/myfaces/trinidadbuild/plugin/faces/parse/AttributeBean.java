@@ -212,6 +212,7 @@ public class AttributeBean extends ObjectBean implements Comparable
   private String[] _attributeClassParameters;
   private String   _description;
   private String   _defaultValue;
+  // FIXME: Alternate type does not seem to support generic types
   private String   _alternateClass;
   private boolean  _virtual;
   private MethodSignatureBean _signature;

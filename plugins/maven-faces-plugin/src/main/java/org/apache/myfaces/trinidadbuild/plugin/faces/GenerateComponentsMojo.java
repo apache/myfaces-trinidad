@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +30,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 import org.apache.myfaces.trinidadbuild.plugin.faces.io.PrettyWriter;
 import org.apache.myfaces.trinidadbuild.plugin.faces.parse.ComponentBean;
 import org.apache.myfaces.trinidadbuild.plugin.faces.parse.EventBean;
@@ -44,9 +47,6 @@ import org.apache.myfaces.trinidadbuild.plugin.faces.util.FilteredIterator;
 import org.apache.myfaces.trinidadbuild.plugin.faces.util.PropertyFilter;
 import org.apache.myfaces.trinidadbuild.plugin.faces.util.SourceTemplate;
 import org.apache.myfaces.trinidadbuild.plugin.faces.util.Util;
-
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 
 /**
  * @version $Id$
@@ -126,7 +126,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     ComponentBean component)
   {
     String fullClassName = component.getComponentClass();
-
+    
     try
     {
       getLog().debug("Generating " + fullClassName);
@@ -429,7 +429,18 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
         PropertyBean property = (PropertyBean)properties.next();
         String propertyClass = property.getPropertyClass();
         if (propertyClass != null)
+        {
           imports.add(propertyClass);
+          // Check for generics
+          String[] types = property.getAttributeClassParameters();
+          if(types != null)
+          {
+            for(int i = types.length - 1; i >= 0; i--)
+            {
+              _addGenericImports(imports, types[i]);
+            }
+          }
+        }
 
         // ComponentUtils only needed for resolvable properties
         if (resolvable.accept(property))
@@ -482,6 +493,26 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     imports.removeAll(Util.PRIMITIVE_TYPES);
 
     writeImports(out, packageName, imports);
+  }
+  
+  private void _addGenericImports(Set imports, String type)
+  {
+    Matcher matcher = _GENERIC_TYPE.matcher(type);
+    if(matcher.matches())
+    {
+      // Generic type
+      imports.add(matcher.group(1));
+      String[] types = matcher.group(2).split(",");
+      for(int i = types.length - 1; i >= 0; i--)
+      {
+        _addGenericImports(imports, types[i]);
+      }
+    }
+    else
+    {
+      // Non-generic type
+      imports.add(type);
+    }
   }
 
   private void _writeGenericConstants(
@@ -715,6 +746,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     PrettyWriter out) throws IOException
   {
     out.println();
+    out.println("@Override");
     out.println("public String getFamily()");
     out.println("{");
     out.indent();
@@ -727,6 +759,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     PrettyWriter out) throws IOException
   {
     out.println();
+    out.println("@Override");
     out.println("protected FacesBean.Type getBeanType()");
     out.println("{");
     out.indent();
@@ -847,21 +880,23 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
    PrettyWriter  out,
    PropertyBean  property) throws IOException
   {
-    _writePropertySet(out, property, property.getPropertyClass());
+    String propertyClass = Util.getPropertyClass(property);
+    _writePropertySet(out, property, propertyClass);
 
-    String alternateClass = property.getAlternateClass();
-    if (alternateClass != null)
+    if (property.getAlternateClass() != null)
+    {
+      String alternateClass = Util.getAlternatePropertyClass(property);
       _writePropertySet(out, property, alternateClass);
+    }
   }
 
   private void _writePropertySet(
    PrettyWriter  out,
    PropertyBean  property,
-   String        propertyFullClass) throws IOException
+   String        propertyClass) throws IOException
   {
     String propName = property.getPropertyName();
     String propKey = Util.getConstantNameFromProperty(propName, "_KEY");
-    String propertyClass = Util.getClassFromFullClass(propertyFullClass);
     String propVar = Util.getVariableFromName(propName);
     String description = property.getDescription();
     String setMethod = Util.getPrefixedPropertyName("set", propName);
@@ -918,10 +953,18 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     String propertyClass = Util.getClassFromFullClass(propertyFullClass);
     String description = property.getDescription();
     String getMethod = Util.getMethodReaderFromProperty(propName, propertyClass);
-
+    
+    boolean isUnchecked = false;
+    String[] genericTypes = property.getPropertyClassParameters();
+    if(genericTypes != null && genericTypes.length > 0)
+    {
+      isUnchecked = true;
+      propertyClass = Util.getPropertyClass(property);
+    }
+    
     out.println();
     out.println("/**");
-     if (description != null)
+    if (description != null)
     {
       out.println(" * Gets " + convertMultilineComment(description));
     }
@@ -929,12 +972,18 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     {
       out.println(" * <p>");
       out.println(" * This is a required property on the component.");
+      out.println(" * </p>");
     }
     // TODO: put this back in
     //out.println(" *");
     //out.println(" * @return  the new " + propName + " value");
     out.println(" */");
 
+    if(isUnchecked)
+    {
+      out.println("@SuppressWarnings(\"unchecked\")");
+    }
+    
     out.println("final public " + propertyClass + " " + getMethod + "()");
     out.println("{");
     out.indent();
@@ -964,13 +1013,21 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     }
     else
     {
-      out.println("return (" + propertyClass + ")" +
-                          "(getProperty(" + propKey + "));");
+      if(propertyClass.equals("Object"))
+      {
+        // Cast is not necessary if the property class is Object
+        out.println("return getProperty(" + propKey + ");");
+      }
+      else
+      {
+        out.println("return (" + propertyClass + ")" +
+                    "getProperty(" + propKey + ");");
+      }
     }
     out.unindent();
     out.println("}");
   }
-
+  
   private void _writeFacetMethods(
    PrettyWriter  out,
    ComponentBean component) throws IOException
@@ -1011,6 +1068,11 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     //out.println(" * @param " + facetVar + "  the new " + facetName + " facet");
     out.println(" */");
 
+    // Remove type safety warning since getFacets is not generics enabled 
+    // under JSF 1.1 spec
+    // TODO: Remove this line when Trinidad switch to JSF 1.2
+    out.println("@SuppressWarnings(\"unchecked\")");
+    
     out.println("final public void " + setMethod + "(UIComponent " + facetVar + ")");
     out.println("{");
     out.indent();
@@ -1323,5 +1385,6 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
    */
   private boolean suppressListenerMethods;
 
+  static private final Pattern _GENERIC_TYPE = Pattern.compile("([^<]+)<(.+)>");
   static final private Map _RESOLVABLE_TYPES = _createResolvableTypes();
 }
