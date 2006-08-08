@@ -24,6 +24,8 @@ import javax.faces.context.FacesContext;
  */
 abstract public class UIXOutputTemplate extends UIXValue
 {
+	
+  @Override
   void __rendererDecode(FacesContext context)
   {
     // do nothing. we have no behaviour

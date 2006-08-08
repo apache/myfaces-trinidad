@@ -34,6 +34,8 @@ abstract public class UIXProgressTemplate
                 extends UIXComponentBase
                 implements ActionSource
 {
+	
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if (e.getSource() == this && e instanceof ActionEvent)
@@ -47,6 +49,7 @@ abstract public class UIXProgressTemplate
     super.queueEvent(e);
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     super.broadcast(event);

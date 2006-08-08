@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidad.component;
 
 import java.util.List;
 
+import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
@@ -30,6 +31,9 @@ import org.apache.myfaces.trinidad.event.DisclosureEvent;
  */
 abstract public class UIXShowOneTemplate extends UIXComponentBase
 {
+	
+  @Override
+  @SuppressWarnings("unchecked")
   public void queueEvent(FacesEvent e)
   {
     //  Care only if it is a DisclosureEvent, and only if its source is one of
@@ -42,15 +46,18 @@ abstract public class UIXShowOneTemplate extends UIXComponentBase
       //  showDetailItem
       if (((DisclosureEvent) e).isExpanded())
       {
-        List children = getChildren();
-        int childCount = children.size();
         UIXShowDetail toBeUnDisclosedChild = null;
-        for (int i=0; i<childCount; i++)
+        List<UIComponent> children = getChildren();
+        for(UIComponent child : children)
         {
-          toBeUnDisclosedChild =  (UIXShowDetail) children.get(i);
-          if (toBeUnDisclosedChild.isDisclosed())
-            break;
+          if (child instanceof UIXShowDetail)
+          {
+            toBeUnDisclosedChild =  (UIXShowDetail) child;
+            if (toBeUnDisclosedChild.isDisclosed())
+              break;
+          }
         }
+        
         //  Override the phaseId that would be already set on this event
         //  (coming off of the to-be-disclosed showDetailItem), because the
         //  phase-id should actually be determined by the 'immediate' attribute

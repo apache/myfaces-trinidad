@@ -35,6 +35,7 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
 /**/  abstract public void setSubmitted(boolean submitted);
 /**/  abstract public boolean isDefault();
 
+  @Override
   public void queueEvent(FacesEvent event)
   {
     // If the event is being queued for anything *after* APPLY_REQUEST_VALUES,
@@ -48,12 +49,14 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
     super.queueEvent(event);
   }
 
+  @Override
   public void processDecodes(FacesContext context)
   {
     setSubmitted(false);
     super.processDecodes(context);
   }
 
+  @Override
   public void processValidators(FacesContext context)
   {
     if (!isSubmitted() && isDefault() && !_isSomethingSubmitted(context))
@@ -63,12 +66,14 @@ abstract public class UIXSubformTemplate extends UIXComponentBase
       super.processValidators(context);
   }
 
+  @Override
   public void processUpdates(FacesContext context)
   {
     if (isSubmitted())
       super.processUpdates(context);
   }
 
+  @SuppressWarnings("unchecked")
   static private void _storeSomethingSubmitted(FacesContext context)
   {
     context.getExternalContext().getRequestMap().put(_SOMETHING_SUBMITTED,

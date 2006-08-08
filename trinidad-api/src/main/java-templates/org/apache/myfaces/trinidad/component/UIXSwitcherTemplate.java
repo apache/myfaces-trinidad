@@ -36,6 +36,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   /**
    * Only decode the currently active facet.
    */
+  @Override
   public void processDecodes(FacesContext context)
   {
     UIComponent facet = _getFacet();
@@ -46,6 +47,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   /**
    * Only process validations on the currently active facet.
    */
+  @Override
   public void processValidators(FacesContext context)
   {
     UIComponent facet = _getFacet();
@@ -57,6 +59,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   /**
    * Only process updates on the currently active facet.
    */
+  @Override
   public void processUpdates(FacesContext context)
   {
     UIComponent facet = _getFacet();
@@ -68,6 +71,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   /**
    * Only render the currently active facet.
    */
+  @Override
   public void encodeChildren(FacesContext context)
     throws IOException
   {
@@ -80,6 +84,7 @@ abstract public class UIXSwitcherTemplate extends UIXComponentBase
   /**
    * Override to return true.
    */
+  @Override
   public boolean getRendersChildren()
   {
     return true;

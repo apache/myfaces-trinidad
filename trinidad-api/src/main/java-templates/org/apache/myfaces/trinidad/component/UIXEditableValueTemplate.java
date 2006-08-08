@@ -159,6 +159,7 @@ abstract public class UIXEditableValueTemplate
    * @exception NullPointerException if <code>event</code> is
    * <code>null</code>
    */
+  @Override
   public void broadcast(FacesEvent event)
         throws AbortProcessingException
   {
@@ -181,6 +182,7 @@ abstract public class UIXEditableValueTemplate
    * {@link FacesContext#renderResponse}.
    * @exception NullPointerException {@inheritDoc}
    */
+  @Override
   public void processDecodes(FacesContext context)
   {
     setValid(true);
@@ -195,6 +197,7 @@ abstract public class UIXEditableValueTemplate
       _executeValidate(context);
   }
 
+  @Override
   public void processUpdates(FacesContext context)
   {
     super.processUpdates(context);
@@ -212,7 +215,7 @@ abstract public class UIXEditableValueTemplate
     }
   }
 
-
+  @Override
   public void processValidators(FacesContext context)
   {
     super.processValidators(context);
@@ -274,6 +277,7 @@ abstract public class UIXEditableValueTemplate
 
   /**
    */
+  @SuppressWarnings("unchecked")
   protected void validateValue(FacesContext context, Object newValue)
   {
     if (!isValid())
@@ -292,10 +296,10 @@ abstract public class UIXEditableValueTemplate
     // If our value is not empty, call all validators
     else
     {
-      Iterator validators = getFacesBean().entries(VALIDATORS_KEY);
+      Iterator<Validator> validators = (Iterator<Validator>)getFacesBean().entries(VALIDATORS_KEY);
       while (validators.hasNext())
       {
-        Validator validator = (Validator) validators.next();
+        Validator validator = validators.next();
         try
         {
           validator.validate(context, this, newValue);
@@ -529,7 +533,7 @@ abstract public class UIXEditableValueTemplate
       return null;
     }
 
-    Class converterType = valueBinding.getType(context);
+    Class<?> converterType = valueBinding.getType(context);
     // if converterType is null, String, or Object, assume
     // no conversion is needed
     if (converterType == null ||

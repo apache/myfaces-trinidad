@@ -73,6 +73,8 @@ public class CustomerBean
   private String _lastName = null;
   private String _userName = null;
   private String _password = null;
+  // Never read
+  @SuppressWarnings("unused")
   private int   _id;
 
   static private int _sID = 2242;

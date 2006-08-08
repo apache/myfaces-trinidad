@@ -25,11 +25,13 @@ import org.apache.myfaces.trinidadinternal.taglib.UIXEditableValueTag;
  */
 public class DateFieldTag extends UIXEditableValueTag
 {
+  @Override
   public String getComponentType()
   {
     return "org.apache.myfaces.trinidaddemo.DateField";
   }
 
+  @Override
   public String getRendererType()
   {
     return null;

@@ -20,7 +20,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-public class InfiniteTree extends AbstractList implements Serializable
+public class InfiniteTree extends AbstractList<InfiniteTree.Bean> implements Serializable
 {
   public InfiniteTree(String id)
   {
@@ -32,12 +32,14 @@ public class InfiniteTree extends AbstractList implements Serializable
     this("");
   }
 
+  @Override
   public int size()
   {
     return _GENES.length;
   }
 
-  public Object get(int index)
+  @Override
+  public Bean get(int index)
   {
     return new Bean(index);
   }
@@ -79,7 +81,7 @@ public class InfiniteTree extends AbstractList implements Serializable
       return getLabel().length();
     }
 
-    public List getKids()
+    public List<InfiniteTree.Bean> getKids()
     {
       return new InfiniteTree(getLabel());
     }

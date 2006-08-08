@@ -59,7 +59,7 @@ public class LaunchDialogBean
   public String doLaunch()
   {
     RequestContext afContext = RequestContext.getCurrentInstance();
-    Map process = afContext.getPageFlowScope();
+    Map<String, Object> process = afContext.getPageFlowScope();
     process.put("lastLaunch", new Date());
 
     return "dialog:chooseInteger";

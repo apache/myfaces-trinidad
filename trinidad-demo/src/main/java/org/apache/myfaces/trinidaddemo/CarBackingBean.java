@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidaddemo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +32,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 public class CarBackingBean
 {
-  public List getMakes()
+  public List<SelectItem> getMakes()
   {
     return _MAKE_ITEMS;
   }
@@ -85,6 +84,7 @@ public class CarBackingBean
     return _PRICES.get(model);
   }
 
+  @SuppressWarnings("unchecked")
   public void returnOptions(ReturnEvent event)
   {
     Object value = event.getReturnValue();
@@ -92,10 +92,8 @@ public class CarBackingBean
     int addedPrice = 0;
     if (value instanceof List)
     {
-      Iterator options = ((List) value).iterator();
-      while (options.hasNext())
+      for(CarOption option : (List<CarOption>) value)
       {
-        CarOption option = (CarOption) options.next();
         addedPrice = addedPrice + option.getPrice();
         if (buffer.length() != 0)
           buffer.append(", ");
@@ -114,12 +112,12 @@ public class CarBackingBean
   private CoreCommandLink _launchOptions;
   private UISelectItems  _modelItems;
 
-  static private final List _MAKE_ITEMS = new ArrayList();
-  static private final List _CORDERA_MODELS = new ArrayList();
-  static private final List _AUTUMNO_MODELS = new ArrayList();
-  static private final List _GRABOWSKI_MODELS = new ArrayList();
+  static private final List<SelectItem> _MAKE_ITEMS       = new ArrayList<SelectItem>();
+  static private final List<SelectItem> _CORDERA_MODELS   = new ArrayList<SelectItem>();
+  static private final List<SelectItem> _AUTUMNO_MODELS   = new ArrayList<SelectItem>();
+  static private final List<SelectItem> _GRABOWSKI_MODELS = new ArrayList<SelectItem>();
 
-  static private final Map _PRICES = new HashMap();
+  static private final Map<String, Integer> _PRICES = new HashMap<String, Integer>();
 
   static private final SelectItem _NULL_SELECT_ITEM = new SelectItem("");
 

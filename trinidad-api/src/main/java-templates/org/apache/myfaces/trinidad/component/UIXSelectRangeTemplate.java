@@ -41,13 +41,14 @@ public abstract class UIXSelectRangeTemplate extends UIXComponentBase
 /**/  abstract public boolean isImmediate();
 /**/  abstract public Object getValue();
 
-
+  @Override
   public void encodeBegin(FacesContext context) throws IOException
   {
     _flushCachedDataModel();
     super.encodeBegin(context);
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Notify the specified RangeChanged listener method (if any)
@@ -63,11 +64,13 @@ public abstract class UIXSelectRangeTemplate extends UIXComponentBase
     // Perform standard superclass processing
     super.broadcast(event);
   }
+  
   /**
    * * We don't want to update model if we have validation errors
    * on the page, so if not immediate, queue the event in
    * INVOKE_APPLICATION phase.
    */
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if ((e instanceof RangeChangeEvent) && (e.getSource() == this))

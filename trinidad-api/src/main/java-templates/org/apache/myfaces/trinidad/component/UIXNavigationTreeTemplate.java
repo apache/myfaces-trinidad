@@ -45,6 +45,7 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
+  @Override
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
@@ -56,6 +57,7 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   { 
     HierarchyUtils.__handleBroadcast(this, 
@@ -65,9 +67,9 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     super.broadcast(event);
   }
  
- 
-    
- public CollectionModel createCollectionModel(CollectionModel current, Object value)
+  @Override
+  @SuppressWarnings("unchecked")
+  public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     TreeModel model = (TreeModel)super.createCollectionModel(current, value);    
     RowKeySet treeState = getDisclosedRowKeys();
@@ -75,10 +77,9 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     return model;
   }
 
-
-
-
- protected void processFacetsAndChildren(
+  @Override
+  @SuppressWarnings("unchecked")
+  protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
   {
@@ -94,12 +95,14 @@ abstract public class UIXNavigationTreeTemplate extends UIXNavigationHierarchy
     setRowKey(oldPath);
   } 
   
- void __encodeBegin(FacesContext context) throws IOException
+  @Override
+  void __encodeBegin(FacesContext context) throws IOException
   {
     HierarchyUtils.__handleEncodeBegin(this, getDisclosedRowKeys());
     super.__encodeBegin(context);
   }
 
+  @Override
   void __init()
   {
     super.__init();

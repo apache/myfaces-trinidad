@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * @author ADF Faces Team
  */
 
-public class DemoTreeData extends ArrayList
+public class DemoTreeData extends ArrayList<TreeNodeImpl>
 {
 
   // data
@@ -59,7 +59,7 @@ public class DemoTreeData extends ArrayList
 
     add(node_0);
 
-    ArrayList list_0 = new ArrayList();
+    ArrayList<TreeNodeImpl> list_0 = new ArrayList<TreeNodeImpl>();
     list_0.add(node_0_0);
     list_0.add(node_0_1);
     list_0.add(node_0_2);
@@ -68,16 +68,16 @@ public class DemoTreeData extends ArrayList
     list_0.add(node_0_5);
     node_0.setChildren(list_0);
 
-    ArrayList list_0_0 = new ArrayList();
+    ArrayList<TreeNodeImpl> list_0_0 = new ArrayList<TreeNodeImpl>();
     list_0_0.add(node_0_0_0);
     list_0_0.add(node_0_0_1);
     node_0_0.setChildren(list_0_0);
 
-    ArrayList list_0_0_0 = new ArrayList();
+    ArrayList<TreeNodeImpl> list_0_0_0 = new ArrayList<TreeNodeImpl>();
     list_0_0_0.add(node_0_0_0_0);
     node_0_0_0.setChildren(list_0_0_0);
 
-    ArrayList list_0_1 = new ArrayList();
+    ArrayList<TreeNodeImpl> list_0_1 = new ArrayList<TreeNodeImpl>();
     list_0_1.add(node_0_1_0);
     list_0_1.add(node_0_1_1);
     node_0_1.setChildren(list_0_1);

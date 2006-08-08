@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -42,15 +41,15 @@ public class ComponentTree
   {
   }
   
-  public List getComponents()
+  public List<Bean> getComponents()
   {
     if (_components == null)
     {
       Node root = new Node();
-      List files = getFileList();
+      List<String> files = getFileList();
       for(int i=0; i<files.size(); i++)
       {
-        String file = (String) files.get(i);
+        String file = files.get(i);
         try
         {
           _processFile(root, file);
@@ -66,12 +65,12 @@ public class ComponentTree
     return _components;
   }
   
-  public List getFileList()
+  public List<String> getFileList()
   {
     return _fileList;
   }
 
-  public void setFileList(List files)
+  public void setFileList(List<String> files)
   {
     _fileList = files;
   }
@@ -83,19 +82,20 @@ public class ComponentTree
     return null;
   }
   
+  @SuppressWarnings("unchecked")
   public void setTree(UIComponent treeComp)
   {
     // this bean's lifecycle is application. this method is called
     // per user, so don't change any state on this bean.
     UIXTree tree = (UIXTree) treeComp;
-    Map attrs = tree.getAttributes();
+    Map<String, Object> attrs = tree.getAttributes();
     final String _key = "org.apache.myfaces.trinidaddemo.vuew.faces.ComponentTree";
     // has this tree been initialized?
     if (attrs.get(_key) == null)
     {
       // tree has not been initialized.
       attrs.put(_key, Boolean.TRUE); // mark as initialized
-      RowKeySetTreeImpl state = new RowKeySetTreeImpl(true);
+      RowKeySetTreeImpl<Object> state = new RowKeySetTreeImpl<Object>(true);
       tree.setDisclosedRowKeys(state);
     }
   }
@@ -138,14 +138,14 @@ public class ComponentTree
   // under.
   private static Node _procureChildNode(Node parent, String token)
   {
-    Map parentMap = parent.kids;
+    Map<String, Node> parentMap = parent.kids;
     if (parentMap == null)
     {
-      parentMap = new HashMap(3);
+      parentMap = new HashMap<String, Node>(3);
       parent.kids = parentMap;
     }
   
-    Node childNode = (Node) parentMap.get(token);
+    Node childNode = parentMap.get(token);
     if (childNode == null)
     {
       childNode = new Node();
@@ -161,25 +161,21 @@ public class ComponentTree
     return tokens;
   }
   
-  private static List _createChildList(Node root, String label)
+  private static List<Bean> _createChildList(Node root, String label)
   {
-    Map kids = root.kids;
+    Map<String, Node> kids = root.kids;
     if (kids == null)
     {
       return null;
     }
     else
     {
-      List kidList = new ArrayList(kids.size());
-      Iterator entries = kids.entrySet().iterator();
-      while(entries.hasNext())
+      List<Bean> kidList = new ArrayList<Bean>(kids.size());
+      for(Entry<String, Node> entry : kids.entrySet())
       {
-        
-        Entry e = (Entry) entries.next();
-        String token = (String) e.getKey();
-        Node child = (Node) e.getValue();
-        kidList.add(new Bean(label + token, child));
+        kidList.add(new Bean(label + entry.getKey(), entry.getValue()));
       }
+      
       Collections.sort(kidList);
       return kidList;
     }
@@ -187,7 +183,7 @@ public class ComponentTree
   
   // must be public for introspection;  must be serializable
   // for storing on the session.
-  public static final class Bean implements Comparable, Serializable
+  public static final class Bean implements Comparable<Bean>, Serializable
   {
     // No-arg constructor just for serialization
     public Bean()
@@ -197,12 +193,12 @@ public class ComponentTree
     public Bean(String label, Node node)
     {
       String fn = node.filename;
-      List kids = _createChildList(node, label);
+      List<Bean> kids = _createChildList(node, label);
       // if this bean has no demo, and it has only one child, then pull
       // the child up to this bean's level:
       if ((fn==null) && (kids != null) && (kids.size() == 1))
       {
-        Bean child = (Bean) kids.get(0);
+        Bean child = kids.get(0);
         fn = child.getFilename();
         _token = child.getLabel();
         kids = null;
@@ -216,10 +212,9 @@ public class ComponentTree
       _kids = kids;
     }
 
-    public int compareTo(Object obj)
+    public int compareTo(Bean obj)
     {
-      Bean other = (Bean) obj;
-      return getLabel().compareTo(other.getLabel());
+      return getLabel().compareTo(obj.getLabel());
     }
 
     /**
@@ -248,7 +243,7 @@ public class ComponentTree
       return _token;
     }
     
-    public List getComponents()
+    public List<Bean> getComponents()
     {
       return _kids;
     }
@@ -264,15 +259,15 @@ public class ComponentTree
     
     private String _filename;
     private String _token;
-    private List _kids;
+    private List<Bean> _kids;
   }
   
   private static final class Node
   {
     public String filename = null;
-    public Map kids = null;
+    public Map<String, Node> kids = null;
   }
    
-  private List _components = null;
-  private List _fileList = null; 
+  private List<Bean> _components = null;
+  private List<String> _fileList = null; 
 }

@@ -138,7 +138,8 @@ public class FolderData
    * gets this folder's subfolders
    * @todo Why does this code return "null" instead of the empty list???
    */
-  public synchronized List getSubFolders() throws MessagingException
+  @SuppressWarnings("unchecked")
+  public synchronized List<Object> getSubFolders() throws MessagingException
   {
     if (_subFolders == Collections.EMPTY_LIST)
     {
@@ -230,7 +231,7 @@ public class FolderData
     return "messages";
   }
 
-  private List              _subFolders = null;
+  private List<Object>      _subFolders = null;
   private DataModel         _messageListModel = null;
   private final Folder      _folder;
   private final AccountData _accountData;

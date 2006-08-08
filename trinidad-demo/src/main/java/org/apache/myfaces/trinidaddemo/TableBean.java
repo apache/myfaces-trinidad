@@ -31,6 +31,12 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
 
 public class TableBean
 {
+  @SuppressWarnings("unchecked")
+  public TableBean()
+  {
+    _selection = Collections.EMPTY_LIST;
+  }
+  
   public UIComponent getTable()
   {
     return _table;
@@ -41,17 +47,18 @@ public class TableBean
     _table = hgrid;
   }
 
+  @SuppressWarnings("unchecked")
   public void performReport(ActionEvent action)
   {
     UIXCollection table = (UIXCollection) _table;
-    final RowKeySet state;
+    final RowKeySet<Object> state;
     if (table instanceof UIXTable)
       state = ((UIXTable) table).getSelectedRowKeys();
     else
       state = ((UIXTree) table).getSelectedRowKeys();
-    Iterator selection = state.iterator();
+    Iterator<Object> selection = state.iterator();
     Object oldKey = table.getRowKey();
-    _selection = new ArrayList();
+    _selection = new ArrayList<Object>();
     while (selection.hasNext())
     {
       table.setRowKey(selection.next());
@@ -65,11 +72,11 @@ public class TableBean
     context.addMessage(null, message);
   }
 
-  public List getReportItems()
+  public List<Object> getReportItems()
   {
     return _selection;
   }
 
   private UIComponent _table = null;
-  private List _selection = Collections.EMPTY_LIST;
+  private List<Object> _selection;
 }

@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import java.util.List;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
@@ -30,7 +28,7 @@ import javax.faces.event.PhaseId;
 abstract public class UIXProcessTemplate extends UIXMenuHierarchy
 {
   
-
+  @Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)

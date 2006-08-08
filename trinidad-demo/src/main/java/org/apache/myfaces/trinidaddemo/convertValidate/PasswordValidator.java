@@ -74,6 +74,7 @@ public class PasswordValidator implements Validator, ClientValidator
   }
 
 
+  @SuppressWarnings("unchecked")
   public String getClientScript(
    FacesContext context,
    UIComponent component)

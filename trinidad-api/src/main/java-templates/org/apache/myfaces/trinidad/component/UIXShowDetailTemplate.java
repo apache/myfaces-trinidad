@@ -36,6 +36,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
 /**/  abstract public boolean isImmediate();
 /**/  abstract public MethodBinding getDisclosureListener();
 
+  @Override
   public void processDecodes(FacesContext context)
   {
     // If we're not disclosed, only process ourselves
@@ -48,18 +49,21 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
       super.processDecodes(context);
   }
 
+  @Override
   public void processValidators(FacesContext context)
   {
     if (isDisclosed())
       super.processValidators(context);
   }
 
+  @Override
   public void processUpdates(FacesContext context)
   {
     if (isDisclosed())
       super.processUpdates(context);
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Perform standard superclass processing
@@ -86,6 +90,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
    * or INVOKE_APPLICATION?  Or should we only support non-immediate
    * ShowDetails?
    */
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if ((e instanceof DisclosureEvent) && (e.getSource() == this))

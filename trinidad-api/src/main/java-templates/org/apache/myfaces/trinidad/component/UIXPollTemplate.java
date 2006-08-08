@@ -29,12 +29,14 @@ import org.apache.myfaces.trinidad.event.PollEvent;
  */
 abstract public class UIXPollTemplate extends UIXComponentBase
 {
+	
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public boolean isImmediate();
 /**/  abstract public MethodBinding getPollListener();
 
   //
   // Abstract methods implemented by subclass.
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Perform standard superclass processing
@@ -47,6 +49,7 @@ abstract public class UIXPollTemplate extends UIXComponentBase
     }
   }
 
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if ((e instanceof PollEvent) && (e.getSource() == this))

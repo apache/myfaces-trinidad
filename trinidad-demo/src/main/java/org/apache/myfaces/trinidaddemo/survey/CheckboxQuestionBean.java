@@ -15,6 +15,7 @@
 */
 package org.apache.myfaces.trinidaddemo.survey;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /***
@@ -30,14 +31,14 @@ import java.util.ArrayList;
  *
  * ***/
 
-public class CheckboxQuestionBean implements java.io.Serializable
+public class CheckboxQuestionBean implements QuestionBean, Serializable
 {
 
  /** The question prompt as a String object */
  private String   _prompt;
 
  /** arbitrary number of possible answer choices (Strings) */
- private ArrayList  _choices;
+ private ArrayList<String>  _choices;
 
 
   /** An integer that represents the correct checkbox choices */
@@ -64,8 +65,14 @@ public class CheckboxQuestionBean implements java.io.Serializable
     /**
      *  Class constructor.
      */
-    public CheckboxQuestionBean(String prompt, ArrayList choices, int correctAnswer,
-        boolean checkbox0, boolean checkbox1, boolean checkbox2, boolean checkbox3)
+    public CheckboxQuestionBean(
+        String prompt,
+        ArrayList<String> choices,
+        int correctAnswer,
+        boolean checkbox0,
+        boolean checkbox1,
+        boolean checkbox2,
+        boolean checkbox3)
     {
       _prompt = prompt;
       _choices = choices;
@@ -95,30 +102,22 @@ public class CheckboxQuestionBean implements java.io.Serializable
 
   public String getText1()
   {
-
-    String result = (String)_choices.get(0);
-    return result;
+    return _choices.get(0);
   }
   
   public String getText2()
   {
-
-    String result = (String)_choices.get(1);
-    return result;
+    return _choices.get(1);
   }
   
   public String getText3()
   {
-
-    String result = (String)_choices.get(2);
-    return result;
+    return _choices.get(2);
   }
   
   public String getText4()
   {
-
-    String result = (String)_choices.get(3);
-    return result;
+    return _choices.get(3);
   }
 
   /*** util functions ***/
@@ -129,6 +128,7 @@ public class CheckboxQuestionBean implements java.io.Serializable
    *
    * @return a String representation of a QuestionBean
    */
+  @Override
   public String toString()
   {
     String str = _prompt + "; " + _choices.toString();
@@ -170,7 +170,7 @@ public class CheckboxQuestionBean implements java.io.Serializable
       if( bitMap.charAt(i) == '1')
       {
          // it's a correct solution
-         message = message + (String)_choices.get(j) + " & ";
+         message = message + _choices.get(j) + " & ";
          atLeastOneSelected = true;
       }
     } //end for loop

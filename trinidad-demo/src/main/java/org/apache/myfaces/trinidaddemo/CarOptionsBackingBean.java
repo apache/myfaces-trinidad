@@ -25,13 +25,13 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class CarOptionsBackingBean
 {
-  public List getOptions() { return _options; }
-  public void setOptions(List options) { _options = options; }
+  public List<String> getOptions() { return _options; }
+  public void setOptions(List<String> options) { _options = options; }
 
   public String pickOptions()
   {
-    List options = getOptions();
-    List realOptionObjects = new ArrayList();
+    List<String> options = getOptions();
+    List<CarOption> realOptionObjects = new ArrayList<CarOption>();
     for (int i = 0; i < _AVAILABLE_OPTIONS.length; i++)
     {
       if (options.contains("" + i))
@@ -43,14 +43,14 @@ public class CarOptionsBackingBean
     return null;
   }
 
-  public List getOptionsItems()
+  public List<SelectItem> getOptionsItems()
   {
     return _OPTIONS_ITEMS;
   }
 
-  private List _options;
+  private List<String> _options;
 
-  static private final List _OPTIONS_ITEMS = new ArrayList();
+  static private final List<SelectItem> _OPTIONS_ITEMS = new ArrayList<SelectItem>();
 
   static private final CarOption[] _AVAILABLE_OPTIONS =
   {

@@ -24,6 +24,8 @@ import javax.faces.context.FacesContext;
  */
 abstract public class UIXGoTemplate extends UIXComponentBase
 {
+	
+	@Override
   void __rendererDecode(FacesContext context)
   {
     // do nothing. we have no behaviour

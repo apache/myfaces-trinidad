@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidad.component;
 import java.io.IOException;
 
 import java.util.AbstractMap;
-import java.util.Iterator;
 import java.util.List;
 
 import java.util.Map;
@@ -49,6 +48,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
   /**
    * Override to return true.
    */
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -57,6 +57,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
   /**
    * Repeatedly render the children as many times as needed.
    */
+  @Override
   public void encodeChildren(final FacesContext context)
     throws IOException
   {
@@ -76,6 +77,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
     {
       Runner runner = new Runner()
       {
+        @Override
         protected void process(UIComponent kid) throws IOException
         {
           __encodeRecursive(context, kid);
@@ -102,11 +104,13 @@ public abstract class UIXIteratorTemplate extends UIXCollection
    * <li>step - this is always one.
    * </ul>
    */
-  protected Map createVarStatusMap()
+  @Override
+  protected Map<String, Object> createVarStatusMap()
   {
-    final Map map = super.createVarStatusMap();
-    return new AbstractMap()
+    final Map<String, Object> map = super.createVarStatusMap();
+    return new AbstractMap<String, Object>()
     {
+      @Override
       public Object get(Object key)
       {
         // some of these keys are from <c:forEach>, ie:
@@ -132,13 +136,15 @@ public abstract class UIXIteratorTemplate extends UIXCollection
         return map.get(key);
       }
     
-      public Set entrySet()
+      @Override
+      public Set<Map.Entry<String, Object>> entrySet()
       {
         return map.entrySet();
       }
     };
   }
 
+  @Override
   protected CollectionModel createCollectionModel(
     CollectionModel current,
     Object value)
@@ -153,12 +159,14 @@ public abstract class UIXIteratorTemplate extends UIXCollection
     return model;
   }
 
+  @Override
   protected void processFacetsAndChildren(
     final FacesContext context,
     final PhaseId phaseId)
   {
     Runner runner = new Runner()
     {
+      @Override
       protected void process(UIComponent kid)
       {
         processComponent(context, kid, phaseId);
@@ -171,7 +179,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
   {
     public final void run()
     {
-      List stamps = getStamps();
+      List<UIComponent> stamps = getStamps();
       int oldIndex = getRowIndex();
       int first = getFirst();
       int rows = getRows();
@@ -185,10 +193,9 @@ public abstract class UIXIteratorTemplate extends UIXCollection
           setRowIndex(i);
           if (isRowAvailable())
           {
-            Iterator kids = stamps.iterator();
-            while(kids.hasNext())
+            for(UIComponent stamp : stamps)
             {
-              process((UIComponent) kids.next());
+              process(stamp);
             }
           }
           else
@@ -209,6 +216,7 @@ public abstract class UIXIteratorTemplate extends UIXCollection
     protected abstract void process(UIComponent comp) throws Exception;
   }
 
+  @Override
   void __encodeBegin(FacesContext context) throws IOException
   {
     _fixupFirst();

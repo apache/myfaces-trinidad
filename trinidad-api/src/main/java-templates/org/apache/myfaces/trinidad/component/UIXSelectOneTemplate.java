@@ -27,12 +27,13 @@ abstract public class UIXSelectOneTemplate extends UIXEditableValue
    * @todo walk through UIXSelectItem values to determine that the new
    *       value is permitted
    */
+  @Override
   public void validateValue(FacesContext context, Object newValue)
   {
     super.validateValue(context, newValue);
   }
   
-
+  @Override
   protected String getRequiredMessageKey()
   {
     return REQUIRED_MESSAGE_ID;

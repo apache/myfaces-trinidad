@@ -31,6 +31,8 @@ import javax.faces.event.PhaseId;
  */
 abstract public class UIXNavigationPathTemplate extends UIXNavigationHierarchy
 {
+	
+  @Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -41,7 +43,9 @@ abstract public class UIXNavigationPathTemplate extends UIXNavigationHierarchy
     
     if (focusPath != null )
     {
-      List paths = new ArrayList(getAllAncestorContainerRowKeys(focusPath));
+      List<Object> paths = 
+        new ArrayList<Object>(getAllAncestorContainerRowKeys(focusPath));
+      
       paths.add(focusPath);
       int focusPathSize = paths.size();
       UIComponent nodeStamp = getFacet("nodeStamp");

@@ -14,9 +14,9 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidaddemo.nav;
+
 import java.io.Serializable;
 import java.util.List;
-import org.apache.myfaces.trinidad.component.core.nav.CoreCommandNavigationItem;
 
 
 public class DemoNavigationItem implements Serializable
@@ -78,12 +78,12 @@ public class DemoNavigationItem implements Serializable
     return _destination;
   }
 
-  public List getChildren()
+  public List<?> getChildren()
   {
     return _children;
   }
 
-  public void setChildren(List children)
+  public void setChildren(List<?> children)
   {
     _children = children;
   }
@@ -91,12 +91,12 @@ public class DemoNavigationItem implements Serializable
 
 
 
-  private String _label       = null;
-  private String _outcome     = null;
-  private String _viewId      = null;
-  private String _destination = null;
-  private String _icon        = null;
-  private List   _children    = null;
+  private String  _label       = null;
+  private String  _outcome     = null;
+  private String  _viewId      = null;
+  private String  _destination = null;
+  private String  _icon        = null;
+  private List<?> _children    = null;
 
 
 

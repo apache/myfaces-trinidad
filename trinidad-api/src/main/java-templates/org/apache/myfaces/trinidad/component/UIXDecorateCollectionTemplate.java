@@ -60,6 +60,7 @@ public abstract class UIXDecorateCollectionTemplate extends UIXComponentBase
    * @see #getCurrencyString
    * @return the local clientId
    */
+  @Override
   protected final String getLocalClientId()
   {
     String id = super.getLocalClientId();

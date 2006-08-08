@@ -41,13 +41,14 @@ public class PeriodicDialogBean
     return null;
   }
 
+  @SuppressWarnings("unchecked")
   public String select()
   {
     FacesContext context = FacesContext.getCurrentInstance();
     // The tableSelectOne is marked as required; so there'd better
     // be a selected row - an exception will result here if there
     // isn't.  Is there some better code?
-    Iterator iterator = _table.getSelectedRowKeys().iterator();
+    Iterator<Object> iterator = _table.getSelectedRowKeys().iterator();
     String rowKey = (String) iterator.next();
     Object oldRowKey = _table.getRowKey();
     _table.setRowKey(rowKey);

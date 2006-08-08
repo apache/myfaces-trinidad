@@ -227,7 +227,7 @@ public class MessageData
   /**
    * Get the list of attachments.
    */ 
-  public List getAttachments()
+  public List<BodyPart> getAttachments()
   {
     return _attachments;
   }
@@ -262,7 +262,7 @@ public class MessageData
                                 ? Folder.READ_ONLY
                                 : Folder.READ_WRITE);
       
-      List attachments = new ArrayList();
+      List<BodyPart> attachments = new ArrayList<BodyPart>();
 
       try
       {
@@ -495,6 +495,6 @@ public class MessageData
   private int _size;
   private boolean _isRead;
   private boolean _isDeleted;
-  private List    _attachments;
+  private List<BodyPart> _attachments;
 }
 

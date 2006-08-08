@@ -27,7 +27,8 @@ abstract public class UIXFormTemplate extends UIXComponentBase
 {
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public boolean isSubmitted();
-
+  
+  @Override
   public void processDecodes(FacesContext context)
   {
     if (!isRendered())
@@ -40,12 +41,14 @@ abstract public class UIXFormTemplate extends UIXComponentBase
     decodeChildren(context);
   }
 
+  @Override
   public void processValidators(FacesContext context)
   {
     if (isSubmitted())
       super.processValidators(context);
   }
 
+  @Override
   public void processUpdates(FacesContext context)
   {
     if (isSubmitted())

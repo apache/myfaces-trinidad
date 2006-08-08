@@ -124,6 +124,7 @@ public class SSNConverter implements Converter, ClientConverter
             );
   }
 
+  @SuppressWarnings("unchecked")
   public String getClientScript(
    FacesContext context,
    UIComponent component)

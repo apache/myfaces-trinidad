@@ -48,6 +48,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
    * <code>immediate</code> flag is true,
    * <code>PhaseId.INVOKE_APPLICATION</code> otherwise.</p>
    */
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if (e instanceof ActionEvent)
@@ -65,7 +66,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
     super.queueEvent(e);
   }
 
-
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Perform special processing for ActionEvents:  tell

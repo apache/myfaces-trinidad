@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidaddemo.composite;
 import java.io.IOException;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -63,13 +62,14 @@ public class DateField extends UIXEditableValue implements NamingContainer
     super(null);
   }
 
-
+  @Override
   public void processDecodes(FacesContext context)
   {
     _addChildren(context);
     super.processDecodes(context);
   }
 
+  @Override
   public void validate(FacesContext context)
   {
     if (!_month.isValid() ||
@@ -121,18 +121,19 @@ public class DateField extends UIXEditableValue implements NamingContainer
     }
   }
 
+  @Override
   public void encodeBegin(FacesContext context) throws IOException
   {
     _addChildren(context);
     super.encodeBegin(context);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeChildren(FacesContext context) throws IOException
   {
-    Iterator children = getChildren().iterator();
-    while (children.hasNext())
+    for(UIComponent child : (List<UIComponent>)getChildren())
     {
-      UIComponent child = (UIComponent) children.next();
       assert(child.getChildCount() == 0);
       assert(child.getFacets().isEmpty());
       child.encodeBegin(context);
@@ -141,6 +142,7 @@ public class DateField extends UIXEditableValue implements NamingContainer
     }
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -151,7 +153,7 @@ public class DateField extends UIXEditableValue implements NamingContainer
     if (_month != null)
       return;
 
-    List children = getChildren();
+    List<UIComponent> children = getChildren();
     children.clear();
 
     Date value = (Date) getValue();

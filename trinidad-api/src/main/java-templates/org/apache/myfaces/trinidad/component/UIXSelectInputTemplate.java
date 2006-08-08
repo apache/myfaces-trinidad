@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 abstract public class UIXSelectInputTemplate extends UIXEditableValue
                                       implements ActionSource
 {
+	
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public MethodBinding getActionListener();
 /**/  abstract public MethodBinding getReturnListener();
@@ -46,6 +47,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
    * <p>Intercept <code>queueEvent</code> and mark the phaseId for any
    * ActionEvents to be <code>PhaseId.APPLY_REQUEST_VALUES</code>.
    */
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if (e instanceof ActionEvent)
@@ -69,6 +71,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
   /**
    * {@inheritDoc}
    */
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     if (event instanceof ActionEvent)

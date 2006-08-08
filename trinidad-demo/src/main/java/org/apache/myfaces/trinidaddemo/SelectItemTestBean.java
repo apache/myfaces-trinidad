@@ -25,7 +25,7 @@ public class SelectItemTestBean
   {
     _oneItem = new SelectItem("foo", "Foo", "Description of foo", false);
 
-    _itemList = new ArrayList();
+    _itemList = new ArrayList<SelectItem>();
     _itemList.add(new SelectItem("foo", "Foo", "Description of foo", false));
     _itemList.add(new SelectItem("bar", "Bar", "Description of bar", false));
     _itemList.add(new SelectItem("baz", "Baz", "Description of baz", false));
@@ -35,7 +35,7 @@ public class SelectItemTestBean
     _itemArray[1] = new SelectItem("bar", "Bar", "Description of bar", false);
     _itemArray[2] = new SelectItem("baz", "Baz", "Description of baz", false);
 
-    _itemMap = new HashMap();
+    _itemMap = new HashMap<String, String>();
     _itemMap.put("Foo", "foo");
     _itemMap.put("Bar", "bar");
     _itemMap.put("Baz", "baz");
@@ -46,12 +46,12 @@ public class SelectItemTestBean
     return _oneItem;
   }
 
-  public ArrayList getItemList()
+  public ArrayList<SelectItem> getItemList()
   {
     return _itemList;
   }
 
-  public HashMap getItemMap()
+  public HashMap<String, String> getItemMap()
   {
     return _itemMap;
   }
@@ -61,8 +61,8 @@ public class SelectItemTestBean
     return _itemArray;
   }
 
-  private SelectItem _oneItem;
-  private ArrayList  _itemList;
-  private HashMap    _itemMap;
-  private SelectItem[] _itemArray;
+  private SelectItem              _oneItem;
+  private ArrayList<SelectItem>   _itemList;
+  private HashMap<String, String> _itemMap;
+  private SelectItem[]            _itemArray;
 }

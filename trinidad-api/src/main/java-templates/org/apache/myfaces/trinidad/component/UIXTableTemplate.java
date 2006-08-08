@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.RowKeySetImpl;
+import org.apache.myfaces.trinidad.model.SortCriterion;
 
 /**
  * Base class for the Table component. The behaviour supported by this base class
@@ -45,7 +46,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   implements CollectionComponent
 {
 
-  public void setSortCriteria(List criteria)
+  @Override
+  public void setSortCriteria(List<SortCriterion> criteria)
   {
     _sortCriteria = criteria;
     super.setSortCriteria(criteria);
@@ -54,6 +56,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
+	@Override
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
@@ -65,6 +68,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
+	@Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -137,6 +141,8 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
 /**/  public abstract MethodBinding getSelectionListener();
 /**/  public abstract boolean isImmediate();
 
+	@Override
+	@SuppressWarnings("unchecked")
   public Object saveState(FacesContext context)
   {
     Object o = super.saveState(context);
@@ -147,6 +153,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     return new Object[]{o, _sortCriteria};
   }
 
+	@Override
   public void restoreState(FacesContext context, Object state)
   {
     Object[] array = (Object[]) state;
@@ -158,7 +165,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     // and that may invoke client code that isn't quite in a state
     // to be invoked, in part because component "binding"s have not been
     // evaluated yet.
-    List criteria = (List) array[1];
+    List<SortCriterion> criteria = (List<SortCriterion>) array[1];
     _sortCriteria = criteria;
   }
 
@@ -191,6 +198,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     return null;
   }
 
+  @Override
   protected final void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -213,13 +221,14 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * the detail stamp (if any).
    * @todo cache the result.
    */
-  protected final List getStamps()
+  @Override
+  protected final List<UIComponent> getStamps()
   {
-    List children = super.getStamps();
+    List<UIComponent> children = super.getStamps();
     UIComponent detail = getDetailStamp();
     if (detail != null)
     {
-      List stamps = new ArrayList(children.size() + 1);
+      List<UIComponent> stamps = new ArrayList<UIComponent>(children.size() + 1);
       stamps.addAll(children);
       stamps.add(detail);
       return stamps;
@@ -231,6 +240,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * Saves the state for the given stamp.
    * This method avoids changing the state of facets on columns.
    */
+  @Override
   protected final Object saveStampState(FacesContext context, UIComponent stamp)
   {
     if (stamp instanceof UIXColumn)
@@ -247,6 +257,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * Restores the state for the given stamp.
    * This method avoids changing the state of facets on columns.
    */
+  @Override
   protected final void restoreStampState(FacesContext context, UIComponent stamp,
                                          Object stampState)
   {
@@ -260,6 +271,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       super.restoreStampState(context, stamp, stampState);
   }
 
+  @Override
   protected final CollectionModel createCollectionModel(
     CollectionModel current,
     Object value)
@@ -281,6 +293,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   /**
    * Gets the internal state of this component.
    */
+  @Override
   Object __getMyStampState()
   {
     Object[] state = new Object[6];
@@ -297,6 +310,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * Sets the internal state of this component.
    * @param stampState the internal state is obtained from this object.
    */
+  @Override
   void __setMyStampState(Object stampState)
   {
     Object[] state = (Object[]) stampState;
@@ -339,7 +353,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     }
   }
 
-
+  @Override
   void __init()
   {
     super.__init();
@@ -353,5 +367,5 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
     setFirst(getFirst());
   }
 
-  transient private List _sortCriteria = null;
+  transient private List<SortCriterion> _sortCriteria = null;
 }

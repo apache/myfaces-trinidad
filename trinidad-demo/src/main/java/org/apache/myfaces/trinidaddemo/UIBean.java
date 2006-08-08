@@ -24,10 +24,8 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 
-import org.apache.myfaces.trinidad.event.DisclosureEvent;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPage;
 
 import org.apache.myfaces.trinidad.model.UploadedFile;
@@ -71,19 +69,22 @@ public class UIBean
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void testFailover()
   {
     FacesContext context = FacesContext.getCurrentInstance();
-    Map session = context.getExternalContext().getSessionMap();
-    Map.Entry writing = null;
+    Map<String, Object> session = 
+      context.getExternalContext().getSessionMap();
+    
+    Map.Entry<String, Object> writing = null;
     try
     {
       ObjectOutputStream oos =
         new ObjectOutputStream(new ByteArrayOutputStream(2 << 16));
-      Iterator entries = session.entrySet().iterator();
+      Iterator<Map.Entry<String, Object>> entries = session.entrySet().iterator();
       while (entries.hasNext())
       {
-        writing = (Map.Entry) entries.next();
+        writing = entries.next();
         oos.writeObject(writing.getValue());
         context.addMessage(null,
                            new FacesMessage("Successfully serialized " + writing.getValue() + " [at " + writing.getKey() + "]"));
