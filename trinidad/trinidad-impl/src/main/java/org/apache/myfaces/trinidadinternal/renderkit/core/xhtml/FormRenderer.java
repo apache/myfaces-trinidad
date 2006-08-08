@@ -609,9 +609,11 @@ public class FormRenderer extends XhtmlRenderer
         }
       }
 
-      writer.writeText("]", null);
+      Integer globalFormatIndex = fData.addGlobalMessageFormat(arc);
 
-      writer.writeText("]);if(fl.length>0){_validationAlert('", null);
+      writer.writeText("]],", null);
+      writer.writeText(globalFormatIndex, null);      
+      writer.writeText(");if(fl.length>0){_validationAlert('", null);
       writer.writeText(XhtmlUtils.escapeJS(
                           arc.getTranslatedString("af_form.SUBMIT_ERRORS")),
                        null);

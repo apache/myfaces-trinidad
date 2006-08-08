@@ -311,6 +311,12 @@ public interface TrinidadAgent extends Agent
   static public final int APPLICATION_SAFARI = 11;
 
   /**
+   * Application constant for the Safari browser.
+   */
+  static public final int APPLICATION_BLACKBERRY = 12;
+
+
+  /**
    * OS constant for an unknown operating system.
    */
   static public final int OS_UNKNOWN = 0;
@@ -344,6 +350,11 @@ public interface TrinidadAgent extends Agent
    * OS constant for any Windows Pocket PC
    */
   static public final int OS_PPC = 6;
+  
+  /**
+   * OS constant for any BlackBerry device
+   */
+  static public final int OS_BLACKBERRY = 7;
 
 
 

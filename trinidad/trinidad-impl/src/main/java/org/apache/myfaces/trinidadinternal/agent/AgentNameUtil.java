@@ -73,6 +73,11 @@ public class AgentNameUtil
     {
       return TrinidadAgent.APPLICATION_SAFARI;
     }
+    
+    if(TrinidadAgent.AGENT_BLACKBERRY.equals(agentName))
+    {
+      return TrinidadAgent.APPLICATION_BLACKBERRY;
+    }
 
     return TrinidadAgent.APPLICATION_UNKNOWN;
   }
@@ -112,8 +117,12 @@ public class AgentNameUtil
 
     if (TrinidadAgent.PLATFORM_PPC.equals(platformName))
     {
-      //return unknown for now
       return TrinidadAgent.OS_PPC;
+    }
+    
+    if (TrinidadAgent.PLATFORM_BLACKBERRY.equals(platformName))
+    {
+        return TrinidadAgent.OS_BLACKBERRY;
     }
 
     return TrinidadAgent.OS_UNKNOWN;
@@ -168,6 +177,8 @@ public class AgentNameUtil
         return TrinidadAgent.AGENT_NETFRONT;
       case TrinidadAgent.APPLICATION_SAFARI:
         return TrinidadAgent.AGENT_WEBKIT;
+      case TrinidadAgent.APPLICATION_BLACKBERRY:
+        return TrinidadAgent.AGENT_BLACKBERRY;
        default:
         return null;
     }
@@ -198,6 +209,8 @@ public class AgentNameUtil
         return TrinidadAgent.PLATFORM_PALM;
       case TrinidadAgent.OS_PPC:
         return TrinidadAgent.PLATFORM_PPC;
+      case TrinidadAgent.OS_BLACKBERRY:
+        return TrinidadAgent.PLATFORM_BLACKBERRY;
       default:
         return null;
     }

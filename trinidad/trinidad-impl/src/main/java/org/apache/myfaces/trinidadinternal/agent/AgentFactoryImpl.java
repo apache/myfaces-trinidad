@@ -30,10 +30,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 public class AgentFactoryImpl implements AgentFactory
 {
-  /**
-   * @param facesContext
-   * @return
-   */
 
   public Agent createAgent(String userAgent, String accept)
   {
@@ -196,6 +192,12 @@ public class AgentFactoryImpl implements AgentFactory
       _populateMozillaAgentImpl(userAgent,agent);
       return;
     }
+    
+    if(userAgent.startsWith("BlackBerry"))
+    {
+        _populateBlackberryAgentImpl(userAgent,agent);
+        return;
+    }
 
     _populateNullAgentImpl(userAgent, agent);
   }
@@ -338,6 +340,50 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
   }
+  
+    /**
+     * populates data from a Blackberry browser request
+     */
+    private void _populateBlackberryAgentImpl(String agent,AgentImpl agentObj)
+    {
+      // the  User-Agent string for the BlackBerry Browser starts with
+      // BlackBerry<model>/<version> where <model> is the BlackBerry
+      // model, e.g. for the BlackBerry browser 4.1.0 on
+      // the BlackBerry 8700 device, the User-Agent string begins with
+      // BlackBerry8700/4.1.0
+      
+      int start = agent.indexOf("BlackBerry");
+      
+      String version = null;
+      String makeModel = null;
+
+      if (start > -1)
+      {
+        // find the first /, which occurs before the version number
+        int slashLoc = agent.indexOf('/',start);
+        if(slashLoc > -1)
+        {
+            // see the note above about how the User-Agent starts with
+            // BlackBerry<model>/<version>; this returns the
+            // BlackBerry<model> (e.g. BlackBerry8700), which we will
+            // use as the Agent hardwareMakeModel
+            makeModel = agent.substring(start,slashLoc);
+            
+            // _getVersion assumes the location of the slash is passed in,
+            // and starts looking for the version at the NEXT character
+            version = _getVersion(agent, slashLoc);
+        }
+      }
+      
+      // note that the agent and platform are both BLACKBERRY
+      // this is because it is the BlackBerry Browser running on the
+      // BlackBerry device
+      agentObj.setType(Agent.TYPE_PDA);
+      agentObj.setAgent(Agent.AGENT_BLACKBERRY);
+      agentObj.setAgentVersion(version);
+      agentObj.setPlatform(Agent.PLATFORM_BLACKBERRY);
+      agentObj.setMakeModel(makeModel);
+    }  
 
   /**
    * returns the data for the Palm NetFront browser request
@@ -667,8 +713,19 @@ public class AgentFactoryImpl implements AgentFactory
   }
 
 
+  /**
+   * Returns the version contained within a string starting
+   * at a certain location.  The version will contain only numeric
+   * parts separated by dots (.).
+   * @param base the string to pull the version from
+   * @param start the index of the character BEFORE the version
+   * @return the version string
+   */
   private String _getVersion(String base, int start)
   {
+    // start should be the character BEFORE the version portion
+    // (typically a slash character after the agent name)
+    
     if (start < 0)
     {
       return null;

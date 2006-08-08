@@ -22,14 +22,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.output.CoreMessage;
-import org.apache.myfaces.trinidad.convert.ClientConverter;
-import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 
 /**
  * Utility functions used for messaging.
@@ -120,33 +117,6 @@ public class MessageUtils
     return (new FastMessageFormat(pattern)).format(parameters);
   }
 
-  public static String createErrorAlertMessage(
-     FacesContext context,
-     UIComponent component,
-     String detailMessage)
-  {
-    Object label = BaseLafUtils.getComponentLabel(component);
-    String text = (label != null) ? label.toString() : null;
-    return createErrorAlertMessage(context, text, detailMessage);
-  }
-
-  public static String createErrorAlertMessage(
-     FacesContext context,
-     String label,
-     String detailMessage)
-  {
-    String msg = detailMessage;
-
-    // if message exists prepend the component label
-    if ((detailMessage != null) && (label != null))
-    {
-      String[] parameters = new String[] { label, detailMessage };
-      msg = MessageFactory.getMessage(context,
-                                      ClientConverter.ALERT_FORMAT_KEY,
-                                      parameters).getSummary();
-    }
-    return msg;
-  }
 
 
   static private final String _GLOBAL_FORMAT_KEY =
