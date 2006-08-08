@@ -545,6 +545,7 @@ public class SimpleInputDateRenderer
    * Adjust the specified date, which is in server timeZone to the timeZone
    * found in RequestContext and return the new date long value.
    */
+  @SuppressWarnings("cast")
   private static long _adjustTimeZone(Date date)
   {
     // get the current date of the server
@@ -573,11 +574,15 @@ public class SimpleInputDateRenderer
     // properly ie. MIN_VALUE < (longValue + tzOffset) < MAX_VALUE.
     if (tzOffset < 0)
     {
-      tzOffset = Math.max(tzOffset, Long.MIN_VALUE - dateValueInMs);
+      // Cast to (float) has a purpose
+      tzOffset = (long)Math.max((float)tzOffset, 
+                                (float)Long.MIN_VALUE - (float)dateValueInMs);
     }
     else
     {
-      tzOffset = Math.min(tzOffset, Long.MAX_VALUE - dateValueInMs);
+      // Cast to (float) has a purpose
+      tzOffset = (long)Math.min((float)tzOffset, 
+                                (float)Long.MAX_VALUE - (float)dateValueInMs);
     }
 
     // adjust the date in ms to the adjusted time zone.

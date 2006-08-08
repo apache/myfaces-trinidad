@@ -117,6 +117,7 @@ class CalendarUtils
    * Adjust the specified dateValue in milliseconds, which is in 
    * AdfRenderingContext's LocaleContext's timeZone to the server timeZone.
    */
+  @SuppressWarnings("cast")
   private static long _adjustTimeZone(long dateValueInMs)
   {
     // Bug 4613506
@@ -142,11 +143,15 @@ class CalendarUtils
     // maximum date (in ChooseDateRenderer).
     if (tzOffset < 0)
     {
-      tzOffset = Math.max(tzOffset, Long.MIN_VALUE - dateValueInMs);
+      // Cast to (float) has a purpose
+      tzOffset = (long)Math.max((float)tzOffset, 
+                                (float)Long.MIN_VALUE - (float)dateValueInMs);
     }
     else
     {
-      tzOffset = Math.min(tzOffset, Long.MAX_VALUE - dateValueInMs);
+      // Cast to (float) has a purpose
+      tzOffset = (long)Math.min((float)tzOffset, 
+                                (float)Long.MAX_VALUE - (float)dateValueInMs);
     }
     
     return dateValueInMs + tzOffset;
