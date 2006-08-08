@@ -28,6 +28,7 @@ public abstract class UIXColumnTemplate extends UIXComponentBase
    * Does not process the facets of this column. Only this column and
    * its children are processed.
    */
+  @Override
   public void processDecodes(FacesContext context)
   {
     if (!isRendered())
@@ -44,6 +45,7 @@ public abstract class UIXColumnTemplate extends UIXComponentBase
    * Does not process the facets of this column. Only this column and
    * its children are processed.
    */
+  @Override
   public void processValidators(FacesContext context)
   {
     if (!isRendered())
@@ -57,6 +59,7 @@ public abstract class UIXColumnTemplate extends UIXComponentBase
    * Does not process the facets of this column. Only this column and
    * its children are processed.
    */
+  @Override
   public void processUpdates(FacesContext context)
   {
     if (!isRendered())

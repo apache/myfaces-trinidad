@@ -15,6 +15,8 @@
 */
 package org.apache.myfaces.trinidaddemo.survey;
 
+import java.io.Serializable;
+
 /***
  *  class TextQuestionBean
  *
@@ -24,7 +26,7 @@ package org.apache.myfaces.trinidaddemo.survey;
  * ***/
 
 
-public class TextQuestionBean implements java.io.Serializable
+public class TextQuestionBean implements QuestionBean, Serializable
 {
   /** The question as a String object. */
   private String    _prompt;

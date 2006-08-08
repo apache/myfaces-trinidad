@@ -27,9 +27,13 @@ import java.util.List;
 
 public class TableBuilder implements java.io.Serializable
 {
+  @SuppressWarnings("unchecked")
   public TableBuilder()
   {
     // no arg contructor needed for usage as managed-bean
+    _beanProps = Collections.EMPTY_LIST;
+    _data = Collections.EMPTY_LIST;
+    _result = null;
   }
   
   public void setBeanClass(String klass)
@@ -37,21 +41,21 @@ public class TableBuilder implements java.io.Serializable
     _beanClass = klass;
   }
   
-  public void setBeanProperties(List props)
+  public void setBeanProperties(List<Object> props)
   {
     if (props == null)
       throw new NullPointerException("beanProperties");
     _beanProps = props;
   }
   
-  public void setBeanData(List data)
+  public void setBeanData(List<?> data)
   {
     if (data == null)
       throw new NullPointerException("beanData");
     _data = data;
   }
   
-  public List getTableData()
+  public List<?> getTableData()
     throws ClassNotFoundException, IntrospectionException, InstantiationException,
       IllegalAccessException, InvocationTargetException
   {
@@ -62,19 +66,19 @@ public class TableBuilder implements java.io.Serializable
     return _result;
   }
   
-  private List _getAsList() 
+  private List<Object> _getAsList() 
     throws ClassNotFoundException, IntrospectionException, InstantiationException,
       IllegalAccessException, InvocationTargetException
   {
     if (_beanClass == null)
       throw new NullPointerException("beanClass");
     
-    Class beanClass = Class.forName(_beanClass);
+    Class<?> beanClass = Class.forName(_beanClass);
     _setPropertySetters(beanClass, _beanProps);
     int sz = _beanProps.size();
-    List result = new ArrayList(sz);
+    List<Object> result = new ArrayList<Object>(sz);
 
-    Iterator cells = _data.iterator();
+    Iterator<?> cells = _data.iterator();
     while(cells.hasNext())
     {
       Object beanInstance = beanClass.newInstance();
@@ -82,7 +86,7 @@ public class TableBuilder implements java.io.Serializable
       {
         Object value = cells.next();
         Method setter = (Method) _beanProps.get(i);
-        Class expectedType = setter.getParameterTypes()[0];
+        Class<?> expectedType = setter.getParameterTypes()[0];
         if (!expectedType.isAssignableFrom(value.getClass()))
         {
           value = _convert(value, expectedType);
@@ -95,7 +99,7 @@ public class TableBuilder implements java.io.Serializable
     return result;
   }
   
-  private Object _convert(Object instance, Class expectedType)
+  private Object _convert(Object instance, Class<?> expectedType)
   {
     if (Integer.TYPE == expectedType)
     {
@@ -105,14 +109,14 @@ public class TableBuilder implements java.io.Serializable
       " of class:"+instance.getClass()+" into "+expectedType);
   }
   
-  private void _setPropertySetters(Class klass, List props)
+  private void _setPropertySetters(Class<?> klass, List<Object> props)
     throws IntrospectionException
   {
     BeanInfo beanInfo = Introspector.getBeanInfo(klass);
     PropertyDescriptor[] descs = beanInfo.getPropertyDescriptors();
     for(int i=0, sz=props.size(); i<sz; i++)
     {
-      String name = (String) props.get(i);
+      String name = (String)props.get(i);
       PropertyDescriptor desc = _getDescriptor(descs, name);
       if (desc == null)
       {
@@ -144,7 +148,7 @@ public class TableBuilder implements java.io.Serializable
   
   private String _beanClass = null;
   // Transient as it contains java.lang.reflect.Method objects
-  private transient List _beanProps = Collections.EMPTY_LIST;
-  private List _data = Collections.EMPTY_LIST;
-  private List _result = null;
+  private transient List<Object> _beanProps;
+  private List<?> _data;
+  private List<?> _result;
 }

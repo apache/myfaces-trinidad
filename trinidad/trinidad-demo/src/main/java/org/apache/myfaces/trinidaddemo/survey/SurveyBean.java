@@ -15,6 +15,7 @@
 */
 package org.apache.myfaces.trinidaddemo.survey;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,17 +30,17 @@ import java.util.List;
  *
  * ***/
 
-public class SurveyBean extends Object implements java.io.Serializable
+public class SurveyBean extends Object implements Serializable
 {
 
   /** A List of QuestionBean objects */
-  private ArrayList     _questions = new ArrayList();
+  private ArrayList<QuestionBean> _questions = new ArrayList<QuestionBean>();
 
   /** The index of the (current) question displayed */
   private int               _currentIndex;
 
   /** A List of QuestionBean objects */
-  private ArrayList     _userAnswers = new ArrayList();
+  private ArrayList<String> _userAnswers = new ArrayList<String>();
 
   /** number of choices */
   static final int NUMBER_OF_ANSWER_CHOICES = 4;
@@ -72,7 +73,7 @@ public class SurveyBean extends Object implements java.io.Serializable
   String _a4;   //response for a multiple choice (normal) question
 
   /** A List of SurveyPage objects for use with the processTrain component */
-  private List  _pages;
+  private List<SurveyPage> _pages;
   /**
    *  Class constructor (no arguments).
    */
@@ -121,7 +122,7 @@ public class SurveyBean extends Object implements java.io.Serializable
     // together in an Array List
 
     // question 0, for surveyPage1
-    ArrayList choices = new ArrayList();
+    ArrayList<String> choices = new ArrayList<String>();
     choices.add("A. Loading zone for freight or passengers.");
     choices.add("B. Loading zone for passengers or mail only.");
     choices.add("C. Loading zone for freight only.");
@@ -134,7 +135,7 @@ public class SurveyBean extends Object implements java.io.Serializable
     _questions.add(_q1);
 
     // question 2, for surveyPage3
-    ArrayList choices2 = new ArrayList();
+    ArrayList<String> choices2 = new ArrayList<String>();
     choices2.add("A. If the shoulder is wide enough to accommodate your vehicle.");
     choices2.add("B. If the vehicle ahead of you is turning left.");
     choices2.add("C. Under no circumstances.");
@@ -143,7 +144,7 @@ public class SurveyBean extends Object implements java.io.Serializable
     _questions.add(_q2);
 
     // question 3, for surveyPage4
-    ArrayList choices3 = new ArrayList();
+    ArrayList<String> choices3 = new ArrayList<String>();
     choices3.add("A. In a crosswalk.");
     choices3.add("B. Within 10 feet of a fire hydrant.");
     choices3.add("C. Next to a red painted curb.");
@@ -152,7 +153,7 @@ public class SurveyBean extends Object implements java.io.Serializable
     _questions.add(_q3);
 
     // question 4, for surveyPage5
-    ArrayList choices4 = new ArrayList();
+    ArrayList<String> choices4 = new ArrayList<String>();
     choices4.add("A. Stop, then proceed when you think all of the children have exited the bus.");
     choices4.add("B. Slow to 25 MPH and pass cautiously.");
     choices4.add("C. Stop as long as the red lights are flashing. ");
@@ -561,11 +562,11 @@ public class SurveyBean extends Object implements java.io.Serializable
     return _a33;
   }
 
-  public List getPages()
+  public List<SurveyPage> getPages()
   {
     if (_pages == null)
     {
-      _pages = new ArrayList();
+      _pages = new ArrayList<SurveyPage>();
       _pages.add(new SurveyPage("/surveydemo/surveyPage1.jspx", "Step1"));
       _pages.add(new SurveyPage("/surveydemo/surveyPage2.jspx", "Step2"));
       _pages.add(new SurveyPage("/surveydemo/surveyPage3.jspx", "Step3"));

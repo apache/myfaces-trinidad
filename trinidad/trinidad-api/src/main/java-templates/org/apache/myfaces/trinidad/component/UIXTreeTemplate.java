@@ -45,6 +45,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
+  @Override
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
@@ -56,6 +57,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   { 
     if (event instanceof SelectionEvent)
@@ -74,7 +76,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     super.broadcast(event);
   }
  
-
+  @Override
   public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     
@@ -85,8 +87,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     return model;
   }
 
- 
-  
+  @Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -96,20 +97,21 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
     Object oldPath = getRowKey();
     setRowKey(null);
     HierarchyUtils.__iterateOverTree(context, 
-                                      phaseId, 
-                                      this, 
-				      getDisclosedRowKeys(),
-                                      true);
+                                     phaseId, 
+                                     this, 
+                                     getDisclosedRowKeys(),
+                                     true);
     setRowKey(oldPath);
   }
 
- 
+  @Override
   void __encodeBegin(FacesContext context) throws IOException
   {
     HierarchyUtils.__handleEncodeBegin(this, getDisclosedRowKeys());
     super.__encodeBegin(context);
   }
 
+  @Override
   void __init()
   {
     super.__init();

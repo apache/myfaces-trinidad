@@ -76,9 +76,9 @@ public class ColorBean implements java.io.Serializable
     return colorArray;
   }
 
-  public List getColorList()
+  public List<Color> getColorList()
   {
-    List colorList = new ArrayList();
+    List<Color> colorList = new ArrayList<Color>();
     colorList.add(_colorValue3);
     colorList.add(_colorValue1);
     colorList.add(_colorValue4);

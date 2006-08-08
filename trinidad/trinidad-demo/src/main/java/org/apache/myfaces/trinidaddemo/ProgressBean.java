@@ -73,12 +73,13 @@ public class ProgressBean implements Serializable
       _updateValueFactor = updateValueFactor;
     }
     
+    @Override
     public void run()
     {
       try
       {
         //pu: Be in indeterminate mode for some time to start with
-        this.sleep(3000);
+        sleep(3000);
         //pu: Take care to get out if we are the discarded thread upon endProcess()
         while ( (__processThread == Thread.currentThread()) &&
                 (__model != null) &&
@@ -94,7 +95,7 @@ public class ProgressBean implements Serializable
             updatedValue = maximum;
           }
           __model.setValue(updatedValue);
-          this.sleep(sleepFactor * _updateIntervalFactor);
+          sleep(sleepFactor * _updateIntervalFactor);
         }
       }
       catch (InterruptedException ie)

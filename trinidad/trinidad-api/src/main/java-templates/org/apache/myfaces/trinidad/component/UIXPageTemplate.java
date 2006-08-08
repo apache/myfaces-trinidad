@@ -40,13 +40,15 @@ import org.apache.myfaces.trinidad.model.TreeModel;
  */
 abstract public class UIXPageTemplate extends UIXMenuHierarchy
 {
+	
 /**/  public abstract RowKeySet getDisclosedRowKeys();
 /**/  public abstract void setDisclosedRowKeys(RowKeySet state);
 /**/  public abstract MethodBinding getRowDisclosureListener();
 
- /**
+  /**
    * Sets the phaseID of UI events depending on the "immediate" property.
    */
+  @Override
   public void queueEvent(FacesEvent event)
   {
     TableUtils.__handleQueueEvent(this, event);
@@ -58,6 +60,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
    * @param event
    * @throws javax.faces.event.AbortProcessingException
    */
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   { 
     HierarchyUtils.__handleBroadcast(this, 
@@ -67,7 +70,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
     super.broadcast(event);
   }
  
-   
+  @Override
  public CollectionModel createCollectionModel(CollectionModel current, Object value)
   {
     TreeModel model = (TreeModel)super.createCollectionModel(current, value);    
@@ -76,6 +79,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
     return model;
   }
  
+  @Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -108,13 +112,14 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
         
   }
 
-
+  @Override
   void __encodeBegin(FacesContext context) throws IOException
   {
     HierarchyUtils.__handleEncodeBegin(this, getDisclosedRowKeys());
     super.__encodeBegin(context);
   }
   
+  @Override
   void __init()
   {
     super.__init();

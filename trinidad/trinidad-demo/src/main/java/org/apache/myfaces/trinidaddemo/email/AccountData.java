@@ -198,7 +198,7 @@ public final class AccountData implements java.io.Serializable
   {
     _rootFolders = rootFolders;
 
-    List rootFolderList = Arrays.asList((Object[]) _rootFolders);
+    List<Object> rootFolderList = Arrays.asList((Object[]) _rootFolders);
 
     TreeModel folderTreeModel = new ChildPropertyTreeModel(rootFolderList, "subFolders");
     setFolderModel(folderTreeModel);
@@ -304,6 +304,7 @@ public final class AccountData implements java.io.Serializable
   /**
    * Clean up resources
    */
+  @Override
   protected void finalize() throws Throwable
   {
     destroy();

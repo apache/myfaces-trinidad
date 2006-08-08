@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidad.model.DefaultBoundedRangeModel;
  */
 public class ProgressStepsBean extends ProgressBean 
 {
-  public List getProgressSteps()
+  public List<String> getProgressSteps()
   {
     return _PROGRESS_STEPS;
   }
@@ -63,6 +63,7 @@ public class ProgressStepsBean extends ProgressBean
     }
   }
   
+  @Override
   protected void prepare()
   {
     __model = new DefaultBoundedRangeModel(-1, 6);
@@ -71,14 +72,14 @@ public class ProgressStepsBean extends ProgressBean
     __processThread.start();
   }
   
-  static private List _PROGRESS_STEPS;
+  static private List<String> _PROGRESS_STEPS;
   
   static private final Logger _LOG = Logger.getLogger(
     ProgressStepsBean.class.getName());
   
   static
   {
-    _PROGRESS_STEPS = new ArrayList();
+    _PROGRESS_STEPS = new ArrayList<String>();
     _PROGRESS_STEPS.add("Checking for latest version");
     _PROGRESS_STEPS.add("Checking available disk space");
     _PROGRESS_STEPS.add("Copying files");

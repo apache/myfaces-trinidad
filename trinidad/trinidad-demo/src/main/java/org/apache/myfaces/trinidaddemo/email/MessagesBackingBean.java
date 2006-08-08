@@ -131,7 +131,7 @@ public class MessagesBackingBean
 
   public void performDelete(ActionEvent event)
   {
-    Iterator selection = _messagesTable.getSelectedRowKeys().iterator();
+    Iterator<?> selection = _messagesTable.getSelectedRowKeys().iterator();
     // Nothing was selected
     if (selection.hasNext())
     {
@@ -142,7 +142,7 @@ public class MessagesBackingBean
 
         Folder folder = _folderData.getFolder();
         folder.open(Folder.READ_WRITE);
-        List messageList = new ArrayList();
+        List<Message> messageList = new ArrayList<Message>();
         try
         {
           while (selection.hasNext())
@@ -164,7 +164,7 @@ public class MessagesBackingBean
             }
           }
 
-          Message[] messages = (Message[])
+          Message[] messages = 
             messageList.toArray(new Message[messageList.size()]);
           folder.setFlags(messages, new Flags(Flags.Flag.DELETED), true);
           // clear the selection:

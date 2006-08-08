@@ -64,6 +64,7 @@ public class ChangeBean
   /**
    * Picks up an image randomly from a list and changes it on the image.
    */
+  @SuppressWarnings("unchecked")
   public void modifyObjectImage(ActionEvent event)
   {
     UIComponent uic = event.getComponent().findComponent("oi1");
@@ -76,6 +77,7 @@ public class ChangeBean
    * Picks up a string randomly from a list and changes the text attribute value
    *  of the panelBox.
    */
+  @SuppressWarnings("unchecked")
   public void modifyPanelBox(ActionEvent event)
   {
     UIComponent uic = event.getComponent().findComponent("pb1");
@@ -87,6 +89,7 @@ public class ChangeBean
   /**
    * Modifies the sortable property of the column.
    */
+  @SuppressWarnings("unchecked")
   public void modifyColumn(ActionEvent event)
   {
     //=-=pu: 'uic1' gets null, while 'uic' gets valid component, maybe a bug ?.
@@ -107,6 +110,7 @@ public class ChangeBean
    * Picks up a string randomly from a list and changes the label attribute 
    *  value of the inputText.
    */
+  @SuppressWarnings("unchecked")
   public void modifyInputText(ActionEvent event)
   {
     UIComponent uic = event.getComponent().findComponent("it1");
@@ -144,6 +148,7 @@ public class ChangeBean
   /**
    * Appends an image child to the panelGroup.
    */
+  @SuppressWarnings("unchecked")
   public void appendChild(ActionEvent event)
   {
     UIComponent eventSource = event.getComponent();
@@ -170,6 +175,7 @@ public class ChangeBean
   /**
    * Adds a 'brandingAppContextual' facet  to the panelGroup.
    */
+  @SuppressWarnings("unchecked")
   public void addFacet(ActionEvent event)
   {
     UIComponent eventSource = event.getComponent();
@@ -192,18 +198,18 @@ public class ChangeBean
   /**
    * Reverses the order of children of the panelGroup.
    */
+  @SuppressWarnings("unchecked")
   public void reorderChildren(ActionEvent event)
   {
     UIComponent uic = event.getComponent().findComponent("pg1");
     int numChildren = uic.getChildCount();
     if (numChildren == 0)
       return;
-    List children = uic.getChildren();
+    List<UIComponent> children = uic.getChildren();
     Collections.reverse(children);
-    List reorderedChildIdList = new ArrayList();
-    for (int i=0; i<children.size(); i++)
+    List<String> reorderedChildIdList = new ArrayList<String>();
+    for(UIComponent child : children)
     {
-      UIComponent child = (UIComponent) children.get(i);
       reorderedChildIdList.add(child.getId());
     }
     
@@ -242,6 +248,7 @@ public class ChangeBean
    * Removes one or more facets, based on some characteristic of the
    *  event source.
    */
+  @SuppressWarnings("unchecked")
   public void removeFacets(ActionEvent event)
   {
     CoreCommandButton eventSource = (CoreCommandButton) event.getComponent();
@@ -253,7 +260,7 @@ public class ChangeBean
     
     //pu: Get the CorePanelPage components that has all the removable facets
     UIComponent uic = eventSource.findComponent("pp1");
-    Map facets = uic.getFacets();
+    Map<String, UIComponent> facets = uic.getFacets();
     if (facets.keySet().size() == 0)
       return;
 
@@ -325,12 +332,13 @@ public class ChangeBean
     }
   }
 
+  @SuppressWarnings("unchecked")
   private static void _removeChild(UIComponent uic, String removableChildId)
   {
     UIComponent removableChild = _findChildById(uic, removableChildId);
     if (removableChild != null)
     {
-      List children = uic.getChildren();
+      List<UIComponent> children = uic.getChildren();
       children.remove(removableChild);
       ComponentChange rca = new RemoveChildComponentChange(removableChildId);
       FacesContext fc = FacesContext.getCurrentInstance();
@@ -339,16 +347,17 @@ public class ChangeBean
     }
   }
   
+  @SuppressWarnings("unchecked")
   private static UIComponent _findChildById(UIComponent uic, String id)
   {
     int numChildren = uic.getChildCount();
     if (numChildren == 0)
       return null;
-    List children = uic.getChildren();
+    List<UIComponent> children = uic.getChildren();
     UIComponent child = null;
     for (int i=0; i<numChildren; i++)
     {
-      child = (UIComponent) children.get(i);
+      child = children.get(i);
       if (id.equals(child.getId()))
         return child;
     }

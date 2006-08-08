@@ -23,7 +23,6 @@ package org.apache.myfaces.trinidaddemo.tableDemos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.event.ActionEvent;
@@ -38,7 +37,7 @@ public class EmployeeTableBean implements Serializable
     _populate();
   }
 
-  private List _list;
+  private List<EmployeeBean> _list;
 
   private int _total;
 
@@ -46,7 +45,7 @@ public class EmployeeTableBean implements Serializable
    * @param _list
    *          The _list to set.
    */
-  public void setList(List list)
+  public void setList(List<EmployeeBean> list)
   {
     this._list = list;
   }
@@ -54,7 +53,7 @@ public class EmployeeTableBean implements Serializable
   /**
    * @return Returns the _list.
    */
-  public List getList()
+  public List<EmployeeBean> getList()
   {
     return _list;
   }
@@ -78,7 +77,7 @@ public class EmployeeTableBean implements Serializable
 
   public void addRow(ActionEvent event)
   {
-    EmployeeBean dataHolder = (EmployeeBean) _list.get(_list.size() - 1);
+    EmployeeBean dataHolder = _list.get(_list.size() - 1);
     dataHolder.setReadOnly(true);
     dataHolder = new EmployeeBean("", "");
     dataHolder.setReadOnly(false);
@@ -88,9 +87,8 @@ public class EmployeeTableBean implements Serializable
   public void totalRow(ActionEvent event)
   {
     _total = 0;
-    for (Iterator iter = _list.iterator(); iter.hasNext();)
+    for(EmployeeBean dataHolder : _list)
     {
-      EmployeeBean dataHolder = (EmployeeBean) iter.next();
       if (!dataHolder.getData2().equalsIgnoreCase(""))
       {
         _total = _total + Integer.parseInt(dataHolder.getData2());
@@ -100,7 +98,7 @@ public class EmployeeTableBean implements Serializable
 
   private void _populate()
   {
-    _list = new ArrayList();
+    _list = new ArrayList<EmployeeBean>();
     _list.add(new EmployeeBean("22", "22"));
     _list.add(new EmployeeBean("44", "44"));
     _list.add(new EmployeeBean("44", "44"));

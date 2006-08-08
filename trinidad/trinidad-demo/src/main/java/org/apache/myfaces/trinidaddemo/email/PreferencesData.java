@@ -68,7 +68,7 @@ public class PreferencesData
   /**
    * @todo Provide internationalized list.
    */
-  public List getSkinFamilyItems()
+  public List<SelectItem> getSkinFamilyItems()
   {
     return _SKIN_FAMILIES;
   }
@@ -77,7 +77,7 @@ public class PreferencesData
   /**
    * @todo Provide internationalized list.
    */
-  public List getAccessibilityModeItems()
+  public List<SelectItem> getAccessibilityModeItems()
   {
     return _ACCESSIBILITY_MODES;
   }
@@ -251,7 +251,7 @@ public class PreferencesData
 
   private static final int _DEFAULT_ROWS_SHOWN = 25;
 
-  private static final List _ACCESSIBILITY_MODES = new ArrayList();
+  private static final List<SelectItem> _ACCESSIBILITY_MODES = new ArrayList<SelectItem>();
   static
   {
     _ACCESSIBILITY_MODES.add(new SelectItem("default", "Default"));
@@ -259,7 +259,7 @@ public class PreferencesData
     _ACCESSIBILITY_MODES.add(new SelectItem("screenReader", "Screen Readers"));
   }
 
-  private static final List _SKIN_FAMILIES = new ArrayList();
+  private static final List<SelectItem> _SKIN_FAMILIES = new ArrayList<SelectItem>();
   static
   {
     _SKIN_FAMILIES.add(new SelectItem("oracle", "Oracle"));

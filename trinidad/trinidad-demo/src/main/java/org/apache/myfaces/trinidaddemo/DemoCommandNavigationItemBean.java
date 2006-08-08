@@ -34,6 +34,7 @@ public class DemoCommandNavigationItemBean
    * selected and the others become deselected.
    * @param event the ActionEvent associated with the action
    */
+  @SuppressWarnings("unchecked")
   public void navigationItemAction(ActionEvent event)
   {
     UIComponent actionItem = event.getComponent();

@@ -19,11 +19,14 @@ import java.util.List;
 
 abstract public class UIXSelectOrderTemplate extends UIXSelectMany
 {
+	
   /**
    * Compares two values, paying attention to the order of the elements.
    * @todo improve efficiency
    * @return true if the values are different
    */
+  @Override
+  @SuppressWarnings("unchecked")
   protected boolean compareValues(Object previous, Object value)
   {
     int prevSize = __getSize(previous);
@@ -37,10 +40,10 @@ abstract public class UIXSelectOrderTemplate extends UIXSelectMany
     if (prevSize == 0)
       return false;
 
-    List prevList = (previous instanceof List)
-                      ? (List) previous : __toList(previous);
-    List newList = (value instanceof List)
-                      ? (List) value : __toList(value);
+    List<Object> prevList = (previous instanceof List)
+                      ? (List<Object>) previous : __toList(previous);
+    List<Object> newList = (value instanceof List)
+                      ? (List<Object>) value : __toList(value);
 
     // Since List has explicit rules about how equals() works, we
     // can just use that method.

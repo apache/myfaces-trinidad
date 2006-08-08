@@ -46,7 +46,7 @@ abstract public class UIXSingleStepTemplate
 /**/  abstract public void setPreviousAction(MethodBinding action);
 /**/  abstract public void setNextAction(MethodBinding action);
 
-
+  @Override
   public void queueEvent(FacesEvent e)
   {
     if (e.getSource() == this)
@@ -79,11 +79,13 @@ abstract public class UIXSingleStepTemplate
     * remove (then restore) default Listeners before saving state -
     * this note copied from form.submitButtonBase.saveState....
    */
+  @Override
   public Object saveState(FacesContext context)
   {
     return super.saveState(context);
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Perform standard superclass processing

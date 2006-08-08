@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidaddemo.dialog;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 public class ChooseIntegerBean

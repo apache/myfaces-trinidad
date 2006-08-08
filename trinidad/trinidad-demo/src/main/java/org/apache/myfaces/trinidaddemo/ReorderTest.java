@@ -32,30 +32,34 @@ public class ReorderTest
     return _panel;
   }
 
+  @SuppressWarnings("unchecked")
   public void add(ActionEvent event)
   {
-    List children = _panel.getChildren();
+    List<UIComponent> children = _panel.getChildren();
     CoreOutputText output = new CoreOutputText();
     output.setValue("Item " + (children.size() + 1));
     children.add(0, output);
   }
 
+  @SuppressWarnings("unchecked")
   public void remove(ActionEvent event)
   {
-    List children = _panel.getChildren();
+    List<UIComponent> children = _panel.getChildren();
     children.remove(children.size() - 1);
   }
 
+  @SuppressWarnings("unchecked")
   public void removeFirst(ActionEvent event)
   {
-    List children = _panel.getChildren();
+    List<UIComponent> children = _panel.getChildren();
     children.remove(0);
   }
 
+  @SuppressWarnings("unchecked")
   public void rotate(ActionEvent event)
   {
-    List children = _panel.getChildren();
-    Object o = children.get(0);
+    List<UIComponent> children = _panel.getChildren();
+    UIComponent o = children.get(0);
     children.remove(0);
     children.add(o);
   }
@@ -65,6 +69,7 @@ public class ReorderTest
     _panel.getFacets().remove("separator");
   }
 
+  @SuppressWarnings("unchecked")
   public void setSeparator(ActionEvent event)
   {
     CoreOutputText output = new CoreOutputText();

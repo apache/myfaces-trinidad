@@ -80,7 +80,7 @@ public class TreeModelAdapter implements java.io.Serializable
    * creation facility, which requires the parameter type is List.
    * @param instance the list of root nodes
    */
-  public void setListInstance(List instance)
+  public void setListInstance(List<Object> instance)
   {
     setInstance(instance);
   }  
@@ -95,9 +95,10 @@ public class TreeModelAdapter implements java.io.Serializable
    *                            "getListInstance" with 0 arg(s) of 
    *                            matching types in websphere
    */
-  public List getListInstance()
+  @SuppressWarnings("unchecked")
+  public List<Object> getListInstance()
   {
-    return (List)getInstance();
+    return (List<Object>)getInstance();
   }
   
 }

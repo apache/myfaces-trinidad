@@ -31,7 +31,6 @@ import javax.faces.event.PhaseId;
 import org.apache.myfaces.trinidad.event.FocusEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeListener;
-import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
@@ -55,6 +54,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * {@link #getRowsByDepth}.
    * @return 0 if all rows must be shown at this level.
    */
+  @Override
   public final int getRows()
   {
     int depth = getTreeModel().getDepth();
@@ -83,13 +83,14 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * @return zero based index of the row that must be displayed first.
    * @see #getRowData()
    */
+  @Override
   public final int getFirst()
   {
     // "first" does not change per path. It changes per parent path.
     // this is because "first", "rows" and "rowCount" applies to the container
     // element and not the current element:
     Object container = _getContainerPath();
-    Integer first = (Integer) _firstMap.get(container);
+    Integer first = _firstMap.get(container);
     return (first != null) ? first.intValue() : 0;
   }
 
@@ -108,7 +109,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     // element and not the current element:
     Object container = _getContainerPath();
     if (_firstMap == Collections.EMPTY_MAP)
-      _firstMap = new HashMap(3);
+      _firstMap = new HashMap<Object, Integer>(3);
 
     if (index <= 0)
       _firstMap.remove(container);
@@ -141,6 +142,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     return (RangeChangeListener[]) getFacesListeners(RangeChangeListener.class);
   }
 
+  @Override
   public Object saveState(FacesContext context)
   {
     Object[] array = new Object[2];
@@ -153,15 +155,18 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     return array;
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
   public void restoreState(FacesContext context, Object state)
   {
     Object[] array = (Object[]) state;
     super.restoreState(context, array[0]);
-    _firstMap = (Map) array[1];
+    _firstMap = (Map<Object, Integer>) array[1];
     if (_firstMap == null)
       _firstMap = Collections.EMPTY_MAP;
   }
 
+  @Override
   public void broadcast(FacesEvent event) throws AbortProcessingException
   {
     // Notify the specified disclosure listener method (if any)
@@ -197,13 +202,15 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * the nodeStamp stamp (if any).
    * @todo cache the result.
    */
+  @SuppressWarnings("unchecked")
+  @Override
   protected final List getStamps()
   {
-    List children = getChildren();
+    List<UIComponent> children = getChildren();
     UIComponent nodeStamp = getNodeStamp();
     if (nodeStamp != null)
     {
-      List stamps = new ArrayList(children.size() + 1);
+      List<UIComponent> stamps = new ArrayList<UIComponent>(children.size() + 1);
       stamps.addAll(children);
       stamps.add(nodeStamp);
       return stamps;
@@ -215,6 +222,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * Restores the state for the given stamp.
    * This method avoids changing the state of facets on columns.
    */
+  @Override
   protected final void restoreStampState(FacesContext context, UIComponent stamp,
                                          Object stampState)
   {
@@ -232,6 +240,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * Saves the state for the given stamp.
    * This method avoids changing the state of facets on columns.
    */
+  @Override
   protected final Object saveStampState(FacesContext context, UIComponent stamp)
   {
     if (stamp instanceof UIXColumn)
@@ -244,6 +253,8 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       return super.saveStampState(context, stamp);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected final void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -294,6 +305,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     }
   }
 
+  @Override
   void __init()
   {
     super.__init();
@@ -321,5 +333,5 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     return parentKey;
   }
 
-  private Map _firstMap = Collections.EMPTY_MAP;
+  private Map<Object, Integer> _firstMap = Collections.EMPTY_MAP;
 }

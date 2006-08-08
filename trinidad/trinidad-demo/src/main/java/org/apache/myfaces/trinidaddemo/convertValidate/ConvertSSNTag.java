@@ -28,6 +28,7 @@ public class ConvertSSNTag extends ConverterTag
   {
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     super.setConverterId(SSNConverter.CONVERTER_ID);
@@ -37,13 +38,11 @@ public class ConvertSSNTag extends ConverterTag
   /**
    * 
    */
+  @Override
   protected Converter createConverter() throws JspException
   {
     SSNConverter converter =
                               (SSNConverter)super.createConverter();
     return converter;
   }
-
-
-
 }

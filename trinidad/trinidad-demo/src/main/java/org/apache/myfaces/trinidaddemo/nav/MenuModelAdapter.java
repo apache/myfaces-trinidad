@@ -31,7 +31,7 @@ public class MenuModelAdapter implements java.io.Serializable
   }
 
   private ViewIdPropertyMenuModel _model = null;
-  private List _aliasList = null;
+  private List<Object> _aliasList = null;
   private boolean _aliasListAdded = false;
 
   /**
@@ -66,7 +66,7 @@ public class MenuModelAdapter implements java.io.Serializable
     return _model;
   }
 
-  public List getAliasList()
+  public List<Object> getAliasList()
   {
     return _aliasList;
   }
@@ -76,7 +76,7 @@ public class MenuModelAdapter implements java.io.Serializable
    * We iterate over the list like so:
    * ViewIdPropertyMenuModel.addViewId(aliasList.get(i), aliasList.get(i+1))
    */
-  public void setAliasList(List aliasList)
+  public void setAliasList(List<Object> aliasList)
   {
     _aliasList = aliasList;
   }

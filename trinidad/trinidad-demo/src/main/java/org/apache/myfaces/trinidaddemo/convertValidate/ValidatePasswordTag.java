@@ -28,6 +28,7 @@ public class ValidatePasswordTag extends ValidatorTag
   {
   }
 
+  @Override
   public int doStartTag() throws JspException
   {
     super.setValidatorId(PasswordValidator.VALIDATOR_ID);
@@ -37,13 +38,11 @@ public class ValidatePasswordTag extends ValidatorTag
   /**
    * 
    */
+  @Override
   protected Validator createValidator() throws JspException
   {
     PasswordValidator validator =
                               (PasswordValidator)super.createValidator();
     return validator;
   }
-
-
-
 }

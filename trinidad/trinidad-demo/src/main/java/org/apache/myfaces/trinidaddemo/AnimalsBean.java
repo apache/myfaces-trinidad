@@ -25,7 +25,7 @@ public class AnimalsBean implements java.io.Serializable
 {
   public AnimalsBean()
   {
-    _names = new ArrayList();
+    _names = new ArrayList<String>();
     _names.add("Aardvark");
     _names.add("Albatross ");
     _names.add("Alligator");
@@ -118,12 +118,12 @@ public class AnimalsBean implements java.io.Serializable
     _namesInRange = _names.subList(_start, _end);
   }
 
-  public List getNames()
+  public List<String> getNames()
   {
     return _names;
   }
   
-  public List getNamesInRange()
+  public List<String> getNamesInRange()
   {
 
     return _namesInRange;
@@ -175,7 +175,7 @@ public class AnimalsBean implements java.io.Serializable
     _end = end;   
   } 
   
-  private void _setNamesInRange(List namesInRange)
+  private void _setNamesInRange(List<String> namesInRange)
   {
     _namesInRange = namesInRange;
 
@@ -185,9 +185,9 @@ public class AnimalsBean implements java.io.Serializable
   private int _start = 0;  
   private int _end;
   
-  private List _names;
+  private List<String> _names;
   
-  private List _namesInRange;
+  private List<String> _namesInRange;
   
   private static final int _BLOCK_SIZE = 5;
 

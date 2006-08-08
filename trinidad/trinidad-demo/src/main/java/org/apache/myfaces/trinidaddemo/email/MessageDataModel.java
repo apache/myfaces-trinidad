@@ -46,17 +46,20 @@ public class MessageDataModel extends DataModel
     _fetchProfile   = fetchProfile;
   }
 
+  @Override
   public int getRowCount()
   {
     return _count;
   }
 
+  @Override
   public boolean isRowAvailable()
   {
     int index = getRowIndex();
     return (index >= 0) && (index < getRowCount());
   }
 
+  @Override
   public Object getRowData()
   {
     if (!isRowAvailable())
@@ -69,6 +72,7 @@ public class MessageDataModel extends DataModel
     return _loaded[index];
   }
 
+  @Override
   public void setRowIndex(int index)
   {
     if (index < -1)
@@ -77,16 +81,19 @@ public class MessageDataModel extends DataModel
     _rowIndex = index;
   }
 
+  @Override
   public int getRowIndex()
   {
     return _rowIndex;
   }
 
+  @Override
   public Object getWrappedData()
   {
     return _folder;
   }
 
+  @Override
   public void setWrappedData(Object data)
   {
     Folder newFolder = (Folder) data;

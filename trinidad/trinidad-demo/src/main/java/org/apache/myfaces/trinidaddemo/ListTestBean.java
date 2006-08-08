@@ -78,46 +78,45 @@ public class ListTestBean implements java.io.Serializable
     _stringArray = val;
   }
 
-  public List getObjectList()
+  public List<Object> getObjectList()
   {
     return _objectList;
   }
 
-  public void setObjectList(List val)
+  public void setObjectList(List<Object> val)
   {
     _objectList = val;
   }
 
-  public List getStringList()
+  public List<String> getStringList()
   {
     return _stringList;
   }
 
-  public void setSelectedSelectItems(List val)
+  public void setSelectedSelectItems(List<?> val)
   {
     _selectedSelectItems = val;
   }
 
-  public List getSelectedSelectItems()
+  public List<?> getSelectedSelectItems()
   {
     return _selectedSelectItems;
   }
   
-  public void setSelectedCars(List selectedCars)
+  public void setSelectedCars(List<?> selectedCars)
   {
     _selectedCars = selectedCars;
   }
 
-  public List getSelectedCars()
+  public List<?> getSelectedCars()
   {
     return _selectedCars;
   }
     
-  public List getMakes()
+  public List<SelectItem> getMakes()
   {
     return _MAKE_ITEMS;
   }
-
   
   public SelectItem getFirstSelectItemString()
   {
@@ -208,7 +207,7 @@ public class ListTestBean implements java.io.Serializable
     private String _name;
   } 
   
-  static private final List _MAKE_ITEMS = new ArrayList();
+  static private final List<SelectItem> _MAKE_ITEMS = new ArrayList<SelectItem>();
   
   static private final SelectItem _FIRST_CAR = 
     new SelectItem("cordera", "Cordera Ltd.");
@@ -236,8 +235,8 @@ public class ListTestBean implements java.io.Serializable
     _MAKE_ITEMS.add(_THIRD_SELECT_ITEM_CAR);
   }   
   
-  private List _selectedCars;
-  private List _selectedSelectItems;
+  private List<?> _selectedCars;
+  private List<?> _selectedSelectItems;
     
   private Integer _int = 1;
   private int[] _intArray;
@@ -245,9 +244,6 @@ public class ListTestBean implements java.io.Serializable
   private String _string;
   private String[] _stringArray;
 
-  private List _stringList;
-  private List _objectList;
-  
-
-  
+  private List<String> _stringList;
+  private List<Object> _objectList;
 }

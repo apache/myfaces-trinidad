@@ -47,6 +47,7 @@ public class CompositeTest
    */
   static public class ForceRendererType extends UIInput
   {
+    @Override
     public String getRendererType()
     {
       return "org.apache.myfaces.trinidaddemo.DateField";

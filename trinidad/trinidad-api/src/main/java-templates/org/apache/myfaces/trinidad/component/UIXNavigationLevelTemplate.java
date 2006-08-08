@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.trinidad.component;
 
-import java.util.List;
-
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 
@@ -32,7 +30,7 @@ abstract public class UIXNavigationLevelTemplate extends UIXNavigaitonHierarchy
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public int getLevel();
 
-
+	@Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)

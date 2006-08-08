@@ -24,7 +24,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -33,13 +32,12 @@ public class ComponentEditorHandler
 {
   public String update()
   {
-    List list = _list;
+    List<PropertyOfComponent> list = _list;
     if (list != null)
     {
-      Iterator iter = list.iterator();
-      while (iter.hasNext())
+      for(PropertyOfComponent prop : list)
       {
-        ((PropertyOfComponent) (iter.next())).flushToComponent();
+        prop.flushToComponent();
       }
     }
 
@@ -66,7 +64,7 @@ public class ComponentEditorHandler
     _javascriptShown = javascriptShown;
   }
 
-  public List getAttributes()
+  public List<PropertyOfComponent> getAttributes()
   {
     if (_list != null)
       return _list;
@@ -75,7 +73,7 @@ public class ComponentEditorHandler
     if (comp == null)
       return null;
 
-    List list = new ArrayList();
+    List<PropertyOfComponent> list = new ArrayList<PropertyOfComponent>();
     try
     {
       BeanInfo beanInfo = Introspector.getBeanInfo(comp.getClass());
@@ -99,7 +97,7 @@ public class ComponentEditorHandler
           continue;
                         
 
-        Class type = descriptor.getPropertyType();
+        Class<?> type = descriptor.getPropertyType();
         if ((type == String.class) ||
             (type == Object.class))
         {
@@ -143,7 +141,7 @@ public class ComponentEditorHandler
     return null;
   }
 
-  static public class PropertyOfComponent implements Comparable
+  static public class PropertyOfComponent implements Comparable<PropertyOfComponent>
   {
     public PropertyOfComponent(UIComponent component,
                                PropertyDescriptor descriptor)
@@ -153,9 +151,8 @@ public class ComponentEditorHandler
     }
 
     // Sort by the name of the property
-    public int compareTo(Object o)
+    public int compareTo(PropertyOfComponent poc)
     {
-      PropertyOfComponent poc = (PropertyOfComponent) o;
       return getName().compareTo(poc.getName());
     }
 
@@ -169,6 +166,7 @@ public class ComponentEditorHandler
       return null;
     }
 
+    @SuppressWarnings("unchecked")
     public void flushToComponent()
     {
       if (_valueSet)
@@ -180,7 +178,7 @@ public class ComponentEditorHandler
       Method method = _descriptor.getReadMethod();
       try
       {
-        return method.invoke(_component, null);
+        return method.invoke(_component, (Object[])null);
       }
       catch (Exception e)
       {
@@ -228,6 +226,7 @@ public class ComponentEditorHandler
       setProperty(i);
     }
 
+    @Override
     public String getType()
     {
       return "integer";
@@ -252,6 +251,7 @@ public class ComponentEditorHandler
       setProperty(i);
     }
 
+    @Override
     public String getType()
     {
       return "date";
@@ -279,6 +279,7 @@ public class ComponentEditorHandler
       setProperty(s);
     }
 
+    @Override
     public String getType()
     {
       return "string";
@@ -304,6 +305,7 @@ public class ComponentEditorHandler
       setProperty(b);
     }
 
+    @Override
     public String getType()
     {
       return "boolean";
@@ -311,7 +313,7 @@ public class ComponentEditorHandler
   }
 
 
-  private UIComponent _editedComponent;
-  private boolean     _javascriptShown = true;
-  private List        _list;
+  private UIComponent               _editedComponent;
+  private boolean                   _javascriptShown = true;
+  private List<PropertyOfComponent> _list;
 }

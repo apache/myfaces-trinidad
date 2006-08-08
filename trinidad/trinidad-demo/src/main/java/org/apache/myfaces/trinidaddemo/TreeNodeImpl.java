@@ -61,13 +61,13 @@ public class TreeNodeImpl implements Serializable
     _destination = destination;
   }
 
-  public void setChildren(List nodes)
+  public void setChildren(List<TreeNodeImpl> nodes)
   {
     // Clone on the way in.
-    _nodes = new ArrayList(nodes);
+    _nodes = new ArrayList<TreeNodeImpl>(nodes);
   }
 
-  public List getChildren()
+  public List<TreeNodeImpl> getChildren()
   {
     if (_nodes == null)
       return null;
@@ -79,5 +79,5 @@ public class TreeNodeImpl implements Serializable
   private String _text = null;
   private String _destination = null;
   private String _icon = null;
-  private List   _nodes;
+  private List<TreeNodeImpl> _nodes;
 }

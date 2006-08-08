@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 package org.apache.myfaces.trinidad.component;
-import javax.faces.context.FacesContext;
 
 
 /**

@@ -53,11 +53,13 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
  */
 public class DateFieldAsRenderer extends Renderer
 {
+  @SuppressWarnings("unchecked")
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     _addChildren(context, component);
 
-    Map attrs = component.getAttributes();
+    Map<String, UIComponent> attrs = component.getAttributes();
     if (Boolean.TRUE.equals(attrs.get("readOnly")) ||
         Boolean.TRUE.equals(attrs.get("disabled")))
       return;
@@ -74,6 +76,7 @@ public class DateFieldAsRenderer extends Renderer
     component.getFacet("day").processDecodes(context);
   }
 
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -119,12 +122,14 @@ public class DateFieldAsRenderer extends Renderer
     return newValue;
   }
 
+  @Override
   public void encodeBegin(FacesContext context,
                           UIComponent component) throws IOException
   {
     _addChildren(context, component);
   }
 
+  @Override
   public void encodeChildren(FacesContext context,
                              UIComponent component) throws IOException
   {
@@ -150,11 +155,13 @@ public class DateFieldAsRenderer extends Renderer
     year.encodeEnd(context);
   }
 
+  @Override
   public boolean getRendersChildren()
   {
     return true;
   }
 
+  @SuppressWarnings("unchecked")
   private void _addChildren(FacesContext context, UIComponent component)
   {
     // If the components are already there, bail.
@@ -168,7 +175,7 @@ public class DateFieldAsRenderer extends Renderer
       component.setId(id);
     }
 
-    Map facets = component.getFacets();
+    Map<String, UIComponent> facets = component.getFacets();
     facets.clear();
 
     Date value = (Date) ((EditableValueHolder) component).getValue();

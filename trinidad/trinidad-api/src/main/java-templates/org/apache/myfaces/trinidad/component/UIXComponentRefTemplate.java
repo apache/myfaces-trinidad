@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import java.util.AbstractMap;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.UIComponent;
@@ -37,6 +38,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
 {
 /**/  public abstract String getVar();
 
+  @Override
   public void queueEvent(FacesEvent event)
   {
     // we want to wrap up
@@ -46,6 +48,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     super.queueEvent(event);
   }
 
+  @Override
   public void broadcast(FacesEvent event)
     throws AbortProcessingException
   {
@@ -69,7 +72,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     }
   }
 
-
+  @Override
   public void processDecodes(final FacesContext context)
   {
     Runnable runner = new Runnable()
@@ -82,6 +85,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     _processPhase(context, runner);
   }
 
+  @Override
   public void processValidators(final FacesContext context)
   {
     Runnable runner = new Runnable()
@@ -94,6 +98,7 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     _processPhase(context, runner);
   }
 
+  @Override
   public void processUpdates(final FacesContext context)
   {
     Runnable runner = new Runnable()
@@ -106,18 +111,19 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     _processPhase(context, runner);
   }
 
+  @Override
   public void encodeBegin(FacesContext context) throws IOException
   {
     _setupEL(context);
     super.encodeBegin(context);
   }
 
+  @Override
   public void encodeEnd(final FacesContext context) throws IOException
   {
     super.encodeEnd(context);
     _resetEL(context);
   }
-
 
   private void _setupEL(FacesContext context)
   {
@@ -191,8 +197,9 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     return _var;
   }
 
-  private final class AttrMap extends AbstractMap
+  private final class AttrMap extends AbstractMap<Object, Object>
   {
+    @Override
     public Object get(final Object key)
     {
       FacesContext context = FacesContext.getCurrentInstance();
@@ -213,7 +220,9 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
       return result;
     }
 
-    public Set entrySet()
+    @Override
+    @SuppressWarnings("unchecked")
+    public Set<Map.Entry<Object, Object>> entrySet()
     {
       return Collections.EMPTY_SET;
     }

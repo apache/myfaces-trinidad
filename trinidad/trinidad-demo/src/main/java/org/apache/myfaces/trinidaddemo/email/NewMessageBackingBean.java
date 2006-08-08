@@ -275,9 +275,9 @@ public class NewMessageBackingBean
     {
       String username = _account.getUsername();
       String from = username + "@" + _account.getDomain();
-      List to = _getEmailList(getTo());
+      List<InternetAddress> to = _getEmailList(getTo());
       
-      List cc = null;
+      List<InternetAddress> cc = null;
       String ccString = getCc();
       if(ccString != null) 
       {
@@ -287,13 +287,11 @@ public class NewMessageBackingBean
       msg.setFrom(new InternetAddress(from));
       if ((to != null) && !to.isEmpty())
         msg.setRecipients(Message.RecipientType.TO,
-                          (InternetAddress[])
-                             to.toArray(new InternetAddress[0]));
+                          to.toArray(new InternetAddress[0]));
 
       if ((cc != null) && !cc.isEmpty())
         msg.setRecipients(Message.RecipientType.CC,
-                          (InternetAddress[])
-                             cc.toArray(new InternetAddress[0]));
+                          cc.toArray(new InternetAddress[0]));
       msg.setSubject(_subject == null ? "" : _subject);
       if ((_attachment1 == null) &&
           (_attachment2 == null) &&
@@ -365,10 +363,10 @@ public class NewMessageBackingBean
     multipart.addBodyPart(messageBodyPart);
   }
 
-  static private List _getEmailList(String values)
+  static private List<InternetAddress> _getEmailList(String values)
     throws AddressException
   {
-    ArrayList list = new ArrayList();
+    ArrayList<InternetAddress> list = new ArrayList<InternetAddress>();
     StringTokenizer tokens = new StringTokenizer(values.toString(), ",");
     while (tokens.hasMoreTokens())
     {

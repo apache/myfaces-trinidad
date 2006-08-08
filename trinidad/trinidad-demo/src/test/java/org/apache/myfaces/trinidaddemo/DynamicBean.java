@@ -33,6 +33,7 @@ public class DynamicBean
     System.out.println("Received " + event);
   }
 
+  @SuppressWarnings("unchecked")
   public CorePanelBox getPanel()
   {
     if (_panel == null)

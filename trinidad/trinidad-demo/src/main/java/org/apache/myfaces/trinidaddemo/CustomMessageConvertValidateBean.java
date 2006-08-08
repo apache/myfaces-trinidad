@@ -120,7 +120,7 @@ public class CustomMessageConvertValidateBean implements java.io.Serializable
     _color = colorValue;
   }
 
-  public Map getMessages()
+  public Map<String, String> getMessages()
   {
     return _messages;
   }
@@ -146,7 +146,7 @@ public class CustomMessageConvertValidateBean implements java.io.Serializable
 
   private DateFormat _dft = DateFormat.getDateInstance();
 
-  private Map _messages = new HashMap();
+  private Map<String, String> _messages = new HashMap<String, String>();
 
   private Color _color = new Color(255,0,0);
 

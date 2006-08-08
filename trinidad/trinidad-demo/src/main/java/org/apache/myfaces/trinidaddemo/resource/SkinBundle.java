@@ -20,6 +20,7 @@ import java.util.ListResourceBundle;
 
 public class SkinBundle extends ListResourceBundle
 {
+  @Override
   public Object[][] getContents()
   {
     return _CONTENTS;

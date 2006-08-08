@@ -23,6 +23,7 @@ public class DynamicModel extends DataModel implements Serializable
   {
   }
   
+  @Override
   public int getRowCount()
   {
     return _rowCount;    
@@ -58,31 +59,37 @@ public class DynamicModel extends DataModel implements Serializable
     }
   }
   
+  @Override
   public boolean isRowAvailable()
   {
     return (_index >= 0) && (_index < _length);
   }
   
+  @Override
   public Object getRowData()
   {
     return isRowAvailable() ? new Integer(_index) : null;
   }
   
+  @Override
   public int getRowIndex()
   {
     return _index;
   }
   
+  @Override
   public void setRowIndex(int index)
   {
     _index = index;
   }
   
+  @Override
   public Object getWrappedData()
   {
     return this;
   }
   
+  @Override
   public void setWrappedData(Object obj)
   {
     throw new UnsupportedOperationException();

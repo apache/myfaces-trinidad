@@ -15,6 +15,7 @@
 */
 package org.apache.myfaces.trinidaddemo.survey;
 
+import java.io.Serializable;
 import java.util.List;
 
 /***
@@ -26,7 +27,7 @@ import java.util.List;
  ***/
 
 
-public class MultChoiceQuestionBean implements java.io.Serializable
+public class MultChoiceQuestionBean implements QuestionBean, Serializable
 {
   
   /** Constructors **/
@@ -42,7 +43,7 @@ public class MultChoiceQuestionBean implements java.io.Serializable
    *  Class constructor.
    */
   public MultChoiceQuestionBean(String prompt,
-                                List choices,
+                                List<String> choices,
                                 int correctIndex)
   {
     _prompt = prompt;
@@ -66,7 +67,7 @@ public class MultChoiceQuestionBean implements java.io.Serializable
   /**
     *  returns the list of answer strings.
     */
-  public List getAnswerStrings()
+  public List<String> getAnswerStrings()
   {
     return _choices;
   }
@@ -77,6 +78,7 @@ public class MultChoiceQuestionBean implements java.io.Serializable
    *
    * @return a String representation of a MultChoiceQuestionBean
    */
+  @Override
   public String toString()
   {
     String str = "[" + _prompt + "; " + _choices.toString() + "]";
@@ -92,7 +94,7 @@ public class MultChoiceQuestionBean implements java.io.Serializable
    */
   public String getCorrectAnswerMessage()
   {
-    return "The correct answer is: " + (String)_choices.get(_correctIndex);
+    return "The correct answer is: " + _choices.get(_correctIndex);
   }
 
   /**
@@ -109,7 +111,7 @@ public class MultChoiceQuestionBean implements java.io.Serializable
   private String   _prompt;
   
   /* arbitrary number of possible answer choices (Strings) */
-  private List  _choices;
+  private List<String>  _choices;
 
   /* The index of the correct answer */
   private int     _correctIndex;

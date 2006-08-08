@@ -40,11 +40,13 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
    * @todo walk through UIXSelectItem values to determine that new
    *       values are permitted
    */
+  @Override
   protected void validateValue(FacesContext context, Object newValue)
   {
     super.validateValue(context, newValue);
   }
 
+  @Override
   protected boolean isEmpty(Object value)
   {
     if (value == null)
@@ -59,7 +61,7 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
     return false;
   }
 
-
+  @Override
   protected String getRequiredMessageKey()
   {
     return REQUIRED_MESSAGE_ID;
@@ -70,6 +72,7 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
    * @todo improve efficiency
    * @return true if the values are different
    */
+  @Override
   protected boolean compareValues(Object previous, Object value)
   {
     int prevSize = __getSize(previous);
@@ -83,8 +86,8 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
     if (prevSize == 0)
       return false;
 
-    List prevList = __toList(previous);
-    List newList = __toList(value);
+    List<Object> prevList = __toList(previous);
+    List<Object> newList = __toList(value);
     return _destructiveCompareOutOfOrderLists(prevList, newList);
   }
 
@@ -113,8 +116,8 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
   // mutating one or the other list.
   //
   static private boolean _destructiveCompareOutOfOrderLists(
-    List one,
-    List two)
+    List<Object> one,
+    List<Object> two)
   {
     int size = one.size();
 
@@ -139,15 +142,16 @@ abstract public class UIXSelectManyTemplate extends UIXEditableValue
   // Convert an Object to a mutable, copied List;  copied
   // because our compare routine is destructive.
   //
-  static List __toList(Object o)
+  @SuppressWarnings("unchecked")
+  static List<Object> __toList(Object o)
   {
     if (o == null)
       return null;
 
-    ArrayList listCopy = new ArrayList();
+    ArrayList<Object> listCopy = new ArrayList<Object>();
     if (o instanceof Collection)
     {
-      listCopy.addAll((Collection) o);
+      listCopy.addAll((Collection<Object>) o);
     }
     // Use java.lang.reflect.Array, etc. to support primitive Object arrays
     else if (o.getClass().isArray())
