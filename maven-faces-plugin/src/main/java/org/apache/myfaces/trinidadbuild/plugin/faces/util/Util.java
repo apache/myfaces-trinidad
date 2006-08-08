@@ -19,6 +19,10 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.myfaces.trinidadbuild.plugin.faces.parse.PropertyBean;
 
 public class Util
 {
@@ -100,6 +104,33 @@ public class Util
     return prefix + Character.toUpperCase(propertyName.charAt(0)) +
            propertyName.substring(1);
   }
+  
+  static public String getPropertyClass(PropertyBean property)
+  {
+    String propertyFullClass = property.getPropertyClass();
+    String propertyClass = Util.getClassFromFullClass(propertyFullClass);
+    String[] genericTypes = property.getPropertyClassParameters();
+    if(genericTypes != null && genericTypes.length > 0)
+    {
+      StringBuffer buffer = new StringBuffer(60);
+      buffer.append(propertyClass);
+      buffer.append('<');
+      int max = genericTypes.length - 1;
+      for(int i = 0; i <= max; i++)
+      {
+        _buildPropertyClass(buffer, genericTypes[i]);
+        if(i < max)
+        {
+          buffer.append(", ");
+        }
+      }
+      buffer.append('>');
+      
+      propertyClass = buffer.toString();
+    }
+    
+    return propertyClass;
+  }
 
   static public String getMethodNameFromEvent(
     String methodPrefix,
@@ -139,6 +170,14 @@ public class Util
            "int".equals(className) ||
            "long".equals(className) ||
            "short".equals(className);
+  }
+  
+  static public String getAlternatePropertyClass(PropertyBean property)
+  {
+    StringBuffer buffer = new StringBuffer(60);
+    _buildPropertyClass(buffer, property.getAlternateClass());
+    
+    return buffer.toString();
   }
 
   static public String getBoxedClass(
@@ -215,6 +254,33 @@ public class Util
     return name;
   }
 
+  static private void _buildPropertyClass(StringBuffer buffer, String type)
+  {
+    Matcher matcher = _GENERIC_TYPE.matcher(type);
+    if(matcher.matches())
+    {
+      // Generic type
+      buffer.append(Util.getClassFromFullClass(matcher.group(1)));
+      buffer.append('<');
+      String[] types = matcher.group(2).split(",");
+      int max = types.length - 1;
+      for(int i = 0; i <= max; i++)
+      {
+        _buildPropertyClass(buffer, types[i]);
+        if(i < max)
+        {
+          buffer.append(", ");
+        }
+      }
+      buffer.append('>');
+    }
+    else
+    {
+      // Non-generic type
+      buffer.append(Util.getClassFromFullClass(type));
+    }
+  }
+
   static private Set _createPrimitiveTypesSet()
   {
     Set primitives = new TreeSet();
@@ -239,7 +305,7 @@ public class Util
   }
 
   static private final String[] _PRIMITIVE_TYPES = new String[]
-  {
+  {// TODO: Shouldn't java.lang.* be specified in that list as well?
     "boolean",
     "byte",
     "char",
@@ -304,6 +370,8 @@ public class Util
 
   static public final Set RESERVED_WORDS = _createReservedWordsSet();
   static public final Set PRIMITIVE_TYPES = _createPrimitiveTypesSet();
+
+  static private final Pattern _GENERIC_TYPE = Pattern.compile("([^<]+)<(.+)>");
 
   // no instances
   private Util()
