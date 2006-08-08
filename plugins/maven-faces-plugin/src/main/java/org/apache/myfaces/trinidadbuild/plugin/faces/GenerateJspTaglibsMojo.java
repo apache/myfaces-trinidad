@@ -1314,6 +1314,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
         if (_isConverter(propertyClass) ||
             _isKeyStroke(propertyClass) ||
+            _isAWTKeyStroke(propertyClass) ||
             _isColorList(propertyClass, propertyClassParams) ||
             property.isVirtual())
         {
@@ -1529,6 +1530,10 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       {
         _writeSetKeyStroke(out, componentClass, propName);
       }
+      else if (_isAWTKeyStroke(propClass))
+      {
+        _writeSetAWTKeyStroke(out, componentClass, propName);
+      }
       else if (_isColorList(propClass, property.getPropertyClassParameters()))
       {
         _writeSetColorList(out, componentClass, propName);
@@ -1596,6 +1601,12 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       String propClass)
     {
       return ("javax.swing.KeyStroke".equals(propClass));
+    }
+
+    private boolean _isAWTKeyStroke(
+      String propClass)
+    {
+      return ("java.awt.AWTKeyStroke".equals(propClass));
     }
 
     private boolean _isColorList(
@@ -1785,6 +1796,37 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       out.unindent();
       out.println("}");
     }
+
+
+    private void _writeSetAWTKeyStroke(
+      PrettyWriter  out,
+      String        componentClass,
+      String        propName) throws IOException
+    {
+      String propKey = Util.getConstantNameFromProperty(propName, "_KEY");
+      String propVar = "_" + propName;
+
+      out.println("if (" + propVar + " != null)");
+      out.println("{");
+      out.indent();
+      out.println("if (isValueReference(" + propVar + "))");
+      out.println("{");
+      out.indent();
+      out.println("ValueBinding vb = createValueBinding(" + propVar + ");");
+      out.println("bean.setValueBinding(" + componentClass + "." + propKey + ", vb);");
+      out.unindent();
+      out.println("}");
+      out.println("else");
+      out.println("{");
+      out.indent();
+      out.println("bean.setProperty(" + componentClass + "." + propKey + ",");
+      out.println("\tAWTKeyStroke.getAWTKeyStroke(" + propVar + "));");
+      out.unindent();
+      out.println("}");
+      out.unindent();
+      out.println("}");
+    }
+
 
 
     private void _writeSetColorList(
