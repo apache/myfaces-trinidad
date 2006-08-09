@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Previous Release Notes</title>
+  </properties>
+
+  <body>
+    <section name="Previous Apache Trinidad Release Notes">
+      <p>
+        <ul>
+          
+          <li>
+            Since this is the first Apache Trinidad release, there are no 
+            past release notes.  In the future, release notes for previous
+            versions may be found here.
+          </li>
+        </ul>
+      </p>
+      </section>
+  </body>
+</document>

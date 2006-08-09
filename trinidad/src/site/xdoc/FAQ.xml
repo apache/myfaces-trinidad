@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>FAQ</title>
+  </properties>
+
+  <body>
+    <section name="FAQ">
+   <p>
+        <ul>
+          <li>
+            <a href="#1. Setup">Setup</a>
+          </li> 
+          <li>
+            <a href="#2. Architecture">Architecture</a>
+          </li>
+          <li>
+            <a href="#3. Development">Development</a>
+          </li>
+        </ul>
+      </p>
+      </section>
+
+
+<section name="1. Setup">
+
+<subsection name="1.1. Does ADF Faces depend on any particular implementation of JSF?">
+
+<p>
+No. If there is an Oracle-specific implementation
+of JSF, ADF Faces will be optimized to run best on that implementation,
+but we believe it is important that ADF Faces run on any implementation
+of the JSF 1.1 specification (or later).  ADF Faces can be used
+with either the Sun Reference Implementation 1.1_01 or MyFaces 1.0.8
+(or later).
+</p>
+</subsection>
+<subsection name="1.2. What runtime or design time tools can I use to run the demo WAR?">
+
+<p>
+Please see the platform section on the <a href="installation.html#Platform Information">installation</a> page for information on how to deploy to JDeveloper, standalone OC4J, and Tomcat.
+</p>
+<p>
+Although ADF Faces is "vanilla" JSF we have not been able to run with Java Studio Creator Build 04.06.2. We are working with Sun to resolve the issues in Java Studio Creator.
+</p>
+<p>We have done some limited testing on IBM WebSphere Studio Application Developer 5.1.2. We have been able to run using .jsp, but not .jspx. If you are running the demo WAR please make sure the file names in faces-config.xml reflect any updated file names. 
+</p>
+</subsection>
+</section>
+<section name="2. Architecture">
+<subsection name="2.1. Can I use standard Faces tags with ADF Faces?">
+
+<p>
+Yes; all standard Faces tags can be used with ADF Faces.  You can even use &lt;h:form&gt; instead of &lt;af:form&gt; without losing any ADF Faces functionality.
+</p>
+
+
+</subsection>
+<subsection name="2.2. Why would I use ADF Faces instead of standard Faces?">
+
+<p>
+Good question. Here's a list of some of the advantages 
+</p>
+<p>
+<b>Note:</b> <i>The items in italics are either not yet available or only partially implemented</i>
+</p>
+
+  <ol>
+   <li>Rich DHTML/AJAX client-side renderers </li>
+   <li>Provide more efficient implementations of client-side state saving (reduced per-component size) </li>
+   <li>Rich set of components, validators, and converters</li>
+   <li>ADF Faces tags often offer more features than the standard tags;  for example,
+ all input components offer built-in label and message display support (
+ For more information on the differences between the ADF Faces tags and the
+ standard Faces tags, please see the <a href="spec-diff.html">following
+ document</a>).</li>
+   <li>Client-side converters/validators - JavaScript enabled converters and validators that attempt to catch and display errors on the client</li>
+   <li>ADF Faces tags can be used inside of the &lt;af:forEach&gt; tag (it is, unfortunately, not possible to support standard tags inside &lt;af:forEach&gt;).</li>
+   <li><i>Accessibility - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Caccessibility%7Ehtml/navId.4/">ADF UIX Accessibility</a></i> </li>
+   <li><i>Bidirectional language support - ADF Faces components automatically render themselves appropriately for bidirectional languages. Users can also use the "start" and "end" constants described in <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Cinternational%7Ehtml/navId.4/">ADF UIX Bidirectional Language Support</a></i></li>
+   <li>Partial Page Rendering (PPR) - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/vtTopicId./navSetId.jdeveloper/vtTopicFile.jdeveloper%7Cuixapps%7Chtmlhelp%7Ccreateui%7Cadd%7Ctable%7Cuix_atabppr%7Ehtml/navId.4/">ADF UIX PPR overview</a></li>
+   <li><i>Skinning - support similar to <a href="http://helponline.oracle.com/jdeveloper/help/state/content/navSetId.jdeveloper/navId.4/vtAnchor.laf/vtTopicFile.jdeveloper%7Cuixhelp%7Cuixdevguide%7Ccustomization%7Ehtml/">ADF UIX Look and Feel</a> </i></li>   
+   <li><i>ADF integration </i>- including support for JSR227 (Data binding)</li>
+  </ol>
+
+</subsection>
+<subsection name="2.3. What is the relationship between Fusion ADF Faces and 10.1.3 ADF Faces?">
+  <ol>
+   <li>Fusion ADF Faces implements the highly interactive BLAF+ specification.</li>
+   <li>Fusion ADF Faces uses a DHTML/AJAX architecture model.</li>
+   <li>Fusion ADF Faces components render on the client by default.</li>
+   <li>Both run the Java Server Faces lifecycle.</li>
+  </ol>
+
+</subsection>
+<subsection name="2.4. What is the relationship between ADF Faces and ADF UIX?">
+
+<p>
+ADF Faces is a significant evolution of the ADF UIX code.  The
+proprietary API (<code>UINode</code>, <code>RenderingContext</code>, etc.)
+of ADF UIX has been replaced with the standard JSF API, and we've added
+many features to our components that take advantage of the JSF architecture.
+In making this change, we've also overhauled nearly all our component
+names and  attribute names to fit in closely with JSF naming conventions.
+ADF UIX and ADF Faces can be installed in a single web application
+without conflicts.
+</p>
+</subsection>
+</section>
+<section name="3. Development">
+<subsection name="3.1. When I run a JSP, I see 'javax.servlet.jsp.JspException: Cannot find FacesContext'">
+
+<p>
+You cannot directly point to a JSF JSP file; you either need to add "/faces" after the servlet context path, or change the suffix (in the URL only) to ".faces".
+</p>
+</subsection>
+
+<subsection name="3.2. I'm getting a java.lang.ClassCastException in UIXComponentTag.setProperties()">
+
+<p>
+JSF requires the &lt;f:view&gt; JSP tag around all JSF JSP tags; this obscure error is the result of failing to include &lt;f:view&gt;.
+</p>
+</subsection>
+<subsection name="3.3. I'm having a problem seeing dialog windows">
+
+<p>
+You may have trouble seeing dialogs if you have popup blockers installed.
+</p>
+</subsection>
+<subsection name="3.4. I'm seeing the error '&quot;af:commandButton&quot; must have value or image attributes.'">
+
+<p>
+You are using JSF 1.0 (this is a bug in the JSF 1.0 RI) and ADF Faces requires JSF 1.1. 
+</p>
+</subsection>
+<subsection name="3.5. I'm seeing the error 'method assert(boolean) not found in class [XXX]'">
+
+<p>
+You need to enable J2SE 1.4 Assertions. In jdev this can be done in project properties (Select Tools -> Project Properties -> Profiles -> Development -> Compiler -> Enable J2SE 1.4 Assertions.) 
+
+</p>
+</subsection>
+
+<subsection name="3.6. My page looks really bad, as if it was totally unstyled">
+
+<p>
+You may have not have configured your Resources Servlet in your web.xml. Please refer to installation instructions to configure the ResourceServlet.
+</p>
+</subsection>
+
+<subsection name="3.6. My input field is just showing as plain text when not in read-only mode.">
+
+<p>
+You may be missing the "setXyz()" function matching the
+"getXyz()" function that is controlling your field's value, or
+you might have mispelled its name.  This makes that property
+read-only.  When ADF Faces detects that an input
+field is using a read-only model property, it automatically
+switches the field to read-only mode, which is why it looks
+like plain text.  For what it's worth, if you tried the same model
+property with &lt;h:inputText&gt;, it'd look fine when you first render
+the page, but JSF would throw an exception when you posted back
+to the server and it couldn't write the new value into the model.
+</p>
+</subsection>
+
+</section>
+      
+  </body>
+</document>

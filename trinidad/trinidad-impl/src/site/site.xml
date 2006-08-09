@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Apache Incubator Trinidad Podling">
+  <bannerLeft>
+    <name>Apache Incubator Trinidad Podling Implementation</name>
+  </bannerLeft>
+  <body>
+    <links>
+      <item name="MyFaces" href="http://myfaces.apache.org/"/>
+    </links>
+    
+    <menu ref="parent"/>
+    <menu ref="modules"/>
+    <menu ref="reports"/>
+  </body>
+</project>

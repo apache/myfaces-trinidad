@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Developer Guide Index</title>
+  </properties>
+
+  <body>
+    <section name="Development Guidelines for Oracle ADF Faces Applications">
+      <p>
+        <ul>        
+            <li><a href="configuration.html">Configuring ADF Faces</a></li>
+            <li><a href="communicatingBetweenPages.html">Communicating Between Pages: pageFlowScope</a></li>
+            <li><a href="dialogs.html">The ADF Faces Dialog Framework</a></li>
+            <li><a href="fileUpload.html">File Upload</a></li>            
+            <li><a href="table.html">Using ADF Faces Tables</a></li>     
+            <li><a href="tree.html">Using ADF Faces Trees</a></li>       
+            <li><a href="navigation.html">Navigation</a></li>      
+            <!--li><a href="clientValidation.html">Client-side Converters and Validators</a></li-->     
+        </ul>
+      </p>
+      </section>
+  </body>
+</document>

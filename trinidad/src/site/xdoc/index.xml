@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Index</title>
+  </properties>
+
+  <body>
+    <section name="Contents">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#Releases">Releases</a>
+          </li>
+          <li>
+            <a href="#Live Demos">Live Demos</a>
+          </li>
+          <li>
+            <a href="#FAQ and Support">FAQ and Support</a>
+          </li>
+        </ul>
+      </p>
+      </section>
+
+      <section name="Overview">
+        <p>
+      Apache Trinidad is based on Java Server Faces (JSF).
+      We've done our best to solidify
+      APIs, but we must warn developers that APIs may change after this release.
+      </p>
+      </section>
+
+      <section name="FAQ and Support">
+        <p>
+Please see the <a href="FAQ.html" >Apache Trinidad FAQ</a> for help.
+        </p>
+        <p>
+If the FAQ is insufficient, please send e-mail to the <a href="mailto:adffaces_user@incubator.apache.org">adffaces_user</a> mailing list.
+        </p>
+      </section>
+  </body>
+</document>
