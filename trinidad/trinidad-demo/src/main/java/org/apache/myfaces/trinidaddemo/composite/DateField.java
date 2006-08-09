@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidaddemo.composite;
 
 import java.io.IOException;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -89,17 +90,19 @@ public class DateField extends UIXEditableValue implements NamingContainer
     int day = ((Number) _day.getValue()).intValue();
 
     Date oldValue = (Date) getValue();
-    Date newValue = (Date) oldValue.clone();
-    newValue.setYear(year);
-    newValue.setMonth(month);
-    newValue.setDate(day);
+    Calendar calendar = Calendar.getInstance();
+    calendar.setLenient(true);
+    calendar.setTime(oldValue);
+    calendar.set(Calendar.YEAR, year);
+    calendar.set(Calendar.MONTH, month);
+    calendar.set(Calendar.DAY_OF_MONTH, day);
 
     //=-=AEW RUN VALIDATORS!
 
     // Invalid day given the month
-    if (day != newValue.getDate())
+    if (day != calendar.get(Calendar.DAY_OF_MONTH))
     {
-      int numberOfDaysInMonth = day - newValue.getDate();
+      int numberOfDaysInMonth = day - calendar.get(Calendar.DAY_OF_MONTH);
       FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Invalid date.",
                     "This month only has " + numberOfDaysInMonth + " days!");
@@ -113,7 +116,8 @@ public class DateField extends UIXEditableValue implements NamingContainer
 
       // And if the value actually changed, store it and send a value change
       // event.
-      if (!newValue.equals(oldValue))
+      Date newValue = calendar.getTime();
+      if (!calendar.getTime().equals(oldValue))
       {
         setValue(newValue);
         queueEvent(new ValueChangeEvent(this, oldValue, newValue));
@@ -148,6 +152,7 @@ public class DateField extends UIXEditableValue implements NamingContainer
     return true;
   }
 
+  @SuppressWarnings("unchecked")
   private void _addChildren(FacesContext context)
   {
     if (_month != null)
@@ -157,6 +162,13 @@ public class DateField extends UIXEditableValue implements NamingContainer
     children.clear();
 
     Date value = (Date) getValue();
+    Calendar calendar = null;
+    if(value != null)
+    {
+      calendar = Calendar.getInstance();
+      calendar.setLenient(true);
+      calendar.setTime(value);
+    }
 
     // A proper implementation would add children in the correct
     // order for the current locale
@@ -168,7 +180,7 @@ public class DateField extends UIXEditableValue implements NamingContainer
     monthRange.setMaximum(12);
     _month.addValidator(monthRange);
     if (value != null)
-      _month.setValue(new Integer(value.getMonth() + 1));
+      _month.setValue(new Integer(calendar.get(Calendar.MONTH) + 1));
 
     _day = _createTwoDigitInput(context);
     _day.setId("day");
@@ -178,14 +190,14 @@ public class DateField extends UIXEditableValue implements NamingContainer
     dayRange.setMaximum(31);
     _day.addValidator(dayRange);
     if (value != null)
-      _day.setValue(new Integer(value.getDate()));
+      _day.setValue(new Integer(calendar.get(Calendar.DAY_OF_MONTH)));
 
     _year = _createTwoDigitInput(context);
     _year.setId("year");
     _year.setShortDesc("Year");
     if (value != null)
     {
-      int yearValue = value.getYear();
+      int yearValue = calendar.get(Calendar.YEAR) - 1900;
       if (yearValue >= 100)
         yearValue -= 100;
       _year.setValue(new Integer(yearValue));

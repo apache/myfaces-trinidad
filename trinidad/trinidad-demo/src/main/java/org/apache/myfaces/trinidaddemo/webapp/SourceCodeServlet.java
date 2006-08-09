@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 
 public class SourceCodeServlet extends HttpServlet
 {
+  @Override
   public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException
   {
   String webPage = req.getServletPath();

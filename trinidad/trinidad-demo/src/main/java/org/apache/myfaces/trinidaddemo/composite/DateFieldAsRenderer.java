@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidaddemo.composite;
 
 import java.io.IOException;
-
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 
@@ -104,22 +104,25 @@ public class DateFieldAsRenderer extends Renderer
     int day = ((Number) dayComp.getValue()).intValue();
 
     Date oldValue = (Date) ((EditableValueHolder) component).getValue();
-    Date newValue = (Date) oldValue.clone();
-    newValue.setYear(year);
-    newValue.setMonth(month);
-    newValue.setDate(day);
-
+    //Date newValue = (Date) oldValue.clone();
+    Calendar calendar = Calendar.getInstance();
+    calendar.setLenient(true);
+    calendar.setTime(oldValue);
+    calendar.set(Calendar.YEAR, year);
+    calendar.set(Calendar.MONTH, month);
+    calendar.set(Calendar.DAY_OF_MONTH, day);
+    
     // Invalid day given the month
-    if (day != newValue.getDate())
+    if (day != calendar.get(Calendar.DAY_OF_MONTH))
     {
-      int numberOfDaysInMonth = day - newValue.getDate();
+      int numberOfDaysInMonth = day - calendar.get(Calendar.DAY_OF_MONTH);
       FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Invalid date.",
                     "This month only has " + numberOfDaysInMonth + " days!");
       throw new ConverterException(message);
     }
 
-    return newValue;
+    return calendar.getTime();
   }
 
   @Override
@@ -179,6 +182,13 @@ public class DateFieldAsRenderer extends Renderer
     facets.clear();
 
     Date value = (Date) ((EditableValueHolder) component).getValue();
+    Calendar calendar = null;
+    if(value != null)
+    {
+      calendar = Calendar.getInstance();
+      calendar.setLenient(true);
+      calendar.setTime(value);
+    }
 
     CoreInputText month = _createTwoDigitInput(context);
     month.setShortDesc("Month");
@@ -189,7 +199,7 @@ public class DateFieldAsRenderer extends Renderer
     monthRange.setMaximum(12);
     month.addValidator(monthRange);
     if (value != null)
-      month.setValue(new Integer(value.getMonth() + 1));
+      month.setValue(new Integer(calendar.get(Calendar.MONTH) + 1));
     facets.put("month", month);
 
     CoreInputText day = _createTwoDigitInput(context);
@@ -200,7 +210,7 @@ public class DateFieldAsRenderer extends Renderer
     dayRange.setMaximum(31);
     day.addValidator(dayRange);
     if (value != null)
-      day.setValue(new Integer(value.getDate()));
+      day.setValue(new Integer(calendar.get(Calendar.DAY_OF_MONTH)));
     facets.put("day", day);
 
     CoreInputText year = _createTwoDigitInput(context);
@@ -208,7 +218,7 @@ public class DateFieldAsRenderer extends Renderer
     year.setId(id + "_year");
     if (value != null)
     {
-      int yearValue = value.getYear();
+      int yearValue = calendar.get(Calendar.YEAR) - 1900;
       if (yearValue >= 100)
         yearValue -= 100;
       year.setValue(new Integer(yearValue));
