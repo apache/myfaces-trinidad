@@ -96,6 +96,7 @@ public class ListRTSWriter implements RTSWriter
 
     _pw.println("");
     _pw.println("public class " + outName + " extends ListResourceBundle {");
+    _pw.println("  @Override");
     _pw.println("  public Object[][] getContents() {");
     _pw.println("    return contents;");
     _pw.println("  }");
