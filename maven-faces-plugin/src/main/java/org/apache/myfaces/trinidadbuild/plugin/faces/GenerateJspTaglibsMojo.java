@@ -735,6 +735,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
       out.println();
       // TODO: restore coding standards, and make final
+      out.println("@Override");
       out.println("public int doStartTag() throws JspException");
       out.println("{");
       out.indent();
@@ -757,6 +758,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
         out.println();
         // TODO: restore coding standards, and make final
+        out.println("@Override");
         out.println("protected Converter createConverter() throws JspException");
         out.println("{");
         out.indent();
@@ -855,6 +857,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       if (properties.hasNext())
       {
         out.println();
+        out.println("@Override");
         out.println("public void release()");
         out.println("{");
         out.indent();
@@ -1048,6 +1051,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
       out.println();
       // TODO: restore coding standards, and make final
+      out.println("@Override");
       out.println("public int doStartTag() throws JspException");
       out.println("{");
       out.indent();
@@ -1070,6 +1074,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
 
         out.println();
         // TODO: restore coding standards, and make final
+        out.println("@Override");
         out.println("protected Validator createValidator() throws JspException");
         out.println("{");
         out.indent();
@@ -1168,6 +1173,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       if (properties.hasNext())
       {
         out.println();
+        out.println("@Override");
         out.println("public void release()");
         out.println("{");
         out.indent();
@@ -1220,6 +1226,10 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         // package
         out.println("package " + packageName + ";");
 
+        // TODO: eliminate <mfp:tag-class-modifier> metadata
+        int modifiers = component.getTagClassModifiers();
+        String classStart = Modifier.toString(modifiers);
+
         out.println();
         _writeImports(out, fullSuperclassName, superclassName,
                       componentFullClass, component);
@@ -1230,9 +1240,6 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         out.println(" * Auto-generated tag class.");
         out.println(" */");
 
-        // TODO: eliminate <mfp:tag-class-modifier> metadata
-        int modifiers = component.getTagClassModifiers();
-        String classStart = Modifier.toString(modifiers);
         // TODO: use canonical ordering
         classStart = classStart.replaceAll("public abstract", "abstract public");
         out.println(classStart + " class " + className +
@@ -1284,17 +1291,14 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       properties = new FilteredIterator(properties, new TagAttributeFilter());
       if (properties.hasNext())
       {
-        imports.add("org.apache.myfaces.trinidad.bean.FacesBean");
         imports.add(componentFullClass);
       }
 
-      // TODO: only add FacesBean import when properties exist
       imports.add("org.apache.myfaces.trinidad.bean.FacesBean");
 
       // TODO: remove these imports
-      imports.add("javax.faces.component.UIComponent");
-      imports.add("javax.faces.el.ValueBinding");
-      imports.add("org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils");
+      // FIXME: Actually last 2 can be kept when not abstract
+      //imports.add("javax.faces.component.UIComponent");
 
       // superclassName is fully qualified if it collides
       // with the generated class name and should not be
@@ -1309,22 +1313,43 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         String   propertyClass = property.getPropertyClass();
         String[] propertyClassParams = property.getPropertyClassParameters();
 
-        if (propertyClass != null)
-          imports.add(propertyClass);
-
-        if (_isConverter(propertyClass) ||
-            _isKeyStroke(propertyClass) ||
-            _isAWTKeyStroke(propertyClass) ||
-            _isColorList(propertyClass, propertyClassParams) ||
-            property.isVirtual())
+        if (propertyClass != null && property.isLiteralOnly())
         {
-          imports.add("javax.faces.el.ValueBinding");
+          // Import the property class only if only litterals are supported
+          // otherwise the class will be a String inside the tag to support 
+          // ValueBinding
+          imports.add(propertyClass);
         }
 
-        if (_isColorList(propertyClass, propertyClassParams))
+        if (_isKeyStroke(propertyClass))
         {
+          imports.add("javax.faces.el.ValueBinding");
+          imports.add("javax.swing.KeyStroke");
+        }
+        else if (_isAWTKeyStroke(propertyClass))
+        {
+          imports.add("javax.faces.el.ValueBinding");
+          imports.add("java.awt.AWTKeyStroke");
+        }
+        else if (_isConverter(propertyClass))
+        {
+          imports.add("javax.faces.el.ValueBinding");
+          imports.add("javax.faces.convert.Converter");
+        }
+        else if (property.isVirtual())
+        {
+          imports.add("javax.faces.el.ValueBinding");
+          imports.add("org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils");
+        }
+        else if (_isColorList(propertyClass, propertyClassParams))
+        {
+          imports.add("javax.faces.el.ValueBinding");
           imports.add("java.text.ParseException");
           imports.add("org.apache.myfaces.trinidadinternal.taglib.util.TagUtils");
+        }
+        else if (property.isMethodBinding())
+        {
+          imports.add("javax.faces.el.MethodBinding");
         }
 
         // TODO: restore import and make reference to
@@ -1335,11 +1360,6 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         //{
         //  imports.add("org.apache.myfaces.trinidadinternal.taglib.ConstantMethodBinding");
         //}
-
-        if (property.isVirtual())
-        {
-          imports.add("org.apache.myfaces.trinidadinternal.taglib.util.VirtualAttributeUtils");
-        }
       }
 
       // do not import implicit!
@@ -1373,6 +1393,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     {
       String componentType = component.getComponentType();
       out.println();
+      out.println("@Override");
       out.println("public String getComponentType()");
       out.println("{");
       out.indent();
@@ -1387,6 +1408,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     {
       String rendererType = component.getRendererType();
       out.println();
+      out.println("@Override");
       out.println("public String getRendererType()");
       out.println("{");
       out.indent();
@@ -1406,6 +1428,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
           "org.apache.myfaces.trinidadinternal.taglib.UIXFormTag".equals(component.getTagClass()))
       {
         out.println();
+        out.println("@Override");
         out.println("public void release()");
         out.println("{");
         out.indent();
@@ -1491,6 +1514,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
   //    if (properties.hasNext())
   //    {
         out.println();
+        out.println("@Override");
         out.println("protected void setProperties(");
         out.indent();
         out.println("FacesBean bean)");
