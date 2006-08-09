@@ -790,7 +790,7 @@ public class JSLocaleElementsGenerator
 "  /**\n" +
 "   * Returns the list of supported locales.\n" +
 "   */\n" +
-"  static public HashMap getSupportedLocales()\n" +
+"  static public HashMap<Locale, Locale> getSupportedLocales()\n" +
 "  {\n" +
 "    return _sLocaleMapper;\n" +
 "  }\n" +
@@ -806,14 +806,15 @@ public class JSLocaleElementsGenerator
   private static final String _LOCALE_LIST_CODE_END =
 "  };\n" +
 "\n" +
-"  static private HashMap _sLocaleMapper;\n" +
+"  static private HashMap<Locale, Locale> _sLocaleMapper;\n" +
 "\n" +
 "  static\n" +
 "  {\n" +
-"    _sLocaleMapper = new HashMap();\n" +
-"    for(int i=0; i<_sLocales.length;i++) {"+
-"        _sLocaleMapper.put(_sLocales[i],_sLocales[i]);\n"+
-"     }\n"+
+"    _sLocaleMapper = new HashMap<Locale, Locale>();\n" +
+"    for(Locale locale : _sLocales)\n" +
+"    {\n" +
+"      _sLocaleMapper.put(locale, locale);\n" +
+"    }\n" +
 "  }\n" +
 "}\n";
 
