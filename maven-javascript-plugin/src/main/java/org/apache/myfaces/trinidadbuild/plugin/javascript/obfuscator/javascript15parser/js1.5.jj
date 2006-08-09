@@ -331,20 +331,19 @@ void PrimaryExpression():
                                                  (AnnotatedToken)prefixToken, 
                                                  (AnnotatedToken)getToken(1));
             }
-    |   LOOKAHEAD(2)  <STRING_LITERAL>  (PrimarySuffix())*  
+    |   LOOKAHEAD(2)  <STRING_LITERAL>      (PrimarySuffix())*  
     |   LOOKAHEAD(2)  <REGULAR_EXPRESSION>  (PrimarySuffix())*    
     |   LOOKAHEAD(2)  Literal() 
     |   FunctionLiteral()
     |   NestedArrayLiteral()                (PrimarySuffix())*
     |   ObjectLiteral() 
     |   <LPAREN> Expression() <RPAREN>      (PrimarySuffix())* 
-    |   AllocationExpression()
+    |   AllocationExpression() (PrimarySuffix())*             
     )
     {
         token_source.setRegValid();
     }
 }
-
 
 void PrimarySuffix():
 {}
@@ -383,11 +382,11 @@ void AllocationExpression():
         Token t;
 }
 {
-        LOOKAHEAD(2)  t=<NEW> <THIS>       (NewSuffix())* [Arguments()]
+        LOOKAHEAD(4)  t=<NEW> <THIS>       (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
             {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
-    |   LOOKAHEAD(2)  t=<NEW> Identifier() (NewSuffix())* [Arguments()]
+    |   LOOKAHEAD(4)  t=<NEW> Identifier() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
             {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
-    |   LOOKAHEAD(2)  t=<NEW> FunctionConstructor() (NewSuffix())*      [Arguments()]
+    |   LOOKAHEAD(4)  t=<NEW> FunctionConstructor() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD (2) Arguments()] 
             {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
 }
 
@@ -1081,7 +1080,8 @@ void FunctionDeclaration():
 void FunctionLiteral():
 {}
 {
-        AnonymousFunction()
+        LOOKAHEAD(2) NamedFunction()
+    |   LOOKAHEAD(2) AnonymousFunction()
 }
                           
 Vector FormalParameterList():
