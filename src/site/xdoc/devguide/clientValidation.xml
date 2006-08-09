@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Client-side Converters and Validators</title>
+  </properties>
+
+  <body>
+    <section name="Client-side Converters and Validators">
+      <p>
+        <ul>
+          <li><a href="#Introduction">Introduction</a></li>
+          <li><a href="#Client-side Converters">Client-side Converters</a></li>
+          <li><a href="#Client-side Validators">Client-side Validators</a></li>
+        </ul>
+      </p>
+    </section>
+
+
+    <section name="Introduction">
+      <P>
+      One of the benefits of Apache Trinidad is that it supports client-side versions of converters and validators. This means that errors can be caught on the client and a round trip avoided. This chapter will explain how a developer can write their own converters and validators in such a way to take advantage of this feature. This chapter assumes knowledge of JSF converters and validators, so please make sure you understand how they work before continuing.
+      </P>
+      <p>
+      The basic idea of Apache Trinidad client conversion and validation is that it works on the client in a very similar way to how it works on the server, except the language on the client is javascript instead of java. There are javascript Converter objects that support the methods getAsString() and getAsObject(). A Converter can throw a ConverterException. There are javascript Validator objects that support the validate() method. A Validator can throw a ValidatorException. 
+      </p>
+      <p>
+      <b>Note:</b> this chapter describes a preliminary implementation which may change in future releases of Apache Trinidad.
+      </p>
+    </section>
+
+    <section name="Client-side Converters">
+    <p>
+      Let's say you've written a javax.faces.convert.Converter implementation and now you want to add client-side conversion. The first thing to do is write a version of the converter in javascript. Here is the javascript code for the converter "interface".
+    </p>
+      <p>
+ <source>
+/**
+ * Converter "interface" similar to javax.faces.convert.Converter,
+ * except that all relevant information must be passed to the constructor
+ * as the context and component are not passed to the getAsString or getAsObject method 
+ *
+ */
+function Converter()
+{
+}
+
+/**
+ * Convert the specified model object value, into a String for display
+ *
+ * @param value Model object value to be converted 
+ */
+Converter.prototype.getAsString = function(value){}
+
+/**
+ * Convert the specified string value into a model data object 
+ * which can be passed to validators
+ *
+ * @param value String value to be converted 
+ */
+Converter.prototype.getAsObject = function(value){}
+</source>
+Converters can throw a ConverterException, here is the signature:
+<ul>
+<li>ConverterException(detail) 
+  <ul>
+    <li>detail - Localized detail message text</li>
+  </ul> 
+</li>
+</ul>
+      </p>
+      <p>
+      Let's say we have implemented a social security number converter which converts a String to/from an Integer. To get a version of this working on the client we would need two things, a javascript implementation of the converter and a javascript constructor for each instance of the converter on the page. 
+      </p>
+      <p>
+      Let's take a look at an example of a javascript converter implementation for our social security number converter:
+      <source>
+      function ssnGetAsString(value)
+      {
+        return value.substring(0,3) + '-' + 
+               value.substring(3,5) + '-' + 
+               value.substring(5);
+      }
+      
+      function ssnGetAsObject(value)
+      {
+        if (!value)
+          return (void 0);
+          
+        var len=value.length;
+        var messageKey = SSNConverter.NOT;
+        if (len &lt; 9 )
+          messageKey = SSNConverter.SHORT;
+        else if (len &gt; 11)
+          messageKey = SSNConverter.LONG;
+        else if (len == 9)
+        { 
+          if (!isNaN(value))
+            return value;
+        }
+        else if (len == 11 &amp;&amp; value.charAt(3) == '-' &amp;&amp; value.charAt(6) == '-')
+        {
+          var result = value.substring(0,3) + 
+                       value.substring(4,6) + 
+                       value.substring(7);
+          
+          if (!isNaN(result))
+            return result;
+        }
+        
+        if (messageKey!=void(0) &amp;&amp; this._messages!=void(0))
+          return new ConverterException(this._messages[messageKey]);
+          
+        return (void 0);
+      }
+      
+      function SSNConverter(messages)
+      {
+        this._messages = messages;
+      }
+      
+      SSNConverter.prototype = new Converter();
+      SSNConverter.prototype.getAsString = ssnGetAsString;
+      SSNConverter.prototype.getAsObject = ssnGetAsObject;
+      
+      SSNConverter.SHORT = 'S';
+      SSNConverter.LONG  = 'L';
+      SSNConverter.NOT   = 'N';
+      </source>
+      </p>
+      <p>
+      And here's an example of a javascript constructor to get an instance of the javascript converter defined above:
+      <source>
+      new SSNConverter({S:\'Value "{0}" in "{1}" is too short.\',
+                        L:\'Value "{0}" in "{1}" is too long.\',
+                        N:\'Value "{0}" in "{1}" is not a social security number.\'})
+      </source>
+      </p>
+      <p>
+      In the current implementation if there is a ConverterException Apache Trinidad gets the detail string out of the exception and displays it replacing '{0}' with the value entered by the user and '{1}' with the label of the field.
+      </p>
+      <p>
+      At this point we have the javascript to use on the client, but we need a way to provide it from our Java Converter object. This is achieved by implementing the interface <code>org.apache.myfaces.trinidad.converter.ClientConverter</code>, which has two methods. The first method is <code>getClientScript()</code>, which is expected to return an implementation of the javascript Converter object. The second method is <code>getClientConversion()</code>, which is expected to return a  javascript constructor which will be used to instantiate an instance of the converter. </p>
+      <p>
+      Continuing with our social security number converter example, here's our social security number converter Java class (the details of the Java code has been removed from the getAsObject() and getAsString() methods) which implements ClientConverter:
+      <source>
+    package org.apache.myfaces.trinidaddemo.convertValidate;
+    
+    
+    import javax.faces.application.FacesMessage;
+    import javax.faces.component.UIComponent;
+    import javax.faces.context.FacesContext;
+    import javax.faces.convert.Converter;
+    import javax.faces.convert.ConverterException;
+    
+    import org.apache.myfaces.trinidad.converter.ClientConverter;
+    
+    
+    /**
+     * &lt;p&gt;Social Security number converter.&lt;/p&gt;
+     * 
+     */
+    public class SSNConverter implements Converter, ClientConverter
+    {
+        public static final String CONVERTER_ID = "org.apache.myfaces.trinidaddemo.SSN";
+    
+        public Object getAsObject(
+          FacesContext context, 
+          UIComponent component, 
+          String value)
+        {
+          // some Java code ...
+        }    
+        
+        public String getAsString(
+          FacesContext context, 
+          UIComponent component, 
+          Object value)
+        {
+          // some Java code ...
+        }
+     
+    
+      public String getClientConversion(
+        FacesContext context,
+       UIComponent component)
+      {    
+        // in a real app the messages would be translated
+        return "new SSNConverter({" + 
+                   "S:'Value \"{0}\" in \"{1}\" is too short.'," + 
+                   "L:'Value \"{0}\" in \"{1}\" is too long.'," + 
+                   "N:'Value \"{0}\" in \"{1}\" " + 
+                               "is not a social security number.'})";
+      }
+    
+      
+      public String getClientScript(
+       FacesContext context,
+       UIComponent component)
+      {      
+        // check if the script has already been returned this request
+        Object scriptReturned = 
+                    context.getExternalContext().getRequestMap().get(CONVERTER_ID);
+                    
+        // if scriptReturned is null the script hasn't been returned yet  
+        if ( scriptReturned == null)
+        {
+          context.getExternalContext().getRequestMap().put(CONVERTER_ID, 
+                                                           Boolean.TRUE);  
+          return  _sSSNjs;
+        }
+        // if scriptReturned is not null, then script has already been returned,
+        // so don't return it again.
+        else
+          return null;
+    
+       }
+      private static final String _sSSNjs =
+        "function ssnGetAsString(value)"+
+        "{return value.substring(0,3) + '-' " + 
+              "+ value.substring(3,5) + '-' + value.substring(5);}" +
+        "function ssnGetAsObject(value)" +
+          "{if (!value)return (void 0);" + 
+          "var len=value.length;"+
+          "var messageKey = SSNConverter.NOT;" +
+          "if (len &lt; 9 )"+
+            "messageKey = SSNConverter.SHORT;" +
+          "else if (len &gt; 11)"+
+            "messageKey = SSNConverter.LONG;" +
+          "else if (len == 9)" +
+          "{ if (!isNaN(value))" +
+              "return value;" +
+          "}" +        
+          "else if (len == 11 &amp;&amp; value.charAt(3) == '-' &amp;&amp; " +
+                    "value.charAt(6) == '-')" +
+          "{" +
+            "var result = value.substring(0,3) + value.substring(4,6) + " + 
+                        "value.substring(7);"+
+            "if (!isNaN(result))"+
+              "return result;" +
+          "}" +
+         "if (messageKey!=void(0) &amp;&amp; this._messages!=void(0))" +
+           "return new ConverterException(this._messages[messageKey]);" +
+         "return void(0);}" +
+        "function SSNConverter(messages)" +
+          "{this._messages = messages;}" +
+        "SSNConverter.prototype = new Converter();" +
+        "SSNConverter.prototype.getAsString = ssnGetAsString;" +
+        "SSNConverter.prototype.getAsObject = ssnGetAsObject;" +
+        "SSNConverter.SHORT = 'S';" +
+        "SSNConverter.LONG  = 'L';" +
+        "SSNConverter.NOT   = 'N';";
+          
+    }
+
+      </source>
+      </p>      
+      <p>
+      Now assuming we've created a tag for this converter named convertSSN, we'd get client conversion just by attaching the converter in the normal way, for example: 
+      <source>
+
+&lt;tr:inputText value="#{data.ssn}" 
+            label="ssn converter"&gt;
+  &lt;trdemo:convertSSN/&gt;              
+&lt;/tr:inputText&gt;              
+      </source>
+      </p>
+      
+    </section>
+    
+    <section name="Client-side Validators">
+      <P> 
+      The general idea of writing client validators is almost exactly the same as writing client converters. Let's say you've written a javax.faces.validator.Validator implementation and now you want to add client-side validation. The first thing to do is write a version of the validator in javascript. Here is the javascript code for the Validator "interface".
+      <source>
+/**
+ * Validator "interface" similar to javax.faces.validator.Validator,
+ * except that all relevant information must be passed to the constructor
+ * as the context and component are not passed to the validate method 
+ *
+ */
+function Validator()
+{
+}
+
+/**
+ * Perform the correctness checks implemented by this Validator. 
+ * If any violations are found, a ValidatorException will be thrown 
+ */
+Validator.prototype.validate = function(value){}
+      </source>
+      The validator can throw javascript ValidatorException objects:
+<ul>
+<li>ValidatorException(detail) 
+  <ul>
+    <li>detail - Localized detail message text</li>
+  </ul> 
+</li>
+</ul>
+      </P>
+      <p>
+      Once you have a javascript implementation of the validator and constructor, they are plugged in to the Java code using <code>org.apache.myfaces.trinidad.validator.ClientValidator</code>, which has similar methods to ClientConverter, and functions in exactly the same way. Please see the client-side converters section of this document for more information. An example will be provided in a future version of this document.
+      </p>
+    </section>
+    
+
+  </body>
+</document>
