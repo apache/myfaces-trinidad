@@ -1,12 +1,12 @@
 /*
  * Copyright  2001-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,6 +19,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
+import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -101,6 +102,17 @@ public class XhtmlSkin extends BaseSkin
                  QUICK_SELECT_DISABLED_ICON_STYLE_CLASS,
                  null);
 
+
+  private static final CSSStyle spinboxTopStyle = new CSSStyle();
+  private static final CSSStyle spinboxBottomStyle = new CSSStyle();
+
+  static
+  {
+    // this is needed for the image
+    spinboxTopStyle.setProperty("display", "block");
+    spinboxBottomStyle.setProperty("display", "block");
+    spinboxBottomStyle.setProperty("padding-top", "2px");
+  }
 
   // Icons array
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]
@@ -185,6 +197,39 @@ public class XhtmlSkin extends BaseSkin
     AF_PANEL_HEADER_CONFIRMATION_ICON_NAME,
     new ReferenceIcon(HEADER_CONFIRMATION_ICON_ALIAS_NAME),
 
+    // inputNumberSpinbox increment/decrement icons
+
+    XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME,
+      new ContextImageIcon("adf/images/spbxup.png",
+                           null,
+                           IntegerUtils.getInteger(5),
+                           IntegerUtils.getInteger(5),
+                           null,
+                           spinboxTopStyle),
+
+     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME,
+     new ContextImageIcon("adf/images/spbxdn.png",
+                          null,
+                          IntegerUtils.getInteger(5),
+                          IntegerUtils.getInteger(5),
+                          null,
+                          spinboxBottomStyle),
+
+     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME,
+     new ContextImageIcon("adf/images/spbxupd.png",
+                          null,
+                          IntegerUtils.getInteger(5),
+                          IntegerUtils.getInteger(5),
+                          null,
+                          spinboxTopStyle),
+
+     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME,
+     new ContextImageIcon("adf/images/spbxdnd.png",
+                          null,
+                          IntegerUtils.getInteger(5),
+                          IntegerUtils.getInteger(5),
+                          null,
+                          spinboxBottomStyle),
      // checkbox icons
     XhtmlLafConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkdc.gif",
@@ -262,20 +307,20 @@ public class XhtmlSkin extends BaseSkin
 
     AF_TABLE_NB_NEXT_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
-    
+
     // arrows for the navigationBar
     AF_TREE_TABLE_NB_PREV_ICON_NAME,
     NullIcon.sharedInstance(),
-    
+
     AF_TREE_TABLE_NB_NEXT_ICON_NAME,
     NullIcon.sharedInstance(),
-    
+
     AF_TREE_TABLE_NB_PREV_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
-    
+
     AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME,
-    NullIcon.sharedInstance(),    
-    
+    NullIcon.sharedInstance(),
+
     // arrows for the chooseDate
     // @todo think about how chooseDate and selectRangeChoiceBar have different
     // icons for the XhtmlSkin, but the same for oracleDesktopSkin.

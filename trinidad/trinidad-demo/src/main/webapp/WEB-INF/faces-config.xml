@@ -759,6 +759,7 @@
         <value>group.jspx</value>
         <value>inputFile.jspx</value>
         <value>inputHidden.jspx</value>
+        <value>inputNumberSpinbox.jspx</value>        
         <value>inputText.jspx</value>
         <value>iterator.jspx</value>
         <value>menuBar.jspx</value>
@@ -2047,6 +2048,12 @@
     <navigation-case>
       <from-outcome>guide.inputHidden</from-outcome>
       <to-view-id>/components/inputHidden.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>guide.inputNumberSpinbox</from-outcome>
+      <to-view-id>/components/inputNumberSpinbox.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 

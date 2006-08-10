@@ -530,6 +530,11 @@ af|inputText::label:rtl
   font-weight:bold;
 }
 
+af|inputNumberSpinbox::increment-cell, af|inputNumberSpinbox::decrement-cell
+{
+  background-color:pink;
+}
+
 /* test @agent and @platform styles */
 /* right now @agent/@platform work with style selectors, but they have no
    effect on icon selectors. */
