@@ -587,6 +587,9 @@
   <style selector="af|inputFile::label">
     <includeStyle name="AFLabel"/>
   </style>  
+  <style selector="af|inputNumberSpinbox::label">
+    <includeStyle name="AFLabel"/>
+  </style>   
   <style selector="af|inputText::label">
     <includeStyle name="AFLabel"/>
   </style>  
@@ -630,6 +633,9 @@
   <style selector="af|inputChoice:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>
+  <style selector="af|inputNumberSpinbox:disabled::label">
+    <includeStyle name="AFLabelDisabled"/>
+  </style>  
   <style selector="af|inputText:disabled::label">
     <includeStyle name="AFLabelDisabled"/>
   </style>  
@@ -673,10 +679,29 @@
   <style selector="af|inputText::content">
     <includeStyle name="AFFormControlContent"/>
   </style>   
-  <style selector="af|selectBooleanCheckbox::content">
+  <style selector="af|inputNumberSpinbox::content">
     <includeStyle name="AFFormControlContent"/>
   </style>
-  <style selector="af|selectBooleanRadio::content">
+  <style selector="af|inputNumberSpinbox::increment-cell">
+    <includeStyle name="AFLightAccentBackground"/>
+    <includeStyle name="AFVeryDarkAccentBorder"/>
+    <property name="border-width">1px</property>
+    <property name="border-style">solid</property>
+    <property name="width">11px</property>
+    <property name="height">8px</property>
+  </style>
+  <style selector="af|inputNumberSpinbox::decrement-cell">
+    <includeStyle name="AFLightAccentBackground"/>
+    <includeStyle name="AFVeryDarkAccentBorder"/>
+    <property name="border-width">1px</property>
+    <property name="border-style">solid</property>
+    <property name="width">11px</property>
+    <property name="height">8px</property>
+  </style>
+  <style selector="af|inputNumberSpinbox::spinbox-cell">
+    <property name="padding-left">1px</property>
+  </style>
+  <style selector="af|inputText::content">
     <includeStyle name="AFFormControlContent"/>
   </style>
   <style selector="af|inputColor::content">
@@ -786,6 +811,26 @@
   <style selector="af|inputChoice:disabled.AFAddressFieldTextMarker::content-input">
     <includeStyle selector=".AFAddressFieldTextDisabled"/>
   </style> 
+  <!-- inputNumberSpinbox's marker style classes that will style the content piece -->
+  <!-- when the user says styleClass="AFFieldNumberMarker", for example -->
+  <style selector="af|inputNumberSpinbox.AFFieldTextMarker::content">
+    <includeStyle selector=".AFFieldText"/>
+  </style> 
+  <style selector="af|inputNumberSpinbox:disabled.AFFieldTextMarker::content">
+    <includeStyle selector=".AFFieldText"/>
+  </style>   
+  <style selector="af|inputNumberSpinbox.AFFieldNumberMarker::content">
+    <includeStyle selector=".AFFieldNumber"/>
+  </style> 
+  <style selector="af|inputNumberSpinbox:disabled.AFFieldNumberMarker::content">
+    <includeStyle selector=".AFFieldNumberDisabled"/>
+  </style> 
+  <style selector="af|inputNumberSpinbox.AFFieldTextLTRMarker::content">
+    <includeStyle selector=".AFFieldTextLTR"/>
+  </style> 
+  <style selector="af|inputNumberSpinbox:disabled.AFFieldTextLTRMarker::content">
+    <includeStyle selector=".AFFieldTextLTRDisabled"/>
+  </style>
   
 <!-- use this to style all required icons the same -->
 <!-- .AFRequiredIconStyle:alias This is NOT the same as the selector 
@@ -801,6 +846,9 @@
   <style selector="af|inputChoice::required-icon-style">
     <includeStyle name="AFRequiredIconStyle"/>
   </style>
+  <style selector="af|inputNumberSpinbox::required-icon-style">
+    <includeStyle name="AFRequiredIconStyle"/>
+  </style>  
   <style selector="af|inputText::required-icon-style">
     <includeStyle name="AFRequiredIconStyle"/>
   </style>
@@ -840,6 +888,9 @@
   <style selector="af|inputChoice::group-icon-style">
     <includeStyle name="AFRequiredGroupIconStyle"/>
   </style>
+  <style selector="af|inputNumberSpinbox::group-icon-style">
+    <includeStyle name="AFRequiredGroupIconStyle"/>
+  </style>  
   <style selector="af|inputText::group-icon-style">
     <includeStyle name="AFRequiredGroupIconStyle"/>
   </style>
@@ -3670,7 +3721,10 @@
     <property name="direction">ltr</property>
     <property name="text-align">right</property>
   </style>
-  
+
+   <style selector="af|inputNumberSpinbox::spinbox-cell">
+    <property name="padding-right">1px</property>
+  </style>
   <style selector="af|inputColor::swatch-overlay">
     <property name="position">relative</property>
     <property name="right">-7px</property>

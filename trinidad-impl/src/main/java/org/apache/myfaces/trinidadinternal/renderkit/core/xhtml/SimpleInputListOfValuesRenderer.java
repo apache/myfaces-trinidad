@@ -345,7 +345,15 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
   @Override
   protected String getOnclick(FacesBean bean)
   {
+    if (shouldRenderInputOnclick())
     return null;
+    else
+      return super.getOnclick(bean);
+  }
+
+  protected boolean shouldRenderInputOnclick()
+  {
+    return true;
   }
 
   protected Object getAction(FacesBean bean)

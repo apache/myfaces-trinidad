@@ -1161,6 +1161,20 @@ public interface XhtmlLafConstants extends BaseLafConstants
   public static final String AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME =
    "af|inputDate::next-disabled-icon";
 
+  // tr:inputNumberSpinbox constants: increment/decrement icons&cells
+  public static final String AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME =
+    "af|inputNumberSpinbox::increment-icon";
+  public static final String AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME =
+    "af|inputNumberSpinbox::decrement-icon";
+  public static final String AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME =
+    "af|inputNumberSpinbox::increment-disabled-icon";
+  public static final String AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME =
+    "af|inputNumberSpinbox::decrement-disabled-icon";
+  public static final String AF_INPUT_NUMBER_SPINBOX_INCREMENT_CELL =
+    "af|inputNumberSpinbox::increment-cell";
+  public static final String AF_INPUT_NUMBER_SPINBOX_DECREMENT_CELL =
+    "af|inputNumberSpinbox::decrement-cell";
+
   /**
    * Constant string appended to various IDs to make another related
    * but unique (he typed hopefully) ID.
