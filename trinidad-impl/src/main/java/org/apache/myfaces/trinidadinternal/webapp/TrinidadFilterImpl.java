@@ -67,7 +67,7 @@ public class TrinidadFilterImpl implements Filter
       context.getExternalContext().getRequestMap().get(_FILTER_EXECUTED_KEY);
     if (!Boolean.TRUE.equals(isInstalled))
     {
-      _LOG.warning("The AdfFacesFilter has not been installed.  ADF Faces " +
+      _LOG.warning("The TrinidadFilter has not been installed.  Apache Trinidad " +
                    "requires this filter for proper execution.");
 
     }
