@@ -130,7 +130,7 @@ public class ConfigParser
     {
       Object debug = bean.getProperty(RequestContextBean.DEBUG_OUTPUT_KEY);
       if (Boolean.TRUE.equals(debug))
-        _LOG.info("ADF Faces is running in debug mode. "+
+        _LOG.info("Trinidad is running in debug mode. "+
                   "Do not use in a production environment. See:"+_CONFIG_FILE);
     }
     return bean;
