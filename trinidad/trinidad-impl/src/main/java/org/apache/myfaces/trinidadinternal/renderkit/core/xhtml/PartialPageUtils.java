@@ -23,6 +23,8 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
+import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
@@ -55,7 +57,7 @@ public final class PartialPageUtils
     Map<String, Object> requestMap = 
       context.getExternalContext().getRequestMap();
     
-    requestMap.put(_PARTIAL_KEY, Boolean.TRUE);
+    requestMap.put(RequestContextImpl.FORCED_PARTIAL_KEY, Boolean.TRUE);
   }
 
   public static PartialPageContext createPartialPageContext(
@@ -152,7 +154,4 @@ public final class PartialPageUtils
   // an iFrame is built yet.
   private static final String _PPR_ACTIVE_FLAG_NAME =
           "org.apache.myfaces.trinidadinternal.renderkit._pprActiveOnPage";
-  private static final String _PARTIAL_KEY =
-    "org.apache.myfaces.trinidadinternal.ForcedPartialRequest";
-
 }
