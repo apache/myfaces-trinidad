@@ -238,7 +238,7 @@ public class MultipartFormHandler
     throws IOException
   {
     byte[] data  = _lineBuffer;
-    int    bytes = _readLine(_in, data, 0, data.length);
+    int    bytes = _readLine(data, 0, data.length);
 
     String line = null;
     if (bytes < 0)
@@ -250,14 +250,12 @@ public class MultipartFormHandler
     {
       line = _dataToString(data, 0, bytes, decodeEncoding, stripNewLines);
     }
-
     return line;
   }
 
   // This is a replacement for ServletInputStream.readLine().  We use
   // this utility method instead as we don't always have a ServletInputStream.
   private int _readLine(
-    InputStream in,
     byte[]      buffer,
     int         offset,
     int         length
@@ -274,7 +272,7 @@ public class MultipartFormHandler
     // enough to fill the incoming buffer or finish up a line.
     // However, if the input stream is itself buffered, this would
     // be of doubtful value.
-    while ((c = in.read()) != -1)
+    while ((c = _in.read()) != -1)
     {
       buffer[offset++] = (byte)c;
       count++;
@@ -284,16 +282,17 @@ public class MultipartFormHandler
         break;
 
       // Out of space; we're done too.
-      if (count == length)
+      // Read one character less so that we can account for CR
+      if (count == length-1)
       {
         // If we've found a CR, then we're not quite done;  we'd
-        // better read over the next character (which must be a LF);
+        // better read over the next character (which might be a LF);
         // othewise, the LF gets processed as a bonus newline.
         if (c == '\r')
         {
-          int nextchar = in.read();
-          assert ((nextchar == -1) ||
-                                             (nextchar == '\n'));
+          int nextchar = _in.read();
+          buffer[offset++] = (byte)nextchar;
+          count++;
         }
 
         break;
@@ -301,7 +300,6 @@ public class MultipartFormHandler
     }
 
     _totalBytesRead += count;
-
     return (count > 0) ? count : -1;
   }
 
@@ -360,16 +358,21 @@ public class MultipartFormHandler
       }
       else
       {
-        // -= Simon Lessard =- 
-        // TODO:  Check if a non deprecated constructor
-        //                           would do the trick
-        return new String(data, 0, start, bytes);
+        try
+        {
+          return new String(data, start, bytes, "ISO-8859-1");
+        }
+        catch (UnsupportedEncodingException uee)
+        {
+          // Shouldn't happen - we trap unsupported encodings
+          // in setCharacterEncoding()... but fall through anyway
+          assert false;
+        }
       }
     }
 
     return "";
   }
-
 
   // Parse out the boundary text from the content type
   static private String _parseBoundary(String contentType)
@@ -473,7 +476,6 @@ public class MultipartFormHandler
       return _contentType;
     }
 
-
     public long writeFile(OutputStream out)
       throws IOException
     {
@@ -496,109 +498,62 @@ public class MultipartFormHandler
         // =-=AEW Better exception?
         throw new IOException("Input stream has already been requested.");
 
-      byte[] buffer     = __getStreamBuffer();
-      int    bufferSize = buffer.length;
-      int    bufferedBytes = 0;
-      long   position = 0;
       long   totalBytesWritten = 0;
 
-      while (true)
+      // ServletInputStream.readLine() has the annoying habit of adding a \r\n
+      // to the end of the last line.
+      // Since we want a byte-for-byte transfer, don't write the \r\n from the
+      // end of a line until we have verified that we have another line.
+      boolean addCRLF     = false;
+      int  numbuf  = 0;
+      byte[] buffer     = __getStreamBuffer();
+      int    bufferSize = buffer.length;
+      while((numbuf = _readLine(buffer, 0, bufferSize)) != -1)
       {
-        int bytes = _readLine(_in, buffer, bufferedBytes,
-                                 bufferSize - bufferedBytes);
-
-        if (bytes < 0)
+        // Check for boundary
+        if(numbuf > 2 && buffer[0] == '-' && buffer[1] == '-')   // quick pre-check
         {
-          break;
-        }
-        else if (bytes > 0)
-        {
-
-          // Check to see if this is boundary
-          if ((buffer[bufferedBytes] == '-')   &&
-              (buffer[bufferedBytes+1] == '-') &&
-              (bytes > _boundary.length()))
+          String line = _dataToString(buffer, 0, numbuf, false, true);
+          if(line.startsWith(_boundary))
           {
-            String line = _dataToString(buffer, bufferedBytes, bytes, false, true);
-            if (line.startsWith(_boundary))
-            {
               break;
-            }
-          }
-
-          bufferedBytes += bytes;
-
-          // Check if we've reached (or nearly reached)
-          // the end of the buffer.
-          if (bufferedBytes > bufferSize - 2000)
-          {
-            // Writing to a null output stream;  just
-            // blow off the data
-            if (out == null)
-            {
-              bufferedBytes = 0;
-            }
-            else
-            {
-              // We don't write out the last '\r\n'.  So,
-              // we'll ignore it here, but add it in as the
-              // start of the next pass.
-              boolean addCRLF = false;
-
-              if (bufferedBytes >= 2)
-              {
-                if ((buffer[bufferedBytes - 2] == '\r') &&
-                    (buffer[bufferedBytes - 1] == '\n'))
-                {
-                  bufferedBytes -= 2;
-                  addCRLF = true;
-                }
-              }
-
-              totalBytesWritten += bufferedBytes;
-              if (totalBytesWritten <= _maxAllowedBytes)
-                out.write(buffer, 0, bufferedBytes);
-              position += bufferedBytes;
-
-              if (addCRLF)
-              {
-                bufferedBytes = 2;
-                buffer[0] = (byte) '\r';
-                buffer[1] = (byte) '\n';
-              }
-              else
-              {
-                bufferedBytes = 0;
-              }
-            }
           }
         }
-      }
 
-      // Anything left in the buffer to write?
-      if ((bufferedBytes > 0) && (out != null))
-      {
-        // If the ending is '\r\n', drop those characters
-        if (bufferedBytes >= 2)
+        // Are we supposed to write \r\n from the last iteration?
+        if(addCRLF)
         {
-          if ((buffer[bufferedBytes - 2] == '\r') &&
-              (buffer[bufferedBytes - 1] == '\n'))
-             bufferedBytes -= 2;
+          if(out != null)
+          {
+            out.write('\r');
+            out.write('\n');
+            totalBytesWritten += 2;
+          }
+          addCRLF = false;
         }
-
-        totalBytesWritten += bufferedBytes;
-        if (totalBytesWritten <= _maxAllowedBytes)
-          out.write(buffer, 0, bufferedBytes);
-        position += bufferedBytes;
+        // Postpone any ending \r\n until the next iteration
+        if(numbuf >= 2 &&
+           buffer[numbuf - 2] == '\r' &&
+           buffer[numbuf - 1] == '\n')
+        {
+            numbuf -= 2;    // skip the last 2 chars
+            addCRLF = true;     // make a note to write them on the next iteration
+        }
+        if(out != null)
+        {
+          totalBytesWritten += numbuf;
+          if (totalBytesWritten <= _maxAllowedBytes)
+            out.write(buffer, 0, numbuf);
+        }
       }
-
+      
       _finished = true;
 
       if (totalBytesWritten >= _maxAllowedBytes)
         throw new EOFException("Uploaded file of length " + totalBytesWritten +
                                " bytes exceeded maximum allowed length ("
                                + _maxAllowedBytes + " bytes)");
-      return position;
+      return totalBytesWritten;
     }
 
     public InputStream getInputStream()
@@ -704,11 +659,9 @@ public class MultipartFormHandler
 
       //Fills up the _buffer parameter with
       //Returns false on EOF
-      private boolean readLine()
+      private void readLine()
         throws IOException
       {
-        boolean addedCRLF = false;
-
         if (_finished)
         {
           throw new IOException("End Of File");
@@ -718,77 +671,44 @@ public class MultipartFormHandler
         {
           _buffer[_end++] = (byte) '\r';
           _buffer[_end++] = (byte) '\n';
-
           _addCRLF = false;
-          addedCRLF = true;
         }
 
-
-        while (_buffer.length > _end + 2000)
+        int  bufferSize = _buffer.length;
+        int  numbuf  = _readLine(_buffer, _end, (bufferSize-_end));
+        if (numbuf < 0)
         {
-          //Maximum number of bytes to read
-          int  maxRead = _buffer.length - _end;
-          int bytes = _readLine(_in, _buffer, _end, maxRead);
-
-          if (bytes < 0)
-          {
-            _finished = true;
-            break;
-          }
-          else if (bytes > 0)
-          {
-            int oldEnd = _end;
-            _end += bytes;
-
-            // Check to see if this is boundary
-            if ((_buffer[oldEnd] == '-')   &&
-                (_buffer[oldEnd+1] == '-') &&
-                (bytes > _boundary.length()))
-            {
-              String line = _dataToString(_buffer, oldEnd, bytes, false, true);
-
-              if (line.startsWith(_boundary))
-              {
-                _finished = true;
-                //Skip this last read
-                _end = oldEnd;
-                break;
-              }
-            }
-
-          }
+          _finished = true;
+          return;
         }
-
-        // We don't write out the last '\r\n'.  So,
-        // we'll ignore it here, but add it in as the
-        // start of the next pass.
-
-
-        if (addedCRLF && _finished && _end == 2)
+        
+        if(numbuf > 2 && _buffer[_end] == '-' && _buffer[_end+1] == '-')   // quick pre-check
         {
-          //We added a CRLF, but they are the last two bytes, so
-          //they are not needed
-          _end -= 2;
-        }
-        else if (_end > 1)
-        {
-          if ((_buffer[_end - 2] == '\r') &&
-              (_buffer[_end - 1] == '\n'))
+          // Check for boundary
+          String line = _dataToString(_buffer, _end, numbuf, false, true);
+          if(line.startsWith(_boundary))
           {
-            _end -= 2;
-            _addCRLF = true;
+            _finished = true; 
+            return;
           }
+        } 
+        
+        if(numbuf >= 2 &&
+           _buffer[_end+numbuf - 2] == '\r' &&
+           _buffer[_end+numbuf - 1] == '\n')
+        {
+          // Postpone any ending \r\n until the next iteration
+          numbuf -= 2;     // skip the last 2 chars
+          _addCRLF = true; // make a note to write them on the next iteration
         }
-
-
-        return _finished;
+        _end += numbuf;
       }
 
       @Override
       public int read(byte[] buffer, int offset, int length)
         throws IOException
       {
-        int bytes;
+        int bytes = -1; // default to EOF
 
         //Either there are more bytes in the stream, or there are more
         //bytes in the cache
@@ -801,27 +721,23 @@ public class MultipartFormHandler
           {
             readLine();
           }
-
-          cachedBytes = _end - _begin;
-
-          bytes = (length > cachedBytes) ? cachedBytes : length;
-
-          System.arraycopy(_buffer, _begin, buffer, offset, bytes);
-          _begin += bytes;
-
-          //If we've written all the data out of the array, then reset
-          //to the beginning of the array
-          if (_begin == _end)
+          if(!_finished)
           {
-            _begin = _end = 0;
+            cachedBytes = _end - _begin;
+  
+            bytes = (length > cachedBytes) ? cachedBytes : length;
+  
+            System.arraycopy(_buffer, _begin, buffer, offset, bytes);
+            _begin += bytes;
+  
+            //If we've written all the data out of the array, then reset
+            //to the beginning of the array
+            if (_begin == _end)
+            {
+              _begin = _end = 0;
+            }
           }
         }
-        else
-        {
-          //Return EOF
-          bytes = -1;
-        }
-
         return bytes;
       }
 
@@ -1013,7 +929,7 @@ public class MultipartFormHandler
     "org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler.handled";
 
   private static final int _STREAM_BUFFER_SIZE = 65000;
-  private static final int _LINE_BUFFER_SIZE = 1000;
+  private static final int _LINE_BUFFER_SIZE = 8000;
 
   // Use one buffer for each of file streaming and line reading.
   // Not multithread
