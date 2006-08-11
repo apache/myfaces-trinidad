@@ -44,6 +44,7 @@ public class ScriptRenderer extends BaseLafRenderer
     return USER_INVISIBLE_ROLE;
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -52,6 +53,7 @@ public class ScriptRenderer extends BaseLafRenderer
     return (_hasText(context, node)) ? "script" : null;
   }
 
+  @Override
   public void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -86,6 +88,7 @@ public class ScriptRenderer extends BaseLafRenderer
       context.getResponseWriter().writeText(text, null);
   }
 
+  @Override
   public void postrender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -93,7 +96,7 @@ public class ScriptRenderer extends BaseLafRenderer
     super.postrender(context, node);
   }
 
-    
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node

@@ -51,6 +51,7 @@ public class TestBean extends FacesBeanImpl
   {
   }
 
+  @Override
   public Type getType()
   {
     return TYPE;
@@ -123,7 +124,7 @@ public class TestBean extends FacesBeanImpl
     return (Integer[]) getEntries(ITEMS_KEY, Integer.class);
   }
 
-  public Iterator items()
+  public Iterator<Object> items()
   {
     return entries(ITEMS_KEY);
   }

@@ -22,7 +22,6 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 
 import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
-import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.composite.RootAttributeMap;
 import org.apache.myfaces.trinidadinternal.ui.composite.RootUINodeList;
 import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
@@ -208,6 +207,7 @@ public class PageLayoutRenderer extends UINodeRenderer
     return globalHeaders;
   }
 
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node

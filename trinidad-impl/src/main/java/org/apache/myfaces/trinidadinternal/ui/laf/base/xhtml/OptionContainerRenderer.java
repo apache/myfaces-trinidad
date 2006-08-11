@@ -42,14 +42,13 @@ import org.apache.myfaces.trinidadinternal.ui.path.Path;
 import org.apache.myfaces.trinidadinternal.ui.state.BaseSelection;
 import org.apache.myfaces.trinidadinternal.ui.state.Selection;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
-
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/OptionContainerRenderer.java#0 $) $Date: 10-nov-2005.18:54:04 $
  * @author The Oracle ADF Faces Team
  */
 abstract public class OptionContainerRenderer extends FormElementRenderer
 {
+  @Override
   protected void renderAsNonElement(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -61,6 +60,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     popRenderingProperty(context, _OPTION_INFO_PROPERTY);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -88,6 +88,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     pushRenderingProperty(context, _OPTION_INFO_PROPERTY, info);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -100,6 +101,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     UIXRenderingContext context,
     UINode           node
@@ -205,13 +207,13 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     UIXRenderingContext context,
     UINode           node,
     UIComponent      component,
-    List             items) throws IOException
+    List<SelectItem> items) throws IOException
   {
     if ((items == null) || items.isEmpty())
       return;
 
     Converter converter = ((ValueHolder) component).getConverter();
-    List selectedValues = null;
+    List<Object> selectedValues = null;
     boolean isSubmitted = false;
 
     // First, look in "submitted values" - assume it's
@@ -228,7 +230,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
         }
         else
         {
-          selectedValues = new ArrayList(1);
+          selectedValues = new ArrayList<Object>(1);
           selectedValues.add(submittedValue);
         }
 
@@ -259,7 +261,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     int size = items.size();    
     for (int i = 0; i < size; i++)
     {
-      SelectItem item = (SelectItem) items.get(i);
+      SelectItem item = items.get(i);
 
       Object valueObj = null;
       // if item is null, then this most likely means that rendered="false".
@@ -395,7 +397,8 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     return component;
   }
 
-  static private List _getSelectedValues(UIComponent component)
+  @SuppressWarnings("unchecked")
+  static private List<Object> _getSelectedValues(UIComponent component)
   {
     // Assume the component is a value holder
     Object value = ((ValueHolder) component).getValue();
@@ -403,7 +406,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       return null;
 
     if (value instanceof List)
-      return (List) value;
+      return (List<Object>) value;
 
     // Object array
     if (value instanceof Object[])
@@ -414,14 +417,14 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     if (value.getClass().isArray())
     {
       int length = Array.getLength(value);
-      List list = new ArrayList(length);
+      List<Object> list = new ArrayList<Object>(length);
       for (int i = 0; i < length; i++)
         list.add(Array.get(value, i));
       return list;
     }
 
     // Single object
-    ArrayList list = new ArrayList(1);
+    ArrayList<Object> list = new ArrayList<Object>(1);
     list.add(value);
     return list;
   }
@@ -443,6 +446,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
                                                _OPTION_INFO_PROPERTY);
     }
 
+    @Override
     protected void renderAttributes(
       UIXRenderingContext context,
       UINode           node
@@ -529,6 +533,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       }
     }
 
+    @Override
     protected Object getNodeName(
       UIXRenderingContext context,
       UINode           node
@@ -538,6 +543,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       return info.name;
     }
 
+    @Override
     protected Object getTransformedName(
       UIXRenderingContext context,
       UINode           node
@@ -573,6 +579,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       return info.readOnly;
     }
 
+    @Override
     protected Object getStyleClass(
       UIXRenderingContext context,
       UINode           node
@@ -585,6 +592,7 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
     /**
      * Returns the value associated with the text attribute
      */
+    @Override
     protected Object getText(
       UIXRenderingContext context,
       UINode  node)

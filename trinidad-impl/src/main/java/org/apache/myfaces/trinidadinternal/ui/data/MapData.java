@@ -37,14 +37,14 @@ public class MapData implements KeyedDataObject, MutableDataObject
    */
   public MapData()
   {
-    _table = new HashMap(7);
+    _table = new HashMap<Object, Object>(7);
   }
 
   /**
    * Creates a MapData, using the provided Map
    * for storage.
    */
-  public MapData(Map table)
+  public MapData(Map<Object, Object> table)
   {
     _table = table;
   }
@@ -88,12 +88,12 @@ public class MapData implements KeyedDataObject, MutableDataObject
     put(select, value);
   }
 
-  public Iterator keys(
+  public Iterator<Object> keys(
     UIXRenderingContext context
     )
   {
     return _table.keySet().iterator();
   }
 
-  private Map _table;
+  private Map<Object, Object> _table;
 }

@@ -28,11 +28,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
-import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HeaderUtils;
 
 
 /**
@@ -73,6 +69,7 @@ public class HeaderRenderer
         return size;
     }
 
+    @Override
     protected void prerender(
             UIXRenderingContext context,
             UINode           node
@@ -158,6 +155,8 @@ public class HeaderRenderer
         }
 
     }
+    
+    @Override
     protected void postrender(
             UIXRenderingContext context,
             UINode           node
@@ -173,6 +172,7 @@ public class HeaderRenderer
 
     }
 
+    @Override
     protected void renderContent(
        UIXRenderingContext context,
        UINode           node
@@ -189,7 +189,10 @@ public class HeaderRenderer
     /**
      * Copies an attribute from a source node to a destination UINode
      */
-    private void _copyAttr(
+    // -= Simon Lessard =-
+    // TODO: Never used locally as of 2006-08-09. Remove permanently
+    //       if no problem show up.
+    /*private void _copyAttr(
             UIXRenderingContext context,
             UINode           sourceNode,
             AttributeKey     attrKey,
@@ -202,13 +205,15 @@ public class HeaderRenderer
         {
             destNode.setAttributeValue(attrKey, value);
         }
-    }
+    }*/
 
     private static final Object _DISCLOSED_KEY = new Object();
     
-    private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+    private static final Map<String, String> _RESOURCE_KEY_MAP;
     static 
     {
+      _RESOURCE_KEY_MAP = new HashMap<String, String>();
+      
       _RESOURCE_KEY_MAP.put("af_showDetail.DISCLOSED" , 
                                 "af_showDetailHeader.DISCLOSED");
       _RESOURCE_KEY_MAP.put("af_showDetail.UNDISCLOSED" , 

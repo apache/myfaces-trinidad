@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf;
 
 import java.util.ArrayList;
 
-import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIExtension;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopUtils;
@@ -217,7 +216,7 @@ public class LookAndFeelManager
       int extensionCount = _extensions.size();
       for (int i = 0; i < extensionCount; i++)
       {
-        UIExtension extension = (UIExtension) _extensions.get(i);
+        UIExtension extension = _extensions.get(i);
         extension.registerSelf(laf);
       }
     }
@@ -260,7 +259,7 @@ public class LookAndFeelManager
 
         for (int i = 0; i < lafCount; i++)
         {
-          LookAndFeel laf = (LookAndFeel)_lafs.get(i);
+          LookAndFeel laf = _lafs.get(i);
           extension.registerSelf(laf);
         }
       }
@@ -308,12 +307,12 @@ public class LookAndFeelManager
   // Keep this private for now
   private LookAndFeelManager() {}
 
-  private ArrayList _scorersAndLafs = new ArrayList(20);
-  private ArrayList _extensions     = new ArrayList();
+  private ArrayList<Object>      _scorersAndLafs = new ArrayList<Object>(20);
+  private ArrayList<UIExtension> _extensions     = new ArrayList<UIExtension>();
 
   // A list (really, a set, but there's no ArraySet) of look-and-feels;
   // this does not contain duplicates, while _scorersAndLafs may
-  private ArrayList _lafs           = new ArrayList();
+  private ArrayList<LookAndFeel> _lafs           = new ArrayList<LookAndFeel>();
 
   private static LookAndFeelManager _sDefaultInstance;
 }

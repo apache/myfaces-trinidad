@@ -49,10 +49,12 @@ public class FacesBeanImplTest extends TestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
   }
 
+  @Override
   public void tearDown()
   {
   }
@@ -202,7 +204,7 @@ public class FacesBeanImplTest extends TestCase
   public void testLists()
   {
     TestBean bean = new TestBean();
-    Iterator iterator = bean.items();
+    Iterator<Object> iterator = bean.items();
     assertTrue(!iterator.hasNext());
     Integer[] array = bean.getItems();
     assertNotNull(array);
@@ -484,5 +486,7 @@ public class FacesBeanImplTest extends TestCase
     return ois.readObject();
   }
 
-  private PropertyKey _thirdKey;
+  // -= Simon Lessard =-
+  // Never read locally as of 2006-08-09
+  //private PropertyKey _thirdKey;
 }

@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  */
 public class IconNodeParser extends BaseNodeParser implements XMLConstants
 {
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -46,6 +47,7 @@ public class IconNodeParser extends BaseNodeParser implements XMLConstants
     _name = getRequiredAttribute(context, attrs, NAME_ATTR);
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -63,6 +65,7 @@ public class IconNodeParser extends BaseNodeParser implements XMLConstants
     return context.getParser(Icon.class, namespaceURI, localName);
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -73,6 +76,7 @@ public class IconNodeParser extends BaseNodeParser implements XMLConstants
     _icon = (Icon)child;
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,

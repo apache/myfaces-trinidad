@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -30,7 +31,7 @@ import javax.faces.context.FacesContext;
  * @todo Iterate through global messages then messages that don't have labels,
  *       finally messages with labels.
  */
-class AllMessageIterator implements java.util.Iterator
+class AllMessageIterator implements Iterator<MessageWrapper>
 {
   /**
    * Creates an {@Link Java.Util.Iterator} that will iterate through all
@@ -56,6 +57,7 @@ class AllMessageIterator implements java.util.Iterator
    *                    allMessages is false and skipGlobals is true,
    *                    no messages will ever be returned.
    */
+  @SuppressWarnings("unchecked")
   public AllMessageIterator(FacesContext fContext,
                             boolean allMessages,
                             boolean skipGlobals)
@@ -84,13 +86,13 @@ class AllMessageIterator implements java.util.Iterator
     return _nextItr();
   }
 
-  public Object next()
+  public MessageWrapper next()
   {
     MessageWrapper msg = null;
 
     if (_itr.hasNext() || _nextItr())
     {
-      FacesMessage fm = (FacesMessage) _itr.next();
+      FacesMessage fm = _itr.next();
       msg = new MessageWrapper(fm, _currentId);
     }
     return msg;
@@ -101,6 +103,7 @@ class AllMessageIterator implements java.util.Iterator
     _itr.remove();
   }
 
+  @SuppressWarnings("unchecked")
   private boolean _nextItr()
   {
     if (_allMsg)
@@ -111,7 +114,7 @@ class AllMessageIterator implements java.util.Iterator
 
       while (_clients.hasNext())
       {
-        _currentId = (String) _clients.next();
+        _currentId = _clients.next();
         if (_currentId != null)
         {
           // Set the current Iterator to the component message Iterator
@@ -130,11 +133,12 @@ class AllMessageIterator implements java.util.Iterator
     return false;
   }
 
-  private static final Iterator _EMPTY_ITERATOR =
-    Collections.EMPTY_LIST.iterator();
-  private FacesContext _fContext;
-  private Iterator     _clients;
-  private Iterator     _itr;
-  private String       _currentId;
-  private boolean      _allMsg = true;
+  private static final Iterator<FacesMessage> _EMPTY_ITERATOR = 
+    Collections.unmodifiableList(Arrays.asList(new FacesMessage[0])).iterator();
+  
+  private FacesContext           _fContext;
+  private Iterator<String>       _clients;
+  private Iterator<FacesMessage> _itr;
+  private String                 _currentId;
+  private boolean                _allMsg = true;
 }

@@ -25,6 +25,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.cache.AccentColorizedIconKey;
 
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 
 
 /**
@@ -38,13 +39,13 @@ import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 public final class AccentIconRequest extends AccentColorizedIconKey
 {
   public AccentIconRequest(
-    ImageContext context, 
-    String       source, 
-    Class        lookAndFeel,
-    int          direction,
-    Color        color,
-    Color        surroundingColor,
-    NameResolver resolver
+    ImageContext       context, 
+    String             source, 
+    Class<LookAndFeel> lookAndFeel,
+    int                direction,
+    Color              color,
+    Color              surroundingColor,
+    NameResolver       resolver
     )
   {
     super(context, source, lookAndFeel, direction, color, surroundingColor);
@@ -54,12 +55,14 @@ public final class AccentIconRequest extends AccentColorizedIconKey
 
   // Override of getRenderProperties() which adds in the 
   // InputStreamProvider for the source icon
-  public Map getRenderProperties(ImageContext context)
+  @Override
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    Map properties = super.getRenderProperties(context);
+    Map<Object, Object> properties = super.getRenderProperties(context);
 
     properties.put(ImageConstants.SOURCE_INPUT_STREAM_PROVIDER_KEY,
-                   CoreIconRequest.resolveSourceIcon(getSource(),
+                   CoreIconRequest.resolveSourceIcon(null,
+                                                     getSource(),
                                                      _resolver));
                                                      
     return properties;

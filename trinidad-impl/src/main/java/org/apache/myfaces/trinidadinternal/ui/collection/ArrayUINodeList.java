@@ -164,7 +164,7 @@ public class ArrayUINodeList implements UINodeList
     _nodeCount = 0;
   }
   
-  
+  @Override
   public Object clone()
   {
     try

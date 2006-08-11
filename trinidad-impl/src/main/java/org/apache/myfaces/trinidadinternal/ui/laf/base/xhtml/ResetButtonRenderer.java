@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  */
 public class ResetButtonRenderer extends ButtonRenderer
 {
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -47,6 +47,7 @@ public class ResetButtonRenderer extends ButtonRenderer
    * Returns true if button tags are being used.  Provides a hook for
    * subclassers to override
    */
+  @Override
   protected boolean useButtonTags(
     UIXRenderingContext context
     )
@@ -58,6 +59,7 @@ public class ResetButtonRenderer extends ButtonRenderer
   /**
    * Override to change the type of the button
    */
+  @Override
   protected String getButtonType()
   {
     return "reset";
@@ -69,6 +71,7 @@ public class ResetButtonRenderer extends ButtonRenderer
    * =-= bts copied code from
    *         org.apache.myfaces.trinidadinternal.ui.blaf.RestButtonRenderer
    */
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node

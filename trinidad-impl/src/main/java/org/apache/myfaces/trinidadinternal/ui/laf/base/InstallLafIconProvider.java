@@ -129,6 +129,7 @@ public class InstallLafIconProvider extends LafIconProvider
   /**
    * Returns the URI to the icon indentified by the icon key
    */
+  @Override
   public  String getIconURI(
     UIXRenderingContext context,
     IconKey          iconKey

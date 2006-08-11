@@ -39,6 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
  */
 public class TabBarRenderer extends HtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -47,6 +48,7 @@ public class TabBarRenderer extends HtmlLafRenderer
     return TABLE_ELEMENT;
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -59,6 +61,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -110,6 +113,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   /**
    * @todo - deal with rendered=false on model nodes
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -213,6 +217,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -262,7 +267,7 @@ public class TabBarRenderer extends HtmlLafRenderer
     writer.endElement(TABLE_DATA_ELEMENT);
   }
 
-
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -291,6 +296,7 @@ public class TabBarRenderer extends HtmlLafRenderer
   /**
    * Renders a separator between tabs.
    */
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -344,6 +350,7 @@ public class TabBarRenderer extends HtmlLafRenderer
    * Override of getStyleClass() which forces style class
    * to menuTabs.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node

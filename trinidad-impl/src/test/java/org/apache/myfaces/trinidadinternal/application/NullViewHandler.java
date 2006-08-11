@@ -24,42 +24,49 @@ import javax.faces.context.FacesContext;
 
 public class NullViewHandler extends ViewHandler
 {
+  @Override
   public Locale calculateLocale(FacesContext context)
   {
     return null;
   }
 
+  @Override
   public String calculateRenderKitId(FacesContext context)
   {
     return null;
   }
   
+  @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     return null;
   }
 
+  @Override
   public String getActionURL(FacesContext context, String viewId)
   {
     return viewId;
   }
 
+  @Override
   public String getResourceURL(FacesContext context, String path)
   {
     return path;
   }
 
-
+  @Override
   public void renderView(FacesContext context, UIViewRoot viewToRender)
         throws IOException, FacesException
   {
   }
 
+  @Override
   public UIViewRoot restoreView(FacesContext context, String viewId)
   {
     return null;
   }
 
+  @Override
   public void writeState(FacesContext context) throws IOException
   {
   }

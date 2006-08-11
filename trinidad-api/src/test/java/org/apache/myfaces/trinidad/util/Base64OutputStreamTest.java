@@ -44,11 +44,13 @@ public class Base64OutputStreamTest extends FacesTestCase
   	  super(testName);
  	}
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -198,7 +200,7 @@ public class Base64OutputStreamTest extends FacesTestCase
     	// write out each char in str to the stream
     	for (int i = 0; i<str.length(); i++) 
     	{
-     	 b64_out.write((int)str.charAt(i));
+     	 b64_out.write(str.charAt(i));
     	}
     	// remember to add padding characters (if necessary)
     	b64_out.finish();

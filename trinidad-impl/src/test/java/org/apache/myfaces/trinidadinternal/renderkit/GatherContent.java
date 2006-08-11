@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils
 
 public class GatherContent extends UIComponentBase
 {
+  @SuppressWarnings("unchecked")
   public GatherContent(Writer writer,
                        UIComponent child,
                        TestResult result,
@@ -47,11 +48,13 @@ public class GatherContent extends UIComponentBase
     getChildren().add(child);
   }
 
+  @Override
   public String getFamily()
   {
     return "org.apache.myfaces.trinidadtest.GatherContent";
   }
 
+  @Override
   public void encodeBegin(FacesContext context)
   {
     _savedWriter = context.getResponseWriter();
@@ -62,7 +65,7 @@ public class GatherContent extends UIComponentBase
         new CheckUIComponent(_savedWriter.cloneWithWriter(_writer)));
   }
 
-  
+  @Override
   public void encodeEnd(FacesContext context)
   {
     context.setResponseWriter(_savedWriter);
@@ -81,6 +84,7 @@ public class GatherContent extends UIComponentBase
       super(out);
     }
 
+    @Override
     public void startElement(String name,
                              UIComponent component) throws IOException
     {
@@ -114,6 +118,7 @@ public class GatherContent extends UIComponentBase
       super.startElement(name, component);
     }
 
+    @Override
     public void endElement(String name) throws IOException
     {
       super.endElement(name);

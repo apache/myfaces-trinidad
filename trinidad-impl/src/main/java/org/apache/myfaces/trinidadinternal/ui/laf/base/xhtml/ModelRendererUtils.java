@@ -60,8 +60,8 @@ public class ModelRendererUtils
     
     if (focusRowKey != null )  
     {
-      List focusPath = component.getAllAncestorContainerRowKeys(focusRowKey);
-      focusPath = new ArrayList(focusPath);
+      List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusRowKey);
+      focusPath = new ArrayList<Object>(focusPath);
       focusPath.add(focusRowKey);
       
       int focusSize =  focusPath.size();

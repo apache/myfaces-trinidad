@@ -15,8 +15,6 @@
 */
 package org.apache.myfaces.trinidadinternal;
 
-import java.net.URL;
-
 public class FacesConfigTest extends XMLValidityTestCase
 {
   public FacesConfigTest(

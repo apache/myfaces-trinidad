@@ -103,6 +103,7 @@ public class NodeRole
   /**
    * Returns a String useful for debugging.
    */
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer();

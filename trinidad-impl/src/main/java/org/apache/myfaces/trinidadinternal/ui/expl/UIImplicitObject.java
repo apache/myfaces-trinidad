@@ -137,13 +137,16 @@ public class UIImplicitObject
     return value;
   }
 
-  private final Map _dataMap = new AbstractMap()
+  private final Map<Object, Object> _dataMap = new AbstractMap<Object, Object>()
     {
-      public Set entrySet()
+      @SuppressWarnings("unchecked")
+      @Override
+      public Set<Map.Entry<Object, Object>> entrySet()
       {
         return Collections.EMPTY_SET;
       }
 
+      @Override
       public Object get(Object key)
       {
         UIXRenderingContext context = getRenderingContext();
@@ -152,13 +155,16 @@ public class UIImplicitObject
       }
     };
 
-  private final Map _rootAttrsMap = new AbstractMap()
+  private final Map<Object, Object> _rootAttrsMap = new AbstractMap<Object, Object>()
     {
-      public Set entrySet()
+      @SuppressWarnings("unchecked")
+      @Override
+      public Set<Map.Entry<Object, Object>> entrySet()
       {
         return Collections.EMPTY_SET; // for now
       }
 
+      @Override
       public Object get(Object key)
       {
         UIXRenderingContext compositeContext = getRenderingContext();
@@ -186,7 +192,7 @@ public class UIImplicitObject
       }
     };
 
-  private final class DOLList extends AbstractList implements DataObjectList
+  private final class DOLList extends AbstractList<DataObjectMap> implements DataObjectList
   {
     public DOLList(DataObjectList lst)
     {
@@ -197,6 +203,7 @@ public class UIImplicitObject
       _lst = lst;
     }
 
+    @Override
     public int size()
     {
       return _lst.getLength();
@@ -212,7 +219,8 @@ public class UIImplicitObject
       return _lst.getItem(i);
     }
 
-    public Object get(int i)
+    @Override
+    public DataObjectMap get(int i)
     {
       return new DataObjectMap(getItem(i));
     }
@@ -220,7 +228,7 @@ public class UIImplicitObject
     private final DataObjectList _lst;
   }
 
-  private class DataObjectMap extends AbstractMap implements MutableDataObject
+  private class DataObjectMap extends AbstractMap<Object, Object> implements MutableDataObject
   {
     public DataObjectMap(DataObject dob)
     {
@@ -245,6 +253,7 @@ public class UIImplicitObject
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object get(Object key)
     {
       UIXRenderingContext context = getRenderingContext();
@@ -254,6 +263,7 @@ public class UIImplicitObject
       return value;
     }
 
+    @Override
     public Object put(Object key, Object value)
     {
       UIXRenderingContext context = getRenderingContext();
@@ -262,12 +272,15 @@ public class UIImplicitObject
       return old;
     }
 
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<Object, Object>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
 
-    public String toString()
+    @Override
+   public String toString()
     {
       return _dob.toString();
     }
@@ -291,6 +304,7 @@ public class UIImplicitObject
       this(new DataSetImpl(dob, dol));
     }
 
+    @Override
     public Object get(Object key)
     {
       if (key instanceof Number)

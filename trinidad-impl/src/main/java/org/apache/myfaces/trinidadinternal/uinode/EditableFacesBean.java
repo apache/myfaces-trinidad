@@ -31,7 +31,8 @@ public class EditableFacesBean extends UINodeFacesBean
  /**
   * @todo what about UIXEditableValue.VALIDATOR_KEY?
   */
- protected AttributeMap createAttributeMap(String componentFamily)
+  @Override
+  protected AttributeMap createAttributeMap(String componentFamily)
   {
     AttributeMap attrMap = super.createAttributeMap(componentFamily);
     attrMap.setAttribute(UIConstants.CONVERTER_ATTR,
@@ -48,6 +49,7 @@ public class EditableFacesBean extends UINodeFacesBean
     return  attrMap;
   }
   
+  @Override
   public void setProperty(PropertyKey key, Object value)
   {
     super.setProperty(key, value);

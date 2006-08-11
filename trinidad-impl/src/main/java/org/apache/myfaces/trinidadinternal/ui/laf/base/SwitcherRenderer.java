@@ -40,6 +40,7 @@ public class SwitcherRenderer extends BaseRenderer
     return STATE_ROLE;
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node

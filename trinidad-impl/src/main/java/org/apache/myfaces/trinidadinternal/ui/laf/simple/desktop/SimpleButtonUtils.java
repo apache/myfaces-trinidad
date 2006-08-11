@@ -228,6 +228,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
     // Override of getStartIcon() which retrieves
     // the InputStreamProvider from the Icon.
+    @Override
     protected InputStreamProvider getStartIcon()
     {
       return _getIconData(BUTTON_START_ICON_NAME,
@@ -236,6 +237,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
     // Override of getEndIcon() which retrieves
     // the InputStreamProvider from the Icon.
+    @Override
     protected InputStreamProvider getEndIcon()
     {
       return _getIconData(BUTTON_END_ICON_NAME,
@@ -244,6 +246,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
     // Override of getTopBackgroundIcon() which retrieves
     // the InputStreamProvider from the Icon.
+    @Override
     protected InputStreamProvider getTopBackgroundIcon()
     {
       return _getIconData(BUTTON_TOP_BACKGROUND_ICON_NAME,
@@ -252,6 +255,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
     // Override of getBottomBackgroundIcon() which retrieves
     // the InputStreamProvider from the Icon.
+    @Override
     protected InputStreamProvider getBottomBackgroundIcon()
     {
       return _getIconData(BUTTON_BOTTOM_BACKGROUND_ICON_NAME,

@@ -195,7 +195,7 @@ public class BaseUINode implements UINode, UIConstants
    * <p>
    * @see #getNamedChild
    */
-  public Iterator getChildNames(
+  public Iterator<String> getChildNames(
     UIXRenderingContext context
     )
   {
@@ -261,7 +261,7 @@ public class BaseUINode implements UINode, UIConstants
    * <p>
    * @see #getAttributeValue
    */
-  public Iterator getAttributeNames(
+  public Iterator<AttributeKey> getAttributeNames(
     UIXRenderingContext context
     )
   {
@@ -428,8 +428,7 @@ public class BaseUINode implements UINode, UIConstants
     return context.getRendererManager().getRenderer(getNamespaceURI(), getLocalName());
   }
 
-
-
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(40);

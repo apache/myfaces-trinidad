@@ -225,8 +225,8 @@ public class ComparisonBoundValue implements BoundValue
     if ((a == null) || (b == null))
       return (a == b);
 
-    Class ac = a.getClass();
-    Class bc = b.getClass();
+    Class<?> ac = a.getClass();
+    Class<?> bc = b.getClass();
     if (ac == bc)
       return a.equals(b);
 
@@ -248,11 +248,11 @@ public class ComparisonBoundValue implements BoundValue
     return a.equals(b);
   }
 
-  static private boolean _equalsForLong(long a, Number b, Class bc)
+  static private boolean _equalsForLong(long a, Number b, Class<?> bc)
   {
     if ((bc == Double.class) || (bc == Float.class))
     {
-      return (b.doubleValue() == ((double) a));
+      return (b.doubleValue() == a);
     }
 
     if (bc == BigDecimal.class)
@@ -269,7 +269,7 @@ public class ComparisonBoundValue implements BoundValue
   }
 
 
-  static private boolean _equalsForDouble(double a, Number b, Class bc)
+  static private boolean _equalsForDouble(double a, Number b, Class<?> bc)
   {
     if (bc == BigDecimal.class)
     {
@@ -285,7 +285,7 @@ public class ComparisonBoundValue implements BoundValue
   }
 
 
-  static private boolean _equalsForBigInteger(BigInteger a, Number b, Class bc)
+  static private boolean _equalsForBigInteger(BigInteger a, Number b, Class<?> bc)
   {
     if (bc == BigDecimal.class)
     {
@@ -301,7 +301,7 @@ public class ComparisonBoundValue implements BoundValue
   }
 
 
-  static private boolean _equalsForBigDecimal(BigDecimal a, Number b, Class bc)
+  static private boolean _equalsForBigDecimal(BigDecimal a, Number b, Class<?> bc)
   {
     if (bc == BigInteger.class)
     {

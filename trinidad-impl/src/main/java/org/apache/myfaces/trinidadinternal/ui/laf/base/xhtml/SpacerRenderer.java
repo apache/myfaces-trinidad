@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class SpacerRenderer extends XhtmlLafRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node

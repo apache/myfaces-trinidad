@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 public class SubmitButtonRenderer 
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -47,6 +48,7 @@ public class SubmitButtonRenderer
  /**
    * Returns the StyleClass to use to render this node.
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node

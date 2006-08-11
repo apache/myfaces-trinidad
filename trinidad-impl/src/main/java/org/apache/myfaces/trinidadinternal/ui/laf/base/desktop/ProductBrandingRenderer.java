@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class ProductBrandingRenderer extends HtmlLafRenderer
 {
-  
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -51,6 +51,7 @@ public class ProductBrandingRenderer extends HtmlLafRenderer
 
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

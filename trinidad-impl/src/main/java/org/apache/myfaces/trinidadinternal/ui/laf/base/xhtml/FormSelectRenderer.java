@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 abstract public class FormSelectRenderer extends OptionContainerRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -44,6 +45,7 @@ abstract public class FormSelectRenderer extends OptionContainerRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     UIXRenderingContext context,
     UINode           node
@@ -58,7 +60,7 @@ abstract public class FormSelectRenderer extends OptionContainerRenderer
     renderAttribute(context, "onfocus", getOnFocus(context, node));
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -67,6 +69,7 @@ abstract public class FormSelectRenderer extends OptionContainerRenderer
     return SELECT_ELEMENT;
   }
 
+  @Override
   protected final Renderer getOptionRenderer(UIXRenderingContext context)
   {
     return context.getRendererManager().getRenderer(MARLIN_NAMESPACE, 

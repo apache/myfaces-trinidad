@@ -90,6 +90,7 @@ abstract public class RenderKitTestCase extends TestSuite
       _rightToLeft = rightToLeft;
     }
 
+    @Override
     public void run(TestResult result)
     {
       // Cache the TestResult so we can directly add failure without
@@ -111,6 +112,7 @@ abstract public class RenderKitTestCase extends TestSuite
       }
     }
 
+    @Override
     protected void setUp() throws IOException  
     {
       _facesContext = new MFacesContext(true);
@@ -132,6 +134,7 @@ abstract public class RenderKitTestCase extends TestSuite
         
     }
 
+    @Override
     protected void tearDown() throws IOException  
     {
       ExtendedRenderKitService service =
@@ -150,6 +153,7 @@ abstract public class RenderKitTestCase extends TestSuite
       _result = null;
     }
 
+    @Override
     abstract protected void runTest() throws Throwable;
 
     protected FacesContext getFacesContext()
@@ -190,6 +194,7 @@ abstract public class RenderKitTestCase extends TestSuite
     // Severe errors should count as a test failure
     private class CatchSevere extends Handler
     {
+      @Override
       public void publish(LogRecord record)
       {
         if (record.getLevel() == Level.SEVERE)
@@ -200,8 +205,10 @@ abstract public class RenderKitTestCase extends TestSuite
         }
       }
 
+      @Override
       public void flush() { }
 
+      @Override
       public void close() { }
     }
 
@@ -241,11 +248,13 @@ abstract public class RenderKitTestCase extends TestSuite
       _testCaseCount = (_script.getTests().size() * 3) + 1;
     }
 
+    @Override
     public int countTestCases()
     {
       return _testCaseCount;
     }
 
+    @Override
     public void run(TestResult result)
     {
       if (!_script.isSupportedAgentType(getAgent().getType()))
@@ -261,12 +270,15 @@ abstract public class RenderKitTestCase extends TestSuite
       super.run(result);
     }
 
+    @Override
     protected void tearDown() throws IOException  
     {
       super.tearDown();
       _script = null;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     protected void runTest() throws Throwable
     {
       UIViewRoot root = getFacesContext().getViewRoot();
@@ -290,10 +302,10 @@ abstract public class RenderKitTestCase extends TestSuite
                                                this,
                                                _lenient));
 
-      Iterator tests = _script.getTests().iterator();
+      Iterator<TestScript.Test> tests = _script.getTests().iterator();
       while (tests.hasNext())
       {
-        TestScript.Test test = (TestScript.Test) tests.next();
+        TestScript.Test test = tests.next();
 
         UIComponent testComponent = _createComponent();
 
@@ -340,7 +352,7 @@ abstract public class RenderKitTestCase extends TestSuite
       tests = _script.getTests().iterator();
       while (tests.hasNext())
       {
-        TestScript.Test test = (TestScript.Test) tests.next();
+        TestScript.Test test = tests.next();
         out.write("\n<!--");
         out.write(test.toString());
         out.write("-->\n");
@@ -441,11 +453,11 @@ abstract public class RenderKitTestCase extends TestSuite
   private void _initTests() throws IOException, SAXException
   {
     String script = System.getProperty("trinidad.renderkit.script");
-    Set includedScripts = null;
+    Set<String> includedScripts = null;
     if (script != null)
     {
       String[] scripts = script.split(",");
-      includedScripts = new HashSet();
+      includedScripts = new HashSet<String>();
       for (int i = 0; i < scripts.length; i++)
       {
         System.out.println("Including " + scripts[i]);

@@ -66,7 +66,7 @@ public final class AttributeKey
     if (attrName == null)
       throw new IllegalArgumentException();
 
-    AttributeKey attr = (AttributeKey)_sAttrs.get(attrName);
+    AttributeKey attr = _sAttrs.get(attrName);
     
     if (attr == null)
       attr = new AttributeKey(attrName, -1);
@@ -115,11 +115,13 @@ public final class AttributeKey
     return _attrName;
   }
   
+  @Override
   public String toString()
   { 
     return _attrName;
   }
   
+  @Override
   public boolean equals(
     Object otherObject
     )
@@ -127,6 +129,7 @@ public final class AttributeKey
     return (this == otherObject);
   }
   
+  @Override
   public int hashCode()
   {
     return _attrName.hashCode();
@@ -135,7 +138,10 @@ public final class AttributeKey
   private String _attrName;
   private int _attrIndex;
 
-  private static Hashtable _sAttrs = new Hashtable(203);
+  // -= Simon Lessard =-
+  // TODO: Check if synchronization is really required
+  private static Hashtable<String, AttributeKey> _sAttrs = 
+    new Hashtable<String, AttributeKey>(203);
 
   // If someone called AttributeKey before UIConstants was
   // loaded, bad things happen.  Prevent this.
@@ -147,7 +153,7 @@ public final class AttributeKey
   //  }
   //  Then "attr" would _not_ be the same instance as SOURCE_ATTR.
   //  Which makes stuff blow up.  This line fixes that problem.
-  private static final Class _UICONSTANTS_CLASS = UIConstants.class;
+  private static final Class<UIConstants> _UICONSTANTS_CLASS = UIConstants.class;
   static
   {
     // Hack to eliminate "unused private field" warning

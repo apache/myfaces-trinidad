@@ -52,17 +52,20 @@ public class CoreRenderKitTest extends RenderKitTestCase
     super(testName);
   }
 
-
+  @Override
   protected Iterable<SuiteDefinition> getSuiteDefinitions()
   {
     return _definitions;
   }
 
+  @Override
   protected String getRenderKitId()
   {
     return "org.apache.myfaces.trinidad.core";
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected UIComponent populateDefaultComponentTree(
     UIViewRoot  root,
     TestScript  script)
@@ -98,7 +101,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
 
   static private List<SuiteDefinition> _definitions =
     new ArrayList<SuiteDefinition>();
-  private static HashSet _sHtmlComponents;
+  private static HashSet<String> _sHtmlComponents;
 
   static
   {
@@ -144,7 +147,7 @@ public class CoreRenderKitTest extends RenderKitTestCase
                                          RenderKitBootstrap.getGeckoAgent(),
                                          false));
 
-    _sHtmlComponents = new HashSet(5);
+    _sHtmlComponents = new HashSet<String>(5);
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlBody");
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrame");
     _sHtmlComponents.add("org.apache.myfaces.trinidad.HtmlFrameBorderLayout");

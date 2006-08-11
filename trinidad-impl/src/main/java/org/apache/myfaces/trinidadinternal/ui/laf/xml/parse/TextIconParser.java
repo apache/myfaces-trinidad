@@ -41,6 +41,7 @@ public class TextIconParser extends BaseNodeParser implements XMLConstants
   /**
    * Override of BaseNodeParser.startElement().
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -59,6 +60,7 @@ public class TextIconParser extends BaseNodeParser implements XMLConstants
   /**
    * Override of BaseNodeParser.endElement();
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -74,6 +76,7 @@ public class TextIconParser extends BaseNodeParser implements XMLConstants
    * Override of BaseNodeParser.startChildElement() for
    * handling <inlineStyle> child elements.
    */
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -90,6 +93,7 @@ public class TextIconParser extends BaseNodeParser implements XMLConstants
    * Override of BaseNodeParser.addCompletedChild() for adding
    * <inlineStyle> children.
    */
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,

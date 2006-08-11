@@ -59,7 +59,8 @@ public class RenderersNode
    * Returns an Iterator which iterates over the RendererNode
    * children of this RenderersNode.
    */
-  public Iterator getRendererNodes()
+  @SuppressWarnings("unchecked")
+  public Iterator<RendererNode> getRendererNodes()
   {
     if (_renderers!=null)
     {
@@ -79,7 +80,7 @@ public class RenderersNode
    * is used to signal LookAndFeelExtensionParser that the
    * Renderers should be registered for all facets.
    */
-  public Iterator getFacets()
+  public Iterator<String> getFacets()
   {
     if (_facets == null)
       return null;

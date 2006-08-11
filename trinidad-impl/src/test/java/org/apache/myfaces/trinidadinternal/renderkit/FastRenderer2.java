@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.io.IOException;
 import javax.faces.render.Renderer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
@@ -57,6 +56,7 @@ public class FastRenderer2 extends Renderer
     _valueKey = type.findKey("value");
   }
 
+  @Override
   public void encodeBegin(FacesContext context,
                           UIComponent comp) throws IOException
   {
@@ -84,6 +84,7 @@ public class FastRenderer2 extends Renderer
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent comp) throws IOException
   {
@@ -158,7 +159,7 @@ public class FastRenderer2 extends Renderer
     if (binding == null)
       return null;
 
-    Class type = binding.getType(context);
+    Class<?> type = binding.getType(context);
     return ConverterUtils.createConverter(context, type);
   }
 

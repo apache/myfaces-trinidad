@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
  */
 public class PageMenuListRenderer extends MenuListRenderer
 {
-
+  @Override
   protected UIXHierarchy getHierarchyBase(
     UIXRenderingContext context,
     UINode           node
@@ -43,6 +43,7 @@ public class PageMenuListRenderer extends MenuListRenderer
     return (UIXPage) pageNode.getUIComponent();
   }
 
+  @Override
   protected UINode getStamp(
     UIXRenderingContext context,
     UINode           node
@@ -52,6 +53,7 @@ public class PageMenuListRenderer extends MenuListRenderer
     return getNamedChild(context, pageNode, NODE_STAMP_CHILD);
   }
 
+  @Override
   protected boolean setNewPath(
     UIXRenderingContext context,
     UINode           node,
@@ -59,6 +61,6 @@ public class PageMenuListRenderer extends MenuListRenderer
   )
   {
     int startDepth = getIntAttributeValue(context, node, LEVEL_ATTR, 0);
-    return PageRendererUtils.setNewPath(context, ((UIXPage)component), startDepth);
+    return PageRendererUtils.setNewPath(context, component, startDepth);
   }
 }

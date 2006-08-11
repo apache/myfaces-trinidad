@@ -34,6 +34,7 @@ public class ProcessChoiceBarRenderer extends
   /**
    * Writes the separator between two elements
    */
+  @Override
   protected void renderItemSpacer(
     UIXRenderingContext context
     ) throws IOException

@@ -81,6 +81,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
             null);
     }
 
+    @Override
     public Score scoreLookAndFeel(
       UIXRenderingContext context,
       String           lafName
@@ -94,6 +95,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
       {
         score = new ScoreProxy(score)
                     {
+                      @Override
                       public int getAgentApplicationScore()
                       {
                         return Score.NO_MATCH;

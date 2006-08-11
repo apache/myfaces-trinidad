@@ -140,6 +140,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     setCurrentDataObject(parentContext.getCurrentDataObject());
   }
 
+  @Override
   protected void reset()
   {
     super.reset();
@@ -150,8 +151,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     _skinResourceKeyMap = null;
   }
 
-
-
+  @Override
   public FacesContext getFacesContext()
   {
     return _nonCompositeContext.getFacesContext();
@@ -222,7 +222,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * the correct translated value key.
    * @param mapping
    */
-  public void setSkinResourceKeyMap(Map mapping)
+  public void setSkinResourceKeyMap(Map<String, String> mapping)
   {
     _skinResourceKeyMap = mapping;
   }
@@ -231,7 +231,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * Get the _skinResourceKeyMap Map.
    * @param mapping
    */
-  public Map getSkinResourceKeyMap()
+  public Map<String, String> getSkinResourceKeyMap()
   {
     return _skinResourceKeyMap;
   }
@@ -260,7 +260,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     return _nonCompositeContext.getRenderedAncestorNode(index);
   }
 
-
+  @Override
   public void pushRenderedChild(
     UIXRenderingContext currentContext,
     UINode renderedChild
@@ -273,6 +273,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     super.pushRenderedChild(currentContext, renderedChild);
   }
 
+  @Override
   public void popRenderedChild(UIXRenderingContext currentContext)
   {
     // handle cleaning up any of the dataproviders
@@ -287,6 +288,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   /**
    * Returns the DataObject for the given namespace and name pair.
    */
+  @Override
   public DataObject getDataObject(
     UIXRenderingContext context,
     String namespaceURI,
@@ -309,6 +311,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * Returns a DataObject for the current node (such as a row
    * of a table).
    */
+  @Override
   public DataObject getCurrentDataObject()
   {
     if (_globalCurrentDataObject)
@@ -322,6 +325,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
    * <p>
    * @see #getCurrentDataObject
    */
+  @Override
   public DataObject setCurrentDataObject(
     DataObject newDataObject
     )
@@ -545,6 +549,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
     return _nonCompositeContext.getPartialPageContext();
   }
 
+  @Override
   public Object clone()
   {
     CompositeRenderingContext context = (CompositeRenderingContext)super.clone();
@@ -583,7 +588,7 @@ class CompositeRenderingContext extends LogicalNodeRenderingContext
   private CompositeRenderingContext _nextContext;
   private UIXRenderingContext _parentContext;
   private UIXRenderingContext _nonCompositeContext;
-  private Map  _skinResourceKeyMap;
+  private Map<String, String> _skinResourceKeyMap;
 
   private boolean _globalCurrentDataObject;
 

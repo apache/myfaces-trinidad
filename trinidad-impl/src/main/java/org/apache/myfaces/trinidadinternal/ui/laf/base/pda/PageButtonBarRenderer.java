@@ -100,6 +100,7 @@ public class PageButtonBarRenderer extends UINodeRenderer
   }
   */
 
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node

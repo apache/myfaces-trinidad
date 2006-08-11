@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
  */
 public class NullIconParser extends LeafNodeParser
 {
+  @Override
   protected Object getNodeValue(
     ParseContext context,
     String       namespaceURI,

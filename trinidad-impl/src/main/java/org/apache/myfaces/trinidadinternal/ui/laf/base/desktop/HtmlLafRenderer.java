@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
@@ -90,6 +89,7 @@ public class HtmlLafRenderer extends XhtmlLafRenderer
   /**
    * Renders a transparent gif using a script to save space.
    */
+  @Override
   protected void renderTransparent(
     UIXRenderingContext context,
     String           width,

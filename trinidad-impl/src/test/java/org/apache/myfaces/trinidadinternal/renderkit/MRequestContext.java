@@ -15,6 +15,8 @@
 */
 package org.apache.myfaces.trinidadinternal.renderkit;
 
+import java.awt.Color;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
@@ -49,62 +51,80 @@ public class MRequestContext extends RequestContext
     _agent = agent;
   }
 
+  @Override
   public Agent getAgent()
   {
     return _agent;
   }
 
+  @Override
   public PageResolver getPageResolver()
   {
     return PageResolverDefaultImpl.sharedInstance();
   }
 
+  @Override
   public PageFlowScopeProvider getPageFlowScopeProvider()
   {
     return PageFlowScopeProviderImpl.sharedInstance();
   }
 
-
+  @Override
   public DialogService getDialogService()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getPageFlowScope()
+  @Override
+  public Map<String, Object> getPageFlowScope()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public void returnFromDialog(Object returnValue, Map returnParam)
+  @Override
+  public void returnFromDialog(
+      Object returnValue, 
+      Map<Object, Object> returnParam)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
-  public void launchDialog(UIViewRoot dialogRoot, Map dialogParameters, UIComponent source, boolean useWindow, Map windowProperties)
+  @Override
+  public void launchDialog(
+      UIViewRoot dialogRoot, 
+      Map<String, Object> dialogParameters, 
+      UIComponent source, 
+      boolean useWindow, 
+      Map<String, Object> windowProperties)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public boolean isPostback()
   {
     return false;
   }
   
+  @Override
   public boolean isPartialRequest(FacesContext context)
   {
     return false;
   }
 
+  @Override
   public boolean isDebugOutput()
   {
     return false;
   }
 
+  @Override
   public boolean isClientValidationDisabled()
   {
     return false;
   }
 
+  @Override
   public String getOutputMode()
   {
     return null;
@@ -115,11 +135,13 @@ public class MRequestContext extends RequestContext
     _skin = skin;
   }
 
+  @Override
   public String getSkinFamily()
   {
     return _skin;
   }
 
+  @Override
   public String getAccessibilityMode()
   {
     return _accMode;
@@ -130,6 +152,7 @@ public class MRequestContext extends RequestContext
     _accMode = accMode;
   }
 
+  @Override
   public boolean isRightToLeft()
   {
     return _rtl;
@@ -140,81 +163,97 @@ public class MRequestContext extends RequestContext
     _rtl = rtl;
   }
 
+  @Override
   public char getNumberGroupingSeparator()
   {
     return ',';
   }
 
+  @Override
   public char getDecimalSeparator()
   {
     return '.';
   }
 
+  @Override
   public String getCurrencyCode()
   {
     return null;
   }
 
+  @Override
   public int getTwoDigitYearStart()
   {
     return 1950;
   }
 
+  @Override
   public String getOracleHelpServletUrl()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getHelpTopic()
+  @Override
+  public Map<String, Object> getHelpTopic()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getHelpSystem()
+  @Override
+  public Map<String, Object> getHelpSystem()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public TimeZone getTimeZone()
   {
     return _FIXED_TIME_ZONE;
   }
 
+  @Override
   public void addPartialTarget(UIComponent newTarget)
   {
     // throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void addPartialTriggerListeners(UIComponent listener, String[] trigger)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void partialUpdateNotify(UIComponent updated)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public UploadedFileProcessor getUploadedFileProcessor()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
-  public Map getColorPalette()
+  @Override
+  public Map<String, List<Color>> getColorPalette()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getFormatter()
+  @Override
+  public Map<Object, Map<Object,String>> getFormatter()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public ChangeManager getChangeManager()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public RegionManager getRegionManager()
   {
     throw new UnsupportedOperationException("Not implemented yet");

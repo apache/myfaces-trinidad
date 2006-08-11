@@ -74,6 +74,7 @@ public class RendererManager
    * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#getLookAndFeel
    * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel#getRendererManager
    */
+  @Deprecated
   static public RendererManager getDefaultRendererManager()
   {
     if (_sDefaultInstance == null)
@@ -94,6 +95,7 @@ public class RendererManager
    * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager#getLookAndFeel
    * @see org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel#getRendererManager
    */
+  @Deprecated
   static public RendererManager createDefaultRendererManager()
   {
     return new BaseDesktopLookAndFeel().getRendererManager();

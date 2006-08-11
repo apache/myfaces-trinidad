@@ -44,8 +44,7 @@ public class RootAttributeBoundValue implements BoundValue
     AttributeKey attrKey
     )
   {
-    RootAttributeBoundValue boundValue =
-      (RootAttributeBoundValue)_boundValues.get(attrKey);
+    RootAttributeBoundValue boundValue = _boundValues.get(attrKey);
 
     if (boundValue == null)
     {
@@ -101,7 +100,8 @@ public class RootAttributeBoundValue implements BoundValue
     return null;
   }
 
-  private static OptimisticHashMap _boundValues = new OptimisticHashMap();
+  private static OptimisticHashMap<AttributeKey, RootAttributeBoundValue> _boundValues = 
+    new OptimisticHashMap<AttributeKey, RootAttributeBoundValue>();
 
   private AttributeKey _attrKey;
 }

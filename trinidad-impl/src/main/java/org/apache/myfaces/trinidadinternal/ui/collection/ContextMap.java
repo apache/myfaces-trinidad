@@ -57,7 +57,7 @@ public interface ContextMap
    * @throws IllegalArgumentException if either the <code>key</code> or
    *         <code>value</code> is null.
    */
-  public void set(Object key, Object value);
+  public void set(String key, Object value);
 
   /**
    * Returns an Iterator of all of the keys in the ContextMap given
@@ -70,5 +70,5 @@ public interface ContextMap
    *                                 keys.
    * @return The Iterator of keys in the RenderingContext
    */
-  public Iterator keys(UIXRenderingContext context);
+  public Iterator<String> keys(UIXRenderingContext context);
 }

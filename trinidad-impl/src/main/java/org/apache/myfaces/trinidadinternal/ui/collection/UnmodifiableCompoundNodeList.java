@@ -118,6 +118,7 @@ public class UnmodifiableCompoundNodeList implements UINodeList
       "It is illegal to clear children from an UnmodifiableCompoundNodeList");
   }
   
+  @Override
   public Object clone()
   {
     try

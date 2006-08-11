@@ -46,6 +46,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  */
 public class PageRenderer extends UINodeRenderer
 {
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node)
@@ -53,7 +54,7 @@ public class PageRenderer extends UINodeRenderer
     return _compositeNode;
   }
 
-
+  @Override
   protected void renderWithNode(
     UIXRenderingContext context,
     UINode           node,

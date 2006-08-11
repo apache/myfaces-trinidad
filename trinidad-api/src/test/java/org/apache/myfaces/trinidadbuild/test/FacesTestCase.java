@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadbuild.test;
 
 import java.io.IOException;
 
-import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.FactoryFinder;
 import javax.faces.component.UIComponent;
@@ -51,6 +51,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
@@ -63,6 +64,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
     renderKitFactory.addRenderKit("org.apache.myfaces.trinidad.core", renderKit);
   }
 
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -74,7 +76,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
    * @param renderkitFactoryClass  the render kit factory class
    */
   protected RenderKitFactory setupRenderKitFactory(
-    Class renderkitFactoryClass)
+    Class<? extends RenderKitFactory> renderkitFactoryClass)
   {
 
     FactoryFinder.setFactory(FactoryFinder.RENDER_KIT_FACTORY,
@@ -103,6 +105,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
    *
    * @throws IOException  when the render fails
    */
+  @SuppressWarnings("unchecked")
   protected void doRenderResponse(
     FacesContext context,
     UIComponent  component) throws IOException
@@ -114,10 +117,8 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
     }
     else
     {
-      Iterator children = component.getChildren().iterator();
-      while (children.hasNext())
+      for(UIComponent child : (List<UIComponent>)component.getChildren())
       {
-        UIComponent child = (UIComponent)children.next();
         doRenderResponse(context, child);
       }
     }

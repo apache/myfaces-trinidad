@@ -64,7 +64,8 @@ public class BeanAdapterUtils
    * Instead of using the actual class of the instance, use a superclass.
    * See above for reasons why this may be useful.
    */
-  static public DataObject getAdapter(Object instance, Class objClass)
+  @SuppressWarnings("unchecked")
+  static public DataObject getAdapter(Object instance, Class<?> objClass)
     throws IllegalAccessException, InstantiationException
   {
     if (instance == null)
@@ -74,12 +75,12 @@ public class BeanAdapterUtils
       return (DataObject) instance;
 
     if (instance instanceof Map)
-      return new MapDataObject((Map) instance);
+      return new MapDataObject((Map<Object, Object>) instance);
 
     if (objClass == null)
       objClass = instance.getClass();
 
-    Class adapterClass = (Class) _sAdapters.get(objClass);
+    Class<?> adapterClass = _sAdapters.get(objClass);
     if (adapterClass != null)
     {
       BeanDOAdapter adapter = (BeanDOAdapter) adapterClass.newInstance();
@@ -163,8 +164,8 @@ public class BeanAdapterUtils
    * Registers an adapter class to be used in place of introspection.
    */
   static public void registerAdapterClass(
-    Class beanClass,
-    Class adapterClass)
+    Class<?> beanClass,
+    Class<?> adapterClass)
   {
     // =-=AEW This forces classes to be loaded.  Should we allow
     // registration by string name?
@@ -177,7 +178,7 @@ public class BeanAdapterUtils
 
   static private final class MapDataObject implements MutableDataObject
   {
-    public MapDataObject(Map map)
+    public MapDataObject(Map<Object, Object> map)
     {
       _map = map;
     }
@@ -195,10 +196,10 @@ public class BeanAdapterUtils
       _map.put(select, value);
     }
 
-    private final Map _map;
+    private final Map<Object, Object> _map;
   }
 
-  static private final OptimisticHashMap _sAdapters =
-    new OptimisticHashMap(101);
+  static private final OptimisticHashMap<Class<?>, Class<?>> _sAdapters =
+    new OptimisticHashMap<Class<?>, Class<?>>(101);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BeanAdapterUtils.class);
 }

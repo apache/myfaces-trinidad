@@ -31,13 +31,13 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
  */
 public class PageNavigationTreeRenderer extends NavigationTreeRenderer
 { 
-
-
+  @Override
   protected RowKeySet getExpandedRowKeys(UIXHierarchy tree)
   {
     return ((UIXPage)tree).getDisclosedRowKeys();    
   }
 
+  @Override
   protected UIXHierarchy getTree(
     UIXRenderingContext context, 
     UINode           node)
@@ -47,6 +47,7 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
     return component;    
   }
   
+  @Override
   protected UINode getStamp(
     UIXRenderingContext context, 
     UINode           node)
@@ -55,6 +56,7 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
     return getNamedChild(context, pageNode, NODE_STAMP_CHILD);
   }  
   
+  @Override
   protected String getFormName(
     UIXRenderingContext context, 
     UINode           node)
@@ -62,6 +64,7 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
     return getParentFormName(context.getParentContext());
   }
   
+  @Override
   protected boolean setInitialPath(
     UIXRenderingContext context, 
     UINode           node,

@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.collection.Parameter;
  */
 public class LinkRenderer extends XhtmlLafRenderer
 {
-
+  @Override
   public void render(UIXRenderingContext context,
                      UINode node) throws IOException
   {
@@ -70,6 +70,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     return rv;
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -119,6 +120,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @see #setDisabled(UIXRenderingContext,boolean)
    * @todo gcrawford - for now readonly maps to disabled
    */
+  @Override
   protected boolean isDisabled(
     UIXRenderingContext context,
     UINode           node
@@ -206,6 +208,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     UIXRenderingContext context,
     UINode           node
@@ -221,6 +224,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected void renderID(
     UIXRenderingContext context,
     UINode           node
@@ -259,6 +263,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   /**
    * Override to return the id and then anme, in that order
    */
+  @Override
   protected Object getID(
     UIXRenderingContext context,
     UINode           node
@@ -323,6 +328,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   /**
    * Returns the destination to use for the ImageRenderer.
    */
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode           node
@@ -343,6 +349,7 @@ public class LinkRenderer extends XhtmlLafRenderer
   /**
    * Returns the StyleClass to use to render this node.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -375,6 +382,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -428,6 +436,7 @@ public class LinkRenderer extends XhtmlLafRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -448,7 +457,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     super.postrender(context, node);
   }
 
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -479,6 +488,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     super.renderContent(context, node);
   }
 
+  @Override
   protected boolean doRenderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -489,7 +499,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     return false;
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -508,6 +518,7 @@ public class LinkRenderer extends XhtmlLafRenderer
               : "span";
   }
 
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node

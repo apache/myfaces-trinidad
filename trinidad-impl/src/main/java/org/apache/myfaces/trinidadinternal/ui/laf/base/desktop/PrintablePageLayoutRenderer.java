@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
 public class PrintablePageLayoutRenderer extends UINodeRenderer
                   implements UIConstants
 {
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node

@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 public class SideBarRenderer extends HtmlLafRenderer
 {
  // issues 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -43,8 +43,7 @@ public class SideBarRenderer extends HtmlLafRenderer
     return DIV_ELEMENT;
   }                
 
-
-
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -67,6 +66,7 @@ public class SideBarRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -92,7 +92,7 @@ public class SideBarRenderer extends HtmlLafRenderer
     
   }
 
-  
+  @Override
   protected final void postrender(
     UIXRenderingContext context,
     UINode           node

@@ -30,6 +30,7 @@ public class CellFormatRenderer extends XhtmlLafRenderer
   /**
    * Renders attributes of the current node.
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -50,6 +51,7 @@ public class CellFormatRenderer extends XhtmlLafRenderer
     renderAttribute(context, node, "rowspan", ROW_SPAN_ATTR);
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

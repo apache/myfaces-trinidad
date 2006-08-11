@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  */
 public class MenuListRenderer extends XhtmlLafRenderer
 {
-
+  @Override
    protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -145,6 +145,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
 
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -180,7 +181,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
     super.renderContent(context, node);
   }
 
-
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -205,6 +206,7 @@ public class MenuListRenderer extends XhtmlLafRenderer
     super.postrender( context, node);
   }
 
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,

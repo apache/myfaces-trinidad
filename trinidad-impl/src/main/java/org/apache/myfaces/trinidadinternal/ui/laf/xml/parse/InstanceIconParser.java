@@ -39,6 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  */
 public class InstanceIconParser extends LeafNodeParser implements XMLConstants
 {
+  @Override
   protected Object getNodeValue(
     ParseContext context,
     String       namespaceURI,
@@ -52,7 +53,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
   //        org.apache.myfaces.trinidadinternal.uix22.servlet.xml.parse.EventHandlerFactory!
   //        This common code should live somewhere in share.
 
-  private Class _getClass(
+  private Class<?> _getClass(
     ParseContext context,
     Attributes   attrs)
   {
@@ -82,7 +83,7 @@ public class InstanceIconParser extends LeafNodeParser implements XMLConstants
     ParseContext context,
     Attributes   attrs)
   {
-    Class handlerClass = _getClass(context, attrs);
+    Class<?> handlerClass = _getClass(context, attrs);
     if (handlerClass != null)
     {
       String methodName = attrs.getValue("method");

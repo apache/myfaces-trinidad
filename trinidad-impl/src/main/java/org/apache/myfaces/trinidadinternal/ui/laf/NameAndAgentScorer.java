@@ -53,6 +53,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
    * Implementation of LookAndFeelScorer that produces a Score
    * based on the required name and Agent information.
    */
+  @Override
   public Score scoreLookAndFeel(
     UIXRenderingContext context, 
     String lafName
@@ -87,6 +88,7 @@ public class NameAndAgentScorer extends LookAndFeelScorer
   /**
    * @deprecated Subclassers should override scoreLookAndFeel() instead.
    */
+  @Deprecated
   public int score(
     UIXRenderingContext context,
     String           lafName

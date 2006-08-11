@@ -41,7 +41,7 @@ class ClassRendererInstantiator implements RendererInstantiator
   {
     try
     {
-      Class classInstance = ClassLoaderUtils.loadClass(_className);
+      Class<?> classInstance = ClassLoaderUtils.loadClass(_className);
       return (Renderer) classInstance.newInstance();
     }
     catch (ClassNotFoundException cnfe)

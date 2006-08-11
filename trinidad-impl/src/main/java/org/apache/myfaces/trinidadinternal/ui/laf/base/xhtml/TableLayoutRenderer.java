@@ -32,6 +32,7 @@ public class TableLayoutRenderer extends XhtmlLafRenderer
   /**
    * Renders attributes of the current node.
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -76,6 +77,7 @@ public class TableLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

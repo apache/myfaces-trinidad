@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
  */
 public class DecodingUINodeRenderer extends UINodeRendererBase
 {
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     if (skipDecode(context))
@@ -72,6 +73,7 @@ public class DecodingUINodeRenderer extends UINodeRendererBase
    * @param component the component
    * @param newValue the unconverted string value
    */
+  @Override
   public Object getConvertedValue(
     FacesContext context,
     UIComponent  component,
@@ -115,7 +117,7 @@ public class DecodingUINodeRenderer extends UINodeRendererBase
     ValueBinding binding = ((UIComponent) component).getValueBinding("value");
     if (binding != null)
     {
-      Class modelClass = binding.getType(context);
+      Class<?> modelClass = binding.getType(context);
       return ConverterUtils.createConverter(context, modelClass);
     }
 

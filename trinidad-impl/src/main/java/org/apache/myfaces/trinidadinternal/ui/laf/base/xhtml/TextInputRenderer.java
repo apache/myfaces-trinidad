@@ -42,14 +42,14 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
  */
 public class TextInputRenderer extends FormInputRenderer
 {
-
+  @Override
   protected void renderAsNonElement(
     UIXRenderingContext context, UINode node) throws IOException
   {
     renderContent(context, node, false);
   }
 
-
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -213,6 +213,7 @@ public class TextInputRenderer extends FormInputRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     UIXRenderingContext context,
     UINode           node
@@ -229,6 +230,7 @@ public class TextInputRenderer extends FormInputRenderer
    * Get the name for a node. In rare cases, the renderer must specify
    * the name.
    */
+  @Override
   protected Object getNodeName(
     UIXRenderingContext context,
     UINode           node
@@ -248,6 +250,7 @@ public class TextInputRenderer extends FormInputRenderer
               : super.getNodeName(context, node);
   }
 
+  @Override
   protected Object getOnKeyPress(
     UIXRenderingContext context,
     UINode           node
@@ -332,6 +335,7 @@ public class TextInputRenderer extends FormInputRenderer
   /**
    * Override to write any client JavaScript dependencies for the validater.
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -369,7 +373,7 @@ public class TextInputRenderer extends FormInputRenderer
     }
   }
 
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -466,6 +470,7 @@ public class TextInputRenderer extends FormInputRenderer
     }
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -561,6 +566,7 @@ public class TextInputRenderer extends FormInputRenderer
     return node.getAttributeValue(context, COLUMNS_ATTR);
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -571,7 +577,7 @@ public class TextInputRenderer extends FormInputRenderer
              : INPUT_ELEMENT;
   }
 
-
+  @Override
   protected Object getDefaultStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -582,7 +588,7 @@ public class TextInputRenderer extends FormInputRenderer
              : AF_FIELD_TEXT_STYLE_CLASS;
   }
 
-
+  @Override
   protected Object getDefaultDisabledStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -630,6 +636,7 @@ public class TextInputRenderer extends FormInputRenderer
     return false;
   }
 
+  @Override
   protected boolean renderReadOnlyAsElement(
     UIXRenderingContext context,
     UINode           node)

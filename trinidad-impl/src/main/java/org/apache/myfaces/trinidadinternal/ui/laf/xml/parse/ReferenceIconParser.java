@@ -31,6 +31,7 @@ import org.xml.sax.Attributes;
  */
 public class ReferenceIconParser extends LeafNodeParser implements XMLConstants
 {
+  @Override
   protected Object getNodeValue(
     ParseContext context,
     String       namespaceURI,

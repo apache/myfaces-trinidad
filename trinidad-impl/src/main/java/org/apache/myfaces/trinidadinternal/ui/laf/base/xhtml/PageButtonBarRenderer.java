@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class PageButtonBarRenderer extends GlobalButtonBarRenderer
 {
+  @Override
   protected UIXHierarchy getHierarchyBase(
     UIXRenderingContext context,
     UINode           node
@@ -37,6 +38,7 @@ public class PageButtonBarRenderer extends GlobalButtonBarRenderer
     return null;
   }
 
+  @Override
   protected void renderDefaultCellAttributes(
     UIXRenderingContext context,
     UINode           child
@@ -44,6 +46,7 @@ public class PageButtonBarRenderer extends GlobalButtonBarRenderer
   {
   }
 
+  @Override
   protected boolean renderCellElement(
     UIXRenderingContext context,
     UINode           child
@@ -53,15 +56,17 @@ public class PageButtonBarRenderer extends GlobalButtonBarRenderer
             !isEqualMarlinName(child, NAVIGATION_BAR_NAME));
   }
   
+  @Override
   protected String mapKey(String key)
   {
-    return (String)_RESOURCE_KEY_MAP.get(key);
+    return _RESOURCE_KEY_MAP.get(key);
   }
  
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
   static  
   {
-
+    _RESOURCE_KEY_MAP = new HashMap<String, String>();
+    
     _RESOURCE_KEY_MAP.put("af_menuButtons.BLOCK_TITLE", 
                           "af_panelButtonBar.BLOCK_TITLE");
   }

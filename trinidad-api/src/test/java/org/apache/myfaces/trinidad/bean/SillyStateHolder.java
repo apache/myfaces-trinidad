@@ -31,11 +31,11 @@ public class SillyStateHolder implements StateHolder
     _count = 0;
   }
 
+  @Override
   public String toString()
   {
     return "" + _count;
   }
-
 
   public Object saveState(FacesContext context)
   {

@@ -86,7 +86,7 @@ abstract public class LookAndFeel
    * at least UIConstants.FACET_DEFAULT.
    * @see #supportsFacet
    */
-  public Iterator getSupportedFacets()
+  public Iterator<String> getSupportedFacets()
   {
     return Collections.singletonList(UIConstants.FACET_DEFAULT).iterator();
   }
@@ -97,7 +97,7 @@ abstract public class LookAndFeel
    */
   public boolean supportsFacet(String facet)
   {
-    Iterator en = getSupportedFacets();
+    Iterator<String> en = getSupportedFacets();
     while (en.hasNext())
     {
       if (facet.equals(en.next()))

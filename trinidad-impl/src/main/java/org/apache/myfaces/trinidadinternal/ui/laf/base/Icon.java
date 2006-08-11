@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 
 /**
  * Passed to an LafIconProvider by a look and feel
@@ -45,12 +46,12 @@ public class Icon
   *          Default should be true.
   */
   public Icon(
-    String       gifName,
-    Class        lookAndFeel,
-    NameResolver resolver,
-    boolean      isCoreColor,
-    boolean      isSymmetric,
-    boolean      isTransparent
+    String             gifName,
+    Class<LookAndFeel> lookAndFeel,
+    NameResolver       resolver,
+    boolean            isCoreColor,
+    boolean            isSymmetric,
+    boolean            isTransparent
   )
   {
     this(gifName, 
@@ -78,14 +79,14 @@ public class Icon
    * @param inlineStyle The inline style for the image icon
   */
   public Icon(
-    String       gifName,
-    Class        lookAndFeel,
-    NameResolver resolver,
-    boolean      isCoreColor,
-    boolean      isSymmetric,
-    boolean      isTransparent,
-    String       styleClass,
-    Style        inlineStyle
+    String             gifName,
+    Class<LookAndFeel> lookAndFeel,
+    NameResolver       resolver,
+    boolean            isCoreColor,
+    boolean            isSymmetric,
+    boolean            isTransparent,
+    String             styleClass,
+    Style              inlineStyle
   )
   {
     this(gifName, isCoreColor, isSymmetric, isTransparent);
@@ -133,7 +134,7 @@ public class Icon
     return _gifName;
   }
 
-  public Class getLookAndFeel()
+  public Class<LookAndFeel> getLookAndFeel()
   {
     return _lookAndFeel;
   }
@@ -184,7 +185,7 @@ public class Icon
   }
 
   private String _gifName ;
-  private Class _lookAndFeel ;
+  private Class<LookAndFeel> _lookAndFeel ;
   private NameResolver _resolver;
 
   // core is blue in blaf

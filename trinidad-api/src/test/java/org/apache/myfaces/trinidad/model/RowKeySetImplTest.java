@@ -48,11 +48,13 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
   }
 
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -124,13 +126,15 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
     Object k2 = _getKey(1);
     Object k3 = _getKey(2);
 
-    List infinite = new AbstractList()
+    List<Object> infinite = new AbstractList<Object>()
     {
+      @Override
       public int size()
       {
         return Integer.MAX_VALUE;
       }
 
+      @Override
       public Object get(int index)
       {
         // code in javax.faces.model.ListDataModel always fetches index 0:

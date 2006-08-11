@@ -30,7 +30,7 @@ public class SubKeyMapTest extends org.apache.myfaces.trinidadbuild.test.MapTest
 
   public void testSubKey()
   {
-    HashMap base = new HashMap();
+    HashMap<String, Object> base = new HashMap<String, Object>();
     SubKeyMap one = new SubKeyMap(base, "one");
     SubKeyMap two = new SubKeyMap(base, "two");
 
@@ -56,16 +56,16 @@ public class SubKeyMapTest extends org.apache.myfaces.trinidadbuild.test.MapTest
     assertTrue(two.isEmpty());
   }
 
-
+  @Override
   protected boolean supportsNullKeys()
   {
     return false;
   }
 
-
-  protected Map createMap()
+  @Override
+  protected Map<String, Object> createMap()
   {
-    HashMap base = new HashMap();
+    HashMap<String, Object> base = new HashMap<String, Object>();
 
     // Make sure we're not fooled by pre-existing contents
     base.put("something", "here");

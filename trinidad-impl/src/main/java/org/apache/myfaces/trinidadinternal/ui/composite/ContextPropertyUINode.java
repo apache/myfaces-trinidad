@@ -58,11 +58,13 @@ public class ContextPropertyUINode extends BaseMutableUINode
     _propertyValue     = propertyValue;
   }
 
+  @Override
   public NodeRole getNodeRole(UIXRenderingContext context)
   {
     return UIConstants.STATE_ROLE;
   }
 
+  @Override
   protected Renderer getRenderer(
     UIXRenderingContext context,
     UINode           dataNode
@@ -73,6 +75,7 @@ public class ContextPropertyUINode extends BaseMutableUINode
 
   private class Rndr extends BaseRenderer
   {
+    @Override
     public void render(
       UIXRenderingContext context,
       UINode           node

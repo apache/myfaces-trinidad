@@ -98,6 +98,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
   }
 
+  @Override
   public FacesContext getFacesContext()
   {
     return _facesContext;
@@ -175,7 +176,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
       Configuration config = getConfiguration();
       if (config != null)
       {
-        Object o = config.getProperty(config.RENDERER_MANAGER);
+        Object o = config.getProperty(Configuration.RENDERER_MANAGER);
         if (o instanceof RendererManager)
         {
           manager = _manager = (RendererManager) o;
@@ -236,7 +237,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   {
     boolean doAdd = (dataObject != null);
 
-    Map dataObjects = _getDataObjectMap(namespaceURI, doAdd);
+    Map<String, DataObject> dataObjects = _getDataObjectMap(namespaceURI, doAdd);
 
     if (doAdd)
     {
@@ -263,7 +264,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    */
   public void setDataObjectMap(
     String     namespaceURI,
-    Map dataObjectDict)
+    Map<String, DataObject> dataObjectDict)
   {
     if (dataObjectDict != null)
     {
@@ -283,6 +284,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    * Developers cannot override this method;  they must override
    * the 3-argument getDataObject().
    */
+  @Override
   public final DataObject getDataObject(
     String namespaceURI,
     String name)
@@ -299,6 +301,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    * Then, it will look for DataObjects added with setDataObject().
    * @since 2.0.12
    */
+  @Override
   public DataObject getDataObject(
     UIXRenderingContext context,
     String namespaceURI,
@@ -310,11 +313,11 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
     if (data == null)
     {
-      Map dataObjects = _getDataObjectMap(namespaceURI, false);
+      Map<String, DataObject> dataObjects = _getDataObjectMap(namespaceURI, false);
 
       if (dataObjects != null)
       {
-        data =  (DataObject) dataObjects.get(name);
+        data = dataObjects.get(name);
       }
     }
 
@@ -325,6 +328,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   /**
    * Gets a property stored on the context.
    */
+  @Override
   public Object getProperty(
     String namespace,
     Object key
@@ -553,11 +557,13 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    * Clears all properties from the context.  Not part of
    * the RenderingContext interface.
    */
+  @Override
   public void resetProperties()
   {
     super.resetProperties();
   }
 
+  @Override
   public Object clone()
   {
     RootRenderingContext context = (RootRenderingContext)super.clone();
@@ -598,12 +604,14 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
    * Returns the default initial number of nodes in the stack of
    * logical nodes.
    */
+  @Override
   protected int getDefaultNodeStackSize()
   {
     return _DEFAULT_STACK_SIZE;
   }
 
 
+  @Override
   protected int getDefaultPropertyMapSize()
   {
     return _DEFAULT_PROPERTY_MAP_SIZE;
@@ -624,7 +632,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
 
     if (config != null)
     {
-      Object o = config.getProperty(config.LOOK_AND_FEEL_MANAGER);
+      Object o = config.getProperty(Configuration.LOOK_AND_FEEL_MANAGER);
       if (o instanceof LookAndFeelManager)
       {
         manager = (LookAndFeelManager)o;
@@ -643,14 +651,15 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   /**
    * Returns the Map of dataObjects for this namespace.
    */
-  private Map _getDataObjectMap(
+  @SuppressWarnings("unchecked")
+  private Map<String, DataObject> _getDataObjectMap(
     String   namespace,
     boolean  createIfNull
     )
   {
-    Map dataObjects = (Map)
-                                    ArrayMap.getByIdentity(_dataObjects,
-                                                           namespace);
+    Map<String, DataObject> dataObjects = 
+      (Map<String, DataObject>) ArrayMap.getByIdentity(_dataObjects,
+                                                       namespace);
 
     if (createIfNull && (dataObjects == null))
     {
@@ -658,7 +667,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
       // create a hashtable of properties for this namespace and add it
       // to the map of properties
       //
-      dataObjects = new Hashtable(11);
+      dataObjects = new Hashtable<String, DataObject>(11);
 
       _dataObjects = ArrayMap.put(_dataObjects,
                                   namespace,
@@ -682,7 +691,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
       // image cache.  That way, we can ensure that each application
       // creates its own local image cache.
       String contextPath = (String) _getContextProperty(CONTEXT_PATH_PROPERTY);
-      String path = config.getPath(config.IMAGES_CACHE_DIRECTORY,
+      String path = config.getPath(Configuration.IMAGES_CACHE_DIRECTORY,
                                    contextPath);
 
       provider = FileSystemImageCache.getSharedCache(path);

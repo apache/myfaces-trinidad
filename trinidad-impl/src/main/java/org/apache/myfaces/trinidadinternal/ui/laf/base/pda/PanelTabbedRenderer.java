@@ -28,6 +28,7 @@ import java.io.IOException;
  */
 public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -36,6 +37,7 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
     return SPAN_ELEMENT;
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -60,6 +62,7 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
     }
   }
   
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -77,6 +80,7 @@ public class PanelTabbedRenderer extends org.apache.myfaces.trinidadinternal.ui.
     writer.endElement( DIV_ELEMENT );
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node

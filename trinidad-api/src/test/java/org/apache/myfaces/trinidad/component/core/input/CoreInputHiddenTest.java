@@ -40,11 +40,13 @@ public class CoreInputHiddenTest extends UIXEditableValueTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -55,6 +57,7 @@ public class CoreInputHiddenTest extends UIXEditableValueTestCase
     return new TestSuite(CoreInputHiddenTest.class);
   }
 
+  @Override
   protected final UIXEditableValue createEditableValue()
   {
     return new CoreInputHidden();

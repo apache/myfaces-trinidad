@@ -77,9 +77,9 @@ public abstract class HeaderRenderer extends XhtmlLafRenderer
   {
     setRenderingProperty( context,
                           _HEADER_SIZE,
-                          (Integer)context.getLocalProperty( 0,
-                                                            _PREV_HEADER_SIZE,
-                                                            ZERO));
+                          context.getLocalProperty(0,
+                                                   _PREV_HEADER_SIZE,
+                                                   ZERO));
   }
 
 

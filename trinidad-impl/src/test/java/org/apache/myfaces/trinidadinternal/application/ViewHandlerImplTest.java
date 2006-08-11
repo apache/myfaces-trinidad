@@ -32,11 +32,13 @@ public class ViewHandlerImplTest extends FacesTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();

@@ -43,11 +43,13 @@ public class UIXShowDetailTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -156,7 +158,7 @@ public class UIXShowDetailTest extends UIComponentTestCase
     TestRunner.run(UIXShowDetailTest.class);
   }
   
-
+  @Override
   protected boolean willChildrenBeProcessed(UIComponent component)
   {
     if (!component.isRendered())
@@ -164,7 +166,6 @@ public class UIXShowDetailTest extends UIComponentTestCase
 
     return ((UIXShowDetail) component).isDisclosed();
   }
-
 
   protected UIXShowDetail createHideShow()
   {

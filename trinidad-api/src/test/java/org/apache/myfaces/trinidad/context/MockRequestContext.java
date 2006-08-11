@@ -15,6 +15,8 @@
 */
 package org.apache.myfaces.trinidad.context;
 
+import java.awt.Color;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
@@ -46,42 +48,54 @@ public class MockRequestContext extends RequestContext
     _agent = agent;
   }
 
+  @Override
   public Agent getAgent()
   {
     return _agent;
   }
 
+  @Override
   public PageResolver getPageResolver()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public PageFlowScopeProvider getPageFlowScopeProvider()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-
+  @Override
   public DialogService getDialogService()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getPageFlowScope()
+  @Override
+  public Map<String, Object> getPageFlowScope()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public void returnFromDialog(Object returnValue, Map returnParam)
+  @Override
+  public void returnFromDialog(Object returnValue, Map<Object, Object> returnParam)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
-  public void launchDialog(UIViewRoot dialogRoot, Map dialogParameters, UIComponent source, boolean useWindow, Map windowProperties)
+  @Override
+  public void launchDialog(
+      UIViewRoot dialogRoot, 
+      Map<String, Object> dialogParameters, 
+      UIComponent source, 
+      boolean useWindow, 
+      Map<String, Object> windowProperties)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public boolean isPostback()
   {
     return false;
@@ -93,16 +107,19 @@ public class MockRequestContext extends RequestContext
     return false;
   }
 
+  @Override
   public boolean isDebugOutput()
   {
     return false;
   }
 
+  @Override
   public boolean isClientValidationDisabled()
   {
     return false;
   }
 
+  @Override
   public String getOutputMode()
   {
     return null;
@@ -113,11 +130,13 @@ public class MockRequestContext extends RequestContext
     _skin = skin;
   }
 
+  @Override
   public String getSkinFamily()
   {
     return _skin;
   }
 
+  @Override
   public String getAccessibilityMode()
   {
     return _accMode;
@@ -128,6 +147,7 @@ public class MockRequestContext extends RequestContext
     _accMode = accMode;
   }
 
+  @Override
   public boolean isRightToLeft()
   {
     return _rtl;
@@ -138,6 +158,7 @@ public class MockRequestContext extends RequestContext
     _rtl = rtl;
   }
 
+  @Override
   public char getNumberGroupingSeparator()
   {
     return _numberGroupingSeparator;
@@ -148,6 +169,7 @@ public class MockRequestContext extends RequestContext
     _numberGroupingSeparator = sep;
   }
 
+  @Override
   public char getDecimalSeparator()
   {
     return _decimalSeparator;
@@ -158,6 +180,7 @@ public class MockRequestContext extends RequestContext
     _decimalSeparator = sep;
   }
 
+  @Override
   public String getCurrencyCode()
   {
     return _currencyCode;
@@ -168,6 +191,7 @@ public class MockRequestContext extends RequestContext
     _currencyCode = code;
   }
 
+  @Override
   public int getTwoDigitYearStart()
   {
     return _twoDigitYearStart;
@@ -178,21 +202,25 @@ public class MockRequestContext extends RequestContext
     _twoDigitYearStart = start;
   }
 
+  @Override
   public String getOracleHelpServletUrl()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getHelpTopic()
+  @Override
+  public Map<String, Object> getHelpTopic()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getHelpSystem()
+  @Override
+  public Map<String, Object> getHelpSystem()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public TimeZone getTimeZone()
   {
     return _timeZone;
@@ -203,41 +231,49 @@ public class MockRequestContext extends RequestContext
     _timeZone = timeZone;
   }
 
+  @Override
   public void addPartialTarget(UIComponent newTarget)
   {
     // throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void addPartialTriggerListeners(UIComponent listener, String[] trigger)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void partialUpdateNotify(UIComponent updated)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public UploadedFileProcessor getUploadedFileProcessor()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
-  public Map getColorPalette()
+  @Override
+  public Map<String, List<Color>> getColorPalette()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Map getFormatter()
+  @Override
+  public Map<Object, Map<Object,String>> getFormatter()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public ChangeManager getChangeManager()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public RegionManager getRegionManager()
   {
     throw new UnsupportedOperationException("Not implemented yet");

@@ -31,6 +31,7 @@ public class CellFormatRenderer
   /**
    * Renders attributes of the current node.
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node

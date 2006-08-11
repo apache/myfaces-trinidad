@@ -29,14 +29,15 @@ public class ArrayMapTest extends org.apache.myfaces.trinidadbuild.test.MapTestC
     super(testName);
   }
 
+  @Override
   protected boolean isNullRemove()
   {
     return true;
   }
 
-
-  protected Map createMap()
+  @Override
+  protected Map<String, Object> createMap()
   {
-    return new ArrayMap();
+    return new ArrayMap<String, Object>();
   }
 }

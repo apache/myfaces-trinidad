@@ -48,6 +48,7 @@ class FullyBufferedWriter extends Writer
    *
    * @exception  IOException  If an I/O error occurs
    */
+  @Override
   public void write(int c) throws IOException
   {
     int nextChar = _nextChar;
@@ -72,6 +73,7 @@ class FullyBufferedWriter extends Writer
    *
    * @exception  IOException  If an I/O error occurs
    */
+  @Override
   public void write(char cbuf[], int off, int len) throws IOException
   {
     if ((off < 0) || (off > cbuf.length) || (len < 0) ||
@@ -109,6 +111,7 @@ class FullyBufferedWriter extends Writer
    *
    * @exception  IOException  If an I/O error occurs
    */
+  @Override
   public void write(String s, int off, int len) throws IOException
   {
     if (len == 0)
@@ -138,6 +141,7 @@ class FullyBufferedWriter extends Writer
    *
    * @exception  IOException  If an I/O error occurs
    */
+  @Override
   public void flush() throws IOException
   {
   }
@@ -147,6 +151,7 @@ class FullyBufferedWriter extends Writer
    *
    * @exception  IOException  If an I/O error occurs
    */
+  @Override
   public void close() throws IOException
   {
     if (_writer == null)
@@ -164,7 +169,7 @@ class FullyBufferedWriter extends Writer
   public void reallyFlush() throws IOException
   {
     int nextChar = _nextChar;
-    ArrayList usedBuffers = _usedBuffers;
+    ArrayList<char[]> usedBuffers = _usedBuffers;
     if ((nextChar == 0) && (usedBuffers == null))
       return;
 
@@ -173,7 +178,7 @@ class FullyBufferedWriter extends Writer
       int bufferCount = usedBuffers.size();
       for (int i = 0; i < bufferCount; i++)
       {
-        char[] usedBuffer = (char[]) usedBuffers.get(i);
+        char[] usedBuffer = usedBuffers.get(i);
         _writer.write(usedBuffer, 0, usedBuffer.length);
       }
     }
@@ -205,7 +210,7 @@ class FullyBufferedWriter extends Writer
     if (_buffer != null)
     {
       if (_usedBuffers == null)
-        _usedBuffers = new ArrayList(5);
+        _usedBuffers = new ArrayList<char[]>(5);
       _usedBuffers.add(_buffer);
     }
     
@@ -218,7 +223,7 @@ class FullyBufferedWriter extends Writer
 
   private ResponseWriter _writer;
 
-  private ArrayList _usedBuffers;
+  private ArrayList<char[]> _usedBuffers;
   private char[] _buffer;
   // Size of the above buffer, or zero if _buffer is null
   private int    _bufferSize;

@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.uinode.bind.PropertyBoundValue;
 
 public class CommandLinkFacesBean extends UINodeFacesBean
 {
+  @Override
   protected AttributeMap createAttributeMap(String componentFamily)
   {
     AttributeMap attrMap = super.createAttributeMap(componentFamily);

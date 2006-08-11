@@ -23,11 +23,13 @@ import org.apache.myfaces.trinidad.context.PageResolver;
  */
 public class TestPageResolver extends PageResolver
 {
+  @Override
   public String getPhysicalURI(String viewId)
   {
     return viewId;
   }
 
+  @Override
   public String encodeActionURI(String actionURI)
   {
     return actionURI;

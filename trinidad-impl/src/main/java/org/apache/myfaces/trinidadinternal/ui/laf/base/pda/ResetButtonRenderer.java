@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 public class ResetButtonRenderer 
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ResetButtonRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -42,6 +43,7 @@ public class ResetButtonRenderer
       super.render(context, node);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node

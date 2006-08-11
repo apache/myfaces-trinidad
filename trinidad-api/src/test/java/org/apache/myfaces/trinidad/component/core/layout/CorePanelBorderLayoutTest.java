@@ -39,11 +39,13 @@ public class CorePanelBorderLayoutTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -93,6 +95,7 @@ public class CorePanelBorderLayoutTest extends UIXPanelTestCase
     doTestFacetTransparency(component, CorePanelBorderLayout.END_FACET);
   }
   
+  @Override
   protected UIXPanel createTestComponent()
   {
     return new CorePanelBorderLayout();

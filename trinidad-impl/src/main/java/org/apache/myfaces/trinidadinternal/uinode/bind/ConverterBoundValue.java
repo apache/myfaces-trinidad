@@ -60,7 +60,7 @@ public class ConverterBoundValue implements BoundValue
       {
         FacesContext fContext = (context == null) ? 
           FacesContext.getCurrentInstance() : context.getFacesContext();
-        Class type = binding.getType(fContext);
+        Class<?> type = binding.getType(fContext);
         converter = ConverterUtils.createConverter(fContext, type);
       }
     }

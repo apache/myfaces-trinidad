@@ -94,6 +94,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
   //         at render-time. This is a _temporary_ solution, until we
   //         decide how to create anonymous children for UINodes that
   //         can persist across renderings.
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -146,6 +147,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -154,7 +156,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
     // do nothing
   }
 
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -1440,8 +1442,8 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
     boolean maxUnknown = (maxValue == MAX_VALUE_UNKNOWN);
 
     // Zero-indexed block index.
-    long blockIndex = (value - minValue + ((long) blockSize) - 1L) /
-                         (long) blockSize;
+    long blockIndex = (value - minValue + blockSize - 1L) /
+                         blockSize;
 
     // sometimes a record set won't start on a multiple of blockSize. So
     // remember to add any offset:
@@ -1457,8 +1459,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
       maxBlockIndex = blockIndex + 1;
     else
     {
-      maxBlockIndex = (maxValue - minValue - offset) /
-                           ((long) blockSize);
+      maxBlockIndex = (maxValue - minValue - offset) / blockSize;
       if (offset > 0)
         maxBlockIndex++;
     }
@@ -1511,7 +1512,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
          blockIndex <= lastBlockIndex;
          blockIndex++)
     {
-      long blockStart = minValue + (blockIndex * ((long) blockSize));
+      long blockStart = minValue + (blockIndex * blockSize);
 
       // if there is an offset, then adjust accordingly. for example, if the
       // offset is 7 (and the blockSize is 10), then the new blockStarts are:

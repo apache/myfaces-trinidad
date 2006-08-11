@@ -30,6 +30,7 @@ public class BorderLayoutRenderer
    * @return true if this renderer has any side nodes, or has a quick-search
    *  node
    */
+  @Override
   protected boolean hasSideNodes(
     UIXRenderingContext context,
     UINode           node

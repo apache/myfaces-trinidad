@@ -39,11 +39,13 @@ public class CoreShowDetailTest extends UIXShowDetailTest
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -54,7 +56,7 @@ public class CoreShowDetailTest extends UIXShowDetailTest
     return new TestSuite(CoreShowDetailTest.class);
   }
 
-
+  @Override
   protected UIXShowDetail createHideShow()
   {
     return new CoreShowDetail();

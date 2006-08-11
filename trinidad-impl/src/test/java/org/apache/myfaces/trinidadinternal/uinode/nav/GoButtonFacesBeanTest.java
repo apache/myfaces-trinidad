@@ -45,11 +45,13 @@ public class GoButtonFacesBeanTest extends UINodeFacesBeanTestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();

@@ -51,6 +51,7 @@ public class ButtonRenderer extends LinkRenderer
            supportsScripting(context);
   }
 
+  @Override
   protected boolean doRenderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -61,6 +62,7 @@ public class ButtonRenderer extends LinkRenderer
     return (useButtonTags(context));
   }
 
+  @Override
   protected void renderDestination(
     UIXRenderingContext context,
     UINode           node,
@@ -74,6 +76,7 @@ public class ButtonRenderer extends LinkRenderer
     }
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -108,6 +111,7 @@ public class ButtonRenderer extends LinkRenderer
   /**
    * The ID and the naem aren't the same for buttons and button subclasses
    */
+  @Override
   protected boolean makeNameAndIDSame(
     UIXRenderingContext context
     )
@@ -115,7 +119,7 @@ public class ButtonRenderer extends LinkRenderer
     return false;
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -143,6 +147,7 @@ public class ButtonRenderer extends LinkRenderer
    * Return true if this link is empty ... has no children, text,
    * destination, or node name. We render nothing.
    */
+  @Override
   protected boolean isEmpty(
     UIXRenderingContext context,
     UINode           node
@@ -152,6 +157,7 @@ public class ButtonRenderer extends LinkRenderer
     return false;
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -182,6 +188,7 @@ public class ButtonRenderer extends LinkRenderer
     }
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -203,6 +210,7 @@ public class ButtonRenderer extends LinkRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -223,6 +231,7 @@ public class ButtonRenderer extends LinkRenderer
     }
   }
 
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode           node
@@ -240,6 +249,7 @@ public class ButtonRenderer extends LinkRenderer
   /**
    * Override to provide Javascript for moving to the destination
    */
+  @Override
    protected Object getOnClick(
       UIXRenderingContext context,
       UINode           node

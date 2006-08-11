@@ -112,14 +112,14 @@ public interface UIXRenderingContext extends Cloneable
    * the correct translated value key.
    * @param mapping 
    */
-  public void setSkinResourceKeyMap(Map mapping);
+  public void setSkinResourceKeyMap(Map<String, String> mapping);
 
   
   /**
    * Get the translatedValue Map.
    * @param mapping 
    */ 
-  public Map getSkinResourceKeyMap();
+  public Map<String, String> getSkinResourceKeyMap();
   
   /**
    * Returns a translated value from the skin.

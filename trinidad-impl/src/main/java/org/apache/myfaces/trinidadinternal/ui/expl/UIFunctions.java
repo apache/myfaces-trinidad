@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.ui.expl;
 
 import java.util.AbstractMap;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import javax.faces.context.FacesContext;
@@ -200,7 +201,7 @@ public final class UIFunctions
 
 
   // Provides access to Image uri, width and height values.
-  private static final class ImageData extends AbstractMap
+  private static final class ImageData extends AbstractMap<String, Object>
   {
     public ImageData(
       Object uri,
@@ -213,11 +214,14 @@ public final class UIFunctions
       _height = height;
     }
 
-    public Set entrySet()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Set<Map.Entry<String, Object>> entrySet()
     {
       return Collections.EMPTY_SET;
     }
 
+    @Override
     public Object get(Object key)
     {
       Object data = null;

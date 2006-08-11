@@ -48,6 +48,7 @@ public class HTMLElementRenderer extends ElementRenderer
    * @param context the rendering context
    * @param node the current node
    */
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -59,17 +60,18 @@ public class HTMLElementRenderer extends ElementRenderer
   /**
    * Renders all attributes of the current node.
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
     ) throws IOException
   {
-    Iterator attrs = node.getAttributeNames(context);
+    Iterator<AttributeKey> attrs = node.getAttributeNames(context);
     if (attrs != null)
     {
       while (attrs.hasNext())
       {
-        AttributeKey currKey = (AttributeKey) attrs.next();
+        AttributeKey currKey = attrs.next();
         if ((currKey != UIConstants.RENDERED_ATTR) &&
             (currKey != UIConstants.ANNOTATION_ATTR))
           renderAttribute(context,

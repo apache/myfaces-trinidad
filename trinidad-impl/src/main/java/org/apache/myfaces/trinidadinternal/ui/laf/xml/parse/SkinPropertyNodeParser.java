@@ -39,6 +39,7 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
   /**
    *
    */
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -54,6 +55,7 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
    * Implementation of NodeParser.endElement()
    * Returns a SkinPropertyNode
    */
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -66,6 +68,7 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
     return new SkinPropertyNode(_selector, _name, _value);
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -80,6 +83,7 @@ public class SkinPropertyNodeParser extends BaseNodeParser implements XMLConstan
     return BaseNodeParser.getIgnoreParser();
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,

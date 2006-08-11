@@ -68,45 +68,55 @@ public class TestResponseWriter extends ResponseWriter
       throw new NullPointerException();
 
     _out = out;
-    _contentType = contentType;
+    // -= Simon Lessard =-
+    // TODO: Never read locally as of 2006-08-09. Remove for good if no problem 
+    //       show up.
+    //_contentType = contentType;
     _encoding = encoding;
     _test = test;
     _result = result;
     CaboHttpUtils.validateEncoding(encoding);
   }
 
+  @Override
   public String getCharacterEncoding()
   {
     return _encoding;
   }
 
+  @Override
   public String getContentType()
   {
     return XHTML_CONTENT_TYPE;
   }
 
+  @Override
   public void startDocument() throws IOException
   {
   }
 
 
+  @Override
   public void endDocument() throws IOException
   {
     _out.flush();
   }
 
+  @Override
   public void flush() throws IOException
   {
     _closeStartIfNecessary();
   }
 
 
+  @Override
   public void close()throws IOException
   {
     flush();
     // =-=AEW And anything else?
   }
 
+  @Override
   public void startElement(String name,
                            UIComponent component) throws IOException
   {
@@ -137,7 +147,7 @@ public class TestResponseWriter extends ResponseWriter
     _startElementImpl(name);
   }
 
-
+  @Override
   public void endElement(String name) throws IOException
   {
     // eliminate any <pending></pending> combinations
@@ -180,7 +190,7 @@ public class TestResponseWriter extends ResponseWriter
     }
   }
 
-
+  @Override
   public void writeAttribute(String name,
                              Object value,
                              String componentPropertyName)
@@ -225,7 +235,7 @@ public class TestResponseWriter extends ResponseWriter
   {
     Writer out = _out;
 
-    Class valueClass = value.getClass();
+    Class<?> valueClass = value.getClass();
 
     // Output Boolean values specially
     if (valueClass == _BOOLEAN_CLASS)
@@ -266,6 +276,7 @@ public class TestResponseWriter extends ResponseWriter
     return false;
   }
 
+  @Override
   public void writeURIAttribute(String name,
                                 Object value,
                                 String componentPropertyName)
@@ -303,6 +314,7 @@ public class TestResponseWriter extends ResponseWriter
     _uriAttributes.put(name, value);
   }
 
+  @Override
   public void writeComment(Object comment) throws IOException
   {
     if (comment != null)
@@ -313,7 +325,7 @@ public class TestResponseWriter extends ResponseWriter
     }
   }
 
-
+  @Override
   public void writeText(Object text, String componentPropertyName)
      throws IOException
   {
@@ -333,6 +345,7 @@ public class TestResponseWriter extends ResponseWriter
   }
 
 
+  @Override
   public void writeText(char text[], int off, int len)
         throws IOException
   {
@@ -340,25 +353,28 @@ public class TestResponseWriter extends ResponseWriter
     writeText(new String(text, off, len), null);
   }
 
+  @Override
   public void write(char cbuf[], int off, int len) throws IOException
   {
     _closeStartIfNecessary();
     _out.write(cbuf, off, len);
   }
 
+  @Override
   public void write(String str) throws IOException
   {
     _closeStartIfNecessary();
     _out.write(str);
   }
 
+  @Override
   public void write(int c) throws IOException
   {
     _closeStartIfNecessary();
     _out.write((char) c);
   }
 
-
+  @Override
   public ResponseWriter cloneWithWriter(Writer writer)
   {
     try
@@ -407,7 +423,7 @@ public class TestResponseWriter extends ResponseWriter
    * Writes the value of an object
    */
   private void _writeValue(
-    Class       valueClass,
+    Class<?>    valueClass,
     Object      value,
     boolean     isAttribute
     ) throws IOException
@@ -460,10 +476,10 @@ public class TestResponseWriter extends ResponseWriter
 
     if (_closeStart)
     {
-      Iterator iter = _attributes.keySet().iterator();
+      Iterator<String> iter = _attributes.keySet().iterator();
       while (iter.hasNext())
       {
-        String name = (String) iter.next();
+        String name = iter.next();
         Object value = _attributes.get(name);
         // Ignore FALSE values, since they won't be written out at all
         if (Boolean.FALSE.equals(value))
@@ -508,7 +524,7 @@ public class TestResponseWriter extends ResponseWriter
       iter = _uriAttributes.keySet().iterator();
       while (iter.hasNext())
       {
-        String name = (String) iter.next();
+        String name = iter.next();
         Object value = _uriAttributes.get(name);
         // "id" and "name" are treated as URI attrs in link,
         // and "href" sometimes contains "#..." links to IDs
@@ -601,7 +617,7 @@ public class TestResponseWriter extends ResponseWriter
     if (size == 0)
       return null;
 
-    return (String)_skippedElements.remove(size - 1);
+    return _skippedElements.remove(size - 1);
   }
 
   /**
@@ -649,12 +665,15 @@ public class TestResponseWriter extends ResponseWriter
   private boolean     _dontEscape;
 
   private boolean _isCachedImage;
-  private Map     _attributes = new TreeMap();
-  private Map     _uriAttributes = new TreeMap();
+  private Map<String, Object> _attributes = new TreeMap<String, Object>();
+  private Map<String, Object> _uriAttributes = new TreeMap<String, Object>();
   private int     _depth;
 
   private Writer       _out;
-  private String       _contentType;
+  // -= Simon Lessard =-
+  // TODO: Never read locally as of 2006-08-09. Remove for good if no problem 
+  //       show up.
+  //private String       _contentType;
   private String       _encoding;
 
   // holds an element that will only be started if it has attributes
@@ -665,13 +684,13 @@ public class TestResponseWriter extends ResponseWriter
 
   // stack of skipped and unskipped elements used to determine when
   // to suppress the end tag of a skipped element
-  private final ArrayList   _skippedElements = new ArrayList(20);
+  private final ArrayList<String> _skippedElements = new ArrayList<String>(20);
 
 
-  private static final Class _CHAR_ARRAY_CLASS = (new char[0]).getClass();
-  private static final Class _BOOLEAN_CLASS = Boolean.class;
-  private static final Class _INTEGER_CLASS = Integer.class;
-  private static final Class _ESCAPED_TEXT_CLASS = EscapedText.class;
+  private static final Class<?> _CHAR_ARRAY_CLASS = (new char[0]).getClass();
+  private static final Class<Boolean> _BOOLEAN_CLASS = Boolean.class;
+  private static final Class<Integer> _INTEGER_CLASS = Integer.class;
+  private static final Class<EscapedText> _ESCAPED_TEXT_CLASS = EscapedText.class;
 
   static private final int _MAX_INDENT = 50;
   static private final int _SPACES_PER_LEVEL = 2;

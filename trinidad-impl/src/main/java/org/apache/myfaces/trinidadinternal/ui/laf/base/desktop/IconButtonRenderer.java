@@ -43,6 +43,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
   abstract String getIconName();
 
   // Returns the elmenet name - "a"
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -53,6 +54,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
   }
 
   // Renders the link attributes
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -80,6 +82,7 @@ abstract public class IconButtonRenderer extends HtmlLafRenderer
   }
 
   // Renders the icon
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node

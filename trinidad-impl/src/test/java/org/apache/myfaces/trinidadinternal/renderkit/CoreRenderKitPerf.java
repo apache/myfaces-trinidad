@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.faces.context.FacesContext;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIViewRoot;
@@ -31,23 +30,17 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.component.UISelectItem;
-import javax.faces.render.Renderer;
 
-import org.apache.myfaces.trinidad.component.core.CoreDocument;
-import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroupLayout;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
-import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputHidden;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneRadio;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputDate;
-import org.apache.myfaces.trinidad.component.core.input.CoreSelectItem;
-
 
 
 public class CoreRenderKitPerf extends RenderKitPerfTestCase
@@ -217,12 +210,14 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testRITable() throws IOException
   {
     HtmlDataTable table = new HtmlDataTable();
-    ArrayList l = new ArrayList();
+    ArrayList<Integer> l = new ArrayList<Integer>();
     for (int i = 0 ; i < 10; i++)
       l.add(new Integer(i));
+    
     table.setValue(l);
     table.setStyleClass("TableContent");
     table.setHeaderClass("af_column_header-text SomeBorderStyle");
@@ -251,10 +246,11 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testTable() throws IOException
   {
     CoreTable table = new CoreTable();
-    ArrayList l = new ArrayList();
+    ArrayList<Integer> l = new ArrayList<Integer>();
     for (int i = 0 ; i < 10; i++)
       l.add(new Integer(i));
     table.setValue(l);
@@ -285,6 +281,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testPanelGroupPerf() throws IOException
   {
     CorePanelGroupLayout group = new CorePanelGroupLayout();
@@ -335,6 +332,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
     renderRoot(root);
   }
 
+  @SuppressWarnings("unchecked")
   public void testSelectOneChoice() throws IOException
   {
     CoreSelectOneChoice choice = new CoreSelectOneChoice();
@@ -356,6 +354,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testRISelectOneMenu() throws IOException
   {
     //
@@ -377,6 +376,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testSelectOneRadio() throws IOException
   {
     CoreSelectOneRadio radio = new CoreSelectOneRadio();
@@ -398,6 +398,7 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testRISelectOneRadio() throws IOException
   {
     //
@@ -444,24 +445,29 @@ public class CoreRenderKitPerf extends RenderKitPerfTestCase
       setRendererType(null);
     }
 
+    @Override
     public String getFamily()
     {
       return "org.apache.myfaces.trinidadtest.PerfComp";
     }
 
+    @Override
     public boolean getRendersChildren()
     {
       return true;
     }
 
+    @Override
     public void encodeBegin(FacesContext context) throws IOException
     {
     }
 
+    @Override
     public void encodeChildren(FacesContext context) throws IOException
     {
     }
 
+    @Override
     public void encodeEnd(FacesContext context) throws IOException
     {
     }

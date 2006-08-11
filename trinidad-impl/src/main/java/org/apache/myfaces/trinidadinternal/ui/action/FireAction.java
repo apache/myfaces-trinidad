@@ -96,6 +96,7 @@ public class FireAction extends ClientAction
   /**
    * Implementation of ClientAction.getScript().
    */
+  @Override
   public String getScript
     (UIXRenderingContext context,
      UINode node,
@@ -117,6 +118,7 @@ public class FireAction extends ClientAction
   /**
    * Override of ClientAction.writeDependencies().
    */
+  @Override
   public void writeDependencies(
     UIXRenderingContext context,
     UINode node
@@ -306,6 +308,7 @@ public class FireAction extends ClientAction
     return ActionUtils.cloneParameterArray(_parameters);
   }
 
+  @Override
   public Parameter[] getParameters(
     UIXRenderingContext context,
     UINode           node)
@@ -385,6 +388,7 @@ public class FireAction extends ClientAction
   /**
    * Override of ClientAction.renderAsEvent().
    */
+  @Override
   public boolean renderAsEvent(
     UIXRenderingContext context,
     UINode           node)

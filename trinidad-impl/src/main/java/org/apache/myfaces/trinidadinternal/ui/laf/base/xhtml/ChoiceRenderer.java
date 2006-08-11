@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HtmlLafRenderer;
  */
 public class ChoiceRenderer extends FormSelectRenderer
 {
+  @Override
   protected Boolean isMultipleSelection(
     UIXRenderingContext context,
     UINode           node)
@@ -53,6 +54,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     return Boolean.FALSE;
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -90,6 +92,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -112,7 +115,7 @@ public class ChoiceRenderer extends FormSelectRenderer
                                                                      node);
     if (component != null)
     {
-      List selectItems =
+      List<SelectItem> selectItems =
         SelectItemSupport.getSelectItems(component,
                                          SelectItemSupport.getConverter(
                                          component));
@@ -133,7 +136,7 @@ public class ChoiceRenderer extends FormSelectRenderer
         // now check if the first item is already a blank item.
         // if it isn't, render a blank item, using the
         // noSelectionLabel attribute value as the itemLabel.
-        SelectItem firstItem = (SelectItem)selectItems.get(0);
+        SelectItem firstItem = selectItems.get(0);
         Object firstItemValue = firstItem.getValue();
         if (!("".equals(firstItemValue)))
         {
@@ -158,6 +161,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     }
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -175,6 +179,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     }
   }
 
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node)
@@ -189,6 +194,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     }
   }
 
+  @Override
   protected Object getOnBlur(
     UIXRenderingContext context,
     UINode           node)
@@ -207,6 +213,7 @@ public class ChoiceRenderer extends FormSelectRenderer
    * Returns the onChange handler.  This is in place to support
    * RadioSetRenderer, which does not have an onChange handler.
    */
+  @Override
   protected Object getOnChange(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -404,7 +411,7 @@ public class ChoiceRenderer extends FormSelectRenderer
 
   private boolean _isNothingSelected(
     UIComponent      component,
-    List             selectItems)
+    List<SelectItem> selectItems)
   {
     // Assume the component is a value holder
     Object value = ((ValueHolder) component).getValue();
@@ -414,7 +421,7 @@ public class ChoiceRenderer extends FormSelectRenderer
     int size = selectItems.size();
     for (int i=0; i < size; i++)
     {
-      SelectItem item = (SelectItem)(selectItems.get(i));
+      SelectItem item = selectItems.get(i);
       if (value.equals(item.getValue()))
         return false;
     }

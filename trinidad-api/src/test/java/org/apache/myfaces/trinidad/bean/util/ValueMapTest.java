@@ -30,22 +30,26 @@ public class ValueMapTest extends org.apache.myfaces.trinidadbuild.test.MapTestC
     super(testName);
   }
 
+  @Override
   protected boolean supportsNullKeys()
   {
     return false;
   }
 
+  @Override
   protected boolean supportsIteratorRemove()
   {
     return true;
   }
 
+  @Override
   protected boolean isNullRemove()
   {
     return true;
   }
 
-  protected Map createMap()
+  @Override
+  protected Map<String, Object> createMap()
   {
     return new ValueMap(new TestBean());
   }

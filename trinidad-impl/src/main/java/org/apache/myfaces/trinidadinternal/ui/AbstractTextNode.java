@@ -128,7 +128,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
    * added under;  always returns an enumeration containing only
    * TEXT_ATTR.
    */
-  public Iterator getAttributeNames(
+  public Iterator<AttributeKey> getAttributeNames(
     UIXRenderingContext context
     )
   {
@@ -150,7 +150,7 @@ public abstract class AbstractTextNode implements UINode, UIConstants
   /**
    * Returns null.
    */
-  public Iterator getChildNames(
+  public Iterator<String> getChildNames(
     UIXRenderingContext context
     )
   {

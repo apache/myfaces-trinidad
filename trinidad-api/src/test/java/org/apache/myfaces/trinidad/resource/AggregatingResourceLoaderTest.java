@@ -91,6 +91,7 @@ public class AggregatingResourceLoaderTest extends ResourceLoaderTestCase
 
   private class ThrowingResourceLoader extends LocalResourceLoader
   {
+    @Override
     protected URL findResource(
       String name
       ) throws IOException
@@ -104,6 +105,7 @@ public class AggregatingResourceLoaderTest extends ResourceLoaderTestCase
 
   private class UnknownLengthResourceLoader extends LocalResourceLoader
   {
+    @Override
     protected URL findResource(
       String name
       ) throws IOException
@@ -118,6 +120,7 @@ public class AggregatingResourceLoaderTest extends ResourceLoaderTestCase
   
   private class UnknownLengthStreamHandler extends URLStreamHandler
   {
+    @Override
     protected URLConnection openConnection(
       URL url
       ) throws IOException
@@ -135,16 +138,19 @@ public class AggregatingResourceLoaderTest extends ResourceLoaderTestCase
       super(url);
     }
     
+    @Override
     public int getContentLength()
     {
       return -1;
     }
 
+    @Override
     public void connect() throws IOException
     {
       // no-op
     }
 
+    @Override
     public InputStream getInputStream() throws IOException
     {
       return new ByteArrayInputStream(new byte[0]);

@@ -28,5 +28,5 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  */
 public interface KeyedDataObject extends DataObject
 {
-  public Iterator keys(UIXRenderingContext context);
+  public Iterator<Object> keys(UIXRenderingContext context);
 }

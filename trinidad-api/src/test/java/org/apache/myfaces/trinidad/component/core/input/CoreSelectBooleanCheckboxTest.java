@@ -40,11 +40,13 @@ public class CoreSelectBooleanCheckboxTest extends UIXEditableValueTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -55,6 +57,7 @@ public class CoreSelectBooleanCheckboxTest extends UIXEditableValueTestCase
     return new TestSuite(CoreSelectBooleanCheckboxTest.class);
   }
 
+  @Override
   protected final UIXEditableValue createEditableValue()
   {
     return new CoreSelectBooleanCheckbox();

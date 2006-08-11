@@ -59,11 +59,13 @@ public final class IconKey
     return _keyIndex;
   }
 
+  @Override
   public boolean equals(Object o)
   {
     return this == o;
   }
 
+  @Override
   public int hashCode()
   {
     return _keyIndex;

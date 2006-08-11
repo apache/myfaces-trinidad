@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 public class SelectOptionRenderer
        extends OptionContainerRenderer.OptionRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -89,6 +90,7 @@ public class SelectOptionRenderer
     }
   }
 
+  @Override
   protected boolean doRenderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -97,6 +99,7 @@ public class SelectOptionRenderer
     return false;
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -104,6 +107,7 @@ public class SelectOptionRenderer
     renderText(context, node);
   }
 
+  @Override
   protected void renderSelectedAttribute(
     UIXRenderingContext context,
     UINode           node
@@ -114,6 +118,7 @@ public class SelectOptionRenderer
                     Boolean.valueOf(isOptionSelected(context, node)));
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

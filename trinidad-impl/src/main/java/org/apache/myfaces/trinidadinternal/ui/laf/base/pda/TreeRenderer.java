@@ -30,8 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  */
 public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.TreeRenderer
 {
-
-
+  @Override
   protected String getConnectingBackgroundIcon(
    boolean isLine, 
    boolean leftToRight
@@ -49,6 +48,7 @@ public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.bas
     return backgroundIcon;
   }
   
+  @Override
   protected String getIconBackgroundIcon(
     int     expand,
     boolean isLeftToRight
@@ -67,8 +67,7 @@ public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.bas
     return backgroundIcon;
   }
   
-
-
+  @Override
   protected String getDefaultIconName()
   {
     return _DEFAULT_ICON_NAME;
@@ -76,6 +75,7 @@ public class TreeRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.bas
 
   
   // render the correct icon for a specific node
+  @Override
   protected void renderExpandCell(
     UIXRenderingContext context,
     UIXHierarchy tree,

@@ -22,6 +22,7 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 
 import javax.faces.context.ResponseWriter;
+import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
@@ -38,6 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class ListRenderer extends FormSelectRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -53,7 +55,7 @@ public class ListRenderer extends FormSelectRenderer
     // Get (and cache) the list of SelectItems
     UIComponent component = OptionContainerRenderer.__getUIComponent(context,
                                                                      node);
-    List selectItems;
+    List<SelectItem> selectItems;
     if (component != null)
     {
         selectItems = 
@@ -92,6 +94,7 @@ public class ListRenderer extends FormSelectRenderer
     renderAttribute(context, SIZE_ATTRIBUTE, size);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -106,6 +109,8 @@ public class ListRenderer extends FormSelectRenderer
     super.prerender(context, node);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -118,9 +123,10 @@ public class ListRenderer extends FormSelectRenderer
     UIComponent component = OptionContainerRenderer.__getUIComponent(context,
                                                                      node);
 
-    List selectItems = (List) context.getLocalProperty(0,
-                                                       _SELECT_ITEMS_PROPERTY,
-                                                       null); 
+    List<SelectItem> selectItems = 
+      (List<SelectItem>) context.getLocalProperty(0,
+                                                  _SELECT_ITEMS_PROPERTY,
+                                                  null); 
 
   
     if (component != null)
@@ -145,6 +151,7 @@ public class ListRenderer extends FormSelectRenderer
     
   }  
 
+  @Override
   protected Boolean isMultipleSelection(
     UIXRenderingContext context,
     UINode           node)
@@ -160,6 +167,7 @@ public class ListRenderer extends FormSelectRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -175,6 +183,7 @@ public class ListRenderer extends FormSelectRenderer
     }
   }
 
+  @Override
   protected Object getOnChange(
     UIXRenderingContext context,
     UINode           node

@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkRenderer;
  */
 public class ShowItemRenderer extends LinkRenderer
 {
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -42,6 +43,7 @@ public class ShowItemRenderer extends LinkRenderer
   }
 
   // Returns the partial change script that is usually rendered for onClick
+  @Override
   protected String getPartialChangeScript(
     UIXRenderingContext context,
     UINode           node

@@ -38,11 +38,13 @@ public class CorePanelSideBarTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -79,6 +81,7 @@ public class CorePanelSideBarTest extends UIXPanelTestCase
                                 "20%");
   }
 
+  @Override
   protected UIXPanel createTestComponent()
   {
       return new CorePanelSideBar();

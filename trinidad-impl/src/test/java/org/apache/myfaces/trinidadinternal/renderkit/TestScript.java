@@ -29,10 +29,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.el.ValueBinding;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.model.SortCriterion;
-import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 import org.apache.myfaces.trinidad.context.Agent;
 
@@ -66,7 +64,7 @@ public class TestScript
     return _definition;
   }
 
-  public List getTests()
+  public List<Test> getTests()
   {
     return _tests;
   }
@@ -104,37 +102,40 @@ public class TestScript
       _messages.put(clientId, new FacesMessage(sev, summary, detail));
     }
 
+    @Override
     public void apply(FacesContext context, UIComponent component)
     {
       // first, cleanup any messages left over from a previous test
       // ((MFacesContext) context).clearMessages();
 
       // Add any messages needed to run this suite of tests
-      Iterator messageIds = _messages.keySet().iterator();
+      Iterator<String> messageIds = _messages.keySet().iterator();
       while (messageIds.hasNext())
       {
-        String id = (String) messageIds.next();
-        FacesMessage fm = (FacesMessage) _messages.get(id);
+        String id = messageIds.next();
+        FacesMessage fm = _messages.get(id);
         context.addMessage(id, fm);
       }
     }
 
+    @Override
     public boolean shouldMatchBase()
     {
       return true;
     }
 
+    @Override
     public String toString()
     {
       StringBuffer sb = new StringBuffer(100);
       sb.append(" MessageTest[ ");
 
       boolean gotFirst = false;
-      Iterator messageIds = _messages.keySet().iterator();
+      Iterator<String> messageIds = _messages.keySet().iterator();
       while (messageIds.hasNext())
       {
-        String id = (String) messageIds.next();
-        FacesMessage fm = (FacesMessage) _messages.get(id);
+        String id = messageIds.next();
+        FacesMessage fm = _messages.get(id);
 
         // Severity toString() implementation is different in the
         // RI and MyFaces;  in the RI it's "name ordinal",
@@ -158,7 +159,8 @@ public class TestScript
       return sb.toString();
     }
 
-    private Map _messages = new LinkedHashMap();
+    private Map<String, FacesMessage> _messages = 
+      new LinkedHashMap<String, FacesMessage>();
   }
 
   static public class AttributeTest extends Test
@@ -200,16 +202,18 @@ public class TestScript
       _delegateTests.add(delegateTest);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public void apply(FacesContext context, UIComponent component)
     {
-      Iterator tests = _delegateTests.iterator();
+      Iterator<Test> tests = _delegateTests.iterator();
       
       if (_testComponentId != null)
         component = component.findComponent(_testComponentId); 
       
       while (tests.hasNext())
       {
-        Test test = (Test) tests.next();
+        Test test = tests.next();
         test.apply(context, component);
       }
       
@@ -220,7 +224,7 @@ public class TestScript
       if ("tableSortCriteria".equals(_name))
       {
         UIXCollection tableModel = (UIXCollection)  component;
-        List sortCriteriaList = new ArrayList();
+        List<SortCriterion> sortCriteriaList = new ArrayList<SortCriterion>();
         String sortCriterion = (String) _value;
         Boolean isAscending  = 
            new Boolean(sortCriterion.substring(sortCriterion.indexOf(" ")).trim());
@@ -248,6 +252,7 @@ public class TestScript
       }
     }
 
+    @Override
     public boolean shouldMatchBase()
     {
       return _matchesBase;
@@ -263,6 +268,7 @@ public class TestScript
       return _value;
     }
     
+    @Override
     public String toString()
     {
       String valStr;
@@ -304,7 +310,7 @@ public class TestScript
       {
         StringBuffer buffer = new StringBuffer();
         buffer.append("AttributeTest[" + _name + "," + valStr);
-        Iterator tests = _delegateTests.iterator();
+        Iterator<Test> tests = _delegateTests.iterator();
         while (tests.hasNext())
         {
           buffer.append(',');
@@ -316,15 +322,15 @@ public class TestScript
       }
     }
 
-    private String _name;
-    private Object _value;
-    private String _testComponentId;
-    private boolean _matchesBase;
-    private List    _delegateTests = new ArrayList();
+    private String     _name;
+    private Object     _value;
+    private String     _testComponentId;
+    private boolean    _matchesBase;
+    private List<Test> _delegateTests = new ArrayList<Test>();
   }
 
-  private Set  _agentTypes = new HashSet();
-  private List _tests = new ArrayList();
+  private Set<Object>         _agentTypes = new HashSet<Object>();
+  private List<Test>          _tests      = new ArrayList<Test>();
   private ComponentDefinition _definition;
   
 }

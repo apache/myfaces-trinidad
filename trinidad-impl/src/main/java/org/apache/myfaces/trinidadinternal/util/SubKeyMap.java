@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -39,9 +38,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * "flaw" is actually relied on by PageFlowScopeMap (since it provides
  * a handy way to clear out all descendents), so don't "fix" it!
  */
-final public class SubKeyMap extends AbstractMap
+final public class SubKeyMap extends AbstractMap<String, Object>
 {
-  public SubKeyMap(Map base, String prefix)
+  public SubKeyMap(Map<String, Object> base, String prefix)
   {
     if (base == null)
       throw new NullPointerException();
@@ -61,24 +60,27 @@ final public class SubKeyMap extends AbstractMap
     }
   }
 
+  @Override
   public boolean isEmpty()
   {
     return entrySet().isEmpty();
   }
 
+  @Override
   public Object get(Object key)
   {
     key = _getBaseKey(key);
     return _base.get(key);
   }
 
-  public Object put(Object key, Object value)
+  @Override
+  public Object put(String key, Object value)
   {
     key = _getBaseKey(key);
     return _base.put(key, value);
   }
 
-
+  @Override
   public Object remove(Object key)
   {
     key = _getBaseKey(key);
@@ -86,6 +88,7 @@ final public class SubKeyMap extends AbstractMap
     return _base.remove(key);
   }
 
+  @Override
   public boolean containsKey(Object key)
   {
     if (!(key instanceof String))
@@ -94,10 +97,11 @@ final public class SubKeyMap extends AbstractMap
     return _base.containsKey(_getBaseKey(key));
   }
 
-  public Set entrySet()
+  @Override
+  public Set<Map.Entry<String, Object>> entrySet()
   {
     if (_entrySet == null)
-      _entrySet = new Entries(_base.entrySet());
+      _entrySet = new Entries();
     return _entrySet;
   }
 
@@ -109,30 +113,12 @@ final public class SubKeyMap extends AbstractMap
     return _prefix + ((String) key);
   }
 
-  private String _getSubKey(Object key)
+  private List<String> _gatherKeys()
   {
-    if (key == null)
-      return null;
-
-    if (!(key instanceof String))
-      return null;
-
-    String keyStr = (String) key;
-    if (!keyStr.startsWith(_prefix))
-      return null;
-
-    return keyStr.substring(_prefix.length());
-  }
-
-
-  private List _gatherKeys()
-  {
-    List list = new ArrayList();
-    Iterator keys = _base.keySet().iterator();
-    while (keys.hasNext())
+    List<String> list = new ArrayList<String>();
+    for(String key : _base.keySet())
     {
-      Object key = keys.next();
-      if ((key instanceof String) && ((String) key).startsWith(_prefix))
+      if (key != null && key.startsWith(_prefix))
         list.add(key);
     }
 
@@ -142,73 +128,71 @@ final public class SubKeyMap extends AbstractMap
   //
   // Set implementation for SubkeyMap.entrySet()
   //
-  private class Entries extends AbstractSet
+  private class Entries extends AbstractSet<Map.Entry<String, Object>>
   {
-    public Entries(Set baseSet)
+    public Entries()
     {
-      _baseSet = baseSet;
     }
 
-    public Iterator iterator()
+    @Override
+    public Iterator<Map.Entry<String, Object>> iterator()
     {
       // Sadly, if you just try to use a filtering approach
       // on the iterator, you'll get concurrent modification
       // exceptions.  Consequently, gather the keys in a list
       // and iterator over that.
-      List keyList = _gatherKeys();
+      List<String> keyList = _gatherKeys();
       return new EntryIterator(keyList.iterator());
     }
 
+    @Override
     public int size()
     {
       int size = 0;
-      Iterator keys = _base.keySet().iterator();
-      while (keys.hasNext())
+      for(String key : _base.keySet())
       {
-
-        Object key = keys.next();
-        if ((key instanceof String) && ((String) key).startsWith(_prefix))
+        if (key != null && key.startsWith(_prefix))
           size++;
       }
 
       return size;
     }
 
+    @Override
     public boolean isEmpty()
     {
-      Iterator keys = _base.keySet().iterator();
+      Iterator<String> keys = _base.keySet().iterator();
       while (keys.hasNext())
       {
-        Object key = keys.next();
+        String key = keys.next();
         // Short-circuit:  the default implementation would always
         // need to iterate to find the total size.
-        if ((key instanceof String) && ((String) key).startsWith(_prefix))
+        if (key != null && key.startsWith(_prefix))
           return false;
       }
 
       return true;
     }
 
+    @Override
     public void clear()
     {
-      Iterator keys = _base.keySet().iterator();
+      Iterator<String> keys = _base.keySet().iterator();
       while (keys.hasNext())
       {
-        Object key = keys.next();
-        if ((key instanceof String) && ((String) key).startsWith(_prefix))
+        String key = keys.next();
+        if (key != null && key.startsWith(_prefix))
         {
           _LOG.finest("Clearing out {0}", key);
           keys.remove();
         }
       }
     }
-
-    private Set _baseSet;
   }
 
-  private class EntryIterator implements Iterator
+  private class EntryIterator implements Iterator<Map.Entry<String, Object>>
   {
-    public EntryIterator(Iterator iterator)
+    public EntryIterator(Iterator<String> iterator)
     {
       _iterator = iterator;
     }
@@ -218,9 +202,9 @@ final public class SubKeyMap extends AbstractMap
       return _iterator.hasNext();
     }
 
-    public Object next()
+    public Map.Entry<String, Object> next()
     {
-      String baseKey = (String) _iterator.next();
+      String baseKey = _iterator.next();
       _currentKey = baseKey;
       return new Entry(baseKey);
     }
@@ -235,18 +219,18 @@ final public class SubKeyMap extends AbstractMap
       _currentKey = null;
     }
 
-    private Iterator  _iterator;
+    private Iterator<String>  _iterator;
     private String    _currentKey;
   }
 
-  private class Entry implements Map.Entry
+  private class Entry implements Map.Entry<String, Object>
   {
     public Entry(String baseKey)
     {
       _baseKey = baseKey;
     }
 
-    public Object getKey()
+    public String getKey()
     {
       if (_key == null)
         _key = _baseKey.substring(_prefix.length());
@@ -263,15 +247,18 @@ final public class SubKeyMap extends AbstractMap
       return _base.put(_baseKey, value);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public boolean equals(Object o)
     {
       if (!(o instanceof Map.Entry))
         return false;
-      Map.Entry e = (Map.Entry)o;
+      Map.Entry<String, Object> e = (Map.Entry<String, Object>)o;
       return _equals(getKey(), e.getKey()) &&
       _equals(getValue(), e.getValue());
     }
 
+    @Override
     public int hashCode()
     {
       Object key = getKey();
@@ -280,8 +267,8 @@ final public class SubKeyMap extends AbstractMap
       ((value == null)   ? 0 : value.hashCode());
     }
 
-    private String    _baseKey;
-    private Object    _key;
+    private String _baseKey;
+    private String _key;
   }
 
   static private boolean _equals(Object a, Object b)
@@ -291,9 +278,9 @@ final public class SubKeyMap extends AbstractMap
     return a.equals(b);
   }
 
-  private final Map    _base;
+  private final Map<String, Object> _base;
   private final String _prefix;
-  private Set          _entrySet;
+  private Set<Map.Entry<String, Object>> _entrySet;
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SubKeyMap.class);
 }

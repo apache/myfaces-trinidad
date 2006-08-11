@@ -67,6 +67,7 @@ class TestScriptParser extends BaseNodeParser
     _info   = info;
   }
 
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -102,6 +103,7 @@ class TestScriptParser extends BaseNodeParser
     return null;
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -114,6 +116,8 @@ class TestScriptParser extends BaseNodeParser
     return createTestParser(_componentInfo, localName, null);
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -122,11 +126,12 @@ class TestScriptParser extends BaseNodeParser
   {
     if (child instanceof TestScript.Test)
     {
-      _script.getTests().add(child);
+      _script.getTests().add((TestScript.Test)child);
     }
     else if (child instanceof List)
     {
-      Iterator iter = ((List) child).iterator();
+      Iterator<TestScript.Test> iter = 
+        ((List<TestScript.Test>) child).iterator();
       while (iter.hasNext())
       {
         _script.getTests().add(iter.next());
@@ -155,7 +160,7 @@ class TestScriptParser extends BaseNodeParser
       _info   = info;
     }
 
-
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
@@ -189,6 +194,7 @@ class TestScriptParser extends BaseNodeParser
          "true".equals(attrs.getValue(NAMESPACE, "usesUpload")));
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -216,6 +222,7 @@ class TestScriptParser extends BaseNodeParser
        }
     }
 
+    @Override
     public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -224,11 +231,12 @@ class TestScriptParser extends BaseNodeParser
   {
     if (child instanceof TestScript.Test)
     {
-      _script.getTests().add(child);
+      _script.getTests().add((TestScript.Test)child);
     }
   }
 
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -252,6 +260,7 @@ class TestScriptParser extends BaseNodeParser
       _componentId = componentId;
     }
 
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
@@ -278,6 +287,7 @@ class TestScriptParser extends BaseNodeParser
                                            _componentId);
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -289,6 +299,7 @@ class TestScriptParser extends BaseNodeParser
       return null;
     }
 
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -301,6 +312,7 @@ class TestScriptParser extends BaseNodeParser
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -322,7 +334,7 @@ class TestScriptParser extends BaseNodeParser
       _componentInfo = info;
     }
 
-
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
@@ -354,6 +366,7 @@ class TestScriptParser extends BaseNodeParser
       }
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -363,6 +376,8 @@ class TestScriptParser extends BaseNodeParser
       return createTestParser(_componentInfo, localName, null);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -371,22 +386,24 @@ class TestScriptParser extends BaseNodeParser
     {
       if (child instanceof TestScript.Test)
       {
-        _childTests.add(child);
+        _childTests.add((TestScript.Test)child);
       }
       else if (child instanceof List)
       {
-        _childTests.addAll((List) child);
+        _childTests.addAll((List<TestScript.Test>) child);
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
       String       localName) throws SAXParseException
     {
-      ArrayList allTests = new ArrayList();
+      ArrayList<TestScript.AttributeTest> allTests = 
+        new ArrayList<TestScript.AttributeTest>();
 
-      Iterator values = _propertyInfo.enumValues.iterator();
+      Iterator<Object> values = _propertyInfo.enumValues.iterator();
       while (values.hasNext())
       {
         Object value = values.next();
@@ -394,10 +411,10 @@ class TestScriptParser extends BaseNodeParser
         allTests.add(new TestScript.AttributeTest(_name,
                                                   value,
                                                   isDefault));
-        Iterator childTests = _childTests.iterator();
+        Iterator<TestScript.Test> childTests = _childTests.iterator();
         while (childTests.hasNext())
         {
-          TestScript.Test childTest = (TestScript.Test) childTests.next();
+          TestScript.Test childTest = childTests.next();
           allTests.add(new TestScript.AttributeTest(_name,
                                                     value,
                                                     isDefault,
@@ -412,7 +429,7 @@ class TestScriptParser extends BaseNodeParser
     private FacesConfigInfo.PropertyInfo    _propertyInfo;
     private String _name;
     private Object _defaultValue;
-    private List _childTests = new ArrayList();
+    private List<TestScript.Test> _childTests = new ArrayList<TestScript.Test>();
   }
 
   private class JavascriptTestParser extends BaseNodeParser
@@ -422,17 +439,17 @@ class TestScriptParser extends BaseNodeParser
       _componentInfo = info;
     }
 
-
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
       String       localName,
       Attributes   attrs) throws SAXParseException
     {
-      Iterator properties = _componentInfo.properties.keySet().iterator();
+      Iterator<String> properties = _componentInfo.properties.keySet().iterator();
       while (properties.hasNext())
       {
-        String name = (String) properties.next();
+        String name = properties.next();
         if (name.startsWith("on"))
         {
           _tests.add(new TestScript.AttributeTest(name, null, false));
@@ -440,6 +457,7 @@ class TestScriptParser extends BaseNodeParser
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -449,7 +467,8 @@ class TestScriptParser extends BaseNodeParser
     }
 
     private FacesConfigInfo.ComponentInfo   _componentInfo;
-    private List _tests = new ArrayList();
+    private List<TestScript.AttributeTest> _tests = 
+      new ArrayList<TestScript.AttributeTest>();
   }
 
   private class BooleanTestParser extends BaseNodeParser
@@ -459,7 +478,7 @@ class TestScriptParser extends BaseNodeParser
       _componentInfo = info;
     }
 
-
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
@@ -497,6 +516,7 @@ class TestScriptParser extends BaseNodeParser
 
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -506,6 +526,8 @@ class TestScriptParser extends BaseNodeParser
       return createTestParser(_componentInfo, localName, null);
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -514,15 +536,15 @@ class TestScriptParser extends BaseNodeParser
     {
       if (child instanceof TestScript.Test)
       {
-        _childTests.add(child);
+        _childTests.add((TestScript.Test)child);
       }
       else if (child instanceof List)
       {
-        _childTests.addAll((List) child);
+        _childTests.addAll((List<TestScript.Test>) child);
       }
     }
 
-
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -538,10 +560,10 @@ class TestScriptParser extends BaseNodeParser
       boolean matchesBase = (value == _defaultValue);
       Boolean valueObj    = value ? Boolean.TRUE : Boolean.FALSE;
       _tests.add(new TestScript.AttributeTest(_name, valueObj, matchesBase));
-      Iterator iter = _childTests.iterator();
+      Iterator<TestScript.Test> iter = _childTests.iterator();
       while (iter.hasNext())
       {
-        TestScript.Test test = (TestScript.Test) iter.next();
+        TestScript.Test test = iter.next();
         // Don't bother testing and re-testing that an attribute
         // matches the base in all sorts of combos;  keep it simple!
         if (matchesBase)
@@ -557,8 +579,8 @@ class TestScriptParser extends BaseNodeParser
     private String _name;
     private boolean _defaultValue;
     private FacesConfigInfo.ComponentInfo   _componentInfo;
-    private List _tests = new ArrayList();
-    private List _childTests = new ArrayList();
+    private List<TestScript.Test> _tests = new ArrayList<TestScript.Test>();
+    private List<TestScript.Test> _childTests = new ArrayList<TestScript.Test>();
   }
 
   private class MessageParser extends BaseNodeParser
@@ -568,6 +590,7 @@ class TestScriptParser extends BaseNodeParser
       _componentInfo = info;
     }
 
+    @Override
     public void startElement(
       ParseContext context,
       String       namespaceURI,
@@ -594,7 +617,7 @@ class TestScriptParser extends BaseNodeParser
                                          clientId);
       }
 
-
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -603,7 +626,10 @@ class TestScriptParser extends BaseNodeParser
       return _test;
     }
 
-    private FacesConfigInfo.ComponentInfo   _componentInfo;
+    // -= Simon Lessard =- 
+    // TODO: Never read locally as of 2006-08-09. Delete whenever 
+    //       this attribute prove to be useless.
+    //private FacesConfigInfo.ComponentInfo _componentInfo;
     private TestScript.Test _test;
   }
 

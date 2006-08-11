@@ -85,6 +85,7 @@ public class RenderKitPerfTestCase extends TestCase
     return "org.apache.myfaces.trinidad.core";
   }
 
+  @SuppressWarnings("unchecked")
   protected UIViewRoot createTestTree(
                UIComponent compToTest, String testName, int count)
     throws IOException
@@ -111,6 +112,7 @@ public class RenderKitPerfTestCase extends TestCase
     return root;
   }
 
+  @Override
   protected void setUp() throws IOException
   {
     RenderKitBootstrap.clearFactories();
@@ -133,6 +135,7 @@ public class RenderKitPerfTestCase extends TestCase
     _requestContext.setAgent(RenderKitBootstrap.getGeckoAgent());
   }
   
+  @Override
   protected void tearDown() throws IOException
   {
     MFacesContext.clearContext();
@@ -165,16 +168,19 @@ public class RenderKitPerfTestCase extends TestCase
       setRendererType(null);
     }
 
+    @Override
     public String getFamily()
     {
       return "org.apache.myfaces.trinidadtest.PerfComp";
     }
 
+    @Override
     public boolean getRendersChildren()
     {
       return true;
     }
 
+    @Override
     public void encodeChildren(FacesContext context) throws IOException
     {
       long start = System.currentTimeMillis();

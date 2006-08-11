@@ -31,8 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class TipRenderer extends HtmlLafRenderer
 {
-
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -64,6 +63,7 @@ public class TipRenderer extends HtmlLafRenderer
     renderStyleClassAttribute(context, TIP_TEXT_STYLE_CLASS);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -73,6 +73,8 @@ public class TipRenderer extends HtmlLafRenderer
     writer.endElement("span");
     super.postrender(context, node);
   }
+  
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

@@ -53,59 +53,68 @@ public class MFacesContext extends MockFacesContext
     _external = new External(testMode);
   }
 
+  @Override
   public ResponseWriter getResponseWriter()
   {
     return _responseWriter;
   }
 
+  @Override
   public void setResponseWriter(ResponseWriter responseWriter)
   {
     _responseWriter = responseWriter;
   }
 
-  public Iterator getMessages()
+  @Override
+  public Iterator<FacesMessage> getMessages()
   {
     return getMessages(_GLOBAL_MESSAGE);
   }
 
-  public Iterator getMessages(String id)
+  @SuppressWarnings("unchecked")
+  @Override
+  public Iterator<FacesMessage> getMessages(String id)
   {
     if (id == null)
       id = _GLOBAL_MESSAGE;
 
-    List messages = (List) _messages.get(id);
+    List<FacesMessage> messages = _messages.get(id);
     if (messages == null)
       messages = Collections.EMPTY_LIST;
+    
     return messages.iterator();
   }
 
+  @Override
   public void addMessage(String id, FacesMessage message)
   {
     if (id == null)
       id = _GLOBAL_MESSAGE;
 
-    List messages = (List) _messages.get(id);
+    List<FacesMessage> messages = _messages.get(id);
     if (messages == null)
     {
-      messages = new ArrayList();
+      messages = new ArrayList<FacesMessage>();
       _messages.put(id, messages);
     }
+    
     messages.add(message);
   }
 
+  @Override
   public FacesMessage.Severity getMaximumSeverity()
   {
     FacesMessage.Severity max = FacesMessage.SEVERITY_INFO;
 
-    Iterator clients = getClientIdsWithMessages();
+    Iterator<String> clients = getClientIdsWithMessages();
     while (clients.hasNext())
     {
-      String messagesKey = (String) clients.next();
-      List messages = (List) _messages.get(messagesKey);
+      String messagesKey = clients.next();
+      List<FacesMessage> messages = _messages.get(messagesKey);
       int len = _messages.size();
       for (int i = 0; i < len; i++)
       {
-        FacesMessage fm = (FacesMessage) messages.get(i);
+        FacesMessage fm = messages.get(i);
         FacesMessage.Severity nextSev = fm.getSeverity();
 
         if (max.compareTo(nextSev) < 0)
@@ -121,21 +130,25 @@ public class MFacesContext extends MockFacesContext
     return max;
   }
 
-  public Iterator getClientIdsWithMessages()
+  @Override
+  public Iterator<String> getClientIdsWithMessages()
   {
     return _messages.keySet().iterator();
   }
 
+  @Override
   public Application getApplication()
   {
     return MApplication.sharedInstance();
   }
 
+  @Override
   public UIViewRoot getViewRoot()
   {
     return _viewRoot;
   }
 
+  @Override
   public void setViewRoot(UIViewRoot viewRoot)
   {
     _viewRoot = viewRoot;
@@ -157,7 +170,7 @@ public class MFacesContext extends MockFacesContext
     return Locale.ENGLISH;
   }
 
-
+  @Override
   public ExternalContext getExternalContext()
   {
     // this method is called a lot, so we don't want to use the "mock"
@@ -165,6 +178,7 @@ public class MFacesContext extends MockFacesContext
     return _external;
   }
 
+  @Override
   public RenderKit getRenderKit()
   {
     if (_viewRoot == null)
@@ -178,7 +192,8 @@ public class MFacesContext extends MockFacesContext
   private ExternalContext _external;
   private ResponseWriter  _responseWriter;
   private UIViewRoot      _viewRoot;
-  private Map             _messages = new HashMap();
+  private Map<String, List<FacesMessage>> _messages = 
+    new HashMap<String, List<FacesMessage>>();
 
   private static final class External extends MockExternalContext
   {
@@ -203,12 +218,25 @@ public class MFacesContext extends MockFacesContext
       }
     }
 
+    @Override
     public Object getContext() { return null; }
+    
+    @Override
     public Object getRequest() { return null; }
+    
+    @Override
     public Object getResponse() { return null; }
+    
+    @Override
     public Object getSession(boolean create) { return null; }
+    
+    @Override
     public String getRequestContextPath() { return "/test-context-path"; }
+    
+    @Override
     public String getRequestServletPath() { return "/test-faces"; }
+    
+    @Override
     public String getInitParameter(String name)
     {
       if (_testMode && Configuration.DISABLE_CONTENT_COMPRESSION.equals(name))
@@ -219,48 +247,59 @@ public class MFacesContext extends MockFacesContext
       return null;
     }
 
+    @Override
     public String encodeNamespace(String in) { return in; }
 
+    @Override
     public String encodeResourceURL(String url) { return "encoded-resource-url:" + url; }
+    
+    @Override
     public String encodeActionURL(String url) { return "encoded-action-url:" + url; }
 
-    public Map getRequestHeaderMap()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<String, String> getRequestHeaderMap()
     {
       return Collections.EMPTY_MAP;
     }
 
-    public Map getRequestParameterMap()
+    @SuppressWarnings("unchecked")
+    @Override
+    public Map<String, String> getRequestParameterMap()
     {
       return Collections.EMPTY_MAP;
     }
 
-
+    @Override
     public InputStream getResourceAsStream(String path)
     {
       return MFacesContext.class.getResourceAsStream(path);
     }
 
+    @Override
     public URL getResource(String path) throws MalformedURLException
     {
       return MFacesContext.class.getResource(path);
     }
 
-    public Map getApplicationMap()
+    @Override
+    public Map<String, Object> getApplicationMap()
     {
       // Return an unmodifiable map - noone should be putting
       // things into application scope during rendering.
       return Collections.unmodifiableMap(_applicationMap);
     }
 
-    public Map getRequestMap()
+    @Override
+    public Map<String, Object> getRequestMap()
     {
       // this method is called a lot, so we don't want to use the "mock"
       // implementations as those expect a specific number of calls:
       return _requestMap;
     }
 
-    private final Map _requestMap = new HashMap(2);
-    private final Map _applicationMap = new HashMap(2);
+    private final Map<String, Object> _requestMap = new HashMap<String, Object>(2);
+    private final Map<String, Object> _applicationMap = new HashMap<String, Object>(2);
     private final boolean _testMode;
   }
   private static final String _GLOBAL_MESSAGE = "org.apache.myfaces.trinidadinternal.renderkit.MFacesContext.GLOBAL_MESSAGE";

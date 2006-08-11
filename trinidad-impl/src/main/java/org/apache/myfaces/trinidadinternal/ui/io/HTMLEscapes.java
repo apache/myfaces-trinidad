@@ -701,7 +701,7 @@ public class HTMLEscapes
     // Formerly used String.valueOf().  This version tests out
     // about 40% faster (and on systems where GC is going gonzo,
     // it should be massively better)
-    int i = (int) ch;
+    int i = ch;
     if (i > 10000)
     {
       buffer[offset++] = (char)('0' + (i / 10000));
@@ -753,7 +753,7 @@ public class HTMLEscapes
     // Formerly used String.valueOf().  This version tests out
     // about 40% faster (and on systems where GC is going gonzo,
     // it should be massively better)
-    int i = (int) ch;
+    int i = ch;
     if (i > 10000)
     {
       out.write('0' + (i / 10000));

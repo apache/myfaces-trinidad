@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.style.StyleMap;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.ColorizedLafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.Icon;
@@ -69,28 +70,29 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
 
   protected abstract ImageProviderRequest
     createCoreIconRequest(
-      ImageContext context,
-      String       source,
-      Class        lookAndFeel,
-      int          direction,
-      Color        color,
-      Color        surroundingColor,
-      NameResolver resolver);
+      ImageContext       context,
+      String             source,
+      Class<LookAndFeel> lookAndFeel,
+      int                direction,
+      Color              color,
+      Color              surroundingColor,
+      NameResolver       resolver);
 
   protected abstract ImageProviderRequest
     createAccentIconRequest(
-      ImageContext context,
-      String       source,
-      Class        lookAndFeel,
-      int          direction,
-      Color        color,
-      Color        surroundingColor,
-      NameResolver resolver);
+      ImageContext       context,
+      String             source,
+      Class<LookAndFeel> lookAndFeel,
+      int                direction,
+      Color              color,
+      Color              surroundingColor,
+      NameResolver       resolver);
 
 
   /**
    * Returns an image from the ImageProvider
    */
+  @Override
   public ImageProviderResponse getColorizedIcon(
     UIXRenderingContext context,
     IconKey iconKey
@@ -146,7 +148,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
     String source = null;
     boolean isDirectionIndependent = false;
     boolean isCoreColor = false;
-    Class lookAndFeel = null;
+    Class<LookAndFeel> lookAndFeel = null;
     NameResolver resolver = null;
 
     if ( icon != null )
@@ -264,7 +266,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
       {
         try
         {
-          color = (Color)style.getParsedProperty(style.BACKGROUND_KEY);
+          color = (Color)style.getParsedProperty(Style.BACKGROUND_KEY);
         }
         catch (PropertyParseException e)
         {

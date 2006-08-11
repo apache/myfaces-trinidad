@@ -40,11 +40,13 @@ public class UIXTreeTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -86,7 +88,7 @@ public class UIXTreeTest extends UIComponentTestCase
 
   }
 
-
+  @Override
   public void setCurrentContext(FacesContext fc)
   {
     // prevent removal of facesContext before we are done testing:
@@ -100,7 +102,7 @@ public class UIXTreeTest extends UIComponentTestCase
     TestRunner.run(UIXTreeTest.class);
   }
 
-
+  @Override
   protected boolean isRendererUsed()
   {
     // we use our own MockRenderer; not the one created by our super class:

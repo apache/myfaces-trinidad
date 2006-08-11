@@ -54,20 +54,25 @@ class XhtmlFormattedText
       super(name, empty, closeRequired);
     }
     
+    @Override
     public void writeInlineStyle(FacesContext context, String style)
     {
 
     }
 
+    @Override
     public void writeStyleClass(FacesContext context, String styleClass)
     {
 
     }
+    
+    @Override
     public void writeHRef(FacesContext context, String href)
     {
     
     }  
 
+    @Override
     public void writeSize(FacesContext context, String fontSize)
       throws IOException
     {
@@ -88,6 +93,7 @@ class XhtmlFormattedText
       super(name, empty, closeRequired);
     }
 
+    @Override
     public void writeInlineStyle(FacesContext context, String style)
       throws IOException
     {
@@ -101,6 +107,7 @@ class XhtmlFormattedText
       }*/
     }
 
+    @Override
     public void writeStyleClass(FacesContext context, String styleClass)
       throws IOException
     {

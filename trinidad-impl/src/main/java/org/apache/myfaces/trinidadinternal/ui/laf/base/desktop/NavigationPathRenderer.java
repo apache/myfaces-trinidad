@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class NavigationPathRenderer 
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.NavigationPathRenderer
 {
-
+  @Override
   protected boolean renderLastChild(
     UIXRenderingContext context, 
     UINode           node)

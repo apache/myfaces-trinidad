@@ -21,6 +21,7 @@ import org.apache.myfaces.trinidad.component.UIXFacesBean;
 
 public class UIXComponentBean extends FacesBeanImpl implements UIXFacesBean
 {
+  @Override
   public Type getType()
   {
     return _type;

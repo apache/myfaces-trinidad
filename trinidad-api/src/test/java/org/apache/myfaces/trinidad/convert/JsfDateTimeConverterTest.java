@@ -32,11 +32,13 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     super(name);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -47,6 +49,7 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     return new TestSuite(JsfDateTimeConverterTest.class);
   }
   
+  @Override
   protected void doTestStateHolderSaveRestore(
     Converter conv1,
     Converter conv2,
@@ -68,6 +71,7 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     wrapper.getMock().verify();
   }
 
+  @Override
   protected void doTestEquals(
     Converter conv1,
     Converter conv2,
@@ -81,12 +85,14 @@ public class JsfDateTimeConverterTest extends DateTimeConverterTestCase
     assertEquals(expectedOutCome, isEqual);
   }
 
+  @Override
   protected DateTimeConverter getDateTimeConverter()
   {
     return new DateTimeConverter();
   }
 
 
+  @Override
   protected void setSecondaryPattern(
     DateTimeConverter converter,
     String secondaryPattern

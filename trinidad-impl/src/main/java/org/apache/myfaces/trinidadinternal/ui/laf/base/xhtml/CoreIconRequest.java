@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.image.cache.CoreColorizedIconKey;
 
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 
 
 /**
@@ -48,6 +49,7 @@ public final class CoreIconRequest extends CoreColorizedIconKey
    * to resolve source icon names
    * @deprecated Use resolveSourceIcon(context, name, sourceIconResolver)
    */
+  @Deprecated
   public static InputStreamProvider resolveSourceIcon(
     String       name,
     NameResolver sourceIconResolver
@@ -79,13 +81,13 @@ public final class CoreIconRequest extends CoreColorizedIconKey
   }
 
   public CoreIconRequest(
-    ImageContext context,
-    String       source,
-    Class        lookAndFeel,
-    int          direction,
-    Color        color,
-    Color        surroundingColor,
-    NameResolver resolver
+    ImageContext       context,
+    String             source,
+    Class<LookAndFeel> lookAndFeel,
+    int                direction,
+    Color              color,
+    Color              surroundingColor,
+    NameResolver       resolver
     )
   {
     super(context, source, lookAndFeel, direction, color, surroundingColor);
@@ -95,9 +97,10 @@ public final class CoreIconRequest extends CoreColorizedIconKey
 
   // Override of getRenderProperties() which adds in the
   // InputStreamProvider for the source icon
-  public Map getRenderProperties(ImageContext context)
+  @Override
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    Map properties = super.getRenderProperties(context);
+    Map<Object, Object> properties = super.getRenderProperties(context);
 
     properties.put(ImageConstants.SOURCE_INPUT_STREAM_PROVIDER_KEY,
                    resolveSourceIcon(context, getSource(), _resolver));

@@ -35,8 +35,8 @@ public class FormatterMapTest extends TestCase
 
   public void testFormatterMap()
   {
-    Map test = FormatterMap.sharedInstance();
-    Map subMap = (Map) test.get("Foo{0}Bar");
+    Map<Object, Map<Object, String>> test = FormatterMap.sharedInstance();
+    Map<Object, String> subMap = test.get("Foo{0}Bar");
     Object result = subMap.get("Test");
     assertEquals(result, "FooTestBar");
 
@@ -46,7 +46,7 @@ public class FormatterMapTest extends TestCase
     result = subMap.get("");
     assertEquals(result, "FooBar");
 
-    subMap = (Map) test.get("FooBar");
+    subMap = test.get("FooBar");
     result = subMap.get("Test");
     assertEquals(result, "FooBar");
 
@@ -56,7 +56,7 @@ public class FormatterMapTest extends TestCase
     result = subMap.get("");
     assertEquals(result, "FooBar");
 
-    subMap = (Map) test.get(null);
+    subMap = test.get(null);
     result = subMap.get("Test");
     assertEquals(result, null);
 

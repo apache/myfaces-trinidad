@@ -50,16 +50,17 @@ public class ComponentDefinition
     _usesUpload = usesUpload;
   }
 
+  @SuppressWarnings("unchecked")
   public UIComponent createComponent(FacesContext context)
   {
     Application appl = context.getApplication();
     UIComponent comp = appl.createComponent(_componentType);
     FacesConfigInfo.ComponentInfo info = getComponentInfo();
     
-    Iterator names = _attributes.keySet().iterator();
+    Iterator<String> names = _attributes.keySet().iterator();
     while (names.hasNext())
     {
-      String name = (String) names.next();
+      String name = names.next();
       String valueStr = (String) _attributes.get(name);
       if (isValueExpression(valueStr))
       {
@@ -79,18 +80,18 @@ public class ComponentDefinition
       }
     }
 
-    Iterator children = getChildren().iterator();
+    Iterator<ComponentDefinition> children = getChildren().iterator();
     while (children.hasNext())
     {
-      ComponentDefinition cd = (ComponentDefinition) children.next();
+      ComponentDefinition cd = children.next();
       comp.getChildren().add(cd.createComponent(context));
     }
 
-    Iterator facets = getFacets().keySet().iterator();
+    Iterator<String> facets = getFacets().keySet().iterator();
     while (facets.hasNext())
     {
-      String name = (String) facets.next();
-      ComponentDefinition cd = (ComponentDefinition) getFacets().get(name);
+      String name = facets.next();
+      ComponentDefinition cd = getFacets().get(name);
       comp.getFacets().put(name, cd.createComponent(context));
     }
 
@@ -104,25 +105,25 @@ public class ComponentDefinition
             expression.endsWith("}"));
   }
 
-  public Map getAttributes()
+  public Map<String, Object> getAttributes()
   {
     return _attributes;
   }
 
-  public Map getFacets()
+  public Map<String, ComponentDefinition> getFacets()
   {
     return _facets;
   }
 
-  public List getChildren()
+  public List<ComponentDefinition> getChildren()
   {
     return _children;
   }
 
   private final String _componentType;
   private boolean      _usesUpload;
-  private final Map    _attributes = new HashMap();
-  private final Map    _facets = new HashMap();
-  private final List   _children = new ArrayList();
+  private final Map<String, Object> _attributes = new HashMap<String, Object>();
+  private final Map<String, ComponentDefinition> _facets = new HashMap<String, ComponentDefinition>();
+  private final List<ComponentDefinition> _children = new ArrayList<ComponentDefinition>();
   private final FacesConfigInfo _info;
 }

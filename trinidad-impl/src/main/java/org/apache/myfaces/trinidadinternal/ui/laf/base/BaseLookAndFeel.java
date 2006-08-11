@@ -40,6 +40,7 @@ public abstract class BaseLookAndFeel extends LookAndFeel
   /**
    * Returns the RendererManager for this LookAndFeel.
    */
+  @Override
   public RendererManager getRendererManager()
   {
     return _rendererManager;

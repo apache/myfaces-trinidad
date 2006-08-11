@@ -29,11 +29,11 @@ public class Person
        return _name;
      }
      
-     public List getKids()
+     public List<Person> getKids()
      {
        return _kids;
      }
      
      private final String _name;
-     private final List _kids = new ArrayList();
+     private final List<Person> _kids = new ArrayList<Person>();
  }

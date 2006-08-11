@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class SeparatorRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -36,6 +37,7 @@ public class SeparatorRenderer extends XhtmlLafRenderer
     // no children rendered
   }
   
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

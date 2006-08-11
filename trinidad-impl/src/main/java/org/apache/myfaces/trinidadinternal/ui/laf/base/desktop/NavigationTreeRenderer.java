@@ -33,31 +33,34 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
  */
 public class NavigationTreeRenderer extends TreeRenderer
 {
-
+  @Override
   protected RowKeySet getExpandedRowKeys(UIXHierarchy tree)
   {
     return ((UIXNavigationTree)tree).getDisclosedRowKeys();    
   }
   
-  protected Map getSelectedPaths(Object focusRowKey)
+  @Override
+  protected Map<Object, Boolean> getSelectedPaths(Object focusRowKey)
   {
     if ( focusRowKey == null)
-      return new HashMap(0);
+      return new HashMap<Object, Boolean>(0);
 
     // TODO method must be passed the component so that
     // proper APIs can be used instead of casting to List:
-    List focusPath = (List) focusRowKey;
-    Map selectedPaths = new HashMap(focusPath.size());
+    List<?> focusPath = (List<?>) focusRowKey;
+    Map<Object, Boolean> selectedPaths = 
+      new HashMap<Object, Boolean>(focusPath.size());
 
     for ( int i = 0; i < focusPath.size(); i++)
     {
-      List focusSubPath = focusPath.subList(0,i + 1);
+      List<?> focusSubPath = focusPath.subList(0,i + 1);
       selectedPaths.put(focusSubPath, Boolean.TRUE);
     }
 
     return selectedPaths;
   }
 
+  @Override
   protected UINode getIcon()
   {
     return null;
@@ -65,6 +68,7 @@ public class NavigationTreeRenderer extends TreeRenderer
 
 
   // return whether to continue with rendering
+  @Override
   protected boolean setInitialPath(
     UIXRenderingContext context,
     UINode           node,
@@ -85,14 +89,16 @@ public class NavigationTreeRenderer extends TreeRenderer
    * @param key
    * @return String , key mapped to a new String.
    */
+  @Override
   protected String mapKey(String key)
   {
-    return (String)_RESOURCE_KEY_MAP.get(key);
+    return _RESOURCE_KEY_MAP.get(key);
   }
 
- private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+ private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
+    _RESOURCE_KEY_MAP  =  new HashMap<String, String> ();
     _RESOURCE_KEY_MAP.put("af_tree.DISABLED_COLLAPSE_TIP",
                               "af_navigationTree.DISABLED_COLLAPSE_TIP");
     _RESOURCE_KEY_MAP.put("af_tree.COLLAPSE_TIP",

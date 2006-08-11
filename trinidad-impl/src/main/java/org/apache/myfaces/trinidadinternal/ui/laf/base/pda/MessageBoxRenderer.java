@@ -41,6 +41,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 public class MessageBoxRenderer extends XhtmlLafRenderer
 {
   // check for number of links at pre-, post-, and content.
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -54,6 +55,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -68,6 +70,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   //
   // do the rendering work
   //
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -183,6 +186,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     AF_MESSAGES_CONFIRMATION_ICON_NAME,
   };
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -227,6 +231,7 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   // it can be cleaned up as long as you fix the RenderKit test too.
   private static final SeparatorRenderer sep = new SeparatorRenderer()
   {
+    @Override
     protected void renderID(UIXRenderingContext context, UINode node)
     {
       ;

@@ -84,11 +84,13 @@ public final class EscapedText
   /**
    * Returns the unescaped form of the String
    */
+  @Override
   public String toString()
   {
     return _baseText;
   }
 
+  @Override
   public boolean equals(
     Object other
     )
@@ -113,6 +115,7 @@ public final class EscapedText
     }
   }
 
+  @Override
   public int hashCode()
   {
     return _baseText.hashCode();

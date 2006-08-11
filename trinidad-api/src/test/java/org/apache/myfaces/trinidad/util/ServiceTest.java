@@ -59,6 +59,7 @@ public class ServiceTest extends TestCase
     assertEquals(b2, Service.getService(b2, Interface2.class));
   }
 
+  @SuppressWarnings("cast")
   public void testProvider()
   {
     Base b = new UsesProvider();
@@ -99,10 +100,12 @@ public class ServiceTest extends TestCase
 
   static public class UsesProvider extends Base implements Service.Provider
   {
-    public Object getService(Class serviceClass)
+    @SuppressWarnings("unchecked")
+    public <T> T getService(Class<T> serviceClass)
     {
       if (serviceClass == Interface1.class)
-        return new Interface1() {};
+        return (T)new Interface1(){};
+        
       return null;
     }    
   }

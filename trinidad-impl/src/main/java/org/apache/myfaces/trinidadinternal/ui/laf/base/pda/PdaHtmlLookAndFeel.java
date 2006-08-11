@@ -59,6 +59,7 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
     return rendererFactory;
   }
 
+  @Override
   protected RendererFactory getDefaultFactory()
   {
     return _FACTORY;

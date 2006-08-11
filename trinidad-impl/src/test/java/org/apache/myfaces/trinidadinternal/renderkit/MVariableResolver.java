@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.testData.Person;
 
 public class MVariableResolver extends VariableResolver
 {
+  @Override
   public Object resolveVariable(FacesContext context, String name)
   {
     Object o =  context.getExternalContext().getRequestMap().get(name);
@@ -55,7 +56,7 @@ public class MVariableResolver extends VariableResolver
       {
         if (_pageList == null)
         {
-          List al = _createPageList();
+          List<PageImpl> al = _createPageList();
           _pageList = new MenuModelImpl(al, "viewId", "/1.jspx");
         }
 
@@ -73,7 +74,7 @@ public class MVariableResolver extends VariableResolver
       {
         if (_menu == null)
         {
-          List al = _createPageList();
+          List<PageImpl> al = _createPageList();
           TreeModel treeModel = new ChildPropertyTreeModel(al, "children");
           _menu = new MenuModelImpl(treeModel, "viewId", "/4.jspx");
         }
@@ -92,7 +93,7 @@ public class MVariableResolver extends VariableResolver
       {
         if (_navigationpath == null)
         {
-          List al = _createPageList();
+          List<PageImpl> al = _createPageList();
           TreeModel treeModel = new ChildPropertyTreeModel(al, "children");
           _navigationpath = new MenuModelImpl(treeModel, "viewId", "/7.jspx");
         }
@@ -109,7 +110,7 @@ public class MVariableResolver extends VariableResolver
     {
       if (_simpleList == null)
       {
-        _simpleList = new ArrayList();
+        _simpleList = new ArrayList<Map<String, Object>>();
         _simpleList.add(_createHashMap("First", 1));
         _simpleList.add(_createHashMap("Second", 2));
         _simpleList.add(_createHashMap("Three", 3));
@@ -124,19 +125,24 @@ public class MVariableResolver extends VariableResolver
     {
       if (_iteratorList == null)
       {
-        _iteratorList = new ArrayList();
-        _iteratorList.add(new HashMap().put("data","One"));
-        _iteratorList.add(new HashMap().put("data","Two"));
-        _iteratorList.add(new HashMap().put("data","Three"));
-        _iteratorList.add(new HashMap().put("data","Four"));
-        _iteratorList.add(new HashMap().put("data","Five"));
+        // -= Simon Lessard =-
+        // FIXME: _iteratorList will contains 5 null value since 
+        //        put return the value before the insertion at  
+        //        specified key. 
+        // Ref: http://java.sun.com/j2se/1.5.0/docs/api/java/util/Map.html#put(K, V)
+        _iteratorList = new ArrayList<String>();
+        _iteratorList.add(new HashMap<String, String>().put("data","One"));
+        _iteratorList.add(new HashMap<String, String>().put("data","Two"));
+        _iteratorList.add(new HashMap<String, String>().put("data","Three"));
+        _iteratorList.add(new HashMap<String, String>().put("data","Four"));
+        _iteratorList.add(new HashMap<String, String>().put("data","Five"));
       }
 
       return _iteratorList;
     }
     else if("colorList".equals(name))
     {
-      ArrayList colorList = new ArrayList();
+      ArrayList<Color> colorList = new ArrayList<Color>();
       colorList.add(new Color(255, 0, 0));
       colorList.add(new Color(0, 0, 255));
       colorList.add(new Color(255, 255, 0));
@@ -159,7 +165,7 @@ public class MVariableResolver extends VariableResolver
         tom.getKids().add(zoe);
         ira.getKids().add(mallika);
 
-        List people = new ArrayList();
+        List<Person> people = new ArrayList<Person>();
         people.add(john);
         people.add(ira);
 
@@ -202,14 +208,17 @@ public class MVariableResolver extends VariableResolver
     }
     else if ("oldDate".equals(name))
     {
+      // FIXME: Should be able to use Calendar for non deprecated calls.
       return new Date(70, 5, 10);
     }
     else if ("midDate".equals(name))
     {
+      // FIXME: Should be able to use Calendar for non deprecated calls.
       return new Date(105, 6, 27);
     }
     else if ("newDate".equals(name))
     {
+      // FIXME: Should be able to use Calendar for non deprecated calls.
       return new Date(130, 0, 5);
     }
     else if("simpleDocument".equals(name))
@@ -235,18 +244,18 @@ public class MVariableResolver extends VariableResolver
       _currentViewId = currentViewId;
     }
 
+    @Override
     protected String getCurrentViewId()
     {
-
       return _currentViewId;
     }
 
     private String _currentViewId;
   }
 
-  static private Map _createHashMap(String s, int i)
+  static private Map<String, Object> _createHashMap(String s, int i)
   {
-    HashMap m = new HashMap();
+    HashMap<String, Object> m = new HashMap<String, Object>();
     m.put("string", s);
     m.put("int", new Integer(i));
     return m;
@@ -276,31 +285,27 @@ public class MVariableResolver extends VariableResolver
       _disabled = disabled;
     }
 
-
-    public void setChildren(List children)
+    public void setChildren(List<Object> children)
     {
       _children = children;
     }
-
 
     public String getViewId()
     {
       return _viewId;
     }
 
-
     public String getLabel()
     {
       return _label;
     }
-
 
     public boolean isDisabled()
     {
       return _disabled;
     }
 
-    public List getChildren()
+    public List<Object> getChildren()
     {
       return _children;
     }
@@ -308,25 +313,27 @@ public class MVariableResolver extends VariableResolver
     private String _viewId;
     private String _label;
     private boolean _disabled;
-    private List _children;
+    private List<Object> _children;
   }
 
-  public static class BigList extends AbstractList
+  public static class BigList extends AbstractList<Integer>
   {
+    @Override
     public int size()
     {
       return 10000;
     }
 
-    public Object get(int i)
+    @Override
+    public Integer get(int i)
     {
       return new Integer(i);
     }
   }
 
-  private static List _createPageList()
+  private static List<PageImpl> _createPageList()
   {
-    ArrayList al = new ArrayList();
+    ArrayList<PageImpl> al = new ArrayList<PageImpl>();
     PageImpl page1 = new PageImpl("/1.jspx", "First", false);
 
     al.add(page1);
@@ -334,11 +341,11 @@ public class MVariableResolver extends VariableResolver
     al.add(new PageImpl("/3.jspx", "Third", false));
 
     PageImpl page5 = new PageImpl("/5.jspx", "fifth", false);
-    ArrayList p1 = new ArrayList();
+    ArrayList<Object> p1 = new ArrayList<Object>();
     p1.add(new PageImpl("/4.jspx", "fourth", false));
     p1.add(page5);
 
-    ArrayList p2 = new ArrayList();
+    ArrayList<Object> p2 = new ArrayList<Object>();
     p2.add(new PageImpl("/6.jspx", "sixth", false));
     p2.add(new PageImpl("/7.jspx", "seventh", false));
 
@@ -350,24 +357,24 @@ public class MVariableResolver extends VariableResolver
 
   private static class RangeChoiceBarModelImpl
   {
-    private List _names;
+    private List<String> _names;
     private int _start;
     private int _end;
 
     public RangeChoiceBarModelImpl()
     {
-      _names = new ArrayList();
+      _names = new ArrayList<String>();
       _names.add("vox");
       _names.add("populi");
       _names.add("en");
       _names.add("vogue");
     }
-    public void setNames(List names)
+    public void setNames(List<String> names)
     {
       this._names = names;
     }
 
-    public List getNames()
+    public List<String> getNames()
     {
       return _names;
     }
@@ -397,8 +404,8 @@ public class MVariableResolver extends VariableResolver
   private MenuModelImpl _menu;
   private MenuModelImpl _navigationpath;
 
-  private List _iteratorList;
-  private List _simpleList;
+  private List<String> _iteratorList;
+  private List<Map<String, Object>> _simpleList;
 
   private ChildPropertyTreeModel _treeModel;
 

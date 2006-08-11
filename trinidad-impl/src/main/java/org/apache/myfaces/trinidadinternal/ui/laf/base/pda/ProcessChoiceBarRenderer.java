@@ -52,6 +52,7 @@ public class ProcessChoiceBarRenderer extends
   /**
    * Returns true if disabled navigation items should be shown
    */
+  @Override
   protected boolean disabledNavigationShown(
     UIXRenderingContext context
     )

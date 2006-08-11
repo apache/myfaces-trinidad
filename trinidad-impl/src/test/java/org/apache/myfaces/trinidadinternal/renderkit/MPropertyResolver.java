@@ -21,12 +21,12 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import javax.faces.context.FacesContext;
 import javax.faces.el.PropertyNotFoundException;
 import javax.faces.el.PropertyResolver;
 
 public class MPropertyResolver extends PropertyResolver
 {
+  @Override
   public Object getValue(Object o , Object key)
   {
     if (o == null)
@@ -60,37 +60,44 @@ public class MPropertyResolver extends PropertyResolver
     throw new PropertyNotFoundException("Couldn't find getter for " + propertyName);
   }
 
+  @Override
   public Object getValue(Object o , int index )
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void setValue(Object o , Object key, Object value)
   {
     throw new UnsupportedOperationException("Should not be called when rendering");
   }
 
+  @Override
   public void setValue(Object o , int index , Object value )
   {
     throw new UnsupportedOperationException("Should not be called when rendering");
   }
 
+  @Override
   public boolean isReadOnly(Object o , Object key )
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public boolean isReadOnly(Object o , int index )
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Class getType(Object o , Object key)
+  @Override
+  public Class<?> getType(Object o , Object key)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Class getType(Object o , int index )
+  @Override
+  public Class<?> getType(Object o , int index )
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }

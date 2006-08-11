@@ -631,6 +631,7 @@ public class BaseLafUtils implements UIConstants
    * This method returns the modified URL for design time to pick up the resources
    * from ADF Faces jar, and dynamic resources from temp cache directory.
    */
+  @SuppressWarnings("unchecked")
   private static String _generateDesignTimeURL(
     UIXRenderingContext context,
     String baseURL
@@ -660,7 +661,7 @@ public class BaseLafUtils implements UIConstants
     }
     else
     {
-      Map appMap = external.getApplicationMap();
+      Map<String, Object> appMap = external.getApplicationMap();
       if (appMap.get("javax.servlet.context.tempdir")==null)
       {
         resourceDirectoryPath = baseURL.substring(baseURL.indexOf('/') + 1);
@@ -815,6 +816,7 @@ public class BaseLafUtils implements UIConstants
    * Encodes an array of key value pairs as a single value appended to
    * the baseName, if any;
    */
+  @SuppressWarnings("unchecked")
   public static String encodeCompoundKeyValues(
     Object[] keyValues
     )
@@ -833,7 +835,7 @@ public class BaseLafUtils implements UIConstants
     else
     {
         return ServletRequestParameters.encodeCompoundKeyValues(
-                                     (Collections.EMPTY_LIST).iterator(),
+                                     Collections.EMPTY_LIST.iterator(),
                                      keyValueSize);
       }
     }

@@ -59,7 +59,7 @@ public class ConvertBoundValue implements BoundValue
    */
   public ConvertBoundValue(
     BoundValue wrapped,
-    Class      javaType)
+    Class<?>   javaType)
   {
     if (wrapped == null)
       throw new IllegalArgumentException();
@@ -125,7 +125,7 @@ public class ConvertBoundValue implements BoundValue
     return javaType;
   }
 
-  private Class _getTargetType()
+  private Class<?> _getTargetType()
   {
     if (_class == null)
     {
@@ -144,6 +144,6 @@ public class ConvertBoundValue implements BoundValue
 
   private BoundValue _wrapped;
   private String     _javaType;
-  private Class      _class;
+  private Class<?>   _class;
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ConvertBoundValue.class);
 }

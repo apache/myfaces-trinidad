@@ -125,5 +125,6 @@ public class RendererFactoryImpl implements RendererFactory
   }
 
 
-  private OptimisticHashMap _renderers = new OptimisticHashMap(101);
+  private OptimisticHashMap<String, Object> _renderers = 
+    new OptimisticHashMap<String, Object>(101);
 }

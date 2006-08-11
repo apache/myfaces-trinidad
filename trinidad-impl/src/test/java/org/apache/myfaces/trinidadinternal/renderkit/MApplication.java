@@ -48,109 +48,129 @@ public class MApplication extends Application
   {
   }
 
+  @Override
   public ActionListener getActionListener()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void setActionListener(ActionListener listener)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public Locale getDefaultLocale()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void setDefaultLocale(Locale locale)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public String getDefaultRenderKitId()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void setDefaultRenderKitId(String renderKitId)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public String getMessageBundle()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void setMessageBundle(String bundle)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public NavigationHandler getNavigationHandler()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void setNavigationHandler(NavigationHandler handler)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public PropertyResolver getPropertyResolver()
   {
     return _propertyResolver;
   }
 
+  @Override
   public void setPropertyResolver(PropertyResolver resolver)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public VariableResolver getVariableResolver()
   {
     return _variableResolver;
   }
 
+  @Override
   public void setVariableResolver(VariableResolver resolver)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public ViewHandler getViewHandler()
   {
     return _viewHandler;
   }
 
+  @Override
   public void setViewHandler(ViewHandler viewHandler)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public StateManager getStateManager()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public void setStateManager(StateManager stateManager)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void addComponent(String type, String className)
   {
     _components.put(type, className);
   }
 
+  @Override
   public UIComponent createComponent(String type) throws FacesException
   {
-    String s = (String) _components.get(type);
+    String s = _components.get(type);
     if (s == null)
       throw new IllegalArgumentException("No component for type " + type);
     try
     {
-      Class c = Class.forName(s);
+      Class<?> c = Class.forName(s);
       return (UIComponent) c.newInstance();
     }
     catch (Exception e)
@@ -161,26 +181,32 @@ public class MApplication extends Application
     }
   }
 
+  @Override
   public UIComponent createComponent(ValueBinding binding, FacesContext context, String type)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Iterator getComponentTypes()
+  @Override
+  public Iterator<String> getComponentTypes()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void addConverter(String id, String className)
   {
     _converterIdMap.put(id,className);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void addConverter(Class type, String className)
   {
-    _converterIdMap.put(type,className);
+    _converterTypeMap.put(type,className);
   }
 
+  @Override
   public Converter createConverter(String className)
   {
     //copy the RI code
@@ -198,26 +224,33 @@ public class MApplication extends Application
     
   }
   
-  private Object _mapLookUp(Object key, Map map) throws InstantiationException,
-      IllegalAccessException, ClassNotFoundException
+  private Object _mapLookUp(
+      Object key, 
+      Map<Object, Object> map) 
+        throws InstantiationException, 
+               IllegalAccessException, 
+               ClassNotFoundException
   {
-    Object result;
-    Object value;
-    Class klass;
-    value = map.get(key);
+    Class<?> klass;
+    Object value = map.get(key);
     if (value == null)
       return null;
+    
     if (value instanceof String)
     {      
       klass = Class.forName((String)value);
       map.put(key, klass);
     }
     else
+    {
       klass = (Class) value;
-    result = klass.newInstance();
-    return result;
+    }
+    
+    return klass.newInstance();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public Converter createConverter(Class type)
   {
     Converter converter = null;
@@ -238,7 +271,8 @@ public class MApplication extends Application
       if (converter != null)
         return converter;
     }
-    Class superclass = type.getSuperclass();
+    
+    Class<?> superclass = type.getSuperclass();
     if (superclass != null)
     {
       converter = createConverter(superclass);
@@ -248,46 +282,56 @@ public class MApplication extends Application
     return converter;
   }
 
-  public Iterator getConverterIds()
+  @Override
+  public Iterator<String> getConverterIds()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
-  public Iterator getConverterTypes()
+  @Override
+  public Iterator<Class<?>> getConverterTypes()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public MethodBinding createMethodBinding(String expr, Class[] paramTypes)
   {
     return null;
   }
 
-  public Iterator getSupportedLocales()
+  @Override
+  public Iterator<Locale> getSupportedLocales()
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void setSupportedLocales(Collection locales)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void addValidator(String id, String className)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public Validator createValidator(String validatorId)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
-  public Iterator getValidatorIds()
+  @Override
+  public Iterator<String> getValidatorIds()
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public ValueBinding createValueBinding(String expression)
   {
     if (!expression.startsWith("#{") ||
@@ -296,12 +340,12 @@ public class MApplication extends Application
     return new MValueBinding(expression);
   }
 
-  private Map _components = new HashMap();
+  private Map<String, String> _components = new HashMap<String, String>();
   private ViewHandler _viewHandler = new MViewHandler();
   private VariableResolver _variableResolver = new MVariableResolver();
   private PropertyResolver _propertyResolver = new MPropertyResolver();
   static private MApplication _INSTANCE = new MApplication();
-  private Map _converterIdMap = new HashMap();
-  private Map _converterTypeMap = new HashMap();
+  private Map<Object, Object> _converterIdMap = new HashMap<Object, Object>();
+  private Map<Object, Object> _converterTypeMap = new HashMap<Object, Object>();
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StateUtils.class);
 }

@@ -31,6 +31,7 @@ public class BorderLayoutRenderer extends
    * Returns the default marign indent to use if no CELL_PADDING_ATTR
    * is specified
    */
+  @Override
   protected int getDefaultMarginIndent(
     UIXRenderingContext context,
     UINode           node

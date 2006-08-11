@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  */
 public class TabBarRenderer extends XhtmlLafRenderer
 {
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -50,7 +50,8 @@ public class TabBarRenderer extends XhtmlLafRenderer
     return TABLE_ELEMENT;
   }
 
- protected void renderAttributes(
+  @Override
+  protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
     )
@@ -79,6 +80,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
       renderStyleClassAttribute(context, _TAB_BAR_STYLE_CLASS);
   }
 
+  @Override
   protected void renderContent(
       UIXRenderingContext context,
       UINode           node
@@ -125,7 +127,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
     LinkUtils.setSelected(context, initialLinkSelectedStatus);
   }
 
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -146,6 +148,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -166,6 +169,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
     // renderBlockWrapperEnd(context);
   }
 
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node,
@@ -177,6 +181,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
     writer.writeText(" | ", null);
   }
 
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -227,6 +232,7 @@ public class TabBarRenderer extends XhtmlLafRenderer
 
   }
 
+  @Override
   protected void renderChild(
     UIXRenderingContext context,
     UINode           node

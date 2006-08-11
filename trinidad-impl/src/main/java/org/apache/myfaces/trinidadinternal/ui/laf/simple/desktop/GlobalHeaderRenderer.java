@@ -55,6 +55,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.ModelRendererUtils;
  */
 public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -63,6 +64,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
     return TABLE_ELEMENT;
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -75,6 +77,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
     writer.writeAttribute("width", "100%", null);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -125,6 +128,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
 
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -145,6 +149,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
     }
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -169,6 +174,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
     super.postrender(context, node);
   }
 
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -218,6 +224,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * Override of renderBetweenIndexedChildren() which
    * renders the separator Icon.
    */
+    @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -245,6 +252,7 @@ public class GlobalHeaderRenderer extends SimpleDesktopRenderer
    * Override of getStyleClass() which forces style class
    * to OraGlobalHeader.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node

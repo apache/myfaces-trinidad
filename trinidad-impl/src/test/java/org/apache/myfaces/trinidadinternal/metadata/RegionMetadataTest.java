@@ -47,11 +47,13 @@ public class RegionMetadataTest extends FacesTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -88,16 +90,16 @@ public class RegionMetadataTest extends FacesTestCase
     ComponentMetaData comp = 
       (ComponentMetaData) rmd.getRegionConfig("org.apache.myfaces.trinidad.view.test.TestRegion1");
     assertEquals("/regions/testRegion1.jspx", comp.getJspUIDef());
-    List attrs = comp.getAttributes();
+    List<AttributeMetaData> attrs = comp.getAttributes();
     assertEquals(2, attrs.size());
 
-    AttributeMetaData attr = (AttributeMetaData) attrs.get(0);
+    AttributeMetaData attr = attrs.get(0);
     assertEquals("stock", attr.getAttrName());
     assertEquals(Integer.class, attr.getAttrClass());
     assertTrue(attr.isRequired());
     assertNull(attr.getDefaultValue());
 
-    attr = (AttributeMetaData) attrs.get(1);
+    attr = attrs.get(1);
     assertEquals("desc", attr.getAttrName());
     assertEquals(String.class, attr.getAttrClass());
     assertFalse(attr.isRequired());
@@ -127,7 +129,8 @@ public class RegionMetadataTest extends FacesTestCase
       super(parent);
     }
     
-    public Enumeration findResources(String name) throws IOException
+    @Override
+    public Enumeration<URL> findResources(String name) throws IOException
     {
       if (RegionMetadata.__CONFIG_FILE_OTHER == name)
       {
@@ -135,7 +138,7 @@ public class RegionMetadataTest extends FacesTestCase
         assertNotNull("resource does not exist:"+_TEST_FILE, url);
         URL url2 = this.getClass().getResource(_TEST_FILE2);
         assertNotNull("resource does not exist:"+_TEST_FILE2, url2);
-        Object[] resources = new Object[] {url, url2};
+        URL[] resources = new URL[] {url, url2};
         return Collections.enumeration(Arrays.asList(resources));
       }
       return super.findResources(name);

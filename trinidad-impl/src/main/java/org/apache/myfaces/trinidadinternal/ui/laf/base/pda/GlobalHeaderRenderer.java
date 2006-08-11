@@ -39,8 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  */
 public class GlobalHeaderRenderer extends XhtmlLafRenderer
 {
-
-
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -61,6 +60,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
     super.render(context, node);
   }
 
+  @Override
   protected void renderContent(
       UIXRenderingContext context,
       UINode           node
@@ -124,7 +124,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
        renderChild(context, stamp);
    }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -133,6 +133,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
     return TABLE_ELEMENT;
   }
 
+  @Override
  protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -162,6 +163,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
       renderStyleClassAttribute(context, _GLOBAL_HEADER_STYLE_CLASS);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -182,6 +184,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
 
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -203,6 +206,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
     // renderBlockWrapperEnd(context);
   }
 
+  @Override
   protected void renderChild(
       UIXRenderingContext context,
       UINode           child
@@ -246,7 +250,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
       }
   }
 
-
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -349,6 +353,7 @@ public class GlobalHeaderRenderer extends XhtmlLafRenderer
                                          ((UIXNavigationLevel)component).getFocusRowKey());
   }
 
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node

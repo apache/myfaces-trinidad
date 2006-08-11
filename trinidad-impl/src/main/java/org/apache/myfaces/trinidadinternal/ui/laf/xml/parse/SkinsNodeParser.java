@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 public class SkinsNodeParser extends BaseNodeParser
   implements XMLConstants
 {
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -50,6 +51,7 @@ public class SkinsNodeParser extends BaseNodeParser
     return context.getParser(SkinExtension.class, namespaceURI, localName);
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -69,9 +71,10 @@ public class SkinsNodeParser extends BaseNodeParser
     
     // add to list
     if (child instanceof SkinExtension)
-      _skins.add(child);
+      _skins.add((SkinExtension)child);
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -86,5 +89,5 @@ public class SkinsNodeParser extends BaseNodeParser
     return _skins.toArray(skinExtension);
   }
 
-  private ArrayList _skins = new ArrayList();
+  private ArrayList<SkinExtension> _skins = new ArrayList<SkinExtension>();
 }

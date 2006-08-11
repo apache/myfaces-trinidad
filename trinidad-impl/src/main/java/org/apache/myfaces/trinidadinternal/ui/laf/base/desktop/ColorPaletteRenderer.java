@@ -44,6 +44,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 public class ColorPaletteRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode node) throws IOException
@@ -52,18 +53,19 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     BaseDesktopUtils.addLib(context, "RGBColorFormat()");
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode node) throws IOException
   {
-    List colorData = _getColors(context, node, COLOR_DATA_ATTR);
+    List<Color> colorData = _getColors(context, node, COLOR_DATA_ATTR);
     if (colorData == null)
     {
-      colorData = (List)
+      colorData = 
         ColorPaletteUtils.getColorPaletteMap().get("default49");
     }
 
-    List customColorData = _getColors(context, node, CUSTOM_COLOR_DATA_ATTR);
+    List<Color> customColorData = _getColors(context, node, CUSTOM_COLOR_DATA_ATTR);
 
     int width = getWidth(context, node);
     int height = getHeight(context, node);
@@ -83,7 +85,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
   private void _renderColorPalette(
     UIXRenderingContext context,
     UINode node,
-    List colorData,
+    List<Color> colorData,
     int width,
     int height) throws IOException
   {
@@ -204,7 +206,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
         {
           //colorData/customColorData binding is always expected to resolve to
           //  a java.util.List of java.awt.Color. An error otherwise.
-          color = (Color) colorData.get(index);
+          color = colorData.get(index);
         }
         else
         {
@@ -320,6 +322,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     writer.endElement("table");
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode node)
@@ -350,6 +353,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
                              "_cfbs(event)");
   }
 
+  @Override
   protected Object getOnClick(
     UIXRenderingContext  context,
     UINode            node)
@@ -395,7 +399,8 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
                                      true);
   }
 
-  private static List _getColors(
+  @SuppressWarnings("unchecked")
+  private static List<Color> _getColors(
     UIXRenderingContext  context,
     UINode            node,
     AttributeKey     attributeKey
@@ -408,7 +413,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     }
     //If not Color[], colorData/customColorData binding is always expected to
     //  resolve to java.util.List of java.awt.Color. An error otherwise.
-    return (List) attribValue;
+    return (List<Color>) attribValue;
   }
 
   private static final String _CELL_SIZE = "11";

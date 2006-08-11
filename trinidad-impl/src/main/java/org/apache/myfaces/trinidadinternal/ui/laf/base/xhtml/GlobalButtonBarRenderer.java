@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
  */
 public class GlobalButtonBarRenderer extends RowLayoutRenderer
 {
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -73,6 +74,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
                                          ((UIXNavigationLevel)component).getFocusRowKey());
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -156,6 +158,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
     }
   }
 
+ @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -166,6 +169,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
     CommandNavigationItemRenderer.setNavigationItemRendererType(context, null);
   }
 
+ @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -182,6 +186,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
     renderChild(context, _SPACER);
   }
 
+  @Override
   protected void renderDefaultCellAttributes(
     UIXRenderingContext context,
     UINode           child) throws IOException
@@ -201,6 +206,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
   /**
    * Renders attributes of the current node.
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -230,6 +236,7 @@ public class GlobalButtonBarRenderer extends RowLayoutRenderer
    * @return true if the ancestor node is a table
    * (tableLayout or messageComponentLayout)
    */
+  @Override
   protected boolean hasTableParent(UIXRenderingContext context)
   {
     UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);

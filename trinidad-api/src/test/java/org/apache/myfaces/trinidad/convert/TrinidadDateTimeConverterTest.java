@@ -41,7 +41,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     super(name);
   }
   
-
+  @Override
   public void setUp()
   {
     super.setUp();
@@ -50,6 +50,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     _mafct.setTimeZone(DEFAULT_TIME_ZONE);
   }
 
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -235,11 +236,13 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     }
   }
 
+  @Override
   protected javax.faces.convert.DateTimeConverter getDateTimeConverter()
   {
     return new DateTimeConverter();
   }
 
+  @Override
   protected void setSecondaryPattern(
     javax.faces.convert.DateTimeConverter converter,
     String secondaryPattern
@@ -248,6 +251,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
     ((DateTimeConverter)converter).setSecondaryPattern(secondaryPattern);
   }
 
+  @Override
   protected void doTestStateHolderSaveRestore(
     Converter conv1,
     Converter conv2,

@@ -110,6 +110,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    *         drive almost everything off of meta-data, the decision to
    *         do all of the work in render() could be revisited.
    */
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -563,8 +564,7 @@ public class MediaRenderer extends XhtmlLafRenderer
       Integer agentOS = IntegerUtils.getInteger(agentOSInt);
 
       // get the set of supported players for this OS
-      HashSet supportedPlayers = (HashSet)
-                                _sSupportedOSPlayers.get(agentOS);
+      HashSet<Object> supportedPlayers = _sSupportedOSPlayers.get(agentOS);
 
       // are we trying to display an image?
       boolean isImage = "image".equals(primaryMimeType);
@@ -631,7 +631,7 @@ public class MediaRenderer extends XhtmlLafRenderer
           if ((preferredPlayer != null) &&
               supportedPlayers.contains(preferredPlayer))
           {
-            playerData = (PlayerData)_sPlayerData.get(preferredPlayer);
+            playerData = _sPlayerData.get(preferredPlayer);
           }
         }
 
@@ -644,7 +644,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
           if (preferredPlayer != null)
           {
-            playerData = (PlayerData)_sPlayerData.get(preferredPlayer);
+            playerData = _sPlayerData.get(preferredPlayer);
 
             // check that the format is supported by this player
             if (!((PlayerData)playerData).isSupportedMimeType(mimeType))
@@ -815,7 +815,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   /**
    * Initializes a Hashset with the contents of an array
    */
-  private static HashSet _createHashSet(
+  private static HashSet<Object> _createHashSet(
     Object[] contents
     )
   {
@@ -823,7 +823,8 @@ public class MediaRenderer extends XhtmlLafRenderer
     {
       int contentLength = contents.length;
 
-      HashSet set = new HashSet((int)(contentLength * 1.5));
+      HashSet<Object> set = 
+        new HashSet<Object>((int)(contentLength * 1.5));
 
       for (int i = 0; i < contentLength; i++)
       {
@@ -841,7 +842,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   /**
    * Initializes a HashMap with the name/value contents of an array
    */
-  private static HashMap _createHashMap(
+  private static HashMap<Object, Object> _createHashMap(
     Object[] contents
     )
   {
@@ -849,7 +850,8 @@ public class MediaRenderer extends XhtmlLafRenderer
     {
       int contentLength = contents.length;
 
-      HashMap map = new HashMap((int)(contentLength * 0.75));
+      HashMap<Object, Object> map = 
+        new HashMap<Object, Object>((int)(contentLength * 0.75));
 
       for (int i = 0; i < contentLength; i += 2)
       {
@@ -1370,7 +1372,7 @@ public class MediaRenderer extends XhtmlLafRenderer
       return (ControlData)controlData;
     }
 
-    private final HashMap _controls;
+    private final HashMap<Object, Object> _controls;
   }
 
 
@@ -1502,8 +1504,8 @@ public class MediaRenderer extends XhtmlLafRenderer
     public  final String  overrideContentType;
     public  final String  wireImageToControlsParamName;
     private final ControlData _imageWindowControlData;
-    private final HashMap _controlSets;
-    private final HashSet _unsupportedMimeTypes;
+    private final HashMap<Object, Object> _controlSets;
+    private final HashSet<Object> _unsupportedMimeTypes;
   }
 
 
@@ -2098,25 +2100,25 @@ public class MediaRenderer extends XhtmlLafRenderer
   private static final Object _PLAYER_DATA_KEY = new Object();
 
   // map of mime types to preferred players
-  private static HashMap _sPreferredMimePlayers;
+  private static HashMap<Object, Object> _sPreferredMimePlayers;
 
   // map of Operating Systems to preferred players
-  private static HashMap _sPreferredOSPlayers;
+  private static HashMap<Integer, String> _sPreferredOSPlayers;
 
   // map of Operating Systems to HashSet of supported players
-  private static HashMap _sSupportedOSPlayers;
+  private static HashMap<Integer, HashSet<Object>> _sSupportedOSPlayers;
 
   // map the in mime type to the cannonical mime type
-  private static HashMap  _sMimeTypeRemapper;
+  private static HashMap<Object, Object>  _sMimeTypeRemapper;
 
   // maps the extension to the mime type
-  private static HashMap _sExtensionMap;
+  private static HashMap<Object, Object> _sExtensionMap;
 
   // maps a player name to its player data
-  private static HashMap _sPlayerData;
+  private static HashMap<Object, Object> _sPlayerData;
 
   // maps a primary content type to a default inner size
-  private static HashMap _sDefaultInnerSizes;
+  private static HashMap<Object, Object> _sDefaultInnerSizes;
 
   static
   {
@@ -2133,12 +2135,12 @@ public class MediaRenderer extends XhtmlLafRenderer
     int supportedOSPlayersLength = _SUPPORTED_OS_PLAYERS.length;
     int hashSize = (int)(supportedOSPlayersLength * 0.75);
 
-    _sSupportedOSPlayers = new HashMap(hashSize);
-    _sPreferredOSPlayers = new HashMap(hashSize);
+    _sSupportedOSPlayers = new HashMap<Integer, HashSet<Object>>(hashSize);
+    _sPreferredOSPlayers = new HashMap<Integer, String>(hashSize);
 
     for (int i = 0; i < supportedOSPlayersLength; i += 2)
     {
-      Object   os      = _SUPPORTED_OS_PLAYERS[i];
+      Integer  os      = (Integer)_SUPPORTED_OS_PLAYERS[i];
       Object[] players = (Object[])_SUPPORTED_OS_PLAYERS[i + 1];
 
       if ((players != null) && (players.length > 0))
@@ -2148,7 +2150,7 @@ public class MediaRenderer extends XhtmlLafRenderer
         _sSupportedOSPlayers.put(os, _createHashSet(players));
 
         // record the preferred player for this OS
-        _sPreferredOSPlayers.put(os, players[0]);
+        _sPreferredOSPlayers.put(os, (String)players[0]);
       }
     }
 
