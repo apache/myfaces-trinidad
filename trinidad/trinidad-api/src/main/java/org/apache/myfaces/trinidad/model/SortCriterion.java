@@ -22,7 +22,7 @@ import java.io.Serializable;
  * @see CollectionModel#getSortCriteria
  * @author The Oracle ADF Faces Team
  */
-public final class SortCriterion implements Serializable
+public class SortCriterion implements Serializable
 {
   public SortCriterion(String property, boolean isAscending)
   {
