@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>incubator-alpha-1-SNAPSHOT</version>
+    <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-javascript-plugin</artifactId> 
-  <version>incubator-alpha-2-SNAPSHOT</version>
+  <version>incubator-m1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven Javascript Plugin</name>
 
@@ -27,7 +27,7 @@
       <plugin>
 	<groupId>org.apache.myfaces.trinidadbuild</groupId>
         <artifactId>maven-javacc-plugin</artifactId>
-        <version>incubator-alpha-5-SNAPSHOT</version>
+        <version>incubator-m1-SNAPSHOT</version>
         <configuration>
           <sourceDirectory>src/main/java</sourceDirectory>
           <sourcePath>org/apache/myfaces/trinidadbuild/plugin/javascript/obfuscator/javascript15parser</sourcePath>
