@@ -19,7 +19,7 @@
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-plugin-parent</artifactId> 
-  <version>incubator-alpha-1-SNAPSHOT</version>
+  <version>incubator-m1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>Maven Apache Plugin Parent</name>
 

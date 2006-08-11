@@ -4,12 +4,12 @@
   <parent>
     <groupId>org.apache.myfaces.trinidadbuild</groupId>
     <artifactId>maven-plugin-parent</artifactId> 
-    <version>incubator-alpha-1-SNAPSHOT</version>
+    <version>incubator-m1-SNAPSHOT</version>
   </parent>
 
   <groupId>org.apache.myfaces.trinidadbuild</groupId>
   <artifactId>maven-i18n-plugin</artifactId> 
-  <version>incubator-alpha-2-SNAPSHOT</version>
+  <version>incubator-m1-SNAPSHOT</version>
   <packaging>maven-plugin</packaging>
   <name>Maven i18n Plugin</name>
 
