@@ -1275,17 +1275,12 @@ abstract public class UIXComponentBase extends UIXComponent
     if (oldBean != null)
       _facesBean.addAll(oldBean);
 
-    // -= Simon Lessard =-
-    // FIXME: JSF 1.2 specify <String, Object>, but ValueMap
-    //        accept PropertyKey as key as well
     _attributes = new ValueMap(_facesBean);
   }
 
   private FacesBean                _facesBean;
   private List<UIComponent>        _children;
-  // -= Simon Lessard =-
-  // FIXME: JSF 1.2 specify <String, Object>
-  private Map<Object, Object>      _attributes;
+  private Map<String, Object>      _attributes;
   private Map<String, UIComponent> _facets;
   private UIComponent              _parent;
 

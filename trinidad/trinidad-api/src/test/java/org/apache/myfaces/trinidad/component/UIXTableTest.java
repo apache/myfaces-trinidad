@@ -54,11 +54,13 @@ public class UIXTableTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -127,7 +129,7 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(1, table.column1Header.getDecodesRowData().size());
     assertEquals(1, table.column2Header.getDecodesRowData().size());
 
-    List detailData = table.detailStamp.getDecodesRowData();
+    List<Object> detailData = table.detailStamp.getDecodesRowData();
     _testDetailStamp(table, detailData);
 
   }
@@ -144,7 +146,7 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(1, table.column1Header.getValidatesRowData().size());
     assertEquals(1, table.column2Header.getValidatesRowData().size());
 
-    List detailData = table.detailStamp.getValidatesRowData();
+    List<Object> detailData = table.detailStamp.getValidatesRowData();
     _testDetailStamp(table, detailData);
 
   }
@@ -161,7 +163,7 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(1, table.column1Header.getUpdatesRowData().size());
     assertEquals(1, table.column2Header.getUpdatesRowData().size());
 
-    List detailData = table.detailStamp.getUpdatesRowData();
+    List<Object> detailData = table.detailStamp.getUpdatesRowData();
     _testDetailStamp(table, detailData);
 
   }
@@ -260,6 +262,7 @@ public class UIXTableTest extends UIComponentTestCase
 
   }
 
+  @SuppressWarnings("unchecked")
   public void testNotRenderedSaveRestoreState()
   {
     // this test is to make sure no exceptions are thrown during save/restore
@@ -282,6 +285,8 @@ public class UIXTableTest extends UIComponentTestCase
 
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestUpdateModelValues(
     FacesContext context,
     UIViewRoot   root,
@@ -291,6 +296,8 @@ public class UIXTableTest extends UIComponentTestCase
     root.processUpdates(context);
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestProcessValidations(
     FacesContext context,
     UIViewRoot   root,
@@ -300,6 +307,7 @@ public class UIXTableTest extends UIComponentTestCase
     root.processValidators(context);
   }
 
+  @Override
   public void setCurrentContext(FacesContext fc)
   {
     // prevent removal of facesContext before we are done testing:
@@ -327,14 +335,14 @@ public class UIXTableTest extends UIComponentTestCase
     assertEquals(isValid, testComp.isValid());
   }
 
-  private void _testDetailStamp(TestTable table, List detailData)
+  private void _testDetailStamp(TestTable table, List<Object> detailData)
   {
     assertEquals(1, detailData.size());
     table.setRowIndex(_DISCLOSED_INDEX);
     assertEquals(table.getRowData(), detailData.get(0));
   }
 
-  private void _testColumnChild(TestTable table, List rowData)
+  private void _testColumnChild(TestTable table, List<Object> rowData)
   {
     // make sure that the rowData values that were seen during this phase
     // were the correct values:
@@ -355,6 +363,8 @@ public class UIXTableTest extends UIComponentTestCase
 //    test.testSaveRestoreStateGetValue();
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestApplyRequestValues(
     FacesContext context,
     UIViewRoot   root,
@@ -364,6 +374,7 @@ public class UIXTableTest extends UIComponentTestCase
     root.processDecodes(context);
   }
 
+  @Override
   protected boolean isRendererUsed()
   {
     // we use our own MockRenderer; not the one created by our super class:
@@ -385,7 +396,7 @@ public class UIXTableTest extends UIComponentTestCase
   private static SortableModel _createTableData()
   {
     final int sz = 25;
-    List data = new ArrayList(sz);
+    List<Object> data = new ArrayList<Object>(sz);
     for(int i=0; i<sz; i++)
     {
       data.add(new Integer(i));
@@ -397,11 +408,13 @@ public class UIXTableTest extends UIComponentTestCase
   public static final class DoNotCallBinding extends ValueBinding
     implements StateHolder
   {
-    public Class getType(FacesContext context) throws EvaluationException, PropertyNotFoundException
+    @Override
+    public Class<?> getType(FacesContext context) throws EvaluationException, PropertyNotFoundException
     {
       throw new AssertionFailedError("This method should not be called");
     }
 
+    @Override
     public Object getValue(FacesContext context) throws EvaluationException, PropertyNotFoundException
     {
       if (doNotCall)
@@ -410,11 +423,13 @@ public class UIXTableTest extends UIComponentTestCase
       return _createTableData();
     }
 
+    @Override
     public boolean isReadOnly(FacesContext context) throws EvaluationException, PropertyNotFoundException
     {
       throw new AssertionFailedError("This method should not be called");
     }
 
+    @Override
     public void setValue(FacesContext context, Object value) throws EvaluationException, PropertyNotFoundException
     {
       throw new AssertionFailedError("This method should not be called");
@@ -445,46 +460,55 @@ public class UIXTableTest extends UIComponentTestCase
 
   private static final class TestComponent extends UIXInput
   {
+    @SuppressWarnings("unchecked")
     public TestComponent(String id)
     {
+      _decodes   = Collections.EMPTY_LIST;
+      _updates   = Collections.EMPTY_LIST;
+      _validates = Collections.EMPTY_LIST;
       setId(id);
     }
 
+    @Override
     public void processDecodes(FacesContext fc)
     {
       _decodes = _addRowData(fc, _decodes);
     }
 
+    @Override
     public void processUpdates(FacesContext fc)
     {
       _updates = _addRowData(fc, _updates);
     }
 
+    @Override
     public void processValidators(FacesContext fc)
     {
       _validates = _addRowData(fc, _validates);
     }
 
-    public List getDecodesRowData()
+    public List<Object> getDecodesRowData()
     {
       return _decodes;
     }
 
-    public List getValidatesRowData()
+    public List<Object> getValidatesRowData()
     {
       return _validates;
     }
 
-    public List getUpdatesRowData()
+    public List<Object> getUpdatesRowData()
     {
       return _updates;
     }
 
+    @Override
     public String toString()
     {
       return getId();
     }
 
+    @Override
     protected Renderer getRenderer(FacesContext fc)
     {
       // for testing purposes must return null. Otherwise a renderer
@@ -492,25 +516,26 @@ public class UIXTableTest extends UIComponentTestCase
       return null;
     }
 
-    private List _addRowData(FacesContext fc, List currList)
+    private List<Object> _addRowData(FacesContext fc, List<Object> currList)
     {
       if (currList == Collections.EMPTY_LIST)
-        currList = new ArrayList(10);
+        currList = new ArrayList<Object>(10);
 
       Object rowData = fc.getExternalContext().getRequestMap().get(_VAR);
       currList.add(rowData);
       return currList;
     }
 
-    private List _decodes = Collections.EMPTY_LIST;
-    private List _updates = Collections.EMPTY_LIST;
-    private List _validates = Collections.EMPTY_LIST;
+    private List<Object> _decodes;
+    private List<Object> _updates;
+    private List<Object> _validates;
   }
 
   private static final String _VAR = "row";
 
   private static final class TestTable extends UIXTable
   {
+    @SuppressWarnings("unchecked")
     public TestTable(SortableModel model)
     {
       super();
@@ -521,6 +546,7 @@ public class UIXTableTest extends UIComponentTestCase
 
       UIXColumn column1 = new UIXColumn()
       {
+        @Override
         protected Renderer getRenderer(FacesContext fc)
         {
           // for testing purposes must return null. Otherwise a renderer
@@ -536,6 +562,7 @@ public class UIXTableTest extends UIComponentTestCase
 
       UIXColumn column2 = new UIXColumn()
       {
+        @Override
         protected Renderer getRenderer(FacesContext fc)
         {
           // for testing purposes must return null. Otherwise a renderer
@@ -549,7 +576,7 @@ public class UIXTableTest extends UIComponentTestCase
       column2Child = new TestComponent("col2Child");
       column2.getChildren().add(column2Child);
 
-      List kids = getChildren();
+      List<UIComponent> kids = getChildren();
       kids.add(column1);
       kids.add(column2);
 
@@ -564,6 +591,7 @@ public class UIXTableTest extends UIComponentTestCase
       }
     }
 
+    @Override
     protected Renderer getRenderer(FacesContext fc)
     {
       // for testing purposes must return null. Otherwise a renderer

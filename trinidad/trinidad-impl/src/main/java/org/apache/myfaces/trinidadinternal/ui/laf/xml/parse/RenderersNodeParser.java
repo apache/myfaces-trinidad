@@ -39,6 +39,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 public class RenderersNodeParser extends BaseNodeParser
   implements XMLConstants
 {
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -52,6 +53,7 @@ public class RenderersNodeParser extends BaseNodeParser
       _facets = XMLUtils.parseNameTokens(facets);
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -62,6 +64,7 @@ public class RenderersNodeParser extends BaseNodeParser
     return context.getParser(RendererNode.class, namespaceURI, localName);
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -75,9 +78,10 @@ public class RenderersNodeParser extends BaseNodeParser
     }
 
     if (child instanceof RendererNode)
-      _renderers.add(child);
+      _renderers.add((RendererNode)child);
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -88,11 +92,11 @@ public class RenderersNodeParser extends BaseNodeParser
       return null;
 
     RendererNode[] renderers = new RendererNode[_renderers.size()];
-    renderers = (RendererNode[])_renderers.toArray(renderers);
+    renderers = _renderers.toArray(renderers);
 
     return new RenderersNode(renderers, _facets);
   }
 
-  private ArrayList _renderers = new ArrayList();
+  private ArrayList<RendererNode> _renderers = new ArrayList<RendererNode>();
   private String[]  _facets;
 }

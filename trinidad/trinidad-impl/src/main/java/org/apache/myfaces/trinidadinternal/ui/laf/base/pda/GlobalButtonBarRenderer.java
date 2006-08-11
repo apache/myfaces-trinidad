@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
  */
 public class GlobalButtonBarRenderer extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.GlobalButtonBarRenderer
 {
-
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -37,6 +37,7 @@ public class GlobalButtonBarRenderer extends org.apache.myfaces.trinidadinternal
     renderChild(context, _SPACER);
   }
 
+  @Override
   protected void renderDefaultCellAttributes(
     UIXRenderingContext context,
     UINode           child) throws IOException

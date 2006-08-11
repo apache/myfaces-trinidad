@@ -34,6 +34,7 @@ public class NavigationBarRenderer extends
   /**
    * Writes the separator between two elements
    */
+  @Override
   protected void renderItemSpacer(
     UIXRenderingContext context
     ) throws IOException
@@ -46,6 +47,7 @@ public class NavigationBarRenderer extends
    * returns true if the navigation bar requires a form in order to
    * submit
    */
+  @Override
   protected boolean requiresForm(
     UIXRenderingContext context
     )

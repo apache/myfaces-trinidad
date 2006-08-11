@@ -58,6 +58,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -74,6 +75,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -87,6 +89,7 @@ public class RawTextRenderer extends BaseRenderer implements UIConstants
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node

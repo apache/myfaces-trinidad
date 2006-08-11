@@ -45,7 +45,7 @@ public abstract class AbstractBaseTestCase extends AbstractJmockJsfTestCase
   {
     int i;
     Mock c = mock(UIComponent.class);
-    Map attrs = new HashMap();
+    Map<String, Object> attrs = new HashMap<String, Object>();
     for (i = 0; i < attributeNames.length; i++)
       attrs.put(attributeNames[i], attributeNames[i]);
     for (i = 0; i < iterations; i++)

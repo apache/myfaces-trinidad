@@ -129,6 +129,7 @@ public abstract class UINodeListProxy implements UINodeList
     }
   }
   
+  @Override
   public Object clone()
   {
     try

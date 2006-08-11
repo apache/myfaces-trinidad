@@ -33,7 +33,7 @@ public class ListDataObjectList implements DataObjectList
    */
   public ListDataObjectList()
   {
-    _list = new ArrayList();
+    _list = new ArrayList<DataObject>();
   }
 
   /**
@@ -43,7 +43,7 @@ public class ListDataObjectList implements DataObjectList
    */
   public ListDataObjectList(int initialCapacity)
   {
-    _list = new ArrayList(initialCapacity);
+    _list = new ArrayList<DataObject>(initialCapacity);
   }
 
   /**
@@ -51,7 +51,7 @@ public class ListDataObjectList implements DataObjectList
    *  Vector must be of type DataObject
    * @see DataObject
    */
-  public ListDataObjectList(Vector list)
+  public ListDataObjectList(Vector<DataObject> list)
   {
     _list = list;
   }
@@ -71,7 +71,7 @@ public class ListDataObjectList implements DataObjectList
    */
   public DataObject removeItem(int index)
   {
-    return (DataObject) _list.remove(index);
+    return _list.remove(index);
   }
 
   /**
@@ -110,7 +110,7 @@ public class ListDataObjectList implements DataObjectList
    */
   public DataObject getItem(int i) 
   {
-    return (DataObject) _list.get(i);
+    return _list.get(i);
   }
 
   /**
@@ -122,5 +122,5 @@ public class ListDataObjectList implements DataObjectList
     return _list.size();
   }
 
-  private final List _list;
+  private final List<DataObject> _list;
 }

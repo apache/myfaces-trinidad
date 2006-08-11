@@ -31,7 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 public class FrameBorderLayoutRenderer extends
                         org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FrameBorderLayoutRenderer
 {
-  
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -39,6 +39,7 @@ public class FrameBorderLayoutRenderer extends
   {
   }
 
+  @Override
   public boolean isSupportedNode(
     UIXRenderingContext context,
     UINode           node
@@ -53,6 +54,7 @@ public class FrameBorderLayoutRenderer extends
    * overwrites the superclass method so that no children are written except
    * for the named ones.
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -106,7 +108,7 @@ public class FrameBorderLayoutRenderer extends
     }
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode node

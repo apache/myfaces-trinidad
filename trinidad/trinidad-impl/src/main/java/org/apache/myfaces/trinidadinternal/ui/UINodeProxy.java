@@ -151,7 +151,7 @@ public abstract class UINodeProxy implements UINode
    * <p>
    * @see #getNamedChild
    */
-  public Iterator getChildNames(
+  public Iterator<String> getChildNames(
     UIXRenderingContext context
     )
   {
@@ -172,7 +172,7 @@ public abstract class UINodeProxy implements UINode
    * <p>
    * @see #getAttributeValue
    */
-  public Iterator getAttributeNames(
+  public Iterator<AttributeKey> getAttributeNames(
     UIXRenderingContext context
     )
   {
@@ -261,7 +261,7 @@ public abstract class UINodeProxy implements UINode
     getUINode().render(context, node);
   }
 
-
+  @Override
   public String toString()
   {
     String debugString = getClass().getName();

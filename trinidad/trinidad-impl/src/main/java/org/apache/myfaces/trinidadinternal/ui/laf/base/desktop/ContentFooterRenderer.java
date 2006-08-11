@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class ContentFooterRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -39,6 +40,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
     super.renderAttributes(context, node);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -61,7 +63,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
     renderStyleClassAttribute( context, CONTENT_FOOTER_CHILDREN_STYLE_CLASS);
   }
 
-
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -82,7 +84,7 @@ public class ContentFooterRenderer extends HtmlLafRenderer
     super.postrender(context, node); 
   }
     
-  
+  @Override
   protected String getElementName(UIXRenderingContext context, UINode node)
   {
     return DIV_ELEMENT;

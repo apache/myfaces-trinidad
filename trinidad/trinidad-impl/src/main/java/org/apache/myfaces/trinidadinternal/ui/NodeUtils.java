@@ -205,14 +205,14 @@ public class NodeUtils implements UIConstants
    */
   public static void addIndexedChildren(
     MutableUINode    parentNode,
-    Iterator      indexedChildren
+    Iterator<UINode> indexedChildren
     )
   {
     if ((parentNode != null) && (indexedChildren != null))
     {
       while (indexedChildren.hasNext())
       {
-        UINode currNode = (UINode)indexedChildren.next();
+        UINode currNode = indexedChildren.next();
         parentNode.addIndexedChild(currNode);
       }
     }

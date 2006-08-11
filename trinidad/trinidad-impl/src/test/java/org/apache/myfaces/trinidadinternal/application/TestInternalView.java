@@ -30,6 +30,7 @@ public class TestInternalView extends InternalView
   {
   }
 
+  @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     ViewHandlerImplTest.__internalViewCalled = "create";
@@ -39,6 +40,7 @@ public class TestInternalView extends InternalView
   /**
    * Restores the UIViewRoot;  return null if no view should be returned.
    */
+  @Override
   public UIViewRoot restoreView(FacesContext context, String viewId)
   {
     ViewHandlerImplTest.__internalViewCalled = "restore";
@@ -48,6 +50,7 @@ public class TestInternalView extends InternalView
   /**
    * Renders the view.
    */
+  @Override
   public void renderView(
     FacesContext context, 
     UIViewRoot   viewToRender) throws IOException, FacesException

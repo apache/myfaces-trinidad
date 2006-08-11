@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
  */
 public class CommandItemRenderer extends SelectOptionRenderer
 {
+  @Override
   public boolean render(
     UIXRenderingContext context,
     UINode           node,
@@ -49,7 +50,8 @@ public class CommandItemRenderer extends SelectOptionRenderer
       return true;
   }
 
-
+  @SuppressWarnings("unchecked")
+  @Override
     protected void renderValue(
       UIXRenderingContext context,
       UINode           node,
@@ -78,7 +80,7 @@ public class CommandItemRenderer extends SelectOptionRenderer
       }    
     
       UIComponent component = node.getUIComponent() ;
-      Map attributes = component.getAttributes();
+      Map<String, Object> attributes = component.getAttributes();
       Object destination = node.getAttributeValue(context, DESTINATION_ATTR);  
       
       if ( destination != null)

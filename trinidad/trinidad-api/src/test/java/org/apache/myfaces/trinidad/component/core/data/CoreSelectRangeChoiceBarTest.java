@@ -46,11 +46,13 @@ public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -129,7 +131,7 @@ public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
 
   private class MockRangeChangeListener implements RangeChangeListener
   {
-    public List list()
+    public List<RangeChangeEvent> list()
     {
       return _list;
     }
@@ -139,7 +141,7 @@ public class CoreSelectRangeChoiceBarTest extends UIComponentTestCase
       _list.add(event);
     }
 
-    private List _list = new ArrayList();
+    private List<RangeChangeEvent> _list = new ArrayList<RangeChangeEvent>();
   }
 
   /**

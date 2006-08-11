@@ -43,6 +43,7 @@ public class ScoreProxy extends Score
   /**
    * Returns the score for the look and feel family name.
    */
+  @Override
   public int getNameScore()
   {
     return _baseScore.getNameScore();
@@ -51,6 +52,7 @@ public class ScoreProxy extends Score
   /**
    * Returns the score for the Agent type.
    */
+  @Override
   public int getAgentTypeScore()
   {
     return _baseScore.getAgentTypeScore();
@@ -59,6 +61,7 @@ public class ScoreProxy extends Score
   /**
    * Returns the score for the Agent application.
    */
+  @Override
   public int getAgentApplicationScore()
   {
     return _baseScore.getAgentApplicationScore();
@@ -67,6 +70,7 @@ public class ScoreProxy extends Score
   /**
    * Returns the score for the Agent version.
    */
+  @Override
   public int getAgentVersionScore()
   {
     return _baseScore.getAgentVersionScore();
@@ -75,6 +79,7 @@ public class ScoreProxy extends Score
   /**
    * Returns the score for the Agent operating system.
    */
+  @Override
   public int getAgentOSScore()
   {
     return _baseScore.getAgentOSScore();
@@ -84,6 +89,7 @@ public class ScoreProxy extends Score
    * Returns a discriminant score that is used as a tie-breaker
    * when multiple LookAndFeels produce the same score.
    */
+  @Override
   public int getDiscriminantScore()
   {
     return _baseScore.getDiscriminantScore();

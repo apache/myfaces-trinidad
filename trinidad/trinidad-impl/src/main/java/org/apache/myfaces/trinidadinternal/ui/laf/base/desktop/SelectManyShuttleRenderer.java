@@ -69,7 +69,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 public class SelectManyShuttleRenderer extends UINodeRenderer
                implements UIConstants, BaseDesktopConstants
 {
-
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node
@@ -84,6 +84,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   /**
   * Render a UINode in a RenderingContext.
   */
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -104,6 +105,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     _clearContext( context );
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -1105,6 +1107,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   }
 
 
+    @SuppressWarnings("unchecked")
     private static void _setListInfo(
       SelectManyShuttleRenderer.ContainerInfo containerInfo
     )
@@ -1129,7 +1132,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
       for(int i=0; i< containerInfo.listCount;i++)
       {
-        SelectItem item = (SelectItem) containerInfo.itemsList.get(i);
+        SelectItem item = containerInfo.itemsList.get(i);
         String text  = item.getLabel();
         Object value = item.getValue();
         Object description = item.getDescription();
@@ -1162,6 +1165,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       containerInfo.vals = vals.toString();
     }
 
+    @SuppressWarnings("unchecked")
     private static SelectManyShuttleRenderer.ShuttleInfo _getShuttleInfo(
       UIXRenderingContext context,
       UINode node
@@ -1195,9 +1199,9 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       trailingInfo.headerText = node.getAttributeValue(context,
                                                        TRAILING_HEADER_ATTR);
 
-      leadingInfo.itemsList = (List) node.getAttributeValue(context,
+      leadingInfo.itemsList = (List<SelectItem>) node.getAttributeValue(context,
          org.apache.myfaces.trinidadinternal.renderkit.uix.SelectManyShuttleRenderer.SELECT_ITEMS_ATTR);
-      trailingInfo.itemsList = (List) node.getAttributeValue(context,
+      trailingInfo.itemsList = (List<SelectItem>) node.getAttributeValue(context,
          org.apache.myfaces.trinidadinternal.renderkit.uix.SelectManyShuttleRenderer.VALUE_ITEMS_ATTR);
 
       // descriptions
@@ -1465,7 +1469,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     public Boolean isReorderable  = Boolean.FALSE;
     public Boolean hasDescArea    = Boolean.FALSE;
 
-    public List itemsList;
+    public List<SelectItem> itemsList;
 
     public int maxWidth  = 0;
     public int listCount = 0;
@@ -1508,7 +1512,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
     public UINode getUINode(UIXRenderingContext context,
                         int index)
     {
-      List selectItems = _getSelectItems(context);
+      List<SelectItem> selectItems = _getSelectItems(context);
       if ((selectItems == null) && index == 0)
         return _lastNode;
 
@@ -1516,7 +1520,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       if (size == index)
         return _lastNode;
 
-      SelectItem item = (SelectItem) selectItems.get(index);
+      SelectItem item = selectItems.get(index);
       MarlinBean option = new MarlinBean(OPTION_NAME);
       option.setAttributeValue(TEXT_ATTR, item.getLabel());
       option.setAttributeValue(VALUE_ATTR, item.getValue());
@@ -1528,7 +1532,7 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
 
     public int size(UIXRenderingContext context)
     {
-      List selectItems = _getSelectItems(context);
+      List<SelectItem> selectItems = _getSelectItems(context);
       if (selectItems == null)
         return 1;
       return selectItems.size() + 1;
@@ -1560,14 +1564,16 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object clone()
     {
       throw new UnsupportedOperationException();
     }
 
-    private List _getSelectItems(UIXRenderingContext context)
+    @SuppressWarnings("unchecked")
+    private List<SelectItem> _getSelectItems(UIXRenderingContext context)
     {
-      return (List) _itemsBV.getValue(context);
+      return (List<SelectItem>) _itemsBV.getValue(context);
     }
 
     private BoundValue _itemsBV;
@@ -1688,8 +1694,11 @@ public class SelectManyShuttleRenderer extends UINodeRenderer
   // This renderer code uses the selectMany translation keys. If selectOrder
   // shuttle is being rendered, then context.getTranslatedValue will use
   // this translation map to map the selectMany keys to the selectOrder keys.
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
-  private static final Map _SHUTTLE_KEY_MAP   = new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP = 
+    new HashMap<String, String>();
+  
+  private static final Map<String, String> _SHUTTLE_KEY_MAP = 
+    new HashMap<String, String>();
 
   static private class IsReadOnly implements BoundValue
   {

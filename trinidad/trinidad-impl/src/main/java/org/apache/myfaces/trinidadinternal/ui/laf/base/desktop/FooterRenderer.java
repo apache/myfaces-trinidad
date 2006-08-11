@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
  */
 public class FooterRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -41,6 +42,7 @@ public class FooterRenderer extends HtmlLafRenderer
     renderStyleClassAttribute(context, FOOTER_STYLE_CLASS);
   }
 
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -50,6 +52,7 @@ public class FooterRenderer extends HtmlLafRenderer
     writer.writeText(_SEPARATOR, null);
   }  
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node) throws IOException
@@ -100,6 +103,7 @@ public class FooterRenderer extends HtmlLafRenderer
     super.postrender(context, node);
   }
 
+  @Override
   protected String getElementName(UIXRenderingContext context, UINode node)
   {
     return DIV_ELEMENT;

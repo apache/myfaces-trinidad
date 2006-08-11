@@ -47,7 +47,7 @@ public class FindComponentTest extends TestCase
   static private class TestNamingContainer extends UIXPanel
                                            implements NamingContainer
   {
-
+    @Override
     public UIComponent findComponent(String expr)
     {
       addToTrace(getId());
@@ -79,6 +79,7 @@ public class FindComponentTest extends TestCase
 
   
   // Test nested NamingContainer callbacks
+  @SuppressWarnings("unchecked")
   public void testNested()
   {
     TestNamingContainer a = new TestNamingContainer(); a.setId("a");
@@ -133,6 +134,7 @@ public class FindComponentTest extends TestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   public void testRelativeSearch()
   {
     // Set up a component hierarchy as follows (component ids in quotes):
@@ -397,6 +399,7 @@ public class FindComponentTest extends TestCase
     assertTrue(i == i.findComponent(":i"));
   }
 
+  @SuppressWarnings("unchecked")
   public void testAbsoluteSearch()
   {
     // Set up a component hierarchy as follows (component ids in quotes):
@@ -524,6 +527,7 @@ public class FindComponentTest extends TestCase
     assertTrue(i == i.findComponent(":i"));
   }
     
+  @SuppressWarnings("unchecked")
   public void testExceptions()
   {
     // Set up a component hierarchy as follows (component ids in quotes):

@@ -40,11 +40,13 @@ public class HtmlTableLayoutTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();

@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  */
 public class ContentFooterRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -47,6 +48,7 @@ public class ContentFooterRenderer extends XhtmlLafRenderer
     super.prerender(context, node);
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

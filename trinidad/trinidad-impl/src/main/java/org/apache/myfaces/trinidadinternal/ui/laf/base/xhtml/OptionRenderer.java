@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class OptionRenderer extends OptionContainerRenderer.OptionRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node

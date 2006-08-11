@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.ui.collection.AttributeMap;
 
 public class CommandButtonFacesBean extends UINodeFacesBean
 {
+  @Override
   protected AttributeMap createAttributeMap(String componentFamily)
   {
     AttributeMap attrMap = super.createAttributeMap(componentFamily);

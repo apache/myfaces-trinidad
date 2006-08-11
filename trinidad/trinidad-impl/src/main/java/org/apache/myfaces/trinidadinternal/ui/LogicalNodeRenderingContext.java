@@ -257,11 +257,11 @@ public abstract class LogicalNodeRenderingContext implements UIXRenderingContext
   protected String getSkinResourceMappedKey(String key)
   {
     String mappedKey = null;
-    Map keyMap = getSkinResourceKeyMap();
+    Map<String, String> keyMap = getSkinResourceKeyMap();
     
     if (keyMap != null)
     {
-      mappedKey = (String)keyMap.get(key);
+      mappedKey = keyMap.get(key);
       // if it isn't in the map, just use the key itself.
       if (mappedKey == null)
         mappedKey = key;
@@ -308,7 +308,7 @@ public abstract class LogicalNodeRenderingContext implements UIXRenderingContext
 
   }
 
-
+  @Override
   public Object clone()
   {
     LogicalNodeRenderingContext context;

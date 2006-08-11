@@ -62,6 +62,7 @@ public class UIXComponentUINode extends UIComponentUINode
   /**
    * Returns the role that this node occupies.
    */
+  @Override
   public NodeRole getNodeRole(UIXRenderingContext context)
   {
     if (context != null)
@@ -82,7 +83,8 @@ public class UIXComponentUINode extends UIComponentUINode
     return UIConstants.UNKNOWN_ROLE;
   }
 
-  public Iterator getAttributeNames(UIXRenderingContext context)
+  @Override
+  public Iterator<AttributeKey> getAttributeNames(UIXRenderingContext context)
   {
     AttributeMap attributes = getAttributeMap(false);
 
@@ -96,9 +98,7 @@ public class UIXComponentUINode extends UIComponentUINode
     }
   }
 
-
-
-
+  @Override
   public void setAttributeValue(
     AttributeKey attrKey,
     Object       value
@@ -132,6 +132,7 @@ public class UIXComponentUINode extends UIComponentUINode
    * <p>
    * @see #getAttributeNames
    */
+  @Override
   public Object getAttributeValue(UIXRenderingContext context, AttributeKey attrKey)
   {
     return getAttributeValueImpl(context, attrKey, true);
@@ -145,6 +146,7 @@ public class UIXComponentUINode extends UIComponentUINode
    * <p>
    * @see org.apache.myfaces.trinidadinternal.ui.data.BoundValue
    */
+  @Override
   public Object getRawAttributeValue(UIXRenderingContext context, AttributeKey attrKey)
   {
     return getAttributeValueImpl(context, attrKey, false);

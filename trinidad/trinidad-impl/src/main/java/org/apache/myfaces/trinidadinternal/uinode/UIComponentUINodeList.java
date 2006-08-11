@@ -47,11 +47,12 @@ public class UIComponentUINodeList implements UINodeList
     return _component.getChildCount();
   }
 
+  @SuppressWarnings("unchecked")
   public UINode getUINode(UIXRenderingContext context, int index)
   {      
-    List children =  _component.getChildren();
+    List<UIComponent> children =  _component.getChildren();
     
-    return UIComponentUINode.__getUINode((UIComponent)children.get(index));
+    return UIComponentUINode.__getUINode(children.get(index));
   }
 
   public UINode setUINode(int index, UINode node)
@@ -79,6 +80,7 @@ public class UIComponentUINodeList implements UINodeList
     throw new UnsupportedOperationException();
   }
 
+  @Override
   public Object clone()
   {
     throw new UnsupportedOperationException();

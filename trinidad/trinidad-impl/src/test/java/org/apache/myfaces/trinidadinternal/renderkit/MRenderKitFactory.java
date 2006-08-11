@@ -29,22 +29,25 @@ public class MRenderKitFactory extends RenderKitFactory
   {
   }
 
+  @Override
   public void addRenderKit(String renderKitId,
                            RenderKit renderKit)
   {
     _kits.put(renderKitId, renderKit);
   }
 
+  @Override
   public RenderKit getRenderKit(FacesContext context, 
                                 String renderKitId)
   {
-    return (RenderKit) _kits.get(renderKitId);
+    return _kits.get(renderKitId);
   }
   
-  public Iterator getRenderKitIds()
+  @Override
+  public Iterator<String> getRenderKitIds()
   {
     return _kits.keySet().iterator();
   }
 
-  private Map _kits = new HashMap();
+  private Map<String, RenderKit> _kits = new HashMap<String, RenderKit>();
 }

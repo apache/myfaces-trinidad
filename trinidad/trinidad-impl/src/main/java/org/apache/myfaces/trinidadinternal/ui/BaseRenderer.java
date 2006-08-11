@@ -92,14 +92,15 @@ public class BaseRenderer implements Renderer
 
     postrender(context, node);
 
-    boolean assertEnabled = false;
-	assert assertEnabled = true;
-
-    if (false && assertEnabled)
-    {
-      // show the node that ended this output
-      context.getResponseWriter().writeComment("End:" + node);
-    }
+    // -= Simon Lessard =-
+    // Completely useless piece of code...
+    //boolean assertEnabled = false;
+	  //assert assertEnabled = true;
+    //if (false && assertEnabled)
+    //{
+    //  // show the node that ended this output
+    //  context.getResponseWriter().writeComment("End:" + node);
+    //}
   }
 
 

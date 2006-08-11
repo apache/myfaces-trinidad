@@ -24,6 +24,7 @@ public class UIXEditableValueBean extends UIXComponentBean
    * additional responsibility, which is to automatically
    * set "localValueSet" any time the value is set.
    */
+  @Override
   public void setProperty(PropertyKey key, Object value)
   {
     super.setProperty(key, value);

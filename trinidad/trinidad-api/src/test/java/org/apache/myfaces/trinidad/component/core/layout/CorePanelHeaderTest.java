@@ -38,11 +38,13 @@ public class CorePanelHeaderTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -87,6 +89,7 @@ public class CorePanelHeaderTest extends UIXPanelTestCase
                                 "foo", "bar");
   }
 
+  @Override
   protected UIXPanel createTestComponent()
   {
     return new CorePanelHeader();

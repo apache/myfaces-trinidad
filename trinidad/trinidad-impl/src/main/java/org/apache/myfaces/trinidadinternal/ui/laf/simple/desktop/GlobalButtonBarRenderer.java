@@ -52,6 +52,7 @@ public class GlobalButtonBarRenderer
    * Override of renderBetweenIndexedChildren() which
    * renders the separator Icon.
    */
+  @Override
   protected void renderBetweenNodes(
     UIXRenderingContext context,
     UINode           node

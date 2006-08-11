@@ -28,6 +28,7 @@ import org.apache.myfaces.trinidadinternal.uinode.bind.MenuSelectedValueBoundVal
 
 public class ProcessChoiceBarFacesBean extends UINodeFacesBean
 {
+  @Override
   protected AttributeMap createAttributeMap(String componentFamily)
   {
     AttributeMap attrMap = super.createAttributeMap(componentFamily);
@@ -50,7 +51,7 @@ public class ProcessChoiceBarFacesBean extends UINodeFacesBean
       super(component);
     }
     
-  
+    @Override
     protected UIComponent getStamp(
       UIXNavigationHierarchy   menuComponent
       )
@@ -58,7 +59,7 @@ public class ProcessChoiceBarFacesBean extends UINodeFacesBean
       return ((UIXProcess)menuComponent).getNodeStamp();
     }
     
-
+    @Override
     protected boolean setNewPath(
       UIXNavigationHierarchy  menuComponent
     )

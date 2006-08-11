@@ -40,6 +40,7 @@ public class TypeTest extends TestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
     _type = new FacesBean.Type();
@@ -54,6 +55,7 @@ public class TypeTest extends TestCase
     _bazKey = _subtype.registerKey("baz");
   }
 
+  @Override
   public void tearDown()
   {
     _type = null;

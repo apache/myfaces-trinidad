@@ -54,6 +54,7 @@ public class BaseWebBean extends BaseMutableUINode
    * This property is typically only needed when writing client-side
    * JavaScript.
    */
+  @Override
   public final void setID(String newID)
   {
     // stub placeholder for when we get rid of bogus need for implementation
@@ -324,6 +325,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Sets whether the bean is rendered.  When set to false,
    * no output will be delivered for this bean.
    */
+  @Override
   public void setRendered(
     boolean rendered
     )
@@ -337,6 +339,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Sets whether the bean is rendered.  When set to false,
    * no output will be delivered for this bean.
    */
+  @Override
   public boolean isRendered()
   {
     // Stub for backwards compatibility
@@ -678,6 +681,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Boolean->boolean.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static boolean resolveBoolean(
     Boolean value,
     boolean defaultValue
@@ -692,6 +696,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Boolean->boolean.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static boolean resolveBoolean(
     Boolean value
     )
@@ -728,6 +733,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Integer->int.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static int resolveInteger(
     Integer value
     )
@@ -739,6 +745,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Integer->int.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static int resolveInteger(
     Integer value,
     int     defaultValue
@@ -778,6 +785,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Long->long.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static long resolveLong(
     Long value
     )
@@ -789,6 +797,7 @@ public class BaseWebBean extends BaseMutableUINode
    * Utility method for rendered code that transforms Long->long.
    * @deprecated in favor of the version taking an Object
    */
+  @Deprecated
   public static long resolveLong(
     Long  value,
     long  defaultValue

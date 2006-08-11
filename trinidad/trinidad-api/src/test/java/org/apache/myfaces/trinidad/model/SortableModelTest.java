@@ -39,11 +39,13 @@ public class SortableModelTest extends AbstractJsfTestCase
     super(name);
   }
 
+  @Override
 	public void setUp()
   {
     super.setUp();
   }
 
+  @Override
 	public void tearDown()
   {
     super.tearDown();
@@ -137,7 +139,7 @@ public class SortableModelTest extends AbstractJsfTestCase
   // Test sorting an empty model - see bug 4258884
   public void testEmptyTable()
   {
-    DataModel emptyModel = new ListDataModel(new ArrayList());
+    DataModel emptyModel = new ListDataModel(new ArrayList<Bean>());
     SortableModel sModel = new SortableModel(emptyModel);
     _sort(sModel, "age", false);    
   }
@@ -172,7 +174,7 @@ public class SortableModelTest extends AbstractJsfTestCase
   
   private DataModel _createTestDataModel()
   {
-    List list = new ArrayList(3);
+    List<Bean> list = new ArrayList<Bean>(3);
     list.add(_bean1);
     list.add(_bean2);
     list.add(_bean3);
@@ -215,6 +217,7 @@ public class SortableModelTest extends AbstractJsfTestCase
       return _obj;
     }
     
+    @Override
     public String toString()
     {
       return "name:"+_name+" age:"+_age;

@@ -37,10 +37,10 @@ public class MessageBoxUtils implements UIConstants
     // This doesn't seem to work if there is a global message
     // return context.getFacesContext().getMaximumSeverity();
     FacesMessage.Severity max = FacesMessage.SEVERITY_INFO;
-    Iterator itr = sGetIterator(context, true);
+    Iterator<MessageWrapper> itr = sGetIterator(context, true);
     while (itr.hasNext())
     {
-      FacesMessage nxt = (FacesMessage) itr.next();
+      FacesMessage nxt = itr.next();
       FacesMessage.Severity sev = nxt.getSeverity();
       if (sev.compareTo(max) > 0)
       {
@@ -73,11 +73,11 @@ public class MessageBoxUtils implements UIConstants
     boolean allMessages
     )
   {
-    Iterator itr = sGetIterator(context, allMessages);
+    Iterator<MessageWrapper> itr = sGetIterator(context, allMessages);
     return itr.hasNext();
   }
 
-  public static Iterator sGetIterator(
+  public static Iterator<MessageWrapper> sGetIterator(
     UIXRenderingContext context,
     boolean allMessages)
   {
@@ -85,13 +85,13 @@ public class MessageBoxUtils implements UIConstants
                                   allMessages, false);
   }
 
-  public static Iterator sGetGlobalsIterator(
+  public static Iterator<MessageWrapper> sGetGlobalsIterator(
     UIXRenderingContext context)
   {
     return new AllMessageIterator(context.getFacesContext(), false, false);
   }
 
-  public static Iterator sGetClientsIterator(
+  public static Iterator<MessageWrapper> sGetClientsIterator(
     UIXRenderingContext context)
   {
     return new AllMessageIterator(context.getFacesContext(), true, true);
@@ -115,7 +115,7 @@ public class MessageBoxUtils implements UIConstants
   {
     boolean isMult = false;
     // First find out if we have multiple messages.
-    Iterator itr = sGetIterator(context, allMessages);
+    Iterator<MessageWrapper> itr = sGetIterator(context, allMessages);
     for (int c = 0; (!isMult) && itr.hasNext(); c++)
     {
       itr.next();

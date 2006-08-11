@@ -21,6 +21,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 public class CommandNavigationItemRenderer extends AliasRenderer
 {
+  @Override
   protected String getLocalName(
     UIXRenderingContext context,
     UINode           node)

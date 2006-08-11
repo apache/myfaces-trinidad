@@ -219,12 +219,13 @@ public class PathImpl implements Path
   /**
    * Clones the path.
    */
+  @Override
   public Object clone()
   {
     try
     {
       PathImpl pi = (PathImpl) super.clone();
-      pi._elements = (Object[]) pi._elements.clone();
+      pi._elements = pi._elements.clone();
       return pi;
     }
     catch (CloneNotSupportedException cnse)
@@ -238,6 +239,7 @@ public class PathImpl implements Path
   /**
    * Returns a string representation of the path.
    */
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer("Path[");

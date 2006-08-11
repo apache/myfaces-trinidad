@@ -52,6 +52,7 @@ public class ContentContainerRenderer
    * Override of the Base Desktop ContentContainerRenderer's
    * renderContent().
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -84,6 +85,7 @@ public class ContentContainerRenderer
    * getBackground() which uses a local property to store the background
    * value.
    */
+  @Override
   protected Object getBackground(
     UIXRenderingContext context,
     UINode           node
@@ -568,7 +570,7 @@ public class ContentContainerRenderer
   }
 
   // Gets the Map for stetched icons, and sets alt attribute to "".
-  private static Map _getStretchedIconAttrs(
+  private static Map<String, Object> _getStretchedIconAttrs(
     UIXRenderingContext context
     )
   {
@@ -578,7 +580,7 @@ public class ContentContainerRenderer
     // If the Agent supports image stretching, return the
     // Map with height=100%.  Otherwise we don't
     // have any attrs.
-    Map attrs = new ArrayMap(2);
+    Map<String, Object> attrs = new ArrayMap<String, Object>(2);
     if (Boolean.TRUE.equals(capImageStretch))
     {
       attrs.put(Icon.HEIGHT_KEY, "100%");

@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
  */
 public class UINodeRendererBase extends Renderer
 {
+  @Override
   public void encodeBegin(FacesContext context,
                           UIComponent component)
     throws IOException
@@ -44,6 +45,7 @@ public class UINodeRendererBase extends Renderer
     }
   }
 
+  @Override
   public void encodeChildren(FacesContext context,
                              UIComponent component)
     throws IOException
@@ -51,6 +53,7 @@ public class UINodeRendererBase extends Renderer
     // Children-encoding is always handled in encodeEnd()
   }
 
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent component)
     throws IOException
@@ -68,7 +71,7 @@ public class UINodeRendererBase extends Renderer
     }
   }
 
-
+  @Override
   public boolean getRendersChildren()
   {
     return true;
@@ -105,6 +108,7 @@ public class UINodeRendererBase extends Renderer
   }
 
 
+  @SuppressWarnings("unchecked")
   static UIXRenderingContext __setRenderingContext(
     FacesContext     fContext,
     UIXRenderingContext rContext)
@@ -139,6 +143,7 @@ public class UINodeRendererBase extends Renderer
     return TrinidadFilterImpl.isExecutingDialogReturn(context);
   }
 
+  @SuppressWarnings("unchecked")
   static void __restoreRenderingContext(
     FacesContext     fContext,
     UIXRenderingContext rContext)

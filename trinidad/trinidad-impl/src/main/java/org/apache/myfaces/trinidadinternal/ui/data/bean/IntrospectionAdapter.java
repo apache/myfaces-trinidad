@@ -73,7 +73,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     if (instance == null)
       return null;
 
-    Class objClass = instance.getClass();
+    Class<?> objClass = instance.getClass();
     ClassInfo classInfo = _getIntrospectionInfo(objClass);
 
     BeanDOAdapter adapter = classInfo.hasWriters()
@@ -117,7 +117,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
       _classInfo.updateValue(context, select, value, instance);
   }
 
-
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(40);
@@ -130,7 +130,7 @@ public class IntrospectionAdapter implements BeanDOAdapter
     return buffer.toString();
   }
 
-  IntrospectionAdapter(Class objClass, ClassInfo classInfo)
+  IntrospectionAdapter(Class<?> objClass, ClassInfo classInfo)
   {
     _class = objClass;
     _classInfo = classInfo;
@@ -140,16 +140,16 @@ public class IntrospectionAdapter implements BeanDOAdapter
                                                    implements MutableDataObject
   {
     public MutableIntrospectionAdapter(
-      Class objClass,
+      Class<?> objClass,
       ClassInfo classInfo)
     {
       super(objClass, classInfo);
     }
   }
 
-  static private ClassInfo _getIntrospectionInfo(Class objClass)
+  static private ClassInfo _getIntrospectionInfo(Class<?> objClass)
   {
-    ClassInfo classInfo = (ClassInfo) _sIntrospectionInfo.get(objClass);
+    ClassInfo classInfo = _sIntrospectionInfo.get(objClass);
     if (classInfo == null)
     {
       classInfo = _createIntrospectionInfo(objClass);
@@ -163,27 +163,27 @@ public class IntrospectionAdapter implements BeanDOAdapter
   }
 
 
-  static private ClassInfo _createIntrospectionInfo(Class objClass)
+  static private ClassInfo _createIntrospectionInfo(Class<?> objClass)
   {
     if (objClass == Object.class)
       return null;
 
-    Map readers = null;
-    Map writers = null;
+    Map<String, PropertyReader> readers = null;
+    Map<String, PropertyWriter> writers = null;
 
     // Introspection fails on "package-private" classes.  But
     // that shouldn't stop us from looking for a public superclass,
     // or any public interfaces this class implements
     if (!Modifier.isPublic(objClass.getModifiers()))
     {
-      Class superClass = objClass.getSuperclass();
+      Class<?> superClass = objClass.getSuperclass();
       if (superClass != null)
       {
         ClassInfo superClassInfo = _getIntrospectionInfo(superClass);
         if (superClassInfo != null)
         {
-          readers = new HashMap();
-          writers = new HashMap();
+          readers = new HashMap<String, PropertyReader>();
+          writers = new HashMap<String, PropertyWriter>();
           superClassInfo.putAllReadersInto(readers);
           superClassInfo.putAllWritersInto(writers);
         }
@@ -196,19 +196,19 @@ public class IntrospectionAdapter implements BeanDOAdapter
         if (interfaceInfo != null)
         {
           if (readers == null)
-            readers = new HashMap();
+            readers = new HashMap<String, PropertyReader>();
           interfaceInfo.putAllReadersInto(readers);
 
           if (writers == null)
-            writers = new HashMap();
+            writers = new HashMap<String, PropertyWriter>();
           interfaceInfo.putAllWritersInto(writers);
         }
       }
     }
     else
     {
-      readers = new HashMap();
-      writers = new HashMap();
+      readers = new HashMap<String, PropertyReader>();
+      writers = new HashMap<String, PropertyWriter>();
 
       try
       {
@@ -260,18 +260,20 @@ public class IntrospectionAdapter implements BeanDOAdapter
 
   static private class ClassInfo
   {
-    public ClassInfo(Map readers, Map writers)
+    public ClassInfo(
+        Map<String, PropertyReader> readers, 
+        Map<String, PropertyWriter> writers)
     {
       _readers = readers;
       _writers = writers;
     }
 
-    public void putAllReadersInto(Map into)
+    public void putAllReadersInto(Map<String, PropertyReader> into)
     {
       into.putAll(_readers);
     }
 
-    public void putAllWritersInto(Map into)
+    public void putAllWritersInto(Map<String, PropertyWriter> into)
     {
       into.putAll(_writers);
     }
@@ -343,8 +345,8 @@ public class IntrospectionAdapter implements BeanDOAdapter
     }
 
 
-    private Map _readers;
-    private Map _writers;
+    private Map<String, PropertyReader> _readers;
+    private Map<String, PropertyWriter> _writers;
   }
 
   //
@@ -430,8 +432,8 @@ public class IntrospectionAdapter implements BeanDOAdapter
       }
     }
 
-    private final Method _method;
-    private final Class  _type;
+    private final Method   _method;
+    private final Class<?> _type;
   }
 
   static private class FieldReaderWriter implements PropertyReader,
@@ -462,8 +464,8 @@ public class IntrospectionAdapter implements BeanDOAdapter
 
 
   static private Object _coerceType(
-    Object           value,
-    Class            type)
+    Object   value,
+    Class<?> type)
   {
     return Coercions.coerce(value, type);
   }
@@ -485,17 +487,18 @@ public class IntrospectionAdapter implements BeanDOAdapter
   }
 
 
-  private Class     _class;
+  private Class<?>  _class;
   private Object    _instance;
   private ClassInfo _classInfo;
 
-  static private Map _sIntrospectionInfo;
+  static private Map<Class<?>, ClassInfo> _sIntrospectionInfo;
   static private final ClassInfo _sEmptyClassInfo =
-     new ClassInfo(new HashMap(1), new HashMap(1));
+     new ClassInfo(new HashMap<String, PropertyReader>(1), 
+                   new HashMap<String, PropertyWriter>(1));
 
   static
   {
-    _sIntrospectionInfo = Collections.synchronizedMap(new WeakHashMap());
+    _sIntrospectionInfo = Collections.synchronizedMap(new WeakHashMap<Class<?>, ClassInfo>());
   }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(IntrospectionAdapter.class);

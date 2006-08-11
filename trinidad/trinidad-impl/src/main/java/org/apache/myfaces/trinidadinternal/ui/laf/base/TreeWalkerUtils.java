@@ -141,7 +141,7 @@ public class TreeWalkerUtils
     }
 
     // Walk the named children
-    Iterator e;
+    Iterator<String> e;
 
     // For switcher beans, only walk the "CHILD_NAME_ATTR" bean; a
     // SingleItemIterator does the trick quite well...
@@ -152,7 +152,7 @@ public class TreeWalkerUtils
       if (name == null)
         e = null;
       else
-        e = Collections.singletonList(name).iterator();
+        e = Collections.singletonList((String)name).iterator();
     }
     else
     {
@@ -163,7 +163,7 @@ public class TreeWalkerUtils
     {
       while (e.hasNext())
       {
-        String next = (String) e.next();
+        String next = e.next();
 
         UINode currNamedChild =
                     ancestor.getNamedChild(context, next);

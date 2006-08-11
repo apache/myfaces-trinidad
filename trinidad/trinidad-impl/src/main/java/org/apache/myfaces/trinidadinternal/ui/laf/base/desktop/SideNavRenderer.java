@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  */
 public class SideNavRenderer extends SideBarRenderer
 {
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -47,8 +47,7 @@ public class SideNavRenderer extends SideBarRenderer
                               IntegerUtils.getInteger(selectedIndex));
   }
 
-
-
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,

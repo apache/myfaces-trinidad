@@ -41,14 +41,14 @@ public class UINodePropertyKey extends PropertyKey
   }
 
   UINodePropertyKey(
-    String name,
-    Class  type,
-    Object defaultValue,
-    int    capabilities,
-    int    index)
+    String   name,
+    Class<?> type,
+    Object   defaultValue,
+    int      capabilities,
+    int      index)
   {
     super(name, type, defaultValue, capabilities, index);
-    _attributeKey = (AttributeKey) _UICONSTANTS_KEYS.get(name);
+    _attributeKey = _UICONSTANTS_KEYS.get(name);
   }
 
   private final AttributeKey _attributeKey;
@@ -59,7 +59,7 @@ public class UINodePropertyKey extends PropertyKey
   // old UIX 2 meaning differs from the new UIX 3 meaning.
   // Such keys must be explicitly mapped in subclasses of
   // UINodeFacesBean
-  static private final Set _EXCLUDED_KEYS = new HashSet();
+  static private final Set<String> _EXCLUDED_KEYS = new HashSet<String>();
   static
   {
     _EXCLUDED_KEYS.add("required");
@@ -77,9 +77,10 @@ public class UINodePropertyKey extends PropertyKey
 
   // Map of String names to AttributeKey objects for all
   // keys defined in
-  static private final Map _UICONSTANTS_KEYS = new HashMap();
+  static private final Map<String, AttributeKey> _UICONSTANTS_KEYS;
   static
   {
+    _UICONSTANTS_KEYS = new HashMap<String, AttributeKey>();
     try
     {
       _findKeys();

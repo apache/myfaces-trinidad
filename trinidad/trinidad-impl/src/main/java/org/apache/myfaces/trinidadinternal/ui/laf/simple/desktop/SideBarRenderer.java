@@ -42,6 +42,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   /**
    * Implementation of ElementRenderer.getName();
    */
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -53,6 +54,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   /**
    * Returns the sideBar's style class: OraSideBar
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -64,6 +66,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   /**
    * Override of BaseRenderer.renderAttributes().
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -82,6 +85,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   /**
    * Override of BaseRenderer.prerender()
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -111,6 +115,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   /**
    * Override of BaseRenderer.postrender()
    */
+  @Override
   protected final void postrender(
     UIXRenderingContext context,
     UINode           node

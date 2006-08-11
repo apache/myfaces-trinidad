@@ -26,41 +26,49 @@ public class MViewHandler extends ViewHandler
   {
   }
 
+  @Override
   public Locale calculateLocale(FacesContext context)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public String calculateRenderKitId(FacesContext context)
   {
     throw new UnsupportedOperationException("Not implemented yet");
  }
 
+  @Override
   public UIViewRoot createView(FacesContext context, String viewId)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public String getActionURL(FacesContext context, String viewId)
   {
     return "action-url:" + viewId;
   }
 
+  @Override
   public String getResourceURL(FacesContext context, String viewId)
   {
     return "resource-url:" + viewId;
   }
 
+  @Override
   public void renderView(FacesContext context, UIViewRoot root)
   {
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
   public UIViewRoot restoreView(FacesContext context, String root)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");
   }
 
+  @Override
   public void writeState(FacesContext context) throws IOException 
   {
     context.getResponseWriter().startElement("VIEW-STATE", null);

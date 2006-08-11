@@ -24,6 +24,7 @@ public class SubTypeBean extends TestBean
   static public final PropertyKey SUB_KEY =
     TYPE.registerKey("sub");
   
+  @Override
   public Type getType()
   {
     return TYPE;

@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
  */
 public class RendererNodeParser extends BaseNodeParser implements XMLConstants
 {
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -59,6 +60,7 @@ public class RendererNodeParser extends BaseNodeParser implements XMLConstants
     }
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -76,6 +78,7 @@ public class RendererNodeParser extends BaseNodeParser implements XMLConstants
     return context.getParser(Renderer.class, namespaceURI, localName);
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -86,6 +89,7 @@ public class RendererNodeParser extends BaseNodeParser implements XMLConstants
     _renderer = (Renderer)child;
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,

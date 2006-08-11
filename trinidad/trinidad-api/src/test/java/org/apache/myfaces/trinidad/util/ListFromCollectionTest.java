@@ -44,14 +44,14 @@ public class ListFromCollectionTest extends TestCase
 
   public void testGet()
   {
-    TreeSet tree = new TreeSet();
+    TreeSet<Integer> tree = new TreeSet<Integer>();
     for (int i = 0; i < 250; i++)
       tree.add(new Integer(i));
 
     ListFromCollection lfc = new ListFromCollection();
     lfc.setSize(100);
 
-    List list = lfc.getList().get(tree);
+    List<?> list = lfc.getList().get(tree);
     assertEquals(tree.size(), list.size());
     assertEquals(new Integer(5), list.get(5));
     assertEquals(new Integer(155), list.get(155));

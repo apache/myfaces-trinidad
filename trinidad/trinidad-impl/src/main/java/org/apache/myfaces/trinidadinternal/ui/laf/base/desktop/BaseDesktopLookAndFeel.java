@@ -43,6 +43,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
    * Returns the id for the desktop implementation of the Base
    * Look And Feel: "base.desktop".
    */
+  @Override
   public String getId()
   {
     return BaseDesktopConstants.BASE_DESKTOP_ID;
@@ -52,6 +53,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
    * Returns the family for the Base
    * Look And Feel: "base".
    */
+  @Override
   public String getFamily()
   {
     return "base";
@@ -65,6 +67,7 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     return "META-INF/adf/styles/base-desktop.xss";
   }
 
+  @Override
   public RendererManager getRendererManager(String facet)
   {
     if (FACET_PRINTABLE.equals(facet))
@@ -87,7 +90,9 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     return super.getRendererManager(facet);
   }
 
-  public Iterator getSupportedFacets()
+  @SuppressWarnings("unchecked")
+  @Override
+  public Iterator<String> getSupportedFacets()
   {
     if (_SUPPORTED_FACETS!=null)
     {
@@ -129,11 +134,13 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     }
   }
 
+  @Override
   protected RendererFactory getDefaultFactory()
   {
     return _FACTORY;
   }
 
+  @Override
   protected RendererFactory getFactory(String facet)
   {
     if (FACET_PRINTABLE.equals(facet))

@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -88,6 +89,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   public boolean isSupportedNode(
     UIXRenderingContext context,
     UINode           node
@@ -119,6 +121,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
   }
     */
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -138,6 +141,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
    * overwrites the superclass method so that no children are written except
    * for the named ones.
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -264,6 +268,7 @@ public class FrameBorderLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode node

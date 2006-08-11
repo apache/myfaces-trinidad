@@ -58,6 +58,7 @@ public class ElementRenderer extends BaseRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -82,6 +83,7 @@ public class ElementRenderer extends BaseRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node) throws IOException

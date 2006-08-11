@@ -71,7 +71,7 @@ public abstract class UINodeAttributeMap implements AttributeMap
     }
   }
 
-  public Iterator attributeKeys(
+  public Iterator<AttributeKey> attributeKeys(
     UIXRenderingContext context
     )
   {

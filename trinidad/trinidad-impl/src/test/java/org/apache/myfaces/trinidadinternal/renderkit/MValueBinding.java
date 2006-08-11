@@ -27,6 +27,7 @@ public class MValueBinding extends ValueBinding
     _expression = expression.substring(2, expression.length() - 1);
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     String varName;
@@ -60,21 +61,25 @@ public class MValueBinding extends ValueBinding
     return _resolveProperty(context, var, expr.substring(period + 1));
   }
   
+  @Override
   public void setValue(FacesContext context, Object value)
   {
     throw new UnsupportedOperationException("Should not be called during rendering");    
   }
 
+  @Override
   public boolean isReadOnly(FacesContext context)
   {
     return true;
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return Object.class;
   }
 
+  @Override
   public String getExpressionString()
   {
     return "#{" + _expression + "}";

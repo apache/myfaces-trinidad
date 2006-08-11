@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class FrameRenderer extends XhtmlLafRenderer
 {
+  @Override
   public boolean isSupportedNode(
     UIXRenderingContext context,
     UINode           node
@@ -41,6 +42,7 @@ public class FrameRenderer extends XhtmlLafRenderer
     return supportsFrames(context);
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -70,7 +72,7 @@ public class FrameRenderer extends XhtmlLafRenderer
 						  null);
   }
 
-
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -92,6 +94,7 @@ public class FrameRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -104,6 +107,7 @@ public class FrameRenderer extends XhtmlLafRenderer
   /**
    * Override to return the id and then anme, in that order
    */
+  @Override
   protected Object getID(
     UIXRenderingContext context,
     UINode           node
@@ -116,6 +120,7 @@ public class FrameRenderer extends XhtmlLafRenderer
   /**
    * Override to render both the id and the name
    */
+  @Override
   protected void renderID(
     UIXRenderingContext context,
     UINode           node
@@ -124,6 +129,7 @@ public class FrameRenderer extends XhtmlLafRenderer
     renderNameAndID(context, node);
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

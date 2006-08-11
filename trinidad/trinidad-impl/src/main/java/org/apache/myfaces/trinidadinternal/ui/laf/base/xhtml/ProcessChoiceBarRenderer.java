@@ -76,6 +76,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -103,7 +104,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     super.renderContent(context, node);
   }
 
-
+  @Override
   protected void selectItemsRenderContent(
     UIXRenderingContext context,
     UINode           node
@@ -116,6 +117,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -414,6 +416,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -466,6 +469,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   }
 
+  @Override
   protected Object getOnChange(
     UIXRenderingContext context,
     UINode           node

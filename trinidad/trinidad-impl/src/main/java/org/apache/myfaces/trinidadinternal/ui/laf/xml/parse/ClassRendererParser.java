@@ -40,6 +40,7 @@ public class ClassRendererParser extends LeafNodeParser implements XMLConstants
    * Override of LeafNodeParser.getNodeValue().
    * Returns a ComponentNode.
    */
+  @Override
   protected Object getNodeValue(
     ParseContext context,
     String       namespaceURI,
@@ -54,7 +55,7 @@ public class ClassRendererParser extends LeafNodeParser implements XMLConstants
     try
     {
       // Use ClassLoaderUtils to load the Renderer class
-      Class classInstance = ClassLoaderUtils.loadClass(name);
+      Class<?> classInstance = ClassLoaderUtils.loadClass(name);
 
       // Instantiate a new instance
       return classInstance.newInstance();

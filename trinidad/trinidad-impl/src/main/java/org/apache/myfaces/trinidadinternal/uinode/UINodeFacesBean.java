@@ -71,13 +71,13 @@ public class UINodeFacesBean extends FacesBeanImpl
       super(null);
     }
 
-
+    @Override
     protected PropertyKey createPropertyKey(
-      String name,
-      Class  type,
-      Object defaultValue,
-      int    capabilities,
-      int    index)
+      String   name,
+      Class<?> type,
+      Object   defaultValue,
+      int      capabilities,
+      int      index)
     {
       return new UINodePropertyKey(name, type, defaultValue, 
                                    capabilities, index);
@@ -108,6 +108,7 @@ public class UINodeFacesBean extends FacesBeanImpl
 
   }
 
+  @Override
   public FacesBean.Type getType()
   {
     return _type;
@@ -134,10 +135,12 @@ public class UINodeFacesBean extends FacesBeanImpl
     return UIConstants.MARLIN_NAMESPACE;
   }
 
+  @Override
   protected PropertyMap createPropertyMap()
   {
     return new FlaggedPropertyMap()
     {
+      @Override
       public Object put(PropertyKey key, Object value)
       {
         if (value == null)
@@ -182,10 +185,12 @@ public class UINodeFacesBean extends FacesBeanImpl
     };
   }
 
+  @Override
   protected PropertyMap createBindingsMap()
   {
     FlaggedPropertyMap bindings = new FlaggedPropertyMap()
     {
+      @Override
       public Object put(PropertyKey key, Object value)
       {
         if (value == null)
@@ -301,9 +306,9 @@ public class UINodeFacesBean extends FacesBeanImpl
 
   // If any of these "Sets" are small, eliminate and move to
   // custom subclass
-  static private Set _HAS_ICON_URL = new HashSet();
+  static private Set<String> _HAS_ICON_URL = new HashSet<String>();
   // Move this to a protected boolean hook?
-  static private Set _ALWAYS_RENDER_ID = new HashSet();
+  static private Set<String> _ALWAYS_RENDER_ID = new HashSet<String>();
 
   static
   {

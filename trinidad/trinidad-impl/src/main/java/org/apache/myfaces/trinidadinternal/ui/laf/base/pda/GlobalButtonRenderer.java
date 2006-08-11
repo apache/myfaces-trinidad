@@ -33,6 +33,7 @@ public class GlobalButtonRenderer extends LinkRenderer
    * Override to return the correct style depending on the
    * state
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node

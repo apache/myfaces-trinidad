@@ -69,9 +69,10 @@ final class FlippedIconRequest extends FlippedIconKey
 
   // Override of getRenderProperties() which adds in the
   // InputStreamProvider for the source icon
-  public Map getRenderProperties(ImageContext context)
+  @Override
+  public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    Map properties = super.getRenderProperties(context);
+    Map<Object, Object> properties = super.getRenderProperties(context);
 
     FacesContext fContext = FacesContext.getCurrentInstance();
     Object objContext = fContext.getExternalContext().getContext();

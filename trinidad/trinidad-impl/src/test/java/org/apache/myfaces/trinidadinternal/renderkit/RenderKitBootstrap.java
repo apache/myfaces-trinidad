@@ -29,8 +29,6 @@ import org.apache.myfaces.trinidad.context.Agent;
 
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
-
 import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
@@ -158,7 +156,10 @@ public class RenderKitBootstrap
   }
 
   private FacesConfigInfo _facesConfigInfo;
-  private CoreRenderKit   _coreRenderKit;
+  
+  // -= Simon Lessard =- 
+  // TODO: Never read as of 2006-08-09, remove for good if no problem show up.
+  //private CoreRenderKit   _coreRenderKit;
 
   static private Agent           _geckoAgent;
   static private Agent           _ieAgent;

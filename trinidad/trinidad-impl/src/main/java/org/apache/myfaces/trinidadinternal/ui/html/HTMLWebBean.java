@@ -83,6 +83,7 @@ public class HTMLWebBean extends BaseMutableUINode
    * Returns the renderer to use on the bean.  Hardcoded
    * HTMLElementRenderer.
    */
+  @Override
   public Renderer getRenderer(
     UIXRenderingContext context,
     UINode           dataNode

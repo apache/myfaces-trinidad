@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class FlowLayoutRenderer extends XhtmlLafRenderer
 {  
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -34,7 +35,7 @@ public class FlowLayoutRenderer extends XhtmlLafRenderer
     renderNamedChild(context, node, SEPARATOR_CHILD);
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

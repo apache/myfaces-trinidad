@@ -41,6 +41,7 @@ public class RootAttributeMap extends UINodeAttributeMap
   {
   }
   
+  @Override
   protected UINode getUINode(
     UIXRenderingContext context
     )
@@ -58,6 +59,7 @@ public class RootAttributeMap extends UINodeAttributeMap
     return null;
   }
   
+  @Override
   protected UIXRenderingContext getRenderingContext(UIXRenderingContext context)
   {
     if (context == null)

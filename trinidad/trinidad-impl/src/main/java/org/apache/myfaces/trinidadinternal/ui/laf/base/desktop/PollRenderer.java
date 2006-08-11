@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  */
 public class PollRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -51,6 +52,7 @@ public class PollRenderer extends HtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

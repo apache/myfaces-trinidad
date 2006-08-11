@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
  */
 public class SubmitButtonRenderer extends ResetButtonRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -59,6 +60,7 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
   /**
    * Override to change the type of the button
    */
+  @Override
   protected String getButtonType()
   {
     return "submit";
@@ -227,6 +229,7 @@ public class SubmitButtonRenderer extends ResetButtonRenderer
   /**
    * Returns the Javascript function call to return for this button.
    */
+  @Override
   protected String getFunctionCall(
     UIXRenderingContext context,
     UINode           node,

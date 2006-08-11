@@ -33,7 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
  */
 public class PageMenuBarRenderer extends GlobalHeaderRenderer
 {
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -80,6 +80,7 @@ public class PageMenuBarRenderer extends GlobalHeaderRenderer
    * Checks to see whether the globalHeader is empty (contains no
    * indexed children).
    */
+  @Override
   protected boolean isEmpty(
     UIXRenderingContext context,
     UINode           node

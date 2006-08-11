@@ -96,7 +96,7 @@ public class ArrayAttributeMap implements AttributeMap
     }
   }
 
-  public Iterator attributeKeys(
+  public Iterator<AttributeKey> attributeKeys(
     UIXRenderingContext context
     )
   {
@@ -104,11 +104,11 @@ public class ArrayAttributeMap implements AttributeMap
 
     if (size == 0)
       return null;
-    ArrayList keyValuesList = new ArrayList();
+    ArrayList<AttributeKey> keyValuesList = new ArrayList<AttributeKey>();
     int i = (size-1)*2;
     while(i>=0)
     {
-      keyValuesList.add(_keyValues[i]);
+      keyValuesList.add((AttributeKey)_keyValues[i]);
       i=i-2;
     }
    return  keyValuesList.iterator();
@@ -123,6 +123,7 @@ public class ArrayAttributeMap implements AttributeMap
   /**
    * Clones the map.
    */
+  @Override
   public Object clone()
   {
     try
@@ -131,7 +132,7 @@ public class ArrayAttributeMap implements AttributeMap
 
       if (_keyValues != _EMPTY_KEY_VALUES)
       {
-        am._keyValues = (Object[])_keyValues.clone();
+        am._keyValues = _keyValues.clone();
       }
 
       return am;
@@ -143,7 +144,7 @@ public class ArrayAttributeMap implements AttributeMap
     }
   }
 
-
+  @Override
   public String toString()
   {
     int entryCount = size() * 2;

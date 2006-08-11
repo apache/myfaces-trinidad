@@ -39,6 +39,7 @@ public class AddRemoveTest extends TestCase
     super(testName);
   }
 
+  @SuppressWarnings("unchecked")
   public void testAddChild()
   {
     UIXPanel a = new UIXPanel();
@@ -79,6 +80,7 @@ public class AddRemoveTest extends TestCase
     assertEquals(e.getChildren().get(1), c);
   }
 
+  @SuppressWarnings("unchecked")
   public void testAddFacet()
   {
     UIXPanel a = new UIXPanel();
@@ -103,6 +105,7 @@ public class AddRemoveTest extends TestCase
     assertEquals(b, a.getChildren().get(0));
   }
 
+  @SuppressWarnings("unchecked")
   public void testMoveFromFacetToChild()
   {
     UIXPanel a = new UIXPanel();
@@ -115,6 +118,7 @@ public class AddRemoveTest extends TestCase
     assertEquals(b, a.getFacets().get("child"));
   }
 
+  @SuppressWarnings("unchecked")
   public void testMoveFromChildToFacet()
   {
     UIXPanel a = new UIXPanel();

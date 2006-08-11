@@ -23,6 +23,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
 import javax.faces.convert.Converter;
+import javax.faces.validator.Validator;
+
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -67,6 +69,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
    * Override to handle case where this element isn't in a supported module
    * of the current user agent
    */
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -185,6 +188,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   /**
    * Override to add support for rendering syle elements
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -216,6 +220,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
   /**
    * Override to add support for rendering syle elements
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -264,7 +269,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     }
   }
 
-
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -2031,6 +2036,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     }
   }
 
+  @SuppressWarnings("unchecked")
   protected void addOnSubmitConverterValidators(
     UIXRenderingContext context,
     UINode           node,
@@ -2050,8 +2056,9 @@ public class XhtmlLafRenderer extends BaseLafRenderer
                            node.getAttributeValue(context, REQUIRED_ATTR));
       Converter converter = (Converter)node.getAttributeValue(context,
                                                   UIConstants.CONVERTER_ATTR);
-      Iterator validators = (Iterator) node.getAttributeValue(context,
-                                                   UIConstants.VALIDATORS_ATTR);
+      Iterator<Validator> validators = 
+        (Iterator<Validator>) node.getAttributeValue(context,
+                                                     UIConstants.VALIDATORS_ATTR);
       if (requiredField ||
           (converter != null) ||
           ((validators != null) && validators.hasNext()))

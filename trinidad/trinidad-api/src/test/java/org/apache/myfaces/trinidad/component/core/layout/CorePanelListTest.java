@@ -38,11 +38,13 @@ public class CorePanelListTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -82,6 +84,7 @@ public class CorePanelListTest extends UIXPanelTestCase
                               new Integer(1), new Integer(2));                   
   }
 
+  @Override
   protected UIXPanel createTestComponent()
   {
       return new CorePanelList();

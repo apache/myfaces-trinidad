@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
  */
 public class GlobalHeaderRenderer extends HtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -51,6 +52,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
     return DIV_ELEMENT;
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -65,6 +67,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -96,6 +99,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -141,6 +145,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -162,6 +167,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
     renderRelatedLinksBlockEnd(context);
   }
   
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -213,6 +219,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * Override of renderBetweenIndexedChildren() which 
    * renders the separator Icon.
    */
+    @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node
@@ -239,6 +246,7 @@ public class GlobalHeaderRenderer extends HtmlLafRenderer
    * Override of getStyleClass() which forces style class
    * to OraGlobalHeader.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node

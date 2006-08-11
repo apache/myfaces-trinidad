@@ -198,6 +198,7 @@ public class DataObjectListNodeList extends UINodeListProxy
    * Returns the size of the DataObjectListNodeList;  returns
    * (number of contained nodes) * (size of the DataObjectList).
    */
+  @Override
   public int size(UIXRenderingContext context)
   {
     DataObjectList dol = getDataObjectList(context);
@@ -206,7 +207,7 @@ public class DataObjectListNodeList extends UINodeListProxy
     return dol.getLength() * super.size(context);
   }
 
-
+  @Override
   public UINode getUINode(
     UIXRenderingContext context,
     int index
@@ -251,6 +252,7 @@ public class DataObjectListNodeList extends UINodeListProxy
     }
   }
 
+  @Override
   public Object clone()
   {
     DataObjectListNodeList cloned = (DataObjectListNodeList) super.clone();
@@ -298,6 +300,7 @@ public class DataObjectListNodeList extends UINodeListProxy
     }
   }
 
+  @Override
   protected UINodeList getUINodeList(UIXRenderingContext context)
   {
     return _baseNodes;

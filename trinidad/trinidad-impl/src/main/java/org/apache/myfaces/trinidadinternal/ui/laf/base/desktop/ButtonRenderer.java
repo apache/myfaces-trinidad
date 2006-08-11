@@ -68,6 +68,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @see #renderContent(UIXRenderingContext,UINode)
    * @see #renderImageContent(UIXRenderingContext,UINode,ImageProviderResponse)
    */
+  @Override
   protected final void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -85,6 +86,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @param node the node to be rendered
    * @throws IOException
    */
+  @Override
   protected final void postrender(
     UIXRenderingContext context,
     UINode node
@@ -104,6 +106,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * @param node the node to be rendered
    * @throws IOException
    */
+  @Override
   protected final void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -170,6 +173,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
    * image to render
    * @throws IOException
    */
+  @Override
   public final void render(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -228,6 +232,8 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     {
       return _ALTERNATE_RENDERER;
     }
+    
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node
@@ -276,6 +282,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     return chainedScript;
   }
 
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode node
@@ -293,6 +300,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   /**
    * Override to provide defaults
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -304,6 +312,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
   }
 
   // Returns the vertical alignment
+  @Override
   protected Object getVAlign(UIXRenderingContext context, UINode node)
   {
     // This is kind of a hack to address bug #2047577
@@ -339,7 +348,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     return align;
   }
 
-
+  @Override
   protected void renderButtonAccessKey(
     UIXRenderingContext context,
     UINode           node
@@ -447,9 +456,9 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
       getFontStyle(context, node, style, inlineStyle, styleName);
     int fontSize =
       getFontSize(context, node, style, inlineStyle, styleName);
-    Collection fontFamilies =
+    Collection<Object> fontFamilies =
       getFontFamilies(context, node, style, styleName);
-    Collection inlineFontFamilies =
+    Collection<Object> inlineFontFamilies =
       getFontFamilies(context, node, inlineStyle, null);
     MutableFontProxy font = new MutableFontProxy(null, fontStyle, fontSize);
 
@@ -483,8 +492,8 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     ImageProvider    provider,
     ImageProviderRequest request,
     MutableFontProxy font,
-    Collection   fontFamilies,
-    Collection   inlineFontFamilies
+    Collection<Object> fontFamilies,
+    Collection<Object> inlineFontFamilies
     )
   {
     ImageContext imageContext = context.getImageContext();
@@ -493,7 +502,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     // First, loop through inline font families, if we've got any
     if (inlineFontFamilies != null)
     {
-      Iterator inlineFontFamiliesIterator = inlineFontFamilies.iterator();
+      Iterator<Object> inlineFontFamiliesIterator = inlineFontFamilies.iterator();
       while(inlineFontFamiliesIterator.hasNext())
       {
         String family = (String)inlineFontFamiliesIterator.next();
@@ -509,7 +518,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
     // Next, try the font families defined by the style class
     if (fontFamilies != null)
     {
-      Iterator fontFamiliesIterator = fontFamilies.iterator();
+      Iterator<Object> fontFamiliesIterator = fontFamilies.iterator();
       while(fontFamiliesIterator.hasNext())
       {
         String family = (String)fontFamiliesIterator.next();

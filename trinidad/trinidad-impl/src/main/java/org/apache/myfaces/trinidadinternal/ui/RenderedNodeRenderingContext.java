@@ -85,7 +85,7 @@ public abstract class RenderedNodeRenderingContext extends
     }
   }
 
-
+  @Override
   public void pushRenderedChild(
     UIXRenderingContext currentContext,
     UINode renderedChild
@@ -117,7 +117,7 @@ public abstract class RenderedNodeRenderingContext extends
     super.pushRenderedChild(currentContext, renderedChild);
   }
 
-
+  @Override
   public void popRenderedChild(UIXRenderingContext currentContext)
   {
     // handle cleaning up any of the dataproviders
@@ -219,7 +219,7 @@ public abstract class RenderedNodeRenderingContext extends
     return _nodePropertyMap.get(ancestorIndex, key, defaultValue);
   }
 
-
+  @Override
   public Object clone()
   {
     RenderedNodeRenderingContext context = (RenderedNodeRenderingContext)
@@ -254,6 +254,7 @@ public abstract class RenderedNodeRenderingContext extends
    * <p>
    * The default for this property is relatively small.
    */
+  @Override
   protected int getDefaultNodeStackSize()
   {
     return _DEFAULT_STACK_SIZE;
@@ -276,6 +277,7 @@ public abstract class RenderedNodeRenderingContext extends
    * Reset the PortletContext after use so that it can be resued without
    * pinning unnecessary objects into memory
    */
+  @Override
   protected void reset()
   {
     // reset the superclass
@@ -488,7 +490,7 @@ public abstract class RenderedNodeRenderingContext extends
       _frameIndex   = -1;
     }
 
-
+    @Override
     public Object clone()
     {
       StackFrameMap stack;

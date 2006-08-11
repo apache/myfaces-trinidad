@@ -75,6 +75,7 @@ abstract public class ResourceLoaderTestCase extends TestCase
 
   public class LocalResourceLoader extends ResourceLoader
   {
+    @Override
     protected URL findResource(
       String name
       ) throws IOException

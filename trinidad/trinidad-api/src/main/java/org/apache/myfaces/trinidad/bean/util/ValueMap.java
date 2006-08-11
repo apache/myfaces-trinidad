@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
  *
  * @author The Oracle ADF Faces Team
  */
-public class ValueMap extends AbstractMap<Object, Object>
+public class ValueMap extends AbstractMap<String, Object>
 {
   public ValueMap(FacesBean bean)
   {
@@ -67,23 +67,12 @@ public class ValueMap extends AbstractMap<Object, Object>
   }
 
   @Override
-  public Object put(Object key, Object value)
+  public Object put(String key, Object value)
   {
     if (key == null)
       throw new NullPointerException();
 
-    PropertyKey propertyKey = _getPropertyKey(key);
-    Object oldValue = _bean.getProperty(propertyKey);
-    _bean.setProperty(propertyKey, value);
-    if (_entries != null)
-    {
-      if (value == null)
-        _entries._keys.remove(propertyKey);
-      else
-        _entries._keys.add(propertyKey);
-    }
-
-    return oldValue;
+    return _putInternal(_getPropertyKey(key), value);
   }
   
   /**
@@ -102,7 +91,7 @@ public class ValueMap extends AbstractMap<Object, Object>
   }
 
   @Override
-  public Set<Map.Entry<Object, Object>> entrySet()
+  public Set<Map.Entry<String, Object>> entrySet()
   {
     if (_entries == null)
     {
@@ -114,8 +103,25 @@ public class ValueMap extends AbstractMap<Object, Object>
 
     return _entries;
   }
+  
+  private Object _putInternal(PropertyKey propertyKey, Object value)
+  {
+    assert propertyKey != null;
 
-  private class MakeEntries extends AbstractSet<Map.Entry<Object, Object>>
+    Object oldValue = _bean.getProperty(propertyKey);
+    _bean.setProperty(propertyKey, value);
+    if (_entries != null)
+    {
+      if (value == null)
+        _entries._keys.remove(propertyKey);
+      else
+        _entries._keys.add(propertyKey);
+    }
+
+    return oldValue;
+  }
+
+  private class MakeEntries extends AbstractSet<Map.Entry<String, Object>>
   {
     public MakeEntries(Set<PropertyKey> keys)
     {
@@ -140,17 +146,17 @@ public class ValueMap extends AbstractMap<Object, Object>
     }
 
     @Override
-    public Iterator<Map.Entry<Object, Object>> iterator()
+    public Iterator<Map.Entry<String, Object>> iterator()
     {
       final Iterator<PropertyKey> base = _keys.iterator();
-      return new Iterator<Map.Entry<Object, Object>>()
+      return new Iterator<Map.Entry<String, Object>>()
       {
         public boolean hasNext()
         {
           return base.hasNext();
         }
 
-        public Map.Entry<Object, Object> next()
+        public Map.Entry<String, Object> next()
         {
           _lastEntry = new EntryImpl(base.next());
           return _lastEntry;
@@ -174,14 +180,16 @@ public class ValueMap extends AbstractMap<Object, Object>
     private Set<PropertyKey> _keys;
   }
 
-  private class EntryImpl implements Entry<Object, Object>
+  private class EntryImpl implements Entry<String, Object>
   {
     public EntryImpl(PropertyKey key)
     {
+      assert key != null;
+      
       _key = key;
     }
 
-    public Object getKey()
+    public String getKey()
     {
       return _key.getName();
     }
@@ -193,7 +201,7 @@ public class ValueMap extends AbstractMap<Object, Object>
 
     public Object setValue(Object value)
     {
-      return put(_key, value);
+      return _putInternal(_key, value);
     }
 
     @SuppressWarnings("unchecked")

@@ -36,6 +36,7 @@ import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
  */
 public class PanelTabbedRenderer extends HtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -44,6 +45,7 @@ public class PanelTabbedRenderer extends HtmlLafRenderer
     return SPAN_ELEMENT;
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -83,6 +85,7 @@ public class PanelTabbedRenderer extends HtmlLafRenderer
     }
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -110,6 +113,7 @@ public class PanelTabbedRenderer extends HtmlLafRenderer
       setPartialTargets(context, partialTargets);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node

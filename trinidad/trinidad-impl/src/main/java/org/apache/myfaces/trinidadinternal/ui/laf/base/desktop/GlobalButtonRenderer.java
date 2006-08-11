@@ -40,6 +40,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void prerender(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -97,6 +98,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
     writer.endElement(LINK_ELEMENT);
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -109,6 +111,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
    * @todo added basic fireAction support, didn't do the part commented out
    * about _getPartialChangeScript if action is null
    */
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node
@@ -224,6 +227,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
     return (selectedAttr || linkProp);
   }
 
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node

@@ -60,5 +60,5 @@ public interface AttributeMap
    * Returns an Iterator of all of the AttributeKeys in the AttributeMap
    * that values exist for.
    */
-  public Iterator attributeKeys(UIXRenderingContext context);
+  public Iterator<AttributeKey> attributeKeys(UIXRenderingContext context);
 }

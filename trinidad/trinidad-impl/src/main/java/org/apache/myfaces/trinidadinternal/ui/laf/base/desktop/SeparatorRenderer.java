@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class SeparatorRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -42,6 +43,7 @@ public class SeparatorRenderer extends HtmlLafRenderer
     writer.endElement("hr");
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -50,7 +52,7 @@ public class SeparatorRenderer extends HtmlLafRenderer
     // do nothing
   }
 
-
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node) throws IOException

@@ -35,7 +35,7 @@ public final class MapContextMap implements ContextMap
   }
 
   public MapContextMap(
-    Map map
+    Map<String, Object> map
     )
   {
     if (map == null)
@@ -53,8 +53,8 @@ public final class MapContextMap implements ContextMap
   }
 
   public void set(
-    Object  key,
-    Object  value
+      String  key,
+      Object  value
     )
   {
     if (value == null)
@@ -67,13 +67,13 @@ public final class MapContextMap implements ContextMap
     }
   }
 
-  public Iterator keys(
+  public Iterator<String> keys(
     UIXRenderingContext context
     )
   {  
     if(_map instanceof ArrayMap)
     {
-      return ((ArrayMap) _map).keys();
+      return ((ArrayMap<String, Object>) _map).keys();
     }
     return _map.keySet().iterator();
   }
@@ -83,10 +83,10 @@ public final class MapContextMap implements ContextMap
     return _map.size();
   }
 
-  protected Map createDefaultMap()
+  protected Map<String, Object> createDefaultMap()
   {
-    return new HashMap(13);
+    return new HashMap<String, Object>(13);
   }
 
-  private Map _map;
+  private Map<String, Object> _map;
 }

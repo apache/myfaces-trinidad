@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class BorderLayoutRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -58,6 +59,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
    * @see #renderIndexedChildren(UIXRenderingContext, UINode)
    * @see org.apache.myfaces.trinidadinternal.ui.BaseRenderer#renderContent(UIXRenderingContext, UINode)
    */
+  @Override
   protected void renderContent(UIXRenderingContext context,
                                UINode node) throws IOException
   {
@@ -213,6 +215,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -229,7 +232,7 @@ public class BorderLayoutRenderer extends XhtmlLafRenderer
     return DIV_ELEMENT;
   }
 
-
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node

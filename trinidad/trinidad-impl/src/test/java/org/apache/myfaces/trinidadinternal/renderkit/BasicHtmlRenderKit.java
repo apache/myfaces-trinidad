@@ -60,16 +60,22 @@ public class BasicHtmlRenderKit extends RenderKitBase
     */
     Renderer n = new Renderer()
     {
+      @Override
       public void decode(FacesContext context, UIComponent component)
       {
       }
 
+      @Override
       public void encodeBegin(FacesContext context, UIComponent component)
       {
       }
+      
+      @Override
       public void encodeChildren(FacesContext context, UIComponent component)
       {
       }
+      
+      @Override
       public void encodeEnd(FacesContext context, UIComponent component)
       {
       }
@@ -95,16 +101,19 @@ public class BasicHtmlRenderKit extends RenderKitBase
 
   }
 
+  @Override
   public ResponseStateManager getResponseStateManager()
   {
     return null;
   }
 
+  @Override
   public ResponseStream createResponseStream(OutputStream out)
   {
     return null;
   }
 
+  @Override
   public ResponseWriter createResponseWriter(Writer out, String contentType, String encoding)
   {
     return null;

@@ -86,6 +86,7 @@ public class ApplicationSwitcherRenderer extends
 
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -120,7 +121,7 @@ public class ApplicationSwitcherRenderer extends
     super.renderContent(context, node);
   }
 
-
+  @Override
   protected Object getNodeName(
           UIXRenderingContext context,
           UINode           node
@@ -132,6 +133,7 @@ public class ApplicationSwitcherRenderer extends
   /**
    * Returns the value associated with the selected value attribute
    */
+  @Override
   protected String getSelectedValue(UIXRenderingContext context, UINode node)
   {
     BoundValue bv = new MenuChoiceSelectedValueBoundValue(
@@ -139,7 +141,7 @@ public class ApplicationSwitcherRenderer extends
     return (String) bv.getValue(context);
   }
 
-
+  @Override
   protected void selectItemsRenderContent(
     UIXRenderingContext context,
     UINode           node
@@ -152,6 +154,7 @@ public class ApplicationSwitcherRenderer extends
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -246,6 +249,7 @@ public class ApplicationSwitcherRenderer extends
    * @param context the rendering context
    * @param node the current UINode
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -413,6 +417,7 @@ public class ApplicationSwitcherRenderer extends
       super(component);
     }
 
+    @Override
     protected boolean setNewPath(
       UIXNavigationHierarchy  menuComponent
     )
@@ -422,6 +427,7 @@ public class ApplicationSwitcherRenderer extends
                                            menuComponent.getFocusRowKey());
     }
 
+    @Override
     protected UIComponent getStamp(
       UIXNavigationHierarchy   menuComponent
       )

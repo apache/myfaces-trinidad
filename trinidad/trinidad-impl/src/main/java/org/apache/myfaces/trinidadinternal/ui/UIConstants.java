@@ -170,6 +170,7 @@ public interface UIConstants
 
 
   /** @deprecated use CHILD_TYPE_TEXT string instead */
+  @Deprecated
   public static final AttributeKey CHILD_TYPE_TEXT_ATTR = new AttributeKey("childTypeText");
 
   /** Type: String */
@@ -372,6 +373,7 @@ public interface UIConstants
                                      new AttributeKey("blockOnEverySubmit");
 
   /** @deprecated Do not use this attribute */
+  @Deprecated
   public static final AttributeKey ANCESTOR_ID_ATTR     = new AttributeKey("ancestorID");
 
 
@@ -1207,6 +1209,7 @@ public interface UIConstants
   public static final String SWITCH_APP_TYPE_GOTO   = "goto";
 
   /** @deprecated The application switcher no longer has a back button */
+  @Deprecated
   public static final String SWITCH_APP_TYPE_BACK   = "back";
 
   // HideShow
@@ -1305,6 +1308,7 @@ public interface UIConstants
   /**
    * @deprecated This constant is for dev purposes only
    */
+  @Deprecated
   public static final AttributeKey DESCRIPTION_ATTR =
     new AttributeKey("description", 42);
 
@@ -1312,11 +1316,13 @@ public interface UIConstants
   /**
    * @deprecated This constant is for dev purposes only
    */
+  @Deprecated
   public static final AttributeKey SELECT_ATTR = new AttributeKey("select");
 
   /**
    * @deprecated This constant is for dev purposes only
    */
+  @Deprecated
   public static final String PARTIAL_ROOT_NAME = "partialRoot";
 
 }

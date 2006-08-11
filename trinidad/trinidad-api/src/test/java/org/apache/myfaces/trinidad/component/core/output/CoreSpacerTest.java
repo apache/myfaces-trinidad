@@ -38,11 +38,13 @@ public class CoreSpacerTest extends UIXObjectTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -86,6 +88,7 @@ public class CoreSpacerTest extends UIXObjectTestCase
     // no facets yet
   }
 
+  @Override
   protected UIXObject createTestComponent()
   {
     return new CoreSpacer();

@@ -38,6 +38,7 @@ public class AttributeChangeTester extends MethodBinding
     _listenerCalled = true;
   }
 
+  @Override
   public Object invoke(FacesContext context, Object params[])
   {
     if (params.length != 1)
@@ -51,8 +52,8 @@ public class AttributeChangeTester extends MethodBinding
     return null;
   }
 
-
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return null;
   }

@@ -67,11 +67,13 @@ public class UIComponentTestCase extends FacesTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -92,6 +94,7 @@ public class UIComponentTestCase extends FacesTestCase
    * @param attrValue   the value for use by the attribute map mutator
    * @param propValue   the value for use by the bean mutator
    */
+  @SuppressWarnings("unchecked")
   protected void doTestAttributeTransparency(
     UIComponent component,
     String      attrName,
@@ -103,7 +106,7 @@ public class UIComponentTestCase extends FacesTestCase
                  (attrValue != null &&
                   attrValue.equals(propValue))));
 
-    Map attrMap = component.getAttributes();
+    Map<String, Object> attrMap = component.getAttributes();
     try
     {
       boolean foundProperty = false;
@@ -169,6 +172,7 @@ public class UIComponentTestCase extends FacesTestCase
    * @param facetValue  the value for use by the facet map mutator
    * @param propValue   the value for use by the bean mutator
    */
+  @SuppressWarnings("unchecked")
   protected void doTestFacetTransparency(
     UIComponent component,
     String      facetName)
@@ -183,7 +187,7 @@ public class UIComponentTestCase extends FacesTestCase
     mockPropValue.stubs().method("getParent").will(returnValue(null));
     mockPropValue.stubs().method("setParent");
     
-    Map facetMap = component.getFacets();
+    Map<String, UIComponent> facetMap = component.getFacets();
     try
     {
       // bean info is cached
@@ -286,6 +290,7 @@ public class UIComponentTestCase extends FacesTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   protected void doTestApplyRequestValues(
     FacesContext context,
     UIViewRoot   root,
@@ -417,6 +422,7 @@ public class UIComponentTestCase extends FacesTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   protected void doTestProcessValidations(
     FacesContext context,
     UIViewRoot   root,
@@ -494,6 +500,7 @@ public class UIComponentTestCase extends FacesTestCase
   }
 
 
+  @SuppressWarnings("unchecked")
   protected void doTestUpdateModelValues(
     FacesContext context,
     UIViewRoot   root,
@@ -540,6 +547,7 @@ public class UIComponentTestCase extends FacesTestCase
 
 
 
+  @SuppressWarnings("unchecked")
   protected void doTestInvokeApplication(
     FacesContext context,
     UIViewRoot   root,
@@ -570,6 +578,7 @@ public class UIComponentTestCase extends FacesTestCase
    *
    * @throws IOException  when test fails
    */
+  @SuppressWarnings("unchecked")
   protected void doTestRenderResponse(
     UIComponent component) throws IOException
   {

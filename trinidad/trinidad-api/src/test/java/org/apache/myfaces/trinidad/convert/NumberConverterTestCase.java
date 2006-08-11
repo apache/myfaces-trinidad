@@ -491,7 +491,10 @@ public abstract class NumberConverterTestCase extends ConverterTestCase
 
   private static final String[] _TYPES = {"currency","percent"};
 
-  private static final boolean[] _GROUPING = {true, false};
+  // -= Simon Lessard =-
+  // TODO: Never read locally as of 2006-08-09. Remove whenever possible
+  //       or implements a grouping test using this constant.
+  //private static final boolean[] _GROUPING = {true, false};
 
   private static final boolean[] _INTEGER_ONLY = {true, false};
 

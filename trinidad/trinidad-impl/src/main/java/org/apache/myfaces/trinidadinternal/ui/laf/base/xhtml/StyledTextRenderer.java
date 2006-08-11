@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
  */
 public class StyledTextRenderer extends XhtmlLafRenderer
 {
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -140,6 +140,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
    * Actually renders the style attributes.
    * @see #doRenderStyleAttrs
    */
+  @Override
   protected void renderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -180,6 +181,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
     return getStyleClass(context, node);
   }
 
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode           node
@@ -190,7 +192,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
                                                TEXT_ATTR);
   }
 
-
+  @Override
   protected boolean doRenderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -210,7 +212,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
                                            LABELED_NODE_ID_ATTR);
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

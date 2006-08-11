@@ -50,6 +50,7 @@ public class TabBarRenderer
   implements SimpleDesktopConstants
 
 {
+  @Override
   protected void renderNode(
     UIXRenderingContext context,
     UINode           child,
@@ -101,6 +102,7 @@ public class TabBarRenderer
    * Override of renderTabStyleAttrs() which adds support
    * for a background image
    */
+  @Override
   protected void renderTabStyleAttrs(
     UIXRenderingContext context,
     UINode           node,
@@ -124,6 +126,7 @@ public class TabBarRenderer
    * Override of the base.desktop.TabBarRenderer's
    * renderBetweenNodes().
    */
+  @Override
   protected void renderBetweenNodes(
     UIXRenderingContext context,
     UINode           node

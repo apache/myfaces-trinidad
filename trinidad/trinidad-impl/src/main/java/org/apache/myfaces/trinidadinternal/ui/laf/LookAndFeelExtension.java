@@ -75,6 +75,7 @@ public class LookAndFeelExtension extends LookAndFeel
   /**
    * Returns the id of this custom LookAndFeel.
    */
+  @Override
   public String getId()
   {
     return _id;
@@ -84,6 +85,7 @@ public class LookAndFeelExtension extends LookAndFeel
    * Returns the name of the look and feel family that this
    * LookAndFeelExtension belongs to.
    */
+  @Override
   public String getFamily()
   {
     return _family;
@@ -93,6 +95,7 @@ public class LookAndFeelExtension extends LookAndFeel
    * Implementation of LookAndFeel.getRendererManager() which
    * delegates to the base LookAndFeel.
    */
+  @Override
   public RendererManager getRendererManager()
   {
     return getRendererManager(UIConstants.FACET_DEFAULT);
@@ -102,6 +105,7 @@ public class LookAndFeelExtension extends LookAndFeel
    * Implementation of LookAndFeel.getRendererManager() which
    * delegates to the base LookAndFeel.
    */
+  @Override
   public RendererManager getRendererManager(String facet)
   {
     if (facet == null)
@@ -133,7 +137,8 @@ public class LookAndFeelExtension extends LookAndFeel
    * Implementation of LookAndFeel.getSupportedFacets() which
    * delegates to the base LookAndFeel.
    */
-  public Iterator getSupportedFacets()
+  @Override
+  public Iterator<String> getSupportedFacets()
   {
     return getBaseLookAndFeel().getSupportedFacets();
   }
@@ -164,11 +169,11 @@ public class LookAndFeelExtension extends LookAndFeel
     }
     else
     {
-      Iterator facets = getSupportedFacets();
+      Iterator<String> facets = getSupportedFacets();
 
       while (facets.hasNext())
       {
-        facet = (String)facets.next();
+        facet = facets.next();
         _registerRenderer(namespace, name, facet, renderer);
       }
     }
@@ -201,11 +206,11 @@ public class LookAndFeelExtension extends LookAndFeel
     }
     else
     {
-      Iterator facets = getSupportedFacets();
+      Iterator<String> facets = getSupportedFacets();
 
       while (facets.hasNext())
       {
-        facet = (String)facets.next();
+        facet = facets.next();
         _registerRenderer(namespace, name, facet, className);
       }
     }
@@ -284,6 +289,7 @@ public class LookAndFeelExtension extends LookAndFeel
       return _rendererManager;
     }
 
+    @Override
     public RendererFactory getFactory(String namespace)
     {
       // First, check to see if we have already created a
@@ -305,12 +311,14 @@ public class LookAndFeelExtension extends LookAndFeel
       return factory;
     }
 
+    @Override
     synchronized public void registerFactory(
        String namespace, RendererFactory factory)
     {
       _registerFactory(namespace, factory);
     }
 
+    @Override
     synchronized public void unregisterFactory(String namespace)
     {
       _proxyFactories = ArrayMap.remove(_proxyFactories, namespace);

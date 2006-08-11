@@ -43,11 +43,13 @@ public class ColorConverterTest extends ConverterTestCase
     super(testName);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -223,7 +225,7 @@ public class ColorConverterTest extends ConverterTestCase
                         new Color(105,105,105),
                       };
 
-    List patternsHoloder = new ArrayList();
+    List<String[]> patternsHoloder = new ArrayList<String[]>();
     patternsHoloder.add(new String[]{"#RRGGBB", "RRGGBB"});
     patternsHoloder.add(new String[]{"RR.GG.BB", "#RRGGBB" });
     patternsHoloder.add(new String[]{"RRGGBB", "r-g-b"});
@@ -239,7 +241,7 @@ public class ColorConverterTest extends ConverterTestCase
 
     for (int i = 0; i < patternsHoloder.size(); i++)
     {
-      String[] patterns = (String[]) patternsHoloder.get(i);
+      String[] patterns = patternsHoloder.get(i);
       converter.setPatterns(patterns);
       doTestGetAsString(converter, facesContext, wrapper,
                                     colors[i], matchValues[i] );

@@ -38,25 +38,26 @@ public class UIXSelectOrderTest extends UIXSelectManyTest
     super(testName);
   }
 
+  @Override
   public void testCompareValues()
   {
     UIXSelectOrder component = createSelectOrder();
 
     assertFalse(component.compareValues(null, null));
     assertFalse(component.compareValues(null, new Object[0]));
-    assertFalse(component.compareValues(null, new ArrayList()));
+    assertFalse(component.compareValues(null, new ArrayList<String>()));
     assertTrue(component.compareValues(null, new Object[1]));
     assertTrue(component.compareValues(new int[]{1, 2}, new int[]{2, 1}));
     assertTrue(component.compareValues(new int[]{1, 2, 3}, new int[]{2, 1}));
 
-    ArrayList one;
-    ArrayList two;
+    ArrayList<String> one;
+    ArrayList<String> two;
 
-    one = new ArrayList();
+    one = new ArrayList<String>();
     one.add("foo");
     one.add("bar");
 
-    two = new ArrayList();
+    two = new ArrayList<String>();
     two.add("bar");
     two.add("foo");
 
@@ -70,19 +71,22 @@ public class UIXSelectOrderTest extends UIXSelectManyTest
     assertTrue(component.compareValues(one, two));
   }
 
+  @Override
   public void testProcessValidations()
   {
     String[] submittedValue = new String[] {"foo", "bar"};
-    List convertedValue = Arrays.asList(submittedValue);
+    List<String> convertedValue = Arrays.asList(submittedValue);
 
     doTestProcessValidations(createEditableValue(), submittedValue, convertedValue);
   }
 
+  @Override
   protected UIXEditableValue createEditableValue()
   {
     return createSelectOrder();
   }
 
+  @Override
   protected UIXSelectMany createSelectMany()
   {
     return createSelectOrder();

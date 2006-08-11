@@ -44,6 +44,7 @@ public class HTMLRendererFactory extends RendererFactoryImpl
    * @deprecated only the version taking the RendererManager
    *             should be called.
    */ 
+  @Deprecated
   static public void registerSelf()
   {
     registerSelf(RendererManager.getDefaultRendererManager());
@@ -74,6 +75,7 @@ public class HTMLRendererFactory extends RendererFactoryImpl
   /**
    * Returns the renderer for HTML elements.
    */
+  @Override
   public Renderer getRenderer(String elementName)
   {
     return HTMLElementRenderer.getRenderer();

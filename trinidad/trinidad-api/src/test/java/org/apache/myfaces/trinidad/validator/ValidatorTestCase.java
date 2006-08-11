@@ -43,7 +43,7 @@ public abstract class ValidatorTestCase extends AbstractBaseTestCase
 
   protected void setMockLabelForComponent(MockUIComponentWrapper wrapper)
   {
-    Map attributes = new HashMap();
+    Map<String, Object> attributes = new HashMap<String, Object>();
     attributes.put("label", "label");
     wrapper.getMock().stubs().method("getAttributes").will(returnValue(attributes));
   }

@@ -20,20 +20,15 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.w3c.dom.Document;
 
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
 
@@ -78,8 +73,8 @@ public abstract class XMLValidityTestCase extends TestCase
   {
     public ER()
     {
-      _publicIDs = new HashMap();
-      _systemIDs = new HashMap();
+      _publicIDs = new HashMap<String, URL>();
+      _systemIDs = new HashMap<String, URL>();
     }
 
     public void registerPublicId(String publicId, URL url)
@@ -97,7 +92,7 @@ public abstract class XMLValidityTestCase extends TestCase
     {
       URL url = (publicId == null) ? null : (URL) _publicIDs.get(publicId);
       if (url == null)
-        url = (URL) _systemIDs.get(systemId);
+        url = _systemIDs.get(systemId);
 
       if (url == null)
         return null;
@@ -105,8 +100,8 @@ public abstract class XMLValidityTestCase extends TestCase
       return new InputSource(url.openStream());
     }
 
-    private Map _publicIDs;
-    private Map _systemIDs;
+    private Map<String, URL> _publicIDs;
+    private Map<String, URL> _systemIDs;
   }
 
   static public class Errors implements ErrorHandler

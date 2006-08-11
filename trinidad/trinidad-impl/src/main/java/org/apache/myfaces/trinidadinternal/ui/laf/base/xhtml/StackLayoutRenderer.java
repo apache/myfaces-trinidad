@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class StackLayoutRenderer extends XhtmlLafRenderer
 {  
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node,
@@ -60,7 +61,7 @@ public class StackLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

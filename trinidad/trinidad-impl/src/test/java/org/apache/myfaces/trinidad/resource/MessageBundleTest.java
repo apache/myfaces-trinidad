@@ -22,7 +22,6 @@ import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Enumeration;
 import java.util.ListResourceBundle;
 import java.util.Locale;
@@ -70,10 +69,10 @@ public class MessageBundleTest extends TestCase
   {
     ResourceBundle bundle = context.getLoadedBundle();
     _LOG.fine("Testing default bundle:{0}",context.getLoadedBundleName());
-    Enumeration en = bundle.getKeys();
+    Enumeration<String> en = bundle.getKeys();
     while (en.hasMoreElements())
     {
-      String key = (String) en.nextElement();
+      String key = en.nextElement();
       Object value = bundle.getObject(key);
 
       assertNotNull(value);
@@ -125,15 +124,15 @@ public class MessageBundleTest extends TestCase
 
     if (isRequiredBundleLoaded)
     {
-      Set thisBundleKeys = new HashSet();
-      Enumeration en = bundle.getKeys();
+      Set<String> thisBundleKeys = new HashSet<String>();
+      Enumeration<String> en = bundle.getKeys();
       while (en.hasMoreElements())
       {
-        String key   = (String) en.nextElement();
+        String key   = en.nextElement();
         thisBundleKeys.add(key);
         String value = bundle.getObject(key).toString();
 
-        Set params    = _getPlaceHolders(value);
+        Set<String> params = _getPlaceHolders(value);
 
         if (_validateKey(context, key))
         {
@@ -194,7 +193,7 @@ public class MessageBundleTest extends TestCase
   // just warns about missing keys in bundle and does not cause any failure.
   private static void _warnAbsenceOfBundleKeys(
     BundleContext context,
-    Set           bundleKeys)
+    Set<String>   bundleKeys)
   {
     if (!_isEqualsSets(bundleKeys, _DEF_BUNDLE_KEYS ))
     {
@@ -202,7 +201,7 @@ public class MessageBundleTest extends TestCase
       // keys of parent. So it is perfectly valid to have less keys than that
       // are already present in the parent. This check is just to warn in case
       // we would like to make sure we have all keys in the bundle.
-      Set temp = new HashSet(_DEF_BUNDLE_KEYS);
+      Set<String> temp = new HashSet<String>(_DEF_BUNDLE_KEYS);
       temp.removeAll(bundleKeys);
 
       _LOG.warning("Keys missing in bundle:{0} are \n{1}", 
@@ -219,10 +218,10 @@ public class MessageBundleTest extends TestCase
    */
   private static void _validateBundleParams(
    BundleContext context,
-   Set           currentLocaleParams,
+   Set<String>   currentLocaleParams,
    String        key)
   {
-    Set defaultParams = (Set) _DEF_BUNDLE_PARAMS.get(key);
+    Set<String> defaultParams = _DEF_BUNDLE_PARAMS.get(key);
     if (_isEqualsSets(defaultParams, currentLocaleParams))
     return;
     else
@@ -260,9 +259,9 @@ public class MessageBundleTest extends TestCase
     }
   }
 
-  private static Set _getCurrentBundleKeys(
+  private static Set<String> _getCurrentBundleKeys(
     ResourceBundle bundle,
-    Set            currentBundleDefaultKeys
+    Set<String>    currentBundleDefaultKeys
     )
   {
     if (bundle instanceof ListResourceBundle)
@@ -271,10 +270,10 @@ public class MessageBundleTest extends TestCase
       {
         Method method  = bundle.getClass().getMethod("getContents");
         Object[][] keyValues = (Object[][])method.invoke(bundle);
-        Set currentBundleKeys = new HashSet();
+        Set<String> currentBundleKeys = new HashSet<String>();
         for (int i = 0; i < keyValues.length; i++)
         {
-          currentBundleKeys.add(keyValues[i][0]);
+          currentBundleKeys.add((String)keyValues[i][0]);
         }
         return currentBundleKeys;
       }
@@ -297,16 +296,16 @@ public class MessageBundleTest extends TestCase
     return currentBundleDefaultKeys;
   }
 
-  private static boolean _isEqualsSets(Set thisSet, Set otherSet)
+  private static boolean _isEqualsSets(Set<?> thisSet, Set<?> otherSet)
   {
     return thisSet.containsAll(otherSet);
   }
 
   // pick up place holder like {0}, {1} present in the value
   // part and add it to the set.
-  private static Set _getPlaceHolders(String value)
+  private static Set<String> _getPlaceHolders(String value)
   {
-    Set params = new HashSet(5);
+    Set<String> params = new HashSet<String>(5);
     Matcher match = BundleContext.getPattern().matcher(value);
 
     while (match.find())
@@ -333,22 +332,25 @@ public class MessageBundleTest extends TestCase
   }
 
   private static String _getKeys(
-    Set  keys,
+    Set<String> keys,
     char appendChar)
   {
-    StringBuffer buff = new StringBuffer(64);
-
-    for ( Iterator itr = keys.iterator(); itr.hasNext();
-            buff.append((String)itr.next() + appendChar));
+    StringBuilder buff = new StringBuilder(64);
+    for(String key : keys)
+    {
+      buff.append(key).append(appendChar);
+    }
+    
     return buff.toString();
   }
 
   // Holds the place holder set for the each key of the default bundle
   // so for each bundle we pick the value and check if the place holders
   // are same as in the default bundle. Any mismatch result in failure.
-  private static final HashMap _DEF_BUNDLE_PARAMS = new HashMap();
+  private static final HashMap<String, Set<String>> _DEF_BUNDLE_PARAMS = 
+    new HashMap<String, Set<String>>();
 
-  private static final Set _DEF_BUNDLE_KEYS       = new HashSet();
+  private static final Set<String> _DEF_BUNDLE_KEYS = new HashSet<String>();
 
   private static final Locale[]
     locales = {

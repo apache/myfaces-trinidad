@@ -25,6 +25,7 @@ public class TextInputRenderer extends
   /**
    * Returns the default number of text input columns
    */
+  @Override
   protected int getDefaultColumns()
   {
     return 11;

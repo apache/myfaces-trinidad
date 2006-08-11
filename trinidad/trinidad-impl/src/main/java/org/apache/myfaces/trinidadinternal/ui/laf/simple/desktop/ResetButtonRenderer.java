@@ -43,6 +43,7 @@ public class ResetButtonRenderer
   /**
    * Tests whether the button should be rendered as an image.
    */
+  @Override
   protected boolean doRenderImageContent(
     UIXRenderingContext context,
     UINode           node
@@ -61,6 +62,7 @@ public class ResetButtonRenderer
    * Creates the ImageProviderRequest to use when looking up the
    * button image.
    */ 
+  @Override
   protected ImageProviderRequest createImageProviderRequest(
     UIXRenderingContext context,
     Object       name,
@@ -97,6 +99,7 @@ public class ResetButtonRenderer
    * Returns the name of the server-side style for styling
    * button text.
    */
+  @Override
   protected String getServerStyleName(
     UIXRenderingContext context,
     UINode           node,

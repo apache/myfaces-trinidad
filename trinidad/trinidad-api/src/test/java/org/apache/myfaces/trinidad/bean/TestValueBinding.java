@@ -25,23 +25,26 @@ public class TestValueBinding extends ValueBinding implements StateHolder
   {
   }
 
+  @Override
   public Object getValue(FacesContext context)
   {
     return _value;
   }
 
-  
+  @Override
   public void setValue(FacesContext context, Object value)
   {
     _value = value;
   }
 
+  @Override
   public boolean isReadOnly(FacesContext context)
   {
     return false;
   }
 
-  public Class getType(FacesContext context)
+  @Override
+  public Class<?> getType(FacesContext context)
   {
     return null;
   }

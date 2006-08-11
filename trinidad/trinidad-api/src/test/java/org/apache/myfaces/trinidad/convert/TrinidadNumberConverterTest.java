@@ -44,11 +44,13 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
     super(name);
   }
 
+  @Override
   protected NumberConverter getNumberConverter()
   {
     return new org.apache.myfaces.trinidad.convert.NumberConverter();
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
@@ -58,6 +60,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
     _mafct.setCurrencyCode(null);
   }
 
+  @Override
   public void tearDown()
   {
     
@@ -74,6 +77,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
     return new TestSuite(TrinidadNumberConverterTest.class);
   }
   
+  @Override
   public void testCurrencyCodeIsHonoured()
   {
      DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
@@ -104,6 +108,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
     mock.verify();
   }
 
+  @Override
   protected void doTestStrictNess(
     MockFacesContext context,
     MockUIComponentWrapper wrapper,

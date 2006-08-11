@@ -57,6 +57,7 @@ public class NameOnlyScorer extends LookAndFeelScorer
    * base LookAndFeelScorer to score everything other than
    * the look and feel family name.
    */
+  @Override
   public Score scoreLookAndFeel(
     UIXRenderingContext context,
     String lafName
@@ -94,6 +95,7 @@ public class NameOnlyScorer extends LookAndFeelScorer
       _nameScore = nameScore;
     }
 
+    @Override
     public int getNameScore()
     {
       return _nameScore;

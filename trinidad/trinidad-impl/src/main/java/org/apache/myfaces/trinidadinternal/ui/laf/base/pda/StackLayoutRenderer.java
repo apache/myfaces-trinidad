@@ -34,8 +34,8 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
  */
 public class StackLayoutRenderer extends XhtmlLafRenderer
 {  
-
- protected void renderIndexedChild(
+  @Override
+  protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
     int              currVisChildIndex,
@@ -62,7 +62,7 @@ public class StackLayoutRenderer extends XhtmlLafRenderer
     }
   }
 
-
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node,
@@ -91,7 +91,7 @@ public class StackLayoutRenderer extends XhtmlLafRenderer
     }    
   }
 
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

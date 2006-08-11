@@ -435,11 +435,13 @@ public class ProcessUtils
       return _sInstance;
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _NAV_SUBMIT_SCRIPTLET;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc) throws IOException
@@ -471,11 +473,13 @@ public class ProcessUtils
       return _sInstance;
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _NAV_CHOICE_SUBMIT_SCRIPTLET;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc) throws IOException

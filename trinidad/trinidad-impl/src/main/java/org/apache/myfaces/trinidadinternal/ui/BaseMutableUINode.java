@@ -157,7 +157,7 @@ public class BaseMutableUINode extends BaseUINode implements MutableUINode
    * Convenience method for appending an enumeration of indexed children.
    */
   public final void addIndexedChildren(
-    Iterator indexedChildren
+    Iterator<UINode> indexedChildren
    )
   {
     NodeUtils.addIndexedChildren(this, indexedChildren);
@@ -346,6 +346,7 @@ public class BaseMutableUINode extends BaseUINode implements MutableUINode
    * @param createIfNull if true,  creates
    *   a ContextMap object if one has not yet been created.
    */
+  @Override
   protected final ContextMap getNamedChildMap(
     boolean forMutating
     )
@@ -373,6 +374,7 @@ public class BaseMutableUINode extends BaseUINode implements MutableUINode
    * @param createIfNull if true,  creates
    *   an AttributeMap object if one has not yet been created.
    */
+  @Override
   protected final AttributeMap getAttributeMap(
     boolean createIfNull
     )
@@ -420,6 +422,7 @@ public class BaseMutableUINode extends BaseUINode implements MutableUINode
    * @see #replaceIndexedChild
    * @see #getIndexedChildCount
    */
+  @Override
   protected final UINodeList getIndexedNodeList(
     boolean createIfNull
     )
@@ -448,7 +451,7 @@ public class BaseMutableUINode extends BaseUINode implements MutableUINode
    */
   protected ContextMap createNamedChildMap()
   {
-    return new MapContextMap(new ArrayMap());
+    return new MapContextMap(new ArrayMap<String, Object>());
   }
 
   /**

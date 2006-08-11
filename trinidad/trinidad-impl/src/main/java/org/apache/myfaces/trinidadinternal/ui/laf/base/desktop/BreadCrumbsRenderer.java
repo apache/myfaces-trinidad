@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class BreadCrumbsRenderer 
        extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.BreadCrumbsRenderer
 {
-
+  @Override
   protected boolean renderLastChild(
     UIXRenderingContext context, 
     UINode           node)

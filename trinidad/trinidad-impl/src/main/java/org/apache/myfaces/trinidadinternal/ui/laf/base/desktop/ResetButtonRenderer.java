@@ -46,6 +46,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * @param response ImageProvider which descibes the button  image to render.
    * @throws IOException
    */
+  @Override
   protected void renderImageContent(UIXRenderingContext context,
     UINode node,
     ImageProviderResponse response
@@ -59,6 +60,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * Always have a link so that we are keyboard navigable in IE.  We will
    * return false from our onClick handler so that this link is never followed.
    */
+  @Override
   protected Object getDestination(
     UIXRenderingContext context,
     UINode           node
@@ -73,6 +75,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
   /**
    * Show the modal dialog on click.
    */
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node
@@ -133,6 +136,7 @@ abstract public class ResetButtonRenderer extends ButtonRenderer
    * alternate Renderer for reset buttons.
    * @return xhtml ResetButtonRenderer
    */
+  @Override
   protected Renderer getAltRenderer()
   {
     return _ALTERNATE_RENDERER;

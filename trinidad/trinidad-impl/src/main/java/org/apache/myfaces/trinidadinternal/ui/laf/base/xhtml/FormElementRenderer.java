@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
  */
 abstract public class FormElementRenderer extends XhtmlLafRenderer
 {
+  @Override
   public void render(
     UIXRenderingContext context,
     UINode           node
@@ -82,6 +83,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
     renderContent(context, node);
   }
 
+  @Override
   protected void postrender(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -125,6 +127,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected Object getID(
     UIXRenderingContext context,
     UINode           node
@@ -253,6 +256,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * Override to return different styles depending on whether we
    * are disabled or not.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -281,6 +285,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
    * <p>
    * @see #renderStyleAttrs
    */
+  @Override
   protected boolean doRenderStyleAttrs(
     UIXRenderingContext context,
     UINode           node
@@ -323,6 +328,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   /**
    * Returns the value associated with the text attribute
    */
+  @Override
   protected Object getText(UIXRenderingContext context,  UINode  node)
   {
     return BaseLafUtils.getLocalTextAttribute(context, node, TEXT_ATTR);
@@ -331,6 +337,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   /**
    * Returns the name of the node, transformed for the given context
    */
+  @Override
   protected Object getTransformedName(
     UIXRenderingContext context,
     UINode           node
@@ -361,6 +368,7 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   /**
    * @deprecated
    */
+  @Deprecated
   public static final Object VISIBLE_FORM_ELEMENT_RENDERED = new Object();
   // 2484841 PDA: TOO MUCH WHITESPACE BETWEEN INPUT ELEMENTS IN LABELEDFIELD
   // 2981538 PDA: TOO MUCH WHITESPACE UNDER INPUT ELEMENTS IN TABLE
@@ -368,7 +376,8 @@ abstract public class FormElementRenderer extends XhtmlLafRenderer
   /**
    * @deprecated
    */
-   public static MutableUINode PDA_SPACE = new HTMLWebBean("div");
+   @Deprecated
+  public static MutableUINode PDA_SPACE = new HTMLWebBean("div");
    static{
      MarlinBean spacer = new MarlinBean(SPACER_NAME);
      spacer.setAttributeValue(WIDTH_ATTR, "1");

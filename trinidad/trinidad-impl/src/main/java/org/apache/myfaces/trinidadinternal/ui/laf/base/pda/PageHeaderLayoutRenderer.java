@@ -60,6 +60,7 @@ public class PageHeaderLayoutRenderer extends UINodeRenderer
     return compositeRoot;
   }
 
+  @Override
   protected UINode getRenderingUINode(
     UIXRenderingContext context,
     UINode           node

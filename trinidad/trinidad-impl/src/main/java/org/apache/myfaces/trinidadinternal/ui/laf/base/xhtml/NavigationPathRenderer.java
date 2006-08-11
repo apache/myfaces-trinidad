@@ -45,6 +45,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
  */
 public class NavigationPathRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -56,7 +57,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
     return SPAN_ELEMENT;
   }
 
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -100,6 +101,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
     setRenderingProperty(context, _BETWEEN_RENDERER_KEY, between);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -128,6 +130,8 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
 
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -148,11 +152,11 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
     // properly, so be sure to set the path to the value you want after the
     // call to getFocusPath.
     component.setRowKey(null);
-    List focusPath = Collections.EMPTY_LIST;
+    List<Object> focusPath = Collections.EMPTY_LIST;
     if (focusRowKey != null)
     {
       focusPath = component.getAllAncestorContainerRowKeys(focusRowKey);
-      focusPath = new ArrayList(focusPath);
+      focusPath = new ArrayList<Object>(focusPath);
       focusPath.add(focusRowKey);
     }
 
@@ -220,7 +224,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
       // the last link.
       return;
     }
-    Map originalResourceKeyMap = context.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = context.getSkinResourceKeyMap();
     try
     {
       context.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -288,6 +292,7 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
     return false;
   }
 
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -445,9 +450,11 @@ public class NavigationPathRenderer extends XhtmlLafRenderer
 
   static private final Object _IS_LAST_CHILD_KEY = new Object();
   static private final Object _BETWEEN_RENDERER_KEY = new Object();
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
+    _RESOURCE_KEY_MAP  =  new HashMap<String, String>();
+    
     _RESOURCE_KEY_MAP.put(
       XhtmlLafConstants.LINK_STYLE_CLASS,
       XhtmlLafConstants.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);

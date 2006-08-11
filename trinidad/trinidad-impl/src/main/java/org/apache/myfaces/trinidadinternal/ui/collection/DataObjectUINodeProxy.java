@@ -80,6 +80,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     _current  = current;
   }
 
+  @Override
   public Object getAttributeValue(
     UIXRenderingContext context,
     AttributeKey     attrKey
@@ -110,6 +111,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return value;
   }
 
+  @Override
   public int getIndexedChildCount(UIXRenderingContext context)
   {
     int count;
@@ -137,6 +139,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return count;
   }
 
+  @Override
   public void render(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -153,7 +156,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     }
   }
 
-
+  @Override
   public UINode getIndexedChild(
     UIXRenderingContext context,
     int              childIndex)
@@ -187,7 +190,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return child;
   }
 
-
+  @Override
   public UINode getNamedChild(
     UIXRenderingContext context,
     String           childName)
@@ -221,6 +224,7 @@ class DataObjectUINodeProxy extends UINodeProxy
     return child;
   }
 
+  @Override
   protected UINode getUINode()
   {
     return _baseNode;

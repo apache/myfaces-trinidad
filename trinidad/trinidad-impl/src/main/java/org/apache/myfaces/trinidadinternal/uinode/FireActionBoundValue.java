@@ -17,6 +17,8 @@ package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 
@@ -64,6 +66,7 @@ public class FireActionBoundValue implements BoundValue
     _part = part;
   }
 
+  @SuppressWarnings("unchecked")
   public Object getValue(UIXRenderingContext context)
   {
     FacesContext fContext = (context == null) ?
@@ -89,8 +92,8 @@ public class FireActionBoundValue implements BoundValue
       if (_component.getChildCount() > 0 || (_part != null))
       {
         // Get an array of parameters to pass to the fireAction object
-        List kids = _component.getChildren();
-        ArrayList params = new ArrayList(kids.size());
+        List<UIComponent> kids = _component.getChildren();
+        ArrayList<Parameter> params = new ArrayList<Parameter>(kids.size());
         
         for ( int i = 0; i < kids.size(); i++ )
         {
@@ -117,7 +120,7 @@ public class FireActionBoundValue implements BoundValue
           params.add(p);
         }
 
-        Parameter [] paramArray = (Parameter [])params.toArray(_sPARAMS_ARRAY);
+        Parameter [] paramArray = params.toArray(_sPARAMS_ARRAY);
         _fireAction.setParameters(paramArray);
       }
     }

@@ -141,7 +141,7 @@ public interface UINode
    * <p>
    * @see #getNamedChild
    */
-  public Iterator getChildNames(UIXRenderingContext context);
+  public Iterator<String> getChildNames(UIXRenderingContext context);
 
 
   /**
@@ -157,7 +157,7 @@ public interface UINode
    * <p>
    * @see #getAttributeValue
    */
-  public Iterator getAttributeNames(UIXRenderingContext context);
+  public Iterator<AttributeKey> getAttributeNames(UIXRenderingContext context);
 
   /**
    * Returns the value of the attribute with the specified name in the

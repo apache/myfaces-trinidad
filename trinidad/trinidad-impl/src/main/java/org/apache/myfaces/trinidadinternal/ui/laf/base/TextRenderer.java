@@ -41,6 +41,7 @@ public class TextRenderer extends BaseRenderer
   {
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node

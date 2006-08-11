@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.ui.RoledRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.*;
 
 /**
  * Renderer used by composite UINode renderers to render content.
@@ -44,8 +43,7 @@ public class ContextPoppingUINode extends BaseUINode
     String childName
     )
   {
-    ContextPoppingUINode node =
-                         (ContextPoppingUINode)_sContextPoppers.get(childName);
+    ContextPoppingUINode node = _sContextPoppers.get(childName);
 
     if (node == null)
     {
@@ -64,8 +62,7 @@ public class ContextPoppingUINode extends BaseUINode
   {
     Integer key = IntegerUtils.getInteger(childIndex);
 
-    ContextPoppingUINode node =
-                               (ContextPoppingUINode)_sContextPoppers.get(key);
+    ContextPoppingUINode node = _sContextPoppers.get(key);
 
     if (node == null)
     {
@@ -92,7 +89,7 @@ public class ContextPoppingUINode extends BaseUINode
     _childIndex = childIndex;
   }
 
-
+  @Override
   public int getIndexedChildCount(
     UIXRenderingContext context
     )
@@ -107,7 +104,7 @@ public class ContextPoppingUINode extends BaseUINode
     }
   }
 
-
+  @Override
   public UINode getIndexedChild(
     UIXRenderingContext context,
     int              childIndex
@@ -149,6 +146,7 @@ public class ContextPoppingUINode extends BaseUINode
     }
   }
 
+  @Override
   protected Object getAttributeValueImpl(
     UIXRenderingContext context,
     AttributeKey     attrKey,
@@ -176,6 +174,7 @@ public class ContextPoppingUINode extends BaseUINode
     }
   }
 
+  @Override
   protected Renderer getRenderer(
     UIXRenderingContext context,
     UINode           dataNode
@@ -195,6 +194,7 @@ public class ContextPoppingUINode extends BaseUINode
     return _childIndex;
   }
 
+  @Override
   public String toString()
   {
     String text = super.toString();
@@ -251,8 +251,8 @@ public class ContextPoppingUINode extends BaseUINode
 
   private static final Renderer _RENDERER = new ContextPoppingRenderer();
 
-  private static OptimisticHashMap _sContextPoppers =
-                                                    new OptimisticHashMap(203);
+  private static OptimisticHashMap<Object, ContextPoppingUINode> _sContextPoppers = 
+    new OptimisticHashMap<Object, ContextPoppingUINode>(203);
 
   private String _childName;
   private int    _childIndex;

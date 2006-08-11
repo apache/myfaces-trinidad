@@ -42,6 +42,7 @@ public class UniqueCompositeId
     this(context, 0, baseid);
   }
 
+  @SuppressWarnings("unchecked")
   public UniqueCompositeId(UIXRenderingContext context,
                            int    depth,
                            String baseid)
@@ -74,15 +75,15 @@ public class UniqueCompositeId
       // build a new ID by the usual method, and tacking on the count
       // then we save it locally so it gets returned next time we ask for it
       // at this level.
-      Hashtable countHash =
-        (Hashtable) context.getProperty(UIConstants.MARLIN_NAMESPACE,
-                                        _EXT_KEY);
+      Hashtable<String, Integer> countHash =
+        (Hashtable<String, Integer>) context.getProperty(UIConstants.MARLIN_NAMESPACE,
+                                                         _EXT_KEY);
       if (countHash == null)
       {
-        countHash = new Hashtable();
+        countHash = new Hashtable<String, Integer>();
       }
 
-      Integer globalCount = (Integer) countHash.get(baseid);
+      Integer globalCount = countHash.get(baseid);
       int newCount;
 
       if (globalCount == null)

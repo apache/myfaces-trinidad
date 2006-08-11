@@ -39,14 +39,14 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
    */
   public DictionaryData()
   {
-    _table = new Hashtable(7);
+    _table = new Hashtable<Object, Object>(7);
   }
 
   /**
    * Creates a DictionaryData, using the provided Dictionary
    * for storage.
    */
-  public DictionaryData(Dictionary table)
+  public DictionaryData(Dictionary<Object, Object> table)
   {
     _table = table;
   }
@@ -56,7 +56,7 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
    * Creates a DictionaryData initialized with a single
    * pair of data.
    */
-  public DictionaryData(Object select, Object data)
+  public DictionaryData(String select, String data)
   {
     this();
     put(select, data);
@@ -90,12 +90,12 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
     put(select, value);
   }
   
-  public Iterator keys(
+  public Iterator<Object> keys(
     UIXRenderingContext context
     )
   {
-    ArrayList keyList = new ArrayList();
-    Enumeration keyEnum = _table.keys();  
+    ArrayList<Object> keyList = new ArrayList<Object>();
+    Enumeration<Object> keyEnum = _table.keys();  
     while(keyEnum.hasMoreElements())
     {
       keyList.add(keyEnum.nextElement());
@@ -103,5 +103,5 @@ public class DictionaryData implements KeyedDataObject, MutableDataObject
     return keyList.iterator();
   }
   
-  private Dictionary _table;
+  private Dictionary<Object, Object> _table;
 }

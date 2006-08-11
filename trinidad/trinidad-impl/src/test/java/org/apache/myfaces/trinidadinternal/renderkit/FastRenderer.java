@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 
 public class FastRenderer extends Renderer
 {
+  @Override
   public void encodeBegin(FacesContext context,
                           UIComponent comp) throws IOException
   {
@@ -59,6 +60,7 @@ public class FastRenderer extends Renderer
     }
   }
 
+  @Override
   public void encodeEnd(FacesContext context,
                         UIComponent comp) throws IOException
   {
@@ -136,7 +138,7 @@ public class FastRenderer extends Renderer
     if (binding == null)
       return null;
 
-    Class type = binding.getType(context);
+    Class<?> type = binding.getType(context);
     return ConverterUtils.createConverter(context, type);
   }
 

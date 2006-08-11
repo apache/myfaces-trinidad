@@ -28,6 +28,7 @@ import java.io.IOException;
  */
 public class TipRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -36,6 +37,7 @@ public class TipRenderer extends XhtmlLafRenderer
     super.renderAttributes(context, node);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -70,6 +72,7 @@ public class TipRenderer extends XhtmlLafRenderer
     renderStyleClassAttribute(context, TIP_TEXT_STYLE_CLASS);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -81,6 +84,7 @@ public class TipRenderer extends XhtmlLafRenderer
   }
 
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

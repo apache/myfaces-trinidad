@@ -29,8 +29,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 public class PageNavigationPathRenderer extends BreadCrumbsRenderer
 {
-
-
+  @Override
   protected UIXHierarchy getHierarchyBase(
     UIXRenderingContext context, 
     UINode           node
@@ -40,6 +39,7 @@ public class PageNavigationPathRenderer extends BreadCrumbsRenderer
     return (UIXPage) pageNode.getUIComponent();   
   }
 
+  @Override
   protected UINode getStamp(
     UIXRenderingContext context,
     UINode           node
@@ -49,6 +49,7 @@ public class PageNavigationPathRenderer extends BreadCrumbsRenderer
     return getNamedChild(context, pageNode, NODE_STAMP_CHILD);
   }
   
+  @Override
   protected Object getFocusPath(
     UIXHierarchy    component
     )

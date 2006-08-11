@@ -58,7 +58,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  */
 public class TreeRenderer extends HtmlLafRenderer
 {
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context, 
     UINode node) throws IOException
@@ -114,7 +114,7 @@ public class TreeRenderer extends HtmlLafRenderer
     int readingDirection = context.getLocaleContext().getReadingDirection();
     int rootSize = tree.getRowCount();
     RowKeySet state = getExpandedRowKeys(tree);      
-    Map selectedPaths = getSelectedPaths(focusPath);
+    Map<Object, Boolean> selectedPaths = getSelectedPaths(focusPath);
     UINode icon = getIcon();
 
     // render each of the root nodes
@@ -189,9 +189,9 @@ public class TreeRenderer extends HtmlLafRenderer
   
  
   private boolean _isShownSelected(
-    UIXHierarchy tree,
-    Map      selectedPaths,
-    Object   currPath
+    UIXHierarchy         tree,
+    Map<Object, Boolean> selectedPaths,
+    Object               currPath
   )
   {
 
@@ -210,12 +210,14 @@ public class TreeRenderer extends HtmlLafRenderer
     return false;
   }
 
-  protected Map getSelectedPaths(Object focusPath)
+  protected Map<Object, Boolean> getSelectedPaths(Object focusPath)
   {
     if ( focusPath == null)
-      return new HashMap(0);
+      return new HashMap<Object, Boolean>(0);
       
-    Map selectedPaths = new HashMap(1);    
+    Map<Object, Boolean> selectedPaths = 
+      new HashMap<Object, Boolean>(1);
+    
     selectedPaths.put(focusPath, Boolean.TRUE);
     return selectedPaths;
   }
@@ -497,6 +499,7 @@ public class TreeRenderer extends HtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -514,7 +517,7 @@ public class TreeRenderer extends HtmlLafRenderer
     UINode stamp,
     final String varName,
     RowKeySet state,
-    Map     selectedPaths,
+    Map<Object, Boolean> selectedPaths,
     Boolean[] prepend,
     boolean leftToRight,
     boolean isFirstSibling,

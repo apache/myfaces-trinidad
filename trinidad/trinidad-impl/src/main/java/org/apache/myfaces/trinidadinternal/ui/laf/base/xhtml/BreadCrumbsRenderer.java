@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
  */
 public class BreadCrumbsRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -54,7 +55,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     return SPAN_ELEMENT;
   }
 
-
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -113,13 +114,10 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     UIXHierarchy    component
   )
   {
-    if ( component instanceof UIXHierarchy)
-      return component.getFocusRowKey();
-      
-    return null;
+    return component.getFocusRowKey();
   }
 
-
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -136,7 +134,8 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
       if (focusPath == null)
         return;
       
-      List paths = new ArrayList(component.getAllAncestorContainerRowKeys(focusPath));
+      List<Object> paths = 
+        new ArrayList<Object>(component.getAllAncestorContainerRowKeys(focusPath));
       paths.add(focusPath);
       int size = paths.size();
       
@@ -176,7 +175,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     super.renderContent(context, node);
   }
 
-
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -234,7 +233,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
       // the last link.
       return;
     }
-    Map originalResourceKeyMap = context.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = context.getSkinResourceKeyMap();
     try
     {
       context.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -246,6 +245,8 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
       context.setSkinResourceKeyMap(originalResourceKeyMap);
     }   
   }
+  
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -256,7 +257,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     ) throws IOException
   {
     UINode child = node.getIndexedChild(context, currVisChildIndex);
-    Map originalResourceKeyMap = context.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = context.getSkinResourceKeyMap();
     try
     {
       context.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -267,6 +268,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
       context.setSkinResourceKeyMap(originalResourceKeyMap);
     }     
   }
+  
   protected boolean renderLastChild(
     UIXRenderingContext context,
     UINode           node)
@@ -274,6 +276,7 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
     return false;
   }
 
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -512,9 +515,11 @@ public class BreadCrumbsRenderer extends XhtmlLafRenderer
   static private final Object _IS_LAST_CHILD_KEY = new Object();
   static private final Object _BETWEEN_RENDERER_KEY = new Object();
 
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
   static
   {
+    _RESOURCE_KEY_MAP = new HashMap<String, String>();
+    
     _RESOURCE_KEY_MAP.put(
       XhtmlLafConstants.LINK_STYLE_CLASS,
       XhtmlLafConstants.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);

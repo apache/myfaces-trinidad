@@ -40,6 +40,7 @@ import org.apache.myfaces.trinidadinternal.util.MessageUtils;
  */
 public class MessageBoxRenderer extends HtmlLafRenderer
 {
+  @Override
   public void render(UIXRenderingContext context, UINode node) throws IOException
   {
     Object globalOnlyAttr = getAttributeValue(context, node,
@@ -61,6 +62,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -72,6 +74,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
   /**
    * Returns the messageBox's style class.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -101,6 +104,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
 
 
   // based on oracle.desktop.MessageBoxRenderer.renderChildren
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode node
@@ -119,7 +123,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     // the messageBox, even though it uses a HeaderBean.
     // map the resource keys that are used in HideShowBean to the
     // keys we need to use in this renderer.
-    Map originalResourceKeyMap = context.getSkinResourceKeyMap();
+    Map<String, String> originalResourceKeyMap = context.getSkinResourceKeyMap();
     try
     {
       context.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
@@ -184,13 +188,13 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     String summary;
     String detail;
 
-    Iterator itr = (isGlobal
+    Iterator<MessageWrapper> itr = (isGlobal
                     ? MessageBoxUtils.sGetGlobalsIterator(context)
                     : MessageBoxUtils.sGetClientsIterator(context));
 
     while (itr.hasNext())
     {
-      MessageWrapper msg = (MessageWrapper) itr.next();
+      MessageWrapper msg = itr.next();
 
       if (useList)
         writer.startElement("li", null);
@@ -277,7 +281,7 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     if (label != null)
     {
       // If the text is null, no need to actually collect these values
-      anchor = (String) MessageUtils.getAnchor(msg.getId().toString());
+      anchor = MessageUtils.getAnchor(msg.getId().toString());
       if (anchor != null)
         anchor = "#"+anchor;
 
@@ -303,10 +307,12 @@ public class MessageBoxRenderer extends HtmlLafRenderer
     "af_messages.LIST_FORMAT_private";
 
   // we need a  value map since we are using a HeaderBean.
-  private static final Map _RESOURCE_KEY_MAP  =  new HashMap();
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
 
   static
   {
+    _RESOURCE_KEY_MAP = new HashMap<String, String>();
+    
     // translation keys
     _RESOURCE_KEY_MAP.put("af_panelHeader.INFORMATION",
                               "af_messages.INFORMATION");

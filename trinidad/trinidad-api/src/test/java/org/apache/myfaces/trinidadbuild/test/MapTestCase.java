@@ -36,7 +36,7 @@ abstract public class MapTestCase extends TestCase
 
   public void testInitialState()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     assertEquals(0, map.size());
     assertTrue(map.isEmpty());
     assertTrue(map.entrySet().isEmpty());
@@ -47,7 +47,7 @@ abstract public class MapTestCase extends TestCase
 
   public void testPut()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     assertNull(map.put("foo", "bar"));
     assertEquals(1, map.size());
     assertEquals("bar", map.get("foo"));
@@ -68,8 +68,8 @@ abstract public class MapTestCase extends TestCase
 
   public void testPutAll()
   {
-    Map map = createMap();
-    HashMap hashMap = new HashMap();
+    Map<String, Object> map = createMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
     _putTwo(hashMap);
     
     map.putAll(hashMap);
@@ -84,7 +84,7 @@ abstract public class MapTestCase extends TestCase
   public void testPutNull()
   {
 
-    Map map = createMap();
+    Map<String, Object> map = createMap();
 
     // Test putting a null value
     try
@@ -135,17 +135,17 @@ abstract public class MapTestCase extends TestCase
 
   public void testEntrySet()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     _putTwo(map);
 
-    Set entries = map.entrySet();
+    Set<Map.Entry<String, Object>> entries = map.entrySet();
     assertEquals(2, entries.size());
     _assertIteratorSize(entries.iterator(), 2);
 
-    Iterator iterator = entries.iterator();
+    Iterator<Map.Entry<String, Object>> iterator = entries.iterator();
     while (iterator.hasNext())
     {
-      Map.Entry entry = (Map.Entry) iterator.next();
+      Map.Entry<String, Object> entry = iterator.next();
       if (entry.getKey().equals("second"))
       {
         entry.setValue(new Integer(3));
@@ -193,11 +193,11 @@ abstract public class MapTestCase extends TestCase
 
   public void testEquals()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     _putTwo(map);
     assertEquals(map, map);
 
-    Map secondMap = createMap();
+    Map<String, Object> secondMap = createMap();
     assertTrue(!secondMap.equals(map));
     assertTrue(!map.equals(secondMap));
     assertTrue(!map.equals(null));
@@ -205,7 +205,7 @@ abstract public class MapTestCase extends TestCase
     _putTwo(secondMap);
     assertEquals(map, secondMap);
     
-    HashMap hashMap = new HashMap();
+    HashMap<String, Object> hashMap = new HashMap<String, Object>();
     _putTwo(hashMap);
     assertEquals(hashMap, map);
     assertEquals(map, hashMap);
@@ -213,7 +213,7 @@ abstract public class MapTestCase extends TestCase
 
   public void testRemove()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     _putTwo(map);
     assertNull(map.remove("NOTTHERE"));
     assertEquals(new Integer(2), map.remove("second"));
@@ -230,14 +230,14 @@ abstract public class MapTestCase extends TestCase
 
   public void testKeySet()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     _putTwo(map);
-    Set keys = map.keySet();
+    Set<String> keys = map.keySet();
     assertEquals(2, keys.size());
     assertTrue(keys.contains("first"));
     assertTrue(keys.contains("second"));
     
-    HashSet hashSet = new HashSet();
+    HashSet<String> hashSet = new HashSet<String>();
     hashSet.add("first");
     hashSet.add("second");
     
@@ -256,9 +256,9 @@ abstract public class MapTestCase extends TestCase
   
   public void testValues()
   {
-    Map map = createMap();
+    Map<String, Object> map = createMap();
     _putTwo(map);
-    Collection values = map.values();
+    Collection<Object> values = map.values();
     assertEquals(2, values.size());
     assertTrue(values.contains(new Integer(1)));
     assertTrue(values.contains(new Integer(2)));
@@ -293,7 +293,7 @@ abstract public class MapTestCase extends TestCase
     return true;
   }
 
-  private void _assertIteratorSize(Iterator iterator, int count)
+  private void _assertIteratorSize(Iterator<?> iterator, int count)
   {
     for (int i = 0; i < count; i++)
     {
@@ -304,11 +304,11 @@ abstract public class MapTestCase extends TestCase
     assertTrue(!iterator.hasNext());
   }
 
-  private void _putTwo(Map map)
+  private void _putTwo(Map<String, Object> map)
   {
     map.put("first", new Integer(1));
     map.put("second", new Integer(2));
   }
 
-  abstract protected Map createMap();
+  abstract protected Map<String, Object> createMap();
 }

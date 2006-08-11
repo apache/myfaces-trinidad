@@ -23,8 +23,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
@@ -43,6 +41,7 @@ class FacesConfigParser extends BaseNodeParser
     _info = info;
   }
   
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -59,6 +58,7 @@ class FacesConfigParser extends BaseNodeParser
     return BaseNodeParser.getIgnoreParser();
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -80,6 +80,7 @@ class FacesConfigParser extends BaseNodeParser
       _info = info;
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -96,6 +97,7 @@ class FacesConfigParser extends BaseNodeParser
       return BaseNodeParser.getIgnoreParser();
     }
     
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -132,6 +134,7 @@ class FacesConfigParser extends BaseNodeParser
       }
     }
     
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -149,6 +152,7 @@ class FacesConfigParser extends BaseNodeParser
 
   private class ComponentParser extends BaseNodeParser
   {
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -166,7 +170,7 @@ class FacesConfigParser extends BaseNodeParser
       return BaseNodeParser.getIgnoreParser();
     }
     
-   
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -183,6 +187,7 @@ class FacesConfigParser extends BaseNodeParser
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -201,6 +206,7 @@ class FacesConfigParser extends BaseNodeParser
     {
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -215,7 +221,7 @@ class FacesConfigParser extends BaseNodeParser
       return BaseNodeParser.getIgnoreParser();
     }
     
-   
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -234,6 +240,7 @@ class FacesConfigParser extends BaseNodeParser
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -259,6 +266,7 @@ class FacesConfigParser extends BaseNodeParser
       _property = new FacesConfigInfo.PropertyInfo();
     }
 
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -279,7 +287,7 @@ class FacesConfigParser extends BaseNodeParser
       return BaseNodeParser.getIgnoreParser();
     }
     
-    
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -295,7 +303,7 @@ class FacesConfigParser extends BaseNodeParser
         }
         else if ("property-class".equals(localName))
         {
-          Class c = (Class) _sPrimitiveTypes.get(s);
+          Class<?> c = _sPrimitiveTypes.get(s);
           if (c == null)
           {
             boolean isArray = s.endsWith("[]");
@@ -318,20 +326,21 @@ class FacesConfigParser extends BaseNodeParser
         }
         else if ("default-value".equals(localName))
         {
-          Class c = _property.type;
+          Class<?> c = _property.type;
           if (c == null)
             c = String.class;
           _property.defaultValue = Coercions.coerce(null, s, c);
         }
         else if ("attribute-values".equals(localName))
         {
-          _property.enumValues = new ArrayList();
+          _property.enumValues = new ArrayList<Object>();
           String[] values = XMLUtils.parseNameTokens(s);
           _property.enumValues.addAll(Arrays.asList(values));
         }
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -346,6 +355,7 @@ class FacesConfigParser extends BaseNodeParser
 
   private class RendererParser extends BaseNodeParser
   {
+    @Override
     public NodeParser startChildElement(
       ParseContext context,
       String       namespaceURI,
@@ -359,6 +369,7 @@ class FacesConfigParser extends BaseNodeParser
       return BaseNodeParser.getIgnoreParser();
     }
    
+    @Override
     public void addCompletedChild(
       ParseContext context,
       String       namespaceURI,
@@ -377,6 +388,7 @@ class FacesConfigParser extends BaseNodeParser
       }
     }
 
+    @Override
     public Object endElement(
       ParseContext context,
       String       namespaceURI,
@@ -397,14 +409,15 @@ class FacesConfigParser extends BaseNodeParser
 
   private FacesConfigInfo _info;
 
-  static private Class _getArrayType(Class baseClass)
+  static private Class<?> _getArrayType(Class<?> baseClass)
   {
     return Array.newInstance(baseClass, 0).getClass();
   }
 
-  static private final HashMap _sPrimitiveTypes = new HashMap();
+  static private final HashMap<String, Class<?>> _sPrimitiveTypes;
   static
   {
+    _sPrimitiveTypes = new HashMap<String, Class<?>>();
     _sPrimitiveTypes.put("int[]",     _getArrayType(Integer.TYPE));
     _sPrimitiveTypes.put("boolean[]", _getArrayType(Boolean.TYPE));
     _sPrimitiveTypes.put("char[]",    _getArrayType(Character.TYPE));

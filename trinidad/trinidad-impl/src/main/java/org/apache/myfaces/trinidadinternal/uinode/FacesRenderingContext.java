@@ -96,8 +96,7 @@ public class FacesRenderingContext extends RootRenderingContext
    */
   static public PartialPageContext getPartialPageContext(FacesContext fContext)
   {
-    return (PartialPageContext)
-      RenderingContext.getCurrentInstance().getPartialPageContext();
+    return RenderingContext.getCurrentInstance().getPartialPageContext();
   }
 
   /**
@@ -127,6 +126,7 @@ public class FacesRenderingContext extends RootRenderingContext
     return _adfRenderingContext.getPartialPageContext();
   }
 
+  @Override
   public LocaleContext getLocaleContext()
   {
     return _adfRenderingContext.getLocaleContext();
@@ -154,11 +154,13 @@ public class FacesRenderingContext extends RootRenderingContext
     return _adfRenderingContext.getAgent();
   }
 
+  @Override
   protected Object getRenderingProperty(Object key)
   {
     return _adfRenderingContext.getProperties().get(key);
   }
 
+  @Override
   protected void setRenderingProperty(Object key, Object value)
   {
     _adfRenderingContext.getProperties().put(key, value);
@@ -171,7 +173,7 @@ public class FacesRenderingContext extends RootRenderingContext
    * the correct translated value key.
    * @param mapping
    */
-  public void setSkinResourceKeyMap(Map mapping)
+  public void setSkinResourceKeyMap(Map<String, String> mapping)
   {
     _adfRenderingContext.setSkinResourceKeyMap(mapping);
   }
@@ -181,7 +183,7 @@ public class FacesRenderingContext extends RootRenderingContext
    * Get the _skinResourceKeyMap Map.
    * @param mapping
    */
-  public Map getSkinResourceKeyMap()
+  public Map<String, String> getSkinResourceKeyMap()
   {
     return _adfRenderingContext.getSkinResourceKeyMap();
   }
@@ -196,6 +198,7 @@ public class FacesRenderingContext extends RootRenderingContext
   //
   // Initialize PPR, if needed
   //
+  @SuppressWarnings("unchecked")
   private void _initializePPR(
     FacesContext    fContext)
   {
@@ -205,10 +208,9 @@ public class FacesRenderingContext extends RootRenderingContext
     {
       // For compatibility with our current renderers, look for
       // the PARTIAL_TARGETS parameter, and add any that are found
-      Map parameters = fContext.getExternalContext().
-                            getRequestParameterMap();
-      String param = (String) parameters.get(
-                                   UIConstants.PARTIAL_TARGETS_PARAM);
+      Map<String, String> parameters = 
+        fContext.getExternalContext().getRequestParameterMap();
+      String param = parameters.get(UIConstants.PARTIAL_TARGETS_PARAM);
       if ((null != param) && !"".equals(param))
       {
         _LOG.finer("Adding partial targets from parameter: {0}", param);

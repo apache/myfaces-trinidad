@@ -105,7 +105,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   public static String encodeJSEventObject(
     UIXRenderingContext context,
     String           formName,
-    Iterator      keyValues,
+    Iterator<Object> keyValues,
     int              keyValueSize
     )
   {
@@ -367,7 +367,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   {
     if (verticalAlign != null)
     {
-      return (String)_sSupportedVAligns.get(verticalAlign);
+      return _sSupportedVAligns.get(verticalAlign);
     }
     else
     {
@@ -379,17 +379,18 @@ public class XhtmlLafUtils extends BaseLafUtils
   /**
    * Closes any tags started by startRenderingStyleElements
    */
+  @SuppressWarnings("unchecked")
   public static void endRenderingStyleElements(
     UIXRenderingContext context
     ) throws IOException
   {
     Stack[] styleInfo = _getStyleInfo(context);
 
-    Stack styleFlagsStack = styleInfo[_STACK_FLAGS_INDEX];
+    Stack<Integer> styleFlagsStack = styleInfo[_STACK_FLAGS_INDEX];
 
     // get the flags of the elements started, popping the
     // current styleFlags
-    int styleFlags = ((Integer)styleFlagsStack.pop()).intValue();
+    int styleFlags = styleFlagsStack.pop().intValue();
     if (styleFlags != 0)
     {
       ResponseWriter writer = context.getResponseWriter();
@@ -590,8 +591,8 @@ public class XhtmlLafUtils extends BaseLafUtils
     }
 
     // push the flags of the styles actually written
-    _getStyleInfoStack(styleInfo, _STACK_FLAGS_INDEX).push(
-                                    IntegerUtils.getInteger(flags));
+    Stack<Object> stackInfo = _getStyleInfoStack(styleInfo, _STACK_FLAGS_INDEX);
+    stackInfo.push(IntegerUtils.getInteger(flags));
   }
 
 
@@ -1185,6 +1186,7 @@ public class XhtmlLafUtils extends BaseLafUtils
    * and to add a generic mechanism for tracking the rendering traversal
    * which provides access to the current RenderingContext.
    */
+  @SuppressWarnings("unchecked")
   static void __pushCurrentRenderingContext(
     UIXRenderingContext context
     )
@@ -1200,11 +1202,12 @@ public class XhtmlLafUtils extends BaseLafUtils
     // But I don't think performance is going to be an issue -
     // so let's just make sure this code is safe...
 
-    Stack stack = (Stack)context.getProperty(MARLIN_NAMESPACE,
-                                   _CURRENT_RENDERING_CONTEXT_PROPERTY);
+    Stack<UIXRenderingContext> stack = 
+      (Stack<UIXRenderingContext>)context.getProperty(MARLIN_NAMESPACE,
+                                                      _CURRENT_RENDERING_CONTEXT_PROPERTY);
     if (stack == null)
     {
-      stack = new Stack();
+      stack = new Stack<UIXRenderingContext>();
       context.setProperty(MARLIN_NAMESPACE,
                           _CURRENT_RENDERING_CONTEXT_PROPERTY,
                           stack);
@@ -1217,12 +1220,14 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Reverses the last call to __pushCurrentRenderingContext()
    * by popping the current RenderingContext off of the stack.
    */
+  @SuppressWarnings("unchecked")
   static void __popCurrentRenderingContext(
     UIXRenderingContext context
     )
   {
-    Stack stack = (Stack)context.getProperty(MARLIN_NAMESPACE,
-                                   _CURRENT_RENDERING_CONTEXT_PROPERTY);
+    Stack<UIXRenderingContext> stack = 
+      (Stack<UIXRenderingContext>)context.getProperty(MARLIN_NAMESPACE,
+                                                      _CURRENT_RENDERING_CONTEXT_PROPERTY);
 
     // Null stack here is a programmer error...
     assert (stack != null);
@@ -1234,22 +1239,25 @@ public class XhtmlLafUtils extends BaseLafUtils
    * Retrieves the current RenderingContext as specified
    * by the last call to __pushCurrentRenderingContext().
    */
+  @SuppressWarnings("unchecked")
   static UIXRenderingContext __getCurrentRenderingContext(
     UIXRenderingContext context
     )
   {
-    Stack stack = (Stack)context.getProperty(MARLIN_NAMESPACE,
-                                   _CURRENT_RENDERING_CONTEXT_PROPERTY);
+    Stack<UIXRenderingContext> stack = 
+      (Stack<UIXRenderingContext>)context.getProperty(MARLIN_NAMESPACE,
+                                                      _CURRENT_RENDERING_CONTEXT_PROPERTY);
 
     if ((stack == null) || (stack.empty()))
       return null;
 
-    return (UIXRenderingContext)stack.peek();
+    return stack.peek();
   }
 
 
   // maps fonts size names to font element size strings
-  static private HashMap _sSizeNameMap = new HashMap(13);
+  static private HashMap<String, String> _sSizeNameMap = 
+    new HashMap<String, String>(13);
 
   //
   // mapping of size names to font element size strings
@@ -1321,7 +1329,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   {
     if (value != null)
     {
-      Stack styleInfoStack = _getStyleInfoStack(styleInfo, stackIndex);
+      Stack<Object> styleInfoStack = _getStyleInfoStack(styleInfo, stackIndex);
 
       // push new value
       styleInfoStack.push(value);
@@ -1337,17 +1345,18 @@ public class XhtmlLafUtils extends BaseLafUtils
   /**
    * Returns the Stack for a Style info, creating it, if necessary.
    */
-  private static Stack _getStyleInfoStack(
+  @SuppressWarnings("unchecked")
+  private static Stack<Object> _getStyleInfoStack(
     Stack[] styleInfo,
     int     stackIndex
     )
   {
-    Stack styleInfoStack = styleInfo[stackIndex];
+    Stack<Object> styleInfoStack = styleInfo[stackIndex];
 
     if (styleInfoStack == null)
     {
       // create new stack
-      styleInfoStack = new Stack();
+      styleInfoStack = new Stack<Object>();
 
       // push on initial default
       styleInfoStack.push(_STYLE_DEFAULTS[stackIndex]);
@@ -1400,6 +1409,7 @@ public class XhtmlLafUtils extends BaseLafUtils
       return _value;
     }
 
+    @Override
     public Object clone()
     {
       int length = _value.length;
@@ -1461,7 +1471,7 @@ public class XhtmlLafUtils extends BaseLafUtils
   };
 
   /** HashMap mapping css vertical-align to the valign attribute values */
-  private static Map _sSupportedVAligns = null;
+  private static Map<String, String> _sSupportedVAligns = null;
 
   /**
    * Initialize the library information.
@@ -1481,7 +1491,7 @@ public class XhtmlLafUtils extends BaseLafUtils
     //
     // initialize the set of supported css vertical alignments
     //
-    _sSupportedVAligns = new HashMap(13);
+    _sSupportedVAligns = new HashMap<String, String>(13);
 
     for (int i = 0; i < _VALIGNS_SUPPORTED.length; i++)
     {

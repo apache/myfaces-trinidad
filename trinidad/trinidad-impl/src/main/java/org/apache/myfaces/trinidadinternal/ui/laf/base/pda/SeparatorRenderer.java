@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class SeparatorRenderer 
                      extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SeparatorRenderer
 {
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node

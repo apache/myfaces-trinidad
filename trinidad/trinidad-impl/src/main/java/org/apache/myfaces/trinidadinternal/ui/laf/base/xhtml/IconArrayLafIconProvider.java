@@ -16,6 +16,8 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.awt.Color;
+
+import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.Icon;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.IconKey;
 
@@ -138,6 +140,7 @@ public final class IconArrayLafIconProvider extends AccentedLafIconProvider
   /**
    * Returns the URI to the icon indentified by the icon key
    */
+  @Override
   public String getIconURI(
     UIXRenderingContext context,
     IconKey          iconKey
@@ -150,6 +153,7 @@ public final class IconArrayLafIconProvider extends AccentedLafIconProvider
   /**
    * Returns the icon, given its key.
    */
+  @Override
   protected Icon getIcon(
     IconKey iconKey
     )
@@ -159,16 +163,16 @@ public final class IconArrayLafIconProvider extends AccentedLafIconProvider
     return icon;
   }
 
-  
+  @Override
   protected ImageProviderRequest
     createCoreIconRequest(
-      ImageContext context, 
-      String       source,
-      Class        lookAndFeel,
-      int          direction,
-      Color        color,
-      Color        surroundingColor,
-      NameResolver resolver
+      ImageContext       context, 
+      String             source,
+      Class<LookAndFeel> lookAndFeel,
+      int                direction,
+      Color              color,
+      Color              surroundingColor,
+      NameResolver       resolver
       )
   {
     return new CoreIconRequest(context,
@@ -180,15 +184,16 @@ public final class IconArrayLafIconProvider extends AccentedLafIconProvider
                                resolver);
   }
 
+  @Override
   protected ImageProviderRequest
     createAccentIconRequest(
-      ImageContext context, 
-      String       source,
-      Class        lookAndFeel,
-      int          direction,
-      Color        color,
-      Color        surroundingColor,
-      NameResolver resolver
+      ImageContext       context, 
+      String             source,
+      Class<LookAndFeel> lookAndFeel,
+      int                direction,
+      Color              color,
+      Color              surroundingColor,
+      NameResolver       resolver
       )
   {
     return new AccentIconRequest(context,

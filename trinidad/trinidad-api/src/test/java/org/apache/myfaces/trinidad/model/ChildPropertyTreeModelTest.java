@@ -35,11 +35,13 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
     super(name);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
   }
 
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -71,8 +73,8 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
   {
     TreeModel model = createModel();
     
-    Bean root = (Bean) _ROOTS.get(0);
-    Bean sub = (Bean) root.getKids().get(1);
+    Bean root = _ROOTS.get(0);
+    Bean sub = root.getKids().get(1);
 
     int[] testPath = {0, 1};
     _followPath(model, testPath);
@@ -121,7 +123,7 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
    * Tests getRowData, isContainer, enterContainer, exitContainer, getRowCount,
    * setRowIndex, getRowIndex, getContainerRowKey
    */
-  private void _testTree(TreeModel model, List data)
+  private void _testTree(TreeModel model, List<Bean> data)
   {
     int sz = data.size();
     assertEquals("rowCount", sz, model.getRowCount());
@@ -132,7 +134,7 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
       int oldIndex = model.getRowIndex();
       for(int i=0; i<sz; i++)
       {
-        Bean child = (Bean) data.get(i);
+        Bean child = data.get(i);
         model.setRowIndex(i);
         assertEquals("rowIndex before enterContainer", i, model.getRowIndex());
         _testTree(model, child);
@@ -150,7 +152,7 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
   {
     assertEquals("rowData", bean, model.getRowData());
     
-    List kids = bean.getKids();
+    List<Bean> kids = bean.getKids();
     boolean hasChildren = (kids != null);
     assertEquals("isContainer", hasChildren, model.isContainer());
     
@@ -173,11 +175,11 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
     return model;
   }
   
-  private static final List _ROOTS = _createTree();
+  private static final List<Bean> _ROOTS = _createTree();
   
-  private static List _createTree()
+  private static List<Bean> _createTree()
   {
-    List roots = new ArrayList(3);
+    List<Bean> roots = new ArrayList<Bean>(3);
 
     Bean root, sub, subsub;
 
@@ -205,7 +207,7 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
   
   public static final class Bean
   {
-    public List getKids()
+    public List<Bean> getKids()
     {
       return _kids;
     }
@@ -214,12 +216,12 @@ public class ChildPropertyTreeModelTest extends AbstractJsfTestCase
     {
       if (_kids == null)
       {
-        _kids = new ArrayList(3);
+        _kids = new ArrayList<Bean>(3);
       }
 
       _kids.add(kid);
     }
     
-    private List _kids = null;
+    private List<Bean> _kids = null;
   }
 }

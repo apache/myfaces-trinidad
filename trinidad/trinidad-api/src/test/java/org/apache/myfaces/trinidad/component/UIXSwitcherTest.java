@@ -45,11 +45,13 @@ public class UIXSwitcherTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -101,8 +103,8 @@ public class UIXSwitcherTest extends UIComponentTestCase
     doTestApplyRequestValues(switcher);
   }
 
-
-
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestApplyRequestValues(
     FacesContext context,
     UIViewRoot   root,
@@ -150,8 +152,8 @@ public class UIXSwitcherTest extends UIComponentTestCase
     doTestProcessValidations(switcher);
   }
 
-
-
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestProcessValidations(
     FacesContext context,
     UIViewRoot   root,
@@ -199,7 +201,8 @@ public class UIXSwitcherTest extends UIComponentTestCase
   }
 
 
-
+  @SuppressWarnings("unchecked")
+  @Override
   protected void doTestUpdateModelValues(
     FacesContext context,
     UIViewRoot   root,
@@ -237,7 +240,7 @@ public class UIXSwitcherTest extends UIComponentTestCase
     TestRunner.run(UIXSwitcherTest.class);
   }
 
-
+  @Override
   protected boolean isRendererUsed()
   {
     return false;

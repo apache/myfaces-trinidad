@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  */
 public class PageHeaderLayoutRenderer extends HtmlLafRenderer
 {
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -488,8 +489,7 @@ public class PageHeaderLayoutRenderer extends HtmlLafRenderer
     renderNamedChild(context, node, globalHeader, NAVIGATION2_CHILD);
   }
 
-
-
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

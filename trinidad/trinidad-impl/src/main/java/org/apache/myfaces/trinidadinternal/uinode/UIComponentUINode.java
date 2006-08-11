@@ -108,7 +108,7 @@ public class UIComponentUINode implements UINode
    */
   public UINode getNamedChild(UIXRenderingContext context, String childName)
   {
-    UIComponent child = (UIComponent) _component.getFacet(childName);
+    UIComponent child = _component.getFacet(childName);
     if (child == null)
       return null;
 
@@ -116,7 +116,8 @@ public class UIComponentUINode implements UINode
   }
 
 
-  public Iterator getChildNames(UIXRenderingContext context)
+  @SuppressWarnings("unchecked")
+  public Iterator<String> getChildNames(UIXRenderingContext context)
   {
     if (_component instanceof UIXComponentBase)
       return ((UIXComponentBase) _component).getFacetNames();
@@ -127,7 +128,7 @@ public class UIComponentUINode implements UINode
   /**
    * @todo implement this (if necessary)
    */
-  public Iterator getAttributeNames(UIXRenderingContext context)
+  public Iterator<AttributeKey> getAttributeNames(UIXRenderingContext context)
   {
     throw new UnsupportedOperationException();
   }
@@ -274,6 +275,7 @@ private void _setTranslationKeyTest(
     UINodeRendererBase.__restoreRenderingContext(fContext, oldContext);
   }
 
+  @Override
   public String toString()
   {
     StringBuffer buffer = new StringBuffer(40);
@@ -300,6 +302,7 @@ private void _setTranslationKeyTest(
 
 
 
+  @SuppressWarnings("unchecked")
   private void _renderComponent(FacesContext context, UIComponent component)
     throws IOException
   {
@@ -313,10 +316,10 @@ private void _setTranslationKeyTest(
       int count = component.getChildCount();
       if (count > 0)
       {
-        List children = component.getChildren();
+        List<UIComponent> children = component.getChildren();
         for (int i = 0; i < count; i++)
         {
-          UIComponent child = (UIComponent) children.get(i);
+          UIComponent child = children.get(i);
           if (child.isRendered())
             _renderComponent(context, child);
         }
@@ -346,7 +349,7 @@ private void _setTranslationKeyTest(
 
   public UINode getIndexedChild(int i) { throw new UnsupportedOperationException(); }
 
-  public Iterator getChildNames() { throw new UnsupportedOperationException(); }
+  public Iterator<String> getChildNames() { throw new UnsupportedOperationException(); }
 
   public UINode getNamedChild(String name) { throw new UnsupportedOperationException(); }
 
@@ -359,10 +362,10 @@ private void _setTranslationKeyTest(
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIComponentUINode.class);
 
-  static private Map _UIX2_LOCALNAMES;
+  static private Map<String, Map<String, String>> _UIX2_LOCALNAMES;
   static
   {
-    _UIX2_LOCALNAMES = new HashMap(137);
+    _UIX2_LOCALNAMES = new HashMap<String, Map<String, String>>(137);
     _loadRenderertypeToLocalnameMap();
   }
 
@@ -381,10 +384,11 @@ private void _setTranslationKeyTest(
       properties.load(propertyStream);
       propertyStream.close();
 
-      Iterator keys = properties.entrySet().iterator();
+      Iterator<Map.Entry<Object, Object>> keys = 
+        properties.entrySet().iterator();
       while (keys.hasNext())
       {
-        Map.Entry entry = (Map.Entry) keys.next();
+        Map.Entry<Object, Object> entry = keys.next();
         String key = (String) entry.getKey();
         String localName = (String) entry.getValue();
         int indexOfBar = key.indexOf('|');
@@ -413,10 +417,10 @@ private void _setTranslationKeyTest(
     String rendererType,
     String localName)
   {
-    Map subMap = (Map) _UIX2_LOCALNAMES.get(family);
+    Map<String, String> subMap = _UIX2_LOCALNAMES.get(family);
     if (subMap == null)
     {
-      subMap = new ArrayMap(7);
+      subMap = new ArrayMap<String, String>(7);
       _UIX2_LOCALNAMES.put(family, subMap);
     }
 
@@ -434,11 +438,11 @@ private void _setTranslationKeyTest(
     String family,
     String rendererType)
   {
-    Map subMap = (Map) _UIX2_LOCALNAMES.get(family);
+    Map<String, String> subMap = _UIX2_LOCALNAMES.get(family);
     if (subMap == null)
       return null;
 
-    return (String)subMap.get(rendererType);
+    return subMap.get(rendererType);
   }
 
 

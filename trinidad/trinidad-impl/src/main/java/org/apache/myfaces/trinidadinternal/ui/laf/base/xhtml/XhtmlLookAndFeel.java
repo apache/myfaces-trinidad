@@ -35,8 +35,7 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     super();
   }
 
-
-
+  @Override
   public RendererManager createRendererManager(String facet)
   {
     RendererManager manager = super.createRendererManager(facet);
@@ -77,7 +76,7 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     BaseLookAndFeel.applyFacet(rendererFactory, facet);
   }
 
-
+  @Override
   protected RendererFactory getDefaultFactory()
   {
     return _FACTORY;

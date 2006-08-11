@@ -449,6 +449,7 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
    * @param expectedDate
    * @return
    */
+  @SuppressWarnings("deprecation")
   protected static boolean isEqual(Date convDate, Date expectedDate)
   {
     GregorianCalendar convGcal = new GregorianCalendar();
@@ -457,6 +458,8 @@ public abstract class DateTimeConverterTestCase extends ConverterTestCase
     GregorianCalendar expGcal = new GregorianCalendar();
     expGcal.setTime(expectedDate);
 
+    // -= Simon Lessard =-
+    // FIXME: Switch to Calendar methods
     return
       (convDate.getSeconds() == expectedDate.getSeconds()) &&
       (convDate.getYear()    == expectedDate.getYear())    &&

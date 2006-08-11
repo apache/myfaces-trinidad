@@ -40,6 +40,7 @@ public class ImportScriptRenderer extends BaseRenderer
     return USER_INVISIBLE_ROLE;
   }
 
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node

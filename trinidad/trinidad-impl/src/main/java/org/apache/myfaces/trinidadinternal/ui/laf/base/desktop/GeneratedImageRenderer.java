@@ -69,6 +69,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
    * as the title attribute; instead we write shortDesc as the alt text of the
    * image.
    */
+  @Override
   protected void renderShortDesc(UIXRenderingContext context, UINode node)
   {
   }
@@ -197,6 +198,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
       writer.endElement("a");
   }
 
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode           node
@@ -205,6 +207,7 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     return node.getAttributeValue(context, TEXT_ATTR);
   }
 
+  @Override
   protected Object getShortDesc(
     UIXRenderingContext context,
     UINode           node
@@ -417,7 +420,8 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     return _DEFAULT_FONT_SIZE;
   }
 
-  static protected Collection getFontFamilies(
+  @SuppressWarnings("unchecked")
+  static protected Collection<Object> getFontFamilies(
     UIXRenderingContext context,
     UINode node,
     Style  style,
@@ -428,11 +432,11 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     {
       if(_parseValue(style, null, Style.FONT_FAMILIES_KEY) instanceof Collection)
       {
-        return  (Collection)_parseValue(style, null, Style.FONT_FAMILIES_KEY);
+        return  (Collection<Object>)_parseValue(style, null, Style.FONT_FAMILIES_KEY);
       }
       else
       {
-        Collection parsedValueList = new ArrayList();
+        Collection<Object> parsedValueList = new ArrayList<Object>();
         parsedValueList.add(_parseValue(style, null, Style.FONT_FAMILIES_KEY));
         return  parsedValueList;
       }

@@ -44,6 +44,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 public class SkinExtensionParser extends BaseNodeParser
   implements XMLConstants
 {
+  @Override
   public void startElement(
     ParseContext context,
     String       namespaceURI,
@@ -54,6 +55,7 @@ public class SkinExtensionParser extends BaseNodeParser
     _namespace = namespaceURI;
   }
 
+  @Override
   public Object endElement(
     ParseContext context,
     String       namespaceURI,
@@ -123,6 +125,7 @@ public class SkinExtensionParser extends BaseNodeParser
     return skin;
   }
 
+  @Override
   public NodeParser startChildElement(
     ParseContext context,
     String       namespaceURI,
@@ -133,7 +136,7 @@ public class SkinExtensionParser extends BaseNodeParser
     if (!namespaceURI.equals(_namespace))
       return null;
 
-    Class expectedType = null;
+    Class<?> expectedType = null;
 
     if (ICONS_NAME.equals(localName))
       expectedType = IconNode[].class;
@@ -157,6 +160,7 @@ public class SkinExtensionParser extends BaseNodeParser
     return null;
   }
 
+  @Override
   public void addCompletedChild(
     ParseContext context,
     String       namespaceURI,
@@ -185,7 +189,7 @@ public class SkinExtensionParser extends BaseNodeParser
 
   // Adds the objects in the array to the ArrayList
   private static void _addToArrayList(
-    ArrayList list,
+    ArrayList<Object> list,
     Object[]  array
     )
   {
@@ -226,10 +230,10 @@ public class SkinExtensionParser extends BaseNodeParser
 
 
   // ArrayList of IconNodes
-  private ArrayList   _icons = new ArrayList();
+  private ArrayList<Object> _icons = new ArrayList<Object>();
 
   // ArrayList of PropertyNodes
-  private ArrayList   _properties = new ArrayList();
+  private ArrayList<Object> _properties = new ArrayList<Object>();
 
   // Error messages
   private static final String _UNKNOWN_BASE_SKIN_ERROR =

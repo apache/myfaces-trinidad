@@ -39,11 +39,13 @@ public class CorePanelBoxTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -91,6 +93,7 @@ public class CorePanelBoxTest extends UIXPanelTestCase
     //doTestAttributeTransparency(component, "width", "10%", "20%");
   }
 
+  @Override
   protected UIXPanel createTestComponent()
   {
     return new CorePanelBox();

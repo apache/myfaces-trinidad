@@ -137,7 +137,7 @@ public class TokenizerTest extends TestCase
   
   private void _testToken(Tokenizer tokens, int expectedType, String expected)
   {
-    Token tok = (Token) tokens.next();
+    Token tok = tokens.next();
     assertEquals("correct token type", expectedType, tok.type);
     assertEquals("correct token text", expected, tok.getText());
   }

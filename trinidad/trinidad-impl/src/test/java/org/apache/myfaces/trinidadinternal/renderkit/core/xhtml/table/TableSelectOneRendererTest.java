@@ -46,11 +46,13 @@ public class TableSelectOneRendererTest extends FacesTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -123,7 +125,7 @@ public class TableSelectOneRendererTest extends FacesTestCase
     table.setRowIndex(expectedSelectedIndex);
     RowKeySet state = table.getSelectedRowKeys();
     assertTrue("row is selected", state.isContained());
-    Iterator selection = state.iterator();
+    Iterator<Object> selection = state.iterator();
     // make sure there is exactly one selected item:
     assertTrue("has one selected item", selection.hasNext());
     selection.next();
@@ -147,7 +149,7 @@ public class TableSelectOneRendererTest extends FacesTestCase
       String selectedParam = table.getCurrencyString();
       table.setRowIndex(oldIndex);
 
-      Map requestParams = new HashMap(2);
+      Map<String, String> requestParams = new HashMap<String, String>(2);
       String selectionParam =
         TableSelectOneRenderer.__getSelectionParameterName(facesContext, table);
       requestParams.put(selectionParam, selectedParam);
@@ -174,6 +176,7 @@ public class TableSelectOneRendererTest extends FacesTestCase
       setDisclosedRowKeys(new RowKeySetImpl());
     }
 
+    @Override
     public void queueEvent(FacesEvent event)
     {
       this.event = event;

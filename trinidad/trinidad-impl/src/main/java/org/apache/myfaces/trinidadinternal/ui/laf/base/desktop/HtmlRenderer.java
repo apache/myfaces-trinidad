@@ -28,6 +28,7 @@ public class HtmlRenderer
   /**
    * Returns the name of the language attribute
    */
+  @Override
   protected String getLangAttrName(
     UIXRenderingContext context)
   {

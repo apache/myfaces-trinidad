@@ -43,11 +43,13 @@ public class UIXSelectManyTest extends UIXEditableValueTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -62,11 +64,12 @@ public class UIXSelectManyTest extends UIXEditableValueTestCase
    * Test a few generic properties of the attribute Map.
    * (These tests really should be at a higher level...)
    */
+  @SuppressWarnings("unchecked")
   public void testAttributeMap()
   {
     UIXSelectMany component = createSelectMany();
     assertEquals(null, component.getValueBinding("validators"));
-    Map attributes = component.getAttributes();
+    Map<String, Object> attributes = component.getAttributes();
     Validator[] validators = (Validator[]) attributes.get("validators");
     assertEquals(0, validators.length);
 
@@ -82,19 +85,19 @@ public class UIXSelectManyTest extends UIXEditableValueTestCase
 
     assertFalse(component.compareValues(null, null));
     assertFalse(component.compareValues(null, new Object[0]));
-    assertFalse(component.compareValues(null, new ArrayList()));
+    assertFalse(component.compareValues(null, new ArrayList<String>()));
     assertTrue(component.compareValues(null, new Object[1]));
     assertFalse(component.compareValues(new int[]{1, 2}, new int[]{2, 1}));
     assertTrue(component.compareValues(new int[]{1, 2, 3}, new int[]{2, 1}));
 
-    ArrayList one;
-    ArrayList two;
+    ArrayList<String> one;
+    ArrayList<String> two;
 
-    one = new ArrayList();
+    one = new ArrayList<String>();
     one.add("foo");
     one.add("bar");
 
-    two = new ArrayList();
+    two = new ArrayList<String>();
     two.add("bar");
     two.add("foo");
 
@@ -107,14 +110,16 @@ public class UIXSelectManyTest extends UIXEditableValueTestCase
     assertTrue(component.compareValues(one, two));
   }
 
+  @Override
   public void testProcessValidations()
   {
     String[] submittedValue = new String[] {"foo", "bar"};
-    List convertedValue = Arrays.asList(submittedValue);
+    List<String> convertedValue = Arrays.asList(submittedValue);
 
     doTestProcessValidations(createEditableValue(), submittedValue, convertedValue);
   }
 
+  @Override
   protected UIXEditableValue createEditableValue()
   {
     return createSelectMany();

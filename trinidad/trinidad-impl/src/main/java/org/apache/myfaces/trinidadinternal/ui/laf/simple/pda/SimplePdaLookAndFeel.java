@@ -30,6 +30,7 @@ public class SimplePdaLookAndFeel extends PdaHtmlLookAndFeel
    * Returns the id for the PDA implementation of the Simple
    * Look And Feel: "simple.pda".
    */
+  @Override
   public String getId()
   {
     return "simple.pda";
@@ -39,6 +40,7 @@ public class SimplePdaLookAndFeel extends PdaHtmlLookAndFeel
    * Returns the family for the Simple
    * Look And Feel: "simple".
    */
+  @Override
   public String getFamily()
   {
     return "simple";

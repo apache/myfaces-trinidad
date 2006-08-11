@@ -30,7 +30,6 @@ import java.util.TreeMap;
 
 import javax.faces.application.Application;
 import javax.faces.render.RenderKit;
-import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -46,13 +45,13 @@ public class FacesConfigInfo
 
   public void registerConverters(Application appl)
   {
-    Iterator convertersByType = _convertersByType.keySet().iterator();
+    Iterator<String> convertersByType = _convertersByType.keySet().iterator();
     while (convertersByType.hasNext())
     {
       try
       {
-        String type = (String) convertersByType.next();
-        String converterType = (String) _convertersByType.get(type);
+        String type = convertersByType.next();
+        String converterType = _convertersByType.get(type);
         appl.addConverter(Class.forName(type), converterType);
       }
       catch (Exception e)
@@ -61,13 +60,13 @@ public class FacesConfigInfo
       }
     }
 
-    Iterator convertersById = _convertersById.keySet().iterator();
+    Iterator<String> convertersById = _convertersById.keySet().iterator();
     while (convertersById.hasNext())
     {
       try
       {
-        String id = (String) convertersById.next();
-        String converterType = (String) _convertersById.get(id);
+        String id = convertersById.next();
+        String converterType = _convertersById.get(id);
         appl.addConverter(id, converterType);
       }
       catch (Exception e)
@@ -79,11 +78,11 @@ public class FacesConfigInfo
 
   public void registerComponents(Application appl)
   {
-    Iterator components = _components.keySet().iterator();
+    Iterator<String> components = _components.keySet().iterator();
     while (components.hasNext())
     {
-      String type = (String) components.next();
-      ComponentInfo info = (ComponentInfo) _components.get(type);
+      String type =components.next();
+      ComponentInfo info = _components.get(type);
       String className = info.componentClass;
       appl.addComponent(type, className);
     }
@@ -120,7 +119,7 @@ public class FacesConfigInfo
 
   public ComponentInfo getComponentInfo(String componentType)
   {
-    return (ComponentInfo) _components.get(componentType);
+    return _components.get(componentType);
   }
   
   public void load(String file) throws IOException, SAXException
@@ -134,10 +133,10 @@ public class FacesConfigInfo
     er.registerPublicId(publicID, dtdSource);
     builder.setEntityResolver(er);
 
-    Enumeration resources = getClass().getClassLoader().getResources(file);
+    Enumeration<URL> resources = getClass().getClassLoader().getResources(file);
     while (resources.hasMoreElements())
     {
-      URL resource = (URL) resources.nextElement();
+      URL resource = resources.nextElement();
       _LOG.info("PARSING " + resource);
       InputStream inputStream = null;
       // Try to get the inputStream off of a file
@@ -172,24 +171,26 @@ public class FacesConfigInfo
     public String componentClass;
     // Use a TreeMap so the properties always come back in 
     // sorted order.
-    public Map properties = new TreeMap();
+    public Map<String, PropertyInfo> properties = 
+      new TreeMap<String, PropertyInfo>();
+    
     public PropertyInfo getPropertyInfo(String name)
     {
-      return (PropertyInfo) properties.get(name);
+      return properties.get(name);
     }
   }
 
   static public class PropertyInfo
   {
-    public Class type;
+    public Class<?> type;
     public Object defaultValue;
-    public List  enumValues;
+    public List<Object> enumValues;
   }
 
-  private Map _components = new HashMap();
+  private Map<String, ComponentInfo> _components = new HashMap<String, ComponentInfo>();
   private Map<String, RenderKit> _renderKits  = new HashMap<String, RenderKit>();
-  private Map _convertersByType  = new HashMap();
-  private Map _convertersById  = new HashMap();
+  private Map<String, String> _convertersByType  = new HashMap<String, String>();
+  private Map<String, String> _convertersById  = new HashMap<String, String>();
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(FacesConfigInfo.class);

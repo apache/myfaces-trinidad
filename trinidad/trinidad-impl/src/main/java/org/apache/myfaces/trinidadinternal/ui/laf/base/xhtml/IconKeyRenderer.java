@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
  */
 public class IconKeyRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderContent(UIXRenderingContext context, UINode node)
     throws IOException
   {
@@ -52,6 +53,7 @@ public class IconKeyRenderer extends XhtmlLafRenderer
     }
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -60,6 +62,7 @@ public class IconKeyRenderer extends XhtmlLafRenderer
     return "span";
   }
 
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node)

@@ -160,6 +160,7 @@ public class FirePartialAction extends FireAction
   /**
    * Implementation of FireAction.getSubmitScript().
    */
+  @Override
   protected String getSubmitScript
     (UIXRenderingContext context,
      UINode node,
@@ -249,6 +250,7 @@ public class FirePartialAction extends FireAction
     return buffer.toString();
   }
 
+  @Override
   protected String getChangeScript
     (UIXRenderingContext context,
      UINode node,
@@ -301,6 +303,7 @@ public class FirePartialAction extends FireAction
   /**
    * Override of FireAction.renderAsEvent().
    */
+  @Override
   public boolean renderAsEvent(
     UIXRenderingContext context,
     UINode           node)
@@ -338,6 +341,7 @@ public class FirePartialAction extends FireAction
   /**
    * Override of ClientAction.writeDependencies().
    */
+  @Override
   public void writeDependencies(
     UIXRenderingContext context,
     UINode node
@@ -376,6 +380,7 @@ public class FirePartialAction extends FireAction
   /**
    * Override of ClientAction.isTriggerRequired()
    */
+  @Override
   public boolean isTriggerRequired(
     UIXRenderingContext context,
     UINode           node
@@ -391,6 +396,7 @@ public class FirePartialAction extends FireAction
   /**
    * Override of ClientAction.renderTrigger().
    */
+  @Override
   public void renderTrigger(
     UIXRenderingContext context,
     UINode           node
@@ -450,6 +456,7 @@ public class FirePartialAction extends FireAction
     buffer.append(value ? "1" : "0");
   }
 
+  @Override
   public Parameter[] getParameters(
     UIXRenderingContext context,
     UINode           node)
@@ -513,11 +520,13 @@ public class FirePartialAction extends FireAction
       return _sInstance;
     }
 
+    @Override
     public Object getScriptletKey()
     {
       return _FIRE_PARTIAL_ACTION_SCRIPTLET;
     }
 
+    @Override
     protected void outputScriptletContent(
       FacesContext context,
       RenderingContext arc)

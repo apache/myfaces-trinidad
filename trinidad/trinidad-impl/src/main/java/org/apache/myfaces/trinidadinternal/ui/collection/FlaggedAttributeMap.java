@@ -57,7 +57,7 @@ public final class FlaggedAttributeMap extends ArrayAttributeMap
     super(size, increment);
   }
   
-  
+  @Override
   public Object getAttribute(
     UIXRenderingContext context,
     AttributeKey     key
@@ -77,6 +77,7 @@ public final class FlaggedAttributeMap extends ArrayAttributeMap
     return super.getAttribute(context, key);
   }
   
+  @Override
   protected void putAttribute(
     AttributeKey key,
     Object       value
@@ -93,6 +94,7 @@ public final class FlaggedAttributeMap extends ArrayAttributeMap
     super.putAttribute(key, value);
   }
 
+  @Override
   protected void removeAttribute(
     AttributeKey key
     )

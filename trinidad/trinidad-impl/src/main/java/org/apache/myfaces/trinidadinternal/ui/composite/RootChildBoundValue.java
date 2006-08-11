@@ -39,8 +39,7 @@ public class RootChildBoundValue implements BoundValue
     String childName
     )
   {
-    RootChildBoundValue node =
-                         (RootChildBoundValue)_boundValues.get(childName);
+    RootChildBoundValue node = _boundValues.get(childName);
 
     if (node == null)
     {
@@ -59,7 +58,7 @@ public class RootChildBoundValue implements BoundValue
   {
     Integer key = IntegerUtils.getInteger(childIndex);
 
-    RootChildBoundValue node = (RootChildBoundValue)_boundValues.get(key);
+    RootChildBoundValue node = _boundValues.get(key);
 
     if (node == null)
     {
@@ -113,7 +112,8 @@ public class RootChildBoundValue implements BoundValue
     return null;
   }
 
-  private static Hashtable _boundValues = new Hashtable(51);
+  private static Hashtable<Object, RootChildBoundValue> _boundValues = 
+    new Hashtable<Object, RootChildBoundValue>(51);
 
   private String _childName;
   private int    _childIndex;

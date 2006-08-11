@@ -24,7 +24,7 @@ import java.util.List;
 class ELUtils
 {
 
-  public static void getFunctions(List functions,
+  public static void getFunctions(List<FunctionToken> functions,
                                   String expression,
                                   int startIndex, int endIndex)
   {
@@ -114,7 +114,7 @@ class ELUtils
 
   // gets a function name and prefix in the expression. searches backwards
   // from the location of the paren until the start index.
-  static private void _getFunction(List functions,
+  static private void _getFunction(List<FunctionToken> functions,
                                    String expression, 
                                    int start, 
                                    int parenIndex)

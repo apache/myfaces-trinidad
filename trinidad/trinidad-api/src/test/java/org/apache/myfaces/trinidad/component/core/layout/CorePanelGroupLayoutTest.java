@@ -38,11 +38,13 @@ public class CorePanelGroupLayoutTest extends UIXPanelTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -83,6 +85,7 @@ public class CorePanelGroupLayoutTest extends UIXPanelTestCase
     doTestFacetTransparency(component, CorePanelGroupLayout.SEPARATOR_FACET);
   }
 
+  @Override
   protected UIXPanel createTestComponent()
   {
     return new CorePanelGroupLayout();

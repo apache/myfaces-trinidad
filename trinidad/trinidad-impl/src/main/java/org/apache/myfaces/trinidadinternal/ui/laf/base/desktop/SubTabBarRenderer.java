@@ -33,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
  */
 public class SubTabBarRenderer extends HtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -42,6 +43,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
 
   }
 
+  @Override
   protected void renderID(
     UIXRenderingContext context,
     UINode           node
@@ -52,6 +54,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
     //  We will render id once on the top most html element i.e. <span>
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -70,6 +73,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   /**
    *
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -93,6 +97,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
     writer.endElement(TABLE_DATA_ELEMENT);    
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -120,6 +125,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   /**
    * Overrride to render in three passes.
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -144,6 +150,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
   /**
    * Returns the StyleClass to use to render this node.
    */
+  @Override
   protected Object getStyleClass(
     UIXRenderingContext context,
     UINode           node
@@ -173,11 +180,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
     return o;
   }
 
-
-
-
-
-
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,
@@ -251,6 +254,7 @@ public class SubTabBarRenderer extends HtmlLafRenderer
    * style on the td. The style will be af|panelTabbed::separator-before-selected,
    * af|panelTabbed::separator-after-selected, or af|panelTabbed::separator.
    */
+  @Override
   protected void renderBetweenIndexedChildren(
     UIXRenderingContext context,
     UINode           node

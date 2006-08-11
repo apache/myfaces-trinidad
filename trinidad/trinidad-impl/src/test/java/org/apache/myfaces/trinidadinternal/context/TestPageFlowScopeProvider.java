@@ -23,24 +23,27 @@ import org.apache.myfaces.trinidad.context.PageFlowScopeProvider;
 
 public class TestPageFlowScopeProvider extends PageFlowScopeProvider
 {
-  public Map getPageFlowScope(FacesContext context)
+  @Override
+  public Map<String, Object> getPageFlowScope(FacesContext context)
   {
     return null;
   }
 
-  public Map pushPageFlowScope(
+  @Override
+  public Map<String, Object> pushPageFlowScope(
     FacesContext context,
     boolean copyParent)
   {
     return null;
   }
 
-  public Map popPageFlowScope(FacesContext context, boolean discardScope)
+  @Override
+  public Map<String, Object> popPageFlowScope(FacesContext context, boolean discardScope)
   {
     return null;
   }
 
-
+  @Override
   public String encodeCurrentPageFlowScopeURL(
      FacesContext context,
      String url)

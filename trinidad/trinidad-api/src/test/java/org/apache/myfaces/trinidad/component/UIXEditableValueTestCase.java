@@ -40,6 +40,7 @@ abstract public class UIXEditableValueTestCase extends UIComponentTestCase
     super(testName);
   }
 
+  @SuppressWarnings("cast")
   public void testInterfaces()
   {
     UIXEditableValue component = createEditableValue();

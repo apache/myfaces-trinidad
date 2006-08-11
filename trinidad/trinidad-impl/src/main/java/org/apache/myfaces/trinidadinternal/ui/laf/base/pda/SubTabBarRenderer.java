@@ -29,6 +29,7 @@ import java.io.IOException;
 */
 public class SubTabBarRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -37,6 +38,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
     return DIV_ELEMENT ;
   }
 
+  @Override
   protected void renderID(
     UIXRenderingContext context,
     UINode           node
@@ -47,6 +49,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
     //  We will render id once on the top most html element i.e. <span>
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -55,6 +58,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
     super.renderAttributes(context, node);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -67,6 +71,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
     LinkUtils.startDefaultStyleClassDisabled(context);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -80,6 +85,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
   /**
    * Overrride to render in three passes.
    */
+  @Override
   protected void renderContent(
     UIXRenderingContext context,
     UINode           node
@@ -105,8 +111,7 @@ public class SubTabBarRenderer extends XhtmlLafRenderer
     LinkUtils.setSelected(context,actualLinkStatus);
   }
 
-
-
+  @Override
   protected void renderIndexedChild(
     UIXRenderingContext context,
     UINode           node,

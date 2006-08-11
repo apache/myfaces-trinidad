@@ -19,7 +19,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXPage;
 
-import org.apache.myfaces.trinidad.component.core.nav.CoreCommandNavigationItem;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
@@ -33,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.PageRendererUtils;
 public class PageMenuTabsRenderer extends
   org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.TabBarRenderer
 {
-
+  @Override
   protected UIXHierarchy getHierarchyBase(
     UIXRenderingContext context,
     UINode           node
@@ -43,6 +42,7 @@ public class PageMenuTabsRenderer extends
     return (UIXPage) pageNode.getUIComponent();
   }
 
+  @Override
   protected UINode getStamp(
     UIXRenderingContext context,
     UINode           node
@@ -52,6 +52,7 @@ public class PageMenuTabsRenderer extends
     return getNamedChild(context, pageNode, NODE_STAMP_CHILD);
   }
 
+  @Override
   protected boolean setNewPath(
     UIXRenderingContext context,
     UINode           node,
@@ -59,6 +60,6 @@ public class PageMenuTabsRenderer extends
   )
   {
     int startDepth = getIntAttributeValue(context, node, LEVEL_ATTR, 0);
-    return PageRendererUtils.setNewPath(context, ((UIXPage)component), startDepth);
+    return PageRendererUtils.setNewPath(context, component, startDepth);
   }
 }

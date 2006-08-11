@@ -44,11 +44,13 @@ public class CoreFormTest extends UIComponentTestCase
     super(testName);
   }
   
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -184,6 +186,7 @@ public class CoreFormTest extends UIComponentTestCase
       return _willBeSubmitted;
     }
 
+    @Override
     public void decode(FacesContext context)
     {
       super.decode(context);
@@ -193,6 +196,7 @@ public class CoreFormTest extends UIComponentTestCase
     private final boolean _willBeSubmitted;
   }
 
+  @Override
   protected boolean willChildrenBeProcessed(UIComponent component)
   {
     if (!component.isRendered())

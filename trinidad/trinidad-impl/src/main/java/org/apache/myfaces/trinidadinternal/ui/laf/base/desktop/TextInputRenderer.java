@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 public class TextInputRenderer 
                         extends org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.TextInputRenderer
 {
+  @Override
   protected Object getOnFocus(
     UIXRenderingContext context,
     UINode           node
@@ -49,6 +50,7 @@ public class TextInputRenderer
   /**
    * Returns true if the passed in columns should be shrunken when displaying
    */
+  @Override
   protected boolean shrinkColumns(
     UIXRenderingContext context
     )
@@ -65,6 +67,7 @@ public class TextInputRenderer
     return (isNetscape && (agent.getAgentOS() == TrinidadAgent.OS_WINDOWS));
   }
 
+  @Override
   protected boolean renderReadOnlyAsElement(
     UIXRenderingContext context,
     UINode           node)

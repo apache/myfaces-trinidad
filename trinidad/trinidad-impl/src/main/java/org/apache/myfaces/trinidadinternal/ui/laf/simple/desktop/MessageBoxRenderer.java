@@ -51,6 +51,7 @@ public class MessageBoxRenderer
   /**
    * Implementation of ElementRenderer.getName();
    */
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node
@@ -62,6 +63,7 @@ public class MessageBoxRenderer
   /**
    * Override of BaseRenderer.renderAttributes().
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -75,6 +77,7 @@ public class MessageBoxRenderer
   /**
    * Override of BaseRenderer.prerender()
    */
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -100,6 +103,7 @@ public class MessageBoxRenderer
   /**
    * Override of BaseRenderer.postrender()
    */
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node

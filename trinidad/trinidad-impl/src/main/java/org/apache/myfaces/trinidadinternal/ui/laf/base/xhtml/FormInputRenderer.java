@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  */
 abstract public class FormInputRenderer extends FormElementRenderer
 {
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode node
@@ -42,6 +43,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
     }
   }
 
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -60,6 +62,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
   /**
    * Renders event handlers for the node.
    */
+  @Override
   protected void renderEventHandlers(
     UIXRenderingContext context,
     UINode           node
@@ -74,6 +77,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
     renderAttribute(context, "onfocus", getOnFocus(context, node));
   }
 
+  @Override
   protected String getElementName(
     UIXRenderingContext context,
     UINode           node

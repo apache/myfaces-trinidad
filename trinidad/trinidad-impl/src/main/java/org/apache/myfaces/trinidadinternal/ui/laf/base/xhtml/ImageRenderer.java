@@ -34,6 +34,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
  */
 public class ImageRenderer extends XhtmlLafRenderer
 {
+  @Override
   protected void renderID(
     UIXRenderingContext context,
     UINode           node
@@ -59,7 +60,7 @@ public class ImageRenderer extends XhtmlLafRenderer
     return node.getAttributeValue(context, LONG_DESC_URL_ATTR);
   }
 
-
+  @Override
   protected Object getText(
     UIXRenderingContext context,
     UINode           node
@@ -97,6 +98,7 @@ public class ImageRenderer extends XhtmlLafRenderer
     return destination;
   }
 
+  @Override
   protected Object getOnClick(
     UIXRenderingContext context,
     UINode           node
@@ -151,6 +153,7 @@ public class ImageRenderer extends XhtmlLafRenderer
     return node.getAttributeValue(context, DESTINATION_ATTR);
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -159,6 +162,7 @@ public class ImageRenderer extends XhtmlLafRenderer
     // Don't bother with prerendering - it's all done in rendercontent
   }
 
+  @Override
   protected final void postrender(
     UIXRenderingContext context,
     UINode node
@@ -187,6 +191,7 @@ public class ImageRenderer extends XhtmlLafRenderer
     _renderImageMap(context, node);
   }
 
+  @Override
   protected void renderHAlign(
     UIXRenderingContext context,
     UINode           node
@@ -217,6 +222,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * we render shortDesc as alt text on image. Do not render it as title
    * on the link.
    */
+  @Override
   protected void renderShortDesc(UIXRenderingContext context,
                                  UINode node)
   {
@@ -228,6 +234,7 @@ public class ImageRenderer extends XhtmlLafRenderer
    * we don't need to call getSource() multiple times per render, as this
    * can be a little expensive for subclasses like ButtonRenderer.
    */
+  @Override
   protected final void renderContent(
     UIXRenderingContext context,
     UINode           node

@@ -40,11 +40,13 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     super(name);
   }
 
+  @Override
   public void setUp()
   {
     super.setUp();
   }
   
+  @Override
   public void tearDown()
   {
     super.tearDown();
@@ -55,11 +57,13 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     return new TestSuite(JsfNumberConverterTest.class);
   }
   
+  @Override
   protected NumberConverter getNumberConverter()
   {
     return new NumberConverter();
   }
 
+  @Override
   protected void doTestStateHolderSaveRestore(
     Converter conv1,
     Converter conv2,
@@ -100,6 +104,7 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     );
   }
 
+  @Override
   protected void doTestEquals(
     Converter conv1,
     Converter conv2,
@@ -113,6 +118,7 @@ public class JsfNumberConverterTest extends NumberConverterTestCase
     assertEquals(expectedOutCome, isEqual);
   }
 
+  @Override
    protected void doTestStrictNess(
     MockFacesContext context,
     MockUIComponentWrapper wrapper,

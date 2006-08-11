@@ -54,6 +54,7 @@ public class HeaderRenderer
     return false;
   }
 
+  @Override
   protected void prerender(
     UIXRenderingContext context,
     UINode           node
@@ -65,6 +66,7 @@ public class HeaderRenderer
       _prerender(context, node);
   }
 
+  @Override
   protected void postrender(
     UIXRenderingContext context,
     UINode           node
@@ -255,7 +257,7 @@ public class HeaderRenderer
     // using float to indent in ie on windows, but that means you 
     // need to clear after the header or you get strange behavior
     if ( HtmlLafRenderer.isIE(context) &&
-         context.getAgent().OS_WINDOWS == context.getAgent().getAgentOS())
+         TrinidadAgent.OS_WINDOWS == context.getAgent().getAgentOS())
     {
       writer.startElement(DIV_ELEMENT, null);
       writer.writeAttribute("style","clear:both", null);
@@ -327,12 +329,15 @@ public class HeaderRenderer
   private static final String _QUICK_LINKS_RETURN_TOP_TEXT =
                                     "af_panelPage.QUICK_LINKS_RETURN_TOP";
 
+  // -= Simon Lessard =-
+  // TODO: Never read locally as of 2006-08-09. Remove permanently if
+  //       no problem show up.
   // Integer of the indent level to show QuickLinks at
-  private static final String _QUICKLINKS_INDENT_LEVEL = "quickLinksIndent";
+  //private static final String _QUICKLINKS_INDENT_LEVEL = "quickLinksIndent";
 
   // FALSE if the first QuickLinks header has been rendered
-  private static final String _QUICK_LINKS_FIRST_HEADER_PROPERTY =
-    "quickLinksFirstHeader";
+  //private static final String _QUICK_LINKS_FIRST_HEADER_PROPERTY =
+  //  "quickLinksFirstHeader";
 
 
 

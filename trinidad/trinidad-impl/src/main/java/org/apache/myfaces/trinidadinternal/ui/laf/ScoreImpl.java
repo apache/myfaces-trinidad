@@ -59,6 +59,7 @@ public class ScoreImpl extends Score
   /**
    * Returns the score for the look and feel family name.
    */
+  @Override
   public int getNameScore()
   {
     return _nameScore;
@@ -67,6 +68,7 @@ public class ScoreImpl extends Score
   /**
    * Returns the score for the Agent type.
    */
+  @Override
   public int getAgentTypeScore()
   {
     return _agentTypeScore;
@@ -75,6 +77,7 @@ public class ScoreImpl extends Score
   /**
    * Returns the score for the Agent application.
    */
+  @Override
   public int getAgentApplicationScore()
   {
     return _agentApplicationScore;
@@ -83,6 +86,7 @@ public class ScoreImpl extends Score
   /**
    * Returns the score for the Agent version.
    */
+  @Override
   public int getAgentVersionScore()
   {
     return _agentVersionScore;
@@ -91,6 +95,7 @@ public class ScoreImpl extends Score
   /**
    * Returns the score for the Agent operating system.
    */
+  @Override
   public int getAgentOSScore()
   {
     return _agentOSScore;
@@ -100,6 +105,7 @@ public class ScoreImpl extends Score
    * Returns a discriminant score that is used as a tie-breaker
    * when multiple LookAndFeels produce the same score.
    */
+  @Override
   public int getDiscriminantScore()
   {
     return _discriminantScore;

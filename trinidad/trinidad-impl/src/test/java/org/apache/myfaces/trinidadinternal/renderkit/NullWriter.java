@@ -19,30 +19,37 @@ import java.io.Writer;
 
 public class NullWriter extends Writer
 {
+  @Override
   public void write(char[] buffer)
   {
   }
 
+  @Override
   public void write(char[] buffer, int off, int len)
   {
   }
 
+  @Override
   public void write(String str)
   {
   }
 
+  @Override
   public void write(int c)
   {
   }
 
+  @Override
   public void write(String str, int off, int len)
   {
   }
 
+  @Override
   public void close()
   {
   }
 
+  @Override
   public void flush()
   {
   }

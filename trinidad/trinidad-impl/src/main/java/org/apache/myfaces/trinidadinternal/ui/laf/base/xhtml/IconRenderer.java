@@ -105,11 +105,11 @@ public class IconRenderer implements Renderer
    * @return Map containing IconConstants as keys, and the values from 
    *             the node.
    */
-  private Map _getNodeAttributeMap(
+  private Map<String, Object> _getNodeAttributeMap(
     UIXRenderingContext context,
     UINode           node)
   {
-    Map attrs = null;
+    Map<String, Object> attrs = null;
 
     Object id         = node.getAttributeValue(context, 
                                                UIConstants.ID_ATTR);
@@ -120,7 +120,7 @@ public class IconRenderer implements Renderer
     Object embedded   = node.getAttributeValue(context, 
                                                UIConstants.EMBEDDED_ATTR);
     
-    attrs = new ArrayMap(4);
+    attrs = new ArrayMap<String, Object>(4);
     attrs.put(Icon.ID_KEY, id);
     attrs.put(Icon.SHORT_DESC_KEY, shortDesc);
     attrs.put(Icon.STYLE_CLASS_KEY, styleClass);

@@ -34,6 +34,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
    * handle case where we don;t have javascript. This is a copy of
    * org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.SubmitButtonRenderer.renderAttributes()
    */
+  @Override
   protected void renderAttributes(
     UIXRenderingContext context,
     UINode           node
@@ -60,6 +61,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
   /**
    * Returns the Javascript function call to return for this button.
    */
+  @Override
   protected String getFunctionCall(
     UIXRenderingContext context,
     UINode           node,
@@ -77,6 +79,7 @@ abstract public class SubmitButtonRenderer extends ResetButtonRenderer
    * alternate Renderer for submit buttons.
    * @return xhtml SubmitButtonRenderer
    */
+  @Override
   protected Renderer getAltRenderer()
   {
     return _ALTERNATE_RENDERER;
