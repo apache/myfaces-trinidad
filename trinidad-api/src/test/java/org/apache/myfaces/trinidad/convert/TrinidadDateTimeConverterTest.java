@@ -42,7 +42,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
   }
   
   @Override
-  public void setUp()
+  protected void setUp() throws Exception
   {
     super.setUp();
     _mafct = new MockRequestContext();
@@ -51,7 +51,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
   }
 
   @Override
-  public void tearDown()
+  protected void tearDown() throws Exception
   {
     super.tearDown();
     _mafct.release();

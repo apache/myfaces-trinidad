@@ -51,7 +51,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
   }
 
   @Override
-  public void setUp()
+  protected void setUp() throws Exception
   {
     super.setUp();
     _mafct = new MockRequestContext();
@@ -61,7 +61,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
   }
 
   @Override
-  public void tearDown()
+  protected void tearDown() throws Exception
   {
     
     // RequestContext uses a thread local variable to hold itself and has a

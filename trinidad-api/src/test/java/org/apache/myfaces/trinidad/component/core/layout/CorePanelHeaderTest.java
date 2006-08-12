@@ -39,13 +39,13 @@ public class CorePanelHeaderTest extends UIXPanelTestCase
   }
   
   @Override
-  public void setUp()
+  protected void setUp() throws Exception
   {
     super.setUp();
   }
   
   @Override
-  public void tearDown()
+  protected void tearDown() throws Exception
   {
     super.tearDown();
   }
