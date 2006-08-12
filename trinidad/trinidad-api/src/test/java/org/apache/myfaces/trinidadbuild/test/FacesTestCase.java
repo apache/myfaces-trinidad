@@ -52,7 +52,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
   }
 
   @Override
-  public void setUp()
+  protected void setUp() throws Exception
   {
     super.setUp();
     facesContext.getViewRoot().setRenderKitId("org.apache.myfaces.trinidad.core"); 
@@ -65,7 +65,7 @@ public class FacesTestCase extends AbstractJmockJsfTestCase
   }
 
   @Override
-  public void tearDown()
+  protected void tearDown() throws Exception
   {
     super.tearDown();
   }
