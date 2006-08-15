@@ -57,6 +57,7 @@
             <li><a href="devguide/index.html">Developer's Guide</a></li>
             <li><a href="spec-diff.html">Converting from JavaServer Faces spec tags to Apache Trinidad Tags</a></li>
             <li><a href="api-changes.html">Converting from ADF Faces tags to Apache Trinidad Tags</a></li>
+            <li><a href="skin-selectors.html">Skin selector keys for skinning Apache Trinidad components</a></li>
           </ul>
           </subsection>
         </p>
