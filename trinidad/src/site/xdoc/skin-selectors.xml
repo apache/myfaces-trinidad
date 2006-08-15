@@ -1,0 +1,3727 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<document>
+  <properties>
+    <title>Selectors for Skinning Trinidad subsections</title>
+  </properties>
+  <body>
+    <section name="Selectors for Skinning Trinidad Components">
+      <p>
+        <ul>
+          <li>
+            <a href="#Overview">Overview</a>
+          </li>
+          <li>
+            <a href="#Global Selectors">Global Selectors</a>
+          </li>
+           <li>
+            <a href="#ButtonSelectors">Button Selectors</a>
+          </li>
+          <li>
+            <a href="#ComponentLevelSelectors">Component-level Selectors</a>
+          </li>
+        </ul>
+      </p>
+    </section>
+    <a name="Overview"></a>
+    <section name="Overview">
+     <p>This document lists the selectors that can be used in an Trinidad
+     skin .css file to skin Trinidad components.
+     </p>
+     <p>
+     <pre>
+     Examples of some Trinidad Skin selectors:
+     /* Global selectors affect more than one component */
+     .AFDarkForeground:alias {color:#035D5C;}
+     .AFDarkBackground:alias {background-color:Purple;}
+
+     /* Selectors to customize buttons. These are global selectors, too, since they affect all buttons. */
+     .AFButtonServerText:alias {background-color:#CECFCE; color:#25009E}
+     .AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-ora-text-antialias:true}
+     .AFButtonStartIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
+     .AFButtonStartIcon:alias:rtl {content:url(/skins/purple/images/btne.gif); width:7px; height:18px}
+
+     /* Component-specific selector.  */
+     af|showOneTab::orientation-top
+      {
+         border-bottom: 3px solid black;
+      }
+      </pre>
+     </p>
+
+
+    </section>
+    <a name="GlobalSelectors"></a>
+    <section name="Global Selectors">
+    <p>Global Selectors are selectors
+     that affect more than one component. If the selector name ends in the :alias pseudo-class, then
+     the selector is most likely included in other component-specific selectors.
+     Defining properties for a selector that ends in :alias will most likely
+     affect the skin for more than one component.
+     </p>
+      <subsection name="Global Style Selectors">
+        <table>
+          <tr>
+            <th>Selector Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFDefaultFontFamily:alias</td>
+            <td>Specifies the default font family list ("font-family" property)
+                for the skin.</td>
+          </tr>
+          <tr>
+            <td>.AFDefaultFont:alias</td>
+            <td>Specifies the default font for the skin. This style defines both
+                the default font family (as specified by the AFDefaultFontFamily
+                named style), the default font size, and default font weight.</td>
+          </tr>
+          <tr>
+            <td>.AFDefaultBoldFont:alias</td>
+            <td>A bold version of the default font.</td>
+          </tr>
+          <tr>
+            <td>.AFVerySmallFont:alias</td>
+            <td>A very small version of the default font. This style is used for
+                very small text such as inline messages, and copyright and
+                privacy messages.</td>
+          </tr>
+          <tr>
+            <td>.AFSmallFont:alias</td>
+            <td>A small version of the default font. This style is used for text
+                which is slightly smaller than the default, such as tr:navigationPath
+                links.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumFont:alias</td>
+            <td>A version of the default font which is slightly larger than the
+                default size. This is used for medium sized text, such as level
+                2 headers.</td>
+          </tr>
+          <tr>
+            <td>.AFLargeFont:alias</td>
+            <td>A large version of the default font. This is used for large
+                text, such as level 1 headers.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryLargeFont:alias</td>
+            <td>A very large version of the default font.</td>
+          </tr>
+          <tr>
+            <td>.AFDarkBackground:alias</td>
+            <td>The primary background color in the core color ramp.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkBackground:alias</td>
+            <td>The darkest background color in the core color ramp. This value
+                is computed relative to the .AFDarkBackground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumBackground:alias</td>
+            <td>A slightly lighter background color in the core color ramp. This
+                value is computed relative to the .AFDarkBackground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFLightBackground:alias</td>
+            <td>The lightest background color in the core color ramp. This value
+                is computed relative to the .AFDarkBackground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFDarkAccentBackground:alias</td>
+            <td>The primary background color in the accent color ramp. The other
+                accent background colors are computed relative to this one. So
+                changing this style properties will affect those styles.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkAccentBackground:alias</td>
+            <td>The darkest background color in the accent color ramp. This
+                value is computed relative to the .AFDarkAccentBackground:alias
+                color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumAccentBackground:alias</td>
+            <td>A slightly lighter background color in the accent color ramp.
+                This value is computed relative to the
+                .AFDarkAccentBackground:alias color. Used in
+                .AFPanelBoxMediumBackground:alias.</td>
+          </tr>
+          <tr>
+            <td>.AFLightAccentBackground:alias</td>
+            <td>The lightest background color in the accent color ramp. This
+                value is computed relative to the .AFDarkAccentBackground:alias
+                color. This is used in af|messages::body, .AFButtonServerText,
+                and .AFButtonServerTextDisabled.</td>
+          </tr>
+          <tr>
+            <td>.AFTextBackground:alias</td>
+            <td>The default text background color (white).</td>
+          </tr>
+          <tr>
+            <td>.AFDarkForeground:alias</td>
+            <td>The primary foreground color in the core color ramp.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkForeground:alias</td>
+            <td>The darkest foreground color in the core color ramp. This value
+                is computed relative to the .AFDarkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumForeground:alias</td>
+            <td>A slightly lighter foreground color in the core color ramp. This
+                value is computed relative to the .AFDarkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFLightForeground:alias</td>
+            <td>The lightest foreground color in the core color ramp. This value
+                is computed relative to the .AFDarkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFDarkAccentForeground:alias</td>
+            <td>The primary foreground color in the accent color ramp.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkAccentForeground:alias</td>
+            <td>The darkest foreground color in the accent color ramp. This
+                value is computed relative to the .AFDarkAccentForeground:alias
+                color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumAccentForeground:alias</td>
+            <td>A slightly lighter foreground color in the accent color ramp.
+                This value is computed relative to the
+                .AFDarkAccentForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFLightAccentForeground:alias</td>
+            <td>The lightest foreground color in the accent color ramp. This
+                value is computed relative to the .AFDarkAccentForeground:alias
+                color.</td>
+          </tr>
+          <tr>
+            <td>.AFDarkBorder:alias</td>
+            <td>The primary border color in the core color ramp. By default, it
+                uses the same color as is used in .AFDarkBackground:alias's
+                background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkBorder:alias</td>
+            <td>The darkest border color in the core color ramp. By default, it
+                uses the same color as is used in .AFVeryDarkBackground:alias's
+                background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumBorder:alias</td>
+            <td>A slightly lighter border color in the core color ramp. By
+                default, it uses the same color as is used in
+                .AFMediumBackground:alias's background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFLightBorder:alias</td>
+            <td>The lightest border color in the core color ramp. By default, it
+                uses the same color as is used in .AFLightBackground:alias's
+                background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFDarkAccentBorder:alias</td>
+            <td>The primary border color in the accent color ramp. By default,
+                it uses the same color as is used in
+                .AFDarkAccentBackground:alias's background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFVeryDarkAccentBorder:alias</td>
+            <td>The darkest border color in the accent color ramp. By default,
+                it uses the same color as is used in
+                .AFVeryDarkAccentBackground:alias's background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFMediumAccentBorder:alias</td>
+            <td>A slightly lighter border color in the accent color ramp. By
+                default, it uses the same color as is used in
+                .AFMediumAccentBackground:alias's background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFLightAccentBorder:alias</td>
+            <td>The lightest border color in the accent color ramp. By default,
+                it uses the same color as is used in
+                .AFLightAccentBackground:alias's background-color.</td>
+          </tr>
+          <tr>
+            <td>.AFTextForeground:alias</td>
+            <td>The default text foreground color (black).</td>
+          </tr>
+          <tr>
+            <td>.AFSelectedTextForeground:alias</td>
+            <td>The foreground color for selected/highlighted text, or text
+                which is drawn on a dark background. Currently this is not
+                included in other styles; you may include it in styles you skin.</td>
+          </tr>
+          <tr>
+            <td>.AFErrorTextForeground:alias</td>
+            <td>The foreground color for error text (red). This is included in
+                error styles, like af|panelHeader::error and af|messages::error
+                and .AFErrorIconStyle.</td>
+          </tr>
+
+          <tr>
+            <td>.AFStartTextAlign:alias</td>
+            <td>Sets the text-align property to "left" for left-to-right reading
+                direction and "right" for right-to-left reading direction.</td>
+          </tr>
+          <tr>
+            <td>.AFEndTextAlign:alias</td>
+            <td>Sets the text-align property to "right" for left-to-right
+                reading direction and "left" for right-to-left reading direction.</td>
+          </tr>
+          <tr>
+            <td>.AFEndPadding:alias</td>
+            <td>Sets the padding property to pad on the left-to-right
+                reading direction and "left" for right-to-left reading direction.  
+                e.g,: padding: 0px 8px 0px 0px; (for 'right' padding).</td>
+          </tr>          
+          
+          <tr>
+            <td>.AFLeftTextAlign:alias</td>
+            <td>Sets the text-align property to "left" regardless of the reading
+                direction.</td>
+          </tr>
+          <tr>
+            <td>.AFRightTextAlign:alias</td>
+            <td>Sets the text-align property to "right" regardless of the
+                reading direction.</td>
+          </tr>
+          <tr>
+            <td>.AFCenterTextAlign:alias</td>
+            <td>Sets the text-align property to "center" regardless of the
+                reading direction.</td>
+          </tr>
+          <tr>
+            <td>.AFFieldText</td>
+            <td>Style class for text displayed in tr:select* components and in
+                inputText. Also can be used as a value for the styleClass attribute
+                in outputFormatted and outputText.</td>
+          </tr>
+          <tr>
+            <td>.AFFieldTextDisabled</td>
+            <td>Style class for text displayed in disabled tr:select* components
+                and in inputText. Also can be used as a value for the styleClass attribute
+                in outputFormatted and outputText.</td>
+          </tr>
+          <tr>
+            <td>.AFLabelText</td>
+            <td>Style class for text displayed in label.This is used in
+                select* components and panelLabelAndMessage.
+                Also can be used as a value for the styleClass attribute
+                in outputFormatted and outputText.</td>
+          </tr>
+          <tr>
+            <td>.AFLabelCell</td>
+            <td>Style class for cell in which the label is displayed. A common
+                style property to set is text-align. This is used in select*
+                components and panelLabelAndMessage.
+                Also can be used as a value for the styleClass attribute
+                in outputFormatted and outputText.</td>               
+          </tr>
+          <tr>
+            <td>.AFLabelTextForeground:alias</td>
+            <td>Use the property 'color' to style the color of the label. By default,
+                this includes the AFTextForeground:alias style. This is used
+                in the .AFLabel:alias style which styles the label for all
+                form components, like tr:inputText and tr:selectOne/selectMany
+                components.</td>
+          </tr>
+          <tr>
+            <td>.AFLabelTextForegroundDisabled:alias</td>
+            <td>Use the property 'color' to style the color of the label when it is
+                disabled. By default,
+                this includes the AFTextForeground:alias style. This is used
+                in the .AFLabelDisabled:alias style which styles the label for all
+                form components (like tr:inputText and tr:selectOne/selectMany)
+                when they are disabled.</td>
+          </tr>
+          <tr>
+            <td>.AFLabel:alias</td>
+            <td>Aliased style class that is included in the label selector for
+                all the form components. e.g., "af|inputText::label".</td>
+          </tr>
+          <tr>
+            <td>.AFLabelDisabled:alias</td>
+            <td>Aliased style class that is included in the label selector for
+                all the form components when they are disabled. It is a quick
+                way to style disabled form components' labels the same, instead
+                of for each component: .AFLabelDisabled:alias instead of
+                e.g., "af|inputText:disabled af|inputText::label".</td>
+          </tr>           
+          <tr>
+            <td>.AFErrorIconStyle</td>
+            <td>Style class that styles the .AFErrorIcon:alias icons.</td>
+          </tr>
+          <tr>
+            <td>.AFWarningIconStyle</td>
+            <td>Style class that styles the .AFWarningIcon:alias icons.</td>
+          </tr>
+          <tr>
+            <td>.AFInfoIconStyle</td>
+            <td>Style class that styles the .AFInfoIcon:alias icons.</td>
+          </tr>
+          <tr>
+            <td>.AFRequiredIconStyle</td>
+            <td>Style class that styles the .AFRequiredIcon icon.</td>           
+          </tr>
+          <tr>
+            <td>.AFRequiredIconStyle:alias</td>
+            <td>Alias style class that styles the required icon for form components.
+            It is included in the ::required-icon-style pseudo-element for the 
+            form components (e.g. af|inputText::required-icon-style)</td>
+          </tr>          
+           <tr>
+            <td>.AFLinkForeground:alias</td>
+            <td>The default foreground color for inactive, unvisited links.</td>
+          </tr>
+          <tr>
+            <td>.AFActiveLinkForeground:alias</td>
+            <td>The default foreground color for active links.
+            By default, this value is computed relative to the
+                .AFLinkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFVisitedLinkForeground:alias</td>
+            <td>The default foreground color for visited links.
+                By default, this value is computed relative to the
+                .AFLinkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>.AFDisabledLinkForeground:alias</td>
+            <td>The default foreground color for disabled links.
+                 By default, this value is computed relative to the
+                .AFLinkForeground:alias color.</td>
+          </tr>
+          <tr>
+            <td>
+          AFInstructionText,
+   AFFieldText,
+   AFFieldTextLTR,
+   AFPhoneFieldText,
+   AFPostalCodeFieldText,
+   AFAddressFieldText,
+   AFInstructionTextDisabled,
+   AFFieldTextDisabled,
+   AFFieldTextLTRDisabled,
+   AFPhoneFieldTextDisabled,
+   AFPostalCodeFieldTextDisabled,
+   AFAddressFieldTextDisabled,
+   AFDataText,
+   AFDataTextDisabled,
+   AFDataNumber,
+   AFDataNumberDisabled,
+   AFFieldNumber,
+   AFFieldNumberDisabled,
+          AFLabelTextDisabled</td>
+      <td>Built-in styles that can be used as a styleClass attribute value.<br/>
+      
+      Please note: For the tr:inputText components, 
+      you should use the styleClasses that end in 'Marker'
+      instead. The style classes listed here will affect the entire 
+      tr:inputText components, and 
+      the 'Marker' styles affect only the 'content' piece
+      of the components.
+      See af|inputText below for the list of public styleClasses to use
+      for those components.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Global Icon Selectors">
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFErrorIcon:alias</td>
+            <td>This icon is used by the form components (eg.
+                selectInputText, selectBooleanCheckbox, outputLabel, etc...) to indicate that
+                an error has occurred.</td>
+          </tr>
+          <tr>
+            <td>.AFErrorAnchorIcon:alias</td>
+            <td>This icon is a version of the error icon that is
+                displayed when the icon is used as a link to additional
+                information about the error. For example, when outputLabel's messageType is error,
+                and the messageDescUrl is not null, an clickable error icon is rendered.</td>
+          </tr>
+          <tr>
+            <td>.AFInfoIcon:alias</td>
+            <td>
+           This icon is used by the form components (eg.
+           selectInputText, selectBooleanCheckbox, outputLabel, etc...) to indicate that an
+           informational message is being displayed to the user.
+            </td>
+       </tr>
+       <tr><td>.AFInfoAnchorIcon:alias</td>
+         <td>
+           This icon is a version of the info icon that is
+           displayed when the icon is used as a link to additional information.
+         </td>
+       </tr>
+       <tr><td>.AFRequiredIcon:alias</td>
+         <td>
+           This icon is used by the form components (eg.
+           selectInputText, selectBooleanCheckbox, outputLabel, etc...) to indicate that a
+           value is required.
+         </td>
+       </tr>
+       <tr><td>.AFWarningIcon:alias</td>
+         <td>
+           This icon is used by the form components (eg.
+           selectInputText, selectBooleanCheckbox, etc...) to indicate that an
+           warning message is being displayed to the user.
+         </td>
+       </tr>
+       <tr><td>.AFWarningAnchorIcon:alias</td>
+         <td>
+           This icon is a version of the warning icon that is
+           displayed when the icon is used as a link to additional information
+           about the warning.
+         </td>
+       </tr>
+       <tr><td>.AFQuickSelectIcon</td>
+         <td>
+           This icon depects a QuickSelect. This is used in LOV tables where a click on a button will act as a shortcut for a select/OK sequence.
+         </td>
+       </tr>
+        </table>
+      </subsection>
+    </section>
+    <a name="ButtonSelectors"></a>
+       <section name="Button Selectors">
+         <p>We do not support component-level selectors for buttons. For example,
+         you cannot customize a goButton differently from a commandButton. You can
+         customize buttons in general, and following is the description in how to do that.
+         </p>
+         <p>
+           Skinning supports two very different button
+           implementations. By default, standard browser buttons are used.
+           However, the skinning also supports dynamic generation of
+           image-based buttons. In order to enable image-based buttons, the
+           following four button icon must be specified:
+           <ul>
+            <li>.AFButtonStartIcon:alias</li>
+            <li>.AFButtonEndIcon:alias</li>
+            <li>.AFButtonTopBackgroundIcon:alias</li>
+            <li>.AFButtonBottomBackgroundIcon:alias</li>
+          </ul>
+           When these four icons are
+           specified, Trinidad combines the images specified by these icons into a
+           single button image. (Note: These icons must be specified using either
+           context-image or resource-image icons. Text-based icons are not
+           allowed.)
+         </p>
+       <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+         <tr><td>.AFButtonServerText:alias</td>
+           <td>
+             This style is used to provide the foreground color, background
+             color, and font information for server-side generated buttons.
+             You can set attributes background-color, color, -ora-text-antialias, font-size,
+             font-family.
+            </td>
+         </tr>
+         <tr><td>.AFButtonServerTextDisabled:alias</td>
+           <td>
+             This style is used to provide the foreground color, background
+             color, and font information for server-side generated disabled
+             buttons. You can attributes background-color, color, -ora-text-antialias, font-size,
+             font-family.
+           </td>
+         </tr>
+         <tr><td>BUTTON</td>
+           <td>
+             The BUTTON selector is used to apply styles to browser-based buttons.
+           </td>
+         </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+         <tr><td>.AFButtonStartIcon:alias</td>
+           <td>
+             This icon is rendered at the starting side of the button. That is,
+             this image appears on the left side of the button when the reading
+             direction is right-to-left, and the right side of the button when
+             the reading direction is left-to-right.
+           </td>
+         </tr>
+         <tr><td>.AFButtonEndIcon:alias</td>
+           <td>
+             This icon is rendered at the ending side of the button. That is,
+             this image appears on the right side of the button when the reading
+             direction is right-to-left, and the left side of the button when the
+             reading direction is left-to-right.
+           </td>
+         </tr>
+         <tr><td>.AFButtonTopBackgroundIcon:alias</td>
+           <td>
+             This image is tiled horizontally along the top of the button,
+             providing the button's top border.
+           </td>
+         </tr>
+         <tr><td>.AFButtonBottomBackgroundIcon:alias</td>
+           <td>
+             This image is tiled horizontally along the bottom of the button,
+             providing the button's bottom border.
+           </td>
+         </tr>
+         <tr><td>.AFButtonDisabledStartIcon:alias</td>
+           <td>
+             This icon is rendered at the starting side of disabled buttons. If
+             this icon is not specified, the buttonStart icon will be used
+             instead.
+           </td>
+         </tr>
+         <tr><td>.AFButtonDisabledEndIcon:alias</td>
+           <td>
+             This icon is rendered at the ending side of disabled button. If this
+             icon is not specified, the buttonEnd icon will be used instead.
+           </td>
+         </tr>
+         <tr><td>.AFButtonDisabledTopBackgroundIcon:alias</td>
+           <td>
+             This icon is tiled horizontally along the top of disabled buttons.
+             If this icon is not specified, the buttonTopBackground icon will be
+             used instead.
+           </td>
+         </tr>
+         <tr><td>.AFButtonDisabledBottomBackgroundIcon:alias</td>
+           <td>
+             This icon is tiled horizontally along the bottom of the disabled
+             buttons. If this icon is not specified, the buttonBottomBackground
+             icon will be used instead.
+           </td>
+         </tr>
+        </table>
+      </section>
+    <a name="ComponentLevelSelectors"></a>
+    <section name="Component-level Selectors">
+     <p>Component-level selectors are selectors that can be used to skin a particular
+     Trinidad component. The selectors defined below are specified by the component they affect.
+     Let's say you want to skin the tr:chooseDate component. If you go to the tr:chooseDate Component
+     section of this document, you will see the selectors that you can use to skin the tr:chooseDate
+     component. One of the selectors is af|chooseDate::title. The ::title pseudo-element indicates that this
+     is the title portion of the tr:chooseDate component. If you want to skin the
+     title of the tr:chooseDate component, you would
+     set css properties on the af|chooseDate::title selector in your Trinidad
+     skin .css file.
+     </p>
+     <p>You may see selector names that end in :alias in the component-level
+     section. These are meant to provide short-cuts to skin more than one
+     component that share a certain style or icon, or to skin more than one
+     piece of a component. For example, the .AFMenuBarItem:alias style defines
+     skin properties that are shared by all tr:menuBar items. This is included by the
+     af|menuBar::enabled and af|menuBar::selected style classes.
+     Therefore, if you change the .AFMenuBarItem:alias style, you
+     will affect the af|menuBar::enabled and af|menuBar::selected style selectors.</p>
+      <subsection name="afh:body Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|body</td>
+            <td>Styles the afh:body content.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:chooseDate Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|chooseDate::nav-link</td>
+            <td>Styles the chooseDate's navigation Previous Month and Next Month links.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::title</td>
+            <td>Styles the chooseDate title which is month/year choice lists.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::header</td>
+            <td>Styles the chooseDate header which is the days of week row..</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::content</td>
+            <td>Styles the chooseDate content.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::selected</td>
+            <td>Styles the selected date.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::disabled</td>
+            <td>Styles the disabled dates.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|chooseDate::prev-icon</td>
+            <td>The previous icon which is used to go back to previous month.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::next-icon</td>
+            <td>The next icon which is used to go back to next month.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::prev-disabled-icon</td>
+            <td>The previous icon disabled.</td>
+          </tr>
+          <tr>
+            <td>af|chooseDate::next-disabled-icon</td>
+            <td>The next icon disabled.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:column Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+
+          <tr>
+            <td>af|column::cell-text</td>
+            <td>Styles the text cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::cell-text-band</td>
+            <td>Styles the banded text cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::cell-number</td>
+            <td>Styles the numeric cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::cell-number-band</td>
+            <td>Styles the banded numeric cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::cell-icon-format</td>
+            <td>Styles the icon cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::cell-icon-format-band</td>
+            <td>Styles the banded icon cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::header-text</td>
+            <td>Styles the column headers.</td>
+          </tr>
+          <tr>
+            <td>af|column::header-number</td>
+            <td>Styles the numeric column headers.</td>
+          </tr>
+          <tr>
+            <td>af|column::header-icon-format</td>
+            <td>Styles the icon column headers.</td>
+          </tr>
+          <tr>
+            <td>af|column::row-header-text</td>
+            <td>Styles the row headers.</td>
+          </tr>
+          <tr>
+            <td>af|column::total-text</td>
+            <td>Styles the text total row cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::total-number</td>
+            <td>Styles the numeric total row cells.</td>
+          </tr>
+          <tr>
+            <td>af|column::sortable-header-text</td>
+            <td>Styles the sortable column headers.</td>
+          </tr>
+          <tr>
+            <td>af|column::sortable-header-number</td>
+            <td>Styles the numeric sortable column headers.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|column::sortable-header-icon-format</td>
+            <td>Styles the icon sortable column headers.</td>
+          </tr>
+            <tr>
+            <td>.AFTableCellDataText:alias</td>
+            <td>Specifies the font family, font size and color for table data
+                text. This is included in the af|column::cell* selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataBackgroundColor:alias</td>
+            <td>Specifies the background color for data cells.
+             This is included in the af|column::cell* and af|table::control-bar* selectors.
+            </td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataBandedBackgroundColor:alias</td>
+            <td>Specifies the background color for banded data cells.
+             This is included in the af|column::cell*band selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataBorderColor:alias</td>
+            <td>Specifies the border color for data cells.
+             This is included in the af|column::cell* and af|table::control-bar* selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataVerticalAlign:alias</td>
+            <td>Specifies the vertical alignment for data cells.
+             This is included in the af|column::cell* selectors.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|column::sort-ascend-icon</td>
+            <td>This icon is used to indicate that the column is sorted in
+                ascending order.</td>
+          </tr>
+          <tr>
+            <td>af|column::sort-descend-icon</td>
+            <td>This icon is used to indicate that the column is sorted in
+                descending order.</td>
+          </tr>
+          <tr>
+            <td>af|column::unsorted-icon</td>
+            <td>This icon is used to indicate that the column is unsorted. Used
+                in the oracle.adf.pda renderKit only.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:inputText Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|inputText</td>
+            <td>Style on the root element of the tr:inputText component.</td>
+          </tr>
+
+          <tr>
+            <td>af|inputText:disabled</td>
+            <td>Style on the root element of the tr:inputText component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: "af|inputText:disabled::label"</td>
+          </tr>
+          <tr>
+            <td>af|inputText:readOnly</td>
+            <td>Style on the root element of the tr:inputText component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: "af|inputText:readOnly::label"</td>
+          </tr>
+
+          <tr>
+            <td>af|inputText::content</td>
+            <td>Style on the content of the tr:inputText component. You can set the width of the content piece
+            that will be used when the columns attribute on tr:inputText is not set.</td>
+          </tr>
+          <tr>
+            <td>af|inputText::label</td>
+            <td>Style on the label of the tr:inputText component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                      
+          <tr>
+            <td>To style the input piece of inputText without creating a skin definition, 
+            you can set the following public style classes on the styleClass attribute. The 'Marker' style classes are
+             rendered on the root dom element, they have no style properties of its own, and they map the content
+            piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldTextMarker
+            to AFFieldText by defining this skin definition for you in our base skin:
+            af|inputText.AFFieldTextMarker af|inputText::content {-ora-rule-ref: selector(".AFFieldText")}. 
+            If you set styleClass="AFFieldText", the entire component will be affected, including the label.
+            If you want to affect only the 'content' piece, use one of these marker style classes</td>
+            <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFPhoneFieldTextMarker, AFPostalCodeFieldTextMarker, AFAddressFieldTextMarker,
+             AFFieldNumberMarker</td>
+          </tr>
+        </table>
+      </subsection> 
+      <subsection name="tr:inputNumberSpinbox Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|inputNumberSpinbox</td>
+            <td>Style on the root element of the tr:inputNumberSpinbox component.</td>
+          </tr>
+
+          <tr>
+            <td>af|inputNumberSpinbox:disabled</td>
+            <td>Style on the root element of the tr:inputNumberSpinbox component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: "af|inputNumberSpinbox:disabled::label"</td>
+          </tr>
+          <tr>
+            <td>af|inputNumberSpinbox:readOnly</td>
+            <td>Style on the root element of the tr:inputNumberSpinbox component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: "af|inputNumberSpinbox:readOnly::label"</td>
+          </tr>
+
+          <tr>
+            <td>af|inputNumberSpinbox::content</td>
+            <td>Style on the content of the tr:inputNumberSpinbox component. You can set the width of the content piece
+            that will be used when the columns attribute on tr:inputNumberSpinbox is not set.</td>
+          </tr>
+          <tr>
+            <td>af|inputNumberSpinbox::label</td>
+            <td>Style on the label of the tr:inputNumberSpinbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                      
+          <tr>
+            <td>To style the input piece of inputNumberSpinbox without creating a skin definition, 
+            you can set the following public style classes on the styleClass attribute. The 'Marker' style classes are
+             rendered on the root dom element, they have no style properties of its own, and they map the content
+            piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldNumberMarker
+            to AFFieldNumber by defining this skin definition for you in our base skin:
+            af|inputNumberSpinbox.AFFieldNumberMarker af|inputNumberSpinbox::content {-ora-rule-ref: selector(".AFFieldNumber")}. 
+            If you set styleClass="AFFieldNumber", the entire component will be affected, including the label.
+            If you want to affect only the 'content' piece, use one of these marker style classes</td>
+            <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFFieldNumberMarker</td>
+          </tr>
+        </table>
+      </subsection>      
+      <subsection name="tr:menuBar Component">
+        <p>The tr:menuBar is implemented using an inner table nested within an
+           outer table. The outer table contains cells for the
+           af|menuBar::start-icon and af|menuBar::end-icon icons, as well as a
+           cell for the nested inner table. The inner table contains the actual
+           contents of the menuBar - which includes the tr:menuBar items if any
+           items exist, or possibly the tr:menuBar title if no items are
+           specified.</p>
+        <p>Style properties can be applied to either the outer table or the
+           inner table, depending on how the styles are meant to be used. The
+           af|menuBar style can be used to apply styles to the entire menuBar -
+           including the af|menuBar::start-icon/af|menuBar::end-icon icons.
+           Note, however, that if these icons are transparent, then setting the
+           background color or borders on the af|menuBar style class itself is
+           probably not desirable, since the background color will show through
+           any transparent pixels in the icons.</p>
+        <p>Three other styles can be used to apply styles to the inner contents
+           of the tr:menuBar (not including the af|menuBar::start-icon and
+           af|menuBar::end-icon icons). If the tr:menuBar contains any items,
+           the af|menuBar::body style class is used to style the inner table
+           which contains the items. This is a good choice for specifying a
+           background color for the tr:menuBar, since this background color is
+           not applied to the tr:menuBar's outer icons. If no tr:menuBar items
+           are present, but the tr:menuBar's text attribute is specified, the
+           af|menuBar::title style class is rendered on the inner table instead
+           of af|menuBar::body. If no children are present and there is no
+           title, the af|menuBar::empty title is used.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuBar</td>
+            <td>Styles the menuBar container itself.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::body</td>
+            <td>Styles the menuBar's inner table when the menuBar contains child
+                items.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::title</td>
+            <td>Styles the menuBar's inner table when the menuBar does not
+                contain any child items but does have its text attribute set.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::empty</td>
+            <td>Styles empty menuBars - that is, menuBars which do not have any
+                children or a title.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::enabled</td>
+            <td>Styles enabled items in the menuBar.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::selected</td>
+            <td>Styles selected items in the menuBar.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::separator</td>
+            <td>Styles the menuBar separator items.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::enabled-link</td>
+            <td>Styles enabled links in the menuBar.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::selected-link</td>
+            <td>Styles selected links in the menuBar.</td>
+          </tr>
+          <tr>
+            <td>.AFMenuBarItem:alias</td>
+            <td>The .AFMenuBarItem:alias style defines style properties that are
+                shared by all menuBar items. This is included by the
+                af|menuBar::enabled and af|menuBar::selected style classes.
+                Therefore, if you change the .AFMenuBarItem:alias style, you
+                will affect af|menuBar::enabled and af|menuBar::selected.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuBar::start-icon</td>
+            <td>This icon is rendered at the start of the af|menuBar.</td>
+          </tr>
+          <tr>
+            <td>af|menuBar::end-icon</td>
+            &gt;
+            <td>This icon is rendered at the end of the af|menuBar.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuBar::leading-separator-icon</td>
+            <td>This icon is rendered before the first item in the af|menuBar.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuBar::trailing-separator-icon</td>
+            <td>This icon is rendered after the last item in the af|menuBar.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuBar::background-icon</td>
+            <td>This icon is rendered as the background of the af|menuBar.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuBar::separator-icon</td>
+            <td>This icon is rendered between items.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:menuButtons Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuButtons::text</td>
+            <td>Styles the enabled menu buttons text.</td>
+          </tr>
+          <tr>
+            <td>af|menuButtons::text-selected</td>
+            <td>Styles the selected menu buttons text.</td>
+          </tr>
+          <tr>
+            <td>af|menuButtons::text-disabled</td>
+            <td>Styles the disabled menu buttons text.</td>
+          </tr>
+          <tr>
+            <td>.AFMenuButtons:alias</td>
+            <td>The .AFMenuButtons:alias style defines style properties that are
+                shared by all menuButtons selectors: af|menuButtons::text,
+                af|menuButtons::text-selected, and af|menuButtons::text-disabled.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuButtons::separator-icon</td>
+            <td>The separator icon that is rendered between tr:menuButtons. This
+                is typically a text icon, like |.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:menuChoice Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuChoice::label</td>
+            <td>Styles the tr:menuChoice's label.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:menuList Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuList</td>
+            <td>Styles the menuList.</td>
+          </tr>
+          <tr>
+            <td>af|menuList::selected</td>
+            <td>Styles the selected menuList.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:navigationPath Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|navigationPath</td>
+            <td>Styles the tr:navigationPath content.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPath::disabled-step</td>
+            <td>Styles the disabled step of tr:navigationPath.</td>
+          </tr>
+          <tr>
+            <td>af|navigationPath::separator</td>
+            <td>Styles the tr:navigationPath steps.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPath::selected-step</td>
+            <td>Styles the selected step of tr:navigationPath. This step may be hidden
+                if the -ora-show-last-item property is set to false.</td>
+          </tr>
+          <tr>
+            <td>af|navigationPath::step</td>
+            <td>Styles the tr:navigationPath steps.</td>
+          </tr>
+          <tr>
+            <td>.AFPath:alias</td>
+            <td>The .AFPath:alias style defines style properties that are shared
+                by both af|navigationPath and af|treeTable::path.</td>
+          </tr>
+          <tr>
+            <td>.AFPathSeparator:alias</td>
+            <td>The .AFPathSeparator:alias style defines style properties that
+                used by both af|navigationPath::separator.</td>
+          </tr>
+          <tr>
+            <td>.AFPathStep:alias</td>
+            <td>The .AFPathStep:alias style defines style properties that are
+                shared by both af|navigationPath::step and af|treeTable::path-step</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">.AFPathSelectedStep:alias</td>
+            <td>The .AFPathSelectedStep:alias style defines style properties
+                that are shared by both af|navigationPath::selected-step and
+                af|treeTable::path-selected-step</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationPath::separator-icon</td>
+            <td>The separator icon that is rendered between tr:navigationPath links.
+                This is typically a text icon, like '&gt;'.</td>
+          </tr>
+          <tr>
+            <td>.AFPathSeparatorIcon:alias</td>
+            <td>Changing this icon changes both af|navigationPath::separator-icon and
+                af|treeTable::separator-icon. This makes it easier to keep the
+                icons between the two consistent.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Trinidad properties</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>-ora-show-last-item</td>
+            <td>Valid values are true or false. Determines whether the last item
+                is displayed or not. e.g., af|navigationPath
+                {-ora-show-last-item:false} will not show the last item in the
+                navigationPath.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:menuTabs Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuTabs</td>
+            <td>Styles the tr:menuTabs container.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled</td>
+            <td>Styles the enabled items.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::selected</td>
+            <td>Styles the selected item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::disabled</td>
+            <td>Styles the disabled item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-link</td>
+            <td>Styles link-specific styles to enabled links.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::selected-link</td>
+            <td>Styles link-specific styles to selected links.</td>
+          </tr>
+          <tr>
+            <td>.AFTabBarItem:alias</td>
+            <td>The .AFTabBarItem:alias style defines style properties that are
+                shared by all menuTabs items. This alias style is included by
+                the af|menuTabs::enabled, af|menuTabs::selected and
+                af|menuTabs::disabled style classes.</td>
+          </tr>
+          <tr>
+            <td>.AFTabBarLink:alias</td>
+            <td>The .AFTabBarLink:alias style defines style properties that are
+                shared by all links within the tabBar. This alias style is
+                included by the "af|menuTabs::enabled-link" and
+                "af|menuTabs::selected-link" selectors.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-start-icon</td>
+            <td>This icon is rendered at the start of each enabled menuTab item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-end-icon</td>
+            <td>This icon is rendered at the end of each enabled menuTab item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-background-icon</td>
+            <td>This icon is rendered in the background each enabled menuTab
+                item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::selected-start-icon</td>
+            <td>This icon is rendered at the start of the selected menuTab item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::selected-end-icon</td>
+            <td>This icon is rendered at the end of the selected menuTab item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::selected-background-icon</td>
+            <td>This icon is rendered in the background the selected menuTab
+                item.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-join-icon</td>
+            <td>This icon is rendered in between two enabled menuTab items.</td>
+          </tr>
+          <tr>
+            <td>af|menuTabs::enabled-selected-join-icon</td>
+            <td>This icon is rendered in between an enabled tabBar item and the
+                selected menuTab item. That is, when the reading direction is
+                left to right, the join connects an enabled item with a selected
+                item to the right of the enabled item.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|menuTabs::selected-enabled-join-icon</td>
+            <td>Thisicon is rendered in between the selected menuTab item and an
+                enabled menuTab item. That is, when the reading direction is
+                left to right, the join connects a selected item with an enabled
+                item to the right of the selected item.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:navigationTree">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|navigationTree::disclosed-icon</td>
+            <td>This icon is displayed when the tr:navigationTree component is
+                rendered in its disclosed state.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|navigationTree::undisclosed-icon</td>
+            <td>This icon is displayed when the tr:navigationTree component is
+                rendered in its undisclosed state.</td>
+          </tr>
+          <tr>
+            <td>.AFDetailDisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once: af|table::disclosed-icon,
+                af|showDetail::disclosed-icon,
+                af|showDetailHeader::disclosed-icon, af|navigationTree::disclosed-icon</td>
+          </tr>
+          <tr>
+            <td>.AFDetailUndisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once:
+                af|table::undisclosed-icon, af|showDetail::undisclosed-icon,
+                af|showDetailHeader::undisclosed-icon,
+                af|navigationTree::undisclosed-icon</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:messages Component">
+        <p>This tr:messages component is implemented using an inner table nested
+           within an outer table. The outer container is used to lay out the
+           messages' icons. The inner container contains the actual contents of
+           the messages. If any transparent icons are used, style properties
+           such as the background color should probably be set on the inner
+           table via the af|messages::body selector.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelOne</td>
+            <td>This style class is included by af|messages::header and
+                af|messages::error, as well as the af|*::level-one selectors and
+                af|panelHeader::error</td>
+          </tr>
+          <tr>
+            <td>af|messages</td>
+            <td>Styles the messages's outer table. Since the messages's icons
+                are rendered within the outer table, the af|message::body
+                selector is probably a better choice for specifying the
+                messages's background color, padding, etc...</td>
+          </tr>
+          <tr>
+            <td>af|messages::body</td>
+            <td>Styles the messages's inner table, which does not include any
+                outer icons.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|messages::top-start-icon</td>
+            <td>This icon is rendered at the top starting corner of the messages
+                (ie. at the top left corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|messages::top-end-icon</td>
+            <td>This icon is rendered at the top ending corner of the messages
+                (ie. at the top right corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|messages::top-background-icon</td>
+            <td>This icon is rendered in the background in between the
+                af|messages::top-start-icon and af|messages::top-end-icon icons.</td>
+          </tr>
+          <tr>
+            <td>af|messages::bottom-start-icon</td>
+            <td>This icon is rendered at the bottom starting corner of the
+                messages (ie. at the bottom left corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|messages::bottom-end-icon</td>
+            <td>This icon is rendered at the bottom ending corner of the
+                messages (ie. at the bottom right corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|messages::bottom-background-icon</td>
+            <td>This icon is rendered in the background in between the
+                af|messages::bottom-start-icon and af|messages::bottom-end-icon
+                icons.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|messages::start-background-icon</td>
+            <td>This icon is rendered in the background at the start of the
+                messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::end-background-icon</td>
+            <td>This icon is rendered in the background at the end of the
+                messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::error-icon</td>
+            <td>The icon that is displayed for error messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::warning-icon</td>
+            <td>The icon that is displayed for warning messages.</td>
+          </tr>
+          <tr>
+            <td>af|messages::info-icon</td>
+            <td>The icon that is displayed for information messages.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|messages::confirmation-icon</td>
+            <td>The icon that is displayed for confirmation messages.</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderErrorIcon:alias</td>
+            <td>The icon that is displayed for error messages or headers in
+                tr:messages and tr:panelHeader. Changing this icon changes both
+                af|panelHeader::error-icon and af|messages::error-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderWarningIcon:alias</td>
+            <td>The icon that is displayed for warning messages or headers in
+                tr:messages and tr:panelHeader. Changing this icon changes both
+                af|panelHeader::warning-icon and af|messages::warning-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderInfoIcon:alias</td>
+            <td>The icon that is displayed for information messages or headers
+                in tr:messages and tr:panelHeader. Changing this icon changes
+                both af|panelHeader::info-icon and af|messages::info-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderConfirmationIcon:alias</td>
+            <td>The icon that is displayed for confirmation messages or headers
+                in tr:messages and tr:panelHeader. Changing this icon changes
+                both af|panelHeader::confirmation-icon and
+                af|messages::confirmation-icon</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:objectSeparator Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|objectSeparator</td>
+            <td>Styles the tr:objectSeparator component.</td>
+          </tr>
+        </table>
+      </subsection>    
+      <subsection name="tr:panelBox">
+        <p>The panelBox contains two main regions: the body region, which
+           contains the panelBox contents, and the header region, which contains
+           the panelBox header text (set by the text attribute on tr:panelBox).
+           Styles can be applied to the body region via the af|panelBox::body
+           selector. Similarly, styles for the header region are specified via
+           the af|panelBox::header selector.</p>
+        <p>These two regions are themselves rendered within an outer container
+           that can be styled as well. There are two different sets of selectors
+           for the outer region, depending on whether a header is present. If a
+           header is present, one of the following selectors is used, depending
+           on the panelBox background color (background color can be quickly
+           configured to dark, medium, or light using the background attribute
+           on panelBox).</p>
+        <ul>
+          <li>af|panelBox::dark</li>
+          <li>af|panelBox::medium</li>
+          <li>af|panelBox::light</li>
+          <li>af|panelBox::transparent</li>
+        </ul>
+        <p>
+          If
+          <i>no header is present</i>
+          , the outer container instead uses the following style classes:
+        </p>
+        <ul>
+          <li>af|panelBox::content-dark</li>
+          <li>af|panelBox::content-medium</li>
+          <li>af|panelBox::content-light</li>
+          <li>af|panelBox::content-transparent</li>
+        </ul>
+        <p>In order to apply a style to the panelBox body or header for a
+           particular background type, a contextual selector can be used. For
+           example, the following selectors can be used to change the properties
+           of dark panelBox header and body regions:</p>
+        <pre>af|panelBox::dark af|panelBox::header {...} af|panelBox::dark
+             af|panelBox::body {...}</pre>
+        <p>And the following selector can be used to change the properties of
+           the dark panelBox body for panelBox which do not have a header:</p>
+        <pre>af|panelBox::content-dark af|panelBox::body {...}</pre>
+        <p>In order to make it easier to apply common style properties across
+           panelBox of different background types, several alias styles are
+           exposed. For example, the .AFPanelBoxDarkBackground:alias aliased
+           style provides a way to set the background color for all dark
+           panelBox. This aliased style is used regardless of whether the outer
+           container uses the af|panelBox::dark or af|panelBox::content-dark
+           style class (ie. whether or not a header is present).</p>
+        <p>The panelBox defines four sets of icons: one set for each background
+           type. Customizers are not required to specify icons for all of the
+           different icon names. If an icon is omitted, the panelBox will
+           attempt to expand to fill any empty space.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelBox::body</td>
+            <td>Styles the body region. The body region is rendered whether or
+                not the panelBox has a header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::header</td>
+            <td>Styles the header region.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark</td>
+            <td>Styles the outer container of the dark panelBox when there is a
+                header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium</td>
+            <td>Styles the outer container of the medium panelBox when there is
+                a header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light</td>
+            <td>Styles the outer container of light panelBox when there is a
+                header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent</td>
+            <td>Styles the outer container of transparent panelBox when there is
+                a header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::content-dark</td>
+            <td>Styles the dark panelBox when there is no header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::content-medium</td>
+            <td>Styles the medium panelBox when there is no header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::content-light</td>
+            <td>Styles the light panelBox when there is no header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::content-transparent</td>
+            <td>Styles the transparent panelBox when there is no header.</td>
+          </tr>
+          <tr>
+            <td>.AFPanelBox:alias</td>
+            <td>This aliased style can be used to specify common properties that
+                are shared by the af|panelBox::dark, af|panelBox::medium,
+                af|panelBox::light and af|panelBox::transparent style classes
+                (classes when the panelBox has a header).</td>
+          </tr>
+          <tr>
+            <td>.AFBoxContent:alias</td>
+            <td>This aliased style can be used to specify common properties that
+                are shared by the af|panelBox::content-dark,
+                af|panelBox::content-medium, af|panelBox::content-light and
+                af|panelBox::content-transparent style classes.
+                AFShuttleBoxContent:alias includes this style.</td>
+          </tr>
+          <tr>
+            <td>.AFPanelBoxBody:alias</td>
+            <td>
+              <p>This aliased style class be used to specify common properties
+                 that are shared by the four types of the
+                 panelBox&lt;Background&gt; body regions. It is included by the
+                 following selectors:</p>
+              <ul>
+                <li>af|panelBox::dark af|panelBox::body</li>
+                <li>af|panelBox::medium af|panelBox::body</li>
+                <li>af|panelBox::light af|panelBox::body</li>
+                <li>af|panelBox::transparent af|panelBox::body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFBoxContentBody:alias</td>
+            <td>
+              <p>This aliased style class be used to specify common properties
+                 that are shared by the four types of the
+                 af|panelBox::content&lt;Background&gt; body regions. It is
+                 included by the following selectors:</p>
+              <ul>
+                <li>af|panelBox::content-dark af|panelBox::body</li>
+                <li>af|panelBox::content-medium af|panelBox::body</li>
+                <li>af|panelBox::content-light af|panelBox::body</li>
+                <li>af|panelBox::content-transparent af|panelBox::body</li>
+                <li>.AFShuttleBoxContentBody:alias</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFPanelBoxDarkBackground:alias</td>
+            <td>
+              <p>This aliased style is used to set the background color for dark
+                 panelBox. It is included by the following selectors:</p>
+              <ul>
+                <li>af|panelBox::dark af|panelBox::body</li>
+                <li>af|panelBox::content-dark af|panelBox::body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFPanelBoxMediumBackground:alias</td>
+            <td>
+              <p>This aliased style is used to set the background color for
+                 medium panelBox. It is included by the following selectors:</p>
+              <ul>
+                <li>af|panelBox::medium af|panelBox::body</li>
+                <li>af|panelBox::content-medium af|panelBox::body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFBoxBackground:alias</td>
+            <td>
+              <p>This aliased style is used to set the background color for
+                 light panelBox and for the seletMany/selectOrder shuttle's box.
+                 It is included by the following selectors:</p>
+              <ul>
+                <li>af|panelBox::light af|panelBox::body</li>
+                <li>af|panelBox::content-light af|panelBox::body</li>
+                <li>AFShuttleBoxBackground:alias</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-header-start-icon</td>
+            <td>This icon is rendered at the start of the header region for dark
+                panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-header-end-icon</td>
+            <td>This icon is rendered at the end of the header region for dark
+                panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-header-background-icon</td>
+            <td>This icon is rendered in the background of the header region for
+                dark panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-bottom-start-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes at
+                the bottom starting corner (ie. at the bottom left corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-bottom-end-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes at
+                the bottom ending corner (ie. at the bottom right corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-bottom-background-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes as
+                the background in between the af|panelBox::dark-bottom-start and
+                af|panelBox::dark-bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-top-start-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes at
+                the top starting corner (ie. at the top left corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-top-end-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes at
+                the top ending corner (ie. at the top right corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-top-background-icon</td>
+            <td>This icon is rendered in the body region of dark panelBoxes as
+                the background in between the af|panelBox::dark-top-start and
+                af|panelBox::dark-top-end icons. Note: the top icons are only
+                rendered for contentContainers which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region in dark panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark-end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region in dark panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-header-start-icon</td>
+            <td>This icon is rendered at the start of the header region for
+                medium panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-header-end-icon</td>
+            <td>This icon is rendered at the end of the header region for medium
+                panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-header-background-icon</td>
+            <td>This icon is rendered in the background of the header region for
+                medium panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-bottom-start-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes at
+                the bottom starting corner (ie. at the bottom left corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-bottom-end-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes at
+                the bottom ending corner (ie. at the bottom right corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-bottom-background-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes as
+                the background in between the af|panelBox::medium-bottom-start
+                and af|panelBox::medium-bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-top-start-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes at
+                the top starting corner (ie. at the top left corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-top-end-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes at
+                the top ending corner (ie. at the top right corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-top-background-icon</td>
+            <td>This icon is rendered in the body region of medium panelBoxes as
+                the background in between the af|panelBox::medium-top-start and
+                af|panelBox::medium-top-end icons. Note: the top icons are only
+                rendered for contentContainers which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region in medium panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium-end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region in medium panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-header-start-icon</td>
+            <td>This icon is rendered at the start of the header region for
+                light panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-header-end-icon</td>
+            <td>This icon is rendered at the end of the header region for light
+                panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-header-background-icon</td>
+            <td>This icon is rendered in the background of the header region for
+                light panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-bottom-start-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes at
+                the bottom starting corner (ie. at the bottom left corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-bottom-end-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes at
+                the bottom ending corner (ie. at the bottom right corner for
+                left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-bottom-background-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes as
+                the background in between the af|panelBox::light-bottom-start
+                and af|panelBox::light-bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-top-start-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes at
+                the top starting corner (ie. at the top left corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-top-end-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes at
+                the top ending corner (ie. at the top right corner for left to
+                right languages.) Note: the top icons are only rendered for
+                panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-top-background-icon</td>
+            <td>This icon is rendered in the body region of light panelBoxes as
+                the background in between the af|panelBox::light-top-start and
+                af|panelBox::light-top-end icons. Note: the top icons are only
+                rendered for panelBoxes which do not have headers.w</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region in light panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light-end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region in light panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-header-start-icon</td>
+            <td>This icon is rendered at the start of the header region for
+                transparent panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-header-end-icon</td>
+            <td>This icon is rendered at the end of the header region for
+                transparent panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-header-background-icon</td>
+            <td>This icon is rendered in the background of the header region for
+                transparent panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-bottom-start-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes at the bottom starting corner (ie. at the bottom left
+                corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-bottom-end-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes at the bottom ending corner (ie. at the bottom right
+                corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-bottom-background-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes as the background in between the
+                af|panelBox::transparent-bottom-start and
+                af|panelBox::transparent-bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-top-start-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes at the top starting corner (ie. at the top left
+                corner for left to right languages.) Note: the top icons are
+                only rendered for panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-top-end-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes at the top ending corner (ie. at the top right corner
+                for left to right languages.) Note: the top icons are only
+                rendered for panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-top-background-icon</td>
+            <td>This icon is rendered in the body region of transparent
+                panelBoxes as the background in between the
+                af|panelBox::transparent-top-start and
+                af|panelBox::transparent-top-end icons. Note: the top icons are
+                only rendered for panelBoxes which do not have headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region in transparent panelBoxes.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::transparent-end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region in transparent panelBoxes.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:panelForm Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelForm::column</td>
+            <td>Specifies the style information for columns of the panelForm.</td>
+          </tr>
+          <tr>
+            <td>af|panelForm::separator</td>
+            <td>Specifies the style information for separators between groups in the panelForm.</td>
+          </tr>
+          <tr>
+            <td>af|panelForm::cell</td>
+            <td>Specifies the style information for each cell of the panelForm.</td>
+          </tr>
+          <tr>
+            <td>af|panelForm::label-cell</td>
+            <td>Specifies the style information for the label cell of the
+                panelForm when side-by-side with content. This includes .AFEndTextAlign:alias.</td>
+          </tr>
+          <tr>
+            <td>af|panelForm::label-stacked-cell</td>
+            <td>Specifies the style information for the label cell of the
+                panelForm when stacked above content.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:panelList Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelList</td>
+            <td>Styles the root dom element of the panelList. Note: if you would like to style the bullets, you can
+            set a css property/value to the listStyle attribute. For example, listStyle='list-style-type: decimal'
+             changes the list style to decimals. See the w3.org's css spec for more options.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:panelHeader Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelHeader</td>
+            <td>This can be used to set common properties that are shared across
+                all header levels.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::icon-style</td>
+            <td>Styles the header icon.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-one</td>
+            <td>Styles level one headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-two</td>
+            <td>Styles level two headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-three</td>
+            <td>Styles level three headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-four</td>
+            <td>Styles level four headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-five</td>
+            <td>Styles level five headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::level-six</td>
+            <td>Styles level six headers.</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::error</td>
+            <td>Styles level one header when messageType is error.</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderText:alias</td>
+            <td>This style is included by all the AFHeaderLevel*  style classes,
+                which in turn is included in other header style
+                selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelOne</td>
+            <td>This style is included by the af|*::level-one selectors and
+                af|messages::header, af|panelHeader::error and
+                af|messages::error (e.g., af|panelHeader::level-one,
+                af|showDetailHeader::level-one)</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelTwo</td>
+            <td>This style class is included by the af|*::level-two selectors (e.g.,
+                af|panelHeader::level-two, af|showDetailHeader::level-two).</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelThreePlus</td>
+            <td>This style class is included by all of the af|*::level-three,
+                af|*::level-four, af|*::level-five, and af|*::level-six selectors</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelHeader::error-icon</td>
+            <td>The icon that is displayed for headers with messageType "error".</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::warning-icon</td>
+            <td>The icon that is displayed for headers with messageType
+                "warning".</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::info-icon</td>
+            <td>The icon that is displayed for headers with messageType "info".</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::confirmation-icon</td>
+            <td>The icon that is displayed for headers with messageType
+                "confirmation".</td>
+          </tr>
+          <tr>
+            <td>af|panelHeader::processing-icon</td>
+            <td>The icon that is displayed for headers with messageType
+                "processing".</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderErrorIcon:alias</td>
+            <td>The icon that is displayed for error messages or headers in
+                tr:messages and tr:panelHeader. Changing this icon changes both
+                af|panelHeader::error-icon and af|messages::error-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderWarningIcon:alias</td>
+            <td>The icon that is displayed for warning messages or headers in
+                tr:messages and tr:panelHeader. Changing this icon changes both
+                af|panelHeader::warning-icon and af|messages::warning-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderInfoIcon:alias</td>
+            <td>The icon that is displayed for information messages or headers
+                in tr:messages and tr:panelHeader. Changing this icon changes
+                both af|panelHeader::info-icon and af|messages::info-icon</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderConfirmationIcon:alias</td>
+            <td>The icon that is displayed for confirmation messages or headers
+                in tr:messages and tr:panelHeader. Changing this icon changes
+                both af|panelHeader::confirmation-icon and
+                af|messages::confirmation-icon</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:panelPage Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFFooterMessageText:alias</td>
+            <td>This defines style properties that are shared by
+                af|panelPage::about, af|panelPage::copyright, and
+                af|panelPage::privacy style selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFFooterMessageLink:alias</td>
+            <td>This defines style properties that are shared by
+                af|panelPage::about-link, af|panelPage::copyright-link, and
+                af|panelPage::privacy-link style selectors.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::about</td>
+            <td>Styles the "appAbout" facet.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::about-link</td>
+            <td>Styles the links within the "appAbout" facet.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::copyright</td>
+            <td>Styles the "appCopyright" facet.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::copyright-link</td>
+            <td>Styles the links within the "appCopyright" facet.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::privacy</td>
+            <td>Styles the "appPrivacy" facet.</td>
+          </tr>
+          <tr>
+            <td>af|panelPage::privacy-link</td>
+            <td>Styles the links within the "privacy" facet.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:panelSideBar Component">
+        <p>This tr:panelSideBar component is implemented using an inner table
+           nested within an outer table. The outer container is used to lay out
+           the panelSideBar's icons. The inner container contains the actual
+           contents of the panelSideBar. If any transparent icons are used,
+           style properties such as the background color should probably be set
+           on the inner table via the af|panelSideBar::body style class.</p>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelSideBar</td>
+            <td>This style class is rendered on the panelSideBar's outer table.
+                Since the panelSideBar's icons are rendered within the outer
+                table, the af|panelSideBar::body style is probably a better
+                choice for specifying the panelSideBar's background color,
+                padding, etc...</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::body</td>
+            <td>This style class is rendered on the panelSideBar's inner table,
+                which does not include any outer icons.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::top-start-icon</td>
+            <td>This icon is rendered at the top starting corner of the
+                panelSideBar (ie. at the top left corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::top-end-icon</td>
+            <td>This icon is rendered at the top ending corner of the
+                panelSideBar (ie. at the top right corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::top-background-icon</td>
+            <td>This icon is rendered in the background in between the
+                af|panelSideBar::top-start and af|panelSideBar::top-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::bottom-start-icon</td>
+            <td>This icon is rendered at the bottom starting corner of the
+                panelSideBar (ie. at the bottom left corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::bottom-end-icon</td>
+            <td>This icon is rendered at the bottom ending corner of the
+                panelSideBar (ie. at the bottom right corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::bottom-background-icon</td>
+            <td>This icon is rendered in the background in between the
+                af|panelSideBar::bottom-start and af|panelSideBar::bottom-end
+                icons.</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::start-background-icon</td>
+            <td>This icon is rendered in the background at the start of the
+                panelSideBar.</td>
+          </tr>
+          <tr>
+            <td>af|panelSideBar::end-background-icon</td>
+            <td>This icon is rendered in the background at the end of the
+                panelSideBar.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectBooleanCheckbox Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox</td>
+            <td>Style on the root element of the tr:selectBooleanCheckbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox:disabled</td>
+            <td>Style on the root element of the tr:selectBooleanCheckbox component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectBooleanCheckbox:disabled af|selectBooleanCheckbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox:readOnly</td>
+            <td>Style on the root element of the tr:selectBooleanCheckbox component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectBooleanCheckbox:readOnly af|selectBooleanCheckbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox::content</td>
+            <td>Style on the content of the tr:selectBooleanCheckbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox::label</td>
+            <td>Style on the label of the tr:selectBooleanCheckbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                                 
+        </table>
+      </subsection>
+      <subsection name="tr:selectBooleanRadio Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio</td>
+            <td>Style on the root element of the tr:selectBooleanRadio component.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio:disabled</td>
+            <td>Style on the root element of the tr:selectBooleanRadio component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectBooleanRadio:disabled af|selectBooleanRadio::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio:readOnly</td>
+            <td>Style on the root element of the tr:selectBooleanRadio component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectBooleanRadio:readOnly af|selectBooleanRadio::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::content</td>
+            <td>Style on the content of the tr:selectBooleanRadio component.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::label</td>
+            <td>Style on the label of the tr:selectBooleanRadio component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                                      
+        </table>
+      </subsection>
+      <subsection name="tr:selectInputColor Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectInputColor::launch-icon</td>
+            <td>The button icon which is used to launch the secondary color
+                picker dialog. Note: This af|selectInputColor's color swatch is
+                now used to launch the secondary dialog on most browsers. The
+                af|selectInputColor::launch-icon icon is only displayed on
+                browsers which do not display the color swatch, such as Netscape
+                4.x.</td>
+          </tr>
+          <tr>
+            <td>af|selectInputColor::swatch-overlay-icon</td>
+            <td>The icon that is overlayed on top of the selectInputColor's
+                color swatch to indicate that the color swatch is clickable.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectInputDate Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::launch-icon</td>
+            <td>The button icon which is used to launch the secondary date
+                picker dialog.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectManyCheckbox Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectManyCheckbox</td>
+            <td>Style on the root element of the tr:selectManyCheckbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyCheckbox:disabled</td>
+            <td>Style on the root element of the tr:selectManyCheckbox component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectManyCheckbox:disabled af|selectManyCheckbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectManyCheckbox:readOnly</td>
+            <td>Style on the root element of the tr:selectManyCheckbox component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectManyCheckbox:readOnly af|selectManyCheckbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectManyCheckbox::content</td>
+            <td>Style on the content of the tr:selectManyCheckbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyCheckbox::label</td>
+            <td>Style on the label of the tr:selectManyCheckbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                                      
+        </table>
+      </subsection>
+      <subsection name="tr:selectManyListbox Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectManyListbox</td>
+            <td>Style on the root element of the tr:selectManyListbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyListbox:disabled</td>
+            <td>Style on the root element of the tr:selectManyListbox component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectManyListbox:disabled af|selectManyListbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectManyListbox:readOnly</td>
+            <td>Style on the root element of the tr:selectManyListbox component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectManyListbox:readOnly af|selectManyListbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectManyListbox::content</td>
+            <td>Style on the content of the tr:selectManyListbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyListbox::label</td>
+            <td>Style on the label of the tr:selectManyListbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                   
+        </table>
+      </subsection>
+      <subsection name="tr:selectManyShuttle Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::box-body</td>
+            <td>Styles the body region of the box around the shuttle. This is
+                inside of the af|selectManyShuttle::box-content style.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::box-content</td>
+            <td>Styles the outer container of box around the shuttle.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxContent:alias</td>
+            <td>This style defines style properties that are shared by
+                af|selectOrderShuttle::box-content and
+                af|selectManyShuttle::box-content</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxContentBody:alias</td>
+            <td>
+              <p>This style defines style properties that are included by the
+                 following selectors:</p>
+              <ul>
+                <li>af|selectManyShuttle::box-content
+                    af|selectManyShuttle::box-body</li>
+                <li>af|selectOrderShuttle::box-content
+                    af|selectOrderShuttle::box-body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxBackground:alias</td>
+            <td>
+              <p>Styles the background color for shuttle's box. It is included
+                 by the following selectors:</p>
+              <ul>
+                <li>af|selectManyShuttle::box-content
+                    af|selectManyShuttle::box-body</li>
+                <li>af|selectOrderShuttle::box-content
+                    af|selectOrderShuttle::panel-box-body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFBoxBackground:alias</td>
+            <td>
+              <p>This style is used to set the background color for light
+                 panelBox and for the selectMany/selectOrder shuttle's box. It
+                 is included by the following selectors:</p>
+              <ul>
+                <li>af|panelBox::light af|panelBox::body</li>
+                <li>af|panelBox::content-light af|panelBox::body</li>
+                <li>.AFShuttleBoxLightBackground:alias</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFShuttleMoveIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::move-icon and a
+                af|selectOrderShuttle::move-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleMoveAllIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::move-all-icon and a
+                af|selectOrderShuttle::move-all-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleRemoveIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::remove-icon and a
+                af|selectOrderShuttle::remove-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleRemoveAllIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::remove-all-icon and a
+                af|selectOrderShuttle::remove-all-icon.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::move-icon</td>
+            <td>The icon for the tr:selectManyShuttle's "Move" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::move-all-icon</td>
+            <td>The icon for the tr:selectManyShuttle's "Move All" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::remove-icon</td>
+            <td>The icon for the tr:selectManyShuttle's "Remove" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::remove-all-icon</td>
+            <td>The icon for the tr:selectManyShuttle's "Remove All" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::bottom-start-icon</td>
+            <td>This icon is rendered in the body region at the bottom starting
+                corner (ie. at the bottom left corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::bottom-end-icon</td>
+            <td>This icon is rendered in the body region at the bottom ending
+                corner (ie. at the bottom right corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">af|selectManyShuttle::bottom-background-icon</td>
+            <td>This icon is rendered in the body region as the background in
+                between the af|selectManyShuttle::bottom-start and
+                af|selectManyShuttle::bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::top-start-icon</td>
+            <td>This icon is rendered in the body region at the top starting
+                corner (ie. at the top left corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::top-end-icon</td>
+            <td>This icon is rendered in the body region at the top ending
+                corner (ie. at the top right corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::top-background-icon</td>
+            <td>This icon is rendered in the body region as the background in
+                between the af|selectManyShuttle::top-start and
+                af|selectManyShuttle::top-end icons. This needs to be an icon
+                with an url.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region. This needs to be an icon with an url.</td>
+          </tr>
+          <tr>
+            <td>af|selectManyShuttle::end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region. This needs to be an icon with an url.</td>
+          </tr>
+        </table>
+      </subsection>
+        <subsection name="tr:selectOneChoice Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectOneChoice</td>
+            <td>Style on the root element of the tr:selectOneChoice component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneChoice:disabled</td>
+            <td>Style on the root element of the tr:selectOneChoice component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectOneChoice:disabled af|selectOneChoice::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneChoice:readOnly</td>
+            <td>Style on the root element of the tr:selectOneChoice component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectOneChoice:readOnly af|selectOneChoice::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneChoice::content</td>
+            <td>Style on the content of the tr:selectOneChoice component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneChoice::label</td>
+            <td>Style on the label of the tr:selectOneChoice component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                         
+        </table>
+      </subsection>
+      <subsection name="tr:selectOneListbox Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectOneListbox</td>
+            <td>Style on the root element of the tr:selectOneListbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneListbox:disabled</td>
+            <td>Style on the root element of the tr:selectOneListbox component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectOneListbox:disabled af|selectOneListbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneListbox:readOnly</td>
+            <td>Style on the root element of the tr:selectOneListbox component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectOneListbox:readOnly af|selectOneListbox::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneListbox::content</td>
+            <td>Style on the content of the tr:selectOneListbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneListbox::label</td>
+            <td>Style on the label of the tr:selectOneListbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                         
+        </table>
+      </subsection>
+      <subsection name="tr:selectOneRadio Component">
+        <table>
+          <tr>
+            <th colspan="3">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectOneRadio</td>
+            <td>Style on the root element of the tr:selectOneRadio component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneRadio:disabled</td>
+            <td>Style on the root element of the tr:selectOneRadio component when its disabled attribute 
+            is set to 'true'.  For example, you can style the label when the component is 
+            disabled by using this selector: 
+            "af|selectOneRadio:disabled af|selectOneRadio::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneRadio:readOnly</td>
+            <td>Style on the root element of the tr:selectOneRadio component when its readOnly attribute 
+            is set to 'true'. For example, you can style the label when the component is 
+            readOnly by using this selector: 
+            "af|selectOneRadio:readOnly af|selectOneRadio::label"</td>
+          </tr>
+          <tr>
+            <td>af|selectOneRadio::content</td>
+            <td>Style on the content of the tr:selectOneListbox component.</td>
+          </tr>
+          <tr>
+            <td>af|selectOneRadio::label</td>
+            <td>Style on the label of the tr:selectOneListbox component.
+                This includes .AFLabel:alias style selector.</td>
+          </tr>                       
+        </table>
+      </subsection>
+      <subsection name="tr:selectOrderShuttle Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::box-body</td>
+            <td>Styles the body region of the box around the shuttle. This is
+                inside of the af|selectOrderShuttle::box-content style.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::box-content</td>
+            <td>Styles the outer container of box around the shuttle.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxContent:alias</td>
+            <td>This style defines style properties that are shared by
+                af|selectOrderShuttle::box-content and
+                af|selectManyShuttle::box-content</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxContentBody:alias</td>
+            <td>
+              <p>This style defines style properties that are included by the
+                 following selectors:</p>
+              <ul>
+                <li>af|selectManyShuttle::box-content
+                    af|selectManyShuttle::box-body</li>
+                <li>af|selectOrderShuttle::box-content
+                    af|selectOrderShuttle::box-body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>.AFShuttleBoxBackground:alias</td>
+            <td>
+              <p>This style is used to set the background color for shuttle's
+                 box. It is included by the following selectors:</p>
+              <ul>
+                <li>af|selectManyShuttle::box-content
+                    af|selectManyShuttle::box-body</li>
+                <li>af|selectOrderShuttle::box-content
+                    af|selectOrderShuttle::box-body</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFShuttleMoveIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::move-icon and a
+                af|selectOrderShuttle::move-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleMoveAllIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::move-all-icon and a
+                af|selectOrderShuttle::move-all-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleRemoveIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::remove-icon and a
+                af|selectOrderShuttle::remove-icon.</td>
+          </tr>
+          <tr>
+            <td>.AFShuttleRemoveAllIcon:alias</td>
+            <td>Customizes both af|selectManyShuttle::remove-all-icon and a
+                af|selectOrderShuttle::remove-all-icon.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::move-icon</td>
+            <td>The icon for the tr:selectOrderShuttle's "Move" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::move-all-icon</td>
+            <td>The icon for the tr:selectOrderShuttle's "Move All" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::remove-icon</td>
+            <td>The icon for the tr:selectOrderShuttle's "Remove" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::remove-all-icon</td>
+            <td>The icon for the tr:selectOrderShuttle's "Remove All" action.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::reorder-top-icon</td>
+            <td>The icon for moving the currently selected item to the top.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::reorder-up-icon</td>
+            <td>The icon for moving the currently selected item up by one item.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::reorder-down-icon</td>
+            <td>The icon for moving the currently selected item down by one item.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::reorder-bottom-icon</td>
+            <td>The icon for moving the currently selected item to the bottom.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::bottom-start-icon</td>
+            <td>This icon is rendered in the body region at the bottom starting
+                corner (ie. at the bottom left corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::bottom-end-icon</td>
+            <td>This icon is rendered in the body region at the bottom ending
+                corner (ie. at the bottom right corner for left to right
+                languages.)</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|selectOrderShuttle::bottom-background-icon</td>
+            <td>This icon is rendered in the body region as the background in
+                between the af|selectManyShuttle::bottom-start and
+                af|selectManyShuttle::bottom-end icons.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::top-start-icon</td>
+            <td>This icon is rendered in the body region at the top starting
+                corner (ie. at the top left corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::top-end-icon</td>
+            <td>This icon is rendered in the body region at the top ending
+                corner (ie. at the top right corner for left to right languages.)</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::top-background-icon</td>
+            <td>This icon is rendered in the body region as the background in
+                between the af|selectManyShuttle::top-start and
+                af|selectManyShuttle::top-end icons. This needs to be an icon
+                with an url.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::start-background-icon</td>
+            <td>This icon is rendered as the background image on the starting
+                side of the body region. This needs to be an icon with an url.</td>
+          </tr>
+          <tr>
+            <td>af|selectOrderShuttle::end-background-icon</td>
+            <td>This icon is rendered as the background image on the ending side
+                of the body region. This needs to be an icon with an url.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:showDetail Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|showDetail::disclosed-icon</td>
+            <td>The af|showDetail::disclosed-icon icon is displayed when the
+                tr:showDetail component is rendered in its disclosed state.</td>
+          </tr>
+          <tr>
+            <td style="white-space: nowrap">af|showDetail::undisclosed-icon</td>
+            <td>The af|showDetail::disclosed-icon icon is displayed when the
+                tr:showDetail component is rendered in its undisclosed state.</td>
+          </tr>
+          <tr>
+            <td>.AFDetailDisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once: af|table::disclosed-icon,
+                af|showDetail::disclosed-icon,
+                af|showDetailHeader::disclosed-icon, af|navigationTree::disclosed-icon</td>
+          </tr>
+          <tr>
+            <td>.AFDetailUndisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once:
+                af|table::undisclosed-icon, af|showDetail::undisclosed-icon,
+                af|showDetailHeader::undisclosed-icon,
+                af|navigationTree::undisclosed-icon</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:showDetailHeader Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader</td>
+            <td>This can be used to set common properties that are shared across
+                all header levels.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-one</td>
+            <td>Styles level one headers.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-two</td>
+            <td>Styles level two headers.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-three</td>
+            <td>Styles level three headers.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-four</td>
+            <td>Styles level four headers.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-five</td>
+            <td>Styles level five headers.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::level-six</td>
+            <td>Styles level six headers.</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderText:alias</td>
+            <td>This style is included by all the AFHeaderLevel*  style classes,
+                which in turn is included in other header style
+                selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelOne</td>
+            <td>This style class is included by the af|*::level-one selectors and
+                af|messages::header, af|panelHeader::error and
+                af|messages::error (e.g., af|panelHeader::level-one,
+                af|showDetailHeader::level-one)</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelTwo</td>
+            <td>This style class is included by the af|*::level-two selectors (e.g.,
+                af|panelHeader::level-two, af|showDetailHeader::level-two)</td>
+          </tr>
+          <tr>
+            <td>.AFHeaderLevelThreePlus</td>
+            <td>This style class is included by all of the af|*::level-three,
+                af|*::level-four, af|*::level-five, and af|*::level-six selectors</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::disclosed-icon</td>
+            <td>The icon is displayed when the tr:showDetailHeader component is
+                rendered in its disclosed state.</td>
+          </tr>
+          <tr>
+            <td>af|showDetailHeader::undisclosed-icon</td>
+            <td>The icon is displayed when the tr:showDetailHeader component is
+                rendered in its undisclosed state.</td>
+          </tr>
+          <tr>
+            <td>.AFDetailDisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once: af|table::disclosed-icon,
+                af|showDetail::disclosed-icon,
+                af|showDetailHeader::disclosed-icon, af|navigationTree::disclosed-icon</td>
+          </tr>
+          <tr>
+            <td>.AFDetailUndisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once:
+                af|table::undisclosed-icon, af|showDetail::undisclosed-icon,
+                af|showDetailHeader::undisclosed-icon,
+                af|navigationTree::undisclosed-icon</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectInputText Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectInputText::button-icon</td>
+            <td>The icon which is used to launch the secondary list of values
+                dialog.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:showOneTab Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFShowOneTab:alias</td>
+            <td>This style is included in both af|showOneTab::orientation-top
+                and af|showOneTab::orientation-bottom.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::orientation-top</td>
+            <td>This styles the top showOneTab. You can use this to add padding
+                and margins and borders, for example.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::orientation-bottom</td>
+            <td>This styles the bottom showOneTab. You can use this to add
+                padding and margins and borders, for example.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::tab</td>
+            <td>This styles each unselected tab.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::tab-link</td>
+            <td>This styles each unselected tab link.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::tab-selected</td>
+            <td>This styles each selected tab.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::tab-selected-link</td>
+            <td>This styles each selected tab link.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::separator-before-selected</td>
+            <td>This is a cell with no content that renders before the selected
+                cell. You can style this cell to highlight the selected cell, if
+                desired.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::separator-after-selected</td>
+            <td>This is a cell with no content that renders after the selected
+                cell. You can style this cell to highlight the selected cell, if
+                desired.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::separator</td>
+            <td>This style is on the cells between each unselected step.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::cell-start</td>
+            <td>The style on the first cell. You can left-align by setting
+                width:0% on this, and width:100% on cell-end.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::cell-end</td>
+            <td>The style on the last cell.</td>
+          </tr>
+          <tr>
+            <td>af|showOneTab::body</td>
+            <td>The style on the body of the showOneTab; ie., the contents.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:table Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+
+          <tr>
+            <td>af|table::content</td>
+            <td>This style class is applied to the inner HTML table which
+                contains the table data (column headers, row headers, and data
+                cells).</td>
+          </tr>
+          <tr>
+            <td>af|table::control-bar-top</td>
+            <td>This style class is applied to the table's top control bar.</td>
+          </tr>
+          <tr>
+            <td>af|table::control-bar-bottom</td>
+            <td>This style class is applied to the table's bottom control bar.</td>
+          </tr>
+          <tr>
+            <td>af|table::sub-control-bar</td>
+            <td>This style class is applied to the table's sub control bar.</td>
+          </tr>
+          <tr>
+            <td>af|table::detail</td>
+            <td>Specifies properties for detail disclosure cells.</td>
+          </tr>
+          <tr>
+            <td>af|table::column-footer</td>
+            <td>Specifies properties for column footers.</td>
+          </tr>
+            <tr>
+            <td>.AFTableCellDataBackgroundColor:alias</td>
+            <td>Specifies the background color for data cells.
+             This is included in the af|column::cell* and af|table::control-bar* selectors.
+            </td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataBandedBackgroundColor:alias</td>
+            <td>Specifies the background color for banded data cells.
+             This is included in the af|column::cell*band selectors.</td>
+          </tr>
+          <tr>
+            <td>.AFTableCellDataBorderColor:alias</td>
+            <td>Specifies the border color for data cells.
+             This is included in the af|column::cell* and af|table::control-bar* selectors.</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|table::disclosed-icon</td>
+            <td>The af|table::disclosed-icon icon is displayed when the
+                tr:table's showDetail is rendered in its disclosed state.</td>
+          </tr>
+          <tr>
+            <td>af|table::undisclosed-icon</td>
+            <td>The af|table::undisclosed-icon icon is displayed when the
+                tr:table's showDetail is rendered in its undisclosed state.</td>
+          </tr>
+          <tr>
+            <td>.AFDetailDisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once: af|table::disclosed-icon,
+                af|showDetail::disclosed-icon,
+                af|showDetailHeader::disclosed-icon, af|navigationTree::disclosed-icon</td>
+          </tr>
+          <tr>
+            <td>.AFDetailUndisclosedIcon:alias</td>
+            <td>Customizes all of these icons at once:
+                af|table::undisclosed-icon, af|showDetail::undisclosed-icon,
+                af|showDetailHeader::undisclosed-icon,
+                af|navigationTree::undisclosed-icon</td>
+          </tr>
+          <tr>
+            <td>af|table::prev-icon</td>
+            <td>The previous icon which is used to go back to previous step.</td>
+          </tr>
+          <tr>
+            <td>af|table::next-icon</td>
+            <td>The next icon which is used to go back to next step.</td>
+          </tr>
+          <tr>
+            <td>af|table::prev-disabled-icon</td>
+            <td>The previous icon disabled.</td>
+          </tr>
+          <tr>
+            <td>af|table::next-disabled-icon</td>
+            <td>The next icon disabled.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:processTrain Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-active</td>
+            <td>Styles the active train station.</td>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-visited</td>
+            <td>Styles the visited train stations.</td>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-disabled</td>
+            <td>Styles the disabled train stations.</td>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-unvisited</td>
+            <td>Styles the unvisited train stations.</td>
+          </tr>
+          <tr>
+            <td>.AFTrainStation:alias</td>
+            <td>Style that is included by all of the af|processTrain* style
+                classes.</td>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-visited af|processTrain:: link</td>
+            <td>Styles the visited train stations links.</td>
+          </tr>
+          <tr>
+            <td>af|processTrain::step-unvisited af|processTrain::link</td>
+            <td>Styles the unvisited train stations links.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:progressIndicator Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::indeterminate-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                is -1.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::zero-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is zero percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::ten-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is ten percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::fifteen-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is fifteen percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::twenty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is twenty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::twenty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is twenty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::thirty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is thirty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::thirty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is thirty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::forty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is forty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::forty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is forty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::fifty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is fifty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::fifty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is fifty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::sixty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is sixty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::sixty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is sixty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::seventy-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is seventy percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::seventy-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is seventy-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::eighty-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is eighty percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::eighty-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is eighty-five percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::ninety-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is ninety percent.</td>
+          </tr>
+          <tr>
+            <td>af|progressIndicator::ninety-five-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is ninety-five percent.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">af|progressIndicator::one-hundred-percent-icon</td>
+            <td>The icon which is displayed when the progressIndicator's value
+                divided by maximum is one-hundred percent.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectInputDate Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::nav-link</td>
+            <td>Styles the selectInputDate's navigation Previous Month and
+            Next Month links.</td>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::title</td>
+            <td>Styles the selectInputDate title
+            which is month/year choice lists..</td>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::header</td>
+            <td>Styles the selectInputDate header which is the days of week row.</td>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::content</td>
+            <td>Styles the selectInputDate content.</td>
+          </tr>
+          <tr>
+            <td>af|selectInputDate::selected</td>
+            <td>Styles the selected date.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectBooleanCheckbox Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox::disabled-checked-icon</td>
+            <td>The icon that is displayed when the checkbox is readOnly,
+                disabled, and checked.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox::disabled-unchecked-icon</td>
+            <td>The icon that is displayed when the checkbox is readOnly,
+                disabled, and unchecked.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanCheckbox::read-only-checked-icon</td>
+            <td>The icon that is displayed when the checkbox is read-only and
+                checked.</td>
+          </tr>
+          <tr>
+            <td style="white-space:nowrap">af|selectBooleanCheckbox::read-only-unchecked-icon</td>
+            <td>The icon that is displayed when the checkbox is read-only and
+                unchecked.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectBooleanRadio Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::disabled-selected-icon</td>
+            <td>The icon that is displayed when the radio is readOnly, disabled,
+                and selected.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::disabled-unselected-icon</td>
+            <td>The icon that is displayed when the radio is readOnly, disabled,
+                and not selected.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::read-only-selected-icon</td>
+            <td>The icon that is displayed when the radio is read-only and
+                selected.</td>
+          </tr>
+          <tr>
+            <td>af|selectBooleanRadio::read-only-unselected-icon</td>
+            <td>The icon that is displayed when the radio is read-only and not
+                selected.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:selectRangeChoiceBar Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|selectRangeChoiceBar::prev-icon</td>
+            <td>The previous icon which is used to go back to previous step.</td>
+          </tr>
+          <tr>
+            <td>af|selectRangeChoiceBar::next-icon</td>
+            <td>The next icon which is used to go back to next step.</td>
+          </tr>
+          <tr>
+            <td>af|selectRangeChoiceBar::prev-disabled-icon</td>
+            <td>The previous icon in its disabled state.</td>
+          </tr>
+          <tr>
+            <td>af|selectRangeChoiceBar::next-disabled-icon</td>
+            <td>The next icon in its disabled state.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:tableSelectMany Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|tableSelectMany::cell-icon-format</td>
+            <td>Styles the tableSelectMany column.</td>
+          </tr>
+          <tr>
+            <td>af|tableSelectMany::cell-icon-format-band</td>
+            <td>Styles the banded tableSelectMany column.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:tableSelectOne Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|tableSelectOne::cell-icon-format</td>
+            <td>Styles the tableSelectOne column.</td>
+          </tr>
+          <tr>
+            <td>af|tableSelectOne::cell-icon-format-band</td>
+            <td>Styles the banded tableSelectOne column.</td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="tr:treeTable Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Style Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|treeTable::expansion</td>
+            <td>Styles the treeTable's expanded and collapsed icons.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::focus</td>
+            <td>Styles the treeTable's focus icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::locator</td>
+            <td>Styles the treeTable's locator icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::path</td>
+            <td>Styles the path content.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::path-selected-step</td>
+            <td>Styles the selected path step. This step may be hidden.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::path-step</td>
+            <td>Styles the path steps.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::content</td>
+            <td>Styles the inner HTML table which contains the treeTable data
+                (column headers, row headers, and data cells).</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::control-bar-top</td>
+            <td>Styles the treeTable's top control bar.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::control-bar-bottom</td>
+            <td>Styles the treeTable's bottom control bar.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::sub-control-bar</td>
+            <td>Styles the treeTable's sub control bar.</td>
+          </tr>
+          <tr>
+            <td>.AFPath:alias</td>
+            <td>This style is included in both af|navigationPath and af|treeTable::path</td>
+          </tr>
+          <tr>
+            <td>.AFPathStep:alias</td>
+            <td>This style is included in both af|navigationPath::step and
+                af|treeTable::path-step</td>
+          </tr>
+          <tr>
+            <td>.AFPathSelectedStep:alias</td>
+            <td>This style is included in both af|navigationPath::selected-step and
+                af|treeTable::path-selected-step</td>
+          </tr>
+          <tr>
+            <th colspan="2">
+              <i>Icon Selectors</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>af|treeTable::expanded-icon</td>
+            <td>This icon is displayed in expanded treeTable rows.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::collapsed-icon</td>
+            <td>This icon is displayed in collapsed treeTable rows.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::focus-icon</td>
+            <td>This icon is displayed in the focus column for focusable rows.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::locator-icon</td>
+            <td>This icon is displayed next to the treeTable's locator bread
+                crumbs which display the treeTable's focus path.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::separator-icon</td>
+            <td>The separator icon that is rendered between the path links. This
+                is typically a text icon.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::prev-icon</td>
+            <td>The previous icon which is used to go back to previous step.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::next-icon</td>
+            <td>The next icon which is used to go back to next step.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::prev-disabled-icon</td>
+            <td>The previous icon disabled.</td>
+          </tr>
+          <tr>
+            <td>af|treeTable::next-disabled-icon</td>
+            <td>The next icon disabled.</td>
+          </tr>        
+          <tr>
+            <td>.AFPathSeparatorIcon:alias</td>
+            <td>Changing this icon changes both af|navigationPath::separator-icon and
+                af|treeTable::separator-icon</td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
+  </body>
+</document>
