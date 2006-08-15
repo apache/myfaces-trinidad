@@ -269,19 +269,14 @@
       <name>Apache Snapshot Repository</name>
       <url>http://people.apache.org/repo/m2-snapshot-repository</url>
     </repository>
-  </repositories>
 
-  <pluginRepositories>
-    <!-- Repository to get the jetty plugin -->
-    <pluginRepository>
+    <repository>
     <id>apache.snapshots</id>
     <name>Apache Snapshot Repository</name>
     <url>http://people.apache.org/repo/m2-snapshot-repository</url>
-    </pluginRepository>
-  </pluginRepositories>
+    </repository>
 
-
-
+  </repositories>
 
 <!--  I'm not having any luck getting checkstyle to actually
       pick up the checkstyle.xml from inside adf-faces-build,
