@@ -25,6 +25,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -260,6 +262,7 @@ class SkinStyleSheetParserUtils
           _addStyleNode(selectorName,
                         noOraPropertyList,
                         resolvedProperties.getOraRuleRefList(),
+                        resolvedProperties.getInhibitedProperties(),
                         resolvedProperties.isOraTextAntialias(),
                         styleNodeList);
   
@@ -317,6 +320,7 @@ class SkinStyleSheetParserUtils
 
     List<PropertyNode> noOraPropertyList = new ArrayList<PropertyNode>();
     List<String> oraRuleRefList = new ArrayList<String>();
+    Set<String> inhibitedPropertySet = new TreeSet<String>();
     List<SkinPropertyNode> skinPropertyNodeList = 
       new ArrayList<SkinPropertyNode>();
     
@@ -335,7 +339,7 @@ class SkinStyleSheetParserUtils
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
       
-      if(propertyName != null)
+      if(propertyName != null && propertyValue != null)
       {
         if(propertyName.startsWith(_ORA_PROPERTY_PREFIX))
         {
@@ -350,19 +354,26 @@ class SkinStyleSheetParserUtils
               oraTextAntialias = true;
 
           }
+          else if (propertyName.equals(_ORA_INHIBIT))
+          {
+            for (String value : propertyValue.split("\\s"))
+            {
+              inhibitedPropertySet.add(value);
+            }
+          }
           else
           {
             SkinPropertyNode node =
               new SkinPropertyNode(selectorName,
                                    propertyName,
                                    propertyValue);
-
+  
             skinPropertyNodeList.add(node);
           }
         }
-        else if(propertyValue != null)
+        else
         {
-          if(_containsURL(propertyValue))
+          if (_containsURL(propertyValue))
           {
             String resolvedUrl = _resolveURL(baseURI,
                                              propertyValue,
@@ -393,6 +404,7 @@ class SkinStyleSheetParserUtils
     return new ResolvedSkinProperties(
       noOraPropertyList,
       oraRuleRefList,
+      inhibitedPropertySet,
       skinPropertyNodeList,
       oraTextAntialias);
   }
@@ -653,6 +665,7 @@ class SkinStyleSheetParserUtils
     String             selectorName,
     List<PropertyNode> propertyNodeList,
     List<String>       oraRuleRefList,
+    Set<String>        inhibitedProperties,
     boolean            oraTextAntialias,
     List<StyleNode>    styleNodeList)
   {
@@ -710,7 +723,8 @@ class SkinStyleSheetParserUtils
                     propertyArray,
                     null,
                     includeStyleNodes.toArray(new IncludeStyleNode[0]),
-                    null);
+                    null,
+                    inhibitedProperties);
 
     styleNodeList.add(styleNode);
 
@@ -1016,11 +1030,13 @@ class SkinStyleSheetParserUtils
     ResolvedSkinProperties(
       List<PropertyNode> noOraPropertyList,
       List<String> oraRuleRefList,
+      Set<String> inhibitedPropertySet,
       List<SkinPropertyNode> skinPropertyNodeList,
       boolean oraTextAntialias)
     {
       _noOraPropertyList = noOraPropertyList;
       _oraRuleRefList = oraRuleRefList;
+      _inhibitedPropertySet = inhibitedPropertySet;
       _skinPropertyNodeList = skinPropertyNodeList;
       _oraTextAntialias = oraTextAntialias;
     }
@@ -1039,12 +1055,18 @@ class SkinStyleSheetParserUtils
     {
       return _skinPropertyNodeList;
     }
+    
+    public Set<String> getInhibitedProperties()
+    {
+      return _inhibitedPropertySet;
+    }
 
     public boolean isOraTextAntialias()
     {
       return _oraTextAntialias;
     }
-
+    
+    private Set<String>            _inhibitedPropertySet;
     private List<PropertyNode>     _noOraPropertyList;
     private List<String>           _oraRuleRefList;
     private List<SkinPropertyNode> _skinPropertyNodeList;
@@ -1054,6 +1076,7 @@ class SkinStyleSheetParserUtils
 
   private static final String _ORA_PROPERTY_PREFIX = "-ora-";
   private static final String _ORA_RULE_REF = "-ora-rule-ref";
+  private static final String _ORA_INHIBIT = "-ora-inhibit";
   private static final String _ORA_TEXT_ANTIALIAS = "-ora-text-antialias";
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
