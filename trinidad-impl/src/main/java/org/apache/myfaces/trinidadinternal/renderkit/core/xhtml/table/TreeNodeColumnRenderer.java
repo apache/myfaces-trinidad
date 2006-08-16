@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 public class TreeNodeColumnRenderer extends ColumnRenderer
 {
-  @SuppressWarnings("unchecked")
   @Override
   protected void renderKids(FacesContext          context,
                             RenderingContext   arc,
@@ -48,7 +47,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
     final String onclick;
     if (hGrid.isContainer())
     {
-      RowKeySet<Object> treeState = hGrid.getDisclosedRowKeys();
+      RowKeySet treeState = hGrid.getDisclosedRowKeys();
       String jsVarName = ttrc.getJSVarName();
       if (treeState.isContained())
       {

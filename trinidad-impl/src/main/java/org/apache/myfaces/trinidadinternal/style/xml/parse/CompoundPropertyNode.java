@@ -62,7 +62,6 @@ public class CompoundPropertyNode
    * Returns an Iterator of values - which can be either Strings or
    * IncludePropertyNodes.
    */
-  @SuppressWarnings("unchecked")
   public Iterator<Object> getValues()
   {
     if (_values!=null)
@@ -71,7 +70,7 @@ public class CompoundPropertyNode
     }
     else
     {
-      return (Collections.EMPTY_LIST).iterator();
+      return (Collections.emptyList()).iterator();
     }
     
   }

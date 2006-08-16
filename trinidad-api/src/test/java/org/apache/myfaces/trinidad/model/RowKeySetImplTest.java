@@ -233,7 +233,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
     }
   }
 
-  private void _testRange(Set keySet, int start, int end,
+  private void _testRange(Set<Object> keySet, int start, int end,
                           boolean expected, boolean newValue)
   {
     for(int i=start; i<end; i++)
@@ -331,7 +331,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
   {
     RowKeySetImpl set = _createKeySet(false);
     int endOfTrueRange = _initModel(set);
-    Iterator selections = set.iterator();
+    Iterator<Object> selections = set.iterator();
     _testSelectionIterator(set.getCollectionModel(), selections,
                            endOfTrueRange, 0, endOfTrueRange);
   }
@@ -341,7 +341,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
     RowKeySetImpl set = _createKeySet(false);
     int endOfTrueRange = _initModel(set);
     set.invertAll();
-    Iterator selections = set.iterator();
+    Iterator<Object> selections = set.iterator();
     _testSelectionIterator(set.getCollectionModel(), selections,
                            _TEST_SIZE - endOfTrueRange,
                            endOfTrueRange, _TEST_SIZE);
@@ -371,10 +371,10 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
   }
 
   private void _testSelectionIterator(CollectionModel table,
-                                      Iterator selections, int size,
+                                      Iterator<Object> selections, int size,
                                       int rangeStart, int rangeEnd)
   {
-    List selectedList = new ArrayList(size);
+    List<Object> selectedList = new ArrayList<Object>(size);
     for(;selections.hasNext();)
     {
       selectedList.add(selections.next());
@@ -404,7 +404,7 @@ public final class RowKeySetImplTest extends AbstractJsfTestCase
 
   private static CollectionModel _createCollectionModel(int testSize)
   {
-    List lst = new ArrayList(testSize);
+    List<Object> lst = new ArrayList<Object>(testSize);
     for(int i=0; i < testSize; i++)
     {
       lst.add(new Entry(i));

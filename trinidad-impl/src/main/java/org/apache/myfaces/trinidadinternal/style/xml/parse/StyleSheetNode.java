@@ -19,6 +19,7 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -86,15 +87,17 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getStyles().
    */
-  @SuppressWarnings("unchecked")
   public Iterator<StyleNode> getStyles()
   {
-  if(_styles!=null)
-  {
-    return (Arrays.asList(_styles)).iterator();
-  }
-  else
-    return (Collections.EMPTY_LIST).iterator();    
+    if(_styles!=null)
+    {
+      return (Arrays.asList(_styles)).iterator();
+    }
+    else
+    {
+      List<StyleNode> list = Collections.emptyList();
+      return list.iterator();
+    }
   }
 
   /**
@@ -113,15 +116,17 @@ public class StyleSheetNode
   /**
    * Implementation of StyleSheetNode.getLocales().
    */
-  @SuppressWarnings("unchecked")
   public Iterator<Locale> getLocales()
   {
-    if (_locales==null) 
+    if (_locales == null) 
     {
-      return (Collections.EMPTY_LIST).iterator();
+      List<Locale> list = Collections.emptyList();
+      return list.iterator();
     }
     else
+    {
       return (Arrays.asList(_locales)).iterator();
+    }
   }
 
   /**

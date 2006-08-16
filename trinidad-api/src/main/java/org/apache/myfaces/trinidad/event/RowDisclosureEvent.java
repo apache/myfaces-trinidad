@@ -35,8 +35,8 @@ public class RowDisclosureEvent extends RowKeySetChangeEvent
    */
   public RowDisclosureEvent(
       UIComponent source, 
-      RowKeySet<Object> collapsed, 
-      RowKeySet<Object> expanded)
+      RowKeySet   collapsed, 
+      RowKeySet   expanded)
   {
     super(source, collapsed, expanded);
   }
@@ -47,8 +47,8 @@ public class RowDisclosureEvent extends RowKeySetChangeEvent
    * @param newSet the set of rowKeys after any changes.
    */
   public RowDisclosureEvent(
-      RowKeySet<Object> oldSet, 
-      RowKeySet<Object> newSet, 
+      RowKeySet   oldSet, 
+      RowKeySet   newSet, 
       UIComponent source)
   {
     super(oldSet, newSet, source);

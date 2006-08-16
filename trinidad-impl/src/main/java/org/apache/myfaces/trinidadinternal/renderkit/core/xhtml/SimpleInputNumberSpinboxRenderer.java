@@ -44,6 +44,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
     super(CoreInputNumberSpinbox.TYPE);
   }
 
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -63,38 +64,45 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
   // an InputNumberSpinbox
   //
 
+  @Override
   public boolean isTextArea(
     FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected boolean getSecret(FacesBean bean)
   {
     return false;
   }
 
+  @Override
   protected Number getMaximumLength(FacesBean bean)
   {
     return null;
   }
 
+  @Override
   protected boolean shouldRenderInputOnclick()
   {
     // keep the onclick on the input. selectInputText moves it to the button.
     return false;
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|inputNumberSpinbox";
   }
 
+  @Override
   protected String getContentStyleClass(FacesBean bean)
   {
     return "af|inputNumberSpinbox::content";
   }
 
+  @Override
   protected Integer getDefaultColumns(
 	RenderingContext arc,
 	FacesBean bean)
@@ -102,6 +110,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
     return new Integer(1);
   }
 
+  @Override
   protected void renderTextField(
     FacesContext        context,
     RenderingContext    arc,
@@ -129,6 +138,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
    * @param bean
    * @throws IOException
    */
+  @Override
   protected void renderAfterTextField(
     FacesContext        context,
     RenderingContext    arc,
@@ -153,6 +163,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
   /**
    * render the spinbox icons. <div>img</div><div>img</div>
    */
+  @Override
   protected void renderIcon(
     FacesContext        context,
     RenderingContext    arc,

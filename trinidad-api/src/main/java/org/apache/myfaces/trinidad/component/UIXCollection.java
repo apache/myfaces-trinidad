@@ -946,11 +946,10 @@ public abstract class UIXCollection extends UIXComponentBase
         return null;
       }
 
-      @SuppressWarnings("unchecked")
       @Override
       public Set<Map.Entry<String, Object>> entrySet()
       {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
       }
     };
   }

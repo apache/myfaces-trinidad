@@ -49,7 +49,7 @@ public class SelectItemSupport
    * @return a List of javax.faces.model.SelectItem Objects that we get or 
    *         create from the component's children.
    *         OR 
-   *         java.util.Collections.EMPTY_LIST if component has no children or
+   *         java.util.Collections.emptyList if component has no children or
    *         the component isn't a javax.faces.component.ValueHolder. else
    */
   @SuppressWarnings("unchecked")
@@ -60,12 +60,12 @@ public class SelectItemSupport
     
     int childCount = component.getChildCount();
     if (childCount == 0)
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
 
     // Make sure we haven't accidentally stumbled outside of
     // the UIXSelectXXX world.
     if (!(component instanceof ValueHolder))
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
 
     FacesContext context = FacesContext.getCurrentInstance();
     List<SelectItem> items = null;
@@ -106,7 +106,7 @@ public class SelectItemSupport
     }
 
     if (items == null)
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
 
     return items;
   }

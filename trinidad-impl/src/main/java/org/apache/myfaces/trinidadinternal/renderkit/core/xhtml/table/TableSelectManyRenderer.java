@@ -78,7 +78,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
       parameters.get(tableId+NamingContainer.SEPARATOR_CHAR+SELECTED_KEY);
 
     // must work with both table and hgrid:
-    final RowKeySet<Object> selectionModel;
+    final RowKeySet selectionModel;
     if (table instanceof UIXTable)
       selectionModel = ((UIXTable) table).getSelectedRowKeys();
     else
@@ -102,9 +102,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 //      // have clicked select-all and then deselected some rows before submitting:
 //    }
 
-    RowKeySet<Object> selectedDelta = selectionModel.clone();
+    RowKeySet selectedDelta = selectionModel.clone();
     selectedDelta.clear();
-    RowKeySet<Object> unselectedDelta = selectedDelta.clone();
+    RowKeySet unselectedDelta = selectedDelta.clone();
 
     _setDeltas(table, selectedBoxes, unselectedBoxes,
                selectionModel, selectedDelta, unselectedDelta);
@@ -119,9 +119,9 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
 
   private void _setDeltas(UIXCollection table,
                           String[] selectedBoxes, String[] unselectedBoxes,
-                          RowKeySet<Object> current,
-                          RowKeySet<Object> selectedDelta,
-                          RowKeySet<Object> unselectedDelta)
+                          RowKeySet current,
+                          RowKeySet selectedDelta,
+                          RowKeySet unselectedDelta)
   {
     Map<String, Boolean> deltas = 
       new HashMap<String, Boolean>(unselectedBoxes.length);

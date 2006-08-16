@@ -108,7 +108,8 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     // this is because "first", "rows" and "rowCount" applies to the container
     // element and not the current element:
     Object container = _getContainerPath();
-    if (_firstMap == Collections.EMPTY_MAP)
+    Map<Object, Integer> comparant = Collections.emptyMap();
+    if (_firstMap == comparant)
       _firstMap = new HashMap<Object, Integer>(3);
 
     if (index <= 0)
@@ -163,7 +164,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     super.restoreState(context, array[0]);
     _firstMap = (Map<Object, Integer>) array[1];
     if (_firstMap == null)
-      _firstMap = Collections.EMPTY_MAP;
+      _firstMap = Collections.emptyMap();
   }
 
   @Override
@@ -202,8 +203,8 @@ abstract public class UIXTreeTableTemplate extends UIXTree
    * the nodeStamp stamp (if any).
    * @todo cache the result.
    */
-  @SuppressWarnings("unchecked")
   @Override
+  @SuppressWarnings("unchecked")
   protected final List getStamps()
   {
     List<UIComponent> children = getChildren();
@@ -333,5 +334,5 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     return parentKey;
   }
 
-  private Map<Object, Integer> _firstMap = Collections.EMPTY_MAP;
+  private Map<Object, Integer> _firstMap = Collections.emptyMap();
 }

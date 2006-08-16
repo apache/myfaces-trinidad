@@ -135,13 +135,12 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
     map.putAll(t);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public Set<Map.Entry<PropertyKey, Object>> entrySet()
   {
     Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
 
     return map.entrySet();
   }
@@ -149,25 +148,22 @@ public class FlaggedPropertyMap extends AbstractMap<PropertyKey,Object>
   /**
    * @todo Optimize to take advantage of flags.
    */
-  @SuppressWarnings("unchecked")
   @Override
   public Set<PropertyKey> keySet()
   {
     Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
 
     return map.keySet();
   }
 
-
-  @SuppressWarnings("unchecked")
   @Override
   public Collection<Object> values()
   {
     Map<PropertyKey, Object> map = getPropertyMap(false);
     if ((map == null) || map.isEmpty())
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
 
     return map.values();
   }

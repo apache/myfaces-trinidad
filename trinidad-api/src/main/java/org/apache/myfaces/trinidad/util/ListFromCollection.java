@@ -97,7 +97,7 @@ public class ListFromCollection
 
       Collection<?> c = (Collection) o;
       if (c.isEmpty())
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
 
       return new ListImpl(c, getSize());
     }

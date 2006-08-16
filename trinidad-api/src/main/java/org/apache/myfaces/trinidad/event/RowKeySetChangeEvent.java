@@ -33,9 +33,9 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
    */
   // FIXME: What is the parametrized type inside RowKeySet?
   public RowKeySetChangeEvent(
-      UIComponent  source, 
-      RowKeySet<Object> removedSet,
-      RowKeySet<Object> addedSet)
+      UIComponent source, 
+      RowKeySet   removedSet,
+      RowKeySet   addedSet)
   {
     this(source, removedSet, addedSet, false);
   }
@@ -48,9 +48,9 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
    */
   // FIXME: What is the parametrized type inside RowKeySet?
   public RowKeySetChangeEvent(
-      RowKeySet<Object> oldSet,
-      RowKeySet<Object> newSet,
-      UIComponent  source)
+      RowKeySet   oldSet,
+      RowKeySet   newSet,
+      UIComponent source)
   {
     // "oldSet" is very often the actual instance-on-the-component.
     // so make sure that we clone this object, so that subsequent mutations of
@@ -62,10 +62,10 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
 
   // FIXME: What is the parametrized type inside RowKeySet?
   private RowKeySetChangeEvent(
-      UIComponent       source,
-      RowKeySet<Object> oldRemoved,
-      RowKeySet<Object> newAdded,
-      boolean           needsDiff)
+      UIComponent source,
+      RowKeySet   oldRemoved,
+      RowKeySet   newAdded,
+      boolean     needsDiff)
                                
   {
     super(source);
@@ -77,7 +77,7 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
   /**
    * Gets the Set of keys that have just been added.
    */
-  public RowKeySet<Object> getAddedSet()
+  public RowKeySet getAddedSet()
   {
     _diff();
     return _newAdded;
@@ -86,7 +86,7 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
   /**
    * Gets the Set of keys that have just been removed.
    */
-  public RowKeySet<Object> getRemovedSet()
+  public RowKeySet getRemovedSet()
   {
     _diff();
     return _oldRemoved;
@@ -96,9 +96,9 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
   {
     if (_needsDiff)
     {
-      RowKeySet<Object> removed = _oldRemoved.clone();
+      RowKeySet removed = _oldRemoved.clone();
       removed.removeAll(_newAdded);
-      RowKeySet<Object> added = _newAdded.clone();
+      RowKeySet added = _newAdded.clone();
       added.removeAll(_oldRemoved);
 
       _needsDiff = false;
@@ -109,7 +109,7 @@ public abstract class RowKeySetChangeEvent extends FacesEvent
   
   // set1 - oldSet or removed elements
   // set2 = newSet or added elements
-  private RowKeySet<Object> _oldRemoved;
-  private RowKeySet<Object> _newAdded;
+  private RowKeySet _oldRemoved;
+  private RowKeySet _newAdded;
   private boolean _needsDiff;
 }

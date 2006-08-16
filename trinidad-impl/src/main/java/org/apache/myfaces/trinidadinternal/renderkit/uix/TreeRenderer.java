@@ -53,7 +53,7 @@ public class TreeRenderer extends UINodeRendererBase
     if (!component.getClientId(context).equals(source))
       return;
 
-    TreeUtils.decodeExpandEvents(parameters, component, Collections.EMPTY_LIST);
+    TreeUtils.decodeExpandEvents(parameters, component, Collections.emptyList());
     String currencyStrParam = 
       source + NamingContainer.SEPARATOR_CHAR + SELECTED_PARAM;
     String currencyStr = parameters.get(currencyStrParam);

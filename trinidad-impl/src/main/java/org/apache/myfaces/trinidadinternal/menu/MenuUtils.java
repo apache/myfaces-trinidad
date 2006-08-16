@@ -156,10 +156,12 @@ class MenuUtils
    * @param key - ThreadLocal key for the resource bundle being put on the
    *              sessionMap
    */
-  static void loadBundle(String resBundle, ThreadLocal key)
+  @SuppressWarnings("unchecked")
+  static void loadBundle(String resBundle, ThreadLocal<String> key)
   {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    Map applicationMap = facesContext.getExternalContext().getApplicationMap();
+    Map<String, Object> applicationMap = 
+      facesContext.getExternalContext().getApplicationMap();
 
     // Get the request Locale
     Locale requestLocale = facesContext.getExternalContext().getRequestLocale();
@@ -176,7 +178,7 @@ class MenuUtils
     }
     
     // Is there a bundle with this key already on the session map?
-    _BundleMap bundleMap = (_BundleMap) applicationMap.get((String) key.get());
+    _BundleMap bundleMap = (_BundleMap) applicationMap.get(key.get());
     
     // if so, get its locale.  If the locale has not 
     // changed, just return, i.e. use the existing bundle
@@ -227,7 +229,7 @@ class MenuUtils
     // Put the bundle in the map.  At this point the key is 
     // unique because of the handler Id we inserted when loadBundle
     // was called.
-    applicationMap.put((String)key.get(), new _BundleMap(bundle, requestLocale));
+    applicationMap.put(key.get(), new _BundleMap(bundle, requestLocale));
   }
 
   /**
@@ -242,7 +244,7 @@ class MenuUtils
    */
   static void loadBundle(String resBundleName, String resBundleKey)
   {
-    ThreadLocal bundleKey = new ThreadLocal();
+    ThreadLocal<String> bundleKey = new ThreadLocal<String>();
     
     bundleKey.set(resBundleKey);    
     loadBundle(resBundleName, bundleKey);
@@ -254,11 +256,11 @@ class MenuUtils
    * model metadata to externalize strings, such as tab labels, for 
    * translation.
    */
-  static private class _BundleMap implements Map
+  static private class _BundleMap implements Map<String, String>
   {
     private ResourceBundle _bundle;
     private Locale _locale;
-    private List _values;
+    private List<String> _values;
     Object retVal = null;
 
     public _BundleMap(ResourceBundle bundle)
@@ -274,11 +276,11 @@ class MenuUtils
     }
 
     //Optimized methods
-    public Object get(Object key)
+    public String get(Object key)
     {
       try 
       {
-        return _bundle.getObject(key.toString());
+        return _bundle.getString(key.toString());
       } 
       catch (Exception e) 
       {
@@ -297,15 +299,15 @@ class MenuUtils
     }
 
     //Unoptimized methods
-    public Collection values()
+    public Collection<String> values()
     {
         if (_values == null)
         {
-          _values = new ArrayList();
-          for (Enumeration enumer = _bundle.getKeys(); 
+          _values = new ArrayList<String>();
+          for (Enumeration<String> enumer = _bundle.getKeys(); 
                enumer.hasMoreElements(); )
           {
-            String v = _bundle.getString((String)enumer.nextElement());
+            String v = _bundle.getString(enumer.nextElement());
             _values.add(v);
           }
         }
@@ -322,26 +324,26 @@ class MenuUtils
       return values().contains(value);
     }
 
-    public Set entrySet()
+    public Set<Map.Entry<String, String>> entrySet()
     {
-      Set set = new HashSet();
+      Set<Map.Entry<String, String>> set = new HashSet<Map.Entry<String, String>>();
       
-      for (Enumeration enumer = _bundle.getKeys(); enumer.hasMoreElements(); )
+      for (Enumeration<String> enumer = _bundle.getKeys(); enumer.hasMoreElements(); )
       {
-        final String k = (String)enumer.nextElement();
-        set.add(new Map.Entry() 
+        final String k = enumer.nextElement();
+        set.add(new Map.Entry<String, String>() 
         {
-          public Object getKey()
+          public String getKey()
           {
             return k;
           }
 
-          public Object getValue()
+          public String getValue()
           {
-            return _bundle.getObject(k);
+            return _bundle.getString(k);
           }
 
-          public Object setValue(Object value)
+          public String setValue(String value)
           {
             throw new UnsupportedOperationException(
                  this.getClass().getName() + " UnsupportedOperationException");
@@ -351,10 +353,10 @@ class MenuUtils
       return set;
     }
 
-    public Set keySet()
+    public Set<String> keySet()
     {
-      Set set = new HashSet();
-      for (Enumeration enumer = _bundle.getKeys(); enumer.hasMoreElements(); )
+      Set<String> set = new HashSet<String>();
+      for (Enumeration<String> enumer = _bundle.getKeys(); enumer.hasMoreElements(); )
       {
         set.add(enumer.nextElement());
       }
@@ -362,19 +364,19 @@ class MenuUtils
     }
 
     //Unsupported methods
-    public Object remove(Object key)
+    public String remove(Object key)
     {
       throw new UnsupportedOperationException(this.getClass().getName()
                                             + " UnsupportedOperationException");
     }
 
-    public void putAll(Map t)
+    public void putAll(Map<? extends String, ? extends String> t)
     {
       throw new UnsupportedOperationException(this.getClass().getName() 
                                             + " UnsupportedOperationException");
     }
 
-    public Object put(Object key, Object value)
+    public String put(String key, String value)
     {
       throw new UnsupportedOperationException(this.getClass().getName()
                                             + " UnsupportedOperationException");

@@ -215,6 +215,7 @@
           <configuration>
             <source>1.5</source>
             <target>1.5</target>
+            <showWarnings>true</showWarnings>
           </configuration>
         </plugin>
 

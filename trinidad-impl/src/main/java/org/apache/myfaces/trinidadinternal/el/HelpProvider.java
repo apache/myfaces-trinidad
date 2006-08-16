@@ -101,11 +101,10 @@ public abstract class HelpProvider
 
   private class HelpTopicMap extends AbstractMap<String, Object>
   {
-    @SuppressWarnings("unchecked")
     @Override
     public Set<Map.Entry<String, Object>> entrySet()
     {
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
     }
 
     @Override
@@ -117,11 +116,10 @@ public abstract class HelpProvider
 
   private class HelpSystemMap extends AbstractMap<String, Object>
   {
-    @SuppressWarnings("unchecked")
     @Override
     public Set<Map.Entry<String, Object>> entrySet()
     {
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
     }
 
     @Override

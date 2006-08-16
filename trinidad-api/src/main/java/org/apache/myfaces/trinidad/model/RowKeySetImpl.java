@@ -40,7 +40,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * invertAll.
  * @author The Oracle ADF Faces Team
  */
-public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizable
+public final class RowKeySetImpl extends RowKeySet implements Externalizable
 {
   /**
    * Creates an initially empty RowKeySet.
@@ -54,11 +54,10 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * Creates a new RowKeySet.
    * @param addAll whether to add every rowKey to this set.
    */
-  @SuppressWarnings("unchecked")
   public RowKeySetImpl(boolean addAll)
   {
     _default = addAll;
-    _set = Collections.EMPTY_SET;
+    _set = Collections.emptySet();
     _model = null;
   }
 
@@ -77,7 +76,7 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * @return true if this set changed
    */
   @Override
-  public boolean add(E rowKey)
+  public boolean add(Object rowKey)
   {
     return _setSelected(rowKey, true);
   }
@@ -98,9 +97,9 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * @return true if the row is now added. false otherwise.
    */
   @Override
-  public boolean invert(E rowKey)
+  public boolean invert(Object rowKey)
   {
-    Set<E> set = _getSet(true);
+    Set<Object> set = _getSet(true);
     if (!set.add(rowKey))
     {
       set.remove(rowKey);
@@ -155,7 +154,7 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   {
     if (c instanceof RowKeySetImpl)
     {
-      RowKeySetImpl<E> other = (RowKeySetImpl<E>) c;
+      RowKeySetImpl other = (RowKeySetImpl) c;
       if (other._default)
       {
         // the other Set has all keys added by default. It will be too
@@ -168,11 +167,11 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   }
 
   @Override
-  public boolean addAll(Collection<? extends E> c)
+  public boolean addAll(Collection<? extends Object> c)
   {
     if (c instanceof RowKeySetImpl)
     {
-      RowKeySetImpl<E> other = (RowKeySetImpl<E>) c;
+      RowKeySetImpl other = (RowKeySetImpl) c;
       if (other._default)
       {
         // the other Set has all keys added by default. It will be too
@@ -184,10 +183,10 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
     return super.addAll(c);
   }
 
-  private boolean _processAll(RowKeySetImpl<E> other, boolean addAll)
+  private boolean _processAll(RowKeySetImpl other, boolean addAll)
   {
-    Set<E> set = _getSet(false);
-    Set<E> otherSet = other._getSet(false);
+    Set<Object> set = _getSet(false);
+    Set<Object> otherSet = other._getSet(false);
     if (_default == addAll)
     {
       // This Set already uses the correct default state. So all we have to do
@@ -279,7 +278,7 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * iterator is being used.
    */
    @Override
-  public Iterator<E> iterator()
+  public Iterator<Object> iterator()
    {
      return _default ? _getNotInSetRowKeyIterator() : _getInSetRowKeyIterator();
    }
@@ -325,12 +324,11 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * @param rowKey the rowKey of the item.
    * @return true if this set changed
    */
-  @SuppressWarnings("unchecked")
   private boolean _setSelected(Object rowKey, boolean isSelected)
   {
     if (isSelected == _default)
     {
-      if (!_set.isEmpty()) // _set != Collections.EMPTY_SET
+      if (!_set.isEmpty()) // _set != Collections.emptySet()
       {
         return _set.remove(rowKey);
       }
@@ -338,19 +336,19 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
     }
     else
     {
-      return _getSet(true).add((E)rowKey);
+      return _getSet(true).add(rowKey);
     }
   }
 
   @SuppressWarnings("unchecked")
-  private Iterator<E> _getNotInSetRowKeyIterator()
+  private Iterator<Object> _getNotInSetRowKeyIterator()
   {
     CollectionModel table = getCollectionModel();
-    final Iterator<E> rowKeyIterator = (Iterator<E>)ModelUtils.getRowKeyIterator(table);
-    final Set<E> set = _getSet(false);
-    Iterator<E> iter = new Iterator<E>()
+    final Iterator<Object> rowKeyIterator = ModelUtils.getRowKeyIterator(table);
+    final Set<Object> set = _getSet(false);
+    Iterator<Object> iter = new Iterator<Object>()
     {
-      public E next()
+      public Object next()
       {
         if (!hasNext())
           throw new NoSuchElementException();
@@ -364,7 +362,7 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
       {
         if (_current == null)
           throw new IllegalStateException("No element to remove");
-        Set<E> mutable = _getSet(true);
+        Set<Object> mutable = _getSet(true);
         // since this is the not-in-set iterator, we "remove" the element
         // by adding it to the Set:
         mutable.add(_current);
@@ -376,11 +374,11 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
         return (_next != null || _first);
       }
 
-      private E _next()
+      private Object _next()
       {
         while(rowKeyIterator.hasNext())
         {
-          E rowKey = rowKeyIterator.next();
+          Object rowKey = rowKeyIterator.next();
           if (!set.contains(rowKey))
             return rowKey;
         }
@@ -388,44 +386,43 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
       }
 
       private boolean _first = true;
-      private E _next = null;
-      private E _current = null;
+      private Object _next = null;
+      private Object _current = null;
     };
 
     iter.next(); // initialize;
     return iter;
   }
 
-  private Iterator<E> _getInSetRowKeyIterator()
+  private Iterator<Object> _getInSetRowKeyIterator()
   {
     return _getSet(false).iterator();
   }
 
-  @SuppressWarnings("unchecked")
   private void _selectAll(boolean isSelected)
   {
     _default = isSelected;
-    _set = Collections.EMPTY_SET;
+    _set = Collections.emptySet();
   }
 
-  private Set<E> _getSet(boolean create)
+  private Set<Object> _getSet(boolean create)
   {
-    if (create && (_set == Collections.EMPTY_SET))
+    if (create && (_set == Collections.emptySet()))
     {
       _set = _createSet(10);
     }
     return _set;
   }
 
-  private Set<E> _createSet(int sz)
+  private Set<Object> _createSet(int sz)
   {
     // must be cloneable:
-    return new HashSet<E>(sz);
+    return new HashSet<Object>(sz);
   }
 
   private boolean _isSelected(Object rowKey)
   {
-    Set<E> set = _getSet(false);
+    Set<Object> set = _getSet(false);
     boolean isInSet = set.contains(rowKey);
     return isInSet ^ _default;
   }
@@ -434,10 +431,10 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   public void writeExternal(ObjectOutput out) throws IOException
   {
     out.writeBoolean(_default);
-    Set<E> set = _getSet(false);
+    Set<Object> set = _getSet(false);
     int sz = set.size();
     out.writeInt(sz);
-    Iterator<E> iter = set.iterator();
+    Iterator<Object> iter = set.iterator();
     for(int i=0; i<sz; i++)
     {
       out.writeObject(iter.next());
@@ -445,7 +442,6 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   }
 
   // see java.io.Externalizable
-  @SuppressWarnings("unchecked")
   public void readExternal(ObjectInput in)
     throws IOException, ClassNotFoundException
   {
@@ -456,11 +452,11 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
       _set = _createSet(sz);
       for(int i=0; i<sz; i++)
       {
-        _set.add((E)in.readObject());
+        _set.add(in.readObject());
       }
     }
     else
-      _set = Collections.EMPTY_SET;
+      _set = Collections.emptySet();
   }
 
   /**
@@ -469,10 +465,10 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
    * this instance.
    */
   @Override
-  public RowKeySetImpl<E> clone()
+  public RowKeySetImpl clone()
   {
-    RowKeySetImpl<E> clone = (RowKeySetImpl<E>) super.clone();
-    Set<E> set = _getSet(false);
+    RowKeySetImpl clone = (RowKeySetImpl) super.clone();
+    Set<Object> set = _getSet(false);
     clone._set = _clone(set);
     return clone;
   }
@@ -487,7 +483,7 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   private <T> Set<T> _clone(Set<T> other)
   {
     if (other.isEmpty())
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
     else
       return (Set<T>) ((HashSet<T>) other).clone();
   }
@@ -508,6 +504,6 @@ public final class RowKeySetImpl<E> extends RowKeySet<E> implements Externalizab
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(RowKeySetImpl.class);
 
   private boolean _default;
-  private Set<E> _set;
+  private Set<Object> _set;
   private transient CollectionModel _model;
 }

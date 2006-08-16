@@ -95,7 +95,7 @@ public class ComponentTree
     {
       // tree has not been initialized.
       attrs.put(_key, Boolean.TRUE); // mark as initialized
-      RowKeySetTreeImpl<Object> state = new RowKeySetTreeImpl<Object>(true);
+      RowKeySetTreeImpl state = new RowKeySetTreeImpl(true);
       tree.setDisclosedRowKeys(state);
     }
   }

@@ -395,14 +395,13 @@ abstract class BaseChangeManager extends ChangeManager
    * @param component
    * @return
    */
-  @SuppressWarnings("unchecked")
   private List<String> _getIdPath(UIComponent component)
   {
     String componentID = component.getId();
 
     // we need an ID
     if ((componentID == null) || (componentID.length() == 0))
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
 
     LinkedList<String> pathList = new LinkedList<String>();
     pathList.addFirst(componentID);

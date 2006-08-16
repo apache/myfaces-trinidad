@@ -37,10 +37,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  */
 final class StampState implements Externalizable
 {
-  @SuppressWarnings("unchecked")
   public StampState()
   {
-    _rows = Collections.EMPTY_MAP;
+    _rows = Collections.emptyMap();
   }
 
   /**
@@ -65,7 +64,8 @@ final class StampState implements Externalizable
 
   public void put(Object currencyObj, String key, Object value)
   {
-    if (_rows == Collections.EMPTY_MAP)
+    Map<DualKey, Object> comparant = Collections.emptyMap();
+    if (_rows == comparant)
     {
       // =-=AEW Better default sizes
       _rows = new HashMap<DualKey, Object>(109);

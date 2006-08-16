@@ -59,6 +59,7 @@ public class ItemNode extends MenuNode
     * 
     * @return String value of the ItemNode's "action" property.
     */
+  @Override
   public String doAction()
   {
     String value = _action;
@@ -357,6 +358,7 @@ public class ItemNode extends MenuNode
     * @return destination - the String value of the destinationNode's
     *                       "destination" property.
     */
+  @Override
   public String getDestination()
   {
     String value = _destination;

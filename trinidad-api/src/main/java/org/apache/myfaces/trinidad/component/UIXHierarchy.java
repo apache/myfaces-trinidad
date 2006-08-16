@@ -182,7 +182,6 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
     return model;
   } 
   
-  @SuppressWarnings("unchecked")
   @Override
   protected List<UIComponent> getStamps()
   {
@@ -190,7 +189,7 @@ abstract public class UIXHierarchy extends UIXCollection implements CollectionCo
     if (nodeStamp != null)
       return Collections.singletonList(nodeStamp);
     else
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
   }  
 
   abstract public Object getFocusRowKey();

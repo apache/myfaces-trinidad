@@ -51,7 +51,7 @@ public class TableBean
   public void performReport(ActionEvent action)
   {
     UIXCollection table = (UIXCollection) _table;
-    final RowKeySet<Object> state;
+    final RowKeySet state;
     if (table instanceof UIXTable)
       state = ((UIXTable) table).getSelectedRowKeys();
     else
