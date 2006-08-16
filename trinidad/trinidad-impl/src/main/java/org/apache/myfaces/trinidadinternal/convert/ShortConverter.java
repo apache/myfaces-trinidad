@@ -16,9 +16,14 @@
 
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * <p>Implementation for <code>java.lang.Short</code> values.</p>
@@ -27,7 +32,7 @@ import javax.faces.convert.ConverterException;
  * @author The Oracle ADF Faces Team
  */
 public class ShortConverter extends javax.faces.convert.ShortConverter
-                              implements InternalClientConverter
+                            implements ClientConverter
 {
 
 
@@ -93,13 +98,6 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
     return null;
   }
 
-  public String getLibKey(
-   FacesContext context,
-   UIComponent component)
-  {
-    return "DecimalConvert()";
-  }
-
   /**
    * @todo translations
    * @param context
@@ -115,8 +113,19 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
                                               CONVERT_MESSAGE_ID,
                                               _SHORT_MAX, _SHORT_MIN);
   }
+  
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }
 
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
 
   private static final String _SHORT_MAX = Short.toString(Short.MAX_VALUE);
   private static final String _SHORT_MIN = Short.toString(Short.MIN_VALUE);
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
 }

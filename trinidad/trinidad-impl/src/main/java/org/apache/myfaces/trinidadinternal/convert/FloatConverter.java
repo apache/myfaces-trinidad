@@ -15,9 +15,14 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * <p>Implementation for <code>java.lang.Float</code> values.</p>
@@ -25,7 +30,7 @@ import javax.faces.convert.ConverterException;
  * @author The Oracle ADF Faces Team
  */
 public class FloatConverter extends javax.faces.convert.FloatConverter
-                            implements InternalClientConverter
+                            implements ClientConverter
 {
     /**
      * <p>The message identifier of the FacesMessage to be created if
@@ -61,12 +66,6 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
     return null;
   }
 
-  public String getLibKey(
-   FacesContext context,
-   UIComponent component)
-  {
-    return "DecimalConvert()";
-  }
 
   /**
    * @todo translations
@@ -79,4 +78,17 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
   {
     return ConverterUtils.getClientConversion(context,component,CONVERT_MESSAGE_ID);
   }
+
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
+  
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }  
+
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );  
 }

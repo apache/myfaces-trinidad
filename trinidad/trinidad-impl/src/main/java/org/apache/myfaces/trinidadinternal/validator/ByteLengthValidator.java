@@ -19,6 +19,8 @@ package org.apache.myfaces.trinidadinternal.validator;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,6 +30,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
+import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
@@ -37,36 +40,20 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  */
 public class ByteLengthValidator
               extends org.apache.myfaces.trinidad.validator.ByteLengthValidator
-              implements InternalClientValidator
+              implements ClientValidator
 {
   public ByteLengthValidator()
   {
     super();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-  public String getLibKey(
-    FacesContext context,
-    UIComponent component
-    )
+  
+  public String getClientLibrarySource(
+   FacesContext context)
   {
-
-    switch (_getType(getEncoding()))
-    {
-      case _SINGLE_BYTE_TYPE:
-        return "SBFormat()";
-      case _CJK_TYPE:
-        return "CjkFormat()";
-      case _UTF8_TYPE:
-        return "Utf8Format()";
-
-      case _UNSUPPORTED_TYPE:
-      default:
-        return null;
-    }
+    return null;
   }
+
 
   /**
    * {@inheritDoc}
@@ -133,6 +120,27 @@ public class ByteLengthValidator
     constr.append( "'})");
 
     return constr.toString();
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public Collection<String> getClientImportNames()
+  {
+
+    switch (_getType(getEncoding()))
+    {
+      case _SINGLE_BYTE_TYPE:
+        return _IMPORT_NAMES_SINGLE_BYTE;
+      case _CJK_TYPE:
+        return _IMPORT_NAMES_CJK;
+      case _UTF8_TYPE:
+        return _IMPORT_NAMES_UTF8;
+
+      case _UNSUPPORTED_TYPE:
+      default:
+        return null;
+    }
   }
 
   static private int _getType(String encoding)
@@ -418,7 +426,11 @@ public class ByteLengthValidator
     for (int i = 0; i < singleByteArray.length; i++)
       _singleByteEncodings.add(singleByteArray[i]);
   }
-
+  private static final Collection<String> _IMPORT_NAMES_SINGLE_BYTE = Collections.singletonList("SBFormat()" ); 
+  private static final Collection<String> _IMPORT_NAMES_CJK = Collections.singletonList("CjkFormat()" ); 
+  private static final Collection<String> _IMPORT_NAMES_UTF8 = Collections.singletonList("Utf8Format()" ); 
+  
  private static final TrinidadLogger _LOG =  TrinidadLogger.createTrinidadLogger(ByteLengthValidator.class);
+
 
 }

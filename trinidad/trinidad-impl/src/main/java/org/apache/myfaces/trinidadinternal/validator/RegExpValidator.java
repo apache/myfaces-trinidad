@@ -15,18 +15,22 @@
  */
 package org.apache.myfaces.trinidadinternal.validator;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
+import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
 public class RegExpValidator
                        extends org.apache.myfaces.trinidad.validator.RegExpValidator
-                         implements InternalClientValidator
+                         implements ClientValidator
 {
   public RegExpValidator()
   {
@@ -91,20 +95,17 @@ public class RegExpValidator
 
     return outBuffer.toString();
   }
-
-  /**
-   * @todo again here we dont check for the component nor the client id.
-   * If it true in getClientScript it should be true here to.
-   */
-  public String getLibKey(
-    FacesContext context,
-    UIComponent component
-    )
+  
+  public Collection<String> getClientImportNames()
   {
-     return "RegExpFormat()";
+    return _IMPORT_NAMES;
   }
-
- 
+  
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }
 
   private String _getNoMatchMessageDetail(
     FacesContext context)
@@ -125,4 +126,7 @@ public class RegExpValidator
   @SuppressWarnings("unused")
   private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(
      RegExpValidator.class);
+     
+
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "RegExpFormat()" );     
 }

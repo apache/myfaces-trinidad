@@ -16,6 +16,7 @@
 
 package org.apache.myfaces.trinidaddemo.convertValidate;
 
+import java.util.Collection;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -100,7 +101,6 @@ public class SSNConverter implements Converter, ClientConverter
         return null;
 
       Integer integerValue = (Integer)value;
-      int intValue = integerValue.intValue();
 
       String valueString = integerValue.toString();
 
@@ -110,6 +110,18 @@ public class SSNConverter implements Converter, ClientConverter
       return ssn;
     }
 
+
+  public Collection<String> getClientImportNames()
+  {
+    return null;
+  }
+
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return context.getExternalContext().getRequestContextPath() + 
+            "/jsLibs/ssnConverter.js";    
+  }
 
   public String getClientConversion(
     FacesContext context,
@@ -129,24 +141,9 @@ public class SSNConverter implements Converter, ClientConverter
    FacesContext context,
    UIComponent component)
   {
-    // check if the script has already been returned this request
-    Object scriptReturned =
-                context.getExternalContext().getRequestMap().get(CONVERTER_ID);
-
-    // if scriptReturned is null the script hasn't been returned yet
-    if ( scriptReturned == null)
-    {
-      context.getExternalContext().getRequestMap().put(CONVERTER_ID,
-                                                       Boolean.TRUE);
-      return  _sSSNjs;
-    }
-    // if scriptReturned is not null, then script has already been returned,
-    // so don't return it again.
-    else
-      return null;
-
-   }
-
+    return null;
+  }
+  
   private LabeledFacesMessage _getMessage(
    UIComponent component,
    String text)
@@ -176,41 +173,5 @@ public class SSNConverter implements Converter, ClientConverter
 
   private static final String _INVALID_ERROR_TEXT
     = "The value is not a valid social security number";
-
-  private static final String _sSSNjs =
-    "function ssnGetAsString(value)"+
-    "{return value.substring(0,3) + '-' " +
-          "+ value.substring(3,5) + '-' + value.substring(5);}" +
-    "function ssnGetAsObject(value)" +
-      "{if (!value)return (void 0);" +
-      "var len=value.length;"+
-      "var messageKey = SSNConverter.NOT;" +
-      "if (len < 9 )"+
-        "messageKey = SSNConverter.SHORT;" +
-      "else if (len > 11)"+
-        "messageKey = SSNConverter.LONG;" +
-      "else if (len == 9)" +
-      "{ if (!isNaN(value))" +
-          "return value;" +
-      "}" +
-      "else if (len == 11 && value.charAt(3) == '-' && " +
-                "value.charAt(6) == '-')" +
-      "{" +
-        "var result = value.substring(0,3) + value.substring(4,6) + " +
-                    "value.substring(7);"+
-        "if (!isNaN(result))"+
-          "return result;" +
-      "}" +
-     "if (messageKey!=void(0) && this._messages!=void(0))" +
-       "return new ConverterException(this._messages[messageKey]);" +
-     "return void(0);}" +
-    "function SSNConverter(messages)" +
-      "{this._messages = messages;}" +
-    "SSNConverter.prototype = new Converter();" +
-    "SSNConverter.prototype.getAsString = ssnGetAsString;" +
-    "SSNConverter.prototype.getAsObject = ssnGetAsObject;" +
-    "SSNConverter.SHORT = 'S';" +
-    "SSNConverter.LONG  = 'L';" +
-    "SSNConverter.NOT   = 'N';";
 
 }

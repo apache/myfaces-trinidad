@@ -18,6 +18,8 @@ package org.apache.myfaces.trinidadinternal.convert;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -36,6 +38,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
 
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
@@ -47,8 +50,8 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  * @author The Oracle ADF Faces Team
  */
 public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateTimeConverter
-                                   implements InternalClientConverter
-
+                               implements ClientConverter
+                                   
 {
   public DateTimeConverter()
   {
@@ -238,11 +241,18 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     }
   }
 
-  public String getLibKey(FacesContext context, UIComponent component)
+
+  public Collection<String> getClientImportNames()
   {
-    return "SimpleDateFormat()";
+    return _IMPORT_NAMES;
   }
 
+
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }
 
    /**
    * Returns the number of columns of text a field should
@@ -510,5 +520,6 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   private static final String _GMT_MINUS = "GMT-";
   private static final int _MILLIS_PER_HOUR = 60 * 60 * 1000;
   private static final int _MILLIS_PER_MINUTE = 60 * 1000;
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList("SimpleDateFormat()" );
 
 }
