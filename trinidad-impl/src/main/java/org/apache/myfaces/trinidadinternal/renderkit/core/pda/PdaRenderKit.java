@@ -28,6 +28,12 @@ public class PdaRenderKit extends RenderKitDecorator
     addRenderer("org.apache.myfaces.trinidad.Process",
     "org.apache.myfaces.trinidad.Train",
                 new TrainRenderer());
+    addRenderer("org.apache.myfaces.trinidad.FrameBorderLayout",
+                "org.apache.myfaces.trinidad.FrameBorderLayout",
+                new PdaFrameBorderLayoutRenderer());
+    addRenderer("org.apache.myfaces.trinidad.Frame",
+                "org.apache.myfaces.trinidad.Frame",
+                new FrameRenderer());
   }
 
   @Override
