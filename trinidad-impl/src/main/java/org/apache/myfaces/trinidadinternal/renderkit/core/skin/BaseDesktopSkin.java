@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.BaseDesktopConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
@@ -30,7 +30,6 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class BaseDesktopSkin extends XhtmlSkin
-  implements BaseDesktopConstants
 {
   /**
    * Constructs a BaseDesktopSkin instance
@@ -49,7 +48,7 @@ public class BaseDesktopSkin extends XhtmlSkin
   @Override
   public String getId()
   {
-    return BaseDesktopConstants.BASE_DESKTOP_ID;
+    return XhtmlConstants.BASE_DESKTOP_ID;
   }
 
   /**

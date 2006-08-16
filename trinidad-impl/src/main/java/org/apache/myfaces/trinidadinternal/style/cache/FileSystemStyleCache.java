@@ -41,6 +41,7 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
@@ -62,8 +63,6 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
-
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
@@ -1533,24 +1532,24 @@ public class FileSystemStyleCache implements StyleProvider
                  "af|chooseDate::content A");
 
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_SHOWMANYACCORDION_TITLE_LINK_STYLE_CLASS,
+        XhtmlConstants.AF_SHOWMANYACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|showManyAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_SHOWMANYACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        XhtmlConstants.AF_SHOWMANYACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|showManyAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_SHOWONEACCORDION_TITLE_LINK_STYLE_CLASS,
+        XhtmlConstants.AF_SHOWONEACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|showOneAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        XhtmlConstants.AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|showOneAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
+        XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|panelAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|panelAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put("af|panelTabbed::tab-link",

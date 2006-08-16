@@ -16,9 +16,9 @@
 
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/MinimalDesktopSkinExtension.java#0 $) $Date: 10-nov-2005.19:02:52 $
@@ -37,7 +37,7 @@ public class MinimalDesktopSkinExtension extends SkinExtension
     super(baseSkin,
           _MINIMAL_DESKTOP_ID,
           _MINIMAL_FAMILY,
-          XhtmlLafConstants.ORACLE_ADF_DESKTOP);
+          XhtmlConstants.ORACLE_ADF_DESKTOP);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);

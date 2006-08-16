@@ -29,11 +29,11 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HideShowUtils;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
@@ -358,37 +358,37 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
   String getContainerStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
   }
 
   String getContentStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_CONTENT_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_CONTENT_STYLE_CLASS;
   }
 
   String getHeaderDisabledStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS;
   }
 
   String getHeaderExpanedStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS;
   }
 
   String getHeaderCollapsedStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS;
   }
 
   String getLinkDisabledStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS;
   }
 
   String getLinkEnabledStyleClass()
   {
-    return XhtmlLafConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS;
+    return XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS;
   }
 
   String getDisclosedTipKey()
