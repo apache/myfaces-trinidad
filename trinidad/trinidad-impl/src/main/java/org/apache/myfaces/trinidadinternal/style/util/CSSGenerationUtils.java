@@ -834,6 +834,8 @@ public class CSSGenerationUtils
    * if I see this: af|foo:p-class.StyleClass::element, return this:
    * 'af|foo:p-class.StyleClass' 'af|foo::element'
    * af|foo.StyleClass::element -> 'af|foo.StyleClass' 'af|foo::element'
+   * If I see thiss: af|foo::p-element.StyleClass, return this
+   * af|foo::p-element.StyleClass (leave alone).
    */
   private static String[]  _orderPseudoElementsAndClasses(
     String[] input,
@@ -854,29 +856,34 @@ public class CSSGenerationUtils
         int indexOfDoubleColon = input[i].indexOf("::");         
         if (indexOfDoubleColon == -1)
         {
-          // no double colon
+          // no double colon (aka pseudo-element)
           output.add(input[i]);
         }
         else
         {
-          // you have a double colon.
-          int indexOfColon = input[i].indexOf(':');
-          if (indexOfColon == indexOfDoubleColon)
-            indexOfColon = -1;
+          // you have a double colon index. Now look to see if we need to 
+          // reorder. We have to reorder if the pseudo-element comes after
+          // the pseudo-class or composite style classes.
+          int indexOfFirstColon = input[i].indexOf(':');
           int indexOfDot = input[i].indexOf('.');
-          if ((indexOfColon >= indexOfDoubleColon && 
-              indexOfDot >= indexOfDoubleColon) || 
-              (indexOfColon == -1 && indexOfDot == -1))
+
+          boolean pseudoClassBeforePseudoElement = 
+            (indexOfFirstColon < indexOfDoubleColon);
+          boolean styleClassBeforePseudoElement =
+            (indexOfDot != -1 && indexOfDot < indexOfDoubleColon);
+            
+          if (!(pseudoClassBeforePseudoElement ||
+                styleClassBeforePseudoElement))
           {
-            // colon and styleClasses are after double colon
-            // OR there are no colons and styleClasses.
-            output.add(input[i]);
-          }          
+            output.add(input[i]);  
+          }
           else
           {
-            int indexOfClass = Math.min(indexOfColon, indexOfDot);
+            if (indexOfFirstColon == indexOfDoubleColon)
+              indexOfFirstColon = -1;
+            int indexOfClass = Math.min(indexOfFirstColon, indexOfDot);
             if (indexOfClass == -1)
-              indexOfClass = Math.max(indexOfColon, indexOfDot);
+              indexOfClass = Math.max(indexOfFirstColon, indexOfDot);
 
             // we have the condition where pseudo-class or styleClass is before
             // pseudo-element: af|foo:psdo-class::psdo-element
