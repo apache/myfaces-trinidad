@@ -22,6 +22,8 @@ public class HtmlCommandButtonRenderer extends Renderer
   {
   }
 
+  @SuppressWarnings("unchecked")
+  @Override
   public void encodeBegin(FacesContext context, 
                           UIComponent component)
     throws IOException
@@ -31,7 +33,7 @@ public class HtmlCommandButtonRenderer extends Renderer
       return;
     }
     
-    Map attrs = component.getAttributes();
+    Map<String, Object> attrs = component.getAttributes();
     UICommand command = (UICommand) component;
     // Which button type (SUBMIT, RESET, or BUTTON) should we generate?
     String type = (String) attrs.get("type");
@@ -85,6 +87,7 @@ public class HtmlCommandButtonRenderer extends Renderer
     writer.endElement("input");
   }
 
+  @Override
   public void decode(FacesContext context, UIComponent component)
   {
     Object source =
@@ -98,7 +101,10 @@ public class HtmlCommandButtonRenderer extends Renderer
     }
   }
 
-  private void _writeBooleanPassThruAttr(ResponseWriter out, Map attrs, String key)
+  private void _writeBooleanPassThruAttr(
+      ResponseWriter out, 
+      Map<String, Object> attrs, 
+      String key)
     throws IOException
   {
     Object value = attrs.get(key);
@@ -108,7 +114,10 @@ public class HtmlCommandButtonRenderer extends Renderer
     }
   }
 
-  private void _writePassThruAttrs(ResponseWriter out, Map attrs, String[] keys)
+  private void _writePassThruAttrs(
+      ResponseWriter out, 
+      Map<String, Object> attrs, 
+      String[] keys)
     throws IOException
   {
     for(int i=0; i<keys.length; i++)
