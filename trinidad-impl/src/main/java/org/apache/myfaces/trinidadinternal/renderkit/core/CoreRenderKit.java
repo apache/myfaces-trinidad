@@ -78,6 +78,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlFormRenderer;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.renderkit.htmlBasic.HtmlCommandButtonRenderer;
 import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
 import org.apache.myfaces.trinidadinternal.webapp.DispatchServletResponse;
 
@@ -557,6 +558,12 @@ public class CoreRenderKit extends RenderKitBase
       addRenderer(UICommand.COMPONENT_FAMILY,
                   "javax.faces.Link",
                   new HtmlCommandLinkRenderer());
+      // In jsf 1.1_02 the ri FormRenderer writes out script used by
+      // h:commandButton. Since we override the RI FormRenderer, we also
+      // need to override the commandButton renderer:
+      addRenderer(UICommand.COMPONENT_FAMILY,
+                  "javax.faces.Button",
+                  new HtmlCommandButtonRenderer());
 
     }
 
