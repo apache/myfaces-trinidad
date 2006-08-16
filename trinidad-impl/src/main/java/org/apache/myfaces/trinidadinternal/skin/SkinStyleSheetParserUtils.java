@@ -25,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -382,18 +383,23 @@ class SkinStyleSheetParserUtils
             
             propertyNode = new PropertyNode(propertyName, resolvedUrl);
           }
-          else if(propertyName.equals("background-image"))
-          { // TODO: Add a list of property names expecting an URL here, 
-            // "content" maybe?
-            _LOG.warning("An url value delimited by url() is expected for " +
-                         "the property '" +
-                         propertyName + 
-                         "' in selector '" +
-                         selectorName +
-                         "' in style sheet '" +
-                         sourceName + 
-                         "'. Found: '" + 
-                         propertyValue + "'.");
+          else if (_URI_PROPERTIES.contains(propertyName))
+          { 
+            // Make sure it's a legit value for an URL
+            if (!_SPECIAL_URI_VALUES.contains(propertyValue))
+            {
+              // TODO: Add a list of property names expecting an URL here, 
+              // "content" maybe?
+              _LOG.warning("An url value delimited by url() is expected for " +
+                           "the property '" +
+                           propertyName + 
+                           "' in selector '" +
+                           selectorName +
+                           "' in style sheet '" +
+                           sourceName + 
+                           "'. Found: '" + 
+                           propertyValue + "'.");
+            }
           }
 
           noOraPropertyList.add(propertyNode);
@@ -1078,6 +1084,24 @@ class SkinStyleSheetParserUtils
   private static final String _ORA_RULE_REF = "-ora-rule-ref";
   private static final String _ORA_INHIBIT = "-ora-inhibit";
   private static final String _ORA_TEXT_ANTIALIAS = "-ora-text-antialias";
+
+  // Set of values that are legal for url() values
+  private static final Set<String> _URI_PROPERTIES = new HashSet<String>();
+  static
+  {
+    _URI_PROPERTIES.add("background-image");
+    _URI_PROPERTIES.add("cue-after");
+    _URI_PROPERTIES.add("cue-before");
+    _URI_PROPERTIES.add("list-style-image");
+  }
+
+  // Set of values that are legal for url() values
+  private static final Set<String> _SPECIAL_URI_VALUES = new HashSet<String>();
+  static
+  {
+    _SPECIAL_URI_VALUES.add("none");
+    _SPECIAL_URI_VALUES.add("inherit");
+  }
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(
     SkinStyleSheetParserUtils.class);
