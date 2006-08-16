@@ -109,6 +109,7 @@ public class StyleNodeParser extends BaseNodeParser
                          compoundProperties,
                          includedStyles,
                          includedProperties,
+                         null,
                          _resetProperties);
   }
 

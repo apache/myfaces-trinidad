@@ -507,9 +507,19 @@ public class StyleSheetDocument
             //    into our StyleEntry.
             // 3. Resolve all compound properites, and shove those properties
             //    into the StyleEntry
-            // 4. Shove all properties from the matching StyleNode into our
+            // 4. Remove all properties that were inhibited.
+            // 5. Shove all properties from the matching StyleNode into our
             //    StyleEntry, overwriting included values
-
+            // -= Simon Lessard =-
+            // FIXME: That sequence looks buggy. If more than 1 matching node 
+            //        is found, then the included properties of the second will
+            //        have priority over the properties found at step 5 on the
+            //        first node, which is most likely incorrect.
+            //
+            //        A possible fix would be to put entries from the 5 steps 
+            //        into 5 different lists then resolve all priorities at the 
+            //        end.
+            
             // 0. Reset properties?
             if (node.__getResetProperties())
               entry.resetProperties();
@@ -661,7 +671,21 @@ public class StyleSheetDocument
               }
             }
 
-            // 4. Add non-included properties
+            // 4. Check inhibited properties
+            if(node.isInhibitingAll())
+            {
+              entry.resetProperties();
+            }
+            else
+            {
+              Iterator<String> properties = node.getInhibitedProperties();
+              while (properties.hasNext())
+              {
+                entry.removeProperty(properties.next());
+              }
+            }
+
+            // 5. Add non-included properties
             Iterator<PropertyNode> properties = node.getProperties();
             if (properties != null)
             {
@@ -876,9 +900,11 @@ public class StyleSheetDocument
     v.copyInto(nodes);
 
     if (isNamed)
-      return new StyleNode(key, null, nodes, null, null, null);
-
-    return new StyleNode(null, key, nodes, null, null, null);
+    {
+      return new StyleNode(key, null, nodes, null, null, null, null);
+    }
+    
+    return new StyleNode(null, key, nodes, null, null, null, null);
   }
 
   // Tests whether the value is present in the (possibly null) stack.
@@ -1132,7 +1158,7 @@ public class StyleSheetDocument
 
       // Create and return our StyleNode.  We don't need to specify
       // a name or included styles, as they have already been resolved.
-      return new StyleNode(name, selector, properties, null, null, null);
+      return new StyleNode(name, selector, properties, null, null, null, null);
     }
 
     // Tests whether a property with the specified name is
@@ -1517,6 +1543,7 @@ public class StyleSheetDocument
   // A StyleNode used as a placeholder for a style which couldn't be resolved
   private static final StyleNode _ERROR_STYLE_NODE = new StyleNode("error",
                                                                    "error",
+                                                                   null,
                                                                    null,
                                                                    null,
                                                                    null,

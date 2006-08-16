@@ -16,12 +16,12 @@
 
 package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-
+import java.util.Set;
 
 
 /**
@@ -44,7 +44,8 @@ public class StyleNode
          properties,
          style._compoundProperties,
          style._includedStyles,
-         style._includedProperties);
+         style._includedProperties,
+         null);
   }
 
   /**
@@ -56,7 +57,8 @@ public class StyleNode
     PropertyNode[]         properties,
     CompoundPropertyNode[] compoundProperties,
     IncludeStyleNode[]     includedStyles,
-    IncludePropertyNode[]  includedProperties
+    IncludePropertyNode[]  includedProperties,
+    Set<String>            inhibitedProperties
     )
   {
     this(name,
@@ -65,6 +67,7 @@ public class StyleNode
          compoundProperties,
          includedStyles,
          includedProperties,
+         inhibitedProperties,
          false);
   }
 
@@ -78,6 +81,7 @@ public class StyleNode
     CompoundPropertyNode[] compoundProperties,
     IncludeStyleNode[]     includedStyles,
     IncludePropertyNode[]  includedProperties,
+    Set<String>            inhibitedProperties,
     boolean                resetProperties
     )
   {
@@ -115,6 +119,30 @@ public class StyleNode
       System.arraycopy(includedProperties, 0,
                        _includedProperties, 0,
                        _includedProperties.length);
+    }
+    
+    _inhibitAll = false;
+    if(inhibitedProperties != null)
+    {
+      _inhibitedProperties = new ArrayList<String>(inhibitedProperties.size());
+      for(String property : inhibitedProperties)
+      {
+        if(_INHIBIT_ALL_VALUE.equalsIgnoreCase(property))
+        { // Case insensitivity for "all" value
+          _inhibitAll = true;
+          _inhibitedProperties = null;
+          break;
+        }
+        else
+        {
+          _inhibitedProperties.add(property);
+        }
+      }
+      
+      if(_inhibitedProperties != null)
+      {
+        _inhibitedProperties = Collections.unmodifiableList(_inhibitedProperties);
+      }
     }
   }
 
@@ -191,6 +219,39 @@ public class StyleNode
     else
       return (Arrays.asList(_includedProperties)).iterator();
   }
+  
+  /**
+   * Gets the properties specified by this node's parent that should be
+   * ignored. This method will return an empty iterator if 
+   * {@link #isInhibitingAll()} returns <code>true</code>
+   * 
+   * @return an iterator over the properties that should be ignored, an 
+   *         empty iterator if all properties should be.
+   */
+  public Iterator<String> getInhibitedProperties()
+  {
+    if(_inhibitedProperties == null) 
+    {
+      List<String> list = Collections.emptyList();
+      return list.iterator();
+    }
+    else
+    {
+      return _inhibitedProperties.iterator();
+    }
+  }
+  
+  /**
+   * Determines if this node inhibits all of its inherited properties.
+   * 
+   * @return <code>true</code> if this node ignores all properties defined 
+   *         by its parent, <code>false</code> otherwise.
+   */
+  public boolean isInhibitingAll()
+  {
+    return _inhibitAll;
+  }
+
 
   // Just leaving this package-private, since only
   // StyleSheetDocument really needs to know about this.
@@ -201,15 +262,18 @@ public class StyleNode
     return _resetProperties;
   }
 
+  private boolean                _inhibitAll;
   private String                 _name;
   private String                 _selector;
   private PropertyNode[]         _properties;          // The property nodes
   private CompoundPropertyNode[] _compoundProperties;  // Compound properties
   private IncludeStyleNode[]     _includedStyles;      // Included styles
   private IncludePropertyNode[]  _includedProperties;  // Included properties
-
+  private List<String>           _inhibitedProperties; // Inhibited properties
+  
   // This flag checks whether the style should inherit properties
   // from equivalent styles defined in earlier style sheets.
   private boolean                _resetProperties;
 
+  private static final String _INHIBIT_ALL_VALUE = "all";
 }
