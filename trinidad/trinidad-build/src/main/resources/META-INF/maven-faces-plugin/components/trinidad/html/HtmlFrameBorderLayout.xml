@@ -228,6 +228,39 @@
       </property-extension>
     </property>
     <property>
+      <description><![CDATA[The size of frame spacing to be rendered.]]>
+      </description>
+      <property-name>frameSpacing</property-name>
+      <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[The size for the border width to be rendered.]]>
+      </description>
+      <property-name>borderWidth</property-name>
+      <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[The size for the frame border width to be rendered.]]>
+      </description>
+      <property-name>frameBorderWidth</property-name>
+      <property-class>int</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:property-editor>UNSIGNED_INTEGER</mfp:property-editor>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[the short description of the bean.  This text
          is commonly used by user agents to display tooltip help text.]]>
       </description>

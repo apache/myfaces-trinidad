@@ -99,8 +99,6 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     FLOW_LAYOUT_NAME,
     FORM_VALUE_NAME,
     GLOBAL_BUTTON_BAR_NAME,
-    FRAME_BORDER_LAYOUT_NAME,
-    FRAME_NAME,
     HTML_NAME,
     ICON_NAME,
     ICON_KEY_NAME,

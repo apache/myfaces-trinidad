@@ -1,130 +1,608 @@
 <results>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
+  <div
+       id="mainId"
       >
     
-  </br>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
-      >
-    
-  </br>
-  <noframes
-      >
-    no frames
-  </noframes>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+  </div>
 <!--AttributeTest[id,myFrameBorderId]-->
 
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
+  <div
+       id="myFrameBorderId"
       >
     
-  </br>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
-      >
-    
-  </br>
-  <noframes
-      >
-    no frames
-  </noframes>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+  </div>
 <!--AttributeTest[inlineStyle,border:dashed]-->
 
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
+  <div
+       id="mainId"
+       style="border:dashed"
       >
     
-  </br>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
-      >
-    
-  </br>
-  <noframes
-      >
-    no frames
-  </noframes>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+  </div>
 <!--AttributeTest[shortDesc,myShortDesc]-->
 
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
+  <div
+       id="mainId"
+       title="myShortDesc"
       >
     
-  </br>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
-      >
-    
-  </br>
-  <noframes
-      >
-    no frames
-  </noframes>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+  </div>
 <!--AttributeTest[styleClass,myStyle]-->
 
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
+  <div
+       class="myStyle"
+       id="mainId"
       >
     
-  </br>
-  <a
-       class="OraLink"
-       href="uri-attr:encoded-action-url:http://www.oracle.com"
-      >
-    http://www.oracle.com
-  </a>
-  <br
-      >
-    
-  </br>
-  <noframes
-      >
-    no frames
-  </noframes>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+    <div
+        >
+      
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+      <a
+           class="OraLink"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+          >
+        http://www.oracle.com
+      </a>
+      <br
+          >
+        
+      </br>
+    </div>
+    <br
+        >
+      
+    </br>
+    <a
+         class="OraLink"
+         href="uri-attr:encoded-action-url:http://www.oracle.com"
+        >
+      http://www.oracle.com
+    </a>
+    <br
+        >
+      
+    </br>
+  </div>
 </results>
