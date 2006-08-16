@@ -334,55 +334,60 @@ class SkinStyleSheetParserUtils
     {
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
-
-      if ((propertyName != null) &&
-          (propertyName.startsWith(_ORA_PROPERTY_PREFIX)))
+      
+      if(propertyName != null)
       {
-
-        if (propertyName.equals(_ORA_RULE_REF))
+        if(propertyName.startsWith(_ORA_PROPERTY_PREFIX))
         {
-          // add the rule ref value to the list
-          oraRuleRefList.add(propertyValue);
-        }
-        else if (propertyName.equals(_ORA_TEXT_ANTIALIAS))
-        {
-          if ("true".equals(propertyValue))
-            oraTextAntialias = true;
-
-        }
-        else
-        {
-          SkinPropertyNode node =
-            new SkinPropertyNode(selectorName,
-                                 propertyName,
-                                 propertyValue);
-
-          skinPropertyNodeList.add(node);
-        }
-
-      }
-      else
-      {
-        if ("background-image".equals(propertyName) &&
-              _isURLValue(propertyValue))
-        {
-          // Convert relative URL values to absolute, since
-          // relative values will be resolved relative to the
-          // generated style sheet, not the source CSS file.
-          String uri = _getURIString(propertyValue);
-          if (_isRelativeURI(uri))
+          if (propertyName.equals(_ORA_RULE_REF))
           {
-            String absoluteURI = _getAbsoluteURLValue(baseURI,
-                                                      uri,
-                                                      sourceName,
-                                                      selectorName);
-            propertyNode = new PropertyNode("background-image", absoluteURI);
+            // add the rule ref value to the list
+            oraRuleRefList.add(propertyValue);
+          }
+          else if (propertyName.equals(_ORA_TEXT_ANTIALIAS))
+          {
+            if ("true".equals(propertyValue))
+              oraTextAntialias = true;
+
+          }
+          else
+          {
+            SkinPropertyNode node =
+              new SkinPropertyNode(selectorName,
+                                   propertyName,
+                                   propertyValue);
+
+            skinPropertyNodeList.add(node);
           }
         }
+        else if(propertyValue != null)
+        {
+          if(_isURLValue(propertyValue))
+          {
+            String resolvedUrl = _resolveURL(baseURI,
+                                             propertyValue,
+                                             sourceName,
+                                             selectorName);
+            
+            propertyNode = new PropertyNode(propertyName, resolvedUrl);
+          }
+          else if(propertyName.equals("background-image"))
+          { // TODO: Add a list of property names expecting an URL here, 
+            // "content" maybe?
+            _LOG.warning("An url value delimited by url() is expected for " +
+                         "the property '" +
+                         propertyName + 
+                         "' in selector '" +
+                         selectorName +
+                         "' in style sheet '" +
+                         sourceName + 
+                         "'. Found: '" + 
+                         propertyValue + "'.");
+          }
 
-        noOraPropertyList.add(propertyNode);
+          noOraPropertyList.add(propertyNode);
+        }
       }
-
     }
 
     return new ResolvedSkinProperties(
@@ -390,6 +395,58 @@ class SkinStyleSheetParserUtils
       oraRuleRefList,
       skinPropertyNodeList,
       oraTextAntialias);
+  }
+  
+  private static String _resolveURL(
+      String baseUrl,
+      String url,
+      String sourceName,
+      String selectorName)
+  {
+    String uri = _getURIString(url);
+    if(uri.length() == 0)
+    {
+      // url() or url('') found, should not happen.
+      _LOG.warning("An empty URL was found in selector '" +
+                   selectorName +
+                   "' in style sheet '" +
+                   sourceName + "'.");
+      
+      return url;
+    }
+    
+    if(uri.charAt(0) == '/')
+    {
+      // A transformation is required
+      if(uri.length() > 1 && uri.charAt(1) == '/')
+      {
+        // Double slashes, trim one and do not add context root before
+        return "url(" + uri.substring(1) + ")";
+      }
+      else
+      {
+        // Single slash, add context path.
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        assert(facesContext != null);
+
+        ExternalContext externalContext = facesContext.getExternalContext();
+        String contextPath = externalContext.getRequestContextPath();
+        assert(contextPath.charAt(0) == '/');
+        assert(contextPath.charAt(contextPath.length() - 1) != '/');
+        
+        return "url(" + contextPath + uri + ")";
+      }
+    }
+    else if(_isRelativeURI(uri))
+    {
+      // Convert relative URL values to absolute, since
+      // relative values will be resolved relative to the
+      // generated style sheet, not the source CSS file.
+      return _getAbsoluteURLValue(baseUrl, uri, sourceName, selectorName);
+    }
+    
+    // Don't change anything
+    return url;
   }
 
   /**
