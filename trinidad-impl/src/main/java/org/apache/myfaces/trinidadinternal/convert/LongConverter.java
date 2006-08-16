@@ -16,10 +16,15 @@
 package org.apache.myfaces.trinidadinternal.convert;
 
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import javax.faces.convert.ConverterException;
+
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
@@ -29,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class LongConverter extends javax.faces.convert.LongConverter
-                              implements InternalClientConverter
+                           implements ClientConverter
 {
 
     /**
@@ -93,17 +98,14 @@ public class LongConverter extends javax.faces.convert.LongConverter
   {
     return null;
   }
-
-  public String getLibKey(
-   FacesContext context,
-   UIComponent component)
+  
+  public String getClientLibrarySource(
+   FacesContext context)
   {
-    return "DecimalConvert()";
+    return null;
   }
 
-
  /**
-   * @todo translations
    * @param context
    * @return
    */
@@ -119,8 +121,15 @@ public class LongConverter extends javax.faces.convert.LongConverter
   }
 
 
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
+
+
   private static final String _LONG_MIN
     = IntegerUtils.getString(Long.MIN_VALUE);
   private static final String _LONG_MAX
     = IntegerUtils.getString(Long.MAX_VALUE);
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
 }

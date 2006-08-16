@@ -2434,7 +2434,7 @@ function _multiValidate(
               converter = eval(converterConstructor);
               converterResult = converter.getAsObject(value);
 
-              if (_instanceof(converterResult, ConverterException))
+              if (_instanceof(converterResult,  window["ConverterException"]))
               {
                 converterError = converterResult;
               }
@@ -2500,7 +2500,7 @@ function _multiValidate(
 
                 validator = eval(validatorConstructor);
                 validationResult = validator.validate(value);
-                if (_instanceof(validationResult, ValidatorException))
+                if (_instanceof(validationResult,  window["ValidatorException"]))
                   validationError = validationResult;
 
               }
@@ -2758,6 +2758,9 @@ function _instanceof(
 )
 {
   if (type == (void 0))
+    return false;
+    
+  if (obj == (void 0))
     return false;
 
   while (typeof(obj) == "object")

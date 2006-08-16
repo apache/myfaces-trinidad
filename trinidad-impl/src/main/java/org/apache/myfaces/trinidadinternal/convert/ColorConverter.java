@@ -15,11 +15,14 @@
  */
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
@@ -32,14 +35,19 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
  * @author The Oracle ADF Faces Team
  */
 public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorConverter
-                            implements InternalClientConverter
+                            implements ClientConverter
 {
 
-  public String getLibKey(FacesContext context, UIComponent component)
+  public String getClientLibrarySource(
+   FacesContext context)
   {
-    return "ColorFormat()";
+    return null;
   }
-
+  
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
 
   @SuppressWarnings("unchecked")
   public String getClientScript(FacesContext context, UIComponent component)
@@ -244,7 +252,8 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
                                            convMsgDet, params).getDetail();
   }
-
+  
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "ColorFormat()" );
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorConverter.class);
   private static final Object _PATTERN_WRITTEN_KEY = new Object();
 }

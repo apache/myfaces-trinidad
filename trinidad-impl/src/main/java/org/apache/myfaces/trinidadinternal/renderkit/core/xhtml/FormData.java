@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -36,12 +37,10 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 
-import org.apache.myfaces.trinidadinternal.convert.InternalClientConverter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.validator.InternalClientValidator;
 
 /**
  *@todo - this needs to be moved to the renderkit package
@@ -347,12 +346,17 @@ public class FormData
       _addValidatedInput(clientId);
     }
 
+    FacesContext context = FacesContext.getCurrentInstance();
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+
     if (converter != null && converter instanceof ClientConverter)
     {
       if (convertValidateInfo == null)
         convertValidateInfo = _getNewConvertValidate(clientId);
 
-      _addOnSubmitConverter( component,
+      _addOnSubmitConverter(context,
+                            rc,
+                            component,
                             ((ClientConverter) converter),
                             convertValidateInfo,
                             clientId);
@@ -376,10 +380,12 @@ public class FormData
           if (convertValidateInfo == null)
             convertValidateInfo = _getNewConvertValidate(clientId);
 
-          _addOnSubmitValidator( component,
-                                 ((ClientValidator)validator),
-                                 convertValidateInfo,
-                                 clientId);
+          _addOnSubmitValidator(context,
+                                rc,
+                                component,
+                                ((ClientValidator)validator),
+                                convertValidateInfo,
+                                clientId);
         }
       }
     }
@@ -439,6 +445,8 @@ public class FormData
    * @todo get rid of the colorpicker hack!
    */
   private void _addOnSubmitConverter(
+    FacesContext              context,
+    RenderingContext          rc,
     UIComponent               component,
     ClientConverter           submitConverter,
     FormData.ConvertValidate  convertValidate,
@@ -452,29 +460,15 @@ public class FormData
       component = new org.apache.myfaces.trinidad.component.UIXInput();
       component.setId(clientId);
 
-    }
+    }    
+    
+    // write out the lib(s) and script
+    String libURI = submitConverter.getClientLibrarySource(context);  
+    String clientScript = submitConverter.getClientScript(context, component);
+    Collection<String> libRefs = submitConverter.getClientImportNames();  
+    _addClientScripts(context, rc, libURI, clientScript, libRefs, "Converter()");
 
-    FacesContext fcontext = FacesContext.getCurrentInstance();
-    if (submitConverter instanceof InternalClientConverter)
-    {
-      InternalClientConverter internalConverter =
-                                     (InternalClientConverter)submitConverter;
-      // Write the client dependencies for the onSubmitValidator
-      String clientLibrary = internalConverter.getLibKey(fcontext, component);
-
-      _writeDependencies(fcontext, clientLibrary);
-
-    }
-
-    String clientDependency = submitConverter.getClientScript(fcontext,
-                                                              component);
-    if (clientDependency != null)
-    {
-      List<String> clientDependencies = getClientDependencies(true);
-      clientDependencies.add(clientDependency);
-    }
-
-    String converter = submitConverter.getClientConversion(fcontext,
+    String converter = submitConverter.getClientConversion(context,
                                                            component);
 
     if (converter != null)
@@ -485,6 +479,45 @@ public class FormData
     }
   }
 
+  
+  private void _addClientScripts(
+    FacesContext        context,
+    RenderingContext    rc,
+    String              libURI,
+    String              clientScript,
+    Collection<String>  libRefs,
+    String              defaultLibRef
+  )throws IOException
+  {
+    if (libURI != null)
+    {
+      // check if it's already been written
+      Map props = rc.getProperties();
+      if( props.get(libURI) == null)
+      {        
+        // put the lib name in the property map so it won't be written out again
+        props.put(libURI, Boolean.TRUE);
+        XhtmlUtils.writeLibImport(context, rc, libURI);          
+      } 
+    }
+  
+    if(libRefs != null)
+    {
+      _writeDependencies(context, rc, libRefs);
+    }
+    else
+    {
+      _writeDependencies(context, rc, defaultLibRef);
+    }
+    
+    if ( clientScript != null)
+    {
+      List<String> clientDependencies = getClientDependencies(true);
+      clientDependencies.add(clientScript);
+    }
+  }
+  
+
 
   /**
    * @todo Is there a way to remove the hack we have introduced, if the
@@ -492,36 +525,22 @@ public class FormData
    * @todo =-= bts make package private
    */
   private void _addOnSubmitValidator(
+    FacesContext              context,
+    RenderingContext          rc,
     UIComponent               component,
     ClientValidator           submitValidator,
     FormData.ConvertValidate  convertValidate,
     String                    clientId
     ) throws IOException
   {
-    FacesContext fContext = FacesContext.getCurrentInstance();
-
-    if (submitValidator instanceof InternalClientValidator)
-    {
-      InternalClientValidator internalValidator =
-                                     (InternalClientValidator)submitValidator;
-
-      // Write the client dependencies for the onSubmitValidator
-      String clientLibrary = internalValidator.getLibKey(fContext, component);
-
-      _writeDependencies(fContext, clientLibrary);
-    }
-    else
-    {
-      String clientDependency = submitValidator.getClientScript(fContext,
-                                                                component);
-      if (clientDependency != null)
-      {
-        List<String> clientDependencies = getClientDependencies(true);
-        clientDependencies.add(clientDependency);
-      }
-    }
-
-    String validator = submitValidator.getClientValidation(fContext,
+        
+    // write out the lib(s) and script
+    String libURI = submitValidator.getClientLibrarySource(context);  
+    String clientScript = submitValidator.getClientScript(context, component);
+    Collection<String> libRefs = submitValidator.getClientImportNames();  
+    _addClientScripts(context, rc, libURI, clientScript, libRefs, "Validator()");
+ 
+    String validator = submitValidator.getClientValidation(context,
                                                            component);
 
     if (validator != null)
@@ -700,8 +719,9 @@ public class FormData
    * JavaScript libraries.
    */
   static private void _writeDependencies(
-    FacesContext context,
-    String      libReference
+    FacesContext     context,
+    RenderingContext rc,
+    String           libReference
     ) throws IOException
   {
     String contentType = context.getResponseWriter().getContentType();
@@ -710,10 +730,34 @@ public class FormData
         (null == contentType))
     {
       XhtmlUtils.addLib(context,
-                        RenderingContext.getCurrentInstance(),
+                        rc,
                         libReference);
     }
   }
+  
+  /**
+    * Opportunity for the ClientConverter or Validator to write any of its dependencies
+    * to the output.  For HTML, this will typically be imports of
+    * JavaScript libraries.
+    */
+   static private void _writeDependencies(
+     FacesContext        context,
+     RenderingContext    rc,
+     Collection<String>  libRefs
+     ) throws IOException
+   {
+     String contentType = context.getResponseWriter().getContentType();
+     if ("text/html".equals(contentType) ||
+         "application/xhtml+xml".equals(contentType) ||
+         (null == contentType))
+     {
+       Object[] libRefArray = libRefs.toArray();
+       for (int i = 0; i < libRefArray.length; i++)
+       {
+         XhtmlUtils.addLib(context, rc, libRefArray[i]);    
+       } 
+     }
+   }  
 
   private int _inputTextCount = 0;
   private String _defaultCommandId = null;

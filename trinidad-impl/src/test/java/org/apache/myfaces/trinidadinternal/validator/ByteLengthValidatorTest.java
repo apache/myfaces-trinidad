@@ -1,12 +1,12 @@
 /*
  * Copyright 2004,2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -69,7 +69,7 @@ public class ByteLengthValidatorTest extends AbstractBaseTestCase
     String expectedConstructorName
     )
   {
-    
+
     Mock mockComponent = buildMockUIComponent();
     UIComponent component = (UIComponent) mockComponent.proxy();
 
@@ -81,7 +81,7 @@ public class ByteLengthValidatorTest extends AbstractBaseTestCase
     ByteLengthValidator blv = new ByteLengthValidator();
     blv.setEncoding(encoding);
 
-    String libKey = blv.getLibKey(facesContext, component);
+    String libKey = (String)(blv.getClientImportNames().toArray()[0]);
     String constructorInfo = blv.getClientValidation(facesContext, component);
     String clientScript = blv.getClientScript(facesContext, component);
 

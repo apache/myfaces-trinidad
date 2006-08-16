@@ -16,9 +16,14 @@
 
 package org.apache.myfaces.trinidadinternal.convert;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
+
+import org.apache.myfaces.trinidad.convert.ClientConverter;
 
 /**
  * <p>Implementation for <code>java.lang.Byte</code> values.</p>
@@ -27,7 +32,7 @@ import javax.faces.convert.ConverterException;
  * @author The Oracle ADF Faces Team
  */
 public class ByteConverter extends javax.faces.convert.ByteConverter
-                              implements InternalClientConverter
+                           implements ClientConverter
 {
 
 
@@ -89,12 +94,11 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
   {
     return null;
   }
-
-  public String getLibKey(
-   FacesContext context,
-   UIComponent component)
+  
+  public String getClientLibrarySource(
+   FacesContext context)
   {
-    return "DecimalConvert()";
+    return null;
   }
 
   /**
@@ -113,7 +117,13 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
                                               _BYTE_MAX, _BYTE_MIN);
   }
 
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
+
 
   private static final String _BYTE_MAX = Byte.toString(Byte.MAX_VALUE);
   private static final String _BYTE_MIN = Byte.toString(Byte.MIN_VALUE);
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
 }

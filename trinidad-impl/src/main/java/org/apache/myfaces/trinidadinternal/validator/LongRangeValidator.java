@@ -15,6 +15,10 @@
  */
 
 package org.apache.myfaces.trinidadinternal.validator;
+
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,6 +26,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
+import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -34,7 +39,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
-                                implements InternalClientValidator
+                                implements ClientValidator
 {
   @Override
   public void validate(
@@ -86,11 +91,10 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     }     
   }
 
-  public String getLibKey(
-   FacesContext context,
-   UIComponent component)
+  
+  public Collection<String> getClientImportNames()
   {
-    return "DecimalConvert()";
+    return _IMPORT_NAMES;
   }
 
   public String getClientScript(
@@ -117,6 +121,14 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
                                                VALIDATOR_ID,
                                                maxStr, minStr);
   }
+  
+  
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }
+  
 
   // not overriding getMaximum because I'll suddenly
   // start returning something other than 0...
@@ -191,5 +203,6 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
 
   private boolean _maximumSet = false;
   private boolean _minimumSet = false;
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
 
 }

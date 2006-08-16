@@ -17,6 +17,8 @@
 package org.apache.myfaces.trinidaddemo.convertValidate;
 
 
+import java.util.Collection;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -74,27 +76,25 @@ public class PasswordValidator implements Validator, ClientValidator
   }
 
 
+  public Collection<String> getClientImportNames()
+  {
+    return null;
+  }
+
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return context.getExternalContext().getRequestContextPath() + 
+            "/jsLibs/passwordValidator.js";    
+  }
+
+
   @SuppressWarnings("unchecked")
   public String getClientScript(
    FacesContext context,
    UIComponent component)
   {
-    // check if the script has already been returned this request
-    Object scriptReturned =
-                context.getExternalContext().getRequestMap().get(VALIDATOR_ID);
-
-    // if scriptReturned is null the script hasn't been returned yet
-    if ( scriptReturned == null)
-    {
-      context.getExternalContext().getRequestMap().put(VALIDATOR_ID,
-                                                       Boolean.TRUE);
-      return  _sPasswordValidatorJS;
-    }
-    // if scriptReturned is not null, then script has already been returned,
-    // so don't return it again.
-    else
       return null;
-
    }
 
   private static Object _getLabel(UIComponent component)
@@ -113,23 +113,7 @@ public class PasswordValidator implements Validator, ClientValidator
   // The fourth field marker gets the field label
   private static final String _VALIDATOR_INSTANCE_STRING =
     "new PasswordValidator({"
-    + "N:'{0} - The password value must contain at least one number.'})";
+    + "N:'The password value must contain at least one number.'})";
 
-  private static final String _sPasswordValidatorJS =
-    "function passwordValidate(value)" +
-       "{if (!value)return void (0);" +
-        "if (value == '******')return void (0);" +
-        "var messageKey = PasswordValidator.NUMBER;" +
-        "for (var i = 0; i < value.length; i++)" +
-        "{var subValue = value.substring(i, i+1);" +
-         "if (!isNaN(parseInt(subValue))){" +
-            "messageKey = void (0);break;}}" +
-        "if (messageKey != void(0))" +
-          "return new ValidatorException(this._messages[messageKey]);" +
-        "return void(0);}" +
-    "function PasswordValidator(messages)" +
-      "{this._messages = messages;}" +
-    "PasswordValidator.prototype = new Validator();" +
-    "PasswordValidator.prototype.validate = passwordValidate;" +
-    "PasswordValidator.NUMBER = 'N';" ;
+
 }
