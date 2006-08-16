@@ -362,7 +362,7 @@ class SkinStyleSheetParserUtils
         }
         else if(propertyValue != null)
         {
-          if(_isURLValue(propertyValue))
+          if(_containsURL(propertyValue))
           {
             String resolvedUrl = _resolveURL(baseURI,
                                              propertyValue,
@@ -403,50 +403,83 @@ class SkinStyleSheetParserUtils
       String sourceName,
       String selectorName)
   {
-    String uri = _getURIString(url);
-    if(uri.length() == 0)
+    int endIndex = -1;
+    int index = url.indexOf("url(");
+    StringBuilder builder = new StringBuilder();
+    builder.append(url, 0 , index);
+    while(index >= 0)
     {
-      // url() or url('') found, should not happen.
-      _LOG.warning("An empty URL was found in selector '" +
-                   selectorName +
-                   "' in style sheet '" +
-                   sourceName + "'.");
+      // Appends values before url()
+      builder.append(url, endIndex + 1, index);
       
-      return url;
-    }
-    
-    if(uri.charAt(0) == '/')
-    {
-      // A transformation is required
-      if(uri.length() > 1 && uri.charAt(1) == '/')
+      endIndex = url.indexOf(')', index + 3);
+      String uri = url.substring(index + 4, endIndex);
+      if(uri.length() == 0)
       {
-        // Double slashes, trim one and do not add context root before
-        return "url(" + uri.substring(1) + ")";
+        // url() or url('') found, should not happen.
+        _LOG.warning("An empty URL was found in selector '" +
+                     selectorName +
+                     "' in style sheet '" +
+                     sourceName + "'.");
       }
-      else
+      
+      if(uri.charAt(0) == '/')
       {
-        // Single slash, add context path.
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        assert(facesContext != null);
+        // A transformation is required
+        if(uri.length() > 1 && uri.charAt(1) == '/')
+        {
+          // Double slashes, trim one and do not add context root before
+          builder.append("url(");
+          builder.append(uri, 1, uri.length());
+          builder.append(')');
+        }
+        else
+        {
+          // Single slash, add context path.
+          FacesContext facesContext = FacesContext.getCurrentInstance();
+          assert(facesContext != null);
 
-        ExternalContext externalContext = facesContext.getExternalContext();
-        String contextPath = externalContext.getRequestContextPath();
-        assert(contextPath.charAt(0) == '/');
-        assert(contextPath.charAt(contextPath.length() - 1) != '/');
-        
-        return "url(" + contextPath + uri + ")";
+          ExternalContext externalContext = facesContext.getExternalContext();
+          String contextPath = externalContext.getRequestContextPath();
+          builder.append("url(");
+          
+          assert contextPath.charAt(0) == '/';
+          //if(contextPath.charAt(0) != '/')
+          //{
+          //  // Should not happen, but never too prudent
+          //  builder.append('/');
+          //}
+          
+          assert contextPath.charAt(contextPath.length() - 1) != '/';
+          //if(contextPath.charAt(contextPath.length() - 1) == '/')
+          //{
+          //  // Should not happen, but better safe than sorry.
+          //  builder.append(contextPath, 0, contextPath.length() - 1);
+          //}
+          //else
+          //{
+          builder.append(contextPath);
+          //}
+          
+          builder.append(uri);
+          builder.append(')');
+        }
       }
-    }
-    else if(_isRelativeURI(uri))
-    {
-      // Convert relative URL values to absolute, since
-      // relative values will be resolved relative to the
-      // generated style sheet, not the source CSS file.
-      return _getAbsoluteURLValue(baseUrl, uri, sourceName, selectorName);
+      else if(_isRelativeURI(uri))
+      {
+        // Convert relative URL values to absolute, since
+        // relative values will be resolved relative to the
+        // generated style sheet, not the source CSS file.
+        builder.append(_getAbsoluteURLValue(baseUrl, uri, sourceName, selectorName));
+      }
+      
+      index = url.indexOf("url(", endIndex);
     }
     
+    builder.append(url, endIndex + 1, url.length());
+
     // Don't change anything
-    return url;
+    return builder.toString();
   }
 
   /**
@@ -567,7 +600,24 @@ class SkinStyleSheetParserUtils
         boolean startsWithTwoSlashes = uri.startsWith("//");
         if (!startsWithTwoSlashes && uri.startsWith("/"))
         {
-          uri = uri.substring(1);
+          // -= Simon Lessard =-
+          // Hack: URL at this point might already have been resolved.
+          //       It will be resolved if the content was specified using 
+          //       url(). If so, it need to be unresolved.
+          FacesContext    context     = FacesContext.getCurrentInstance();
+          ExternalContext eContext    = context.getExternalContext();
+          String          contextPath = eContext.getRequestContextPath();
+          assert contextPath.charAt(0) == '/';
+          assert contextPath.charAt(contextPath.length() - 1) != '/';
+          if(uri.startsWith(contextPath))
+          {
+            uri = uri.substring(contextPath.length() + 1);
+          }
+          else
+          {
+            uri = uri.substring(1);
+          }
+          
           icon =
             new ContextImageIcon(uri, uri, width, height, null, inlineStyle);
         }
@@ -921,6 +971,25 @@ class SkinStyleSheetParserUtils
     buffer.append(")");
 
     return buffer.toString();
+  }
+  
+  /**
+   * Determines if the specified value contains a CSS url. The URLs are
+   * detected but finding usage of url() function.
+   * 
+   * @param value
+   * 
+   * @return <code>true</code> if the specified value contains an URL, 
+   *         <code>false</code> otherwise.
+   */
+  private static boolean _containsURL(String value)
+  {
+    if(value == null)
+    {
+      return false;
+    }
+    
+    return value.indexOf("url(") >= 0;
   }
 
   /**

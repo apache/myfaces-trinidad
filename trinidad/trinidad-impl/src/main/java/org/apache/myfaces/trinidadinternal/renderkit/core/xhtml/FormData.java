@@ -492,7 +492,7 @@ public class FormData
     if (libURI != null)
     {
       // check if it's already been written
-      Map props = rc.getProperties();
+      Map<Object, Object> props = rc.getProperties();
       if( props.get(libURI) == null)
       {        
         // put the lib name in the property map so it won't be written out again
