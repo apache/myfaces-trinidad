@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 
 
 /**
@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop.SimpleDesktopCo
  * @author The Oracle ADF Faces Team
  */
 public class SimpleDesktopSkin extends BaseDesktopSkin
-  implements SimpleDesktopConstants
+  implements SkinSelectors
 {
 
   /**

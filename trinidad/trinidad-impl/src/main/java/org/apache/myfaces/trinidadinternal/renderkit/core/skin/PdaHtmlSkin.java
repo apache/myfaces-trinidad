@@ -15,7 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -27,7 +26,6 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class PdaHtmlSkin extends XhtmlSkin
-  implements XhtmlConstants
 {
 
   public PdaHtmlSkin()

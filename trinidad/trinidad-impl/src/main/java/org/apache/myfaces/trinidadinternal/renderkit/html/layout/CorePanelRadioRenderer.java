@@ -27,11 +27,11 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
 /**
@@ -85,7 +85,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     XhtmlLafRenderer.
       renderStyleClassAttribute(rCtx,
-                                XhtmlLafConstants.AF_LABEL_TEXT_STYLE_CLASS);
+                                XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS);
 
     out.writeText(encoder.encodeParameter(label), null);
 
@@ -225,7 +225,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       String radioSpanClass = getFieldTextClass();
       if (disabled)
       {
-        radioSpanClass = XhtmlLafConstants.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
+        radioSpanClass = XhtmlConstants.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
       }
       XhtmlLafRenderer.renderStyleClassAttribute(rCtx,
                                                  radioSpanClass);

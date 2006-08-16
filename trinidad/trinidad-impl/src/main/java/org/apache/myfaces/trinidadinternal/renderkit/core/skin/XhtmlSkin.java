@@ -20,7 +20,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
@@ -32,7 +32,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class XhtmlSkin extends BaseSkin
-                       implements XhtmlLafConstants
+                       implements XhtmlConstants
 {
   public XhtmlSkin()
   {
@@ -199,7 +199,7 @@ public class XhtmlSkin extends BaseSkin
 
     // inputNumberSpinbox increment/decrement icons
 
-    XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME,
+    AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME,
       new ContextImageIcon("adf/images/spbxup.png",
                            null,
                            IntegerUtils.getInteger(5),
@@ -207,7 +207,7 @@ public class XhtmlSkin extends BaseSkin
                            null,
                            spinboxTopStyle),
 
-     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME,
+     AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME,
      new ContextImageIcon("adf/images/spbxdn.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -215,7 +215,7 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxBottomStyle),
 
-     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME,
+     AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME,
      new ContextImageIcon("adf/images/spbxupd.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -223,7 +223,7 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxTopStyle),
 
-     XhtmlLafConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME,
+     AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME,
      new ContextImageIcon("adf/images/spbxdnd.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -231,48 +231,48 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxBottomStyle),
      // checkbox icons
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME,
+    AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkdc.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME,
+    AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkdn.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME,
+    AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME,
     new ContextImageIcon( "adf/images/checkrc.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME,
+    AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkrn.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
      // radio icons
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME,
+    AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiods.gif",
                         null,
                         IntegerUtils.getInteger(11),
                         IntegerUtils.getInteger(11)),
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME,
+    AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiodn.gif",
                         null,
                         IntegerUtils.getInteger(11),
                         IntegerUtils.getInteger(11)),
 
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME,
+    AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME,
     new ContextImageIcon( "adf/images/radiors.gif",
                         null,
                         IntegerUtils.getInteger(10),
                         IntegerUtils.getInteger(10)),
 
-    XhtmlLafConstants.AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME,
+    AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiorn.gif",
                         null,
                         IntegerUtils.getInteger(10),

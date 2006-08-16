@@ -31,11 +31,11 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
@@ -422,7 +422,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    */
   protected String getFieldTextClass()
   {
-    return XhtmlLafConstants.AF_FIELD_TEXT_STYLE_CLASS;
+    return XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS;
   }
 
   /**
@@ -450,7 +450,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    */
   private String getLabelClassName()
   {
-    return XhtmlLafConstants.AF_LABEL_TEXT_STYLE_CLASS;
+    return XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS;
   }
 
   /**
