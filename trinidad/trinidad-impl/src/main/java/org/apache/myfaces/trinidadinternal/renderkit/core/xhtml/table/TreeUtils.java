@@ -286,8 +286,8 @@ public final class TreeUtils
           else
           {
             tree.setRowKey(focusRowKey);
-            RowKeySet<Object> old = _getExpandedRowKeys(tree);
-            RowKeySet<Object> newset = old.clone();
+            RowKeySet old = _getExpandedRowKeys(tree);
+            RowKeySet newset = old.clone();
             if (expand)
               newset.addAll();
             else
@@ -298,8 +298,8 @@ public final class TreeUtils
         else  // expand/collapse event
         {
           _restorePathFromParam(parameters, tree);
-          RowKeySet<Object> old = _getExpandedRowKeys(tree);
-          RowKeySet<Object> newset = old.clone();
+          RowKeySet old = _getExpandedRowKeys(tree);
+          RowKeySet newset = old.clone();
           newset.setContained(expand);
           event = new RowDisclosureEvent(old, newset, tree);
         }
@@ -310,8 +310,7 @@ public final class TreeUtils
     preserve.run((UIXHierarchy) tree);
   }
 
-  @SuppressWarnings("unchecked")
-  private static RowKeySet<Object> _getExpandedRowKeys(UIXHierarchy tree)
+  private static RowKeySet _getExpandedRowKeys(UIXHierarchy tree)
   {
     if (tree instanceof UIXTree)
       return ((UIXTree) tree).getDisclosedRowKeys();

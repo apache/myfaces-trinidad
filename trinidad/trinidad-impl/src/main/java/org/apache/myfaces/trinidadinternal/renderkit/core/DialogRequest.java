@@ -46,7 +46,7 @@ class DialogRequest
     _formId   = formId;
 
     if (dialogProperties == null)
-      dialogProperties = Collections.EMPTY_MAP;
+      dialogProperties = Collections.emptyMap();
 
     Object width = dialogProperties.get("width");
     Object height = dialogProperties.get("height");

@@ -19,6 +19,7 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 
 
@@ -68,7 +69,6 @@ public class ColorSchemeNode
   /**
    * Returns an Iterator of ColorNodes contained by this ColorSchemeNode
    */
-  @SuppressWarnings("unchecked")
   public Iterator<ColorNode> getColors()
   {
     if(_colors!=null)
@@ -77,7 +77,8 @@ public class ColorSchemeNode
     }
     else
     {
-      return (Collections.EMPTY_LIST).iterator();
+      List<ColorNode> list = Collections.emptyList();
+      return list.iterator();
     }
   }
 

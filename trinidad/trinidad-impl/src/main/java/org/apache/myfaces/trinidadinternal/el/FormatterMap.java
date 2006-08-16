@@ -38,21 +38,19 @@ public class FormatterMap extends AbstractMap<Object, Map<Object,String>>
   {
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public Map<Object,String> get(Object key)
   {
     if (key == null)
-      return Collections.EMPTY_MAP;
+      return Collections.emptyMap();
 
     return new FunctorMap(key);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public Set<Map.Entry<Object, Map<Object,String>>> entrySet()
   {
-    return Collections.EMPTY_SET;
+    return Collections.emptySet();
   }
 
   static private final class FunctorMap extends AbstractMap<Object, String>
@@ -69,11 +67,10 @@ public class FormatterMap extends AbstractMap<Object, Map<Object,String>>
       return _format.format(new Object[]{key});
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public Set<Map.Entry<Object, String>> entrySet()
     {
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
     }
     
     private final FastMessageFormat _format;

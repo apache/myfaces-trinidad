@@ -70,7 +70,7 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     TestPathSet pathSet = new TestPathSet();
     _add(pathSet, _0, _011, _20);
 
-    Iterator iter = pathSet.iterator();
+    Iterator<Object> iter = pathSet.iterator();
     // there is no requirement that the paths come out in the following
     // order. However, I want to make writing this test easy, so
     // I am taking advantage of the order:
@@ -315,7 +315,7 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     }
   }
 
-  private static List _createPath(Object ... rowKeys)
+  private static List<Object> _createPath(Object ... rowKeys)
   {
     return Collections.unmodifiableList(Arrays.asList(rowKeys));
   }
@@ -342,8 +342,8 @@ public class RowKeySetTreeImplTest extends AbstractJsfTestCase
     private final TreeModel _model;
   }
 
-  private static final List _0 = _createPath("0");
-  private static final List _011 = _createPath("0", "1", "1");
-  private static final List _2 = _createPath("2");
-  private static final List _20 = _createPath("2", "0");
+  private static final List<Object> _0 = _createPath("0");
+  private static final List<Object> _011 = _createPath("0", "1", "1");
+  private static final List<Object> _2 = _createPath("2");
+  private static final List<Object> _20 = _createPath("2", "0");
 }

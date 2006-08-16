@@ -32,12 +32,10 @@ import org.apache.myfaces.trinidad.model.RowKeySet;
  */
 public final class HierarchyUtils 
 {
-
-  // FIXME: What is the param type of RowKeySet here?
   static void __handleBroadcast(
-    UIXHierarchy      comp, 
-    FacesEvent        event,
-    RowKeySet<Object> state,
+    UIXHierarchy  comp, 
+    FacesEvent    event,
+    RowKeySet     state,
     MethodBinding disclosureListener) throws AbortProcessingException
   {
   
@@ -46,7 +44,7 @@ public final class HierarchyUtils
     {
       RowDisclosureEvent dEvent = (RowDisclosureEvent) event;
       state.removeAll(dEvent.getRemovedSet());
-      RowKeySet<Object> added = dEvent.getAddedSet();
+      RowKeySet added = dEvent.getAddedSet();
       int size = 0;
       // only do an unbounded expandAll if the number of new nodes is not
       // too large:
@@ -73,8 +71,8 @@ public final class HierarchyUtils
 
 
   static void __handleEncodeBegin(
-    UIXHierarchy      comp,
-    RowKeySet<Object> set
+    UIXHierarchy comp,
+    RowKeySet    set
     )
   {
     if (comp.__isFirstRender())
@@ -124,11 +122,11 @@ public final class HierarchyUtils
 
 
   static void __iterateOverTree(
-    FacesContext      context,
-    PhaseId           phaseId,
-    UIXHierarchy      comp,
-    RowKeySet<Object> state,
-    boolean           processChildrenAsStamps
+    FacesContext context,
+    PhaseId      phaseId,
+    UIXHierarchy comp,
+    RowKeySet    state,
+    boolean      processChildrenAsStamps
     )
   {
     UIComponent nodeStamp = comp.getFacet("nodeStamp");

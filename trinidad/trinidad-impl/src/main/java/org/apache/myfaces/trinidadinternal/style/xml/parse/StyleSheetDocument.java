@@ -142,7 +142,7 @@ public class StyleSheetDocument
     if(_styleSheets==null)
     {
       // -= Simon Lessard =- 
-      // TODO: Collections.EMPTY_LIST maybe?
+      // TODO: Collections.emptyList() maybe?
       return  (Arrays.asList(new StyleSheetNode[0])).iterator();
     }
     else
@@ -157,7 +157,7 @@ public class StyleSheetDocument
   public Iterator<ColorSchemeNode> getColorSchemes()
   {
     // -= Simon Lessard =- 
-    // TODO: Wouldn't Collections.EMPTY_LIST be better?
+    // TODO: Wouldn't Collections.emptyList() be better?
     return (Arrays.asList(new ColorSchemeNode[0])).iterator();
   }
 

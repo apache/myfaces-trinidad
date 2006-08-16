@@ -20,7 +20,6 @@ package org.apache.myfaces.trinidad.model;
 import java.io.Serializable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +33,6 @@ import javax.faces.webapp.UIComponentTag;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.helpers.DefaultHandler;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
@@ -159,7 +157,7 @@ public class XMLMenuModel extends BaseMenuModel
    * 
    * @param data.  The Tree Model instance
    */
-  
+  @Override
   public void setWrappedData(Object data)
   {
     super.setWrappedData(data);
@@ -199,7 +197,8 @@ public class XMLMenuModel extends BaseMenuModel
    * @return  the rowKey to the node with the current viewId or null if the 
    * current viewId can't be found. 
    */
-  
+  @SuppressWarnings("unchecked")
+  @Override
   public Object getFocusRowKey()
   {
     Object focusPath        = null;
@@ -234,8 +233,9 @@ public class XMLMenuModel extends BaseMenuModel
         // Case 2: GET method.  We have hung the selected node's id off the 
         // requests URL, which enables us to get the selected node and also 
         // to know that the request method is GET.
-        Map paramMap = context.getExternalContext().getRequestParameterMap();
-        String nodeId = (String) paramMap.get(_NODE_ID_PROPERTY);
+        Map<String, String> paramMap = 
+          context.getExternalContext().getRequestParameterMap();
+        String nodeId = paramMap.get(_NODE_ID_PROPERTY);
         
         if (nodeId != null)
         {
@@ -258,7 +258,8 @@ public class XMLMenuModel extends BaseMenuModel
       // Get the matching focus path ArrayList for the currentViewId.
       // This is an ArrayList because our map allows nodes with the same
       // viewId, that is, different focus paths to the same viewId.
-      ArrayList fpArrayList = (ArrayList) _viewIdFocusPathMap.get(currentViewId);
+      ArrayList<Object> fpArrayList = 
+        (ArrayList<Object>) _viewIdFocusPathMap.get(currentViewId);
   
       if (fpArrayList != null)
       {
@@ -349,9 +350,11 @@ public class XMLMenuModel extends BaseMenuModel
    * @param aliasedViewId the view id to use to get the focusPath to use 
    *        for newViewId.
    */
+  @SuppressWarnings("unchecked")
   public void addViewId(String newViewId, String aliasedViewId)
   { 
-    Object focusPath = _viewIdFocusPathMap.get(aliasedViewId);
+    List<Object> focusPath = 
+      _viewIdFocusPathMap.get(aliasedViewId);
     if (focusPath != null)
     {
       _viewIdFocusPathMap.put(newViewId, focusPath);
@@ -460,13 +463,13 @@ public class XMLMenuModel extends BaseMenuModel
     {
       if (_contentHandler == null)
       {        
-        List services = 
+        List<MenuContentHandler> services = 
           ClassLoaderUtils.getServices(_MENUCONTENTHANDLER_SERVICE);
          
         if (services.isEmpty())
           throw new IllegalStateException("No MenuContentHandler was registered.");
         
-        _contentHandler = (MenuContentHandler) services.get(0);
+        _contentHandler = services.get(0);
         if (_contentHandler == null)
         {
           throw new NullPointerException();
@@ -501,6 +504,7 @@ public class XMLMenuModel extends BaseMenuModel
    * on the top-level, root model. 
    * 
    */
+  @SuppressWarnings("unchecked")
   private void _setRootModelUri(MenuContentHandler contentHandler)
   {
     if (_rootUri == null)
@@ -511,7 +515,8 @@ public class XMLMenuModel extends BaseMenuModel
       // Can be picked up by the nodes to call back into the 
       // root model
       FacesContext facesContext = FacesContext.getCurrentInstance();
-      Map requestMap = facesContext.getExternalContext().getRequestMap();
+      Map<String, Object> requestMap = 
+        facesContext.getExternalContext().getRequestMap();
       
       requestMap.put(_rootUri, this);
 
@@ -536,6 +541,7 @@ public class XMLMenuModel extends BaseMenuModel
    * menu content handler. 
    * 
    */
+  @SuppressWarnings("unchecked")
   private void _setModelUri(MenuContentHandler contentHandler)
   {
     String localUri = _mdSource;
@@ -544,7 +550,8 @@ public class XMLMenuModel extends BaseMenuModel
     // Can be picked up by the nodes to call back into the 
     // local model
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      facesContext.getExternalContext().getRequestMap();
     
     requestMap.put(localUri, this);
     
@@ -643,21 +650,21 @@ public class XMLMenuModel extends BaseMenuModel
      * 
      * @return the Model's idNodeMap
      */
-    public Map getIdNodeMap();
+    public Map<String, Object> getIdNodeMap();
 
     /**
      * Get the Model's nodeFocusPathMap
      * 
      * @return the Model's nodeFocusPathMap
      */
-    public Map getNodeFocusPathMap();
+    public Map<Object, List<Object>> getNodeFocusPathMap();
 
     /**
      * Get the Model's viewIdFocusPathMap
      * 
      * @return the Model's viewIdFocusPathMap
      */
-    public Map getViewIdFocusPathMap();
+    public Map<String, List<Object>> getViewIdFocusPathMap();
   }
      
   private Object  _currentNode       = null;
@@ -667,9 +674,9 @@ public class XMLMenuModel extends BaseMenuModel
   private boolean _createHiddenNodes = false;
   private boolean _begunRequest      = false;
 
-  private Map _viewIdFocusPathMap;
-  private Map _nodeFocusPathMap;
-  private Map _idNodeMap;
+  private Map<String, List<Object>> _viewIdFocusPathMap;
+  private Map<Object, List<Object>> _nodeFocusPathMap;
+  private Map<String, Object> _idNodeMap;
 
   static private String _rootUri                    = null;  
   static private MenuContentHandler _contentHandler = null;

@@ -111,8 +111,8 @@ public final class TableUtils
    */
   static void __doSafeExpandAll(
       TreeModel model, 
-      RowKeySet<Object> state, 
-      int maxSize)
+      RowKeySet state, 
+      int       maxSize)
   {
     int size = _getSizeOfTree(model, maxSize);
     if ((size < 0) || (size > maxSize))

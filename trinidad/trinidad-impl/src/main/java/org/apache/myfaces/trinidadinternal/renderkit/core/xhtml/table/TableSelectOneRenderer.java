@@ -82,7 +82,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
 
       if (selection != null)
       {
-        final RowKeySet<Object> state;
+        final RowKeySet state;
         if (table instanceof UIXTable)
           state = ((UIXTable) table).getSelectedRowKeys();
         else
@@ -91,14 +91,14 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         table.setCurrencyString(selection);
         if (!state.isContained())
         {
-          RowKeySet<Object> unselected = state.clone();
+          RowKeySet unselected = state.clone();
           // TODO : do not mutate the selectedRowKeys here.
           // instead, mutate when event is broadcast:
           state.clear();
           state.add();
           // clone, so that subsequent mutations of "state" will
           // not affect the parameters of this event: bug 4733858:
-          RowKeySet<Object> selected = state.clone();
+          RowKeySet selected = state.clone();
           FacesEvent event = new SelectionEvent(table, unselected, selected);
           event.queue();
         }

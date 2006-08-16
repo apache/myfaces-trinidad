@@ -227,7 +227,7 @@ abstract public class FacesBeanImpl implements FacesBean
 
     List<Object> l = (List<Object>) getLocalPropertyImpl(listKey);
     if (l == null)
-      return Collections.EMPTY_LIST.iterator();
+      return Collections.emptyList().iterator();
 
     return l.iterator();
   }
@@ -270,12 +270,10 @@ abstract public class FacesBeanImpl implements FacesBean
     }
   }
 
-
-  @SuppressWarnings("unchecked")
   final public Set<PropertyKey> keySet()
   {
     if (_properties == null)
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
 
     return _properties.keySet();
   }
@@ -284,7 +282,7 @@ abstract public class FacesBeanImpl implements FacesBean
   final public Set<PropertyKey> bindingKeySet()
   {
     if (_bindings == null)
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
 
     return _bindings.keySet();
   }

@@ -44,6 +44,7 @@ public class GroupNode extends MenuNode
     * @return String outcome or viewId used
     *         during a POST for navigation.
     */
+  @Override
   public String doAction()
   {
     // Call the doAction method of my idref node
@@ -56,6 +57,7 @@ public class GroupNode extends MenuNode
     * 
     * @return String URL of a page.
     */
+  @Override
   public String getDestination()
   {
     // Call the getDestination method of my idref node
@@ -89,6 +91,7 @@ public class GroupNode extends MenuNode
     * @return the MenuNode whose id matches this
     *         node's idref attribute value.
     */
+  @Override
   public MenuNode getRefNode()
   {
     MenuNode refNode = null;

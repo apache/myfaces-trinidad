@@ -169,13 +169,17 @@ public class SortableModel extends CollectionModel
     }
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public List<SortCriterion> getSortCriteria()
   {
-    return (_sortCriterion == null)
-      ? Collections.EMPTY_LIST
-      : Collections.singletonList(_sortCriterion);
+    if (_sortCriterion == null)
+    {
+      return Collections.emptyList();
+    }
+    else
+    {
+      return Collections.singletonList(_sortCriterion);
+    }
   }
 
   @Override

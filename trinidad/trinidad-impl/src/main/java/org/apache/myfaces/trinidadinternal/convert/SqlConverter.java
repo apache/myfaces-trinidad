@@ -51,7 +51,6 @@ class SqlConverter extends GenericConverter
     throw new ConvertException(source, targetType);
   }
 
-  @SuppressWarnings("unchecked")
   @Override
   public List<Class<?>> getTargetTypes(Class<?> sourceType)
   {
@@ -63,6 +62,6 @@ class SqlConverter extends GenericConverter
       list.add(Timestamp.class);
       return list;
     }
-    return Collections.EMPTY_LIST;
+    return Collections.emptyList();
   }
 }

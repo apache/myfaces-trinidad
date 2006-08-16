@@ -435,7 +435,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
   {
     final UIXTreeTable treeTableBase = ttrc.getUIXTreeTable();
     final ResponseWriter writer = context.getResponseWriter();
-    final RowKeySet<Object> treeState = treeTableBase.getDisclosedRowKeys();
+    final RowKeySet treeState = treeTableBase.getDisclosedRowKeys();
     final int specialColCount = _getSpecialColCount(ttrc);
 
     TableUtils.RowLoop loop = new TableUtils.RowLoop()

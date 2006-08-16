@@ -34,7 +34,7 @@ import java.util.Set;
  * The generic type E is the type of a rowKey.
  * @author The Oracle ADF Faces Team
  */
-public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable 
+public class RowKeySetTreeImpl extends RowKeySet implements Serializable 
 {
   /**
    * Creates a new Set that is initially empty.
@@ -50,35 +50,33 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    */
   public RowKeySetTreeImpl(boolean addAll)
   {
-    _root = new Node<E>(addAll);
+    _root = new Node<Object>(addAll);
   }
     
   /**
    * Tests to see if the given rowKey is included in this Set.
    * @return true If the rowKey is included in this Set.
    */
-  @SuppressWarnings("unchecked")
   @Override
   public boolean contains(Object rowKey)
   {
-    return _isContained((E) rowKey);
+    return _isContained(rowKey);
   }
   
   /**
    * @deprecated do not use. this will be removed post Tier 1.
    */
-  @SuppressWarnings("unchecked")
   @Override
   @Deprecated
   public boolean isContainedByDefault()
   {
     TreeModel model = getCollectionModel();
-    E rowkey = (E) model.getRowKey();
+    Object rowkey = model.getRowKey();
     return new Search().find(rowkey).isDefaultContained;
   }
 
   @Override
-  public Iterator<E> iterator()
+  public Iterator<Object> iterator()
   {
     return new PathIterator();
   }
@@ -90,7 +88,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #addAll()
    */
   @Override
-  public boolean add(E rowKey)
+  public boolean add(Object rowKey)
   {
     return _setContained(rowKey, true);    
   }
@@ -101,11 +99,10 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @see #add(E)
    * @see #removeAll()
    */
-  @SuppressWarnings("unchecked")
   @Override
   public boolean remove(Object rowKey)
   {
-    return _setContained((E) rowKey, false);    
+    return _setContained(rowKey, false);    
   }
 
   /**
@@ -140,11 +137,11 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * optimized to give superior performance and avoid iteration.
    */
   @Override
-  public boolean addAll(Collection<? extends E> other)
+  public boolean addAll(Collection<? extends Object> other)
   {
     if (other instanceof RowKeySetTreeImpl)
     {
-      RowKeySetTreeImpl<E> otherset = (RowKeySetTreeImpl<E>) other;
+      RowKeySetTreeImpl otherset = (RowKeySetTreeImpl) other;
       return _processOperation(this._root, otherset._root, true);
     }
     return super.addAll(other);
@@ -161,13 +158,13 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
   {
     if (other instanceof RowKeySetTreeImpl)
     {
-      RowKeySetTreeImpl<E> otherset = (RowKeySetTreeImpl<E>) other;
+      RowKeySetTreeImpl otherset = (RowKeySetTreeImpl) other;
       return _processOperation(this._root, otherset._root, false);
     }
     return super.removeAll(other);
   }
 
-  private boolean _processOperation(Node<E> set1, Node<E> set2, boolean add)
+  private boolean _processOperation(Node<Object> set1, Node<Object> set2, boolean add)
   {
     /*      
      * setXdef = setX.isDefaultContained
@@ -207,17 +204,17 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     // has everything):
     boolean addAll = add ^ set1.isDefaultContained;
     
-    for(Entry<E, Node<E>> en:set2.entrySet())
+    for(Entry<Object, Node<Object>> en:set2.entrySet())
     {
-      E segment = en.getKey();
-      Node<E> subset2 = en.getValue();
-      Node<E> subset1 = set1.get(segment);
+      Object segment = en.getKey();
+      Node<Object> subset2 = en.getValue();
+      Node<Object> subset1 = set1.get(segment);
       
       if (subset1 == null)
       {
         if (addAll)
         {
-          subset1 = new Node<E>(set1, segment);
+          subset1 = new Node<Object>(set1, segment);
           hasChanges = true;
         }
         else
@@ -306,9 +303,9 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * clone without affecting this instance.
    */
   @Override
-  public RowKeySetTreeImpl<E> clone()
+  public RowKeySetTreeImpl clone()
   {
-    RowKeySetTreeImpl<E> clone = (RowKeySetTreeImpl<E>) super.clone();
+    RowKeySetTreeImpl clone = (RowKeySetTreeImpl) super.clone();
     clone._root = _root.clone();
     return clone;
   }
@@ -345,7 +342,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * @param exclusions any rowKeys present in this Set are excluded from the count.
    */
   @SuppressWarnings("unchecked")
-  private int _getTreeSize(TreeModel model, Set<E> exclusions)
+  private int _getTreeSize(TreeModel model, Set<Object> exclusions)
   {
     int sz = 0;
     for(int i=0;true;i++)
@@ -353,14 +350,14 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       model.setRowIndex(i);
       if (model.isRowAvailable())
       {
-        E rowkey = (E) model.getRowKey();
+        Object rowkey = model.getRowKey();
         if (exclusions.contains(rowkey))
           continue;
         sz++;
         if (model.isContainer())
         {
           model.enterContainer();
-          Set<E> empty = Collections.emptySet();
+          Set<Object> empty = Collections.emptySet();
           sz += _getTreeSize(model, empty);
           model.exitContainer();
         }
@@ -370,7 +367,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     }
   }
 
-  private int _getSize(E rowkey, Node<E> set, TreeModel model,  boolean fetchall)
+  private int _getSize(Object rowkey, Node<Object> set, TreeModel model,  boolean fetchall)
   {
     // special-case the root collection:
     int sz = ((rowkey != null) && (set.isDefaultContained ^ set.isDifferent)) ? 1 : 0;
@@ -400,10 +397,10 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       }
     }
     
-    for(Entry<E, Node<E>> en:set.entrySet())
+    for(Entry<Object, Node<Object>> en:set.entrySet())
     {
-      E newrowkey = en.getKey();
-      Node<E> subset = en.getValue();
+      Object newrowkey = en.getKey();
+      Node<Object> subset = en.getValue();
       int size = _getSize(newrowkey, subset, model, fetchall);
       if (size < 0)
         return -1;
@@ -416,13 +413,12 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * adds or removes all the paths rooted at the current path 
    * @param isSelectAll if true does an add-all. else does remove-all.
    */
-  @SuppressWarnings("unchecked")
   private void _selectAll(final boolean isSelectAll)
   {
     Search search = new Search()
     {
       @Override
-      protected boolean create(Node<E> parent, E rowkey)
+      protected boolean create(Node<Object> parent, Object rowkey)
       {
         // if the parent does not have the correct default, then
         // we need to add entries for the children, since we need
@@ -431,7 +427,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       }
       
       @Override
-      protected Node<E> found(Node<E> child)
+      protected Node<Object> found(Node<Object> child)
       {
         child.isDefaultContained = isSelectAll;
         child.isDifferent = false;
@@ -441,22 +437,22 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     };
 
     TreeModel model = getCollectionModel();
-    E rowkey = (E) model.getRowKey();
+    Object rowkey = model.getRowKey();
     search.find(rowkey);    
   }
 
-  private boolean _isContained(E rowkey)
+  private boolean _isContained(Object rowkey)
   {
     Search search = new Search()
     {
       @Override
-      protected Node<E> notFound(Node<E> parent, E rowkey)
+      protected Node<Object> notFound(Node<Object> parent, Object rowkey)
       {
         return parent.isDefaultContained ? parent : null;
       }
       
       @Override
-      protected Node<E> found(Node<E> child)
+      protected Node<Object> found(Node<Object> child)
       {
         return (child.isDefaultContained ^ child.isDifferent) ? child : null;
       }
@@ -471,12 +467,12 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
    * it is removed.
    * @return true if this Set changed due to this operation. 
    */
-  private boolean _setContained(E rowkey, final boolean isContained)
+  private boolean _setContained(Object rowkey, final boolean isContained)
   {
     Search search = new Search()
     {
       @Override
-      protected boolean create(Node<E> parent, E rowkey)
+      protected boolean create(Node<Object> parent, Object rowkey)
       {
         // only need to create child deltas, if the parent's
         // default is wrong:
@@ -484,13 +480,13 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       }
       
       @Override
-      protected Node<E> notFound(Node<E> parent, E rowkey)
+      protected Node<Object> notFound(Node<Object> parent, Object rowkey)
       {
         return null;
       }
     };
 
-    Node<E> current = search.find(rowkey);
+    Node<Object> current = search.find(rowkey);
     if ((current != null) &&
         ((current.isDefaultContained ^ current.isDifferent) != isContained))
     {
@@ -578,39 +574,38 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     {
     }
     
-    protected boolean create(Node<E> parent, E rowkey)
+    protected boolean create(Node<Object> parent, Object rowkey)
     {
       return false;
     }
 
-    protected Node<E> notFound(Node<E> parent, E rowkey)
+    protected Node<Object> notFound(Node<Object> parent, Object rowkey)
     {
       return parent;
     }
 
-    protected Node<E> found(Node<E> result)
+    protected Node<Object> found(Node<Object> result)
     {
       return result;
     }
 
-    @SuppressWarnings("unchecked")
-    public Node<E> find(E rowkey)
+    public Node<Object> find(Object rowkey)
     {
-      Node<E> current = _root;
+      Node<Object> current = _root;
       if (rowkey != null)
       {
         TreeModel model = getCollectionModel();
-        List<E> parentkeys = (List<E>)model.getAllAncestorContainerRowKeys(rowkey);
-        List<E> allkeys = new ArrayList<E>(parentkeys.size() + 1);
+        List<Object> parentkeys = model.getAllAncestorContainerRowKeys(rowkey);
+        List<Object> allkeys = new ArrayList<Object>(parentkeys.size() + 1);
         allkeys.addAll(parentkeys);
         allkeys.add(rowkey);
-        for(E key:allkeys)
+        for(Object key:allkeys)
         {
-          Node<E> next = current.get(key);
+          Node<Object> next = current.get(key);
           if (next == null)
           {
             if (create(current, key))
-              next = new Node<E>(current, key);       
+              next = new Node<Object>(current, key);       
             else
               return notFound(current, key);
           }
@@ -621,18 +616,18 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
     }
   }
 
-  private final class PathIterator implements Iterator<E>
+  private final class PathIterator implements Iterator<Object>
   {
     PathIterator()
     {
       _value = _next(); // initialize;
     }
 
-    public E next()
+    public Object next()
     {
       if (!hasNext())
         throw new NoSuchElementException();
-      E value = _value;
+      Object value = _value;
       _value = _next();
       return value;
     }
@@ -647,23 +642,22 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       throw new UnsupportedOperationException();
     }
     
-    private boolean _containsSubtree(E rowkey)
+    private boolean _containsSubtree(Object rowkey)
     {
       Search search = new Search()
       {
         @Override
-        protected Node<E> notFound(Node<E> parent, E rowkey)
+        protected Node<Object> notFound(Node<Object> parent, Object rowkey)
         {
           return parent.isDefaultContained ? parent : null;
         }
       };
-      Node<E> current = search.find(rowkey);
+      Node<Object> current = search.find(rowkey);
       return (current != null) && 
         ((!current.isEmpty()) || current.isDefaultContained);
     }
     
-    @SuppressWarnings("unchecked")
-    private E _next()
+    private Object _next()
     {
       TreeModel model = getCollectionModel();
       if (model == null)
@@ -680,7 +674,7 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
           if (!hasMore)
             return null;
 
-          _currPath = (E) model.getRowKey();
+          _currPath = model.getRowKey();
           if (contains(_currPath))
             return _currPath;
         }
@@ -690,10 +684,10 @@ public class RowKeySetTreeImpl<E> extends RowKeySet<E> implements Serializable
       }
     }
     
-    private E _value;
-    private E _currPath = null;
+    private Object _value;
+    private Object _currPath = null;
   }
   
-  private Node<E> _root;
+  private Node<Object> _root;
   private transient TreeModel _model = null;
 }

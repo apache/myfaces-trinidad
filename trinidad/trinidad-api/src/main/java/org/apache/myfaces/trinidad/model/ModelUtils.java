@@ -241,7 +241,7 @@ public final class ModelUtils
 
     if (value == null)
     {
-      return new ListDataModel(Collections.EMPTY_LIST);
+      return new ListDataModel(Collections.emptyList());
     }
     else if (value instanceof List)
       return new ListDataModel((List) value);

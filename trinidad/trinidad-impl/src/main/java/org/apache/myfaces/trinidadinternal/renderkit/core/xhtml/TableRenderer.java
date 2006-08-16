@@ -204,8 +204,8 @@ abstract public class TableRenderer extends XhtmlRenderer
     Object value = parameters.get(XhtmlConstants.VALUE_PARAM);
     if (value != null)
     {
-      RowKeySet<Object> old = table.getDisclosedRowKeys();
-      RowKeySet<Object> newset = old.clone();
+      RowKeySet old = table.getDisclosedRowKeys();
+      RowKeySet newset = old.clone();
       if ("all".equals(value))
       {
         if (doExpand)

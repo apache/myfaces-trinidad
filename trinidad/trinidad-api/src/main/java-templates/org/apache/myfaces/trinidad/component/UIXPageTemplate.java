@@ -80,6 +80,7 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
   }
  
   @Override
+  @SuppressWarnings("unchecked")
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)
@@ -98,15 +99,15 @@ abstract public class UIXPageTemplate extends UIXMenuHierarchy
     // process the children
     TableUtils.__processChildren(context, this, phaseId);
 
-    Map facets = getFacets();
-    Iterator facetKeys = facets.keySet().iterator();
+    Map<String, UIComponent> facets = getFacets();
+    Iterator<String> facetKeys = facets.keySet().iterator();
 
     while(facetKeys.hasNext())
     {
-      Object facetKey = facetKeys.next();
+      String facetKey = facetKeys.next();
       if (!"nodeStamp".equals(facetKey))
       {
-        processComponent(context, (UIComponent)facets.get(facetKey), phaseId);
+        processComponent(context, facets.get(facetKey), phaseId);
       }
     }
         

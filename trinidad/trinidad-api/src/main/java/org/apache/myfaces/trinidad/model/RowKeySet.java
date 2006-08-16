@@ -33,11 +33,7 @@ import java.util.AbstractSet;
  * compute. Use the {@link #getSize()} method on this class for an inexpensive size.
  * @author The Oracle ADF Faces Team
  */
-// -= Simon Lessard =-
-// TODO: Since RowKeySet is used by so many components internally,
-//       I believe we shouldn't parametrize it. I would rather see 
-//       public abstract class RowKeySet extends AbstractSet<Object> implements Cloneable
-public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
+public abstract class RowKeySet extends AbstractSet<Object> implements Cloneable
 {
   public RowKeySet()
   {
@@ -71,7 +67,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
    * it otherwise.
    * @return true if the row is now added. false otherwise.
    */
-  public boolean invert(E rowKey)
+  public boolean invert(Object rowKey)
   {
     // doing "add" followed by an optional "remove" is faster than switching on
     // "contains"; the latter does two hashtable lookups all the time,
@@ -93,8 +89,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
   @SuppressWarnings("unchecked")
   public final boolean invert()
   {
-    E rowkey = (E) getCollectionModel().getRowKey();
-    return invert(rowkey);
+    return invert(getCollectionModel().getRowKey());
   }
 
   /**
@@ -128,8 +123,7 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
   @SuppressWarnings("unchecked")
   public final boolean add()
   {
-    E rowkey = (E) getCollectionModel().getRowKey();
-    return add(rowkey);
+    return add(getCollectionModel().getRowKey());
   }
   
   /**
@@ -198,11 +192,11 @@ public abstract class RowKeySet<E> extends AbstractSet<E> implements Cloneable
    */
   @SuppressWarnings("unchecked")
   @Override
-  public RowKeySet<E> clone()
+  public RowKeySet clone()
   {
     try
     {
-      return (RowKeySet<E>) super.clone();
+      return (RowKeySet) super.clone();
     }
     catch (CloneNotSupportedException e)
     {

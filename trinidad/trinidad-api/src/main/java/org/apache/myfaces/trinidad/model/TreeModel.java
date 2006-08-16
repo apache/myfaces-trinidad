@@ -175,15 +175,14 @@ public abstract class TreeModel extends CollectionModel
    * The first rowKey (in this list) is the top most container. The last
    * rowKey is the immediate container of the given childRowKey.
    */
-  @SuppressWarnings("unchecked")
   public List<Object> getAllAncestorContainerRowKeys(Object childRowKey)
   {
     if (childRowKey == null)
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
 
     int size = getDepth(childRowKey);
     if (size <= 0)
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
       
     Object[] keys = new Object[size];
     for(int i=size-1; i>=0; i--)

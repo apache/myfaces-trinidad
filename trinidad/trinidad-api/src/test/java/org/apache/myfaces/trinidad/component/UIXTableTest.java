@@ -460,12 +460,11 @@ public class UIXTableTest extends UIComponentTestCase
 
   private static final class TestComponent extends UIXInput
   {
-    @SuppressWarnings("unchecked")
     public TestComponent(String id)
     {
-      _decodes   = Collections.EMPTY_LIST;
-      _updates   = Collections.EMPTY_LIST;
-      _validates = Collections.EMPTY_LIST;
+      _decodes   = Collections.emptyList();
+      _updates   = Collections.emptyList();
+      _validates = Collections.emptyList();
       setId(id);
     }
 
@@ -518,7 +517,7 @@ public class UIXTableTest extends UIComponentTestCase
 
     private List<Object> _addRowData(FacesContext fc, List<Object> currList)
     {
-      if (currList == Collections.EMPTY_LIST)
+      if (currList == Collections.emptyList())
         currList = new ArrayList<Object>(10);
 
       Object rowData = fc.getExternalContext().getRequestMap().get(_VAR);

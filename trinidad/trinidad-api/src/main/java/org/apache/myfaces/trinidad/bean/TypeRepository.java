@@ -41,21 +41,21 @@ public class TypeRepository
     // non-issue at least given the intended use of this class.
     synchronized (_repos)
     {
-      //      Map<String, Map<String, FacesBean.Type>> rkMap = _repos.get(renderKitId);
-      Map rkMap = (Map) _repos.get(renderKitId);
+      Map<String, Map<String, FacesBean.Type>> rkMap = _repos.get(renderKitId);
+      //Map rkMap = (Map) _repos.get(renderKitId);
       if (rkMap == null)
       {
-        //        rkMap = new HashMap<String, Map<String, FacesBean.Type>>();
-        rkMap = new HashMap();
+        rkMap = new HashMap<String, Map<String, FacesBean.Type>>();
+        //rkMap = new HashMap();
         _repos.put(renderKitId, rkMap);
       }
 
-      Map familyMap = (Map) rkMap.get(componentFamily);
-      //      Map<String, FacesBean.Type> familyMap = rkMap.get(componentFamily);
+      //Map familyMap = (Map) rkMap.get(componentFamily);
+      Map<String, FacesBean.Type> familyMap = rkMap.get(componentFamily);
       if (familyMap == null)
       {
-        familyMap = new HashMap();
-        //familyMap = new HashMap<String, FacesBean.Type>();
+        //familyMap = new HashMap();
+        familyMap = new HashMap<String, FacesBean.Type>();
         rkMap.put(componentFamily, familyMap);
       }
       
@@ -72,23 +72,26 @@ public class TypeRepository
 
     synchronized (_repos)
     {
-      //      Map<String, Map<String, FacesBean.Type>> rkMap = _repos.get(renderKitId);
-      Map rkMap = (Map) _repos.get(renderKitId);
+      Map<String, Map<String, FacesBean.Type>> rkMap = _repos.get(renderKitId);
+      //Map rkMap = (Map) _repos.get(renderKitId);
       if (rkMap == null)
         return null;
 
-      //      Map<String, FacesBean.Type> familyMap = rkMap.get(componentFamily);
-      Map familyMap = (Map) rkMap.get(componentFamily);
+      Map<String, FacesBean.Type> familyMap = rkMap.get(componentFamily);
+      //Map familyMap = (Map) rkMap.get(componentFamily);
       if (familyMap == null)
         return null;
       
-      return (FacesBean.Type) familyMap.get(rendererType);
+      return familyMap.get(rendererType);
     }
   }
 
   // "qdox" doesn't support JDK 1.5 syntax like this.  Hence, all
   // the commented-out code...
-  //  static private Map<String, Map<String, Map<String, FacesBean.Type>>>
-  //    _repos = new HashMap<String, Map<String, Map<String, FacesBean.Type>>>();
-  static private Map _repos = new HashMap();
+  // -= Simon Lessard =-
+  // Attempted to switch to JDK 5 on 2006-08-11. We'll see if qdox works fine 
+  // with it now.
+  static private Map<String, Map<String, Map<String, FacesBean.Type>>>
+      _repos = new HashMap<String, Map<String, Map<String, FacesBean.Type>>>();
+  //static private Map _repos = new HashMap();
 }

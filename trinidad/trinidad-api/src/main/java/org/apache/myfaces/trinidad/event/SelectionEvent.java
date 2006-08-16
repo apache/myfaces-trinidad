@@ -33,9 +33,9 @@ public class SelectionEvent extends RowKeySetChangeEvent
    */
   // FIXME: What is the parametrized type inside RowKeySet?
   public SelectionEvent(
-      UIComponent       source, 
-      RowKeySet<Object> unselected, 
-      RowKeySet<Object> selected)
+      UIComponent source, 
+      RowKeySet   unselected, 
+      RowKeySet   selected)
   {
     super(source, unselected, selected);
   }
@@ -46,9 +46,9 @@ public class SelectionEvent extends RowKeySetChangeEvent
    * @param newSet the set of rowKeys after any changes.
    */
   public SelectionEvent(
-      RowKeySet<Object> oldSet, 
-      RowKeySet<Object> newSet, 
-      UIComponent       source)
+      RowKeySet   oldSet, 
+      RowKeySet   newSet, 
+      UIComponent source)
   {
     super(oldSet, newSet, source);
   }

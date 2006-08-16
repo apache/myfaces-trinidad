@@ -50,7 +50,7 @@ public class AgentFactoryImpl implements AgentFactory
     }
     else
     {
-      headerMap = Collections.EMPTY_MAP;
+      headerMap = Collections.emptyMap();
     }
 
     //TODO: Add declarative and extensible means for populating AgentImpl object

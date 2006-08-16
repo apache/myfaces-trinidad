@@ -154,6 +154,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   }
 
 	@Override
+	@SuppressWarnings("unchecked")
   public void restoreState(FacesContext context, Object state)
   {
     Object[] array = (Object[]) state;
@@ -179,7 +180,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
   public Object getSelectedRowData() 
   {
     RowKeySet state = getSelectedRowKeys();
-    Iterator keys = state.iterator();
+    Iterator<Object> keys = state.iterator();
     if (keys.hasNext()) 
     {
       Object key = keys.next();
@@ -311,10 +312,11 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
    * @param stampState the internal state is obtained from this object.
    */
   @Override
+  @SuppressWarnings("unchecked")
   void __setMyStampState(Object stampState)
   {
     Object[] state = (Object[]) stampState;
-    _sortCriteria = (List) state[0];
+    _sortCriteria = (List<SortCriterion>) state[0];
     super.__setMyStampState(state[1]);
     setFirst(((Integer) state[2]).intValue());
     setShowAll(Boolean.TRUE == state[3]);

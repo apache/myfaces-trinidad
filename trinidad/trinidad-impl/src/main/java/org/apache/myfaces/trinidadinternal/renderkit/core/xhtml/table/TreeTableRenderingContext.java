@@ -87,9 +87,8 @@ public final class TreeTableRenderingContext extends TableRenderingContext
    * Gets the selection state for this table.
    * This is overwritten in HGridRenderingContext
    */
-  @SuppressWarnings("unchecked")
   @Override
-  public RowKeySet<Object> getSelectedRowKeys()
+  public RowKeySet getSelectedRowKeys()
   {
     return ((UIXTree) getCollectionComponent()).getSelectedRowKeys();
   }

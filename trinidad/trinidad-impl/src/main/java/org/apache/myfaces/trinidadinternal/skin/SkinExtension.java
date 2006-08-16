@@ -514,7 +514,7 @@ public class SkinExtension extends Skin
       }
 
       if (keys.isEmpty())
-        keys = Collections.EMPTY_MAP;
+        keys = Collections.emptyMap();
       else
         keys = Collections.unmodifiableMap(keys);
 

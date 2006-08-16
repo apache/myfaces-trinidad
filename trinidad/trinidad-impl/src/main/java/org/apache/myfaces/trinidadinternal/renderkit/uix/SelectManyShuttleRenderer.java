@@ -203,7 +203,7 @@ public class SelectManyShuttleRenderer extends SelectManyRenderer
     List<SelectItem> valueItemsList;
     if (value == null)
     {
-      valueItemsList = Collections.EMPTY_LIST;
+      valueItemsList = Collections.emptyList();
     }
     else if (value.getClass().isArray())
     {

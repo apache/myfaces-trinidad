@@ -52,7 +52,7 @@ public class NavigationTreeRenderer extends UINodeRendererBase
     if (!component.getClientId(context).equals(source))
       return;
 
-    TreeUtils.decodeExpandEvents(parameters, component, Collections.EMPTY_LIST);
+    TreeUtils.decodeExpandEvents(parameters, component, Collections.emptyList());
    
   }  
 }

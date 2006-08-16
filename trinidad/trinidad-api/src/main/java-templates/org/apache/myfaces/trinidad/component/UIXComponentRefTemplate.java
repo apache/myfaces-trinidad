@@ -221,10 +221,9 @@ public abstract class UIXComponentRefTemplate extends UIXComponentBase
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Set<Map.Entry<Object, Object>> entrySet()
     {
-      return Collections.EMPTY_SET;
+      return Collections.emptySet();
     }
   }
 

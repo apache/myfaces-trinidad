@@ -219,8 +219,7 @@ public class TableRenderingContext
    * Gets the selection state for this table.
    * This is overwritten in HGridRenderingContext
    */
-  @SuppressWarnings("unchecked")
-  public RowKeySet<Object> getSelectedRowKeys()
+  public RowKeySet getSelectedRowKeys()
   {
     return ((UIXTable) getCollectionComponent()).getSelectedRowKeys();
   }

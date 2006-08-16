@@ -51,10 +51,9 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public final class RegionMetadata extends RegionManager
 {
-  @SuppressWarnings("unchecked")
   private RegionMetadata()
   {
-    _map = Collections.EMPTY_MAP;
+    _map = Collections.emptyMap();
   }
   
   @Override
@@ -203,7 +202,9 @@ public final class RegionMetadata extends RegionManager
       _LOG.fine("Associating jspUri {0} with componentType:{1}",
         new Object[] { comp.getJspUIDef(), componentType});
     }
-    if (_map == Collections.EMPTY_MAP)
+    
+    Map<String, RegionConfig> comparant = Collections.emptyMap();
+    if (_map == comparant)
     {
       _map = new HashMap<String, RegionConfig>(5);
     }
@@ -515,10 +516,9 @@ public final class RegionMetadata extends RegionManager
 
   public static final class ComponentMetaData extends RegionConfig
   {
-    @SuppressWarnings("unchecked")
     public ComponentMetaData()
     {
-      _attrs = Collections.EMPTY_LIST;
+      _attrs = Collections.emptyList();
     }
 
     @Override
@@ -552,7 +552,8 @@ public final class RegionMetadata extends RegionManager
 
     private void _addAttribute(AttributeMetaData attr)
     {
-      if (_attrs == Collections.EMPTY_LIST)
+      List<AttributeMetaData> comparant = Collections.emptyList();
+      if (_attrs == comparant)
       {
         _attrs = new ArrayList<AttributeMetaData>(5);
       }

@@ -211,7 +211,7 @@ public class MenuNode
     * 
     * @return List of menu item's children
     */
-  public List getChildren()
+  public List<MenuNode> getChildren()
   {
     return _children;
   }
@@ -221,7 +221,7 @@ public class MenuNode
     * 
     * @param children - List of MenuNode children for this MenuNode
     */
-  public void setChildren(List children)
+  public void setChildren(List<MenuNode> children)
   {
     _children = children;
   }  
@@ -631,10 +631,12 @@ public class MenuNode
    * 
    * @return root, top-level XMLMenuModel
    */
+  @SuppressWarnings("unchecked")
   protected XMLMenuModel getRootModel()
   {
     FacesContext facesContext = FacesContext.getCurrentInstance();
-    Map requestMap = facesContext.getExternalContext().getRequestMap();
+    Map<String, Object> requestMap = 
+      facesContext.getExternalContext().getRequestMap();
     
     return (XMLMenuModel) requestMap.get(getRootModelUri());
   }
@@ -779,22 +781,22 @@ public class MenuNode
     }
   }
   
-  private String   _label       = null;
-  private String   _icon        = null;
-  private List     _children    = null;
-  private String   _focusViewId = null;
-  private String   _renderedStr = null;
-  private String   _disabledStr = null;
-  private String   _visibleStr  = null;
-  private String   _readOnlyStr = null;
-  private String   _handlerId   = null;
-  private String   _bundleKey   = null;
-  private String   _bundleName  = null;
-  private String   _accessKey   = null;
-  private String   _id          = null;
-  private boolean  _labelAndAccessKeyEL = false;
-  private String   _labelAndAccessKey   = null;
-  private String   _defaultFocusPathStr = null;
+  private String         _label       = null;
+  private String         _icon        = null;
+  private List<MenuNode> _children    = null;
+  private String         _focusViewId = null;
+  private String         _renderedStr = null;
+  private String         _disabledStr = null;
+  private String         _visibleStr  = null;
+  private String         _readOnlyStr = null;
+  private String         _handlerId   = null;
+  private String         _bundleKey   = null;
+  private String         _bundleName  = null;
+  private String         _accessKey   = null;
+  private String         _id          = null;
+  private boolean        _labelAndAccessKeyEL = false;
+  private String         _labelAndAccessKey   = null;
+  private String         _defaultFocusPathStr = null;
   
   // Map for Custom attributes (properties)
   private Attributes _customPropList = null;

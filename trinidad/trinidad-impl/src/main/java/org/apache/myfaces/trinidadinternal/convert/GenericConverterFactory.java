@@ -236,10 +236,9 @@ public class GenericConverterFactory
     }
     
     @Override
-    @SuppressWarnings("unchecked")
     public List<Class<?>> getTargetTypes(Class<?> sourceType)
     {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
   };
 
@@ -329,7 +328,6 @@ public class GenericConverterFactory
         throw new IllegalArgumentException("Cannot convert to:"+targetType);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<Class<?>> getTargetTypes(Class<?> sourceType)
     {
@@ -339,7 +337,7 @@ public class GenericConverterFactory
         list.add(_chain.targetType);
         return list;
       }
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
     
     private final Node _chain;

@@ -23,10 +23,9 @@ import java.util.List;
  */
 class PathHelper 
 {
-  @SuppressWarnings("unchecked")
   protected PathHelper()
   {
-    _path = Collections.EMPTY_LIST;
+    _path = Collections.emptyList();
     _rowKey = null;
   }
   
@@ -88,7 +87,6 @@ class PathHelper
    * Sets the path.
    * @param path a List with each element a rowKey String
    */
-  @SuppressWarnings("unchecked")
   public final void setPath(List<String> path)
   {
     int sz = (path==null) ? 0 : path.size();
@@ -107,7 +105,7 @@ class PathHelper
     }
     else
     {
-      _path = Collections.EMPTY_LIST;
+      _path = Collections.emptyList();
       setRowKey(null);
     }
   }
@@ -143,7 +141,8 @@ class PathHelper
     Object parentData = getLastPathData();
     Object data = pushPath(parentData, _rowKey);
 
-    if (_path == Collections.EMPTY_LIST)
+    List<PathElement> comparant = Collections.emptyList();
+    if (_path == comparant)
       _path = new ArrayList<PathElement>(5);
 
     _path.add(new PathHelper.PathElement(_rowKey, data));

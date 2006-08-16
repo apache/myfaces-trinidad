@@ -19,6 +19,7 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
 
 
@@ -136,12 +137,12 @@ public class StyleNode
   /**
    * Implementation of StyleNode.getProperties().
    */
-  @SuppressWarnings("unchecked")
   public Iterator<PropertyNode> getProperties()
   {
   if (_properties == null) 
   {
-    return (Collections.EMPTY_LIST).iterator();
+    List<PropertyNode> list = Collections.emptyList();
+    return list.iterator();
   }
   else
     return (Arrays.asList(_properties)).iterator();
@@ -150,12 +151,12 @@ public class StyleNode
   /**
    * Returns an Iterator containing Strings and IncludePropertyNodes.
    */
-  @SuppressWarnings("unchecked")
   public Iterator<CompoundPropertyNode> getCompoundProperties()
   {
     if (_compoundProperties == null) 
     {
-      return (Collections.EMPTY_LIST).iterator();
+      List<CompoundPropertyNode> list = Collections.emptyList();
+      return list.iterator();
     }
     else
       return (Arrays.asList(_compoundProperties)).iterator();
@@ -164,26 +165,28 @@ public class StyleNode
   /**
    * Returns an Iterator of IncludeStyleNodes.
    */
-  @SuppressWarnings("unchecked")
   public Iterator<IncludeStyleNode> getIncludedStyles()
   {
     if (_includedStyles == null) 
     {
-      return (Collections.EMPTY_LIST).iterator();
+      List<IncludeStyleNode> list = Collections.emptyList();
+      return list.iterator();
     }
     else
-    return (Arrays.asList(_includedStyles)).iterator();
+    {
+      return (Arrays.asList(_includedStyles)).iterator();
+    }
   }
 
   /**
    * Returns an Iterator of IncludePropertyNodes.
    */
-  @SuppressWarnings("unchecked")
   public Iterator<IncludePropertyNode> getIncludedProperties()
   {
     if(_includedProperties == null) 
     {
-      return (Collections.EMPTY_LIST).iterator();
+      List<IncludePropertyNode> list = Collections.emptyList();
+      return list.iterator();
     }
     else
       return (Arrays.asList(_includedProperties)).iterator();

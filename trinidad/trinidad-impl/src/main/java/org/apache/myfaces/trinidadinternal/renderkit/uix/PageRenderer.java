@@ -57,7 +57,7 @@ public class PageRenderer extends UINodeRendererBase
     
     if ( treeId.equals(source))
     {          
-      TreeUtils.decodeExpandEvents(parameters, page, Collections.EMPTY_LIST);
+      TreeUtils.decodeExpandEvents(parameters, page, Collections.emptyList());
       RequestContext afContext = RequestContext.getCurrentInstance();
       if (afContext != null)
         afContext.addPartialTarget(component);

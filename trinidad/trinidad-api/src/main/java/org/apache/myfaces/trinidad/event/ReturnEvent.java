@@ -42,7 +42,6 @@ public class ReturnEvent extends FacesEvent
     this(source, returnValue, null);
   }
 
-  @SuppressWarnings("unchecked")
   public ReturnEvent(
       UIComponent source, 
       Object returnValue, 
@@ -54,7 +53,7 @@ public class ReturnEvent extends FacesEvent
     // Useless and expensive instanciation 
     //_returnParams = new HashMap<Object, Object>();
     if (returnParams == null)
-      _returnParams = Collections.EMPTY_MAP;
+      _returnParams = Collections.emptyMap();
     else
       _returnParams = new HashMap<Object, Object>(returnParams);
   }
