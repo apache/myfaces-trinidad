@@ -27,16 +27,19 @@ public class InputNumberSpinboxRenderer extends InputLabelAndMessageRenderer
     super(CoreInputNumberSpinbox.TYPE);
   }
 
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|inputNumberSpinbox";
   }
 
+  @Override
   protected String getDefaultLabelValign(FacesBean bean)
   {
     return null;
   }
 
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputNumberSpinbox;
