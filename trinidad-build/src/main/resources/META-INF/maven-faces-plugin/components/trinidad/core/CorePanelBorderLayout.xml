@@ -21,7 +21,7 @@
   <component>
     <description><![CDATA[The panelBorderLayout component is a layout element which lays out all of its
           children consecutively in its middle, and supports the following
-          facets: top, bottom, left, right, start and end]]>
+          facets: top, bottom, left, right, start, end, innerTop, innerBottom, innerLeft, innerRight, innerStart, and innerEnd]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelBorderLayout.png</small-icon>
@@ -51,7 +51,7 @@
     </facet>
     <facet>
       <description><![CDATA[Content to be rendered to the left of the children and
-                between any top and bottom children.]]>
+                between any top and bottom facets.]]>
       </description>
       <facet-name>left</facet-name>
       <facet-extension>
@@ -60,7 +60,7 @@
     </facet>
     <facet>
       <description><![CDATA[Content to be rendered to the right of the children and
-                between any top and bottom children.]]>
+                between any top and bottom facets.]]>
       </description>
       <facet-name>right</facet-name>
       <facet-extension>
@@ -69,7 +69,7 @@
     </facet>
     <facet>
       <description><![CDATA[Content to be rendered to the left of the children and
-                between any top and bottom children, if the reading direction is
+                between any top and bottom facets, if the reading direction is
                 left-to-right, on the right otherwise.]]>
       </description>
       <facet-name>start</facet-name>
@@ -82,13 +82,74 @@
     </facet>
     <facet>
       <description><![CDATA[Content to be rendered to the right of the children and
-                between any top and bottom children, if the reading direction is
+                between any top and bottom facets, if the reading direction is
                 left-to-right, on the left otherwise.]]>
       </description>
       <facet-name>end</facet-name>
       <facet-extension>
         <mfp:facet-metadata>
           <mfp:preferred>true</mfp:preferred>
+        </mfp:facet-metadata>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+
+    <facet>
+      <description><![CDATA[Content to be rendered above the children, inside of 'top'.]]>
+      </description>
+      <facet-name>innerTop</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>false</mfp:preferred>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[Content to be rendered below the children, but above 'bottom'.]]>
+      </description>
+      <facet-name>innerBottom</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>false</mfp:preferred>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[Content to be rendered to the left of the children and
+                between any innerTop and innerBottom facets, to the right of the left facet.]]>
+      </description>
+      <facet-name>innerLeft</facet-name>
+      <facet-extension>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[Content to be rendered to the right of the children and
+                between any innerTop and innerBottom facets.]]>
+      </description>
+      <facet-name>innerRight</facet-name>
+      <facet-extension>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[the equivalent of innerLeft on left-to-right clients and innerRight on right-to-left clients.]]>
+      </description>
+      <facet-name>innerStart</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>false</mfp:preferred>
+        </mfp:facet-metadata>
+        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      </facet-extension>
+    </facet>
+    <facet>
+      <description><![CDATA[the equivalent of innerRight on left-to-right clients and innerLeft on right-to-left clients.]]>
+      </description>
+      <facet-name>innerEnd</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>false</mfp:preferred>
         </mfp:facet-metadata>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
       </facet-extension>

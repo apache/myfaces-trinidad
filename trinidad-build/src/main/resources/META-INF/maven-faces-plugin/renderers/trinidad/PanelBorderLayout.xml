@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Panel</component-family>
       <renderer-type>org.apache.myfaces.trinidad.BorderLayout</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelBorderLayoutRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CorePanelBorderLayout</mfp:component-type>
       </renderer-extension>

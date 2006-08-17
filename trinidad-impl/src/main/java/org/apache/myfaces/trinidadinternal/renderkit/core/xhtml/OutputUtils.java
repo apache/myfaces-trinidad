@@ -60,7 +60,7 @@ public class OutputUtils
 
   public static void renderLayoutTableAttributes(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     Object              cellspacing,
     Object              tableWidth
     ) throws IOException
