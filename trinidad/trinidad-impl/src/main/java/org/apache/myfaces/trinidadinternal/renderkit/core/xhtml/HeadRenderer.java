@@ -126,7 +126,7 @@ public class HeadRenderer extends XhtmlRenderer
     
     writer.startElement("meta", null);
     writer.writeAttribute("name", "generator", null);
-    writer.writeAttribute("content", "Oracle ADF Faces", null);
+    writer.writeAttribute("content", "Apache Trinidad", null);
     writer.endElement("meta");
   }
 

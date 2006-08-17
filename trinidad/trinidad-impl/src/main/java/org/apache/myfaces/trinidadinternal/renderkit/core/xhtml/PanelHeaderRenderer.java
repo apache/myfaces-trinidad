@@ -350,7 +350,6 @@ public class PanelHeaderRenderer extends XhtmlRenderer
   {
     Number sizeNumber = getSize(bean);
     
-    //The >= 0 condition was added in order to maintain compatibility with Rich and unified
     if (sizeNumber != null && sizeNumber.intValue() >= 0)
     {
       setContextHeaderSize(arc, sizeNumber);
