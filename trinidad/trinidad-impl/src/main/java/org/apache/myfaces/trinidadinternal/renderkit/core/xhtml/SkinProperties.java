@@ -45,4 +45,6 @@ public interface SkinProperties
     "af|table-ora-selection-bar-in-table";
   public static final String AF_TREE_TABLE_SPACER_WIDTH =
     "af|treeTable-ora-spacer-width";
+  public static final String AF_PANEL_BORDER_LAYOUT_SPACER_WIDTH =
+    "af|panelBorderLayout-ora-spacer-width";
 }

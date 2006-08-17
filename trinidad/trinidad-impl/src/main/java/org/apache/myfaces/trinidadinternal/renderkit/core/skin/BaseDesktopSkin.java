@@ -36,9 +36,16 @@ public class BaseDesktopSkin extends XhtmlSkin
    */
   public BaseDesktopSkin()
   {
-    // Register our icons
+
     // Register our icons
     CoreSkinUtils.registerIcons(this, _CUSTOMIZABLE_ICONS);
+    _registerSkinProperties();
+  }
+
+  private void _registerSkinProperties()
+  {
+    // Not sure where this comes from!
+    setProperty(AF_PANEL_BORDER_LAYOUT_SPACER_WIDTH, "2");
   }
 
   /**
