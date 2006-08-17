@@ -447,8 +447,8 @@ public class BodyRenderer extends PanelPartialRootRenderer
   {
 
     String versionInfo    = "";
-    String apiSpecTitle   = "ADF Faces API";
-    String implSpecTitle  = "ADF Faces Implementation";
+    String apiSpecTitle   = "Apache Trinidad API";
+    String implSpecTitle  = "Apache Trinidad Implementation";
     String apiVersion     = "??";
     String implVersion    = "??";
 
@@ -503,7 +503,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   // Onunload handler used for partial page rendering
   private static final String _PARTIAL_ONUNLOAD_HANDLER = "_partialUnload()";
 
-  static private final String _VERSION_COMMENT = "Created by Oracle ADF Faces ";
+  static private final String _VERSION_COMMENT = "Created by Apache Trinidad ";
 
   // Constants for PPR back
   static private final String _PPR_BACK_UNLOAD_SCRIPT = "_savePageStateIE()";

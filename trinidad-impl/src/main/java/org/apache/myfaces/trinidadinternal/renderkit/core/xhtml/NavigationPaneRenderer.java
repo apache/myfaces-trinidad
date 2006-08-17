@@ -891,8 +891,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     // Choice items do not support icons at this time.
     boolean isDisabled = _getBooleanFromProperty(itemData.get("isDisabled"));
-    // IE doesn't support disabled options so we won't add them in that case.
-    if ( !isDisabled || (arc.getAgent().getAgentName() != Agent.AGENT_IE) )
+    // If the agent, doesn't support disabled options, don't render anything
+    // for such options
+    if ( !isDisabled || 
+         Boolean.TRUE.equals(arc.getAgent().getCapability(
+                TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
       boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
       String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
