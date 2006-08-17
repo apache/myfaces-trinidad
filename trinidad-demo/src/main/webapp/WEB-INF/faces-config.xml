@@ -762,11 +762,6 @@
         <value>inputNumberSpinbox.jspx</value>        
         <value>inputText.jspx</value>
         <value>iterator.jspx</value>
-        <value>menuBar.jspx</value>
-        <value>menuButtons.jspx</value>
-        <value>menuChoice.jspx</value>
-        <value>menuList.jspx</value>
-        <value>menuTabs.jspx</value>
         <value>message.jspx</value>
         <value>messages.jspx</value>
         <value>navigationPane.jspx</value>
@@ -2094,36 +2089,6 @@
       <redirect/>
     </navigation-case>
 
-    <navigation-case>
-      <from-outcome>guide.menuButtons</from-outcome>
-      <to-view-id>/components/menuButtons.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>
-
-    <navigation-case>
-      <from-outcome>guide.menuBar</from-outcome>
-      <to-view-id>/components/menuBar.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>
-
-    <navigation-case>
-      <from-outcome>guide.menuChoice</from-outcome>
-      <to-view-id>/components/menuChoice.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>
-
-    <navigation-case>
-      <from-outcome>guide.menuList</from-outcome>
-      <to-view-id>/components/menuList.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>
-    
-    <navigation-case>
-      <from-outcome>guide.menuTabs</from-outcome>
-      <to-view-id>/components/menuTabs.jspx</to-view-id>
-      <redirect/>
-    </navigation-case>  
-    
     <navigation-case>
       <from-outcome>guide.navigationTree</from-outcome>
       <to-view-id>/components/navigationTree.jspx</to-view-id>

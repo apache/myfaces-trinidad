@@ -917,7 +917,7 @@ class SkinStyleSheetParserUtils
     // need this as part of the base URI
     int lastSepIndex = sourceName.lastIndexOf('/');
 
-    StringBuffer buffer = new StringBuffer(contextPathLength + lastSepIndex + 1);
+    StringBuilder buffer = new StringBuilder(contextPathLength + lastSepIndex + 1);
     buffer.append(contextPath);
     buffer.append("/");
     buffer.append(sourceName.substring(0, lastSepIndex));
@@ -980,7 +980,7 @@ class SkinStyleSheetParserUtils
       strippedBaseURI = strippedBaseURI.substring(0, lastSepIndex);
     }
 
-    StringBuffer buffer = new StringBuffer(strippedBaseURI.length() +
+    StringBuilder buffer = new StringBuilder(strippedBaseURI.length() +
                                            strippedURI.length() +
                                            6);
 

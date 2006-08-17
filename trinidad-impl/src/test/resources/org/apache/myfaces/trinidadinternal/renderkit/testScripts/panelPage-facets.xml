@@ -41,7 +41,7 @@
         <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="path3"/>
     </component>
-     <component tr:type="org.apache.myfaces.trinidad.CoreMenuTabs"
+     <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="tabs"
                 tr:facet="navigation1" >
         <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab1"/>
@@ -50,7 +50,7 @@
         <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab3"/>
     </component>
-    <component tr:type="org.apache.myfaces.trinidad.CoreMenuBar"
+    <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="bar"
                    tr:facet="navigation2" >
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar1"/>
@@ -59,7 +59,7 @@
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar3"/>
      </component>
-    <component tr:type="org.apache.myfaces.trinidad.CoreMenuList"
+    <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="list"
                    tr:facet="navigation3" >
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="list1"/>
@@ -68,7 +68,7 @@
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="list3"/>
      </component>
-   <component tr:type="org.apache.myfaces.trinidad.CoreMenuButtons"
+   <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="buttons"
                    tr:facet="navigationGlobal" >
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button1"/>

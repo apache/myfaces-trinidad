@@ -26,11 +26,11 @@
 
         <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <tr:menuButtons>
+          <tr:navigationPane hint="buttons">
            <tr:commandNavigationItem text="Return to Index"
                                    immediate="true"
                                    action="home"/>
-           </tr:menuButtons>
+           </tr:navigationPane>
           </f:facet>
 
           <tr:panelHeader text="Welcome to the Apache Trinidad Feature Demos">

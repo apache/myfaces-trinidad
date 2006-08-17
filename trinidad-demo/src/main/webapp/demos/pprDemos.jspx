@@ -26,11 +26,11 @@
 
      <tr:panelPage>
       <f:facet name="navigationGlobal">
-       <tr:menuButtons>
+       <tr:navigationPane hint="buttons">
         <tr:commandNavigationItem text="Return to Feature Demos page"
                                 immediate="true"
                                 action="demos"/>
-       </tr:menuButtons>
+       </tr:navigationPane>
       </f:facet>
 
     <tr:panelHeader text="Welcome to the Apache Trinidad Partial Page Rendering Demos">

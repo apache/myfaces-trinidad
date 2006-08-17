@@ -46,7 +46,7 @@
           </f:facet>
           
           <f:facet name="navigationGlobal">
-            <tr:menuButtons>
+            <tr:navigationPane hint="buttons">
               <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
@@ -56,7 +56,7 @@
                                 action="preferences"/>
               <tr:commandNavigationItem text="Help"
                                 action="action.none"/>
-            </tr:menuButtons>
+            </tr:navigationPane>
            </f:facet>
               
           <f:facet name="infoUser">

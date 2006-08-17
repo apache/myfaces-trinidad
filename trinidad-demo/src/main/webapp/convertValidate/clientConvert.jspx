@@ -25,11 +25,11 @@
           <tr:panelPage>
             <tr:messages/>
             <f:facet name="navigationGlobal">
-              <tr:menuButtons>
+              <tr:navigationPane type="buttons">
                 <tr:commandNavigationItem text="Converters and Validators"
                                     action="convertValidateDemos"
                                     immediate="true"/>
-              </tr:menuButtons>
+              </tr:navigationPane>
             </f:facet>
            <tr:panelHeader text="Client-side Converters and Validators">
             <tr:outputText styleClass="AFInstructionText"

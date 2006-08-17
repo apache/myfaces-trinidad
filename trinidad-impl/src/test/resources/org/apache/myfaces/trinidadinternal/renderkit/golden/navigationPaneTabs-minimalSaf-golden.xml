@@ -1,0 +1,5809 @@
+<results>
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[id,myid]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="myid"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                             id="uri-attr:myid:stamp"
+                             name="uri-attr:myid:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                             id="uri-attr:myid:stamp"
+                             name="uri-attr:myid:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                             id="uri-attr:myid:stamp"
+                             name="uri-attr:myid:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[shortDesc,my short desc]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           title="my short desc"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onclick,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onclick="test-onclick"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[ondblclick,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           ondblclick="test-ondblclick"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onkeydown,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onkeydown="test-onkeydown"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onkeypress,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onkeypress="test-onkeypress"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onkeyup,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onkeyup="test-onkeyup"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onmousedown,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onmousedown="test-onmousedown"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onmousemove,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onmousemove="test-onmousemove"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onmouseout,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onmouseout="test-onmouseout"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onmouseover,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onmouseover="test-onmouseover"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+<!--AttributeTest[onmouseup,null]-->
+
+      <div
+           class="af_navigationPaneTabs"
+           id="mainId"
+           onmouseup="test-onmouseup"
+          >
+        
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-start"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          First
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Second
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table
+             border="0"
+             cellpadding="0"
+             cellspacing="0"
+             class=""
+             style="display: inline;"
+             summary=""
+            >
+          
+          <tbody
+              >
+            
+            <tr
+                >
+              
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-mid"
+                          >
+                        
+                        <a
+                             href="#"
+                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                             id="uri-attr:mainId:stamp"
+                             name="uri-attr:mainId:stamp"
+                            >
+                          Third
+                        </a>
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td
+                  >
+                
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPaneTabs_tabs-inactive"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-end"
+                          >
+                        
+                      </td>
+                    </tr>
+                    <tr
+                        >
+                      
+                      <td
+                           class="af_navigationPaneTabs_tabs-bottom-end"
+                          >
+                        
+                        <div
+                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                            >
+                          
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+</results>
