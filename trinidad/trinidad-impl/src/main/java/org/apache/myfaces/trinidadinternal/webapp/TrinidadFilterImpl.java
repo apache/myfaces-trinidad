@@ -358,6 +358,7 @@ public class TrinidadFilterImpl implements Filter
    * A ServletResponseWrapper that will catch partial page redirects
    * and handle them correctly.
    */
+  @SuppressWarnings("deprecation")
   private class MonitorRedirectServletResponse
              extends HttpServletResponseWrapper
   {
