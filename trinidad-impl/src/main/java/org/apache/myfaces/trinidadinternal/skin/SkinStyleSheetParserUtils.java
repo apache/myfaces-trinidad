@@ -432,7 +432,21 @@ class SkinStyleSheetParserUtils
       
       endIndex = url.indexOf(')', index + 3);
       String uri = url.substring(index + 4, endIndex);
-      if(uri.length() == 0)
+
+      // Trim off 
+      int uriLength = uri.length();
+      if (uriLength > 0)
+      {
+        if ((uri.charAt(0) == '\'' && uri.charAt(uriLength - 1) == '\'') ||
+            (uri.charAt(0) == '"' && uri.charAt(uriLength - 1) == '"'))
+        {
+          uri = uri.substring(1, uriLength - 1);
+          uriLength = uriLength - 2;
+        }
+      }
+
+
+      if(uriLength == 0)
       {
         // url() or url('') found, should not happen.
         _LOG.warning("An empty URL was found in selector '" +
@@ -444,11 +458,11 @@ class SkinStyleSheetParserUtils
       if(uri.charAt(0) == '/')
       {
         // A transformation is required
-        if(uri.length() > 1 && uri.charAt(1) == '/')
+        if(uriLength > 1 && uri.charAt(1) == '/')
         {
           // Double slashes, trim one and do not add context root before
           builder.append("url(");
-          builder.append(uri, 1, uri.length());
+          builder.append(uri, 1, uriLength);
           builder.append(')');
         }
         else
@@ -981,14 +995,14 @@ class SkinStyleSheetParserUtils
     }
 
     StringBuilder buffer = new StringBuilder(strippedBaseURI.length() +
-                                           strippedURI.length() +
-                                           6);
+                                             strippedURI.length() +
+                                             8);
 
-    buffer.append("url(");
+    buffer.append("url('");
     buffer.append(strippedBaseURI);
     buffer.append("/");
     buffer.append(strippedURI);
-    buffer.append(")");
+    buffer.append("')");
 
     return buffer.toString();
   }
