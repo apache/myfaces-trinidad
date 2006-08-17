@@ -26,12 +26,12 @@
 
         <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <tr:menuButtons>
+          <tr:navigationPane hint="buttons">
             <tr:commandNavigationItem 
               text="Return to Change Persistence demo index page"
               immediate="true"
               action="demos.changePersistence"/>
-           </tr:menuButtons>
+           </tr:navigationPane>
           </f:facet>
          <tr:panelHeader text="Explicit AttributeChange Persistence Feature Demo">
           <tr:panelGroupLayout layout="vertical">

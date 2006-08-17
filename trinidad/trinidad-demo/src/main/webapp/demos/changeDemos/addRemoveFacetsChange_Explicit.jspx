@@ -25,33 +25,33 @@
 
           <tr:panelPage id="pp1" >
             <f:facet name="navigation1">
-              <tr:menuTabs>
+              <tr:navigationPane hint="tabs">
                 <tr:commandNavigationItem text="tab 1"/>
                 <tr:commandNavigationItem text="tab 2" selected="true" />
                 <tr:commandNavigationItem text="tab 3"/>
                 <tr:commandNavigationItem text="tab 4"/>
                 <tr:commandNavigationItem text="tab 5"/>
                 <tr:commandNavigationItem text="tab 6" disabled="true" />
-              </tr:menuTabs>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigation2">
-              <tr:menuBar>
+              <tr:navigationPane hint="bar">
                 <tr:commandNavigationItem text="item 1" selected="true" />
                 <tr:commandNavigationItem text="item 2" disabled="true" />
                 <tr:commandNavigationItem text="item 3"/>
                 <tr:commandNavigationItem text="item 4"/>
-              </tr:menuBar>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigation3">
-              <tr:menuList>
+              <tr:navigationPane hint="list">
                 <tr:commandNavigationItem text="item 1" selected="true" />
                 <tr:commandNavigationItem text="item 2" disabled="true" />
                 <tr:commandNavigationItem text="item 3"/>
                 <tr:commandNavigationItem text="item 4"/>
-              </tr:menuList>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="navigationGlobal">
-              <tr:menuButtons>
+              <tr:navigationPane hint="buttons">
                 <tr:commandNavigationItem 
                   text="Return to Change Persistence demo index page"
                   immediate="true"
@@ -62,7 +62,7 @@
                 <tr:commandNavigationItem 
                   text="help more"
                   icon="/components/images/globalhelp.gif"/>
-              </tr:menuButtons>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="location">
               <tr:breadCrumbs>

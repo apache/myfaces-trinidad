@@ -100,11 +100,11 @@
         </tr:panelFormLayout>
        </tr:panelHeader>
           <f:facet name="navigationGlobal">
-            <tr:menuButtons>
+            <tr:navigationPane hint="buttons">
               <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </tr:menuButtons>
+            </tr:navigationPane>
           </f:facet>
           <tr:panelButtonBar>  
             <tr:commandButton action="#{survey.check}" text="check answers"

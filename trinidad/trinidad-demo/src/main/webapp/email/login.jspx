@@ -45,11 +45,11 @@
               </tr:panelGroupLayout>
             </f:facet>
             <f:facet name="navigationGlobal">
-              <tr:menuButtons>
+              <tr:navigationPane hint="buttons">
                 <tr:commandNavigationItem text="Return to Index" immediate="true"
                                     action="home"/>
                 <tr:commandNavigationItem text="Help" action="action.none"/>
-              </tr:menuButtons>
+              </tr:navigationPane>
             </f:facet>
             <f:facet name="infoStatus">
               <tr:outputText styleClass="AFErrorText"

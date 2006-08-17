@@ -31,11 +31,11 @@
         </tr:panelFormLayout>
       </tr:panelHeader>
           <f:facet name="navigationGlobal">
-            <tr:menuButtons>
+            <tr:navigationPane hint="buttons">
               <tr:commandNavigationItem text="Return to Index"
                   immediate="true"
                   action="home"/>
-            </tr:menuButtons>
+            </tr:navigationPane>
           </f:facet>
           
           <f:facet name="location">   

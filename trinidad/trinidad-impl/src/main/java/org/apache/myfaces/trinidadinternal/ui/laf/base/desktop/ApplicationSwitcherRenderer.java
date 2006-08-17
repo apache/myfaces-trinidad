@@ -26,7 +26,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
-import org.apache.myfaces.trinidad.component.core.nav.CoreMenuChoice;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
@@ -211,7 +210,7 @@ public class ApplicationSwitcherRenderer extends
     writer.startElement(TABLE_DATA_ELEMENT, null);
     writer.writeAttribute(ALIGN_ATTRIBUTE, RIGHT_ATTRIBUTE_VALUE, null);
     renderStyleClassAttribute(context, AF_MENU_CHOICE_LABEL_STYLE_CLASS );
-    writer.writeText(title, CoreMenuChoice.TITLE_KEY.getName());
+    writer.writeText(title, "title");
     writer.endElement(TABLE_DATA_ELEMENT);
 
     // add cell with space in it

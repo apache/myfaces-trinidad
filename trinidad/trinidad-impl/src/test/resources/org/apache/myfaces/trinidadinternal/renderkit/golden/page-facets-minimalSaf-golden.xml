@@ -151,73 +151,49 @@
                        valign="bottom"
                       >
                     
-                    <table
-                         border="0"
-                         cellpadding="0"
-                         cellspacing="0"
-                         summary=""
-                         width="5"
+                    <div
+                         class="af_navigationPane"
                         >
                       
-                      <tr
+                      <select
+                           class="af_navigationPane_choice-options"
+                           id="mainId:_idXXX_af_choice_select"
                           >
                         
-                        <td
-                             align="right"
-                             class="af_menuChoice_label"
+                        <option
+                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             id="uri-attr:mainId:_idXXX:_idXXX"
+                             name="uri-attr:mainId:_idXXX:_idXXX"
                             >
-                          Switch Applications
-                        </td>
-                        <td
+                          choice1
+                        </option>
+                        <option
+                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             id="uri-attr:mainId:_idXXX:_idXXX"
+                             name="uri-attr:mainId:_idXXX:_idXXX"
                             >
-                          &#xa0;
-                        </td>
-                        <td
-                             valign="bottom"
+                          choice2
+                        </option>
+                        <option
+                             value="submitForm('formId',1,{source:'mainId:_idXXX:_idXXX'});"
+                             id="uri-attr:mainId:_idXXX:_idXXX"
+                             name="uri-attr:mainId:_idXXX:_idXXX"
                             >
-                          
-                          <select
-                               class="AFFieldText"
-                               id="mainId:_idXXX"
-                               name="mainId:_idXXX"
-                              >
-                            
-                            <option
-                                 value="mainId:_idXXX:_idXXX[1]"
-                                >
-                              choice1
-                            </option>
-                            <option
-                                 value="mainId:_idXXX:_idXXX[1]"
-                                >
-                              choice2
-                            </option>
-                            <option
-                                 value="mainId:_idXXX:_idXXX[1]"
-                                >
-                              choice3
-                            </option>
-                          </select>
-                        </td>
-                        <td
-                            >
-                          &#xa0;
-                        </td>
-                        <td
-                             valign="bottom"
-                            >
-                          
-                          <button
-                               class="OraLink"
-                               onclick="_commandChoice('formId','mainId:_idXXX');return false;"
-                               title="Go To Selected Application"
-                               type="button"
-                              >
-                            Go
-                          </button>
-                        </td>
-                      </tr>
-                    </table>
+                          choice3
+                        </option>
+                      </select>
+                      <span
+                           style="width: 5px;"
+                          >
+                         
+                      </span>
+                      <button
+                           class="af_navigationPane_choice-button"
+                           onclick="var navLevelSelect = document.getElementById('mainId:_idXXX_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+                          >
+                        Go
+                      </button>
+                    </div>
                   </td>
                 </tr>
               </table>

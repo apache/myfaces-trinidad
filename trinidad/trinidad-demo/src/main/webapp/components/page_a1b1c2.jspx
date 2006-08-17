@@ -27,28 +27,28 @@
             <tr:separator/>
             <tr:panelPage>
               <f:facet name="navigationGlobal">
-                <tr:menuButtons var="foo" value="#{menuModel.model}">
+                <tr:navigationPane hint="buttons" var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
                     <tr:commandNavigationItem text="#{foo.label}"
                       action="#{foo.getOutcome}" icon="#{foo.ico}"/>
                   </f:facet>
-                </tr:menuButtons>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation1">
-                <tr:menuTabs level="1" var="foo" value="#{menuModel.model}">
+                <tr:navigationPane hint="tabs" level="1" var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
                     <tr:commandNavigationItem
                       text="#{foo.label}" action="#{foo.getOutcome}"/>
                   </f:facet>
-                </tr:menuTabs>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation2">
-                <tr:menuBar level="2" var="foo" value="#{menuModel.model}">
+                <tr:navigationPane hint="bar" level="2" var="foo" value="#{menuModel.model}">
                   <f:facet name="nodeStamp">
                     <tr:commandNavigationItem
                       text="#{foo.label}" action="#{foo.getOutcome}"/>
                   </f:facet>
-                </tr:menuBar>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation3">
                 <tr:navigationTree startLevel="3" var="foo"

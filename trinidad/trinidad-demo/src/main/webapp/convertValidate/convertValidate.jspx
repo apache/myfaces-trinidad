@@ -24,11 +24,11 @@
           <tr:panelPage>
             <tr:messages/>
             <f:facet name="navigationGlobal">
-              <tr:menuButtons>
+              <tr:navigationPane type="buttons">
                 <tr:commandNavigationItem text="Validators and Converters"
                                     action="convertValidateDemos"
                                     immediate="true"/>
-              </tr:menuButtons>
+              </tr:navigationPane>
             </f:facet>
           <tr:panelHeader text="Converters and Validators">
             <tr:panelHeader text="Server Side Number Converter"/>

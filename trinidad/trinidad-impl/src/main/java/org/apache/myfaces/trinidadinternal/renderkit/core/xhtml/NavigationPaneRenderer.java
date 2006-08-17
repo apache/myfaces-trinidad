@@ -31,8 +31,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.TableUtils;
 import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
@@ -52,8 +54,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     super.findTypeConstants(type);
     _hintKey = type.findKey("hint");
-    _shortDescKey = type.findKey("shortDesc");
     _titleKey = type.findKey("title");
+    _disabledKey = type.findKey("disabled");
   }
 
   @Override
@@ -72,7 +74,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("div", component);
-    renderAllAttributes(context, arc, bean);
+    renderAllAttributes(context, arc, bean, false);
     _renderStyleAttributes(context, arc, bean);
     renderId(context, component);
 
@@ -135,10 +137,42 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
     else
     {
-      // we are stamping the children:
+      if (!(nodeStamp instanceof UIXCommand))
+      {
+        _LOG.severe(
+           "Warning: illegal component hierarchy detected, expected UIXCommand but found another type of component instead.");
+        return;
 
-      // =-= mcc TODO need to add support for stamped children
-      _LOG.severe("Stamped children in Core NavigationLevel are not currently supported.");
+      }
+
+      UIXCommand navStamp = (UIXCommand) nodeStamp;
+
+      // we are stamping the children:
+      // Save the current key
+      Object oldPath = component.getRowKey();
+
+      _setStartDepthPath(component,
+                         ((UIXNavigationLevel) component).getLevel());
+
+      if (component.getRowCount() != 0)
+      {
+        int startIndex = component.getFirst();
+        int endIndex = TableUtils.getLast(component, startIndex);
+        
+        for (int i = startIndex; i <= endIndex; i++)
+        {
+          component.setRowIndex(i);
+          
+          if (navStamp.isRendered())
+          {
+            // collect the information needed to render this nav item:
+            _collectNavItemData(navItemData, navStamp);
+          }
+        }
+      }
+
+      // Restore the old path
+      component.setRowKey(oldPath);
     }
 
     // We must loop this second time because we support overlapping items,
@@ -169,6 +203,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw.writeAttribute("id", choiceSelectId, null);
         renderStyleClass(context, arc,
           XhtmlConstants.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
+        if (getDisabled(bean))
+          rw.writeAttribute("disabled", Boolean.TRUE, null);
       }
 
       int lastRowIndex = visibleItemCount - 1;
@@ -254,15 +290,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     return renderingHint;
   }
 
-  @Override
-  protected String getShortDesc(FacesBean bean)
-  {
-    return toString(bean.getProperty(_shortDescKey));
-  }
-
   protected String getTitle(FacesBean bean)
   {
     return toString(bean.getProperty(_titleKey));
+  }
+
+  protected boolean getDisabled(FacesBean bean)
+  {
+    Object o = bean.getProperty(_disabledKey);
+    if (o == null)
+      o = _disabledKey.getDefault();
+    return Boolean.TRUE.equals(o);
   }
 
   /**
@@ -1300,8 +1338,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   }
 
   private PropertyKey _hintKey;
-  private PropertyKey _shortDescKey;
   private PropertyKey _titleKey;
+  private PropertyKey _disabledKey;
 
   static private final String _HINT_TABS = "tabs";
   static private final String _HINT_BAR = "bar";
@@ -1316,6 +1354,46 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     "af_menuChoice.GO";
 
   static private final Object _EXTRA_SUBMIT_PARAMS_KEY = new Object();
+
+  // sets the currency to the row or container that we want to start rendering
+  // from.  (COPIED FROM HierarchyUtils, which is package-private)
+  static private boolean _setStartDepthPath(
+    UIXHierarchy component,
+    int          startDepth
+  )
+  {
+    boolean isNewPath = false;
+    Object focusKey = component.getFocusRowKey();
+    
+    if (focusKey != null )  
+    {
+      List<Object> focusPath = component.getAllAncestorContainerRowKeys(focusKey);
+      focusPath = new ArrayList<Object>(focusPath);
+      focusPath.add(focusKey);
+      int focusSize =  focusPath.size();
+      if ( focusSize > startDepth )
+      {
+        isNewPath = true;
+        component.setRowKey(focusPath.get(startDepth));  
+      }
+      else if ( focusSize == startDepth )
+      {
+        isNewPath = true;
+        component.setRowKey(focusKey);  
+        component.enterContainer();
+      }
+    }      
+    else  
+    {      
+      if (startDepth  == 0)
+      {
+        isNewPath = true;
+        component.setRowKey(null); 
+      }
+    }
+    
+    return isNewPath;
+  }  
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(NavigationPaneRenderer.class);

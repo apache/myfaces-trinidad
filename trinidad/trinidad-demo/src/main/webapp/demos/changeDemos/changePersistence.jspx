@@ -26,11 +26,11 @@
 
         <tr:panelPage>
          <f:facet name="navigationGlobal">
-          <tr:menuButtons>
+          <tr:navigationPane hint="buttons">
             <tr:commandNavigationItem text="Return to Feature Demos page"
                                 immediate="true"
                                 action="demos"/>
-           </tr:menuButtons>
+           </tr:navigationPane>
           </f:facet>
 
          <tr:panelHeader text="Change Persistence Feature Demos">
@@ -51,7 +51,7 @@
                     UI is restored upon re-visit to the page. In this demo upon
                     interaction with the following components, one can see this 
                     happen:"/>
-                <tr:menuList>
+                <tr:panelList>
                   <tr:outputFormatted 
                     styleUsage="instruction" 
                     value="showDetail: Disclosure state"/>
@@ -61,7 +61,7 @@
                   <tr:outputFormatted 
                     styleUsage="instruction" 
                     value="tree: The expansion state of the nodes"/>
-                </tr:menuList>
+                </tr:panelList>
               </tr:panelGroupLayout>
               <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink 

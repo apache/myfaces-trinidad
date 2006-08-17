@@ -66,55 +66,134 @@
                  valign="bottom"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   id="_idXXX"
-                   summary=""
+              <div
+                   class="af_navigationPane"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       valign="bottom"
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button1
-                    </a>
-                  </td>
-                  <td
-                       valign="bottom"
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button1
+                          </a>
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-separator"
+                            >
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button2
-                    </a>
-                  </td>
-                  <td
-                       valign="bottom"
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button2
+                          </a>
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-separator"
+                            >
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button3
-                    </a>
-                  </td>
-                </tr>
-              </table>
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button3
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
           </tr>
           <tr
@@ -125,53 +204,449 @@
                  valign="bottom"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="af_menuTabs"
-                   id="_idXXX"
-                   summary=""
+              <div
+                   class="af_navigationPaneTabs"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       class="af_menuTabs_enabled"
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab1
-                    </a>
-                  </td>
-                  <td
-                       class="af_menuTabs_enabled"
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-start"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-start-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab1
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end-join"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab2
-                    </a>
-                  </td>
-                  <td
-                       class="af_menuTabs_enabled"
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab2
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end-join"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab3
-                    </a>
-                  </td>
-                </tr>
-              </table>
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab3
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
             <td
                 >
@@ -190,81 +665,134 @@
                  width="100%"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="af_menuBar"
-                   id="_idXXX"
-                   summary=""
-                   width="100%"
+              <div
+                   class="af_navigationPane_bar"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       class="af_menuBar_body"
+                  <tbody
                       >
                     
-                    <table
-                         border="0"
-                         cellpadding="0"
-                         cellspacing="0"
-                         summary=""
+                    <tr
                         >
                       
-                      <tr
+                      <td
                           >
                         
-                        <td
-                             class="af_menuBar_enabled"
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar1
                           </a>
-                        </td>
-                        <td
-                             class="af_menuBar_separator"
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-separator"
                             >
-                          &#xa0;| 
-                        </td>
-                        <td
-                             class="af_menuBar_enabled"
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar2
                           </a>
-                        </td>
-                        <td
-                             class="af_menuBar_separator"
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-separator"
                             >
-                          &#xa0;| 
-                        </td>
-                        <td
-                             class="af_menuBar_enabled"
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar3
                           </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
           </tr>
         </table>
@@ -309,61 +837,140 @@
                        class="af_panelSideBar_body"
                       >
                     
-                    <ul
-                         class="OraStyledList"
-                         id="_idXXX"
-                         style="list-style-type:disc"
+                    <div
+                         class="af_navigationPane"
                         >
                       
-                      <li
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list1
-                          </a>
-                        </span>
-                      </li>
-                      <li
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list1
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list2
-                          </a>
-                        </span>
-                      </li>
-                      <li
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list2
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list3
-                          </a>
-                        </span>
-                      </li>
-                    </ul>
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list3
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </td>
                 </tr>
               </table>
@@ -768,55 +1375,134 @@
                  valign="bottom"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   id="_idXXX"
-                   summary=""
+              <div
+                   class="af_navigationPane"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       valign="bottom"
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button1
-                    </a>
-                  </td>
-                  <td
-                       valign="bottom"
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button1
+                          </a>
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-separator"
+                            >
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button2
-                    </a>
-                  </td>
-                  <td
-                       valign="bottom"
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button2
+                          </a>
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-separator"
+                            >
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_buttons-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         class="af_menuButtons_text"
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      button3
-                    </a>
-                  </td>
-                </tr>
-              </table>
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_buttons-content"
+                            >
+                          
+                          <a
+                               href="#"
+                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
+                              >
+                            button3
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
           </tr>
           <tr
@@ -827,53 +1513,449 @@
                  valign="bottom"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="af_menuTabs"
-                   id="_idXXX"
-                   summary=""
+              <div
+                   class="af_navigationPaneTabs"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       class="af_menuTabs_enabled"
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab1
-                    </a>
-                  </td>
-                  <td
-                       class="af_menuTabs_enabled"
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-start"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-start-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab1
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end-join"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab2
-                    </a>
-                  </td>
-                  <td
-                       class="af_menuTabs_enabled"
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab2
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end-join"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class=""
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
                       >
                     
-                    <a
-                         onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                         href="uri-attr:encoded-action-url:#"
+                    <tr
                         >
-                      tab3
-                    </a>
-                  </td>
-                </tr>
-              </table>
+                      
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-mid"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  tab3
+                                </a>
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-mid"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td
+                          >
+                        
+                        <table
+                             border="0"
+                             cellpadding="0"
+                             cellspacing="0"
+                             class="af_navigationPaneTabs_tabs-inactive"
+                             summary=""
+                            >
+                          
+                          <tbody
+                              >
+                            
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-end"
+                                  >
+                                
+                              </td>
+                            </tr>
+                            <tr
+                                >
+                              
+                              <td
+                                   class="af_navigationPaneTabs_tabs-bottom-end"
+                                  >
+                                
+                                <div
+                                     class="af_navigationPaneTabs_tabs-bottom-end-content"
+                                    >
+                                  
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
             <td
                 >
@@ -892,81 +1974,134 @@
                  width="100%"
                 >
               
-              <table
-                   border="0"
-                   cellpadding="0"
-                   cellspacing="0"
-                   class="af_menuBar"
-                   id="_idXXX"
-                   summary=""
-                   width="100%"
+              <div
+                   class="af_navigationPane_bar"
                   >
                 
-                <tr
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
                     >
                   
-                  <td
-                       class="af_menuBar_body"
+                  <tbody
                       >
                     
-                    <table
-                         border="0"
-                         cellpadding="0"
-                         cellspacing="0"
-                         summary=""
+                    <tr
                         >
                       
-                      <tr
+                      <td
                           >
                         
-                        <td
-                             class="af_menuBar_enabled"
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar1
                           </a>
-                        </td>
-                        <td
-                             class="af_menuBar_separator"
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-separator"
                             >
-                          &#xa0;| 
-                        </td>
-                        <td
-                             class="af_menuBar_enabled"
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar2
                           </a>
-                        </td>
-                        <td
-                             class="af_menuBar_separator"
+                        </div>
+                      </td>
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-separator"
                             >
-                          &#xa0;| 
-                        </td>
-                        <td
-                             class="af_menuBar_enabled"
+                          |
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                     border="0"
+                     cellpadding="0"
+                     cellspacing="0"
+                     class="af_navigationPane_bar_bar-inactive-enabled"
+                     style="display: inline;"
+                     summary=""
+                    >
+                  
+                  <tbody
+                      >
+                    
+                    <tr
+                        >
+                      
+                      <td
+                          >
+                        
+                        <div
+                             class="af_navigationPane_bar_bar-content"
                             >
                           
                           <a
+                               href="#"
                                onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                               id="uri-attr:_idXXX:_idXXX"
+                               name="uri-attr:_idXXX:_idXXX"
                               >
                             bar3
                           </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </td>
           </tr>
         </table>
@@ -1011,61 +2146,140 @@
                        class="af_panelSideBar_body"
                       >
                     
-                    <ul
-                         class="OraStyledList"
-                         id="_idXXX"
-                         style="list-style-type:disc"
+                    <div
+                         class="af_navigationPane"
                         >
                       
-                      <li
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list1
-                          </a>
-                        </span>
-                      </li>
-                      <li
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list1
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list2
-                          </a>
-                        </span>
-                      </li>
-                      <li
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list2
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table
+                           border="0"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="af_navigationPane_list-inactive-enabled"
+                           summary=""
                           >
                         
-                        <span
-                             class="OraNav3"
+                        <tbody
                             >
                           
-                          <a
-                               class="OraLink"
-                               onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
-                               href="uri-attr:encoded-action-url:#"
+                          <tr
                               >
-                            list3
-                          </a>
-                        </span>
-                      </li>
-                    </ul>
+                            
+                            <td
+                                 class="af_navigationPane_list-bullet"
+                                >
+                              
+                              <div
+                                  >
+                                 
+                              </div>
+                            </td>
+                            <td
+                                >
+                              
+                              <div
+                                   class="af_navigationPane_list-content"
+                                  >
+                                
+                                <a
+                                     href="#"
+                                     onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                                     id="uri-attr:_idXXX:_idXXX"
+                                     name="uri-attr:_idXXX:_idXXX"
+                                    >
+                                  list3
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </td>
                 </tr>
               </table>

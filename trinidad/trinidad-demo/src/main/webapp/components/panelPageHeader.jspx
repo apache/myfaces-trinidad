@@ -42,20 +42,20 @@
                 </tr:panelGroupLayout>
               </f:facet>
               <f:facet name="navigationGlobal">
-                <tr:menuButtons>
+                <tr:navigationPane hint="buttons">
                   <tr:commandNavigationItem text="Help"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.commandGloablButton"/>
                   <tr:commandNavigationItem text="Help 2"
                                     icon="/components/images/globalhelp.gif"
                                     action="guide.commandGloablButton"/>
-                </tr:menuButtons>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation2">
-                <tr:menuBar >
-                  <tr:commandNavigationItem text="item 1" action="guide.menuBar" 
+                <tr:navigationPane hint="bar" >
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane" 
                                    selected="true" />
-                </tr:menuBar>
+                </tr:navigationPane>
               </f:facet>
             </tr:panelPageHeader>
             

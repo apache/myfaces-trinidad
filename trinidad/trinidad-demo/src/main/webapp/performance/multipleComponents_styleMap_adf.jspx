@@ -47,46 +47,46 @@
         
             <tr:panelPage binding="#{editor.component}">
               <f:facet name="navigation1">
-                <tr:menuTabs>
-                  <tr:commandNavigationItem text="tab 1" action="guide.menuTabs"/>
-                  <tr:commandNavigationItem text="tab 2" action="guide.menuTabs" 
+                <tr:navigationPane hint="tabs">
+                  <tr:commandNavigationItem text="tab 1" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 2" action="guide.navigationPane" 
                                    selected="true" />
-                  <tr:commandNavigationItem text="tab 3" action="guide.menuTabs"/>
-                  <tr:commandNavigationItem text="tab 4" action="guide.menuTabs"/>
-                  <tr:commandNavigationItem text="tab 5" action="guide.menuTabs"/>
-                  <tr:commandNavigationItem text="tab 6" action="guide.menuTabs"
+                  <tr:commandNavigationItem text="tab 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 4" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 5" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="tab 6" action="guide.navigationPane"
                                    disabled="true" />
-                </tr:menuTabs>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation2">
-                <tr:menuBar>
-                  <tr:commandNavigationItem text="item 1" action="guide.menuBar" 
+                <tr:navigationPane type="bar">
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane" 
                                    selected="true" />
-                  <tr:commandNavigationItem text="item 2" action="guide.menuBar"
+                  <tr:commandNavigationItem text="item 2" action="guide.navigationPane"
                                    disabled="true" />
-                  <tr:commandNavigationItem text="item 3" action="guide.menuBar"/>
-                  <tr:commandNavigationItem text="item 4" action="guide.menuBar"/>
-                </tr:menuBar>
+                  <tr:commandNavigationItem text="item 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.navigationPane"/>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation3">
-                <tr:menuList>
-                  <tr:commandNavigationItem text="item 1" action="guide.menuList" 
+                <tr:navigationPane hint="list">
+                  <tr:commandNavigationItem text="item 1" action="guide.navigationPane" 
                                    selected="true" />
-                  <tr:commandNavigationItem text="item 2" action="guide.menuList"
+                  <tr:commandNavigationItem text="item 2" action="guide.navigationPane"
                                    disabled="true" />
-                  <tr:commandNavigationItem text="item 3" action="guide.menuList"/>
-                  <tr:commandNavigationItem text="item 4" action="guide.menuList"/>
-                </tr:menuList>
+                  <tr:commandNavigationItem text="item 3" action="guide.navigationPane"/>
+                  <tr:commandNavigationItem text="item 4" action="guide.navigationPane"/>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="navigationGlobal">
-                <tr:menuButtons>
+                <tr:navigationPane hint="buttons">
                   <tr:commandNavigationItem text="help"
                                     icon="/components/images/globalhelp.gif"
-                                    action="guide.menuButtons"/>
+                                    action="guide.navigationPane"/>
                   <tr:commandNavigationItem text="help more"
                                     icon="/components/images/globalhelp.gif"
-                                    action="guide.menuButtons"/>
-                </tr:menuButtons>
+                                    action="guide.navigationPane"/>
+                </tr:navigationPane>
               </f:facet>
               <f:facet name="branding">
                 <tr:outputFormatted value="Customer &lt;b&gt;InContextBranding Company - Menlo Park&lt;/b&gt;"

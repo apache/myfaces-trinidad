@@ -25,12 +25,12 @@ import javax.faces.event.PhaseId;
  * @version $Name:  $ ($Revision$) $Date$
  * @author The Oracle ADF Faces Team
  */
-abstract public class UIXNavigationLevelTemplate extends UIXNavigaitonHierarchy
+abstract public class UIXNavigationLevelTemplate extends UIXNavigationHierarchy
 {
 /**/ // Abstract methods implemented by code gen
 /**/  abstract public int getLevel();
 
-	@Override
+  @Override
   protected void processFacetsAndChildren(
     FacesContext context,
     PhaseId phaseId)

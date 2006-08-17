@@ -1,7 +1,7 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad">
   <base-component tr:type="org.apache.myfaces.trinidad.CorePanelPageHeader">
-     <component tr:type="org.apache.myfaces.trinidad.CoreMenuTabs"
+     <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="tabs"
                 tr:facet="navigation1" >
         <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab1"/>
@@ -10,7 +10,7 @@
         <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                    text="tab3"/>
     </component>
-    <component tr:type="org.apache.myfaces.trinidad.CoreMenuBar"
+    <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="bar"
                    tr:facet="navigation2" >
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar1"/>
@@ -19,7 +19,7 @@
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="bar3"/>
      </component>
-   <component tr:type="org.apache.myfaces.trinidad.CoreMenuButtons"
+   <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="buttons"
                    tr:facet="navigationGlobal" >
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button1"/>
@@ -28,7 +28,7 @@
            <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                       text="button3"/>
     </component>
-     <component tr:type="org.apache.myfaces.trinidad.CoreMenuChoice"
+     <component tr:type="org.apache.myfaces.trinidad.CoreNavigationPane" hint="choice"
                      tr:facet="menuSwitch" >
              <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem"
                         text="choice1"/>

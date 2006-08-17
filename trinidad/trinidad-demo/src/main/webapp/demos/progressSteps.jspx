@@ -26,13 +26,13 @@
           <tr:panelPage>
           
             <f:facet name="navigationGlobal">
-             <tr:menuButtons>
+             <tr:navigationPane hint="buttons">
               <tr:commandNavigationItem 
                 text="Return to Feature Demos page"
                 immediate="true"
                 action="demos"
                 actionListener="#{progressSteps.cancelProcess}"/>
-             </tr:menuButtons>
+             </tr:navigationPane>
             </f:facet>
           <tr:panelHeader
              text="Progress steps demo using tr:forEach and BoundedRangeModel">

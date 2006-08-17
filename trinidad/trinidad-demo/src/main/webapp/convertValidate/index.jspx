@@ -23,11 +23,11 @@
         <tr:form>
           <tr:panelPage>
             <f:facet name="navigationGlobal">
-              <tr:menuButtons>
+              <tr:navigationPane type="buttons">
                <tr:commandNavigationItem text="Return to Feature Demos page"
                                        immediate="true"
                                        action="demos"/>
-              </tr:menuButtons>
+              </tr:navigationPane>
             </f:facet>
             <tr:panelHeader text="Converter and Validator Demos">
               <tr:panelGroupLayout layout="vertical">
