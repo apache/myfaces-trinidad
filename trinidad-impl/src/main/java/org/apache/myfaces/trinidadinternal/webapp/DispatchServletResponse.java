@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
+@SuppressWarnings("deprecation")
 public class DispatchServletResponse extends HttpServletResponseWrapper
 {
   public DispatchServletResponse(

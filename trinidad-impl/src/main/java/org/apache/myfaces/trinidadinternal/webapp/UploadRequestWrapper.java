@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidadinternal.share.util.CaboHttpUtils;
  *  to simply extract byte arrays, and do all the type conversion here.
  * @author The Oracle ADF Faces Team
  */
+@SuppressWarnings("deprecation")
 class UploadRequestWrapper extends HttpServletRequestWrapper
 {
   public UploadRequestWrapper(

@@ -22,6 +22,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+@SuppressWarnings("deprecation")
 public class ReplaceParametersRequestWrapper extends HttpServletRequestWrapper
 {
   public ReplaceParametersRequestWrapper(
