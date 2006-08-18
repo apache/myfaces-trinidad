@@ -23,7 +23,7 @@
         <tr:form>
           <tr:panelPage>
             <f:facet name="navigationGlobal">
-              <tr:navigationPane type="buttons">
+              <tr:navigationPane hint="buttons">
                <tr:commandNavigationItem text="Return to Feature Demos page"
                                        immediate="true"
                                        action="demos"/>

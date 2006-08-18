@@ -59,7 +59,7 @@
                 </tr:navigationPane>
               </f:facet>
               <f:facet name="navigation2">
-                <tr:navigationPane type="bar">
+                <tr:navigationPane hint="bar">
                   <tr:commandNavigationItem text="item 1" action="guide.navigationPane" 
                                    selected="true" />
                   <tr:commandNavigationItem text="item 2" action="guide.navigationPane"
