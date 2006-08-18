@@ -25,7 +25,7 @@
           <tr:panelPage>
             <tr:messages/>
             <f:facet name="navigationGlobal">
-              <tr:navigationPane type="buttons">
+              <tr:navigationPane hint="buttons">
                 <tr:commandNavigationItem text="Converters and Validators"
                                     action="convertValidateDemos"
                                     immediate="true"/>
