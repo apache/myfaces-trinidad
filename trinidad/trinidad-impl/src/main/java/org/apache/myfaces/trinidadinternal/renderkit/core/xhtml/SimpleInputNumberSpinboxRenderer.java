@@ -238,6 +238,8 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 
         rw.writeAttribute("onmousedown", mouseDownScript, null);
         rw.writeAttribute("onmouseup",  _CLEAR_SPINBOX_JS, null);
+        rw.writeAttribute("onmouseout",  _CLEAR_SPINBOX_JS, null);
+
       }
 
       // TODO resource bundle
