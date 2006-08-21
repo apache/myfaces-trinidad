@@ -187,9 +187,9 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
           null);
       }
       writer.writeAttribute(XhtmlConstants.ROWS_ATTRIBUTE, sizes, null);
+      
+      _renderFrameBorderAndSpacing(writer, bean);
     }
-
-    _renderFrameBorderAndSpacing(writer, bean);
 
     _encodeFacet(context, top);
 
@@ -218,10 +218,10 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
           null);
       }
       writer.writeAttribute(XhtmlConstants.COLS_ATTRIBUTE, sizes, null);
+      
+      _renderFrameBorderAndSpacing(writer, bean);
     }
-
-    _renderFrameBorderAndSpacing(writer, bean);
-
+    
     _encodeFacet(context, left);
     _encodeFacet(context, innerLeft);
     _encodeFacet(context, center);
@@ -242,12 +242,15 @@ public class FrameBorderLayoutRenderer extends XhtmlRenderer
       writer.endElement("frameset");
     }
 
-    writer.startElement("noframes", null);
+    
     UIComponent alternateContent = getFacet(component,
                                  HtmlFrameBorderLayout.ALTERNATE_CONTENT_FACET);
     if (alternateContent != null)
+    {
+      writer.startElement("noframes", null);	
       encodeChild(context, alternateContent);
-    writer.endElement("noframes");
+      writer.endElement("noframes");
+    }
 
     writer.endElement("frameset");
   }
