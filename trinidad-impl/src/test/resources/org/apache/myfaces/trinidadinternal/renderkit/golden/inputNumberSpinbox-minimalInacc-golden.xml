@@ -58,6 +58,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -81,6 +82,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -165,6 +167,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -188,6 +191,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -272,6 +276,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -295,6 +300,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -379,6 +385,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -402,6 +409,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -486,6 +494,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -509,6 +518,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -593,6 +603,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -616,6 +627,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -700,6 +712,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -723,6 +736,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -807,6 +821,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -830,6 +845,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -914,6 +930,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -937,6 +954,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1021,6 +1039,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1044,6 +1063,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1128,6 +1148,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1151,6 +1172,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1235,6 +1257,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1258,6 +1281,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1342,6 +1366,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1365,6 +1390,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1449,6 +1475,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1472,6 +1499,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1556,6 +1584,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1579,6 +1608,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1662,6 +1692,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1685,6 +1716,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1778,6 +1810,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1801,6 +1834,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1884,6 +1918,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1907,6 +1942,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -1990,6 +2026,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('id_val',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2013,6 +2050,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('id_val',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2097,6 +2135,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2120,6 +2159,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2203,6 +2243,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2226,6 +2267,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2311,6 +2353,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2334,6 +2377,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2417,6 +2461,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2440,6 +2485,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2524,6 +2570,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2547,6 +2594,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2630,6 +2678,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2653,6 +2702,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2741,6 +2791,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2764,6 +2815,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2847,6 +2899,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2870,6 +2923,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2959,6 +3013,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -2982,6 +3037,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3065,6 +3121,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3088,6 +3145,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3177,6 +3235,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3200,6 +3259,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3283,6 +3343,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3306,6 +3367,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3390,6 +3452,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3413,6 +3476,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3497,6 +3561,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3520,6 +3585,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3604,6 +3670,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3627,6 +3694,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3711,6 +3779,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3734,6 +3803,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3818,6 +3888,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3841,6 +3912,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3925,6 +3997,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -3948,6 +4021,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4032,6 +4106,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4055,6 +4130,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4139,6 +4215,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4162,6 +4239,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4246,6 +4324,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4269,6 +4348,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4353,6 +4433,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4376,6 +4457,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4460,6 +4542,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4483,6 +4566,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4567,6 +4651,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4590,6 +4675,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4674,6 +4760,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4697,6 +4784,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4781,6 +4869,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4804,6 +4893,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4887,6 +4977,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4910,6 +5001,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -4993,6 +5085,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5016,6 +5109,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5099,6 +5193,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5122,6 +5217,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5296,6 +5392,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5319,6 +5416,7 @@
                     <a
                          onclick="return false;"
                          onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                         onmouseout="_clearSpinbox();"
                          onmouseup="_clearSpinbox();"
                          href="uri-attr:#"
                         >
@@ -5417,6 +5515,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5440,6 +5539,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5503,6 +5603,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5526,6 +5627,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5589,6 +5691,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5612,6 +5715,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5675,6 +5779,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5698,6 +5803,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5761,6 +5867,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5784,6 +5891,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5847,6 +5955,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5870,6 +5979,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5933,6 +6043,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -5956,6 +6067,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6019,6 +6131,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6042,6 +6155,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6105,6 +6219,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6128,6 +6243,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6191,6 +6307,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6214,6 +6331,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6277,6 +6395,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6300,6 +6419,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6363,6 +6483,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6386,6 +6507,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6449,6 +6571,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6472,6 +6595,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6535,6 +6659,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6558,6 +6683,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6621,6 +6747,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6644,6 +6771,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6706,6 +6834,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6729,6 +6858,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6791,6 +6921,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6814,6 +6945,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6876,6 +7008,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -6899,6 +7032,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -7031,6 +7165,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',true,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
@@ -7054,6 +7189,7 @@
                 <a
                      onclick="return false;"
                      onmousedown="_spinboxRepeat('mainId',false,1,1,2147483647);"
+                     onmouseout="_clearSpinbox();"
                      onmouseup="_clearSpinbox();"
                      href="uri-attr:#"
                     >
