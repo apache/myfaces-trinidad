@@ -43,10 +43,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[longDescURL,http://bali.us.oracle.com]-->
 
@@ -95,10 +91,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[marginHeight,50]-->
 
@@ -147,10 +139,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[marginWidth,50]-->
 
@@ -199,10 +187,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[name,myName]-->
 
@@ -250,10 +234,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[scrolling,yes]-->
 
@@ -302,10 +282,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[scrolling,no]-->
 
@@ -354,10 +330,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[scrolling,auto]-->
 
@@ -406,10 +378,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[inlineStyle,background-color:blue]-->
 
@@ -458,10 +426,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[shortDesc,myShortDesc]-->
 
@@ -510,10 +474,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[styleClass,myStyle]-->
 
@@ -562,10 +522,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[height,30pt]-->
 
@@ -613,10 +569,6 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 <!--AttributeTest[width,30%]-->
 
@@ -664,9 +616,5 @@
         </frame>
       </frameset>
     </frameset>
-    <noframes
-        >
-      
-    </noframes>
   </frameset>
 </results>
