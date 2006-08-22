@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +31,8 @@ import java.io.PrintWriter;
 import java.util.Comparator;
 
 import java.util.List;
+
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
@@ -697,7 +701,16 @@ public class CSSGenerationUtils
     // get the part after the ::.
     // colonIndex will be 0 if there is no ::.
     if (colonIndex != -1)
+    {
+      if (_LOG.isWarning() &&
+          (wholeAfSelector.lastIndexOf("::") != colonIndex))
+      {
+        _LOG.warning("Consecutive sub-element (::) syntax used in selector " +
+                     selector + ".  This is not supported.");
+      }
+
       colonIndex += 2;
+    }
     else
       colonIndex = 0;
     String afterDoubleColon = wholeAfSelector.substring(colonIndex);
@@ -726,35 +739,36 @@ public class CSSGenerationUtils
       pieces.setMain(mainSelector);    
       String afterMain = wholeAfSelector.substring(colonIndex + endIndex-1);
       // afterMain includes the : or the .
-       // if I get a :, I know I'm in a pseudo-class. Keep getting characters
-       // until I'm at the end, or I get another : or .
-       boolean inPseudoClass = false;
-       StringBuffer pseudoClassBuffer = new StringBuffer();
-       for (int i=0; i < afterMain.length(); i++)
-       {
-         char x = afterMain.charAt(i);
-         if (x == '.')
-         {
-           inPseudoClass = false;
-           pieces.setEnd(afterMain.substring(i));
-           break;
-         }
-         else if (x == ':')
-         {
-           if (inPseudoClass)
-           {
-             // if I'm in a pseudo-class already, and I get a ':', that means
-             // i've got another pseudo-class. End the first one.
-              pieces.addPseudoClass(pseudoClassBuffer.toString());
-             pseudoClassBuffer = new StringBuffer();           
-           }
-           inPseudoClass = true;
-           pseudoClassBuffer.append(x);
-         }
-         else
-           pseudoClassBuffer.append(x);
-       }
-       pieces.addPseudoClass(pseudoClassBuffer.toString());
+      // if I get a :, I know I'm in a pseudo-class. Keep getting characters
+      // until I'm at the end, or I get another : or .
+      boolean inPseudoClass = false;
+      StringBuffer pseudoClassBuffer = new StringBuffer();
+      for (int i=0; i < afterMain.length(); i++)
+      {
+        char x = afterMain.charAt(i);
+        if (x == '.')
+        {
+          inPseudoClass = false;
+          pieces.setEnd(afterMain.substring(i));
+          break;
+        }
+        else if (x == ':')
+        {
+          if (inPseudoClass)
+          {
+            // if I'm in a pseudo-class already, and I get a ':', that means
+            // i've got another pseudo-class. End the first one.
+            pieces.addPseudoClass(pseudoClassBuffer.toString());
+            pseudoClassBuffer = new StringBuffer();           
+          }
+          inPseudoClass = true;
+          pseudoClassBuffer.append(x);
+        }
+        else
+          pseudoClassBuffer.append(x);
+      }
+      if (pseudoClassBuffer.length() > 0)
+        pieces.addPseudoClass(pseudoClassBuffer.toString());
     }
 
     // piece back together the string
@@ -781,11 +795,8 @@ public class CSSGenerationUtils
     List <String> pseudoClasses = pieces.getPseudoClasses();
     for (String pseudoClass : pseudoClasses )
     {
-      String mappedPseudoClass = map.get(pseudoClass);
-      if (mappedPseudoClass != null)
-        buffer.append(mappedPseudoClass);
-      else
-        buffer.append(pseudoClass);      
+      String mappedPseudoClass = _convertPseudoClass(pseudoClass);
+      buffer.append(mappedPseudoClass);
     }
 
     String endPiece = pieces.getEnd();
@@ -1077,4 +1088,38 @@ public class CSSGenerationUtils
       new PropertyNodeComparator();
   }
   
+  static private String _convertPseudoClass(String pseudoClass)
+  {
+    if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass))
+      return pseudoClass;
+    StringBuilder builder = new StringBuilder(pseudoClass.length() + 3);
+    builder.append(".p_AF");
+
+    for (String content : pseudoClass.substring(1).split("-"))
+    {
+      if (content.length() > 0)
+      {
+        builder.append(Character.toUpperCase(content.charAt(0)));
+        builder.append(content.substring(1));
+      }
+    }
+
+    return builder.toString();
+  }
+
+
+  // =-=AEW Do we care about built-in pseudo-elements???
+  static private final Set<String> _BUILT_IN_PSEUDO_CLASSES =
+    new HashSet<String>();
+  static
+  {
+    _BUILT_IN_PSEUDO_CLASSES.add(":first-child");
+    _BUILT_IN_PSEUDO_CLASSES.add(":link");
+    _BUILT_IN_PSEUDO_CLASSES.add(":visited");
+    _BUILT_IN_PSEUDO_CLASSES.add(":hover");
+    _BUILT_IN_PSEUDO_CLASSES.add(":active");
+    _BUILT_IN_PSEUDO_CLASSES.add(":focus");
+  }
+
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }

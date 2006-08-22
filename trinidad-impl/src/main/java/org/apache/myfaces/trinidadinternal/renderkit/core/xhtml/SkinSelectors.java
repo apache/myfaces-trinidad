@@ -436,17 +436,17 @@ public interface SkinSelectors
    
    // ============================ Style classes ============================ //
    public static final String AF_NAVIGATION_LEVEL_BAR_ACTIVE_DISABLED_STYLE_CLASS =
-     "af|navigationPane::bar::bar-active-disabled";
+     "af|navigationPane::bar-active-disabled";
    public static final String AF_NAVIGATION_LEVEL_BAR_ACTIVE_ENABLED_STYLE_CLASS =
-     "af|navigationPane::bar::bar-active-enabled";
+     "af|navigationPane::bar-active-enabled";
    public static final String AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS =
-     "af|navigationPane::bar::bar-content";
+     "af|navigationPane::bar-content";
    public static final String AF_NAVIGATION_LEVEL_BAR_INACTIVE_DISABLED_STYLE_CLASS =
-     "af|navigationPane::bar::bar-inactive-disabled";
+     "af|navigationPane::bar-inactive-disabled";
    public static final String AF_NAVIGATION_LEVEL_BAR_INACTIVE_ENABLED_STYLE_CLASS =
-     "af|navigationPane::bar::bar-inactive-enabled";
+     "af|navigationPane::bar-inactive-enabled";
    public static final String AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS =
-     "af|navigationPane::bar::bar-separator";
+     "af|navigationPane::bar-separator";
    public static final String AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS =
      "af|navigationPane::bar";
    public static final String AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_DISABLED_STYLE_CLASS =
@@ -490,42 +490,40 @@ public interface SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
-   // -= Simon =-
-   // FIXME: Is af|navigationPaneTabs ok? Shouldn't it be af|navigationPane::tabs?
    public static final String AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-active";
+     "af|navigationPane::tabs-active";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-end-content";
+     "af|navigationPane::tabs-bottom-end-content";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_JOIN_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-end-join";
+     "af|navigationPane::tabs-bottom-end-join";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-end";
+     "af|navigationPane::tabs-bottom-end";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-mid-content";
+     "af|navigationPane::tabs-bottom-mid-content";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-mid";
+     "af|navigationPane::tabs-bottom-mid";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-start";
+     "af|navigationPane::tabs-bottom-start";
    public static final String AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-bottom-start-content";
+     "af|navigationPane::tabs-bottom-start-content";
    public static final String AF_NAVIGATION_LEVEL_TABS_END_JOIN_TO_INACTIVE_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-end-join-to-inactive";
+     "af|navigationPane::tabs-end-join-to-inactive";
    public static final String AF_NAVIGATION_LEVEL_TABS_END_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-end";
+     "af|navigationPane::tabs-end";
    public static final String AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-inactive";
+     "af|navigationPane::tabs-inactive";
    public static final String AF_NAVIGATION_LEVEL_TABS_MID_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-mid";
+     "af|navigationPane::tabs-mid";
    public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_ACTIVE_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-start-join-from-active";
+     "af|navigationPane::tabs-start-join-from-active";
    public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_INACTIVE_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-start-join-from-inactive";
+     "af|navigationPane::tabs-start-join-from-inactive";
    public static final String AF_NAVIGATION_LEVEL_TABS_START_JOIN_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-start-join";
+     "af|navigationPane::tabs-start-join";
    public static final String AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS =
-     "af|navigationPaneTabs::tabs-start";
+     "af|navigationPane::tabs-start";
    public static final String AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS =
-     "af|navigationPaneTabs";
+     "af|navigationPane::tabs";
 
    
    //                                                                         //
