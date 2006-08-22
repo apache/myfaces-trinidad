@@ -19,9 +19,9 @@
   base-desktop.xss defines all of the base styles for the Simple skins
 -->
 
-<!-- DO NOT CHANGE THE DOCUMENT VERSION FROM ${version} -->
+<!-- DO NOT CHANGE THE DOCUMENT VERSION FROM ${trinidad-version} -->
 <styleSheetDocument xmlns="http://myfaces.apache.org/uix/style"
-                    documentVersion="${version}"
+                    documentVersion="${trinidad-version}"
                     version="2.0">
 
 <!-- 
