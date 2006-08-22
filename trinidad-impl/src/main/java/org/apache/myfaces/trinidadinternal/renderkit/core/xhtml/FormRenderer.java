@@ -676,55 +676,7 @@ public class FormRenderer extends XhtmlRenderer
 
         writer.writeText("};", null);
 
-      }
-
-      // =-= jrf: optimize pattern reuse?
-      // BUG 2024773
-
-      Map<String, String> patternMap = fData.getPatternMap(false);
-
-      if (patternMap != null)
-      {
-        writer.writeText("var _", null);
-        writer.writeText(jsID, null);
-        writer.writeText("_Patterns={", null);
-
-        boolean firstPattern = true;
-
-        for (int i = 0; i < inputCount; i++)
-        {
-          String currID = inputList.get(i);
-
-          // remove the ID entry to prevent multiple labels from
-          // being written
-          String currPattern = patternMap.remove(currID);
-
-          if (currPattern != null)
-          {
-            if (firstPattern)
-            {
-              firstPattern = false;
-            }
-            else
-            {
-              // write the separator every time except the first time
-              writer.writeText(",", null);
-            }
-
-            // write the ID of the validated field as the key
-            writer.writeText("\'", null);
-            writer.writeText(currID, null);
-            writer.writeText("\':\'", null);
-
-            // write the label of the validated field as the value
-            writer.writeText(XhtmlUtils.escapeJS(currPattern), null);
-            writer.writeText("\'", null);
-          }
-        }
-
-        writer.writeText("};", null);
-
-      }
+      }    
     }
 
     //
@@ -888,23 +840,6 @@ public class FormRenderer extends XhtmlRenderer
   }
 
 
-  /**
-   * Add a mapping of an input element ID to a pattern String. If there is a
-   * client-side error regarding the form element with the given ID, the given
-   * pattern will be used in the client-side error message.
-   * @param targetID the ID of the form element
-   * @param pattern the pattern that describes the form element
-   * <code>targetID</code>
-   */
-  public static void addPatternMapping(
-    String           targetID,
-    String           pattern
-    )
-  {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
-    fData.addPattern(targetID, pattern);
-  }
-
   public static String getDefaultCommandId(
   )
   {
@@ -1059,10 +994,8 @@ public class FormRenderer extends XhtmlRenderer
 
   /**
    * Render each "needed" FormValue that hasn't already
-   * been rendered.  Called by FormRenderer.postrender().
-   * @param formName the name of the form. Only hidden form values "needed"
-   *  by this form are rendered.
-   * @see FormRenderer#postrender(RenderingContext, UINode)
+   * been rendered.  Called by FormRenderer.postrender(). 
+   * @see FormRenderer#encodeEnd(FacesContext,RenderingContext, UIComponent, FacesBean)
    */
   static private void _renderNeededValues(
     FacesContext        context,

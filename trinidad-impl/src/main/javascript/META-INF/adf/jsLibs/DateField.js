@@ -256,10 +256,14 @@ function _dfgv(dateField)
 {
   if (dateField.value != "")
   {
-    var value = _getDateFieldFormat(dateField).getAsObject(dateField.value);
-    
-    if (!_instanceof(value, ConverterException))
+    try{
+      var value = _getDateFieldFormat(dateField).getAsObject(dateField.value);      
       return value;
+    }
+    catch (e)
+    {
+      // no-op
+    }    
   }
 
   return null;

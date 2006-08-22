@@ -32,17 +32,24 @@ function _cfsw(
 {
   var cff = _getColorFieldFormat(colorField);
   var swatchID = colorField.name + "$sw";
-  var value = (void 0);
+  var value = null;
   var swatch = _getElementById(document, swatchID);
 
   if (swatch != (void 0))
   {
+    var converterError = false;
     if (colorField.value != "")
-    {
-      value = cff.getAsObject(colorField.value);
+    {      
+      try
+      {
+        value = cff.getAsObject(colorField.value);
+      }
+      catch (e)
+      {
+        // no-op
+      }
     }
-
-    if (!_instanceof(value, ConverterException))
+    if (value != null)
     {
       if (value.alpha == 0)
       {
@@ -280,17 +287,23 @@ function _lcp(
   if (colorField.value != "")
   {
     var format = _getColorFieldFormat(colorField);
-    var color = format.getAsObject(colorField.value);
-
-    if (!_instanceof(color, ConverterException))
+    try
     {
-      destination += "&value=";
+      var color = format.getAsObject(colorField.value);
+      if (color != null)
+      {
+        destination += "&value=";
 
-      // escape due to '#' in color code, or possible spaces in _cfTrans
-      if (color.alpha == 0)
-        destination += escape(_cfTrans);
-      else
-        destination += escape(new RGBColorFormat(pattern).getAsString(color));
+        // escape due to '#' in color code, or possible spaces in _cfTrans
+        if (color.alpha == 0)
+          destination += escape(_cfTrans);
+        else
+          destination += escape(new RGBColorFormat(pattern).getAsString(color));
+      }
+    }
+    catch (e)
+    {
+      // no-op 
     }
   }
 

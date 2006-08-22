@@ -147,6 +147,15 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     int size = 19 + patternsArgSize + 19;
     StringBuffer sb = new StringBuffer(size);
 
+    StringBuffer patterns = new StringBuffer();
+    String[] setPatterns = getPatterns();
+    for (int i = 0; i < setPatterns.length ; i++)
+    {
+      patterns.append(setPatterns[i]);
+      patterns.append(' ');
+    }
+    String patternsString = patterns.toString();
+
     sb.append("new RGBColorFormat(");
 
     _appendPatternsArg(sb);
@@ -162,7 +171,8 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     
     String msg = _getConvertMessageDetail(context);
     sb.append(XhtmlLafUtils.escapeJS(msg)); 
-
+    sb.append("','");
+    sb.append(XhtmlLafUtils.escapeJS(patternsString));
     sb.append("')");
 
     return sb.toString();
@@ -238,16 +248,9 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
   {
     String convMsgDet = getConvertMessageDetail();
 
-    StringBuffer patterns = new StringBuffer();
-    String[] setPatterns = getPatterns();
-    for (int i = 0; i < setPatterns.length ; i++)
-    {
-      patterns.append(setPatterns[i]);
-      patterns.append(' ');
-    }
-    
+   
     // will get replaced in javascript
-    Object[] params = new Object[] {"{0}", "{1}", patterns.toString()};
+    Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
                                            convMsgDet, params).getDetail();
@@ -255,5 +258,5 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
   
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "ColorFormat()" );
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorConverter.class);
-  private static final Object _PATTERN_WRITTEN_KEY = new Object();
+  private static final Object _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.ColorConverter._PATTERN_WRITTEN";
 }

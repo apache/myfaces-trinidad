@@ -33,7 +33,6 @@ import javax.faces.el.ValueBinding;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;
@@ -155,9 +154,6 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
     if (clientId != null)
     {
-      // BUG 2024773
-      FormRenderer.addPatternMapping( clientId,
-                                      getExample(context));
       // =-=AEW Only if Javascript...
       // -= Simon Lessard =-
       // FIXME: JSF 1.2 specifies <String, Object>
@@ -218,18 +214,21 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
       if (pattern == null)
         pattern = getSecondaryPattern();
-
-      Object[] params = new Object[] {"{0}", "{1}", getExample(context)};
+      Object[] params = new Object[] {"{0}", "{1}", "{2}"};
       String msg = getParseErrorMessage(context, component,
                                         pattern, params).getDetail();
       String message = XhtmlLafUtils.escapeJS(msg);
-                                                  
-      StringBuffer outBuffer = new StringBuffer(30 + jsPattern.length() +
-                                                message.length());
+      String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
+      
+      StringBuffer outBuffer = new StringBuffer(33 + jsPattern.length() +
+                                                message.length() +
+                                                exampleString.length());
       outBuffer.append("new SimpleDateFormat("); // 21
       outBuffer.append(jsPattern);               // jsPattern.length
       outBuffer.append(",null,'");               // 7
-      outBuffer.append(message);                 // message.length
+      outBuffer.append(message);                 // message.length/
+      outBuffer.append("','");                   // 3
+      outBuffer.append(exampleString);           // exampleString.length
       outBuffer.append("')");                    // 2
 
       return outBuffer.toString();
@@ -511,7 +510,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
   // RenderingContext key indicating the _dateFormat object
   // has been created
-  private static final Object _PATTERN_WRITTEN_KEY = new Object();
+  private static final Object _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.DateTimeConverter._PATTERN_WRITTEN";
 
   // String indicating that NO_JS_PATTERN is available
   private static final String _NO_JS_PATTERN = new String();

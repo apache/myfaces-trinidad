@@ -48,7 +48,7 @@ function _cjkParse(
    
     if (length < 0)
     {
-      return new ValidatorException(this._messages[this.LF]);     
+      throw new ValidatorException(this._messages[this.LF]);     
     }
 
     i++;
@@ -96,7 +96,7 @@ function _utf8Parse(
 
     if (length < 0)
     {
-      return new ValidatorException(this._messages[this.LF]);            
+      throw new ValidatorException(this._messages[this.LF]);            
     }
 
     i++;
@@ -128,7 +128,7 @@ function _sbParse(
 {
   if (this._length < parseString.length)
   {
-    return new ValidatorException(this._messages[this.LF]);    
+    throw new ValidatorException(this._messages[this.LF]);    
   }
 
   return parseString;

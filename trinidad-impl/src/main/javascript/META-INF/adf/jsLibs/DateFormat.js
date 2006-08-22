@@ -74,12 +74,20 @@ function _simpleDateParse(
     var i;
     for (i = 0; i < pattern.length; i++)
     {
-      var date = _simpleDateParseImpl(parseString,
-                                      pattern[i],
-                                      this._localeSymbols,
-                                      this._msg);
-      if ( !_instanceof(date, ConverterException)|| i == pattern.length-1 )
+      try{
+        var date = _simpleDateParseImpl(parseString,
+                                        pattern[i],
+                                        this._localeSymbols,
+                                        this._msg);
         return date;
+      }
+      catch (e)
+      {
+        // if we're not on the last pattern try the next one, 
+        // but if we're on the last pattern, throw the exception
+        if ( i == pattern.length-1 )
+          throw e;
+      }
     }
   }
 }
@@ -116,7 +124,7 @@ function _simpleDateParseImpl(
   {
     if (parseString.length != parseContext.currIndex)
     {
-      return parseContext.parseException;
+      throw parseContext.parseException;
     }
 
     // Set the parsed year, if any;  adjust for AD vs. BC
@@ -175,7 +183,7 @@ function _simpleDateParseImpl(
     // now we check for strictness
     if (!_isStrict(parseContext, parsedTime))
     {
-      return parseContext.parseException;
+      throw parseContext.parseException;
     }
 
     return parsedTime;
@@ -183,7 +191,7 @@ function _simpleDateParseImpl(
   else
   {
     // failure
-    return parseContext.parseException;
+    throw parseContext.parseException;
   }
 }
 
@@ -1238,12 +1246,22 @@ function _initPatterns(
 function SimpleDateFormat(
   pattern,  
   locale,
-  msg
+  msg,
+  exampleString
   )
 {
   // for debugging
   this._class = "SimpleDateFormat";
-  this._msg = msg;
+  
+  // format the error string
+  //   {2}    a legal example
+  if (msg != null)
+  {
+    this._msg = _formatErrorString(msg,
+                                   { 
+                                     "2":exampleString
+                                   });
+  }
   
   // save the Locale elements for the specified locale, or client locale
   // if no locale is specified
