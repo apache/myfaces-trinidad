@@ -62,6 +62,21 @@ public class StyleSheetDocumentParser extends BaseNodeParser
     Attributes   attrs) throws SAXParseException
   {
     _documentVersion = attrs.getValue(DOCUMENT_VERSION_ATTR);
+    // If the document version is ${trinidad-version}, replace it
+    // with the version number right out of our manifest
+    if ("${trinidad-version}".equals(_documentVersion))
+    {
+      Class<StyleSheetDocumentParser> implClass = StyleSheetDocumentParser.class;
+      Package implPkg = implClass.getPackage();
+      if ((implPkg != null) && (implPkg.getImplementationVersion() != null))
+      {
+        _documentVersion = implPkg.getImplementationVersion().replace('.','_');
+      }
+      else
+      {
+        _documentVersion = "unknown-version";
+      }
+    }
   }
 
   /**
