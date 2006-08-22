@@ -31,10 +31,13 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 public class AgentFactoryImpl implements AgentFactory
 {
 
-  public Agent createAgent(String userAgent, String accept)
+
+  public Agent createAgent(Map<String, String> headerMap)
   {
+    // this method primarily exists for use during testing
+    
     AgentImpl agent = new AgentImpl();
-    _populateAgentImpl(userAgent,accept,agent);
+    _populateAgentImpl(headerMap,agent);
     return agent;
   }
 
@@ -62,6 +65,7 @@ public class AgentFactoryImpl implements AgentFactory
 
   private void _populateAgentImpl(Map<String, String> headerMap, AgentImpl agent)
   {
+    
     String userAgent = headerMap.get("User-Agent");
 
     if ((userAgent != null) && userAgent.startsWith("PTG"))
@@ -71,23 +75,8 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
-    // determine the agent from the headers
-    _populateAgentImpl(userAgent, headerMap.get("Accept"), agent);
-  }
+    String accept = headerMap.get("Accept");
 
-  private void _populateAgentImpl(
-      String userAgent, 
-      String accept, 
-      AgentImpl agent)
-  {
-    /* for testing PocketPC */
-
-    //PPC 02
-    //userAgent = "Mozilla/2.0 (compatible; MSIE 3.02; Windows CE; PPC; 240x320)";
-    // PPC 03
-    //userAgent = "Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)";
-    // Web Pro
-    //userAgent = "Mozilla/4.76 (compatible; MSIE 6.0; U; Windows 95; PalmSource; PalmOS; WebPro; Tungsten Proxyless 1.1 320x320x16)";
     // See if the agent wants WML - if so, we're talking WAP.
     if ((accept != null) &&
         accept.regionMatches(true, 0, "vnd.wap.wml", 0, 11))
@@ -101,6 +90,7 @@ public class AgentFactoryImpl implements AgentFactory
       _populateNullAgentImpl(userAgent, agent);
       return;
     }
+    
     //the useragent string for telnet and PDA design time will start with
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
@@ -141,6 +131,8 @@ public class AgentFactoryImpl implements AgentFactory
       return;
     }
 
+    // Web Pro
+    //userAgent = "Mozilla/4.76 (compatible; MSIE 6.0; U; Windows 95; PalmSource; PalmOS; WebPro; Tungsten Proxyless 1.1 320x320x16)";
     if ( (userAgent.indexOf( "WebPro") != -1 &&
           userAgent.indexOf("Palm")!= -1)||
          userAgent.indexOf("Blazer/3.") != -1)
@@ -159,9 +151,16 @@ public class AgentFactoryImpl implements AgentFactory
     }
 */
 
+    //PPC 02
+    //userAgent = "Mozilla/2.0 (compatible; MSIE 3.02; Windows CE; PPC; 240x320)";
+    // PPC 03
+    //userAgent = "Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)";
     if (userAgent.indexOf("Windows CE") != -1)
     {
-      _populatePocketPCAgentImpl(userAgent,agent);
+      // for PocketPC and Windows Mobile, try to grab the header UA-pixels to 
+      // determine width/height
+      String uaPixels = headerMap.get("UA-pixels");
+      _populatePocketPCAgentImpl(userAgent,uaPixels,agent);
       return;
     }
 
@@ -326,7 +325,7 @@ public class AgentFactoryImpl implements AgentFactory
   /**
    * populates data from a PocketPC IE request
    */
-  private void _populatePocketPCAgentImpl(String agent,AgentImpl agentObj)
+  private void _populatePocketPCAgentImpl(String agent,String uaPixels,AgentImpl agentObj)
   {
     int start = agent.indexOf("MSIE");
     String version = null;
@@ -339,6 +338,41 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setAgent(Agent.AGENT_IE);
     agentObj.setAgentVersion(version);
     agentObj.setPlatform(Agent.PLATFORM_PPC);
+    
+    if(uaPixels != null && uaPixels.length() > 0)
+    {
+      // UA-pixels is defined as <width>x<height>
+      // UA-pixels was proposed here
+      // http://www.watersprings.org/pub/id/draft-mutz-http-attributes-00.txt
+      // and it is used by Pocket IE and IE Mobile; see
+      // http://blogs.msdn.com/iemobile/archive/2006/08/03/Detecting_IE_Mobile.aspx
+      Integer width = null;
+      Integer height = null;
+
+      String[] parts = uaPixels.split("x");
+      if(parts.length == 2)
+      {
+        try
+        {
+          width = new Integer(parts[0]);
+          height = new Integer(parts[1]);
+        }
+        catch(NumberFormatException ex)
+        {
+          _LOG.fine(ex);
+        }
+      }
+      
+      if(width != null && height != null)
+      {
+        agentObj.__addRequestCapability(TrinidadAgent.CAP_WIDTH,width);
+        agentObj.__addRequestCapability(TrinidadAgent.CAP_HEIGHT,height);
+      }
+      else
+      {
+        _LOG.fine("When creating the Agent, the UA-pixels value \"{0}\" could not be parsed.", uaPixels);
+      }
+    }
   }
   
     /**

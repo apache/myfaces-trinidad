@@ -15,7 +15,5 @@
   limitations under the License.
 -->
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
-  <capability name="width" value="229"/>
-  <capability name="height" value="255"/>
   <capability name="-adfinternal-valign" value="true"/>
 </capabilityData>

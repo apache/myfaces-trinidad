@@ -362,6 +362,8 @@ public class SimpleInputColorRenderer
   @Override
   protected Integer getDefaultColumns(RenderingContext arc, FacesBean bean)
   {
+    Integer columnsInteger = null;
+    
     Converter converter = getConverter(bean);
 
     // Ignoring the "default" converter code is intentional;  we'll just
@@ -369,10 +371,15 @@ public class SimpleInputColorRenderer
     if (converter instanceof ColorConverter)
     {
       int columns = ((ColorConverter) converter).getColumns(FacesContext.getCurrentInstance());
-      return IntegerUtils.getInteger(columns);
+      columnsInteger = IntegerUtils.getInteger(columns);
     }
-
-    return _DEFAULT_COLUMNS;
+    else
+    {
+      columnsInteger = _DEFAULT_COLUMNS;
+    }
+    
+    columnsInteger = getColumnsAdjustedForAgent(arc,bean,columnsInteger);
+    return columnsInteger;
   }
 
   @Override
