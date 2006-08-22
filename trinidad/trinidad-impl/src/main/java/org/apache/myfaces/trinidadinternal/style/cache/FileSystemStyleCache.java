@@ -1557,12 +1557,14 @@ public class FileSystemStyleCache implements StyleProvider
     _STYLE_KEY_MAP.put("af|panelTabbed::tab-selected-link",
         "af|panelTabbed::tab-selected A");
 
+    /*
     _STYLE_KEY_MAP.put(":read-only",
                        ".p_AFReadOnly");
     _STYLE_KEY_MAP.put(":disabled",
                        ".p_AFDisabled");
     _STYLE_KEY_MAP.put(":error",
                        ".p_AFError");
+    */
   }
   private static final String AF_STYLE_NAMESPACE = "af|";
 }

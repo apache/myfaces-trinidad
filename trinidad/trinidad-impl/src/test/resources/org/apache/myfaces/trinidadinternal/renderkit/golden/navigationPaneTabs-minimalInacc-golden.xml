@@ -1,6 +1,6 @@
 <results>
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
           >
         
@@ -26,7 +26,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -36,7 +36,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -45,11 +45,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -65,7 +65,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -75,7 +75,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -92,11 +92,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -112,7 +112,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -122,7 +122,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -131,11 +131,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -169,7 +169,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -179,7 +179,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -188,11 +188,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -208,7 +208,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -218,7 +218,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -235,11 +235,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -255,7 +255,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -265,7 +265,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -274,11 +274,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -312,7 +312,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -322,7 +322,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -331,11 +331,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -351,7 +351,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -361,7 +361,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -378,11 +378,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -398,7 +398,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -408,7 +408,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -417,11 +417,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -437,7 +437,7 @@
 <!--AttributeTest[id,myid]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="myid"
           >
         
@@ -463,7 +463,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -473,7 +473,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -482,11 +482,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -502,7 +502,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -512,7 +512,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -529,11 +529,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -549,7 +549,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -559,7 +559,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -568,11 +568,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -606,7 +606,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -616,7 +616,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -625,11 +625,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -645,7 +645,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -655,7 +655,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -672,11 +672,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -692,7 +692,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -702,7 +702,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -711,11 +711,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -749,7 +749,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -759,7 +759,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -768,11 +768,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -788,7 +788,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -798,7 +798,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -815,11 +815,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -835,7 +835,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -845,7 +845,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -854,11 +854,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -874,7 +874,7 @@
 <!--AttributeTest[shortDesc,my short desc]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            title="my short desc"
           >
@@ -901,7 +901,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -911,7 +911,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -920,11 +920,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -940,7 +940,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -950,7 +950,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -967,11 +967,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -987,7 +987,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -997,7 +997,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -1006,11 +1006,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1044,7 +1044,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1054,7 +1054,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -1063,11 +1063,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1083,7 +1083,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1093,7 +1093,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1110,11 +1110,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1130,7 +1130,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1140,7 +1140,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -1149,11 +1149,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1187,7 +1187,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1197,7 +1197,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -1206,11 +1206,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1226,7 +1226,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1236,7 +1236,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1253,11 +1253,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1273,7 +1273,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1283,7 +1283,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -1292,11 +1292,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1312,7 +1312,7 @@
 <!--AttributeTest[onclick,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onclick="test-onclick"
           >
@@ -1339,7 +1339,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1349,7 +1349,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -1358,11 +1358,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -1378,7 +1378,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1388,7 +1388,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1405,11 +1405,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1425,7 +1425,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1435,7 +1435,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -1444,11 +1444,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1482,7 +1482,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1492,7 +1492,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -1501,11 +1501,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1521,7 +1521,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1531,7 +1531,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1548,11 +1548,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1568,7 +1568,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1578,7 +1578,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -1587,11 +1587,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1625,7 +1625,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1635,7 +1635,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -1644,11 +1644,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1664,7 +1664,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1674,7 +1674,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1691,11 +1691,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1711,7 +1711,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1721,7 +1721,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -1730,11 +1730,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1750,7 +1750,7 @@
 <!--AttributeTest[ondblclick,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            ondblclick="test-ondblclick"
           >
@@ -1777,7 +1777,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1787,7 +1787,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -1796,11 +1796,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -1816,7 +1816,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1826,7 +1826,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1843,11 +1843,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1863,7 +1863,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1873,7 +1873,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -1882,11 +1882,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -1920,7 +1920,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1930,7 +1930,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -1939,11 +1939,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -1959,7 +1959,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -1969,7 +1969,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -1986,11 +1986,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2006,7 +2006,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2016,7 +2016,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -2025,11 +2025,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2063,7 +2063,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2073,7 +2073,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -2082,11 +2082,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2102,7 +2102,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2112,7 +2112,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2129,11 +2129,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2149,7 +2149,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2159,7 +2159,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -2168,11 +2168,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2188,7 +2188,7 @@
 <!--AttributeTest[onkeydown,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onkeydown="test-onkeydown"
           >
@@ -2215,7 +2215,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2225,7 +2225,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -2234,11 +2234,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -2254,7 +2254,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2264,7 +2264,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2281,11 +2281,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2301,7 +2301,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2311,7 +2311,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -2320,11 +2320,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2358,7 +2358,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2368,7 +2368,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -2377,11 +2377,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2397,7 +2397,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2407,7 +2407,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2424,11 +2424,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2444,7 +2444,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2454,7 +2454,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -2463,11 +2463,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2501,7 +2501,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2511,7 +2511,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -2520,11 +2520,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2540,7 +2540,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2550,7 +2550,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2567,11 +2567,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2587,7 +2587,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2597,7 +2597,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -2606,11 +2606,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2626,7 +2626,7 @@
 <!--AttributeTest[onkeypress,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onkeypress="test-onkeypress"
           >
@@ -2653,7 +2653,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2663,7 +2663,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -2672,11 +2672,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -2692,7 +2692,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2702,7 +2702,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2719,11 +2719,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2739,7 +2739,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2749,7 +2749,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -2758,11 +2758,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2796,7 +2796,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2806,7 +2806,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -2815,11 +2815,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2835,7 +2835,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2845,7 +2845,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -2862,11 +2862,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2882,7 +2882,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2892,7 +2892,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -2901,11 +2901,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -2939,7 +2939,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2949,7 +2949,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -2958,11 +2958,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -2978,7 +2978,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -2988,7 +2988,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3005,11 +3005,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3025,7 +3025,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3035,7 +3035,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -3044,11 +3044,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3064,7 +3064,7 @@
 <!--AttributeTest[onkeyup,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onkeyup="test-onkeyup"
           >
@@ -3091,7 +3091,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3101,7 +3101,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -3110,11 +3110,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -3130,7 +3130,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3140,7 +3140,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3157,11 +3157,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3177,7 +3177,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3187,7 +3187,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -3196,11 +3196,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3234,7 +3234,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3244,7 +3244,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -3253,11 +3253,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3273,7 +3273,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3283,7 +3283,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3300,11 +3300,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3320,7 +3320,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3330,7 +3330,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -3339,11 +3339,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3377,7 +3377,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3387,7 +3387,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -3396,11 +3396,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3416,7 +3416,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3426,7 +3426,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3443,11 +3443,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3463,7 +3463,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3473,7 +3473,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -3482,11 +3482,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3502,7 +3502,7 @@
 <!--AttributeTest[onmousedown,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onmousedown="test-onmousedown"
           >
@@ -3529,7 +3529,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3539,7 +3539,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -3548,11 +3548,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -3568,7 +3568,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3578,7 +3578,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3595,11 +3595,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3615,7 +3615,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3625,7 +3625,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -3634,11 +3634,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3672,7 +3672,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3682,7 +3682,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -3691,11 +3691,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3711,7 +3711,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3721,7 +3721,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3738,11 +3738,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3758,7 +3758,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3768,7 +3768,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -3777,11 +3777,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3815,7 +3815,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3825,7 +3825,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -3834,11 +3834,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3854,7 +3854,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3864,7 +3864,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -3881,11 +3881,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -3901,7 +3901,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3911,7 +3911,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -3920,11 +3920,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -3940,7 +3940,7 @@
 <!--AttributeTest[onmousemove,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onmousemove="test-onmousemove"
           >
@@ -3967,7 +3967,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -3977,7 +3977,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -3986,11 +3986,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -4006,7 +4006,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4016,7 +4016,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4033,11 +4033,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4053,7 +4053,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4063,7 +4063,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -4072,11 +4072,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4110,7 +4110,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4120,7 +4120,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -4129,11 +4129,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4149,7 +4149,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4159,7 +4159,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4176,11 +4176,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4196,7 +4196,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4206,7 +4206,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -4215,11 +4215,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4253,7 +4253,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4263,7 +4263,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -4272,11 +4272,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4292,7 +4292,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4302,7 +4302,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4319,11 +4319,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4339,7 +4339,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4349,7 +4349,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -4358,11 +4358,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4378,7 +4378,7 @@
 <!--AttributeTest[onmouseout,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onmouseout="test-onmouseout"
           >
@@ -4405,7 +4405,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4415,7 +4415,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -4424,11 +4424,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -4444,7 +4444,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4454,7 +4454,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4471,11 +4471,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4491,7 +4491,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4501,7 +4501,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -4510,11 +4510,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4548,7 +4548,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4558,7 +4558,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -4567,11 +4567,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4587,7 +4587,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4597,7 +4597,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4614,11 +4614,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4634,7 +4634,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4644,7 +4644,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -4653,11 +4653,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4691,7 +4691,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4701,7 +4701,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -4710,11 +4710,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4730,7 +4730,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4740,7 +4740,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4757,11 +4757,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4777,7 +4777,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4787,7 +4787,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -4796,11 +4796,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4816,7 +4816,7 @@
 <!--AttributeTest[onmouseover,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onmouseover="test-onmouseover"
           >
@@ -4843,7 +4843,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4853,7 +4853,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -4862,11 +4862,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -4882,7 +4882,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4892,7 +4892,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -4909,11 +4909,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -4929,7 +4929,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4939,7 +4939,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -4948,11 +4948,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -4986,7 +4986,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -4996,7 +4996,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -5005,11 +5005,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5025,7 +5025,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5035,7 +5035,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -5052,11 +5052,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5072,7 +5072,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5082,7 +5082,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -5091,11 +5091,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -5129,7 +5129,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5139,7 +5139,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -5148,11 +5148,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5168,7 +5168,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5178,7 +5178,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -5195,11 +5195,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5215,7 +5215,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5225,7 +5225,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -5234,11 +5234,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -5254,7 +5254,7 @@
 <!--AttributeTest[onmouseup,null]-->
 
       <div
-           class="af_navigationPaneTabs"
+           class="af_navigationPane_tabs"
            id="mainId"
            onmouseup="test-onmouseup"
           >
@@ -5281,7 +5281,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5291,7 +5291,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start"
+                           class="af_navigationPane_tabs-start"
                           >
                         
                       </td>
@@ -5300,11 +5300,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-start"
+                           class="af_navigationPane_tabs-bottom-start"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-start-content"
+                             class="af_navigationPane_tabs-bottom-start-content"
                             >
                           
                         </div>
@@ -5320,7 +5320,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5330,7 +5330,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -5347,11 +5347,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5367,7 +5367,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5377,7 +5377,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -5386,11 +5386,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -5424,7 +5424,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5434,7 +5434,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -5443,11 +5443,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5463,7 +5463,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5473,7 +5473,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -5490,11 +5490,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5510,7 +5510,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5520,7 +5520,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end-join-to-inactive"
+                           class="af_navigationPane_tabs-end-join-to-inactive"
                           >
                         
                       </td>
@@ -5529,11 +5529,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end-join"
+                           class="af_navigationPane_tabs-bottom-end-join"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
@@ -5567,7 +5567,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5577,7 +5577,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-start-join-from-inactive"
+                           class="af_navigationPane_tabs-start-join-from-inactive"
                           >
                         
                       </td>
@@ -5586,11 +5586,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5606,7 +5606,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5616,7 +5616,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-mid"
+                           class="af_navigationPane_tabs-mid"
                           >
                         
                         <a
@@ -5633,11 +5633,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-mid"
+                           class="af_navigationPane_tabs-bottom-mid"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-mid-content"
+                             class="af_navigationPane_tabs-bottom-mid-content"
                             >
                           
                         </div>
@@ -5653,7 +5653,7 @@
                      border="0"
                      cellpadding="0"
                      cellspacing="0"
-                     class="af_navigationPaneTabs_tabs-inactive"
+                     class="af_navigationPane_tabs-inactive"
                     >
                   
                   <tbody
@@ -5663,7 +5663,7 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-end"
+                           class="af_navigationPane_tabs-end"
                           >
                         
                       </td>
@@ -5672,11 +5672,11 @@
                         >
                       
                       <td
-                           class="af_navigationPaneTabs_tabs-bottom-end"
+                           class="af_navigationPane_tabs-bottom-end"
                           >
                         
                         <div
-                             class="af_navigationPaneTabs_tabs-bottom-end-content"
+                             class="af_navigationPane_tabs-bottom-end-content"
                             >
                           
                         </div>
