@@ -25,6 +25,9 @@ import javax.faces.render.RenderKitFactory;
 
 import java.io.IOException;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.myfaces.trinidad.context.Agent;
 
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
@@ -140,20 +143,28 @@ public class RenderKitBootstrap
 
   static private void _createAgents()
   {
+    Map<String, String> headerMap = new HashMap<String,String>();
+  
     AgentFactoryImpl factory = new AgentFactoryImpl();
-    _geckoAgent = factory.createAgent("Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.5) Gecko/20050207 Firefox/1.0.1",
-                        null);
-    _ieAgent = factory.createAgent("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)",
-                                   null);
+    
+    headerMap.put("User-Agent","Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.7.5) Gecko/20050207 Firefox/1.0.1");
+    _geckoAgent = factory.createAgent(headerMap);
+
+    headerMap.clear();
+    headerMap.put("User-Agent","Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)");
+    _ieAgent = factory.createAgent(headerMap);
 
     // Give a Safari 2.0 agent
-    _safariAgent = factory.createAgent("Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412",
-                                   null);
+    headerMap.clear();
+    headerMap.put("User-Agent","Mozilla/5.0 (Macintosh; U; PPC Mac OS X; en) AppleWebKit/412 (KHTML, like Gecko) Safari/412");
+    _safariAgent = factory.createAgent(headerMap);
 
-    // I think this is PocketPC 2003
-    _pocketPCAgent = factory.createAgent("Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; MSN Companion 2.0; 800x600; Compaq)",
-                                   null);
+    headerMap.clear();
+    headerMap.put("User-Agent","Mozilla/4.0 (compatible; MSIE 4.01; Windows CE; PPC; 240x320)");
+    headerMap.put("UA-pixels","240x320");
+    _pocketPCAgent = factory.createAgent(headerMap);
   }
+ 
 
   private FacesConfigInfo _facesConfigInfo;
   

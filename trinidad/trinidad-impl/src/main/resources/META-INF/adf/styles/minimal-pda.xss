@@ -366,4 +366,54 @@
       <property name="font-size">xx-small</property>    
     </style>    
   </styleSheet>
+  
+  <styleSheet platforms="blackberry" browsers="blackberry">
+    
+    <style name="AFDefaultFont">
+      <includeStyle name="AFDefaultFontFamily"/>
+      <property name="font-size">x-small</property>
+    </style>
+
+    <style name="AFVerySmallFont">
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">xx-small</property>
+    </style>
+
+
+    <style name="AFSmallFont">
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">xx-small</property>
+    </style>
+
+    <style name="AFMediumFont">
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">x-small</property>
+    </style>
+
+    <style name="AFLargeFont">
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">small</property>
+    </style>
+
+    <style name="AFVeryLargeFont">
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">medium</property>
+    </style>
+
+
+    <!-- If I include AFVerySmallFont, which is defined above, shouldn't that work? 
+         I'm getting the attributes in blaf.xss -->
+    <style name="VerySmallLinkFont">
+      <!--includeStyle name="AFVerySmallFont"/-->
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">xx-small</property>
+    </style>    
+
+    <!-- Same problem as above -->
+    <style name="SmallLinkFont">
+      <!--includeStyle name="AFSmallFont"/-->
+      <includeStyle name="AFDefaultFont"/>
+      <property name="font-size">xx-small</property>    
+    </style>    
+  </styleSheet>    
 </styleSheetDocument>

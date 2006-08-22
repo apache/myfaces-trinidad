@@ -107,7 +107,9 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 	RenderingContext arc,
 	FacesBean bean)
   {
-    return new Integer(1);
+    Integer columnsInteger = 
+      getColumnsAdjustedForAgent(arc,bean,_DEFAULT_COLUMNS);
+    return columnsInteger;
   }
 
   @Override
@@ -313,4 +315,6 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 
   private static String _SPINBOX_REPEAT_JS = "_spinboxRepeat";
   private static String _CLEAR_SPINBOX_JS = "_clearSpinbox();";
+  
+  private static Integer _DEFAULT_COLUMNS = new Integer(1);
 }

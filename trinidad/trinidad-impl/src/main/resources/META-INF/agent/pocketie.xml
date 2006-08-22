@@ -17,8 +17,6 @@
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="dom" value="form"/>
   <capability name="tables" value="advanced"/> 
-  <capability name="height" value="255"/> 
-  <capability name="width" value="229"/>
   <capability name="-adfinternal-advancedForms" value="true"/> 
   <capability name="-adfinternal-intrinsicEvents" value="true"/> 
   <capability name="-adfinternal-disabledFormElements" value="false"/>
