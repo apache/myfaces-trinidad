@@ -24,8 +24,8 @@ function _rgbColorFormat(
   formatColor)
 {
   //pu: Return undefined string for an undefined Color.
-  if (formatColor == (void 0))
-    return (void 0);
+  if (formatColor == null)
+    return null;
 
   // return localized transparent text for transparent color
   if (formatColor.alpha == 0)
@@ -70,12 +70,19 @@ function _rgbColorParse(
     var i;
     for (i = 0; i < pattern.length; i++)
     {
-      var color = _rgbColorParseImpl(parseString,
+      try{
+        var color = _rgbColorParseImpl(parseString,
                                      pattern[i],
                                      this._msg);
-                                     
-      if (!(_instanceof(color, ConverterException)) || i == pattern.length-1)
         return color;
+      }
+      catch (e)
+      {
+        // if we're not on the last pattern try the next one, 
+        // but if we're on the last pattern, throw the exception
+        if ( i == pattern.length-1)
+          throw e;
+      }
     }
   }
 }
@@ -100,7 +107,7 @@ function _rgbColorParseImpl(
   {
     if (parseString.length != parseContext.currIndex)
     {
-      return parseContext.parseException;
+      throw parseContext.parseException;
     }
 
     return parsedColor;
@@ -108,7 +115,7 @@ function _rgbColorParseImpl(
   else
   {
     // failure
-    return parseContext.parseException;
+    throw parseContext.parseException;
   }
 }
 
@@ -128,7 +135,7 @@ function _cfoDoClumping(
   var formatLength = formatPattern.length;
   var inQuote      = false;
   var kindCount    = 0;
-  var lastChar     = void 0;
+  var lastChar     = null;
   var startIndex   = 0;
   
   for (var i = 0; i < formatLength; i++)
@@ -163,7 +170,7 @@ function _cfoDoClumping(
         }
         
         kindCount = 0;
-        lastChar  = void 0;
+        lastChar  = null;
       }
       else
       {
@@ -192,7 +199,7 @@ function _cfoDoClumping(
           }
           
           kindCount = 0;
-          lastChar  = void 0;
+          lastChar  = null;
         }
         
         if (currChar == '\'')
@@ -328,7 +335,7 @@ function _cfoSubParse(
     {
       case 'r': // decimal red component (0-255)
         parsedColor.red = _cfoAccumulateNumber(parseContext, charCount, 3, 10);
-        if (parsedColor.red == (void 0))
+        if (parsedColor.red == null)
         {
           return false;
         }
@@ -336,7 +343,7 @@ function _cfoSubParse(
       
       case 'g': // decimal green component (0-255)
         parsedColor.green = _cfoAccumulateNumber(parseContext, charCount, 3, 10);
-        if (parsedColor.green == (void 0))
+        if (parsedColor.green == null)
         {
           return false;
         }
@@ -344,7 +351,7 @@ function _cfoSubParse(
       
       case 'b': // decimal blue component (0-255)
         parsedColor.blue = _cfoAccumulateNumber(parseContext, charCount, 3, 10);
-        if (parsedColor.blue == (void 0))
+        if (parsedColor.blue == null)
         {
           return false;
         }
@@ -352,7 +359,7 @@ function _cfoSubParse(
       
       case 'a': // decimal alpha component (0-255)
         parsedColor.alpha = _cfoAccumulateNumber(parseContext, charCount, 3, 10);
-        if (parsedColor.alpha == (void 0))
+        if (parsedColor.alpha == null)
         {
           return false;
         }
@@ -360,7 +367,7 @@ function _cfoSubParse(
       
       case 'R': // hex red component (0x00-0xff)
         parsedColor.red = _cfoAccumulateNumber(parseContext, charCount, 2, 16);
-        if (parsedColor.red == (void 0))
+        if (parsedColor.red == null)
         {
           return false;
         }
@@ -368,7 +375,7 @@ function _cfoSubParse(
       
       case 'G': // hex green component (0x00-0xff)
         parsedColor.green = _cfoAccumulateNumber(parseContext, charCount, 2, 16);
-        if (parsedColor.green == (void 0))
+        if (parsedColor.green == null)
         {
           return false;
         }
@@ -376,7 +383,7 @@ function _cfoSubParse(
       
       case 'B': // hex blue component (0x00-0xff)
         parsedColor.blue = _cfoAccumulateNumber(parseContext, charCount, 2, 16);
-        if (parsedColor.blue == (void 0))
+        if (parsedColor.blue == null)
         {
           return false;
         }
@@ -384,7 +391,7 @@ function _cfoSubParse(
       
       case 'A': // hex alpha component (0x00-0xff)
         parsedColor.alpha = _cfoAccumulateNumber(parseContext, charCount, 2, 16);
-        if (parsedColor.alpha == (void 0))
+        if (parsedColor.alpha == null)
         {
           return false;
         }
@@ -493,7 +500,7 @@ function _cfoAccumulateNumber(
   else
   {
     // no number at this location
-    return (void 0);
+    return null;
   }
 }
 
@@ -513,7 +520,7 @@ function _cfoGetPaddedNumber(
   //
   // pad out any number strings that are too short
   //
-  if (minDigits != (void 0))
+  if (minDigits != null)
   {    
     var addedDigits = minDigits - stringNumber.length;
   
@@ -527,7 +534,7 @@ function _cfoGetPaddedNumber(
   //
   // truncate any number strings that are too long
   //
-  if (maxDigits != (void 0))
+  if (maxDigits != null)
   {
     var extraDigits = stringNumber.length - maxDigits;
     
@@ -547,14 +554,24 @@ function _cfoGetPaddedNumber(
 function RGBColorFormat(
   pattern,
   allowsTransparent,
-  msg)
+  msg,
+  patternsString)
 {
   // for debugging
   this._class = "RGBColorFormat";
   this._allowsTransparent = allowsTransparent;
-  this._msg = msg;
+  // format the error string
+  //   {2}  legal patterns
   
-  if (pattern != (void 0))
+  if (msg != null)
+  {
+    this._msg = _formatErrorString(msg,
+                                   { 
+                                     "2":patternsString
+                                   });
+  }
+  
+  if (pattern != null)
   {
     if (typeof(pattern) == "string" ) 
       pattern = [pattern];
@@ -576,7 +593,7 @@ function Color(
   // for debugging
   this._class = "Color";
   
-  if (alpha == (void 0))
+  if (alpha == null)
     alpha = 0xff;
 
   this.red   = (red & 0xff);

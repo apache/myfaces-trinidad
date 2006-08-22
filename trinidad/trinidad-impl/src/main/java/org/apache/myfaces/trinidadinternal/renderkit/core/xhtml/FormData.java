@@ -124,35 +124,6 @@ public class FormData
     return _labelMap;
   }
 
-
-
-  public Map<String, String> getPatternMap(
-    boolean createIfNecessary
-    )
-  {
-    if ((_patternMap == null) && createIfNecessary)
-    {
-      _patternMap = new HashMap<String, String>();
-    }
-
-    return _patternMap;
-  }
-
-  public void addPattern(
-    String targetId,
-    String pattern
-    )
-  {
-
-    if (targetId == null || pattern == null)
-      return;
-
-    Map<String, String> patternMap = getPatternMap(true);
-
-    patternMap.put(targetId, pattern);
-  }
-
-
   /**
    *
    * @todo get rid of servletRequestParameters reference
@@ -798,10 +769,6 @@ public class FormData
 
   // List of reset calls
   private List<String> _resetCallsList = null;
-
-  // maps patterns to id's
-  private Map<String, String> _patternMap;
-
 
   private String _formName = null;
 

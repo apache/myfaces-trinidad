@@ -32,10 +32,16 @@ function _fixDFF(dateField)
 
   if (dateField.value != "")
   {
-    var value = format.getAsObject(dateField.value);
-
-    if (!_instanceof(value, ConverterException))
-      dateField.value = format.getAsString(value);
+    try
+    {
+      var value = format.getAsObject(dateField.value);
+      if (value != null)
+        dateField.value = format.getAsString(value);
+    }
+    catch (e)
+    {
+      // no-op
+    }
   }
 }
 

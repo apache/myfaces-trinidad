@@ -21,11 +21,9 @@ import java.util.Collections;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
 public class RegExpValidator
@@ -48,9 +46,6 @@ public class RegExpValidator
    */
   public String getClientScript(FacesContext context, UIComponent component)
   {
-    // since we are instance of InternalClientValidator this method will not
-    // be invoked. see xhtml.FormRenderer#_addOnSubmitValidator(,,,,)
-    // getLibKey() will serve the purpose to load the necessary script
     return null;
   }
 
@@ -62,21 +57,13 @@ public class RegExpValidator
    * constructor of the javascript Validator object
    * returned by getClientScript().
    *
-   * @todo - Though component or client id could have been null in call to
-   * getClientScript() - we are still rendering the script here.
-   * Probaly we should avoid null check for components totally and allow to see
-   * how and where we get to set it rather than loggin for now.
    */
   public String getClientValidation(FacesContext context, UIComponent component)
   {
-    String clientId = component.getClientId(context);
-
-    if (clientId != null)
-    {
-      FormRenderer.addPatternMapping( clientId, getPattern());
-    }
-    
+   
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
+    
+    
     String esNoMatchMsgPattern = XhtmlUtils.escapeJS(
                   _getNoMatchMessageDetail(context));
 
@@ -87,11 +74,9 @@ public class RegExpValidator
 
     outBuffer.append("new RegExpFormat('"); // 18
     outBuffer.append(jsPattern);
-    outBuffer.append("',");                 //  2
-    outBuffer.append("{NM:'");              //  5
+    outBuffer.append("',{NM:'");            //  7
     outBuffer.append(esNoMatchMsgPattern);
-    outBuffer.append("'}");                 //  2
-    outBuffer.append(")");                  //  1
+    outBuffer.append("'})");                // 3
 
     return outBuffer.toString();
   }
@@ -110,7 +95,7 @@ public class RegExpValidator
   private String _getNoMatchMessageDetail(
     FacesContext context)
   {
-    String noMatchMsg = getNoMatchMessageDetail();
+    String noMatchMsg = getNoMatchMessageDetail(); 
     Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
     String noMatchDetMsg
@@ -121,12 +106,6 @@ public class RegExpValidator
     return noMatchDetMsg;
   }
 
-  // -= Simon Lessard =-
-  // TODO: Nothing is logged in this class as of 2006-08-04
-  @SuppressWarnings("unused")
-  private static final TrinidadLogger _LOG  = TrinidadLogger.createTrinidadLogger(
-     RegExpValidator.class);
-     
 
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "RegExpFormat()" );     
 }

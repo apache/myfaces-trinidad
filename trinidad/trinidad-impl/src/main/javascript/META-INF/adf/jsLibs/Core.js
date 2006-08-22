@@ -2412,12 +2412,11 @@ function _multiValidate(
 
         var converterInfo = validators[i+3];
 
-        // void out the converterError var for each input, otherwise nothing
+        // set the converterError var to false for each input, otherwise nothing
         // after the first conversion error is validated
-        var converterError = (void 0);
-        var converterFormat = (void 0);
+        var converterError = false;
 
-        if ( converterInfo != (void 0))
+        if ( converterInfo != null)
         {
 
           // do the conversion if this element has a value
@@ -2426,57 +2425,44 @@ function _multiValidate(
           {
             // evaluate the converter
             var converterConstructor = validations[converterInfo];
-            var converterResult = void(0);
 
             if (converterConstructor)
             {
-              var converter = void(0);
-              converter = eval(converterConstructor);
-              converterResult = converter.getAsObject(value);
-
-              if (_instanceof(converterResult,  window["ConverterException"]))
+              var converter = eval(converterConstructor);
+              try{
+                value = converter.getAsObject(value);
+              }
+              catch (e)
               {
-                converterError = converterResult;
+                converterError = true; 
+                // move the focus back to the first failed field
+                if (firstFailure)
+                {
+  
+                  _setFocus(currInput);
+  
+                  firstFailure = false;
+                }
+  
+                // get the formatted error string for the current input
+                var errorString1 = _getErrorString(currInput,
+                                                   null,
+                                                   e);
+  
+                if (errorString1)
+                {                         
+                  errorString1 = _getGlobalErrorString(currInput, 
+                                                       globalMessageIndex, 
+                                                       errorString1);                                         
+                  failures += '\n' + errorString1;
+                }
               }
-            }
-
-            if (converterError)
-            {
-              // move the focus back to the first failed field
-              if (firstFailure)
-              {
-
-                _setFocus(currInput);
-
-                firstFailure = false;
-              }
-
-              // get the formatted error string for the current input
-              var errorString1 = _getErrorString(currInput,
-                                                 null,
-                                                converterError);
-
-              if (errorString1)
-              {                         
-                errorString1 = _getGlobalErrorString(currInput, 
-                                                     globalMessageIndex, 
-                                                     errorString1);                                         
-                failures += '\n' + errorString1;
-              }
-            }
-            else
-            {
-              // The value passed to the validators is now the converted value
-              value = converterResult;
-
-              if (converterFormat != void(0))
-                currInput.value = converterFormat;
             }
           }
         }
 
 
-        if ( ! converterError)
+        if ( converterError == false)
         {
           var validatorInfo = validators[i+4];
 
@@ -2491,43 +2477,37 @@ function _multiValidate(
               // evaluate the validator
               var validatorConstructor = validations[validatorInfo[j]];
 
-              var validationError = (void 0);
-
               if (validatorConstructor)
               {
-                var validator = (void 0);
-                var validationResult = (void 0);
+                var validator = eval(validatorConstructor);
 
-                validator = eval(validatorConstructor);
-                validationResult = validator.validate(value);
-                if (_instanceof(validationResult,  window["ValidatorException"]))
-                  validationError = validationResult;
-
-              }
-
-              if (validationError)
-              {
-                // move the focus back to the first failed field
-                if (firstFailure)
-                {
-
-                  _setFocus(currInput);
-
-                  firstFailure = false;
+                try {
+                  validator.validate(value);
                 }
-
-                // get the formatted error string for the current input and
-                // formatIndex
-                var errorString = _getErrorString(currInput,
-                                                  null,
-                                                  validationError);
-
-                if (errorString)
-                {     
-                  errorString = _getGlobalErrorString(currInput, 
-                                                      globalMessageIndex, 
-                                                      errorString);       
-                  failures += '\n' + errorString;
+                catch (e)
+                {
+                  // move the focus back to the first failed field
+                  if (firstFailure)
+                  {
+  
+                    _setFocus(currInput);
+  
+                    firstFailure = false;
+                  }
+  
+                  // get the formatted error string for the current input and
+                  // formatIndex
+                  var errorString = _getErrorString(currInput,
+                                                    null,
+                                                    e);
+  
+                  if (errorString)
+                  {     
+                    errorString = _getGlobalErrorString(currInput, 
+                                                        globalMessageIndex, 
+                                                        errorString);       
+                    failures += '\n' + errorString;
+                  }
                 }
               }
             }
@@ -2826,27 +2806,13 @@ function _getErrorString(
       label = labelMap[_getID(input)];
     }
 
-    // get the mapping of id's to patterns
-    var patternMap = window["_" + _getJavascriptId(form.name) + "_Patterns"];
-
-    var pattern;
-
-    // get the pattern for this input element, if one has been
-    // associated using the ID of the input element
-    if (patternMap)
-    {
-      pattern = patternMap[_getID(input)];
-    }
-
     // format the error string, replacing the following tokens
     //   {0}    the value of the label
     //   {1}    the value of the input element
-    //   {2}    the validation pattern
     var errorString = _formatErrorString(errorFormat,
                                          {
                                            "0":label,
-                                           "1":value,
-                                           "2":pattern
+                                           "1":value
                                          });
     // return the error
     return errorString;

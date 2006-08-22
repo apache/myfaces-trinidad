@@ -35,10 +35,15 @@ function _fixCFF(
 
   if (colorField.value != "")
   {
-    var value = format.getAsObject(colorField.value);
-
-    if (!_instanceof(value, ConverterException))
-      colorField.value = format.getAsString(value);
+    try
+    {
+      var value = format.getAsObject(colorField.value);
+      if (value != null)
+        colorField.value = format.getAsString(value);
+    }
+    catch(e)
+    {
+    }      
   }
 }
 

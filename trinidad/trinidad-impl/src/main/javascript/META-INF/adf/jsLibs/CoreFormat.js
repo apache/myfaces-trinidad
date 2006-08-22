@@ -31,7 +31,7 @@ function _decimalParse(
   )
 {
   if (!numberString)
-    return new ConverterException(messages[DecimalFormat.D]);
+    throw new ConverterException(messages[DecimalFormat.D]);
        
 
   // Get LocaleSymbols (from Locale.js)
@@ -42,7 +42,7 @@ function _decimalParse(
     var grouping = symbols.getGroupingSeparator();
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
-      return new ConverterException(messages[DecimalFormat.D]);
+      throw new ConverterException(messages[DecimalFormat.D]);
 
     // Remove the thousands separator - which Javascript doesn't want to see
     var thousands = new RegExp("\\" + grouping, "g");
@@ -114,9 +114,9 @@ function _decimalParse(
           
           if ((messages == (void 0)) ||
               (messages[messageKey] == (void 0)))
-            return  new ConverterException("Conversion failed, but no appropriate message found");  // default error format
+            throw  new ConverterException("Conversion failed, but no appropriate message found");  // default error format
           else
-            return new ConverterException(messages[messageKey]);
+            throw new ConverterException(messages[messageKey]);
         }
         
         return result;
@@ -124,7 +124,7 @@ function _decimalParse(
     }
   }
 
-  return new ConverterException(messages[DecimalFormat.D]);
+  throw new ConverterException(messages[DecimalFormat.D]);
 }
 
 function _decimalGetAsObject(
@@ -181,17 +181,19 @@ function _decimalValidate(
   // into the validator is a number, and _decimalParse expects a string.
   numberString = "" + value;
   
-  var returnVal = _decimalParse(numberString, 
+  try
+  {
+    return _decimalParse(numberString, 
                        this._messages,
                        this._maxPrecision,
                        this._maxScale,
                        this._maxValue,
                        this._minValue);
-                       
-  if (_instanceof(returnVal, ConverterException))
-    return new ValidatorException((void 0), returnVal.getFacesMessage());
-  
-  return returnVal;
+  }
+  catch (e)
+  {
+    throw new ValidatorException((void 0), e.getFacesMessage());
+  }
 }
 
 function DecimalValidator(
@@ -230,8 +232,19 @@ function _regExpParse(
     return parseString;
   }
   else
-  {    
-    return new ValidatorException(this._messages[RegExpFormat.NM]);
+  {
+    // format the error string
+    //   {2}    a legal example
+    if (this._messages[RegExpFormat.NM] != null)
+    {
+      this._messages[RegExpFormat.NM] = 
+                  _formatErrorString(this._messages[RegExpFormat.NM],
+                                     { 
+                                       "2":this._pattern
+                                     });
+    }
+
+    throw new ValidatorException(this._messages[RegExpFormat.NM]);
   }
 }
 
@@ -242,7 +255,7 @@ function RegExpFormat(
   )
 {  
   this._pattern  = pattern;
-  this._messages = messages
+  this._messages = messages;
   this._class = "RegExpFormat";
 }
 
