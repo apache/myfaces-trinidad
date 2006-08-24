@@ -14,6 +14,8 @@
       <item name="Javadoc" href="trinidad-api/apidocs/index.html" />
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />
       <item name="Developer Guide" href="devguide/index.html" />
+      <item name="Plugins" href="plugins/index.html"/>
+
     </menu>
     
     <menu ref="modules"/>
