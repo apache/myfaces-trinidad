@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <document>
   <properties>
-    <title>Release Information</title>
+    <title>Overview</title>
   </properties>
 
   <body>
-    <section name="Release Information">
+    <section name="Overview">
       <p>
         <ul>
           <li>
             <a href="#Release Notes">Release Notes</a>
           </li>
           <li>
-            <a href="">Live Demos</a>
+            <a href="http://www.irian.at/trinidad-demo/faces/index.jspx">Live Demos</a>
           </li>
+<!--
           <li>
             <a href="#Download">Download</a>
           </li>
+-->
           <li>
             <a href="installation.html">Installation</a>
           </li>
@@ -24,7 +26,7 @@
             <a href="#Documentation">Documentation</a>
           </li>
           <li>
-            <a href="#Support">Support</a>
+            <a href="#Help">Help and FAQ</a>
           </li>
           <li>
             <a href="#Filing Bugs">Filing Bugs</a>
@@ -51,7 +53,7 @@
             <li><a href="trinidad-api/tagdoc.html">Apache Trinidad Tag documentation</a></li>
           </ul>
           </subsection>
-          <subsection name="Further documentation">
+          <subsection name="User documentation">
           All documentation assumes a familiarity with JavaServer Faces.
           <ul>
             <li><a href="devguide/index.html">Developer's Guide</a></li>
@@ -62,7 +64,7 @@
           </subsection>
         </p>
       </section>
-      <section name="Support">
+      <section name="Help">
         <p>
 Please see the <a href="FAQ.html" >FAQ</a> for help.
 
