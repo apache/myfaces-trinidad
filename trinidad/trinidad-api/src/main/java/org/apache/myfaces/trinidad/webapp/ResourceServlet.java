@@ -376,7 +376,7 @@ public class ResourceServlet extends HttpServlet
     _debug = "true".equalsIgnoreCase(debug);
     if (_debug)
     {
-      _LOG.info("ADF Faces ResourceServlet is running in debug mode."+
+      _LOG.info("Trinidad ResourceServlet is running in debug mode."+
                 " Do not use in a production environment."+
                 " See the "+DEBUG_INIT_PARAM+" parameter" +
                 " in /WEB-INF/web.xml");
