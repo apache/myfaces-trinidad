@@ -57,7 +57,7 @@ abstract public class Icon
    * Renders the Icon.
    *
    * @param FacesContext context
-   * @param RenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The RenderingContext for the
    *                                 current request.
    * @param attrs A Map which which provides access to
    *             values that might be useful to Icon implementations,
@@ -75,7 +75,7 @@ abstract public class Icon
    * which indicates to the caller that no image representation of
    * the Icon is available.
    * @param FacesContext context
-   * @param RenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The RenderingContext for the
    *                                 current request.
    */
   public Object getImageURI(
@@ -114,7 +114,7 @@ abstract public class Icon
    * Returns an InputStreamProvider which provides access to the
    * image data for image-based Icons.
    * @param FacesContext context
-   * @param RenderingContext arc The AdfRenderingContext for the
+   * @param RenderingContext arc The RenderingContext for the
    *                                 current request.
    * @todo Is this still necessary?
    */
