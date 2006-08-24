@@ -285,9 +285,11 @@ public class MFacesContext extends MockFacesContext
     @Override
     public Map<String, Object> getApplicationMap()
     {
-      // Return an unmodifiable map - noone should be putting
-      // things into application scope during rendering.
-      return Collections.unmodifiableMap(_applicationMap);
+      // This used to be an unmodifiable map - but I ran into
+      // renderers that happened to be the first to lazily boot
+      // up a global system, which then cached values on the
+      // application map...
+      return _applicationMap;
     }
 
     @Override
