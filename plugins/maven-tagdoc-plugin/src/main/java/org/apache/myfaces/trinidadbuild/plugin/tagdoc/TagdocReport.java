@@ -1178,7 +1178,7 @@ public class TagdocReport extends AbstractMavenMultiPageReport
     protected boolean accept(
       ComponentBean component)
     {
-      return (component.getTagClass() != null);
+      return (component.getTagName() != null);
     }
   }
 
