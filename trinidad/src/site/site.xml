@@ -10,6 +10,7 @@
 
     <menu name="">
       <item name="Overview" href="release.html"/>
+      <item name="Disclaimer" href="disclaimer.html"/>
       <item name="Release Notes" href="release.html#Release Notes" />
       <item name="Javadoc" href="trinidad-api/apidocs/index.html" />
       <item name="Tag Documentation" href="trinidad-api/tagdoc.html" />
