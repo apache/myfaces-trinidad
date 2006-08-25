@@ -24,8 +24,6 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
 
-import org.xml.sax.Attributes;
-
 import org.apache.myfaces.trinidad.model.XMLMenuModel;
 
 /**
@@ -43,7 +41,9 @@ public class MenuNode
     * Constructs a MenuNode
     */
   public MenuNode()
-  {}
+  {
+    _nodeSysId = (new Integer(System.identityHashCode(this))).toString();
+  }
   
   /**
     * Set the menu item's label.
@@ -476,7 +476,9 @@ public class MenuNode
    */
   public String getId()
   {
-    return _id;
+    // This must be made unique so that we do not have duplicates 
+    // in the idNodeMap on the menu's tree.      
+    return _id + _nodeSysId;
   }
 
   /*===========================================================================
@@ -532,7 +534,7 @@ public class MenuNode
    */
   public Object getCustomProperty(String name)
   {
-    String value = _customPropList.getValue(name);
+    String value = _customPropList.get(name);
     
     if (   value != null
         && UIComponentTag.isValueReference(value)
@@ -550,19 +552,49 @@ public class MenuNode
    * 
    * @return Attributes list containing the custom attributes on this node
    */
-  public Attributes getCustomPropList()
+  public Map<String, String> getCustomPropList()
   {
     return _customPropList;
   }
   
   /**
+   * Get the top-level, root menu model Request Map Key.
+   * 
+   * @return root, top-level XMLMenuModel's Request Map Key.
+   */
+  public String getRootModelKey()
+  {
+    return _rootModelKey;
+  }
+  
+  /**
+   * Sets the root menu Model's Request map key.
+   * <p>
+   * This is always only the top-level, root model's Request map key.
+   * We do this because the MenuContentHandlerImpl and nodes need to be able 
+   * to call into the root model to:
+   * <ul>
+   * <li>notify them root menu model of the currently selected node on a POST
+   * <li>group node needs to find its referenced item node.
+   * </ul>
+   * 
+   * @param rootModelKey - String the root, top-level menu model's Request
+   *        map key.
+   */
+  public void setRootModelKey(String rootModelKey)
+  {
+    _rootModelKey = rootModelKey;
+  }
+
+  /**
    * Set the list of custom attributes.
    * 
-   * @param attrList Attributes List for this node from MenuContentHandlerImpl
+   * @param attrMap Map of attibute name/values for this node
+   * from MenuContentHandlerImpl
    */
-  protected void setCustomPropList(Attributes attrList)
+  protected void setCustomPropList(Map<String, String> attrMap)
   {
-    _customPropList = attrList;
+    _customPropList = attrMap;
   }
   
   /**
@@ -626,6 +658,19 @@ public class MenuNode
   }
   
   /**
+   * Set the Menu Node's System id.
+   * 
+   * This is appended to the node's id in getId() to 
+   * ensure that each node's id is unique.
+   * 
+   * @return String object System id of the node.
+   */
+  protected String getNodeSysId()
+  {
+    return _nodeSysId;
+  }
+  
+  /**
    * Get the top-level, root menu model, which contains
    * the entire menu tree.
    * 
@@ -638,36 +683,10 @@ public class MenuNode
     Map<String, Object> requestMap = 
       facesContext.getExternalContext().getRequestMap();
     
-    return (XMLMenuModel) requestMap.get(getRootModelUri());
+    XMLMenuModel model =  (XMLMenuModel) requestMap.get(getRootModelKey());
+    return model;
   }
   
-  /**
-   * Get the top-level, root menu model's Uri.
-   * 
-   * @return root, top-level XMLMenuModel's Uri
-   */
-  public String getRootModelUri()
-  {
-    return _rootModelUri;
-  }
-  
-  /**
-   * Sets the root menu Model's Uri.
-   * <p>
-   * This is always only the top-level, root model's Uri.
-   * We do this because the MenuContentHandlerImpl and nodes need to be able 
-   * to call into the root model to:
-   * <ul>
-   * <li>notify them root menu model of the currently selected node on a POST
-   * </ul>
-   * 
-   * @param rootModelUri - String the root, top-level menu model's Uri.
-   */
-  public void setRootModelUri(String rootModelUri)
-  {
-    _rootModelUri = rootModelUri;
-  }
-
   /**
    * _joinLabelAndAccessKey - takes a string label and string accessKey
    * and combines them into a single labelAndAccessKey string.
@@ -794,13 +813,14 @@ public class MenuNode
   private String         _bundleName  = null;
   private String         _accessKey   = null;
   private String         _id          = null;
+  private String         _nodeSysId   = null;
   private boolean        _labelAndAccessKeyEL = false;
   private String         _labelAndAccessKey   = null;
   private String         _defaultFocusPathStr = null;
   
   // Map for Custom attributes (properties)
-  private Attributes _customPropList = null;
+  private Map<String, String> _customPropList = null;
   
-  // Menu model Uri's
-  private String _rootModelUri  = null;
+  // Root Menu model's Request Map Key
+  private String _rootModelKey  = null;
 } 

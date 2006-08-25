@@ -20,8 +20,6 @@ package org.apache.myfaces.trinidadinternal.menu;
 import java.io.InputStream;
 import java.io.IOException;
 
-import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +44,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * Handler called by the SAXParser when parsing menu metadata
@@ -112,9 +109,18 @@ public class MenuContentHandlerImpl extends DefaultHandler
   {
     super();
     
-    // Init the menu list map
+    // Init the essential maps
     if (_treeModelMap == null)
       _treeModelMap = new HashMap<String, TreeModel>();
+
+    if (_viewIdFocusPathMapMap == null)
+      _viewIdFocusPathMapMap = new HashMap<Object, Map<String, List<Object>>>();
+
+    if (_nodeFocusPathMapMap == null)
+      _nodeFocusPathMapMap = new HashMap<Object, Map<Object, List<Object>>>();
+
+    if (_idNodeMapMap == null)
+      _idNodeMapMap = new HashMap<Object, Map<String, Object>>();
   }
   
   /**
@@ -128,7 +134,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
     _menuList  = null;
    
     // Handler Id will have to change also to be unique 
-    _handlerId = Integer.toString(System.identityHashCode(_menuNodes));
+    _handlerId = Integer.toString(System.identityHashCode((Object) _menuNodes));
   }
   
   /**
@@ -198,7 +204,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           _menuNodes.add(new ArrayList<MenuNode>());
         }
 
-        _attrList = new AttributesImpl(attrList);
+        _attrMap = _getMapFromList(attrList);
           
         // Create either an itemNode or groupNode.
         MenuNode menuNode = _createMenuNode();
@@ -228,7 +234,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           // Set the root model on the node so we can call into
           // the root model from the node to populate its
           // idNodeMap (See CombinationMenuModel.java)
-          menuNode.setRootModelUri(getRootModelUri());
+          menuNode.setRootModelKey(getRootModelKey());
           
           // Set the local model (created when parsing a sharedNode)
           // on the node in case the node needs to get back to its
@@ -333,8 +339,8 @@ public class MenuContentHandlerImpl extends DefaultHandler
       if (_nodeDepth > 0)
       {
         // The parent menu item is the last menu item at the previous depth
-        List<MenuNode> parentList = _menuNodes.get(_nodeDepth-1);
-        MenuNode       parentNode = parentList.get(parentList.size()-1);
+        List      parentList = _menuNodes.get(_nodeDepth-1);
+        MenuNode  parentNode = (MenuNode)parentList.get(parentList.size()-1);
         
         parentNode.setChildren(_menuNodes.get(_nodeDepth));
       }
@@ -359,9 +365,11 @@ public class MenuContentHandlerImpl extends DefaultHandler
     
     // If Model is the Root, then build Model's hashmaps 
     // and set them on the Root Model.
-    if (getRootModelUri().equals(getModelUri()))
+    XMLMenuModel rootModel = getRootModel();
+    
+    if (rootModel == getModel())
     {
-      _viewIdFocusPathMap = new HashMap<String, List<Object>>();
+      _viewIdFocusPathMap = new HashMap<String,List<Object>>();
       _nodeFocusPathMap   = new HashMap<Object, List<Object>>();
       _idNodeMap          = new HashMap<String, Object>();
       Object oldPath      = treeModel.getRowKey(); 
@@ -370,7 +378,14 @@ public class MenuContentHandlerImpl extends DefaultHandler
 
       // Populate the maps
       _addToMaps(treeModel, _viewIdFocusPathMap, _nodeFocusPathMap, _idNodeMap);
-
+      
+      // Cache the maps.  There is a possibility of multiple
+      // root models so we must cache the maps on a per root model
+      // basis.
+      _viewIdFocusPathMapMap.put(_currentTreeModelMapKey, _viewIdFocusPathMap);
+      _nodeFocusPathMapMap.put(_currentTreeModelMapKey, _nodeFocusPathMap);
+      _idNodeMapMap.put(_currentTreeModelMapKey, _idNodeMap);
+      
       treeModel.setRowKey(oldPath);
     }
   }
@@ -380,9 +395,9 @@ public class MenuContentHandlerImpl extends DefaultHandler
    * 
    * @return the Model's viewIdFocusPathMap
    */
-  public Map<String, List<Object>> getViewIdFocusPathMap()
+  public Map<String, List<Object>> getViewIdFocusPathMap(Object modelKey)
   {
-    return _viewIdFocusPathMap;
+    return _viewIdFocusPathMapMap.get(modelKey);  
   }
   
   /**
@@ -390,9 +405,9 @@ public class MenuContentHandlerImpl extends DefaultHandler
    * 
    * @return the Model's nodeFocusPathMap
    */
-  public Map<Object, List<Object>> getNodeFocusPathMap()
+  public Map<Object, List<Object>> getNodeFocusPathMap(Object modelKey)
   {
-    return _nodeFocusPathMap;
+    return _nodeFocusPathMapMap.get(modelKey);  
   }
 
   /**
@@ -400,9 +415,9 @@ public class MenuContentHandlerImpl extends DefaultHandler
    * 
    * @return the Model's idNodeMap
    */
-  public Map<String, Object> getIdNodeMap()
+  public Map<String, Object> getIdNodeMap(Object modelKey)
   {
-    return _idNodeMap;
+    return _idNodeMapMap.get(modelKey);  
   }
 
   /**
@@ -413,34 +428,41 @@ public class MenuContentHandlerImpl extends DefaultHandler
   public TreeModel getTreeModel(String uri)
   {
     TreeModel model = _treeModelMap.get(uri);
-    if (model == null)
-    {
-      _currentTreeModelMapKey = uri;
 
-      try
-      {
-        // Get a parser.  NOTE: we are using the jdk's 1.5 SAXParserFactory
-        // and SAXParser here.
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        SAXParser parser = factory.newSAXParser();
-        
-        
-        // Parse the metadata
-        InputStream inStream = _getStream(uri);
-        parser.parse(inStream, this);
-      }
-      catch (SAXException saxex)
-      {
-        _LOG.severe ( "Exception creating model " + uri, saxex);
-      }
-      catch (IOException ioe)
-      {
-        _LOG.severe ( "Exception creating model " + uri, ioe);
-      }
-      catch (ParserConfigurationException pce)
-      {
-        _LOG.severe ( "Exception creating model " + uri, pce);
-      }
+    // If we have a cached model, return it.    
+    if (model != null)
+      return model;
+
+    // Build a Tree model.  Parsing puts the tree model
+    // in the map, see method endDocument().
+    _currentTreeModelMapKey = uri;
+
+    try
+    {
+      // Get a parser.  NOTE: we are using the jdk's 1.5 SAXParserFactory
+      // and SAXParser here.
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      SAXParser parser = factory.newSAXParser();
+             
+      // Call the local menu model's getStream() method. This is a model
+      // method so that it can be overridden by any model extending 
+      // XmlMenuModel.
+      InputStream inStream = getModel().getStream(uri);
+
+      // Parse the metadata
+      parser.parse(inStream, this);
+    }
+    catch (SAXException saxex)
+    {
+      _LOG.severe ( "Exception creating model " + uri, saxex);
+    }
+    catch (IOException ioe)
+    {
+      _LOG.severe ( "Exception creating model " + uri, ioe);
+    }
+    catch (ParserConfigurationException pce)
+    {
+      _LOG.severe ( "Exception creating model " + uri, pce);
     }
 
     return _treeModelMap.get(uri);
@@ -459,34 +481,37 @@ public class MenuContentHandlerImpl extends DefaultHandler
     Map<String, Object> requestMap = 
       facesContext.getExternalContext().getRequestMap();
     
-    return (XMLMenuModel) requestMap.get(getRootModelUri());
+    XMLMenuModel model = (XMLMenuModel) requestMap.get(getRootModelKey());
+    return model;
   }
   
   /**
-   * Get the top-level, root menu model's Uri.
+   * Get the top-level, root menu model's Request Map Key.
    * 
-   * @return root, top-level XMLMenuModel's Uri
+   * @return root, top-level XMLMenuModel's Request Map Key.
    */
-  public String getRootModelUri()
+  public static String getRootModelKey()
   {
-    return _rootModelUri;
+    return _rootModelKey;
   }
   
   /**
-   * Sets the root menu Model's Uri.
+   * Sets the root menu Model's Request map key.
    * <p>
-   * This is always only the top-level, root model's Uri.
+   * This is always only the top-level, root model's Request map key.
    * We do this because the MenuContentHandlerImpl and nodes need to be able 
    * to call into the root model to:
    * <ul>
    * <li>notify them root menu model of the currently selected node on a POST
+   * <li>group node needs to find its referenced item node.
    * </ul>
    * 
-   * @param rootModelUri - String the root, top-level menu model's Uri.
+   * @param rootModelKey - String the root, top-level menu model's Request
+   *        map key.
    */
-  public void setRootModelUri(String rootModelUri)
+  public void setRootModelKey(String rootModelKey)
   {
-    _rootModelUri = rootModelUri;
+    _rootModelKey = rootModelKey;
   }
 
   /**
@@ -571,7 +596,27 @@ public class MenuContentHandlerImpl extends DefaultHandler
   // Private Methods
   //=======================================================================
   
-  /**
+ /**
+   * Create a Map of name/value pairs from the attrList given 
+   * to us by the Sax parser.
+   * 
+   * @param attrList List of attributes of an XML element
+   * @return Map hashMap of attributes converted to name/value pairs.
+   */
+  @SuppressWarnings("unchecked")
+  private Map<String, String> _getMapFromList(Attributes attrList)
+  {
+    Map<String, String> attrMap = new HashMap<String, String>();
+      
+    for (int i=0; i < attrList.getLength(); i++)
+    {
+      attrMap.put(attrList.getQName(i), attrList.getValue(i) );
+    }
+    
+    return attrMap;
+  }
+  
+ /**
    * Creates a MenuNode from attribute list.
    *
    * @return MenuNode used in the Menu List.
@@ -632,9 +677,9 @@ public class MenuContentHandlerImpl extends DefaultHandler
       menuNode.setLabelAndAccessKey(labelAndAccessKey);
 
     // Set the Any Attributes Attrlist
-    if (_attrList.getLength() > 0)
+    if (_attrMap.size() > 0)
     {
-      menuNode.setCustomPropList(_attrList);
+      menuNode.setCustomPropList(_attrMap);
     }
     
     return menuNode;
@@ -715,6 +760,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
    * Note: if you add a new push in this method, you must also add
    * a corresponding pop in _restoreModelData() below in the correct order.
    */
+  @SuppressWarnings("unchecked")
   private void _saveModelData()
   {
     if (_saveDataStack == null)
@@ -723,20 +769,23 @@ public class MenuContentHandlerImpl extends DefaultHandler
     }
 
     // DO NOT CHANGE THE ORDER HERE.  IT MUST MATCH
-    // "pushes" DONE BELOW in _restoreModelData.
+    // "pops" DONE BELOW in _restoreModelData.
     int nodeDepthSave       = _nodeDepth;
     ArrayList<List<MenuNode>> menuNodesSave = 
       new ArrayList<List<MenuNode>>(_menuNodes);
     
     
     ArrayList<Object> menuListSave  = 
-      _menuList != null ? new ArrayList<Object>(_menuList) : null;
+      (  _menuList != null
+       ? new ArrayList<Object>(_menuList)
+       : null
+      );
                               
-    String mapTreeKeySave   = _currentTreeModelMapKey;
-    String localModelUriSave   = _localModelUri;
-    String handlerId = _handlerId;
-    String resBundleName = _resBundleName;
-    String resBundleKey = _resBundleKey;
+    String mapTreeKeySave    = _currentTreeModelMapKey;
+    String localModelUriSave = _localModelUri;
+    String handlerId         = _handlerId;
+    String resBundleName     = _resBundleName;
+    String resBundleKey      = _resBundleKey;
     _saveDataStack.push(nodeDepthSave);
     _saveDataStack.push(menuNodesSave);
     _saveDataStack.push(menuListSave);
@@ -780,13 +829,11 @@ public class MenuContentHandlerImpl extends DefaultHandler
    */
   private String _getAndRemoveAttrValue(String attrName)  
   {
-    int idx = _attrList.getIndex(attrName);
+    String attrValue = _attrMap.get(attrName);
     
-    if (idx == -1)
-      return null;
-      
-    String attrValue = _attrList.getValue(idx);
-    _attrList.removeAttribute(idx);
+    if (attrValue != null)
+      _attrMap.remove(attrName);
+    
     return attrValue;
   }
 
@@ -802,9 +849,9 @@ public class MenuContentHandlerImpl extends DefaultHandler
   @SuppressWarnings("unchecked")
   private void _addToMaps(
     TreeModel tree,
-    Map<String, List<Object>> viewIdFocusPathMap,
-    Map<Object, List<Object>> nodeFocusPathMap,
-    Map<String, Object> idNodeMap)
+    Map viewIdFocusPathMap,
+    Map nodeFocusPathMap,
+    Map idNodeMap)
   {
     for ( int i = 0; i < tree.getRowCount(); i++)
     {
@@ -817,16 +864,16 @@ public class MenuContentHandlerImpl extends DefaultHandler
       List<Object> focusPath = (List<Object>)tree.getRowKey();
       
       // Get the focusViewId of the node
-      String viewIdObject = node.getFocusViewId(); 
+      Object viewIdObject = node.getFocusViewId(); 
       
       if (viewIdObject != null)
       {          
         // Put this entry in the nodeFocusPathMap
-        nodeFocusPathMap.put(node, focusPath);
+        nodeFocusPathMap.put(node, (Object)focusPath);
 
         // Does this viewId already exist in the _viewIdFocusPathMap?
         List<Object> existingFpArrayList = 
-          viewIdFocusPathMap.get(viewIdObject);
+          _viewIdFocusPathMap.get(viewIdObject);
         
         if (existingFpArrayList == null)
         {
@@ -836,7 +883,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
           // ArrayList in the focusPath HashMap.
           List<Object> fpArrayList = new ArrayList<Object>();
           fpArrayList.add(focusPath);
-          viewIdFocusPathMap.put(viewIdObject, fpArrayList);
+          viewIdFocusPathMap.put(viewIdObject, (Object)fpArrayList);
         }
         else
         {
@@ -851,11 +898,11 @@ public class MenuContentHandlerImpl extends DefaultHandler
           
           if (defFocusPath)
           {
-            existingFpArrayList.add(0, focusPath);
+            existingFpArrayList.add(0, (Object)focusPath);
           }
           else
           {
-            existingFpArrayList.add(focusPath);
+            existingFpArrayList.add((Object)focusPath);
           }              
         }
       }
@@ -877,30 +924,6 @@ public class MenuContentHandlerImpl extends DefaultHandler
     }
   }  
   
-
-  /**
-   * getStream - Opens an InputStream to the provided URI.
-   * 
-   * @param uri - String uri to a data source.
-   * @return InputStream to the data source.
-   */
-  private InputStream _getStream(String uri)
-  {
-    try
-    {
-      // Open the metadata  
-      FacesContext context = FacesContext.getCurrentInstance();
-      URL url = context.getExternalContext().getResource(uri);
-      return url.openStream();
-    }
-    catch (Exception ex)
-    {
-      _LOG.severe("Exception opening URI " + uri, ex);
-      return null;
-    }    
-  }
-
-
   //========================================================================
   // Private variables
   //========================================================================
@@ -914,17 +937,23 @@ public class MenuContentHandlerImpl extends DefaultHandler
   private String _handlerId;
   private String _resBundleKey;
   private String _resBundleName;
-  private AttributesImpl _attrList;
+  
+  private Map<String, String>    _attrMap;
   private Map<String, TreeModel> _treeModelMap;
-  private Stack<Object>  _saveDataStack;
+  private Map<Object, Map<String, List<Object>>> _viewIdFocusPathMapMap;
+  private Map<Object, Map<String, Object>>       _idNodeMapMap;
+  private Map<Object, Map<Object, List<Object>>> _nodeFocusPathMapMap;  
+  private Stack<Object>             _saveDataStack;
   private Map<String, List<Object>> _viewIdFocusPathMap;
   private Map<Object, List<Object>> _nodeFocusPathMap;
-  private Map<String, Object> _idNodeMap;
+  private Map<String, Object>       _idNodeMap;
 
   
-  // Menu model Uri's
-  private String _rootModelUri  = null;
+  // Local (shared) Menu models Uri
   private String _localModelUri = null;
+  
+  // Root Menu model's Session map key
+  private static String _rootModelKey  = null;
 
   // Nodes
   private final static String _GROUP_NODE        = "groupNode";
