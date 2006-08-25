@@ -54,6 +54,7 @@ public class HtmlCommandButtonRenderer extends Renderer
     writer.writeAttribute("name", id, null);
     if (imageSrc != null) 
     {
+      imageSrc = context.getExternalContext().encodeResourceURL(imageSrc);
       writer.writeAttribute("type", "image", "type");
       writer.writeURIAttribute("src", imageSrc, "image");
     } 
