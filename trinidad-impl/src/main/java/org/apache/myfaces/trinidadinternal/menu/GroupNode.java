@@ -19,6 +19,9 @@ package org.apache.myfaces.trinidadinternal.menu;
 
 import java.lang.reflect.Array;
 
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
@@ -106,34 +109,59 @@ public class GroupNode extends MenuNode
     
     // Get idrefList
     String[] idrefList = _getIdRefList();
+
+    // get group node's children
+    List<MenuNode> children = getChildren();
     
     // Traverse the list. Do the following:
     //    o get Node from Model's hashMap of nodes and ids
     //    o check attributes (rendered, disabled, readOnly)
     //    o if they are ok, return the node    
     for (int i=0; i < Array.getLength(idrefList); i++)
-    {
-      String refNodeId = idrefList[i];
+    {      
+      Iterator<MenuNode> childIter = children.iterator();
+
+      // All node "id" attribute values had the node's
+      // system hashcode id appended to the id when
+      // placed in the model's idNodeMap.
+      //
+      // Each id in the idreflist of a group node does
+      // NOT have this node sys id appended it to it 
+      // and needs to or we won't find the group's 
+      // ref node.
+      //
+      // Since group nodes can only point to one of
+      // its children, we iterate through them, get 
+      // their sys id and append it to idref until 
+      // we find a match (or not).
+      while (childIter.hasNext())
+      {
+        MenuNode childNode = childIter.next();
+        String nodeSysId = childNode.getNodeSysId();
+        
+        // Need to append mode's sys id here to create a
+        // unique id.
+        String refNodeId = idrefList[i] + nodeSysId;
+        
+        refNode = (MenuNode) getRootModel().getNode(refNodeId);
+        
+        // if nothing found, move on to the next child
+        if (refNode != null)
+         break;
+      }
       
-      refNode = (MenuNode) getRootModel().getNode(refNodeId);
-      
-      // if nothing found, move on to the next idref
       if (refNode == null)
-       continue;
-       
+        continue;
+        
       // Check the attributes of the found node
-      // IMPORTANT NOTE: nodes whose rendered attribute
-      // is set to false never get created, so the first
-      // test should never return true.  But just in 
-      // case the creation ever changes, we will leave
-      // this test.
-      if (  !refNode.getRendered()
-          || refNode.getDisabled()
-          || refNode.getReadOnly()
+      if (   !refNode.getRendered()
+          ||  refNode.getDisabled()
+          ||  refNode.getReadOnly()
+          || !refNode.getVisible()
          )
       {
-       refNode = null;
-       continue;
+        refNode = null;
+        continue;
       }
        
       // Ok, we have a valid RefNode
@@ -144,7 +172,7 @@ public class GroupNode extends MenuNode
     // log an error
     if (refNode == null)
     {
-        _LOG.severe("GroupNode " + getLabel() + "refers to no valid node.\n");
+        _LOG.severe("GroupNode " + getLabel() + " refers to no valid node.\n");
         return null;
     }    
     

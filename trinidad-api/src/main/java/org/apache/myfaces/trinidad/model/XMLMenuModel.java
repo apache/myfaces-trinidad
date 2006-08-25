@@ -17,24 +17,23 @@
  */
 package org.apache.myfaces.trinidad.model;
 
+import java.io.InputStream;
 import java.io.Serializable;
+
+import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-
 import javax.faces.el.PropertyResolver;
-
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.xml.sax.Attributes;
-
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+
 
 /**
  * Creates a Menu Model from a TreeModel where nodes in the treeModel
@@ -146,7 +145,7 @@ public class XMLMenuModel extends BaseMenuModel
   {
     if (menuMetadataUri == null || "".equals(menuMetadataUri))
       return;
-      
+
     _mdSource = menuMetadataUri;
     _createModel();
   }
@@ -157,7 +156,7 @@ public class XMLMenuModel extends BaseMenuModel
    * 
    * @param data.  The Tree Model instance
    */
-  @Override
+  @Override  
   public void setWrappedData(Object data)
   {
     super.setWrappedData(data);
@@ -167,11 +166,11 @@ public class XMLMenuModel extends BaseMenuModel
     // There is no need to create the hashmaps or anything
     // on the child menu models.  A lot of overhead (performance and
     // memory) would be wasted.
-    if (_mdSource.equals(_getRootUri()))
+    if (this == _getRootModel())
     {
-      _viewIdFocusPathMap = _contentHandler.getViewIdFocusPathMap();
-      _nodeFocusPathMap   = _contentHandler.getNodeFocusPathMap();
-      _idNodeMap          = _contentHandler.getIdNodeMap();
+      _viewIdFocusPathMap = _contentHandler.getViewIdFocusPathMap(_mdSource);
+      _nodeFocusPathMap   = _contentHandler.getNodeFocusPathMap(_mdSource);
+      _idNodeMap          = _contentHandler.getIdNodeMap(_mdSource);
     }
   }
   
@@ -198,7 +197,7 @@ public class XMLMenuModel extends BaseMenuModel
    * current viewId can't be found. 
    */
   @SuppressWarnings("unchecked")
-  @Override
+  @Override  
   public Object getFocusRowKey()
   {
     Object focusPath        = null;
@@ -208,7 +207,6 @@ public class XMLMenuModel extends BaseMenuModel
 
     _begunRequest = true;    
 
-    
     if (beginNewRequest)
     {
         // Initializations
@@ -231,7 +229,7 @@ public class XMLMenuModel extends BaseMenuModel
       if (_getRequestMethod() != _METHOD_POST)
       {
         // Case 2: GET method.  We have hung the selected node's id off the 
-        // requests URL, which enables us to get the selected node and also 
+        // request's URL, which enables us to get the selected node and also 
         // to know that the request method is GET.
         Map<String, String> paramMap = 
           context.getExternalContext().getRequestParameterMap();
@@ -355,6 +353,7 @@ public class XMLMenuModel extends BaseMenuModel
   { 
     List<Object> focusPath = 
       _viewIdFocusPathMap.get(aliasedViewId);
+      
     if (focusPath != null)
     {
       _viewIdFocusPathMap.put(newViewId, focusPath);
@@ -405,14 +404,13 @@ public class XMLMenuModel extends BaseMenuModel
     FacesContext context = FacesContext.getCurrentInstance();
     PropertyResolver resolver = context.getApplication().getPropertyResolver();
     
-    // =-=AEW Attributes?  A Map<String, String> would be more appropriate
-    Attributes propList = 
-      (Attributes) resolver.getValue(node, _CUSTOM_ATTR_LIST);
+    Map<String, String> propMap = 
+      (Map<String, String>) resolver.getValue(node, _CUSTOM_ATTR_LIST);
    
-    if (propList == null)
+    if (propMap == null)
       return null;
       
-    String value = propList.getValue(propName);
+    String value = propMap.get(propName);
     
     // If it is an El expression, we must evaluate it
     // and return its value
@@ -439,7 +437,32 @@ public class XMLMenuModel extends BaseMenuModel
      
     return value;
   }
-  
+
+  /**
+   * getStream - Opens an InputStream to the provided URI.
+   * 
+   * @param uri - String uri to a data source.
+   * @return InputStream to the data source.
+   */
+  public InputStream getStream(String uri)
+  {
+    // This is public so that extended menu models can override
+    // and provide their own InputStream metadata source.
+    // And it is called by the MenuContentHandlerImpl.
+    try
+    {
+      // Open the metadata  
+      FacesContext context = FacesContext.getCurrentInstance();
+      URL url = context.getExternalContext().getResource(uri);
+      return url.openStream();
+    }
+    catch (Exception ex)
+    {
+      _LOG.severe("Exception opening URI " + uri, ex);
+      return null;
+    }    
+  }
+
   /* ====================================================================
    * Private Methods
    * ==================================================================== */
@@ -467,7 +490,9 @@ public class XMLMenuModel extends BaseMenuModel
           ClassLoaderUtils.getServices(_MENUCONTENTHANDLER_SERVICE);
          
         if (services.isEmpty())
+        {
           throw new IllegalStateException("No MenuContentHandler was registered.");
+        }
         
         _contentHandler = services.get(0);
         if (_contentHandler == null)
@@ -480,7 +505,7 @@ public class XMLMenuModel extends BaseMenuModel
       // In this model, the menu content handler and nodes need to have
       // access to the model's data structures and to notify the model
       // of the currently selected node (in the case of a POST).
-      _setRootModelUri(_contentHandler);
+      _setRootModelKey(_contentHandler);
 
       // Set the local model (model created by a sharedNode) on the
       // contentHandler so that nodes can get back to their local model
@@ -492,54 +517,54 @@ public class XMLMenuModel extends BaseMenuModel
     }
     catch (Exception ex)
     {
-      _LOG.severe(  "Exception creating menu model " 
-                  + _mdSource, ex);
+      _LOG.severe(  "Exception creating menu model " + _mdSource, ex);
       return;
     }
   }
 
   /**
-   * _setRootModelUri - sets the top-level, menu model's Uri on the 
+   * _setRootModelKey - sets the top-level, menu model's Key on the 
    * menu content handler. This is so nodes will only operate
    * on the top-level, root model. 
    * 
    */
   @SuppressWarnings("unchecked")
-  private void _setRootModelUri(MenuContentHandler contentHandler)
+  private void _setRootModelKey(MenuContentHandler contentHandler)
   {
-    if (_rootUri == null)
-    {
-      _rootUri = _mdSource;
-      
-      // Put the root model on the Application Map so that it
+    if (_getRootModel() == null)
+    {      
+      // Put the root model on the Request Map so that it
       // Can be picked up by the nodes to call back into the 
       // root model
       FacesContext facesContext = FacesContext.getCurrentInstance();
       Map<String, Object> requestMap = 
         facesContext.getExternalContext().getRequestMap();
       
-      requestMap.put(_rootUri, this);
-
-      // Set the key (_rootUri) to the root model on the content
+      requestMap.put(_ROOT_MODEL_KEY, this);
+      
+      // Set the key to the root model on the content
       // handler so that it can then be set on each of the nodes
-      contentHandler.setRootModelUri(_rootUri);
+      contentHandler.setRootModelKey(_ROOT_MODEL_KEY);
     }
   }
   
   /**
-   * Returns the root menu model's Uri.
+   * Returns the root menu model.
    * 
-   * @return the root menu model's Uri.
+   * @return XMLMenuModel the root menu model.
    */
-  private String _getRootUri()
+  @SuppressWarnings("unchecked")
+  private XMLMenuModel _getRootModel()
   {
-    return _rootUri;
+    FacesContext facesContext = FacesContext.getCurrentInstance();
+    Map<String, Object> requestMap = 
+      facesContext.getExternalContext().getRequestMap();
+    return (XMLMenuModel) requestMap.get(_ROOT_MODEL_KEY);
   }
   
   /**
    * _setModelUri - sets the local, menu model's Uri on the 
-   * menu content handler. 
-   * 
+   * menu content handler.  
    */
   @SuppressWarnings("unchecked")
   private void _setModelUri(MenuContentHandler contentHandler)
@@ -555,7 +580,7 @@ public class XMLMenuModel extends BaseMenuModel
     
     requestMap.put(localUri, this);
     
-    // Set the key (_rootUri) to the root model on the content
+    // Set the key (_localUri) to the local model on the content
     // handler so that it can then be set on each of the nodes
     contentHandler.setModelUri(localUri);
   }
@@ -617,9 +642,10 @@ public class XMLMenuModel extends BaseMenuModel
    
   /*
    * Interface corresponding to the MenuContentHandlerImpl
-   * inorg.apache.myfaces.trinidadinternal.menu.   This is used to achieve 
-   * separation between the api (trinidad) and the implementation (trinidadinternal).
-   * It is only used by the XMLMenuModel, thus it is an internal interface.
+   * in org.apache.myfaces.trinidadinternal.menu.   This is used to achieve 
+   * separation between the api (trinidad) and the implementation 
+   * (trinidadinternal). It is only used by the XMLMenuModel, thus it is 
+   * an internal interface.
    */
   public interface MenuContentHandler 
   {
@@ -633,15 +659,15 @@ public class XMLMenuModel extends BaseMenuModel
     public TreeModel getTreeModel(String uri);
 
     /**
-      * Sets the root Uri on the ContentHandler so that the nodes
-      * can get back to the root model of the application menu tree
+      * Sets the root model's request map key on the ContentHandler so 
+      * that the nodes can get back to their root model
       * through the request map.
       */
-    public void setRootModelUri(String uri);
+    public void setRootModelKey(String key);
     
     /**
       * Sets the local, sharedNode model's Uri on the ContentHandler so that
-      * the local model can be gotte too if necessary.
+      * the local model can be gotten to, if necessary.
       */
     public void setModelUri(String uri);
 
@@ -650,21 +676,21 @@ public class XMLMenuModel extends BaseMenuModel
      * 
      * @return the Model's idNodeMap
      */
-    public Map<String, Object> getIdNodeMap();
+    public Map<String, Object> getIdNodeMap(Object modelKey);
 
     /**
      * Get the Model's nodeFocusPathMap
      * 
      * @return the Model's nodeFocusPathMap
      */
-    public Map<Object, List<Object>> getNodeFocusPathMap();
+    public Map<Object, List<Object>> getNodeFocusPathMap(Object modelKey);
 
     /**
      * Get the Model's viewIdFocusPathMap
      * 
      * @return the Model's viewIdFocusPathMap
      */
-    public Map<String, List<Object>> getViewIdFocusPathMap();
+    public Map<String, List<Object>> getViewIdFocusPathMap(Object modelKey);
   }
      
   private Object  _currentNode       = null;
@@ -676,10 +702,11 @@ public class XMLMenuModel extends BaseMenuModel
 
   private Map<String, List<Object>> _viewIdFocusPathMap;
   private Map<Object, List<Object>> _nodeFocusPathMap;
-  private Map<String, Object> _idNodeMap;
+  private Map<String, Object>       _idNodeMap;
 
-  static private String _rootUri                    = null;  
   static private MenuContentHandler _contentHandler = null;
+  
+  static private final String _ROOT_MODEL_KEY = "org.apache.myfaces.trinidad.model.XMLMenuModel.__root_menu__";
   
   static private final String _NODE_ID_PROPERTY     = "nodeId";
   static private final String _METHOD_GET           = "get";

@@ -154,7 +154,7 @@ class MenuUtils
    * @param resBundle - String containing name of class containing the resource
    *                    bundle.
    * @param key - ThreadLocal key for the resource bundle being put on the
-   *              sessionMap
+   *              requestMap
    */
   @SuppressWarnings("unchecked")
   static void loadBundle(String resBundle, ThreadLocal<String> key)
@@ -240,8 +240,9 @@ class MenuUtils
    * @param resBundleName - String containing name of class containing the 
    *                        resource bundle.
    * @param resBundleKey - String key for the resource bundle being put on the
-   *                       sessionMap
+   *                       requestMap
    */
+  @SuppressWarnings("unchecked")
   static void loadBundle(String resBundleName, String resBundleKey)
   {
     ThreadLocal<String> bundleKey = new ThreadLocal<String>();
@@ -256,6 +257,7 @@ class MenuUtils
    * model metadata to externalize strings, such as tab labels, for 
    * translation.
    */
+  @SuppressWarnings("unchecked")
   static private class _BundleMap implements Map<String, String>
   {
     private ResourceBundle _bundle;
@@ -331,7 +333,7 @@ class MenuUtils
       for (Enumeration<String> enumer = _bundle.getKeys(); enumer.hasMoreElements(); )
       {
         final String k = enumer.nextElement();
-        set.add(new Map.Entry<String, String>() 
+        set.add(new Map.Entry<String, String>()
         {
           public String getKey()
           {
