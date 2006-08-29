@@ -20,6 +20,15 @@ function _decimalGetAsString(
   return "" + number;
 }
 
+function _decimalFacesMessage(
+  messages,
+  messageKey
+)
+{
+  return new FacesMessage(messages[(messageKey+ '_S')], 
+                          messages[messageKey], 
+                          FacesMessage.SEVERITY_ERROR);  
+}
 
 function _decimalParse(
   numberString,
@@ -30,8 +39,12 @@ function _decimalParse(
   minValue
   )
 {
+  var facesMessage = null; 
   if (!numberString)
-    throw new ConverterException(messages[DecimalFormat.D]);
+  { 
+    facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
+    throw new ConverterException(null, facesMessage);
+  }
        
 
   // Get LocaleSymbols (from Locale.js)
@@ -42,7 +55,10 @@ function _decimalParse(
     var grouping = symbols.getGroupingSeparator();
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
-      throw new ConverterException(messages[DecimalFormat.D]);
+    {
+      facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
+      throw new ConverterException(null, facesMessage);
+    }
 
     // Remove the thousands separator - which Javascript doesn't want to see
     var thousands = new RegExp("\\" + grouping, "g");
@@ -116,7 +132,10 @@ function _decimalParse(
               (messages[messageKey] == (void 0)))
             throw  new ConverterException("Conversion failed, but no appropriate message found");  // default error format
           else
-            throw new ConverterException(messages[messageKey]);
+          {
+            facesMessage = _decimalFacesMessage(messages, messageKey);
+            throw new ConverterException(null, facesMessage);
+          }
         }
         
         return result;
@@ -124,7 +143,8 @@ function _decimalParse(
     }
   }
 
-  throw new ConverterException(messages[DecimalFormat.D]);
+  facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
+  throw new ConverterException(null, facesMessage);
 }
 
 function _decimalGetAsObject(
@@ -244,7 +264,10 @@ function _regExpParse(
                                      });
     }
 
-    throw new ValidatorException(this._messages[RegExpFormat.NM]);
+    var facesMessage = new FacesMessage(this._messages[RegExpFormat.NMS], 
+                                        this._messages[RegExpFormat.NM], 
+                                        FacesMessage.SEVERITY_ERROR);
+    throw new ValidatorException(null, facesMessage); 
   }
 }
 
@@ -259,8 +282,10 @@ function RegExpFormat(
   this._class = "RegExpFormat";
 }
 
-//Input Text does not match pattern
+// no match pattern
 RegExpFormat.NM = 'NM';
+// no match pattern summary
+RegExpFormat.NMS = 'NMS';
 
 RegExpFormat.prototype = new Validator();
 RegExpFormat.prototype.validate  = _regExpParse;

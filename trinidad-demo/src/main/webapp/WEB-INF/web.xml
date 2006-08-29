@@ -66,6 +66,11 @@
     <param-name>org.apache.myfaces.trinidad.CHANGE_PERSISTENCE</param-name>
     <param-value>session</param-value>
   </context-param>
+  
+  <context-param>
+    <param-name>org.apache.myfaces.trinidad.resource.DEBUG</param-name>
+    <param-value>false</param-value>
+  </context-param>
 
   <!-- With setting this parameter you are able to specify the logical
        outcome prefix to launch the dialog framework. If not set, the

@@ -30,6 +30,8 @@ function EncodingFormat(
 
 EncodingFormat.prototype = new Validator();
 
+//LFS - Length failed summary
+EncodingFormat.prototype.LFS  = "LFS";
 //LF - Length failed
 EncodingFormat.prototype.LF  = "LF";
 
@@ -48,7 +50,10 @@ function _cjkParse(
    
     if (length < 0)
     {
-      throw new ValidatorException(this._messages[this.LF]);     
+      var facesMessage = new FacesMessage(this._messages[this.LFS], 
+                                          this._messages[this.LF], 
+                                          FacesMessage.SEVERITY_ERROR);
+      throw new ValidatorException(null, facesMessage);     
     }
 
     i++;
@@ -96,7 +101,10 @@ function _utf8Parse(
 
     if (length < 0)
     {
-      throw new ValidatorException(this._messages[this.LF]);            
+      var facesMessage = new FacesMessage(this._messages[this.LFS], 
+                                          this._messages[this.LF], 
+                                          FacesMessage.SEVERITY_ERROR);
+      throw new ValidatorException(null, facesMessage);              
     }
 
     i++;
@@ -128,7 +136,10 @@ function _sbParse(
 {
   if (this._length < parseString.length)
   {
-    throw new ValidatorException(this._messages[this.LF]);    
+    var facesMessage = new FacesMessage(this._messages[this.LFS], 
+                                        this._messages[this.LF], 
+                                        FacesMessage.SEVERITY_ERROR);
+    throw new ValidatorException(null, facesMessage);      
   }
 
   return parseString;

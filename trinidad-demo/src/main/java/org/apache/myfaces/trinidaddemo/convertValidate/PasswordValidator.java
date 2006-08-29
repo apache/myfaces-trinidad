@@ -113,7 +113,8 @@ public class PasswordValidator implements Validator, ClientValidator
   // The fourth field marker gets the field label
   private static final String _VALIDATOR_INSTANCE_STRING =
     "new PasswordValidator({"
-    + "N:'The password value must contain at least one number.'})";
+    + "NS:'The password is invalid.',"
+    + "ND:'The password value must contain at least one number.'})";
 
 
 }

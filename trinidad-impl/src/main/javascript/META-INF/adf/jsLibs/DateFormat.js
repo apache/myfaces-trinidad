@@ -62,12 +62,15 @@ function _simpleDateParse(
   )
 {
   var pattern = this._pattern;
+  var facesMessage = new FacesMessage(this._msg_summary, 
+                                      this._msg_detail, 
+                                      FacesMessage.SEVERITY_ERROR);
   if (typeof pattern == "string")
   {
     return _simpleDateParseImpl(parseString,
                                 pattern,
                                 this._localeSymbols,
-                                this._msg);
+                                facesMessage);
   }
   else
   { 
@@ -78,7 +81,7 @@ function _simpleDateParse(
         var date = _simpleDateParseImpl(parseString,
                                         pattern[i],
                                         this._localeSymbols,
-                                        this._msg);
+                                        facesMessage);
         return date;
       }
       catch (e)
@@ -110,7 +113,7 @@ function _simpleDateParseImpl(
   parseContext.parsedFullYear = (void 0);
   parseContext.parsedMonth = (void 0);
   parseContext.parsedDate = (void 0);
-  parseContext.parseException = new ConverterException(msg);
+  parseContext.parseException = new ConverterException(null, msg);
 
   var parsedTime = new Date(0);
   parsedTime.setDate(1);
@@ -1246,18 +1249,20 @@ function _initPatterns(
 function SimpleDateFormat(
   pattern,  
   locale,
-  msg,
+  msg_summary,
+  msg_detail,
   exampleString
   )
 {
   // for debugging
   this._class = "SimpleDateFormat";
+  this._msg_summary = msg_summary;
   
   // format the error string
   //   {2}    a legal example
-  if (msg != null)
+  if (msg_detail != null)
   {
-    this._msg = _formatErrorString(msg,
+    this._msg_detail = _formatErrorString(msg_detail,
                                    { 
                                      "2":exampleString
                                    });

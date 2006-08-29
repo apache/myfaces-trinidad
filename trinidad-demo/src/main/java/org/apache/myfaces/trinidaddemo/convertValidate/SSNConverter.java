@@ -130,6 +130,7 @@ public class SSNConverter implements Converter, ClientConverter
 
     // in a real app the messages would be translated
     return ("new SSNConverter({"
+            + "SUM:'Invalid social security number.',"
             + "S:'Value \"{1}\" is too short.',"
             + "L:'Value \"{1}\" is too long.',"
             + "N:'Value \"{1}\" is not a valid social security number.'})"
