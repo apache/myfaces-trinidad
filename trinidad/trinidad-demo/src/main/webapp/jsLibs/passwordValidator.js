@@ -22,7 +22,7 @@ function passwordValidate(value)
   if (value == '******')
     return null;
     
-  var messageKey = PasswordValidator.NUMBER;
+  var hasNumber = false;
   
   for (var i = 0; i < value.length; i++)
   {
@@ -30,12 +30,19 @@ function passwordValidate(value)
     
     if (!isNaN(parseInt(subValue)))
     {
-      messageKey = null;break;
+      hasNumber = true;
+      break;
     }
   }
   
-  if (messageKey != null)
-    throw new ValidatorException(this._messages[messageKey]);
+  if (hasNumber == false)
+  {
+    var facesMessage = new FacesMessage(
+                        this._messages[PasswordValidator.NUMBER_SUMMARY],
+                        this._messages[PasswordValidator.NUMBER_DETAIL],
+                        FacesMessage.SEVERITY_ERROR)
+    throw new ValidatorException(null, facesMessage);
+  }
     
   return null;
 }
@@ -44,4 +51,5 @@ function PasswordValidator(messages)
   {this._messages = messages;}
 PasswordValidator.prototype = new Validator();
 PasswordValidator.prototype.validate = passwordValidate;
-PasswordValidator.NUMBER = 'N'; 
+PasswordValidator.NUMBER_DETAIL = 'ND'; 
+PasswordValidator.NUMBER_SUMMARY = 'NS'; 

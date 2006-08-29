@@ -225,6 +225,9 @@ public class ConverterUtils
                                 new Object[]{"{0}", "{1}", maxVal});
 
     outBuffer.append(XhtmlLafUtils.escapeJS(maxMessage.getDetail()));
+
+    outBuffer.append("',LV_S:'");
+    outBuffer.append(XhtmlLafUtils.escapeJS(maxMessage.getSummary()));    
     outBuffer.append("',MV:'");
 
     FacesMessage minMessage =
@@ -232,6 +235,9 @@ public class ConverterUtils
                                 new Object[]{"{0}", "{1}", minVal});
 
     outBuffer.append(XhtmlLafUtils.escapeJS(minMessage.getDetail()));
+    
+    outBuffer.append("',MV_S:'");
+    outBuffer.append(XhtmlLafUtils.escapeJS(minMessage.getSummary()));  
 
     outBuffer.append("',D:'");
 
@@ -239,7 +245,10 @@ public class ConverterUtils
       MessageFactory.getMessage(context, defaultId,
                                 new Object[]{"{0}", "{1}"});
 
-    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail()));
+    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail())); 
+    
+    outBuffer.append("',D_S:'");
+    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getSummary()));
 
     outBuffer.append("'},(void 0),0,");
     outBuffer.append(maxVal);
@@ -267,6 +276,8 @@ public class ConverterUtils
                                 new Object[]{"{0}", "{1}"});
 
     outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail()));
+    outBuffer.append("',D_S:'");
+    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getSummary()));
     outBuffer.append("'})");
 
     return outBuffer.toString();

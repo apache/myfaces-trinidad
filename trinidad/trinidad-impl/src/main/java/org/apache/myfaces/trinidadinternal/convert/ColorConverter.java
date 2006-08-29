@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -73,9 +74,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       // FIX - figure out size!!!
       StringBuffer buff = new StringBuffer();
 
-      // -= Simon Lessard =-
-      // FIXME: JSF 1.2 specifies <String, Object>
-      Map<Object, Object> requestMap = context.getExternalContext().getRequestMap();
+      Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
       // =-=JRF Only if Javascript...
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {
@@ -169,8 +168,10 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
       sb.append(",false,'");
     }
     
-    String msg = _getConvertMessageDetail(context);
-    sb.append(XhtmlLafUtils.escapeJS(msg)); 
+    FacesMessage msg = _getConvertFacesMessage(context);
+    sb.append(XhtmlLafUtils.escapeJS(msg.getSummary())); 
+    sb.append("','");
+    sb.append(XhtmlLafUtils.escapeJS(msg.getDetail())); 
     sb.append("','");
     sb.append(XhtmlLafUtils.escapeJS(patternsString));
     sb.append("')");
@@ -244,7 +245,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     }
   }
 
-  private String _getConvertMessageDetail(FacesContext context)
+  private FacesMessage _getConvertFacesMessage(FacesContext context)
   {
     String convMsgDet = getConvertMessageDetail();
 
@@ -253,10 +254,10 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
     return MessageFactory.getMessage(context, CONVERT_MESSAGE_ID,
-                                           convMsgDet, params).getDetail();
+                                           convMsgDet, params);
   }
   
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "ColorFormat()" );
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(ColorConverter.class);
-  private static final Object _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.ColorConverter._PATTERN_WRITTEN";
+  private static final String _PATTERN_WRITTEN_KEY = "org.apache.myfaces.trinidadinternal.convert.ColorConverter._PATTERN_WRITTEN";
 }

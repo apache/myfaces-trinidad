@@ -25,6 +25,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
@@ -215,18 +216,22 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       if (pattern == null)
         pattern = getSecondaryPattern();
       Object[] params = new Object[] {"{0}", "{1}", "{2}"};
-      String msg = getParseErrorMessage(context, component,
-                                        pattern, params).getDetail();
-      String message = XhtmlLafUtils.escapeJS(msg);
+      FacesMessage msg = getParseErrorMessage(context, component,
+                                        pattern, params);
+      String detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
+      String summaryMessage = XhtmlLafUtils.escapeJS(msg.getSummary());
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
       
-      StringBuffer outBuffer = new StringBuffer(33 + jsPattern.length() +
-                                                message.length() +
+      StringBuffer outBuffer = new StringBuffer(36 + jsPattern.length() +
+                                                detailMessage.length() +
+                                                summaryMessage.length() +
                                                 exampleString.length());
       outBuffer.append("new SimpleDateFormat("); // 21
       outBuffer.append(jsPattern);               // jsPattern.length
       outBuffer.append(",null,'");               // 7
-      outBuffer.append(message);                 // message.length/
+      outBuffer.append(summaryMessage);          // summary message.length
+      outBuffer.append("','");                   // 3
+      outBuffer.append(detailMessage);           // detail message.length/
       outBuffer.append("','");                   // 3
       outBuffer.append(exampleString);           // exampleString.length
       outBuffer.append("')");                    // 2

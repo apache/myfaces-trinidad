@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -108,15 +109,16 @@ public class ByteLengthValidator
       }
     }
 
-    String lengthFailedMessage
-      = _getEscapedJsMaximumMessageDetail(context);
-
+    FacesMessage message = _getEscapedJsMaximumMessage(context);
+    
     String maxLength = String.valueOf(getMaximum());
 
     constr.append(maxLength);
 
     constr.append(",{LF:'");
-    constr.append(XhtmlLafUtils.escapeJS(lengthFailedMessage));
+    constr.append(XhtmlLafUtils.escapeJS(message.getDetail()));
+    constr.append("',LFS:'");
+    constr.append(XhtmlLafUtils.escapeJS(message.getSummary()));
     constr.append( "'})");
 
     return constr.toString();
@@ -178,7 +180,7 @@ public class ByteLengthValidator
     return _UNSUPPORTED_TYPE;
   }
 
-  private String _getEscapedJsMaximumMessageDetail(
+  private FacesMessage _getEscapedJsMaximumMessage(
     FacesContext context)
   {
     String maxMsgDetail = getMaximumMessageDetail();
@@ -187,14 +189,11 @@ public class ByteLengthValidator
 
     Object[] params = new Object[] {label, "{1}", maxLength};
 
-    String detailMsg
-      = MessageFactory.getMessage(context,
+    return  MessageFactory.getMessage(context,
                                   ByteLengthValidator.MAXIMUM_MESSAGE_ID,
                                   maxMsgDetail,
-                                  params).getDetail();
+                                  params);
 
-
-    return detailMsg;
   }
 
 

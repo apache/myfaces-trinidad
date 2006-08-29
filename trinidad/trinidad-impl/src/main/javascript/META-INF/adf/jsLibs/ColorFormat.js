@@ -59,11 +59,14 @@ function _rgbColorParse(
     return new Color(0,0,0,0);
     
   var pattern = this._pattern;
+  var facesMessage = new FacesMessage(this._msg_summary, 
+                                      this._msg_detail, 
+                                      FacesMessage.SEVERITY_ERROR);
   if (typeof pattern == "string")
   {
     return _rgbColorParseImpl(parseString,
                               pattern,
-                              this._msg);
+                              facesMessage);
   }
   else
   { 
@@ -73,7 +76,7 @@ function _rgbColorParse(
       try{
         var color = _rgbColorParseImpl(parseString,
                                      pattern[i],
-                                     this._msg);
+                                     facesMessage);
         return color;
       }
       catch (e)
@@ -95,7 +98,7 @@ function _rgbColorParseImpl(
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
-  parseContext.parseException = new ConverterException(msg);
+  parseContext.parseException = new ConverterException(null, msg);
   
   var parsedColor = new Color(0x00, 0x00, 0x00);
 
@@ -554,18 +557,20 @@ function _cfoGetPaddedNumber(
 function RGBColorFormat(
   pattern,
   allowsTransparent,
-  msg,
+  msg_summary,
+  msg_detail,
   patternsString)
 {
   // for debugging
   this._class = "RGBColorFormat";
-  this._allowsTransparent = allowsTransparent;
-  // format the error string
-  //   {2}  legal patterns
+  this._allowsTransparent = allowsTransparent;  
+  this._msg_summary = msg_summary;
   
-  if (msg != null)
+  // format the detail error string
+  //   {2}  legal patterns
+  if (msg_detail != null)
   {
-    this._msg = _formatErrorString(msg,
+    this._msg_detail = _formatErrorString(msg_detail,
                                    { 
                                      "2":patternsString
                                    });

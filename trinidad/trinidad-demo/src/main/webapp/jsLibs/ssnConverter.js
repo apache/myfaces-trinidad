@@ -42,7 +42,11 @@ function ssnGetAsObject(value)
   }
  if (messageKey!=null && this._messages!=null)
  {
-   throw new ConverterException(this._messages[messageKey]);
+    var facesMessage = new FacesMessage(
+                        this._messages[SSNConverter.SUMMARY],
+                        this._messages[messageKey],
+                        FacesMessage.SEVERITY_ERROR)
+   throw new ConverterException(null, facesMessage);
  }
  return null;
 }
@@ -51,6 +55,7 @@ function SSNConverter(messages)
 SSNConverter.prototype = new Converter();
 SSNConverter.prototype.getAsString = ssnGetAsString;
 SSNConverter.prototype.getAsObject = ssnGetAsObject;
+SSNConverter.SUMMARY = 'SUM';
 SSNConverter.SHORT = 'S';
 SSNConverter.LONG  = 'L';
 SSNConverter.NOT   = 'N';

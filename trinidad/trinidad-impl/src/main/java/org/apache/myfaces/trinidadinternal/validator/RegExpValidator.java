@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidadinternal.validator;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -63,19 +64,23 @@ public class RegExpValidator
    
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
     
-    
-    String esNoMatchMsgPattern = XhtmlUtils.escapeJS(
-                  _getNoMatchMessageDetail(context));
+    FacesMessage message = _getNoMatchMessage(context);
+    String esNoMatchMsgPattern = XhtmlUtils.escapeJS(message.getDetail());
+    String esNoMatchMsgSummaryPattern = 
+                             XhtmlUtils.escapeJS(message.getSummary());
 
 
-    StringBuffer outBuffer = new StringBuffer(28
+    StringBuffer outBuffer = new StringBuffer(35
                                               + jsPattern.length()
-                                              + esNoMatchMsgPattern.length());
+                                              + esNoMatchMsgPattern.length()
+                                              + esNoMatchMsgSummaryPattern.length());
 
     outBuffer.append("new RegExpFormat('"); // 18
     outBuffer.append(jsPattern);
     outBuffer.append("',{NM:'");            //  7
     outBuffer.append(esNoMatchMsgPattern);
+    outBuffer.append("',NMS:'");            //  7
+    outBuffer.append(esNoMatchMsgSummaryPattern);
     outBuffer.append("'})");                // 3
 
     return outBuffer.toString();
@@ -92,18 +97,16 @@ public class RegExpValidator
     return null;
   }
 
-  private String _getNoMatchMessageDetail(
+  private FacesMessage _getNoMatchMessage(
     FacesContext context)
   {
     String noMatchMsg = getNoMatchMessageDetail(); 
     Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
-    String noMatchDetMsg
-      = MessageFactory.getMessage(context,
+    return MessageFactory.getMessage(context,
                                   RegExpValidator.NO_MATCH_MESSAGE_ID,
                                   noMatchMsg,
-                                  params).getDetail();
-    return noMatchDetMsg;
+                                  params);
   }
 
 
