@@ -2367,6 +2367,8 @@ function _multiValidate(
       if (!currInput)
         continue;
 
+      var label = _getLabel(form, currInput);
+
       // if currInput is an array then multiple elements have the same name.
       // Only the first will be validated as subsequent values should be in sync
       var elementType = currInput.type;
@@ -2403,7 +2405,8 @@ function _multiValidate(
         {
           requiredErrorString = _getGlobalErrorString(currInput, 
                                               globalMessageIndex, 
-                                              requiredErrorString);   
+                                              requiredErrorString,
+                                              label);   
           failures += '\n' + requiredErrorString;
         }
       }
@@ -2430,7 +2433,7 @@ function _multiValidate(
             {
               var converter = eval(converterConstructor);
               try{
-                value = converter.getAsObject(value);
+                value = converter.getAsObject(value, label);
               }
               catch (e)
               {
@@ -2445,15 +2448,14 @@ function _multiValidate(
                 }
   
                 // get the formatted error string for the current input
-                var errorString1 = _getErrorString(currInput,
-                                                   null,
-                                                   e);
+                var errorString1 = e.getFacesMessage().getDetail();
   
                 if (errorString1)
                 {                         
                   errorString1 = _getGlobalErrorString(currInput, 
                                                        globalMessageIndex, 
-                                                       errorString1);                                         
+                                                       errorString1,
+                                                       label);                                         
                   failures += '\n' + errorString1;
                 }
               }
@@ -2482,7 +2484,7 @@ function _multiValidate(
                 var validator = eval(validatorConstructor);
 
                 try {
-                  validator.validate(value);
+                  validator.validate(value, label);
                 }
                 catch (e)
                 {
@@ -2497,15 +2499,14 @@ function _multiValidate(
   
                   // get the formatted error string for the current input and
                   // formatIndex
-                  var errorString = _getErrorString(currInput,
-                                                    null,
-                                                    e);
+                  var errorString = e.getFacesMessage().getDetail();
   
                   if (errorString)
                   {     
                     errorString = _getGlobalErrorString(currInput, 
                                                         globalMessageIndex, 
-                                                        errorString);       
+                                                        errorString,
+                                                        label);       
                     failures += '\n' + errorString;
                   }
                 }
@@ -2522,10 +2523,44 @@ function _multiValidate(
   return failures;
 }
 
+/**
+ * Used for the converters and validators we provide which all have the form
+ *
+ * {0} - label
+ * {1} - string value
+ * {2} - extra param
+ * {3} - extra param
+ */
+function _createFacesMessage(
+  summary,
+  detail,
+  label,
+  value,
+  param2,  
+  param3
+)
+{  
+  // format the detail error string
+  if (detail != null)
+  {
+    var patternArray = new Array();
+    patternArray[0] = label;
+    patternArray[1] = value;
+    patternArray[2] = param2;
+    patternArray[3] = param3;
+    detail = _formatErrorString(detail, patternArray);
+  }
+  
+  return new FacesMessage(summary, 
+                          detail, 
+                          FacesMessage.SEVERITY_ERROR);
+}
+
 function _getGlobalErrorString(
   input,
   formatIndex,
-  errorString
+  errorString,
+  label
   )
 {
   var form = _getForm(input);  
@@ -2537,26 +2572,13 @@ function _getGlobalErrorString(
     // get the appropriate error format
     var errorFormat = errorFormats[formatIndex];
 
-    if (errorFormat)
+    if (errorFormat && label != null)
     {
-      // get the mapping of id's to labels
-      var labelMap = window["_" + _getJavascriptId(form.name) + "_Labels"];
-    
-      // get the label for this input element, if one has been
-      // associated using the ID of the input element
-      if (labelMap)
-      {
-        var label = labelMap[_getID(input)];
-        
-        if (label)
-        {
-          return _formatErrorString(errorFormat,
-                                   {
-                                     "0":label,
-                                     "1":errorString
-                                   });
-        }
-      }
+        return _formatErrorString(errorFormat,
+                                 {
+                                   "0":label,
+                                   "1":errorString
+                                 });
     }
   }   
   
@@ -2755,6 +2777,28 @@ function _instanceof(
   return false;
 }
 
+
+function _getLabel(
+  form,
+  input
+)
+{
+
+  // get the mapping of id's to labels
+  var labelMap = window["_" + _getJavascriptId(form.name) + "_Labels"];
+  
+  var label;
+  
+  // get the label for this input element, if one has been
+  // associated using the ID of the input element
+  if (labelMap)
+  {
+    label = labelMap[_getID(input)];
+  }
+  
+  return label;
+}
+
 /**
  * Return the formatted error string for an input field
  * and an errorFormatIndex
@@ -2794,18 +2838,8 @@ function _getErrorString(
 
   if (errorFormat)
   {
-    // get the mapping of id's to labels
-    var labelMap = window["_" + _getJavascriptId(form.name) + "_Labels"];
-
-    var label;
-
-    // get the label for this input element, if one has been
-    // associated using the ID of the input element
-    if (labelMap)
-    {
-      label = labelMap[_getID(input)];
-    }
-
+    var label = _getLabel(form, input);
+    
     // format the error string, replacing the following tokens
     //   {0}    the value of the label
     //   {1}    the value of the input element
@@ -2818,6 +2852,8 @@ function _getErrorString(
     return errorString;
   }
 }
+
+
 
 
 /**
@@ -2865,6 +2901,7 @@ function _getValidationError(
   // no error
   return (void 0);
 }
+
 
 
 /**
@@ -2941,6 +2978,7 @@ function _formatErrorString(
   var twoSingleQuotes = /''/g;
   return currString.replace(twoSingleQuotes, "'");
 }
+
 
 /**
  * Chain two functions together returning whether the default

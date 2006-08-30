@@ -52,16 +52,20 @@ function _rgbColorFormat(
  * parsing fails, undefined will be returned.
  */
 function _rgbColorParse(
-  parseString)
+  parseString,
+  label)
 {
   // return transparent color for localized transparent text
   if (this._allowsTransparent && _cfTrans == parseString)
     return new Color(0,0,0,0);
-    
-  var pattern = this._pattern;
-  var facesMessage = new FacesMessage(this._msg_summary, 
-                                      this._msg_detail, 
-                                      FacesMessage.SEVERITY_ERROR);
+     
+  var facesMessage = _createFacesMessage( this._msg_summary,
+                                          this._msg_detail,
+                                          label,
+                                          parseString,
+                                          this._patternsString);
+  
+  var pattern = this._pattern;                                       
   if (typeof pattern == "string")
   {
     return _rgbColorParseImpl(parseString,
@@ -98,7 +102,7 @@ function _rgbColorParseImpl(
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
-  parseContext.parseException = new ConverterException(null, msg);
+  parseContext.parseException = new ConverterException(msg);
   
   var parsedColor = new Color(0x00, 0x00, 0x00);
 
@@ -564,17 +568,9 @@ function RGBColorFormat(
   // for debugging
   this._class = "RGBColorFormat";
   this._allowsTransparent = allowsTransparent;  
-  this._msg_summary = msg_summary;
-  
-  // format the detail error string
-  //   {2}  legal patterns
-  if (msg_detail != null)
-  {
-    this._msg_detail = _formatErrorString(msg_detail,
-                                   { 
-                                     "2":patternsString
-                                   });
-  }
+  this._msg_summary = msg_summary; 
+  this._msg_detail = msg_detail;
+  this._patternsString = patternsString;     
   
   if (pattern != null)
   {

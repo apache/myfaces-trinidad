@@ -20,30 +20,24 @@ function _decimalGetAsString(
   return "" + number;
 }
 
-function _decimalFacesMessage(
-  messages,
-  messageKey
-)
-{
-  return new FacesMessage(messages[(messageKey+ '_S')], 
-                          messages[messageKey], 
-                          FacesMessage.SEVERITY_ERROR);  
-}
-
 function _decimalParse(
   numberString,
   messages,
   maxPrecision,
   maxScale,
   maxValue,
-  minValue
+  minValue,
+  label
   )
 {
   var facesMessage = null; 
   if (!numberString)
   { 
-    facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
-    throw new ConverterException(null, facesMessage);
+    facesMessage = _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
+                                        messages[DecimalFormat.D],
+                                        label,
+                                        numberString);
+    throw new ConverterException(facesMessage);
   }
        
 
@@ -56,8 +50,11 @@ function _decimalParse(
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
     {
-      facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
-      throw new ConverterException(null, facesMessage);
+      facesMessage =  _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
+                                        messages[DecimalFormat.D],
+                                        label,
+                                        numberString);
+      throw new ConverterException(facesMessage);
     }
 
     // Remove the thousands separator - which Javascript doesn't want to see
@@ -130,11 +127,14 @@ function _decimalParse(
           
           if ((messages == (void 0)) ||
               (messages[messageKey] == (void 0)))
-            throw  new ConverterException("Conversion failed, but no appropriate message found");  // default error format
+            throw  new ConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
           else
           {
-            facesMessage = _decimalFacesMessage(messages, messageKey);
-            throw new ConverterException(null, facesMessage);
+            facesMessage =  _createFacesMessage( messages[(messageKey + '_S')],
+                                        messages[messageKey],
+                                        label,
+                                        numberString);
+            throw new ConverterException(facesMessage);
           }
         }
         
@@ -143,12 +143,16 @@ function _decimalParse(
     }
   }
 
-  facesMessage = _decimalFacesMessage(messages, DecimalFormat.D);
-  throw new ConverterException(null, facesMessage);
+  facesMessage = _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
+                                        messages[DecimalFormat.D],
+                                        label,
+                                        numberString);
+  throw new ConverterException(facesMessage);
 }
 
 function _decimalGetAsObject(
-  numberString
+  numberString,
+  label
   )
 {
   return _decimalParse(numberString, 
@@ -156,7 +160,8 @@ function _decimalGetAsObject(
                        this._maxPrecision,
                        this._maxScale,
                        this._maxValue,
-                       this._minValue);
+                       this._minValue,
+                       label);
 }
 
 function DecimalFormat(
@@ -193,7 +198,8 @@ DecimalFormat.D   = 'D';
 
 
 function _decimalValidate(
-  value
+  value,
+  label
 )
 {
   // This should probably do more than call decimalParse!
@@ -208,11 +214,12 @@ function _decimalValidate(
                        this._maxPrecision,
                        this._maxScale,
                        this._maxValue,
-                       this._minValue);
+                       this._minValue,
+                       label);
   }
   catch (e)
   {
-    throw new ValidatorException((void 0), e.getFacesMessage());
+    throw new ValidatorException(e.getFacesMessage());
   }
 }
 
@@ -238,7 +245,8 @@ DecimalValidator.prototype.validate  = _decimalValidate;
 
 
 function _regExpParse(
-  parseString
+  parseString,
+  label
   )
 {
   //For some reason when using digits as input values 
@@ -252,22 +260,13 @@ function _regExpParse(
     return parseString;
   }
   else
-  {
-    // format the error string
-    //   {2}    a legal example
-    if (this._messages[RegExpFormat.NM] != null)
-    {
-      this._messages[RegExpFormat.NM] = 
-                  _formatErrorString(this._messages[RegExpFormat.NM],
-                                     { 
-                                       "2":this._pattern
-                                     });
-    }
-
-    var facesMessage = new FacesMessage(this._messages[RegExpFormat.NMS], 
-                                        this._messages[RegExpFormat.NM], 
-                                        FacesMessage.SEVERITY_ERROR);
-    throw new ValidatorException(null, facesMessage); 
+  {    
+    var facesMessage = _createFacesMessage( this._messages[RegExpFormat.NMS],
+                                            this._messages[RegExpFormat.NM],
+                                            label,
+                                            parseString,
+                                            this._pattern);                                          
+    throw new ValidatorException(facesMessage); 
   }
 }
 

@@ -23,14 +23,11 @@
       <p>
       The basic idea of Apache Trinidad client conversion and validation is that it works on the client in a very similar way to how it works on the server, except the language on the client is javascript instead of java. There are javascript Converter objects that support the methods getAsString() and getAsObject(). A Converter can throw a ConverterException. There are javascript Validator objects that support the validate() method. A Validator can throw a ValidatorException. 
       </p>
-      <p>
-      <b>Note:</b> this chapter describes a preliminary implementation which may change in future releases of Apache Trinidad.
-      </p>
     </section>
 
     <section name="Client-side Converters">
     <p>
-      Let's say you've written a javax.faces.convert.Converter implementation and now you want to add client-side conversion. The first thing to do is write a version of the converter in javascript. Here is the javascript code for the converter "interface".
+      Let's say you've written a javax.faces.convert.Converter implementation and now you want to add client-side conversion. The first thing to do is write a version of the converter in javascript. The main difference between converters on the client and server is that on the client there is no access to a component. The label of the field is therefore passed to the converter for use in formatting the error string. Here is the javascript code for the converter "interface".
     </p>
       <p>
  <source>
@@ -44,29 +41,97 @@ function Converter()
 {
 }
 
+
 /**
  * Convert the specified model object value, into a String for display
  *
  * @param value Model object value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsString = function(value){}
+Converter.prototype.getAsString = function(value, label){}
 
 /**
  * Convert the specified string value into a model data object 
  * which can be passed to validators
  *
  * @param value String value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsObject = function(value){}
+Converter.prototype.getAsObject = function(value, label){}
+
 </source>
-Converters can throw a ConverterException, here is the signature:
-<ul>
-<li>ConverterException(detail) 
-  <ul>
-    <li>detail - Localized detail message text</li>
-  </ul> 
-</li>
-</ul>
+Converters can throw a ConverterException, which should contain a facesMessage. Here is the signature for FacesMessage:
+<source>
+/**
+ * Message similar to javax.faces.application.FacesMessage
+ *
+ * @param summary - Localized summary message text
+ * @param detail - Localized detail message text 
+ * @param severity - An optional severity for this message.  Use constants
+ *                   SEVERITY_INFO, SEVERITY_WARN, SEVERITY_ERROR, and
+ *                   SEVERITY_FATAL from the FacesMessage class.  Default is
+ *                   SEVERITY_INFO
+ */
+function FacesMessage(
+  summary,
+  detail,
+  severity
+  )
+</source>
+Here is the signature for ConverterException:
+<source>
+/** 
+ * ConverterException is an exception thrown by the getAsObject() or getAsString() 
+ * method of a Converter, to indicate that the requested conversion cannot be performed.
+ *
+ * @param facesMessage the FacesMessage associated with this exception
+ * @param summary Localized summary message text, used to create only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
+ */
+function ConverterException(
+  facesMessage, 
+  summary,
+  detail
+  )
+  
+</source>
+
+Another useful API can be used to format messages. 
+
+<source>
+/**
+ * FastMessageFormatUtils is a greatly reduced version
+ * of the java.text.MessageFormat class, but delivered as a utility. 
+ * &lt;p&gt;
+ * The only syntax supported by this class is simple index-based
+ * replacement, namely:
+ * &lt;pre&gt;
+ *     some{1}text{0}here{2}andthere
+ * &lt;/pre&gt;
+ * as well as escaping using single quotes.  Like MessageFormat,
+ * a single quote must be represented using two consecutive single
+ * quotes, but the contents of any text between single quotes
+ * will not be interpreted.  So, the following pattern could
+ * be used to include a left bracket:
+ * &lt;pre&gt;
+ *     some'{'text{0}
+ * &lt;/pre&gt;
+ */
+function FastMessageFormatUtils()
+
+ /**
+  * Formats the given array of strings based on the initial
+  * pattern.   It is legal for this array to be shorter
+  * than that indicated by the pattern, or to have null
+  * entries - these will simply be ignored.
+  * @param formatString an array of strings
+  * @param params an array of strings
+  */
+FastMessageFormatUtils.format = function(
+  formatString, // error format string with embedded indexes to be replaced
+  params        // array of objects to replace indexes
+  )
+</source>
       </p>
       <p>
       Let's say we have implemented a social security number converter which converts a String to/from an Integer. To get a version of this working on the client we would need two things, a javascript implementation of the converter and a javascript constructor for each instance of the converter on the page. 
@@ -74,18 +139,14 @@ Converters can throw a ConverterException, here is the signature:
       <p>
       Let's take a look at an example of a javascript converter implementation for our social security number converter:
       <source>
-      function ssnGetAsString(value)
+      function ssnGetAsString(value, label)
       {
-        return value.substring(0,3) + '-' + 
-               value.substring(3,5) + '-' + 
-               value.substring(5);
+        return value.substring(0,3) + '-' + value.substring(3,5) + '-' + value.substring(5);
       }
       
-      function ssnGetAsObject(value)
-      {
-        if (!value)
-          return (void 0);
-          
+      function ssnGetAsObject(value, label)
+      { 
+        if (!value)return null;
         var len=value.length;
         var messageKey = SSNConverter.NOT;
         if (len &lt; 9 )
@@ -93,52 +154,58 @@ Converters can throw a ConverterException, here is the signature:
         else if (len &gt; 11)
           messageKey = SSNConverter.LONG;
         else if (len == 9)
-        { 
-          if (!isNaN(value))
+        { if (!isNaN(value))
             return value;
         }
-        else if (len == 11 &amp;&amp; value.charAt(3) == '-' &amp;&amp; value.charAt(6) == '-')
+        else if (len == 11 &amp;&amp; value.charAt(3) == '-' &amp;&amp; 
+                  value.charAt(6) == '-')
         {
-          var result = value.substring(0,3) + 
-                       value.substring(4,6) + 
-                       value.substring(7);
-          
+          var result = value.substring(0,3) + value.substring(4,6) + 
+                      value.substring(7);
           if (!isNaN(result))
             return result;
         }
+        if (messageKey!=null &amp;&amp; this._messages!=null)
+        { 
+          // format the detail error string
+          var detail = this._messages[messageKey];
+          if (detail != null)
+          {
+            var patternArray = new Array();
+            patternArray[0] = label;
+            patternArray[1] = value;
+            detail = FastMessageFormatUtils.format(detail, patternArray);
+          }
         
-        if (messageKey!=void(0) &amp;&amp; this._messages!=void(0))
-          return new ConverterException(this._messages[messageKey]);
-          
-        return (void 0);
+          var facesMessage = new FacesMessage(
+                              this._messages[SSNConverter.SUMMARY],
+                              detail,
+                              FacesMessage.SEVERITY_ERROR)
+         throw new ConverterException(facesMessage);
+       }
+       return null;
       }
-      
       function SSNConverter(messages)
-      {
-        this._messages = messages;
-      }
-      
+        {this._messages = messages;}
       SSNConverter.prototype = new Converter();
       SSNConverter.prototype.getAsString = ssnGetAsString;
       SSNConverter.prototype.getAsObject = ssnGetAsObject;
-      
+      SSNConverter.SUMMARY = 'SUM';
       SSNConverter.SHORT = 'S';
       SSNConverter.LONG  = 'L';
       SSNConverter.NOT   = 'N';
+
       </source>
       </p>
       <p>
       And here's an example of a javascript constructor to get an instance of the javascript converter defined above:
       <source>
-       new SSNConverter({S:\'Value "{1}" is too short.\',
-                         L:\'Value "{1}" is too long.\',
-                         N:\'Value "{1}" is not a valid social security number.\'})
-            );
+           new SSNConverter({SUM:\'Invalid social security number.\',
+                             S:\'Value "{1}" is too short.\',
+                             L:\'Value "{1}" is too long.\',
+                             N:\'Value "{1}" is not a valid social security number.\'})
       </source>
-      </p>
-      <p>
-       If there is a ConverterException Apache Trinidad gets the detail string out of the exception and replaces '{0}' with the label of the field and '{1}' with the  value entered by the user. It is not necessary to use the label in the detail though because the detail is passed to another string before it is displayed. The value of the translation af_messages.GLOBAL_MESSAGE_FORMAT is also sent to the client. An example of this string is "{0} - {1}", where {0} will be replaced with the label and {1} will be replaced with the detail provided by the converterException. So if the label was 'ssn number' and the value the user entered was '1111', the message shown would look like 'ssn number - Value "1111" is too short'.
-      </p>
+      </p>      
       <p>
        At this point we have the javascript to use on the client, but we need a way to provide it from our Java Converter object. This is achieved by implementing the interface <code>org.apache.myfaces.trinidad.converter.ClientConverter</code>, which has four methods. The first method is <code>getClientLibrarySource()</code>, which is expected to return a library that includes an implementation of the javascript Converter object. The second method is <code>getClientConversion()</code>, which is expected to return a  javascript constructor which will be used to instantiate an instance of the converter. Also provided are <code>getClientScript()</code> which can be used to write out inline javascript, and <code>getClientImportNames()</code> which is used to import the built-in scripts provided by Apache Trinidad.</p>
       <p>
@@ -199,6 +266,7 @@ Converters can throw a ConverterException, here is the signature:
  
            // in a real app the messages would be translated
            return ("new SSNConverter({"
+                   + "SUM:'Invalid social security number.',"
                    + "S:'Value \"{1}\" is too short.',"
                    + "L:'Value \"{1}\" is too long.',"
                    + "N:'Value \"{1}\" is not a valid social security number.'})"
@@ -240,23 +308,33 @@ Converters can throw a ConverterException, here is the signature:
  *
  */
 function Validator()
-{
-}
 
 /**
  * Perform the correctness checks implemented by this Validator. 
  * If any violations are found, a ValidatorException will be thrown 
+ * containing the FacesMessage describing the failure. 
+ * @param value value to be validated 
+ * @param label label to identify the editableValueHolder to the user
  */
-Validator.prototype.validate = function(value){}
+Validator.prototype.validate = function(value, label){}
       </source>
+      
       The validator can throw javascript ValidatorException objects:
-<ul>
-<li>ValidatorException(detail) 
-  <ul>
-    <li>detail - Localized detail message text</li>
-  </ul> 
-</li>
-</ul>
+<source>      
+/**
+ * A ValidatorException is an exception thrown by the validate() method of 
+ * a Validator to indicate that validation failed.
+ *
+ * @param facesMessage the FacesMessage associated with this exception
+ * @param summary Localized summary message text, used only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
+ */
+function ValidatorException(
+  facesMessage,
+  summary, 
+  detail
+  )
+</source>
       </P>
       <p>
       Once you have a javascript implementation of the validator and constructor, they are plugged in to the Java code using <code>org.apache.myfaces.trinidad.validator.ClientValidator</code>, which has similar methods to ClientConverter, and functions in exactly the same way. Please see the client-side converters section of this document for more information. An example will be provided in a future version of this document.

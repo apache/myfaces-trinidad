@@ -36,7 +36,8 @@ EncodingFormat.prototype.LFS  = "LFS";
 EncodingFormat.prototype.LF  = "LF";
 
 function _cjkParse(
-  parseString
+  parseString,
+  label
   )
 {
   var i = 0;
@@ -50,10 +51,11 @@ function _cjkParse(
    
     if (length < 0)
     {
-      var facesMessage = new FacesMessage(this._messages[this.LFS], 
-                                          this._messages[this.LF], 
-                                          FacesMessage.SEVERITY_ERROR);
-      throw new ValidatorException(null, facesMessage);     
+      var facesMessage = _createFacesMessage( this._messages[this.LFS],
+                                              this._messages[this.LF],
+                                              label,
+                                              parseString);   
+      throw new ValidatorException(facesMessage);     
     }
 
     i++;
@@ -79,7 +81,8 @@ CjkFormat.prototype = new EncodingFormat();
 CjkFormat.prototype.validate  = _cjkParse;
 
 function _utf8Parse(
-  parseString
+  parseString,
+  label
   )
 {
   var i = 0;
@@ -101,10 +104,11 @@ function _utf8Parse(
 
     if (length < 0)
     {
-      var facesMessage = new FacesMessage(this._messages[this.LFS], 
-                                          this._messages[this.LF], 
-                                          FacesMessage.SEVERITY_ERROR);
-      throw new ValidatorException(null, facesMessage);              
+      var facesMessage = _createFacesMessage( this._messages[this.LFS],
+                                              this._messages[this.LF],
+                                              label,
+                                              parseString);   
+      throw new ValidatorException(facesMessage);              
     }
 
     i++;
@@ -131,15 +135,17 @@ Utf8Format.prototype.validate  = _utf8Parse;
 
 
 function _sbParse(
-  parseString
+  parseString,
+  label
   )
 {
   if (this._length < parseString.length)
   {
-    var facesMessage = new FacesMessage(this._messages[this.LFS], 
-                                        this._messages[this.LF], 
-                                        FacesMessage.SEVERITY_ERROR);
-    throw new ValidatorException(null, facesMessage);      
+    var facesMessage = _createFacesMessage( this._messages[this.LFS],
+                                            this._messages[this.LF],
+                                            label,
+                                            parseString);   
+    throw new ValidatorException(facesMessage);      
   }
 
   return parseString;
