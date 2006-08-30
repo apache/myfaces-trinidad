@@ -102,18 +102,20 @@ public class XhtmlScriptletFactory
   static
   {
     _sLocaleScriptlet =
-        new AliasedScriptlet(LOCALE_LIB, new String[]{"getUserLanguage()",
-                                                      "getJavaLanguage()",
-                                                      "Converter()",
-                                                      "Validator()",
-                                                      "isDigit()",
-                                                      "parseDigit()",
-                                                      "isNotLowerCase()",
-                                                      "isLowerCase()",
-                                                      "isUpperCase()",
-                                                      "isNotUpperCase()",
-                                                      "isLetter()",
-                                                      "getLocaleSymbols()"},
+        new AliasedScriptlet(LOCALE_LIB, new String[]{
+                              "getUserLanguage()",
+                              "getJavaLanguage()",
+                              "Converter()", 
+                              "Validator()",
+                              "FastMessageFormatUtils()",
+                              "isDigit()",
+                              "parseDigit()",
+                              "isNotLowerCase()",
+                              "isLowerCase()",
+                              "isUpperCase()",
+                              "isNotUpperCase()",
+                              "isLetter()",
+                              "getLocaleSymbols()"},
                             new String[]
                             {
                               CORE_LIB

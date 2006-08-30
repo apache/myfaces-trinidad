@@ -41,7 +41,7 @@ function passwordValidate(value)
                         this._messages[PasswordValidator.NUMBER_SUMMARY],
                         this._messages[PasswordValidator.NUMBER_DETAIL],
                         FacesMessage.SEVERITY_ERROR)
-    throw new ValidatorException(null, facesMessage);
+    throw new ValidatorException(facesMessage);
   }
     
   return null;

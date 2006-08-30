@@ -564,16 +564,18 @@ function Converter()
  * Convert the specified model object value, into a String for display
  *
  * @param value Model object value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsString = function(value){}
+Converter.prototype.getAsString = function(value, label){}
 
 /**
  * Convert the specified string value into a model data object 
  * which can be passed to validators
  *
  * @param value String value to be converted 
+ * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsObject = function(value){}
+Converter.prototype.getAsObject = function(value, label){}
 
 
 /**
@@ -592,35 +594,37 @@ function Validator()
  * Perform the correctness checks implemented by this Validator. 
  * If any violations are found, a ValidatorException will be thrown 
  * containing the FacesMessage describing the failure. 
+ * @param value value to be validated 
+ * @param label label to identify the editableValueHolder to the user
  */
-Validator.prototype.validate = function(value){}
+Validator.prototype.validate = function(value, label){}
 
 
 /** 
  * ConverterException is an exception thrown by the getAsObject() or getAsString() 
  * method of a Converter, to indicate that the requested conversion cannot be performed.
  *
- * @param detail Localized detail message text, used only if facesMessage is null
  * @param facesMessage the FacesMessage associated with this exception
+ * @param summary Localized summary message text, used only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
  */
 function ConverterException(
-  detail,
-  facesMessage
+  facesMessage, 
+  summary,
+  detail
   )
 {
-  this._facesMessage = facesMessage;
   
-  if (facesMessage == void(0))
+  if (facesMessage == null)
   {
-    if (detail != void(0))
-      this._facesMessage = new FacesMessage((void 0), 
-                                            detail, 
-                                            FacesMessage.SEVERITY_ERROR);
-    else
-      this._facesMessage = new FacesMessage("Convesion Failure",
-                                            "Convesion Failure", 
+      this._facesMessage = new FacesMessage(summary, 
+                                            detail,
                                             FacesMessage.SEVERITY_ERROR);
   }
+  else
+  {
+    this._facesMessage = facesMessage;
+  }      
     
   
 }
@@ -640,29 +644,27 @@ ConverterException.prototype.getFacesMessage =
  * A ValidatorException is an exception thrown by the validate() method of 
  * a Validator to indicate that validation failed.
  *
- * @param detail Localized detail message text, used only if facesMessage is null
  * @param facesMessage the FacesMessage associated with this exception
+ * @param summary Localized summary message text, used only if facesMessage is null
+ * @param detail Localized detail message text, used only if facesMessage is null
  */
 function ValidatorException(
-  detail,
-  facesMessage
+  facesMessage,
+  summary, 
+  detail
   )
 {
-  this._facesMessage = facesMessage;
   
-  if (facesMessage == void(0))
+  if (facesMessage == null)
   {
-    if (detail != void(0))
-      this._facesMessage = new FacesMessage((void 0), 
+      this._facesMessage = new FacesMessage(summary, 
                                             detail,
                                             FacesMessage.SEVERITY_ERROR);
-    else
-      this._facesMessage = new FacesMessage("Validation Failure", 
-                                            "Validation Failure",
-                                            FacesMessage.SEVERITY_ERROR);
   }
-    
-  
+  else
+  {
+    this._facesMessage = facesMessage;
+  }      
 }
 
 
@@ -749,3 +751,42 @@ FacesMessage.prototype.setSeverity =
   {
     this._severity = severity;
   }
+
+
+/**
+ * FastMessageFormatUtils is a greatly reduced version
+ * of the java.text.MessageFormat class, but delivered as a utility. 
+ * <p>
+ * The only syntax supported by this class is simple index-based
+ * replacement, namely:
+ * <pre>
+ *     some{1}text{0}here{2}andthere
+ * </pre>
+ * as well as escaping using single quotes.  Like MessageFormat,
+ * a single quote must be represented using two consecutive single
+ * quotes, but the contents of any text between single quotes
+ * will not be interpreted.  So, the following pattern could
+ * be used to include a left bracket:
+ * <pre>
+ *     some'{'text{0}
+ * </pre>
+ */
+function FastMessageFormatUtils()
+{
+}
+
+ /**
+  * Formats the given array of strings based on the initial
+  * pattern.   It is legal for this array to be shorter
+  * than that indicated by the pattern, or to have null
+  * entries - these will simply be ignored.
+  * @param formatString an array of strings
+  * @param params an array of strings
+  */
+FastMessageFormatUtils.format = function(
+  formatString, // error format string with embedded indexes to be replaced
+  params        // array of objects to replace indexes
+  )
+{
+  return _formatErrorString(formatString, params);
+}

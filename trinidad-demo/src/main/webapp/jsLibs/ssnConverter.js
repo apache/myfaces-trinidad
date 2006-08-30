@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-function ssnGetAsString(value)
+function ssnGetAsString(value, label)
 {
   return value.substring(0,3) + '-' + value.substring(3,5) + '-' + value.substring(5);
 }
 
-function ssnGetAsObject(value)
+function ssnGetAsObject(value, label)
 { 
   if (!value)return null;
   var len=value.length;
@@ -40,13 +40,23 @@ function ssnGetAsObject(value)
     if (!isNaN(result))
       return result;
   }
- if (messageKey!=null && this._messages!=null)
- {
+  if (messageKey!=null && this._messages!=null)
+  { 
+    // format the detail error string
+    var detail = this._messages[messageKey];
+    if (detail != null)
+    {
+      var patternArray = new Array();
+      patternArray[0] = label;
+      patternArray[1] = value;
+      detail = FastMessageFormatUtils.format(detail, patternArray);
+    }
+  
     var facesMessage = new FacesMessage(
                         this._messages[SSNConverter.SUMMARY],
-                        this._messages[messageKey],
+                        detail,
                         FacesMessage.SEVERITY_ERROR)
-   throw new ConverterException(null, facesMessage);
+   throw new ConverterException(facesMessage);
  }
  return null;
 }
