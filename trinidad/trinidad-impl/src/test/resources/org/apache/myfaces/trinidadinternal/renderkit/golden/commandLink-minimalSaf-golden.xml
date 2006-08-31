@@ -19,10 +19,11 @@
            name="uri-attr:mainId"
           >
         L
-        <b
+        <span
+             class="AFLinkAccessKeyStyle"
             >
           i
-        </b>nkText
+        </span>nkText
       </a>
 <!--AttributeTest[disabled,false]-->
 

@@ -145,7 +145,7 @@ public class OutputLabelRenderer extends ValueRenderer
       AccessKeyUtils.renderAccessKeyText(context,
                                          value,
                                          accessKey,
-                                         "u");
+                                         XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
       
       if (needsLabel)
       {

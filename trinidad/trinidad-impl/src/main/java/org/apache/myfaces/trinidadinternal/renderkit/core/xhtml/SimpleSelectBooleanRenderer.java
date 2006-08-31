@@ -287,7 +287,8 @@ public abstract class SimpleSelectBooleanRenderer extends FormInputRenderer
       if (renderAccessKeys && supportsAccessKeys(arc))
       {
         // hightlight any access keys with an underline
-        AccessKeyUtils.renderAccessKeyText(context, text, accessKey, "u");
+        AccessKeyUtils.renderAccessKeyText(context, text, accessKey,
+                                           XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
       }
       else
       {

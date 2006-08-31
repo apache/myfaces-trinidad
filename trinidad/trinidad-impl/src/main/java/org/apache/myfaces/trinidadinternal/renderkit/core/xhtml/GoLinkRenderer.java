@@ -109,7 +109,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     AccessKeyUtils.renderAccessKeyText(context,
                                        getText(bean),
                                        accessKey,
-                                       "b");
+                                       XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
   }
 
   @Override

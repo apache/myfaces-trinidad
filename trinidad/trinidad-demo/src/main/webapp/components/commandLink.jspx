@@ -31,7 +31,7 @@
                 action="guide"/>              
             <tr:outputFormatted styleUsage="instruction" 
                 value="&lt;b>A simple commandLink &lt;/b>"/>            
-            <tr:commandLink binding="#{editor.component}" text="Page 1" action="#{action.app1}"/>            
+            <tr:commandLink binding="#{editor.component}" accessKey="P" text="Page 1" action="#{action.app1}"/>            
             
             <jsp:directive.include file="editor.jspf" />
     

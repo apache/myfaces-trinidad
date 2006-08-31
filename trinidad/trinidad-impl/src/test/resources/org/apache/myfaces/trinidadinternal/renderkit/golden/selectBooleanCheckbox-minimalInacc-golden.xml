@@ -687,10 +687,11 @@
                    for="mainId"
                   >
                 t
-                <u
+                <span
+                     class="AFAccessKeyStyle"
                     >
                   e
-                </u>xtAttr
+                </span>xtAttr
               </label>
             </span>
           </td>
