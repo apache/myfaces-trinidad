@@ -17,10 +17,11 @@
            name="uri-attr:mainId"
           >
         T
-        <b
+        <span
+             class="AFLinkAccessKeyStyle"
             >
           e
-        </b>xt
+        </span>xt
       </a>
 <!--AttributeTest[disabled,false]-->
 

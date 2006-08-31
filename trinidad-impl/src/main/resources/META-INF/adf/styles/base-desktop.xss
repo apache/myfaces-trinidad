@@ -2660,6 +2660,16 @@
     <includeStyle selector=".AFFieldTextLTRDisabled"/>
   </style>
 
+  <!-- Underline the access key for buttons, labels -->
+  <style selector=".AFAccessKeyStyle">
+  <property name="text-decoration">underline</property>
+  </style>
+ 
+  <!-- Bold the access key for links -->
+  <style selector=".AFLinkAccessKeyStyle">
+  <property name="font-weight">bold</property>
+  </style>
+
   <!-- 
     Private Utility Styles:  Again, if any of these are useful
     to customizers, they should be documented and made public.

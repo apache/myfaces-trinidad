@@ -933,10 +933,11 @@
                valign="top"
               >
             L
-            <u
+            <span
+                 class="AFAccessKeyStyle"
                 >
               a
-            </u>bel
+            </span>bel
           </td>
           <td
                class="AFContentCell"

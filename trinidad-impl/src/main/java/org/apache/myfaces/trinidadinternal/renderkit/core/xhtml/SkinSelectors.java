@@ -52,6 +52,10 @@ public interface SkinSelectors
     "AFFieldText";
   public static final String AF_LABEL_TEXT_STYLE_CLASS =
     "AFLabelText";
+  public static final String AF_ACCESSKEY_STYLE_CLASS =
+   "AFAccessKeyStyle";
+  public static final String AF_LINKACCESSKEY_STYLE_CLASS =
+   "AFLinkAccessKeyStyle";
   public static final String ERROR_ICON_STYLE_CLASS = 
     "AFErrorIconStyle";
   public static final String INFO_ICON_STYLE_CLASS = 

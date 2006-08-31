@@ -1795,10 +1795,11 @@
                  for="mainId"
                 >
               l
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 a
-              </u>bel_val
+              </span>bel_val
             </label>
           </td>
           <td

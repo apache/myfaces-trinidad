@@ -17,10 +17,11 @@
              for="input"
             >
           l
-          <u
+          <span
+               class="AFAccessKeyStyle"
               >
             a
-          </u>bel-noaccess
+          </span>bel-noaccess
         </label>
       </span>
 <!--AttributeTest[showRequired,false]-->

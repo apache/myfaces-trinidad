@@ -19,6 +19,8 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 
 /**
@@ -27,7 +29,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 public class AccessKeyUtils
 {
   /**
-   * Renders the text with the access key highlighted with an underline.
+   * Renders the text with access key having default style of underline.
    */
   static public void renderAccessKeyText(
     FacesContext  context,
@@ -35,17 +37,19 @@ public class AccessKeyUtils
     int           keyIndex
     ) throws IOException
   {
-    renderAccessKeyText(context, textValue, keyIndex, "u");
+    renderAccessKeyText(context, textValue, keyIndex,  
+                         XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
   }
 
-  /**
-   * Renders the text with the access key highlighted as appropriate.
-   */
+  /*
+   * Renders the text with the access key highlighted using styles defined for 
+   * accessKeyClass.
+   */ 
   static public void renderAccessKeyText(
     FacesContext  context,
     Object        textValue,
     int           keyIndex,
-    String        highlightElement
+    String        accessKeyClass
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -59,12 +63,18 @@ public class AccessKeyUtils
       // write text before the mnemonic
       writer.writeText(textChars, 0, keyIndex);
       
-      writer.startElement(highlightElement, null);
-      writer.writeText(textChars, keyIndex, 1);
-      writer.endElement(highlightElement);
-      
-      // write text after the mnemonic
-      keyIndex++;
+      if (accessKeyClass != null && accessKeyClass.length() > 0)
+      {
+        writer.startElement ("span", null);
+        XhtmlRenderer.renderStyleClass (context, 
+                                        RenderingContext.getCurrentInstance(),  
+                                        accessKeyClass);
+        writer.writeText (textChars, keyIndex, 1);
+        writer.endElement ("span");
+        
+        // write text after the mnemonic
+        keyIndex++;
+      }
       
       int charsLeft = textChars.length - keyIndex;
       
