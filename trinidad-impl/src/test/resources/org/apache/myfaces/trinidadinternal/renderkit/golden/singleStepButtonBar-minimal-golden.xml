@@ -37,10 +37,11 @@
                  type="button"
                 >
               Ne
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 x
-              </u>t
+              </span>t
             </button>
           </td>
         </tr>
@@ -90,10 +91,11 @@
                  type="button"
                 >
               Ne
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 x
-              </u>t
+              </span>t
             </button>
           </td>
         </tr>
@@ -121,10 +123,11 @@
                  type="button"
                 >
               Bac
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 k
-              </u>
+              </span>
             </button>
           </td>
           <td
@@ -166,10 +169,11 @@
                  type="button"
                 >
               Ne
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 x
-              </u>t
+              </span>t
             </button>
           </td>
         </tr>
@@ -214,10 +218,11 @@
                  type="button"
                 >
               Ne
-              <u
+              <span
+                   class="AFAccessKeyStyle"
                   >
                 x
-              </u>t
+              </span>t
             </button>
           </td>
         </tr>

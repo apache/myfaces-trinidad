@@ -384,9 +384,14 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
           // =-=rbaranwa "U" is deprecated in HTML 4.0. The suggested way out
           // is to use stylesheet to mark text as underlined. Need to revisit
           // this particular part later.
-          out.startElement("u", component);
-          out.writeText(accessChar.toString(), null);
-          out.endElement("u");
+          //=-=yeelee ADFFACES-153: use default style (underline) for access key
+          out.startElement ("span", null);
+          XhtmlRenderer.renderStyleClass (FacesContext.getCurrentInstance(),
+                                          RenderingContext.getCurrentInstance(),  
+                                          XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+          out.writeText (accessChar.toString(), null);
+          out.endElement ("span");
+          
           out.writeText(encoder.encodeParameter(strAfterAccessKey), null);
         }
       }

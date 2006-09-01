@@ -626,10 +626,11 @@
                              type="button"
                             >
                           Ne
-                          <u
+                          <span
+                               class="AFAccessKeyStyle"
                               >
                             x
-                          </u>t
+                          </span>t
                         </button>
                       </td>
                     </tr>

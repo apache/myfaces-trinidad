@@ -19,10 +19,11 @@
            name="uri-attr:mainId"
           >
         C
-        <b
+        <span
+             class="AFLinkAccessKeyStyle"
             >
           o
-        </b>mmandMenuItemText
+        </span>mmandMenuItemText
       </a>
 <!--AttributeTest[destination,http://www.oracle.com]-->
 

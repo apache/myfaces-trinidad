@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
@@ -655,7 +656,8 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
           {
              renderButtonAccessKey(context, node);
           }
-          renderAccessKeyText(context, node, text, "b");
+          renderAccessKeyText(context, node, text, 
+                              XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
         }
         else
         {

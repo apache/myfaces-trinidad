@@ -18,6 +18,8 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -221,7 +223,8 @@ public class ButtonRenderer extends LinkRenderer
     {
       if (supportsAdvancedButtons(context))
       {
-        renderAccessKeyText(context, node, getText(context, node), "u");
+        renderAccessKeyText(context, node, getText(context, node), 
+                            XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
       }
     }
     else
