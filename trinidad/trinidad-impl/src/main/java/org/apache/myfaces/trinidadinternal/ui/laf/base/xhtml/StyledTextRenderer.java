@@ -26,6 +26,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -118,10 +119,11 @@ public class StyledTextRenderer extends XhtmlLafRenderer
         writer.writeAttribute("accesskey", accessString, null);
 
         // render the access key text
+        // use underline style class for the access key
         renderAccessKeyText(context,
                             textValue,
                             keyIndex,
-                            "U");   // underline text
+                            XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
       }
       else
       {

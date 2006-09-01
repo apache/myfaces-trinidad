@@ -35,8 +35,11 @@ import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
@@ -1554,7 +1557,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     UIXRenderingContext context,
     Object           textValue,
     int              keyIndex,
-    String           highlightElement
+    String           accessKeyClass
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
@@ -1573,12 +1576,18 @@ public class XhtmlLafRenderer extends BaseLafRenderer
         // write text before the mnemonic
         writer.writeText(textChars, 0, keyIndex);
 
-        writer.startElement(highlightElement, null);
-        writer.writeText(new char[]{textString.charAt(keyIndex)}, 0, 1);
-        writer.endElement(highlightElement);
-
-        // write text after the mnemonic
-        keyIndex++;
+        if (accessKeyClass != null && accessKeyClass.length() > 0){
+        
+          writer.startElement ("span", null);
+          XhtmlRenderer.renderStyleClass (context.getFacesContext(), 
+                                          RenderingContext.getCurrentInstance(),  
+                                          accessKeyClass);                                          
+          writer.writeText (textChars, keyIndex, 1);
+          writer.endElement ("span");
+          
+          // write text after the mnemonic
+          keyIndex++;
+        }
 
         int charsLeft = textChars.length - keyIndex;
 
@@ -1602,7 +1611,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     UIXRenderingContext context,
     UINode           node,
     Object           textValue,
-    String           highlightElement
+    String           accesskeyClass
     ) throws IOException
   {
     Object textString = (textValue != null)
@@ -1612,7 +1621,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     renderAccessKeyText(context,
                         textString,
                         getAccessKeyIndex(context, node, textString),
-                        highlightElement);
+                        accesskeyClass);
   }
 
   /**
@@ -2018,7 +2027,8 @@ public class XhtmlLafRenderer extends BaseLafRenderer
       if (renderAccessKeys && supportsAccessKeys(context))
       {
         // hightlight any access keys with an underline
-        renderAccessKeyText(context, node, textValue, "u");
+        renderAccessKeyText(context, node, textValue, 
+                            XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
       }
       else
       {

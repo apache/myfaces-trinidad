@@ -22,6 +22,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -477,7 +478,8 @@ public class LinkRenderer extends XhtmlLafRenderer
     if (_isAnchor(context, node))
     {
 
-      renderAccessKeyText(context, node, getText(context, node), "b");
+      renderAccessKeyText(context, node, getText(context, node), 
+                          XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
     }
     else
     {

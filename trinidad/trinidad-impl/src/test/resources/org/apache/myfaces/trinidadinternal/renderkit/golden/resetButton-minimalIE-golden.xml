@@ -126,10 +126,11 @@
            id="uri-attr:mainId"
           >
         B
-        <u
+        <span
+             class="AFAccessKeyStyle"
             >
           u
-        </u>ttonText
+        </span>ttonText
       </button>
 <!--AttributeTest[id,myid]-->
 
