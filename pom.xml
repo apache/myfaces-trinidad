@@ -107,6 +107,16 @@
       <timezone>-8</timezone>
     </developer>
     <developer>
+      <id>jwaldman</id>
+      <name>Jeanne Waldman</name>
+      <organization/>
+      <email>jwaldman@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-8</timezone>
+    </developer>
+    <developer>
       <id>matzew</id>
       <name>Matthias Wessendorf</name>
       <organization>Oracle Deutschland GmbH, Germany</organization>
@@ -125,6 +135,16 @@
         <role>Developer</role>
       </roles>
       <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <id>slessard</id>
+      <name>Simon Lessard</name>
+      <organization>Fujitsu Consulting, Canada</organization>
+      <email>slessard@apache.org</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>-5</timezone>
     </developer>
     <developer>
       <id>TDB</id>
