@@ -49,19 +49,31 @@
   <mailingLists>
     <mailingList>
       <name>Trinidad Incubator Users</name>
-      <post>adffaces-users@incubator.apache.org</post>
+      <post>adffaces-user@incubator.apache.org</post>
+      <subscribe>adffaces-user-subscribe@incubator.apache.org</subscribe>
+      <unsubscribe>adffaces-user-unsubscribe@incubator.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/</archive>
     </mailingList>
     <mailingList>
       <name>Trinidad Incubator Developers</name>
       <post>adffaces-dev@incubator.apache.org</post>
+      <subscribe>adffaces-dev-subscribe@incubator.apache.org</subscribe>
+      <unsubscribe>adffaces-dev-unsubscribe@incubator.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-dev/</archive>
     </mailingList>
     <mailingList>
       <name>Trinidad Incubator issues</name>
-      <post>adffaces-issues@incubator.apache.org</post>
+      <post>Do not post</post>
+      <subscribe>adffaces-issues-subscribe@incubator.apache.org</subscribe>
+      <unsubscribe>adffaces-issues-unsubscribe@incubator.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-issues/</archive>
     </mailingList>
     <mailingList>
       <name>Trinidad Incubator commits</name>
-      <post>adffaces-commits@incubator.apache.org</post>
+      <post>Do not post</post>
+      <subscribe>adffaces-commits-subscribe@incubator.apache.org</subscribe>
+      <unsubscribe>adffaces-commits-unsubscribe@incubator.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/incubator-adffaces-commits/</archive>
     </mailingList>
   </mailingLists>
 
@@ -109,7 +121,7 @@
     <developer>
       <id>jwaldman</id>
       <name>Jeanne Waldman</name>
-      <organization/>
+      <organization>Oracle Corp</organization>
       <email>jwaldman@apache.org</email>
       <roles>
         <role>Developer</role>
