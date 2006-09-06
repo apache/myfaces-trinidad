@@ -175,7 +175,8 @@ public class PdaTableRenderer extends TableRenderer
     //
     // 2. Render the top / column header
     //
-    
+    _renderTableHeader(context, arc, tContext, component);
+      
     // render the column header
     if (tContext.hasColumnHeaders())
       _renderColumnHeader(context, arc, tContext, component);
@@ -494,4 +495,34 @@ public class PdaTableRenderer extends TableRenderer
     
     return cellClass;
   }
+    
+  /**
+   * @todo Reconsider our choice of style for this element!
+   */
+  private void _renderTableHeader(
+    FacesContext          context,
+    RenderingContext   arc,
+    TableRenderingContext tContext,
+    UIComponent           component)
+    throws IOException
+  {
+    // implement header facet on table: see bug 3788610
+    ResponseWriter writer = context.getResponseWriter();
+    UIComponent header = getFacet(component, CoreTable.HEADER_FACET);
+    if (header != null)
+    {
+      writer.startElement("thead", null);
+      writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
+        IntegerUtils.getInteger(tContext.getActualColumnCount()), null);
+      renderStyleClass(context, arc, XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
+
+      encodeChild(context, header);
+
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+      writer.endElement("thead");
+    }
+  }    
 }
