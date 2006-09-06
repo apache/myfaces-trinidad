@@ -361,6 +361,28 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     int sortability = getSortability(tContext, column);
     boolean sortable = (sortability != SORT_NO) &&
                        supportsNavigation(arc);
+                       
+    if(sortable)
+    {
+      // the sortable script has a "state" parameter, so add this
+      // to the form data if the agent does not support dynamic
+      // generation of elements (on those that do, form data elements
+      // can be created on the fly as necessary); see the JS
+      // referenced in this.getSortingOnclick
+      Object domLevel = 
+        arc.getAgent().getCapability(TrinidadAgent.CAP_DOM);
+      if(
+        domLevel == null || 
+        domLevel == TrinidadAgent.DOM_CAP_NONE || 
+        domLevel == TrinidadAgent.DOM_CAP_FORM)
+      {
+        FormData formData = arc.getFormData();
+        if(formData != null)
+        {
+          formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+        }      
+      }
+    }
 
     // we do not want to wrap if wrapping has explicitly been disabled. if we
     // are inside a columnGroup then we need to check the header format on the
