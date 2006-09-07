@@ -217,6 +217,7 @@ public interface XhtmlConstants extends SkinSelectors, SkinProperties
   public static final String SCRIPT_ELEMENT       = "script";
   public static final String SPAN_ELEMENT         = "span";
   public static final String TABLE_DATA_ELEMENT   = "td";
+  public static final String TABLE_BODY_ELEMENT   = "tbody";
   public static final String TABLE_ELEMENT        = "table";
   public static final String TABLE_HEADER_ELEMENT = "th";
   public static final String TABLE_ROW_ELEMENT    = "tr";

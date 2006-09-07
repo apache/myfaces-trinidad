@@ -16,16 +16,17 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBox;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class PanelBoxRenderer
@@ -51,6 +52,31 @@ public class PanelBoxRenderer
     _contentStyleKey = type.findKey("contentStyle");
   }
   
+  public String getRootStyleClass(FacesBean bean)
+  {
+    Object background = bean.getProperty(_backgroundKey);
+    if(_BACKGROUND_TRANSPARENT.equals(background))
+    {
+      return SkinSelectors.AF_PANEL_BOX_TRANSPARENT_STYLE_CLASS;
+    }
+    else if(_BACKGROUND_LIGHT.equals(background))
+    {
+      return SkinSelectors.AF_PANEL_BOX_LIGHT_STYLE_CLASS;
+    }
+    else if( _BACKGROUND_MEDIUM.equals(background))
+    {
+      return SkinSelectors.AF_PANEL_BOX_MEDIUM_STYLE_CLASS;
+    }
+    else if( _BACKGROUND_DARK.equals(background))
+    {
+      return SkinSelectors.AF_PANEL_BOX_DARK_STYLE_CLASS;
+    }
+    else
+    {
+      return _BACKGROUND_DEFAULT_STYLE_CLASS;
+    }
+  }
+  
   @Override
   public boolean getRendersChildren()
   {
@@ -59,33 +85,42 @@ public class PanelBoxRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext        context,
-    RenderingContext arc,
-    UIComponent         component,
-    FacesBean           bean) throws IOException
+      FacesContext     context,
+      RenderingContext arc,
+      UIComponent      component,
+      FacesBean        bean) throws IOException
   {
     super.encodeAll(context, arc, component, bean);
+    
+    List<UIComponent> children = _getRenderedChildren(component);
+    Object            icon     = bean.getProperty(_iconKey);
+    Object            text     = bean.getProperty(_textKey);
+    
     ResponseWriter writer = context.getResponseWriter();
-    writer.startElement("table", component);
+    writer.startElement(XhtmlConstants.TABLE_ELEMENT, component); // The frame table
     renderId(context, component);
     renderAllAttributes(context, arc, bean);
+    writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
     
-    Object text = bean.getProperty(_textKey);
-    Object icon = bean.getProperty(_iconKey);
-    if(text!=null || icon!=null)
+    if(!children.isEmpty() || text != null || icon != null)
     {
-      _renderHeaderRow(context, arc, bean, text, icon);
+      // There's something to render to let build the frame
+      _renderContainerTopRow(context, arc, component);
+      
+      _renderMiddleRow(context, arc, component, bean, icon, text, children);
+      
+      _renderContainerBottomRow(context, arc, component);
     }
-    
-    _renderContentRow(context, arc, component, bean);
-    
-    writer.endElement("table");
+
+    writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
+    writer.endElement(XhtmlConstants.TABLE_ELEMENT);
   }
   
   @Override
-  protected void renderAllAttributes(FacesContext context, 
-    RenderingContext arc, 
-    FacesBean bean) throws IOException
+  protected void renderAllAttributes(
+      FacesContext context, 
+      RenderingContext arc, 
+      FacesBean bean) throws IOException
   {
     super.renderAllAttributes(context, arc, bean); 
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
@@ -93,123 +128,336 @@ public class PanelBoxRenderer
   
   @Override
   protected void renderStyleAttributes(
-    FacesContext        context,
-    RenderingContext arc,
-    FacesBean           bean) throws IOException
+      FacesContext     context,
+      RenderingContext arc,
+      FacesBean        bean) throws IOException
   {
-    renderStyleAttributes(context, arc, bean, _getDefaultStyleClass(bean));
+    renderStyleAttributes(context, arc, bean, getRootStyleClass(bean));
   }
   
-  private String _getDefaultStyleClass(FacesBean bean)
-  { 
-    String styleClass = null;
-    Object background = bean.getProperty(_backgroundKey);
-    
-    // If we don't have a header, we use the
-    // af|panelBox::content-<Background> style classes.
-    // If we do have a header, we use the 
-    // af|panelBox::transparent<Background> style classes
-    
-    // Check to see if we have a header
-    Object text = bean.getProperty(_textKey);
-    Object icon = bean.getProperty(_iconKey);
-
-    if (text == null && icon == null)
+  @SuppressWarnings("unchecked")
+  private List<UIComponent> _getRenderedChildren(UIComponent component)
+  {
+    int childCount = component.getChildCount();
+    if(childCount == 0)
     {
-      if (_BACKGROUND_TRANSPARENT.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_CONTENT_TRANSPARENT_STYLE_CLASS;
-      else if ( _BACKGROUND_MEDIUM.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_CONTENT_MEDIUM_STYLE_CLASS;
-      else if ( _BACKGROUND_DARK.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_CONTENT_DARK_STYLE_CLASS;
-      else
-        styleClass = XhtmlConstants.AF_PANEL_BOX_CONTENT_LIGHT_STYLE_CLASS;
+      return Collections.emptyList();
+    }
+    
+    List<UIComponent> result   = new ArrayList<UIComponent>(childCount);
+    List<UIComponent> children = component.getChildren();
+    for(UIComponent child : children)
+    {
+      if(child.isRendered())
+      {
+        result.add(child);
+      }
+    }
+    
+    return result;
+  }
+  
+  private void _renderContainerTopRow(
+      FacesContext     context,
+      RenderingContext arc,
+      UIComponent      component) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+    if(arc.isRightToLeft())
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_END_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
     }
     else
     {
-      if ( _BACKGROUND_TRANSPARENT.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_TRANSPARENT_STYLE_CLASS;
-      else if ( _BACKGROUND_MEDIUM.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_MEDIUM_STYLE_CLASS;
-      else if ( _BACKGROUND_DARK.equals(background))
-        styleClass = XhtmlConstants.AF_PANEL_BOX_DARK_STYLE_CLASS;
-      else
-        styleClass = XhtmlConstants.AF_PANEL_BOX_LIGHT_STYLE_CLASS;
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_TOP_END_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
     }
-
-    return styleClass;
+    
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
   }
   
-  private void _renderHeaderRow (
-    FacesContext context, 
-    RenderingContext arc,
-    FacesBean bean, 
-    Object text,
-    Object icon)
-    throws IOException
+  private void _renderContainerBottomRow(
+      FacesContext     context,
+      RenderingContext arc,
+      UIComponent      component) throws IOException
   {
-    assert(text!=null || icon!=null);
-    ResponseWriter writer = context.getResponseWriter();    
-    writer.startElement("tr", null);
-    writer.startElement("td", null);
-    renderStyleClass(context, arc, XhtmlConstants.AF_PANEL_BOX_HEADER_STYLE_CLASS);
-    
-    if(icon != null)
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+    if(arc.isRightToLeft())
     {
-      writer.startElement("img", null);
-      OutputUtils.renderAltAndTooltipForImage(context, arc,  
-              XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
-      writer.writeURIAttribute("src", icon, _iconKey.getName());
-      writer.endElement("img");
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+    else
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
     }
     
-    if(text != null)
-    {
-      writer.writeText(text, _textKey.getName());
-    }
-    writer.endElement("td");
-    writer.endElement("tr");
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
   }
   
-  // Renders the table row which contains the
-  // contentContainer's child contents.
-  private void _renderContentRow(
-    FacesContext context, 
-    RenderingContext arc,
-    UIComponent         component,    
-    FacesBean bean
-  ) throws IOException
+  private void _renderMiddleRow(
+      FacesContext      context,
+      RenderingContext  arc,
+      UIComponent       component,
+      FacesBean         bean,
+      Object            icon,
+      Object            text,
+      List<UIComponent> children) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+    
+    // Render left edge
+    if(arc.isRightToLeft())
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_END_STYLE_CLASS);
+      
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+    else
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+    
+    // Render body
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    _renderBody(context, arc, component, bean, icon, text, children);
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+
+    // Render right edge
+    if(arc.isRightToLeft())
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_START_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+    else
+    {
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      renderStyleClass(context, 
+                       arc, 
+                       SkinSelectors.AF_PANEL_BOX_END_STYLE_CLASS);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+  }
+  
+  private void _renderBody(
+      FacesContext      context,
+      RenderingContext  arc,
+      UIComponent       component,
+      FacesBean         bean,
+      Object            icon,
+      Object            text,
+      List<UIComponent> children) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     
-    Object style      = bean.getProperty(_contentStyleKey);
+    renderStyleClass(context, 
+                     arc, 
+                     SkinSelectors.AF_PANEL_BOX_BODY_STYLE_CLASS);
     
-    // Render the contents inside of its own table row
-    writer.startElement("tr", null);
-
-    // Render the td with the .OraContentContainerContent style class
-    writer.startElement("td", null);
-    renderStyleClass(context, arc, XhtmlConstants.AF_PANEL_BOX_BODY_STYLE_CLASS);      
+    if(!children.isEmpty() && (text != null || icon != null))
+    {
+      // There's both a header and a content, use a table.
+      writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
+      OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+      writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
+      
+      // Render header
+      writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      _renderHeader(context, arc, component, bean, icon, text);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+      
+      // Render content
+      writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+      writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+      _renderContent(context, arc, component, bean, children);
+      writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+      
+      writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
+      writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+    }
+    else if(text != null || icon != null)
+    {
+      // We only have a header, use a div as style class placeholder
+      writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
+      _renderHeader(context, arc, component, bean, icon, text);
+      writer.endElement(XhtmlConstants.DIV_ELEMENT);
+    }
+    else
+    {
+      // We only have a content, use a div as style class placeholder
+      writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
+      _renderContent(context, arc, component, bean, children);
+      writer.endElement(XhtmlConstants.DIV_ELEMENT);
+    }
+  }
+  
+  private void _renderHeader(
+      FacesContext     context,
+      RenderingContext arc,
+      UIComponent      component,
+      FacesBean        bean,
+      Object           icon,
+      Object           text) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
     
+    renderStyleClass(context, 
+                     arc, 
+                     SkinSelectors.AF_PANEL_BOX_HEADER_STYLE_CLASS);
+    
+    if(arc.isRightToLeft())
+    {
+      if(text != null)
+      {
+        writer.writeText(text, _textKey.getName());
+      }
+      
+      if(icon != null)
+      {
+        writer.startElement("img", null);
+        OutputUtils.renderAltAndTooltipForImage(context, 
+                                                arc,  
+                                                XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
+        
+        writer.writeURIAttribute("src", icon, _iconKey.getName());
+        writer.endElement("img");
+      }
+    }
+    else
+    {
+      if(icon != null)
+      {
+        writer.startElement("img", null);
+        OutputUtils.renderAltAndTooltipForImage(context, 
+                                                arc,  
+                                                XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
+        
+        writer.writeURIAttribute("src", icon, _iconKey.getName());
+        writer.endElement("img");
+      }
+      
+      if(text != null)
+      {
+        writer.writeText(text, _textKey.getName());
+      }
+    }
+  }
+  
+  private void _renderContent(
+      FacesContext      context,
+      RenderingContext  arc,
+      UIComponent       component,
+      FacesBean         bean,
+      List<UIComponent> children) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    
+    renderStyleClass(context, 
+                     arc, 
+                     SkinSelectors.AF_PANEL_BOX_CONTENT_STYLE_CLASS);
+        
+    Object style = bean.getProperty(_contentStyleKey);
     if(style != null)
     {
       writer.writeAttribute("style", style, null);
     }
 
-    encodeAllChildren(context, component);
-
-    writer.endElement("td");
-    writer.endElement("tr");
+    for(UIComponent child : children)
+    {
+      encodeChild(context, child);
+    }
   }
-
-
+  
   private PropertyKey _textKey;
   private PropertyKey _iconKey;
   private PropertyKey _contentStyleKey;
   private PropertyKey _backgroundKey;
-    
+  
+  private static final String _BACKGROUND_LIGHT       = "light";
   private static final String _BACKGROUND_TRANSPARENT = "transparent";
   private static final String _BACKGROUND_MEDIUM      = "medium";
   private static final String _BACKGROUND_DARK        = "dark";
   
+  private static final String _BACKGROUND_DEFAULT_STYLE_CLASS = 
+    SkinSelectors.AF_PANEL_BOX_LIGHT_STYLE_CLASS;
 }

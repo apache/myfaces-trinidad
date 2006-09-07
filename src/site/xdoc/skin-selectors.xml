@@ -1526,30 +1526,25 @@
            the panelBox header text (set by the text attribute on tr:panelBox).
            Styles can be applied to the body region via the af|panelBox::body
            selector. Similarly, styles for the header region are specified via
-           the af|panelBox::header selector.</p>
-        <p>These two regions are themselves rendered within an outer container
-           that can be styled as well. There are two different sets of selectors
-           for the outer region, depending on whether a header is present. If a
-           header is present, one of the following selectors is used, depending
-           on the panelBox background color (background color can be quickly
-           configured to dark, medium, or light using the background attribute
-           on panelBox).</p>
+           the af|panelBox::header selector. Both section can be skinned with the 
+           af|panelBox::content selector</p>
+        <p>The content is rendered within a layout container that allow round 
+           edges and such. You can access this container using af|panelBox::top, 
+           af|panelBox::bottom, af|panelBox::start, af|panelBox::end, 
+           af|panelBox::top-start, af|panelBox::top-end, af|panelBox::bottom-start  
+           and af|panelBox::bottom-end. To use round edges, set a background 
+           image on each of the corners and set the width and height of those 
+           corners to the used image's size. Here're some condition for it to 
+           work properly:</p>
         <ul>
-          <li>af|panelBox::dark</li>
-          <li>af|panelBox::medium</li>
-          <li>af|panelBox::light</li>
-          <li>af|panelBox::transparent</li>
-        </ul>
-        <p>
-          If
-          <i>no header is present</i>
-          , the outer container instead uses the following style classes:
-        </p>
-        <ul>
-          <li>af|panelBox::content-dark</li>
-          <li>af|panelBox::content-medium</li>
-          <li>af|panelBox::content-light</li>
-          <li>af|panelBox::content-transparent</li>
+          <li>The top edge background image should have the same height as both 
+              top corner images.</li>
+          <li>The bottom edge background image should have the same height as both 
+              bottom corner images.</li>
+          <li>The start edge background image should have the same width as the 
+              top start corner image and the bottom start corner widths.</li>
+          <li>The end edge background image should have the same width as the 
+              top end corner image and the bottom end corner widths.</li>
         </ul>
         <p>In order to apply a style to the panelBox body or header for a
            particular background type, a contextual selector can be used. For
@@ -1557,20 +1552,6 @@
            of dark panelBox header and body regions:</p>
         <pre>af|panelBox::dark af|panelBox::header {...} af|panelBox::dark
              af|panelBox::body {...}</pre>
-        <p>And the following selector can be used to change the properties of
-           the dark panelBox body for panelBox which do not have a header:</p>
-        <pre>af|panelBox::content-dark af|panelBox::body {...}</pre>
-        <p>In order to make it easier to apply common style properties across
-           panelBox of different background types, several alias styles are
-           exposed. For example, the .AFPanelBoxDarkBackground:alias aliased
-           style provides a way to set the background color for all dark
-           panelBox. This aliased style is used regardless of whether the outer
-           container uses the af|panelBox::dark or af|panelBox::content-dark
-           style class (ie. whether or not a header is present).</p>
-        <p>The panelBox defines four sets of icons: one set for each background
-           type. Customizers are not required to specify icons for all of the
-           different icon names. If an icon is omitted, the panelBox will
-           attempt to expand to fill any empty space.</p>
         <table>
           <tr>
             <th colspan="2">
@@ -1582,6 +1563,31 @@
             <th>Description</th>
           </tr>
           <tr>
+            <td>af|panelBox::transparent</td>
+            <td>Styles the container of transparent panelBox when there is
+                a header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::light</td>
+            <td>Styles the container of light panelBox when there is a
+                header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::medium</td>
+            <td>Styles the container of the medium panelBox when there is
+                a header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::dark</td>
+            <td>Styles the container of the dark panelBox when there is a
+                header.</td>
+          </tr>
+          <tr>
+            <td>af|panelBox::content</td>
+            <td>Styles the content region, that is the central frame of the box,
+                including both the header and the body.</td>
+          </tr>
+          <tr>
             <td>af|panelBox::body</td>
             <td>Styles the body region. The body region is rendered whether or
                 not the panelBox has a header.</td>
@@ -1591,388 +1597,42 @@
             <td>Styles the header region.</td>
           </tr>
           <tr>
-            <td>af|panelBox::dark</td>
-            <td>Styles the outer container of the dark panelBox when there is a
-                header.</td>
+            <td>af|panelBox::top-start</td>
+            <td>Styles the top start corner of the box's container. In LTR this is 
+                the upper left corner.</td>
           </tr>
           <tr>
-            <td>af|panelBox::medium</td>
-            <td>Styles the outer container of the medium panelBox when there is
-                a header.</td>
+            <td>af|panelBox::top</td>
+            <td>Styles the top edge of the box's container.</td>
           </tr>
           <tr>
-            <td>af|panelBox::light</td>
-            <td>Styles the outer container of light panelBox when there is a
-                header.</td>
+            <td>af|panelBox::top-end</td>
+            <td>Styles the top end corner of the box's container. In LTR this is 
+                the upper right corner.</td>
           </tr>
           <tr>
-            <td>af|panelBox::transparent</td>
-            <td>Styles the outer container of transparent panelBox when there is
-                a header.</td>
+            <td>af|panelBox::start</td>
+            <td>Styles the start edge of the box's container. In LTR this is 
+                the left side of the box.</td>
           </tr>
           <tr>
-            <td>af|panelBox::content-dark</td>
-            <td>Styles the dark panelBox when there is no header.</td>
+            <td>af|panelBox::end</td>
+            <td>Styles the end edge of the box's container. In LTR this is 
+                the right side of the box.</td>
           </tr>
           <tr>
-            <td>af|panelBox::content-medium</td>
-            <td>Styles the medium panelBox when there is no header.</td>
+            <td>af|panelBox::bottom-start</td>
+            <td>Styles the bottom start corner of the box's container. In LTR this is 
+                the lower left corner.</td>
           </tr>
           <tr>
-            <td>af|panelBox::content-light</td>
-            <td>Styles the light panelBox when there is no header.</td>
+            <td>af|panelBox::bottom</td>
+            <td>Styles the bottom edge of the box's container.</td>
           </tr>
           <tr>
-            <td>af|panelBox::content-transparent</td>
-            <td>Styles the transparent panelBox when there is no header.</td>
-          </tr>
-          <tr>
-            <td>.AFPanelBox:alias</td>
-            <td>This aliased style can be used to specify common properties that
-                are shared by the af|panelBox::dark, af|panelBox::medium,
-                af|panelBox::light and af|panelBox::transparent style classes
-                (classes when the panelBox has a header).</td>
-          </tr>
-          <tr>
-            <td>.AFBoxContent:alias</td>
-            <td>This aliased style can be used to specify common properties that
-                are shared by the af|panelBox::content-dark,
-                af|panelBox::content-medium, af|panelBox::content-light and
-                af|panelBox::content-transparent style classes.
-                AFShuttleBoxContent:alias includes this style.</td>
-          </tr>
-          <tr>
-            <td>.AFPanelBoxBody:alias</td>
-            <td>
-              <p>This aliased style class be used to specify common properties
-                 that are shared by the four types of the
-                 panelBox&lt;Background&gt; body regions. It is included by the
-                 following selectors:</p>
-              <ul>
-                <li>af|panelBox::dark af|panelBox::body</li>
-                <li>af|panelBox::medium af|panelBox::body</li>
-                <li>af|panelBox::light af|panelBox::body</li>
-                <li>af|panelBox::transparent af|panelBox::body</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>.AFBoxContentBody:alias</td>
-            <td>
-              <p>This aliased style class be used to specify common properties
-                 that are shared by the four types of the
-                 af|panelBox::content&lt;Background&gt; body regions. It is
-                 included by the following selectors:</p>
-              <ul>
-                <li>af|panelBox::content-dark af|panelBox::body</li>
-                <li>af|panelBox::content-medium af|panelBox::body</li>
-                <li>af|panelBox::content-light af|panelBox::body</li>
-                <li>af|panelBox::content-transparent af|panelBox::body</li>
-                <li>.AFShuttleBoxContentBody:alias</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>.AFPanelBoxDarkBackground:alias</td>
-            <td>
-              <p>This aliased style is used to set the background color for dark
-                 panelBox. It is included by the following selectors:</p>
-              <ul>
-                <li>af|panelBox::dark af|panelBox::body</li>
-                <li>af|panelBox::content-dark af|panelBox::body</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>.AFPanelBoxMediumBackground:alias</td>
-            <td>
-              <p>This aliased style is used to set the background color for
-                 medium panelBox. It is included by the following selectors:</p>
-              <ul>
-                <li>af|panelBox::medium af|panelBox::body</li>
-                <li>af|panelBox::content-medium af|panelBox::body</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <td>.AFBoxBackground:alias</td>
-            <td>
-              <p>This aliased style is used to set the background color for
-                 light panelBox and for the seletMany/selectOrder shuttle's box.
-                 It is included by the following selectors:</p>
-              <ul>
-                <li>af|panelBox::light af|panelBox::body</li>
-                <li>af|panelBox::content-light af|panelBox::body</li>
-                <li>AFShuttleBoxBackground:alias</li>
-              </ul>
-            </td>
-          </tr>
-          <tr>
-            <th colspan="2">
-              <i>Icon Selectors</i>
-            </th>
-          </tr>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-header-start-icon</td>
-            <td>This icon is rendered at the start of the header region for dark
-                panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-header-end-icon</td>
-            <td>This icon is rendered at the end of the header region for dark
-                panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-header-background-icon</td>
-            <td>This icon is rendered in the background of the header region for
-                dark panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-bottom-start-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes at
-                the bottom starting corner (ie. at the bottom left corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-bottom-end-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes at
-                the bottom ending corner (ie. at the bottom right corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-bottom-background-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes as
-                the background in between the af|panelBox::dark-bottom-start and
-                af|panelBox::dark-bottom-end icons.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-top-start-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes at
-                the top starting corner (ie. at the top left corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-top-end-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes at
-                the top ending corner (ie. at the top right corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-top-background-icon</td>
-            <td>This icon is rendered in the body region of dark panelBoxes as
-                the background in between the af|panelBox::dark-top-start and
-                af|panelBox::dark-top-end icons. Note: the top icons are only
-                rendered for contentContainers which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-start-background-icon</td>
-            <td>This icon is rendered as the background image on the starting
-                side of the body region in dark panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::dark-end-background-icon</td>
-            <td>This icon is rendered as the background image on the ending side
-                of the body region in dark panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-header-start-icon</td>
-            <td>This icon is rendered at the start of the header region for
-                medium panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-header-end-icon</td>
-            <td>This icon is rendered at the end of the header region for medium
-                panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-header-background-icon</td>
-            <td>This icon is rendered in the background of the header region for
-                medium panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-bottom-start-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes at
-                the bottom starting corner (ie. at the bottom left corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-bottom-end-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes at
-                the bottom ending corner (ie. at the bottom right corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-bottom-background-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes as
-                the background in between the af|panelBox::medium-bottom-start
-                and af|panelBox::medium-bottom-end icons.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-top-start-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes at
-                the top starting corner (ie. at the top left corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-top-end-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes at
-                the top ending corner (ie. at the top right corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-top-background-icon</td>
-            <td>This icon is rendered in the body region of medium panelBoxes as
-                the background in between the af|panelBox::medium-top-start and
-                af|panelBox::medium-top-end icons. Note: the top icons are only
-                rendered for contentContainers which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-start-background-icon</td>
-            <td>This icon is rendered as the background image on the starting
-                side of the body region in medium panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::medium-end-background-icon</td>
-            <td>This icon is rendered as the background image on the ending side
-                of the body region in medium panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-header-start-icon</td>
-            <td>This icon is rendered at the start of the header region for
-                light panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-header-end-icon</td>
-            <td>This icon is rendered at the end of the header region for light
-                panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-header-background-icon</td>
-            <td>This icon is rendered in the background of the header region for
-                light panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-bottom-start-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes at
-                the bottom starting corner (ie. at the bottom left corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-bottom-end-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes at
-                the bottom ending corner (ie. at the bottom right corner for
-                left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-bottom-background-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes as
-                the background in between the af|panelBox::light-bottom-start
-                and af|panelBox::light-bottom-end icons.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-top-start-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes at
-                the top starting corner (ie. at the top left corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-top-end-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes at
-                the top ending corner (ie. at the top right corner for left to
-                right languages.) Note: the top icons are only rendered for
-                panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-top-background-icon</td>
-            <td>This icon is rendered in the body region of light panelBoxes as
-                the background in between the af|panelBox::light-top-start and
-                af|panelBox::light-top-end icons. Note: the top icons are only
-                rendered for panelBoxes which do not have headers.w</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-start-background-icon</td>
-            <td>This icon is rendered as the background image on the starting
-                side of the body region in light panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::light-end-background-icon</td>
-            <td>This icon is rendered as the background image on the ending side
-                of the body region in light panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-header-start-icon</td>
-            <td>This icon is rendered at the start of the header region for
-                transparent panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-header-end-icon</td>
-            <td>This icon is rendered at the end of the header region for
-                transparent panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-header-background-icon</td>
-            <td>This icon is rendered in the background of the header region for
-                transparent panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-bottom-start-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes at the bottom starting corner (ie. at the bottom left
-                corner for left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-bottom-end-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes at the bottom ending corner (ie. at the bottom right
-                corner for left to right languages.)</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-bottom-background-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes as the background in between the
-                af|panelBox::transparent-bottom-start and
-                af|panelBox::transparent-bottom-end icons.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-top-start-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes at the top starting corner (ie. at the top left
-                corner for left to right languages.) Note: the top icons are
-                only rendered for panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-top-end-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes at the top ending corner (ie. at the top right corner
-                for left to right languages.) Note: the top icons are only
-                rendered for panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-top-background-icon</td>
-            <td>This icon is rendered in the body region of transparent
-                panelBoxes as the background in between the
-                af|panelBox::transparent-top-start and
-                af|panelBox::transparent-top-end icons. Note: the top icons are
-                only rendered for panelBoxes which do not have headers.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-start-background-icon</td>
-            <td>This icon is rendered as the background image on the starting
-                side of the body region in transparent panelBoxes.</td>
-          </tr>
-          <tr>
-            <td>af|panelBox::transparent-end-background-icon</td>
-            <td>This icon is rendered as the background image on the ending side
-                of the body region in transparent panelBoxes.</td>
+            <td>af|panelBox::bottom-end</td>
+            <td>Styles the bottom end corner of the box's container. In LTR this is 
+                the lower right corner.</td>
           </tr>
         </table>
       </subsection>
