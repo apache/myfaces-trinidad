@@ -1514,7 +1514,6 @@
       <includeStyle name="AFPanelBox"/>
     </style>
 
-    
     <style selector="af|panelBox::light">
       <includeStyle name="AFPanelBox"/>
     </style>
@@ -1541,11 +1540,56 @@
     </style>  
     <style selector="af|panelBox::dark img">
       <property name="vertical-align">bottom</property>
-    </style>    
+    </style>
+    
+    <!-- panelBox's frame selectors. No frame by default -->
+    <style selector="af|panelBox::top-start">
+    </style>
+    <style selector="af|panelBox::top">
+    </style>
+    <style selector="af|panelBox::top-end">
+    </style>
+    <style selector="af|panelBox::start">
+    </style>
+    <style selector="af|panelBox::end">
+    </style>
+    <style selector="af|panelBox::bottom-start">
+    </style>
+    <style selector="af|panelBox::bottom">
+    </style>
+    <style selector="af|panelBox::bottom-end">
+    </style>
+    
+    <!-- panelBox's body selectors -->
+    <style selector="af|panelBox::body">
+    </style>
+    
+    <style selector="af|panelBox::transparent af|panelBox::body">
+    </style>
+    
+    <style selector="af|panelBox::light af|panelBox::body">
+      <includeStyle name="AFBoxBackground"/>
+    </style>
+   
+    <style selector="af|panelBox::medium af|panelBox::body">
+      <includeStyle name="AFPanelBoxMediumBackground"/>
+    </style>
+    
+    <style selector="af|panelBox::dark af|panelBox::body">
+      <includeStyle name="AFPanelBoxDarkBackground"/>
+    </style>
       
+    <!-- panelBox's header selector -->
     <style selector="af|panelBox::header">
+    </style>
+    
+    <style selector="af|panelBox::light af|panelBox::header">
       <includeStyle name="AFMediumBackground"/>
       <includeStyle name="TextForegroundDarkBackground"/>
+    </style>
+    
+    <!-- panelBox's content selector -->
+    <style selector="af|panelBox::content">
     </style>
 
   <!-- AFBoxBackground: used in AFShuttleBoxBackground and 
@@ -1553,6 +1597,9 @@
           <style selector="af|panelBox::content-light af|panelBox::body">
   -->
         
+    <style name="AFPanelBoxBody">
+    </style>
+      
     <style name="AFBoxBackground">
          <includeStyle name="AFLightAccentBackground"/>
     </style>
@@ -1567,29 +1614,6 @@
   
     <style name="AFPanelBoxDarkBackground">
       <includeStyle name="AFDarkAccentBackground"/>
-    </style>
-     
-    <style name="AFPanelBoxBody">
-    </style>  
-  
-    <style selector="af|panelBox::transparent af|panelBox::body">
-      <includeStyle name="AFPanelBoxBody"/>
-    </style>
-    
-    <style selector="af|panelBox::light af|panelBox::body">
-      <includeStyle name="AFBoxBackground"/>
-      <includeStyle name="AFPanelBoxBody"/>
-    </style>
-   
-    <style selector="af|panelBox::medium af|panelBox::body">
-      <includeStyle name="AFPanelBoxMediumBackground"/>
-      <includeStyle name="AFPanelBoxBody"/>
-    </style>
-    
-    
-    <style selector="af|panelBox::dark af|panelBox::body">
-      <includeStyle name="AFPanelBoxDarkBackground"/>
-      <includeStyle name="AFPanelBoxBody"/>
     </style>
   
     

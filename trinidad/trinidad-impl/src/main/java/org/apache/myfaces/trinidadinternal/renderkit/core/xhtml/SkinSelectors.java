@@ -373,7 +373,7 @@ public interface SkinSelectors
    
    //                                                                         //
    //                                                                         //
-   // ============================ tr:component ============================ //
+   // ======================== tr:inputNumberSpinbox ======================== //
    //                                                                         //
    //                                                                         //
    
@@ -593,26 +593,42 @@ public interface SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
+   // Root class
+   public static final String AF_PANEL_BOX_ROOT_STYLE_CLASS =
+     "af|panelBox";
+   // panelBox parts
    public static final String AF_PANEL_BOX_BODY_STYLE_CLASS =
-     "af|panelBox::body";
-   public static final String AF_PANEL_BOX_CONTENT_DARK_STYLE_CLASS =
-     "af|panelBox::content-dark";
-   public static final String AF_PANEL_BOX_CONTENT_LIGHT_STYLE_CLASS =
-     "af|panelBox::content-light";
-   public static final String AF_PANEL_BOX_CONTENT_MEDIUM_STYLE_CLASS =
-     "af|panelBox::content-medium";
-   public static final String AF_PANEL_BOX_CONTENT_TRANSPARENT_STYLE_CLASS =
-     "af|panelBox::content-transparent";
-   public static final String AF_PANEL_BOX_DARK_STYLE_CLASS =
-     "af|panelBox::dark";
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::body";
+   public static final String AF_PANEL_BOX_CONTENT_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::content";
    public static final String AF_PANEL_BOX_HEADER_STYLE_CLASS =
-     "af|panelBox::header";
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::header";
+   // panelBox backgrounds
+   public static final String AF_PANEL_BOX_DARK_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::dark";
    public static final String AF_PANEL_BOX_LIGHT_STYLE_CLASS =
-     "af|panelBox::light";
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::light";
    public static final String AF_PANEL_BOX_MEDIUM_STYLE_CLASS =
-     "af|panelBox::medium";
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::medium";
    public static final String AF_PANEL_BOX_TRANSPARENT_STYLE_CLASS =
-     "af|panelBox::transparent";
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::transparent";
+   // panelBox container
+   public static final String AF_PANEL_BOX_TOP_START_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::top-start";
+   public static final String AF_PANEL_BOX_TOP_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::top";
+   public static final String AF_PANEL_BOX_TOP_END_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::top-end";
+   public static final String AF_PANEL_BOX_START_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::start";
+   public static final String AF_PANEL_BOX_END_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::end";
+   public static final String AF_PANEL_BOX_BOTTOM_START_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::bottom-start";
+   public static final String AF_PANEL_BOX_BOTTOM_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::bottom";
+   public static final String AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS =
+     AF_PANEL_BOX_ROOT_STYLE_CLASS + "::bottom-end";
 
 
    //                                                                         //
