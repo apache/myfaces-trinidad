@@ -223,8 +223,12 @@ class SkinStyleSheetParserUtils
         // not at the end which is how icons are determined.
         // our icon names look like .AFWarningIcon:alias
         // AFErrorIconStyle is a style.
+        // This supports pseudo-classes on icon definitions (e.g.,
+        // foo-icon:hover- or FooIcon:alias:hover)
+        // -icon: is a condition because it could be -icon:hover.
         if (selectorName.endsWith("-icon")  ||
-            selectorName.endsWith("Icon:alias"))
+            (selectorName.indexOf("-icon:") > -1) ||
+            selectorName.indexOf("Icon:alias") > -1)
         {
           // knock off the '.' if it is the first character.
           if (selectorName.charAt(0) == '.')
