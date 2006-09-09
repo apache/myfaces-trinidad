@@ -16,6 +16,7 @@
 package org.apache.myfaces.trinidaddemo;
 import java.math.BigDecimal;
 
+import java.util.Date;
 
 
 public class ClientValidationBean implements java.io.Serializable
@@ -76,6 +77,16 @@ public class ClientValidationBean implements java.io.Serializable
     _long = longObj;
   }
 
+  public Long getLong2()
+  {
+    return _long2 ;
+  }
+
+  public void setLong2(Long longObj)
+  {
+    _long2 = longObj;
+  }  
+
   public Long getLongValue()
   {
     return _longValue ;
@@ -104,6 +115,28 @@ public class ClientValidationBean implements java.io.Serializable
   public void setDouble(Double doubleObj)
   {
     _double = doubleObj;
+  }
+
+
+  public Double getDouble2()
+  {
+    return _double2 ;
+  }
+
+  public void setDouble2(Double doubleObj)
+  {
+    _double2 = doubleObj;
+  }
+
+
+  public Double getDouble3()
+  {
+    return _double3 ;
+  }
+
+  public void setDouble3(Double doubleObj)
+  {
+    _double3 = doubleObj;
   }
 
 
@@ -146,6 +179,27 @@ public class ClientValidationBean implements java.io.Serializable
   public void setByteLengthValue(String value)
   {
     _byteLegthValue = value;
+  }  
+  
+  
+  public String getLengthValue()
+  {
+    return _legthValue;
+  }
+  
+  public void setLengthValue(String value)
+  {
+    _legthValue = value;
+  }    
+  
+  public Date getDate()
+  {
+    return _date;
+  }
+  
+  public void setDate(Date date)
+  {
+    _date = date;
   }
 
 
@@ -155,14 +209,19 @@ public class ClientValidationBean implements java.io.Serializable
   private BigDecimal _bigDecimal = null;
   private Long _long = null;
   private Long _longValue = null;
+  private Long _long2 = null;
   private Short _short = null;
   private Byte _byte = null;
   private Double _double = null;
+  private Double _double2 = null;
+  private Double _double3 = null;
   private Float _float = null;
 
   private String _regExpValue = null;
 
   private String _byteLegthValue = null;
+  private String _legthValue = null;
+  private Date _date = new Date();
 
 
 }

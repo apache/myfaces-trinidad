@@ -72,7 +72,14 @@
                 <f:facet name="help">
                   <tr:outputText value="examples of unconvertable values: 'a' or 'cat'"/>
                 </f:facet>
-              </tr:inputText>
+              </tr:inputText>  
+              <!--tr:inputText value="#{clientValidation.double2}"
+                            label="number converter">
+                <f:facet name="help">
+                  <tr:outputText value="must have 2 decimal places, examples of unconvertable values: '1.1' or '1.111'"/>
+                </f:facet>
+                <f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>                
+              </tr:inputText-->
               <tr:inputColor label="color converter">
                 <f:facet name="help">
                   <tr:outputText value="examples of unconvertable values: '9/05' or 'cat'"/>
@@ -87,27 +94,49 @@
             <tr:panelHeader text="Client Validators"/>
             <tr:spacer height="10"/>
             <tr:panelFormLayout>
-              <tr:inputText value="#{clientValidation.long}"
+              <tr:inputText value="#{clientValidation.long2}"
                             label="long range validator">
                 <f:facet name="help">
                   <tr:outputText value="examples of values that will fail validation: '4' or '7'"/>
                 </f:facet>
                 <f:validateLongRange minimum="5" maximum="6"/>
-              </tr:inputText>
+              </tr:inputText> 
+              <!--tr:inputText value="#{clientValidation.double3}"
+                            label="double range validator">
+                <f:facet name="help">
+                  <tr:outputText value="examples of values that will fail validation: '4' or '7'"/>
+                </f:facet>
+                <f:validateDoubleRange minimum="5.2" maximum="6.7"/>
+              </tr:inputText-->
               <tr:inputText value="#{clientValidation.regExpValue}"
                             label="reg exp validator">
                 <f:facet name="help">
                   <tr:outputText value="examples of values that will fail validation: 1','2','4' all values other than '9'"/>
                 </f:facet>
                 <tr:validateRegExp pattern="[9]"/>
-              </tr:inputText>
+              </tr:inputText>  
+              <!--tr:inputText value="#{clientValidation.lengthValue}"
+                            label="length validator">
+                <f:facet name="help">
+                  <tr:outputText value="values longer than 4 will fail, for example: '44444444' or 'Seven'"/>
+                </f:facet>
+                <f:validateLength maximum="4"/>
+              </tr:inputText--> 
               <tr:inputText value="#{clientValidation.byteLengthValue}"
                             label="byte length validator">
                 <f:facet name="help">
-                  <tr:outputText value="examples of values that will fail validation: 'Four4' or 'Seven"/>
+                  <tr:outputText value="values longer than 4 bytes will fail, for example: '44444444' or 'Seven'"/>
                 </f:facet>
                 <tr:validateByteLength encoding="ISO-8859-1" maximum="4"/>
-              </tr:inputText>
+              </tr:inputText>              
+              <!--tr:inputText value="#{clientValidation.date}"
+                            label="date range validator">
+                <f:facet name="help">
+                  <tr:outputText value="examples of values that will fail validation: 11-11-11"/>
+                </f:facet>
+                <tr:validateDateTimeRange minimum="2004-11-16"
+                                          maximum="2004-12-16"/>
+              </tr:inputText-->
             </tr:panelFormLayout>
             <tr:panelHeader text="Required"/>
             <tr:spacer height="10"/>

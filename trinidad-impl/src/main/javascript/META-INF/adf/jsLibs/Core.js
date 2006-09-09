@@ -2543,12 +2543,7 @@ function _createFacesMessage(
   // format the detail error string
   if (detail != null)
   {
-    var patternArray = new Array();
-    patternArray[0] = label;
-    patternArray[1] = value;
-    patternArray[2] = param2;
-    patternArray[3] = param3;
-    detail = _formatErrorString(detail, patternArray);
+    detail = FastMessageFormatUtils.format(detail, label, value, param2, param3);
   }
   
   return new FacesMessage(summary, 

@@ -46,10 +46,7 @@ function ssnGetAsObject(value, label)
     var detail = this._messages[messageKey];
     if (detail != null)
     {
-      var patternArray = new Array();
-      patternArray[0] = label;
-      patternArray[1] = value;
-      detail = FastMessageFormatUtils.format(detail, patternArray);
+      detail = FastMessageFormatUtils.format(detail, label, value);
     }
   
     var facesMessage = new FacesMessage(
