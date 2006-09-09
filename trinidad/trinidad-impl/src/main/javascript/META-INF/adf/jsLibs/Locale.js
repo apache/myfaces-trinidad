@@ -777,16 +777,25 @@ function FastMessageFormatUtils()
 
  /**
   * Formats the given array of strings based on the initial
-  * pattern.   It is legal for this array to be shorter
-  * than that indicated by the pattern, or to have null
-  * entries - these will simply be ignored.
-  * @param formatString an array of strings
-  * @param params an array of strings
+  * pattern.  
+  * @param {String} String to format
+  * @param {any...:undefined} Varargs objects to substitute for positional parameters.
+  * Each parameter will be converted to a String and substituted into the format.
   */
 FastMessageFormatUtils.format = function(
   formatString, // error format string with embedded indexes to be replaced
-  params        // array of objects to replace indexes
+  parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
   )
-{
-  return _formatErrorString(formatString, params);
+{  
+  // I need to create an array here because I have to strip the first arg
+  var tempArray = new Array();
+  
+  for ( var i = 1; i < arguments.length; i++)
+  {
+    tempArray[i -1] = arguments[i];
+  }
+  
+  // TODO - move the code of the function below into here after 
+  //        simplifying it
+  return _formatErrorString(formatString, tempArray);
 }
