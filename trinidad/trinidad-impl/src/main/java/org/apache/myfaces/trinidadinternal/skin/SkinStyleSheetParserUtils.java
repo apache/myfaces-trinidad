@@ -934,13 +934,18 @@ class SkinStyleSheetParserUtils
     // Find the start of the file name part of the source name - we don't
     // need this as part of the base URI
     int lastSepIndex = sourceName.lastIndexOf('/');
-
-    StringBuilder buffer = new StringBuilder(contextPathLength + lastSepIndex + 1);
-    buffer.append(contextPath);
-    buffer.append("/");
-    buffer.append(sourceName.substring(0, lastSepIndex));
-
-    return buffer.toString();
+    
+    if (lastSepIndex == -1)
+      return contextPath;
+    else
+    {
+      StringBuilder buffer = new StringBuilder(
+                                    contextPathLength + lastSepIndex + 1);
+      buffer.append(contextPath);
+      buffer.append("/");
+      buffer.append(sourceName.substring(0, lastSepIndex));
+      return buffer.toString();
+    }
   }
 
   // Tests whether the specified property value is an "url" property.
