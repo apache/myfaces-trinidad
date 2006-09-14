@@ -34,6 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.change.ChangeManager;
+import org.apache.myfaces.trinidad.change.SessionChangeManager;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.config.RegionManager;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -49,7 +50,6 @@ import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
 import org.apache.myfaces.trinidadinternal.change.NullChangeManager;
-import org.apache.myfaces.trinidadinternal.change.SessionChangeManager;
 
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
 import org.apache.myfaces.trinidadinternal.el.HelpProvider;
