@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.trinidadinternal.change;
+package org.apache.myfaces.trinidad.change;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -27,9 +27,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.change.ChangeManager;
-import org.apache.myfaces.trinidad.change.ComponentChange;
-import org.apache.myfaces.trinidad.change.DocumentChange;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

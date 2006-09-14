@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.trinidadinternal.change;
+package org.apache.myfaces.trinidad.change;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +22,6 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.change.ComponentChange;
 import org.w3c.dom.Document;
 
 /**
