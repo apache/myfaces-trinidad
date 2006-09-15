@@ -98,7 +98,9 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
         //pu: Implicitly record a Change for 'showAll' attribute
         addAttributeChange("showAll", Boolean.FALSE);
       }
-
+      // since the range is now different we can clear the currency cache:
+      clearCurrencyStringCache();
+      
       __broadcast(event, getRangeChangeListener());
     }
     else if (event instanceof RowDisclosureEvent)

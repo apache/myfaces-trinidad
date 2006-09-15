@@ -441,6 +441,16 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
+   * Clear the rowKey-to-currencyString cache.
+   * The cache is not cleared immediately; instead it will be cleared
+   * when {@link #encodeBegin} is called.
+   */
+  protected void clearCurrencyStringCache()
+  {
+    _getInternalState(true)._clearTokenCache = true;
+  }
+
+  /**
    * Clears all the currency strings.
    */
   @Override
@@ -448,7 +458,14 @@ public abstract class UIXCollection extends UIXComponentBase
   {
     _init();
 
-    _getCurrencyCache().clear();
+    InternalState istate = _getInternalState(true);
+    // we must not clear the currency cache everytime. only clear
+    // it in response to specific events: bug 4773659
+    if (istate._clearTokenCache)
+    {
+      istate._clearTokenCache = false;
+      _getCurrencyCache().clear();
+    }
     _flushCachedModel();
 
     Object assertKey = null;
@@ -1165,6 +1182,7 @@ public abstract class UIXCollection extends UIXComponentBase
     private transient Object _value = null;
     private transient CollectionModel _model = null;
     private transient Object _currentRowKey = _NULL;
+    private transient boolean _clearTokenCache = false;
     // this is true if this is the first request for this viewID and processDecodes
     // was not called:
     private transient boolean _isFirstRender = true;
