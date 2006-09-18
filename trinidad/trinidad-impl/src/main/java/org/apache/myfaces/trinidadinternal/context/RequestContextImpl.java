@@ -434,6 +434,9 @@ public class RequestContextImpl extends RequestContext
     if (afContext != null)
       pContext = afContext.getPartialPageContext();
 
+    // find the nearest ancestor that generates html markup:
+    newTarget = _getNearestPPRTarget(newTarget);
+
     Object savedKey = null;
     // =-=AEW Force the rowkey of a collection back to null so that the clientId
     // will be correct.  Note that in JSF 1.2, this will be unnecessary
@@ -640,6 +643,24 @@ public class RequestContextImpl extends RequestContext
     }
 
     return fContext;
+  }
+
+  /**
+   * Components that do not render any html-markup cannot be
+   * added as PPR targets. This method will walk up the component
+   * tree finding the nearest ancestor that does render markup.
+   * Components that return null for {@link UIComponent#getRendererType}
+   * are treated as generating no markup.
+   * @param component This component, and its ancestors will be searched.
+   * @return the first component that does render html-markup.
+   */
+  private UIComponent _getNearestPPRTarget(UIComponent component)
+  {
+    while(component.getRendererType() == null)
+    {
+      component = component.getParent();
+    }
+    return component;
   }
 
   private UIXCookie _getUIXCookie()
