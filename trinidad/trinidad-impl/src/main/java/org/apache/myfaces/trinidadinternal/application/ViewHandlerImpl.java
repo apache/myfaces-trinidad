@@ -31,6 +31,7 @@ import java.util.Properties;
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -85,7 +86,7 @@ public class ViewHandlerImpl extends ViewHandler
   {
     _initIfNeeded(context);
 
-    InternalView internal = _internalViews.get(viewId);
+    InternalView internal = _getInternalView(context, viewId);
     if (internal != null)
     {
       UIViewRoot root = internal.createView(context, viewId);
@@ -166,7 +167,8 @@ public class ViewHandlerImpl extends ViewHandler
         if (service != null)
           service.encodeBegin(context);
 
-        InternalView internal = _internalViews.get(viewToRender.getViewId());
+        InternalView internal = _getInternalView(context,
+                                                 viewToRender.getViewId());
         if (internal != null)
         {
           internal.renderView(context, viewToRender);
@@ -207,7 +209,7 @@ public class ViewHandlerImpl extends ViewHandler
       return launchView;
     }
 
-    InternalView internal = _internalViews.get(viewId);
+    InternalView internal = _getInternalView(context, viewId);
     if (internal != null)
     {
       return internal.restoreView(context, viewId);
@@ -274,7 +276,7 @@ public class ViewHandlerImpl extends ViewHandler
   {
     String viewId = context.getViewRoot().getViewId();
     InternalView internal =
-       _internalViews.get(viewId);
+       _getInternalView(context, viewId);
 
     // As internal views whether they're stateless.  If they are, don't
     // bother writing anything out.
@@ -394,6 +396,38 @@ public class ViewHandlerImpl extends ViewHandler
     }
   }
 
+
+  private InternalView _getInternalView(
+    FacesContext context, 
+    String       viewId)
+  {
+    InternalView internal = _internalViews.get(viewId);
+    if (internal == null)
+    {
+      // If we're using suffix-mapping, then any internal viewId will
+      // get affixed with ".jsp" or ".jspx";  try trimming that off
+      // if present
+      ExternalContext external = context.getExternalContext();
+      
+      // Only bother when using suffix-mapping (path info will always
+      // be non-null for prefix-mapping)
+      if (external.getRequestPathInfo() == null)
+      {
+        String suffix = external.getInitParameter("javax.faces.DEFAULT_SUFFIX");
+        if (suffix == null)
+          suffix = ".jspx";
+        
+        if (viewId.endsWith(suffix))
+        {
+          String viewIdWithoutSuffix = viewId.substring(
+             0, viewId.length() - suffix.length());
+          internal = _internalViews.get(viewIdWithoutSuffix);
+        }
+      }
+    }
+
+    return internal;
+  }
 
   //
   // Load the META-INF/org.apache.myfaces.trinidad.render.InternalView.properties
