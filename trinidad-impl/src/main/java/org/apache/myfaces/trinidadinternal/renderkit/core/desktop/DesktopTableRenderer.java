@@ -994,7 +994,10 @@ public class DesktopTableRenderer extends TableRenderer
     tContext.getRenderStage().setStage(RenderStage.COLUMN_FOOTER_STAGE);
     final ColumnData colData = tContext.getColumnData();
     UIComponent footer = getFacet(component, CoreTable.FOOTER_FACET);
-    if (footer != null)
+    boolean hasColumnFooters = colData.getPhysicalIndexOfFirstFooter()  >= 0;
+
+    // If there's a table footer, or column footers, we've got work to do
+    if ((footer != null) || hasColumnFooters)
     {
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
@@ -1008,7 +1011,6 @@ public class DesktopTableRenderer extends TableRenderer
                                        "left:-1px", null);
       }
 
-      writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, null);
       // total rows may need an ID. see bug 3211593:
       /* Need new scheme for generateUniqueId()?
       String rowID = XhtmlLafUtils.generateUniqueID(tContext);
@@ -1016,12 +1018,31 @@ public class DesktopTableRenderer extends TableRenderer
       tContext.getRowData().setCurrentRowHeaderID(rowID);
       */
       final int firstFooterPhysicalIndex = colData.getPhysicalIndexOfFirstFooter();
-      final int colSpan = (firstFooterPhysicalIndex > 0)?  firstFooterPhysicalIndex: tContext.getActualColumnCount();
-      writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, IntegerUtils.getString(colSpan), null);
-      renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
-      encodeChild(context, footer);
-      writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
-      if (firstFooterPhysicalIndex > 0)
+      // By default, we try to render the table footer in the same row
+      // as the column footers;  this is to save on screen real-estate,
+      // and do something with that space in the table if the first N
+      // columns have no footer content.
+      // When the first column does have a footer, we'll need to push
+      // the table footer down to an extra row
+
+      // If there isn't a column footer in the first row, render a TH
+      // with a sufficient colspan - and put the table footer in there
+      // if it exists.
+      // (Note this does need to be != 0, not > 0.  Negative numbers
+      // mean there's no column footers, in which case we'll handle
+      // outputting the table footer right here)
+      if (firstFooterPhysicalIndex != 0)
+      {
+        writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, null);
+        final int colSpan = (firstFooterPhysicalIndex > 0)?  firstFooterPhysicalIndex: tContext.getActualColumnCount();
+        writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, IntegerUtils.getString(colSpan), null);
+        renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
+        if (footer != null)
+          encodeChild(context, footer);
+        writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
+      }
+
+      if (firstFooterPhysicalIndex >= 0)
       {
         colData.setColumnIndex(tContext.getSpecialColumnCount(),
                                0/*logicalColumnIndex*/);
@@ -1035,6 +1056,22 @@ public class DesktopTableRenderer extends TableRenderer
         }
       }
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+
+      // OK, we need to put the table footer at the end in its own row,
+      // because the first column is already taken 
+      if ((firstFooterPhysicalIndex == 0) && (footer != null))
+      {
+        writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+        
+        writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, null);
+        // Make it span the whole table
+        writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, tContext.getActualColumnCount(), null);
+
+        renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
+        encodeChild(context, footer);
+        writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
+        writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+      }
     }
   }
 
