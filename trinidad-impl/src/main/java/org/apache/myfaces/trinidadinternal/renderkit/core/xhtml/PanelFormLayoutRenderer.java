@@ -580,7 +580,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
   @SuppressWarnings("unchecked")
   private void _encodeFormColumns(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     ResponseWriter      rw,
     boolean             startAlignedLabels,
     String              effectiveLabelWidth,
@@ -590,6 +590,9 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     int                 colSpan,
     List<FormItem>      visibleItems) throws IOException
   {
+    if (visibleItems.isEmpty())
+      return;
+
     rw.startElement("tr", null); // the outer row
     int currentItemIndex = 0;
     int visibleItemsLength = visibleItems.size();
