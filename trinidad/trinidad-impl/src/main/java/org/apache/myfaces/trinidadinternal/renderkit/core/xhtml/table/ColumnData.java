@@ -120,12 +120,7 @@ public final class ColumnData
     if ((_firstFooterPhysicalColumn == -1) ||
         (_physicalColumn < _firstFooterPhysicalColumn))
     {
-      if (_physicalColumn > 0) // bug 4190038
-      {
-        _firstFooterPhysicalColumn = _physicalColumn;
-      }
-      else
-        _LOG.warning("The very first column in a table cannot show a footer!");
+      _firstFooterPhysicalColumn = _physicalColumn;
     }
   }
 
