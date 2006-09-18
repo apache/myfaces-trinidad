@@ -452,10 +452,35 @@ public class CoreRenderKit extends RenderKitBase
   }
 
   @Override
-  public ResponseStream createResponseStream(OutputStream out)
+  public ResponseStream createResponseStream(final OutputStream output)
   {
-    // =-=AEW What to do here???
-    throw new UnsupportedOperationException();
+    return new ResponseStream()
+    {
+      public void write(int b) throws IOException
+      {
+        output.write(b);
+      }
+      
+      public void write(byte b[]) throws IOException
+      {
+        output.write(b);
+      }
+      
+      public void write(byte b[], int off, int len) throws IOException
+      {
+        output.write(b, off, len);
+      }
+
+      public void flush() throws IOException
+      {
+        output.flush();
+      }
+
+      public void close() throws IOException
+      {
+        output.close();
+      }
+    }; 
   }
 
   @Override
