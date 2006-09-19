@@ -23,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
@@ -48,11 +49,17 @@ public class PanelTabbedRenderer extends UINodeRendererBase
     boolean oneIsDisclosed = false;
     for (int i=0; i<childCount; i++)
     {
-      UIXShowDetail child =  (UIXShowDetail) children.get(i);
-      if (child.isDisclosed())
+      if (children.get(i) instanceof UIXShowDetail)
       {
-        oneIsDisclosed = true;
-        break;
+        UIXShowDetail child =  (UIXShowDetail) children.get(i);
+        if (child.isDisclosed())
+        {
+          oneIsDisclosed = true;
+          break;
+        }
+      } else
+      {
+        _LOG.warning("Only tr:showDetailItem is allowed as child of tr:panelTabbed.");
       }
     }
 
@@ -61,16 +68,24 @@ public class PanelTabbedRenderer extends UINodeRendererBase
     {
       for (int i=0; i<childCount; i++)
       {
-        UIXShowDetail child =  (UIXShowDetail) children.get(i);
-        Object disabled = child.getAttributes().get("disabled");
-        if (Boolean.TRUE.equals(disabled))
-          continue;
+        if (children.get(i) instanceof UIXShowDetail)
+        {
+          UIXShowDetail child =  (UIXShowDetail) children.get(i);
+          if (!child.isRendered())
+            continue;
 
-        child.setDisclosed(true);
-        break;
+          Object disabled = child.getAttributes().get("disabled");
+          if (Boolean.TRUE.equals(disabled))
+            continue;
+
+          child.setDisclosed(true);
+          break;
+        }
       }
     }
 
     super.encodeBegin(context, component);
   }
+
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PanelTabbedRenderer.class);
 }
