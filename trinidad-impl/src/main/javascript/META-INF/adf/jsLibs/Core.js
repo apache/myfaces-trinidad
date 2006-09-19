@@ -2009,7 +2009,9 @@ function createNameValueString(form) {
           }
           else if (element.type.indexOf("select") != -1)
           {
-            var selectdata ;
+            //PH:selectdata must be initialized to "". Otherwise, results for 
+            //selectdata+="stringtoconcatenate" is "undefinedstringtoconcatenate"
+            var selectdata ="" ;
             for (var j = 0; j < element.options.length; j++)
             {
               if (element.options[j].selected == true)
