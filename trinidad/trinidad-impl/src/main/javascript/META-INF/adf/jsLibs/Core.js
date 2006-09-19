@@ -276,22 +276,6 @@ function _agentInit()
     kind = "gecko";
     version = 1.0;
   }
-  else if ((agentString.indexOf('mozilla')    != -1) &&
-           (agentString.indexOf('spoofer')    == -1) &&
-           (agentString.indexOf('compatible') == -1))
-  {
-    if (version >= 5.0)
-    {
-      isGecko = true;
-      kind = "gecko";
-      version = 1.0;
-    }
-    else
-    {
-      isNav = true;
-      kind = "nn";
-    }
-  }
   else if(agentString.indexOf("blackberry") != -1)
   {
     // if we support non-BlackBerry Browser agents on blackberry
@@ -307,6 +291,22 @@ function _agentInit()
     // leave the version as defined above
     isBlackBerry = true;
     kind = "blackberry";
+  }
+  else if ((agentString.indexOf('mozilla')    != -1) &&
+           (agentString.indexOf('spoofer')    == -1) &&
+           (agentString.indexOf('compatible') == -1))
+  {
+    if (version >= 5.0)
+    {
+      isGecko = true;
+      kind = "gecko";
+      version = 1.0;
+    }
+    else
+    {
+      isNav = true;
+      kind = "nn";
+    }
   }
 
   if (agentString.indexOf('win') != -1)
