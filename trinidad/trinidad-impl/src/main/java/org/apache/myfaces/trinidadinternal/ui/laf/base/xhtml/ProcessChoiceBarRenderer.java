@@ -210,7 +210,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
     }
 
     // get form name (#1308799)
-    String formName = XhtmlLafUtils.getSubmitFormName(context, node);
+    String formName = XhtmlLafUtils.getParentFormName(context);
 
 
     // If we don't support navigation (e.g., printable pages),
@@ -483,7 +483,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
                         : null;
 
     // get the form name
-    String formName = getFormName( context, node);
+    String formName = getParentFormName(context);
 
 
     URLEncoder encoder = context.getURLEncoder();

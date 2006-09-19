@@ -62,7 +62,10 @@ public class ShowItemRenderer extends LinkRenderer
     String sourceParam = BaseLafUtils.getStringAttributeValue(
       context, node, ID_ATTR);
 
-    String formName = getFormName(context, node);
+    //PH: using getFormName returns null for panelTabbed because formSubmitted
+    //attribute  is 'null'. Use getParentFormName instead to submit to the
+    //containing form.
+    String formName = getParentFormName(context);
 
     String partialChangeScript =
       "submitForm ('" + formName + "',0,{"+

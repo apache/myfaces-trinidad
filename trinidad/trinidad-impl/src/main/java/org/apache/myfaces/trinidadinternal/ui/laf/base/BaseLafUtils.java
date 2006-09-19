@@ -121,43 +121,6 @@ public class BaseLafUtils implements UIConstants
   }
 
 
-  /**
-   * @return The name of the form to submit to, or null, if the formSubmitted
-   * attribute is not true.  The form specified on the node is used. If this
-   * is not set, then the name of the containing form is used
-   */
-  public static String getSubmitFormName(
-    UIXRenderingContext context,
-    UINode node
-    )
-  {
-    Object submitForm = node.getAttributeValue(context,
-                                               FORM_SUBMITTED_ATTR);
-    if (Boolean.FALSE.equals(submitForm))
-      return null;
-
-    Object formName = node.getAttributeValue(context, FORM_NAME_ATTR);
-
-    if (formName != null)
-      return formName.toString();
-
-    if (Boolean.TRUE.equals(submitForm))
-    {
-      String form = getParentFormName(context);
-      if (form==null)
-      {
-        // we are in formSubmitted mode, but we have been unable to find a
-        // form, so log an error:
-        if (_LOG.isWarning())
-          _LOG.warning(node.getLocalName() + ": Couldn't find enclosing form");
-      }
-      return form;
-    }
-
-    return null;
-  }
-
-
   public static boolean isRightToLeft(
     UIXRenderingContext context
     )

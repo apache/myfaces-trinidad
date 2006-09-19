@@ -578,20 +578,6 @@ public class BaseLafRenderer extends ElementRenderer
   }
 
 
-  /**
-   * Returns the name of the form to submit to if the form submitted
-   * attribute is true.  If the form subitted attribute is true, the
-   * form specified on the node is used, otherwise the name of the
-   * containing form is used
-   */
-  protected String getFormName(
-          UIXRenderingContext context,
-          UINode node
-          )
-  {
-    return BaseLafUtils.getSubmitFormName(context, node);
-  }
-
   public static String getParentFormName(
           UIXRenderingContext context
           )

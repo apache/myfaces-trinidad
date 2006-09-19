@@ -219,7 +219,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
 
     // get form name (#1308799)
-    String formName = XhtmlLafUtils.getSubmitFormName(context, navBar);
+    String formName = XhtmlLafUtils.getParentFormName(context);
 
 
     // If we don't support navigation (e.g., printable pages),
@@ -714,7 +714,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
 
     // get form name (#1308799)
-    String formName = XhtmlLafUtils.getSubmitFormName(context, navBar);
+    String formName = XhtmlLafUtils.getParentFormName(context);
 
     int  nextRecords = 0;
     int  backRecords = 0;

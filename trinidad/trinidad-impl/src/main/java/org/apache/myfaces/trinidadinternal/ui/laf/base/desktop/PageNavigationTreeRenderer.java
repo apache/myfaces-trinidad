@@ -56,13 +56,6 @@ public class PageNavigationTreeRenderer extends NavigationTreeRenderer
     return getNamedChild(context, pageNode, NODE_STAMP_CHILD);
   }  
   
-  @Override
-  protected String getFormName(
-    UIXRenderingContext context, 
-    UINode           node)
-  {
-    return getParentFormName(context.getParentContext());
-  }
   
   @Override
   protected boolean setInitialPath(
