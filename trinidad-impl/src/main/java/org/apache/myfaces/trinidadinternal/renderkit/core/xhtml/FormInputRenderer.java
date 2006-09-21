@@ -37,7 +37,8 @@ abstract public class FormInputRenderer extends FormElementRenderer
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
-    _simpleKey   = type.findKey("simple");
+    _showRequiredKey = type.findKey("showRequired");
+    _simpleKey       = type.findKey("simple");
   }
   
   /**
@@ -94,15 +95,15 @@ abstract public class FormInputRenderer extends FormElementRenderer
    */
   @Override
   protected void renderAllAttributes(
-    FacesContext        context,
+    FacesContext     context,
     RenderingContext arc,
-    FacesBean           bean,
-    boolean             renderStyleAttrs) throws IOException
+    FacesBean        bean,
+    boolean          renderStyleAttrs) throws IOException
   {
     super.renderAllAttributes(context, arc, bean, renderStyleAttrs);
     renderDisabledAttribute(context, arc, bean);
     renderStyleClass(context, arc, getContentStyleClass(bean));
-    renderInlineStyleAttribute(context, arc, getContentStyle(bean));
+    renderInlineStyleAttribute(context, arc, getContentStyle(bean));   
   }
   
   protected boolean getSimple(FacesBean bean)
@@ -112,8 +113,8 @@ abstract public class FormInputRenderer extends FormElementRenderer
       o = _simpleKey.getDefault();
 
     return !Boolean.FALSE.equals(o);
-  } 
-  
+  }
+   
   /**
    * Render the styles and style classes that should go on the root dom element.
    * (called from LabelAndMessageRenderer, the superclass)
@@ -124,36 +125,88 @@ abstract public class FormInputRenderer extends FormElementRenderer
    * @throws IOException
    */  
   protected void renderRootDomElementStyles(
-  FacesContext        context,
+  FacesContext     context,
   RenderingContext arc,
-  UIComponent         component,
-  FacesBean           bean) throws IOException
+  UIComponent      component,
+  FacesBean        bean) throws IOException
   {
-   // get the style classes that I want to render on the root dom element here.  
-   // readOnly takes precedence over disabled for the state.  
-   String styleClass = getStyleClass(bean);
-   String disabledStyleClass = null;
-   String readOnlyStyleClass = getReadOnly(context, bean) ? "p_AFReadOnly" : null;
-   if (readOnlyStyleClass == null)
-    disabledStyleClass = getDisabled(bean) ? "p_AFDisabled" : null;
-   renderStyleClasses(context, arc, new String[]{styleClass,
-                                                 getRootStyleClass(bean),  
-                                                 disabledStyleClass, 
-                                                 readOnlyStyleClass });
+    // get the style classes that I want to render on the root dom element here.  
+    String styleClass         = getStyleClass(bean);
+    String contentStyleClass  = getRootStyleClass(bean);
+    String disabledStyleClass = null;
+    String readOnlyStyleClass = null;
+    String requiredStyleClass = null;
+   
+    // readOnly takes precedence over disabled for the state.  
+    // -= Simon =- Why?
+    if(getReadOnly(context, bean))
+    {
+      readOnlyStyleClass = SkinSelectors.STATE_READ_ONLY;
+    }
+    else if (getDisabled(bean))
+    {
+      disabledStyleClass = SkinSelectors.STATE_DISABLED;
+    }
+   
+    if(_isConsideredRequired(bean))
+    {
+      requiredStyleClass = SkinSelectors.STATE_REQUIRED;
+    }
+   
+    renderStyleClasses(context, arc, new String[]{styleClass,
+                                                  contentStyleClass,
+                                                  disabledStyleClass,
+                                                  readOnlyStyleClass,
+                                                  requiredStyleClass});
     
     renderInlineStyle(context, arc, bean);  
   }
+  
   /*
    * override to return the content style class, like af|inputText::content
    * if component is tr:inputText.
    */
-  abstract protected String getContentStyleClass(FacesBean bean); 
+  protected String getContentStyleClass(FacesBean bean)
+  {
+    String styleClass = getRootStyleClass(bean);
+    if(styleClass != null)
+    {
+      styleClass = styleClass + _CONTENT_PSEUDO_ELEMENT;
+    }
+    
+    return styleClass;
+  }
+  
+    
   /*
    * override to return the root style class, like af|inputText
    * if component is tr:inputText.
    */  
   abstract protected String getRootStyleClass(FacesBean bean);
-  
-  private PropertyKey _simpleKey;
 
+  protected boolean getShowRequired(FacesBean bean)
+  {
+    if(_showRequiredKey == null)
+    { // showRequired is not supporte on the element
+      return false;
+    }
+    
+    Object o = bean.getProperty(_showRequiredKey);
+    if (o == null)
+    {
+      o = _showRequiredKey.getDefault();
+    }
+
+    return Boolean.TRUE.equals(o);
+  }
+  
+  private boolean _isConsideredRequired(FacesBean bean)
+  {
+    return getRequired(bean) || getShowRequired(bean);
+  }
+  
+  private static final String _CONTENT_PSEUDO_ELEMENT = "::content";
+
+  private PropertyKey _showRequiredKey;
+  private PropertyKey _simpleKey;
 }

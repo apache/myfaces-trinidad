@@ -350,7 +350,7 @@
   
   <!-- TODO New for Fusion Doc -->
   <style name="AFEndPadding">
-    <property name="padding">0px 8px 0px 0px</property>
+  	<property name="padding">0px 8px 0px 0px</property>
   </style> 
 
   <!-- Additional named styles for alignment;  not strictly necessary,
@@ -464,7 +464,6 @@
   <!-- This is a convenience for people that want all disabled labels to look the same -->
   <!-- TODO New for Fusion  -->
   <style name="AFLabelDisabled">
-    <includeStyle name="AFLabel"/>
     <includeStyle name="AFLabelTextForegroundDisabled"/>
   </style>
 
@@ -623,10 +622,56 @@
   <style selector="af|selectOneRadio::label">
     <includeStyle name="AFLabel"/>
   </style>
-  
   <style selector="af|panelLabelAndMessage::label">
     <includeStyle name="AFLabel"/>
-  </style>  
+  </style>
+  
+  <!-- Required label selectors -->
+  
+  <!-- Main required label alias -->
+  <style name="AFRequiredLabel">
+  </style>
+  
+  <!-- Per component selectors -->
+  <style selector="af|inputColor:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|inputDate:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|inputFile:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|inputListOfValues:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|inputNumberSpinbox:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|inputText:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectBooleanCheckbox:required::label">  
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectBooleanRadio:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectManyCheckbox:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectManyListbox:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectOneChoice:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectOneListbox:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
+  <style selector="af|selectOneRadio:required::label">
+    <includeStyle name="AFRequiredLabel"/>
+  </style>
   
   <!-- New for Fusion. No need to doc these, this is a convenience -->
   <!-- we will doc AFLabelDisabled. -->
@@ -727,6 +772,53 @@
   </style>
   <style selector="af|selectOneRadio::content">
     <includeStyle name="AFFormControlContent"/>
+  </style>
+  
+  <!-- Required content selectors -->
+  
+  <!-- Main required content alias -->
+  <style name="AFRequiredContent">
+  </style>
+  
+  <!-- Per component selectors -->
+  <style selector="af|inputColor:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|inputDate:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|inputFile:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|inputListOfValues:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|inputNumberSpinbox:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|inputText:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectBooleanCheckbox:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectBooleanRadio:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectManyCheckbox:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectManyListbox:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectOneChoice:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectOneListbox:required::content">
+    <includeStyle name="AFRequiredContent"/>
+  </style>
+  <style selector="af|selectOneRadio:required::content">
+    <includeStyle name="AFRequiredContent"/>
   </style>
   
   <!-- place-holder. No need to style this for base -->
@@ -3821,7 +3913,7 @@
   </style>
 
   <style name="AFEndPadding">
-    <property name="padding">0px 0px 0px 8px</property>
+  	<property name="padding">0px 8px 0px 0px</property>
   </style>
   
   <style name="nestedList">    

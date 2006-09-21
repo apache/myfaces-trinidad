@@ -29,7 +29,10 @@
   <boolean-test name="autoSubmit"/>
   <boolean-test name="disabled"/>
   <boolean-test name="readOnly"/>
-  <boolean-test name="showRequired"/>
+  <boolean-test name="required"/>
+  <boolean-test name="showRequired">
+    <boolean-test name="required"/>
+  </boolean-test>
   <boolean-test name="simple">
     <attribute-test name="onclick"/>
     <attribute-test name="styleClass" value="OraErrorText"/>

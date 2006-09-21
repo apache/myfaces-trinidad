@@ -16,24 +16,22 @@
 
 package org.apache.myfaces.trinidadinternal.style.util;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.io.File;
 import java.io.PrintWriter;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
-
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
@@ -1093,7 +1091,8 @@ public class CSSGenerationUtils
     if (_BUILT_IN_PSEUDO_CLASSES.contains(pseudoClass))
       return pseudoClass;
     StringBuilder builder = new StringBuilder(pseudoClass.length() + 3);
-    builder.append(".p_AF");
+    builder.append(".");
+    builder.append(SkinSelectors.STATE_PREFIX);
 
     for (String content : pseudoClass.substring(1).split("-"))
     {

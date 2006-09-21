@@ -20,7 +20,7 @@
 
   <attribute-test name="size" value="10"/>
   <attribute-test name="id"/>
-  <attribute-test name="showRequired" value="true" matchesBase="true"/>
+  <attribute-test name="showRequired" value="true"  matchesBase="false"/>
   <attribute-test name="showRequired" value="false" matchesBase="true"/>
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <attribute-test name="shortDesc"/>

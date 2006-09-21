@@ -505,7 +505,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputColor"
+           class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -661,7 +661,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputColor"
+           class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -717,7 +717,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputColor"
+           class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -773,7 +773,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputColor"
+           class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -829,7 +829,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputColor"
+           class="af_inputColor p_AFRequired"
            id="mainId__xc_"
            summary=""
           >

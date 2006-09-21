@@ -835,7 +835,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -1161,7 +1161,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -1231,7 +1231,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -1301,7 +1301,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -1371,7 +1371,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
            id="mainId__xc_"
            summary=""
           >

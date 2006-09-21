@@ -244,12 +244,6 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
   
   @Override
-  protected String getContentStyleClass(FacesBean bean)  
-  {
-    return "af|inputText::content";
-  }
-  
-  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputText";

@@ -442,7 +442,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputDate"
+           class="af_inputDate p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -625,7 +625,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputDate"
+           class="af_inputDate p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -690,7 +690,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputDate"
+           class="af_inputDate p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -755,7 +755,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputDate"
+           class="af_inputDate p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
@@ -820,7 +820,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="af_inputDate"
+           class="af_inputDate p_AFRequired"
            id="mainId__xc_"
            summary=""
           >
