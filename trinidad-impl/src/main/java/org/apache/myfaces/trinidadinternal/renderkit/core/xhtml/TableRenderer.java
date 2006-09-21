@@ -441,7 +441,7 @@ abstract public class TableRenderer extends XhtmlRenderer
       writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE, "30", null);
       renderStyleClasses(context, arc,
                          new String[]{
-                           XhtmlConstants.AF_COLUMN_CELL_TEXT_STYLE,
+                           SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE,
                            CellUtils.getBorderClass(
                                true,
                                true,
@@ -692,7 +692,7 @@ abstract public class TableRenderer extends XhtmlRenderer
    */
   public static String getRowHeaderFormatClass()
   {
-    return XhtmlConstants.AF_COLUMN_ROW_HEADER_TEXT_STYLE;
+    return SkinSelectors.AF_COLUMN_ROW_HEADER_TEXT_STYLE;
   }
 
   /**
@@ -707,13 +707,13 @@ abstract public class TableRenderer extends XhtmlRenderer
     if (isColumnHeader)
       throw new IllegalStateException("Don't call this for column headers");
 
-    return XhtmlConstants.AF_COLUMN_ROW_HEADER_TEXT_STYLE;
+    return SkinSelectors.AF_COLUMN_ROW_HEADER_TEXT_STYLE;
   }
 
   /**
    * Sets the skinResourceKeyMap on the RenderingContext with a map
-   * which maps AF_COLUMN_CELL* styles to AF_TABLE_SELECT_MANY or
-   * AF_TABLE_SELECT_ONE styles. We look at the selectionNode to figure
+   * which maps SkinSelectors.AF_COLUMN_CELL* styles to SkinSelectors.AF_TABLE_SELECT_MANY or
+   * SkinSelectors.AF_TABLE_SELECT_ONE styles. We look at the selectionNode to figure
    * out if it is tableSelectOne or tableSelectMany
    * @todo Can this be private?
    * @todo reuse these Maps!
@@ -730,17 +730,17 @@ abstract public class TableRenderer extends XhtmlRenderer
       // if selection is multiple-selection:
       if (tContext.hasSelectAll())
       {
-        selectionColumnStylesMap.put(XhtmlConstants.AF_COLUMN_CELL_ICON_FORMAT_STYLE,
-                                XhtmlConstants.AF_TABLE_SELECT_MANY_CELL_ICON_FORMAT_STYLE);
-        selectionColumnStylesMap.put(XhtmlConstants.AF_COLUMN_CELL_ICON_BAND_STYLE,
-                                XhtmlConstants.AF_TABLE_SELECT_MANY_CELL_ICON_BAND_STYLE);
+        selectionColumnStylesMap.put(SkinSelectors.AF_COLUMN_CELL_ICON_FORMAT_STYLE,
+                                SkinSelectors.AF_TABLE_SELECT_MANY_CELL_ICON_FORMAT_STYLE);
+        selectionColumnStylesMap.put(SkinSelectors.AF_COLUMN_CELL_ICON_BAND_STYLE,
+                                SkinSelectors.AF_TABLE_SELECT_MANY_CELL_ICON_BAND_STYLE);
       }
       else
       {
-        selectionColumnStylesMap.put(XhtmlConstants.AF_COLUMN_CELL_ICON_FORMAT_STYLE,
-                                XhtmlConstants.AF_TABLE_SELECT_ONE_CELL_ICON_FORMAT_STYLE);
-        selectionColumnStylesMap.put(XhtmlConstants.AF_COLUMN_CELL_ICON_BAND_STYLE,
-                                XhtmlConstants.AF_TABLE_SELECT_ONE_CELL_ICON_BAND_STYLE);
+        selectionColumnStylesMap.put(SkinSelectors.AF_COLUMN_CELL_ICON_FORMAT_STYLE,
+                                SkinSelectors.AF_TABLE_SELECT_ONE_CELL_ICON_FORMAT_STYLE);
+        selectionColumnStylesMap.put(SkinSelectors.AF_COLUMN_CELL_ICON_BAND_STYLE,
+                                SkinSelectors.AF_TABLE_SELECT_ONE_CELL_ICON_BAND_STYLE);
       }
       arc.setSkinResourceKeyMap(selectionColumnStylesMap);
     }
@@ -771,18 +771,18 @@ abstract public class TableRenderer extends XhtmlRenderer
     map.put("af_showDetail.UNDISCLOSED_TIP",
             "af_table.UNDISCLOSED_TIP");
 
-    map.put(XhtmlConstants.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME,
-            XhtmlConstants.AF_TABLE_SD_DISCLOSED_ICON_NAME);
-    map.put(XhtmlConstants.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
-            XhtmlConstants.AF_TABLE_SD_UNDISCLOSED_ICON_NAME);
-    map.put(XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME,
-            XhtmlConstants.AF_TABLE_NB_PREV_ICON_NAME);
-    map.put(XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME,
-          XhtmlConstants.AF_TABLE_NB_NEXT_ICON_NAME);
-    map.put(XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME,
-          XhtmlConstants.AF_TABLE_NB_PREV_DISABLED_ICON_NAME);
-    map.put(XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME,
-        XhtmlConstants.AF_TABLE_NB_NEXT_DISABLED_ICON_NAME);
+    map.put(SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME,
+            SkinSelectors.AF_TABLE_SD_DISCLOSED_ICON_NAME);
+    map.put(SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
+            SkinSelectors.AF_TABLE_SD_UNDISCLOSED_ICON_NAME);
+    map.put(SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME,
+            SkinSelectors.AF_TABLE_NB_PREV_ICON_NAME);
+    map.put(SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME,
+          SkinSelectors.AF_TABLE_NB_NEXT_ICON_NAME);
+    map.put(SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME,
+          SkinSelectors.AF_TABLE_NB_PREV_DISABLED_ICON_NAME);
+    map.put(SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME,
+        SkinSelectors.AF_TABLE_NB_NEXT_DISABLED_ICON_NAME);
 
 
 

@@ -18,13 +18,13 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**
@@ -72,7 +72,7 @@ public final class TreeTableRenderingContext extends TableRenderingContext
     _crumbs = TreeUtils.getFocusRowKey(_hGridBase);
 
     Number spacerWidth = (Number)
-      arc.getSkin().getProperty(XhtmlConstants.AF_TREE_TABLE_SPACER_WIDTH);
+      arc.getSkin().getProperty(SkinProperties.AF_TREE_TABLE_SPACER_WIDTH);
     if (spacerWidth != null)
     {
       _spacerWidth = spacerWidth.intValue();

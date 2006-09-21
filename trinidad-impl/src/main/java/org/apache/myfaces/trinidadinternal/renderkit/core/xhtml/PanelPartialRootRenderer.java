@@ -16,29 +16,25 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
 import javax.faces.render.RenderKit;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPartialRoot;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
-
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PPRResponseWriter;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.ScriptBufferingResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.LibraryScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
 
 /**
@@ -485,7 +481,7 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
       writer.writeAttribute("style", "behavior:url(#default#download)", null);
 
       // Hide the div so that it doesn't occupy any real estate
-      renderStyleClass(context, arc, XhtmlConstants.HIDDEN_LABEL_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
 
       writer.endElement("div");
     }

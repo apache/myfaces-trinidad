@@ -16,45 +16,40 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
-
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
 import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.IconURIBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
-
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -2028,7 +2023,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
       {
         // hightlight any access keys with an underline
         renderAccessKeyText(context, node, textValue, 
-                            XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+                            SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
       }
       else
       {

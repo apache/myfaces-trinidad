@@ -20,11 +20,11 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/table/CellUtils.java#0 $) $Date: 10-nov-2005.19:02:33 $
@@ -297,21 +297,21 @@ public class CellUtils
   public static final String [] BORDER_CLASS = new String[]
   {
     null,
-    XhtmlConstants.TABLE_BORDER_0001_STYLE,
-    XhtmlConstants.TABLE_BORDER_0010_STYLE,
-    XhtmlConstants.TABLE_BORDER_0011_STYLE,
-    XhtmlConstants.TABLE_BORDER_0100_STYLE,
-    XhtmlConstants.TABLE_BORDER_0101_STYLE,
-    XhtmlConstants.TABLE_BORDER_0110_STYLE,
-    XhtmlConstants.TABLE_BORDER_0111_STYLE,
-    XhtmlConstants.TABLE_BORDER_1000_STYLE,
-    XhtmlConstants.TABLE_BORDER_1001_STYLE,
-    XhtmlConstants.TABLE_BORDER_1010_STYLE,
-    XhtmlConstants.TABLE_BORDER_1011_STYLE,
-    XhtmlConstants.TABLE_BORDER_1100_STYLE,
-    XhtmlConstants.TABLE_BORDER_1101_STYLE,
-    XhtmlConstants.TABLE_BORDER_1110_STYLE,
-    XhtmlConstants.TABLE_BORDER_1111_STYLE,
+    SkinSelectors.TABLE_BORDER_0001_STYLE,
+    SkinSelectors.TABLE_BORDER_0010_STYLE,
+    SkinSelectors.TABLE_BORDER_0011_STYLE,
+    SkinSelectors.TABLE_BORDER_0100_STYLE,
+    SkinSelectors.TABLE_BORDER_0101_STYLE,
+    SkinSelectors.TABLE_BORDER_0110_STYLE,
+    SkinSelectors.TABLE_BORDER_0111_STYLE,
+    SkinSelectors.TABLE_BORDER_1000_STYLE,
+    SkinSelectors.TABLE_BORDER_1001_STYLE,
+    SkinSelectors.TABLE_BORDER_1010_STYLE,
+    SkinSelectors.TABLE_BORDER_1011_STYLE,
+    SkinSelectors.TABLE_BORDER_1100_STYLE,
+    SkinSelectors.TABLE_BORDER_1101_STYLE,
+    SkinSelectors.TABLE_BORDER_1110_STYLE,
+    SkinSelectors.TABLE_BORDER_1111_STYLE,
   };
 
 }

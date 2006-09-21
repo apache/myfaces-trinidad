@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 
 import java.io.IOException;
-
 import java.util.List;
 import java.util.ListIterator;
 
@@ -24,15 +23,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
-
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.HideShowUtils;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
@@ -358,37 +356,37 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
   String getContainerStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_CONTAINER_STYLE_CLASS;
   }
 
   String getContentStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_CONTENT_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_CONTENT_STYLE_CLASS;
   }
 
   String getHeaderDisabledStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_HEADER_DISABLED_STYLE_CLASS;
   }
 
   String getHeaderExpanedStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_HEADER_EXPANDED_STYLE_CLASS;
   }
 
   String getHeaderCollapsedStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_HEADER_COLLAPSED_STYLE_CLASS;
   }
 
   String getLinkDisabledStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS;
   }
 
   String getLinkEnabledStyleClass()
   {
-    return XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS;
+    return SkinSelectors.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS;
   }
 
   String getDisclosedTipKey()

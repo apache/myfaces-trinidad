@@ -18,7 +18,6 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,15 +27,14 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXProcess;
-
 import org.apache.myfaces.trinidad.component.core.nav.CoreTrain;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ProcessUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -203,7 +201,7 @@ public class TrainRenderer
     throws IOException
   {
     renderStyleAttributes(context, arc, bean, 
-                          XhtmlConstants.AF_PROCESS_TRAIN_STYLE_CLASS);
+                          SkinSelectors.AF_PROCESS_TRAIN_STYLE_CLASS);
   }
 
 
@@ -533,12 +531,12 @@ public class TrainRenderer
     writer.writeAttribute("colspan", "2", null);
 
     String styleClass = 
-      (station.isSelected)? XhtmlConstants.AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS: 
+      (station.isSelected)? SkinSelectors.AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS: 
       (station.isDisabled && !station.isMoreLink)? 
-      XhtmlConstants.AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS: 
+      SkinSelectors.AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS: 
       (station.isVisited)? 
-      XhtmlConstants.AF_PROCESS_TRAIN_VISITED_STYLE_CLASS: 
-      XhtmlConstants.AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS;
+      SkinSelectors.AF_PROCESS_TRAIN_VISITED_STYLE_CLASS: 
+      SkinSelectors.AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS;
 
     renderStyleClass(context, arc, styleClass);
 
@@ -657,22 +655,22 @@ public class TrainRenderer
 
     if (isRTL)
       _renderSubTrainCell(context, arc, 
-                          XhtmlConstants.TRAIN_SUB_RIGHT_STYLE_CLASS, 
+                          SkinSelectors.TRAIN_SUB_RIGHT_STYLE_CLASS, 
                           writer);
     else
       _renderSubTrainCell(context, arc, 
-                          XhtmlConstants.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
+                          SkinSelectors.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
                           writer);
 
     _renderSubTrainBlankCells(train, length, writer);
 
     if (isRTL)
       _renderSubTrainCell(context, arc, 
-                          XhtmlConstants.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
+                          SkinSelectors.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
                           writer);
     else
       _renderSubTrainCell(context, arc, 
-                          XhtmlConstants.TRAIN_SUB_RIGHT_STYLE_CLASS, 
+                          SkinSelectors.TRAIN_SUB_RIGHT_STYLE_CLASS, 
                           writer);
 
     writer.endElement("tr");
@@ -808,16 +806,16 @@ public class TrainRenderer
   private static final Map<String, String> _RESOURCE_KEY_MAP = 
     new HashMap<String, String>();
   private static final String _TRAIN_DISABLED_LINK = 
-    XhtmlConstants.LINK_DISABLED_STYLE_CLASS + " " + 
-    XhtmlConstants.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
+    SkinSelectors.LINK_DISABLED_STYLE_CLASS + " " + 
+    SkinSelectors.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
   private static final String _TRAIN_ENABLED_LINK = 
-    XhtmlConstants.LINK_STYLE_CLASS + " " + 
-    XhtmlConstants.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
+    SkinSelectors.LINK_STYLE_CLASS + " " + 
+    SkinSelectors.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
   
   static {
-    _RESOURCE_KEY_MAP.put(XhtmlConstants.LINK_DISABLED_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_DISABLED_STYLE_CLASS, 
                           _TRAIN_DISABLED_LINK);
-    _RESOURCE_KEY_MAP.put(XhtmlConstants.LINK_STYLE_CLASS, 
+    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_STYLE_CLASS, 
                           _TRAIN_ENABLED_LINK);
   }
 

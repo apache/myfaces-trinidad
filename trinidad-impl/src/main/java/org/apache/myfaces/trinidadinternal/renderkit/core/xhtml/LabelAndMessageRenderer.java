@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -24,13 +23,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
-
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
@@ -257,7 +253,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           
           rw.startElement("td", null);
           renderStyleClass(context, arc,
-                           XhtmlConstants.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
+                           SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
           _renderMessageCellContents(context, arc, component, bean);
           rw.endElement("td");
           
@@ -296,7 +292,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     renderStyleClasses(context, arc, new String[]{
                        _getLabelStyleClass(bean), 
                        _getDefaultLabelStyleClass(arc, 
-                          XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS)});
+                          SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS)});
 
     String labelInlineStyle = getLabelInlineStyleKey(bean);
     rw.writeAttribute("style", labelInlineStyle, null);
@@ -335,7 +331,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     rw.writeAttribute("valign", "top", null);
     rw.writeAttribute("nowrap", Boolean.TRUE, null);
 
-    renderStyleClass(context, arc, XhtmlConstants.AF_CONTENT_CELL_STYLE_CLASS );
+    renderStyleClass(context, arc, SkinSelectors.AF_CONTENT_CELL_STYLE_CLASS );
 
     if (labelExists)
       rw.writeAttribute("width",
@@ -353,7 +349,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       //     replaceable:
       rw.startElement("div", null);
       renderStyleClass(context, arc,
-                       XhtmlConstants.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
+                       SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS);
       _renderMessageCellContents(context, arc, component, bean);
       rw.endElement("div");
     }

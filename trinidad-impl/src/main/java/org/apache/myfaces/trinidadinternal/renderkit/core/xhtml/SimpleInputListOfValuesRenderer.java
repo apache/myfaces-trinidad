@@ -268,7 +268,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
 
   protected String getButtonIconName()
   {
-    return XhtmlConstants.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME;
+    return SkinSelectors.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME;
   }
 
   protected String getButtonOnclick(FacesBean bean)

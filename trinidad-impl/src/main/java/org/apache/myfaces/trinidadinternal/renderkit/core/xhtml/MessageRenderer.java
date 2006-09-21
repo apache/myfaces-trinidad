@@ -142,14 +142,14 @@ public class MessageRenderer extends ValueRenderer
         renderStyleClass(context, arc, beanStyleClass);        
       
       writer.startElement("div", null);
-      renderStyleClass(context, arc, XhtmlConstants.INLINE_INFO_TEXT_STYLE_CLASS); 
+      renderStyleClass(context, arc, SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS); 
       encodeChild(context, help); 
       writer.endElement("div");
 
       // Use a div for the error message to force it onto a new line
       writer.startElement("div", null);
       renderStyleClass(context, arc, 
-                       XhtmlConstants.INLINE_ERROR_TEXT_STYLE_CLASS);
+                       SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS);
       renderPossiblyFormattedText(context, message);
       writer.endElement("div");
     }    
@@ -163,10 +163,10 @@ public class MessageRenderer extends ValueRenderer
 
       // if there's a help facet the styleclass should not be error
       if (hasHelp)
-        styleClass = XhtmlConstants.INLINE_INFO_TEXT_STYLE_CLASS;
+        styleClass = SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS;
       else
-        styleClass = isError ? XhtmlConstants.INLINE_ERROR_TEXT_STYLE_CLASS :
-                               XhtmlConstants.INLINE_INFO_TEXT_STYLE_CLASS; 
+        styleClass = isError ? SkinSelectors.INLINE_ERROR_TEXT_STYLE_CLASS :
+                               SkinSelectors.INLINE_INFO_TEXT_STYLE_CLASS; 
       // render default styles along with bean's styleClass if it exists.
       if (beanStyleClass != null)
       {

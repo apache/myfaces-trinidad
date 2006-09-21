@@ -15,29 +15,25 @@
  */
 package org.apache.myfaces.trinidadinternal.skin;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
-
 import java.util.Stack;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.share.expl.Coercions;
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
-import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
-import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
-
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
-
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
-
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
+import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.SkinPropertyNode;
+import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
 
 
@@ -594,11 +590,11 @@ abstract public class Skin
     _PROPERTY_CLASS_TYPE_MAP = new HashMap<String, Class<?>>();
     
     _PROPERTY_CLASS_TYPE_MAP.put(
-      XhtmlConstants.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.class);
+      SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.class);
     _PROPERTY_CLASS_TYPE_MAP.put(
-      XhtmlConstants.AF_TABLE_SELECTION_BAR_IN_TABLE, Boolean.class);
+      SkinProperties.AF_TABLE_SELECTION_BAR_IN_TABLE, Boolean.class);
     _PROPERTY_CLASS_TYPE_MAP.put(
-      XhtmlConstants.AF_TABLE_REPEAT_CONTROL_BAR, Boolean.class);
+      SkinProperties.AF_TABLE_REPEAT_CONTROL_BAR, Boolean.class);
   }
 
   // Error messages

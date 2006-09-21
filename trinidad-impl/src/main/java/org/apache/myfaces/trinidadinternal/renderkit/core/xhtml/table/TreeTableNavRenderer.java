@@ -24,9 +24,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
@@ -228,11 +228,11 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     final String styleClass;
     if (disabled)
     {
-      styleClass = XhtmlConstants.HGRID_NAV_ROW_ILINK_STYLE_CLASS;
+      styleClass = SkinSelectors.HGRID_NAV_ROW_ILINK_STYLE_CLASS;
     }
     else
     {
-      styleClass = XhtmlConstants.HGRID_NAV_ROW_ALINK_STYLE_CLASS;
+      styleClass = SkinSelectors.HGRID_NAV_ROW_ALINK_STYLE_CLASS;
       writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
       writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
       String shortDesc = 
@@ -259,14 +259,14 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     if (isTop)
     {
       iconKey = isDisabled
-        ? XhtmlConstants.AF_TREE_TABLE_DISABLED_NAV_UP_ICON_NAME
-        : XhtmlConstants.AF_TREE_TABLE_NAV_UP_ICON_NAME;
+        ? SkinSelectors.AF_TREE_TABLE_DISABLED_NAV_UP_ICON_NAME
+        : SkinSelectors.AF_TREE_TABLE_NAV_UP_ICON_NAME;
     }
     else
     {
       iconKey = isDisabled
-        ? XhtmlConstants.AF_TREE_TABLE_DISABLED_NAV_DOWN_ICON_NAME
-        : XhtmlConstants.AF_TREE_TABLE_NAV_DOWN_ICON_NAME;
+        ? SkinSelectors.AF_TREE_TABLE_DISABLED_NAV_DOWN_ICON_NAME
+        : SkinSelectors.AF_TREE_TABLE_NAV_DOWN_ICON_NAME;
     }
     
     return arc.getIcon(iconKey);

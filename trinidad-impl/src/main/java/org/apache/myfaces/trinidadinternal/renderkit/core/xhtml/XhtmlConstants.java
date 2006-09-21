@@ -17,8 +17,10 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
-public interface XhtmlConstants extends SkinSelectors, SkinProperties
+public final class XhtmlConstants
 {
+  private XhtmlConstants(){}
+  
   public static final String DEBUG_PARTIAL_RESPONSES_PARAM =
     "org.apache.myfaces.trinidadinternal.DEBUG_PARTIAL_RESPONSES";
   

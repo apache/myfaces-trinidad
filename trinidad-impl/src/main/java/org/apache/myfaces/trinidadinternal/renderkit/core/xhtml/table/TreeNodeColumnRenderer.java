@@ -24,10 +24,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -104,7 +104,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
       // Render the style class on the link, so that we can 
       // disable the link's text decoration
       renderStyleClass(context, arc,
-                       XhtmlConstants.AF_TREE_TABLE_EXPANSION_ICON_STYLE_CLASS);
+                       SkinSelectors.AF_TREE_TABLE_EXPANSION_ICON_STYLE_CLASS);
 
       writer.writeAttribute("onclick", onclick, null);
       writer.writeAttribute("href", "#", null);
@@ -152,7 +152,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
 
     if (disclosed)
     {
-      iconName = XhtmlConstants.AF_TREE_TABLE_EXPANDED_ICON_NAME;
+      iconName = SkinSelectors.AF_TREE_TABLE_EXPANDED_ICON_NAME;
 
       altTextKey = (onclick == null) 
         ? _DISABLED_COLLAPSE_TIP_KEY 
@@ -160,7 +160,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
     }
     else
     {
-      iconName = XhtmlConstants.AF_TREE_TABLE_COLLAPSED_ICON_NAME;      
+      iconName = SkinSelectors.AF_TREE_TABLE_COLLAPSED_ICON_NAME;      
       altTextKey = _EXPAND_TIP_KEY;
     }
 

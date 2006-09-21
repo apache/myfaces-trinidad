@@ -24,32 +24,24 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Collection;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.Hashtable;
-
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import org.xml.sax.SAXException;
-
-
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
-import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
+import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
+import org.apache.myfaces.trinidadinternal.share.io.NameResolver;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.xml.JaxpXMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
-
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
@@ -63,6 +55,8 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
+import org.xml.sax.SAXException;
 
 /**
  * The FileSystemStyleCache is a StyleProvider implementation which
@@ -1532,24 +1526,24 @@ public class FileSystemStyleCache implements StyleProvider
                  "af|chooseDate::content A");
 
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_SHOWMANYACCORDION_TITLE_LINK_STYLE_CLASS,
+        SkinSelectors.AF_SHOWMANYACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|showManyAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_SHOWMANYACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        SkinSelectors.AF_SHOWMANYACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|showManyAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_SHOWONEACCORDION_TITLE_LINK_STYLE_CLASS,
+        SkinSelectors.AF_SHOWONEACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|showOneAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        SkinSelectors.AF_SHOWONEACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|showOneAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
+        SkinSelectors.AF_PANELACCORDION_TITLE_LINK_STYLE_CLASS,
         "A.af|panelAccordion::title-link");
     _STYLE_KEY_MAP.put(
-        XhtmlConstants.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
+        SkinSelectors.AF_PANELACCORDION_TITLE_LINK_DISABLED_STYLE_CLASS,
         "A.af|panelAccordion::title-disabled-link");
 
     _STYLE_KEY_MAP.put("af|panelTabbed::tab-link",

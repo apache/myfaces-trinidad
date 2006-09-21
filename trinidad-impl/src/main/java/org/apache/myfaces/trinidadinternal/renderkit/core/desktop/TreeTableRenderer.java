@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.CollectionComponent;
@@ -34,13 +32,14 @@ import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -365,7 +364,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
     RenderingContext   arc)
     throws IOException
   {
-    Icon icon = arc.getIcon(XhtmlConstants.AF_TREE_TABLE_LOCATOR_ICON_NAME);
+    Icon icon = arc.getIcon(SkinSelectors.AF_TREE_TABLE_LOCATOR_ICON_NAME);
 
     if (icon != null)
     {
@@ -407,7 +406,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
                                                    false, //bottom
                                                    true); //right
       renderStyleClasses(fc, arc, new String[] {
-                                XhtmlConstants.HGRID_LOCATOR_HEADER_STYLE,
+                                SkinSelectors.HGRID_LOCATOR_HEADER_STYLE,
                                 borderStyleClass}
                         );
 
@@ -555,13 +554,13 @@ public class TreeTableRenderer extends DesktopTableRenderer
       {
         renderStyleClass(
           context, arc,
-          XhtmlConstants.AF_TREE_TABLE_MP_SELECTED_STYLE_CLASS);
+          SkinSelectors.AF_TREE_TABLE_MP_SELECTED_STYLE_CLASS);
       }
       else
       {
         renderStyleClass(
           context, arc,
-          XhtmlConstants.AF_TREE_TABLE_MP_STEP_STYLE_CLASS);
+          SkinSelectors.AF_TREE_TABLE_MP_STEP_STYLE_CLASS);
       }
       Object oldPath = tree.getRowKey();
       Object focusRowKey = ttrc.getFocusRowKey();
@@ -622,18 +621,18 @@ public class TreeTableRenderer extends DesktopTableRenderer
     
     // we need a resource key map since we are using a navigationPath.
     // and we are using table for the styles
-    map.put(XhtmlConstants.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
-            XhtmlConstants.AF_TREE_TABLE_MP_SEPARATOR_ICON_NAME);
-    map.put(XhtmlConstants.AF_NAVIGATION_PATH_STYLE_CLASS,
-            XhtmlConstants.AF_TREE_TABLE_MP_STYLE_CLASS);
-    map.put(XhtmlConstants.AF_TABLE_CONTENT_STYLE,
-            XhtmlConstants.AF_TREE_TABLE_CONTENT_STYLE);
-    map.put(XhtmlConstants.AF_TABLE_SUB_CONTROL_BAR_STYLE,
-            XhtmlConstants.AF_TREE_TABLE_SUB_CONTROL_BAR_STYLE);
-    map.put(XhtmlConstants.AF_TABLE_CONTROL_BAR_TOP_STYLE,
-            XhtmlConstants.AF_TREE_TABLE_CONTROL_BAR_TOP_STYLE);
-    map.put(XhtmlConstants.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE,
-            XhtmlConstants.AF_TREE_TABLE_CONTROL_BAR_BOTTOM_STYLE);
+    map.put(SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
+            SkinSelectors.AF_TREE_TABLE_MP_SEPARATOR_ICON_NAME);
+    map.put(SkinSelectors.AF_NAVIGATION_PATH_STYLE_CLASS,
+            SkinSelectors.AF_TREE_TABLE_MP_STYLE_CLASS);
+    map.put(SkinSelectors.AF_TABLE_CONTENT_STYLE,
+            SkinSelectors.AF_TREE_TABLE_CONTENT_STYLE);
+    map.put(SkinSelectors.AF_TABLE_SUB_CONTROL_BAR_STYLE,
+            SkinSelectors.AF_TREE_TABLE_SUB_CONTROL_BAR_STYLE);
+    map.put(SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE,
+            SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_TOP_STYLE);
+    map.put(SkinSelectors.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE,
+            SkinSelectors.AF_TREE_TABLE_CONTROL_BAR_BOTTOM_STYLE);
     
     return Collections.unmodifiableMap(map);
   }

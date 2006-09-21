@@ -145,7 +145,7 @@ public class OutputLabelRenderer extends ValueRenderer
       AccessKeyUtils.renderAccessKeyText(context,
                                          value,
                                          accessKey,
-                                         XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+                                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
       
       if (needsLabel)
       {
@@ -185,7 +185,7 @@ public class OutputLabelRenderer extends ValueRenderer
     if (getShowRequired(bean))
     {
       // Get the required Icon from the context
-      Icon icon = arc.getIcon(XhtmlConstants.REQUIRED_ICON_ALIAS_NAME);
+      Icon icon = arc.getIcon(SkinSelectors.REQUIRED_ICON_ALIAS_NAME);
       if (icon != null)
       {
         String vAlign = getDefaultValign(bean);
@@ -230,20 +230,20 @@ public class OutputLabelRenderer extends ValueRenderer
 
     if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(type))
     {
-      iconName = (destination == null) ? XhtmlConstants.ERROR_ICON_ALIAS_NAME :
-                                         XhtmlConstants.ERROR_ANCHOR_ICON_ALIAS_NAME;
+      iconName = (destination == null) ? SkinSelectors.ERROR_ICON_ALIAS_NAME :
+                                         SkinSelectors.ERROR_ANCHOR_ICON_ALIAS_NAME;
       altTextKey = "ERROR_TIP";
     }
     else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(type))
     {
-      iconName = (destination == null) ? XhtmlConstants.INFO_ICON_ALIAS_NAME :
-                                         XhtmlConstants.INFO_ANCHOR_ICON_ALIAS_NAME;
+      iconName = (destination == null) ? SkinSelectors.INFO_ICON_ALIAS_NAME :
+                                         SkinSelectors.INFO_ANCHOR_ICON_ALIAS_NAME;
       altTextKey = "INFO_TIP";
     }
     else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(type))
     {
-      iconName = (destination == null) ? XhtmlConstants.WARNING_ICON_ALIAS_NAME :
-                                         XhtmlConstants.WARNING_ANCHOR_ICON_ALIAS_NAME;
+      iconName = (destination == null) ? SkinSelectors.WARNING_ICON_ALIAS_NAME :
+                                         SkinSelectors.WARNING_ANCHOR_ICON_ALIAS_NAME;
       altTextKey = "WARNING_TIP";
     }
 

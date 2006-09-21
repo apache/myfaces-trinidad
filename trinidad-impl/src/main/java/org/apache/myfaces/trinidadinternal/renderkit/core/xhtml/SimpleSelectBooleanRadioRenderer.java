@@ -106,14 +106,14 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     if (disabled)
     {
       iconName = (selected ? 
-              XhtmlConstants.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME : 
-              XhtmlConstants.AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME);
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME : 
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME);
     }
     else
     {
       iconName = (selected ? 
-              XhtmlConstants.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME : 
-              XhtmlConstants.AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME);
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME : 
+              SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME);
     }
     
     return iconName;           

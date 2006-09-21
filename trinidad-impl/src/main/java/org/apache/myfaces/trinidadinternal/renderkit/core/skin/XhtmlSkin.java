@@ -15,12 +15,13 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
@@ -32,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  * @author The Oracle ADF Faces Team
  */
 public class XhtmlSkin extends BaseSkin
-                       implements XhtmlConstants
 {
   public XhtmlSkin()
   {
@@ -53,9 +53,9 @@ public class XhtmlSkin extends BaseSkin
 
   private void _registerSkinProperties()
   {
-    setProperty(AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY,
+    setProperty(SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY,
                 Boolean.TRUE);
-    setProperty(AF_PANEL_LIST_DEFAULT_COLUMNS, IntegerUtils.getInteger(3));
+    setProperty(SkinProperties.AF_PANEL_LIST_DEFAULT_COLUMNS, IntegerUtils.getInteger(3));
   }
 
   // fully qualified class name of our resource bundle
@@ -67,39 +67,39 @@ public class XhtmlSkin extends BaseSkin
   private static final TextIcon _ERROR_ICON =
     new TextIcon("X",
                  null,
-                 ERROR_ICON_STYLE_CLASS,
+                 SkinSelectors.ERROR_ICON_STYLE_CLASS,
                  null);
 
   private static final TextIcon _INFO_ICON =
     new TextIcon("i",
                  null,
-                 INFO_ICON_STYLE_CLASS,
+                 SkinSelectors.INFO_ICON_STYLE_CLASS,
                  null);
 
   private static final TextIcon _REQUIRED_ICON =
     new TextIcon("*",
                  null,
-                 REQUIRED_ICON_STYLE_CLASS,
+                 SkinSelectors.REQUIRED_ICON_STYLE_CLASS,
                  null);
 
   private static final TextIcon _WARNING_ICON =
     new TextIcon("!",
                  null,
-                 WARNING_ICON_STYLE_CLASS,
+                 SkinSelectors.WARNING_ICON_STYLE_CLASS,
                  null);
 
 
   private static final TextIcon _QUICK_SELECT_ICON =
     new TextIcon("Q",
                  null,
-                 QUICK_SELECT_ICON_STYLE_CLASS,
+                 SkinSelectors.QUICK_SELECT_ICON_STYLE_CLASS,
                  null);
 
 
   private static final TextIcon _QUICK_SELECT_DISABLED_ICON =
     new TextIcon("Q",
                  null,
-                 QUICK_SELECT_DISABLED_ICON_STYLE_CLASS,
+                 SkinSelectors.QUICK_SELECT_DISABLED_ICON_STYLE_CLASS,
                  null);
 
 
@@ -119,87 +119,87 @@ public class XhtmlSkin extends BaseSkin
   {
     // Global Icons. These are alias icons (they are referenced )
     // Someday we'll reference them from the select* components.
-    ERROR_ICON_ALIAS_NAME,
+    SkinSelectors.ERROR_ICON_ALIAS_NAME,
     _ERROR_ICON,
 
-    ERROR_ANCHOR_ICON_ALIAS_NAME,
+    SkinSelectors.ERROR_ANCHOR_ICON_ALIAS_NAME,
     _ERROR_ICON,
 
-    INFO_ICON_ALIAS_NAME,
+    SkinSelectors.INFO_ICON_ALIAS_NAME,
     _INFO_ICON,
 
-    INFO_ANCHOR_ICON_ALIAS_NAME,
+    SkinSelectors.INFO_ANCHOR_ICON_ALIAS_NAME,
     _INFO_ICON,
 
-    REQUIRED_ICON_ALIAS_NAME,
+    SkinSelectors.REQUIRED_ICON_ALIAS_NAME,
     _REQUIRED_ICON,
 
-    WARNING_ICON_ALIAS_NAME,
+    SkinSelectors.WARNING_ICON_ALIAS_NAME,
     _WARNING_ICON,
 
-    WARNING_ANCHOR_ICON_ALIAS_NAME,
+    SkinSelectors.WARNING_ANCHOR_ICON_ALIAS_NAME,
     _WARNING_ICON,
 
-    QUICK_SELECT_ICON_NAME,
+    SkinSelectors.QUICK_SELECT_ICON_NAME,
     _QUICK_SELECT_ICON,
 
-    QUICK_SELECT_DISABLED_ICON_NAME,
+    SkinSelectors.QUICK_SELECT_DISABLED_ICON_NAME,
     _QUICK_SELECT_DISABLED_ICON,
 
-    PATH_SEPARATOR_ICON_ALIAS_NAME,
+    SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME,
     new TextIcon("\u00a0"),
 
-    AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
-    new ReferenceIcon(PATH_SEPARATOR_ICON_ALIAS_NAME),
+    SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME),
 
     // navigationPath in treeTable
-    AF_TREE_TABLE_MP_SEPARATOR_ICON_NAME,
-    new ReferenceIcon(PATH_SEPARATOR_ICON_ALIAS_NAME),
+    SkinSelectors.AF_TREE_TABLE_MP_SEPARATOR_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME),
 
     // alias icon for messages's header/panelHeader
-    HEADER_ERROR_ICON_ALIAS_NAME,
+    SkinSelectors.HEADER_ERROR_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
-    HEADER_WARNING_ICON_ALIAS_NAME,
+    SkinSelectors.HEADER_WARNING_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
-    HEADER_INFO_ICON_ALIAS_NAME,
+    SkinSelectors.HEADER_INFO_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
-    HEADER_CONFIRMATION_ICON_ALIAS_NAME,
+    SkinSelectors.HEADER_CONFIRMATION_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
     // tr:messages header icons point to reference icon so they can
     // be easily shared with tr:panelHeader's icons
-    AF_MESSAGES_ERROR_ICON_NAME,
-    new ReferenceIcon(HEADER_ERROR_ICON_ALIAS_NAME),
+    SkinSelectors.AF_MESSAGES_ERROR_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_ERROR_ICON_ALIAS_NAME),
 
-    AF_MESSAGES_WARNING_ICON_NAME,
-    new ReferenceIcon(HEADER_WARNING_ICON_ALIAS_NAME),
+    SkinSelectors.AF_MESSAGES_WARNING_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_WARNING_ICON_ALIAS_NAME),
 
-    AF_MESSAGES_INFO_ICON_NAME,
-    new ReferenceIcon(HEADER_INFO_ICON_ALIAS_NAME),
+    SkinSelectors.AF_MESSAGES_INFO_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_INFO_ICON_ALIAS_NAME),
 
-    AF_MESSAGES_CONFIRMATION_ICON_NAME,
-    new ReferenceIcon(HEADER_CONFIRMATION_ICON_ALIAS_NAME),
+    SkinSelectors.AF_MESSAGES_CONFIRMATION_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_CONFIRMATION_ICON_ALIAS_NAME),
 
     // tr:panelHeader header icons point to reference icon so they can
     // be easily shared with tr:messages's icons
-    AF_PANEL_HEADER_ERROR_ICON_NAME,
-    new ReferenceIcon(HEADER_ERROR_ICON_ALIAS_NAME),
+    SkinSelectors.AF_PANEL_HEADER_ERROR_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_ERROR_ICON_ALIAS_NAME),
 
-    AF_PANEL_HEADER_WARNING_ICON_NAME,
-    new ReferenceIcon(HEADER_WARNING_ICON_ALIAS_NAME),
+    SkinSelectors.AF_PANEL_HEADER_WARNING_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_WARNING_ICON_ALIAS_NAME),
 
-    AF_PANEL_HEADER_INFO_ICON_NAME,
-    new ReferenceIcon(HEADER_INFO_ICON_ALIAS_NAME),
+    SkinSelectors.AF_PANEL_HEADER_INFO_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_INFO_ICON_ALIAS_NAME),
 
-    AF_PANEL_HEADER_CONFIRMATION_ICON_NAME,
-    new ReferenceIcon(HEADER_CONFIRMATION_ICON_ALIAS_NAME),
+    SkinSelectors.AF_PANEL_HEADER_CONFIRMATION_ICON_NAME,
+    new ReferenceIcon(SkinSelectors.HEADER_CONFIRMATION_ICON_ALIAS_NAME),
 
     // inputNumberSpinbox increment/decrement icons
 
-    AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME,
+    SkinSelectors.AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME,
       new ContextImageIcon("adf/images/spbxup.png",
                            null,
                            IntegerUtils.getInteger(5),
@@ -207,7 +207,7 @@ public class XhtmlSkin extends BaseSkin
                            null,
                            spinboxTopStyle),
 
-     AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME,
+     SkinSelectors.AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME,
      new ContextImageIcon("adf/images/spbxdn.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -215,7 +215,7 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxBottomStyle),
 
-     AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME,
+     SkinSelectors.AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME,
      new ContextImageIcon("adf/images/spbxupd.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -223,7 +223,7 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxTopStyle),
 
-     AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME,
+     SkinSelectors.AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME,
      new ContextImageIcon("adf/images/spbxdnd.png",
                           null,
                           IntegerUtils.getInteger(5),
@@ -231,94 +231,94 @@ public class XhtmlSkin extends BaseSkin
                           null,
                           spinboxBottomStyle),
      // checkbox icons
-    AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkdc.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
-    AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkdn.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
-    AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME,
     new ContextImageIcon( "adf/images/checkrc.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
-    AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME,
     new ContextImageIcon("adf/images/checkrn.gif",
                         null,
                         IntegerUtils.getInteger(12),
                         IntegerUtils.getInteger(12)),
 
      // radio icons
-    AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_SELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiods.gif",
                         null,
                         IntegerUtils.getInteger(11),
                         IntegerUtils.getInteger(11)),
-    AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_RADIO_DISABLED_UNSELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiodn.gif",
                         null,
                         IntegerUtils.getInteger(11),
                         IntegerUtils.getInteger(11)),
 
-    AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_SELECTED_ICON_NAME,
     new ContextImageIcon( "adf/images/radiors.gif",
                         null,
                         IntegerUtils.getInteger(10),
                         IntegerUtils.getInteger(10)),
 
-    AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME,
+    SkinSelectors.AF_SELECT_BOOLEAN_RADIO_READONLY_UNSELECTED_ICON_NAME,
     new ContextImageIcon("adf/images/radiorn.gif",
                         null,
                         IntegerUtils.getInteger(10),
                         IntegerUtils.getInteger(10)),
 
     // progressIndicator icons
-    AF_PROGRESS_INDICATOR_INDETERMINATE_ICON_NAME,
+    SkinSelectors.AF_PROGRESS_INDICATOR_INDETERMINATE_ICON_NAME,
     NullIcon.sharedInstance(),
 
     // arrows for the selectRangeChoiceBar
-    AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME,
+    SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME,
+    SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME,
+    SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME,
-    NullIcon.sharedInstance(),
-
-    // arrows for the navigationBar
-    AF_TABLE_NB_PREV_ICON_NAME,
-    NullIcon.sharedInstance(),
-
-    AF_TABLE_NB_NEXT_ICON_NAME,
-    NullIcon.sharedInstance(),
-
-    AF_TABLE_NB_PREV_DISABLED_ICON_NAME,
-    NullIcon.sharedInstance(),
-
-    AF_TABLE_NB_NEXT_DISABLED_ICON_NAME,
+    SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
 
     // arrows for the navigationBar
-    AF_TREE_TABLE_NB_PREV_ICON_NAME,
+    SkinSelectors.AF_TABLE_NB_PREV_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_TREE_TABLE_NB_NEXT_ICON_NAME,
+    SkinSelectors.AF_TABLE_NB_NEXT_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_TREE_TABLE_NB_PREV_DISABLED_ICON_NAME,
+    SkinSelectors.AF_TABLE_NB_PREV_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
 
-    AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME,
+    SkinSelectors.AF_TABLE_NB_NEXT_DISABLED_ICON_NAME,
+    NullIcon.sharedInstance(),
+
+    // arrows for the navigationBar
+    SkinSelectors.AF_TREE_TABLE_NB_PREV_ICON_NAME,
+    NullIcon.sharedInstance(),
+
+    SkinSelectors.AF_TREE_TABLE_NB_NEXT_ICON_NAME,
+    NullIcon.sharedInstance(),
+
+    SkinSelectors.AF_TREE_TABLE_NB_PREV_DISABLED_ICON_NAME,
+    NullIcon.sharedInstance(),
+
+    SkinSelectors.AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME,
     NullIcon.sharedInstance(),
 
     // arrows for the chooseDate
@@ -331,28 +331,28 @@ public class XhtmlSkin extends BaseSkin
     // and ChooseDate components.
 
     // buttons are the true hierarchical example. Work on those next.
-    AF_CHOOSE_DATE_PREV_ICON_NAME,
+    SkinSelectors.AF_CHOOSE_DATE_PREV_ICON_NAME,
     new TextIcon("<"),
 
-    AF_CHOOSE_DATE_NEXT_ICON_NAME,
+    SkinSelectors.AF_CHOOSE_DATE_NEXT_ICON_NAME,
     new TextIcon(">"),
 
-    AF_CHOOSE_DATE_PREV_DISABLED_ICON_NAME,
+    SkinSelectors.AF_CHOOSE_DATE_PREV_DISABLED_ICON_NAME,
     new TextIcon("<"),
 
-    AF_CHOOSE_DATE_NEXT_DISABLED_ICON_NAME,
+    SkinSelectors.AF_CHOOSE_DATE_NEXT_DISABLED_ICON_NAME,
     new TextIcon(">"),
 
-    AF_SELECT_INPUT_DATE_PREV_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_DATE_PREV_ICON_NAME,
     new TextIcon("<"),
 
-    AF_SELECT_INPUT_DATE_NEXT_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_DATE_NEXT_ICON_NAME,
     new TextIcon(">"),
 
-    AF_SELECT_INPUT_DATE_PREV_DISABLED_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_DATE_PREV_DISABLED_ICON_NAME,
     new TextIcon("<"),
 
-    AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME,
     new TextIcon(">"),
 
   };

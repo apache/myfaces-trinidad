@@ -16,9 +16,8 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -27,7 +26,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreOutputFormatted;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class OutputFormattedRenderer extends ValueRenderer
@@ -97,11 +95,11 @@ public class OutputFormattedRenderer extends ValueRenderer
   {
     _USAGES = new HashMap<String, String>();
     _USAGES.put(CoreOutputFormatted.STYLE_USAGE_IN_CONTEXT_BRANDING,
-                XhtmlConstants.IN_CONTEXT_TEXT_STYLE_CLASS);
+                SkinSelectors.IN_CONTEXT_TEXT_STYLE_CLASS);
     _USAGES.put(CoreOutputFormatted.STYLE_USAGE_INSTRUCTION,
-                XhtmlConstants.INSTRUCTION_TEXT_STYLE_CLASS);
+                SkinSelectors.INSTRUCTION_TEXT_STYLE_CLASS);
     _USAGES.put(CoreOutputFormatted.STYLE_USAGE_PAGE_STAMP,
-                XhtmlConstants.PAGE_STAMP_TEXT_STYLE_CLASS);
+                SkinSelectors.PAGE_STAMP_TEXT_STYLE_CLASS);
   }
 
   private PropertyKey _styleUsageKey;

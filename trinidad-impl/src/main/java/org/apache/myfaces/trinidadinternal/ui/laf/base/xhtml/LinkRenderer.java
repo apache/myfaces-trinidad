@@ -22,10 +22,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
 import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
@@ -479,7 +479,7 @@ public class LinkRenderer extends XhtmlLafRenderer
     {
 
       renderAccessKeyText(context, node, getText(context, node), 
-                          XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
+                          SkinSelectors.AF_LINKACCESSKEY_STYLE_CLASS);
     }
     else
     {

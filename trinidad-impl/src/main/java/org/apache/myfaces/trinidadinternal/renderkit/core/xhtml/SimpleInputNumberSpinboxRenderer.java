@@ -20,15 +20,11 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
-
 import org.apache.myfaces.trinidad.component.core.input.CoreInputNumberSpinbox;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
@@ -203,8 +199,8 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 
     String styleClass =
     	(increment) ?
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_CELL :
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_CELL;
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_INCREMENT_CELL :
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_DECREMENT_CELL;
     renderStyleClass(context, arc, styleClass);
 
     String iconName;
@@ -213,15 +209,15 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
     {
       iconName =
       	(increment) ?
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME :
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME;
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_INCREMENT_ICON_NAME :
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_DECREMENT_ICON_NAME;
     }
     else
     {
       iconName =
       	(increment) ?
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME :
-        XhtmlConstants.AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME;
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_INCREMENT_DISABLED_ICON_NAME :
+        SkinSelectors.AF_INPUT_NUMBER_SPINBOX_DECREMENT_DISABLED_ICON_NAME;
     }
 
     Icon icon = arc.getIcon(iconName);

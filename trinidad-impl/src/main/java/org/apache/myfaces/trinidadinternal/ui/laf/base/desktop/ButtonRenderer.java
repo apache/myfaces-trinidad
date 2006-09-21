@@ -16,9 +16,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import java.awt.Color;
-
 import java.io.IOException;
-
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -31,16 +29,16 @@ import org.apache.myfaces.trinidadinternal.image.ImageProvider;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderResponse;
 import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 import org.apache.myfaces.trinidadinternal.style.util.MutableFontProxy;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.Renderer;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
 import org.apache.myfaces.trinidadinternal.ui.action.FireAction;
@@ -657,7 +655,7 @@ abstract public class ButtonRenderer extends GeneratedImageRenderer
              renderButtonAccessKey(context, node);
           }
           renderAccessKeyText(context, node, text, 
-                              XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
+                              SkinSelectors.AF_LINKACCESSKEY_STYLE_CLASS);
         }
         else
         {
