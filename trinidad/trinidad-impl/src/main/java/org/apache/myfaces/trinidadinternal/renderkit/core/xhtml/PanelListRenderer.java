@@ -59,7 +59,7 @@ public class PanelListRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean,
-                          XhtmlConstants.AF_PANEL_LIST_STYLE_CLASS);
+                          SkinSelectors.AF_PANEL_LIST_STYLE_CLASS);
   }
 
   @Override
@@ -253,7 +253,7 @@ public class PanelListRenderer extends XhtmlRenderer
 
     Integer defaultColumns =
       (Integer)arc.getSkin().getProperty(
-        XhtmlConstants.AF_PANEL_LIST_DEFAULT_COLUMNS);
+        SkinProperties.AF_PANEL_LIST_DEFAULT_COLUMNS);
     return (defaultColumns != null) ?
             defaultColumns.intValue() :
             COLUMNS_DEFAULT;

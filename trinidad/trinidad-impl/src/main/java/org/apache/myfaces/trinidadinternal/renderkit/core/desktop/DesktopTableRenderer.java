@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -31,12 +30,12 @@ import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-
 import org.apache.myfaces.trinidadinternal.io.RepeatIdResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ShowDetailRenderer;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -128,7 +127,7 @@ public class DesktopTableRenderer extends TableRenderer
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
       OutputUtils.renderLayoutTableAttributes(context, arc, "0", "100%");
-      renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_SUB_CONTROL_BAR_STYLE);
+      renderStyleClass(context, arc, SkinSelectors.AF_TABLE_SUB_CONTROL_BAR_STYLE);
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.writeAttribute("nowrap", Boolean.TRUE, null);
@@ -218,7 +217,7 @@ public class DesktopTableRenderer extends TableRenderer
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("a", null);
     writer.writeAttribute(XhtmlConstants.ID_ATTRIBUTE, id, null);
-    renderStyleClass(context, arc, XhtmlConstants.NAV_BAR_ALINK_STYLE_CLASS);
+    renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
     writer.writeAttribute("onclick", onclick, null);
     writer.writeURIAttribute("href", "#", null);
     writer.writeText(arc.getTranslatedString(translationKey), null);
@@ -311,7 +310,7 @@ public class DesktopTableRenderer extends TableRenderer
     }
 
     writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
-    renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_CONTENT_STYLE);
+    renderStyleClass(context, arc, SkinSelectors.AF_TABLE_CONTENT_STYLE);
 
     if ((height != null)&& isGecko(arc))
     {
@@ -537,9 +536,9 @@ public class DesktopTableRenderer extends TableRenderer
         writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
         writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
         // start control bar
-        String style = XhtmlConstants.AF_TABLE_CONTROL_BAR_TOP_STYLE;
+        String style = SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE;
         if (!isUpper)
-          style = XhtmlConstants.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE;
+          style = SkinSelectors.AF_TABLE_CONTROL_BAR_BOTTOM_STYLE;
 
         writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
         OutputUtils.renderLayoutTableAttributes(context, arc, "0", "0", "0", "100%");
@@ -658,7 +657,7 @@ public class DesktopTableRenderer extends TableRenderer
     // renders "width" when there are no column headers.
 
     //TODO: must get individual column's style:
-    String cellClass = XhtmlConstants.AF_COLUMN_CELL_TEXT_STYLE;/*ColumnRenderer.getDataStyleClass(...)*/
+    String cellClass = SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE;/*ColumnRenderer.getDataStyleClass(...)*/
 
     String borderStyleClass = CellUtils.getDataBorderStyle(arc, tContext);
 
@@ -708,7 +707,7 @@ public class DesktopTableRenderer extends TableRenderer
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
         IntegerUtils.getInteger(tContext.getActualColumnCount()), null);
-      renderStyleClass(context, arc, XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
 
       encodeChild(context, header);
 
@@ -860,7 +859,7 @@ public class DesktopTableRenderer extends TableRenderer
                       null);
           writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
                 IntegerUtils.getString(tContext.getActualColumnCount()), null);
-          String styleClass = XhtmlConstants.AF_TABLE_DETAIL_STYLE;
+          String styleClass = SkinSelectors.AF_TABLE_DETAIL_STYLE;
           String borderStyleClass = CellUtils.getBorderClass(
                                          true, true, true, true);
           renderStyleClasses(fc, arc,
@@ -1036,7 +1035,7 @@ public class DesktopTableRenderer extends TableRenderer
         writer.startElement(XhtmlConstants.TABLE_HEADER_ELEMENT, null);
         final int colSpan = (firstFooterPhysicalIndex > 0)?  firstFooterPhysicalIndex: tContext.getActualColumnCount();
         writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, IntegerUtils.getString(colSpan), null);
-        renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
+        renderStyleClass(context, arc, SkinSelectors.AF_TABLE_COLUMN_FOOTER_STYLE);
         if (footer != null)
           encodeChild(context, footer);
         writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
@@ -1067,7 +1066,7 @@ public class DesktopTableRenderer extends TableRenderer
         // Make it span the whole table
         writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, tContext.getActualColumnCount(), null);
 
-        renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
+        renderStyleClass(context, arc, SkinSelectors.AF_TABLE_COLUMN_FOOTER_STYLE);
         encodeChild(context, footer);
         writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
         writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);

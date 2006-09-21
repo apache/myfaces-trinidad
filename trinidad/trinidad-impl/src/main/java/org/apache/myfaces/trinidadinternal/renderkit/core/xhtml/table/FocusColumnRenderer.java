@@ -23,11 +23,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
-
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
@@ -44,7 +43,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
   @Override
   protected String getHeaderStyleClass(TableRenderingContext tContext)
   {
-    return XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE;
+    return SkinSelectors.AF_COLUMN_HEADER_ICON_STYLE;
   }
 
   @Override
@@ -96,7 +95,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
     String           altText
     ) throws IOException
   {
-    Icon icon = arc.getIcon(XhtmlConstants.AF_TREE_TABLE_FOCUS_ICON_NAME);
+    Icon icon = arc.getIcon(SkinSelectors.AF_TREE_TABLE_FOCUS_ICON_NAME);
 
     if (icon != null)
     {

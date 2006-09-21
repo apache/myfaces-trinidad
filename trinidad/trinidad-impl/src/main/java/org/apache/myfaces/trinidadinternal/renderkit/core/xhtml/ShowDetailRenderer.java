@@ -24,10 +24,9 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetail;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * This needs to be massively cleaned up...
@@ -211,8 +210,8 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     )
   {
     String iconName = (disclosed
-                       ? XhtmlConstants.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME
-                       : XhtmlConstants.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
+                       ? SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME
+                       : SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME);
 
     return arc.getIcon(iconName);
   }
@@ -453,7 +452,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
    */
   protected String getLinkStyleClass()
   {
-    return XhtmlConstants.LINK_STYLE_CLASS;
+    return SkinSelectors.LINK_STYLE_CLASS;
   }
 
   /**

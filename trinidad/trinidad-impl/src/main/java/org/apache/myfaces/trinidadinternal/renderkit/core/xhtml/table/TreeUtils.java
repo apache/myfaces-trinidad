@@ -23,19 +23,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.FacesEvent;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXNavigationTree;
 import org.apache.myfaces.trinidad.component.UIXPage;
 import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
-import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.FocusEvent;
-
+import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -82,7 +81,7 @@ public final class TreeUtils
 
     if (HiddenLabelUtils.supportsHiddenLabels(arc))
       XhtmlRenderer.renderStyleClass(context, arc,
-                         XhtmlConstants.HIDDEN_LABEL_STYLE_CLASS);
+                         SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
 
     writer.writeText(levelInfo, null);
     writer.endElement("label");

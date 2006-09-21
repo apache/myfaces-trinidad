@@ -16,9 +16,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.text.DateFormatSymbols;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,23 +25,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
-
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
+import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Renders the calendar.
@@ -555,14 +548,14 @@ public class ChooseDateRenderer extends XhtmlRenderer
       if (isPrev)
       {
         iconName = (isEnabled)
-                 ? XhtmlConstants.AF_CHOOSE_DATE_PREV_ICON_NAME
-                 : XhtmlConstants.AF_CHOOSE_DATE_PREV_DISABLED_ICON_NAME;
+                 ? SkinSelectors.AF_CHOOSE_DATE_PREV_ICON_NAME
+                 : SkinSelectors.AF_CHOOSE_DATE_PREV_DISABLED_ICON_NAME;
       }
       else
       {
         iconName = (isEnabled)
-                 ? XhtmlConstants.AF_CHOOSE_DATE_NEXT_ICON_NAME
-                 : XhtmlConstants.AF_CHOOSE_DATE_NEXT_DISABLED_ICON_NAME;
+                 ? SkinSelectors.AF_CHOOSE_DATE_NEXT_ICON_NAME
+                 : SkinSelectors.AF_CHOOSE_DATE_NEXT_DISABLED_ICON_NAME;
       }
     }
     else
@@ -570,14 +563,14 @@ public class ChooseDateRenderer extends XhtmlRenderer
       if (isPrev)
       {
         iconName = (isEnabled)
-                 ? XhtmlConstants.AF_SELECT_INPUT_DATE_PREV_ICON_NAME
-                 : XhtmlConstants.AF_SELECT_INPUT_DATE_PREV_DISABLED_ICON_NAME;
+                 ? SkinSelectors.AF_SELECT_INPUT_DATE_PREV_ICON_NAME
+                 : SkinSelectors.AF_SELECT_INPUT_DATE_PREV_DISABLED_ICON_NAME;
       }
       else
       {
         iconName = (isEnabled)
-                 ? XhtmlConstants.AF_SELECT_INPUT_DATE_NEXT_ICON_NAME
-                 : XhtmlConstants.AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME;
+                 ? SkinSelectors.AF_SELECT_INPUT_DATE_NEXT_ICON_NAME
+                 : SkinSelectors.AF_SELECT_INPUT_DATE_NEXT_DISABLED_ICON_NAME;
       }
     }
 
@@ -807,7 +800,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.writeAttribute("onchange", onChange, null);
     renderStyleClass(context,
                      arc,
-                     XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS);
+                     SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
     for (int currMonth = minimumMonth; currMonth <= maximumMonth; currMonth++)
     {
@@ -872,7 +865,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     writer.writeAttribute("onchange", onChange, null);
     renderStyleClass(context,
                      arc,
-                     XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS);
+                     SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
     boolean needsPrevItem = false;
     boolean needsNextItem = false;
@@ -1521,25 +1514,25 @@ public class ChooseDateRenderer extends XhtmlRenderer
   // Define inline calendar styles
   private static final CalendarStyles _INLINE_STYLES =
     new CalendarStyles(
-      XhtmlConstants.AF_CHOOSE_DATE_NAV_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_TITLE_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_HEADER_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_DISABLED_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_ENABLED_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_SELECTED_STYLE_CLASS,
-      XhtmlConstants.AF_CHOOSE_DATE_CONTENT_STYLE_CLASS
+      SkinSelectors.AF_CHOOSE_DATE_NAV_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_TITLE_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_HEADER_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_DISABLED_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_ENABLED_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_SELECTED_STYLE_CLASS,
+      SkinSelectors.AF_CHOOSE_DATE_CONTENT_STYLE_CLASS
       );
 
   // Define calendar dialog styles
   private static final CalendarStyles _DIALOG_STYLES =
     new CalendarStyles(
-      XhtmlConstants.AF_SELECT_INPUT_DATE_NAV_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_TITLE_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_HEADER_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_DISABLED_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_ENABLED_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_SELECTED_STYLE_CLASS,
-      XhtmlConstants.AF_SELECT_INPUT_DATE_CONTENT_STYLE_CLASS
+      SkinSelectors.AF_SELECT_INPUT_DATE_NAV_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_TITLE_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_HEADER_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_DISABLED_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_ENABLED_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_SELECTED_STYLE_CLASS,
+      SkinSelectors.AF_SELECT_INPUT_DATE_CONTENT_STYLE_CLASS
       );
 
 

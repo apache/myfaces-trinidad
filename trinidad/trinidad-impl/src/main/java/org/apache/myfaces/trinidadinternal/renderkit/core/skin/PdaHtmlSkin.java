@@ -15,6 +15,8 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -39,9 +41,9 @@ public class PdaHtmlSkin extends XhtmlSkin
 
   private void _registerSkinProperties()
   {    
-    setProperty(AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.FALSE);
-    setProperty(AF_PANELHEADER_INDENT_CONTENT, Boolean.FALSE);
-    setProperty(AF_PANEL_LIST_DEFAULT_COLUMNS, IntegerUtils.getInteger(2));
+    setProperty(SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.FALSE);
+    setProperty(SkinProperties.AF_PANELHEADER_INDENT_CONTENT, Boolean.FALSE);
+    setProperty(SkinProperties.AF_PANEL_LIST_DEFAULT_COLUMNS, IntegerUtils.getInteger(2));
   }
 
   // This array contains entries for all of the customizable
@@ -50,43 +52,43 @@ public class PdaHtmlSkin extends XhtmlSkin
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]
   {
     // null out icons that have a default in base skin
-    ERROR_ICON_ALIAS_NAME,
+    SkinSelectors.ERROR_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
-    WARNING_ICON_ALIAS_NAME,
+    SkinSelectors.WARNING_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
-    INFO_ICON_ALIAS_NAME,
+    SkinSelectors.INFO_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
 
-    AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME,
+    SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME,
       new TranslatedTextIcon("af_showDetailHeader.DISCLOSED"),
-    AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME,
+      SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME,
       new TranslatedTextIcon("af_showDetailHeader.UNDISCLOSED"),
       
    // define icons
-    AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME,
       new ContextImageIcon("adf/images/dp.gif", 
                            "adf/images/dprtl.gif",
                            IntegerUtils.getInteger(17),
                            IntegerUtils.getInteger(18)),
                             
-    AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME,
+    SkinSelectors.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME,
       new ContextImageIcon("adf/images/lovi.gif", 
                            "adf/images/lovirtl.gif",
                            IntegerUtils.getInteger(18),
                            IntegerUtils.getInteger(18)), 
     // @todo these need to be green and in adf/images/lovi (these are for
     // OraclePdaSkin, but we are sharing for now.
-    AF_COLUMN_UNSORTED_ICON_NAME,
+    SkinSelectors.AF_COLUMN_UNSORTED_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrt.gif", 
                            null,
                            IntegerUtils.getInteger(16),
                            IntegerUtils.getInteger(7)), 
-    AF_COLUMN_SORTED_ASCEND_ICON_NAME,
+    SkinSelectors.AF_COLUMN_SORTED_ASCEND_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrta.gif", 
                            null, 
                            IntegerUtils.getInteger(9),
                            IntegerUtils.getInteger(9)),    
-    AF_COLUMN_SORTED_DESCEND_ICON_NAME,
+    SkinSelectors.AF_COLUMN_SORTED_DESCEND_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrtd.gif", 
                            null, 
                            IntegerUtils.getInteger(9),

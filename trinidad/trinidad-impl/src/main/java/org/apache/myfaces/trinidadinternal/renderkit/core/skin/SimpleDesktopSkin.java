@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 
 /**
@@ -25,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
  * @author The Oracle ADF Faces Team
  */
 public class SimpleDesktopSkin extends BaseDesktopSkin
-  implements SkinSelectors
 {
 
   /**
@@ -69,6 +68,6 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getRenderKitId()
   {
-    return ORACLE_ADF_DESKTOP;
+    return XhtmlConstants.ORACLE_ADF_DESKTOP;
   }
 }

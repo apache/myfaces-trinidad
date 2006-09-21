@@ -16,21 +16,19 @@
 package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 
 import java.io.IOException;
-
 import java.util.ListIterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
@@ -85,7 +83,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
 
     XhtmlLafRenderer.
       renderStyleClassAttribute(rCtx,
-                                XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS);
+                                SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS);
 
     out.writeText(encoder.encodeParameter(label), null);
 
@@ -225,7 +223,7 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       String radioSpanClass = getFieldTextClass();
       if (disabled)
       {
-        radioSpanClass = XhtmlConstants.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
+        radioSpanClass = SkinSelectors.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
       }
       XhtmlLafRenderer.renderStyleClassAttribute(rCtx,
                                                  radioSpanClass);

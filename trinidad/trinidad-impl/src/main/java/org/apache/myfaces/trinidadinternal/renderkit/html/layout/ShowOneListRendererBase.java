@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.html.layout;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
@@ -26,16 +25,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
-
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
 
@@ -388,7 +386,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
           out.startElement ("span", null);
           XhtmlRenderer.renderStyleClass (FacesContext.getCurrentInstance(),
                                           RenderingContext.getCurrentInstance(),  
-                                          XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+                                          SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
           out.writeText (accessChar.toString(), null);
           out.endElement ("span");
           
@@ -427,7 +425,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    */
   protected String getFieldTextClass()
   {
-    return XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS;
+    return SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS;
   }
 
   /**
@@ -455,7 +453,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
    */
   private String getLabelClassName()
   {
-    return XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS;
+    return SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS;
   }
 
   /**

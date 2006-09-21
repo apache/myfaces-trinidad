@@ -38,7 +38,7 @@ public class AccessKeyUtils
     ) throws IOException
   {
     renderAccessKeyText(context, textValue, keyIndex,  
-                         XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+                         SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
   }
 
   /*

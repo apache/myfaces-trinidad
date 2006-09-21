@@ -89,14 +89,14 @@ public class SimpleSelectBooleanCheckboxRenderer extends SimpleSelectBooleanRend
     if (disabled)
     {
       iconName = (selected ? 
-              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME : 
-              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME);
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_CHECKED_ICON_NAME : 
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_DISABLED_UNCHECKED_ICON_NAME);
     }
     else
     {
       iconName = (selected ? 
-              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME : 
-              XhtmlConstants.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME);
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_CHECKED_ICON_NAME : 
+              SkinSelectors.AF_SELECT_BOOLEAN_CHECKBOX_READONLY_UNCHECKED_ICON_NAME);
     }
     
     return iconName;           

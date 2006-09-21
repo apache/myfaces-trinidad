@@ -16,12 +16,10 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.text.Bidi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -31,9 +29,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
-import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.component.core.nav.CoreBreadCrumbs;
-
+import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
@@ -115,7 +112,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     int nextVisChildIndex = 1;
     UIComponent stamp = getStamp(context, arc, component, bean);
     Icon separatorIcon = arc.getIcon(
-                            XhtmlConstants.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME); 
+                            SkinSelectors.AF_NAVIGATION_PATH_SEPARATOR_ICON_NAME); 
  
     // use the focusKey to stamp out path
     if(stamp != null)
@@ -283,7 +280,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   )
   {
     Object propValue = arc.getSkin().getProperty(
-                      XhtmlConstants.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY);
+                      SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY);
                       
     return Boolean.TRUE.equals(propValue);                      
   }
@@ -299,7 +296,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, 
-                          XhtmlConstants.AF_NAVIGATION_PATH_STYLE_CLASS);
+                          SkinSelectors.AF_NAVIGATION_PATH_STYLE_CLASS);
   }
 
 
@@ -413,11 +410,11 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     _RESOURCE_KEY_MAP  =  new HashMap<String, String>();
     
     _RESOURCE_KEY_MAP.put(
-      XhtmlConstants.LINK_STYLE_CLASS,
-      XhtmlConstants.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);
+      SkinSelectors.LINK_STYLE_CLASS,
+      SkinSelectors.AF_NAVIGATION_PATH_STEP_STYLE_CLASS);
     // the selected step is disabled, which is why we map these two styles
     _RESOURCE_KEY_MAP.put(
-      XhtmlConstants.LINK_DISABLED_STYLE_CLASS,
-      XhtmlConstants.AF_NAVIGATION_PATH_SELECTED_STEP_STYLE_CLASS); 
+      SkinSelectors.LINK_DISABLED_STYLE_CLASS,
+      SkinSelectors.AF_NAVIGATION_PATH_SELECTED_STEP_STYLE_CLASS); 
   }
 }

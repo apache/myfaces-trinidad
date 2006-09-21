@@ -1,5 +1,5 @@
 /*
- * SkinSelectors.java
+ * java
  *
  * Created 15-Aug-06 10:04:00 AM
  * 
@@ -26,8 +26,10 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
  * 
  * @author Simon Lessard, Fujitsu Consulting
  */
-public interface SkinSelectors
+public final class SkinSelectors
 {
+  private SkinSelectors(){}
+  
   /* The selectors are sorted by component, alphabetically. 
    * 
    * The selectors not linked to any specific components like aliases are 

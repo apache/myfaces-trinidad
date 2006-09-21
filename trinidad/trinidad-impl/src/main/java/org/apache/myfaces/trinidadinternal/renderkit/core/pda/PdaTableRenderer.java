@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.pda;
 
 import java.io.IOException;
-
 import java.util.List;
 
 import javax.faces.component.UIComponent;
@@ -29,19 +28,16 @@ import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.BandingData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RowData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableUtils;
-
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 public class PdaTableRenderer extends TableRenderer
@@ -75,7 +71,7 @@ public class PdaTableRenderer extends TableRenderer
       // start control bar
       writer.startElement("div", null);
       renderStyleClass(context, arc,
-                       XhtmlConstants.AF_TABLE_CONTROL_BAR_TOP_STYLE);
+                       SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE);
 
       if ( hasNav)
       {
@@ -162,7 +158,7 @@ public class PdaTableRenderer extends TableRenderer
     // write out the grid color as the border color for the grid lines
     // and border of the table
     //
-    renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_CONTENT_STYLE);
+    renderStyleClass(context, arc, SkinSelectors.AF_TABLE_CONTENT_STYLE);
 
     //
     // 1. Gather all the data we need to render
@@ -329,7 +325,7 @@ public class PdaTableRenderer extends TableRenderer
          final int firstFooterPhysicalIndex = colData.getPhysicalIndexOfFirstFooter();
          final int colSpan = (firstFooterPhysicalIndex > 0)?  firstFooterPhysicalIndex: tContext.getActualColumnCount();
          writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, IntegerUtils.getString(colSpan), null);
-         renderStyleClass(context, arc, XhtmlConstants.AF_TABLE_COLUMN_FOOTER_STYLE);
+         renderStyleClass(context, arc, SkinSelectors.AF_TABLE_COLUMN_FOOTER_STYLE);
          encodeChild(context, footer);
          writer.endElement(XhtmlConstants.TABLE_HEADER_ELEMENT);
          if (firstFooterPhysicalIndex > 0)
@@ -471,25 +467,25 @@ public class PdaTableRenderer extends TableRenderer
     if (band)
     {
       if (isSelect)
-        cellClass = XhtmlConstants.TABLE_BAND_SELECT_CELL_STYLE;
+        cellClass = SkinSelectors.TABLE_BAND_SELECT_CELL_STYLE;
       else
       {
         cellClass = ColumnData.selectFormat(tContext,
-                             XhtmlConstants.AF_COLUMN_CELL_TEXT_BAND_STYLE,
-                             XhtmlConstants.AF_COLUMN_CELL_NUMBER_BAND_STYLE,
-                             XhtmlConstants.AF_COLUMN_CELL_ICON_BAND_STYLE);
+                             SkinSelectors.AF_COLUMN_CELL_TEXT_BAND_STYLE,
+                             SkinSelectors.AF_COLUMN_CELL_NUMBER_BAND_STYLE,
+                             SkinSelectors.AF_COLUMN_CELL_ICON_BAND_STYLE);
       }
     }
     else
     {
       if (isSelect)
-        cellClass = XhtmlConstants.TABLE_SELECT_CELL_STYLE;
+        cellClass = SkinSelectors.TABLE_SELECT_CELL_STYLE;
       else
       {
         cellClass = ColumnData.selectFormat(tContext,
-                             XhtmlConstants.AF_COLUMN_CELL_TEXT_STYLE,
-                             XhtmlConstants.AF_COLUMN_CELL_NUMBER_STYLE,
-                             XhtmlConstants.AF_COLUMN_CELL_ICON_FORMAT_STYLE);
+                             SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE,
+                             SkinSelectors.AF_COLUMN_CELL_NUMBER_STYLE,
+                             SkinSelectors.AF_COLUMN_CELL_ICON_FORMAT_STYLE);
       }
     }
     
@@ -516,7 +512,7 @@ public class PdaTableRenderer extends TableRenderer
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
         IntegerUtils.getInteger(tContext.getActualColumnCount()), null);
-      renderStyleClass(context, arc, XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
 
       encodeChild(context, header);
 

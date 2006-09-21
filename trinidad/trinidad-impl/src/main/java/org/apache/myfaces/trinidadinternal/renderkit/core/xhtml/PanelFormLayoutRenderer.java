@@ -16,14 +16,11 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Dimension;
-
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -33,11 +30,10 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-import org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
-
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
@@ -76,7 +72,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     FacesBean           bean) throws IOException
   {
     renderStyleAttributes(context, arc, bean, 
-      XhtmlConstants.AF_PANEL_FORM_STYLE_CLASS);
+      SkinSelectors.AF_PANEL_FORM_STYLE_CLASS);
   }
 
   private Object _getLabelWidth(FacesBean bean)
@@ -130,7 +126,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
 
   protected String getDefaultStyleClass()
   {
-    return XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS;
+    return SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS;
   }
 
   @SuppressWarnings("unchecked")
@@ -601,7 +597,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     {
       rw.startElement("td", null); // the outer column
       renderStyleClass(context, arc,
-        XhtmlConstants.AF_PANEL_FORM_COLUMN_STYLE_CLASS);
+        SkinSelectors.AF_PANEL_FORM_COLUMN_STYLE_CLASS);
       rw.writeAttribute("colspan", colSpan, null);
       if (col < actualColumns - 1) // let the last column take the leftover space
       {
@@ -711,7 +707,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     //     as expected.  Using a DIV until we know a way to fix IE6.
     rw.startElement("div", null);
     renderStyleClass(context, arc,
-      XhtmlConstants.AF_PANEL_FORM_SEPARATOR_STYLE_CLASS);
+      SkinSelectors.AF_PANEL_FORM_SEPARATOR_STYLE_CLASS);
     rw.endElement("div");
     rw.endElement("td");
     rw.endElement("tr");
@@ -762,7 +758,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
 
         rw.startElement("td", null); // field cell (non-empty)
         renderStyleClass(context, arc,
-          XhtmlConstants.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
+          SkinSelectors.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
         encodeChild(context, item);
         rw.endElement("td"); // field cell (non-empty)
 
@@ -774,7 +770,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
 
         rw.startElement("td", null); // field cell (non-empty)
         renderStyleClass(context, arc,
-          XhtmlConstants.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
+          SkinSelectors.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
         encodeChild(context, item);
         rw.endElement("td"); // field cell (non-empty)
 
@@ -987,26 +983,26 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     _RESOURCE_KEY_SIDE_BY_SIDE_MAP = new HashMap<String, String>();
     
     _RESOURCE_KEY_SIDE_BY_SIDE_MAP.put(
-      XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS);
+      SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_LABEL_CELL_STYLE_CLASS);
     _RESOURCE_KEY_SIDE_BY_SIDE_MAP.put(
-      XhtmlConstants.AF_CONTENT_CELL_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
+      SkinSelectors.AF_CONTENT_CELL_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
     _RESOURCE_KEY_SIDE_BY_SIDE_MAP.put(
-      XhtmlConstants.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS);
+      SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS);
 
     // Stacked labels for one-over-the-other orientation:
     _RESOURCE_KEY_STACKED_MAP = new HashMap<String, String>();
     
     _RESOURCE_KEY_STACKED_MAP.put(
-      XhtmlConstants.AF_LABEL_TEXT_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_LABEL_STACKED_CELL_STYLE_CLASS);
+      SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_LABEL_STACKED_CELL_STYLE_CLASS);
     _RESOURCE_KEY_STACKED_MAP.put(
-      XhtmlConstants.AF_CONTENT_CELL_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
+      SkinSelectors.AF_CONTENT_CELL_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_CONTENT_CELL_STYLE_CLASS);
     _RESOURCE_KEY_STACKED_MAP.put(
-      XhtmlConstants.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS,
-      XhtmlConstants.AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS);
+      SkinSelectors.AF_COMPONENT_MESSAGE_CELL_STYLE_CLASS,
+      SkinSelectors.AF_PANEL_FORM_MESSAGE_CELL_STYLE_CLASS);
   }
 }

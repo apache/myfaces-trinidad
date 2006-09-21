@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,8 +26,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXPanel;
@@ -37,14 +34,13 @@ import org.apache.myfaces.trinidad.component.UIXSelectRange;
 import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.Range;
-
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 
 public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
 {
@@ -630,7 +626,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
                                            rangeLabel);
 
       writer.startElement("span", null);
-      renderStyleClass(context, arc, XhtmlConstants.NAV_BAR_VIEW_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_VIEW_STYLE_CLASS);
       writer.writeText(rangeString, null);
       writer.endElement("span");
     }
@@ -653,7 +649,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         writer.startElement("select", null);
         writer.writeAttribute("title", choiceTip, null);
         renderStyleClass(context, arc,
-                         XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS);
+                         SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
 
         if (onChange != null)
         {
@@ -692,7 +688,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       {
         writer.startElement("span", null);
         renderStyleClass(context, arc,
-                         XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS);
+                         SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS);
         writer.writeText(items.get(0).getLabel(), null);
         writer.endElement("span");
       }
@@ -957,12 +953,12 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
         writer.writeAttribute("id", linkID, null);
       }
 
-      renderStyleClass(context, arc, XhtmlConstants.NAV_BAR_ALINK_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ALINK_STYLE_CLASS);
     }
     else
     {
       writer.startElement("span", null);
-      renderStyleClass(context, arc, XhtmlConstants.NAV_BAR_ILINK_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.NAV_BAR_ILINK_STYLE_CLASS);
     }
 
     writer.writeText(text, null);
@@ -992,22 +988,22 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
     {
       if (isEnabled)
       {
-        iconName   = XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME;
+        iconName   = SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_ICON_NAME;
       }
       else
       {
-        iconName   = XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME;
+        iconName   = SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME;
       }
     }
     else
     {
       if (isEnabled)
       {
-        iconName   = XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME;
+        iconName   = SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_ICON_NAME;
       }
       else
       {
-        iconName   = XhtmlConstants.AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME;
+        iconName   = SkinSelectors.AF_SELECT_RANGE_CHOICE_BAR_PREV_DISABLED_ICON_NAME;
       }
     }
 

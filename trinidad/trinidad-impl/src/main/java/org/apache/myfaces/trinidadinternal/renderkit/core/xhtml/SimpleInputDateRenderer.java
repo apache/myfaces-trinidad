@@ -417,7 +417,7 @@ public class SimpleInputDateRenderer
   @Override
   protected String getButtonIconName()
   {
-    return XhtmlConstants.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME;
+    return SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME;
   }
 
   protected String getChooseId(FacesBean bean)

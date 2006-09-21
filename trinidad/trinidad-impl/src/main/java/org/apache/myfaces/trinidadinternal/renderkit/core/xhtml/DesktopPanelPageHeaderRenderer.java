@@ -25,7 +25,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPageHeader;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -513,7 +512,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     writer.writeAttribute("width",
                           "100%", null);
     writer.writeAttribute("colspan","3", null);
-    renderStyleClass(context, arc, XhtmlConstants.QUICK_SEARCH_BOX_STYLE_CLASS);
+    renderStyleClass(context, arc, SkinSelectors.QUICK_SEARCH_BOX_STYLE_CLASS);
 
 
     encodeChild(context, search);

@@ -121,7 +121,7 @@ public class HiddenLabelUtils
     writer.startElement("label", component);
     writer.writeAttribute("for", id, null);
     XhtmlRenderer.renderStyleClass(context, arc,
-                                   XhtmlConstants.HIDDEN_LABEL_STYLE_CLASS);
+                                   SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
     writer.writeText(text, null);
     writer.endElement("label");
   }

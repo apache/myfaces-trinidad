@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,20 +27,16 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXCollection;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.SortCriterion;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.RenderStage;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
-
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * @todo Kill the now-strange "compute mode", since we can
@@ -161,9 +156,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
   static public String getDefaultHeaderStyleClass(TableRenderingContext tContext)
   {
     return ColumnData.selectFormat(tContext,
-                                   XhtmlConstants.AF_COLUMN_HEADER_TEXT_STYLE,
-                                   XhtmlConstants.AF_COLUMN_HEADER_NUMBER_STYLE,
-                                   XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE);
+                                   SkinSelectors.AF_COLUMN_HEADER_TEXT_STYLE,
+                                   SkinSelectors.AF_COLUMN_HEADER_NUMBER_STYLE,
+                                   SkinSelectors.AF_COLUMN_HEADER_ICON_STYLE);
   }
 
   /**
@@ -685,11 +680,11 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     switch (sortable)
     {
       case SORT_SORTABLE:
-        return XhtmlConstants.AF_COLUMN_UNSORTED_ICON_NAME;
+        return SkinSelectors.AF_COLUMN_UNSORTED_ICON_NAME;
       case SORT_ASCENDING:
-        return XhtmlConstants.AF_COLUMN_SORTED_ASCEND_ICON_NAME;
+        return SkinSelectors.AF_COLUMN_SORTED_ASCEND_ICON_NAME;
       case SORT_DESCENDING:
-        return XhtmlConstants.AF_COLUMN_SORTED_DESCEND_ICON_NAME;
+        return SkinSelectors.AF_COLUMN_SORTED_DESCEND_ICON_NAME;
       default:
         return null;
     }
@@ -784,16 +779,16 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     // if we are a columnGroup header, then we must be centered:
     if (colData.isColumnGroupHeader())
     {
-      return XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE;
+      return SkinSelectors.AF_COLUMN_HEADER_ICON_STYLE;
     }
 
     if (isSortable)
     {
       return ColumnData.selectFormat(
           tContext,
-          XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_STYLE_CLASS,
-          XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_NUMBER_STYLE_CLASS,
-          XhtmlConstants.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
+          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_STYLE_CLASS,
+          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_NUMBER_STYLE_CLASS,
+          SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
     }
     else
     {
@@ -805,7 +800,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
                                 boolean create)
   {
     NodeList root =
-      (NodeList) tContext.getHeaderNodeList();
+      (NodeList) tContext.getHeaderNodesList();
     if ((root == null) && create)
     {
       root = new NodeList();

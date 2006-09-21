@@ -28,10 +28,9 @@ import org.apache.myfaces.trinidad.component.CollectionComponent;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -448,14 +447,14 @@ public class TableRenderingContext
    */
   public String getSortableHeaderBorderStyle()
   {
-    return XhtmlConstants.SORTABLE_HEADER_BORDER_STYLE_CLASS ;
+    return SkinSelectors.SORTABLE_HEADER_BORDER_STYLE_CLASS ;
   }
 
   /**
    * Returns the opaque nodeList object used by column groups
    * to store the header structure.
    */
-  public Object getHeaderNodeList()
+  public Object getHeaderNodesList()
   {
     return _nodeList;
   }

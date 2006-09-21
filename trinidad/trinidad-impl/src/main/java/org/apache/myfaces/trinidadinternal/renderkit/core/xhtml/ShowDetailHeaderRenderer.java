@@ -158,11 +158,11 @@ public class ShowDetailHeaderRenderer
                           "af_showDetailHeader.DISCLOSED_TIP");
     _RESOURCE_KEY_MAP.put("af_showDetail.UNDISCLOSED_TIP" ,
                           "af_showDetailHeader.UNDISCLOSED_TIP");
-    _RESOURCE_KEY_MAP.put(XhtmlConstants.AF_PANEL_HEADER_STYLE_CLASS,
-                          XhtmlConstants.AF_SHOW_DETAIL_HEADER_STYLE_CLASS);
-    _RESOURCE_KEY_MAP.put(XhtmlConstants.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME,
-                          XhtmlConstants.AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME);
-    _RESOURCE_KEY_MAP.put(XhtmlConstants.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
-                          XhtmlConstants.AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME);
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_PANEL_HEADER_STYLE_CLASS,
+                          SkinSelectors.AF_SHOW_DETAIL_HEADER_STYLE_CLASS);
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME,
+                          SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME);
+    _RESOURCE_KEY_MAP.put(SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
+                          SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME);
   }
 }

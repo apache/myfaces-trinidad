@@ -363,13 +363,13 @@ public class OutputDocumentRenderer extends ValueRenderer
   private static final String _TITLE_CLASS_ATTRIBUTE = "titleClass";
   
   // Skin selectors
-  private static final String _PARAGRAPH_SELECTOR = XhtmlConstants.AF_OUTPUT_DOCUMENT_PARAGRAPH_STYLE_CLASS;
+  private static final String _PARAGRAPH_SELECTOR = SkinSelectors.AF_OUTPUT_DOCUMENT_PARAGRAPH_STYLE_CLASS;
   
-  private static final String _ROOT_SELECTOR = XhtmlConstants.AF_OUTPUT_DOCUMENT_STYLE_CLASS;
+  private static final String _ROOT_SELECTOR = SkinSelectors.AF_OUTPUT_DOCUMENT_STYLE_CLASS;
   
-  private static final String _SEPARATOR_SELECTOR = XhtmlConstants.AF_OUTPUT_DOCUMENT_SEPARATOR_STYLE_CLASS;
+  private static final String _SEPARATOR_SELECTOR = SkinSelectors.AF_OUTPUT_DOCUMENT_SEPARATOR_STYLE_CLASS;
   
-  private static final String _TITLE_SELECTOR = XhtmlConstants.AF_OUTPUT_DOCUMENT_TITLE_STYLE_CLASS;
+  private static final String _TITLE_SELECTOR = SkinSelectors.AF_OUTPUT_DOCUMENT_TITLE_STYLE_CLASS;
 
   // Property keys
   private PropertyKey _separatorClassKey;

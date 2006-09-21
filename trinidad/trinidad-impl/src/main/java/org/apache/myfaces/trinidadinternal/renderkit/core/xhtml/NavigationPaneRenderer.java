@@ -16,11 +16,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
 
 import javax.faces.application.Application;
@@ -38,7 +36,6 @@ import org.apache.myfaces.trinidad.component.UIXNavigationLevel;
 import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
@@ -202,7 +199,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw.startElement("select", null);
         rw.writeAttribute("id", choiceSelectId, null);
         renderStyleClass(context, arc,
-          XhtmlConstants.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
+          SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_OPTIONS_STYLE_CLASS);
         if (getDisabled(bean))
           rw.writeAttribute("disabled", Boolean.TRUE, null);
       }
@@ -261,17 +258,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     if (NavigationPaneRenderer._HINT_TABS.equals(renderingHint))
     {
       renderStyleAttributes(context, arc, bean, 
-                            XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS);
+                            SkinSelectors.AF_NAVIGATION_LEVEL_TABS_STYLE_CLASS);
     }
     else if (NavigationPaneRenderer._HINT_BAR.equals(renderingHint))
     {
       renderStyleAttributes(context, arc, bean, 
-                            XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS);
+                            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_STYLE_CLASS);
     }
     else
     {
       renderStyleAttributes(context, arc, bean, 
-                            XhtmlConstants.AF_NAVIGATION_LEVEL_STYLE_CLASS);
+                            SkinSelectors.AF_NAVIGATION_LEVEL_STYLE_CLASS);
     }
   }
 
@@ -733,17 +730,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         if (isList)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_ACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_LIST_ACTIVE_DISABLED_STYLE_CLASS);
         }
         else if (isBar)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_ACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_ACTIVE_DISABLED_STYLE_CLASS);
         }
         else
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_DISABLED_STYLE_CLASS);
         }
       }
       else
@@ -751,17 +748,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         if (isList)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_ACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_LIST_ACTIVE_ENABLED_STYLE_CLASS);
         }
         else if (isBar)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_ACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_ACTIVE_ENABLED_STYLE_CLASS);
         }
         else
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_ACTIVE_ENABLED_STYLE_CLASS);
         }
       }
     }
@@ -772,17 +769,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         if (isList)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_INACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_LIST_INACTIVE_DISABLED_STYLE_CLASS);
         }
         else if (isBar)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_INACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_INACTIVE_DISABLED_STYLE_CLASS);
         }
         else
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_DISABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_DISABLED_STYLE_CLASS);
         }
       }
       else
@@ -790,17 +787,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         if (isList)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_INACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_LIST_INACTIVE_ENABLED_STYLE_CLASS);
         }
         else if (isBar)
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_INACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BAR_INACTIVE_ENABLED_STYLE_CLASS);
         }
         else
         {
           itemStyleClass.append(
-            XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_ENABLED_STYLE_CLASS);
+            SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_INACTIVE_ENABLED_STYLE_CLASS);
         }
       }
     }
@@ -823,7 +820,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       renderStyleClass(
         context,
         arc,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_BULLET_STYLE_CLASS);
+        SkinSelectors.AF_NAVIGATION_LEVEL_LIST_BULLET_STYLE_CLASS);
       rw.startElement("div", null); // bulletContent
       rw.write(" ");
       rw.endElement("div"); // bulletContent
@@ -835,17 +832,17 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     if (isList)
     {
       renderStyleClass(context, arc,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS);
+        SkinSelectors.AF_NAVIGATION_LEVEL_LIST_CONTENT_STYLE_CLASS);
     }
     else if (isBar)
     {
       renderStyleClass(context, arc,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS);
+        SkinSelectors.AF_NAVIGATION_LEVEL_BAR_CONTENT_STYLE_CLASS);
     }
     else
     {
       renderStyleClass(context, arc,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
+        SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
     }
     _appendIconAndText(
       context,
@@ -865,12 +862,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       if (isBar)
       {
         renderStyleClass(context, arc,
-          XhtmlConstants.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
+          SkinSelectors.AF_NAVIGATION_LEVEL_BAR_SEPARATOR_STYLE_CLASS);
       }
       else
       {
         renderStyleClass(context, arc,
-          XhtmlConstants.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
+          SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_SEPARATOR_STYLE_CLASS);
       }
       rw.write("|");
       rw.endElement("div"); // rightContent
@@ -1001,7 +998,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       }
       rw.startElement("span", null);
       renderStyleClass(context, arc,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_CHOICE_LABEL_STYLE_CLASS);
+        SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_LABEL_STYLE_CLASS);
       rw.write(chooseText);
       rw.endElement("span");
       if (!isRtl)
@@ -1025,7 +1022,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
     rw.startElement("button", null);
     renderStyleClass(context, arc,
-      XhtmlConstants.AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS);
+      SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS);
     String goText = arc.getSkin().getTranslatedString(
       arc.getLocaleContext(),
       _GO_BUTTON_LABEL_KEY);
@@ -1086,19 +1083,19 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       if (isDisabled)
       {
-        sectionStyleClass2 = XhtmlConstants.P_AF_DISABLED;
+        sectionStyleClass2 = SkinSelectors.P_AF_DISABLED;
       }
       sectionStyleClass1 =
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS;
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_ACTIVE_STYLE_CLASS;
     }
     else
     {
       if (isDisabled)
       {
-        sectionStyleClass2 = XhtmlConstants.P_AF_DISABLED;
+        sectionStyleClass2 = SkinSelectors.P_AF_DISABLED;
       }
       sectionStyleClass1 =
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
     }
     renderStyleClass(context, arc, itemStyleClass.toString());
     String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
@@ -1125,9 +1122,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_START_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);
@@ -1143,9 +1140,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_ACTIVE_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_ACTIVE_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);
@@ -1161,9 +1158,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_START_JOIN_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_START_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);
@@ -1179,9 +1176,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_INACTIVE_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_START_JOIN_FROM_INACTIVE_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);
@@ -1196,9 +1193,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       rw,
       sectionStyleClass1,
       sectionStyleClass2,
-      XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_MID_STYLE_CLASS,
-      XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_STYLE_CLASS,
-      XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
+      SkinSelectors.AF_NAVIGATION_LEVEL_TABS_MID_STYLE_CLASS,
+      SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_STYLE_CLASS,
+      SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_MID_CONTENT_STYLE_CLASS,
       itemData,
       isDisabled,
       isRtl);
@@ -1214,9 +1211,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_END_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_END_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);
@@ -1232,9 +1229,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw,
         sectionStyleClass1,
         sectionStyleClass2,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_END_JOIN_TO_INACTIVE_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_JOIN_STYLE_CLASS,
-        XhtmlConstants.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_END_JOIN_TO_INACTIVE_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_JOIN_STYLE_CLASS,
+        SkinSelectors.AF_NAVIGATION_LEVEL_TABS_BOTTOM_END_CONTENT_STYLE_CLASS,
         null,
         isDisabled,
         isRtl);

@@ -15,6 +15,8 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+
 
 /**
  * Skin implementation for simple pocket pc
@@ -61,6 +63,6 @@ public class SimplePdaSkin extends PdaHtmlSkin
   @Override
   public String getRenderKitId()
   {
-    return ORACLE_ADF_PDA;
+    return XhtmlConstants.ORACLE_ADF_PDA;
   }
 }

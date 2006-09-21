@@ -23,7 +23,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 abstract public class FormElementRenderer extends EditableValueRenderer
@@ -230,12 +229,12 @@ abstract public class FormElementRenderer extends EditableValueRenderer
 
   protected String getDefaultStyleClass(FacesBean bean)
   {
-    return XhtmlConstants.AF_FIELD_TEXT_STYLE_CLASS;
+    return SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS;
   }
 
   protected String getDefaultDisabledStyleClass(FacesBean bean)
   {
-    return XhtmlConstants.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
+    return SkinSelectors.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
   }
 
   /**

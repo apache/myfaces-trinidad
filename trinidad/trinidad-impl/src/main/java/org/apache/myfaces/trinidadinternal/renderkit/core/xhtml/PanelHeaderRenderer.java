@@ -94,13 +94,13 @@ public class PanelHeaderRenderer extends XhtmlRenderer
 
     boolean nesting = ((nestLevel > 0) &&
         !Boolean.FALSE.equals(arc.getSkin().getProperty(
-              XhtmlConstants.AF_PANELHEADER_INDENT_CONTENT)));
+              SkinProperties.AF_PANELHEADER_INDENT_CONTENT)));
     // =-=AEW What if style class is already set?
     if (nesting)
-      renderStyleClass(context, arc, XhtmlConstants.HEADER_NEST_STYLE_CLASS);
+      renderStyleClass(context, arc, SkinSelectors.HEADER_NEST_STYLE_CLASS);
 
     writer.startElement(headerElement, null);
-    renderStyleClass(context, arc, XhtmlConstants.AF_PANEL_HEADER_STYLE_CLASS);
+    renderStyleClass(context, arc, SkinSelectors.AF_PANEL_HEADER_STYLE_CLASS);
     
     renderIcon(context, arc, component, bean, messageType);
 
@@ -109,11 +109,11 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     if (isError)
     {
       // If this is an error header, render the text within
-      // a AF_PANEL_HEADER_ERROR_STYLE_CLASS span so that header will pick up 
+      // a SkinSelectors.AF_PANEL_HEADER_ERROR_STYLE_CLASS span so that header will pick up 
       // the error text foreground color
       writer.startElement("span", null);
       renderStyleClass(context, arc,
-                       XhtmlConstants.AF_PANEL_HEADER_ERROR_STYLE_CLASS);
+                       SkinSelectors.AF_PANEL_HEADER_ERROR_STYLE_CLASS);
     }
     
     writer.writeText(text, "text");
@@ -193,7 +193,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
         OutputUtils.renderAltAndTooltipForImage(context, arc, 
                            XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
         renderStyleClass(context, arc,
-                         XhtmlConstants.AF_PANEL_HEADER_ICON_STYLE_CLASS);
+                         SkinSelectors.AF_PANEL_HEADER_ICON_STYLE_CLASS);
         writer.writeURIAttribute("src", iconUri, "icon");
         writer.endElement("img");
       }
@@ -327,15 +327,15 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     String iconName = null;
 
     if (XhtmlConstants.MESSAGE_TYPE_ERROR.equals(messageType))
-      iconName = XhtmlConstants.AF_PANEL_HEADER_ERROR_ICON_NAME;
+      iconName = SkinSelectors.AF_PANEL_HEADER_ERROR_ICON_NAME;
     else if (XhtmlConstants.MESSAGE_TYPE_WARNING.equals(messageType))
-      iconName = XhtmlConstants.AF_PANEL_HEADER_WARNING_ICON_NAME;
+      iconName = SkinSelectors.AF_PANEL_HEADER_WARNING_ICON_NAME;
     else if (XhtmlConstants.MESSAGE_TYPE_INFO.equals(messageType))
-      iconName = XhtmlConstants.AF_PANEL_HEADER_INFO_ICON_NAME;
+      iconName = SkinSelectors.AF_PANEL_HEADER_INFO_ICON_NAME;
     else if (XhtmlConstants.MESSAGE_TYPE_CONFIRMATION.equals(messageType))
-      iconName = XhtmlConstants.AF_PANEL_HEADER_CONFIRMATION_ICON_NAME;
+      iconName = SkinSelectors.AF_PANEL_HEADER_CONFIRMATION_ICON_NAME;
     else if (XhtmlConstants.MESSAGE_TYPE_PROCESSING.equals(messageType))
-      iconName = XhtmlConstants.AF_PANEL_HEADER_PROCESSING_ICON_NAME;
+      iconName = SkinSelectors.AF_PANEL_HEADER_PROCESSING_ICON_NAME;
 
     assert ((iconName != null) ||
             XhtmlConstants.MESSAGE_TYPE_NONE.equals(messageType));

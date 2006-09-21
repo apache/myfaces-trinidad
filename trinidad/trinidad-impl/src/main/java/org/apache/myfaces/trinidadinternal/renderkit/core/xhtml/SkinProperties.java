@@ -26,8 +26,10 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
  * 
  * @author Simon Lessard, Fujitsu Consulting
  */
-public interface SkinProperties
+public final class SkinProperties
 {
+  private SkinProperties(){}
+  
   //
   // Copied from XhtmlLafConstants
   //

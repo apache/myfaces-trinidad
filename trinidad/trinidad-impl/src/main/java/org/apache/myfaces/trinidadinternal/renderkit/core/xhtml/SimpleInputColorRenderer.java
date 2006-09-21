@@ -16,9 +16,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.awt.Color;
-
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,14 +26,12 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputColor;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -44,7 +40,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ColorFieldInfoScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
-
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
@@ -52,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * @todo Resolve ALT keys
- * @todo is AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_STYLE_CLASS used anywhere?
+ * @todo is SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_STYLE_CLASS used anywhere?
  */
 public class SimpleInputColorRenderer
   extends SimpleInputListOfValuesRenderer
@@ -393,7 +388,7 @@ public class SimpleInputColorRenderer
   @Override
   protected String getButtonIconName()
   {
-    return XhtmlConstants.AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME;
+    return SkinSelectors.AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME;
   }
 
   protected String getChooseId(FacesBean bean)
@@ -497,7 +492,7 @@ public class SimpleInputColorRenderer
 
     // Render the style attributes
     String inlineStyle = _getInlineStyleForColor(color);
-    renderStyleClass(context, arc, XhtmlConstants.COLOR_FIELD_SWATCH_STYLE_CLASS);
+    renderStyleClass(context, arc, SkinSelectors.COLOR_FIELD_SWATCH_STYLE_CLASS);
     writer.writeAttribute("style", inlineStyle, null);
 
     Object altText = null;
@@ -532,7 +527,7 @@ public class SimpleInputColorRenderer
 
     if (editable)
     {
-      Icon overlay = arc.getIcon(XhtmlConstants.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME);
+      Icon overlay = arc.getIcon(SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME);
       if (overlay != null)
         OutputUtils.renderIcon(context, arc, overlay, "", "middle");
       writer.endElement("a");

@@ -24,7 +24,6 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoLink;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
@@ -109,7 +108,7 @@ public class GoLinkRenderer extends XhtmlRenderer
     AccessKeyUtils.renderAccessKeyText(context,
                                        getText(bean),
                                        accessKey,
-                                       XhtmlConstants.AF_LINKACCESSKEY_STYLE_CLASS);
+                                       SkinSelectors.AF_LINKACCESSKEY_STYLE_CLASS);
   }
 
   @Override
@@ -217,9 +216,9 @@ public class GoLinkRenderer extends XhtmlRenderer
   protected String getDefaultStyleClass(FacesBean bean)
   {
     if (getDisabled(bean))
-      return XhtmlConstants.LINK_DISABLED_STYLE_CLASS;
+      return SkinSelectors.LINK_DISABLED_STYLE_CLASS;
     else
-      return XhtmlConstants.LINK_STYLE_CLASS;
+      return SkinSelectors.LINK_STYLE_CLASS;
   }
 
   private PropertyKey _accessKeyKey;

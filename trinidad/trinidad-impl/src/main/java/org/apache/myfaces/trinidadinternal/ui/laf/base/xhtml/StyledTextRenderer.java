@@ -20,13 +20,10 @@ import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXValue;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
-
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -123,7 +120,7 @@ public class StyledTextRenderer extends XhtmlLafRenderer
         renderAccessKeyText(context,
                             textValue,
                             keyIndex,
-                            XhtmlConstants.AF_ACCESSKEY_STYLE_CLASS);
+                            SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
       }
       else
       {

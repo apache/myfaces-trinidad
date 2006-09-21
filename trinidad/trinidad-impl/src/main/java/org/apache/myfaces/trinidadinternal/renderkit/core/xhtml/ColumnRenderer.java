@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,14 +23,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.BandingData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -447,9 +443,9 @@ public class ColumnRenderer extends ColumnGroupRenderer
     // totalRow children are either left-justified or right-justified. We
     // right-justify for numbers, and left-justify for everything else:
     String styleClass = ColumnData.selectFormat(tContext,
-                                  XhtmlConstants.AF_COLUMN_TOTAL_TEXT_STYLE,
-                                  XhtmlConstants.AF_COLUMN_TOTAL_NUMBER_STYLE,
-                                  XhtmlConstants.AF_COLUMN_TOTAL_TEXT_STYLE);
+                                  SkinSelectors.AF_COLUMN_TOTAL_TEXT_STYLE,
+                                  SkinSelectors.AF_COLUMN_TOTAL_NUMBER_STYLE,
+                                  SkinSelectors.AF_COLUMN_TOTAL_TEXT_STYLE);
 
     if (tContext.hasGrid(colData.getPhysicalColumnIndex(),
                          true /* vertical*/))
@@ -549,18 +545,18 @@ public class ColumnRenderer extends ColumnGroupRenderer
     {
       cellClass = ColumnData.selectFormat(
            tContext,
-           XhtmlConstants.AF_COLUMN_CELL_TEXT_BAND_STYLE,
-           XhtmlConstants.AF_COLUMN_CELL_NUMBER_BAND_STYLE,
-           XhtmlConstants.AF_COLUMN_CELL_ICON_BAND_STYLE);
+           SkinSelectors.AF_COLUMN_CELL_TEXT_BAND_STYLE,
+           SkinSelectors.AF_COLUMN_CELL_NUMBER_BAND_STYLE,
+           SkinSelectors.AF_COLUMN_CELL_ICON_BAND_STYLE);
     }
     else
     {
 
       cellClass = ColumnData.selectFormat(
            tContext,
-           XhtmlConstants.AF_COLUMN_CELL_TEXT_STYLE,
-           XhtmlConstants.AF_COLUMN_CELL_NUMBER_STYLE,
-           XhtmlConstants.AF_COLUMN_CELL_ICON_FORMAT_STYLE);
+           SkinSelectors.AF_COLUMN_CELL_TEXT_STYLE,
+           SkinSelectors.AF_COLUMN_CELL_NUMBER_STYLE,
+           SkinSelectors.AF_COLUMN_CELL_ICON_FORMAT_STYLE);
     }
 
     return cellClass;

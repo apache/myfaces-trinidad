@@ -140,7 +140,7 @@ public class OutputTextRenderer extends ValueRenderer
 
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("span", null);
-    renderStyleClass(context, arc, XhtmlConstants.HIDDEN_LABEL_STYLE_CLASS);
+    renderStyleClass(context, arc, SkinSelectors.HIDDEN_LABEL_STYLE_CLASS);
     writer.writeText(label, null);
     writer.endElement("span");
   }

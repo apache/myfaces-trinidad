@@ -15,13 +15,15 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import java.io.IOException;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 
 
 public class SelectionColumnRenderer extends SpecialColumnRenderer
@@ -70,7 +72,7 @@ public class SelectionColumnRenderer extends SpecialColumnRenderer
   @Override
   protected String getHeaderStyleClass(TableRenderingContext tContext)
   {
-    return XhtmlConstants.AF_COLUMN_HEADER_ICON_STYLE;
+    return SkinSelectors.AF_COLUMN_HEADER_ICON_STYLE;
   }
 
   static private boolean _isMultipleSelection(TableRenderingContext tContext)
