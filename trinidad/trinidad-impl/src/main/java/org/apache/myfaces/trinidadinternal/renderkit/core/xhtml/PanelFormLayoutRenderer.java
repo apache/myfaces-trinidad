@@ -804,10 +804,14 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
    * @param context FacesContext
    * @param arc AdfRenderingContext
    * @param rw ResponseWriter
+   * 
+   * @return <code>true</code> if a new element was opened, <code>false</code>
+   *         otherwise.
+   *         
    * @throws IOException
    */
   @SuppressWarnings("unchecked")
-  protected static void encodeBetweenLabelAndFieldCells(
+  protected static boolean encodeBetweenLabelAndFieldCells(
     FacesContext        context,
     RenderingContext arc,
     ResponseWriter      rw) throws IOException
@@ -822,7 +826,10 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
       rw.endElement("tr"); // label row
 
       rw.startElement("tr", null); // field row
+      return true;
     }
+    
+    return false;
   }
 
   private static void _encodeAfterFieldTd(

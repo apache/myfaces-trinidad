@@ -2309,6 +2309,158 @@
           </td>
         </tr>
       </table>
+<!--AttributeTest[required,false]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[showRequired,false]-->
 
       <table
@@ -2382,13 +2534,323 @@
           </td>
         </tr>
       </table>
-<!--AttributeTest[showRequired,true]-->
+<!--AttributeTest[required,false]-->
 
       <table
            border="0"
            cellpadding="0"
            cellspacing="0"
            class="af_inputListOfValues"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[required,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true,AttributeTest[required,false]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues p_AFRequired"
+           id="mainId__xc_"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               class="af_inputListOfValues_label"
+              >
+            
+            <span
+                 class="AFRequiredIconStyle"
+                 title="Required"
+                >
+              *
+            </span>
+          </td>
+          <td
+               class="AFContentCell"
+               nowrap="nowrap"
+               valign="top"
+              >
+            
+            <input
+                 class="af_inputListOfValues_content"
+                 id="mainId"
+                 name="mainId"
+                 size="11"
+                 type="text"
+                 value="Text"
+                >
+              
+            </input>
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="8"
+                >
+              
+            </img>
+            <a
+                 onclick="submitForm('formId',0,{source:'mainId',part:'b'});return false;"
+                 href="uri-attr:#"
+                >
+              
+              <img
+                   align="middle"
+                   border="0"
+                   height="18"
+                   src="/test-context-path/adf/images/lovi.gif"
+                   width="18"
+                  >
+                
+              </img>
+            </a>
+            <div
+                >
+              
+              <img
+                   alt=""
+                   height="0"
+                   src="/test-context-path/adf/images/t.gif"
+                   width="1"
+                  >
+                
+              </img>
+            </div>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[showRequired,true,AttributeTest[required,true]]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_inputListOfValues p_AFRequired"
            id="mainId__xc_"
            summary=""
           >

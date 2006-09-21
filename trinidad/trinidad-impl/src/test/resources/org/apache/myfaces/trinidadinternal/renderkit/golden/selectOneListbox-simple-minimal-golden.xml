@@ -387,7 +387,7 @@
 <!--AttributeTest[showRequired,true]-->
 
       <span
-           class="af_selectOneListbox"
+           class="af_selectOneListbox p_AFRequired"
           >
         
         <select

@@ -30,6 +30,9 @@ public final class SkinSelectors
 {
   private SkinSelectors(){}
   
+  // General skin selector constants
+  public static final String STATE_PREFIX = "p_AF";
+  
   /* The selectors are sorted by component, alphabetically. 
    * 
    * The selectors not linked to any specific components like aliases are 
@@ -148,10 +151,16 @@ public final class SkinSelectors
     "p_OraHideShowDisclosedSymbol";
   public static final String IN_CONTEXT_TEXT_STYLE_CLASS =
     "p_InContextBrandingText";
-  public static final String P_AF_DISABLED = 
-    "p_AFDisabled";
   public static final String QUICK_SEARCH_BOX_STYLE_CLASS =
     "p_OraQuickSearchBox";
+  public static final String STATE_DISABLED = 
+    STATE_PREFIX + "Disabled";
+  public static final String STATE_READ_ONLY = 
+    STATE_PREFIX + "ReadOnly";
+  public static final String STATE_REQUIRED = 
+    STATE_PREFIX + "Required";
+  public static final String P_AF_DISABLED = 
+    STATE_DISABLED;
 
   // ================================ Icons ================================ //
   public static final String DETAIL_DISCLOSED_ICON_ALIAS_NAME =

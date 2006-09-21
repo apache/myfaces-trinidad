@@ -146,7 +146,7 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
 
     return !Boolean.FALSE.equals(o);
   }
-  
+   
   /**
    * Render the styles and style classes that should go on the root dom element.
    * (called from LabelAndMessageRenderer, the superclass)
@@ -155,27 +155,46 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
    * @param component
    * @param bean
    * @throws IOException
-   */
+   */  
   @Override
   protected void renderRootDomElementStyles(
-   FacesContext        context,
-   RenderingContext arc,
-   UIComponent         component,
-   FacesBean           bean) throws IOException
+  FacesContext     context,
+  RenderingContext arc,
+  UIComponent      component,
+  FacesBean        bean) throws IOException
   {
-    String styleClass = getStyleClass(bean);
+    // get the style classes that I want to render on the root dom element here.  
+    String styleClass         = getStyleClass(bean);
+    String contentStyleClass  = getRootStyleClass(bean);
     String disabledStyleClass = null;
-    String readOnlyStyleClass = isReadOnly(bean) ? "p_AFReadOnly" : null;
-    // readOnly takes precedence over disabled
-    if (readOnlyStyleClass == null)
-    {
-      disabledStyleClass = isDisabled(bean) ? "p_AFDisabled" : null;
+    String readOnlyStyleClass = null;
+    String requiredStyleClass = null;
+   
+    // readOnly takes precedence over disabled for the state.  
+    // -= Simon =- Why?
+    if(isReadOnly(bean))
+    { // FIXME: Unlike FormInputRenderer, this isReadOnly does not check  
+      //        if the specified value binding is writable. Inconsistent,
+      //        what behavior should we keep?
+      readOnlyStyleClass = SkinSelectors.STATE_READ_ONLY;
     }
+    else if (isDisabled(bean))
+    {
+      disabledStyleClass = SkinSelectors.STATE_DISABLED;
+    }
+   
+    if(labelShowRequired(bean))
+    {
+      requiredStyleClass = SkinSelectors.STATE_REQUIRED;
+    }
+   
     renderStyleClasses(context, arc, new String[]{styleClass,
-                                                   getRootStyleClass(bean),  
-                                                   disabledStyleClass, 
-                                                   readOnlyStyleClass });
-    renderInlineStyle(context, arc, bean);
+                                                  contentStyleClass,
+                                                  disabledStyleClass,
+                                                  readOnlyStyleClass,
+                                                  requiredStyleClass});
+    
+    renderInlineStyle(context, arc, bean);  
   }
     
   protected boolean isDisabled(FacesBean bean)

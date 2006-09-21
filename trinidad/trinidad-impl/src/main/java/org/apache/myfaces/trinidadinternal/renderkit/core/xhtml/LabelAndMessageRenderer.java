@@ -46,6 +46,12 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   }
 
   @Override
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
     super.findTypeConstants(type);
@@ -58,14 +64,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     _label = new Label(type, false);
     _labelInTable = new Label(type, true);
   }
-
-
-  @Override
-  public boolean getRendersChildren()
-  {
-    return true;
-  }
-
+  
   private boolean _needsTableTag(UIComponent component)
   {
     // Find the first content-generating parent
@@ -102,6 +101,9 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     // PanelForm.
     UIComponent parentComponent = component.getParent();
     String family = parentComponent.getFamily();
+    // FIXME: OK... This is another strong coupling
+    //        We could add a an interface instead like ComponentHolder or something
+    //        instead of checking against a specific component family.
     while (UIXGroup.COMPONENT_FAMILY.equals(family))
     {
       // Special case:
@@ -224,6 +226,27 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
           renderId(context, component);
         }
       }
+      else
+      {
+        // -= Simon =- HACK
+        // It's ugly, I hate it, but it works and it's better than pushing
+        // Cannot use a span either because td is not a valid span child.
+        //rw.startElement("td", component);
+        //rw.startElement("table", component);
+        //OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+        //rw.startElement("tbody", component);
+        //rw.startElement("tr", component); 
+        //renderRootDomElementStyles(context, arc, component, bean);
+        
+        // Basically, we're screwed unless we specify panelForm to keep a 
+        // class-less container opened to receive the rootDomStyles.
+        // Even if this is the case we need a way to detect if a new 
+        // element get opened from encodeBetweenLabelAndFieldCells call.
+        // Since the above option is so ugly, I'll assume that.
+        // FIXME: That's too strongly coupled to my taste. Even being stuck
+        //        with a parent tr is too strongly coupled to my taste.
+        renderRootDomElementStyles(context, arc, component, bean);
+      }
       
       boolean labelExists = (getLabel(bean) != null);
       
@@ -231,7 +254,10 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
       
       if (needsPanelFormLayout)
       {
-        PanelFormLayoutRenderer.encodeBetweenLabelAndFieldCells(context, arc, rw);
+        if(PanelFormLayoutRenderer.encodeBetweenLabelAndFieldCells(context, arc, rw))
+        {
+          renderRootDomElementStyles(context, arc, component, bean);
+        }
       }
       
       _renderFieldCell(context, arc, component, bean, labelExists,
@@ -287,10 +313,10 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   {
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("td", null);
-       
+    
     // render labelStyleClass and defaultStyleClass.
     renderStyleClasses(context, arc, new String[]{
-                       _getLabelStyleClass(bean), 
+                       getLabelStyleClass(bean),
                        _getDefaultLabelStyleClass(arc, 
                           SkinSelectors.AF_LABEL_TEXT_STYLE_CLASS)});
 
@@ -665,9 +691,16 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
 
   protected boolean getShowRequired(FacesBean bean)
   {
+    if(_showRequiredKey == null)
+    { // showRequired is not supporte on the element
+      return false;
+    }
+    
     Object o = bean.getProperty(_showRequiredKey);
     if (o == null)
+    {
       o = _showRequiredKey.getDefault();
+    }
 
     return Boolean.TRUE.equals(o);
   }
@@ -692,13 +725,15 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
    * @param bean
    * @return
    */
-  private String _getLabelStyleClass(
-    FacesBean bean)  
+  protected String getLabelStyleClass(FacesBean bean)  
   {
-    String rootStyleClass = getRootStyleClass(bean);
-    return (rootStyleClass != null) ? 
-      (rootStyleClass+_LABEL_PSEUDO_ELEMENT) : null;
-
+    String styleClass = getRootStyleClass(bean);
+    if(styleClass != null)
+    {
+      styleClass += _LABEL_PSEUDO_ELEMENT;
+    }
+    
+    return styleClass;
   } 
   
 
@@ -727,8 +762,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
   static private final Object _LABEL_CELL_WIDTH_KEY = "_imLCWidth";
   static private final Object _FIELD_CELL_WIDTH_KEY = "_imFCWidth";
   
-  static private final String _LABEL_PSEUDO_ELEMENT = "::label";
-
+  private static final String _LABEL_PSEUDO_ELEMENT = "::label";
 
   private PropertyKey   _labelKey;
   private PropertyKey   _requiredKey;
