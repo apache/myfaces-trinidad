@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectOneChoice;
 
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
@@ -134,7 +135,11 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String onclick = super.getOnclick(bean);
-    if (isIE(arc) && isAutoSubmit(bean))
+    
+    //PH: onclick should be included only for desktop IE since PIE and 
+    //IE mobile do not support onclick on a select component
+    if (isIE(arc) && isDesktop(arc) 
+        && isAutoSubmit(bean) )
     {
       String auto = getAutoSubmitScript(arc, bean);
       // On IE, if we autosubmit,
@@ -149,11 +154,10 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
       auto = _IE_ACTION_HANDLER_PREFIX + auto;
       onclick = XhtmlUtils.getChainedJS(onclick, auto, true);
     }
-
+    
     return onclick;
   }
-
-
+  
   /**
    * In Internet Explorer, handle autosubmit.
    */
@@ -163,14 +167,17 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
   {
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String onblur = super.getOnblur(bean);
-    if (isIE(arc) && isAutoSubmit(bean))
+    
+    //PH: onblur should be included only for desktop IE since PIE and 
+    //IE mobile do not support onblur on a select component    
+    if (isIE(arc) &&  isDesktop(arc) && isAutoSubmit(bean) )
     {
       String auto = getAutoSubmitScript(arc, bean);
       // See getOnclick()
       auto = _IE_ACTION_HANDLER_PREFIX + auto;
       onblur = XhtmlUtils.getChainedJS(onblur, auto, true);
     }
-
+     
     return onblur;
   }
 
@@ -190,8 +197,14 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
     // Prepend the autosubmit script
     if (isAutoSubmit(bean))
     {
-      // See getOnclick() for the explanation of the IE code.
-      if (isIE(arc))
+       // See getOnclick() for the explanation of the IE code.
+       // PH: The weird behaviour of an IE SELECT element as mentioned in 
+       // the getOnclick method above is not seen on PIE and IE Mobile.
+       // Therefore, _CHOICE_CHANGE_TRACKER is not needed.
+       // Also, since PIE and IE Mobile do not support an 'onclick' javascript 
+       // handler on a SELECT element,
+       // autoSubmit script is added in the 'onchange' javascript handler.       
+      if (isIE(arc) && isDesktop(arc) )
         auto = _CHOICE_CHANGE_TRACKER;
       else
         auto = getAutoSubmitScript(arc, bean);
@@ -205,8 +218,8 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
         auto = _SYNC_FUNC;
       else
         auto = (_SYNC_FUNC + ";") + auto;
-    }
-
+    }  
+    
     // And chain everything together
     return XhtmlUtils.getChainedJS(onchange, auto, true);
   }

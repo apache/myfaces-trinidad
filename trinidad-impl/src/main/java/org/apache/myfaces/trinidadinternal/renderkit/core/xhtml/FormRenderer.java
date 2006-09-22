@@ -1,12 +1,12 @@
 /*
  * Copyright  2000-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
-
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -64,9 +64,9 @@ public class FormRenderer extends XhtmlRenderer
   public void decode(FacesContext context,
                      UIComponent component)
   {
-    Map<String, String> paramMap = 
+    Map<String, String> paramMap =
       context.getExternalContext().getRequestParameterMap();
-    
+
     Object formName = paramMap.get(CoreResponseStateManager.FORM_FIELD_NAME);
     boolean submitted = false;
 
@@ -272,6 +272,26 @@ public class FormRenderer extends XhtmlRenderer
     //a partial page submission.
     if (isPIE && pprContext == null)
     {
+      //PH: Add hidden elements in the form for enabling PPR on IE Mobile.
+
+      Object domLevel =  arc.getAgent().getCapabilities().get(
+                    TrinidadAgent.CAP_DOM);
+
+      if(
+         domLevel == null ||
+         domLevel == TrinidadAgent.DOM_CAP_NONE ||
+         domLevel == TrinidadAgent.DOM_CAP_FORM)
+      {
+        FormData formData = arc.getFormData();
+        if(formData != null)
+        {
+          formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
+          formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
+          formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
+          formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+        }
+      }
+
       _renderNeededValues(context, arc);
     }
 
@@ -517,7 +537,7 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeText(jsID, null);
 
     // get the form validators
-    List<CoreFormData.ConvertValidate> validatorInfoList = 
+    List<CoreFormData.ConvertValidate> validatorInfoList =
       fData.getFormValidatorsInfo(false);
 
     if (validatorInfoList == null)
@@ -607,7 +627,7 @@ public class FormRenderer extends XhtmlRenderer
       Integer globalFormatIndex = fData.addGlobalMessageFormat(arc);
 
       writer.writeText("]],", null);
-      writer.writeText(globalFormatIndex, null);      
+      writer.writeText(globalFormatIndex, null);
       writer.writeText(");if(fl.length>0){_validationAlert('", null);
       writer.writeText(XhtmlUtils.escapeJS(
                           arc.getTranslatedString("af_form.SUBMIT_ERRORS")),
@@ -671,7 +691,7 @@ public class FormRenderer extends XhtmlRenderer
 
         writer.writeText("};", null);
 
-      }    
+      }
     }
 
     //
@@ -726,7 +746,7 @@ public class FormRenderer extends XhtmlRenderer
     ResponseWriter writer = context.getResponseWriter();
     List<String> subforms =
       SubformRenderer.getSubformList(context, false, false);
-    
+
     writer.writeText("var ", null);
     writer.writeText(jsID, null);
     writer.writeText("_SF={", null);
@@ -734,7 +754,7 @@ public class FormRenderer extends XhtmlRenderer
     {
       List<String> defaultSubforms =
         SubformRenderer.getSubformList(context, true, false);
-      
+
       Iterator<String> ids = subforms.iterator();
       while (ids.hasNext())
       {
@@ -983,7 +1003,7 @@ public class FormRenderer extends XhtmlRenderer
 
   /**
    * Render each "needed" FormValue that hasn't already
-   * been rendered.  Called by FormRenderer.postrender(). 
+   * been rendered.  Called by FormRenderer.postrender().
    * @see FormRenderer#encodeEnd(FacesContext,RenderingContext, UIComponent, FacesBean)
    */
   static private void _renderNeededValues(

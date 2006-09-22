@@ -23,6 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectBooleanRadio;
+import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
@@ -164,9 +165,16 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     FacesBean    bean) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
-    if ( isAutoSubmit(bean))
-      rw.writeAttribute("onclick", getAutoSubmitScript(bean) , null);
-      
+    
+    // PH: This condition is needed to set onclick on radio rather than on 
+    // enclosing span in an IE Mobile and PIE since these browsers don't have 
+    // onclick support on a span. 
+    
+    if(!isPDA(RenderingContext.getCurrentInstance()))
+    {
+      if ( isAutoSubmit(bean))
+        rw.writeAttribute("onclick", getAutoSubmitScript(bean) , null);
+    }
     rw.writeAttribute("ondblclick", getOndblclick(bean),  "ondblclick");
     rw.writeAttribute("onkeydown", getOnkeydown(bean),  "onkeydown");
     rw.writeAttribute("onkeyup", getOnkeyup(bean),  "onkeyup");
@@ -184,6 +192,16 @@ public class SimpleSelectBooleanRadioRenderer extends SimpleSelectBooleanRendere
     FacesBean    bean) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
+    
+    //PH: this condition is needed to set onclick on radio rather than on 
+    // enclosing span in an IE Mobile and PIE since these browsers don't have 
+    // onclick support on a span. 
+    if(isPDA(RenderingContext.getCurrentInstance()))
+    {
+      if ( isAutoSubmit(bean))
+        writer.writeAttribute("onclick", getAutoSubmitScript(bean) , null);
+    }
+    
     writer.writeAttribute("onclick", getOnclick(bean),  "onclick");
     writer.writeAttribute("onblur", getOnblur(bean),  "onblur");
     writer.writeAttribute("onfocus", getOnfocus(bean),  "onfocus");

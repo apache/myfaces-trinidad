@@ -177,9 +177,7 @@
              class="af_selectOneChoice_content"
              id="mainId"
              name="mainId"
-             onblur="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'mainId','mainId');return true;"
-             onchange="return _pprChoiceChangeEvent(event);"
-             onclick="if(!_pprChoiceAction(event))return true;_adfspu('formId',1,'mainId','mainId');return true;"
+             onchange="_adfspu('formId',1,'mainId','mainId');return true;"
             >
           
           <option
