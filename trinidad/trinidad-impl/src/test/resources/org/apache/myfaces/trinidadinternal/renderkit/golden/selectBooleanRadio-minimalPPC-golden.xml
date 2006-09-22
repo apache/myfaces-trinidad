@@ -133,7 +133,6 @@
             <span
                  class="af_selectBooleanRadio_content"
                  id="mainId__xc_r"
-                 onclick="_radioSet_adfspu('formId',1,'mainId','mainId');return true;"
                 >
               
               <script
@@ -143,6 +142,7 @@
               <input
                    id="mainId"
                    name="groupTest"
+                   onclick="_radioSet_adfspu('formId',1,'mainId','mainId');return true;"
                    type="radio"
                    value="mainId"
                   >
@@ -192,12 +192,12 @@
             <span
                  class="af_selectBooleanRadio_content"
                  id="mainId__xc_r"
-                 onclick="_radioSet_adfspu('formId',0,'mainId','mainId');return true;"
                 >
               
               <input
                    id="mainId"
                    name="groupTest"
+                   onclick="_radioSet_adfspu('formId',0,'mainId','mainId');return true;"
                    type="radio"
                    value="mainId"
                   >
