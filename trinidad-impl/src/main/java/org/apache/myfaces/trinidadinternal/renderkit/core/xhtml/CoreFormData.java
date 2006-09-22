@@ -37,18 +37,20 @@ import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
- *@todo - this needs to be moved to the renderkit package
+ * Implementation of FormData from the CoreRenderKit (or,
+ * more specifically, from the Trinidad FormRenderer)
  */
-public class FormData
+public class CoreFormData extends FormData
 {
 
-  public FormData(String name)
+  public CoreFormData(String name)
   {
     _formName = name;
   }
@@ -63,31 +65,16 @@ public class FormData
     _inputTextCount++;
   }
 
-  public String getDefaultCommandId()
-  {
-    return _defaultCommandId;
-  }
-
-
-  public String getFormName()
-  {
-    return _formName;
-  }
-
   public boolean hasImmediateComponent()
   {
     return _hasImmediateComponent;
-  }
-
-  public void setDefaultCommandId(String defaultCommandId)
-  {
-    _defaultCommandId = defaultCommandId;
   }
 
   public String getName()
   {
     return _formName;
   }
+
   public void addLabel(
     String targetId,
     String label
@@ -275,8 +262,10 @@ public class FormData
   }
 
   /**
-   * @todo - adding required, converter, validators should be done separately
+   * TODO - adding required, converter, validators should be done separately
    * and this method should be killed.
+   * TODO - when this API has been fixed up, move the new
+   * versions to FormData
    */
   public void addOnSubmitConverterValidators(
     UIComponent         component,
@@ -297,7 +286,7 @@ public class FormData
     if (immediate)
       _hasImmediateComponent = true;
 
-    FormData.ConvertValidate convertValidateInfo = null;
+    CoreFormData.ConvertValidate convertValidateInfo = null;
 
     // required identifies that required='true' has been set and that a validation
     // error should be displayed when no value is entered in the input field
@@ -373,7 +362,7 @@ public class FormData
    */
   private void _addFormConverterInfo(
     String                    converter,
-    FormData.ConvertValidate  convertValidate
+    CoreFormData.ConvertValidate  convertValidate
    )
   {
     if (converter != null && convertValidate != null)
@@ -397,7 +386,7 @@ public class FormData
    */
   private void _addFormValidatorInfo(
     String                    validator,
-    FormData.ConvertValidate  convertValidate
+    CoreFormData.ConvertValidate  convertValidate
    )
   {
     if (validator != null && convertValidate != null)
@@ -420,7 +409,7 @@ public class FormData
     RenderingContext          rc,
     UIComponent               component,
     ClientConverter           submitConverter,
-    FormData.ConvertValidate  convertValidate,
+    CoreFormData.ConvertValidate  convertValidate,
     String                    clientId
     ) throws IOException
   {
@@ -500,7 +489,7 @@ public class FormData
     RenderingContext          rc,
     UIComponent               component,
     ClientValidator           submitValidator,
-    FormData.ConvertValidate  convertValidate,
+    CoreFormData.ConvertValidate  convertValidate,
     String                    clientId
     ) throws IOException
   {
@@ -731,7 +720,6 @@ public class FormData
    }  
 
   private int _inputTextCount = 0;
-  private String _defaultCommandId = null;
   private boolean _hasImmediateComponent = false;
 
   // map of unique validation string to index in map
@@ -783,5 +771,5 @@ public class FormData
 
 
   static private final String _GLOBAL_FORMAT_KEY = "af_messages.GLOBAL_MESSAGE_FORMAT";
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FormData.class);
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CoreFormData.class);
 }

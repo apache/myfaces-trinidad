@@ -462,8 +462,7 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
     Skin skin = getSkin();
     if (mappedIconName != null)
     {
-      if ((getLocaleContext().getReadingDirection() ==
-          LocaleUtils.DIRECTION_RIGHTTOLEFT) &&
+      if (getLocaleContext().isRightToLeft() &&
           (!mappedIconName.endsWith(StyleUtils.RTL_CSS_SUFFIX)))
       {
         // append :rtl to the mappedIconName. If no icon with that name,

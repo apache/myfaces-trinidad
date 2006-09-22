@@ -31,8 +31,8 @@ import java.util.Map;
  * (and not guaranteed to be supported in future releases).
  * <p>
  */
-public interface Agent {
-
+public interface Agent
+{
   /**
    * Constant for Unknown device type
    */
@@ -69,9 +69,15 @@ public interface Agent {
   public static final String  PLATFORM_LINUX = "linux";
 
   /**
-   * Constant for MAC platform
+   * Constant for MacOS platform
    */
-  public static final String  PLATFORM_MAC = "mac";
+  public static final String  PLATFORM_MACOS = "mac";
+
+  /**
+   * Constant for Mac platform
+   * @deprecated
+   */
+  public static final String  PLATFORM_MAC = PLATFORM_MACOS;
 
   /**
    * Constant for plam platform
@@ -177,5 +183,7 @@ public interface Agent {
    * <br><i>accessKeys</i>- returns a Boolean value signifying whether or not the Agent
    * supports accessKeys.
    */
+  // See CapabilityMap for why this takes Object as a key instead
+  // of String, at least for now
   public Map<Object, Object> getCapabilities();
 }

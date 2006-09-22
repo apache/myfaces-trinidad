@@ -44,6 +44,7 @@ public class SetActionListenerTag extends TagHandler
     _to   = getRequiredAttribute("to");
   }
   
+  @SuppressWarnings("deprecation")
   public void apply(FaceletContext faceletContext,
                     UIComponent parent) throws FaceletException, ELException
   {

@@ -35,6 +35,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 

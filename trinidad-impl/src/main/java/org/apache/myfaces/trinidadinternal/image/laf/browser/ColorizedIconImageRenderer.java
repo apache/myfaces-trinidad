@@ -144,9 +144,7 @@ public class ColorizedIconImageRenderer implements ImageRenderer
     ImageContext context
     )
   {
-    int direction = context.getLocaleContext().getReadingDirection();
-
-    return (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT);
+    return context.getLocaleContext().isRightToLeft();
   }
 
   // Returns the target colors for a colorization based on the

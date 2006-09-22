@@ -143,7 +143,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     synchronized (this)
     {
       // gets the skin's StyleSheetDocument (it creates it if needed)
-      skinDocument = _skinDocument = _skin.getStyleSheetDocument(context);
+      skinDocument = _skinDocument = ((SkinImpl) _skin).getStyleSheetDocument(context);
     }
 
 
@@ -168,7 +168,7 @@ public class SkinStyleProvider extends FileSystemStyleCache
     // Synchronize access to _skinDocument
     synchronized (this)
     {
-      return (_skinDocument != _skin.getStyleSheetDocument(context));
+      return (_skinDocument != ((SkinImpl) _skin).getStyleSheetDocument(context));
     }
   }
 

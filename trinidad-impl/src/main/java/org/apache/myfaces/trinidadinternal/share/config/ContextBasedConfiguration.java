@@ -36,9 +36,6 @@ public class ContextBasedConfiguration extends ConfigurationImpl
     super(CONFIGURATION_NAME);
     putProperty(SKIN_FAMILY,
                 context.getSkinFamily());
-    putProperty(ACCESSIBILITY_MODE,
-                AccessibilityMode.getAccessibilityMode(
-                  context.getAccessibilityMode()));
 
     setDebug(context.isDebugOutput());
 

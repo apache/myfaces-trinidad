@@ -57,7 +57,7 @@ import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
@@ -233,21 +233,21 @@ public class RequestContextImpl extends RequestContext
   }
 
   @Override
-  public String getAccessibilityMode()
-  {
-    String s = (String) _bean.getProperty(
+  public Accessibility getAccessibilityMode()
+  { 
+    String name = (String) _bean.getProperty(
       RequestContextBean.ACCESSIBILITY_MODE_KEY);
-    if (s != null)
-      return s;
-
-    UIXCookie cookie = _getUIXCookie();
-    if (cookie != null)
+    if (name == null)
     {
-      if (cookie.getAccessibilityMode() != null)
-        return cookie.getAccessibilityMode().getName();
+      UIXCookie cookie = _getUIXCookie();
+      if (cookie != null)
+      {
+        if (cookie.getAccessibilityMode() != null)
+          name = cookie.getAccessibilityMode().toString();
+      }
     }
 
-    return null;
+    return _ACCESSIBILITY_NAMES.get(name);
   }
 
   @Override
@@ -564,8 +564,11 @@ public class RequestContextImpl extends RequestContext
     if (_agent == null)
     {
       Agent agent = _agentFactory.createAgent(__getFacesContext());
-      // =-=AEW Does this need to be an AdfFacesAgent?  That should
-      // only be necessary once we get to rendering...
+      // =-=AEW In theory, this does not need to be a TrinidadAgent
+      // That should only be necessary once we get to rendering...
+      // However, we're gonna have to turn it into one when it comes
+      // to rendering time, and our RenderingContext isn't doing this
+      // today
       TrinidadAgentImpl fAgent = new TrinidadAgentImpl(__getFacesContext(),agent);
       _agent = fAgent;
     }
@@ -714,6 +717,18 @@ public class RequestContextImpl extends RequestContext
 
   static public final String FORCED_PARTIAL_KEY =
     "org.apache.myfaces.trinidadinternal.ForcedPartialRequest";
+
+  // A mapping from string names (as used in the config file)
+  // to accessibility objects
+  static private final Map<String, Accessibility>
+    _ACCESSIBILITY_NAMES = new HashMap<String, Accessibility>();
+  
+  static
+  {
+    _ACCESSIBILITY_NAMES.put("default", Accessibility.DEFAULT);
+    _ACCESSIBILITY_NAMES.put("inaccessible", Accessibility.INACCESSIBLE);
+    _ACCESSIBILITY_NAMES.put("screenReader", Accessibility.SCREEN_READER);
+  }
 
   static private final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(RequestContextImpl.class);

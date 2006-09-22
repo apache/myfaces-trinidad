@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 

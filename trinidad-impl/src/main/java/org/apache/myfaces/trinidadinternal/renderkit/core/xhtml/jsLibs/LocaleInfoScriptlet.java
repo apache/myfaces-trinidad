@@ -23,8 +23,6 @@ import java.util.Locale;
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-
-import org.apache.myfaces.trinidadinternal.share.nls.DecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LocaleList;
@@ -81,8 +79,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     writer.writeText(lc.getTranslationIANALocaleString(), null);
     writer.writeText("';", null);
 
-    DecimalFormatContext decimalContext = lc.getDecimalFormatContext();
-    char groupingSeparator = decimalContext.getGroupingSeparator();
+    char groupingSeparator = lc.getGroupingSeparator();
 
     if (groupingSeparator != 0)
     {
@@ -93,7 +90,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
       writer.writeText("';", null);
     }
 
-    char decimalSeparator = decimalContext.getDecimalSeparator();
+    char decimalSeparator = lc.getDecimalSeparator();
 
     if (decimalSeparator != 0)
     {

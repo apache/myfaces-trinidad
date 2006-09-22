@@ -133,9 +133,7 @@ public class FlippedIconImageRenderer implements ImageRenderer
     ImageContext context
     )
   {
-    int direction = context.getLocaleContext().getReadingDirection();
-
-    return (direction == LocaleUtils.DIRECTION_RIGHTTOLEFT);
+    return context.getLocaleContext().isRightToLeft();
   }
 
 }

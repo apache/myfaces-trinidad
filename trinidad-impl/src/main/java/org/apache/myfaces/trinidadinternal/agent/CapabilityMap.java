@@ -33,6 +33,14 @@ import java.util.Collections;
 // FIXME -= Simon Lessard =-
 //       This is another map that can accept both String and another type as keys.
 //       Shouldn't we force type safety with a single key type ?
+//       -= Adam Winer =-
+//       This, supports Strings and CapabilityKey.  In theory, using
+//       CapabilityKey is faster, which lets our built-in renderers
+//       execute faster.  A fair question is whether this is a real
+//       issue.  At the moment, however, it is definitely the case
+//       that we are using CapabilityKey inside our code, and yet we
+//       haven't made the plunge to require everyone to use
+//       CapabilityKey on Agent (or make CapabilityKey public).
 public class CapabilityMap extends AbstractMap<Object, Object> implements Cloneable
 {
 

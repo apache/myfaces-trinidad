@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -26,7 +27,8 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 
 /**
  * Utility methods for Renderers which support partial page rendering.
@@ -67,7 +69,7 @@ public final class PartialPageUtils
     if (isPartialRequest(context))
     {
       // Create the PartialPageContext
-      return new PartialPageContext(afContext);
+      return new PartialPageContextImpl(afContext);
     }
 
     return null;
@@ -102,8 +104,8 @@ public final class PartialPageUtils
   {
 
     // First, make sure the agent supports partial rendering
-    TrinidadAgent agent = arc.getAgent();
-    Object capPartial = agent.getCapability(TrinidadAgent.CAP_PARTIAL_RENDERING);
+    Agent agent = arc.getAgent();
+    Object capPartial = agent.getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING);
     if (!Boolean.TRUE.equals(capPartial))
       return false;
 
@@ -117,10 +119,7 @@ public final class PartialPageUtils
     // At the moment we have blocking solved on IE and Mozilla
     if (supportsPartialRendering(arc))
     {
-      int application = arc.getAgent().getAgentApplication();
-
-      return ((application == TrinidadAgent.APPLICATION_IEXPLORER)
-              || (application == TrinidadAgent.APPLICATION_GECKO));
+      return (XhtmlRenderer.isIE(arc) || XhtmlRenderer.isGecko(arc));
     }
     return false;
   }

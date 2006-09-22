@@ -69,7 +69,7 @@ import org.apache.myfaces.trinidadinternal.io.XhtmlResponseWriter;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;

@@ -34,6 +34,8 @@ import org.apache.myfaces.trinidad.component.UIXComponentRef;
 import org.apache.myfaces.trinidad.component.UIXSubform;
 import org.apache.myfaces.trinidad.component.UIXSwitcher;
 
+import org.apache.myfaces.trinidad.context.Agent;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
@@ -75,12 +77,12 @@ public class XhtmlUtils
    * support and PPR support.
    */
   static public final boolean supportsSeparateWindow(
-    TrinidadAgent agent)
+    Agent agent)
   {
     return (Boolean.TRUE.equals(
-             agent.getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)) &&
+             agent.getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)) &&
             Boolean.TRUE.equals(
-             agent.getCapability(TrinidadAgent.CAP_PARTIAL_RENDERING)));
+             agent.getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING)));
   }
 
   /** Library key for the locale lib */
@@ -155,12 +157,9 @@ public class XhtmlUtils
 
     // For portlets, we want to make sure that we only import
     // each script once.  Employ document.write() to achieve this
-    // effect.  However, DON'T try this on Netscape 4.x (even though
-    // that's the platform that would benefit the most from this trick),
-    // as this same trick once caused really problems when resizing windows!
-    if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()) &&
-        !(TrinidadAgent.APPLICATION_NETSCAPE ==
-          arc.getAgent().getAgentApplication()))
+    // effect.  (Note that on Netscape 4.x this caused major
+    // problems when resizing windows - but we're done with Netscape 4)
+    if (XhtmlConstants.FACET_PORTLET.equals(arc.getOutputMode()))
     {
       if (arc.getProperties().get(_PORTLET_LIB_TABLE_KEY) == null)
       {

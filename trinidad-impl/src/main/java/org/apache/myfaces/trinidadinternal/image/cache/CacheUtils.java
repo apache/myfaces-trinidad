@@ -54,7 +54,7 @@ class CacheUtils
     )
   {
     LocaleContext localeContext = context.getLocaleContext();
-    int direction = localeContext.getReadingDirection();
+    int direction = LocaleUtils.getReadingDirection(localeContext);
 
     if (properties != null)
     {

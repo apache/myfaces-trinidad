@@ -24,6 +24,7 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -184,8 +185,7 @@ public class CellUtils
     int row = rowData.getRangeIndex();
     
     if ((tContext.getTableHeight() != null) &&
-        (arc.getAgent().getAgentApplication() ==
-           TrinidadAgent.APPLICATION_GECKO))
+        XhtmlRenderer.isGecko(arc))
     {
       return getBorderClass(false, false, false, false);
     }

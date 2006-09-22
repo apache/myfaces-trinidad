@@ -215,11 +215,29 @@ abstract public class RequestContext
    */
   public abstract String getSkinFamily();
 
+  public enum Accessibility
+  {
+    DEFAULT("default"),
+    INACCESSIBLE("inaccessible"),
+    SCREEN_READER("screnReader");
+    
+    Accessibility(String name)
+    {
+      _name = name;
+    }
+
+    public String toString()
+    {
+      return _name;
+    }
+
+    private final String _name;
+  };
+
   /**
    * Returns the name of the current accessibility mode.
-   * @todo Use AccessibilityMode object?
    */
-  public abstract String getAccessibilityMode();
+  public abstract Accessibility getAccessibilityMode();
 
   //
   //  General localization

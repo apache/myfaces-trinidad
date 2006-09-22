@@ -89,8 +89,7 @@ public class PdaFrameBorderLayoutRenderer extends XhtmlRenderer
     UIComponent innerLeft   = getFacet(component, innerLeftName);
     UIComponent innerRight  = getFacet(component, innerRightName);
 
-    int dir = arc.getLocaleContext().getReadingDirection(); 
-    boolean r2l = (dir == LocaleUtils.DIRECTION_RIGHTTOLEFT);
+    boolean r2l = arc.getLocaleContext().isRightToLeft();
 
     if (left == null)
     {

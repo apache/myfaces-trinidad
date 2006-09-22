@@ -497,15 +497,6 @@ abstract class GeneratedImageRenderer extends HtmlLafRenderer
     return BaseDesktopUtils.getBackgroundColor(context);
   }
 
-  static protected int getDirection(
-    UIXRenderingContext context,
-    UINode node
-    )
-  {
-    // Always get direction from LocaleContext
-    return context.getLocaleContext().getReadingDirection();
-  }
-
   static protected boolean isTextAntialiased(
     UIXRenderingContext context,
     UINode node,

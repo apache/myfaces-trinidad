@@ -31,6 +31,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 import org.apache.myfaces.trinidad.component.core.output.CoreSpacer;
 import org.apache.myfaces.trinidad.component.html.HtmlRowLayout;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -71,8 +72,7 @@ class CalendarDialogJSP
     doc.getChildren().add(form);
     form.setId("a");
 
-    boolean isDesktop = (arc.getAgent().getAgentType()==
-                         TrinidadAgent.TYPE_DESKTOP );
+    boolean isDesktop = (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
 
     //
     // Create the calendar row
@@ -106,7 +106,7 @@ class CalendarDialogJSP
        JspUtils.createGoButton(arc, _CANCEL_LABEL_KEY);
     buttonRow.getChildren().add(cancelButton);
 
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                      TrinidadAgent.CAP_MULTIPLE_WINDOWS);
     boolean multWindowsSupported = Boolean.TRUE.equals( cap );
     if (multWindowsSupported )

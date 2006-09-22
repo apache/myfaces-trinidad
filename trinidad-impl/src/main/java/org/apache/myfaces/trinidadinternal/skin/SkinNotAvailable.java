@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
  *
  * @author The Oracle ADF Faces Team
  */
-public class SkinNotAvailable extends Skin
+public class SkinNotAvailable extends SkinImpl
 {
   /**
    * returns the singleton instance of this class.

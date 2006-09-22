@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidad.component.UIXColumn;
 import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
@@ -44,7 +45,6 @@ import org.apache.myfaces.trinidad.event.SortEvent;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
@@ -605,9 +605,9 @@ abstract public class TableRenderer extends XhtmlRenderer
       // We only generate the navigation bar ID if the agent is IE
       // and partial rendering is enabled.
       Object id = tContext.getTableId();
-      TrinidadAgent agent = arc.getAgent();
+      Agent agent = arc.getAgent();
 
-      if ((agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER) &&
+      if ((agent.getAgentName() == Agent.AGENT_IE) &&
           PartialPageUtils.isPPRActive(context))
       {
         String navBarID = id.toString() + "-nb";

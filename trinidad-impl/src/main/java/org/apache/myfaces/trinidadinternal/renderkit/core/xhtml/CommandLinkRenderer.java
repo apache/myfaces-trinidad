@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreCommandLink;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 public class CommandLinkRenderer extends GoLinkRenderer

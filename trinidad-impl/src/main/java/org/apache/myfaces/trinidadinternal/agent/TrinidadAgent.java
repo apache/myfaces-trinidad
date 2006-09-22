@@ -443,7 +443,7 @@ public interface TrinidadAgent extends Agent
   public int getAgentOS();
 
   /**
-   * Returns a capability of an AdfFacesAgent
+   * Returns a capability of a TrinidadAgent
    */
   public Object getCapability(CapabilityKey key);
 

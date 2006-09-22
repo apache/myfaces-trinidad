@@ -337,7 +337,7 @@ public class SimpleInputDateRenderer
     // use the default behavior.
     if ((getAction(bean) != null) ||
         !Boolean.TRUE.equals(
-            arc.getAgent().getCapability(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
+            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_MULTIPLE_WINDOWS)))
       return super.getLaunchOnclick(context, arc, component, bean);
 
     String id = arc.getCurrentClientId();

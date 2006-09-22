@@ -19,6 +19,8 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.Agent;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -75,8 +77,8 @@ public class CoreRendererUtils
     CapabilityKey cap
     )
   {
-    TrinidadAgent agent = context.getAgent();
-    Object capPartial = agent.getCapability(cap);
+    Agent agent = context.getAgent();
+    Object capPartial = agent.getCapabilities().get(cap);
     if (!Boolean.TRUE.equals(capPartial))
       return false;
 

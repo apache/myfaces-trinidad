@@ -29,7 +29,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
 import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -270,7 +269,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     // for efficiency, since we know the logic in getColumnsAdjustedForAgent
     // only applies to certain PDA's, we'll only call that method if the
     // agent type is PDA
-    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
+    if (isPDA(arc))
     {
       Integer toReturn =
         getColumnsAdjustedForAgent(arc,bean,_DEFAULT_PDA_COLUMNS);

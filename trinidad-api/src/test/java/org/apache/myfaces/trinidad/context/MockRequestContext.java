@@ -137,12 +137,12 @@ public class MockRequestContext extends RequestContext
   }
 
   @Override
-  public String getAccessibilityMode()
+  public Accessibility getAccessibilityMode()
   {
     return _accMode;
   }
 
-  public void setAccessibilityMode(String accMode)
+  public void setAccessibilityMode(Accessibility accMode)
   {
     _accMode = accMode;
   }
@@ -289,7 +289,7 @@ public class MockRequestContext extends RequestContext
   private TimeZone _timeZone = _FIXED_TIME_ZONE;
 
   private String _skin;
-  private String _accMode;
+  private Accessibility _accMode;
   private Agent _agent;
   private boolean _rtl = false;
   
