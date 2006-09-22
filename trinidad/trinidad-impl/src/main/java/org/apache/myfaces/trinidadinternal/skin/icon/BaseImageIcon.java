@@ -219,8 +219,8 @@ abstract public class BaseImageIcon extends Icon
    * URI separator ('/').
    */
   abstract protected String getBaseURI(
-  FacesContext        context,
-  RenderingContext arc);
+    FacesContext        context,
+    RenderingContext arc);
 
   /**
    * Returns the URI of the image relative to the base URI.

@@ -154,7 +154,7 @@ public class PanelFormLayoutRenderer extends XhtmlRenderer
     }
 
     int rows = 0;
-    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
+    if (isPDA(arc))
     {
       maxColumns = 1;
     }

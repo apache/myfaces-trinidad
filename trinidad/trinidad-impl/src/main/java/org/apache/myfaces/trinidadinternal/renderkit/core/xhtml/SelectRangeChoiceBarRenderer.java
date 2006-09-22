@@ -35,9 +35,9 @@ import org.apache.myfaces.trinidad.component.core.data.CoreSelectRangeChoiceBar;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.Range;
@@ -443,10 +443,8 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
       // to be replaced as part of the partial page update, and fixes
       // our layout problems.
       String iconID = null;
-      TrinidadAgent agent = arc.getAgent();
-
       if (PartialPageUtils.isPPRActive(context) &&
-          (agent.getAgentApplication() == TrinidadAgent.APPLICATION_IEXPLORER))
+          isIE(arc))
       {
         iconID = id + "-i";
       }
@@ -1254,7 +1252,7 @@ public class SelectRangeChoiceBarRenderer extends XhtmlRenderer
    FacesContext context,
    RenderingContext arc) throws IOException
   {
-    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
+    if (isPDA(arc))
     {
       context.getResponseWriter().writeText(XhtmlConstants.NBSP_STRING, null);
     }

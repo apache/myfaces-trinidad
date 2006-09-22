@@ -17,14 +17,11 @@
 package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
-import org.apache.myfaces.trinidadinternal.share.io.ServletNameResolver;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
 
@@ -110,25 +107,13 @@ public class ContextImageIcon extends BaseImageIcon
   /**
    * Override of Icon.getImageIcon().
    */
-  @Override
-  public InputStreamProvider getImageData(
+  public InputStream openStream(
     FacesContext        context,
     RenderingContext arc
     ) throws IOException
   {
-
-    ServletRequest servletRequest = 
-      (ServletRequest)context.getExternalContext().getRequest();
-    ServletContext servletContext = 
-      (ServletContext)context.getExternalContext().getContext();
-
-    if ((servletRequest == null) || (servletContext == null))
-      return null;
-
-    ServletNameResolver resolver = new ServletNameResolver(servletRequest,
-                                                           servletContext);
-
-    return resolver.getProvider(getRelativeURI(context, arc));
+    return context.getExternalContext().getResourceAsStream(
+                                          getRelativeURI(context, arc));
   }
 
   /**

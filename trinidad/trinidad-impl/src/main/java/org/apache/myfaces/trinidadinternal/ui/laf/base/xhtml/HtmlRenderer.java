@@ -220,10 +220,9 @@ public class HtmlRenderer extends ElementRenderer
 
     LocaleContext localeContext = context.getLocaleContext();
 
-    String direction =
-       (localeContext.getReadingDirection()==LocaleUtils.DIRECTION_LEFTTORIGHT)
-          ? "ltr"
-          : "rtl";
+    String direction = localeContext.isRightToLeft()
+          ? "rtl"
+          : "ltr";
     writer.writeAttribute("dir", direction, null);
 
     // render the correct language

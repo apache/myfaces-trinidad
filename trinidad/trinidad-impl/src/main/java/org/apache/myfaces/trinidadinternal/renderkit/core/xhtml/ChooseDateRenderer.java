@@ -28,6 +28,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
@@ -108,8 +109,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     if (isInline && !isInlineSupported(arc))
       return;
 
-    boolean isDesktop = (arc.getAgent().getAgentType() ==
-                         TrinidadAgent.TYPE_DESKTOP);
+    boolean isDesktop = isDesktop(arc);
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement("table", component);
     renderId(context, component);
@@ -1462,7 +1462,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // Inline mode is only supported if partial page rendering is
     // supported and we are not running in screen reader mode.
     return (PartialPageUtils.supportsPartialRendering(arc) &&
-            (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_DESKTOP) &&
+            isDesktop(arc) &&
             !isScreenReaderMode(arc));
   }
 

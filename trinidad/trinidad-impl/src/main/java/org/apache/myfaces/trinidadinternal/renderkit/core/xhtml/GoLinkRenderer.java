@@ -83,7 +83,7 @@ public class GoLinkRenderer extends XhtmlRenderer
       renderEncodedActionURI(context, "href", destination);
 
       if (!Boolean.FALSE.equals(
-              arc.getAgent().getCapability(TrinidadAgent.CAP_TARGET)))
+              arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)))
       {
         rw.writeAttribute("target", getTargetFrame(bean), null);
       }

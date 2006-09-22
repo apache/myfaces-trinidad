@@ -32,6 +32,7 @@ import junit.framework.Test;
 import org.apache.myfaces.trinidad.component.core.CoreDocument;
 import org.apache.myfaces.trinidad.component.core.CoreForm;
 import org.apache.myfaces.trinidad.component.html.HtmlHtml;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 
@@ -138,12 +139,12 @@ public class CoreRenderKitTest extends RenderKitTestCase
                                          false));
     _definitions.add(new SuiteDefinition("minimalScrRdr",
                                          "minimal",
-                                         "screenReader",
+                                         RequestContext.Accessibility.SCREEN_READER,
                                          RenderKitBootstrap.getGeckoAgent(),
                                          false));
     _definitions.add(new SuiteDefinition("minimalInacc",
                                          "minimal",
-                                         "inaccessible",
+                                         RequestContext.Accessibility.INACCESSIBLE,
                                          RenderKitBootstrap.getGeckoAgent(),
                                          false));
 

@@ -25,8 +25,6 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
 
-
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
@@ -140,8 +138,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
     // using float to indent in IE on windows, but that means you 
     // need to clear after the header or you get strange behavior
     if ( nesting &&
-         isIE(arc) &&
-         TrinidadAgent.OS_WINDOWS == arc.getAgent().getAgentOS())
+         isIE(arc)) // no need to check "Windows" - IE Mac is desupported
     {
       writer.startElement("div", component);
       writer.writeAttribute("style","clear:both", null);

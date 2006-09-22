@@ -23,7 +23,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelBorderLayout;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
@@ -66,7 +65,7 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
   {
     // For PDAs, disavow allow knowledge of side facets (there's no space
     // to render them).  Ideally, this would be height/width driven...
-    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
+    if (isPDA(arc))
       return false;
 
     return ((getFacet(component, CorePanelBorderLayout.LEFT_FACET) != null) ||

@@ -32,6 +32,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 abstract public class EditableValueRenderer extends ValueRenderer
@@ -196,7 +197,7 @@ abstract public class EditableValueRenderer extends ValueRenderer
         FormData fData = arc.getFormData();
 
         boolean immediate = isImmediate(bean);
-        fData.addOnSubmitConverterValidators(component,
+        ((CoreFormData) fData).addOnSubmitConverterValidators(component,
                                              converter,
                                              validators,
                                              getClientId(context, component),

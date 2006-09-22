@@ -23,6 +23,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 public class HiddenLabelUtils
 {
@@ -35,7 +36,9 @@ public class HiddenLabelUtils
     if (XhtmlRenderer.isInaccessibleMode(arc))
       return false;
 
-    TrinidadAgent agent = arc.getAgent();
+    // For this switch - and for getting the major version - tunnel
+    // to CoreRenderingContext
+    TrinidadAgent agent = ((CoreRenderingContext) arc).getTrinidadAgent();
     switch (agent.getAgentApplication())
     {
       case TrinidadAgent.APPLICATION_IEXPLORER:

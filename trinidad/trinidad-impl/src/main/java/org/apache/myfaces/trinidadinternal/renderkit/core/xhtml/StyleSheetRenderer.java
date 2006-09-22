@@ -81,7 +81,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
   {
     ResponseWriter writer = context.getResponseWriter();
 
-    StyleContext sContext = arc.getStyleContext();
+    StyleContext sContext = ((CoreRenderingContext) arc).getStyleContext();
     StyleProvider provider = sContext.getStyleProvider();
     if (provider != null)
     {

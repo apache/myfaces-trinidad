@@ -46,6 +46,7 @@ public class ReturnActionListenerTag extends TagHandler
     _value = getAttribute("value");
   }
 
+  @SuppressWarnings("deprecation")
   public void apply(FaceletContext faceletContext,
           UIComponent parent) throws IOException, FacesException, FaceletException, ELException
   {

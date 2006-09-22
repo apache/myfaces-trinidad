@@ -19,9 +19,11 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
-import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
+import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.ElementRenderer;
@@ -497,8 +499,7 @@ public class BaseLafRenderer extends ElementRenderer
           UIXRenderingContext context
           )
   {
-    return context.getLocaleContext().getReadingDirection() ==
-            LocaleUtils.DIRECTION_RIGHTTOLEFT;
+    return context.getLocaleContext().isRightToLeft();
   }
 
 
@@ -1047,7 +1048,9 @@ public class BaseLafRenderer extends ElementRenderer
    */
   public static boolean isInaccessibleMode(UIXRenderingContext context)
   {
-    return AccessibilityMode.isInaccessibleMode(context.getConfiguration());
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    return rc.getAccessibilityMode() ==
+       RequestContext.Accessibility.INACCESSIBLE;
   }
 
   /**
@@ -1055,7 +1058,9 @@ public class BaseLafRenderer extends ElementRenderer
    */
   public static boolean isScreenReaderMode(UIXRenderingContext context)
   {
-    return AccessibilityMode.isScreenReaderMode(context.getConfiguration());
+    RenderingContext rc = RenderingContext.getCurrentInstance();
+    return rc.getAccessibilityMode() ==
+       RequestContext.Accessibility.SCREEN_READER;
   }
 
 

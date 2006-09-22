@@ -32,6 +32,7 @@ import java.util.Locale;
 
 import java.util.Map;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.image.painter.FontUtils;
 import org.apache.myfaces.trinidadinternal.image.painter.Painter;
@@ -265,7 +266,7 @@ public class PainterImageRenderer extends AbstractImageRenderer
             _response = responseProperties;
 
             // Initialize the reading direction
-            _direction = imageContext.getLocaleContext().getReadingDirection();
+            _direction = LocaleUtils.getReadingDirection(imageContext.getLocaleContext());
 
             Object o = null;
             if ((o = requestedProperties.get(DIRECTION_KEY)) != null)

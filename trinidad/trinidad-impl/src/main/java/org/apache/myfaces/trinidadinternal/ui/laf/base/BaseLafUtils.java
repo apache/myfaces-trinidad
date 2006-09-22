@@ -125,8 +125,7 @@ public class BaseLafUtils implements UIConstants
     UIXRenderingContext context
     )
   {
-    return context.getLocaleContext().getReadingDirection() ==
-                   LocaleUtils.DIRECTION_RIGHTTOLEFT;
+    return context.getLocaleContext().isRightToLeft();
   }
 
 

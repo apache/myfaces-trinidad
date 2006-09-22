@@ -39,9 +39,10 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.Agent;
 
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
 // TODO: Remove this class
@@ -107,14 +108,8 @@ public class FormRenderer extends XhtmlRenderer
 
     String formName = getClientId(context, comp);
 
-    FormData fData = new FormData(formName);
+    CoreFormData fData = new CoreFormData(formName);
     arc.setFormData(fData);
-
-    String defaultCommand = getDefaultCommand(bean);
-    if (defaultCommand != null)
-    {
-      fData.setDefaultCommandId(defaultCommand);
-    }
 
     if (formName != null)
     {
@@ -211,7 +206,7 @@ public class FormRenderer extends XhtmlRenderer
     boolean isPIE = Agent.PLATFORM_PPC.equalsIgnoreCase(
                         arc.getAgent().getPlatformName());
 
-    String formName = arc.getFormData().getFormName();
+    String formName = arc.getFormData().getName();
     PartialPageContext pprContext = arc.getPartialPageContext();
 
     boolean isXMLDOM = supportsXMLDOM(arc);
@@ -362,7 +357,7 @@ public class FormRenderer extends XhtmlRenderer
     //
     // Write the array of reset calls
     //
-    FormData fData = arc.getFormData();
+    CoreFormData fData = (CoreFormData) arc.getFormData();
     List<String> resetCallList = fData.getResetCalls(false);
 
     int resetCallCount = (resetCallList != null)
@@ -371,7 +366,7 @@ public class FormRenderer extends XhtmlRenderer
 
     if (resetCallCount != 0)
     {
-      String jsID = XhtmlUtils.getJSIdentifier(arc.getFormData().getFormName());
+      String jsID = XhtmlUtils.getJSIdentifier(fData.getName());
 
       ResponseWriter writer = context.getResponseWriter();
       writer.startElement("script", null);
@@ -429,10 +424,10 @@ public class FormRenderer extends XhtmlRenderer
     // Output validation-related JavaScript
     //
     ResponseWriter writer = context.getResponseWriter();
-    FormData       fData = arc.getFormData();
+    CoreFormData   fData = (CoreFormData) arc.getFormData();
 
     // Fix up the form name for use as a Javascript identifier
-    String jsID = XhtmlUtils.getJSIdentifier(arc.getFormData().getFormName());
+    String jsID = XhtmlUtils.getJSIdentifier(fData.getName());
 
     writer.startElement("script", null);
     renderScriptDeferAttribute(context, arc);
@@ -522,7 +517,7 @@ public class FormRenderer extends XhtmlRenderer
     writer.writeText(jsID, null);
 
     // get the form validators
-    List<FormData.ConvertValidate> validatorInfoList = 
+    List<CoreFormData.ConvertValidate> validatorInfoList = 
       fData.getFormValidatorsInfo(false);
 
     if (validatorInfoList == null)
@@ -549,7 +544,7 @@ public class FormRenderer extends XhtmlRenderer
           writer.writeText("],", null);
         }
 
-        FormData.ConvertValidate convertValidate = validatorInfoList.get(j);
+        CoreFormData.ConvertValidate convertValidate = validatorInfoList.get(j);
 
         writer.writeText("\"", null);
 
@@ -795,7 +790,8 @@ public class FormRenderer extends XhtmlRenderer
     String           call
     )
   {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
+    CoreFormData fData = (CoreFormData)
+      RenderingContext.getCurrentInstance().getFormData();
     fData.addResetCall(call);
   }
 
@@ -809,7 +805,8 @@ public class FormRenderer extends XhtmlRenderer
     String              requiredMessageKey
     ) throws IOException
   {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
+    CoreFormData fData = (CoreFormData)
+      RenderingContext.getCurrentInstance().getFormData();
 
     fData.addOnSubmitConverterValidators(component,
                                          converter,
@@ -840,25 +837,17 @@ public class FormRenderer extends XhtmlRenderer
   }
 
 
-  public static String getDefaultCommandId(
-  )
-  {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
-    return fData.getDefaultCommandId();
-  }
-
-
   public static int getInputTextCount(
   )
   {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
+    CoreFormData fData = (CoreFormData) RenderingContext.getCurrentInstance().getFormData();
     return fData.getInputTextCount();
   }
 
   public static void incrementInputTextCount(
   )
   {
-    FormData fData = RenderingContext.getCurrentInstance().getFormData();
+    CoreFormData fData = (CoreFormData) RenderingContext.getCurrentInstance().getFormData();
     fData.incrementInputTextCount();
   }
 
@@ -1003,7 +992,7 @@ public class FormRenderer extends XhtmlRenderer
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
-    FormData fData = arc.getFormData();
+    CoreFormData fData = (CoreFormData) arc.getFormData();
 
     if (fData.useCompoundNames())
     {
@@ -1070,7 +1059,7 @@ public class FormRenderer extends XhtmlRenderer
             renderScriptTypeAttribute(context, arc);
 
             writer.writeText("var _reset", null);
-            writer.writeText(XhtmlUtils.getJSIdentifier(fData.getFormName()),
+            writer.writeText(XhtmlUtils.getJSIdentifier(fData.getName()),
                              null);
             writer.writeText("Names=[\"", null);
             writer.writeText(neededValues.get(0).toString(), null);

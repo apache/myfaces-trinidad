@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.ContextBasedConfiguration;
@@ -37,6 +37,7 @@ import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 /**
  * RenderingContext implementation that supports JSF.
@@ -138,7 +139,7 @@ public class FacesRenderingContext extends RootRenderingContext
    */
   public StyleContext getStyleContext()
   {
-    return _adfRenderingContext.getStyleContext();
+    return ((CoreRenderingContext) _adfRenderingContext).getStyleContext();
   }
 
   /**
@@ -151,7 +152,7 @@ public class FacesRenderingContext extends RootRenderingContext
 
   public TrinidadAgent getAgent()
   {
-    return _adfRenderingContext.getAgent();
+    return ((CoreRenderingContext) _adfRenderingContext).getTrinidadAgent();
   }
 
   @Override

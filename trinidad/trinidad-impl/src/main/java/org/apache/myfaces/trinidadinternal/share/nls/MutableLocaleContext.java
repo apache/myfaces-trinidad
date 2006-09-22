@@ -37,7 +37,7 @@ import java.util.TimeZone;
  */
 // -= Simon Lessard =-
 // FIXME: Deprecation within this class is strange...
-public final class MutableLocaleContext extends LocaleContext
+public final class MutableLocaleContext extends LocaleContextImpl
 {
   /**
    * Creates a MutableLocaleContext based off of the default Locale.
@@ -84,10 +84,10 @@ public final class MutableLocaleContext extends LocaleContext
   {
     super(context.getLocale(), context.getTranslationLocale());
 
-    setReadingDirection(context.getReadingDirection());
+    setReadingDirection(((LocaleContextImpl)context).getReadingDirection());
     setTimeZone(context.getTimeZone());
-    setDateFormatContext(context.getDateFormatContext());
-    setDecimalFormatContext(context.getDecimalFormatContext());
+    setDateFormatContext(((LocaleContextImpl)context).getDateFormatContext());
+    setDecimalFormatContext(((LocaleContextImpl)context).getDecimalFormatContext());
   }
 
   /**

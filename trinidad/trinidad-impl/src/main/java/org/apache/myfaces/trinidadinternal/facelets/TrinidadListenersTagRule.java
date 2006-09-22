@@ -49,6 +49,7 @@ final class TrinidadListenersTagRule extends MetaRule
     }
     
     @Override
+    @SuppressWarnings("deprecation")
     public void applyMetadata(FaceletContext ctx, Object instance)
     {
       MethodExpression expr =

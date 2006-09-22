@@ -15,14 +15,14 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidadinternal.skin.SkinImpl;
 
 /**
  *  Base Skin implementation
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/skin/BaseSkin.java#0 $) $Date: 10-nov-2005.19:02:50 $
  * @author The Oracle ADF Faces Team
  */
-public class BaseSkin extends Skin
+public class BaseSkin extends SkinImpl
 {
   public BaseSkin()
   {

@@ -21,6 +21,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -73,7 +74,7 @@ class StyleContextImpl implements StyleContext
    */
   public TrinidadAgent getAgent()
   {
-    return _arc.getAgent();
+    return ((CoreRenderingContext) _arc).getTrinidadAgent();
   }
 
   public boolean checkStylesModified()

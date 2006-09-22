@@ -48,7 +48,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/skin/SkinExtension.java#0 $) $Date: 10-nov-2005.18:58:55 $
  * @author The Oracle ADF Faces Team
  */
-public class SkinExtension extends Skin
+public class SkinExtension extends SkinImpl
 {
   /**
    * Creates a Skin which extends the specified base
@@ -94,7 +94,7 @@ public class SkinExtension extends Skin
     if (renderKitId == null)
       renderKitId = "org.apache.myfaces.trinidad.desktop";
 
-    _baseSkin = baseSkin;
+    _baseSkin = (SkinImpl) baseSkin;
     _id = id;
     _family = family;
     _renderKitId = renderKitId;
@@ -368,7 +368,7 @@ public class SkinExtension extends Skin
     // sheet.
 
     // Get the StyleSheetDocument from the base Skin
-    Skin baseSkin = getBaseSkin();
+    SkinImpl baseSkin = (SkinImpl) getBaseSkin();
     StyleSheetDocument baseDocument = baseSkin.getStyleSheetDocument(context);
 
     // Get the StyleSheetDocument for the SkinExtension - we
@@ -623,7 +623,7 @@ public class SkinExtension extends Skin
   private String      _id;
   private String      _family;
   private String      _renderKitId;
-  private Skin        _baseSkin;
+  private SkinImpl    _baseSkin;
   private String      _styleSheetName;
   private String      _bundleName;
 

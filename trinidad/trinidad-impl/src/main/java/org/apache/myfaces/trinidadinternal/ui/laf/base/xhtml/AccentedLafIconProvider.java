@@ -173,7 +173,7 @@ public abstract class AccentedLafIconProvider extends ColorizedLafIconProvider
     if (isDirectionIndependent)
       direction = LocaleUtils.DIRECTION_LEFTTORIGHT;
     else
-      direction = context.getLocaleContext().getReadingDirection();
+      direction = LocaleUtils.getReadingDirection(context.getLocaleContext());
 
     assert (direction != -1);
 

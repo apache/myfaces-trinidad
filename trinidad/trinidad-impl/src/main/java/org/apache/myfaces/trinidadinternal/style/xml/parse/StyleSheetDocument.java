@@ -308,7 +308,7 @@ public class StyleSheetDocument
   {
     LocaleContext localeContext = context.getLocaleContext();
     Locale locale = localeContext.getTranslationLocale();
-    int direction = localeContext.getReadingDirection();
+    int direction = LocaleUtils.getReadingDirection(localeContext);
     int mode = NameUtils.getMode(ModeUtils.getCurrentMode(context));
     TrinidadAgent agent = context.getAgent();
 

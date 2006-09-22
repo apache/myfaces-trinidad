@@ -25,6 +25,7 @@ import java.util.Stack;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -45,9 +46,9 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/ppr/PartialPageContext.java#0 $) $Date: 10-nov-2005.19:02:58 $
  * @author The Oracle ADF Faces Team
  */
-public class PartialPageContext
+public class PartialPageContextImpl extends PartialPageContext
 {
-  PartialPageContext()
+  PartialPageContextImpl()
   {
     _targets = new HashMap<String, Boolean>();
     _renderedTargets = new HashSet<String>();
@@ -60,7 +61,7 @@ public class PartialPageContext
    * Creates a PartialPageContext to use to render the partial targets with
    * the specified ids.
    */
-  public PartialPageContext(
+  public PartialPageContextImpl(
     RequestContext afContext)
   {
     this();
@@ -246,5 +247,5 @@ public class PartialPageContext
   // FIXME: java.util.Stack... enough said... ArrayList or LinkedList please
   private Stack<String> _currentTargetStack;
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PartialPageContext.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(PartialPageContextImpl.class);
 }

@@ -17,13 +17,13 @@
 package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
 /**
  * An object which represents a customizable icon that is capable of
@@ -111,14 +111,14 @@ abstract public class Icon
   }
 
   /**
-   * Returns an InputStreamProvider which provides access to the
+   * Returns an InputStream which provides access to the
    * image data for image-based Icons.
    * @param FacesContext context
    * @param RenderingContext arc The RenderingContext for the
    *                                 current request.
    * @todo Is this still necessary?
    */
-  public InputStreamProvider getImageData(
+  public InputStream openStream(
     FacesContext        context,
     RenderingContext arc
     ) throws IOException

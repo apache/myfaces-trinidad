@@ -169,14 +169,6 @@ abstract public class Configuration
    */
   static public final Object USER_STYLE_SHEET = "userStyleSheet";
 
-  /**
-   * This is the key to use to get at the current accessibility mode.
-   * @see AccessibilityMode
-   */
-  // THE VALUE OF THIS STRING MATTERS: IT IS USED IN XML PARSING
-  public static final Object ACCESSIBILITY_MODE = "accessibilityMode";
-
-
   public static final Object DISABLE_STANDARDS_MODE =
     "disableStandardsMode";
 

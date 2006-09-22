@@ -164,7 +164,7 @@ public class OutputUtils
     RenderingContext     afc
     )
   {
-    return Boolean.TRUE.equals(afc.getAgent().getCapability(
+    return Boolean.TRUE.equals(afc.getAgent().getCapabilities().get(
                         TrinidadAgent.CAP_ALT_RENDERS_TOOLTIP_ON_IMAGE));
   }
 
@@ -181,26 +181,19 @@ public class OutputUtils
     // should work OK everywhere, but looks terrible in both
     // IE and Netscape (but OK in Mozilla) "top"'s OK in Netscape.
     // For now, "top" in Netscape, "absmiddle" everywhere else
-
-    int agentApplication = arc.getAgent().getAgentApplication();
-
-    if (agentApplication == TrinidadAgent.APPLICATION_NETSCAPE)
-    {
-      return XhtmlConstants.V_ALIGN_TOP;
-    }
-    else
-    {
-      // Previously we used "middle" for all other browsers except
-      // for Safari, where "absmiddle" was required for reasonable
-      // results.  However, as far as I can tell, for images which
-      // are evenly padded on top/bottom, absmiddle also looks
-      // best on IE and Mozilla.  So, let's use absmiddle for
-      // these browsers too.
-      // =-= MLL Update: to address Bug # 3426092, alignment has been set to
-      // "middle" to comply with HTML 4.01 Transitional Spec.
-
-      return XhtmlConstants.V_ALIGN_MIDDLE;
-    }
+    
+    // =-=AEW Except, no more netscape support!
+    
+    // Previously we used "middle" for all other browsers except
+    // for Safari, where "absmiddle" was required for reasonable
+    // results.  However, as far as I can tell, for images which
+    // are evenly padded on top/bottom, absmiddle also looks
+    // best on IE and Mozilla.  So, let's use absmiddle for
+    // these browsers too.
+    // =-= MLL Update: to address Bug # 3426092, alignment has been set to
+    // "middle" to comply with HTML 4.01 Transitional Spec.
+    
+    return XhtmlConstants.V_ALIGN_MIDDLE;
   }
 
   /**

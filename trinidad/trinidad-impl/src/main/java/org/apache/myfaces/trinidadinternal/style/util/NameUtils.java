@@ -420,7 +420,7 @@ public class NameUtils
   // Get the direction as a String
   private static String _getDirectionString(StyleContext context)
   {
-    int direction = context.getLocaleContext().getReadingDirection();
+    int direction = LocaleUtils.getReadingDirection(context.getLocaleContext());
 
     String name = getDirectionName(direction);
 

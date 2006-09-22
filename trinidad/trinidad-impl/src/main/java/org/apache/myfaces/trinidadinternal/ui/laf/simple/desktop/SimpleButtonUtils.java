@@ -283,14 +283,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
 
       if (icon != null)
       {
-        try
-        {
-          return icon.getImageData(_fContext, _arc);
-        }
-        catch (IOException e)
-        {
-          _LOG.severe(e);
-        }
+        return new IconInputStreamProvider(icon);
       }
 
       return null;
@@ -307,8 +300,7 @@ class SimpleButtonUtils implements SimpleDesktopConstants
   {
     LocaleContext lContext = context.getLocaleContext();
 
-    return (LocaleUtils.DIRECTION_RIGHTTOLEFT ==
-            lContext.getReadingDirection());
+    return lContext.isRightToLeft();
   }
 
   // Key for Boolean Skin property which we use

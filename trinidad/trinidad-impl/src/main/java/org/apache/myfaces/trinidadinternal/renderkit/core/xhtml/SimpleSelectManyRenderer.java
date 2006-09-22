@@ -42,6 +42,7 @@ import org.apache.myfaces.trinidad.component.UIXSelectMany;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
@@ -324,7 +325,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     FormData fData = arc.getFormData();
     if (fData != null)
     {
-      fData.addOnSubmitConverterValidators(component,
+      ((CoreFormData) fData).addOnSubmitConverterValidators(component,
                       valuePassThru ? converter : null,
                       valuePassThru ? getValidators(bean) : null,
                       getClientId(context, component),

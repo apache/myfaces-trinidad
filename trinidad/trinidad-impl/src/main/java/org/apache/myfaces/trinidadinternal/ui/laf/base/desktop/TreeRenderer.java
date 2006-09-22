@@ -111,7 +111,7 @@ public class TreeRenderer extends HtmlLafRenderer
     final String varName = "_adftree" +
             XhtmlUtils.getJSIdentifier(name);
 
-    int readingDirection = context.getLocaleContext().getReadingDirection();
+    boolean leftToRight = !context.getLocaleContext().isRightToLeft();
     int rootSize = tree.getRowCount();
     RowKeySet state = getExpandedRowKeys(tree);      
     Map<Object, Boolean> selectedPaths = getSelectedPaths(focusPath);
@@ -129,7 +129,7 @@ public class TreeRenderer extends HtmlLafRenderer
                   state,
                   selectedPaths,
                   new Boolean[_DEFAULT_TREE_DEPTH],
-                  (readingDirection == LocaleUtils.DIRECTION_LEFTTORIGHT),
+                  leftToRight,
                   (i == 0),
                   (i == rootSize - 1),
                   0);

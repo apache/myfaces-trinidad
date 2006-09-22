@@ -28,12 +28,14 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.TypedRenderer;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
 
 /**
@@ -92,36 +94,39 @@ public class XhtmlRenderer extends CoreRenderer
 
   static public boolean isDesktop(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_DESKTOP);
+    return (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+  }
+
+  static public boolean isPDA(RenderingContext arc)
+  {
+    return (arc.getAgent().getType().equals(Agent.TYPE_PDA));
   }
 
   static public boolean isIE(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentApplication() ==
-              TrinidadAgent.APPLICATION_IEXPLORER);
+    return (arc.getAgent().getAgentName().equals(Agent.AGENT_IE));
   }
 
   static public boolean isGecko(RenderingContext arc)
   {
-    return (arc.getAgent().getAgentApplication() ==
-              TrinidadAgent.APPLICATION_GECKO);
+    return (arc.getAgent().getAgentName().equals(Agent.AGENT_GECKO));
   }
 
   static public boolean isInaccessibleMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==
-              RenderingContext.INACCESSIBLE_MODE);
+            RequestContext.Accessibility.INACCESSIBLE);
   }
 
   static public boolean isScreenReaderMode(RenderingContext arc)
   {
     return (arc.getAccessibilityMode() ==
-              RenderingContext.SCREEN_READER_MODE);
+            RequestContext.Accessibility.SCREEN_READER);
   }
 
   static public boolean supportsScripting(RenderingContext arc)
   {
-    Object scriptingSpeed = arc.getAgent().getCapability(
+    Object scriptingSpeed = arc.getAgent().getCapabilities().get(
             TrinidadAgent.CAP_SCRIPTING_SPEED);
 
     return ((scriptingSpeed != null) &&
@@ -130,7 +135,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   static public boolean supportsEditing(RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_EDITING);
     return !Boolean.FALSE.equals(cap);
   }
@@ -147,13 +152,13 @@ public class XhtmlRenderer extends CoreRenderer
           RenderingContext arc
           )
   {
-    return (arc.getAgent().getCapability(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
+    return (arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_STYLE_ATTRIBUTES) !=
             TrinidadAgent.STYLES_NONE);
   }
 
   static public boolean supportsNavigation(RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_NAVIGATION);
     return !Boolean.FALSE.equals(cap);
   }
@@ -167,7 +172,7 @@ public class XhtmlRenderer extends CoreRenderer
           RenderingContext arc
           )
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_TEXT_PRESENTATION);
     return !Boolean.FALSE.equals(cap);
   }
@@ -179,14 +184,14 @@ public class XhtmlRenderer extends CoreRenderer
     if (isScreenReaderMode(arc))
       return false;
 
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_ACCESS_KEYS);
     return !Boolean.FALSE.equals(cap);
   }
 
   static public final boolean supportsDisabledFormElements(RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_DISABLED_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
@@ -194,7 +199,7 @@ public class XhtmlRenderer extends CoreRenderer
 
   static public final boolean supportsReadonlyFormElements(RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_READONLY_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
 
@@ -203,7 +208,7 @@ public class XhtmlRenderer extends CoreRenderer
   static public final boolean supportsAutoCompleteFormElements(
      RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_AUTO_COMPLETE_FORM_ELEMENTS);
     return !Boolean.FALSE.equals(cap);
   }
@@ -224,7 +229,7 @@ public class XhtmlRenderer extends CoreRenderer
      RenderingContext arc)
 
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_TARGET);
     return !Boolean.FALSE.equals(cap);
   }
@@ -237,7 +242,7 @@ public class XhtmlRenderer extends CoreRenderer
   public static boolean supportsXMLDOM(
     RenderingContext arc)
   {
-    Object cap = arc.getAgent().getCapability(
+    Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_XMLDOM);
     return Boolean.TRUE.equals(cap);
   }
@@ -706,7 +711,7 @@ public class XhtmlRenderer extends CoreRenderer
     boolean useScript =
       ((count < 800)
        && (TrinidadAgent.SCRIPTING_SPEED_CAP_FAST ==
-           arc.getAgent().getCapability(TrinidadAgent.CAP_SCRIPTING_SPEED)));
+           arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_SCRIPTING_SPEED)));
     _renderTransparent(context, arc, width, height, needsQuoting, id, useScript);
   }
 

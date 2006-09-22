@@ -142,12 +142,12 @@ public class MRequestContext extends RequestContext
   }
 
   @Override
-  public String getAccessibilityMode()
+  public Accessibility getAccessibilityMode()
   {
     return _accMode;
   }
 
-  public void setAccessibilityMode(String accMode)
+  public void setAccessibilityMode(Accessibility accMode)
   {
     _accMode = accMode;
   }
@@ -260,7 +260,7 @@ public class MRequestContext extends RequestContext
   }
 
   private String _skin;
-  private String _accMode;
+  private Accessibility _accMode;
   private Agent _agent;
   private boolean _rtl = false;
   static private TimeZone _FIXED_TIME_ZONE =

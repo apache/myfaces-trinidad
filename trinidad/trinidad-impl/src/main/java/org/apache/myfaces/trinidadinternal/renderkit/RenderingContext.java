@@ -18,16 +18,15 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 import java.util.Map;
 import java.util.MissingResourceException;
 
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
-import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
+
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
 /**
  * @todo REMOVE DEPENDENCY ON AcessibilityMode
@@ -42,11 +41,6 @@ abstract public class RenderingContext
     return _CURRENT_CONTEXT.get();
   }
 
-  static public final Object INACCESSIBLE_MODE =
-   AccessibilityMode.INACCESSIBLE_MODE;
-  static public final Object SCREEN_READER_MODE =
-   AccessibilityMode.SCREEN_READER_MODE;
-
   public RenderingContext()
   {
     attach();
@@ -57,12 +51,8 @@ abstract public class RenderingContext
    */
   abstract public Map<Object, Object> getProperties();
 
-  abstract public TrinidadAgent getAgent();
-  /**
-   * @todo REMOVE LocaleContext
-   */
+  abstract public Agent getAgent();
   abstract public LocaleContext getLocaleContext();
-  abstract public StyleContext getStyleContext();
   abstract public FormData getFormData();
   abstract public void setFormData(FormData data);
   abstract public void clearFormData();
@@ -105,7 +95,7 @@ abstract public class RenderingContext
   abstract public Map<String, String> getSkinResourceKeyMap();
   abstract public boolean isRightToLeft();
   abstract public String getOutputMode();
-  abstract public Object getAccessibilityMode();
+  abstract public RequestContext.Accessibility getAccessibilityMode();
 
   /**
    * @TODO This is a hack API to enable caching of the client ID.

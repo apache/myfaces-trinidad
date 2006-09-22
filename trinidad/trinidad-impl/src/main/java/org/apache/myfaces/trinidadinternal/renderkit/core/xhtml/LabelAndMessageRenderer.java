@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRenderingContext;
 
@@ -326,7 +326,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     String valign = getDefaultLabelValign(bean);
 
     rw.writeAttribute("valign", valign, null);
-    if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_DESKTOP)
+    if (isDesktop(arc))
       rw.writeAttribute("nowrap", Boolean.TRUE, null);
 
     if (labelExists)
@@ -383,9 +383,7 @@ public abstract class LabelAndMessageRenderer extends XhtmlRenderer
     // bug 2484841: PDA: TOO MUCH WHITESPACE BETWEEN
     //                   INPUT ELEMENTS IN LABELEDFIELD
     // This is a browser bug workaround, hopefully we can remove it eventually
-    if ((arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA) &&
-        (arc.getAgent().getAgentApplication() ==
-           TrinidadAgent.APPLICATION_IEXPLORER))
+    if (isPDA(arc) && isIE(arc))
     {
       rw.startElement("div", null);
       renderSpacer(context, arc, "1", "0");

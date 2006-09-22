@@ -40,6 +40,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.commons.lang.StringUtils;
 
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
@@ -80,7 +81,7 @@ abstract public class RenderKitTestCase extends TestSuite
                     String categoryName,
                     String skin,
                     Agent agent,
-                    String accMode,
+                    RequestContext.Accessibility accMode,
                     boolean rightToLeft)
     {
       super(name + "-" + categoryName);
@@ -217,7 +218,7 @@ abstract public class RenderKitTestCase extends TestSuite
     private MRequestContext _requestContext;
     private String           _skin;
     private Agent            _agent;
-    private String           _accMode;
+    private RequestContext.Accessibility  _accMode;
     private boolean          _rightToLeft;
   }
 
@@ -515,7 +516,7 @@ abstract public class RenderKitTestCase extends TestSuite
     public SuiteDefinition(
       String category,
       String skin,
-      String accessibilityMode,
+      RequestContext.Accessibility accessibilityMode,
       Agent  agent,
       boolean rightToLeft)
     {
@@ -536,7 +537,7 @@ abstract public class RenderKitTestCase extends TestSuite
       return _skin;
     }
 
-    public String getAccessibilityMode()
+    public RequestContext.Accessibility getAccessibilityMode()
     {
       return _accessibilityMode;
     }
@@ -554,7 +555,7 @@ abstract public class RenderKitTestCase extends TestSuite
 
     private String _category;
     private String _skin;
-    private String _accessibilityMode;
+    private RequestContext.Accessibility _accessibilityMode;
     private Agent _agent;
     private boolean _rightToLeft;
   }

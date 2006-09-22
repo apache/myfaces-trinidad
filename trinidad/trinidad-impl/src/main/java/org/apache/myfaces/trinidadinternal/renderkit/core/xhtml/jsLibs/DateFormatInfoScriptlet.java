@@ -58,7 +58,7 @@ class DateFormatInfoScriptlet extends Scriptlet
 
     writer.writeText("var _df2DYS=", null);
     int twoDigitYearStart =
-      arc.getLocaleContext().getDateFormatContext().getTwoDigitYearStart();
+      arc.getLocaleContext().getTwoDigitYearStart();
     writer.writeText(IntegerUtils.getString(twoDigitYearStart), null);
     writer.writeText(";", null);
   }

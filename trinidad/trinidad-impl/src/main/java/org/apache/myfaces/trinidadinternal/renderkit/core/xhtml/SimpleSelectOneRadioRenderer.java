@@ -359,7 +359,7 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
       return true;
 
     return Boolean.TRUE.equals(
-       arc.getAgent().getCapability(TrinidadAgent.CAP_FIELDSET));
+       arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_FIELDSET));
   }
 
 

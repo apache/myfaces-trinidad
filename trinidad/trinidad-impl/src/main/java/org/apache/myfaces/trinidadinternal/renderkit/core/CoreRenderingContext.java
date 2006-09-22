@@ -35,10 +35,8 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormData;
-
-import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
@@ -49,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
@@ -69,8 +67,8 @@ public class CoreRenderingContext extends RenderingContext
 
     _initializeSkin(afContext);
     _initializePPR(context, afContext);
-    _accessibilityMode = AccessibilityMode.getAccessibilityMode(
-                              afContext.getAccessibilityMode());
+    // Get and cache (since it can be EL-bound)
+    _accessibilityMode = afContext.getAccessibilityMode();
   }
 
 
@@ -131,7 +129,15 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   @Override
-  public TrinidadAgent getAgent()
+  public Agent getAgent()
+  {
+    return _agent;
+  }
+
+  /**
+   * Typesafe accessor for the TrinidadAgent APIs.
+   */
+  public TrinidadAgent getTrinidadAgent()
   {
     return _agent;
   }
@@ -155,7 +161,7 @@ public class CoreRenderingContext extends RenderingContext
 
 
   @Override
-  public Object getAccessibilityMode()
+  public RequestContext.Accessibility getAccessibilityMode()
   {
     return _accessibilityMode;
   }
@@ -192,7 +198,6 @@ public class CoreRenderingContext extends RenderingContext
   /**
    * Get an interface that can be used for style lookups and generation.
    */
-  @Override
   public StyleContext getStyleContext()
   {
     if (_styleContext == null)
@@ -508,7 +513,7 @@ public class CoreRenderingContext extends RenderingContext
   private Map<String, String> _styleMap;
   private Map<String, String> _skinResourceKeyMap;
   private String              _outputMode;
-  private Object              _accessibilityMode;
+  private RequestContext.Accessibility _accessibilityMode;
   private PartialPageContext  _pprContext;
   private LocaleContext       _localeContext;
   private StyleContext        _styleContext;

@@ -22,7 +22,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.config.AccessibilityMode;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -92,8 +91,7 @@ public class HiddenLabelUtils
     UIComponent component
     ) throws IOException
   {
-    Configuration config = context.getConfiguration();
-    if (!AccessibilityMode.isInaccessibleMode(config) &&
+    if (!XhtmlLafRenderer.isInaccessibleMode(context) &&
         (text != null) &&
         (id   != null))
     {

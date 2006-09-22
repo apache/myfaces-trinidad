@@ -30,6 +30,7 @@ import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.SortCriterion;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.CellUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.ColumnData;
@@ -365,7 +366,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
       // can be created on the fly as necessary); see the JS
       // referenced in this.getSortingOnclick
       Object domLevel = 
-        arc.getAgent().getCapability(TrinidadAgent.CAP_DOM);
+        arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_DOM);
       if(
         domLevel == null || 
         domLevel == TrinidadAgent.DOM_CAP_NONE || 
@@ -440,7 +441,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     //  that the only reason desktop renders it in both places
     //  was for Netscape.  If I'm right, then really this decision should
     //  be driven off an "event bubbling" agent property.
-    if (arc.getAgent().getAgentType() != TrinidadAgent.TYPE_PDA)
+    if (!isPDA(arc))
       rw.writeAttribute("onclick", sortOnclick, null);
 
     // TODO: we should pass in null for "event bubbling" systems
@@ -575,7 +576,7 @@ public class ColumnGroupRenderer extends XhtmlRenderer
     boolean renderAnchor = supportsNavigation(arc);
     if (renderAnchor)
     {
-      if (arc.getAgent().getAgentType() == TrinidadAgent.TYPE_PDA)
+      if (isPDA(arc))
         writer.writeText(XhtmlConstants.NBSP_STRING, null);
 
       writer.startElement("a", null);

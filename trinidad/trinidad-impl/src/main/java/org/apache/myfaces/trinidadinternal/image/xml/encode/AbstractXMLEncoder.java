@@ -344,7 +344,7 @@ abstract public class AbstractXMLEncoder
     PrintWriter out
     )
   {
-    int direction = context.getLocaleContext().getReadingDirection();
+    int direction = LocaleUtils.getReadingDirection(context.getLocaleContext());
 
     Integer value = (Integer)properties.get(DIRECTION_KEY);
     if (value != null)

@@ -17,6 +17,8 @@ package org.apache.myfaces.trinidadinternal.util.nls;
 
 import java.util.Locale;
 
+import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+
 
 
 /**
@@ -45,6 +47,17 @@ public final class LocaleUtils
    */
   public static final int DIRECTION_RIGHTTOLEFT = 2;
 
+  
+  /**
+   * Conversion function to go from LocaleContext to the obsolete
+   * reading direction API.
+   */
+  public static int getReadingDirection(LocaleContext localeContext)
+  {
+    return localeContext.isRightToLeft()
+             ? DIRECTION_RIGHTTOLEFT
+             : DIRECTION_LEFTTORIGHT;
+  }
 
 
   /**

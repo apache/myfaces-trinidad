@@ -21,6 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.myfaces.trinidad.context.RequestContext;
 
 /** 
  * UIXCookie encapsulates the pieces of UIX global state that
@@ -118,7 +119,7 @@ public class UIXCookie
   /**
    * Get the AccessibilityMode stored on the cookie.
    */
-  public AccessibilityMode getAccessibilityMode()
+  public RequestContext.Accessibility getAccessibilityMode()
   {
     return _accessibilityMode;
   }
@@ -127,7 +128,7 @@ public class UIXCookie
   /**
    * Set the AccessibilityMode on the cookie.
    */
-  public void setAccessibilityMode(AccessibilityMode accessibilityMode)
+  public void setAccessibilityMode(RequestContext.Accessibility accessibilityMode)
   {
     if (accessibilityMode != _accessibilityMode)
     {
@@ -303,30 +304,30 @@ public class UIXCookie
 
   private String _encodeAccessibilityMode()
   {
-    AccessibilityMode mode = getAccessibilityMode();
+    RequestContext.Accessibility mode = getAccessibilityMode();
     if (mode == null)
       return "";
-    if (mode == AccessibilityMode.DEFAULT_MODE)
+    if (mode == RequestContext.Accessibility.DEFAULT)
       return "D";
-    if (mode == AccessibilityMode.INACCESSIBLE_MODE)
+    if (mode == RequestContext.Accessibility.INACCESSIBLE)
       return "I";
-    if (mode == AccessibilityMode.SCREEN_READER_MODE)
+    if (mode == RequestContext.Accessibility.SCREEN_READER)
       return "S";
 
     return "";
   }
 
 
-  private AccessibilityMode _decodeAccessibilityMode(String value)
+  private RequestContext.Accessibility _decodeAccessibilityMode(String value)
   {
     if ("".equals(value))
       return null;
     else if ("D".equals(value))
-      return AccessibilityMode.DEFAULT_MODE;
+      return RequestContext.Accessibility.DEFAULT;
     else if ("I".equals(value))
-      return AccessibilityMode.INACCESSIBLE_MODE;
+      return RequestContext.Accessibility.INACCESSIBLE;
     else if ("S".equals(value))
-      return AccessibilityMode.SCREEN_READER_MODE;
+      return RequestContext.Accessibility.SCREEN_READER;
 
     return null;
   }
@@ -382,7 +383,7 @@ public class UIXCookie
     return zone;
   }
 
-  private AccessibilityMode   _accessibilityMode;
+  private RequestContext.Accessibility _accessibilityMode;
   private TimeZone            _timeZone;
   private Cookie              _cookie;
   private HttpServletRequest  _request;

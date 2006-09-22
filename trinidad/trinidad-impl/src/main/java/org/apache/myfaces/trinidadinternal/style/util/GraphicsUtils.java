@@ -268,13 +268,10 @@ public class GraphicsUtils
           }
           else if ((current - start) > abortTimeout)
           {
-            // Stop the graphics loader thread
-            // -= Simon Lessard =-
-            // FIXME: stop() is bad, especially with all that synchronized 
-            //        class used, it's deadlock prone, should stop it 
-            //        differently.
+            // Don't know whether interrupt() is useful here,
+            // but give it a whirl
             if (_sGraphicsLoaderThread != null)
-              _sGraphicsLoaderThread.stop();
+              _sGraphicsLoaderThread.interrupt();
 
             // Disable the graphics environment
             __setGraphicsLoaded(false);

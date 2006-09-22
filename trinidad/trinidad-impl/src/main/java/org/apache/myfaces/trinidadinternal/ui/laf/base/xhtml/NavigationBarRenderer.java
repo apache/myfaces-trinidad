@@ -41,7 +41,7 @@ import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.AccessKeyBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 
 /**

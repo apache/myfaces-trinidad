@@ -585,7 +585,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       renderEncodedActionURI(context, "href", destination);
       String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
       if ( (targetFrame != null) && !Boolean.FALSE.equals(
-        arc.getAgent().getCapability(TrinidadAgent.CAP_TARGET)) )
+        arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
       {
         rw.writeAttribute("target", targetFrame, null);
       }
@@ -891,7 +891,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     // If the agent, doesn't support disabled options, don't render anything
     // for such options
     if ( !isDisabled || 
-         Boolean.TRUE.equals(arc.getAgent().getCapability(
+         Boolean.TRUE.equals(arc.getAgent().getCapabilities().get(
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
       boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
@@ -952,7 +952,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
           StringBuilder sb = new StringBuilder();
           if ( (targetFrame != null) && !Boolean.FALSE.equals(
-            arc.getAgent().getCapability(TrinidadAgent.CAP_TARGET)) )
+            arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
           {
             sb.append("window.open('");
             sb.append(encodedDestination);

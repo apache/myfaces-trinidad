@@ -979,7 +979,7 @@ public class FileSystemStyleCache implements StyleProvider
 
       _init(
        localeContext.getTranslationLocale(),
-       localeContext.getReadingDirection(),
+       LocaleUtils.getReadingDirection(localeContext),
        agent.getAgentApplication(),
        agent.getAgentMajorVersion(),
        agent.getAgentOS(),
