@@ -203,95 +203,81 @@ public class XMLMenuModel extends BaseMenuModel
     Object focusPath        = null;
     String currentViewId    = _getCurrentViewId();
     FacesContext context    = FacesContext.getCurrentInstance();
-    boolean beginNewRequest = (_begunRequest == false);
-
-    _begunRequest = true;    
-
-    if (beginNewRequest)
+    
+    // Initializations
+    _prevFocusPath = null;
+    
+    // How did we get to this page?
+    // 1) Clicked on a menu item with its action attribute set.  This does
+    //    a POST.
+    // 2) Clicked on a menu item with its destination attribute set.  This
+    //    does a GET.
+    // 3) Navigation to a viewId within our model but done from outside the
+    //    model.  Examples, button, text link, etc.
+    //
+    
+    // Case 1: POST method.  Current Node has already been set and so has the
+    // request method.  The doAction() method of the clicked node calls
+    // the setCurrentlyPostedNode() method of this model, which sets both. So
+    // we have nothing to do in this case.
+    
+    if (_getRequestMethod() != _METHOD_POST)
     {
-        // Initializations
-        _prevFocusPath = null;
+      // Case 2: GET method.  We have hung the selected node's id off the 
+      // request's URL, which enables us to get the selected node and also 
+      // to know that the request method is GET.
+      Map<String, String> paramMap = 
+        context.getExternalContext().getRequestParameterMap();
+      String nodeId = paramMap.get(_NODE_ID_PROPERTY);
       
-      // How did we get to this page?
-      // 1) Clicked on a menu item with its action attribute set.  This does
-      //    a POST.
-      // 2) Clicked on a menu item with its destination attribute set.  This
-      //    does a GET.
-      // 3) Navigation to a viewId within our model but done from outside the
-      //    model.  Examples, button, text link, etc.
-      //
-      
-      // Case 1: POST method.  Current Node has already been set and so has the
-      // request method.  The doAction() method of the clicked node calls
-      // the setCurrentlyPostedNode() method of this model, which sets both. So
-      // we have nothing to do in this case.
-      
-      if (_getRequestMethod() != _METHOD_POST)
+      if (nodeId != null)
       {
-        // Case 2: GET method.  We have hung the selected node's id off the 
-        // request's URL, which enables us to get the selected node and also 
-        // to know that the request method is GET.
-        Map<String, String> paramMap = 
-          context.getExternalContext().getRequestParameterMap();
-        String nodeId = paramMap.get(_NODE_ID_PROPERTY);
-        
-        if (nodeId != null)
-        {
-          _setCurrentlySelectedNode(getNode(nodeId));
-          _setRequestMethod(_METHOD_GET);
-        }
+        _setCurrentlySelectedNode(getNode(nodeId));
+        _setRequestMethod(_METHOD_GET);
       }
-      
-      // Case 3: Navigation to a page within the model from an outside
-      // method, e.g. button, link text, etc.  In this case we set the
-      // currently selected node to null.  This tells us to get the 0th
-      // element of the ArrayList returned from the viewId hashMap.  This
-      // should be a focus path match to the node whose "defaultFocusPath"
-      // attribute was set to 'true'.
-      if (_getRequestMethod() == _METHOD_NONE)
-      {
-        _setCurrentlySelectedNode(null);
-      }
-  
-      // Get the matching focus path ArrayList for the currentViewId.
-      // This is an ArrayList because our map allows nodes with the same
-      // viewId, that is, different focus paths to the same viewId.
-      ArrayList<Object> fpArrayList = 
-        (ArrayList<Object>) _viewIdFocusPathMap.get(currentViewId);
-  
-      if (fpArrayList != null)
-      {
-        // Get the currently selected node
-        Object currentNode = _getCurrentlySelectedNode();
-        
-        if (fpArrayList.size() == 1  || currentNode == null)
-        {
-          // For fpArrayLists with multiple focusPaths,
-          // the 0th entry in the fpArrayList carries the 
-          // focusPath of the node with its defaultFocusPath
-          // attribute set to "true", if there is one.  If
-          // not, the 0th element is the default.
-          focusPath = fpArrayList.get(0);
-        }
-        else
-        {
-          focusPath = _nodeFocusPathMap.get(currentNode);
-        }
-      }
-      
-      // Save all pertinent information
-      _prevFocusPath = focusPath;
-      
-      _setRequestMethod(_METHOD_NONE);
     }
-    else
+    
+    // Case 3: Navigation to a page within the model from an outside
+    // method, e.g. button, link text, etc.  In this case we set the
+    // currently selected node to null.  This tells us to get the 0th
+    // element of the ArrayList returned from the viewId hashMap.  This
+    // should be a focus path match to the node whose "defaultFocusPath"
+    // attribute was set to 'true'.
+    if (_getRequestMethod() == _METHOD_NONE)
     {
-      // Not at the beginning of a new Request.
-      // Return the previous focus path.
-      // This optimization is here because, for each menu 
-      // item selected, getFocusRowKey gets called multiple times.
-      return _prevFocusPath;
+      _setCurrentlySelectedNode(null);
     }
+    
+    // Get the matching focus path ArrayList for the currentViewId.
+    // This is an ArrayList because our map allows nodes with the same
+    // viewId, that is, different focus paths to the same viewId.
+    ArrayList<Object> fpArrayList = 
+     (ArrayList<Object>) _viewIdFocusPathMap.get(currentViewId);
+    
+    if (fpArrayList != null)
+    {
+      // Get the currently selected node
+      Object currentNode = _getCurrentlySelectedNode();
+      
+      if (fpArrayList.size() == 1  || currentNode == null)
+      {
+        // For fpArrayLists with multiple focusPaths,
+        // the 0th entry in the fpArrayList carries the 
+        // focusPath of the node with its defaultFocusPath
+        // attribute set to "true", if there is one.  If
+        // not, the 0th element is the default.
+        focusPath = fpArrayList.get(0);
+      }
+      else
+      {
+        focusPath = _nodeFocusPathMap.get(currentNode);
+      }
+    }
+    
+    // Save all pertinent information
+    _prevFocusPath = focusPath;
+    
+    _setRequestMethod(_METHOD_NONE);
 
     return focusPath;
   }
@@ -698,7 +684,6 @@ public class XMLMenuModel extends BaseMenuModel
   private String  _requestMethod     = _METHOD_NONE;
   private String  _mdSource          = null;
   private boolean _createHiddenNodes = false;
-  private boolean _begunRequest      = false;
 
   private Map<String, List<Object>> _viewIdFocusPathMap;
   private Map<Object, List<Object>> _nodeFocusPathMap;
