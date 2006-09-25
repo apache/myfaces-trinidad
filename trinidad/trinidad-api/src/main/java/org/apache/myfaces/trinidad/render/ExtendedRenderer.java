@@ -49,16 +49,11 @@ abstract public class ExtendedRenderer extends Renderer
    * @param component  the component to render
    */
   @SuppressWarnings("unchecked")
-  public void decodeChildren(
+  public boolean decodeChildren(
     FacesContext context,
     UIComponent  component)
   {
-    // Process all the facets and children of this component
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
-    while (kids.hasNext())
-    {
-      kids.next().processDecodes(context);
-    }
+    return false;
   }
 
   /**
@@ -68,16 +63,11 @@ abstract public class ExtendedRenderer extends Renderer
    * @param component  the component to render
    */
   @SuppressWarnings("unchecked")
-  public void validateChildren(
+  public boolean validateChildren(
     FacesContext context,
     UIComponent  component)
   {
-    // Process all the facets and children of this component
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
-    while (kids.hasNext())
-    {
-      kids.next().processValidators(context);
-    }
+    return false;
   }
 
   /**
@@ -87,15 +77,10 @@ abstract public class ExtendedRenderer extends Renderer
    * @param component  the component to render
    */
   @SuppressWarnings("unchecked")
-  public void updateChildren(
+  public boolean updateChildren(
     FacesContext context,
     UIComponent  component)
   {
-    // Process all the facets and children of this component
-    Iterator<UIComponent> kids = component.getFacetsAndChildren();
-    while (kids.hasNext())
-    {
-      kids.next().processUpdates(context);
-    }
+    return false;
   }
 }

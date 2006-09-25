@@ -867,12 +867,11 @@ abstract public class UIXComponentBase extends UIXComponent
     // if there is a HierarchyRenderer for this component
     if (renderer != null)
     {
-      renderer.decodeChildren(context, this);
+      if (renderer.decodeChildren(context, this))
+        return;
     }
-    else
-    {
-      decodeChildrenImpl(context);
-    }
+
+    decodeChildrenImpl(context);
   }
 
   /**
@@ -904,12 +903,11 @@ abstract public class UIXComponentBase extends UIXComponent
     // if there is a ExtendedRenderer for this component
     if (renderer != null)
     {
-      renderer.validateChildren(context, this);
+      if (renderer.validateChildren(context, this))
+        return;
     }
-    else
-    {
-      validateChildrenImpl(context);
-    }
+
+    validateChildrenImpl(context);
   }
 
   /**
@@ -942,12 +940,11 @@ abstract public class UIXComponentBase extends UIXComponent
     // if there is a ExtendedRenderer for this component
     if (renderer != null)
     {
-      renderer.updateChildren(context, this);
+      if (renderer.updateChildren(context, this))
+        return;
     }
-    else
-    {
-      updateChildrenImpl(context);
-    }
+
+    updateChildrenImpl(context);
   }
 
   @SuppressWarnings("unchecked")
