@@ -22,14 +22,11 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
 import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 import org.apache.myfaces.trinidadinternal.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 /**
- * @todo REMOVE DEPENDENCY ON AcessibilityMode
  */
 abstract public class RenderingContext
 {

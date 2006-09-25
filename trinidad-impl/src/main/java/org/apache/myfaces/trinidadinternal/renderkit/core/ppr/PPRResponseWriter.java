@@ -36,7 +36,10 @@ public class PPRResponseWriter extends ResponseWriterDecorator
                            boolean            useXMLDom)
   {
     super(out);
-    _pprContext = pprContext;
+    if (!(pprContext instanceof PartialPageContextImpl))
+        throw new IllegalArgumentException();
+
+    _pprContext = (PartialPageContextImpl) pprContext;
     _useXMLDom = useXMLDom;
     _componentStack = new ArrayList<PPRTag>(50);
     _facesContext = FacesContext.getCurrentInstance();
@@ -286,7 +289,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       _id = id;
     }
 
-    public void start(PartialPageContext pprContext) throws IOException
+    public void start(PartialPageContextImpl pprContext) throws IOException
     {
       if (_id != null)
       {
@@ -307,7 +310,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
       }
     }
 
-    public void finish(PartialPageContext pprContext) throws IOException
+    public void finish(PartialPageContextImpl pprContext) throws IOException
     {
       if (_id != null)
       {
@@ -345,7 +348,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
 
     @Override
-    public void start(PartialPageContext pprContext) throws IOException
+    public void start(PartialPageContextImpl pprContext) throws IOException
     {
       super.start(pprContext);
 
@@ -357,7 +360,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
     }
 
     @Override
-    public void finish(PartialPageContext pprContext) throws IOException
+    public void finish(PartialPageContextImpl pprContext) throws IOException
     {
       // And then end them in reverse order...
       for (int i = _tags.length - 1; i >= 0; i--)
@@ -376,7 +379,7 @@ public class PPRResponseWriter extends ResponseWriterDecorator
   private boolean _writingForm;
   private final boolean _useXMLDom;
   private final List<PPRTag> _componentStack;
-  private final PartialPageContext _pprContext;
+  private final PartialPageContextImpl _pprContext;
   private final FacesContext _facesContext;
 
   static private final String[] _ADD_TABLE_AND_TR =
