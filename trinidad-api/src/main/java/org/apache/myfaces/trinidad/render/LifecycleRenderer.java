@@ -19,41 +19,53 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
- * LifecycleRenderer can be used to enhance the general component renderer
- * contract, by providing control over all child component hierarchy lifecycle
- * phases.
+ * LifecycleRenderer can be used to enhance the general component-renderer
+ * contract, by letting a renderer take over control of
+ * all child component hierarchy lifecycle phases.  In particular,
+ * the renderer can take over the implementation of
+ * UIComponent.processValidators(), processDecode(), and processUpdates().
+ * (This requires that the component be a subclass of UIXComponentBase.)
  *
  * @author The Oracle ADF Faces Team
  */
 public interface LifecycleRenderer
 {
   /**
-   * Decodes a component and its children.
+   * Decodes a component's children.
    *
    * @param context    the Faces context
    * @param component  the component to render
+   * @return whether the lifecycle was processed;  if returns false,
+   *   the component should continue default processing of the
+   *    Apply Request Values phase.
    */
-  public void decodeChildren(
+  public boolean decodeChildren(
     FacesContext context,
     UIComponent  component);
 
   /**
-   * Validates a component and its children.
+   * Validates a component's children.
    *
    * @param context    the Faces context
    * @param component  the component to render
+   * @return whether the lifecycle was processed;  if returns false,
+   *   the component should continue default processing of the
+   *    Process Validation phase.
    */
-  public void validateChildren(
+  public boolean validateChildren(
     FacesContext context,
     UIComponent  component);
 
   /**
-   * Updates a component and its children.
+   * Updates a component's children.
    *
    * @param context    the Faces context
    * @param component  the component to render
+   * @return whether the lifecycle was processed;  if returns false,
+   *   the component should continue default processing of the
+   *    Update Model phase.
    */
-  public void updateChildren(
+  public boolean updateChildren(
     FacesContext context,
     UIComponent  component);
 }
