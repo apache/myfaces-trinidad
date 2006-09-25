@@ -16,31 +16,21 @@
 package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.util.Iterator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
-
-import org.apache.myfaces.trinidad.context.RequestContext;
-
-import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Context object which is used to track the targets of a partial
- * page render during the partial page rendering pass.
+ * page render during the Render Response phase.
  * Clients never need to explicitly create PartialPageContext
- * objects.
+ * objects, but can retrieve them from a RenderingContext instance.
+ * For general access to Partial Page Rendering during all phases,
+ * see APIs on the RequestContext API.
  * <p>
  * During the partial rendering pass, some Renderer implementations
  * may modify the set of partial targets that are rendered.
  * (For example, the FormRenderer adds a partial target for its
- * shared hidden fields if any children of the form are rendered.)
- * After the partial render pass, getPartialTargets() can be
- * called to determine the actual set of partial targets that were
- * rendered.
+ * shared hidden fields.)
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/ppr/PartialPageContext.java#0 $) $Date: 10-nov-2005.19:02:58 $
  * @author The Oracle ADF Faces Team
@@ -51,13 +41,6 @@ abstract public class PartialPageContext
   {
   }
 
-  abstract public void finish();
-
-  /**
-   * Returns the set of partial targets for this rendering pass.
-   */
-  abstract public Iterator<String> getPartialTargets();
-
   /**
    * Tests whether the specified id is the client id of a UIComponent that
    * should be rendered as part of the partial rendering pass.
@@ -65,14 +48,14 @@ abstract public class PartialPageContext
   abstract public boolean isPartialTarget(String id);
 
   /**
+   * Returns the set of partial targets for this rendering pass.
+   */
+  abstract public Iterator<String> getPartialTargets();
+
+  /**
    * Tests whether the specified partial target has been rendered.
    */
   abstract public boolean isPartialTargetRendered(String id);
-
-  /**
-   * Tests whether any targets were rendered in this pass.
-   */
-  abstract public boolean hasRenderedTargets();
 
   /**
    * Adds a new partial target to render.
@@ -101,36 +84,4 @@ abstract public class PartialPageContext
   abstract public void addRenderedPartialTarget(String id);
 
   abstract public Iterator<String> getRenderedPartialTargets();
-
-  /**
-   * Tests whether all of the partial targets for this tree have been rendered.
-   */
-  abstract public boolean isPartialPassComplete();
-
-  /**
-   * Notifies the PartialPageContext that the specified partial target is
-   * about to be rendered.
-   * <p>
-   * This method is called automatically by ADF Faces during the partial
-   * rendering pass when a partial target is about to be rendered.
-   * Clients should never need to call this method.
-   *
-   * @param context the current FacesContext
-   * @param id The ID of the partial target that is about to be rendered
-   * @see #popRenderedPartialTarget
-   */
-  abstract public void pushRenderedPartialTarget(
-    String id);
-
-  /**
-   * Notifies the PartialPageContext that the current partial target
-   * has finished rendering.
-   * <p>
-   * This method is called automatically by ADF Faces during the partial
-   * rendering pass when a partial target has finished rendering.
-   * Clients should never need to call this method.
-   *
-   * @param context the current FacesContext
-   */
-  abstract public void popRenderedPartialTarget();
 }

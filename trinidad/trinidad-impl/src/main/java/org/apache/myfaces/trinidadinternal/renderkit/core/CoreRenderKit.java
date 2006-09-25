@@ -70,6 +70,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderKitBase;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -364,10 +365,16 @@ public class CoreRenderKit extends RenderKitBase
       // Write out a script;  let PPR know to use it
       String scriptId = "::launchScript";
       PartialPageContext ppContext = arc.getPartialPageContext();
-      if (ppContext != null)
+      // TODO: Create the span with a bogus component where
+      // getClientId() returns the scriptId;  this avoids
+      // the need to downcast - you just need to
+      // call addPartialTarget().  Or, come up with a better
+      // PPR api to make it simpler
+      PartialPageContextImpl ppImpl = (PartialPageContextImpl) ppContext;
+      if (ppImpl != null)
       {
-        ppContext.addRenderedPartialTarget(scriptId);
-        ppContext.pushRenderedPartialTarget(scriptId);
+        ppImpl.addRenderedPartialTarget(scriptId);
+        ppImpl.pushRenderedPartialTarget(scriptId);
       }
 
       ResponseWriter out = context.getResponseWriter();
@@ -400,8 +407,8 @@ public class CoreRenderKit extends RenderKitBase
       if (hasScript)
         scriptList.clear();
 
-      if (ppContext != null)
-        ppContext.popRenderedPartialTarget();
+      if (ppImpl != null)
+        ppImpl.popRenderedPartialTarget();
     }
   }
 

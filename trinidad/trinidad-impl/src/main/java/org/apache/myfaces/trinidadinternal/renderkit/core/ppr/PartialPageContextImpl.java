@@ -82,20 +82,6 @@ public class PartialPageContextImpl extends PartialPageContext
     }
   }
 
-  public void finish()
-  {
-    if (_LOG.isWarning())
-    {
-      for(Map.Entry<String, Boolean> entry : _targets.entrySet())
-      {
-        if (entry.getValue() == Boolean.FALSE)
-          _LOG.warning("PPR target {0} was not rendered.",
-                       entry.getKey());
-      }
-    }
-  }
-
-
   /**
    * Returns the set of partial targets for this rendering pass.
    */
@@ -103,6 +89,8 @@ public class PartialPageContextImpl extends PartialPageContext
   {
     return _targets.keySet().iterator();
   }
+
+
 
   /**
    * Tests whether the specified id is the client id of a UIComponent that
@@ -119,14 +107,6 @@ public class PartialPageContextImpl extends PartialPageContext
   public boolean isPartialTargetRendered(String id)
   {
     return _renderedTargets.contains(id);
-  }
-
-  /**
-   * Tests whether any targets were rendered in this pass.
-   */
-  public boolean hasRenderedTargets()
-  {
-    return !_renderedTargets.isEmpty();
   }
 
   /**
@@ -167,17 +147,6 @@ public class PartialPageContextImpl extends PartialPageContext
   public Iterator<String> getRenderedPartialTargets()
   {
     return _renderedTargets.iterator();
-  }
-
-
-
-  /**
-   * Tests whether all of the partial targets for this tree have been rendered.
-   */
-  public boolean isPartialPassComplete()
-  {
-    // REMOVED
-    return false;
   }
 
   /**

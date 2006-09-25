@@ -43,6 +43,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreResponseStateManager;
+import org.apache.myfaces.trinidadinternal.renderkit.core.ppr.PartialPageContextImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SubformRenderer;
 
 // TODO: Remove this class
@@ -208,6 +209,13 @@ public class FormRenderer extends XhtmlRenderer
 
     String formName = arc.getFormData().getName();
     PartialPageContext pprContext = arc.getPartialPageContext();
+    // Downcast to pprContext to have access to push and pop
+    // TODO: Create the span with a bogus component where
+    // getClientId() returns the postscriptId;  this avoids
+    // the need for push and pop calls - you just need to
+    // call addPartialTarget().  Or, come up with a better
+    // PPR api to make it simpler
+    PartialPageContextImpl pprImpl = (PartialPageContextImpl) pprContext;
 
     boolean isXMLDOM = supportsXMLDOM(arc);
 
@@ -222,9 +230,9 @@ public class FormRenderer extends XhtmlRenderer
     // Check to see if this is a partial page render.  If so, we need
     // to push the ID of the postscript onto the partial target stack
     String postscriptId = _getPostscriptId(arc, formName);
-    if (pprContext != null)
+    if (pprImpl != null)
     {
-      _startPartialPostscriptRender(pprContext, postscriptId);
+      _startPartialPostscriptRender(pprImpl, postscriptId);
       if (isXMLDOM)
       {
         writer.startElement("ppr",null);
@@ -270,7 +278,7 @@ public class FormRenderer extends XhtmlRenderer
     //this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
-    if (isPIE && pprContext == null)
+    if (isPIE && pprImpl == null)
     {
       //PH: Add hidden elements in the form for enabling PPR on IE Mobile.
 
@@ -296,14 +304,14 @@ public class FormRenderer extends XhtmlRenderer
     }
 
     // Pop the partial target stack if this is a partial page render
-    if (pprContext != null)
+    if (pprImpl != null)
     {
       if (isXMLDOM)
       {
         writer.write("]]>");
         writer.endElement("ppr");
       }
-      _endPartialPostscriptRender(pprContext, postscriptId);
+      _endPartialPostscriptRender(pprImpl, postscriptId);
     }
 
     // Render submitFormCheck js function --
@@ -885,7 +893,7 @@ public class FormRenderer extends XhtmlRenderer
 
   // Starts rendering the postscript partial target
   private static void _startPartialPostscriptRender(
-    PartialPageContext pprContext,
+    PartialPageContextImpl pprContext,
     String             postscriptId
     )
   {
@@ -897,7 +905,7 @@ public class FormRenderer extends XhtmlRenderer
 
   // Ends rendering the postscript partial target
   private static void _endPartialPostscriptRender(
-    PartialPageContext pprContext,
+    PartialPageContextImpl pprContext,
     String             postscriptId
     )
   {
