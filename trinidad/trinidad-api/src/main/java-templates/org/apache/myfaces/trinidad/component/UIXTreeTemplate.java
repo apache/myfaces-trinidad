@@ -66,7 +66,7 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("selectedRowKeys",
                          getSelectedRowKeys());
-      __broadcast(event, getSelectionListener());
+      broadcastToMethodBinding(event, getSelectionListener());
     }
 
     HierarchyUtils.__handleBroadcast(this, 

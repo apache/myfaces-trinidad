@@ -85,7 +85,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
 
         // Notify the specified action listener method (if any),
         // and the default action listener
-        __broadcast(event, getActionListener());
+        broadcastToMethodBinding(event, getActionListener());
 
         FacesContext context = getFacesContext();
         ActionListener defaultActionListener =
@@ -107,7 +107,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
 
       if (event instanceof LaunchEvent)
       {
-        __broadcast(event, getLaunchListener());
+        broadcastToMethodBinding(event, getLaunchListener());
         boolean useWindow = 
           Boolean.TRUE.equals(getAttributes().get("useWindow"));
 
@@ -115,7 +115,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
       }
       else if (event instanceof ReturnEvent)
       {
-        __broadcast(event, getReturnListener());
+        broadcastToMethodBinding(event, getReturnListener());
         // =-=AEW: always jump to render response???  Seems the safest
         // option, because we don't want to immediately update a model
         // or really perform any validation.

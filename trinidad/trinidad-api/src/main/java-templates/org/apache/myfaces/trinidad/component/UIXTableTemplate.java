@@ -101,7 +101,7 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       // since the range is now different we can clear the currency cache:
       clearCurrencyStringCache();
       
-      __broadcast(event, getRangeChangeListener());
+      broadcastToMethodBinding(event, getRangeChangeListener());
     }
     else if (event instanceof RowDisclosureEvent)
     {
@@ -109,20 +109,20 @@ abstract public class UIXTableTemplate extends UIXIteratorTemplate
       RowKeySet set = getDisclosedRowKeys();
       set.addAll(eEvent.getAddedSet());
       set.removeAll(eEvent.getRemovedSet());
-      __broadcast(event, getRowDisclosureListener());
+      broadcastToMethodBinding(event, getRowDisclosureListener());
     }
     else if (event instanceof SortEvent)
     {
       SortEvent sEvent = (SortEvent) event;
       setSortCriteria(sEvent.getSortCriteria());
-      __broadcast(event, getSortListener());
+      broadcastToMethodBinding(event, getSortListener());
     }
     else if (event instanceof SelectionEvent)
     {
       //pu: Implicitly record a Change for 'selectionState' attribute
       addAttributeChange("selectedRowKeys",
                          getSelectedRowKeys());
-      __broadcast(event, getSelectionListener());
+      broadcastToMethodBinding(event, getSelectionListener());
     }
 
     super.broadcast(event);

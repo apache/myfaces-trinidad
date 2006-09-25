@@ -45,7 +45,7 @@ abstract public class UIXPollTemplate extends UIXComponentBase
     // Notify the specified Poll listener method (if any)
     if (event instanceof PollEvent)
     {
-      __broadcast(event, getPollListener());
+      broadcastToMethodBinding(event, getPollListener());
     }
   }
 

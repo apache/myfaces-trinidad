@@ -99,11 +99,11 @@ abstract public class UIXSingleStepTemplate
     {
       if (getActionType() == PREVIOUS_ACTION_TYPE)
       {
-        __broadcast(event, getPreviousActionListener());
+        broadcastToMethodBinding(event, getPreviousActionListener());
       }
       else
       {
-        __broadcast(event, getNextActionListener());
+        broadcastToMethodBinding(event, getNextActionListener());
       }
 
       ActionListener defaultActionListener =

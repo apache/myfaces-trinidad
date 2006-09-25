@@ -81,7 +81,7 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
         getFacesContext().renderResponse();
 
       // Notify the specified disclosure listener method (if any)
-      __broadcast(event, getDisclosureListener());
+      broadcastToMethodBinding(event, getDisclosureListener());
     }
   }
 

@@ -180,7 +180,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       // it is nice to expand the focused item:
       getDisclosedRowKeys().add();
 
-      __broadcast(event, getFocusListener());
+      broadcastToMethodBinding(event, getFocusListener());
     }
     else if (event instanceof RangeChangeEvent)
     {
@@ -190,7 +190,7 @@ abstract public class UIXTreeTableTemplate extends UIXTree
       //=-=pu: This ain't getting restored. Check with Arj or file a bug.
       addAttributeChange("first",
                          new Integer(rce.getNewStart()));
-      __broadcast(event, getRangeChangeListener());
+      broadcastToMethodBinding(event, getRangeChangeListener());
     }
 
     // Perform standard superclass processing

@@ -593,7 +593,7 @@ abstract public class UIXComponentBase extends UIXComponent
 
     if (event instanceof AttributeChangeEvent)
     {
-      __broadcast(event, getAttributeChangeListener());
+      broadcastToMethodBinding(event, getAttributeChangeListener());
     }
   }
 
@@ -1145,8 +1145,11 @@ abstract public class UIXComponentBase extends UIXComponent
 
   /**
    * Broadcast an event to a MethodBinding.
+   * This can be used to support MethodBindings such as the "actionListener"
+   * binding on ActionSource components:
+   * &lt;tr:commandButton actionListener="#{mybean.myActionListener}">
    */
-  final void __broadcast(
+  protected final void broadcastToMethodBinding(
     FacesEvent event,
     MethodBinding method) throws AbortProcessingException
   {

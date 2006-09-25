@@ -86,7 +86,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
 
         // Notify the specified action listener method (if any),
         // and the default action listener
-        __broadcast(event, getActionListener());
+        broadcastToMethodBinding(event, getActionListener());
 
         FacesContext context = getFacesContext();
         ActionListener defaultActionListener =
@@ -113,7 +113,7 @@ abstract public class UIXSelectInputTemplate extends UIXEditableValue
     {
       super.broadcast(event);
 
-      __broadcast(event, getReturnListener());
+      broadcastToMethodBinding(event, getReturnListener());
       Object returnValue = ((ReturnEvent) event).getReturnValue();
       if (returnValue != null)
       {
