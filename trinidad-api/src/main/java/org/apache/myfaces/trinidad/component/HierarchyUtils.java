@@ -65,7 +65,7 @@ public final class HierarchyUtils
       }
       //pu: Implicitly record a Change for 'expandedRowKeys' attribute
       comp.addAttributeChange("expandedRowKeys", state);
-      comp.__broadcast(event, disclosureListener);
+      comp.broadcastToMethodBinding(event, disclosureListener);
     }
   }
 

@@ -58,7 +58,7 @@ public abstract class UIXSelectRangeTemplate extends UIXComponentBase
       // update first when the event is delivered
       setFirst(gtEvent.getNewStart());
 
-      __broadcast(event, getRangeChangeListener());
+      broadcastToMethodBinding(event, getRangeChangeListener());
     }
 
     // Perform standard superclass processing

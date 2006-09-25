@@ -168,7 +168,7 @@ abstract public class UIXEditableValueTemplate
 
     if (event instanceof ValueChangeEvent)
     {
-      __broadcast(event, getValueChangeListener());
+      broadcastToMethodBinding(event, getValueChangeListener());
     }
   }
 
