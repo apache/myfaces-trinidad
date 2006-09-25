@@ -372,7 +372,12 @@ public class StateManagerImpl extends StateManager
       if (root != null)
       {
         _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
-        // we need to create a new UIViewRoot because of bug 4719021:
+        // we need to create a new UIViewRoot because JSF 1.1 does not
+        // clear FacesEvents (or FacesMessages, IIRC), so any pending
+        // events will still be present.
+        // TODO this should probably be using UIViewRoot.saveState()
+        // and restoreState(), and using Application.createComponent()
+        // instead of new UIViewRoot()
         UIViewRoot newRoot = new UIViewRoot();
         newRoot.setId(root.getId());
         newRoot.setLocale(root.getLocale());
