@@ -17,7 +17,7 @@
 package org.apache.myfaces.trinidadinternal.style;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
  * The StyleContext interface is used to provide information

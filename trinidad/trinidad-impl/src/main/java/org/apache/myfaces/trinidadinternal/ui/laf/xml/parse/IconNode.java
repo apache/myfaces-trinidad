@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 
 
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * Object which represents a single <icon> element.

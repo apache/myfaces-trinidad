@@ -29,10 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
-import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 

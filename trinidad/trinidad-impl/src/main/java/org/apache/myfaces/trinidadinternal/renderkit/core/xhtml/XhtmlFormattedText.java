@@ -20,7 +20,7 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 
 /**

@@ -26,7 +26,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 
 public class PPRResponseWriter extends ResponseWriterDecorator

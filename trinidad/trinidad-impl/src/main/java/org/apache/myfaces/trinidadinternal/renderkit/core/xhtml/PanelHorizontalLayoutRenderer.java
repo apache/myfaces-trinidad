@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHorizontalLayout;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 {

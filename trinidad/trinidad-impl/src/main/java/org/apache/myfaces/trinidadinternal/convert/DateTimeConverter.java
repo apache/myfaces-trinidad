@@ -33,7 +33,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import javax.faces.component.ValueHolder;
 import javax.faces.convert.Converter;

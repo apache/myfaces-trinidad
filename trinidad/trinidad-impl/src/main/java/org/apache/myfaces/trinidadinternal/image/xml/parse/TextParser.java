@@ -23,7 +23,7 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseErrorUtils;

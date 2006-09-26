@@ -28,17 +28,18 @@ import java.util.Stack;
 
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Icon;
+
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
-
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.xml.StyleSheetDocumentUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 
 

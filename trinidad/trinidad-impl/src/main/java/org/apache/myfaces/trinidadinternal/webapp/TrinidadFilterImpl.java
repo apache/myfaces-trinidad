@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
 import org.apache.myfaces.trinidadinternal.context.TrinidadPhaseListener;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormHandler;
 import org.apache.myfaces.trinidadinternal.share.util.MultipartFormItem;
-import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 

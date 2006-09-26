@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 import org.apache.myfaces.trinidadinternal.share.xml.LeafNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**

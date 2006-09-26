@@ -27,7 +27,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.html.HtmlFrame;
 import org.apache.myfaces.trinidad.component.html.HtmlFrameBorderLayout;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * Renders a frame.

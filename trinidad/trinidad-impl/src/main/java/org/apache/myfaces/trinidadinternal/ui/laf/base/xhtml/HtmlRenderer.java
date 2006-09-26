@@ -22,7 +22,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.ui.ElementRenderer;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;

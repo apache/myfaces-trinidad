@@ -34,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.FormRenderer;
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 import org.apache.myfaces.trinidadinternal.ui.html.HTMLWebBean;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 

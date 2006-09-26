@@ -30,8 +30,8 @@ import org.apache.myfaces.trinidad.component.html.HtmlBody;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Skin;
 
 
 /**

@@ -24,8 +24,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputHidden;
 
-import org.apache.myfaces.trinidadinternal.renderkit.FormData;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class InputHiddenRenderer extends EditableValueRenderer
 {

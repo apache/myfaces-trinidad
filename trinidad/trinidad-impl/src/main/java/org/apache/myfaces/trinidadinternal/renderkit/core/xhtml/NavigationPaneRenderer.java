@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidad.component.core.nav.CoreNavigationPane;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class NavigationPaneRenderer extends XhtmlRenderer
 {

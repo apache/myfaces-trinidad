@@ -21,15 +21,15 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 

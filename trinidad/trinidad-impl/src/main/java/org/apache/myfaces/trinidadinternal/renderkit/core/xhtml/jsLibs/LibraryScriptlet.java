@@ -19,7 +19,7 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.resource.CoreRenderKitResourceLoader;

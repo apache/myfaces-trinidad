@@ -21,18 +21,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Skin;
 
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 
@@ -43,7 +43,7 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
 import org.apache.myfaces.trinidadinternal.ui.expl.UIVariableResolver;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/composite/CompositeRenderingContext.java#0 $) $Date: 10-nov-2005.18:56:50 $

@@ -31,23 +31,28 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.Icon;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
-import org.apache.myfaces.trinidadinternal.renderkit.FormData;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
-import org.apache.myfaces.trinidadinternal.skin.SkinFactory;
 import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;

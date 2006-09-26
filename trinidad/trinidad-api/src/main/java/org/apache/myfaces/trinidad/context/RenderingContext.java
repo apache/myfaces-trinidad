@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
-package org.apache.myfaces.trinidadinternal.renderkit;
+package org.apache.myfaces.trinidad.context;
 
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -22,16 +22,15 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  */
 abstract public class RenderingContext
 {
   /**
-   * Retrieves the AdfRenderingContext active for the current thread.
+   * Retrieves the RenderingContext active for the current thread.
    */
   static public RenderingContext getCurrentInstance()
   {
@@ -60,7 +59,7 @@ abstract public class RenderingContext
 
   /**
    * Get the Skin.  Icons, properties, etc. should never be retrieved directly
-   * from the skin, but always through the AdfRenderingContext so they
+   * from the skin, but always through the RenderingContext so they
    * can be properly transformed.
    */
   abstract public Skin getSkin();
@@ -119,16 +118,16 @@ abstract public class RenderingContext
 
     // Then see if there's a problem, and scream if there is one
     if (o == null)
-      throw new IllegalStateException("AdfRenderingContext was already " +
+      throw new IllegalStateException("RenderingContext was already " +
                                       "released or had never been attached.");
     if (o != this)
       throw new IllegalStateException("Trying to release a different " +
-                     "AdfRenderingContext than the current context.");
+                     "RenderingContext than the current context.");
   }
 
   /**
-   * Attaches an AdfRenderingContext to the current thread.  This method is
-   * protected, and therefore can only be called by an AdfRenderingContext
+   * Attaches an RenderingContext to the current thread.  This method is
+   * protected, and therefore can only be called by an RenderingContext
    * object itself.
    */
   protected void attach()
@@ -143,7 +142,7 @@ abstract public class RenderingContext
     // this scenario from #1.
     if (o != null)
     {
-      _LOG.warning("Trying to attach AdfRenderingContext " +
+      _LOG.warning("Trying to attach RenderingContext " +
                    "to a thread that already had one.");
     }
 

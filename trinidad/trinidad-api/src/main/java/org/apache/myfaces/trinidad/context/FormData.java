@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.trinidadinternal.renderkit;
-
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+package org.apache.myfaces.trinidad.context;
 
 abstract public class FormData
 {

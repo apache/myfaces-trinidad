@@ -13,17 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.trinidadinternal.skin;
+package org.apache.myfaces.trinidad.skin;
 
 import java.util.MissingResourceException;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
-import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
-import org.apache.myfaces.trinidadinternal.style.StyleContext;
-
-
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
  * Defines the components (icons, styles, etc)

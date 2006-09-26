@@ -20,8 +20,8 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 
 /**

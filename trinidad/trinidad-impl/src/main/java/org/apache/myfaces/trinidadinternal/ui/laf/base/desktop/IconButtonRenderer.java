@@ -19,13 +19,13 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import java.io.IOException;
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Skin;
 
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * Base class for Icon-based button Renderers.  Renders an

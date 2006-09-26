@@ -42,8 +42,8 @@ import org.apache.myfaces.trinidad.component.UIXSelectMany;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
-import org.apache.myfaces.trinidadinternal.renderkit.FormData;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
 /**

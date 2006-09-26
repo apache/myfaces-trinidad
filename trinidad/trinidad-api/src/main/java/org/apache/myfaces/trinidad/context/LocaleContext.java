@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.trinidadinternal.share.nls;
+package org.apache.myfaces.trinidad.context;
 
 import java.util.Hashtable;
 import java.util.Locale;
@@ -22,7 +22,8 @@ import java.util.ResourceBundle;
 import java.util.TimeZone;
 
 /**
- * Context for locale-specific operations and properties.
+ * Context for locale-specific operations and properties available
+ * during rendering.
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/LocaleContext.java#0 $) $Date: 10-nov-2005.19:00:03 $
  * @author The Oracle ADF Faces Team

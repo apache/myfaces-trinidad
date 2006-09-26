@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package org.apache.myfaces.trinidadinternal.skin.icon;
+package org.apache.myfaces.trinidad.skin;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.Map;
 import javax.faces.context.FacesContext;
+
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
 
 /**
  * An object which represents a customizable icon that is capable of

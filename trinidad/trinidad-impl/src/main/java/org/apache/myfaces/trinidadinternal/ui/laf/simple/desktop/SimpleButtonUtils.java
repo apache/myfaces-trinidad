@@ -23,18 +23,18 @@ import java.io.IOException;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
 import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**

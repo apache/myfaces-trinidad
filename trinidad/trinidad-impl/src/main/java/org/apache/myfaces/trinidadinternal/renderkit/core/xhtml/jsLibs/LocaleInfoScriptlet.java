@@ -22,8 +22,8 @@ import java.util.Locale;
 
 import javax.faces.context.ResponseWriter;
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LocaleList;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;

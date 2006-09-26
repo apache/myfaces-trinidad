@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleNode;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetDocument;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.StyleSheetNode;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;

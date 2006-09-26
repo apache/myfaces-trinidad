@@ -20,7 +20,8 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * An Icon implementation that references another icon by name.

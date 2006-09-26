@@ -33,8 +33,8 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.render.TypedRenderer;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
 
@@ -86,42 +86,6 @@ public class XhtmlRenderer extends CoreRenderer
     _onmouseupKey = type.findKey("onmouseup");
 
     _partialTriggersKey = type.findKey("partialTriggers");
-  }
-
-  //
-  // AGENT CAPABILITY CONVENIENCE METHODS
-  //
-
-  static public boolean isDesktop(RenderingContext arc)
-  {
-    return (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
-  }
-
-  static public boolean isPDA(RenderingContext arc)
-  {
-    return (arc.getAgent().getType().equals(Agent.TYPE_PDA));
-  }
-
-  static public boolean isIE(RenderingContext arc)
-  {
-    return (arc.getAgent().getAgentName().equals(Agent.AGENT_IE));
-  }
-
-  static public boolean isGecko(RenderingContext arc)
-  {
-    return (arc.getAgent().getAgentName().equals(Agent.AGENT_GECKO));
-  }
-
-  static public boolean isInaccessibleMode(RenderingContext arc)
-  {
-    return (arc.getAccessibilityMode() ==
-            RequestContext.Accessibility.INACCESSIBLE);
-  }
-
-  static public boolean isScreenReaderMode(RenderingContext arc)
-  {
-    return (arc.getAccessibilityMode() ==
-            RequestContext.Accessibility.SCREEN_READER);
   }
 
   static public boolean supportsScripting(RenderingContext arc)
@@ -404,60 +368,6 @@ public class XhtmlRenderer extends CoreRenderer
     }
   }
 
-  /**
-   * Render a generic styleClass (not one derived from an attribute)
-   * @param context  the FacesContext
-   * @param styleClass the style class
-   */
-  static public void renderStyleClass(
-    FacesContext        context,
-    RenderingContext arc,
-    String              styleClass) throws IOException
-  {
-    if (styleClass != null)
-    {
-      styleClass = arc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class", styleClass, null);
-    }
-  }
-
-  /**
-   * Render an array of styleClasses as space-separated values.
-   * NOTE: the array is mutated during this method!
-   * @param context  the FacesContext
-   * @param styleClass the style class
-   */
-  static public void renderStyleClasses(
-    FacesContext        context,
-    RenderingContext arc,
-    String[]            styleClasses) throws IOException
-  {
-    int length = 0;
-    for (int i = 0; i < styleClasses.length; i++)
-    {
-      if (styleClasses[i] != null)
-      {
-        String styleClass = arc.getStyleClass(styleClasses[i]);
-        length += styleClass.length() + 1;
-        styleClasses[i] = styleClass;
-      }
-    }
-
-    StringBuffer buffer = new StringBuffer(length);
-    for (int i = 0; i < styleClasses.length; i++)
-    {
-      if (styleClasses[i] != null)
-      {
-        if (buffer.length() != 0)
-          buffer.append(' ');
-        buffer.append(styleClasses[i]);
-      }
-    }
-
-    context.getResponseWriter().writeAttribute("class", buffer.toString(), null);
-  }
-
-
 
   /**
    * Render all the Javascript attributes.
@@ -477,30 +387,6 @@ public class XhtmlRenderer extends CoreRenderer
     rw.writeAttribute("onmouseout", getOnmouseout(bean),  "onmouseout");
     rw.writeAttribute("onmouseover", getOnmouseover(bean),  "onmouseover");
     rw.writeAttribute("onmouseup", getOnmouseup(bean),  "onmouseup");
-  }
-
-  protected void renderEncodedActionURI(
-   FacesContext context,
-   String       name,
-   Object       value) throws IOException
-  {
-    if (value != null)
-    {
-      value = context.getExternalContext().encodeActionURL(value.toString());
-      context.getResponseWriter().writeURIAttribute(name, value, null);
-    }
-  }
-
-  protected void renderEncodedResourceURI(
-   FacesContext context,
-   String       name,
-   Object       value) throws IOException
-  {
-    if (value != null)
-    {
-      value = context.getExternalContext().encodeResourceURL(value.toString());
-      context.getResponseWriter().writeURIAttribute(name, value, null);
-    }
   }
 
 

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.image;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.config.Configuration;
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 

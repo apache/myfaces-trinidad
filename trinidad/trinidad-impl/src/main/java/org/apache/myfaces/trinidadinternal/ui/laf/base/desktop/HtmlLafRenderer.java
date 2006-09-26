@@ -22,14 +22,14 @@ import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 
 /**

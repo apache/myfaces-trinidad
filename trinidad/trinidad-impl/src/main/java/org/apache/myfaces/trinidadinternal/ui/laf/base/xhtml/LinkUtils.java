@@ -17,7 +17,7 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;

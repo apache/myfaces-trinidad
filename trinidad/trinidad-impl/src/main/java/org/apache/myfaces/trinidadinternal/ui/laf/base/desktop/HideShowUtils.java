@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 
 /**

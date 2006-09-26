@@ -19,6 +19,8 @@ package org.apache.myfaces.trinidadinternal.skin;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.myfaces.trinidad.skin.Skin;
+
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.cache.FileSystemStyleCache;

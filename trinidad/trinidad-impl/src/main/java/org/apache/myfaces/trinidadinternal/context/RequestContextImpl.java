@@ -57,9 +57,9 @@ import org.apache.myfaces.trinidadinternal.el.OracleHelpProvider;
 
 import org.apache.myfaces.trinidadinternal.metadata.RegionMetadata;
 
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
 import org.apache.myfaces.trinidadinternal.ui.expl.ColorPaletteUtils;

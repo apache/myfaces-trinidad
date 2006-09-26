@@ -27,8 +27,10 @@ import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXComponent;
+import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.RequestContext;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
 import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
@@ -509,5 +511,129 @@ public class CoreRenderer extends Renderer
     }
 
     return NO_CHILD_INDEX;
+  }
+
+
+  //
+  // AGENT CAPABILITY CONVENIENCE METHODS
+  //
+
+  static public boolean isDesktop(RenderingContext arc)
+  {
+    return (arc.getAgent().getType().equals(Agent.TYPE_DESKTOP));
+  }
+
+  static public boolean isPDA(RenderingContext arc)
+  {
+    return (arc.getAgent().getType().equals(Agent.TYPE_PDA));
+  }
+
+  static public boolean isIE(RenderingContext arc)
+  {
+    return (arc.getAgent().getAgentName().equals(Agent.AGENT_IE));
+  }
+
+  static public boolean isGecko(RenderingContext arc)
+  {
+    return (arc.getAgent().getAgentName().equals(Agent.AGENT_GECKO));
+  }
+
+  static public boolean isInaccessibleMode(RenderingContext arc)
+  {
+    return (arc.getAccessibilityMode() ==
+            RequestContext.Accessibility.INACCESSIBLE);
+  }
+
+  static public boolean isScreenReaderMode(RenderingContext arc)
+  {
+    return (arc.getAccessibilityMode() ==
+            RequestContext.Accessibility.SCREEN_READER);
+  }
+
+  //
+  // Rendering convenience methods.
+  //
+
+  protected void renderEncodedActionURI(
+   FacesContext context,
+   String       name,
+   Object       value) throws IOException
+  {
+    if (value != null)
+    {
+      value = context.getExternalContext().encodeActionURL(value.toString());
+      context.getResponseWriter().writeURIAttribute(name, value, null);
+    }
+  }
+
+  protected void renderEncodedResourceURI(
+   FacesContext context,
+   String       name,
+   Object       value) throws IOException
+  {
+    if (value != null)
+    {
+      value = context.getExternalContext().encodeResourceURL(value.toString());
+      context.getResponseWriter().writeURIAttribute(name, value, null);
+    }
+  }
+
+
+
+  /**
+   * Render a generic CSS styleClass (not one derived from an attribute).
+   * The styleclass will be passed through the RenderingContext
+   * getStyleClass() API.
+   * @param context  the FacesContext
+   * @param styleClass the style class
+   */
+  static public void renderStyleClass(
+    FacesContext        context,
+    RenderingContext arc,
+    String              styleClass) throws IOException
+  {
+    if (styleClass != null)
+    {
+      styleClass = arc.getStyleClass(styleClass);
+      context.getResponseWriter().writeAttribute("class", styleClass, null);
+    }
+  }
+
+  /**
+   * Render an array of CSS styleClasses as space-separated values.
+   * NOTE: the array is mutated during this method, and cannot
+   * be reused!  Each styleclass will be passed through the RenderingContext
+   * getStyleClass() API.
+   * @param context  the FacesContext
+   * @param styleClass the style class
+   */
+  static public void renderStyleClasses(
+    FacesContext        context,
+    RenderingContext arc,
+    String[]            styleClasses) throws IOException
+  {
+    int length = 0;
+    for (int i = 0; i < styleClasses.length; i++)
+    {
+      if (styleClasses[i] != null)
+      {
+        String styleClass = arc.getStyleClass(styleClasses[i]);
+        length += styleClass.length() + 1;
+        styleClasses[i] = styleClass;
+      }
+    }
+
+    StringBuilder builder = new StringBuilder(length);
+    for (int i = 0; i < styleClasses.length; i++)
+    {
+      if (styleClasses[i] != null)
+      {
+        if (builder.length() != 0)
+          builder.append(' ');
+        builder.append(styleClasses[i]);
+      }
+    }
+
+    context.getResponseWriter().writeAttribute("class", builder.toString(), null);
   }
 }
