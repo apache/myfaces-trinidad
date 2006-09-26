@@ -29,43 +29,24 @@
           <tr:commandLink immediate="true" text="Component Guide"
             action="guide"/>
           <tr:outputText
-            value="The group component is an invisible control that aggregates semantically-related children.
-The children of the group will not be displayed unless the parent of the group has specific support for displaying the grouped children.
-The panelForm is an example of one of the components that has support for grouping its children components.
-If you place panelForm child items inside of a group, separators will be drawn around the group of form items if adjacent to other form items (separators won't be drawn at the top if the group is the first item in the column or, similarly, at the bottom if the group is the last item in the column).
-Grouped panelForm items are kept in the same column of the panelForm even when the assigned rows attribute is set to a value smaller than the number of items in the group.
-The panelForm component also supports the group component in its footer facet so you can place more than one item in the footer.  You can even group footer items one additional time to get separators to appear."/>
+            value="The group component is an invisible control that aggregates semantically-related children; the group itself has no associated client representation (visual or API).
+Some parent components may have special representation for groups like adding separators around the group but this is a special case and is not always rendered this way.
+In most cases, only the children of the group will be rendered directly to the page.
+There will be no layout applied to the children so the natural layout behavior of the underlying HTML elements will apply.
+If you require a more predictable layout, you should use a layout component such as panelGroupLayout."/>
           <tr:outputText
-            value="This is a demo page for a panelForm (drawn with a thick red border) that uses various group components around its form items."/>
-          <tr:panelFormLayout labelWidth="50%" fieldWidth="50%" rows="6"
-            inlineStyle="border: 4px solid red;">
-            <tr:inputText columns="10" label="main item 1"/>
-            <tr:inputText columns="10" label="main item 2"/>
-            <tr:inputText columns="10" label="main item 3"/>
-            <tr:inputText columns="10" label="main item 4"/>
-            <tr:inputText columns="10" label="main item 5"/>
-            <tr:inputText columns="10" label="main item 6"/>
-            <tr:inputText columns="10" label="main item 7"/>
-            <tr:group binding="#{editor.component}">
-              <tr:inputText columns="10" label="grouped item 1"/>
-              <tr:inputText columns="10" label="grouped item 2"/>
-            </tr:group>
-            <tr:inputText columns="10" label="main item 8"/>
-            <tr:inputText columns="10" label="main item 9"/>
-            <tr:inputText columns="10" label="main item 10"/>
-            <f:facet name="footer">
-              <tr:group>
-                <tr:inputText columns="10" label="grouped footer item 1"/>
-                <tr:inputText columns="10" label="grouped footer item 2"/>
-                <tr:group>
-                  <tr:inputText columns="10" label="double grouped footer item 1"/>
-                  <tr:inputText columns="10" label="double grouped footer item 2"/>
-                </tr:group>
-                <tr:inputText columns="10" label="grouped footer item 3"/>
-                <tr:inputText columns="10" label="grouped footer item 4"/>
+            value="The following demo shows a vertical panelGroupLayout with a separator facet containing a
+group that has two images directly inside of it."/>
+          <tr:panelGroupLayout layout="vertical">
+            <f:facet name="separator">
+              <tr:group binding="#{editor.component}">
+                <tr:image shortDesc="File" source="/components/images/file.gif"/>
+                <tr:image shortDesc="Check" source="/components/images/processCheck.gif"/>
               </tr:group>
             </f:facet>
-          </tr:panelFormLayout>
+            <tr:outputText value="Item 1"/>
+            <tr:outputText value="Item 2"/>
+          </tr:panelGroupLayout>
           <jsp:directive.include file="editor.jspf"/>
         </tr:panelGroupLayout>
       </tr:form>
