@@ -395,6 +395,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    // http://issues.apache.org/jira/browse/ADFFACES-151
+    // Getting default converter for null value leads to exception but
+    // if value of component is null than there is no need to perform
+    // this method
+    if (getValue(bean) == null)
+      return;
+
     Converter converter = getConverter(bean);
     if ( converter == null)
       converter = getDefaultConverter(context, bean);
