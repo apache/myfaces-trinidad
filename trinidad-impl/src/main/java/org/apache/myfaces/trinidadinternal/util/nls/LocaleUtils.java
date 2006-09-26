@@ -17,7 +17,7 @@ package org.apache.myfaces.trinidadinternal.util.nls;
 
 import java.util.Locale;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 
 

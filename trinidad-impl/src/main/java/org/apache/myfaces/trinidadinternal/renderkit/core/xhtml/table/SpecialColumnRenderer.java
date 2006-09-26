@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 import javax.faces.component.UIComponent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ColumnRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 

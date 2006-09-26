@@ -37,7 +37,7 @@ import org.apache.myfaces.trinidadinternal.context.PageFlowScopeProviderImpl;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderKit;
 import org.apache.myfaces.trinidadinternal.share.url.EncoderUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * Entry point for the "fred" JSP.

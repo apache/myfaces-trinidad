@@ -24,7 +24,7 @@ import java.util.Map;
 import org.apache.myfaces.trinidadinternal.util.LRUCache;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 import org.apache.myfaces.trinidadinternal.style.util.FontProxy;
 

@@ -16,7 +16,7 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 
-import org.apache.myfaces.trinidadinternal.share.nls.LocaleContext;
+import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**
  * A  Skin class used when no skin is available, to avoid

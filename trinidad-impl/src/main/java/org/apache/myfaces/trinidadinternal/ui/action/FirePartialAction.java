@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;

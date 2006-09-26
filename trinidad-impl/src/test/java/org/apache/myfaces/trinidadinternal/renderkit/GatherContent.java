@@ -23,12 +23,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 
-import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 import junit.framework.Test;
 
+import org.apache.myfaces.trinidadinternal.io.ResponseWriterDecorator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 
 public class GatherContent extends UIComponentBase

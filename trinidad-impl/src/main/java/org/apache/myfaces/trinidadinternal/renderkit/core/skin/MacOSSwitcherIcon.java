@@ -24,8 +24,8 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.context.Agent;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * An Icon implementation which switches between a Mac OS-specific

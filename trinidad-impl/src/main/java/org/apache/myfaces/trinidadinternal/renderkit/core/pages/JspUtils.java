@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.pages;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.util.nls.StringUtils;
 
 /**

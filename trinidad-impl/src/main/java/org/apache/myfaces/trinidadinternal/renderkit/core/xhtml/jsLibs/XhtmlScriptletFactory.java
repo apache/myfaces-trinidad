@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  *

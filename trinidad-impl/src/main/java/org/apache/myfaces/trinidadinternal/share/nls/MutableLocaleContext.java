@@ -18,6 +18,8 @@ package org.apache.myfaces.trinidadinternal.share.nls;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import org.apache.myfaces.trinidad.context.LocaleContext;
+
 /**
  * Context for locale-specific operations and properties.  All of the properties
  * should initially default to those of the base Locale, while allowing

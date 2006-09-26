@@ -21,6 +21,8 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
 
 
 

@@ -18,7 +18,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * Scriptlet for defaulting the time zone.

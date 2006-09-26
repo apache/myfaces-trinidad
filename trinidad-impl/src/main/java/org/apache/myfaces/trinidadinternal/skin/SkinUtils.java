@@ -22,7 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletContext;
 import javax.xml.parsers.SAXParserFactory;
+
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidad.skin.SkinFactory;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
+
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalDesktopSkinExtension;
 import org.apache.myfaces.trinidadinternal.renderkit.core.skin.MinimalPdaSkinExtension;
@@ -43,12 +49,6 @@ import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 
 import org.apache.myfaces.trinidadinternal.style.Style;
-
-
-
-
-
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
 
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconNode;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.parse.IconParserFactory;

@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;

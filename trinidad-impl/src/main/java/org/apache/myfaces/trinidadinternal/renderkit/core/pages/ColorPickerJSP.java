@@ -35,7 +35,7 @@ import org.apache.myfaces.trinidad.component.html.HtmlScript;
 import org.apache.myfaces.trinidad.component.html.HtmlTableLayout;
 
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 /**
  * Entry point for the "colorPicker" JSP.

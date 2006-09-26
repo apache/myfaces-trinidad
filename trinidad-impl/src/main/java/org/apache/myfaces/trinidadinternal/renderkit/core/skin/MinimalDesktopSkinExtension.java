@@ -17,7 +17,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.skin;
 
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
-import org.apache.myfaces.trinidadinternal.skin.Skin;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 
 /**

@@ -21,6 +21,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
 
+import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;

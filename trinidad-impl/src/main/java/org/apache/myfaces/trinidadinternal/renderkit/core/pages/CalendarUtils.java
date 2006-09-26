@@ -23,7 +23,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.input.CoreChooseDate;
 
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 
 /**

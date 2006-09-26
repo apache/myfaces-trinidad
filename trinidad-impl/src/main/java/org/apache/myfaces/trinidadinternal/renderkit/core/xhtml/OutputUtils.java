@@ -28,8 +28,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.util.ArrayMap;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.skin.Icon;
 
 /**
  * Utilities for miscellaneous HTML output.

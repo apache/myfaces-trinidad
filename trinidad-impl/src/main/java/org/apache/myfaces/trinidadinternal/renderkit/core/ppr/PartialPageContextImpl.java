@@ -25,7 +25,7 @@ import java.util.Stack;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidadinternal.context.RequestContextImpl;
-import org.apache.myfaces.trinidadinternal.renderkit.PartialPageContext;
+import org.apache.myfaces.trinidad.context.PartialPageContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 

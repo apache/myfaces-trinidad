@@ -34,8 +34,8 @@ import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
-import org.apache.myfaces.trinidadinternal.renderkit.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResourceKeyUtils;
@@ -52,7 +52,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeNodeCo
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableNavRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidadinternal.skin.icon.Icon;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
