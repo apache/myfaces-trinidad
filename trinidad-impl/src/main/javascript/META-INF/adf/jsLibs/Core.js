@@ -2545,12 +2545,12 @@ function _createFacesMessage(
   // format the detail error string
   if (detail != null)
   {
-    detail = FastMessageFormatUtils.format(detail, label, value, param2, param3);
+    detail = TrFastMessageFormatUtils.format(detail, label, value, param2, param3);
   }
   
-  return new FacesMessage(summary, 
+  return new TrFacesMessage(summary, 
                           detail, 
-                          FacesMessage.SEVERITY_ERROR);
+                          TrFacesMessage.SEVERITY_ERROR);
 }
 
 function _getGlobalErrorString(
@@ -2812,12 +2812,12 @@ function _getErrorString(
   var value = _getValue(input);
 
   // use the message embedded in the validationError, if any
-  if (_instanceof(validationError, window["ConverterException"]))
+  if (_instanceof(validationError, window["TrConverterException"]))
   {
     errorFormat = validationError.getFacesMessage().getDetail();
   }
   // use the message embedded in the validationError, if any
-  else if (_instanceof(validationError, window["ValidatorException"]))
+  else if (_instanceof(validationError, window["TrValidatorException"]))
   {
     errorFormat = validationError.getFacesMessage().getDetail();
   }

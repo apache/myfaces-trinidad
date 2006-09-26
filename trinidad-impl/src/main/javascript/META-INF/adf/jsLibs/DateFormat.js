@@ -117,7 +117,7 @@ function _simpleDateParseImpl(
   parseContext.parsedFullYear = (void 0);
   parseContext.parsedMonth = (void 0);
   parseContext.parsedDate = (void 0);
-  parseContext.parseException = new ConverterException( msg);
+  parseContext.parseException = new TrConverterException( msg);
 
   var parsedTime = new Date(0);
   parsedTime.setDate(1);
@@ -1279,6 +1279,6 @@ function SimpleDateFormat(
   this._pattern = patterns;
 }
 
-SimpleDateFormat.prototype = new Converter();
+SimpleDateFormat.prototype = new TrConverter();
 SimpleDateFormat.prototype.getAsString = _simpleDateFormat;
 SimpleDateFormat.prototype.getAsObject  = _simpleDateParse;

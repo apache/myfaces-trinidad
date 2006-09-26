@@ -46,20 +46,20 @@ function ssnGetAsObject(value, label)
     var detail = this._messages[messageKey];
     if (detail != null)
     {
-      detail = FastMessageFormatUtils.format(detail, label, value);
+      detail = TrFastMessageFormatUtils.format(detail, label, value);
     }
   
-    var facesMessage = new FacesMessage(
+    var facesMessage = new TrFacesMessage(
                         this._messages[SSNConverter.SUMMARY],
                         detail,
-                        FacesMessage.SEVERITY_ERROR)
-   throw new ConverterException(facesMessage);
+                        TrFacesMessage.SEVERITY_ERROR)
+   throw new TrConverterException(facesMessage);
  }
  return null;
 }
 function SSNConverter(messages)
   {this._messages = messages;}
-SSNConverter.prototype = new Converter();
+SSNConverter.prototype = new TrConverter();
 SSNConverter.prototype.getAsString = ssnGetAsString;
 SSNConverter.prototype.getAsObject = ssnGetAsObject;
 SSNConverter.SUMMARY = 'SUM';

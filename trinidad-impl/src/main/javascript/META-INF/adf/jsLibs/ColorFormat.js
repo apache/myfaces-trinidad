@@ -102,7 +102,7 @@ function _rgbColorParseImpl(
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
-  parseContext.parseException = new ConverterException(msg);
+  parseContext.parseException = new TrConverterException(msg);
   
   var parsedColor = new Color(0x00, 0x00, 0x00);
 
@@ -581,7 +581,7 @@ function RGBColorFormat(
   this._pattern = pattern;
 }
 
-RGBColorFormat.prototype = new Converter();
+RGBColorFormat.prototype = new TrConverter();
 RGBColorFormat.prototype.getAsString = _rgbColorFormat;
 RGBColorFormat.prototype.getAsObject  = _rgbColorParse;
 
