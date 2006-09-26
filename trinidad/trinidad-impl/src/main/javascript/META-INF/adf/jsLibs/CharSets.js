@@ -28,7 +28,7 @@ function EncodingFormat(
   this._class    = "EncodingFormat";
 }
 
-EncodingFormat.prototype = new Validator();
+EncodingFormat.prototype = new TrValidator();
 
 //LFS - Length failed summary
 EncodingFormat.prototype.LFS  = "LFS";
@@ -55,7 +55,7 @@ function _cjkParse(
                                               this._messages[this.LF],
                                               label,
                                               parseString);   
-      throw new ValidatorException(facesMessage);     
+      throw new TrValidatorException(facesMessage);     
     }
 
     i++;
@@ -108,7 +108,7 @@ function _utf8Parse(
                                               this._messages[this.LF],
                                               label,
                                               parseString);   
-      throw new ValidatorException(facesMessage);              
+      throw new TrValidatorException(facesMessage);              
     }
 
     i++;
@@ -145,7 +145,7 @@ function _sbParse(
                                             this._messages[this.LF],
                                             label,
                                             parseString);   
-    throw new ValidatorException(facesMessage);      
+    throw new TrValidatorException(facesMessage);      
   }
 
   return parseString;

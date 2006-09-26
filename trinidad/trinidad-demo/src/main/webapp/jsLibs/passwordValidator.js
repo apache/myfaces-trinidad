@@ -37,11 +37,11 @@ function passwordValidate(value)
   
   if (hasNumber == false)
   {
-    var facesMessage = new FacesMessage(
+    var facesMessage = new TrFacesMessage(
                         this._messages[PasswordValidator.NUMBER_SUMMARY],
                         this._messages[PasswordValidator.NUMBER_DETAIL],
-                        FacesMessage.SEVERITY_ERROR)
-    throw new ValidatorException(facesMessage);
+                        TrFacesMessage.SEVERITY_ERROR)
+    throw new TrValidatorException(facesMessage);
   }
     
   return null;
@@ -49,7 +49,7 @@ function passwordValidate(value)
 
 function PasswordValidator(messages)
   {this._messages = messages;}
-PasswordValidator.prototype = new Validator();
+PasswordValidator.prototype = new TrValidator();
 PasswordValidator.prototype.validate = passwordValidate;
 PasswordValidator.NUMBER_DETAIL = 'ND'; 
 PasswordValidator.NUMBER_SUMMARY = 'NS'; 

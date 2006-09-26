@@ -18,10 +18,10 @@
 
     <section name="Introduction">
       <P>
-      One of the benefits of Apache Trinidad is that it supports client-side versions of converters and validators. This means that errors can be caught on the client and a round trip avoided. This chapter will explain how a developer can write their own converters and validators in such a way to take advantage of this feature. This chapter assumes knowledge of JSF converters and validators, so please make sure you understand how they work before continuing.
+      One of the benefits of Apache Trinidad is that it supports client-side versions of converters and validators. This means that errors can be caught on the client and a round trip avoided. This chapter will explain how a developer can write their own converters and validators in such a way to take advantage of this feature. This chapter assumes knowledge of JSF converters and validators, so please make sure you understand how they work before continuing. Also note that javascript objects in Trinidad are prefixed with "Tr" in order to avoid name collisions.
       </P>
       <p>
-      The basic idea of Apache Trinidad client conversion and validation is that it works on the client in a very similar way to how it works on the server, except the language on the client is javascript instead of java. There are javascript Converter objects that support the methods getAsString() and getAsObject(). A Converter can throw a ConverterException. There are javascript Validator objects that support the validate() method. A Validator can throw a ValidatorException. 
+      The basic idea of Apache Trinidad client conversion and validation is that it works on the client in a very similar way to how it works on the server, except the language on the client is javascript instead of java. There are javascript converter objects that support the methods getAsString() and getAsObject(). A TrConverter can throw a TrConverterException. There are javascript validator objects that support the validate() method. A TrValidator can throw a TrValidatorException. 
       </p>
     </section>
 
@@ -37,7 +37,7 @@
  * as the context and component are not passed to the getAsString or getAsObject method 
  *
  */
-function Converter()
+function TrConverter()
 {
 }
 
@@ -48,7 +48,7 @@ function Converter()
  * @param value Model object value to be converted 
  * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsString = function(value, label){}
+TrConverter.prototype.getAsString = function(value, label){}
 
 /**
  * Convert the specified string value into a model data object 
@@ -57,10 +57,10 @@ Converter.prototype.getAsString = function(value, label){}
  * @param value String value to be converted 
  * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsObject = function(value, label){}
+TrConverter.prototype.getAsObject = function(value, label){}
 
 </source>
-Converters can throw a ConverterException, which should contain a facesMessage. Here is the signature for FacesMessage:
+TrConverters can throw a TrConverterException, which should contain a TrFacesMessage. Here is the signature for TrFacesMessage:
 <source>
 /**
  * Message similar to javax.faces.application.FacesMessage
@@ -72,23 +72,23 @@ Converters can throw a ConverterException, which should contain a facesMessage. 
  *                   SEVERITY_FATAL from the FacesMessage class.  Default is
  *                   SEVERITY_INFO
  */
-function FacesMessage(
+function TrFacesMessage(
   summary,
   detail,
   severity
   )
 </source>
-Here is the signature for ConverterException:
+Here is the signature for TrConverterException:
 <source>
 /** 
- * ConverterException is an exception thrown by the getAsObject() or getAsString() 
+ * TrConverterException is an exception thrown by the getAsObject() or getAsString() 
  * method of a Converter, to indicate that the requested conversion cannot be performed.
  *
- * @param facesMessage the FacesMessage associated with this exception
+ * @param facesMessage the TrFacesMessage associated with this exception
  * @param summary Localized summary message text, used to create only if facesMessage is null
  * @param detail Localized detail message text, used only if facesMessage is null
  */
-function ConverterException(
+function TrConverterException(
   facesMessage, 
   summary,
   detail
@@ -100,7 +100,7 @@ Another useful API can be used to format messages.
 
 <source>
 /**
- * FastMessageFormatUtils is a greatly reduced version
+ * TrFastMessageFormatUtils is a greatly reduced version
  * of the java.text.MessageFormat class, but delivered as a utility. 
  * &lt;p&gt;
  * The only syntax supported by this class is simple index-based
@@ -117,7 +117,7 @@ Another useful API can be used to format messages.
  *     some'{'text{0}
  * &lt;/pre&gt;
  */
-function FastMessageFormatUtils()
+function TrFastMessageFormatUtils()
 
  /**
   * Formats the given array of strings based on the initial
@@ -126,7 +126,7 @@ function FastMessageFormatUtils()
   * @param {any...:undefined} Varargs objects to substitute for positional parameters.
   * Each parameter will be converted to a String and substituted into the format.
   */
-FastMessageFormatUtils.format = function(
+TrFastMessageFormatUtils.format = function(
   formatString, // error format string with embedded indexes to be replaced
   parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
   )
@@ -170,20 +170,20 @@ FastMessageFormatUtils.format = function(
           var detail = this._messages[messageKey];
           if (detail != null)
           {
-            detail = FastMessageFormatUtils.format(detail, label, value);
+            detail = TrFastMessageFormatUtils.format(detail, label, value);
           }
         
-          var facesMessage = new FacesMessage(
+          var facesMessage = new TrFacesMessage(
                               this._messages[SSNConverter.SUMMARY],
                               detail,
-                              FacesMessage.SEVERITY_ERROR)
-         throw new ConverterException(facesMessage);
+                              TrFacesMessage.SEVERITY_ERROR)
+         throw new TrConverterException(facesMessage);
        }
        return null;
       }
       function SSNConverter(messages)
         {this._messages = messages;}
-      SSNConverter.prototype = new Converter();
+      SSNConverter.prototype = new TrConverter();
       SSNConverter.prototype.getAsString = ssnGetAsString;
       SSNConverter.prototype.getAsObject = ssnGetAsObject;
       SSNConverter.SUMMARY = 'SUM';
@@ -295,7 +295,7 @@ FastMessageFormatUtils.format = function(
     
     <section name="Client-side Validators">
       <P> 
-      The general idea of writing client validators is almost exactly the same as writing client converters. Let's say you've written a javax.faces.validator.Validator implementation and now you want to add client-side validation. The first thing to do is write a version of the validator in javascript. Here is the javascript code for the Validator "interface".
+      The general idea of writing client validators is almost exactly the same as writing client converters. Let's say you've written a javax.faces.validator.Validator implementation and now you want to add client-side validation. The first thing to do is write a version of the validator in javascript. Here is the javascript code for the TrValidator "interface".
       <source>
 /**
  * Validator "interface" similar to javax.faces.validator.Validator,
@@ -303,7 +303,7 @@ FastMessageFormatUtils.format = function(
  * as the context and component are not passed to the validate method 
  *
  */
-function Validator()
+function TrValidator()
 
 /**
  * Perform the correctness checks implemented by this Validator. 
@@ -312,20 +312,20 @@ function Validator()
  * @param value value to be validated 
  * @param label label to identify the editableValueHolder to the user
  */
-Validator.prototype.validate = function(value, label){}
+TrValidator.prototype.validate = function(value, label){}
       </source>
       
-      The validator can throw javascript ValidatorException objects:
+      The validator can throw javascript TrValidatorException objects:
 <source>      
 /**
- * A ValidatorException is an exception thrown by the validate() method of 
+ * A TrValidatorException is an exception thrown by the validate() method of 
  * a Validator to indicate that validation failed.
  *
  * @param facesMessage the FacesMessage associated with this exception
  * @param summary Localized summary message text, used only if facesMessage is null
  * @param detail Localized detail message text, used only if facesMessage is null
  */
-function ValidatorException(
+function TrValidatorException(
   facesMessage,
   summary, 
   detail

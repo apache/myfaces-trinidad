@@ -37,7 +37,7 @@ function _decimalParse(
                                         messages[DecimalFormat.D],
                                         label,
                                         numberString);
-    throw new ConverterException(facesMessage);
+    throw new TrConverterException(facesMessage);
   }
        
 
@@ -54,7 +54,7 @@ function _decimalParse(
                                         messages[DecimalFormat.D],
                                         label,
                                         numberString);
-      throw new ConverterException(facesMessage);
+      throw new TrConverterException(facesMessage);
     }
 
     // Remove the thousands separator - which Javascript doesn't want to see
@@ -127,14 +127,14 @@ function _decimalParse(
           
           if ((messages == (void 0)) ||
               (messages[messageKey] == (void 0)))
-            throw  new ConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
+            throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
           else
           {
             facesMessage =  _createFacesMessage( messages[(messageKey + '_S')],
                                         messages[messageKey],
                                         label,
                                         numberString);
-            throw new ConverterException(facesMessage);
+            throw new TrConverterException(facesMessage);
           }
         }
         
@@ -147,7 +147,7 @@ function _decimalParse(
                                         messages[DecimalFormat.D],
                                         label,
                                         numberString);
-  throw new ConverterException(facesMessage);
+  throw new TrConverterException(facesMessage);
 }
 
 function _decimalGetAsObject(
@@ -181,7 +181,7 @@ function DecimalFormat(
   this._class = "DecimalFormat";
 }
 
-DecimalFormat.prototype = new Converter();
+DecimalFormat.prototype = new TrConverter();
 DecimalFormat.prototype.getAsString  = _decimalGetAsString;
 DecimalFormat.prototype.getAsObject  = _decimalGetAsObject;
 
@@ -219,7 +219,7 @@ function _decimalValidate(
   }
   catch (e)
   {
-    throw new ValidatorException(e.getFacesMessage());
+    throw new TrValidatorException(e.getFacesMessage());
   }
 }
 
@@ -240,7 +240,7 @@ function DecimalValidator(
   this._class = "DecimalValidator";
 }
 
-DecimalValidator.prototype = new Validator();
+DecimalValidator.prototype = new TrValidator();
 DecimalValidator.prototype.validate  = _decimalValidate;
 
 
@@ -266,7 +266,7 @@ function _regExpParse(
                                             label,
                                             parseString,
                                             this._pattern);                                          
-    throw new ValidatorException(facesMessage); 
+    throw new TrValidatorException(facesMessage); 
   }
 }
 
@@ -286,5 +286,5 @@ RegExpFormat.NM = 'NM';
 // no match pattern summary
 RegExpFormat.NMS = 'NMS';
 
-RegExpFormat.prototype = new Validator();
+RegExpFormat.prototype = new TrValidator();
 RegExpFormat.prototype.validate  = _regExpParse;

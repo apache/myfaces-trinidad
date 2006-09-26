@@ -554,10 +554,10 @@ LocaleSymbols.prototype.getLocaleElements = _getLocaleElements;
  * as the context and component are not passed to the getAsString or getAsObject method 
  *
  */
-function Converter()
+function TrConverter()
 {
   // for debugging
-  this._class = "Converter";
+  this._class = "TrConverter";
 }
 
 /**
@@ -566,7 +566,7 @@ function Converter()
  * @param value Model object value to be converted 
  * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsString = function(value, label){}
+TrConverter.prototype.getAsString = function(value, label){}
 
 /**
  * Convert the specified string value into a model data object 
@@ -575,7 +575,7 @@ Converter.prototype.getAsString = function(value, label){}
  * @param value String value to be converted 
  * @param label label to identify the editableValueHolder to the user 
  */
-Converter.prototype.getAsObject = function(value, label){}
+TrConverter.prototype.getAsObject = function(value, label){}
 
 
 /**
@@ -584,31 +584,31 @@ Converter.prototype.getAsObject = function(value, label){}
  * as the context and component are not passed to the validate method 
  *
  */
-function Validator()
+function TrValidator()
 {
   // for debugging
-  this._class = "Validator";
+  this._class = "TrValidator";
 }
 
 /**
  * Perform the correctness checks implemented by this Validator. 
- * If any violations are found, a ValidatorException will be thrown 
- * containing the FacesMessage describing the failure. 
+ * If any violations are found, a TrValidatorException will be thrown 
+ * containing the TrFacesMessage describing the failure. 
  * @param value value to be validated 
  * @param label label to identify the editableValueHolder to the user
  */
-Validator.prototype.validate = function(value, label){}
+TrValidator.prototype.validate = function(value, label){}
 
 
 /** 
- * ConverterException is an exception thrown by the getAsObject() or getAsString() 
- * method of a Converter, to indicate that the requested conversion cannot be performed.
+ * TrConverterException is an exception thrown by the getAsObject() or getAsString() 
+ * method of a TrConverter, to indicate that the requested conversion cannot be performed.
  *
- * @param facesMessage the FacesMessage associated with this exception
+ * @param facesMessage the TrFacesMessage associated with this exception
  * @param summary Localized summary message text, used only if facesMessage is null
  * @param detail Localized detail message text, used only if facesMessage is null
  */
-function ConverterException(
+function TrConverterException(
   facesMessage, 
   summary,
   detail
@@ -617,9 +617,9 @@ function ConverterException(
   
   if (facesMessage == null)
   {
-      this._facesMessage = new FacesMessage(summary, 
+      this._facesMessage = new TrFacesMessage(summary, 
                                             detail,
-                                            FacesMessage.SEVERITY_ERROR);
+                                            TrFacesMessage.SEVERITY_ERROR);
   }
   else
   {
@@ -630,9 +630,9 @@ function ConverterException(
 }
 
 /**
- * Returns the FacesMessage associated with the exception.
+ * Returns the TrFacesMessage associated with the exception.
  */
-ConverterException.prototype.getFacesMessage = 
+TrConverterException.prototype.getFacesMessage = 
     function()
     {
       return this._facesMessage;
@@ -641,14 +641,14 @@ ConverterException.prototype.getFacesMessage =
 
 
 /**
- * A ValidatorException is an exception thrown by the validate() method of 
+ * A TrValidatorException is an exception thrown by the validate() method of 
  * a Validator to indicate that validation failed.
  *
- * @param facesMessage the FacesMessage associated with this exception
+ * @param facesMessage the TrFacesMessage associated with this exception
  * @param summary Localized summary message text, used only if facesMessage is null
  * @param detail Localized detail message text, used only if facesMessage is null
  */
-function ValidatorException(
+function TrValidatorException(
   facesMessage,
   summary, 
   detail
@@ -657,9 +657,9 @@ function ValidatorException(
   
   if (facesMessage == null)
   {
-      this._facesMessage = new FacesMessage(summary, 
+      this._facesMessage = new TrFacesMessage(summary, 
                                             detail,
-                                            FacesMessage.SEVERITY_ERROR);
+                                            TrFacesMessage.SEVERITY_ERROR);
   }
   else
   {
@@ -669,9 +669,9 @@ function ValidatorException(
 
 
 /**
- * Returns the FacesMessage associated with the exception.
+ * Returns the TrFacesMessage associated with the exception.
  */
-ValidatorException.prototype.getFacesMessage = 
+TrValidatorException.prototype.getFacesMessage = 
   function()
   {
     return this._facesMessage;
@@ -687,7 +687,7 @@ ValidatorException.prototype.getFacesMessage =
  *                   SEVERITY_FATAL from the FacesMessage class.  Default is
  *                   SEVERITY_INFO
  */
-function FacesMessage(
+function TrFacesMessage(
   summary,
   detail,
   severity
@@ -698,7 +698,7 @@ function FacesMessage(
   
   if(severity == null)
   {
-    this._severity = FacesMessage.SEVERITY_INFO;
+    this._severity = TrFacesMessage.SEVERITY_INFO;
   }
   else
   {
@@ -706,31 +706,31 @@ function FacesMessage(
   }
 }
 
-FacesMessage.SEVERITY_INFO    = 0;
-FacesMessage.SEVERITY_WARN    = 1;
-FacesMessage.SEVERITY_ERROR   = 2;
-FacesMessage.SEVERITY_FATAL   = 3;
+TrFacesMessage.SEVERITY_INFO    = 0;
+TrFacesMessage.SEVERITY_WARN    = 1;
+TrFacesMessage.SEVERITY_ERROR   = 2;
+TrFacesMessage.SEVERITY_FATAL   = 3;
 
-FacesMessage._SEVERITY_DEFAULT = FacesMessage.SEVERITY_INFO;
+TrFacesMessage._SEVERITY_DEFAULT = TrFacesMessage.SEVERITY_INFO;
  
-FacesMessage.prototype.getDetail = 
+TrFacesMessage.prototype.getDetail = 
   function()
   {
     return this._detail;
   }
-FacesMessage.prototype.getSummary = 
+TrFacesMessage.prototype.getSummary = 
   function()
   {
     return this._summary;
   }
-FacesMessage.prototype.setDetail = 
+TrFacesMessage.prototype.setDetail = 
   function(
     detail
     )
   {
     this._detail = detail;
   }
-FacesMessage.prototype.setSummary = 
+TrFacesMessage.prototype.setSummary = 
   function(
     summary
     )
@@ -738,13 +738,13 @@ FacesMessage.prototype.setSummary =
     this._summary = summary;
   }
 
-FacesMessage.prototype.getSeverity =
+TrFacesMessage.prototype.getSeverity =
   function()
   {
     return this._severity;
   }
     
-FacesMessage.prototype.setSeverity =
+TrFacesMessage.prototype.setSeverity =
   function(
     severity
   )
@@ -754,7 +754,7 @@ FacesMessage.prototype.setSeverity =
 
 
 /**
- * FastMessageFormatUtils is a greatly reduced version
+ * TrFastMessageFormatUtils is a greatly reduced version
  * of the java.text.MessageFormat class, but delivered as a utility. 
  * <p>
  * The only syntax supported by this class is simple index-based
@@ -771,9 +771,7 @@ FacesMessage.prototype.setSeverity =
  *     some'{'text{0}
  * </pre>
  */
-function FastMessageFormatUtils()
-{
-}
+var TrFastMessageFormatUtils = new Object();
 
  /**
   * Formats the given array of strings based on the initial
@@ -782,7 +780,7 @@ function FastMessageFormatUtils()
   * @param {any...:undefined} Varargs objects to substitute for positional parameters.
   * Each parameter will be converted to a String and substituted into the format.
   */
-FastMessageFormatUtils.format = function(
+TrFastMessageFormatUtils.format = function(
   formatString, // error format string with embedded indexes to be replaced
   parameters    // {any...:undefined} Varargs objects to substitute for positional parameters.
   )
