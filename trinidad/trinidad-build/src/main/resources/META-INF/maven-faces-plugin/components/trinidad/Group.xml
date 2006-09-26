@@ -21,8 +21,11 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[Group is the base abstraction for components that contain
-a group of semantically-related children.]]>
+    <description><![CDATA[The group component is an invisible control that aggregates semantically-related children; the group itself has no associated client representation (visual or API).
+Some parent components may have special representation for groups like adding separators around the group but this is a special case and is not always rendered this way.
+In most cases, only the children of the group will be rendered directly to the page.
+There will be no layout applied to the children so the natural layout behavior of the underlying HTML elements will apply.
+If you require a more predictable layout, you should use a layout component such as panelGroupLayout.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/group.png</small-icon>
@@ -32,12 +35,31 @@ a group of semantically-related children.]]>
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.Group</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.ComponentBase</mfp:component-supertype>
+      <mfp:tag-name>tr:group</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXGroupTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[Group is the base abstraction for components that contain
-a group semantically-related children.]]>
+      <mfp:long-description><![CDATA[The group component is an invisible control that aggregates semantically-related children; the group itself has no associated client representation (visual or API).
+Some parent components may have special representation for groups like adding separators around the group but this is a special case and is not always rendered this way.
+In most cases, only the children of the group will be rendered directly to the page.
+There will be no layout applied to the children so the natural layout behavior of the underlying HTML elements will apply.
+If you require a more predictable layout, you should use a layout component such as panelGroupLayout.]]>
       </mfp:long-description>
+      <mfp:example>
+        <mfp:source-code><![CDATA[
+          <tr:panelFormLayout labelWidth="33%" fieldWidth="67%">
+  <tr:inputText label="non-group item 1"/>
+  <tr:group>
+    <tr:inputText label="group item 1"/>
+    <tr:inputText label="group item 2"/>
+    <tr:inputText label="group item 3"/>
+  </tr:group>
+  <tr:inputText label="non-group item 2"/>
+</tr:panelFormLayout>]]>
+        </mfp:source-code>
+      </mfp:example>
       <mfp:author>Matt Cooper</mfp:author>
-      <mfp:tag-class-modifier>abstract</mfp:tag-class-modifier>
+      <mfp:component-metadata>
+        <mfp:group>${md:getTranslatedString("PALETTE_OTHER")}</mfp:group>
+      </mfp:component-metadata>
     </component-extension>
   </component>
 </faces-config>
