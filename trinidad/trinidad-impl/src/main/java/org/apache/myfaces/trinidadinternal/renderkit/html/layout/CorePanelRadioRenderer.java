@@ -23,8 +23,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.component.UIXShowDetail;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -187,7 +189,11 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
                                             compId,
                                             childClientId,
                                             isImmediate);
-        out.writeAttribute("onclick", submitJS, null);
+        //PH:onclick javascript handler for a HTML SPAN element is not supported
+        //on PIE, IE Mobile or Blackberry 4.0. Therefore, create onclick 
+        //javascript for non-PDAs only.
+        if(!CoreRenderer.isPDA(RenderingContext.getCurrentInstance()))
+          out.writeAttribute("onclick", submitJS, null);
       }
 
       // render the radio button now
@@ -195,7 +201,22 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
       out.writeAttribute("id", childClientId, null);
       out.writeAttribute("value", childClientId, null);
       out.writeAttribute("name", compId, null);
-
+        
+      //PH: onclick javascript handler for an INPUT element is supported on a 
+      //PDA. Therefore, create javascript for onclick on an INPUT element 
+      //instead of a SPAN element.
+      if(CoreRenderer.isPDA(RenderingContext.getCurrentInstance()))
+      {
+         boolean isImmediate = detailItem.isImmediate();
+         String submitJS = _getRadioSubmitJS(component,
+                                             rCtx,
+                                             formName,
+                                             compId,
+                                             childClientId,
+                                             isImmediate);
+         out.writeAttribute("onclick", submitJS, null);
+      }
+      
       if (disabled)
       {
         out.writeAttribute("disabled", Boolean.TRUE, null);
@@ -275,20 +296,39 @@ public class CorePanelRadioRenderer extends ShowOneListRendererBase
     boolean pprEnabled = elementSupportsPartial(rCtx, compId);
     if (pprEnabled)
     {
-      String encodedPartialTargets =
-        ShowOneUtils.getEncodedPartialTargets(component, compId);
-      StringBuffer jsBuff = new StringBuffer(220);
-      jsBuff.append("_submitPartialChange('")
-            .append(formName)
-            .append("',")
-            .append(validate)
-            .append(", {partialTargets:'")
-            .append(encodedPartialTargets)
-            .append("', event:'show',source:'")
-            .append(detailChildId)
-            .append("'});return true;");
-
-      onClickHandler = jsBuff.toString();
+      //PH:If agent is of type PDA, call submitForm instead of doing a full
+      //page submission since PPR on this component is not supported although
+      //pprEnabled is true for PIE and IE Mobile
+      if(CoreRenderer.isPDA(RenderingContext.getCurrentInstance())) 
+      {
+        StringBuffer jsBuff = new StringBuffer(135);
+        jsBuff.append("submitForm('")
+              .append(formName)
+              .append("',")
+              .append(validate)
+              .append(",{event:'show',source:'")
+              .append(detailChildId)
+              .append("'});return true;");
+              
+        onClickHandler = jsBuff.toString();          
+      }
+      else
+      {
+        String encodedPartialTargets =
+          ShowOneUtils.getEncodedPartialTargets(component, compId);
+        StringBuffer jsBuff = new StringBuffer(220);
+        jsBuff.append("_submitPartialChange('")
+              .append(formName)
+              .append("',")
+              .append(validate)
+              .append(", {partialTargets:'")
+              .append(encodedPartialTargets)
+              .append("', event:'show',source:'")
+              .append(detailChildId)
+              .append("'});return true;");
+    
+        onClickHandler = jsBuff.toString();
+      }
     }
     else
     {

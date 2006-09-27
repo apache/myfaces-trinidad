@@ -259,7 +259,8 @@ public class FormRenderer extends XhtmlRenderer
     //VAC this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
-    if (!isPIE)
+    //PH:include condition that browser is not blackberry
+    if (!isPDA(arc))
     {
       _renderNeededValues(context, arc);
     }
@@ -278,7 +279,8 @@ public class FormRenderer extends XhtmlRenderer
     //this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
-    if (isPIE && pprImpl == null)
+    //PH: also include blackberry browser in this condition
+    if (isPDA(arc) && pprImpl == null)
     {
       //PH: Add hidden elements in the form for enabling PPR on IE Mobile.
 
@@ -293,10 +295,16 @@ public class FormRenderer extends XhtmlRenderer
         FormData formData = arc.getFormData();
         if(formData != null)
         {
-          formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-          formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-          formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
-          formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+          //PH: add needed values for PIE to enable PPR.
+          if(isPIE)
+          {
+            formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
+            formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
+            formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
+          }
+          else
+          //PH:add needed values for blackberry.
+            formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
         }
       }
 

@@ -71,6 +71,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -100,12 +101,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -135,12 +136,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -251,6 +252,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -280,12 +282,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -315,12 +317,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -431,6 +433,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -460,12 +463,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -495,12 +498,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -611,6 +614,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -640,12 +644,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -675,12 +679,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -791,6 +795,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -820,12 +825,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -855,12 +860,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -971,6 +976,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1000,12 +1006,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1035,12 +1041,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1151,6 +1157,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1180,12 +1187,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1215,12 +1222,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1331,6 +1338,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1360,12 +1368,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1395,12 +1403,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1511,6 +1519,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1540,12 +1549,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1575,12 +1584,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1691,6 +1700,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1720,12 +1730,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1755,12 +1765,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1871,6 +1881,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1900,12 +1911,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -1935,12 +1946,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2050,6 +2061,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="sDetailId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2079,12 +2091,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'sDetailId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="sDetailId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2114,12 +2126,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'sDetailId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="sDetailId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2230,6 +2242,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2259,12 +2272,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2294,12 +2307,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2410,6 +2423,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2439,12 +2453,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2474,12 +2488,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2589,6 +2603,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2618,12 +2633,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2653,12 +2668,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2768,6 +2783,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2797,12 +2813,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2832,12 +2848,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2954,6 +2970,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -2983,12 +3000,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -3018,12 +3035,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -3134,6 +3151,7 @@
                                checked="checked"
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -3163,12 +3181,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
@@ -3198,12 +3216,12 @@
                         
                         <span
                              id="_idXXX_sor_tbl_span"
-                             onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return true;"
                             >
                           
                           <input
                                id="_idXXX"
                                name="mainId"
+                               onclick="submitForm('formId',1,{event:'show',source:'_idXXX'});return true;"
                                type="radio"
                                value="_idXXX"
                               >
