@@ -1,12 +1,12 @@
 /*
  * Copyright  2000-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -51,7 +51,7 @@ public class BodyRenderer extends PanelPartialRootRenderer
   {
     super(type);
   }
-  
+
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
@@ -199,10 +199,22 @@ public class BodyRenderer extends PanelPartialRootRenderer
   {
     String onload = toString(bean.getProperty(_onloadKey));
     if (PartialPageUtils.supportsPartialRendering(arc))
-    {
-      // Don't short circuit...
-      onload = XhtmlUtils.getChainedJS("_checkLoad(event)", onload, false);
-    }
+	{
+	  // Don't short circuit...
+	  //PH:_checkLoad(event) is replaced by _checkLoad() because on certain
+	  //devices like IE Mobile , event object is not defined. Moreover,
+	  //_checkLoad function does not use event object. So, remove it altogether
+	  //for all PPR devices
+	  onload = XhtmlUtils.getChainedJS("_checkLoad()", onload, false);
+	}
+	//PH: Currently, if a browser supports PPR, _checkLoad function is called
+	//that sets initialFocus if set.For non-PPR browsers like blackBerry 4.0,
+	//no body onload function is called. hence, initialFocus cannot is not set.
+	//Therefore, created another function _checkLoadNoPPR() This function is
+	//called by the onLoad JS handler of body tag when device does not support
+	//PPR
+	else
+	  onload = XhtmlUtils.getChainedJS("_checkLoadNoPPR()", onload, false);
 
     return onload;
   }
