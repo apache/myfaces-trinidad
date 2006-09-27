@@ -277,20 +277,20 @@ function _agentInit()
     version = 1.0;
   }
   else if(agentString.indexOf("blackberry") != -1)
-  {
-    // if we support non-BlackBerry Browser agents on blackberry
-    // devices in the future, we may need to revisit this because
-    // those agents may include "blackberry" in the User-Agent
-    // string; we can't just check if the User-Agent "starts with"
-    // blackberry because navigator.userAgent on BlackBery Browser 4.0
-    // starts with Mozilla/4.0 (even though the User-Agent sent to the
-    // server starts with BlackBerry<model>/<version>)
-
-    // BlackBerry Browser 4.0+ supports navigator.appVersion,
-    // and earlier versions don't support script, so we can
-    // leave the version as defined above
-    isBlackBerry = true;
-    kind = "blackberry";
+    {
+      // if we support non-BlackBerry Browser agents on blackberry
+      // devices in the future, we may need to revisit this because
+      // those agents may include "blackberry" in the User-Agent
+      // string; we can't just check if the User-Agent "starts with"
+      // blackberry because navigator.userAgent on BlackBery Browser 4.0
+      // starts with Mozilla/4.0 (even though the User-Agent sent to the
+      // server starts with BlackBerry<model>/<version>)
+    
+      // BlackBerry Browser 4.0+ supports navigator.appVersion,
+      // and earlier versions don't support script, so we can
+      // leave the version as defined above
+      isBlackBerry = true;
+      kind = "blackberry";
   }
   else if ((agentString.indexOf('mozilla')    != -1) &&
            (agentString.indexOf('spoofer')    == -1) &&
@@ -308,7 +308,6 @@ function _agentInit()
       kind = "nn";
     }
   }
-
   if (agentString.indexOf('win') != -1)
   {
     isWindows = true;
@@ -748,6 +747,9 @@ function _checkUnload(
   event
   )
 {
+  //PH:set the right event object;
+  event = _getEventObj();
+  
   // Make sure we don't run through this function twice
   // when we close a dialog. The
   // _unloadADFDialog function blocks a second run
@@ -2249,7 +2251,6 @@ function _clearPassword(field, e)
  */
 function _setFocus(currInput)
 {
-
   // check if currInput is showing before setting focus, for example
   // ColorField has required validation on hidden field,
   // but cannot receive focus.
@@ -2257,10 +2258,12 @@ function _setFocus(currInput)
   {
     currInput.focus();
 
+    //PH:element["value"] is not supported for PIE,IEM and BB. Therefore 
+    //use element.value which is supported by all
     if ((currInput.type == "text")
-        && (currInput["value"] != (void 0))
-        && (currInput["value"] != null)
-        && (currInput["value"].length > 0))
+        && (currInput.value != (void 0))
+        && (currInput.value != null)
+        && (currInput.value.length > 0))
     {
       // IE fails on this select if a timeout occurs to handle a
       // pending event. Don't do it if we've reset the delayed
@@ -2589,19 +2592,15 @@ function _getGlobalErrorString(
  */
  function _isShowing(
    input)
- {
-   // detect lack of focus method and hidden input
-   if (_agent.isPIE)
-   {
-     if (!input.focus() || (input.type == 'hidden'))
+ { 
+   //PH: removed !input.focus because firstly, focus() function is supported by 
+   //all browsers (PIE,IEM,BB,FF,IE) and secondly, _isShowing should be treated 
+   //as a function to test visibility only. If there is a case where one really 
+   //wants to test whether focus function exists or not, do it in an if 
+   //statement and call _isShowing within it.
+   if (input.type == 'hidden')
        return false;
-   }
-   else
-   {
-     if (!input.focus || (input.type == 'hidden'))
-       return false;
-   }
-
+   
    // determine visibility from style information
    if (_agent.isIE)
    {
@@ -2629,15 +2628,22 @@ function _getGlobalErrorString(
      return true;
    }
    // TODO: Write correct version for Safari
-   else if (!_agent.isNav && !_agent.isSafari)
+   //PH: I don't know if this code is Firefox specific, if it is then one might
+   //want to change the if condition to if(_agent.isGecko) instead of doing 
+   //!_agent.isNav and !_agent.isSafari because with the existing condition
+   //Black Berry,IE Mobile and Pocket IE all enter into this fragment.
+   //To prevent this use !_agent.isPIE and !_agent.isBlackBerry.  
+   if (!_agent.isNav && !_agent.isSafari && !_agent.isPIE && !_agent.isBlackBerry)
    {
      var computedStyle = input.ownerDocument.defaultView.getComputedStyle(input,
                                                                           null);
-
+     
      // either of these styles will prevent focus from succeeding
      return ((computedStyle["visibility"] != "hidden") &&
              (computedStyle["display"] != "none"));
    }
+   
+   return true;
  }
 
 /**
@@ -3103,35 +3109,56 @@ function _getElementById(
   id
   )
 {
-  //
-  // If we arent' on Internet Explorers before 5,
-  // use the DOM way of doing this
-  //
-  if ((_agent.kind != "ie") || (_agent.version >= 5))
+  //PH: Since BB supports getDocumentById use this to obtain the element.
+  if(typeof(doc.getElementById) != 'undefined')
   {
-    //VAC added because PIE document object does not support the getElementById
-    //function.
-    if(!_agent.isPIE){
-    var element = doc.getElementById(id);
-
-    // IE's implementation of getElementById() is buggy.  If
-    // the page contains an anchor which has the same name
-    // as the requested id, IE will return the anchor, even
-    // if the anchor's id attribute is not set.  So, make
-    // sure that we actually get back an element with the
-    // correct id.
-    if ((element == null) || (element.id == id))
-      return element;
+    //
+    // If we arent' on Internet Explorers before 5,
+    // use the DOM way of doing this
+    //
+    //PH:exclude BlackBerry
+    if (((_agent.kind != "ie") || (_agent.version >= 5)) && (!_agent.isBlackBerry))
+    {    
+      var element = doc.getElementById(id);     
+    
+      // IE's implementation of getElementById() is buggy.  If
+      // the page contains an anchor which has the same name
+      // as the requested id, IE will return the anchor, even
+      // if the anchor's id attribute is not set.  So, make
+      // sure that we actually get back an element with the
+      // correct id.  
+      if ((element == null) || (element.id == id))
+        return element;
+      // If we get here, that means that IE has probably returned 
+      // an anchor instead of the desired element.  Let's scan
+      // the entire DOM tree to find the element we want.
+      return _findElementById(doc, id);
     }
-    // If we get here, that means that IE has probably returned
-    // an anchor instead of the desired element.  Let's scan
-    // the entire DOM tree to find the element we want.
-    return _findElementById(doc, id);
-  }
-  else
+    
+    return doc.getElementById(id);    
+  }   
+  //PH:if agent is PIE get elements this way since getElementById is 
+  //not supported
+  if(_agent.isPIE)
   {
-    return doc.all[id];
-  }
+    //if element is not within a form
+    if(doc.forms.length == 0)
+      return window[id];
+    else
+      //check to see if element is within the form, if so return the element else do nothing
+      for(var i = 0; i<doc.forms.length; i++)
+      {
+        var f = doc.forms[i];
+        if(f[id])
+          return f[id];        
+      }
+      
+    //element is not within the form but form(s) is(are) present. 
+    return window[id];   
+  }  
+  
+  return doc.all[id];  
+  
 }
 
 // A recursive method which searches the entire DOM tree
@@ -4488,6 +4515,20 @@ function _resetOnEscape(event)
   return true;
 }
 
+/**PH:  Currently, if a browser supports PPR, the _checkLoad function
+ * is set as the body onload to perform some initialization, both PPR related
+ * and not (such as setting the initial focus).
+ * Because this function was not called for non-PPR browsers (like BlackBerry
+ * 4.0), the non-PPR initialization was not happening on those browsers.
+ * Therefore, I created another function called _checkLoadNoPPR to handle
+ * non-PPR related initialization, such as setting the initialFocus, and
+ * set the body onload to this method for browsers that do not support PPR.
+ */
+function _checkLoadNoPPR()
+{
+  if(_initialFocusID != null)
+    _setFocus(_getElementById(document,_initialFocusID)); 
+}
 
 /**
  * Called by the load handler of each document body to prepare event handlers
@@ -4584,19 +4625,16 @@ function _checkLoad(
   // Set initialFocus if necessary
   if ((!_agent.isNav) && (_initialFocusID != null))
   {
-    var myElement = _getElementById(document, _initialFocusID);
-    if (myElement && myElement.focus)
-    {
-      myElement.focus();
-      if (myElement.type == 'text')
-        myElement.select();
-    }
-  }
+    var myElement = _getElementById(document,_initialFocusID);
 
+    //PH: Set Focus on element for all browsers.
+    if(myElement)
+      _setFocus(myElement);
+  }  
+  
   if (!_agent.isNav)
     _loadScriptLibraries(document);
 }
-
 
 //
 // Event handle that blocks keys that lead to a page reloading.
@@ -5458,4 +5496,14 @@ function _spinboxRepeat(id, increment, stepSize, min, max)
       window.setTimeout(_spinboxRepeat.functionString, 1000);
   }
 
+}
+//PH:This method returns the 'event' object
+function _getEventObj()
+{
+  if(typeof(event) == 'undefined')
+    return window.event;
+  else     
+    return event;
+  
+  return null;
 }

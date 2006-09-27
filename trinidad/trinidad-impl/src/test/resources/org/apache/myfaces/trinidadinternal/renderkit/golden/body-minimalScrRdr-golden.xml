@@ -1,7 +1,7 @@
 <results>
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -24,7 +24,7 @@
 
   <body
        id="myBodyId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -47,7 +47,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
        title="myShortDesc"
       >
@@ -72,7 +72,7 @@
   <body
        id="mainId"
        onclick="test-onclick"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -96,7 +96,7 @@
   <body
        id="mainId"
        ondblclick="test-ondblclick"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -120,7 +120,7 @@
   <body
        id="mainId"
        onkeydown="test-onkeydown"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -144,7 +144,7 @@
   <body
        id="mainId"
        onkeypress="test-onkeypress"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -168,7 +168,7 @@
   <body
        id="mainId"
        onkeyup="test-onkeyup"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="_checkUnload(event)"
       >
     
@@ -191,7 +191,7 @@
 
   <body
        id="mainId"
-       onload="return _chain('_checkLoad(event)','test-onload',this,event)"
+       onload="return _chain('_checkLoad()','test-onload',this,event)"
        onunload="_checkUnload(event)"
       >
     
@@ -214,7 +214,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onmousedown="test-onmousedown"
        onunload="_checkUnload(event)"
       >
@@ -238,7 +238,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onmousemove="test-onmousemove"
        onunload="_checkUnload(event)"
       >
@@ -262,7 +262,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onmouseout="test-onmouseout"
        onunload="_checkUnload(event)"
       >
@@ -286,7 +286,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onmouseover="test-onmouseover"
        onunload="_checkUnload(event)"
       >
@@ -310,7 +310,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onmouseup="test-onmouseup"
        onunload="_checkUnload(event)"
       >
@@ -334,7 +334,7 @@
 
   <body
        id="mainId"
-       onload="_checkLoad(event)"
+       onload="_checkLoad()"
        onunload="return _chain('_checkUnload(event)','test-onunload',this,event)"
       >
     
