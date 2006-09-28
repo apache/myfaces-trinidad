@@ -3459,6 +3459,17 @@
     <includeStyle name="TreeRowSelected"/>
   </style>
 
+  
+  <!-- 
+    Chart Styles 
+  -->
+  <style selector="af|chart">
+    <!-- default width and height for chart -->
+    <property name="width">400px</property>
+    <property name="height">300px</property>
+    <property name="background-color">white</property>
+  </style>
+
   <!--
        The following set of styles define server-side styles used by
        the UIX.  These styles affect the appearance of images such as buttons 

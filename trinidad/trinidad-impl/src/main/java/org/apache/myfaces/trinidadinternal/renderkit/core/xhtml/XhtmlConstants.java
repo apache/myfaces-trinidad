@@ -55,6 +55,8 @@ public final class XhtmlConstants
   // SortableHeader
   public static final String SORT_EVENT = "sort";
 
+  // Chart Drill down
+  public static final String CHART_DRILL_DOWN_EVENT = "chartDrillDown";
 
   /**
    * Constant for the value of the "value" event parameter when

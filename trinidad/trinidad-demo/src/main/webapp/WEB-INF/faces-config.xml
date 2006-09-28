@@ -598,6 +598,12 @@
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
 
+    <managed-bean>
+     <managed-bean-name>chart</managed-bean-name>
+     <managed-bean-class>org.apache.myfaces.trinidaddemo.ChartBean</managed-bean-class>
+     <managed-bean-scope>session</managed-bean-scope>
+   </managed-bean>
+
   <managed-bean>
     <managed-bean-name>toggle</managed-bean-name>
     <managed-bean-class>org.apache.myfaces.trinidaddemo.ToggleBean</managed-bean-class>
@@ -747,6 +753,7 @@
       <property-name>fileList</property-name>
       <list-entries>
         <value-class>java.lang.String</value-class>
+        <value>chart.jspx</value>
         <value>chooseColor.jspx</value>
         <value>chooseDate.jspx</value>
         <value>column.jspx</value>
@@ -1912,6 +1919,13 @@
       <to-view-id>/components/html/cellFormat.jspx</to-view-id>
       <redirect/>
     </navigation-case>
+
+     <navigation-case>
+       <from-outcome>guide.chart</from-outcome>
+       <to-view-id>/components/chart.jspx</to-view-id>
+       <redirect/>
+     </navigation-case>
+
 
     <navigation-case>
       <from-outcome>guide.chooseColor</from-outcome>

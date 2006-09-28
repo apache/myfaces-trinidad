@@ -1031,4 +1031,12 @@ public final class SkinSelectors
      "af|treeTable::prev-disabled-icon";
    public static final String AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME =
      "af|treeTable::next-disabled-icon";
+     
+  //                                                                         //
+  //                                                                         //
+  // ============================== tr:chart =============================== //
+  //                                                                         //
+  //
+  public static final String AF_CHART_STYLE_CLASS =
+    "af|chart";
 }
