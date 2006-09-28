@@ -32,7 +32,6 @@ import org.apache.myfaces.trinidad.context.RequestContext;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.RenderUtils;
-import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
 
 /**
  * Basic implementation of the core rendering functionality
@@ -388,26 +387,9 @@ public class CoreRenderer extends Renderer
     return true;
   }
 
-
-
-
   protected boolean skipDecode(FacesContext context)
   {
-    // =-=AEW HACK!  When executing a "dialog return" from the filter,
-    // we've generally saved off the original parameters such that
-    // decoding again isn't a problem.  But we can run into some problems:
-    //  (1) A component that doesn't know about ReturnEvents:  it'll
-    //    decode again, thereby firing the event again that launched
-    //    the dialog (and you go right back to the dialog)
-    //  (2) The component does know about ReturnEvents, but
-    //      someone launches a dialog in response to the ReturnEvent,
-    //      after setting the value of an input field.  But since
-    //      we've still saved off the original parameters,
-    //      now we're back in
-    // The best fix would really be somehow skipping the Apply Request
-    // Values phase altogether, while still queueing the ReturnEvent
-    // properly.  But how the heck is that gonna happen?
-    return TrinidadFilterImpl.isExecutingDialogReturn(context);
+    return false;
   }
 
   protected FacesBean getFacesBean(UIComponent component)

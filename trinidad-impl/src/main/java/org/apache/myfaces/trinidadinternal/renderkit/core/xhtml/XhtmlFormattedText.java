@@ -29,7 +29,8 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/XhtmlFormattedText.java#0 $) $Date: 10-nov-2005.19:02:31 $
  * @author The Oracle ADF Faces Team
  */
-class XhtmlFormattedText
+// TODO find a good way to expose this class, perhaps via the RenderingContext?
+public class XhtmlFormattedText
 {
   static public FormattedTextParser getFormattedTextParser()
   {
