@@ -59,7 +59,7 @@ public interface DialogRenderKitService
    *   by the RenderKit, and does not necessarily have to map
    *   to a full window.
    * @param windowProperties a map of UI parameters used to
-   *   modify the dialog.  The st of property names that are
+   *   modify the dialog.  The list of property names that are
    *   supported will depend on the <code>RenderKit</code>, but
    *   common examples include "width" and "height".
    * @return true if launching the dialog was handled by this service, false
