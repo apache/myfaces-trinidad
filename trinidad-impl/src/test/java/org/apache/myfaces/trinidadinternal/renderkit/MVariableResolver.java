@@ -19,8 +19,14 @@ import java.awt.Color;
 
 import java.beans.IntrospectionException;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,7 +35,9 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.faces.el.VariableResolver;
 
+import org.apache.myfaces.trinidad.component.core.data.CoreChart;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.model.ChartModel;
 import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.DefaultBoundedRangeModel;
 import org.apache.myfaces.trinidad.model.ProcessMenuModel;
@@ -228,7 +236,10 @@ public class MVariableResolver extends VariableResolver
              "Third paragraph followed by \\n\\r\n\r" + 
              "Fourth paragraph";
     }
-
+    else if("chartModel".equals(name))
+    {
+      return new MyChartModel();
+    }
     return null;
   }
 
@@ -400,6 +411,98 @@ public class MVariableResolver extends VariableResolver
     }
   }
 
+  private class MyChartModel extends ChartModel
+  {
+    public List<String> getSeriesLabels()
+    {
+      return _seriesLabels;
+    }
+
+    public List<String> getGroupLabels()
+    {
+      return _groupLabels;
+    }
+        
+    public List<List<Double>> getXValues()
+    {
+      return _chartXValues;
+    }
+  
+    public List<List<Double>> getYValues()
+    {
+      return _chartYValues;
+    }
+  
+    public Double getMaxYValue()
+    {
+      return 500000.0;
+    }
+  
+  
+    public Double getMinYValue()
+    {        
+      return 0.0; 
+    }
+  
+  
+    public Double getMaxXValue()
+    {
+      return 10.0; 
+    }
+  
+  
+    public Double getMinXValue()
+    {
+      return 6.0; 
+    }
+  
+  
+    public String getTitle()
+    {
+      return "Title";
+    }
+  
+    public String getSubTitle()
+    {
+      return "SubTitle"; 
+    }
+  
+  
+    public String getFootNote()
+    {
+      return "FootNote"; 
+    }
+    
+    private final List<String> _groupLabels = 
+      Arrays.asList(new String[]{"June", "July", "August", "September","October"});
+
+    private final List<String> _largeGroupLabels = 
+      Arrays.asList(new String[]{"Q4-2005", "Q1-2006", "Q2-2006", "Q3-2006"});
+  
+    private final List<String> _seriesLabels = 
+      Arrays.asList(new String[]{"Previous", "Target", "Actual"});
+    
+    private final List<String> _largeSeriesLabels = 
+      Arrays.asList(new String[]{"Opening", "Low", "High"});
+      
+    private final ArrayList<List<Double>> _chartYValues;
+    private final ArrayList<List<Double>> _chartXValues; 
+    {
+      _chartYValues = new ArrayList<List<Double>>();
+      _chartYValues.add(Arrays.asList(new Double[]{135235., 155535., 141725.}));
+      _chartYValues.add(Arrays.asList(new Double[]{106765., 131725., 127868.}));
+      _chartYValues.add(Arrays.asList(new Double[]{108456., 119326., 139326.}));
+      _chartYValues.add(Arrays.asList(new Double[]{136765., 147265., 184349.})); 
+      _chartYValues.add(Arrays.asList(new Double[]{107868., 113968., 174349.}));
+
+      _chartXValues = new ArrayList<List<Double>>();
+      _chartXValues.add(Arrays.asList(new Double[]{6.1, 6.3, 6.5}));
+      _chartXValues.add(Arrays.asList(new Double[]{6.8, 7.1, 7.3}));
+      _chartXValues.add(Arrays.asList(new Double[]{7.6, 7.8, 8.0}));
+      _chartXValues.add(Arrays.asList(new Double[]{8.25, 8.55, 8.78}));
+      _chartXValues.add(Arrays.asList(new Double[]{9.23, 9.48, 9.88}));
+    } 
+  }
   private MenuModelImpl _pageList;
   private MenuModelImpl _menu;
   private MenuModelImpl _navigationpath;

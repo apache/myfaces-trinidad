@@ -14,6 +14,7 @@
             <li><a href="fileUpload.html">File Upload</a></li>            
             <li><a href="table.html">Using Apache Trinidad Tables</a></li>     
             <li><a href="tree.html">Using Apache Trinidad Trees</a></li>       
+            <li><a href="chart.html">Using Apache Trinidad Chart</a></li>       
             <li><a href="navigation.html">Navigation</a></li>      
             <li><a href="clientValidation.html">Client-side Converters and Validators</a></li>     
         </ul>

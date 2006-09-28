@@ -48,7 +48,7 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
              new CoreCommonScriptsResourceLoader(_getCommonLibraryURI(true),
                                                  true));
 
-    register("(/.*\\.(css|jpg|gif|png|jpeg|js))",
+    register("(/.*\\.(css|jpg|gif|png|jpeg|svg|js))",
              new CoreClassLoaderResourceLoader(parent));
   }
 
