@@ -28,7 +28,7 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CoreShowDetailHeader;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 
 public class ShowDetailHeaderRenderer
   extends PanelHeaderRenderer

@@ -621,7 +621,7 @@ public class AgentFactoryImpl implements AgentFactory
       }
       else if (agent.indexOf("Mac", paren) > 0)
       {
-        agentObj.setPlatform(Agent.PLATFORM_MAC);
+        agentObj.setPlatform(Agent.PLATFORM_MACOS);
       }
       else if (agent.indexOf("Linux", paren) > 0)
       {
@@ -655,7 +655,7 @@ public class AgentFactoryImpl implements AgentFactory
     agentObj.setType(Agent.TYPE_DESKTOP);
     agentObj.setAgent(Agent.AGENT_WEBKIT);
     agentObj.setAgentVersion(version);
-    agentObj.setPlatform(Agent.PLATFORM_MAC);
+    agentObj.setPlatform(Agent.PLATFORM_MACOS);
   }
 
   /**
@@ -720,7 +720,7 @@ public class AgentFactoryImpl implements AgentFactory
         }
         else if (agent.indexOf("Mac", paren) > 0)
         {
-          agentObj.setPlatform(Agent.PLATFORM_MAC);
+          agentObj.setPlatform(Agent.PLATFORM_MACOS);
         }
         else if (agent.indexOf("Linux", paren) > 0)
         {

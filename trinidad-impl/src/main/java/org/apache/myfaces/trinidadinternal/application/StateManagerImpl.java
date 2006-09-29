@@ -124,6 +124,43 @@ public class StateManagerImpl extends StateManager
     _delegate = delegate;
   }
 
+  static public Object saveComponentTree(
+    FacesContext context,
+    UIComponent  component)
+  {
+    // Don't remove transient components...
+    Object structure = new Structure(component);
+    Object state = component.processSaveState(context);
+    return new PageState(structure, state, null);
+  }
+
+  static public UIComponent restoreComponentTree(
+    FacesContext context,
+    Object       savedState) throws ClassNotFoundException,
+                                    InstantiationException,
+                                    IllegalAccessException
+  {
+    if (savedState == null)
+      throw new NullPointerException();
+
+    if (!(savedState instanceof PageState))
+      throw new IllegalArgumentException("Invalid saved state object");
+
+    PageState viewState = (PageState) savedState;
+
+    Object structure = viewState.getStructure();
+    Object state = viewState.getState();
+
+    UIComponent component =
+      ((Structure) structure).createComponent();
+
+    if (state != null)
+      component.processRestoreState(context, state);
+
+    return component;
+  }
+
+
   /**
    * Save a view root.  Doesn't return a SerializedView because
    * SerializedView is a non-static inner class, and this needs

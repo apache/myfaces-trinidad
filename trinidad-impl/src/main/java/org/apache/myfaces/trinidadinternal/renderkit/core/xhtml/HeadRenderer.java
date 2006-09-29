@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.myfaces.trinidadinternal.share.config.UIXCookie;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 
 /**
  * Renderer for meta data section of the document--a.k.a <head>.

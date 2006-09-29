@@ -13,18 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.trinidadinternal.renderkit;
+package org.apache.myfaces.trinidad.render;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
+
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.component.UIXForm;
+
 /**
- * Stub for temporary backwards compatibility.
+ * Generic utilities for rendering.
  *
  * @author The Oracle ADF Faces Team
- * @deprecated
  */
 public class RenderUtils
 {
@@ -41,8 +45,26 @@ public class RenderUtils
                                      UIComponent component)
     throws IOException
   {
-    org.apache.myfaces.trinidad.render.RenderUtils.encodeRecursive(context,
-                                                                   component);
+    if (component.isRendered())
+    {
+      component.encodeBegin(context);
+      if (component.getRendersChildren())
+      {
+        component.encodeChildren(context);
+      }
+      else
+      {
+        if (component.getChildCount() > 0)
+        {
+          for(UIComponent child : (List<UIComponent>)component.getChildren())
+          {
+            encodeRecursive(context, child);
+          }
+        }
+      }
+
+      component.encodeEnd(context);
+    }
   }
 
   /**
@@ -58,7 +80,22 @@ public class RenderUtils
     FacesContext context,
     UIComponent  component)
   {
-    return org.apache.myfaces.trinidad.render.RenderUtils.getFormId(context,
-                                                                    component);
+    UIComponent form = null;
+    while (component != null)
+    {
+      if ((component instanceof UIForm) ||
+          (component instanceof UIXForm))
+      {
+        form = component;
+        break;
+      }
+
+      component = component.getParent();
+    }
+
+    if (form == null)
+      return null;
+
+    return form.getClientId(context);
   }
 }

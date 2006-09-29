@@ -259,6 +259,19 @@ public class MRequestContext extends RequestContext
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
+  public Object saveComponent(UIComponent component)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+
+  @Override
+  public UIComponent restoreComponent(Object state)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
   private String _skin;
   private Accessibility _accMode;
   private Agent _agent;

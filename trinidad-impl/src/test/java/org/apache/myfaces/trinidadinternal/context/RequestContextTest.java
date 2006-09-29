@@ -15,17 +15,45 @@
 */
 package org.apache.myfaces.trinidadinternal.context;
 
-import junit.framework.TestCase;
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 
 import org.apache.myfaces.trinidad.context.RequestContext;
 
-public class RequestContextTest extends TestCase
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelGroupLayout;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
+
+import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlOutputText;
+
+import org.apache.myfaces.trinidadbuild.test.FacesTestCase;
+
+public class RequestContextTest extends FacesTestCase
 {
   public RequestContextTest(
     String testName)
   {
     super(testName);
   }
+
+  @Override
+  protected void setUp() throws Exception
+  {
+    super.setUp();
+  }
+  
+  @Override
+  protected void tearDown() throws Exception
+  {
+    super.tearDown();
+  }
+
+  public static Test suite()
+  {
+    return new TestSuite(RequestContextTest.class);
+  }
+  
 
   public void testPageResolver()
   {
@@ -47,6 +75,42 @@ public class RequestContextTest extends TestCase
     {
       assertTrue(context.getPageFlowScopeProvider()
                    instanceof TestPageFlowScopeProvider);
+    }
+    finally
+    {
+      context.release();
+    }
+  }
+
+  public void testComponentState() throws Exception
+  {
+    RequestContext context = _createContext();
+
+    try
+    {
+      CorePanelGroupLayout cpgl = new CorePanelGroupLayout();
+      cpgl.setLayout("horizontal");
+      HtmlOutputText hot = new HtmlOutputText();
+      hot.setValue("foo");
+      CoreOutputText cot = new CoreOutputText();
+      cot.setValue("bar");
+
+      cpgl.getChildren().add(hot);
+      cpgl.getChildren().add(cot);
+
+      Object state = context.saveComponent(cpgl);
+      UIComponent restored = context.restoreComponent(state);
+
+      assertTrue(restored instanceof CorePanelGroupLayout);
+      assertEquals(restored.getChildCount(), 2);
+      assertEquals(restored.getAttributes().get("layout"), "horizontal");
+      UIComponent childOne = (UIComponent) restored.getChildren().get(0);
+      assertTrue(childOne instanceof HtmlOutputText);
+      assertEquals(childOne.getAttributes().get("value"), "foo");
+
+      UIComponent childTwo = (UIComponent) restored.getChildren().get(1);
+      assertTrue(childTwo instanceof CoreOutputText);
+      assertEquals(childTwo.getAttributes().get("value"), "bar");
     }
     finally
     {

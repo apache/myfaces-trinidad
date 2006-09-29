@@ -279,6 +279,20 @@ public class MockRequestContext extends RequestContext
     throw new UnsupportedOperationException("Not implemented yet");
   }
 
+  @Override
+  public Object saveComponent(UIComponent component)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+
+  @Override
+  public UIComponent restoreComponent(Object state)
+  {
+    throw new UnsupportedOperationException("Not implemented yet");
+  }
+
+
   static private final TimeZone _FIXED_TIME_ZONE =
     TimeZone.getTimeZone("America/Los_Angeles");
 
