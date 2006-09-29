@@ -49,6 +49,8 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactory;
 import org.apache.myfaces.trinidadinternal.agent.AgentFactoryImpl;
 
+import org.apache.myfaces.trinidadinternal.application.StateManagerImpl;
+
 import org.apache.myfaces.trinidadinternal.change.NullChangeManager;
 
 import org.apache.myfaces.trinidadinternal.el.FormatterMap;
@@ -574,6 +576,21 @@ public class RequestContextImpl extends RequestContext
     }
 
     return _agent;
+  }
+
+  public Object saveComponent(UIComponent component)
+  {
+    return StateManagerImpl.saveComponentTree(__getFacesContext(),
+                                              component);
+  }
+
+  public UIComponent restoreComponent(Object state)
+                            throws ClassNotFoundException,
+                                   InstantiationException,
+                                   IllegalAccessException
+  {
+    return StateManagerImpl.restoreComponentTree(__getFacesContext(),
+                                                 state);
   }
 
   void __setPageResolver(PageResolver pageResolver)

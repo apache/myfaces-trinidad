@@ -393,6 +393,27 @@ abstract public class RequestContext
   public abstract Agent getAgent();
 
   /**
+   * Saves the state of a UIComponent tree into an Object.  The
+   * Object will be serializable, unless a UIComponent
+   * in this tree contains a non-serializable property.  This
+   * method does not check that condition.
+   * @param UIComponent the component 
+   * @return an Object that can be passed to restoreComponent()
+   *  to reinstantiate the state
+   */
+  public abstract Object saveComponent(UIComponent component);
+
+  /**
+   * Restores the state of a component.
+   * @param state an Object created by a prior call to saveComponent().
+   * @return the component
+   */
+  public abstract UIComponent restoreComponent(Object state)
+                            throws ClassNotFoundException,
+                                   InstantiationException,
+                                   IllegalAccessException;
+
+  /**
    * Releases the RequestContext object.  This method must only
    * be called by the code that created the RequestContext.
    * @exception IllegalStateException if no RequestContext is attached
