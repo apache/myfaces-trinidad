@@ -2436,66 +2436,112 @@
   <!--
     Train Styles
   -->
-
-  <style name="af|train"/>
   
-  <style name="AFTrainStation">  
-    <includeStyle name="AFDefaultFont"/>
+  <!-- Aliases -->
+  <style name="AFTrainContent"/>
+  <style name="AFTrainIconCell"/>
+  <style name="AFTrainJoin"/>
+  
+  <!-- Selectors -->
+  <style selector="af|train"/>
+  
+  <!-- Station selectors -->
+  <style selector="af|train::stop">
   </style>
-
-  <style selector="af|train::step-active">
-    <includeStyle name="AFTrainStation"/>
-    <includeStyle name="AFDarkBorder"/>
+  
+  <style selector="af|train::stop-icon-cell">
+    <includeStyle name="AFTrainIconCell"/>
+  </style>
+  
+  <style selector="af|train::stop-content">
+    <includeStyle name="AFTrainContent"/>
+  </style>
+  
+  <style selector="af|train::stop:selected">  
     <includeStyle name="AFDarkForeground"/>
     <property name="font-weight">bold</property>
   </style>
-
-  <style selector="af|train::step-visited">
-    <includeStyle name="AFTrainStation"/>
-    <includeStyle name="DarkExtraAccentForeground"/>
-    <includeProperty name="MediumExtraAccentBackground"
-                     propertyName="background-color"
-                     localPropertyName="border-color"/>
-  </style>
-
-  <style selector="af|train::visited af|train::link">
+  
+  <style selector="af|train::stop:visited">  
     <includeStyle name="DarkExtraAccentForeground"/>
   </style>
 
-  <style selector="af|train::step-disabled">
-    <includeStyle name="AFTrainStation"/>
+  <style selector="af|train::stop:disabled">
     <includeStyle name="MediumExtraAccentForeground"/>
-    <includeProperty name="LightExtraAccentBackground"
-                     propertyName="background-color"
-                     localPropertyName="border-color"/>
   </style>
   
-  <style selector="af|train::step-unvisited">
-    <includeStyle name="AFTrainStation"/>
-    <includeStyle name="AFDarkBorder"/>
+  <style selector="af|train::stop:unvisited">
     <includeStyle name="AFDarkForeground"/>
   </style>
+  
+  <style selector="af|train::overflow-start">
+  </style>
+  
+  <style selector="af|train::overflow-start-icon-cell">
+    <includeStyle name="AFTrainIconCell"/>
+  </style>
+  
+  <style selector="af|train::overflow-start-content">
+    <includeStyle name="AFTrainContent"/>
+  </style>
+  
+  <style selector="af|train::overflow-end">
+  </style>
+  
+  <style selector="af|train::overflow-end-icon-cell">
+    <includeStyle name="AFTrainIconCell"/>
+  </style>
 
-  <style selector="af|train::step-visited af|train::link">
+  <style selector="af|train::overflow-end-content">
+    <includeStyle name="AFTrainContent"/>
+  </style>
+  
+  <style selector="af|train::parent-start">
+  </style>
+  
+  <style selector="af|train::parent-start-icon-cell">
+    <includeStyle name="AFTrainIconCell"/>
+  </style>
+  
+  <style selector="af|train::parent-start-content">
+    <includeStyle name="AFTrainContent"/>
+  </style>
+  
+  <style selector="af|train::parent-end">
+  </style>
+  
+  <style selector="af|train::parent-end-icon-cell">
+    <includeStyle name="AFTrainIconCell"/>
+  </style>
+
+  <style selector="af|train::parent-end-content">
+    <includeStyle name="AFTrainContent"/>
+  </style>
+  
+  <style selector="af|train::link">
+    <includeStyle name="AFLinkForeground"/>
+  </style>
+
+  <style selector="af|train::stop:disabled af|train::link">
+    <includeStyle name="AFDisabledLinkForeground"/>
+  </style>
+
+  <style selector="af|train::stop:visited af|train::link">
     <includeStyle name="AFDarkForeground"/>
+    <includeStyle name="DarkExtraAccentForeground"/>
   </style>
 
-  
-  <style selector="af|train::sub-start">
-    <includeStyle name="AFDarkBorder"/>
-    <property name="border-style">solid</property>
-    <property name="border-width">2px 2px 0px 0px</property>
-    <property name="padding">0pt</property>
+  <style selector="af|train::join">
+    <includeStyle name="AFTrainJoin"/>
   </style>
 
-  <style selector="af|train::sub-end">
-    <includeStyle name="AFDarkBorder"/>
-    <property name="border-style">solid</property>
-    <property name="border-width">2px 0px 0px 2px</property>
-    <property name="padding">0pt</property>
+  <style selector="af|train::join-overflow">
+    <includeStyle name="AFTrainJoin"/>
   </style>
-  
-  
+
+  <style selector="af|train::join-parent">
+    <includeStyle name="AFTrainJoin"/>
+  </style>
 
   <!--
 

@@ -2954,7 +2954,52 @@
           </tr>
         </table>
       </subsection>
-      <subsection name="tr:processTrain Component">
+      <subsection name="tr:train Component">
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Properties</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>-ora-render-parent-train</td>
+            <td>Boolean value that specifies if parent train icons should be 
+                rendered if this train is a sub-train. A sub-train is a process
+                not located at the root of its TreeModel.</td>
+          </tr>
+          <tr>
+            <td>-ora-visible-stop-count</td>
+            <td>Strictly positive integer value specifying the maximum amount of 
+                stops visible at a time.</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Aliases</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>.AFTrainContent:alias</td>
+            <td>Styles all train station content.</td>
+          </tr>
+          <tr>
+            <td>.AFTrainIconCell:alias</td>
+            <td>Styles all train station icons.</td>
+          </tr>
+          <tr>
+            <td>.AFTrainJoin:alias</td>
+            <td>Styles all train station joins.</td>
+          </tr>
+        </table>
         <table>
           <tr>
             <th colspan="2">
@@ -2966,33 +3011,215 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>af|processTrain::step-active</td>
-            <td>Styles the active train station.</td>
+            <td>af|train</td>
+            <td>Styles the whole train.</td>
           </tr>
           <tr>
-            <td>af|processTrain::step-visited</td>
-            <td>Styles the visited train stations.</td>
+            <td>af|train::stop</td>
+            <td>Styles a train stop. A stop include both the icon and its content.
+                This selector is often combined with one or more station pseudo-classes like 
+                :selected, :unvisited, :disabled, :read-only and .p_AFVisited and 
+                used in descendant selector, e.g. "af|train::stop:unvisited af|train::link" 
+                would style the link generated for an unvisited stop.</td>
           </tr>
           <tr>
-            <td>af|processTrain::step-disabled</td>
-            <td>Styles the disabled train stations.</td>
+            <td>af|train::stop-icon-cell</td>
+            <td>Styles the icon section of the stop. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainIconCell:alias.
+                </td>
           </tr>
           <tr>
-            <td>af|processTrain::step-unvisited</td>
-            <td>Styles the unvisited train stations.</td>
+            <td>af|train::stop-content</td>
+            <td>Styles the content section of the stop. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainContent:alias.
+                </td>
           </tr>
           <tr>
-            <td>.AFTrainStation:alias</td>
-            <td>Style that is included by all of the af|processTrain* style
-                classes.</td>
+            <td>af|train::join</td>
+            <td>Styles the join between stop icons. This selector is combinable with state 
+                pseudo-classes, except :selected. This selector includes .AFTrainJoin:alias.
+                </td>
           </tr>
           <tr>
-            <td>af|processTrain::step-visited af|processTrain:: link</td>
-            <td>Styles the visited train stations links.</td>
+            <td>af|train::overflow-start</td>
+            <td>Styles a train start overflow. A start overflow is generated when the amount 
+                of steps in the process is higher than the amount of visibled stop defined by
+                the -ora-visible-stop-count property. In LTR mode, this selector represents 
+                the left side overflow (previous step group). This selector includes both the 
+                icon and its content. This selector is combinable with state pseudo-classes.</td>
           </tr>
           <tr>
-            <td>af|processTrain::step-unvisited af|processTrain::link</td>
-            <td>Styles the unvisited train stations links.</td>
+            <td>af|train::overflow-start-icon-cell</td>
+            <td>Styles the icon section of the overflow-start. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainIconCell:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-start-content</td>
+            <td>Styles the content section of the overflow-start. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainContent:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-end</td>
+            <td>Styles a train end overflow. A end overflow is generated when the amount 
+                of steps in the process is higher than the amount of visibled stop defined by
+                the -ora-visible-stop-count property. In LTR mode, this selector represents 
+                the right side overflow (next step group). This selector includes both the 
+                icon and its content. This selector is combinable with state pseudo-classes.</td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-end-icon-cell</td>
+            <td>Styles the icon section of the overflow-end. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainIconCell:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-end-content</td>
+            <td>Styles the content section of the overflow-end. This selector is combinable
+                with state pseudo-classes. This selector includes .AFTrainContent:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::join-overflow</td>
+            <td>Styles the join between overflows and stop icons. This selector is combinable
+                with state pseudo-classes, except :selected. This selector includes
+                .AFTrainJoin:alias.</td>
+          </tr>
+          <tr>
+            <td>af|train::parent-start</td>
+            <td>Styles a train start parent. A parent is generated when the current train is
+                not located at the root of its TreeModel and that -ora-render-parent-train 
+                property is set to true. In LTR mode this will be rendered to the left of the 
+                first step's stop. This selector includes both the icon and its content. 
+                This selector is NOT combinable with state pseudo-classes.</td>
+          </tr>
+          <tr>
+            <td>af|train::parent-start-icon-cell</td>
+            <td>Styles the icon section of the parent-start. This selector is NOT combinable
+                with state pseudo-classes. This selector includes .AFTrainIconCell:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::parent-start-content</td>
+            <td>Styles the content section of the parent-start. This selector is NOT combinable
+                with state pseudo-classes. This selector includes .AFTrainContent:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::parent-end</td>
+            <td>Styles a train end parent. A parent is generated when the current train is
+                not located at the root of its TreeModel and that -ora-render-parent-train 
+                property is set to true. In LTR mode this will be rendered to the right of 
+                the last step's stop. This selector includes both the icon and its content. 
+                This selector is NOT combinable with state pseudo-classes.</td>
+          </tr>
+          <tr>
+            <td>af|train::parent-end-icon-cell</td>
+            <td>Styles the icon section of the parent-end. This selector is NOT combinable
+                with state pseudo-classes. This selector includes .AFTrainIconCell:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::parent-end-content</td>
+            <td>Styles the content section of the parent-end. This selector is NOT combinable
+                with state pseudo-classes. This selector includes .AFTrainContent:alias.
+                </td>
+          </tr>
+          <tr>
+            <td>af|train::join-parent</td>
+            <td>Styles the join between parent and stop icons. This selector is NOT combinable
+                with state pseudo-classes. This selector includes .AFTrainJoin:alias.</td>
+          </tr>
+          <tr>
+            <td>af|train::link</td>
+            <td>Styles the links generated within the stop's content. This selector is
+                NOT combinable with state pseudo-classes</td>
+          </tr>
+        </table>
+        <table>
+          <tr>
+            <th colspan="2">
+              <i>Icons</i>
+            </th>
+          </tr>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td colspan="2">
+              Stop and overflow icons are combinable with one or more state pseudo-classes. 
+              For example, it's possible to build icons for a very specific situations like 
+              a read-only visited stop being different from a read-only unvisited stop. The 
+              valid classes are:
+              <ul>
+                <li>:visited for steps that were already completed (assumed to be all steps 
+                    before the current one, this might change in the future);</li>
+                <li>:selected for the current step. This state is not available to overflows;
+                    </li>
+                <li>:unvisited for steps that were not completed by the user (assumed to be 
+                    all steps after the current one, this might change in the future);</li>
+                <li>:read-only for steps that cannot be accessed directly by the user by 
+                    clicking on the link (clicking on the icon is not implemented at this 
+                    time). This state is combinable with any of the previous three states, 
+                    but must be placed after them, e.g. :selected:read-only-icon is valid, 
+                    while :read-only:selected is not;</li>
+                <li>:disabled for steps that cannot be accessed by the user using the link
+                    and should theorically not be accessible at all until some condition is 
+                    met. This state has absolute priority and is not combinable with any other
+                    state.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>af|train::stop&lt;states&gt;-icon</td>
+            <td>Define the icons for stops. At least one state must be specified. 
+                For example:
+                <ul>
+                  <li>VALID: af|train::stop:selected-icon;</li>
+                  <li>INVALID: af|train::stop-icon;</li>
+                </ul></td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-start&lt;states&gt;-icon</td>
+            <td>Define the icons for overflows toward the previous step group. At least one 
+                state must be specified. 
+                For example:
+                <ul>
+                  <li>VALID: af|train::overflow-start:read-only-icon;</li>
+                  <li>INVALID: af|train::overflow-start-icon;</li>
+                </ul></td>
+          </tr>
+          <tr>
+            <td>af|train::overflow-end&lt;states&gt;-icon</td>
+            <td>Define the icons for overflows toward the next step group. At least one 
+                state must be specified. 
+                For example:
+                <ul>
+                  <li>VALID: af|train::overflow-end:read-only-icon;</li>
+                  <li>INVALID: af|train::overflow-end-icon;</li>
+                </ul></td>
+          </tr>
+          <tr>
+            <td>af|train::parent-start&lt;states&gt;-icon</td>
+            <td>Define the icons for the parent train that include this train.
+                It appears before the first stop's icon. This icon is NOT 
+                combinable with state pseudo-classes. For example: 
+                <ul>
+                  <li>VALID: af|train::parent-start-icon;</li>
+                  <li>INVALID: af|train::parent-start:read-only-icon;</li>
+                </ul></td>
+          </tr>
+          <tr>
+            <td>af|train::parent-end&lt;states&gt;-icon</td>
+            <td>Define the icons for the parent train that follow the parent train
+                including this train. It appears after the last stop's icon. This 
+                icon is NOT combinable with state pseudo-classes. For example: 
+                <ul>
+                  <li>VALID: af|train::parent-end-icon;</li>
+                  <li>INVALID: af|train::parent-end:read-only-icon;</li>
+                </ul></td>
           </tr>
         </table>
       </subsection>
@@ -3119,7 +3346,7 @@
           </tr>
         </table>
       </subsection>
-      <subsection name="tr:selectInputDate Component">
+      <subsection name="tr:inputDate Component">
         <table>
           <tr>
             <th colspan="2">
