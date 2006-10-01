@@ -28,11 +28,12 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
  */
 public final class SkinSelectors
 {
+  public static final String DEFAULT_NAMESPACE = "af";
+  public static final String ICON_SUFFIX       = "-icon";
+  public static final String STATE_PREFIX      = "p_AF";
+  
   private SkinSelectors(){}
-  
-  // General skin selector constants
-  public static final String STATE_PREFIX = "p_AF";
-  
+
   /* The selectors are sorted by component, alphabetically. 
    * 
    * The selectors not linked to any specific components like aliases are 
@@ -955,24 +956,100 @@ public final class SkinSelectors
    //                                                                         //
    
    // ============================ Style classes ============================ //
-   public static final String AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS =
-     "af|train::step-active";
-   public static final String AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS =
-     "af|train::step-disabled";
-   public static final String AF_PROCESS_TRAIN_LINK_STYLE_CLASS =
-     "af|train::link";    
-   public static final String AF_PROCESS_TRAIN_STYLE_CLASS =
-     "af|train";  
-   public static final String AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS =
-     "af|train::sub-start";
-   public static final String AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS =
-     "af|train::step-unvisited";
-   public static final String AF_PROCESS_TRAIN_VISITED_STYLE_CLASS  =
-     "af|train::step-visited";
-   // -= Simon =-
-   // FIXME: That name is inconsistent
-   public static final String TRAIN_SUB_RIGHT_STYLE_CLASS =
-     "af|train::sub-end";
+   // Root class
+   public static final String AF_TRAIN_ROOT_STYLE_CLASS =
+     DEFAULT_NAMESPACE + "|train";  
+   
+   // Joins
+   public static final String AF_TRAIN_JOIN_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::join";
+   public static final String AF_TRAIN_OVERFLOW_JOIN_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::join-overflow";
+   public static final String AF_TRAIN_PARENT_JOIN_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::join-parent";
+   
+   // Links
+   public static final String AF_TRAIN_LINK_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::link";
+   
+   // Overflow start
+   public static final String AF_TRAIN_OVERFLOW_START_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::overflow-start";
+   public static final String AF_TRAIN_OVERFLOW_START_CONTENT_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + "-content";
+   public static final String AF_TRAIN_OVERFLOW_START_ICON_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + "-icon-cell";
+   
+   // Overflow end
+   public static final String AF_TRAIN_OVERFLOW_END_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::overflow-end";
+   public static final String AF_TRAIN_OVERFLOW_END_CONTENT_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + "-content";
+   public static final String AF_TRAIN_OVERFLOW_END_ICON_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + "-icon-cell";
+   
+   // Parent start
+   public static final String AF_TRAIN_PARENT_START_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::parent-start";
+   public static final String AF_TRAIN_PARENT_START_CONTENT_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + "-content";
+   public static final String AF_TRAIN_PARENT_START_ICON_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + "-icon-cell";
+   
+   // Parent end
+   public static final String AF_TRAIN_PARENT_END_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::parent-end";
+   public static final String AF_TRAIN_PARENT_END_CONTENT_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + "-content";
+   public static final String AF_TRAIN_PARENT_END_ICON_STYLE_CLASS =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + "-icon-cell";
+   
+   // Stops
+   public static final String AF_TRAIN_STOP_STYLE_CLASS =
+     AF_TRAIN_ROOT_STYLE_CLASS + "::stop";
+   public static final String AF_TRAIN_STOP_CONTENT_STYLE_CLASS =
+     AF_TRAIN_STOP_STYLE_CLASS + "-content";
+   public static final String AF_TRAIN_STOP_ICON_STYLE_CLASS =
+     AF_TRAIN_STOP_STYLE_CLASS + "-icon-cell";
+
+   // ================================ Icons ================================ //
+   // Overflow start icons
+   public static final String AF_TRAIN_OVERFLOW_START_DISABLED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + ":disabled" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_START_READ_ONLY_ICON_NAME =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + ":read-only" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_START_UNVISITED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + ":unvisited" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_START_VISITED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_START_STYLE_CLASS + ":visited" + ICON_SUFFIX;
+   
+   // Overflow end icons
+   public static final String AF_TRAIN_OVERFLOW_END_DISABLED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + ":disabled" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_END_READ_ONLY_ICON_NAME =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + ":read-only" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_END_UNVISITED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + ":unvisited" + ICON_SUFFIX;
+   public static final String AF_TRAIN_OVERFLOW_END_VISITED_ICON_NAME =
+     AF_TRAIN_OVERFLOW_END_STYLE_CLASS + ":visited" + ICON_SUFFIX;
+   
+   // Parent train icons
+   public static final String AF_TRAIN_PARENT_START_ICON_NAME =
+     AF_TRAIN_PARENT_START_STYLE_CLASS + ICON_SUFFIX;
+   public static final String AF_TRAIN_PARENT_END_ICON_NAME =
+     AF_TRAIN_PARENT_END_STYLE_CLASS + ICON_SUFFIX;
+   
+   // Stop icons
+   public static final String AF_TRAIN_STOP_ACTIVE_ICON_NAME =
+     AF_TRAIN_STOP_STYLE_CLASS + ":selected" + ICON_SUFFIX;
+   public static final String AF_TRAIN_STOP_DISABLED_ICON_NAME =
+     AF_TRAIN_STOP_STYLE_CLASS + ":disabled" + ICON_SUFFIX;
+   public static final String AF_TRAIN_STOP_READ_ONLY_ICON_NAME =
+     AF_TRAIN_STOP_STYLE_CLASS + ":read-only" + ICON_SUFFIX;
+   public static final String AF_TRAIN_STOP_UNVISITED_ICON_NAME =
+     AF_TRAIN_STOP_STYLE_CLASS + ":unvisited" + ICON_SUFFIX;
+   public static final String AF_TRAIN_STOP_VISITED_ICON_NAME =
+     AF_TRAIN_STOP_STYLE_CLASS + ":visited" + ICON_SUFFIX;
 
    
    //                                                                         //

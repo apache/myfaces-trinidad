@@ -18,8 +18,14 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.desktop;
 
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
+import java.util.TreeMap;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -29,11 +35,14 @@ import javax.faces.event.ActionEvent;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidad.component.core.nav.CoreTrain;
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ProcessUtils;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
@@ -41,7 +50,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
 /**
  * Renderer for process train components
- * * <p>
+ * 
  */
 public class TrainRenderer
   extends XhtmlRenderer
@@ -144,49 +153,78 @@ public class TrainRenderer
 
   @Override
   protected void encodeAll(
-    FacesContext context, 
+    FacesContext     context, 
     RenderingContext arc, 
-    UIComponent component, 
-    FacesBean bean)
+    UIComponent      component, 
+    FacesBean        bean)
     throws IOException
   {
+    if(!(component instanceof UIXProcess))
+    {
+      throw new ClassCastException("TrainRenderer can only renders instances of " + 
+                                   UIXProcess.class.getName() + 
+                                   ", found " + 
+                                   component.getClass().getName());
+    }
+    
     UIXProcess process = (UIXProcess) component;
     UIComponent stamp = process.getNodeStamp();
 
     if (stamp != null)
     {
-      Object oldPath = process.getRowKey();
-      Object newPath = null;
-      boolean isNewPath = _setNewPath(process);
-      if (isNewPath)
+      Train train = new Train(context, arc, process, stamp);
+      try
       {
+        process.setRowKey(train.getFocusRowKey());
+        
+        // Renders some fields and scripts
+        _renderHiddenFields(context, arc, train);
+        
         ResponseWriter writer = context.getResponseWriter();
-
-        TrainRenderer.TrainState trainState = 
-        _getTrainState(context, arc, process);
-        _renderHiddenFields(context, arc, trainState);
-
-        writer.startElement("table", component);
-        OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
-        writer.writeAttribute("align", "center", null);
-        newPath = process.getRowKey();
-        process.setRowKey(oldPath);
+        
+        // Need to render the frame even if there's no visible station
+        // to support PPR.
+        writer.startElement(XhtmlConstants.TABLE_ELEMENT, component);
+        process.setRowKey(train.getInitialRowKey());
         renderId(context, component);
-        process.setRowKey(newPath);
         renderAllAttributes(context, arc, bean);
-
-        int length = process.getRowCount();
-
-        if (length == 0)
-          return;
-
-        _encodeChildren(context, arc, process, stamp, trainState, length);
-
-        writer.endElement("table");
-
-        process.setRowKey(oldPath);
+        // Does not seem to be needed and this is not XHTML 1.0 Strict compliant
+        // writer.writeAttribute("align", "center", null);
+        
+        if(!train.getStations().isEmpty())
+        {
+          // There're visible stations currently, let render them.
+          writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
+          _renderTrain(context, arc, process, bean, stamp, train);
+          writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
+        }
+        
+        writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+      }
+      finally
+      {
+        // Always restore the model, whatever happened
+        process.setRowKey(train.getInitialRowKey());
       }
     }
+    else
+    {
+      _LOG.warning("Train expect a nodeStamp facet, " +
+          "no such facet was found for train " + component);
+    }
+    /*
+      _encodeChildren(context, arc, process, stamp, trainState, length);
+    */
+  }
+  
+  @Override
+  protected void renderAllAttributes(
+      FacesContext     context,
+      RenderingContext arc,
+      FacesBean        bean) throws IOException
+  {
+    super.renderAllAttributes(context, arc, bean);
+    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
   }
 
   /**
@@ -195,603 +233,1631 @@ public class TrainRenderer
    */
   @Override
   protected void renderStyleAttributes(
-    FacesContext context, 
+    FacesContext     context, 
     RenderingContext arc, 
-    FacesBean bean)
+    FacesBean        bean)
     throws IOException
   {
-    renderStyleAttributes(context, arc, bean, 
-                          SkinSelectors.AF_PROCESS_TRAIN_STYLE_CLASS);
+    renderStyleAttributes(context, 
+                          arc, 
+                          bean, 
+                          SkinSelectors.AF_TRAIN_ROOT_STYLE_CLASS);
   }
-
-
-  /**
-  * Initialize the station state
-  */
-  private void _initializeStationState(
-    FacesContext context, 
-    RenderingContext arc, 
-    TrainRenderer.TrainState train, 
-    TrainRenderer.StationState station, 
-    int currVisChildIndex, 
-    int prevVisChildIndex, 
-    int nextVisChildIndex, 
-    boolean isCurrChildDisabled, 
-    boolean isPrevChildDisabled, 
-    boolean isNextChildDisabled)
+  
+  private void _preRenderIconBlock(
+      FacesContext     context,
+      RenderingContext arc) throws IOException
   {
-    station.isPreviousLink = false;
-    station.isMoreLink = false;
-    station.isDisabled = false;
-    station.isNextDisabled = false;
-    station.isPrevDisabled = false;
-    station.index = currVisChildIndex;
-
-    // train.startIndex is the index into the List that is the
-    // start of the train. The algorithm is dependent upon the BLAF spec.
-    if (currVisChildIndex == train.startIndex - 1)
-    {
-      station.isPreviousLink = true;
-    }
-    else if (currVisChildIndex == train.startIndex + _MAX_NUM_LINK_INDEX)
-    {
-      station.isMoreLink = true;
-    }
-
-    // selected nodes cannot be disabled,
-    // so don't bother getting disabled attribute for the selected node
-
-    if (currVisChildIndex != NO_CHILD_INDEX && 
-        currVisChildIndex != train.selectedIndex)
-    {
-      station.isDisabled = isCurrChildDisabled;
-    }
-
-    // get disabled information about the previous and the next child.
-    // selectedIndex cannot act disabled
-    //
-    if (prevVisChildIndex != NO_CHILD_INDEX && 
-        prevVisChildIndex != train.selectedIndex)
-    {
-      station.isPrevDisabled = isPrevChildDisabled;
-    }
-
-    if (nextVisChildIndex != NO_CHILD_INDEX && 
-        nextVisChildIndex != train.selectedIndex)
-    {
-      station.isNextDisabled = isNextChildDisabled;
-
-    }
-
-    //
-    // get the selected and visited flags for our node
-    //
-    station.isSelected = (currVisChildIndex == train.selectedIndex);
-    station.isVisited = (currVisChildIndex <= train.maxVisitedIndex);
-    station.isNextVisited = (currVisChildIndex < train.maxVisitedIndex);
-    station.isNext = (currVisChildIndex == (train.maxVisitedIndex + 1));
-    // if previous station is "next", and disabled, mark this as "next".
-    if ((currVisChildIndex - 1 == (train.maxVisitedIndex + 1)) && 
-        (station.isPrevDisabled))
-    {
-      station.isNext = true;
-    }
-  }
-
-  /**
-   * Returns the MAX_VISITED_ATTR
-   * @todo =-=jmw Hopefully the controller will tell us this someday.
-   */
-  private static Object _getMaxVisited(
-    RenderingContext arc, 
-    UIComponent component)
-  {
-    // return component.getAttributes().get("maxVisited");
-    return null;
-  }
-
-  /**
-   * Get the maxVisited attribute from the node and return it.
-   */
-  private int _getMaxVisitedIndex(
-    RenderingContext arc, 
-    UIComponent component)
-  {
-    int maxVisitedIndex = NO_CHILD_INDEX;
-    Integer maxVisited = (Integer) _getMaxVisited(arc, component);
-    if (maxVisited != null)
-    {
-      maxVisitedIndex = maxVisited.intValue();
-    }
-    return maxVisitedIndex;
-  }
-
-  /**
-   * Return what the starting index into the stations List.
-   */
-  private int _getStartIndex(int numPages, int originalSelectedIndex)
-  {
-    int currentMinIndex = 0;
-
-    if (numPages <= _MAX_NUM_LINK_INDEX)
-      return currentMinIndex;
-
-    int selectedIndex = originalSelectedIndex;
-    int currentMaxIndex = _MAX_NUM_LINK_INDEX - 1;
-
-    if (selectedIndex < currentMaxIndex)
-    {
-      return currentMinIndex; //0
-    }
-
-    // the algorithm below works, but I thought it was too cryptic
-    // return (selectedIndex -
-    //            (((selectedIndex-1)%(_MAX_NUM_LINK_INDEX-2))+1));
-
-    // loop until the selectedIndex range is found or
-    // we have gone past the number of nodes in the train.
-    // Then we'll know what index to start the visible portion of the train.
-    while (numPages > currentMaxIndex)
-    {
-      currentMinIndex = currentMaxIndex - 1;
-      currentMaxIndex += (_MAX_NUM_LINK_INDEX - 2);
-      if (selectedIndex > currentMinIndex && 
-          selectedIndex < currentMaxIndex)
-        return currentMinIndex;
-    }
-
-    return currentMinIndex;
-  }
-
-
-  /**
-   * Gather up the train state: selectedIndex, maxVisitedIndex, startIndex,
-   *  isSubTrain, formName, id,.
-   *  This way all the parameters we need to pass around to various methods
-   *  are all in one place, the TrainState
-   * @param arc RenderingContext
-   * @param context FacesContext
-   * @param process the UIXProcess component.
-   * @return
-   */
-  private TrainState _getTrainState(
-    FacesContext context, 
-    RenderingContext arc, 
-    UIXProcess process)
-  {
-    TrainRenderer.TrainState state = 
-      new TrainRenderer.TrainState();
-
-    state.selectedIndex = process.getRowIndex();
-
-    // get highest node in train visited
-    state.maxVisitedIndex = _getMaxVisitedIndex(arc, process);
-
-    // default to selectedIndex if it wasn't set
-    // or if it was set to be greater than selectedIndex
-    if (state.maxVisitedIndex == NO_CHILD_INDEX || 
-        state.maxVisitedIndex < state.selectedIndex)
-    {
-      state.maxVisitedIndex = state.selectedIndex;
-    }
-
-    int totalPages = process.getRowCount();
-    state.startIndex = _getStartIndex(totalPages, state.selectedIndex);
-
-    state.subTrain = _isSubTrain(process);
-
-    state.formName = arc.getFormData().getName();
-
-    String id = process.getClientId(context);
-    state.id = (id != null)? id: null;
-
-    return state;
-  }
-
-
-  /**
-   * Get the subTrain attribute from the node and return it.
-   */
-  private boolean _isSubTrain(UIXProcess component)
-  {
-    Object focusRowKey = component.getFocusRowKey();
-    if (focusRowKey != null && (component.getDepth(focusRowKey) > 0))
-      return true;
-
-    return false;
-  }
-
-
-  private void _encodeChildren(
-    FacesContext context, 
-    RenderingContext arc, 
-    UIXProcess process, 
-    UIComponent stamp, 
-    TrainState train, 
-    int length)
-    throws IOException
-  {
-
     ResponseWriter writer = context.getResponseWriter();
+    
+    // Icon cell
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
 
-    // start FOR SUBTRAIN
-    // If subTrain, add a row and on the first and last cells, render
-    // a border which looks like a sub-train
-    if (train.subTrain)
-    {
-      _renderSubTrainRow(context, arc, train, length, writer);
-
-      writer.startElement("tr", null);
-      writer.startElement("td", null);
-      writer.endElement("td");
-    }
-    else
-    {
-      writer.startElement("tr", null);
-    }
-
-    // loop through each rendered station.
-    int lastTrainIndex = train.startIndex + _getMaxLinks(arc, process);
-
-    if (length <= lastTrainIndex)
-    {
-      lastTrainIndex = length;
-    }
-    else
-    {
-      lastTrainIndex++; // length of train is larger than the visible
-      // number of train stations, so make room for the more
-      // by adding one to the lastTrainIndex.
-    }
-    int currVisChildIndex = Math.max(0, train.startIndex - 1);
-    boolean isPrevVisChildDisabled = false;
-    boolean isCurrVisChildDisabled = false;
-    boolean isNextVisChildDisabled = false;
-
-    process.setRowIndex(currVisChildIndex);
-
-    isCurrVisChildDisabled = 
-        Boolean.TRUE.equals(stamp.getAttributes().get("disabled"));
-    // getBooleanAttributeValue(context, stamp, DISABLED_ATTR, false);
-
-    for (; currVisChildIndex < lastTrainIndex; currVisChildIndex++)
-    {
-      //
-      // get index of the child and
-      // determine if it is within the range in which it will be rendered.
-      //
-      int prevVisChildIndex = 
-        ((currVisChildIndex == 0)? NO_CHILD_INDEX: currVisChildIndex - 1);
-      int nextVisChildIndex = 
-        ((currVisChildIndex == length - 1)? NO_CHILD_INDEX: 
-         currVisChildIndex + 1);
-
-      process.setRowIndex(nextVisChildIndex);
-
-      isNextVisChildDisabled = 
-          Boolean.TRUE.equals(stamp.getAttributes().get("disabled"));
-
-      process.setRowIndex(currVisChildIndex);
-
-      // initialized state of the station
-      TrainRenderer.StationState station = train.station;
-      _initializeStationState(context, arc, train, station, 
-                             currVisChildIndex, prevVisChildIndex, 
-                             nextVisChildIndex, isCurrVisChildDisabled, 
-                             isPrevVisChildDisabled, 
-                             isNextVisChildDisabled);
-
-      // set up for next pass
-      isPrevVisChildDisabled = isCurrVisChildDisabled;
-      isCurrVisChildDisabled = isNextVisChildDisabled;
-
-      Object label = stamp.getAttributes().get("text");
-
-      String currVisChildText = null;
-
-      // Get text from link, or Previous or More text if appropriate
-      currVisChildText = _getTextForStation(arc, station, label);
-
-      String currVisChildID = null;
-
-      process.setRowIndex(currVisChildIndex);
-      _renderLink(context, arc, stamp, writer, train, currVisChildText, 
-                 currVisChildID, station);
-
-    }
-
-    if (train.subTrain)
-    {
-      writer.startElement("td", null);
-      writer.endElement("td");
-    }
-
-    writer.endElement("tr");
+    // Icons need to be in a table to stretch well
+    writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
+    OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
+    writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "width: 100%", null);
+    
+    writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
   }
-
-  /**
-   * Renders the link under the train node
-   *
-   */
-  private void _renderLink(
-    FacesContext context, 
-    RenderingContext arc, 
-    UIComponent stamp, 
-    ResponseWriter writer, 
-    TrainRenderer.TrainState train, 
-    String currVisChildText, 
-    String currVisChildID, 
-    TrainRenderer.StationState station)
-    throws IOException
+  
+  private void _postRenderIconBlock(FacesContext context) throws IOException
   {
-    //
-    // Write the link under the train node.
-    //
-    writer.startElement("td", null);
-    writer.writeAttribute("colspan", "2", null);
-
-    String styleClass = 
-      (station.isSelected)? SkinSelectors.AF_PROCESS_TRAIN_ACTIVE_STYLE_CLASS: 
-      (station.isDisabled && !station.isMoreLink)? 
-      SkinSelectors.AF_PROCESS_TRAIN_DISABLED_STYLE_CLASS: 
-      (station.isVisited)? 
-      SkinSelectors.AF_PROCESS_TRAIN_VISITED_STYLE_CLASS: 
-      SkinSelectors.AF_PROCESS_TRAIN_UNVISITED_STYLE_CLASS;
-
-    renderStyleClass(context, arc, styleClass);
-
-    Map<String, String> originalResourceKeyMap = arc.getSkinResourceKeyMap();
-    try
-    {
-      arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
-      _renderStamp(context, stamp);
-    }
-    finally
-    {
-      arc.setSkinResourceKeyMap(originalResourceKeyMap);
-    }
-    writer.endElement("td");
+    ResponseWriter writer = context.getResponseWriter();
+    
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+    writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
+    writer.endElement(XhtmlConstants.TABLE_ELEMENT);
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
   }
-
-  /**
-   * Called to render a child.  This method does not update the
-   * rendering context (by calling pushChild() and popChild()
-   * as needed);  subclasses need to use renderIndexedChild() or
-   * renderNamedChild() for that purpose.
-   * <p>
-   * @param context the faces context
-   * @param child the child under consideration
-   */
-  private void _renderStamp(FacesContext context, UIComponent child)
-    throws IOException
-  {
-    if (child != null)
-    {
-      encodeChild(context, child);
-      // child.render(context);
-    }
-  }
-
-  /**
-  * return the string to use for the text of the station
-  * it is the text of the link or "Previous" or "More"
-  */
-  private String _getTextForStation(
-    RenderingContext arc, 
-    TrainRenderer.StationState station, 
-    Object textObj)
-  {
-    String textValue = (textObj == null)? null: textObj.toString();
-    final String currText;
-
-    if (textValue != null && !station.isPreviousLink && 
-        !station.isMoreLink)
-    {
-      // if we are in screen reader mode, then we must render more descriptive
-      // text.
-      // see bug 1801348 REMOVE ONE SET OF TRAIN TEXT IN ACCESSIBLE MODE
-      if (isScreenReaderMode(arc))
-      {
-        currText = _getDisabledUserText(arc, station, textValue);
-      }
-      else
-      {
-        currText = textValue;
-      }
-    }
-    else if (station.isPreviousLink)
-    {
-      currText = arc.getTranslatedString(_PREVIOUS_KEY);
-    }
-    else if (station.isMoreLink)
-    {
-      currText = arc.getTranslatedString(_MORE_KEY);
-    }
-    else
-      currText = null;
-
-    return currText;
-  }
-
-  private String _getDisabledUserText(
-    RenderingContext arc, 
-    TrainRenderer.StationState station, 
-    String textString)
-  {
-    String altTextKey = 
-      station.isSelected? _ACTIVE_KEY: station.isVisited? _VISITED_KEY: 
-                                       _NEXT_KEY;
-
-    String[] parameters = new String[]
-      { textString };
-
-    String altText = 
-      XhtmlUtils.getFormattedString(arc.getTranslatedString(altTextKey), 
-                                    parameters);
-    return altText;
-  }
-
-  /**
-   * Returns the max number of links to show
-   */
-  private int _getMaxLinks(
-    RenderingContext arc, 
-    UIComponent component)
-  {
-    return _MAX_NUM_LINK_INDEX;
-  }
-
-  private void _renderSubTrainRow(
-    FacesContext context, 
-    RenderingContext arc, 
-    TrainRenderer.TrainState train, 
-    int length, 
-    ResponseWriter writer)
-    throws IOException
-  {
-    boolean isRTL = arc.getLocaleContext().isRightToLeft();
-
-    writer.startElement("tr", null);
-
-    if (isRTL)
-      _renderSubTrainCell(context, arc, 
-                          SkinSelectors.TRAIN_SUB_RIGHT_STYLE_CLASS, 
-                          writer);
-    else
-      _renderSubTrainCell(context, arc, 
-                          SkinSelectors.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
-                          writer);
-
-    _renderSubTrainBlankCells(train, length, writer);
-
-    if (isRTL)
-      _renderSubTrainCell(context, arc, 
-                          SkinSelectors.AF_PROCESS_TRAIN_SUB_START_STYLE_CLASS, 
-                          writer);
-    else
-      _renderSubTrainCell(context, arc, 
-                          SkinSelectors.TRAIN_SUB_RIGHT_STYLE_CLASS, 
-                          writer);
-
-    writer.endElement("tr");
-  }
-
-  private void _renderSubTrainCell(
-    FacesContext context, 
-    RenderingContext arc, 
-    String style, 
-    ResponseWriter writer)
-    throws IOException
-  {
-    writer.startElement("td", null);
-    renderStyleClass(context, arc, style);
-    renderSpacer(context, arc, "14", "2");
-    writer.endElement("td");
-  }
-
-  /**
-   * renders a td with colSpan equal to the number of visible stations
-   * including the Previous and More if they are there.
-   * @param train
-   * @param length
-   * @param writer
-   * @throws IOException
-   */
-  private void _renderSubTrainBlankCells(TrainRenderer.TrainState train, 
-                                         int length, ResponseWriter writer)
-    throws IOException
-  {
-    writer.startElement("td", null);
-
-    // figure out the number of stations
-    int startIndex = Math.max(0, train.startIndex - 1);
-    int lastTrainIndex = train.startIndex + _MAX_NUM_LINK_INDEX;
-    if (length <= lastTrainIndex)
-      lastTrainIndex = length;
-    else
-    {
-      // when the length of train is larger than the visible
-      // number of train stations, we render a More link.
-      // so make room for the more
-      // by adding one to the lastTrainIndex.
-      lastTrainIndex++;
-    }
-    String numberOfStations = 
-      Integer.toString((lastTrainIndex - startIndex) * 2);
-    writer.writeAttribute("colspan", numberOfStations, null);
-    writer.endElement("td");
-  }
-
 
   private void _renderHiddenFields(
-    FacesContext context, 
+    FacesContext     context, 
     RenderingContext arc, 
-    TrainState train)
+    Train            train)
     throws IOException
   {
-    if ((train.formName != null) && supportsScripting(arc))
+    if((train.getFormName() != null) && supportsScripting(arc))
     {
       // render hidden fields to hold the form data
-      FormData fData = arc.getFormData();
-      if (fData != null)
+      FormData formData = arc.getFormData();
+      if (formData != null)
       {
-        fData.addNeededValue(XhtmlConstants.EVENT_PARAM);
-        fData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
-        fData.addNeededValue(XhtmlConstants.VALUE_PARAM);
-        fData.addNeededValue(XhtmlConstants.SIZE_PARAM);
+        formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
+        formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
+        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+        formData.addNeededValue(XhtmlConstants.SIZE_PARAM);
       }
 
       // Render script submission code.
       ProcessUtils.renderNavSubmitScript(context, arc);
     }
   }
-
-
-  private boolean _setNewPath(UIXProcess component)
+  
+  private void _renderContentRowLtr(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      UIComponent      stamp,
+      Train            train) throws IOException
   {
-    Object focusPath = component.getFocusRowKey();
-    component.setRowKey(focusPath);
-    return true;
-  }
-
-  protected static class TrainState
-  {
-    public TrainState()
+    ParentTrain parentTrain = train.getParentTrain();
+    
+    // Render parent start
+    if(parentTrain != null && parentTrain.hasParentStart())
     {
-      station = new TrainRenderer.StationState();
+      _renderParentContent(context, arc, parentTrain.getParentStart());
     }
-    public int startIndex;
-    public int maxVisitedIndex;
-    public int selectedIndex;
-    public boolean subTrain;
-    public String formName;
-    public String id;
-    public TrainRenderer.StationState station;
+    
+    for(Station station : train.getStations())
+    {
+      _renderStationContent(context, arc, process, stamp, station);
+    }
+    
+    // Render parent end
+    if(parentTrain != null && parentTrain.hasParentEnd())
+    {
+      _renderParentContent(context, arc, parentTrain.getParentEnd());
+    }
+  }
+  
+  private void _renderContentRowRtl(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      UIComponent      stamp,
+      Train            train) throws IOException
+  {
+    ParentTrain parentTrain = train.getParentTrain();
+    
+    // Render parent start
+    if(parentTrain != null && parentTrain.hasParentEnd())
+    {
+      _renderParentContent(context, arc, parentTrain.getParentEnd());
+    }
+    
+    List<Station>         stations = train.getStations();
+    ListIterator<Station> iterator = stations.listIterator(stations.size());
+    while(iterator.hasPrevious())
+    {
+      _renderStationContent(context, arc, process, stamp, iterator.previous());
+    }
+    
+    // Render parent end
+    if(parentTrain != null && parentTrain.hasParentStart())
+    {
+      _renderParentContent(context, arc, parentTrain.getParentStart());
+    }
+  }
+  
+  private void _renderIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      List<String>     iconNames,
+      String           shortDesc,
+      String           styleClass,
+      String           iconStyleClass,
+      List<String>     stateStyleClasses) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    
+    stateStyleClasses.add(styleClass);
+    stateStyleClasses.add(iconStyleClass);
+    
+    renderStyleClasses(context, 
+                       arc, 
+                       stateStyleClasses.toArray(_EMPTY_STRING_ARRAY));
+    
+    if(iconNames != null)
+    {
+      // Render the first valid icon found. The list should be in 
+      // decreasing priority order.
+      for(String iconName : iconNames)
+      {
+        Icon icon = arc.getIcon(iconName);
+        if(icon != null)
+        {
+          OutputUtils.renderIcon(context, arc, icon, shortDesc, null);
+          break;
+        }
+      }
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+  
+  private void _renderIconRowLtr(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      UIComponent      stamp,
+      Train            train) throws IOException
+  {
+    ParentTrain parentTrain = train.getParentTrain();
+    
+    // Render parent start
+    if(parentTrain != null && parentTrain.hasParentStart())
+    {
+      _renderParentStartLtr(context, arc, process, train);
+    }
+    
+    for(Station station : train.getStations())
+    {
+      _renderStationIconLtr(context, arc, process, station);
+    }
+    
+    // Render parent end
+    if(parentTrain != null && parentTrain.hasParentEnd())
+    {
+      _renderParentEndLtr(context, arc, process, train);
+    }
+  }
+  
+  private void _renderIconRowRtl(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      UIComponent      stamp,
+      Train            train) throws IOException
+  {
+    ParentTrain parentTrain = train.getParentTrain();
+    
+    // Render parent end
+    if(parentTrain != null && parentTrain.hasParentEnd())
+    {
+      _renderParentEndRtl(context, arc, process, train);
+    }
+    
+    List<Station>         stations = train.getStations();
+    ListIterator<Station> iterator = stations.listIterator(stations.size());
+    while(iterator.hasPrevious())
+    {
+      _renderStationIconRtl(context, arc, process, iterator.previous());
+    }
+    
+    // Render parent start
+    if(parentTrain != null && parentTrain.hasParentStart())
+    {
+      _renderParentStartRtl(context, arc, process, train);
+    }
+    
+  }
+  
+  private void _renderJoin(
+      FacesContext     context,
+      RenderingContext arc,
+      String           stateStyleClass,
+      boolean          overflow) throws IOException
+  {
+    if(stateStyleClass == _STATE_PARENT)
+    {
+      _renderJoin(context,
+                  arc,
+                  SkinSelectors.AF_TRAIN_PARENT_JOIN_STYLE_CLASS,
+                  null);
+    }
+    else if(overflow)
+    {
+      _renderJoin(context,
+                  arc,
+                  SkinSelectors.AF_TRAIN_OVERFLOW_JOIN_STYLE_CLASS,
+                  stateStyleClass);
+    }
+    else
+    {
+      _renderJoin(context,
+                  arc,
+                  SkinSelectors.AF_TRAIN_JOIN_STYLE_CLASS,
+                  stateStyleClass);
+    }
+  }
+  
+  private void _renderJoin(
+      FacesContext     context,
+      RenderingContext arc,
+      String           joinStyleClass,
+      String           stateStyleClass) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    renderStyleClasses(context, 
+                       arc, 
+                       new String[]{
+                         joinStyleClass, 
+                         stateStyleClass});
+    
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+  
+  private void _renderJoinIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      String           stateStyleClass,
+      boolean          overflow) throws IOException
+  {
+    if(stateStyleClass == _STATE_PARENT)
+    {
+      _renderJoinIconBlock(context,
+                           arc,
+                           SkinSelectors.AF_TRAIN_PARENT_JOIN_STYLE_CLASS,
+                           null);
+    }
+    else if(overflow)
+    {
+      _renderJoinIconBlock(context,
+                           arc,
+                           SkinSelectors.AF_TRAIN_OVERFLOW_JOIN_STYLE_CLASS,
+                           stateStyleClass);
+    }
+    else
+    {
+      _renderJoinIconBlock(context,
+                           arc,
+                           SkinSelectors.AF_TRAIN_JOIN_STYLE_CLASS,
+                           stateStyleClass);
+    }
+  }
+  
+  private void _renderJoinIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      String           joinStyleClass,
+      String           stateStyleClass) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, "width: 50%", null);
+    renderStyleClasses(context, 
+                       arc, 
+                       new String[]{
+                         joinStyleClass, 
+                         stateStyleClass});
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+  
+  private void _renderParentContent(
+      FacesContext     context, 
+      RenderingContext arc,
+      Station          parent) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    
+    String  baseStyleClass = parent.getBaseStyleClass();
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, "3", null);
+    renderStyleClasses(context, 
+                       arc, 
+                       new String[]{
+                         baseStyleClass,
+                         baseStyleClass + _SUFFIX_CONTENT});
+    
+    /* -= Simon =-
+     * FIXME HACK for MSIE CSS bug involving composite style classes.
+     *       Since the bug is most obvious with join background images
+     *       I hard code background-image to none to fix it.
+     *       See Jira for issue ADFFACES-206.
+     */
+    if(arc.getAgent().getAgentName().equalsIgnoreCase(Agent.AGENT_IE))
+    {
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+                            "background-image:none;", 
+                            null);
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+  
+  private void _renderParentEnd(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train,
+      String           leftState,
+      String           rightState) throws IOException
+  {
+    // Add join
+    _renderJoin(context, arc, leftState, false);
+    
+    // Icon cell
+    _preRenderIconBlock(context, arc);
+        
+    // Add join
+    _renderJoinIconBlock(context, arc, leftState, false);
+    
+    // Add the parent's stop icon
+    _renderParentEndIconBlock(context, arc, process, train);
+    
+    // Add join
+    _renderJoinIconBlock(context, arc, rightState, false);
+        
+    // End icon cell
+    _postRenderIconBlock(context);
+    
+    // Add join
+    _renderJoin(context, arc, rightState, false);
+  }
+  
+  private void _renderParentEndLtr(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    _renderParentEnd(context, 
+                     arc, 
+                     process, 
+                     train, 
+                     _STATE_PARENT, 
+                     null);
+  }
+  
+  private void _renderParentEndRtl(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    _renderParentEnd(context, 
+                     arc, 
+                     process, 
+                     train, 
+                     null, 
+                     _STATE_PARENT);
+  }
+  
+  private void _renderParentEndIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    assert train.getParentTrain().hasParentEnd();
+
+    Station parent = train.getParentTrain().getParentEnd();
+    
+    process.setRowKey(parent.getRowKey());
+    
+    _renderStationIconBlock(context, arc, process, parent);
+    
+    // Restore model
+    process.setRowKey(train.getInitialRowKey());
+  }
+  
+  private void _renderParentStartIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    assert train.getParentTrain().hasParentStart();
+
+    Station parent = train.getParentTrain().getParentStart();
+    
+    process.setRowKey(parent.getRowKey());
+
+    _renderStationIconBlock(context, arc, process, parent);
+    
+    // Restore model
+    process.setRowKey(train.getInitialRowKey());
+  }
+  
+  private void _renderParentStart(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train,
+      String           leftState,
+      String           rightState) throws IOException
+  {
+    // Add join
+    _renderJoin(context, arc, leftState, false);
+    
+    // Icon cell
+    _preRenderIconBlock(context, arc);
+        
+    // Add join
+    _renderJoinIconBlock(context, arc, leftState, false);
+    
+    // Add the parent's stop icon
+    _renderParentStartIconBlock(context, arc, process, train);
+    
+    // Add join
+    _renderJoinIconBlock(context, arc, rightState, false);
+        
+    _postRenderIconBlock(context);
+    // End icon cell
+    
+    // Add join
+    _renderJoin(context, arc, rightState, false);
+  }
+  
+  private void _renderParentStartLtr(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    _renderParentStart(context, 
+                       arc, 
+                       process, 
+                       train, 
+                       null, 
+                       _STATE_PARENT);
+  }
+  
+  private void _renderParentStartRtl(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Train            train) throws IOException
+  {
+    _renderParentStart(context, 
+                       arc, 
+                       process, 
+                       train, 
+                       _STATE_PARENT, 
+                       null);
+  }
+  
+  private void _renderStationContent(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      UIComponent      stamp,
+      Station          station) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+    
+    writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+    
+    writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE, "3", null);
+    
+    String baseStyleClass = station.getBaseStyleClass();
+    
+    List<String> stateStyleClasses = station.getStates();
+    stateStyleClasses.add(baseStyleClass);
+    stateStyleClasses.add(baseStyleClass + _SUFFIX_CONTENT);
+
+    renderStyleClasses(context, 
+                       arc, 
+                       stateStyleClasses.toArray(_EMPTY_STRING_ARRAY));
+        
+    /* -= Simon =-
+     * FIXME HACK for MSIE CSS bug involving composite style classes.
+     *       Since the bug is most obvious with join background images
+     *       I hard code background-image to none to fix it.
+     *       See Jira for issue ADFFACES-206.
+     */
+    if(arc.getAgent().getAgentName().equalsIgnoreCase(Agent.AGENT_IE))
+    {
+      writer.writeAttribute(XhtmlConstants.STYLE_ATTRIBUTE, 
+                            "background-image:none;", 
+                            null);
+    }
+    
+    Map<String, String> originalMap = arc.getSkinResourceKeyMap();
+    
+    // Init the model
+    process.setRowIndex(station.getRowIndex());
+    try
+    {
+      arc.setSkinResourceKeyMap(_RESOURCE_KEY_MAP);
+      encodeChild(context, stamp);
+    }
+    finally
+    {
+      arc.setSkinResourceKeyMap(originalMap);
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+  }
+  
+  private void _renderStationIcon(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Station          station,
+      String           leftJoinState,
+      String           rightJoinState,
+      boolean          overflowLeft,
+      boolean          overflowRight) throws IOException
+  {
+    // Add join
+    _renderJoin(context, arc, leftJoinState, overflowLeft);
+    
+    // Icon cell
+    _preRenderIconBlock(context, arc);
+        
+    // Add join
+    _renderJoinIconBlock(context, arc, leftJoinState, overflowLeft);
+    
+    // Add the parent's stop icon
+    _renderStationIconBlock(context, arc, process, station);
+    
+    // Add join
+    _renderJoinIconBlock(context, arc, rightJoinState, overflowRight);
+        
+    // End icon cell
+    _postRenderIconBlock(context);
+    
+    // Add join
+    _renderJoin(context, arc, rightJoinState, overflowRight);
+  }
+  
+  private void _renderStationIconBlock(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Station          station) throws IOException
+  {
+    process.setRowIndex(station.getRowIndex());
+
+    String baseStyleClass = station.getBaseStyleClass();
+    
+    _renderIconBlock(context, 
+                     arc, 
+                     station.getIconNames(), 
+                     station.getLabel(),
+                     baseStyleClass,
+                     baseStyleClass + _SUFFIX_ICON_CELL,
+                     station.getStates());
+  }
+  
+  private void _renderStationIconLtr(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Station          station) throws IOException
+  {
+    _renderStationIcon(context, 
+                       arc, 
+                       process, 
+                       station, 
+                       station.getStartJoinState(), 
+                       station.getEndJoinState(),
+                       station.hasPrevious() && station.getPrevious().isOverflowStart(),
+                       station.hasNext()     && station.getNext().isOverflowEnd());
+  }
+  
+  private void _renderStationIconRtl(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      Station          station) throws IOException
+  {
+    _renderStationIcon(context, 
+                       arc, 
+                       process, 
+                       station, 
+                       station.getEndJoinState(), 
+                       station.getStartJoinState(),
+                       station.hasNext()     && station.getNext().isOverflowEnd(),
+                       station.hasPrevious() && station.getPrevious().isOverflowStart());
+  }
+  
+  private void _renderTrain(
+      FacesContext     context, 
+      RenderingContext arc,
+      UIXProcess       process,
+      FacesBean        bean,
+      UIComponent      stamp,
+      Train            train) throws IOException
+  {
+    ResponseWriter writer = context.getResponseWriter();
+
+    // Start of the icon row
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+    
+    if(arc.isRightToLeft())
+    {
+      _renderIconRowRtl(context, arc, process, stamp, train);
+    }
+    else
+    {
+      _renderIconRowLtr(context, arc, process, stamp, train);
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+
+    // Start of the content row
+    writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
+    
+    if(arc.isRightToLeft())
+    {
+      _renderContentRowRtl(context, arc, process, stamp, train);
+    }
+    else
+    {
+      _renderContentRowLtr(context, arc, process, stamp, train);
+    }
+    
+    writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
+  }
+  
+  private static class Train
+  {
+    public Train(
+        FacesContext     context, 
+        RenderingContext arc, 
+        UIXProcess       process,
+        UIComponent      stamp)
+    {
+      // Save the model state
+      int maxVisitedIndex  = _getMaxVisitedIndex(arc, process);
+      int activeIndex      = _loadStations(process, stamp, maxVisitedIndex);
+      int visibleStopCount = _getVisibleStopCount(arc);
+      
+      _formName     = arc.getFormData().getName();
+      _isSubTrain   = _loadIsSubTrain(process);
+      
+      if(!_stations.isEmpty())
+      {
+        // There's something visible in the train
+        if(_stations.size() > visibleStopCount)
+        {
+          // We have overflow, let resolve it
+          _resolveOverflow(visibleStopCount, activeIndex);
+        }
+        else
+        {
+          // No overflow, yay!
+          _resolveStandard();
+        }
+        
+        _initLabels(arc, process, stamp);
+        _initParentTrain(arc, process, stamp);
+      }
+    }
+    
+    public Object getFocusRowKey()
+    {
+      return _focusRowKey;
+    }
+    
+    public String getFormName()
+    {
+      return _formName;
+    }
+    
+    public Object getInitialRowKey()
+    {
+      return _initialRowKey;
+    }
+    
+    public ParentTrain getParentTrain()
+    {
+      return _parent;
+    }
+    
+    public List<Station> getStations()
+    {
+      return _stations;
+    }
+    
+    public boolean isSubTrain()
+    {
+      return _isSubTrain;
+    }
+    
+    private void _createStation(
+        UIXProcess  process,
+        UIComponent stamp,
+        int         index,
+        boolean     active,
+        boolean     visited)
+    {
+      process.setRowIndex(index);
+      if(stamp.isRendered())
+      {
+        // The station will be visible.
+        _stations.add(new Station(this,
+                                  stamp, 
+                                  index, 
+                                  process.getRowKey(), 
+                                  active, 
+                                  visited));
+      }
+    }
+
+    /**
+     * Get the maxVisited attribute from the node and return it.
+     */
+    private int _getMaxVisitedIndex(
+      RenderingContext arc, 
+      UIComponent component)
+    {
+      int maxVisitedIndex = NO_CHILD_INDEX;
+      Integer maxVisited = (Integer) _getMaxVisited(arc, component);
+      if (maxVisited != null)
+      {
+        maxVisitedIndex = maxVisited.intValue();
+      }
+      return maxVisitedIndex;
+    }
+
+    /**
+     * Returns the MAX_VISITED_ATTR
+     * @todo =-=jmw Hopefully the controller will tell us this someday.
+     */
+    private static Object _getMaxVisited(
+      RenderingContext arc, 
+      UIComponent component)
+    {
+      // return component.getAttributes().get("maxVisited");
+      return null;
+    }
+    
+    private int _getVisibleStopCount(RenderingContext arc)
+    {
+      Object propValue = 
+        arc.getSkin().getProperty(SkinProperties.AF_TRAIN_VISIBLE_STOP_COUNT);
+      
+      if(propValue == null)
+      {
+        return DEFAULT_MAX_VISIBLE_STOP_COUNT;
+      }
+      
+      try
+      {
+        int count = Integer.parseInt(propValue.toString());
+        if(count <= 0)
+        {
+          _LOG.warning("Visible stop count must be > 0, found " + count);
+          return DEFAULT_MAX_VISIBLE_STOP_COUNT;
+        }
+        
+        return count;
+      }
+      catch(NumberFormatException e)
+      {
+        _LOG.warning("Visible stop count must be an integer, found " + propValue);
+        return DEFAULT_MAX_VISIBLE_STOP_COUNT;
+      }
+    }
+    
+    private void _initLabels(
+        RenderingContext arc, 
+        UIXProcess       process,
+        UIComponent      stamp)
+    {
+      for(Station s : _stations)
+      {
+        process.setRowIndex(s.getRowIndex());
+        s.initLabel(arc, stamp);
+      }
+    }
+    
+    private void _initParentTrain(
+        RenderingContext arc, 
+        UIXProcess       process,
+        UIComponent      stamp)
+    {
+      if(_isSubTrain)
+      {
+        if(_shouldRenderParentTrain(arc))
+        {
+          _parent = new ParentTrain(arc, process, stamp, this);
+          if(!_parent.hasParentStart() && !_parent.hasParentEnd())
+          {
+            _isSubTrain = false;
+          }
+        }
+        else
+        {
+          _isSubTrain = false;
+        }
+      }
+    }
+    
+    /**
+     * Determine if this train is a sub-train.
+     */
+    private boolean _loadIsSubTrain(UIXProcess process)
+    {
+      Object focusRowKey = process.getFocusRowKey();
+      if (focusRowKey != null && (process.getDepth(focusRowKey) > 0))
+      {
+        return true;
+      }
+      
+      return false;
+    }
+    
+    private int _loadStations(
+        UIXProcess  process,
+        UIComponent stamp,
+        int         maxVisitedIndex)
+    {
+      _initialRowKey = process.getRowKey();
+      try
+      {
+        // Set the model on the focus item
+        _focusRowKey = process.getFocusRowKey();
+        process.setRowKey(_focusRowKey);
+        
+        int count       = process.getRowCount();
+        int activeIndex = process.getRowIndex();
+        int index       = 0;
+        
+        assert activeIndex < count;
+        
+        _stations = new ArrayList<Station>(count);
+        
+        // Process visited stations
+        for(; index < activeIndex; index++)
+        {
+          _createStation(process, stamp, index, false, true);
+        }
+        
+        assert index == activeIndex;
+        
+        _createStation(process, stamp, index, true, true);
+        index++;
+        // Might have an invisible active station. Thsi is weird, but still.
+        // You never know what users want to do, but let support 
+        // it nevertheless for now. 
+        // selectedIndex is either the active station index or the index 
+        // of the station just before the selected one if active is not visible.
+        activeIndex = _stations.size() - 1;
+        
+        if(maxVisitedIndex != NO_CHILD_INDEX)
+        {
+          for(; index < maxVisitedIndex; index++)
+          {
+            _createStation(process, stamp, index, false, true);
+          }
+        }
+        
+        for(; index < count; index++)
+        {
+          _createStation(process, stamp, index, false, false);
+        }
+        
+        return activeIndex;
+      }
+      finally
+      {
+        // Restore the model's state
+        process.setRowKey(_initialRowKey);
+      }
+    }
+    
+    private void _resolveOverflow(
+        int visibleStopCount,
+        int activeIndex)
+    {
+      assert _stations != null;
+      assert activeIndex >= -1;
+      assert activeIndex < _stations.size();
+      
+      // First, resolve chaining
+      _resolveStandard();
+      
+      // We have more stations than the max available, so we have an overflow
+      // for sure.
+      if(activeIndex <= 0)
+      {
+        // Overflow to the following group only
+        _resolveOverflowEnd(visibleStopCount);
+        _stations = _stations.subList(0, visibleStopCount + 1);
+      }
+      else
+      {
+        // Get the visible group index
+        int groupIndex = activeIndex / visibleStopCount;
+        int startIndex = 0;
+        int endIndex   = _stations.size();
+        if(groupIndex > 0)
+        {
+          // We have a previous overflow
+          startIndex = groupIndex * visibleStopCount - 1;
+          _resolveOverflowStart(startIndex);
+        }
+        
+        int maxGroupIndex = (_stations.size() - 1) / visibleStopCount;
+        
+        if(groupIndex < maxGroupIndex)
+        {
+          // We have a next overflow
+          int overflowIndex = (groupIndex + 1) * visibleStopCount;
+          
+          // endIndex is exclusive
+          endIndex = overflowIndex + 1;
+          
+          _resolveOverflowEnd(overflowIndex);
+        }
+
+        _stations = _stations.subList(startIndex, endIndex);
+      }
+    }
+    
+    private void _resolveOverflowEnd(int index)
+    {
+      assert _stations != null;
+      assert index >= 0;
+      assert index < _stations.size();
+      
+      Station station = _stations.get(index);
+      station.setOverflowEnd(true);
+      if(station.hasPrevious() && station.getPrevious().isDisabled())
+      {
+        // If previous stop is disabled, so is the overflow
+        station.setDisabled(true);
+      }
+      
+      station.setNext(null);
+    }
+    
+    private void _resolveOverflowStart(int index)
+    {
+      assert _stations != null;
+      assert index >= 0;
+      assert index < _stations.size();
+      
+      Station station = _stations.get(index);
+      station.setOverflowStart(true);
+      if(station.hasNext() && station.getNext().isDisabled())
+      {
+        // If next stop is disabled, so is the overflow
+        station.setDisabled(true);
+      }
+      
+      station.setPrevious(null);
+    }
+    
+    private void _resolveStandard()
+    {
+      if(_stations.size() > 1)
+      {
+        Iterator<Station> iterator = _stations.iterator();
+        
+        Station previous = null;
+        Station current  = iterator.next();
+        Station next     = iterator.next();
+        
+        _updateStation(current, previous, next);
+        
+        while(iterator.hasNext())
+        {
+          previous = current;
+          current  = next;
+          next     = iterator.next();
+          _updateStation(current, previous, next);
+        }
+        
+        next.setPrevious(current);
+      }
+    }
+    
+    private boolean _shouldRenderParentTrain(RenderingContext arc)
+    {
+      Object propValue = 
+        arc.getSkin().getProperty(SkinProperties.AF_TRAIN_RENDER_PARENT_TRAIN);
+      
+      if(propValue == null)
+      {
+        return DEFAULT_RENDER_PARENT_TRAIN;
+      }
+      
+      return Boolean.TRUE.equals(propValue);
+    }
+    
+    private void _updateStation(
+        Station current,
+        Station previous,
+        Station next)
+    {
+      current.setPrevious(previous);
+      current.setNext(next);
+    }
+    
+    private Object        _focusRowKey;
+    private String        _formName;
+    private Object        _initialRowKey;
+    private boolean       _isSubTrain;
+    private ParentTrain   _parent;
+    private List<Station> _stations;
   }
 
-  protected static class StationState
+  private static class Station
   {
+    public Station(
+        Train  train,
+        int    index,
+        Object rowKey)
+    {
+      _rowIndex    = index;
+      _rowKey      = rowKey;
+      _active      = false;
+      _visited     = false;
+      _disabled    = false;
+      _readOnly    = false;
+      _parentEnd   = false;
+      _parentStart = false;
+      _train       = train;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public Station(
+        Train       train,
+        UIComponent stamp,
+        int         index,
+        Object      rowKey,
+        boolean     active,
+        boolean     visited)
+    {
+      Map<String, Object> attributes = stamp.getAttributes();
+      
+      _rowIndex    = index;
+      _rowKey      = rowKey;
+      _active      = active;
+      _visited     = visited;
+      _disabled    = _getBooleanAttribute(attributes, "disabled", false);
+      _readOnly    = _getBooleanAttribute(attributes, "readOnly", false);
+      _parentEnd   = false;
+      _parentStart = false;
+      _train       = train;
+    }
+    
+    public String getBaseStyleClass()
+    {
+      if(isOverflowEnd())
+      {
+        return SkinSelectors.AF_TRAIN_OVERFLOW_END_STYLE_CLASS;
+      }
+      else if(isOverflowStart())
+      {
+        return SkinSelectors.AF_TRAIN_OVERFLOW_START_STYLE_CLASS;
+      }
+      else if(isParentStart())
+      {
+        return SkinSelectors.AF_TRAIN_PARENT_START_STYLE_CLASS;
+      }
+      else if(isParentEnd())
+      {
+        return SkinSelectors.AF_TRAIN_PARENT_END_STYLE_CLASS;
+      }
+      else
+      {
+        return SkinSelectors.AF_TRAIN_STOP_STYLE_CLASS;
+      }
+    }
+    
+    public String getEndJoinState()
+    {
+      if(isOverflowEnd())
+      {
+        return null;
+      }
+      else if(!hasNext())
+      {
+        ParentTrain parent = _train.getParentTrain();
+        if(parent != null && parent.hasParentEnd())
+        {
+          return _STATE_PARENT;
+        }
+        else
+        {
+          return null;
+        }
+      }
+      else if(isDisabled() || getNext().isDisabled())
+      {
+        return _STATE_DISABLED;
+      }
+      else if(getNext().isVisited())
+      {
+        return _STATE_VISITED;
+      }
+      else
+      {
+        return _STATE_UNVISITED;
+      }
+    }
+    
+    public List<String> getIconNames()
+    {
+      if(isOverflowEnd())
+      {
+        return _getOverflowEndIconNames();
+      }
+      else if(isOverflowStart())
+      {
+        return _getOverflowStartIconNames();
+      }
+      else if(isParentStart())
+      {
+        return Collections.singletonList(SkinSelectors.AF_TRAIN_PARENT_START_ICON_NAME);
+      }
+      else if(isParentEnd())
+      {
+        return Collections.singletonList(SkinSelectors.AF_TRAIN_PARENT_END_ICON_NAME);
+      }
+      else
+      {
+        return _getStopIconNames();
+      }
+    }
+    
+    public String getLabel()
+    {
+      return _label;
+    }
+    
+    public Station getNext()
+    {
+      return _next;
+    }
+    
+    public Station getPrevious()
+    {
+      return _previous;
+    }
+    
+    public int getRowIndex()
+    {
+      return _rowIndex;
+    }
+    
+    public Object getRowKey()
+    {
+      return _rowKey;
+    }
+    
+    public String getStartJoinState()
+    {
+      if(isOverflowStart())
+      {
+        return null;
+      }
+      else if(!hasPrevious())
+      {
+        ParentTrain parent = _train.getParentTrain();
+        if(parent != null && parent.hasParentStart())
+        {
+          return _STATE_PARENT;
+        }
+        else
+        {
+          return null;
+        }
+      }
+      else if(isDisabled() || getPrevious().isDisabled())
+      {
+        return _STATE_DISABLED;
+      }
+      else if(isVisited())
+      {
+        return _STATE_VISITED;
+      }
+      else
+      {
+        return _STATE_UNVISITED;
+      }
+    }
+    
+    public List<String> getStates()
+    {
+      List<String> states = new ArrayList<String>(5);
+      if(isParentStart() || isParentEnd())
+      {
+        return states;
+      }
+      
+      if(isDisabled())
+      {
+        states.add(_STATE_DISABLED);
+        return states;
+      }
+      
+      if(isActive())
+      {
+        states.add(_STATE_ACTIVE);
+      }
+      else if(isVisited())
+      {
+        states.add(_STATE_VISITED);
+      }
+      else
+      {
+        states.add(_STATE_UNVISITED);
+      }
+      
+      if(isReadOnly())
+      {
+        states.add(_STATE_READ_ONLY);
+      }
+      
+      return states;
+    }
+    
+    public boolean hasNext()
+    {
+      return _next != null;
+    }
+    
+    public boolean hasPrevious()
+    {
+      return _previous != null;
+    }
 
-    public boolean isSelected;
-    // is this the station that is right AFTER the selected station.
-    public boolean isNext;
-    public boolean isVisited; // has this station been visited already?
-    public boolean isPreviousLink; // is this the Previous link?
-    public boolean isMoreLink; // is this the More link?
-    public boolean isDisabled; // is this station disabled?
-    public boolean isNextDisabled; // is the next station disabled?
-    public boolean isPrevDisabled; // is the previous station disabled?
-    public boolean isNextVisited; // is the next station visited?
-    public int index; // the index of this node
-  } //end StationState
 
-  private static final int  _MAX_NUM_LINK_INDEX = 
-    6; //number of visible links
+    /**
+     * return the string to use for the text of the station
+     * it is the text of the link or "Previous" or "More"
+     */
+    public void initLabel(
+      RenderingContext arc, 
+      UIComponent      stamp)
+    {
+      if(isOverflowStart())
+      {
+        _label = arc.getTranslatedString(_PREVIOUS_KEY);
+      }
+      else if(isOverflowEnd())
+      {
+        _label = arc.getTranslatedString(_MORE_KEY);
+      }
+      else
+      {
+        Object text = stamp.getAttributes().get("text");
+        if(text != null)
+        {
+          _label = text.toString();
+          if (isScreenReaderMode(arc))
+          {
+            _label = _getDisabledUserText(arc, _label);
+          }
+        }
+        else
+        {
+          _label = null;
+        }
+      }
+    }
+    
+    public boolean isActive()
+    {
+      return _active;
+    }
+    
+    public boolean isDisabled()
+    {
+      return _disabled;
+    }
+    
+    public boolean isNextDisabled()
+    {
+      return hasNext() && _next.isDisabled();
+    }
+    
+    public boolean isOverflowEnd()
+    {
+      return _overflowEnd;
+    }
+    
+    public boolean isOverflowStart()
+    {
+      return _overflowStart;
+    }
+    
+    public boolean isParentEnd()
+    {
+      return _parentEnd;
+    }
+    
+    public boolean isParentStart()
+    {
+      return _parentStart;
+    }
+    
+    public boolean isPreviousDisabled()
+    {
+      return hasPrevious() && _previous.isDisabled();
+    }
+    
+    public boolean isReadOnly()
+    {
+      return _readOnly;
+    }
+    
+    public boolean isVisited()
+    {
+      return _visited;
+    }
+    
+    public void setDisabled(boolean disabled)
+    {
+      _disabled = disabled;
+    }
+    
+    public void setNext(Station next)
+    {
+      _next = next;
+    }
+    
+    public void setOverflowEnd(boolean overflowEnd)
+    {
+      _overflowEnd = overflowEnd;
+    }
+    
+    public void setOverflowStart(boolean overflowStart)
+    {
+      _overflowStart = overflowStart;
+      _visited       = true;
+    }
+    
+    public void setParentEnd(boolean parentEnd)
+    {
+      _parentEnd = parentEnd;
+    }
+    
+    public void setParentStart(boolean parentStart)
+    {
+      _parentStart = parentStart;
+    }
+    
+    public void setPrevious(Station previous)
+    {
+      _previous = previous;
+    }
+    
+    public void setReadOnly(boolean readOnly)
+    {
+      _readOnly = readOnly;
+    }
+    
+    private boolean _getBooleanAttribute(
+        Map<String, Object> attributes,
+        String              attributeName,
+        boolean             defaultValue)
+    {
+      Object value = attributes.get(attributeName);
+      if(value == null)
+      {
+        return defaultValue;
+      }
+      
+      return Boolean.TRUE.equals(value);
+    }
+
+    private String _getDisabledUserText(
+      RenderingContext arc,
+      String           text)
+    {
+      String altTextKey;
+      if(isActive())
+      {
+        altTextKey = _ACTIVE_KEY;
+      }
+      else if(isVisited())
+      {
+        altTextKey = _VISITED_KEY;
+      }
+      else
+      {
+        altTextKey = _NEXT_KEY;
+      }
+
+      String altText = 
+        XhtmlUtils.getFormattedString(arc.getTranslatedString(altTextKey), 
+                                      new String[]{text});
+      
+      return altText;
+    }
+    
+    private List<String> _getIconNames(String baseSelector)
+    {
+      LinkedList<String> names = new LinkedList<String>();
+
+      StringBuilder builder = new StringBuilder(64);
+      builder.append(baseSelector);
+      
+      int suffixLength = SkinSelectors.ICON_SUFFIX.length();
+      int baseIndex    = builder.length();
+      
+      builder.append(SkinSelectors.ICON_SUFFIX);
+      names.addFirst(builder.toString());
+      builder.delete(baseIndex, baseIndex + suffixLength);
+      
+      if(isDisabled())
+      {
+        builder.append(_SUFFIX_DISABLED);
+        builder.append(SkinSelectors.ICON_SUFFIX);
+        names.addFirst(builder.toString());
+      }
+      else 
+      {
+        if(isActive())
+        {
+          builder.append(_SUFFIX_ACTIVE);
+        }
+        else if(isVisited())
+        {
+          builder.append(_SUFFIX_VISITED);
+        }
+        else
+        {
+          builder.append(_SUFFIX_UNVISITED);
+        }
+        
+        baseIndex = builder.length();
+        
+        builder.append(SkinSelectors.ICON_SUFFIX);
+        names.addFirst(builder.toString());
+        builder.delete(baseIndex, baseIndex + suffixLength);
+        
+        if(isReadOnly())
+        {
+          builder.append(_SUFFIX_READ_ONLY);
+          builder.append(SkinSelectors.ICON_SUFFIX);
+          names.addFirst(builder.toString());
+        }
+      }
+      
+      return names;
+    }
+    
+    private List<String> _getOverflowEndIconNames()
+    {
+      return _getIconNames(SkinSelectors.AF_TRAIN_OVERFLOW_END_STYLE_CLASS);
+    }
+    
+    private List<String> _getOverflowStartIconNames()
+    {
+      return _getIconNames(SkinSelectors.AF_TRAIN_OVERFLOW_START_STYLE_CLASS);
+    }
+    
+    private List<String> _getStopIconNames()
+    {
+      return _getIconNames(SkinSelectors.AF_TRAIN_STOP_STYLE_CLASS);
+    }
+    
+    private boolean _active;       // Is this station the active one?
+    private boolean _disabled;     // Disabled attribute
+    private boolean _overflowEnd; // Is this station the next step set link?
+    private boolean _overflowStart; // Is this station the prev step set link?
+    private boolean _parentEnd;    // Is this station a parent end?
+    private boolean _parentStart;  // Is this station a parent start?
+    private boolean _readOnly;     // Read only attribute
+    private boolean _visited;      // Is this station visited?
+    
+    private int _rowIndex; // Row index
+    
+    private Object _rowKey; // Row key
+    
+    private String _label; // This station's label
+    
+    private Station _next;
+    private Station _previous;
+    
+    private Train _train;
+  }
+  
+  private static class ParentTrain
+  {
+    public ParentTrain(
+        RenderingContext arc,
+        UIXProcess       process,
+        UIComponent      stamp,
+        Train            train)
+    {
+      List<Station> stations     = train.getStations();
+      int           stationCount = stations.size();
+      
+      boolean hasParentStart = !stations.get(0).isOverflowStart();
+      boolean hasParentEnd   = !stations.get(stationCount - 1).isOverflowEnd();
+      
+      if(hasParentStart || hasParentEnd)
+      {
+        Object parentStartRowKey = process.getContainerRowKey();
+        process.setRowKey(parentStartRowKey);
+        int rowIndex = process.getRowIndex();
+        if(hasParentStart)
+        {
+          _parentStart = new Station(train, rowIndex, parentStartRowKey);
+          _parentStart.setParentStart(true);
+          _parentStart.initLabel(arc, stamp);
+        }
+        
+        rowIndex = rowIndex + 1;
+        
+        // Check if the parent has more steps, render it only if it does
+        hasParentEnd = rowIndex < process.getRowCount();
+        if(hasParentEnd)
+        {
+          process.setRowIndex(rowIndex);
+          _parentEnd = new Station(train, rowIndex, process.getRowKey());
+          _parentEnd.setParentEnd(true);
+          _parentEnd.initLabel(arc, stamp);
+        }
+        
+        // Restore the model
+        process.setRowKey(train.getInitialRowKey());
+      }
+    }
+    
+    public Station getParentEnd()
+    {
+      return _parentEnd;
+    }
+    
+    public Station getParentStart()
+    {
+      return _parentStart;
+    }
+    
+    public boolean hasParentEnd()
+    {
+      return _parentEnd != null;
+    }
+    
+    public boolean hasParentStart()
+    {
+      return _parentStart != null;
+    }
+    
+    private Station _parentEnd;
+    private Station _parentStart;
+  }
 
   /**
- * The following keys are used to get at the corresponding translated
- * strings.
- */
+   * Gives the amount of visible stops that get rendered by default if no 
+   * amount is specified by the -ora-visible-stop-count skin property.
+   */
+  public static final int DEFAULT_MAX_VISIBLE_STOP_COUNT  = 6;
+  
+  /**
+   * Determines if the parent train of sub-trains should be rendered by 
+   * default if not specified by the -ora-render-parent-train skin property.
+   */
+  public static final boolean DEFAULT_RENDER_PARENT_TRAIN = false;
+  
+  private static final String _STATE_ACTIVE    = SkinSelectors.STATE_PREFIX + "Selected";
+  private static final String _STATE_DISABLED  = SkinSelectors.STATE_PREFIX + "Disabled";
+  private static final String _STATE_PARENT    = SkinSelectors.STATE_PREFIX + "Parent";
+  private static final String _STATE_READ_ONLY = SkinSelectors.STATE_PREFIX + "ReadOnly";
+  private static final String _STATE_UNVISITED = SkinSelectors.STATE_PREFIX + "Unvisited";
+  private static final String _STATE_VISITED   = SkinSelectors.STATE_PREFIX + "Visited";
+  
+  private static final String _SUFFIX_CONTENT    = "-content";
+  private static final String _SUFFIX_ICON_CELL  = "-icon-cell";
+
+  private static final String _SUFFIX_ACTIVE     = ":selected";
+  private static final String _SUFFIX_DISABLED   = ":disabled";
+  private static final String _SUFFIX_READ_ONLY  = ":read-only";
+  private static final String _SUFFIX_UNVISITED  = ":unvisited";
+  private static final String _SUFFIX_VISITED    = ":visited";
+
+  /**
+   * The following keys are used to get at the corresponding translated
+   * strings.
+   */
   private static final String _VISITED_KEY = "af_train.VISITED_TIP";
   private static final String _ACTIVE_KEY = "af_train.ACTIVE_TIP";
   private static final String _NEXT_KEY = "af_train.NEXT_TIP";
@@ -800,23 +1866,22 @@ public class TrainRenderer
 
   private static final TrinidadLogger _LOG = 
     TrinidadLogger.createTrinidadLogger(TrainRenderer.class);
-
-  // for now keep the OraLink/OraDisabledLink styles on the 'a', and
-  // append train link style class.
-  private static final Map<String, String> _RESOURCE_KEY_MAP = 
-    new HashMap<String, String>();
-  private static final String _TRAIN_DISABLED_LINK = 
-    SkinSelectors.LINK_DISABLED_STYLE_CLASS + " " + 
-    SkinSelectors.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
-  private static final String _TRAIN_ENABLED_LINK = 
-    SkinSelectors.LINK_STYLE_CLASS + " " + 
-    SkinSelectors.AF_PROCESS_TRAIN_LINK_STYLE_CLASS;
   
-  static {
-    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_DISABLED_STYLE_CLASS, 
-                          _TRAIN_DISABLED_LINK);
-    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_STYLE_CLASS, 
-                          _TRAIN_ENABLED_LINK);
+  private static final String[] _EMPTY_STRING_ARRAY;
+  
+  private static final Map<String, String> _RESOURCE_KEY_MAP;
+  
+  static
+  {
+    _EMPTY_STRING_ARRAY = new String[0];
+    
+    // Not adding the base link classes as before, those are a nuisance 
+    // while defining the skin since oyu cannot inhibit them as they're
+    // on the same level as the train selectors.
+    _RESOURCE_KEY_MAP = new TreeMap<String, String>();
+    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_STYLE_CLASS,
+                          SkinSelectors.AF_TRAIN_LINK_STYLE_CLASS);
+    _RESOURCE_KEY_MAP.put(SkinSelectors.LINK_DISABLED_STYLE_CLASS,
+                          SkinSelectors.AF_TRAIN_LINK_STYLE_CLASS);
   }
-
 }

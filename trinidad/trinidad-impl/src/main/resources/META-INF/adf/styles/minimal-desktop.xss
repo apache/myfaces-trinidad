@@ -146,6 +146,34 @@
   </style>
   
   <!-- 
+    train Styles
+  -->
+  <style name="AFTrainContent">
+    <property name="border-top-style">solid</property>
+    <property name="border-top-width">2px;</property>
+  </style>
+   
+  <style selector="af|train::stop.p_AFVisited">  
+    <includeProperty name="MediumExtraAccentBackground"
+                     propertyName="background-color"
+                     localPropertyName="border-color"/>
+  </style>
+  
+  <style selector="af|train::stop:selected">  
+    <includeStyle name="AFDarkBorder"/>
+  </style>
+
+  <style selector="af|train::stop:disabled">
+    <includeProperty name="LightExtraAccentBackground"
+                     propertyName="background-color"
+                     localPropertyName="border-color"/>
+  </style>
+  
+  <style selector="af|train::stop:unvisited">
+    <includeStyle name="AFDarkBorder"/>
+  </style>
+  
+  <!-- 
     treeTable Styles
   -->
 

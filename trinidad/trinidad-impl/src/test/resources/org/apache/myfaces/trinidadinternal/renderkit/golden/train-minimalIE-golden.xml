@@ -1,6 +1,5 @@
 <results>
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -9,54 +8,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[id,myid]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -65,54 +218,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'myid:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'myid:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'myid:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'myid:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'myid:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'myid:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[shortDesc,my short desc]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -122,54 +429,208 @@
            title="my short desc"
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[styleClass,mystyle]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -178,54 +639,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onclick,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -235,54 +850,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[ondblclick,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -292,54 +1061,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onkeydown,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -349,54 +1272,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onkeypress,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -406,54 +1483,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onkeyup,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -463,54 +1694,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onmousedown,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -520,54 +1905,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onmousemove,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -577,54 +2116,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onmouseout,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -634,54 +2327,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onmouseover,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -691,54 +2538,208 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 <!--AttributeTest[onmouseup,null]-->
 
       <table
-           align="center"
            border="0"
            cellpadding="0"
            cellspacing="0"
@@ -748,48 +2749,203 @@
            summary=""
           >
         
-        <tr
+        <tbody
             >
           
-          <td
-               class="af_train_step-active"
-               colspan="2"
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="af_train_join"
                 >
-              First
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFSelected af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                 class="af_train_join p_AFUnvisited"
+                >
+              
+            </td>
+            <td
+                >
+              
+              <table
+                   border="0"
+                   cellpadding="0"
+                   cellspacing="0"
+                   style="width: 100%"
+                   summary=""
+                  >
+                
+                <tbody
+                    >
+                  
+                  <tr
+                      >
+                    
+                    <td
+                         class="af_train_join p_AFUnvisited"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                    <td
+                         class="p_AFUnvisited af_train_stop af_train_stop-icon-cell"
+                        >
+                      
+                    </td>
+                    <td
+                         class="af_train_join"
+                         style="width: 50%"
+                        >
+                      
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+            <td
+                 class="af_train_join"
+                >
+              
+            </td>
+          </tr>
+          <tr
               >
             
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+            <td
+                 class="p_AFSelected af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Second
-            </a>
-          </td>
-          <td
-               class="af_train_step-unvisited"
-               colspan="2"
-              >
-            
-            <a
-                 class="OraLink af_train_link"
-                 onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
-                 href="uri-attr:encoded-action-url:#"
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:0:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                First
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
                 >
-              Third
-            </a>
-          </td>
-        </tr>
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:1:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Second
+              </a>
+            </td>
+            <td
+                 class="p_AFUnvisited af_train_stop af_train_stop-content"
+                 colspan="3"
+                 style="background-image:none;"
+                >
+              
+              <a
+                   class="af_train_link"
+                   onclick="submitForm('formId',1,{source:'mainId:2:_idXXX'});return false;"
+                   href="uri-attr:encoded-action-url:#"
+                  >
+                Third
+              </a>
+            </td>
+          </tr>
+        </tbody>
       </table>
 </results>
