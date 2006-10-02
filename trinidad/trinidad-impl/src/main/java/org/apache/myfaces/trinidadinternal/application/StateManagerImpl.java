@@ -131,7 +131,7 @@ public class StateManagerImpl extends StateManager
     // Don't remove transient components...
     Object structure = new Structure(component);
     Object state = component.processSaveState(context);
-    return new PageState(structure, state, null);
+    return new PageState(context, structure, state, null);
   }
 
   static public UIComponent restoreComponentTree(
@@ -174,7 +174,7 @@ public class StateManagerImpl extends StateManager
 
     Object structure = new Structure(root);
     Object state = root.processSaveState(context);
-    return new PageState(structure, state, root);
+    return new PageState(context, structure, state, root);
   }
 
   static public UIViewRoot restoreViewRoot(
@@ -188,7 +188,7 @@ public class StateManagerImpl extends StateManager
 
     PageState viewState = (PageState) saved;
 
-    UIViewRoot root = viewState.popRoot();
+    UIViewRoot root = viewState.popRoot(context);
     if (root != null)
     {
       return root; // bug 4712492
@@ -273,20 +273,21 @@ public class StateManagerImpl extends StateManager
         // -= Simon Lessard =-
         // FIXME: pageState is never read
         PageState pageState = new PageState(
+            context,
             structure,
             state,
             // Save the view root into the page state as a transient
             // if this feature has not been disabled
             _useViewRootCache(context) ? root : null);
 
-        token = cache.addNewEntry(new PageState(structure, state, root),
+        token = cache.addNewEntry(new PageState(context, structure, state, root),
                                   stateMap);
       }
       // If we got the "applicationViewCache", we're using it.
       else
       {
         // use null viewRoot since this state is shared across users:
-        Object applicationState = new PageState(structure, state, null);
+        Object applicationState = new PageState(context, structure, state, null);
         // If we need to, stash the state off in our cache
         if (!dontSave)
         {
@@ -405,35 +406,11 @@ public class StateManagerImpl extends StateManager
 
       _LOG.fine("Successfully found view state for token {0}", token);
 
-      UIViewRoot root = viewState.popRoot(); // bug 4712492
+      UIViewRoot root = viewState.popRoot(context); // bug 4712492
       if (root != null)
       {
         _LOG.finer("UIViewRoot for token {0} already exists. Bypassing restoreState", token);
-        // we need to create a new UIViewRoot because JSF 1.1 does not
-        // clear FacesEvents (or FacesMessages, IIRC), so any pending
-        // events will still be present.
-        // TODO this should probably be using UIViewRoot.saveState()
-        // and restoreState(), and using Application.createComponent()
-        // instead of new UIViewRoot()
-        UIViewRoot newRoot = new UIViewRoot();
-        newRoot.setId(root.getId());
-        newRoot.setLocale(root.getLocale());
-        newRoot.setViewId(root.getViewId());
-        newRoot.setRenderKitId(root.getRenderKitId());
-        // copy any render specific attributes.
-        // adfc uses some:
-        newRoot.getAttributes().putAll(root.getAttributes());
-        // we need to use a temp list because as a side effect of
-        // adding a child to a UIComponent, that child is removed from
-        // the parent UIComponent. So the following will break:
-        // newRoot.getChildren().addAll(root.getChildren());
-        // because "root"'s child List is being mutated as the List
-        // is traversed.
-        List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
-        temp.addAll(root.getChildren());
-        newRoot.getChildren().addAll(temp);
-
-        return newRoot;
+        return root;
       }
 
       structure = viewState.getStructure();
@@ -795,12 +772,18 @@ public class StateManagerImpl extends StateManager
     private final Object _structure, _state;
     // use transient since UIViewRoots are not Serializable.
     private transient UIViewRoot _root;
+    // If the UIViewRoot is lost, then this state is useless, so mark it
+    // transient as well:
+    private transient Object _viewRootState;
 
-    public PageState(Object structure, Object state, UIViewRoot root)
+    public PageState(FacesContext fc, Object structure, Object state, UIViewRoot root)
     {
       _structure = structure;
       _state = state;
       _root = root;
+      // we need this state, as we are going to recreate the UIViewRoot later. see
+      // the popRoot() method:
+      _viewRootState = (root != null) ? root.saveState(fc) : null;
     }
 
     public Object getStructure()
@@ -813,20 +796,54 @@ public class StateManagerImpl extends StateManager
       return _state;
     }
 
-    // we need to synchronize because we are mutating _root
-    // which is shared between simultaneous requests from the same user:
-    public synchronized UIViewRoot popRoot()
+    public UIViewRoot popRoot(FacesContext fc)
     {
-      if (_root != null)
+      UIViewRoot root = null;
+      Object viewRootState = null;
+      // we need to synchronize because we are mutating _root
+      // which is shared between simultaneous requests from the same user:
+      synchronized(this)
       {
-        UIViewRoot root = _root;
-        // we must clear the cached viewRoot. This is because UIComponent trees
-        // are mutable and if the back button
-        // is used to come back to an old PageState, then it would be
-        // really bad if we reused that component tree:
-        _root = null;
-        return root;
+        if (_root != null)
+        {
+          root = _root;
+          viewRootState = _viewRootState;
+          // we must clear the cached viewRoot. This is because UIComponent trees
+          // are mutable and if the back button
+          // is used to come back to an old PageState, then it would be
+          // really bad if we reused that component tree:
+          _root = null;
+          _viewRootState = null;
+        }
       }
+      
+      if (root != null)
+      {
+        // If an error happens during updateModel, JSF 1.1 does not
+        // clear FacesEvents (or FacesMessages, IIRC), so any pending
+        // events will still be present, on the subsequent request.
+        // so to clear the events, we create a new UIViewRoot.
+        // must get the UIViewRoot from the application so that
+        // we pick up any custom ViewRoot defined in faces-config.xml:
+        UIViewRoot newRoot = (UIViewRoot) 
+          fc.getApplication().createComponent(UIViewRoot.COMPONENT_TYPE);
+        
+        // must call restoreState so that we setup attributes, listeners,
+        // uniqueIds, etc ...
+        newRoot.restoreState(fc, viewRootState);
+
+        // we need to use a temp list because as a side effect of
+        // adding a child to a UIComponent, that child is removed from
+        // the parent UIComponent. So the following will break:
+        // newRoot.getChildren().addAll(root.getChildren());
+        // because "root"'s child List is being mutated as the List
+        // is traversed.
+        List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
+        temp.addAll(root.getChildren());
+        newRoot.getChildren().addAll(temp);
+        return newRoot;
+      }
+      
       return null;
     }
   }
