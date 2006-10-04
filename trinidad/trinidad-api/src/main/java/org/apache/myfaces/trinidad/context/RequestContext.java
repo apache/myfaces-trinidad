@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.change.ChangeManager;
 import org.apache.myfaces.trinidad.config.RegionManager;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.webapp.UploadedFileProcessor;
 
 /**
@@ -421,10 +422,17 @@ abstract public class RequestContext
    */
   public void release()
   {
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("RequestContext released.", 
+                  new RuntimeException("This is not an error. This trace is for debugging."));
+    }
+    
     Object o = _CURRENT_CONTEXT.get();
     if (o == null)
-      throw new IllegalStateException("RequestContext was already released or " +
-                                      "had never been attached.");
+      throw new IllegalStateException(
+              _addHelp("RequestContext was already released or " +
+                       "had never been attached."));
     if (o != this)
       throw new IllegalStateException("Trying to release a different " +
                      "RequestContext than the current context.");
@@ -440,14 +448,34 @@ abstract public class RequestContext
    */
   public void attach()
   {
+    if (_LOG.isFinest())
+    {
+      _LOG.finest("RequestContext attached.", 
+                  new RuntimeException("This is not an error. This trace is for debugging."));
+    }
+
     Object o = _CURRENT_CONTEXT.get();
     if (o != null)
-      throw new IllegalStateException("Trying to attach RequestContext to a " +
-                                      "thread that already had one.");
+    {
+      throw new IllegalStateException(
+              _addHelp("Trying to attach RequestContext to a " +
+                       "thread that already had one."));
+    }
     _CURRENT_CONTEXT.set(this);
+  }
+  
+  private static String _addHelp(String error)
+  {
+    if (!_LOG.isFinest())
+    {
+      error += " To enable stack traces of each RequestContext attach/release call," +
+        " enable Level.FINEST logging for the "+RequestContext.class;
+    }
+    return error;
   }
 
   static private final ThreadLocal<RequestContext> _CURRENT_CONTEXT = 
     new ThreadLocal<RequestContext>();
-  
+  static private final TrinidadLogger _LOG =
+    TrinidadLogger.createTrinidadLogger(RequestContext.class);
 }
