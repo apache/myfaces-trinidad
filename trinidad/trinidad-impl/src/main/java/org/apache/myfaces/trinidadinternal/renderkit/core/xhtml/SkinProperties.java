@@ -35,22 +35,22 @@ public final class SkinProperties
   //
   // FIXME: Name inconsistency, should be AF_NAVIGATION_PATH
   public static final String AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY =
-    "af|breadCrumbs-ora-show-last-item";
+    "af|breadCrumbs-tr-show-last-item";
   // FIXME: Name inconsistency, should be AF_PANEL_HEADER
   public static final String AF_PANELHEADER_INDENT_CONTENT = 
-    "af|panelHeader-ora-indent-content";
+    "af|panelHeader-tr-indent-content";
   public static final String AF_PANEL_BORDER_LAYOUT_SPACER_WIDTH =
-    "af|panelBorderLayout-ora-spacer-width";
+    "af|panelBorderLayout-tr-spacer-width";
   public static final String AF_PANEL_LIST_DEFAULT_COLUMNS =
-    "af|panelList-ora-default-columns";    
+    "af|panelList-tr-default-columns";    
   public static final String AF_TABLE_REPEAT_CONTROL_BAR =
-    "af|table-ora-repeat-control-bar";
+    "af|table-tr-repeat-control-bar";
   public static final String AF_TABLE_SELECTION_BAR_IN_TABLE =
-    "af|table-ora-selection-bar-in-table";
+    "af|table-tr-selection-bar-in-table";
   public static final String AF_TRAIN_RENDER_PARENT_TRAIN =
-    "af|train-ora-render-parent-train";
+    "af|train-tr-render-parent-train";
   public static final String AF_TRAIN_VISIBLE_STOP_COUNT =
-    "af|train-ora-visible-stop-count";
+    "af|train-tr-visible-stop-count";
   public static final String AF_TREE_TABLE_SPACER_WIDTH =
-    "af|treeTable-ora-spacer-width";
+    "af|treeTable-tr-spacer-width";
 }

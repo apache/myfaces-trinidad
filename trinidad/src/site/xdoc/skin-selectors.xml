@@ -36,7 +36,7 @@
 
      /* Selectors to customize buttons. These are global selectors, too, since they affect all buttons. */
      .AFButtonServerText:alias {background-color:#CECFCE; color:#25009E}
-     .AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-ora-text-antialias:true}
+     .AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-tr-text-antialias:true}
      .AFButtonStartIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
      .AFButtonStartIcon:alias:rtl {content:url(/skins/purple/images/btne.gif); width:7px; height:18px}
 
@@ -528,7 +528,7 @@
            <td>
              This style is used to provide the foreground color, background
              color, and font information for server-side generated buttons.
-             You can set attributes background-color, color, -ora-text-antialias, font-size,
+             You can set attributes background-color, color, -tr-text-antialias, font-size,
              font-family.
             </td>
          </tr>
@@ -536,7 +536,7 @@
            <td>
              This style is used to provide the foreground color, background
              color, and font information for server-side generated disabled
-             buttons. You can attributes background-color, color, -ora-text-antialias, font-size,
+             buttons. You can attributes background-color, color, -tr-text-antialias, font-size,
              font-family.
            </td>
          </tr>
@@ -879,7 +879,7 @@
              rendered on the root dom element, they have no style properties of its own, and they map the content
             piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldTextMarker
             to AFFieldText by defining this skin definition for you in our base skin:
-            af|inputText.AFFieldTextMarker af|inputText::content {-ora-rule-ref: selector(".AFFieldText")}. 
+            af|inputText.AFFieldTextMarker af|inputText::content {-tr-rule-ref: selector(".AFFieldText")}. 
             If you set styleClass="AFFieldText", the entire component will be affected, including the label.
             If you want to affect only the 'content' piece, use one of these marker style classes</td>
             <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFPhoneFieldTextMarker, AFPostalCodeFieldTextMarker, AFAddressFieldTextMarker,
@@ -932,7 +932,7 @@
              rendered on the root dom element, they have no style properties of its own, and they map the content
             piece of the component's styling to the public style class without the 'Marker'.  For example, we map AFFieldNumberMarker
             to AFFieldNumber by defining this skin definition for you in our base skin:
-            af|inputNumberSpinbox.AFFieldNumberMarker af|inputNumberSpinbox::content {-ora-rule-ref: selector(".AFFieldNumber")}. 
+            af|inputNumberSpinbox.AFFieldNumberMarker af|inputNumberSpinbox::content {-tr-rule-ref: selector(".AFFieldNumber")}. 
             If you set styleClass="AFFieldNumber", the entire component will be affected, including the label.
             If you want to affect only the 'content' piece, use one of these marker style classes</td>
             <td>AFFieldTextMarker, AFFieldTextLTRMarker, AFFieldNumberMarker</td>
@@ -1168,7 +1168,7 @@
           <tr>
             <td style="white-space: nowrap">af|navigationPath::selected-step</td>
             <td>Styles the selected step of tr:navigationPath. This step may be hidden
-                if the -ora-show-last-item property is set to false.</td>
+                if the -tr-show-last-item property is set to false.</td>
           </tr>
           <tr>
             <td>af|navigationPath::step</td>
@@ -1225,10 +1225,10 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>-ora-show-last-item</td>
+            <td>-tr-show-last-item</td>
             <td>Valid values are true or false. Determines whether the last item
                 is displayed or not. e.g., af|navigationPath
-                {-ora-show-last-item:false} will not show the last item in the
+                {-tr-show-last-item:false} will not show the last item in the
                 navigationPath.</td>
           </tr>
         </table>
@@ -2966,13 +2966,13 @@
             <th>Description</th>
           </tr>
           <tr>
-            <td>-ora-render-parent-train</td>
+            <td>-tr-render-parent-train</td>
             <td>Boolean value that specifies if parent train icons should be 
                 rendered if this train is a sub-train. A sub-train is a process
                 not located at the root of its TreeModel.</td>
           </tr>
           <tr>
-            <td>-ora-visible-stop-count</td>
+            <td>-tr-visible-stop-count</td>
             <td>Strictly positive integer value specifying the maximum amount of 
                 stops visible at a time.</td>
           </tr>
@@ -3044,7 +3044,7 @@
             <td>af|train::overflow-start</td>
             <td>Styles a train start overflow. A start overflow is generated when the amount 
                 of steps in the process is higher than the amount of visibled stop defined by
-                the -ora-visible-stop-count property. In LTR mode, this selector represents 
+                the -tr-visible-stop-count property. In LTR mode, this selector represents 
                 the left side overflow (previous step group). This selector includes both the 
                 icon and its content. This selector is combinable with state pseudo-classes.</td>
           </tr>
@@ -3064,7 +3064,7 @@
             <td>af|train::overflow-end</td>
             <td>Styles a train end overflow. A end overflow is generated when the amount 
                 of steps in the process is higher than the amount of visibled stop defined by
-                the -ora-visible-stop-count property. In LTR mode, this selector represents 
+                the -tr-visible-stop-count property. In LTR mode, this selector represents 
                 the right side overflow (next step group). This selector includes both the 
                 icon and its content. This selector is combinable with state pseudo-classes.</td>
           </tr>
@@ -3089,7 +3089,7 @@
           <tr>
             <td>af|train::parent-start</td>
             <td>Styles a train start parent. A parent is generated when the current train is
-                not located at the root of its TreeModel and that -ora-render-parent-train 
+                not located at the root of its TreeModel and that -tr-render-parent-train 
                 property is set to true. In LTR mode this will be rendered to the left of the 
                 first step's stop. This selector includes both the icon and its content. 
                 This selector is NOT combinable with state pseudo-classes.</td>
@@ -3109,7 +3109,7 @@
           <tr>
             <td>af|train::parent-end</td>
             <td>Styles a train end parent. A parent is generated when the current train is
-                not located at the root of its TreeModel and that -ora-render-parent-train 
+                not located at the root of its TreeModel and that -tr-render-parent-train 
                 property is set to true. In LTR mode this will be rendered to the right of 
                 the last step's stop. This selector includes both the icon and its content. 
                 This selector is NOT combinable with state pseudo-classes.</td>

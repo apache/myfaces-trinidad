@@ -37,7 +37,7 @@ component. **/
 /* make up a color for hovering over menuTabs and menuBars */
 /* put the extension :alias so it won't get written out to the final css file,
    cuz I know it won't be used directly. Instead it will be included in
-   other style definions using the -ora-rule-ref property. */
+   other style definions using the -tr-rule-ref property. */
 .MyLinkHoverColor:alias { color:Lime; }
 
 
@@ -50,7 +50,7 @@ component. **/
 /** use this to color the button background and text **/
 .AFButtonServerText:alias {background-color:#CECFCE; color:#25009E}
 /* antialias the text for our disabled buttons */
-.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-ora-text-antialias:true}
+.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:gray;-tr-text-antialias:true}
 
 
 .AFButtonStartIcon:alias {content:url(/skins/purple/images/btns.gif); width:7px; height:18px}
@@ -127,7 +127,7 @@ af|panelTabbed::tab-link {
 
 af|panelTabbed::tab-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 /* put some space in the
@@ -189,7 +189,7 @@ af|menuTabs::enabled-link
 
 af|menuTabs::enabled-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 
@@ -272,7 +272,7 @@ af|menuBar
 {
   border-width: 3px 2px 0px 2px;
   border-style:solid;
-  -ora-rule-ref:selector(".AFDarkBorder:alias");
+  -tr-rule-ref:selector(".AFDarkBorder:alias");
   padding: 12px;
 }
 
@@ -282,7 +282,7 @@ af|menuBar::selected-link
 }
 af|menuBar::enabled-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 af|menuBar::separator
 {
@@ -324,7 +324,7 @@ af|panelBox::medium-header-end-icon
 af|panelBox::header
 {
   padding: 3px 3px;
-  -ora-rule-ref: selector(".AFMediumFont:alias");
+  -tr-rule-ref: selector(".AFMediumFont:alias");
   font-weight: bold;
 }
 /* for panelBox without a header and shuttles */
@@ -342,7 +342,7 @@ af|panelBox::header
 /** ----------- **/
 af|panelHeader
 {
-  -ora-rule-ref:selector(".AFDarkAccentBorder:alias");
+  -tr-rule-ref:selector(".AFDarkAccentBorder:alias");
    border-width:0px 0px 1px 0px;
    border-style:solid;
    vertical-align:bottom;
@@ -406,7 +406,7 @@ af|inputDate::launch-icon:rtl
 /* use special properties to change the ui **/
 /* don't show the last item in breadCrumbs (the default is to show it)*/
 
-af|breadCrumbs {-ora-show-last-item:false}
+af|breadCrumbs {-tr-show-last-item:false}
 
 af|breadCrumbs::step {color: purple;}
 af|breadCrumbs::step:hover {color: green}
@@ -432,7 +432,7 @@ af|breadCrumbs::separator-icon {content:inhibit}
 
 af|messages
 {
-  -ora-rule-ref: selector("AFVeryDarkAccentBorder:alias");
+  -tr-rule-ref: selector("AFVeryDarkAccentBorder:alias");
   border-style:solid;
   border-width:1px;
   padding:5px;
@@ -441,7 +441,7 @@ af|messages
 
 af|messages::header
 {
-  -ora-rule-ref: selector("AFDarkAccentBorder:alias");
+  -tr-rule-ref: selector("AFDarkAccentBorder:alias");
   border-width:0px 0px 1px 0px;
   border-style:solid;
   vertical-align:bottom;
@@ -451,7 +451,7 @@ af|messages::header
 
 .AFHeaderText:alias
 {
-  -ora-rule-ref: selector("AFDarkForeground:alias");
+  -tr-rule-ref: selector("AFDarkForeground:alias");
   font-weight:bold;
   padding: 0px;
   margin: 0px;
@@ -509,7 +509,7 @@ af|chooseDate::next-disabled-icon
 
 af|objectSeparator
 {
-  -ora-rule-ref: selector(".AFDarkBorder:alias");
+  -tr-rule-ref: selector(".AFDarkBorder:alias");
   border-style: dashed none none;
   border-width: 1px 0px 0px;
   height: 1px;

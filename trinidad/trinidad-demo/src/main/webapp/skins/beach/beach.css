@@ -47,7 +47,7 @@ component. **/
 /* make up a color for hovering over menuTabs and menuBars */
 /* put the extension :alias so it won't get written out to the final css file,
    cuz I know it won't be used directly. Instead it will be included in
-   other style definions using the -ora-rule-ref property. */
+   other style definions using the -tr-rule-ref property. */
 .MyLinkHoverColor:alias { color: #E08D3C; }
 
 
@@ -60,7 +60,7 @@ component. **/
 /* bg-color: bluish; color: deep blue */
 .AFButtonServerText:alias {color:#25009E; background-image:url(/skins/purple/images/menuTabsEnabledEnd.gif);}
 /* antialias the text for our disabled buttons */
-.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:Gray;-ora-text-antialias:true}
+.AFButtonServerTextDisabled:alias {background-color:#F0F0F0; color:Gray;-tr-text-antialias:true}
 
 
 .AFButtonStartIcon:alias {content:url(/skins/beach/images/btnStart.gif); width:7px; height:18px}
@@ -133,7 +133,7 @@ af|panelTabbed::tab-link {
 
 af|panelTabbed::tab-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 /* put some space in the
@@ -208,7 +208,7 @@ af|menuTabs::selected-link
 }
 af|menuTabs::enabled-link:hover, af|menuTabs::selected-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 
@@ -218,7 +218,7 @@ af|menuTabs::enabled-link:hover, af|menuTabs::selected-link:hover
 af|menuBar
 {
 
-  -ora-rule-ref:selector(".AFDarkBorder:alias");
+  -tr-rule-ref:selector(".AFDarkBorder:alias");
   padding: 6px;
 }
 af|menuBar::enabled-link, af|menuBar::selected-link
@@ -237,7 +237,7 @@ af|menuBar::body
 
 af|menuBar::enabled-link:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 af|menuBar::separator
 {
@@ -264,15 +264,15 @@ af|menuBar::separator
 
 af|menuButtons::text:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 af|menuButtons::text-selected:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 af|menuButtons::text-disabled:hover
 {
-  -ora-rule-ref:selector(".MyLinkHoverColor:alias");
+  -tr-rule-ref:selector(".MyLinkHoverColor:alias");
 }
 
 
@@ -365,7 +365,7 @@ af|selectBooleanCheckbox::disabled-only-checked-icon
 
 /* use special properties to change the ui **/
 /* don't show the last item in breadCrumbs (the default is to show it)*/
-af|breadCrumbs {-ora-show-last-item:false}
+af|breadCrumbs {-tr-show-last-item:false}
 
 /** if, for some reason, you don't want an icon to show up, you
     can hide it like this (this feature will be more useful when skins can
@@ -382,7 +382,7 @@ af|breadCrumbs::separator-icon {content:inhibit}
 
 af|messages
 {
-  -ora-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
+  -tr-rule-ref: selector(".AFVeryDarkAccentBorder:alias");
   border-style:solid;
   border-width:1px;
   padding:5px;
@@ -391,7 +391,7 @@ af|messages
 
 af|messages::header
 {
-  -ora-rule-ref: selector(".AFDarkAccentBorder:alias");
+  -tr-rule-ref: selector(".AFDarkAccentBorder:alias");
   border-width:0px 0px 1px 0px;
   border-style:solid;
   vertical-align:bottom;
@@ -401,7 +401,7 @@ af|messages::header
 
 .AFHeaderText:alias
 {
-  -ora-rule-ref: selector(".AFDarkForeground:alias");
+  -tr-rule-ref: selector(".AFDarkForeground:alias");
   font-weight:bold;
   padding: 0px;
   margin: 0px;
@@ -443,5 +443,5 @@ Trinidad components */
 
 af|panelFormLayout::label-cell
 {
-  -ora-rule-ref: selector(".AFStartTextAlign:alias");
+  -tr-rule-ref: selector(".AFStartTextAlign:alias");
 }

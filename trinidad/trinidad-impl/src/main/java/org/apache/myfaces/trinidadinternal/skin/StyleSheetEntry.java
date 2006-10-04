@@ -152,8 +152,8 @@ class StyleSheetEntry
   /**
    * Returns the SkinProperties List for this
    * StyleSheetEntry. This is a list of SkinProperyNodes
-   * a node contains the selector, the -ora- property, and the value.
-   * e.g, selector: af|breadCrumbs, property: -ora-show-last-item,
+   * a node contains the selector, the -tr- property, and the value.
+   * e.g, selector: af|breadCrumbs, property: -tr-show-last-item,
    * value: true
    */
   public List <SkinPropertyNode> getSkinProperties()
@@ -401,7 +401,7 @@ class StyleSheetEntry
   private StyleSheetDocument  _document;
   // List of IconNodes
   private List <IconNode> _icons;
-  // List of -ora- properties that the skin can be set on the skin.
+  // List of -tr- properties that the skin can be set on the skin.
   // This is a List of SkinPropertyNodes
   // jmw it will be key, name, value. or name/value???
   private List <SkinPropertyNode> _skinProperties;

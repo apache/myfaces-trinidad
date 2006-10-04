@@ -453,12 +453,8 @@ abstract public class SkinImpl extends Skin
             for(SkinPropertyNode property : skinProperties)
             {
               Object propValueObj = property.getPropertyValue();
-              // convert to a type if possible first
-              // =-=jmw should I get the type for af|breadCrumbs-ora-show-last-item or just
-              // -ora-show-last-item. in other words, will the property name be the same type
-              // no matter which component it is being used for? If so, then
-              // just storing -ora-show-last-item in the map is good enough.
-              // For now, just for the heck of it, use af|breadCrumbs-ora-show-last-item
+              // Store the property selector + property Name as the Skin Property Key.
+              // e.g., use af|breadCrumbs-tr-show-last-item
 
               String key = property.getPropertySelector() +
                            property.getPropertyName();
