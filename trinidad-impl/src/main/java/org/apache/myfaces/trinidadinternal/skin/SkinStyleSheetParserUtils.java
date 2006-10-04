@@ -214,8 +214,8 @@ class SkinStyleSheetParserUtils
   
         skinPropertyNodeList.addAll(resolvedProperties.getSkinPropertyNodeList());
   
-        List<PropertyNode> noOraPropertyList = 
-          resolvedProperties.getNoOraPropertyList();
+        List<PropertyNode> noTrPropertyList = 
+          resolvedProperties.getNoTrPropertyList();
   
         // =-=jmw There is no good way to tell if this is an icon.
         // for now, I look at the selector name.
@@ -240,9 +240,20 @@ class SkinStyleSheetParserUtils
             selectorName = selectorName.concat(StyleUtils.RTL_CSS_SUFFIX);
   
           // create an IconNode object and add it ot the iconNodeList
-          _addIconNode(selectorName,
-                       noOraPropertyList,
-                       iconNodeList);
+          boolean addStyleNode = _addIconNode(selectorName,
+                                              noTrPropertyList,
+                                              iconNodeList);
+          if (addStyleNode)
+          {
+            _addStyleNode(selectorName,
+                          noTrPropertyList,
+                          resolvedProperties.getTrRuleRefList(),
+                          resolvedProperties.getInhibitedProperties(),
+                          resolvedProperties.isTrTextAntialias(),
+                          styleNodeList);           
+          }
+          
+          
           // log warning if the icon is defined within an @agent or @platform
           // block that tells the user that this icon will be used 
           // for all agents and platforms.
@@ -265,10 +276,10 @@ class SkinStyleSheetParserUtils
         {
           // create a StyleNode object and add it to the styleNodeList.
           _addStyleNode(selectorName,
-                        noOraPropertyList,
-                        resolvedProperties.getOraRuleRefList(),
+                        noTrPropertyList,
+                        resolvedProperties.getTrRuleRefList(),
                         resolvedProperties.getInhibitedProperties(),
-                        resolvedProperties.isOraTextAntialias(),
+                        resolvedProperties.isTrTextAntialias(),
                         styleNodeList);
   
         }
@@ -323,21 +334,25 @@ class SkinStyleSheetParserUtils
     String sourceName)
   {
 
-    List<PropertyNode> noOraPropertyList = new ArrayList<PropertyNode>();
-    List<String> oraRuleRefList = new ArrayList<String>();
+    List<PropertyNode> noTrPropertyList = new ArrayList<PropertyNode>();
+    List<String> trRuleRefList = new ArrayList<String>();
     Set<String> inhibitedPropertySet = new TreeSet<String>();
     List<SkinPropertyNode> skinPropertyNodeList = 
       new ArrayList<SkinPropertyNode>();
     
-    boolean oraTextAntialias = false;
+    boolean trTextAntialias = false;
 
     // loop through each property in the propertyList
     // and resolve into
-    // noOraPropertyList (properties that do not start with -ora-)
-    // oraRuleRefList (properties that start with -ora-rule-ref)
-    // boolean oraTextAntialias (property value for -ora-text-antialias
-    // skinPropertyNodeList (all other properties that start with -ora-)
-    // These properties are all stored in th ResolvedSkinProperties inner class.
+    // noTrPropertyList (properties that do not start with -tr-. 
+    //                  (or -ora- for backwards compatibility))
+    // trRuleRefList (properties that start with -tr-rule-ref
+    //                (or -ora-rule-ref for backwards compatibility))
+    // boolean trTextAntialias (property value for -tr-text-antialias 
+    //                      (or -ora-text-antialias for backwards compatibility)
+    // skinPropertyNodeList (all other properties that start with -tr- 
+    //                       (or -ora- for backwards compatibility))
+    // These properties are stored in the ResolvedSkinProperties inner class.
 
     for(PropertyNode propertyNode : propertyNodeList)
     {
@@ -346,20 +361,26 @@ class SkinStyleSheetParserUtils
       
       if(propertyName != null && propertyValue != null)
       {
-        if(propertyName.startsWith(_ORA_PROPERTY_PREFIX))
-        {
-          if (propertyName.equals(_ORA_RULE_REF))
+        boolean oraProperty = propertyName.startsWith(_ORA_PROPERTY_PREFIX);
+        boolean trProperty = propertyName.startsWith(_TR_PROPERTY_PREFIX);
+        if( oraProperty || trProperty)
+        {   
+          int suffixIndex = (oraProperty) ? 
+                              _ORA_PROPERTY_PREFIX.length() : 
+                              _TR_PROPERTY_PREFIX.length();
+          String propertyNameSuffix = propertyName.substring(suffixIndex);
+          if (propertyNameSuffix.equals(_PROPERTY_RULE_REF))
           {
             // add the rule ref value to the list
-            oraRuleRefList.add(propertyValue);
+            trRuleRefList.add(propertyValue);
           }
-          else if (propertyName.equals(_ORA_TEXT_ANTIALIAS))
+          else if (propertyNameSuffix.equals(_PROPERTY_TEXT_ANTIALIAS))
           {
             if ("true".equals(propertyValue))
-              oraTextAntialias = true;
+              trTextAntialias = true;
 
           }
-          else if (propertyName.equals(_ORA_INHIBIT))
+          else if (propertyNameSuffix.equals(_PROPERTY_INHIBIT))
           {
             for (String value : propertyValue.split("\\s"))
             {
@@ -406,17 +427,17 @@ class SkinStyleSheetParserUtils
             }
           }
 
-          noOraPropertyList.add(propertyNode);
+          noTrPropertyList.add(propertyNode);
         }
       }
     }
 
     return new ResolvedSkinProperties(
-      noOraPropertyList,
-      oraRuleRefList,
+      noTrPropertyList,
+      trRuleRefList,
       inhibitedPropertySet,
       skinPropertyNodeList,
-      oraTextAntialias);
+      trTextAntialias);
   }
   
   private static String _resolveURL(
@@ -522,12 +543,12 @@ class SkinStyleSheetParserUtils
    * Create an IconNode and add it to the iconNodeList.
    * @param selectorName
    * @param propertyNodeList
-   * @param oraTextAntialias
+   * @param trTextAntialias
    * @param iconNodeList
    */
-  private static void _addIconNode(
+  private static boolean _addIconNode(
     String             selectorName,
-    List<PropertyNode> noOraPropertyNodeList,
+    List<PropertyNode> noTrPropertyNodeList,
     List<IconNode>     iconNodeList)
   {
 
@@ -561,11 +582,12 @@ class SkinStyleSheetParserUtils
     String  uri = null;
     String  text = null;
     boolean isNullIcon = false;
+    boolean createStyleNode = false;
     // append all the styles that are not content, width or height into
     // inline style
     CSSStyle inlineStyle = new CSSStyle();
 
-    for(PropertyNode propertyNode : noOraPropertyNodeList)
+    for(PropertyNode propertyNode : noTrPropertyNodeList)
     {
       String propertyName = propertyNode.getName();
       String propertyValue = propertyNode.getValue();
@@ -665,6 +687,16 @@ class SkinStyleSheetParserUtils
             new URIImageIcon(uri, uri, width, height, null, inlineStyle);
         }
       }
+      else
+      {
+        /// neither text or image icon. Must be a StyleClassIcon
+        if (inlineStyle != null)
+        {
+         // icon = new StyleClassIcon(selectorName);
+         // create a styleNode, too with the inlineStyles.
+         createStyleNode = true;
+        }
+      }
     }
     else
     {
@@ -675,6 +707,8 @@ class SkinStyleSheetParserUtils
 
     if (icon != null)
       iconNodeList.add(new IconNode(selectorName, icon));
+      
+    return createStyleNode;
 
   }
 
@@ -682,15 +716,15 @@ class SkinStyleSheetParserUtils
    * Creates a StyleNode object and adds it to the styleNodeList
    * @param selectorName
    * @param propertyNodeList
-   * @param oraRuleRefList
+   * @param trRuleRefList
    * @param styleNodeList
    */
   private static void _addStyleNode(
     String             selectorName,
     List<PropertyNode> propertyNodeList,
-    List<String>       oraRuleRefList,
+    List<String>       trRuleRefList,
     Set<String>        inhibitedProperties,
-    boolean            oraTextAntialias,
+    boolean            trTextAntialias,
     List<StyleNode>    styleNodeList)
   {
 
@@ -712,7 +746,7 @@ class SkinStyleSheetParserUtils
       selector = selectorName;
 
     // add text-antialias if it is set
-    if (oraTextAntialias)
+    if (trTextAntialias)
     {
       propertyNodeList.add(new PropertyNode("text-antialias", "true"));
     }
@@ -720,19 +754,19 @@ class SkinStyleSheetParserUtils
     PropertyNode[] propertyArray =
       propertyNodeList.toArray(new PropertyNode[propertyNodeList.size()]);
 
-    // if the oraRuleRefList is not empty, create IncludeStyleNodes.
-    int length = oraRuleRefList.size();
+    // if the trRuleRefList is not empty, create IncludeStyleNodes.
+    int length = trRuleRefList.size();
     List<IncludeStyleNode> includeStyleNodes = new ArrayList<IncludeStyleNode>();
 
     if (length > 0)
     {
-      for(String value : oraRuleRefList)
+      for(String value : trRuleRefList)
       {
         // parse the value, which will be of this form:
-        // -ora-rule-ref: selector(".AFBaseFont:alias") selector(".Foo")
-        // where you have more than one selector in an -ora-rule-ref definition
-        // or -ora-rule-ref: selector(".AFBaseFont:alias")
-        // where you have only one selector in an -ora-rule-ref definition.
+        // -tr-rule-ref: selector(".AFBaseFont:alias") selector(".Foo")
+        // where you have more than one selector in an -tr-rule-ref definition
+        // or -tr-rule-ref: selector(".AFBaseFont:alias")
+        // where you have only one selector in an -tr-rule-ref definition.
         // I want each selector value to be an IncludeStyleNode.
 
         _addIncludeStyleNodes(value, includeStyleNodes);
@@ -754,7 +788,7 @@ class SkinStyleSheetParserUtils
 
   }
 
-  // This is for -ora-rule-ref properties on styles.
+  // This is for -tr-rule-ref properties on styles.
   private static void _addIncludeStyleNodes(
     String value,
     List <IncludeStyleNode> includeStyleNodes )
@@ -1057,27 +1091,27 @@ class SkinStyleSheetParserUtils
 
 
     ResolvedSkinProperties(
-      List<PropertyNode> noOraPropertyList,
-      List<String> oraRuleRefList,
+      List<PropertyNode> noTrPropertyList,
+      List<String> trRuleRefList,
       Set<String> inhibitedPropertySet,
       List<SkinPropertyNode> skinPropertyNodeList,
-      boolean oraTextAntialias)
+      boolean trTextAntialias)
     {
-      _noOraPropertyList = noOraPropertyList;
-      _oraRuleRefList = oraRuleRefList;
+      _noTrPropertyList = noTrPropertyList;
+      _trRuleRefList = trRuleRefList;
       _inhibitedPropertySet = inhibitedPropertySet;
       _skinPropertyNodeList = skinPropertyNodeList;
-      _oraTextAntialias = oraTextAntialias;
+      _trTextAntialias = trTextAntialias;
     }
 
-    public List<PropertyNode> getNoOraPropertyList()
+    public List<PropertyNode> getNoTrPropertyList()
     {
-      return _noOraPropertyList;
+      return _noTrPropertyList;
     }
 
-    public List<String> getOraRuleRefList()
+    public List<String> getTrRuleRefList()
     {
-      return _oraRuleRefList;
+      return _trRuleRefList;
     }
 
     public List<SkinPropertyNode> getSkinPropertyNodeList()
@@ -1090,23 +1124,27 @@ class SkinStyleSheetParserUtils
       return _inhibitedPropertySet;
     }
 
-    public boolean isOraTextAntialias()
+    public boolean isTrTextAntialias()
     {
-      return _oraTextAntialias;
+      return _trTextAntialias;
     }
     
     private Set<String>            _inhibitedPropertySet;
-    private List<PropertyNode>     _noOraPropertyList;
-    private List<String>           _oraRuleRefList;
+    private List<PropertyNode>     _noTrPropertyList;
+    private List<String>           _trRuleRefList;
     private List<SkinPropertyNode> _skinPropertyNodeList;
-    private boolean                _oraTextAntialias;
+    private boolean                _trTextAntialias;
   }
 
-
+  // Custom Trinidad css properties: 
+  //-tr-rule-ref, -tr-inhibit, -tr-text-antialias
+  private static final String _TR_PROPERTY_PREFIX = "-tr-";
+  // For backwards compatibility, keep the -ora- css properties in
+  // addition to the -tr- css properties.
   private static final String _ORA_PROPERTY_PREFIX = "-ora-";
-  private static final String _ORA_RULE_REF = "-ora-rule-ref";
-  private static final String _ORA_INHIBIT = "-ora-inhibit";
-  private static final String _ORA_TEXT_ANTIALIAS = "-ora-text-antialias";
+  private static final String _PROPERTY_RULE_REF = "rule-ref";
+  private static final String _PROPERTY_INHIBIT = "inhibit";
+  private static final String _PROPERTY_TEXT_ANTIALIAS = "text-antialias";
 
   // Set of values that are legal for url() values
   private static final Set<String> _URI_PROPERTIES = new HashSet<String>();

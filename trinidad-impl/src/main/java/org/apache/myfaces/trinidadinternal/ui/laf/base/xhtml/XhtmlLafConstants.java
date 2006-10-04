@@ -846,20 +846,6 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|panelAccordion::title-disabled-link";
 
 
-  // =============PROPERTY NAMES================
-
-  public static final String AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY =
-    "af|breadCrumbs-ora-show-last-item";
-  public static final String AF_PANEL_LIST_DEFAULT_COLUMNS =
-    "af|panelList-ora-default-columns";    
-  public static final String AF_TABLE_SELECTION_BAR_IN_TABLE =
-    "af|table-ora-selection-bar-in-table";
-  public static final String AF_TABLE_REPEAT_CONTROL_BAR =
-    "af|table-ora-repeat-control-bar";
-  public static final String AF_TREE_TABLE_SPACER_WIDTH =
-    "af|treeTable-ora-spacer-width";
-
-
   // =============ICON NAMES================
 
   // used by MessagePromptRenderer for pda and desktop.

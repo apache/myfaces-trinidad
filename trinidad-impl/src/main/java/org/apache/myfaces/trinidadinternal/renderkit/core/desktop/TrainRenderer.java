@@ -1828,13 +1828,13 @@ public class TrainRenderer
 
   /**
    * Gives the amount of visible stops that get rendered by default if no 
-   * amount is specified by the -ora-visible-stop-count skin property.
+   * amount is specified by the -tr-visible-stop-count skin property.
    */
   public static final int DEFAULT_MAX_VISIBLE_STOP_COUNT  = 6;
   
   /**
    * Determines if the parent train of sub-trains should be rendered by 
-   * default if not specified by the -ora-render-parent-train skin property.
+   * default if not specified by the -tr-render-parent-train skin property.
    */
   public static final boolean DEFAULT_RENDER_PARENT_TRAIN = false;
   

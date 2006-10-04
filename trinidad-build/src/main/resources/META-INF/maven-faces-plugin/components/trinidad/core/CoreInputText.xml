@@ -267,7 +267,7 @@ tip), and may use simpler layout primitives]]>
       You can still modify the public style definitions for these marker style classes
       and it will be picked up by using these "Marker" style class 
       because in our base skin implementation we map to the public style by doing this:
-      af|inputText.AFFieldNumberMarker af|inputText::content {-ora-rule-ref:selector(".AFFieldNumber")}. 
+      af|inputText.AFFieldNumberMarker af|inputText::content {-tr-rule-ref:selector(".AFFieldNumber")}. 
       We recommend that you do not add style properties to the "Marker" style classes. 
       They are used solely in the css descendant selector to point to the content pseudo-element.</html>]]>
       </description>
