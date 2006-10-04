@@ -28,8 +28,8 @@ import org.apache.maven.project.MavenProject;
 //~--- JDK imports ------------------------------------------------------------
 
 import java.io.File;
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -51,33 +51,32 @@ public class ObfuscateJavascriptMojo
   public void execute()
     throws MojoExecutionException
   {
-    List compileSourceRoots = new ArrayList();
-    compileSourceRoots.add(sourceDirectory);
+// List compileSourceRoots = new ArrayList();
+// compileSourceRoots.add(sourceDirectory);
 
     try
     {
-      _obfuscator =
-        new Obfuscator(obfuscate, stripComments, stripWhitespaces,
-                       stripNewlines, stripSpecialKeywords, replaceCharLiterals,
-                       obfuscatorConfig);
+      _obfuscator = 
+          new Obfuscator(obfuscate, stripComments, stripWhitespaces, 
+                         stripNewlines, stripSpecialKeywords, 
+                         replaceCharLiterals, obfuscatorConfig);
 
-      File outputDirectory = new File(targetDirectory, targetPath);
+//      File outputDirectory = new File(targetDirectory, targetPath);
 
-      outputDirectory.mkdirs();
+      targetDirectory.mkdirs();
 
-      for (Iterator i = compileSourceRoots.iterator(); i.hasNext(); )
+      for (File sourceRoot: sourceDirectory)
       {
-        File sourceRoot = (File) i.next();
-        File sourceDirectory = new File(sourceRoot, sourcePath);
-        if (sourceDirectory.exists())
+//        File sourceDirectory = new File(sourceRoot, sourcePath);
+        if (sourceRoot.exists())
         {
-          _obfuscator.process(sourceDirectory, outputDirectory);
+          _obfuscator.process(sourceRoot, targetDirectory);
         }
       }
     }
     catch (ConfigException e)
     {
-      throw new MojoExecutionException("Invalid configuration parameters",
+      throw new MojoExecutionException("Invalid configuration parameters", 
                                        e);
     }
   }
@@ -121,16 +120,11 @@ public class ObfuscateJavascriptMojo
   private boolean stripWhitespaces = false;
 
   /**
-   * @parameter expression="src/main/javascript"
+   * @parameter 
    * @required
    */
-  private File sourceDirectory;
+  private File[] sourceDirectory;
 
-  /**
-   * @parameter
-   * @required
-   */
-  private String sourcePath;
 
   /**
    * @parameter expression="${project.build.directory}/classes"
@@ -142,12 +136,6 @@ public class ObfuscateJavascriptMojo
    * @parameter
    * @required
    */
-  private String targetPath;
-
- /**
-  * @parameter
-  * @required
-  */
   private ObfuscatorConfig obfuscatorConfig;
 }
 
