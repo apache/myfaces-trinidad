@@ -284,7 +284,9 @@ public class CSSGenerationUtils
     if ((selector == null)      ||
         (selector.length() < 2) ||
         (selector.charAt(0) != '.'))
+    {
       return false;
+    }
 
     for (int i = 1; i < selector.length(); i++)
     {
@@ -299,10 +301,11 @@ public class CSSGenerationUtils
    * Returns an
    * Iterator of all of the style class selectors included in the
    * specified selector.  For example, ".OraNav1Enabled" returns
-   * a single element Iterator with the string ".OraNav1Enabled".
+   * a single element Iterator with the string "OraNav1Enabled".
    * "P.OraNav1Enabled SPAN.text" returns a two element Iterator
-   * with ".OraNav1Enabled" and ".text".
-   * .OraLink:visited returns .OraLink
+   * with "OraNav1Enabled" and "text".
+   * .OraLink:visited returns "OraLink"
+   * .star.moon returns "star" and "moon"
    */
   public static Iterator<String> getStyleClasses(String selector)
   {
@@ -347,8 +350,11 @@ public class CSSGenerationUtils
             styleClasses = new ArrayList<String>(3);
 
           styleClasses.add(styleClass);
-
-          styleClassStartIndex = -1;
+          // if c is ., then this means we've found another styleclass
+          if (c == '.')
+            styleClassStartIndex = i;
+          else
+            styleClassStartIndex = -1;
         }
       }
     }
@@ -477,15 +483,10 @@ public class CSSGenerationUtils
     for (; ((endIndex < afterLength) && !end); endIndex++)
     {
       char c = afterDoubleColon.charAt(endIndex);
-      // _isStyleClassTerminator does not treat . as a terminator.
-      // so I do a check for '.', too.
       if (allowPseudoClass)
         end = Character.isWhitespace(c);
       else
         end = _isStyleClassTerminator(c);
-
-      if (!end)
-        end = (c == '.');
     }
 
     String afComponentSelector = null;
@@ -514,6 +515,7 @@ public class CSSGenerationUtils
   {
     if (shortStyleClassMap == null)
       return null;
+          
     // This will see if the selector is a single styleClass, and if so,
     // it will run it through the shortStyleClassMap and return the shortened
     // style class. A single style class selector is something like 
@@ -564,11 +566,12 @@ public class CSSGenerationUtils
             end = true;
           }
         }
-
-        // If we are at the end of the style class, check to
-        // see if we've got a shorter version
+        
         if (end)
         {
+
+          // If we are at the end of the style class, check to
+          // see if we've got a shorter version
           String styleClass = selector.substring(styleClassStartIndex + 1, i);
           String shortStyleClass = null;
           // don't shorten the styles that start with the namespace
@@ -589,13 +592,15 @@ public class CSSGenerationUtils
           // Don't forget the terminator character
           if (i < (length - 1))
             buffer.append(c);
-
-          styleClassStartIndex = -1;
+          // if c is ., then this means we've found another styleclass            
+          if (c == '.')
+            styleClassStartIndex = i;
+          else
+            styleClassStartIndex = -1;
         }
       }
     }
-    // this did return null if there was nothing shorter, but now that
-    // we are running it through another filter for af| components, just
+
     // return the original selector if this isn't shorter.
     return isShorter ? buffer.toString() : selector;
   }
@@ -952,7 +957,7 @@ public class CSSGenerationUtils
   // style class selector
   private static boolean _isStyleClassTerminator(char c)
   {
-    return (Character.isWhitespace(c) || (c == ':'));
+    return (Character.isWhitespace(c) || (c == ':') || (c == '.'));
   }
 
   // Gets the properties of the specified StyleNode in sorted
