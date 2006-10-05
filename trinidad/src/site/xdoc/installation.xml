@@ -134,7 +134,7 @@ items to your <code>WEB-INF/web.xml</code>.
 
 <source><![CDATA[
   <context-param>
-    <param-name>org.apache.myfaces.adf.ALTERNATE_VIEW_HANDLER</param-name>
+    <param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
     <param-value>com.sun.facelets.FaceletViewHandler</param-value>
   </context-param>
 
