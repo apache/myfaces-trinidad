@@ -17,9 +17,11 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 
 import java.io.IOException;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 
@@ -31,6 +33,7 @@ import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.NodeUtils;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.TextNode;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
@@ -409,7 +412,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
     // start the rendering
     ResponseWriter writer = context.getResponseWriter();
-    boolean renderAsTable = _renderAsTable(context);
+    boolean renderAsTable = _renderAsTable(context, navBar);
 
     if (renderAsTable)
     {
@@ -999,7 +1002,7 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
     // ready to render
     ResponseWriter writer = context.getResponseWriter();
-    boolean renderAsTable = _renderAsTable(context);
+    boolean renderAsTable = _renderAsTable(context, navBar);
 
 
 
@@ -2362,13 +2365,15 @@ public abstract class NavigationBarRenderer extends XhtmlLafRenderer
 
   // don't render as a table in certain locations like a page button bar
   private boolean _renderAsTable(
-    UIXRenderingContext context
+    UIXRenderingContext context,
+    UINode              navBar
     )
   {
-    UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
-    return (ancestor == null) ||
-           (!PAGE_BUTTON_BAR_NAME.equals(ancestor.getLocalName())) ||
-           (!MARLIN_NAMESPACE.equals(ancestor.getNamespaceURI()));
+    UIComponent component = NodeUtils.getUIComponent(context, navBar);
+    if (component.getParent() instanceof CorePanelButtonBar)
+      return false;
+
+    return true;
   }
 
   // Utility method which tests whether the nav bar should validate

@@ -23,6 +23,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
 import org.apache.myfaces.trinidad.component.UIXCommand;
 import org.apache.myfaces.trinidad.component.UIXProcess;
+import org.apache.myfaces.trinidad.component.core.layout.CorePanelButtonBar;
 
 import org.apache.myfaces.trinidadinternal.share.url.FormEncoder;
 import org.apache.myfaces.trinidadinternal.share.url.URLEncoder;
@@ -376,7 +377,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
     // start the rendering
     ResponseWriter writer = context.getResponseWriter();
-    boolean renderAsTable = _renderAsTable(context);
+    boolean renderAsTable = _renderAsTable(context, node);
 
     if (renderAsTable)
     {
@@ -444,7 +445,7 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
       // start rendering
       ResponseWriter writer = context.getResponseWriter();
-      boolean renderAsTable = _renderAsTable(context);
+      boolean renderAsTable = _renderAsTable(context, node);
       // don't render the next button on last step
       if (nextButton != null)
       {
@@ -544,13 +545,15 @@ public class ProcessChoiceBarRenderer extends ChoiceRenderer
 
   // don't render as a table in certain locations like a page button bar
   private boolean _renderAsTable(
-    UIXRenderingContext context
+    UIXRenderingContext context,
+    UINode              node
     )
   {
-    UINode ancestor = NodeRoleUtils.getStructuralAncestor(context);
-    return (ancestor == null) ||
-           (!PAGE_BUTTON_BAR_NAME.equals(ancestor.getLocalName())) ||
-           (!MARLIN_NAMESPACE.equals(ancestor.getNamespaceURI()));
+    UIComponent component = NodeUtils.getUIComponent(context, node);
+    if (component.getParent() instanceof CorePanelButtonBar)
+      return false;
+
+    return true;
   }
 
 

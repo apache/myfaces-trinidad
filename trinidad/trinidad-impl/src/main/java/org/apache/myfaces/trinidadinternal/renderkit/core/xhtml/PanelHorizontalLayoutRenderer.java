@@ -33,7 +33,12 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 {
   public PanelHorizontalLayoutRenderer()
   {
-    super(CorePanelHorizontalLayout.TYPE);
+    this(CorePanelHorizontalLayout.TYPE);
+  }
+
+  protected PanelHorizontalLayoutRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
   
   @Override
@@ -141,22 +146,18 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
 
       if (needSeparator)
       {
-        if (separator != null)
-        {
-          _encodeChild(context, separator, vAlign);
-        }
+        encodeSeparator(context, separator, vAlign);
       }
 
-      _encodeChild(context, child, vAlign);
-      if (separator != null )
-        needSeparator = true;
+      encodeChild(context, child, vAlign);
+      needSeparator = true;
     }
   }
 
   /**
    * Render a single child (or the separator facet)
    */
-  private void _encodeChild(
+  protected void encodeChild(
     FacesContext context,
     UIComponent  child,
     Object       vAlign) throws IOException
@@ -168,7 +169,19 @@ public class PanelHorizontalLayoutRenderer extends XhtmlRenderer
     encodeChild(context, child);
 
     rw.endElement("td");
+  }
 
+
+  /**
+   * Render a separator 
+   */
+  protected void encodeSeparator(
+    FacesContext context,
+    UIComponent  separator,
+    Object       vAlign) throws IOException
+  {
+    if (separator != null)
+      encodeChild(context, separator, vAlign);
   }
 
   private PropertyKey _valignKey;

@@ -12,6 +12,11 @@
   <boolean-test name="rendered"/>
   <attribute-test name="shortDesc"/>
   <attribute-test name="styleClass"/>
+  <attribute-test name="halign" value="right"/>
+  <attribute-test name="halign" value="start" matchesBase="true"/>
+  <attribute-test name="halign" value="left" matchesBase="true"/>
+  <attribute-test name="halign" value="end"/>
+  <attribute-test name="halign" value="center"/>
   
   <js-test/>
 </test>

@@ -3,6 +3,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -75,6 +76,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="test-id"
            summary=""
           >
@@ -147,6 +149,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            style="test-inlineStyle"
            summary=""
@@ -222,6 +225,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -294,6 +298,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
            title="test-shortDesc"
@@ -367,7 +372,383 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="test-styleClass"
+           class="test-styleClass af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,right]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               width="100%"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,start]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,left]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,end]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               width="100%"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <img
+                 alt=""
+                 height="1"
+                 src="/test-context-path/adf/images/t.gif"
+                 width="10"
+                >
+              
+            </img>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,center]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -440,6 +821,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onclick="test-onclick"
            summary=""
@@ -513,6 +895,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            ondblclick="test-ondblclick"
            summary=""
@@ -586,6 +969,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeydown="test-onkeydown"
            summary=""
@@ -659,6 +1043,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeypress="test-onkeypress"
            summary=""
@@ -732,6 +1117,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeyup="test-onkeyup"
            summary=""
@@ -805,6 +1191,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmousedown="test-onmousedown"
            summary=""
@@ -878,6 +1265,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmousemove="test-onmousemove"
            summary=""
@@ -951,6 +1339,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseout="test-onmouseout"
            summary=""
@@ -1024,6 +1413,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseover="test-onmouseover"
            summary=""
@@ -1097,6 +1487,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseup="test-onmouseup"
            summary=""
