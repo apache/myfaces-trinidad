@@ -144,6 +144,17 @@ items to your <code>WEB-INF/web.xml</code>.
   </context-param>
 ]]></source>
 </p>
+<p>
+Make sure to also remove the
+default <code>com.sun.facelets.FaceletViewHandler</code> from your
+<code>faces-config.xml</code>.  Trinidad comes with its own ViewHandler
+which needs to be invoked in the correct order with the Facelets
+ViewHandler.  If you specified the alternative view handler parameter
+as described above, it will be called by the Apache Trinidad ViewHandler
+at the right time.
+</p>
+
+
 </section>
 <section name="Configuration for Development">
 	If you are an application developer, there are 
