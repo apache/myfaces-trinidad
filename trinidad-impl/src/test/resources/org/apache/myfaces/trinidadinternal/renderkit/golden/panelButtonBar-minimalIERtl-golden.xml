@@ -3,6 +3,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -26,7 +27,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -45,7 +46,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -67,6 +68,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="test-id"
            summary=""
           >
@@ -90,7 +92,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -109,7 +111,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -131,6 +133,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            style="test-inlineStyle"
            summary=""
@@ -155,7 +158,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -174,7 +177,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -198,6 +201,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -221,7 +225,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -240,7 +244,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -262,6 +266,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            summary=""
            title="test-shortDesc"
@@ -286,7 +291,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -305,7 +310,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -327,7 +332,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
-           class="test-styleClass"
+           class="test-styleClass af_panelButtonBar"
            id="mainId"
            summary=""
           >
@@ -351,7 +356,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -370,7 +375,343 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,right]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,start]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,left]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               width="100%"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,end]-->
+
+      <table
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+               width="100%"
+              >
+            
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 3
+            </button>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[halign,center]-->
+
+      <table
+           align="center"
+           border="0"
+           cellpadding="0"
+           cellspacing="0"
+           class="af_panelButtonBar"
+           id="mainId"
+           summary=""
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 1
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
+            </script>
+          </td>
+          <td
+              >
+            
+            <button
+                 class="OraLink"
+                 onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+                 type="button"
+                >
+              button 2
+            </button>
+          </td>
+          <td
+              >
+            
+            <script
+                >
+              t(10,1)
             </script>
           </td>
           <td
@@ -392,6 +733,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onclick="test-onclick"
            summary=""
@@ -416,7 +758,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -435,7 +777,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -457,6 +799,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            ondblclick="test-ondblclick"
            summary=""
@@ -481,7 +824,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -500,7 +843,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -522,6 +865,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeydown="test-onkeydown"
            summary=""
@@ -546,7 +890,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -565,7 +909,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -587,6 +931,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeypress="test-onkeypress"
            summary=""
@@ -611,7 +956,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -630,7 +975,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -652,6 +997,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onkeyup="test-onkeyup"
            summary=""
@@ -676,7 +1022,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -695,7 +1041,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -717,6 +1063,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmousedown="test-onmousedown"
            summary=""
@@ -741,7 +1088,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -760,7 +1107,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -782,6 +1129,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmousemove="test-onmousemove"
            summary=""
@@ -806,7 +1154,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -825,7 +1173,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -847,6 +1195,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseout="test-onmouseout"
            summary=""
@@ -871,7 +1220,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -890,7 +1239,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -912,6 +1261,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseover="test-onmouseover"
            summary=""
@@ -936,7 +1286,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -955,7 +1305,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -977,6 +1327,7 @@
            border="0"
            cellpadding="0"
            cellspacing="0"
+           class="af_panelButtonBar"
            id="mainId"
            onmouseup="test-onmouseup"
            summary=""
@@ -1001,7 +1352,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td
@@ -1020,7 +1371,7 @@
             
             <script
                 >
-              t('10','1')
+              t(10,1)
             </script>
           </td>
           <td

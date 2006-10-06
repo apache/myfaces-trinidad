@@ -34,6 +34,9 @@ public class PdaRenderKit extends RenderKitDecorator
     addRenderer("org.apache.myfaces.trinidad.Frame",
                 "org.apache.myfaces.trinidad.Frame",
                 new FrameRenderer());
+    addRenderer("org.apache.myfaces.trinidad.Panel",
+                "org.apache.myfaces.trinidad.ButtonBar",
+                new PanelButtonBarRenderer());
   }
 
   @Override

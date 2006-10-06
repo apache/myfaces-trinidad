@@ -33,7 +33,12 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
 {
   public PanelGroupLayoutRenderer()
   {
-    super(CorePanelGroupLayout.TYPE);
+    this(CorePanelGroupLayout.TYPE);
+  }
+
+  protected PanelGroupLayoutRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
   
   @Override
@@ -127,22 +132,32 @@ public class PanelGroupLayoutRenderer extends XhtmlRenderer
       {
         if (isVertical)
           rw.startElement("div", null);
-        if (separator != null)
-          _encodeChild(context, separator, isHorizontal);
+        encodeSeparator(context, separator, isHorizontal);
         if (isVertical)
           rw.endElement("div");
       }
 
-      _encodeChild(context, child, isHorizontal);
-      if ((separator != null) || isVertical)
-        needSeparator = true;
+      encodeChild(context, child, isHorizontal);
+      needSeparator = true;
     }
+  }
+
+  /**
+   * Render a single separator
+   */
+  protected void encodeSeparator(
+    FacesContext context,
+    UIComponent  separator,
+    boolean      isHorizontal) throws IOException
+  {
+    if (separator != null)
+      encodeChild(context, separator, isHorizontal);
   }
 
   /**
    * Render a single child (or the separator facet)
    */
-  private void _encodeChild(
+  protected void encodeChild(
     FacesContext context,
     UIComponent  child,
     boolean      isHorizontal) throws IOException

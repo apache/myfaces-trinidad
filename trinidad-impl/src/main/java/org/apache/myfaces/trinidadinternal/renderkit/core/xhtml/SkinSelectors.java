@@ -642,6 +642,17 @@ public final class SkinSelectors
    public static final String AF_PANEL_BOX_BOTTOM_END_STYLE_CLASS =
      AF_PANEL_BOX_ROOT_STYLE_CLASS + "::bottom-end";
 
+   //                                                                         //
+   //                                                                         //
+   // ========================= tr:panelButtonBar ========================== //
+   //                                                                         //
+   //                                                                         //
+   
+   // ============================ Style classes ============================ //
+   // Root class
+   public static final String AF_PANEL_BUTTON_BAR_STYLE_CLASS =
+     "af|panelButtonBar";
+
 
    //                                                                         //
    //                                                                         //

@@ -438,7 +438,6 @@ public interface UIConstants
   public static final String NAVIGATION_BAR_NAME = "navigationBar";
   public static final String OPTION_NAME   = "option";
   public static final String PAGE_NAME   = "page";
-  public static final String PAGE_BUTTON_BAR_NAME   = "pageButtonBar";
   public static final String PAGE_HEADER_LAYOUT_NAME = "pageHeaderLayout";
   public static final String PAGE_LAYOUT_NAME = "pageLayout";
   public static final String PAGE_MENU_BAR_NAME = "pageMenuBar";

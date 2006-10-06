@@ -188,6 +188,161 @@
           
         </input>
       </span>
+<!--AttributeTest[halign,right]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 1"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 2"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 3"
+            >
+          
+        </input>
+      </span>
+<!--AttributeTest[halign,start]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 1"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 2"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 3"
+            >
+          
+        </input>
+      </span>
+<!--AttributeTest[halign,left]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 1"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 2"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 3"
+            >
+          
+        </input>
+      </span>
+<!--AttributeTest[halign,end]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 1"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 2"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 3"
+            >
+          
+        </input>
+      </span>
+<!--AttributeTest[halign,center]-->
+
+      <span
+           id="mainId"
+          >
+        
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 1"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 2"
+            >
+          
+        </input>&#xa0;
+        <input
+             class="OraLink"
+             onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
+             type="button"
+             value="button 3"
+            >
+          
+        </input>
+      </span>
 <!--AttributeTest[onclick,null]-->
 
       <span
