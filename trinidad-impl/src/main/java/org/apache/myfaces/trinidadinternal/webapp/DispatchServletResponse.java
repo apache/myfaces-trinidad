@@ -39,30 +39,32 @@ public class DispatchServletResponse extends HttpServletResponseWrapper
   public void setContentType(
     String contentTypeAndCharset)
   {
-    Matcher matcher = _CONTENT_TYPE_PATTERN.matcher(contentTypeAndCharset);
-    if (matcher.matches())
+    if(contentTypeAndCharset != null)
     {
-      String contentType = matcher.group(1);
-      String charset = (matcher.groupCount() > 1) ? matcher.group(2) : null; 
-      
-      // capture the content type on the request
-      _request.setAttribute(_CONTENT_TYPE_KEY, contentType);
-
-      // TODO: use Agent APIs when available
-      if ("application/xhtml+xml".equals(contentType))
+      Matcher matcher = _CONTENT_TYPE_PATTERN.matcher(contentTypeAndCharset);
+      if (matcher.matches())
       {
-        String userAgent = _request.getHeader("User-agent");
-        if (userAgent.indexOf("compatible; MSIE") != -1)
+        String contentType = matcher.group(1);
+        String charset = (matcher.groupCount() > 1) ? matcher.group(2) : null; 
+        
+        // capture the content type on the request
+        _request.setAttribute(_CONTENT_TYPE_KEY, contentType);
+  
+        // TODO: use Agent APIs when available
+        if ("application/xhtml+xml".equals(contentType))
         {
-          // IE must serve XHTML as text/html
-          contentTypeAndCharset = "text/html";
-
-          if (charset != null)
-            contentTypeAndCharset += ";charset=" + charset;
+          String userAgent = _request.getHeader("User-agent");
+          if (userAgent.indexOf("compatible; MSIE") != -1)
+          {
+            // IE must serve XHTML as text/html
+            contentTypeAndCharset = "text/html";
+  
+            if (charset != null)
+              contentTypeAndCharset += ";charset=" + charset;
+          }
         }
       }
     }
-
     super.setContentType(contentTypeAndCharset);
   }
   
