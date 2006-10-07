@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Table</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Table</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.core.desktop.DesktopTableRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.desktop.DesktopTableRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreTable</mfp:component-type>
       </renderer-extension>
