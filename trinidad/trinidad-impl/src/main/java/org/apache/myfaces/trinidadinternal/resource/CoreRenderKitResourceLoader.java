@@ -23,6 +23,10 @@ import java.io.InputStreamReader;
 
 import java.net.URL;
 
+import javax.faces.context.FacesContext;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.resource.RegexResourceLoader;
 import org.apache.myfaces.trinidad.resource.ResourceLoader;
@@ -47,6 +51,8 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
     register("(/.*/DebugCommon.*\\.js)",
              new CoreCommonScriptsResourceLoader(_getCommonLibraryURI(true),
                                                  true));
+    register("(/.*LocaleElements.*\\.js)",
+                               new LocaleElementsResourceLoader(getLocaleElementsURI("LocaleElements", true))); 
 
     register("(/.*\\.(css|jpg|gif|png|jpeg|svg|js))",
              new CoreClassLoaderResourceLoader(parent));
@@ -60,6 +66,40 @@ public class CoreRenderKitResourceLoader extends RegexResourceLoader
     return base.append(_VERSION)
                .append(".js")
                .toString();
+  }
+    
+  static public String getLocaleElementsURI(String str, 
+                                            Boolean incVersion)
+  {
+    StringBuffer base = new StringBuffer("/adf/jsLibs/resources/");
+
+    base.append(str);
+    base.append("_");
+
+    String locStr = getLocale();
+    
+    base.append(locStr);
+    if(incVersion) base.append(_VERSION);
+    base.append(".js");
+
+    return base.toString();
+  }
+
+  static public String getLocale()
+  {
+    String path = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getPathInfo();
+    String locStr = new String();
+
+    int locIndex = path.indexOf("LocaleElements")+ "LocaleElements_".length();
+    int index = path.indexOf(_VERSION);
+
+    if (index < 0)
+      index = path.indexOf(".js");
+
+    if(index >= 0)
+      locStr = path.substring(locIndex, index);
+
+    return locStr;
   }
 
   static public String __getVersion()

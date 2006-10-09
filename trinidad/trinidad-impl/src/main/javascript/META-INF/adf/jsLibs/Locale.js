@@ -797,3 +797,58 @@ TrFastMessageFormatUtils.format = function(
   //        simplifying it
   return _formatErrorString(formatString, tempArray);
 }
+
+var TrMessageFactory = new Object();
+
+TrMessageFactory.createFacesMessage = function(
+  key,
+  customDetail,
+  parameters,
+  messageSeverity
+  )
+{  
+  // the strings to create a facesMessage to use have been sent down
+  var summary = TrMessageFactory.getSummaryString(key);       
+  var detail = customDetail;
+  var severity = messageSeverity;
+  
+  if ( severity == null)
+  {
+    severity = FacesMessage.SEVERITY_ERROR
+  }
+  
+  if (detail == null)
+  {
+    detail =  TrMessageFactory.getDetailString(key); 
+  }
+  
+  if ( detail != null )
+  {
+    if ( parameters != null )
+    {
+      detail = FastMessageFormatUtils.format(detail,parameters);
+    }
+  }
+    
+  return new FacesMessage( summary, detail, severity);
+}
+
+TrMessageFactory.getSummaryString = function(
+  key
+  )
+{
+  if (key == null)
+    return null;
+  return TrMessageFactory._TRANSLATIONS[key];
+}
+
+TrMessageFactory.getDetailString = function(
+  key
+  )
+{
+  if (key == null)
+    return null;
+    
+  // TODO should I be doing string concat here, or have a map of key -> detailKey?
+  return TrMessageFactory._TRANSLATIONS[key+"_detail"];
+}
