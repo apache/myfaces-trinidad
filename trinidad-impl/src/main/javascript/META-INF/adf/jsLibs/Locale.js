@@ -814,7 +814,7 @@ TrMessageFactory.createFacesMessage = function(
   
   if ( severity == null)
   {
-    severity = FacesMessage.SEVERITY_ERROR
+    severity = TrFacesMessage.SEVERITY_ERROR
   }
   
   if (detail == null)
@@ -826,11 +826,11 @@ TrMessageFactory.createFacesMessage = function(
   {
     if ( parameters != null )
     {
-      detail = FastMessageFormatUtils.format(detail,parameters);
+      detail = TrFastMessageFormatUtils.format(detail,parameters);
     }
   }
     
-  return new FacesMessage( summary, detail, severity);
+  return new TrFacesMessage( summary, detail, severity);
 }
 
 TrMessageFactory.getSummaryString = function(
