@@ -193,7 +193,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
     
     if (!isLastChild || shouldRenderLastChild)
     {
-      _renderStartOfLink(context, arc, isVertical, isLastChild);
+      _renderStartOfLink(context, isVertical);
       
       ResponseWriter writer = context.getResponseWriter();
       
@@ -227,7 +227,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
          writer.endElement(XhtmlConstants.SPAN_ELEMENT);
       }
       
-      _renderEndOfLink(context, isVertical, isLastChild);                  
+      _renderEndOfLink(context, isVertical);                  
       
     }
   }
@@ -316,9 +316,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
    */
   private void _renderStartOfLink(
     FacesContext        context,
-    RenderingContext arc,
-    boolean             isVertical,
-    boolean             isLastChild) throws IOException
+    boolean             isVertical) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
 
@@ -339,8 +337,7 @@ public class BreadCrumbsRenderer extends XhtmlRenderer
   //
   private void _renderEndOfLink(
     FacesContext        context,
-    boolean             isVertical,
-    boolean             isLastChild
+    boolean             isVertical
     ) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();

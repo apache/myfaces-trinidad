@@ -15,13 +15,9 @@
 */
 package org.apache.myfaces.trinidad.event;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
-
-import org.apache.myfaces.trinidad.model.SortCriterion;
 
 /**
  * The Event generated when a Collection is to be sorted.

@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidad.context;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 /**
  * Context object which is used to track the targets of a partial

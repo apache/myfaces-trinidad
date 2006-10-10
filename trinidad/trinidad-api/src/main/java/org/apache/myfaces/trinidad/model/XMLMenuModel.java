@@ -204,9 +204,6 @@ public class XMLMenuModel extends BaseMenuModel
     String currentViewId    = _getCurrentViewId();
     FacesContext context    = FacesContext.getCurrentInstance();
     
-    // Initializations
-    _prevFocusPath = null;
-    
     // How did we get to this page?
     // 1) Clicked on a menu item with its action attribute set.  This does
     //    a POST.
@@ -273,9 +270,6 @@ public class XMLMenuModel extends BaseMenuModel
         focusPath = _nodeFocusPathMap.get(currentNode);
       }
     }
-    
-    // Save all pertinent information
-    _prevFocusPath = focusPath;
     
     _setRequestMethod(_METHOD_NONE);
 
@@ -680,7 +674,6 @@ public class XMLMenuModel extends BaseMenuModel
   }
      
   private Object  _currentNode       = null;
-  private Object  _prevFocusPath     = null;
   private String  _requestMethod     = _METHOD_NONE;
   private String  _mdSource          = null;
   private boolean _createHiddenNodes = false;

@@ -109,7 +109,7 @@ public class OutputDocumentRenderer extends ValueRenderer
             _renderSeparator(context, arc, separator, bean);
           }
 
-          _renderParagraphStart(context, arc, bean);
+          _renderParagraphStart(context, arc);
         }
 
         builder.append(character);
@@ -191,7 +191,6 @@ public class OutputDocumentRenderer extends ValueRenderer
    * @return the array of style classes to add to the current facet.
    */
   private String[] _getStyleClasses(
-      RenderingContext arc,
       FacesBean bean,
       PropertyKey key,
       String skinSelector)
@@ -264,8 +263,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    */
   private void _renderParagraphStart(
       FacesContext context,
-      RenderingContext arc,
-      FacesBean bean) throws IOException
+      RenderingContext arc) throws IOException
   {
     ResponseWriter rw = context.getResponseWriter();
 
@@ -295,8 +293,7 @@ public class OutputDocumentRenderer extends ValueRenderer
 
     rw.startElement(_SEPARATOR_ELEMENT, null);
 
-    String[] classes = _getStyleClasses(arc,
-                                        bean,
+    String[] classes = _getStyleClasses(bean,
                                         _separatorClassKey,
                                         _SEPARATOR_SELECTOR);
 
@@ -331,8 +328,7 @@ public class OutputDocumentRenderer extends ValueRenderer
   
       rw.startElement(_TITLE_ELEMENT, null);
   
-      String[] classes = _getStyleClasses(arc,
-                                          bean,
+      String[] classes = _getStyleClasses(bean,
                                           _titleClassKey,
                                           _TITLE_SELECTOR);
   

@@ -44,15 +44,11 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgentImpl;
 import org.apache.myfaces.trinidadinternal.agent.AgentUtil;
 
-import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.skin.SkinNotAvailable;
 
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
-
-import org.apache.myfaces.trinidad.context.PartialPageContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PartialPageUtils;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableDecimalFormatContext;
 import org.apache.myfaces.trinidadinternal.share.nls.MutableLocaleContext;
@@ -209,7 +205,6 @@ public class CoreRenderingContext extends RenderingContext
     {
       FacesContext fContext = FacesContext.getCurrentInstance();
       _styleContext = new StyleContextImpl(this,
-                                           getSkin(),
                                            getTemporaryDirectory(fContext));
     }
 

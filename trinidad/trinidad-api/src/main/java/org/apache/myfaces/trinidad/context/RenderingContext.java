@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Map;
 import java.util.MissingResourceException;
 
-import org.apache.myfaces.trinidad.context.Agent;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidad.skin.Skin;

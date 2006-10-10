@@ -57,7 +57,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 
 import org.apache.myfaces.trinidadinternal.ui.expl.UIVariableResolver;
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Default implementation of RenderingContext used as the root for rendering
@@ -550,16 +549,6 @@ abstract public class RootRenderingContext extends RenderedNodeRenderingContext
   public final UIXRenderingContext getParentContext()
   {
     return null;
-  }
-
-  /**
-   * Clears all properties from the context.  Not part of
-   * the RenderingContext interface.
-   */
-  @Override
-  public void resetProperties()
-  {
-    super.resetProperties();
   }
 
   @Override

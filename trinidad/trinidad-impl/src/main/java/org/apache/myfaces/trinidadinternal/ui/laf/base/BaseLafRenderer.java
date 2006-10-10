@@ -36,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.data.bean.BeanAdapterUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeel;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelExtension;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 

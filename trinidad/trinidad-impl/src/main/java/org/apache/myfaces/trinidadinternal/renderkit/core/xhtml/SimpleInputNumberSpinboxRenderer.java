@@ -232,7 +232,7 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
         rw.writeAttribute("onclick", "return false;", null);
 
         String mouseDownScript =
-           _getSpinboxScript(context, arc, component, bean, increment);
+           _getSpinboxScript(context, component, bean, increment);
 
         rw.writeAttribute("onmousedown", mouseDownScript, null);
         rw.writeAttribute("onmouseup",  _CLEAR_SPINBOX_JS, null);
@@ -254,11 +254,10 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
   }
 
   private String _getSpinboxScript(
-  FacesContext        context,
-  RenderingContext    arc,
-  UIComponent         component,
-  FacesBean           bean,
-  boolean             increment)
+    FacesContext        context,
+    UIComponent         component,
+    FacesBean           bean,
+    boolean             increment)
   {
     StringBuffer js = new StringBuffer();
     js.append(_SPINBOX_REPEAT_JS);

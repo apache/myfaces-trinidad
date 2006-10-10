@@ -15,7 +15,6 @@
  */
 package org.apache.myfaces.trinidad.render;
 
-import java.util.Iterator;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
