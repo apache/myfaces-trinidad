@@ -293,6 +293,17 @@ public class MFacesContext extends MockFacesContext
     }
 
     @Override
+    public Map<String, Object> getSessionMap()
+    {
+      // The underlying Shale Test implementation goes to the servlet
+      // request, session, etc.  For the purposes of this test,
+      // we shouldn't use any servlet APIs.  So, intercept the
+      // session map.   Ideally, renderers shouldn't write into
+      // the session map, but see above...
+      return _sessionMap;
+    }
+
+    @Override
     public Map<String, Object> getRequestMap()
     {
       // this method is called a lot, so we don't want to use the "mock"
@@ -301,6 +312,7 @@ public class MFacesContext extends MockFacesContext
     }
 
     private final Map<String, Object> _requestMap = new HashMap<String, Object>(2);
+    private final Map<String, Object> _sessionMap = new HashMap<String, Object>(2);
     private final Map<String, Object> _applicationMap = new HashMap<String, Object>(2);
     private final boolean _testMode;
   }
