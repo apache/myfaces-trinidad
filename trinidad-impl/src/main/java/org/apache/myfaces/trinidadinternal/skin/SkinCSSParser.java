@@ -318,7 +318,6 @@ public class SkinCSSParser
               }
               */
               _nextChar();
-              boolean foundEnd = false;
               // go until ; or until {} match
               int openBraceCount = 0;
               boolean openBraceCountStarted = false;
@@ -334,13 +333,11 @@ public class SkinCSSParser
                   openBraceCount--;
                   if (openBraceCountStarted && openBraceCount == 0)
                   {
-                    foundEnd = true;
                     break;
                   }
                 }
                 if (_currentChar == ';' && openBraceCount==0)
                 {
-                  foundEnd = true;
                   break;
                 }
                 _nextChar();

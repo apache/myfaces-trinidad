@@ -393,7 +393,6 @@ public class TrainRenderer
       FacesContext     context, 
       RenderingContext arc,
       UIXProcess       process,
-      UIComponent      stamp,
       Train            train) throws IOException
   {
     ParentTrain parentTrain = train.getParentTrain();
@@ -420,7 +419,6 @@ public class TrainRenderer
       FacesContext     context, 
       RenderingContext arc,
       UIXProcess       process,
-      UIComponent      stamp,
       Train            train) throws IOException
   {
     ParentTrain parentTrain = train.getParentTrain();
@@ -875,11 +873,11 @@ public class TrainRenderer
     
     if(arc.isRightToLeft())
     {
-      _renderIconRowRtl(context, arc, process, stamp, train);
+      _renderIconRowRtl(context, arc, process, train);
     }
     else
     {
-      _renderIconRowLtr(context, arc, process, stamp, train);
+      _renderIconRowLtr(context, arc, process, train);
     }
     
     writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
@@ -1002,7 +1000,7 @@ public class TrainRenderer
 
     /**
      * Returns the MAX_VISITED_ATTR
-     * @todo =-=jmw Hopefully the controller will tell us this someday.
+     * @todo =-=jmw Hopefully we'll be told this someday.
      */
     private static Object _getMaxVisited(
       RenderingContext arc, 

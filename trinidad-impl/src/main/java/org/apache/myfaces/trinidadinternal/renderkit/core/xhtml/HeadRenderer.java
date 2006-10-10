@@ -166,7 +166,7 @@ public class HeadRenderer extends XhtmlRenderer
 
       return (((cookie == null) || 
                _timeZoneIsDefaulting(cookie)) &&
-              _supportsUIXCookie(arc));
+              _supportsUIXCookie());
     }
     
     return false;
@@ -179,7 +179,7 @@ public class HeadRenderer extends XhtmlRenderer
             tz.getID().startsWith("GMT"));
   }
 
-  static private boolean _supportsUIXCookie(RenderingContext arc)
+  static private boolean _supportsUIXCookie()
   {
     // =-=AEW We used to have a configuration hook for disabling
     // the cookie.

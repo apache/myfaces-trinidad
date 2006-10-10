@@ -141,12 +141,6 @@ public class BodyRenderer extends PanelPartialRootRenderer
   }
 
   @Override
-  protected String getStyleClass(FacesBean bean)
-  {
-    return super.getStyleClass(bean);
-  }
-
-  @Override
   protected void renderEventHandlers(
     FacesContext context,
     FacesBean    bean) throws IOException

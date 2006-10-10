@@ -246,7 +246,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
   private CapabilityMap _getCapabilityMap(FacesContext context)
   {
     CapabilityMap capMap = null;
-    DeviceRepository repository = _getDeviceRepository(context);
+    DeviceRepository repository = _getDeviceRepository();
 
     if (repository != null)
     {
@@ -270,7 +270,7 @@ public class TrinidadAgentImpl implements TrinidadAgent, Cloneable
 
 
   private synchronized static DeviceRepository
-     _getDeviceRepository(FacesContext context)
+     _getDeviceRepository()
   {
     if (!_deviceRepositoryLoaded)
     {

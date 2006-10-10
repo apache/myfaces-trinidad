@@ -23,7 +23,6 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.ImageProducer;
 import java.util.Map;
 
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;

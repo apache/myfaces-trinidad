@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidad.skin;
 
 import java.util.MissingResourceException;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 
 /**

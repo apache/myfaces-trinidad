@@ -21,7 +21,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;

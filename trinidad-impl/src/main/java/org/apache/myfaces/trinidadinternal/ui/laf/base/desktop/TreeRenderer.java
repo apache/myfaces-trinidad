@@ -47,7 +47,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.SkinTranslatedBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.FormValueRenderer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidadinternal.uinode.UIComponentUINode;
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Renderer for trees.  A TreeDataProxy may be set on the tree to create

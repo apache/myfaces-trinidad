@@ -47,10 +47,7 @@ public class ResourceKeyUtils
     Map<String, String> result = 
       new HashMap<String, String>(original.size());
     
-    Iterator<Map.Entry<String, String>> entries = 
-      original.entrySet().iterator();
-    
-    for(Map.Entry<String, String> entry : original.entrySet())
+    for (Map.Entry<String, String> entry : original.entrySet())
     {
       String value = entry.getValue();
       if (value.startsWith(pattern1))

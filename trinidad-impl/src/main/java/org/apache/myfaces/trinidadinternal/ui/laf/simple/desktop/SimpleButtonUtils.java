@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidadinternal.ui.laf.simple.desktop;
 
 import java.awt.Color;
 
-import java.io.IOException;
-
 import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -35,7 +33,6 @@ import org.apache.myfaces.trinidadinternal.image.cache.CompositeButtonKey;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
  * Package-private utilities shared by SLAF button Renderers.
@@ -220,8 +217,6 @@ class SimpleButtonUtils implements SimpleDesktopConstants
             null,
             null);
 
-      _fContext = fContext;
-      _arc = arc;
       _context = context;
 
     }
@@ -290,9 +285,6 @@ class SimpleButtonUtils implements SimpleDesktopConstants
     }
 
     private UIXRenderingContext _context;
-    private RenderingContext _arc;
-    private FacesContext _fContext;
-
   }
 
 

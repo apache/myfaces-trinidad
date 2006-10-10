@@ -49,7 +49,6 @@ public class PanelBorderLayoutRenderer extends XhtmlRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
-    ResponseWriter rw = context.getResponseWriter();
     boolean hasSideFacets = _hasSideFacets(arc, component);
     if (hasSideFacets)
     {

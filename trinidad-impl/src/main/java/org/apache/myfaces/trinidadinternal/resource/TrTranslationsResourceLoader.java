@@ -130,8 +130,8 @@ public class TrTranslationsResourceLoader extends StringContentResourceLoader
       }
       
       //Invoke getContents() method which gives us the Translations
-      Method x = clazz.getMethod("getContents", null);  
-      obj = x.invoke(clazz.newInstance(), null);
+      Method x = clazz.getMethod("getContents", (Class[]) null);  
+      obj = x.invoke(clazz.newInstance(), (Object[]) null);
     
     } catch (NoSuchMethodException e)     { ;
     } catch (InvocationTargetException e) { ;

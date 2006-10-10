@@ -105,11 +105,11 @@ public class PanelBoxRenderer
     if(!children.isEmpty() || text != null || icon != null)
     {
       // There's something to render to let build the frame
-      _renderContainerTopRow(context, arc, component);
+      _renderContainerTopRow(context, arc);
       
       _renderMiddleRow(context, arc, component, bean, icon, text, children);
       
-      _renderContainerBottomRow(context, arc, component);
+      _renderContainerBottomRow(context, arc);
     }
 
     writer.endElement(XhtmlConstants.TABLE_BODY_ELEMENT);
@@ -159,8 +159,7 @@ public class PanelBoxRenderer
   
   private void _renderContainerTopRow(
       FacesContext     context,
-      RenderingContext arc,
-      UIComponent      component) throws IOException
+      RenderingContext arc) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
@@ -210,8 +209,7 @@ public class PanelBoxRenderer
   
   private void _renderContainerBottomRow(
       FacesContext     context,
-      RenderingContext arc,
-      UIComponent      component) throws IOException
+      RenderingContext arc) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
@@ -341,14 +339,14 @@ public class PanelBoxRenderer
       // Render header
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-      _renderHeader(context, arc, component, bean, icon, text);
+      _renderHeader(context, arc, icon, text);
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
       
       // Render content
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-      _renderContent(context, arc, component, bean, children);
+      _renderContent(context, arc, bean, children);
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
       
@@ -359,14 +357,14 @@ public class PanelBoxRenderer
     {
       // We only have a header, use a div as style class placeholder
       writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-      _renderHeader(context, arc, component, bean, icon, text);
+      _renderHeader(context, arc, icon, text);
       writer.endElement(XhtmlConstants.DIV_ELEMENT);
     }
     else
     {
       // We only have a content, use a div as style class placeholder
       writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-      _renderContent(context, arc, component, bean, children);
+      _renderContent(context, arc, bean, children);
       writer.endElement(XhtmlConstants.DIV_ELEMENT);
     }
   }
@@ -374,8 +372,6 @@ public class PanelBoxRenderer
   private void _renderHeader(
       FacesContext     context,
       RenderingContext arc,
-      UIComponent      component,
-      FacesBean        bean,
       Object           icon,
       Object           text) throws IOException
   {
@@ -426,7 +422,6 @@ public class PanelBoxRenderer
   private void _renderContent(
       FacesContext      context,
       RenderingContext  arc,
-      UIComponent       component,
       FacesBean         bean,
       List<UIComponent> children) throws IOException
   {

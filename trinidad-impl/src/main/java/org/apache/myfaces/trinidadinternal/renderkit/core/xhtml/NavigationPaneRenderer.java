@@ -802,11 +802,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       }
     }
     renderStyleClass(context, arc, itemStyleClass.toString());
-    String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
-    if (rowKey != null)
-    {
-      // =-= mcc TODO save off stamping currency, e.g. rw.writeAttribute(_ROWKEY_ATTRIBUTE, rowKey);
-    }
     rw.startElement("tbody", null);
     if (!isList)
     {
@@ -895,7 +890,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
       boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
-      String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
       rw.startElement("option", null);
       if (isActive)
       {
@@ -903,10 +897,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       }
       rw.writeAttribute("disabled", isDisabled, null);
       rw.writeAttribute("title", itemData.get("shortDesc"), null);
-      if (rowKey != null)
-      {
-        // =-= mcc TODO save off stamping currency, e.g. rw.writeAttribute(_ROWKEY_ATTRIBUTE, rowKey);
-      }
 
       if (!isDisabled)
       {
@@ -1098,11 +1088,6 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         SkinSelectors.AF_NAVIGATION_LEVEL_TABS_INACTIVE_STYLE_CLASS;
     }
     renderStyleClass(context, arc, itemStyleClass.toString());
-    String rowKey = _getPossiblyNullString(itemData.get("dataIndex"));
-    if (rowKey != null)
-    {
-      // =-= mcc TODO save off stamping currency, e.g. rw.writeAttribute(_ROWKEY_ATTRIBUTE, rowKey);
-    }
     rw.startElement("tbody", null);
     _writeInlineTbodyStyles(arc, rw);
     rw.startElement("tr", null);

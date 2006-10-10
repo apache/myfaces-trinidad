@@ -16,7 +16,6 @@
 
 package org.apache.myfaces.trinidad.change;
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,14 +25,7 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.traversal.DocumentTraversal;
-import org.w3c.dom.traversal.NodeFilter;
-import org.w3c.dom.traversal.TreeWalker;
 
 
 /**
@@ -224,7 +216,4 @@ abstract class BaseChangeManager extends ChangeManager
     // correct, but potentially slow implementation
     return getDocument(context) != null;
   }
-
-  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseChangeManager.class);
-
 }

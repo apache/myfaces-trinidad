@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidadinternal.skin.icon;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.skin.Icon;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.style.Style;
 

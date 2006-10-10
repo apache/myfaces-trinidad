@@ -21,8 +21,6 @@ import java.io.InputStream;
 
 import javax.faces.context.FacesContext;
 
-import org.apache.myfaces.trinidad.skin.Icon;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.style.Style;

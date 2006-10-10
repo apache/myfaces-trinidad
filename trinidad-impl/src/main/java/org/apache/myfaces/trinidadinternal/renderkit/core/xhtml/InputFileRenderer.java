@@ -22,7 +22,6 @@ import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputFile;
-import org.apache.myfaces.trinidad.context.Agent;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 

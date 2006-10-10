@@ -21,7 +21,6 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HtmlRenderer;
 import org.apache.myfaces.trinidad.context.LocaleContext;
 import org.apache.myfaces.trinidad.skin.Skin;
@@ -34,7 +33,6 @@ class StyleContextImpl implements StyleContext
 {
   public StyleContextImpl(
     RenderingContext arc,
-    Skin             skin,
     String generatedFilesPath)
   {
     _arc = arc;

@@ -34,7 +34,6 @@ import org.apache.myfaces.trinidad.component.UIXEditableValue;
 import org.apache.myfaces.trinidad.component.UIXGroup;
 import org.apache.myfaces.trinidad.component.UIXPanel;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelFormLayout;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
 public class PanelFormLayoutRenderer extends XhtmlRenderer
