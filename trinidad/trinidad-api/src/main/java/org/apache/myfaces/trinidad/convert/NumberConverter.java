@@ -84,7 +84,7 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * //  appropriately as specified in the documentation for the corresponding
  * //  message id.
  *
- * <code>setConvertMessageDetail(convertNumberMessageDetail);</code>
+ * <code>setConvertNumberMessageDetail(convertNumberMessageDetail);</code>
  *
  * This way user can override detail part of the {@link FacesMessage} for
  * different conversion errors that occur for wrong values, that arise
@@ -216,9 +216,9 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
 
     Locale locale = _getLocale(context);
-    RequestContext adfFacesCtx = RequestContext.getCurrentInstance();
+    RequestContext reqCtx = RequestContext.getCurrentInstance();
 
-    NumberFormat fmt = _getNumberFormat(pattern, type, locale, adfFacesCtx);
+    NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
 
     ParsePosition pp = new ParsePosition(0);
     Number num = (Number) fmt.parseObject(value,pp);
@@ -293,15 +293,15 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
 
     Locale locale  = _getLocale(context);
-    RequestContext adfFacesCtx = RequestContext.getCurrentInstance();
+    RequestContext reqCtx = RequestContext.getCurrentInstance();
 
-    NumberFormat formatter = _getNumberFormat(pattern, type, locale, adfFacesCtx);
+    NumberFormat formatter = _getNumberFormat(pattern, type, locale, reqCtx);
 
     _setFormatProperties(formatter);
 
     if("currency".equals(type))
     {
-      _setCurrencyFormattingProperties(adfFacesCtx, formatter);
+      _setCurrencyFormattingProperties(reqCtx, formatter);
     }
 
     return formatter.format(value);
@@ -802,7 +802,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     String pattern,
     String type,
     Locale locale,
-    RequestContext adfFacesCtx
+    RequestContext reqCtx
     )
   {
     NumberFormat nfmt;
@@ -825,7 +825,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
       // what we get here is a shallow copy. cloned DFS
       DecimalFormatSymbols dfSymbols = dfmt.getDecimalFormatSymbols();
 
-      _setUpDecimalSymbolFormatProperties(dfSymbols, adfFacesCtx, locale);
+      _setUpDecimalSymbolFormatProperties(dfSymbols, reqCtx, locale);
 
       //since we get a shallow copy - setting it again after modification.
       ((DecimalFormat) nfmt).setDecimalFormatSymbols(dfSymbols);
@@ -846,18 +846,18 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
 
   private void _setUpDecimalSymbolFormatProperties(
     DecimalFormatSymbols symbols,
-    RequestContext adfFacesCtx,
+    RequestContext reqCtx,
     Locale locale
     )
   {
-    if (adfFacesCtx != null)
+    if (reqCtx != null)
     {
       char ch = (char) 0;
 
-      if ((ch = adfFacesCtx.getDecimalSeparator()) != (char)0)
+      if ((ch = reqCtx.getDecimalSeparator()) != (char)0)
         symbols.setDecimalSeparator(ch);
 
-      if ((ch = adfFacesCtx.getNumberGroupingSeparator()) != (char)0)
+      if ((ch = reqCtx.getNumberGroupingSeparator()) != (char)0)
         symbols.setGroupingSeparator(ch);
 
     }
