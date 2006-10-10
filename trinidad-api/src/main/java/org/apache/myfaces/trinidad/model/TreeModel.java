@@ -20,8 +20,50 @@ import java.util.List;
 
 
 /**
- * The data model used by ADF Tree components.
- * TreeModel extends CollectionModel to add support for container rows.
+ * The data model used by Trinidad Tree components.  A TreeModel is
+ * responsible for understanding how to iterate through an
+ * object graph, enter and leave containers, and identify
+ * rows of objects within each container.  Within any one
+ * container, a TreeModel looks just like a CollectionModel,
+ * which extends the JSF DataModel class.  (So, to understand
+ * this class, start by learning how DataModel works).
+ * <p>
+ * <h3>Entering and exiting containers</h3>
+ * <p>
+ * TreeModel extends CollectionModel to add support for container rows,
+ * which are entered and exited with enterContainer() and exitContainer()
+ * methods.  Within a container, row indices (get/setRowIndex())
+ * are relative to the container.  However, row keys - get/setRowKey(),
+ * from the CollectionModel API - are always global for the entire
+ * tree model, so it is sufficient to call setRowKey() to enter and
+ * exit all the needed parents.
+ * <p>
+ * <h3>Lazy loading of contents</h3>
+ * <p>
+ * When a tree or treeTable iterates through the model,
+ * it will generally seek to see if a given node is a
+ * container - with the <code>isContainer()</code> method -
+ * and also see if the node is empty (and therefore
+ * not expandable) with the <code>isContainerEmpty()</code>
+ * method.  The default implementation of that latter
+ * method involves entering the child and seeing how
+ * many children it has.  As a result, by default,
+ * you will see one more level of content being
+ * requested than is actually visible on screen.  To
+ * avoid this, provide a custom override of <code>
+ * isContainerEmpty()</code> to return a value
+ * without actually entering the container.  It
+ * is acceptable for this method to return a "false negative" -
+ * to return false when there might actually not be any
+ * contents - if that is the most efficient approach possible.
+ * <p>
+ * The <code>ChildPropertyTreeModel</code> class is a useful
+ * basic subclass, but largely requires that you have the
+ * entire object model fully loaded.  If you require
+ * lazy loading, you'll likely need a custom implementation.
+ * <p>
+ * <h3>Further documentation</h3>
+ * <p>
  * Rows in the TreeModel may (recursively) contain other rows.
  * To figure out if the current row is a container, call the
  * {@link #isContainer} method.

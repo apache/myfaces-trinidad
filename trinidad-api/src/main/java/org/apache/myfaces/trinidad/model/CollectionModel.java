@@ -19,9 +19,27 @@ import java.util.List;
 import javax.faces.model.DataModel;
 
 /**
- * The data model that is used by ADF Table components.
- * This extends the faces DataModel class and adds on support for
- * rowKeys and sorting.
+ * The data model that is used by the Trinidad Table and Iterator components.
+ * This extends the Faces DataModel class and adds on support for
+ * rowKeys and sorting.  Ordinary DataModels are still supported,
+ * and will automatically be wrapped into CollectionModels, but
+ * without the added functionality.
+ * <p>
+ * <h3>Row key support</h3>
+ * <p>
+ * In the Faces DataModel, rows are identified entirely by
+ * index.  This causes major problems if the underlying data
+ * changes from one request to the next - a user request
+ * to delete one row may delete a different row because a
+ * row got added by another user, etc.  To work around
+ * this, CollectionModel is based around row keys instead
+ * of indices.  An implementation of CollectionModel must
+ * implement getRowKey()  and setRowKey(), and handle
+ * conversion from integer indices to row keys.  A trivial
+ * implementation might simply use Integer objects as 
+ * the row keys, but a better version could use a unique ID
+ * in the row.
+ * <p>
  * @author The Oracle ADF Faces Team
  */
 public abstract class CollectionModel extends DataModel
