@@ -84,55 +84,8 @@ abstract class BaseChangeManager extends ChangeManager
 
       if (docChange != null)
       {
-        _addDocumentChangeImpl(facesContext, uiComponent, docChange);
+        addDocumentChange(facesContext, uiComponent, docChange);
       }
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void addDocumentChange(
-    FacesContext facesContext,
-    UIComponent uiComponent,
-    DocumentChange change)
-  {
-    super.addDocumentChange(facesContext, uiComponent, change);
-    _addDocumentChangeImpl(facesContext, uiComponent, change);
-  }
-
-  /**
-   * {@inheritDoc}
-   *
-   * @todo =-=pu : Maybe we need to allow adding Changes for specific viewId's -
-   *  BIBeans req. - external customizer dialog
-   */
-  private void _addDocumentChangeImpl(
-      FacesContext facesContext,
-      UIComponent uiComponent,
-      DocumentChange change)
-  {
-    Document jspDocument = getDocument(facesContext);
-
-    if (jspDocument == null)
-      throw new IllegalStateException(
-        "ChangeManager claimed to support document changes but has no JSP" + // NOTRANS
-        "document"); // NOTRANS
-
-    Node componentNode = _getComponentNode(jspDocument, uiComponent);
-
-    if (componentNode != null)
-    {
-      // immediately apply the change
-      change.changeDocument(componentNode);
-
-      // call testing hack
-      persistDocumentChanges(facesContext);
-    }
-    else
-    {
-      _LOG.warning("Unable to find matching JSP DOcument Node for:" + uiComponent); // NOTRANS
     }
   }
 
@@ -257,7 +210,7 @@ abstract class BaseChangeManager extends ChangeManager
    * in order to enable  Document-based Persistence
    */
   protected abstract Document getDocument(FacesContext context);
-
+  
   /**
    *  Returns true if we can support Document-based Persistence
    *  in this ChangeManager.  Subclassers adding Document-based Persistence
@@ -271,163 +224,6 @@ abstract class BaseChangeManager extends ChangeManager
     // correct, but potentially slow implementation
     return getDocument(context) != null;
   }
-
-  /**
-   * Returns the Node representing the component within the DOM document
-   * @param document
-   * @param uiComponent
-   * @return Node representing the component within the DOM document
-   */
-  private Node _getComponentNode(
-    Document document,
-    UIComponent component)
-  {
-    if (document instanceof DocumentTraversal)
-    {
-      List<String> idPath = _getIdPath(component);
-
-      if (!idPath.isEmpty())
-      {
-        Iterator<String> pathIds = idPath.iterator();
-
-        DocumentTraversal traversalFactory = (DocumentTraversal)document;
-        TreeWalker walker = traversalFactory.createTreeWalker(
-                                   document.getDocumentElement(),
-                                   NodeFilter.SHOW_ELEMENT,
-                                   null,
-                                   true);
-
-        Node currElement = walker.getCurrentNode();
-        Node stopElement = walker.getRoot();
-        String neededID = pathIds.next();
-
-        do
-        {
-          String currID = ((Element)currElement).getAttribute("id");
-
-          if (currID.length() == 0)
-          {
-            // get the next Node is parent->children->sibling order
-            currElement = _getNextNode(walker, stopElement, true);
-          }
-          else
-          {
-            // is this our id?
-            if (neededID.equals(currID))
-            {
-              // we found the last id we needed
-              if (!pathIds.hasNext())
-                return currElement;
-
-              // update the id we need
-              neededID = pathIds.next();
-
-              // don't pop back up to this parent
-              stopElement = currElement;
-
-              // enter the children
-              currElement = walker.firstChild();
-
-              // if we have no chidren, we failed
-              if (currElement == null)
-                break;
-            }
-            else
-            {
-              // don't search children since this ID not in path
-              currElement = _getNextNode(walker, stopElement, false);
-            }
-          }
-        }
-        while (currElement != stopElement);
-      }
-    }
-
-    return null;
-  }
-
-  private Node _getNextNode(
-    TreeWalker walker,
-    Node       stopNode,
-    boolean    drillIn)
-  {
-    // first drill in
-    Node nextNode;
-
-    if (drillIn)
-      nextNode = walker.firstChild();
-    else
-      nextNode = null;
-
-    // try sibling
-    if (nextNode == null)
-      nextNode = walker.nextSibling();
-
-    if (nextNode != null)
-    {
-      return nextNode;
-    }
-    else
-    {
-      // pop out
-      Node parentNode = walker.parentNode();
-
-      if (parentNode == stopNode)
-      {
-        // return the stop Node to stop looping
-        return stopNode;
-      }
-      else
-      {
-        // skip the parent, since it's already been checked
-        return _getNextNode(walker, stopNode, false);
-      }
-    }
-  }
-
-  /**
-   * Returns the paths of ids from the top most NamingContainer down to
-   * this component.  EmptyList will be returned if there are no ids in this
-   * path
-   * @param component
-   * @return
-   */
-  private List<String> _getIdPath(UIComponent component)
-  {
-    String componentID = component.getId();
-
-    // we need an ID
-    if ((componentID == null) || (componentID.length() == 0))
-      return Collections.emptyList();
-
-    LinkedList<String> pathList = new LinkedList<String>();
-    pathList.addFirst(componentID);
-
-    UIComponent currAncestor = component.getParent();
-
-    while (currAncestor != null)
-    {
-      //if (currAncestor instanceof NamingContainer)
-      {
-        String ancestorID = currAncestor.getId();
-
-        if ((ancestorID != null) && (ancestorID.length() != 0))
-        {
-          // skip fake ids
-          if (!ancestorID.startsWith(_FAKE_ID_PREFIX))
-          {
-            pathList.addFirst(ancestorID);
-          }
-        }
-      }
-
-      currAncestor = currAncestor.getParent();
-    }
-
-    return pathList;
-  }
-
-  private static final String _FAKE_ID_PREFIX = "_id";
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(BaseChangeManager.class);
 
