@@ -241,10 +241,11 @@ abstract public class FormElementRenderer extends EditableValueRenderer
     return SkinSelectors.AF_FIELD_TEXT_STYLE_CLASS;
   }
 
+  /* FIXME: this method is never called
   protected String getDefaultDisabledStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_FIELD_TEXT_DISABLED_STYLE_CLASS;
-  }
+  }*/
 
   /**
    * Tells whether or not the autoSubmit attribute is set on the bean

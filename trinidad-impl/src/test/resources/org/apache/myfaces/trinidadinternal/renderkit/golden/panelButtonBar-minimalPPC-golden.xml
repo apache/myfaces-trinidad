@@ -3,30 +3,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[id,null]-->
 
@@ -34,30 +31,27 @@
            id="test-id"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[inlineStyle,null]-->
 
@@ -66,30 +60,27 @@
            style="test-inlineStyle"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[rendered,false]-->
 
@@ -99,30 +90,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -131,30 +119,27 @@
            title="test-shortDesc"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[styleClass,null]-->
 
@@ -163,30 +148,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[halign,right]-->
 
@@ -194,30 +176,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[halign,start]-->
 
@@ -225,30 +204,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[halign,left]-->
 
@@ -256,30 +232,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[halign,end]-->
 
@@ -287,30 +260,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[halign,center]-->
 
@@ -318,30 +288,27 @@
            id="mainId"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onclick,null]-->
 
@@ -350,30 +317,27 @@
            onclick="test-onclick"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -382,30 +346,27 @@
            ondblclick="test-ondblclick"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -414,30 +375,27 @@
            onkeydown="test-onkeydown"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -446,30 +404,27 @@
            onkeypress="test-onkeypress"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -478,30 +433,27 @@
            onkeyup="test-onkeyup"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -510,30 +462,27 @@
            onmousedown="test-onmousedown"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -542,30 +491,27 @@
            onmousemove="test-onmousemove"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -574,30 +520,27 @@
            onmouseout="test-onmouseout"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -606,30 +549,27 @@
            onmouseover="test-onmouseover"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -638,29 +578,26 @@
            onmouseup="test-onmouseup"
           >
         
-        <input
-             class="OraLink"
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 1"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 1
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 2"
             >
-          
-        </input>&#xa0;
-        <input
-             class="OraLink"
+          button 2
+        </button>&#xa0;
+        <button
+             class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
              type="button"
-             value="button 3"
             >
-          
-        </input>
+          button 3
+        </button>
       </span>
 </results>

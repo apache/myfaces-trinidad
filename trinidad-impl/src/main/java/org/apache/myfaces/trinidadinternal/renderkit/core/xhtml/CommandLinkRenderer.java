@@ -36,7 +36,12 @@ public class CommandLinkRenderer extends GoLinkRenderer
 {
   public CommandLinkRenderer()
   {
-    super(CoreCommandLink.TYPE);
+    this(CoreCommandLink.TYPE);
+  }
+
+  protected CommandLinkRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
   
   @Override

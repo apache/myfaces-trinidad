@@ -306,7 +306,27 @@ public final class SkinSelectors
    public static final String AF_COLUMN_UNSORTED_ICON_NAME =
     "af|column::unsorted-icon";
 
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:commandButton ========================= //
+   //                                                                         //
+   //                                                                         //
+
+   // ============================ Style classes ============================ //
+  public static final String AF_COMMAND_BUTTON_STYLE_CLASS =
+    "af|commandButton";
    
+
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:goButton ========================= //
+   //                                                                         //
+   //                                                                         //
+
+   // ============================ Style classes ============================ //
+  public static final String AF_GO_BUTTON_STYLE_CLASS =
+    "af|goButton";
+
    //                                                                         //
    //                                                                         //
    // ============================ tr:inputColor ============================ //

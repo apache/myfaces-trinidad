@@ -59,14 +59,14 @@ public class SeparatorRenderer extends XhtmlRenderer
     ResponseWriter rw = context.getResponseWriter();
 
     renderAllAttributes(context, arc, bean, false);
-    renderStyleAttributes(context, arc, bean, getDefaultStyleClass());
+    renderStyleAttributes(context, arc, bean);
 
     // Old PDA renderer rule
     if (isPDA(arc))
       rw.writeAttribute("size", "1", null);
   }
 
-  protected String getDefaultStyleClass()
+  protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_SEPARATOR_STYLE_CLASS;
   }

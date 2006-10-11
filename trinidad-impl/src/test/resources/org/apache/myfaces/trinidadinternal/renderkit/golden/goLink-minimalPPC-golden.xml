@@ -90,7 +90,7 @@
 <!--AttributeTest[styleClass,mystyle]-->
 
       <a
-           class="mystyle"
+           class="mystyle OraLink"
            href="uri-attr:encoded-action-url:http://www.oracle.com"
            id="uri-attr:mainId"
            name="uri-attr:mainId"

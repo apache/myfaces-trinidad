@@ -2286,6 +2286,14 @@
       <property name="vertical-align">baseline</property>
   </style>
   
+  <style selector="af|commandButton">
+    <includeStyle name="AFDefaultFont"/>
+  </style>
+
+  <style selector="af|goButton">
+    <includeStyle name="AFDefaultFont"/>
+  </style>
+
   <style selector="af|column::cell-text">
     <includeStyle name="AFTableCellDataText"/>
     <includeStyle name="AFTableCellDataVerticalAlign"/>

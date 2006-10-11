@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
  * Stub for temporary backwards compatibility.
  *
  * @author The Oracle ADF Faces Team
- * @deprecated
+ * @deprecated use public API
  */
 public class RenderUtils
 {

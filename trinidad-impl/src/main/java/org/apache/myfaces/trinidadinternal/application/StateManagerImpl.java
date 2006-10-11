@@ -839,7 +839,7 @@ public class StateManagerImpl extends StateManager
         // because "root"'s child List is being mutated as the List
         // is traversed.
         List<UIComponent> temp = new ArrayList<UIComponent>(root.getChildCount());
-        temp.addAll(root.getChildren());
+        temp.addAll(((List<UIComponent>) root.getChildren()));
         newRoot.getChildren().addAll(temp);
         return newRoot;
       }

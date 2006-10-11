@@ -68,7 +68,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -169,7 +169,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -468,7 +468,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -570,7 +570,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -671,7 +671,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -970,7 +970,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1072,7 +1072,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1173,7 +1173,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1460,7 +1460,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1562,7 +1562,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1663,7 +1663,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -1962,7 +1962,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -2064,7 +2064,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -2234,7 +2234,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -2582,7 +2582,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -2684,7 +2684,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -2786,7 +2786,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3085,7 +3085,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3187,7 +3187,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3288,7 +3288,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3587,7 +3587,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3689,7 +3689,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -3790,7 +3790,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4077,7 +4077,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4179,7 +4179,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4280,7 +4280,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4579,7 +4579,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4694,7 +4694,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -4795,7 +4795,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5094,7 +5094,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5196,7 +5196,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5297,7 +5297,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5596,7 +5596,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5698,7 +5698,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -5799,7 +5799,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6098,7 +6098,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6200,7 +6200,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6350,7 +6350,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6718,7 +6718,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6820,7 +6820,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -6921,7 +6921,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7221,7 +7221,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7323,7 +7323,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7424,7 +7424,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7723,7 +7723,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7826,7 +7826,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -7927,7 +7927,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
@@ -8226,7 +8226,7 @@
                           >
                         
                         <button
-                             class="OraLink"
+                             class="af_commandButton"
                              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
                              type="button"
                             >
