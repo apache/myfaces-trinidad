@@ -403,7 +403,6 @@ class StyleSheetEntry
   private List <IconNode> _icons;
   // List of -tr- properties that the skin can be set on the skin.
   // This is a List of SkinPropertyNodes
-  // jmw it will be key, name, value. or name/value???
   private List <SkinPropertyNode> _skinProperties;
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetEntry.class);
