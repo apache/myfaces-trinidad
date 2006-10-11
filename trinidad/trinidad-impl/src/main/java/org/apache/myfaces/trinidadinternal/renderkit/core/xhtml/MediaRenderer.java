@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
+package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
@@ -21,15 +21,18 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidad.bean.FacesBean;
+import org.apache.myfaces.trinidad.bean.PropertyKey;
+import org.apache.myfaces.trinidad.component.core.output.CoreMedia;
+
+import org.apache.myfaces.trinidad.context.RenderingContext;
 
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 
 /**
@@ -38,111 +41,140 @@ import org.apache.myfaces.trinidadinternal.ui.UINode;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/xhtml/MediaRenderer.java#0 $) $Date: 15-nov-2005.19:26:37 $
  * @author The Oracle ADF Faces Team
  */
-public class MediaRenderer extends XhtmlLafRenderer
+public class MediaRenderer extends XhtmlRenderer
 {
-  /**
-   * Returns an URL to the media to display
-   */
-  protected Object getSource(
-    UIXRenderingContext context,
-    UINode           node
-    )
+
+  public MediaRenderer()
   {
-    return XhtmlLafUtils.getLocalAttribute(context, node, SOURCE_ATTR);
+    super(CoreMedia.TYPE);
   }
-
-  /**
-   * Returns the expected content type of the media to display
-   */
-  protected Object getContentType(
-    UIXRenderingContext context,
-    UINode           node
-    )
-  {
-    Object type =  node.getAttributeValue(context, CONTENT_TYPE_ATTR);
-    return type;
-  }
-
-  /**
-   * Returns true if the media should start playing as soon as it is loaded.
-   */
-  protected Object getAutostart(
-    UIXRenderingContext context,
-    UINode           node
-    )
-  {
-    return node.getAttributeValue(context, AUTOSTART_ATTR);
-  }
-
-  /**
-   * Returns the number of times that the media should play
-   */
-  protected Number getPlayCount(
-    UIXRenderingContext context,
-    UINode           node
-    )
-  {
-    return (Number)node.getAttributeValue(context, PLAY_COUNT_ATTR);
-  }
-
-  /**
-   * Returns an enumeration determining the set of controls to render
-   */
-  protected Object getControls(
-    UIXRenderingContext context,
-    UINode           node
-    )
-  {
-    return node.getAttributeValue(context, CONTROLS_ATTR);
-  }
-
-
-  /**
-   * Renders the MediaBean asa either an <embed> or <object> as appropriate.
-   *
-   * =-= bts For convenience, I overrode render() as opposed to overriding the
-   *         different renderAttributes(), prerender(), renderContent(),
-   *         routines as appropriate.  This was done for convenience, since
-   *         the <embed> and <object> tags attributes need to be written
-   *         in different routines and I didn't want to copy the code.
-   *         However, it also has side-effects for both subclassing and support
-   *         for things such as JavaScript events.  Given my redesign to
-   *         drive almost everything off of meta-data, the decision to
-   *         do all of the work in render() could be revisited.
-   */
+  
   @Override
-  public void render(
-    UIXRenderingContext context,
-    UINode           node
-    ) throws IOException
+  protected void findTypeConstants(FacesBean.Type type)
   {
+    super.findTypeConstants(type);
+    _sourceKey = type.findKey("source");
+    _playerKey = type.findKey("player");
+    _contentTypeKey = type.findKey("contentType");
+    _autostartKey = type.findKey("autostart");
+    _playCountKey = type.findKey("playCount");
+    _controlsKey = type.findKey("controls");
+    _standbyTextKey = type.findKey("standbyText");
 
+    _widthKey = type.findKey("width");
+    _heightKey = type.findKey("height");
+    _innerWidthKey = type.findKey("innerWidth");
+    _innerHeightKey = type.findKey("innerHeight");
+  }
+
+  protected String getSource(FacesBean bean)
+  {
+    return toUri(bean.getProperty(_sourceKey));
+  }
+
+  protected String getPlayer(FacesBean bean)
+  {
+    return toString(bean.getProperty(_playerKey));
+  }
+
+  protected String getContentType(FacesBean bean)
+  {
+    return toString(bean.getProperty(_contentTypeKey));
+  }
+
+  protected String getControls(FacesBean bean)
+  {
+    return toString(bean.getProperty(_controlsKey));
+  }
+
+  protected String getStandbyText(FacesBean bean)
+  {
+    return toString(bean.getProperty(_standbyTextKey));
+  }
+
+  protected boolean getAutostart(FacesBean bean)
+  {
+    Object o = bean.getProperty(_autostartKey);
+    if (o == null)
+      o = _autostartKey.getDefault();
+
+    return Boolean.TRUE.equals(o);
+  }
+
+
+  protected Number getPlayCount(FacesBean bean)
+  {
+    Object o = bean.getProperty(_playCountKey);
+    if (o == null)
+      o = _playCountKey.getDefault();
+
+    if (o instanceof Number)
+      return ((Number) o);
+
+    return null;
+  }
+
+  protected String getWidth(FacesBean bean)
+  {
+    return toString(bean.getProperty(_widthKey));
+  }
+
+  protected String getHeight(FacesBean bean)
+  {
+    return toString(bean.getProperty(_heightKey));
+  }
+
+
+  protected String getInnerWidth(FacesBean bean)
+  {
+    return toString(bean.getProperty(_innerWidthKey));
+  }
+
+  protected String getInnerHeight(FacesBean bean)
+  {
+    return toString(bean.getProperty(_innerHeightKey));
+  }
+
+
+  @Override
+  public boolean getRendersChildren()
+  {
+    return true;
+  }
+
+  @Override
+  protected void encodeAll(
+    FacesContext        context,
+    RenderingContext    arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
     // get the mime type
-    String mimeType = _getMimeType(context, node);
+    String mimeType = _getMimeType(bean);
 
     // extract the primary cotnent type from the content mime type
     String primaryContentType = _getPrimaryContentType(mimeType);
 
-    MediaRenderer.PlayerData playerData = _getPlayerData(context,
-                                           node,
-                                           mimeType,
-                                           primaryContentType);
+    MediaRenderer.PlayerData playerData = _getPlayerData(arc,
+                                                         bean,
+                                                         mimeType,
+                                                         primaryContentType);
 
     ResponseWriter writer = context.getResponseWriter();
 
-    Object  source         = getSource(context, node);
-    Object  contentType    = getContentType(context, node);
-    Object  shortDesc      = node.getAttributeValue(context, SHORT_DESC_ATTR);
-    Object  id             = getID(context, node);
+    String  source         = getSource(bean);
+    String  contentType    = getContentType(bean);
+    String  id             = getClientId(context, component);
 
     if (_LINK_PLAYER_DATA == playerData)
     {
-      _renderLink(writer,
-                  node,
-                  supportsID(context) ? id : null,
+      _renderLink(context,
+                  arc,
+                  component,
+                  bean,
+                  id,
                   source,
                   null,
-                  shortDesc,
                   contentType);
     }
     else
@@ -158,7 +190,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
       MediaRenderer.ControlData controlData = (controlSet != null)
                                   ? controlSet.getControlData(
-                                                 getControls(context, node))
+                                                 getControls(bean))
                                   : null;
 
       //
@@ -176,16 +208,16 @@ public class MediaRenderer extends XhtmlLafRenderer
       }
       else
       {
-        useEmbedTag  = useEmbed(context);
+        useEmbedTag  = useEmbed(arc);
         useObjectTag = !useEmbedTag;
       }
 
-      Object width = node.getAttributeValue(context, WIDTH_ATTR);
+      String width = getWidth(bean);
 
       // since current players don't add to width, treat innerWidth
       // identically to width for now
       if (width == null)
-        width = node.getAttributeValue(context, INNER_WIDTH_ATTR);
+        width = getInnerWidth(bean);
 
       // get whether this set of controls can be autosized.
       // embed elements can not be autosized.
@@ -195,16 +227,14 @@ public class MediaRenderer extends XhtmlLafRenderer
       // compute default width for players that don't autosize
       if ((width == null) && !canAutosize)
       {
-        Number defaultInnerWidth = getDefaultInnerWidth(context,
-                                                        node,
-                                                        primaryContentType);
+        Number defaultInnerWidth = getDefaultInnerWidth(primaryContentType);
 
         // use the greater of the default width of the content
         // and the preferred width of the controls
-        width = (defaultInnerWidth.intValue() >
+        width = ((defaultInnerWidth.intValue() >
                  controlData.preferredWidth.intValue())
                   ? defaultInnerWidth
-                  : controlData.preferredWidth;
+                 : controlData.preferredWidth).toString();
       }
 
 
@@ -221,7 +251,7 @@ public class MediaRenderer extends XhtmlLafRenderer
         //
         // Handle looping attributes
         //
-        Number playCountValue = getPlayCount(context, node);
+        Number playCountValue = getPlayCount(bean);
 
         if (playCountValue != null)
         {
@@ -246,42 +276,26 @@ public class MediaRenderer extends XhtmlLafRenderer
         //
         // determine whether we should autostart
         //
-        Object autostart = getAutostart(context, node);
-
-        if (autostart != null)
+        boolean autostarts = getAutostart(bean);
+        if (autostarts != playerData.autostartByDefault)
         {
-          boolean autostarts = Boolean.TRUE.equals(autostart);
-
-          if (autostarts != playerData.autostartByDefault)
-          {
-            // only write out an autostart value, if its different than
-            // the default
-            autostartValue = autostarts
-                               ? playerData.autostartTrueValue
-                               : playerData.autostartFalseValue;
-          }
-        }
-        else
-        {
-          // if player autostarts by default, turn it off
-          if (playerData.autostartByDefault)
-          {
-            autostartValue = playerData.autostartFalseValue;
-          }
+          // only write out an autostart value, if its different than
+          // the default
+          autostartValue = autostarts
+            ? playerData.autostartTrueValue
+            : playerData.autostartFalseValue;
         }
       }
 
 
-      Object standbyText = node.getAttributeValue(context,
-                                                   STANDBY_TEXT_ATTR);
+      String standbyText = getStandbyText(bean);
 
-      Object height = null;
+      String height = null;
       // if image window and controls rendered separately
       if ( imageWindowControlData != null )
       {
 
-        height = _getInnerHeight( context,
-                                  node,
+        height = _getInnerHeight( bean,
                                   canAutosize,
                                   primaryContentType,
                                   controlData,
@@ -290,21 +304,16 @@ public class MediaRenderer extends XhtmlLafRenderer
         // since image and controls are rendered separately, a value
         // is needed to associate them. The id will be used if it is not null,
         // otherwise an id will be generated for the value.
-        Object wireImageToControlsParamValue = id;
-
-        if ( wireImageToControlsParamValue == null )
-        {
-          wireImageToControlsParamValue =
-                                      XhtmlLafUtils.generateUniqueID(context);
-        }
+        String wireImageToControlsParamValue = id;
 
         _render( context,
-                 node,
+                 arc,
+                 component,
+                 bean,
                  contentType,
                  id,
                  wireImageToControlsParamValue,
                  source,
-                 shortDesc,
                  standbyText,
                  width,
                  height,
@@ -321,18 +330,19 @@ public class MediaRenderer extends XhtmlLafRenderer
 
         if ( controlData != _NULL_CONTROL_DATA )
         {
-          writer.startElement(DIV_ELEMENT, node.getUIComponent());
-          writer.endElement(DIV_ELEMENT);
+          writer.startElement("div", component);
+          writer.endElement("div");
 
 
-          height = IntegerUtils.getInteger( controlData.height );
+          height = IntegerUtils.getInteger( controlData.height ).toString();
           _render( context,
-                   node,
+                   arc,
+                   component,
+                   bean,
                    contentType,
                    id,
                    wireImageToControlsParamValue,
                    null,
-                   shortDesc,
                    null,
                    width,
                    height,
@@ -350,20 +360,20 @@ public class MediaRenderer extends XhtmlLafRenderer
       // if image window and controls rendered together
       else
       {
-        height = _getHeight( context,
-                             node,
+        height = _getHeight( bean,
                              canAutosize,
                              primaryContentType,
                              controlData,
                              playerData );
 
         _render( context,
-                 node,
+                 arc,
+                 component,
+                 bean,
                  contentType,
                  id,
                  null,
                  source,
-                 shortDesc,
                  standbyText,
                  width,
                  height,
@@ -387,8 +397,8 @@ public class MediaRenderer extends XhtmlLafRenderer
         // =-=bts I feel that our backup rendering should be an icon that
         //        we retrieve using a pretected method
         //
-        writer.startElement("noembed", node.getUIComponent());
-        _renderLink(writer, node, null, source, null, shortDesc, contentType);
+        writer.startElement("noembed", component);
+        _renderLink(context, arc, component, bean, null, source, null, contentType);
         writer.endElement("noembed");
       }
     }
@@ -399,8 +409,6 @@ public class MediaRenderer extends XhtmlLafRenderer
    * specified.
    */
   protected Number getDefaultInnerWidth(
-    UIXRenderingContext context,
-    UINode           node,
     String           primaryContentType
     )
   {
@@ -413,8 +421,6 @@ public class MediaRenderer extends XhtmlLafRenderer
    * specified.
    */
   protected Number getDefaultInnerHeight(
-    UIXRenderingContext context,
-    UINode           node,
     String           primaryContentType
     )
   {
@@ -427,10 +433,10 @@ public class MediaRenderer extends XhtmlLafRenderer
    * <object> tag to embed the viewer
    */
   protected boolean useEmbed(
-    UIXRenderingContext context
+    RenderingContext arc
     )
   {
-    TrinidadAgent agent = context.getAgent();
+    TrinidadAgent agent = (TrinidadAgent) arc.getAgent();
 
     // =-= bts only desktop IE seems to support this
     //         Move this to capability
@@ -459,32 +465,43 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Renders a link
    */
   private void _renderLink(
-    ResponseWriter writer,
-    UINode node,
-    Object       id,
-    Object       source,
-    Object       iconUrl,
-    Object       shortDescription,
-    Object       contentType
+    FacesContext context,
+    RenderingContext arc,
+    UIComponent  component,
+    FacesBean    bean,
+    String       id,
+    String       source,
+    String       iconUrl,
+    String       contentType
     ) throws IOException
   {
+    ResponseWriter writer = context.getResponseWriter();
+
     // Don't render a link without an "href".
     // But, for PPR, always render a span if we have an ID.
     if (source == null)
     {
       if (id != null)
       {
-        writer.startElement("span", node.getUIComponent());
+        writer.startElement("span", component);
         writer.writeAttribute("id", id, null);
+        renderAllAttributes(context, arc, bean);
         writer.endElement("span");
       }
     }
     else
     {
-      writer.startElement("a", node.getUIComponent());
+      writer.startElement("a", component);
 
       // write the ID
-      writer.writeAttribute("id", id, null);
+      if (id != null)
+      {
+        writer.writeAttribute("id", id, null);
+        // And render all the attributes here if we have
+        // that ID, because that means this is the main
+        // content
+        renderAllAttributes(context, arc, bean);
+      }
 
       // link to the content
       writer.writeURIAttribute("href", source, null);
@@ -496,13 +513,12 @@ public class MediaRenderer extends XhtmlLafRenderer
       {
         // =-=AEW Just noticed: this code fails to render "alt"; before
         // using, check accessibility!!!
-        assert false;
-        writer.startElement("img", node.getUIComponent());
+        writer.startElement("img", component);
         writer.writeURIAttribute("src", iconUrl, null);
         writer.endElement("img");
       }
 
-      writer.writeText(shortDescription, null);
+      writer.writeText(getShortDesc(bean), "shortDesc");
 
       writer.endElement("a");
     }
@@ -513,7 +529,7 @@ public class MediaRenderer extends XhtmlLafRenderer
    * Renders a name value pair as a <param> element
    */
   private void _renderParamAttribute(
-    UIXRenderingContext context,
+    FacesContext     context,
     String           paramName,
     Object           paramValue,
     boolean          isURL
@@ -546,123 +562,108 @@ public class MediaRenderer extends XhtmlLafRenderer
    * =-= bts Do we care about AccessibilityMode?
    */
   private MediaRenderer.PlayerData _getPlayerData(
-    UIXRenderingContext context,
-    UINode           node,
+    RenderingContext arc,
+    FacesBean        bean,
     String           mimeType,
     String           primaryMimeType
     )
   {
-    Object playerData = context.getLocalProperty(0, _PLAYER_DATA_KEY, null);
-
-    if (playerData == null)
+    PlayerData playerData = null;
+    // the default player is the link player
+    TrinidadAgent agent = (TrinidadAgent) arc.getAgent();
+    int agentOSInt = agent.getAgentOS();
+    
+    // get the set of supported players for this OS
+    HashSet<Object> supportedPlayers = _sSupportedOSPlayers.get(agentOSInt);
+    
+    // are we trying to display an image?
+    boolean isImage = "image".equals(primaryMimeType);
+    
+    // check if this OS supports any non-link style players
+    if (supportedPlayers != null)
     {
-      // the default player is the link player
-      TrinidadAgent agent = context.getAgent();
-
-      int agentOSInt = agent.getAgentOS();
-
-      Integer agentOS = IntegerUtils.getInteger(agentOSInt);
-
-      // get the set of supported players for this OS
-      HashSet<Object> supportedPlayers = _sSupportedOSPlayers.get(agentOS);
-
-      // are we trying to display an image?
-      boolean isImage = "image".equals(primaryMimeType);
-
-      // check if this OS supports any non-link style players
-      if (supportedPlayers != null)
+      // get the desired player, if any
+      String playerString = getPlayer(bean);
+      if (playerString != null)
       {
-        // get the desired player, if any
-        Object playerAttr = XhtmlLafUtils.getLocalAttribute(
-                                                context,
-                                                node,
-                                                PLAYER_ATTR);
-
-        if (playerAttr != null)
+        if (CoreMedia.PLAYER_LINK.equals(playerString))
         {
-          String playerString = playerAttr.toString();
-
-          if (PLAYER_LINK.equals(playerString))
+          playerData = _LINK_PLAYER_DATA;
+        }
+        else
+        {
+          // check that the specified player is supported
+          if (!isImage && supportedPlayers.contains(playerString))
           {
-            playerData = _LINK_PLAYER_DATA;
-          }
-          else
-          {
-            // check that the specified player is supported
-            if (!isImage && supportedPlayers.contains(playerString))
+            playerData = (PlayerData) _sPlayerData.get(playerString);
+            
+            if (playerData != null)
             {
-              playerData = _sPlayerData.get(playerString);
-
-              if (playerData != null)
+              if (mimeType != null)
               {
-                if (mimeType != null)
+                // check that the format is supported by this player
+                if (!((PlayerData)playerData).isSupportedMimeType(mimeType))
                 {
-                  // check that the format is supported by this player
-                  if (!((PlayerData)playerData).isSupportedMimeType(mimeType))
-                  {
-                    playerData = null;
-                  }
+                  playerData = null;
                 }
               }
             }
           }
         }
-
-        // assume that all images can be played by the browser's built-in
-        // image player
-        if (isImage)
-          playerData = _IMAGE_PLAYER_DATA;
-        else
+      }
+      
+      // assume that all images can be played by the browser's built-in
+      // image player
+      if (isImage)
+        playerData = _IMAGE_PLAYER_DATA;
+      else
+      {
+        // if the primary content type isn't image, video, or audio,
+        // use the link player
+        if (!"video".equals(primaryMimeType) &&
+            !"audio".equals(primaryMimeType))
+          playerData = _LINK_PLAYER_DATA;
+      }
+      
+      //
+      // guess the player based on the mime type
+      //
+      if (playerData == null)
+      {
+        Object preferredPlayer = _sPreferredMimePlayers.get(mimeType);
+        
+        if ((preferredPlayer != null) &&
+            supportedPlayers.contains(preferredPlayer))
         {
-          // if the primary content type isn't image, video, or audio,
-          // use the link player
-          if (!"video".equals(primaryMimeType) &&
-              !"audio".equals(primaryMimeType))
-            playerData = _LINK_PLAYER_DATA;
+          playerData = (PlayerData) _sPlayerData.get(preferredPlayer);
         }
-
-        //
-        // guess the player based on the mime type
-        //
-        if (playerData == null)
+      }
+      
+      //
+      // guess the player based on the operating system
+      //
+      if (playerData == null)
+      {
+        Object preferredPlayer = _sPreferredOSPlayers.get(agentOSInt);
+        
+        if (preferredPlayer != null)
         {
-          Object preferredPlayer = _sPreferredMimePlayers.get(mimeType);
-
-          if ((preferredPlayer != null) &&
-              supportedPlayers.contains(preferredPlayer))
+          playerData = (PlayerData) _sPlayerData.get(preferredPlayer);
+          
+          // check that the format is supported by this player
+          if (!playerData.isSupportedMimeType(mimeType))
           {
-            playerData = _sPlayerData.get(preferredPlayer);
-          }
-        }
-
-        //
-        // guess the player based on the operating system
-        //
-        if (playerData == null)
-        {
-          Object preferredPlayer = _sPreferredOSPlayers.get(agentOS);
-
-          if (preferredPlayer != null)
-          {
-            playerData = _sPlayerData.get(preferredPlayer);
-
-            // check that the format is supported by this player
-            if (!((PlayerData)playerData).isSupportedMimeType(mimeType))
-            {
-              playerData = null;
-            }
+            playerData = null;
           }
         }
       }
-
-      // if all else fails, use the link player
-      if (playerData == null)
-        playerData = _LINK_PLAYER_DATA;
-
-      context.setLocalProperty(_PLAYER_DATA_KEY, playerData);
     }
-
-    return (PlayerData)playerData;
+    
+    // if all else fails, use the link player
+    if (playerData == null)
+      playerData = _LINK_PLAYER_DATA;
+    
+    return playerData;
   }
 
 
@@ -713,23 +714,16 @@ public class MediaRenderer extends XhtmlLafRenderer
   /**
    * Returns the most likely MIME type for the content
    */
-  private String _getMimeType(
-    UIXRenderingContext context,
-    UINode           node
-    )
+  private String _getMimeType(FacesBean bean)
   {
     // try any provided content mime type first
-    Object mimeTypeAttr = getContentType(context, node);
-
-    String mimeType = "";
+    String mimeType = getContentType(bean);
 
     // primary mime type to force mime type to
     String primaryForced = null;
 
-    if (mimeTypeAttr != null)
+    if (mimeType != null)
     {
-      mimeType = mimeTypeAttr.toString();
-
       // convert mime types to lower case
       mimeType = mimeType.toLowerCase(Locale.US);
 
@@ -760,7 +754,7 @@ public class MediaRenderer extends XhtmlLafRenderer
     }
 
     // try to determine the mime-type off of the source extension
-    String extension = _getSourceExtension(context, node);
+    String extension = _getSourceExtension(bean);
 
     if (extension != null)
     {
@@ -787,17 +781,12 @@ public class MediaRenderer extends XhtmlLafRenderer
   /**
    * Returns the lowercase extension of any source URL
    */
-  private String _getSourceExtension(
-    UIXRenderingContext context,
-    UINode           node
-    )
+  private String _getSourceExtension(FacesBean bean)
   {
-    Object sourceURL = getSource(context, node);
+    String sourceURLString = getSource(bean);
 
-    if (sourceURL != null)
+    if (sourceURLString != null)
     {
-      String sourceURLString = sourceURL.toString();
-
       int extensionIndex = sourceURLString.lastIndexOf('.');
 
       if ((extensionIndex != -1) &&
@@ -868,19 +857,16 @@ public class MediaRenderer extends XhtmlLafRenderer
 
 
   // get the height of the image window
-  private Object _getInnerHeight(
-    UIXRenderingContext context,
-    UINode           node,
+  private String _getInnerHeight(
+    FacesBean        bean,
     boolean          canAutosize,
     String           primaryContentType,
     ControlData      controlData,
     PlayerData       playerData
     )
   {
-
     // get the height without checking min
-    Object height = _getHeightNoMin(context,
-                                    node,
+    String height = _getHeightNoMin(bean,
                                     canAutosize,
                                     primaryContentType,
                                     controlData);
@@ -907,14 +893,14 @@ public class MediaRenderer extends XhtmlLafRenderer
       }
       else if ( intHeight < Integer.MAX_VALUE )
       {
-        return IntegerUtils.getInteger(intHeight - controlData.height);
+        return IntegerUtils.getInteger(intHeight - controlData.height).toString();
       }
     }
 
     if (useMinHeight)
     {
       return IntegerUtils.getInteger(playerData.minHeight.intValue() -
-                                     controlData.height);
+                                     controlData.height).toString();
     }
 
     return height;
@@ -923,29 +909,23 @@ public class MediaRenderer extends XhtmlLafRenderer
   //
   // determine the height without checking the min height
   //
-  private Object _getHeightNoMin(
-    UIXRenderingContext context,
-    UINode           node,
+  private String _getHeightNoMin(
+    FacesBean        bean,
     boolean          canAutosize,
     String           primaryContentType,
     ControlData      controlData
     )
   {
-    Object height = node.getAttributeValue(context, HEIGHT_ATTR);
-
+    String height = getHeight(bean);
     // compute default height for players that don't autosize
     if (height == null)
     {
       // get the inner height from the attribute
-      Object innerHeight = node.getAttributeValue(context,
-                                                  INNER_HEIGHT_ATTR);
-
+      String innerHeight = getInnerHeight(bean);
       if (!canAutosize && (innerHeight == null))
       {
         // get the default inner height
-        innerHeight = getDefaultInnerHeight(context,
-                                            node,
-                                            primaryContentType);
+        innerHeight = getDefaultInnerHeight(primaryContentType).toString();
       }
 
       //
@@ -954,10 +934,18 @@ public class MediaRenderer extends XhtmlLafRenderer
       int extraHeight = (controlData != null)
         ? controlData.height
         : 0;
+
       if ((innerHeight != null) && (extraHeight != 0))
       {
-        height = IntegerUtils.getInteger(((Number)innerHeight).intValue() +
-                                         extraHeight);
+        try
+        {
+          int innerHeightInt = Integer.parseInt(innerHeight);
+          height = Integer.toString(innerHeightInt + extraHeight);
+        }
+        catch (NumberFormatException nfe)
+        {
+          height = innerHeight;
+        }
       }
       else
       {
@@ -972,9 +960,8 @@ public class MediaRenderer extends XhtmlLafRenderer
   //
   // determine the height including the controls
   //
-  private Object _getHeight(
-    UIXRenderingContext context,
-    UINode           node,
+  private String _getHeight(
+    FacesBean        bean,
     boolean          canAutosize,
     String           primaryContentType,
     ControlData      controlData,
@@ -983,8 +970,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   {
 
     // get the height
-    Object height = _getHeightNoMin(context,
-                                    node,
+    String height = _getHeightNoMin(bean,
                                     canAutosize,
                                     primaryContentType,
                                     controlData);
@@ -1005,7 +991,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
       if (useMinHeight)
       {
-        height = playerData.minHeight;
+        height = playerData.minHeight.toString();
       }
     }
 
@@ -1051,16 +1037,17 @@ public class MediaRenderer extends XhtmlLafRenderer
   }
 
   private void _render(
-    UIXRenderingContext context,
-    UINode           node,
-    Object           contentType,
-    Object           id,
-    Object           wireImageToControls,
-    Object           source,
-    Object           shortDesc,
-    Object           standbyText,
-    Object           width,
-    Object           height,
+    FacesContext     context,
+    RenderingContext  arc,
+    UIComponent      component,
+    FacesBean        bean,
+    String           contentType,
+    String           id,
+    String           wireImageToControls,
+    String           source,
+    String           standbyText,
+    String           width,
+    String           height,
     String           autostartValue,
     String           playCountParamName,
     Object           playCountParamValue,
@@ -1084,16 +1071,8 @@ public class MediaRenderer extends XhtmlLafRenderer
     ResponseWriter writer = context.getResponseWriter();
 
     // start the element
-    writer.startElement(elementName, node.getUIComponent());
-
-    // render the short description
-    writer.writeAttribute("title", shortDesc, null);
-
-    // render the intrinsic events
-    if (supportsIntrinsicEvents(context))
-    {
-      renderEventHandlers(context, node);
-    }
+    writer.startElement(elementName, component);
+    renderAllAttributes(context, arc, bean);
 
     writer.writeAttribute("width", width, null);
     writer.writeAttribute("height", height, null);
@@ -1126,7 +1105,7 @@ public class MediaRenderer extends XhtmlLafRenderer
         // wire image window to controls
         writer.writeAttribute(playerData.wireImageToControlsParamName,
                               wireImageToControls,
-							  null);
+                              null);
 
         // add in control attributes
         if (controlData != null)
@@ -1145,7 +1124,7 @@ public class MediaRenderer extends XhtmlLafRenderer
       else
       {
         if (!isNotMainID )
-          renderID( context, node );
+          writer.writeAttribute("id", id, null);
 
         // Object tag doesn't take a source attribute
         sourceAttrName = null;
@@ -1236,7 +1215,7 @@ public class MediaRenderer extends XhtmlLafRenderer
       // =-=bts I feel that our backup rendering should be an icon that
       //        we retrieve using a pretected method
       //
-      _renderLink(writer, node, null, source, null, shortDesc, contentType);
+      _renderLink(context, arc, component, bean, null, source, null, contentType);
     }
 
     // close the element
@@ -1366,7 +1345,7 @@ public class MediaRenderer extends XhtmlLafRenderer
       // if we failed for some reason, default to the typical controls
       if (controlData == null)
       {
-        controlData = _controls.get(CONTROLS_TYPICAL);
+        controlData = _controls.get(CoreMedia.CONTROLS_TYPICAL);
       }
 
       return (ControlData)controlData;
@@ -1526,7 +1505,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   private static final String _WMP_CODE_BASE =
     "http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=6,0,02,902";
 
-  private static final Number _MIN_QT_HEIGHT = TWO;
+  private static final Integer _MIN_QT_HEIGHT = 2;
   private static final int _QT_CONTROL_HEIGHT = 16;
   private static final int _WMP_CONTROL_HEIGHT = 40;
 
@@ -1534,7 +1513,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   // Meta Data for the Link Player
   //
   private static final MediaRenderer.PlayerData _LINK_PLAYER_DATA =
-    new MediaRenderer.PlayerData(PLAYER_LINK, // player type
+    new MediaRenderer.PlayerData(CoreMedia.PLAYER_LINK, // player type
                    false,       // no autostart by default
                    "true",      // autostartTrueValue
                    "false",     // autostartFalseValue
@@ -1592,7 +1571,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
   private static final MediaRenderer.PlayerData _QUICKTIME_PLAYER_DATA =
     new MediaRenderer.PlayerData(
-    PLAYER_QUICKTIME,                           // player type
+    CoreMedia.PLAYER_QUICKTIME,                           // player type
     true,                                       // autostart by default
     "true",                                     // autostartTrueValue
     "false",                                    // autostartFalseValue
@@ -1614,48 +1593,48 @@ public class MediaRenderer extends XhtmlLafRenderer
     {
       "audio", new MediaRenderer.ControlSet(new Object[]
       {
-        CONTROLS_NONE,         new MediaRenderer.ControlData(new String[]
+        CoreMedia.CONTROLS_NONE,         new MediaRenderer.ControlData(new String[]
                                                {
                                                  "kioskmode", "true",
                                                  "controller","false",
                                                },
                                                false, // no autosize
                                                0,
-                                               ZERO),
-        CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
+                                               IntegerUtils.getInteger(0)),
+        CoreMedia.CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
                                                {
                                                  "controller", "false"
                                                },
                                                false, // no autosize
                                                0,
-                                               ZERO),
-        CONTROLS_MINIMAL,      new MediaRenderer.ControlData(null, // all controls default
+                                               IntegerUtils.getInteger(0)),
+        CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(null, // all controls default
                                                false, // no autosize
                                                _QT_CONTROL_HEIGHT,
                                                new Integer(18)),  // play button only
-        CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
-        CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
       }),
       "video", new MediaRenderer.ControlSet(new Object[]
       {
-        CONTROLS_NONE,         new MediaRenderer.ControlData(new String[]
+        CoreMedia.CONTROLS_NONE,         new MediaRenderer.ControlData(new String[]
                                                {
                                                  "kioskmode", "true",
                                                  "controller","false",
                                                },
                                                false, // no autosize
                                                0,
-                                               ZERO),
-        CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
+                                               IntegerUtils.getInteger(0)),
+        CoreMedia.CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
                                                {
                                                  "controller", "false"
                                                },
                                                false, // no autosize
                                                0,
-                                               ZERO),
-        CONTROLS_MINIMAL,      _QUICKTIME_ALL_CONTROL_DATA,
-        CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
-        CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
+                                               IntegerUtils.getInteger(0)),
+        CoreMedia.CONTROLS_MINIMAL,      _QUICKTIME_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
       }),
     },
     new String[] // mime-types not supported by Quicktime 5
@@ -1691,7 +1670,7 @@ public class MediaRenderer extends XhtmlLafRenderer
                      },
                      true, // autosizes
                      0,
-                     ZERO);
+                     IntegerUtils.getInteger(0));
 
   // =-= bts what about close captioning?
   // =-= bts Is unsupported mime types the right way to go, how about supported
@@ -1703,9 +1682,9 @@ public class MediaRenderer extends XhtmlLafRenderer
   private static final MediaRenderer.ControlSet _WINDOWS_6_4_CONTROL_SET = new MediaRenderer.ControlSet(
     new Object[]
     {
-      CONTROLS_NONE,         _WMP_6_4_NONE_VISIBLE_CONTROL_DATA,
-      CONTROLS_NONE_VISIBLE, _WMP_6_4_NONE_VISIBLE_CONTROL_DATA,
-      CONTROLS_MINIMAL,      new MediaRenderer.ControlData(new String[]
+      CoreMedia.CONTROLS_NONE,         _WMP_6_4_NONE_VISIBLE_CONTROL_DATA,
+      CoreMedia.CONTROLS_NONE_VISIBLE, _WMP_6_4_NONE_VISIBLE_CONTROL_DATA,
+      CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(new String[]
                                              {
                                                "showcontrols",         "true",
                                                "showaudiocontrols",    "false",
@@ -1715,11 +1694,11 @@ public class MediaRenderer extends XhtmlLafRenderer
                                              false, // no autosize
                                              _WMP_MINIMAL_CONTROLS_HEIGHT,
                                              _WMP_MINIMAL_CONTROLS_WIDTH),
-      CONTROLS_TYPICAL,      new MediaRenderer.ControlData(null,// this is the default
+      CoreMedia.CONTROLS_TYPICAL,      new MediaRenderer.ControlData(null,// this is the default
                                              true, // autosizes
                                              _WMP_CONTROL_HEIGHT,
                                              _WMP_ALL_CONTROLS_WIDTH),
-      CONTROLS_ALL,          new MediaRenderer.ControlData(new String[]
+      CoreMedia.CONTROLS_ALL,          new MediaRenderer.ControlData(new String[]
                                              {
                                                "showdisplay",   "true",
                                                "showgotobar",   "true",
@@ -1732,7 +1711,7 @@ public class MediaRenderer extends XhtmlLafRenderer
 
   private static final MediaRenderer.PlayerData _WINDOWS_6_4_PLAYER_DATA =
     new MediaRenderer.PlayerData(
-    PLAYER_WINDOWS,                                  // player type
+    CoreMedia.PLAYER_WINDOWS,                        // player type
     true,                                            // autostart by default
     "1",                                             // autostartTrueValue
     "0",                                             // autostartFalseValue
@@ -1741,7 +1720,7 @@ public class MediaRenderer extends XhtmlLafRenderer
     "autostart",                                     // autostartParamName
     "filename",                                      // sourceParamName
     "playcount",                                     // infiniteLoopParamName,
-    ZERO,                                            // infiniteLoopParamValue
+    IntegerUtils.getInteger(0),                                            // infiniteLoopParamValue
     "playcount",                                     // playCountParamName
     "http://www.microsoft.com/Windows/MediaPlayer/", // pluginsPage
     _WMP_CODE_BASE,                                  // <Object> CodeBase
@@ -1780,7 +1759,7 @@ public class MediaRenderer extends XhtmlLafRenderer
      new MediaRenderer.ControlData(new String[]{"uimode", "none"},
                      true, // autosizes
                      0,
-                     ZERO);
+                     IntegerUtils.getInteger(0));
 
   // control data for showing typical controls on Windows Media Player 7.1
   private static final MediaRenderer.ControlData _WMP_7_1_TYPICAL_CONTROL_DATA =
@@ -1795,19 +1774,19 @@ public class MediaRenderer extends XhtmlLafRenderer
   private static final MediaRenderer.ControlSet _WINDOWS_7_1_CONTROL_SET = new MediaRenderer.ControlSet(
     new Object[]
     {
-      CONTROLS_NONE,         _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
-      CONTROLS_NONE_VISIBLE, _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
-      CONTROLS_MINIMAL,      new MediaRenderer.ControlData(new String[]{"uimode", "mini"},
+      CoreMedia.CONTROLS_NONE,         _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
+      CoreMedia.CONTROLS_NONE_VISIBLE, _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
+      CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(new String[]{"uimode", "mini"},
                                              true, // autosizes
                                              _WMP_CONTROL_HEIGHT,
                                              _WMP_ALL_CONTROLS_WIDTH),
-      CONTROLS_TYPICAL,      _WMP_7_1_TYPICAL_CONTROL_DATA,
-      CONTROLS_ALL,          _WMP_7_1_TYPICAL_CONTROL_DATA,
+      CoreMedia.CONTROLS_TYPICAL,      _WMP_7_1_TYPICAL_CONTROL_DATA,
+      CoreMedia.CONTROLS_ALL,          _WMP_7_1_TYPICAL_CONTROL_DATA,
     });
 
   private static final MediaRenderer.PlayerData _WINDOWS_7_1_PLAYER_DATA =
     new MediaRenderer.PlayerData(
-    PLAYER_WINDOWS,                                  // player type
+    CoreMedia.PLAYER_WINDOWS,                                  // player type
     true,                                            // autostart by default
     "1",                                             // autostartTrueValue
     "0",                                             // autostartFalseValue
@@ -1816,7 +1795,7 @@ public class MediaRenderer extends XhtmlLafRenderer
     "autostart",                                     // autostartParamName
     "filename",                                      // sourceParamName
     "playcount",                                     // infiniteLoopParamName,
-    ZERO,                                            // infiniteLoopParamValue
+    IntegerUtils.getInteger(0),                                            // infiniteLoopParamValue
     "playcount",                                     // playCountParamName
     "http://www.microsoft.com/Windows/MediaPlayer/", // pluginsPage
     _WMP_CODE_BASE,                                  // <Object> CodeBase
@@ -1861,7 +1840,7 @@ public class MediaRenderer extends XhtmlLafRenderer
      new MediaRenderer.ControlData(null,
                      false,           // no autosize
                      0,
-                     ZERO);
+                     IntegerUtils.getInteger(0));
 
 
 
@@ -1874,7 +1853,7 @@ public class MediaRenderer extends XhtmlLafRenderer
                      },
                      false,           // no autosize
                      0,
-                     ZERO);
+                     IntegerUtils.getInteger(0));
 
 
 
@@ -1908,12 +1887,12 @@ public class MediaRenderer extends XhtmlLafRenderer
      new MediaRenderer.ControlData(new String[]{"controls", ""},
                      false,           // no autosize
                      0,
-                     ZERO);
+                     IntegerUtils.getInteger(0));
 
 
   private static final MediaRenderer.PlayerData _REAL_PLAYER_DATA =
     new MediaRenderer.PlayerData(
-    PLAYER_REAL,                                // player type
+    CoreMedia.PLAYER_REAL,                      // player type
     false,                                      // no autostart by default
     "true",                                     // autostartTrueValue
     "false",                                    // autostartFalseValue
@@ -1935,29 +1914,29 @@ public class MediaRenderer extends XhtmlLafRenderer
     {
       "audio", new MediaRenderer.ControlSet(new Object[]
       {
-        CONTROLS_NONE,         _REAL_AUDIO_NONE_VISIBLE_CONTROL_DATA,
-        CONTROLS_NONE_VISIBLE, _REAL_AUDIO_NONE_VISIBLE_CONTROL_DATA,
-        CONTROLS_MINIMAL,      _REAL_MINIMAL_CONTROL_DATA,
-        CONTROLS_TYPICAL,      _REAL_TYPICAL_CONTROL_DATA,
-        CONTROLS_ALL,          _REAL_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_NONE,         _REAL_AUDIO_NONE_VISIBLE_CONTROL_DATA,
+        CoreMedia.CONTROLS_NONE_VISIBLE, _REAL_AUDIO_NONE_VISIBLE_CONTROL_DATA,
+        CoreMedia.CONTROLS_MINIMAL,      _REAL_MINIMAL_CONTROL_DATA,
+        CoreMedia.CONTROLS_TYPICAL,      _REAL_TYPICAL_CONTROL_DATA,
+        CoreMedia.CONTROLS_ALL,          _REAL_ALL_CONTROL_DATA,
       }),
       "video", new MediaRenderer.ControlSet(new Object[]
       {
-        CONTROLS_NONE,         _NULL_CONTROL_DATA,
-        CONTROLS_NONE_VISIBLE, _NULL_CONTROL_DATA,
-        CONTROLS_MINIMAL,      _REAL_MINIMAL_CONTROL_DATA,
-        CONTROLS_TYPICAL,      _REAL_TYPICAL_CONTROL_DATA,
-        CONTROLS_ALL,          _REAL_ALL_CONTROL_DATA,
+        CoreMedia.CONTROLS_NONE,         _NULL_CONTROL_DATA,
+        CoreMedia.CONTROLS_NONE_VISIBLE, _NULL_CONTROL_DATA,
+        CoreMedia.CONTROLS_MINIMAL,      _REAL_MINIMAL_CONTROL_DATA,
+        CoreMedia.CONTROLS_TYPICAL,      _REAL_TYPICAL_CONTROL_DATA,
+        CoreMedia.CONTROLS_ALL,          _REAL_ALL_CONTROL_DATA,
       }),
     },
     null); // mime types not supported by real
 
   private static final Object[] _PLAYER_DATA = new Object[]
   {
-    PLAYER_LINK,      _LINK_PLAYER_DATA,
-    PLAYER_QUICKTIME, _QUICKTIME_PLAYER_DATA,
-    PLAYER_WINDOWS,   _WINDOWS_6_4_PLAYER_DATA,
-    PLAYER_REAL,      _REAL_PLAYER_DATA,
+    CoreMedia.PLAYER_LINK,      _LINK_PLAYER_DATA,
+    CoreMedia.PLAYER_QUICKTIME, _QUICKTIME_PLAYER_DATA,
+    CoreMedia.PLAYER_WINDOWS,   _WINDOWS_6_4_PLAYER_DATA,
+    CoreMedia.PLAYER_REAL,      _REAL_PLAYER_DATA,
   };
 
   // maps extensions to MIME types
@@ -2037,19 +2016,19 @@ public class MediaRenderer extends XhtmlLafRenderer
   // Preferred Players for MimeTypes
   private static final Object[] _PREFERRED_MIME_PLAYERS = new Object[]
   {
-    _AIFF_MIME_TYPE,              PLAYER_QUICKTIME,
-    _ASF_MIME_TYPE,               PLAYER_WINDOWS,
-    _AVI_MIME_TYPE,               PLAYER_WINDOWS,
-    _QUICKTIME_MIME_TYPE,         PLAYER_QUICKTIME,
-    _REAL_AUDIO_MIME_TYPE,        PLAYER_REAL,
-    _REAL_AUDIO_PN_MIME_TYPE,     PLAYER_REAL,
-    _REAL_AUDIO_PLUGIN_MIME_TYPE, PLAYER_REAL,
-    _REAL_VIDEO_MIME_TYPE,        PLAYER_REAL,
-    _REAL_VIDEO_PN_MIME_TYPE,     PLAYER_REAL,
-    _REAL_VIDEO_PLUGIN_MIME_TYPE, PLAYER_REAL,
-    _WMA_MIME_TYPE,               PLAYER_WINDOWS,
-    _WMV_MIME_TYPE,               PLAYER_WINDOWS,
-    _WVX_MIME_TYPE,               PLAYER_WINDOWS,
+    _AIFF_MIME_TYPE,              CoreMedia.PLAYER_QUICKTIME,
+    _ASF_MIME_TYPE,               CoreMedia.PLAYER_WINDOWS,
+    _AVI_MIME_TYPE,               CoreMedia.PLAYER_WINDOWS,
+    _QUICKTIME_MIME_TYPE,         CoreMedia.PLAYER_QUICKTIME,
+    _REAL_AUDIO_MIME_TYPE,        CoreMedia.PLAYER_REAL,
+    _REAL_AUDIO_PN_MIME_TYPE,     CoreMedia.PLAYER_REAL,
+    _REAL_AUDIO_PLUGIN_MIME_TYPE, CoreMedia.PLAYER_REAL,
+    _REAL_VIDEO_MIME_TYPE,        CoreMedia.PLAYER_REAL,
+    _REAL_VIDEO_PN_MIME_TYPE,     CoreMedia.PLAYER_REAL,
+    _REAL_VIDEO_PLUGIN_MIME_TYPE, CoreMedia.PLAYER_REAL,
+    _WMA_MIME_TYPE,               CoreMedia.PLAYER_WINDOWS,
+    _WMV_MIME_TYPE,               CoreMedia.PLAYER_WINDOWS,
+    _WVX_MIME_TYPE,               CoreMedia.PLAYER_WINDOWS,
   };
 
   //
@@ -2077,9 +2056,13 @@ public class MediaRenderer extends XhtmlLafRenderer
   // Supported players on each OS, in prference order
   private static final Object[] _SUPPORTED_OS_PLAYERS = new Object[]
   {
-    _WINDOWS_OS, new Object[]{PLAYER_WINDOWS,   PLAYER_QUICKTIME, PLAYER_REAL},
-    _MAC_OS,     new Object[]{PLAYER_QUICKTIME, PLAYER_WINDOWS, PLAYER_REAL},
-    _SOLARIS_OS, new Object[]{PLAYER_WINDOWS},
+    _WINDOWS_OS, new Object[]{CoreMedia.PLAYER_WINDOWS,  
+                              CoreMedia.PLAYER_QUICKTIME,
+                              CoreMedia.PLAYER_REAL},
+    _MAC_OS,     new Object[]{CoreMedia.PLAYER_QUICKTIME,
+                              CoreMedia.PLAYER_WINDOWS,
+                              CoreMedia.PLAYER_REAL},
+    _SOLARIS_OS, new Object[]{CoreMedia.PLAYER_WINDOWS},
   };
 
   //
@@ -2087,7 +2070,8 @@ public class MediaRenderer extends XhtmlLafRenderer
   //
   private static Object[] _DEFAULT_INNER_SIZES = new Object[]
   {
-    "audio", new Number[]{ZERO, ZERO},
+    "audio", new Number[]{IntegerUtils.getInteger(0),
+                          IntegerUtils.getInteger(0)},
     "video", new Number[]{IntegerUtils.getInteger(200),
                           IntegerUtils.getInteger(150)},
   };
@@ -2123,7 +2107,7 @@ public class MediaRenderer extends XhtmlLafRenderer
   static
   {
     // initialize data for supported players
-    _sPlayerData = _createHashMap(_PLAYER_DATA);
+    _sPlayerData =  _createHashMap(_PLAYER_DATA);
 
     // initialize the mapping of mime types to preferred players
     _sPreferredMimePlayers = _createHashMap(_PREFERRED_MIME_PLAYERS);
@@ -2163,4 +2147,16 @@ public class MediaRenderer extends XhtmlLafRenderer
     // initialize the map of default inner sizes
     _sDefaultInnerSizes = _createHashMap(_DEFAULT_INNER_SIZES);
   }
+
+  private PropertyKey _sourceKey;
+  private PropertyKey _playerKey;
+  private PropertyKey _contentTypeKey;
+  private PropertyKey _autostartKey;
+  private PropertyKey _playCountKey;
+  private PropertyKey _controlsKey;
+  private PropertyKey _standbyTextKey;
+  private PropertyKey _widthKey;
+  private PropertyKey _heightKey;
+  private PropertyKey _innerWidthKey;
+  private PropertyKey _innerHeightKey;
 }

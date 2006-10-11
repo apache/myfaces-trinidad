@@ -150,6 +150,9 @@ public class ColumnGroupRenderer extends XhtmlRenderer
 
   protected String getDefaultSortOrder(FacesBean bean)
   {
+    if (_defaultSortOrderKey == null)
+      return null;
+
     return toString(bean.getProperty(_defaultSortOrderKey));
   }
 

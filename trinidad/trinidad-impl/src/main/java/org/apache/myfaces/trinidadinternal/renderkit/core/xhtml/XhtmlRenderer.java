@@ -847,51 +847,81 @@ public class XhtmlRenderer extends CoreRenderer
 
   protected String getOnclick(FacesBean bean)
   {
+    if (_onclickKey == null)
+      return null;
+
     return toString(bean.getProperty(_onclickKey));
   }
 
   protected String getOndblclick(FacesBean bean)
   {
+    if (_ondblclickKey == null)
+      return null;
+
     return toString(bean.getProperty(_ondblclickKey));
   }
 
   protected String getOnkeydown(FacesBean bean)
   {
+    if (_onkeydownKey == null)
+      return null;
+
     return toString(bean.getProperty(_onkeydownKey));
   }
 
   protected String getOnkeyup(FacesBean bean)
   {
+    if (_onkeyupKey == null)
+      return null;
+
     return toString(bean.getProperty(_onkeyupKey));
   }
 
   protected String getOnkeypress(FacesBean bean)
   {
+    if (_onkeypressKey == null)
+      return null;
+
     return toString(bean.getProperty(_onkeypressKey));
   }
 
   protected String getOnmousedown(FacesBean bean)
   {
+    if (_onmousedownKey == null)
+      return null;
+
     return toString(bean.getProperty(_onmousedownKey));
   }
 
   protected String getOnmousemove(FacesBean bean)
   {
+    if (_onmousemoveKey == null)
+      return null;
+
     return toString(bean.getProperty(_onmousemoveKey));
   }
 
   protected String getOnmouseout(FacesBean bean)
   {
+    if (_onmouseoutKey == null)
+      return null;
+
     return toString(bean.getProperty(_onmouseoutKey));
   }
 
   protected String getOnmouseover(FacesBean bean)
   {
+    if (_onmouseoverKey == null)
+      return null;
+
     return toString(bean.getProperty(_onmouseoverKey));
   }
 
   protected String getOnmouseup(FacesBean bean)
   {
+    if (_onmouseupKey == null)
+      return null;
+
     return toString(bean.getProperty(_onmouseupKey));
   }
 

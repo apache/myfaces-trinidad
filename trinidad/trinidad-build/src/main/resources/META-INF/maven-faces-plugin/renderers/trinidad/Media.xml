@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Object</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Media</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.MediaRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreMedia</mfp:component-type>
       </renderer-extension>

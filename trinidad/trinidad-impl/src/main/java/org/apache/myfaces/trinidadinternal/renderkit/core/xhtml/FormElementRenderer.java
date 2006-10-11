@@ -214,16 +214,25 @@ abstract public class FormElementRenderer extends EditableValueRenderer
 
   protected String getOnblur(FacesBean bean)
   {
+    if (_onblurKey == null)
+      return null;
+
     return toString(bean.getProperty(_onblurKey));
   }
 
   protected String getOnfocus(FacesBean bean)
   {
+    if (_onfocusKey == null)
+      return null;
+
     return toString(bean.getProperty(_onfocusKey));
   }
 
   protected String getOnchange(FacesBean bean)
   {
+    if (_onchangeKey == null)
+      return null;
+
     return toString(bean.getProperty(_onchangeKey));
   }
 

@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Object</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Separator</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SeparatorRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreSeparator</mfp:component-type>
       </renderer-extension>
