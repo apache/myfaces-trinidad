@@ -146,7 +146,7 @@
 <!--AttributeTest[styleClass,mystyle]-->
 
       <a
-           class="mystyle"
+           class="mystyle OraLink"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            href="uri-attr:encoded-action-url:#"
            id="uri-attr:mainId"

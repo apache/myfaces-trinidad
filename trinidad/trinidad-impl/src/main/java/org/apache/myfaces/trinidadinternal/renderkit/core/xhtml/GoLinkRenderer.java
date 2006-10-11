@@ -205,22 +205,12 @@ public class GoLinkRenderer extends XhtmlRenderer
     return toString(bean.getProperty(_textKey));
   }
 
-  @Override
-  protected String getStyleClass(FacesBean bean)
-  {
-    String styleClass = super.getStyleClass(bean);
-    if (styleClass == null)
-    {
-      RenderingContext arc = RenderingContext.getCurrentInstance();
-      if (!((CoreRenderingContext) arc).isDefaultLinkStyleDisabled())
-        styleClass = getDefaultStyleClass(bean);
-    }
-
-    return styleClass;
-  }
-
   protected String getDefaultStyleClass(FacesBean bean)
   {
+    RenderingContext arc = RenderingContext.getCurrentInstance();
+    if (((CoreRenderingContext) arc).isDefaultLinkStyleDisabled())
+      return null;
+
     if (getDisabled(bean))
       return SkinSelectors.LINK_DISABLED_STYLE_CLASS;
     else

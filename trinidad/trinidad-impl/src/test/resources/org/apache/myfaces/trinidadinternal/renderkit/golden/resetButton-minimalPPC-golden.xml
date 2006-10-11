@@ -1,268 +1,268 @@
 <results>
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onclick,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,event,true)"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[ondblclick,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            ondblclick="test-ondblclick"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeydown,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeydown="test-onkeydown"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeypress,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeypress="test-onkeypress"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeyup,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeyup="test-onkeyup"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmousedown,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmousedown="test-onmousedown"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmousemove,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmousemove="test-onmousemove"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseout,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseout="test-onmouseout"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseover,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseover="test-onmouseover"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseup,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseup="test-onmouseup"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[accessKey,u]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[id,myid]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'myid'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:myid"
+           name="uri-attr:myid"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            style="background-color:red"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[shortDesc,my button]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            title="my button"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[styleClass,mystyle]-->
 
-      <input
-           class="mystyle"
+      <button
+           class="mystyle af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[textAndAccessKey,&B]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[disabled,false]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[disabled,true]-->
 
-      <input
-           class="OraLinkDisabled"
+      <button
+           class="af_commandButton p_AFDisabled"
            disabled="disabled"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[immediate,false]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[immediate,true]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',0,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[partialSubmit,false]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[partialSubmit,true]-->
 
-      <input
-           class="OraLink"
-           onclick="_uixspu('formId',1,0,'mainId',0,1,0);return false;"
-           type="button"
-           value="ButtonText"
-           id="uri-attr:mainId"
+      <script
           >
-        
-        <script
-            >
-          var _pprUpdateMode=false;function _uixspu(f,v,e,s,pt,p,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;if(p){o.partial='true';if(pt)o.partialTargets=pt;_submitPartialChange(f,v,o);}else submitForm(f,v,o);}
-        </script>
-      </input>
+        var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
+      </script>
+      <button
+           class="af_commandButton"
+           onclick="_adfspu('formId',1,0,'mainId');return false;"
+           type="button"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+      </button>
 </results>

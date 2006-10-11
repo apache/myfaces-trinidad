@@ -348,6 +348,7 @@
 <!--AttributeTest[readOnly,true]-->
 
       <span
+           class="AFFieldText"
            id="mainId"
           >
         
@@ -355,6 +356,7 @@
 <!--AttributeTest[readOnly,true,AttributeTest[value,4]]-->
 
       <span
+           class="AFFieldText"
            id="mainId"
           >
         item4

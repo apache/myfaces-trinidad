@@ -1,254 +1,254 @@
 <results>
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[accessKey,u]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[disabled,false]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[disabled,true]-->
 
-      <input
-           class="OraLinkDisabled"
+      <button
+           class="af_goButton p_AFDisabled"
            disabled="disabled"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[longDesc,my long desc]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[targetFrame,mytarget]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="top[mytarget].location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[textAndAccessKey,B&uttonText]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[id,myid]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:myid"
+           name="uri-attr:myid"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[shortDesc,my button]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            title="my button"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[styleClass,mystyle]-->
 
-      <input
-           class="mystyle"
+      <button
+           class="mystyle af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onblur,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onblur="test-onblur"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onclick,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="return _chain('test-onclick','document.location=\'encoded-action-url:http://www.oracle.com\'',this,event,true)"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[ondblclick,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            ondblclick="test-ondblclick"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onfocus,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onfocus="test-onfocus"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeydown,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onkeydown="test-onkeydown"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeypress,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onkeypress="test-onkeypress"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onkeyup,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onkeyup="test-onkeyup"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmousedown,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onmousedown="test-onmousedown"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmousemove,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onmousemove="test-onmousemove"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseout,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onmouseout="test-onmouseout"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseover,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onmouseover="test-onmouseover"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 <!--AttributeTest[onmouseup,null]-->
 
-      <input
-           class="OraLink"
+      <button
+           class="af_goButton"
            onclick="document.location='encoded-action-url:http://www.oracle.com'"
            onmouseup="test-onmouseup"
            type="button"
-           value="ButtonText"
            id="uri-attr:mainId"
+           name="uri-attr:mainId"
           >
-        
-      </input>
+        ButtonText
+      </button>
 </results>

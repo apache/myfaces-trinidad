@@ -87,6 +87,11 @@ public class XhtmlRenderer extends CoreRenderer
     _partialTriggersKey = type.findKey("partialTriggers");
   }
 
+  /**
+   * Returns true if the agent supports the Script module.
+   * <p>
+   * See section 5.16 of xhtml modularization
+   */
   static public boolean supportsScripting(RenderingContext arc)
   {
     Object scriptingSpeed = arc.getAgent().getCapabilities().get(
@@ -96,10 +101,30 @@ public class XhtmlRenderer extends CoreRenderer
             (TrinidadAgent.SCRIPTING_SPEED_CAP_NONE != scriptingSpeed));
   }
 
+
   static public boolean supportsEditing(RenderingContext arc)
   {
     Object cap = arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_EDITING);
+    return !Boolean.FALSE.equals(cap);
+  }
+
+  public static boolean supportsAdvancedForms(
+    RenderingContext arc)
+  {
+    Object cap = arc.getAgent().getCapabilities().get(
+                    TrinidadAgent.CAP_ADVANCED_FORMS);
+    return !Boolean.FALSE.equals(cap);
+  }
+
+  /**
+   * See section 5.14 of xhtml modularization.
+   */
+  public static boolean supportsIntrinsicEvents(
+    RenderingContext arc)
+  {
+    Object cap = arc.getAgent().getCapabilities().get(
+                    TrinidadAgent.CAP_INTRINSIC_EVENTS);
     return !Boolean.FALSE.equals(cap);
   }
 
@@ -339,7 +364,12 @@ public class XhtmlRenderer extends CoreRenderer
     RenderingContext arc,
     FacesBean           bean) throws IOException
   {
-    renderStyleAttributes(context, arc, bean, null);
+    renderStyleAttributes(context, arc, bean, getDefaultStyleClass(bean));
+  }
+
+  protected String getDefaultStyleClass(FacesBean bean)
+  {
+    return null;
   }
 
   /**
@@ -347,7 +377,7 @@ public class XhtmlRenderer extends CoreRenderer
    */
   protected void renderStyleAttributes(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     FacesBean           bean,
     String              defaultStyleClass) throws IOException
   {

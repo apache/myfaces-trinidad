@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Command</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Button</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.CommandRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.CommandButtonRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreCommandButton</mfp:component-type>
       </renderer-extension>

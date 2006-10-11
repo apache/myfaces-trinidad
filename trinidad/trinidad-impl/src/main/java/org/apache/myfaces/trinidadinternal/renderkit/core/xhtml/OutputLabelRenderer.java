@@ -275,18 +275,7 @@ public class OutputLabelRenderer extends ValueRenderer
   //
   // OVERRIDES
   //
-  
-  @Override
-   protected void renderAllAttributes(
-     FacesContext        context,
-     RenderingContext arc,
-     FacesBean           bean) throws IOException
-   {
-     renderAllAttributes(context, arc, bean, false);
-     renderStyleAttributes(context, arc, bean, getDefaultStyleClass());
-   }  
-  
-  protected String getDefaultStyleClass()
+  protected String getDefaultStyleClass(FacesBean bean)
   {
     return "af|outputLabel";
   }

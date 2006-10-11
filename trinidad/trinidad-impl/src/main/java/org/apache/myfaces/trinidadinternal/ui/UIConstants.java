@@ -368,10 +368,6 @@ public interface UIConstants
   public static final AttributeKey FIRST_CLICK_PASSED_ATTR =
                                      new AttributeKey("firstClickPassed");
 
-  // ER 4014884: block on every submit if requested.
-  public static final AttributeKey BLOCK_ON_EVERY_SUBMIT_ATTR =
-                                     new AttributeKey("blockOnEverySubmit");
-
   /** @deprecated Do not use this attribute */
   @Deprecated
   public static final AttributeKey ANCESTOR_ID_ATTR     = new AttributeKey("ancestorID");
