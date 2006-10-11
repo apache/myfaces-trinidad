@@ -930,6 +930,9 @@ public class FormRenderer extends XhtmlRenderer
 
   protected String getOnsubmit(FacesBean bean)
   {
+    if (_onsubmitKey == null)
+      return null;
+
     return toString(bean.getProperty(_onsubmitKey));
   }
 

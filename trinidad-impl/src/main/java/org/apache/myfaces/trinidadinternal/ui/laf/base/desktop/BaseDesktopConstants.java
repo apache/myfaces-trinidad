@@ -244,7 +244,7 @@ public interface BaseDesktopConstants extends XhtmlLafConstants
 
   // Separator style classes
   public static final String AF_SEPARATOR_STYLE_CLASS = 
-    "af|objectSeparator";
+    "af|separator";
 
   //messages
   // style that is on the outer table

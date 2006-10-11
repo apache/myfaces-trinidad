@@ -430,7 +430,6 @@ public interface UIConstants
   public static final String INLINE_DATE_PICKER_NAME = "inlineDatePicker";
   public static final String LINK_NAME   = "link";
   public static final String LIST_NAME   = "list";
-  public static final String MEDIA_NAME = "media";
   public static final String MENU_LIST_NAME = "menuList";
   public static final String NAVIGATION_PATH_NAME = "navigationPath";
   public static final String NAVIGATION_TREE_NAME = "navigationTree";

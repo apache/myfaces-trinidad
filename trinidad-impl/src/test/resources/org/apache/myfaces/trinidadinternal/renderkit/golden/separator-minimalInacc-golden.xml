@@ -1,6 +1,6 @@
 <results>
       <hr
-           class="af_objectSeparator"
+           class="af_separator"
            id="mainId"
           >
         
@@ -8,7 +8,7 @@
 <!--AttributeTest[id,null]-->
 
       <hr
-           class="af_objectSeparator"
+           class="af_separator"
            id="test-id"
           >
         
@@ -18,7 +18,7 @@
 <!--AttributeTest[rendered,true]-->
 
       <hr
-           class="af_objectSeparator"
+           class="af_separator"
            id="mainId"
           >
         
@@ -26,7 +26,7 @@
 <!--AttributeTest[shortDesc,null]-->
 
       <hr
-           class="af_objectSeparator"
+           class="af_separator"
            id="mainId"
            title="test-shortDesc"
           >

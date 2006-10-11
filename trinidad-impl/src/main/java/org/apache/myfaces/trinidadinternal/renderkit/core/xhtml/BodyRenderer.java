@@ -191,7 +191,11 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected String getOnload(RenderingContext arc, FacesBean bean)
   {
-    String onload = toString(bean.getProperty(_onloadKey));
+    String onload;
+    if (_onloadKey == null)
+      onload = null;
+    else
+      onload = toString(bean.getProperty(_onloadKey));
     if (PartialPageUtils.supportsPartialRendering(arc))
 	{
 	  // Don't short circuit...
@@ -215,7 +219,11 @@ public class BodyRenderer extends PanelPartialRootRenderer
 
   protected String getOnunload(RenderingContext arc, FacesBean bean)
   {
-    String onunload = toString(bean.getProperty(_onunloadKey));
+    String onunload;
+    if (_onunloadKey == null)
+      onunload = null;
+    else
+      onunload = toString(bean.getProperty(_onunloadKey));
     if (PartialPageUtils.supportsPartialRendering(arc))
     {
       // Don't short circuit...

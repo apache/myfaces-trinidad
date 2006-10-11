@@ -181,11 +181,17 @@ public class GoLinkRenderer extends XhtmlRenderer
 
   protected String getOnblur(FacesBean bean)
   {
+    if (_onblurKey == null)
+      return null;
+
     return toString(bean.getProperty(_onblurKey));
   }
 
   protected String getOnfocus(FacesBean bean)
   {
+    if (_onfocusKey == null)
+      return null;
+
     return toString(bean.getProperty(_onfocusKey));
   }
 

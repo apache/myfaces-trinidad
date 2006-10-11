@@ -132,6 +132,7 @@
 
       <a
            id="mainId"
+           title="test-shortDesc"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         test-shortDesc
@@ -140,6 +141,7 @@
 
       <a
            id="mainId"
+           onclick="test-onclick"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -148,6 +150,7 @@
 
       <a
            id="mainId"
+           ondblclick="test-ondblclick"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -156,6 +159,7 @@
 
       <a
            id="mainId"
+           onkeydown="test-onkeydown"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -164,6 +168,7 @@
 
       <a
            id="mainId"
+           onkeypress="test-onkeypress"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -172,6 +177,7 @@
 
       <a
            id="mainId"
+           onkeyup="test-onkeyup"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -180,6 +186,7 @@
 
       <a
            id="mainId"
+           onmousedown="test-onmousedown"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -188,6 +195,7 @@
 
       <a
            id="mainId"
+           onmousemove="test-onmousemove"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -196,6 +204,7 @@
 
       <a
            id="mainId"
+           onmouseout="test-onmouseout"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -204,6 +213,7 @@
 
       <a
            id="mainId"
+           onmouseover="test-onmouseover"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         
@@ -212,6 +222,7 @@
 
       <a
            id="mainId"
+           onmouseup="test-onmouseup"
            href="uri-attr:/test-context-path/components/images/seattle.wmv"
           >
         

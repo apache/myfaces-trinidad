@@ -838,6 +838,14 @@ public final class SkinSelectors
    public static final String AF_SELECT_RANGE_CHOICE_BAR_NEXT_DISABLED_ICON_NAME =
      "af|selectRangeChoiceBar::next-disabled-icon";
 
+
+   //                                                                         //
+   //                                                                         //
+   // ============================ tr:separator ============================ //
+   //                                                                         //
+   //                                                                         //
+   public static final String AF_SEPARATOR_STYLE_CLASS =
+     "af|separator";
     
    //                                                                         //
    //                                                                         //
