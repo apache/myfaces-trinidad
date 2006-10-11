@@ -241,7 +241,7 @@ public class GoButtonRenderer extends GoLinkRenderer
       String targetFrame = getTargetFrame(bean);
       // Look for target frames with well-known names, like
       // _self, _top, _parent, _blank, and _new.  (_new
-      / is actually non-standard, but often used for _blank)
+      // is actually non-standard, but often used for _blank)
       if (targetFrame != null && !"_self".equals(targetFrame))
       {
         if ("_top".equals(targetFrame))
