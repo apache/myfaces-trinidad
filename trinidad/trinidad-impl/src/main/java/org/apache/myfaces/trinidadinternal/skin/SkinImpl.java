@@ -405,6 +405,60 @@ abstract public class SkinImpl extends Skin
 
     return modified;
   }
+  
+  private void _registerIconsAndPropertiesFromStyleSheetEntry(
+    StyleSheetEntry entry)
+  {
+    // register the icons and properties if there are any.
+    // get a List of IconNodes, and register them.
+    if (entry != null)
+    {
+      // register icons
+      List<IconNode> icons = entry.getIcons();
+      if (icons != null)
+      {
+        for(IconNode iconNode : icons)
+        {
+          registerIcon(iconNode.getIconName(), iconNode.getIcon());
+        }
+      }
+      
+      // register properties
+      List<SkinPropertyNode> skinProperties = entry.getSkinProperties();
+      
+      if (skinProperties != null)
+      {
+        for(SkinPropertyNode property : skinProperties)
+        {
+          Object propValueObj = property.getPropertyValue();
+          // Store the property selector + property Name as the Skin Property Key.
+          // e.g., use af|breadCrumbs-tr-show-last-item
+
+          String key = property.getPropertySelector() +
+                       property.getPropertyName();
+          // look up in map to get conversion
+          Class<?> type = _PROPERTY_CLASS_TYPE_MAP.get(key);
+          if (type != null)
+          {
+            try
+            {
+              // coerce the value to the type
+              propValueObj = Coercions.coerce(null, (String)propValueObj,
+                            type);
+            }
+            catch (IllegalArgumentException ex)
+            {
+              if (_LOG.isWarning())
+                _LOG.warning(ex);
+            }
+          }
+
+
+          setProperty(key, propValueObj);
+        }
+      }
+    }    
+  }
 
   // Creates the StyleSheetDocument for this Skin
   // (as a side effect, this also registers icons and skin properties
@@ -421,67 +475,11 @@ abstract public class SkinImpl extends Skin
     {
       String styleSheetName = getStyleSheetName();
 
-      // =-=jmw I'm not sure where a good place is to parse the css file and
-      // register the icons and properties. For now, I suppose I can do it here.
-
       if (styleSheetName != null)
       {
         _skinStyleSheet = StyleSheetEntry.createEntry(context, styleSheetName);
-
-
-        // register the icons and properties if there are any.
-        // this is a strange place for this. Where is a better spot???
-        // get a List of IconNodes, and register them.
-        if (_skinStyleSheet != null)
-        {
-          // register icons
-          List<IconNode> icons = _skinStyleSheet.getIcons();
-          if (icons != null)
-          {
-            for(IconNode iconNode : icons)
-            {
-              registerIcon(iconNode.getIconName(), iconNode.getIcon());
-            }
-          }
-          
-          // register properties
-          List<SkinPropertyNode> skinProperties = 
-            _skinStyleSheet.getSkinProperties();
-          
-          if (skinProperties != null)
-          {
-            for(SkinPropertyNode property : skinProperties)
-            {
-              Object propValueObj = property.getPropertyValue();
-              // Store the property selector + property Name as the Skin Property Key.
-              // e.g., use af|breadCrumbs-tr-show-last-item
-
-              String key = property.getPropertySelector() +
-                           property.getPropertyName();
-              // look up in map to get conversion
-              Class<?> type = _PROPERTY_CLASS_TYPE_MAP.get(key);
-              if (type != null)
-              {
-                try
-                {
-                  // coerce the value to the type
-                  propValueObj = Coercions.coerce(null, (String)propValueObj,
-                                type);
-                }
-                catch (IllegalArgumentException ex)
-                {
-                  if (_LOG.isWarning())
-                    _LOG.warning(ex);
-                }
-              }
-
-
-              setProperty(key, propValueObj);
-            }
-          }
-        }
+        _registerIconsAndPropertiesFromStyleSheetEntry(_skinStyleSheet);
       }
-
 
       // Now create entries for UIExtension-specific style sheets.
       _extensionStyleSheets = _getExtensionStyleSheets(context);
@@ -501,21 +499,28 @@ abstract public class SkinImpl extends Skin
       for (int i = 0; i < _extensionStyleSheets.length; i++)
       {
         StyleSheetEntry entry = _extensionStyleSheets[i];
-        StyleSheetDocument extensionDocument = entry.getDocument();
-
-        if (extensionDocument != null)
+        if (entry != null)
         {
-          // Merge the UIExtension's StyleSheetDocument on top of
-          // the current StyleSheetDocument.  Note: This is not
-          // exactly efficient - we would be better off creating
-          // an array of StyleSheetDocuments and merging them all
-          // in one pass.  But since this code should rarely be
-          // executed, this shouldn't be a bottleneck...
-          document = StyleSheetDocumentUtils.mergeStyleSheetDocuments(
-                                               document,
-                                               extensionDocument);
-          // =-=jmw @todo when we have extension documents, we'll need
-          // to register icons and skin properties from those on the skin?
+          // add the icons and properties that are in the 
+          // extensionDocument's StyleSheetEntry
+           _registerIconsAndPropertiesFromStyleSheetEntry(entry);
+           
+          // now merge the css properties
+          StyleSheetDocument extensionDocument = entry.getDocument();
+  
+          if (extensionDocument != null)
+          {
+            // Merge the UIExtension's StyleSheetDocument on top of
+            // the current StyleSheetDocument.  Note: This is not
+            // exactly efficient - we would be better off creating
+            // an array of StyleSheetDocuments and merging them all
+            // in one pass.  But since this code should rarely be
+            // executed, this shouldn't be a bottleneck...
+            document = StyleSheetDocumentUtils.mergeStyleSheetDocuments(
+                                                 document,
+                                                 extensionDocument);
+  
+          }
         }
       }
     }
