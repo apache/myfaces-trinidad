@@ -21,6 +21,16 @@
         <mfp:long-description>This component will be used to render the table header.</mfp:long-description>
       </facet-extension>
     </facet>
+    <facet>
+      <description><![CDATA[Content to be rendered inline with the navigation bar.]]>
+      </description>
+      <facet-name>actions</facet-name>
+      <facet-extension>
+        <mfp:facet-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:facet-metadata>
+      </facet-extension>
+    </facet>
     <property>
       <description>Specifies if the Horizontal GridLines are to be drawn.</description>
       <property-name>horizontalGridVisible</property-name>

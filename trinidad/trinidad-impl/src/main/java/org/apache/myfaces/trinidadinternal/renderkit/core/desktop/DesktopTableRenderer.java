@@ -545,6 +545,13 @@ public class DesktopTableRenderer extends TableRenderer
         renderStyleClass(context, arc, style);
         writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
 
+        UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
+        if (action != null)
+        {
+          writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+          encodeChild(context, action);
+          writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+        }
         writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
         writer.writeAttribute(XhtmlConstants.WIDTH_ATTRIBUTE,
                               XhtmlConstants.ONE_HUNDRED_PERCENT_ATTRIBUTE_VALUE, null);

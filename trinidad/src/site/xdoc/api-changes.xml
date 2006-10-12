@@ -1978,11 +1978,6 @@ to turn off banding.
       <td><b>Notes</b></td>
     </tr>
     <tr>
-      <td>actions</td>
-      <td> </td>
-      <td>This facet was removed. The components in this facet should be moved to the "toolbar" facet on the new decorateCollection component.</td>
-    </tr>
-    <tr>
       <td>selection</td>
       <td> </td>
       <td>This facet was removed. Selection is now controlled by the new "rowSelection" attribute. See the tableSelectOne and tableSelectMany components for more details.</td>
