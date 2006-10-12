@@ -111,7 +111,6 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     PAGE_NAME,
     PAGE_MENU_BUTTONS_NAME,
     PAGE_NAVIGATION_PATH_NAME,
-    RESET_BUTTON_NAME,
     ROW_LAYOUT_NAME,
     SCRIPT_NAME,
     SELECT_OPTION_NAME,

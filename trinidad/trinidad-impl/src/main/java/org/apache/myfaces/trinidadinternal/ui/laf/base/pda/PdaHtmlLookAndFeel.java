@@ -93,7 +93,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
     PAGE_LAYOUT_NAME,
     PROCESS_CHOICE_BAR_NAME,
     PROCESS_TRAIN_NAME,
-    RESET_BUTTON_NAME,
     SEPARATOR_NAME,
     SHOW_ITEM_NAME,
     SHOW_ONE_TAB_NAME,

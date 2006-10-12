@@ -98,7 +98,6 @@ public class SimpleDesktopUtils extends BaseDesktopUtils
     _registerRenderer(laf, UIConstants.SIDE_BAR_NAME);
     _registerRenderer(laf, UIConstants.TAB_BAR_NAME);
     _registerRenderer(laf, UIConstants.BUTTON_NAME);
-    _registerRenderer(laf, UIConstants.RESET_BUTTON_NAME);
     _registerRenderer(laf, UIConstants.SUBMIT_BUTTON_NAME);
 
   }

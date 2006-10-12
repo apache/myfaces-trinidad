@@ -1,6 +1,6 @@
 <test xmlns="http://myfaces.apache.org/trinidad/test"
        xmlns:tr="http://myfaces.apache.org/trinidad">
-  <base-component tr:type="org.apache.myfaces.trinidad.CoreCommandButton" text="ButtonText"/>
+  <base-component tr:type="org.apache.myfaces.trinidad.CoreResetButton" text="ButtonText"/>
 
   <js-test/>
 
@@ -9,10 +9,6 @@
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <attribute-test name="shortDesc" value="my button"/>
   <attribute-test name="styleClass" value="mystyle"/>
-  <!-- This is working correctly, but does not show up in the test! -->
-  <attribute-test name="textAndAccessKey" value="&amp;B" matchesBase="true"/>
   <boolean-test name="disabled"/>
-  <boolean-test name="immediate"/>
-  <boolean-test name="partialSubmit"/>
 
 </test>
