@@ -107,6 +107,13 @@ public class HtmlCommandLinkRenderer extends Renderer
       {
         return toString(component.getAttributes().get("style"));
       }
+
+
+      @Override
+      protected boolean getDisabled(FacesBean bean)
+      {
+        return Boolean.TRUE.equals(component.getAttributes().get("disabled"));
+      }
     };
   }
 }
