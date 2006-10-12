@@ -70,7 +70,7 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement(element, component);
     renderId(context, component);
-    rw.writeAttribute("type", useButtonTag ? "button" : "submit", null);
+    rw.writeAttribute("type", useButtonTag ? getButtonType() : getInputType(), null);
     if (getDisabled(bean))
     {
       rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
@@ -115,6 +115,15 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     rw.endElement(element);
   }
 
+  protected String getButtonType()
+  {
+    return "button";
+  }
+
+  protected String getInputType()
+  {
+    return "submit";
+  }
     
   protected boolean useButtonTags(RenderingContext arc)
   {

@@ -329,6 +329,16 @@ public final class SkinSelectors
 
    //                                                                         //
    //                                                                         //
+   // ============================ tr:resetButton ========================= //
+   //                                                                         //
+   //                                                                         //
+
+   // ============================ Style classes ============================ //
+  public static final String AF_RESET_BUTTON_STYLE_CLASS =
+    "af|resetButton";
+
+   //                                                                         //
+   //                                                                         //
    // ============================ tr:inputColor ============================ //
    //                                                                         //
    //                                                                         //

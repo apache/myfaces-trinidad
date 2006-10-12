@@ -2291,7 +2291,13 @@
   </style>
 
   <style selector="af|goButton">
-    <includeStyle name="AFDefaultFont"/>
+    <!-- make commandButton primary -->
+    <includeStyle selector="af|commandButton"/>
+  </style>
+
+  <style selector="af|resetButton">
+    <!-- make commandButton primary -->
+    <includeStyle selector="af|commandButton"/>
   </style>
 
   <style selector="af|column::cell-text">

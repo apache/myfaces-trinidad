@@ -1,8 +1,8 @@
 <results>
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -11,9 +11,9 @@
 <!--AttributeTest[onclick,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,event,true)"
-           type="button"
+           class="af_resetButton"
+           onclick="return _chain('test-onclick','resetForm(\'formId\');return false;',this,event,true)"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -22,10 +22,10 @@
 <!--AttributeTest[ondblclick,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            ondblclick="test-ondblclick"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -34,10 +34,10 @@
 <!--AttributeTest[onkeydown,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onkeydown="test-onkeydown"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -46,10 +46,10 @@
 <!--AttributeTest[onkeypress,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onkeypress="test-onkeypress"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -58,10 +58,10 @@
 <!--AttributeTest[onkeyup,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onkeyup="test-onkeyup"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -70,10 +70,10 @@
 <!--AttributeTest[onmousedown,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onmousedown="test-onmousedown"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -82,10 +82,10 @@
 <!--AttributeTest[onmousemove,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onmousemove="test-onmousemove"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -94,10 +94,10 @@
 <!--AttributeTest[onmouseout,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onmouseout="test-onmouseout"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -106,10 +106,10 @@
 <!--AttributeTest[onmouseover,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onmouseover="test-onmouseover"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -118,10 +118,10 @@
 <!--AttributeTest[onmouseup,null]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            onmouseup="test-onmouseup"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -131,9 +131,9 @@
 
       <button
            accesskey="u"
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -147,9 +147,9 @@
 <!--AttributeTest[id,myid]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'myid'});return false;"
-           type="button"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
+           type="reset"
            id="uri-attr:myid"
            name="uri-attr:myid"
           >
@@ -158,10 +158,10 @@
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            style="background-color:red"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -170,10 +170,10 @@
 <!--AttributeTest[shortDesc,my button]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
            title="my button"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -182,20 +182,9 @@
 <!--AttributeTest[styleClass,mystyle]-->
 
       <button
-           class="mystyle af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[textAndAccessKey,&B]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           class="mystyle af_resetButton"
+           onclick="resetForm('formId');return false;"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -204,9 +193,9 @@
 <!--AttributeTest[disabled,false]-->
 
       <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           class="af_resetButton"
+           onclick="resetForm('formId');return false;"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
@@ -215,57 +204,9 @@
 <!--AttributeTest[disabled,true]-->
 
       <button
-           class="af_commandButton p_AFDisabled"
+           class="af_resetButton p_AFDisabled"
            disabled="disabled"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[immediate,false]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[immediate,true]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',0,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[partialSubmit,false]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[partialSubmit,true]-->
-
-      <script
-          >
-        var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
-      </script>
-      <button
-           class="af_commandButton"
-           onclick="_adfspu('formId',1,0,'mainId');return false;"
-           type="button"
+           type="reset"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >

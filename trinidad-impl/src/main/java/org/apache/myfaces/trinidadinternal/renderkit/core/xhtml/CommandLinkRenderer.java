@@ -152,10 +152,18 @@ public class CommandLinkRenderer extends GoLinkRenderer
     return true;
   }
 
+  /**
+   * Returns the component's onclick
+   */
+  final protected String getComponentOnclick(FacesBean bean)
+  {
+    return super.getOnclick(bean);
+  }
+
   @Override
   protected String getOnclick(FacesBean bean)
   {
-    String onclick = super.getOnclick(bean);
+    String onclick = getComponentOnclick(bean);
     RenderingContext arc = RenderingContext.getCurrentInstance();
     String id = arc.getCurrentClientId();
     boolean immediate = getImmediate(bean);
