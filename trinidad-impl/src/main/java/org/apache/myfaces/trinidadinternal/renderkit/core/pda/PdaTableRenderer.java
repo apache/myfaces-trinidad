@@ -73,6 +73,14 @@ public class PdaTableRenderer extends TableRenderer
       renderStyleClass(context, arc,
                        SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE);
 
+      UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
+      if (action != null)
+      {
+        writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
+        encodeChild(context, action);
+        writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
+      }
+
       if ( hasNav)
       {
         writer.startElement("div", null);
