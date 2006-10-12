@@ -4,9 +4,8 @@
           >
         
         <script
-             language="javascript"
             >
-          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 5000);
+           if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 5000);
         </script>
       </span>
 <!--AttributeTest[id,null]-->
@@ -16,9 +15,8 @@
           >
         
         <script
-             language="javascript"
             >
-          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("test-id", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'test-id\',\'partialTargets\':\'test-id\',\'partial\':\'true\'})", 5000);
+           if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("test-id", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'test-id\'})", 5000);
         </script>
       </span>
 <!--AttributeTest[interval,5000]-->
@@ -28,9 +26,8 @@
           >
         
         <script
-             language="javascript"
             >
-          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 5000);
+           if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 5000);
         </script>
       </span>
 <!--AttributeTest[interval,7000]-->
@@ -40,9 +37,8 @@
           >
         
         <script
-             language="javascript"
             >
-          _pprUpdateMode=true; if (!self._pollManager) _pollManager = new _PollManager(); _pollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{\'event\':\'poll\',\'source\':\'mainId\',\'partialTargets\':\'mainId\',\'partial\':\'true\'})", 7000);
+           if (!self._trPollManager) _trPollManager = new _TrPollManager(); _trPollManager.addAndActivate("mainId", "_submitPartialChange(\'formId\',0,{event:\'poll\',source:\'mainId\'})", 7000);
         </script>
       </span>
 </results>

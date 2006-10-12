@@ -22,22 +22,19 @@
 //  2. Add and activate a poll command.
 //  3. Reactivate all the poll commands that were set earlier.
 ////////////////////////////////////////////////////////////////////////////////
-function _PollManager()
+function _TrPollManager()
 {
   this.pollIdList;
   this.active = true;
 }
-_PollManager.prototype.addAndActivate = _addAndActivatePoll;
-_PollManager.prototype.deactivateAll  = _deactivateAllPoll;
-_PollManager.prototype.reactivateAll  = _reactivateAllPoll;
 
 // Adds a command (replaces one that already exists with the same poll id)
 //  and executes it right away.
-function _addAndActivatePoll(pollId, commandString, timeout)
+_TrPollManager.prototype.addAndActivate = function(pollId, commandString, timeout)
 {
   if (!this.pollIdList)
     this.pollIdList = new Array();
-  this[pollId] = new _PollCommand(commandString, timeout, this.active);
+  this[pollId] = new _TrPollCommand(commandString, timeout, this.active);
   idIndex = -1;
   for (var i=0; i<this.pollIdList.length; i++)
   {
@@ -58,7 +55,7 @@ function _addAndActivatePoll(pollId, commandString, timeout)
 }
 
 // Deactivate all the registered poll commands.
-function _deactivateAllPoll()
+_TrPollManager.prototype.deactivateAll = function()
 {
   for (var i=0; i<this.pollIdList.length; i++)
   {
@@ -68,7 +65,7 @@ function _deactivateAllPoll()
 }
 
 // Reactivate all the registered poll commands.
-function _reactivateAllPoll()
+_TrPollManager.prototype.reactivateAll = function()
 {
   for (var i=0; i<this.pollIdList.length; i++)
   {
@@ -80,16 +77,15 @@ function _reactivateAllPoll()
 ////////////////////////////////////////////////////////////////////////////////
 // Custom object representing a poll command.
 ////////////////////////////////////////////////////////////////////////////////
-function _PollCommand(commandString, timeout, activate)
+function _TrPollCommand(commandString, timeout, activate)
 {
   this.commandString = commandString;
   this.timeout = timeout;
   if (activate)
     this.activate();
 }
-_PollCommand.prototype.activate = _activatePoll;
 
-function _activatePoll()
+_TrPollCommand.prototype.activate = function()
 {
   this.commandId = setTimeout(this.commandString, this.timeout);
 }

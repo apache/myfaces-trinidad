@@ -441,7 +441,6 @@ public interface UIConstants
   public static final String PAGE_NAVIGATION_PATH_NAME = "pageNavigationPath";
   public static final String PAGE_MENU_TABS_NAME = "pageMenuTabs";
   public static final String PAGE_NAVIGATION_TREE_NAME = "pageNavigationTree";
-  public static final String POLL_NAME = "poll";
   public static final String PROCESS_CHOICE_BAR_NAME = "processChoiceBar";
   public static final String PROCESS_TRAIN_NAME = "processTrain";
   public static final String PROCESSING_NAME = "processing";
@@ -1239,9 +1238,6 @@ public interface UIConstants
   public static final String LOV_FILTER_EVENT       = "lovFilter";
   public static final String LOV_SEARCH_TEXT        = "searchText";
 
-  // Processing refresh event
-  // Event from the 'poll' element
-  public static final String POLL_EVENT             = "poll";
 
   // Navigate event
   public static final String NAVIGATE_EVENT         = "navigate";

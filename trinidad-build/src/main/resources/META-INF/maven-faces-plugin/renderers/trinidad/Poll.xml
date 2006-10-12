@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Poll</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Poll</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.PollRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PollRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CorePoll</mfp:component-type>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

@@ -4,9 +4,8 @@
           >
         
         <button
-             class="OraLink"
-             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
-             title="Poll Server"
+             class="af_goButton"
+             onclick="_submitPartialChange('formId',0,{event:'poll',source:'mainId'});"
              type="button"
             >
           Poll Server
@@ -19,9 +18,8 @@
           >
         
         <button
-             class="OraLink"
-             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'test-id','partialTargets':'test-id','partial':'true'});"
-             title="Poll Server"
+             class="af_goButton"
+             onclick="_submitPartialChange('formId',0,{event:'poll',source:'test-id'});"
              type="button"
             >
           Poll Server
@@ -34,9 +32,8 @@
           >
         
         <button
-             class="OraLink"
-             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
-             title="Poll Server"
+             class="af_goButton"
+             onclick="_submitPartialChange('formId',0,{event:'poll',source:'mainId'});"
              type="button"
             >
           Poll Server
@@ -49,9 +46,8 @@
           >
         
         <button
-             class="OraLink"
-             onclick="_pprUpdateMode=true;_submitPartialChange('formId',0,{'event':'poll','source':'mainId','partialTargets':'mainId','partial':'true'});"
-             title="Poll Server"
+             class="af_goButton"
+             onclick="_submitPartialChange('formId',0,{event:'poll',source:'mainId'});"
              type="button"
             >
           Poll Server

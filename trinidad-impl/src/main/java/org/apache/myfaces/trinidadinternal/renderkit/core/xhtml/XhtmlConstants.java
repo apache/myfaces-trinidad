@@ -55,6 +55,9 @@ public final class XhtmlConstants
   // SortableHeader
   public static final String SORT_EVENT = "sort";
 
+  // Poll
+  public static final String POLL_EVENT = "poll";
+
   // Chart Drill down
   public static final String CHART_DRILL_DOWN_EVENT = "chartDrillDown";
 
