@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.SelectMany</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Shuttle</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.SelectManyShuttleRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SelectManyShuttleRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreSelectManyShuttle</mfp:component-type>
         <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>

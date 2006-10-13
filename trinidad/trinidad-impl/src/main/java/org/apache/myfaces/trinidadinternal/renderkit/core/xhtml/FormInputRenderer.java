@@ -103,7 +103,7 @@ abstract public class FormInputRenderer extends FormElementRenderer
     super.renderAllAttributes(context, arc, bean, renderStyleAttrs);
     renderDisabledAttribute(context, arc, bean);
     renderStyleClass(context, arc, getContentStyleClass(bean));
-    renderInlineStyleAttribute(context, arc, getContentStyle(bean));   
+    renderInlineStyleAttribute(context, arc, getContentStyle(bean));
   }
   
   protected boolean getSimple(FacesBean bean)
@@ -125,10 +125,10 @@ abstract public class FormInputRenderer extends FormElementRenderer
    * @throws IOException
    */  
   protected void renderRootDomElementStyles(
-  FacesContext     context,
-  RenderingContext arc,
-  UIComponent      component,
-  FacesBean        bean) throws IOException
+    FacesContext     context,
+    RenderingContext arc,
+    UIComponent      component,
+    FacesBean        bean) throws IOException
   {
     // get the style classes that I want to render on the root dom element here.  
     String styleClass         = getStyleClass(bean);

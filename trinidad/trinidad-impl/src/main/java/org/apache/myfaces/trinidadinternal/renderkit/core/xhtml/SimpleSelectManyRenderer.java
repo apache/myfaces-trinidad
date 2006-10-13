@@ -305,6 +305,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
       return objectArray;
   }
 
+  protected List<SelectItem> getSelectItems(
+    UIComponent component,
+    Converter   converter)
+  {
+    return SelectItemSupport.getSelectItems(component, converter);
+  }
+
   @Override
   protected void encodeAllAsElement(
     FacesContext        context,
@@ -334,13 +341,13 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
                       getRequiredMessageKey());
     }
 
-    List<SelectItem> selectItems = SelectItemSupport.getSelectItems(component, converter);
-    int selectedIndices[] = _getSelectedIndices(context,
-                                                component,
-                                                bean,
-                                                selectItems,
-                                                converter,
-                                                valuePassThru);
+    List<SelectItem> selectItems = getSelectItems(component, converter);
+    int selectedIndices[] = getSelectedIndices(context,
+                                               component,
+                                               bean,
+                                               selectItems,
+                                               converter,
+                                               valuePassThru);
 
     ResponseWriter writer = context.getResponseWriter();
     boolean simple = getSimple(bean);
@@ -411,14 +418,14 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
     // by iterating through the list instead of getting
     // all the items
     List<SelectItem> selectItems = 
-      SelectItemSupport.getSelectItems(component, converter);
+      getSelectItems(component, converter);
     
-    int selectedIndices[] = _getSelectedIndices(context,
-                                                component,
-                                                bean,
-                                                selectItems,
-                                                converter,
-                                                valuePassThru);
+    int selectedIndices[] = getSelectedIndices(context,
+                                               component,
+                                               bean,
+                                               selectItems,
+                                               converter,
+                                               valuePassThru);
 
     ResponseWriter rw = context.getResponseWriter();
     for (int i = 0; i < selectedIndices.length; i++)
@@ -465,7 +472,7 @@ abstract public class SimpleSelectManyRenderer extends FormInputRenderer
    * may be trailing -1's in case of an error)
    */
   @SuppressWarnings("unchecked")
-  private int[] _getSelectedIndices(
+  protected int[] getSelectedIndices(
     FacesContext        context,
     UIComponent         component,
     FacesBean           bean,

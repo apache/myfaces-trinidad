@@ -262,11 +262,11 @@ public class CoreRenderer extends Renderer
 
 
   @SuppressWarnings("unchecked")
-  protected final void encodeAllChildren(
+  protected void encodeAllChildren(
     FacesContext context,
     UIComponent  component) throws IOException
   {
-    int  childCount = component.getChildCount();
+    int childCount = component.getChildCount();
     if (childCount == 0)
       return;
     
