@@ -135,7 +135,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -390,7 +390,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -502,7 +502,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -645,7 +645,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -900,7 +900,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -1012,7 +1012,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -1156,7 +1156,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -1404,7 +1404,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -1516,7 +1516,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -1659,7 +1659,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -1914,7 +1914,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -2026,7 +2026,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -2169,8 +2169,8 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   onchange="_displayDesc('mainId:leading','formId');"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   onchange="TrShuttleProxy._displayDesc('mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -2495,7 +2495,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -2677,7 +2677,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_leading_desc=new Array('','','','');mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_leading_desc=new Array('','','','');mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -2820,7 +2820,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                    title="test-leadingHeader"
                                   >
@@ -3082,7 +3082,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -3194,7 +3194,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -3337,7 +3337,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -3592,7 +3592,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -3704,7 +3704,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -3848,7 +3848,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -4096,7 +4096,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -4208,7 +4208,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -4351,7 +4351,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -4606,7 +4606,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -4718,7 +4718,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -4875,7 +4875,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -5130,7 +5130,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -5242,7 +5242,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -5385,7 +5385,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="20"
                                   >
                                 
@@ -5640,7 +5640,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="20"
                                   >
                                 
@@ -5752,7 +5752,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -5895,7 +5895,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -6150,7 +6150,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -6262,7 +6262,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -6405,7 +6405,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -6730,8 +6730,8 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   onchange="_displayDesc('mainId:trailing','formId');"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   onchange="TrShuttleProxy._displayDesc('mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -6913,7 +6913,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -7056,7 +7056,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -7311,7 +7311,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                    title="test-trailingHeader"
                                   >
@@ -7430,7 +7430,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -7573,7 +7573,7 @@
                                    id="test-id:leading"
                                    multiple="multiple"
                                    name="test-id:leading"
-                                   ondblclick="_moveItems('test-id:leading','test-id:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('test-id:leading','test-id:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -7828,7 +7828,7 @@
                                    id="test-id:trailing"
                                    multiple="multiple"
                                    name="test-id:trailing"
-                                   ondblclick="_moveItems('test-id:trailing','test-id:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('test-id:trailing','test-id:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -7940,7 +7940,7 @@
             <script
                  type="text/javascript"
                 >
-              test-id_trailing_desc=new Array('');window["_formId_test-id_orig"]=_copyLists('test-id','formId');
+              test-id_trailing_desc=new Array('');window["_formId_test-id_orig"]=TrShuttleProxy._copyLists('test-id','formId');
             </script>
           </td>
         </tr>
@@ -8084,7 +8084,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -8339,7 +8339,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -8451,7 +8451,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -8595,7 +8595,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -8850,7 +8850,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -8962,7 +8962,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -9111,7 +9111,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -9366,7 +9366,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -9478,7 +9478,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -9623,7 +9623,7 @@
                                    multiple="multiple"
                                    name="mainId:leading"
                                    onblur="test-onblur"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -9879,7 +9879,7 @@
                                    multiple="multiple"
                                    name="mainId:trailing"
                                    onblur="test-onblur"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -9991,7 +9991,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -10135,7 +10135,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -10390,7 +10390,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -10502,7 +10502,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -10648,7 +10648,7 @@
                                    multiple="multiple"
                                    name="mainId:leading"
                                    onclick="test-onclick"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -10905,7 +10905,7 @@
                                    multiple="multiple"
                                    name="mainId:trailing"
                                    onclick="test-onclick"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -11017,7 +11017,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -11162,7 +11162,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    size="10"
                                   >
                                 
@@ -11418,7 +11418,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    size="10"
                                   >
                                 
@@ -11530,7 +11530,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -11674,7 +11674,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onfocus="test-onfocus"
                                    size="10"
                                   >
@@ -11930,7 +11930,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onfocus="test-onfocus"
                                    size="10"
                                   >
@@ -12043,7 +12043,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -12188,7 +12188,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onkeydown="test-onkeydown"
                                    size="10"
                                   >
@@ -12445,7 +12445,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onkeydown="test-onkeydown"
                                    size="10"
                                   >
@@ -12558,7 +12558,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -12703,7 +12703,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onkeypress="test-onkeypress"
                                    size="10"
                                   >
@@ -12960,7 +12960,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onkeypress="test-onkeypress"
                                    size="10"
                                   >
@@ -13073,7 +13073,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -13218,7 +13218,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onkeyup="test-onkeyup"
                                    size="10"
                                   >
@@ -13475,7 +13475,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onkeyup="test-onkeyup"
                                    size="10"
                                   >
@@ -13588,7 +13588,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -13733,7 +13733,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onmousedown="test-onmousedown"
                                    size="10"
                                   >
@@ -13990,7 +13990,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onmousedown="test-onmousedown"
                                    size="10"
                                   >
@@ -14103,7 +14103,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -14248,7 +14248,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onmousemove="test-onmousemove"
                                    size="10"
                                   >
@@ -14505,7 +14505,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onmousemove="test-onmousemove"
                                    size="10"
                                   >
@@ -14618,7 +14618,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -14763,7 +14763,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onmouseout="test-onmouseout"
                                    size="10"
                                   >
@@ -15020,7 +15020,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onmouseout="test-onmouseout"
                                    size="10"
                                   >
@@ -15133,7 +15133,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -15278,7 +15278,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onmouseover="test-onmouseover"
                                    size="10"
                                   >
@@ -15535,7 +15535,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onmouseover="test-onmouseover"
                                    size="10"
                                   >
@@ -15648,7 +15648,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
@@ -15793,7 +15793,7 @@
                                    id="mainId:leading"
                                    multiple="multiple"
                                    name="mainId:leading"
-                                   ondblclick="_moveItems('mainId:leading','mainId:trailing','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:leading','mainId:trailing','formId');"
                                    onmouseup="test-onmouseup"
                                    size="10"
                                   >
@@ -16050,7 +16050,7 @@
                                    id="mainId:trailing"
                                    multiple="multiple"
                                    name="mainId:trailing"
-                                   ondblclick="_moveItems('mainId:trailing','mainId:leading','formId');"
+                                   ondblclick="TrShuttleProxy._moveItems('mainId:trailing','mainId:leading','formId');"
                                    onmouseup="test-onmouseup"
                                    size="10"
                                   >
@@ -16163,7 +16163,7 @@
             <script
                  type="text/javascript"
                 >
-              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=_copyLists('mainId','formId');
+              mainId_trailing_desc=new Array('');window["_formId_mainId_orig"]=TrShuttleProxy._copyLists('mainId','formId');
             </script>
           </td>
         </tr>
