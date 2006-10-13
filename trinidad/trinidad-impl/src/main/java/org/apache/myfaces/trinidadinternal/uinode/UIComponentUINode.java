@@ -16,6 +16,8 @@
 package org.apache.myfaces.trinidadinternal.uinode;
 
 import java.io.InputStream;
+import java.net.URL;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -289,11 +291,13 @@ private void _setTranslationKeyTest(
     buffer.append(getLocalName());
     buffer.append("'");
 
-    Object component = getUIComponent();
+    UIComponent component = getUIComponent();
     if (component != null)
     {
       buffer.append('[');
       buffer.append(component.toString());
+      buffer.append(",rendererType=");
+      buffer.append(component.getRendererType());
       buffer.append(']');
     }
 
@@ -377,28 +381,31 @@ private void _setTranslationKeyTest(
   {
     try
     {
-      InputStream propertyStream =
-        UIXComponentUINode.class.getResourceAsStream("/META-INF/renderertype-localname.properties");
-
-      Properties properties = new Properties();
-      properties.load(propertyStream);
-      propertyStream.close();
-
-      Iterator<Map.Entry<Object, Object>> keys = 
-        properties.entrySet().iterator();
-      while (keys.hasNext())
+      ClassLoader loader = Thread.currentThread().getContextClassLoader();
+      Enumeration<URL> resources = loader.getResources("META-INF/renderertype-localname.properties");
+      while (resources.hasMoreElements())
       {
-        Map.Entry<Object, Object> entry = keys.next();
-        String key = (String) entry.getKey();
-        String localName = (String) entry.getValue();
-        int indexOfBar = key.indexOf('|');
-        if (indexOfBar < 0)
-          _LOG.severe("Malformed property entry: " + key +"=" + localName);
-        else
+        InputStream propertyStream = resources.nextElement().openStream();
+        Properties properties = new Properties();
+        properties.load(propertyStream);
+        propertyStream.close();
+        
+        Iterator<Map.Entry<Object, Object>> keys = 
+          properties.entrySet().iterator();
+        while (keys.hasNext())
         {
-          String family = key.substring(0, indexOfBar);
-          String rendererType = key.substring(indexOfBar + 1);
-          _put(family, rendererType, localName);
+          Map.Entry<Object, Object> entry = keys.next();
+          String key = (String) entry.getKey();
+          String localName = (String) entry.getValue();
+          int indexOfBar = key.indexOf('|');
+          if (indexOfBar < 0)
+            _LOG.severe("Malformed property entry: " + key +"=" + localName);
+          else
+          {
+            String family = key.substring(0, indexOfBar);
+            String rendererType = key.substring(indexOfBar + 1);
+            _put(family, rendererType, localName);
+          }
         }
       }
     }
@@ -425,13 +432,6 @@ private void _setTranslationKeyTest(
     }
 
     subMap.put(rendererType, localName);
-    // Giant hack to support unified component lib
-    subMap.put(_unifiedRendererType(rendererType), localName);
-  }
-
-  static private String _unifiedRendererType(String rendererType)
-  {
-    return "org.apache.myfaces.trinidad.rich" + rendererType.substring("org.apache.myfaces.trinidad".length());
   }
 
   private String _get(
@@ -444,6 +444,4 @@ private void _setTranslationKeyTest(
 
     return subMap.get(rendererType);
   }
-
-
 }
