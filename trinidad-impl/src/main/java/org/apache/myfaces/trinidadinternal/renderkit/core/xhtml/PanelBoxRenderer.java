@@ -52,9 +52,9 @@ public class PanelBoxRenderer
     _contentStyleKey = type.findKey("contentStyle");
   }
   
-  public String getRootStyleClass(FacesBean bean)
+  public String getDefaultStyleClass(FacesBean bean)
   {
-    Object background = bean.getProperty(_backgroundKey);
+    String background = getBackground(bean);
     if(_BACKGROUND_TRANSPARENT.equals(background))
     {
       return SkinSelectors.AF_PANEL_BOX_TRANSPARENT_STYLE_CLASS;
@@ -83,6 +83,11 @@ public class PanelBoxRenderer
     return true;
   }
 
+  protected boolean hasChildren(UIComponent component)
+  {
+    return component.getChildCount() > 0;
+  }
+
   @Override
   protected void encodeAll(
       FacesContext     context,
@@ -92,9 +97,8 @@ public class PanelBoxRenderer
   {
     super.encodeAll(context, arc, component, bean);
     
-    List<UIComponent> children = _getRenderedChildren(component);
-    Object            icon     = bean.getProperty(_iconKey);
-    Object            text     = bean.getProperty(_textKey);
+    String icon = getIcon(bean);
+    String text = getText(bean);
     
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement(XhtmlConstants.TABLE_ELEMENT, component); // The frame table
@@ -102,12 +106,12 @@ public class PanelBoxRenderer
     renderAllAttributes(context, arc, bean);
     writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
     
-    if(!children.isEmpty() || text != null || icon != null)
+    if (hasChildren(component) || text != null || icon != null)
     {
       // There's something to render to let build the frame
       _renderContainerTopRow(context, arc);
       
-      _renderMiddleRow(context, arc, component, bean, icon, text, children);
+      _renderMiddleRow(context, arc, component, bean, icon, text);
       
       _renderContainerBottomRow(context, arc);
     }
@@ -125,37 +129,7 @@ public class PanelBoxRenderer
     super.renderAllAttributes(context, arc, bean); 
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
   }
-  
-  @Override
-  protected void renderStyleAttributes(
-      FacesContext     context,
-      RenderingContext arc,
-      FacesBean        bean) throws IOException
-  {
-    renderStyleAttributes(context, arc, bean, getRootStyleClass(bean));
-  }
-  
-  @SuppressWarnings("unchecked")
-  private List<UIComponent> _getRenderedChildren(UIComponent component)
-  {
-    int childCount = component.getChildCount();
-    if(childCount == 0)
-    {
-      return Collections.emptyList();
-    }
     
-    List<UIComponent> result   = new ArrayList<UIComponent>(childCount);
-    List<UIComponent> children = component.getChildren();
-    for(UIComponent child : children)
-    {
-      if(child.isRendered())
-      {
-        result.add(child);
-      }
-    }
-    
-    return result;
-  }
   
   private void _renderContainerTopRow(
       FacesContext     context,
@@ -263,8 +237,7 @@ public class PanelBoxRenderer
       UIComponent       component,
       FacesBean         bean,
       Object            icon,
-      Object            text,
-      List<UIComponent> children) throws IOException
+      Object            text) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
@@ -290,7 +263,7 @@ public class PanelBoxRenderer
     
     // Render body
     writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-    _renderBody(context, arc, component, bean, icon, text, children);
+    _renderBody(context, arc, component, bean, icon, text);
     writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
 
     // Render right edge
@@ -320,8 +293,7 @@ public class PanelBoxRenderer
       UIComponent       component,
       FacesBean         bean,
       Object            icon,
-      Object            text,
-      List<UIComponent> children) throws IOException
+      Object            text) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     
@@ -329,7 +301,7 @@ public class PanelBoxRenderer
                      arc, 
                      SkinSelectors.AF_PANEL_BOX_BODY_STYLE_CLASS);
     
-    if(!children.isEmpty() && (text != null || icon != null))
+    if (hasChildren(component) && (text != null || icon != null))
     {
       // There's both a header and a content, use a table.
       writer.startElement(XhtmlConstants.TABLE_ELEMENT, null);
@@ -346,7 +318,7 @@ public class PanelBoxRenderer
       // Render content
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
-      _renderContent(context, arc, bean, children);
+      _renderContent(context, arc, bean, component);
       writer.endElement(XhtmlConstants.TABLE_DATA_ELEMENT);
       writer.endElement(XhtmlConstants.TABLE_ROW_ELEMENT);
       
@@ -364,7 +336,7 @@ public class PanelBoxRenderer
     {
       // We only have a content, use a div as style class placeholder
       writer.startElement(XhtmlConstants.DIV_ELEMENT, null);
-      _renderContent(context, arc, bean, children);
+      _renderContent(context, arc, bean, component);
       writer.endElement(XhtmlConstants.DIV_ELEMENT);
     }
   }
@@ -423,7 +395,7 @@ public class PanelBoxRenderer
       FacesContext      context,
       RenderingContext  arc,
       FacesBean         bean,
-      List<UIComponent> children) throws IOException
+      UIComponent       component) throws IOException
   {
     ResponseWriter writer = context.getResponseWriter();
     
@@ -431,16 +403,33 @@ public class PanelBoxRenderer
                      arc, 
                      SkinSelectors.AF_PANEL_BOX_CONTENT_STYLE_CLASS);
         
-    Object style = bean.getProperty(_contentStyleKey);
+    String style = getContentStyle(bean);
     if(style != null)
     {
       writer.writeAttribute("style", style, null);
     }
 
-    for(UIComponent child : children)
-    {
-      encodeChild(context, child);
-    }
+    encodeAllChildren(context, component);
+  }
+
+  protected String getText(FacesBean bean)
+  {
+    return toString(bean.getProperty(_textKey));
+  }
+
+  protected String getIcon(FacesBean bean)
+  {
+    return toUri(bean.getProperty(_iconKey));
+  }
+
+  protected String getContentStyle(FacesBean bean)
+  {
+    return toString(bean.getProperty(_contentStyleKey));
+  }
+
+  protected String getBackground(FacesBean bean)
+  {
+    return toString(bean.getProperty(_backgroundKey));
   }
   
   private PropertyKey _textKey;

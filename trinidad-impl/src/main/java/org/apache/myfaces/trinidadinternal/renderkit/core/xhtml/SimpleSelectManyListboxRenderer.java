@@ -43,7 +43,12 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
 {
   public SimpleSelectManyListboxRenderer()
   {
-    super(CoreSelectManyListbox.TYPE);
+    this(CoreSelectManyListbox.TYPE);
+  }
+
+  protected SimpleSelectManyListboxRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
   
   @Override

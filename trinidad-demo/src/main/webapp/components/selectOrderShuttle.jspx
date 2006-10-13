@@ -38,7 +38,7 @@
                                  binding="#{editor.component}"
                                  valueChangeListener="#{list.valueChanged}"
                                  value="#{list.stringArray}">
-               <tr:selectItem longDesc="The First Item" label="First" value="foo"/>
+               <tr:selectItem shortDesc="The First Item" label="First" value="foo"/>
                <tr:selectItem label="Second" value="bar"/>
                <tr:selectItem label="Third" value="baz"/>
              </tr:selectOrderShuttle>

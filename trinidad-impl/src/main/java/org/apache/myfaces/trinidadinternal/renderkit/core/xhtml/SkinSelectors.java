@@ -812,7 +812,43 @@ public final class SkinSelectors
    
    // ============================ Style classes ============================ //
    
+
+
+  // Shuttle Icons
+  // (selectManyShuttle and selectOrderShuttle)
+  // simple/oracle use the same base.desktop renderer now that I fixed it.
+  // shuttle is not supported in pda.
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_BODY_STYLE_CLASS =
+    "af|selectManyShuttle::box-body";
+
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_STYLE_CLASS =
+    "af|selectManyShuttle::box";
+
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_TOP_START_STYLE_CLASS =
+    "af|selectManyShuttle::box-top-start";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_TOP_STYLE_CLASS =
+    "af|selectManyShuttle::box-top";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_TOP_END_STYLE_CLASS =
+    "af|selectManyShuttle::box-top-end";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_START_STYLE_CLASS =
+    "af|selectManyShuttle::box-start";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_CONTENT_STYLE_CLASS =
+    "af|selectManyShuttle::box-content";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_END_STYLE_CLASS =
+    "af|selectManyShuttle::box-end";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_BOTTOM_START_STYLE_CLASS =
+    "af|selectManyShuttle::box-bottom-start";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_BOTTOM_STYLE_CLASS =
+    "af|selectManyShuttle::box-bottom";
+  public static final String AF_SELECT_MANY_SHUTTLE_PB_BOTTOM_END_STYLE_CLASS =
+    "af|selectManyShuttle::box-bottom-end";
+
    // ================================ Icons ================================ //
+
+  // FIXME: change to af|selectManyShuttle::header
+  public static final String SHUTTLE_HEADER_STYLE_CLASS = "OraShuttleHeader";
+
+
    public static final String AF_SELECT_MANY_SHUTTLE_MOVE_ALL_ICON_NAME =
      "af|selectManyShuttle::move-all-icon";
    public static final String AF_SELECT_MANY_SHUTTLE_MOVE_ICON_NAME =
@@ -831,6 +867,31 @@ public final class SkinSelectors
    
    // ============================ Style classes ============================ //
    
+
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_STYLE_CLASS =
+    "af|selectOrderShuttle::box";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_BODY_STYLE_CLASS =
+    "af|selectOrderShuttle::box-body";
+
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_TOP_START_STYLE_CLASS =
+    "af|selectOrderShuttle::box-top-start";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_TOP_STYLE_CLASS =
+    "af|selectOrderShuttle::box-top";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_TOP_END_STYLE_CLASS =
+    "af|selectOrderShuttle::box-top-end";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_START_STYLE_CLASS =
+    "af|selectOrderShuttle::box-start";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_CONTENT_STYLE_CLASS =
+    "af|selectOrderShuttle::box-content";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_END_STYLE_CLASS =
+    "af|selectOrderShuttle::box-end";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_BOTTOM_START_STYLE_CLASS =
+    "af|selectOrderShuttle::box-bottom-start";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_BOTTOM_STYLE_CLASS =
+    "af|selectOrderShuttle::box-bottom";
+  public static final String AF_SELECT_ORDER_SHUTTLE_PB_BOTTOM_END_STYLE_CLASS =
+    "af|selectOrderShuttle::box-bottom-end";
+
    // ================================ Icons ================================ //
    public static final String AF_SELECT_ORDER_SHUTTLE_MOVE_ALL_ICON_NAME =
      "af|selectOrderShuttle::move-all-icon";
@@ -848,7 +909,6 @@ public final class SkinSelectors
      "af|selectOrderShuttle::reorder-down-icon";
    public static final String AF_SELECT_ORDER_SHUTTLE_REORDER_BOTTOM_ICON_NAME =
      "af|selectOrderShuttle::reorder-bottom-icon";
-
 
    //                                                                         //
    //                                                                         //
@@ -1165,4 +1225,5 @@ public final class SkinSelectors
   //
   public static final String AF_CHART_STYLE_CLASS =
     "af|chart";
+   
 }
