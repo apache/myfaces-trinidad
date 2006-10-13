@@ -89,7 +89,6 @@ public class SimpleDesktopUtils extends BaseDesktopUtils
     LookAndFeelExtension laf
     )
   {
-    _registerRenderer(laf, UIConstants.CONTENT_CONTAINER_NAME);
     _registerRenderer(laf, UIConstants.GLOBAL_BUTTON_BAR_NAME);
     _registerRenderer(laf, UIConstants.GLOBAL_HEADER_NAME);
     _registerRenderer(laf, UIConstants.MESSAGE_BOX_NAME);

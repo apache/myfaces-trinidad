@@ -99,7 +99,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
     SUBMIT_BUTTON_NAME,
     SUB_TAB_BAR_NAME,       //support ?
     TAB_BAR_NAME,
-    TEXT_INPUT_NAME,
     TIP_NAME,                  // Support
     TREE_NAME,
 
@@ -122,7 +121,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
   private static final String[] _NULL_NAMES =
   {
 
-    CONTENT_CONTAINER_NAME,
     FOOTER_NAME,
     INLINE_DATE_PICKER_NAME,
     //STYLE_SHEET_NAME,
@@ -149,8 +147,6 @@ public class PdaHtmlLookAndFeel extends XhtmlLookAndFeel
     SIDE_NAV_NAME,
     //SUB_TAB_BAR_NAME,
     //TREE_NAME,                // Support?
-
-    SELECT_MANY_SHUTTLE_NAME,
   };
 
   private static final RendererFactory _FACTORY = createDefaultFactory();

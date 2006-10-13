@@ -105,7 +105,6 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     IMAGE_NAME,
     IMPORT_SCRIPT_NAME,
     LINK_NAME,
-    LIST_NAME,
     NAVIGATION_PATH_NAME,
     OPTION_NAME,
     PAGE_NAME,
@@ -122,7 +121,6 @@ public class XhtmlLookAndFeel extends BaseLookAndFeel
     STYLED_TEXT_NAME,
     SUBMIT_BUTTON_NAME,
     TABLE_LAYOUT_NAME,
-    TEXT_INPUT_NAME,
 
     // Alias elements
     COMMAND_NAVIGATION_ITEM_NAME,

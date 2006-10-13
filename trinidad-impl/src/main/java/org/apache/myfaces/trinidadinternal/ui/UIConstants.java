@@ -399,7 +399,6 @@ public interface UIConstants
   public static final String COLUMN_GROUP_NAME = "columnGroup";
   public static final String COMMAND_ITEM_NAME = "commandItem";
   public static final String COMMAND_NAVIGATION_ITEM_NAME = "commandNavigationItem";
-  public static final String CONTENT_CONTAINER_NAME = "contentContainer";
   public static final String CONTENT_FOOTER_NAME = "contentFooter";
   public static final String CONTEXT_POPPING_NAME = "contextPopping";
   public static final String DATE_BUTTON_NAME = "dateButton";
@@ -425,7 +424,6 @@ public interface UIConstants
   public static final String INSERTED_NODE_LIST_NAME = "insertedNodeList";
   public static final String INLINE_DATE_PICKER_NAME = "inlineDatePicker";
   public static final String LINK_NAME   = "link";
-  public static final String LIST_NAME   = "list";
   public static final String MENU_LIST_NAME = "menuList";
   public static final String NAVIGATION_PATH_NAME = "navigationPath";
   public static final String NAVIGATION_TREE_NAME = "navigationTree";
@@ -470,16 +468,10 @@ public interface UIConstants
   public static final String TABLE_FOOTER_NAME = "tableFooter";
   public static final String TABLE_NAME = "table";
   public static final String TABLE_LAYOUT_NAME = "tableLayout";
-  public static final String TEXT_INPUT_NAME = "textInput";
   public static final String TEXT_NAME = "text";
   public static final String TIP_NAME = "tip";
   public static final String TREE_NAME = "tree";
 
-  //
-  // Pseudo-element names: these are used as aliases that map to one
-  // or more actual local names.
-  //
-  public static final String SELECT_MANY_SHUTTLE_NAME = "selectManyShuttle";
 
   //
   //
