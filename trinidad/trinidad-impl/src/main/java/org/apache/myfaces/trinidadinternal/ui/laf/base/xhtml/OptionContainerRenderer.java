@@ -385,11 +385,6 @@ abstract public class OptionContainerRenderer extends FormElementRenderer
       if (parentContext != null)
       {
         UINode parentNode = parentContext.getAncestorNode(0);
-        // Don't pay attention to lists inside shuttles;  they
-        // already handle the "select item" stuff.
-        if (isEqualMarlinName(parentNode, SELECT_MANY_SHUTTLE_NAME))
-          return null;
-
         component = NodeUtils.getUIComponent(parentContext, parentNode);
       }
     }

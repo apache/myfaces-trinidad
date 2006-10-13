@@ -236,7 +236,6 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     COLOR_SWATCH_NAME,
     COLUMN_NAME,
     COLUMN_GROUP_NAME,
-    CONTENT_CONTAINER_NAME,
     CONTENT_FOOTER_NAME,
     DATE_BUTTON_NAME,
     DATE_FIELD_NAME,
@@ -270,11 +269,8 @@ public class BaseDesktopLookAndFeel extends XhtmlLookAndFeel
     TAB_BAR_NAME,
     TABLE_FOOTER_NAME,
     TABLE_NAME,
-    TEXT_INPUT_NAME,
     TIP_NAME,
-    TREE_NAME,
-
-    SELECT_MANY_SHUTTLE_NAME,
+    TREE_NAME
   };
 
 
