@@ -57,10 +57,11 @@ public class PdaTableRenderer extends TableRenderer
     UIComponent           component)
     throws IOException
   {
+    UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
     boolean tableNotEmpty = !tContext.getRowData().isEmptyTable();
     boolean hasNav = tContext.hasNavigation() && tableNotEmpty;
 
-    if (hasNav)
+    if (hasNav || (action != null))
     {
       ResponseWriter writer = context.getResponseWriter();
 
@@ -73,7 +74,6 @@ public class PdaTableRenderer extends TableRenderer
       renderStyleClass(context, arc,
                        SkinSelectors.AF_TABLE_CONTROL_BAR_TOP_STYLE);
 
-      UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
       if (action != null)
       {
         writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);

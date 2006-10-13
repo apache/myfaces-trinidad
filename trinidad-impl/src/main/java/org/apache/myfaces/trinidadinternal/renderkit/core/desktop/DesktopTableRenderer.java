@@ -515,9 +515,11 @@ public class DesktopTableRenderer extends TableRenderer
     UIComponent           component)
     throws IOException
   {
+    UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
     boolean tableNotEmpty = !tContext.getRowData().isEmptyTable();
     boolean hasNav = tContext.hasNavigation()&&tableNotEmpty;
-    if (hasNav)
+
+    if (hasNav || (action != null))
     {
       boolean isUpper = (tContext.getRenderStage().getStage() ==
                          RenderStage.UPPER_CONTROL_BAR_STAGE);
@@ -545,7 +547,6 @@ public class DesktopTableRenderer extends TableRenderer
         renderStyleClass(context, arc, style);
         writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
 
-        UIComponent action = getFacet(component, CoreTable.ACTIONS_FACET);
         if (action != null)
         {
           writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
