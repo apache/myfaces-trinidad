@@ -13,14 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function _decimalGetAsString(
-  number
+
+function NumberConverter(
+  messages,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._messages = messages;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "NumberConverter";
+}
+
+NumberConverter.prototype = new TrConverter();
+
+
+NumberConverter.prototype.getAsString = function(
+  number,
+  label
   )
 {
   return "" + number;
 }
 
-function _decimalParse(
+NumberConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return this._decimalParse(numberString, 
+                       this._messages,
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+
+NumberConverter.prototype._decimalParse = function(
   numberString,
   messages,
   maxPrecision,
@@ -33,8 +69,8 @@ function _decimalParse(
   var facesMessage = null; 
   if (!numberString)
   { 
-    facesMessage = _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
-                                        messages[DecimalFormat.D],
+    facesMessage = _createFacesMessage( messages[(NumberConverter.D+ '_S')],
+                                        messages[NumberConverter.D],
                                         label,
                                         numberString);
     throw new TrConverterException(facesMessage);
@@ -50,8 +86,8 @@ function _decimalParse(
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
     {
-      facesMessage =  _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
-                                        messages[DecimalFormat.D],
+      facesMessage =  _createFacesMessage( messages[(NumberConverter.D+ '_S')],
+                                        messages[NumberConverter.D],
                                         label,
                                         numberString);
       throw new TrConverterException(facesMessage);
@@ -103,22 +139,22 @@ function _decimalParse(
         if ((maxValue != (void 0)) &&
             (result  > maxValue))
         {
-          messageKey = DecimalFormat.LV;
+          messageKey = NumberConverter.LV;
         }
         else if ((minValue != (void 0)) &&
                  (result  < minValue))
         {
-          messageKey = DecimalFormat.MV;
+          messageKey = NumberConverter.MV;
         }
         else if ((maxPrecision != (void 0)) &&
                  (integerDigits  > maxPrecision))
         {
-          messageKey = DecimalFormat.LID;
+          messageKey = NumberConverter.LID;
         }
         else if ((maxScale != (void 0)) &&
                  (fractionDigits  > maxScale))
         {
-          messageKey = DecimalFormat.LFD;
+          messageKey = NumberConverter.LFD;
         }
 
         if (messageKey != (void 0))
@@ -143,58 +179,24 @@ function _decimalParse(
     }
   }
 
-  facesMessage = _createFacesMessage( messages[(DecimalFormat.D+ '_S')],
-                                        messages[DecimalFormat.D],
+  facesMessage = _createFacesMessage( messages[(NumberConverter.D+ '_S')],
+                                        messages[NumberConverter.D],
                                         label,
                                         numberString);
   throw new TrConverterException(facesMessage);
 }
 
-function _decimalGetAsObject(
-  numberString,
-  label
-  )
-{
-  return _decimalParse(numberString, 
-                       this._messages,
-                       this._maxPrecision,
-                       this._maxScale,
-                       this._maxValue,
-                       this._minValue,
-                       label);
-}
-
-function DecimalFormat(
-  messages,
-  maxPrecision,
-  maxScale,
-  maxValue,
-  minValue)
-{
-  this._messages = messages;
-  this._maxPrecision = maxPrecision;
-  this._maxScale = maxScale;
-  this._maxValue = maxValue;
-  this._minValue = minValue;
-
-  // for debugging
-  this._class = "DecimalFormat";
-}
-
-DecimalFormat.prototype = new TrConverter();
-DecimalFormat.prototype.getAsString  = _decimalGetAsString;
-DecimalFormat.prototype.getAsObject  = _decimalGetAsObject;
 
 // Less fraction digits
-DecimalFormat.LFD = 'LFD';
+NumberConverter.LFD = 'LFD';
 // Less integer digits
-DecimalFormat.LID = 'LID';
+NumberConverter.LID = 'LID';
 // Less value
-DecimalFormat.LV  = 'LV';
+NumberConverter.LV  = 'LV';
 // More value
-DecimalFormat.MV  = 'MV';
+NumberConverter.MV  = 'MV';
 // default
-DecimalFormat.D   = 'D';
+NumberConverter.D   = 'D';
 
 
 function _decimalValidate(
