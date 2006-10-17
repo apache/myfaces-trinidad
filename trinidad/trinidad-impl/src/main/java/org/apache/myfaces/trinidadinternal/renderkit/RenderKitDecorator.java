@@ -70,7 +70,7 @@ abstract public class RenderKitDecorator extends RenderKitBase
   }
 
   @Override
-  protected Renderer findRenderer(
+  public Renderer findRenderer(
     String componentFamily,
     String rendererType)
   {
