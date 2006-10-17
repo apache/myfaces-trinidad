@@ -129,7 +129,7 @@ abstract public class RenderKitBase extends RenderKit
    * Finds a renderer - and returns null if one cannot be found.
    * getRenderer() will log a warning when one cannot be found.
    */
-  protected Renderer findRenderer(String family, String rendererType)
+  public Renderer findRenderer(String family, String rendererType)
   {
     Object o = _get(family, rendererType);
     Renderer renderer = null;
