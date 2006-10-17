@@ -159,7 +159,7 @@ the content container.]]>
         <mfp:property-name>icon</mfp:property-name>
       </mfp:java-constructor>
       <mfp:uix2-local-name>contentContainer</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

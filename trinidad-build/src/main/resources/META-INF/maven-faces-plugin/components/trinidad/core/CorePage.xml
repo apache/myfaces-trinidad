@@ -144,7 +144,7 @@
           <mfp:preferred>true</mfp:preferred>
           <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </facet-extension>
     </facet>
     <facet>
@@ -191,7 +191,7 @@
         <mfp:facet-metadata>
           <mfp:preferred-children>tr:commandLink</mfp:preferred-children>
         </mfp:facet-metadata>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </facet-extension>
     </facet>
     <facet>
@@ -421,7 +421,7 @@
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
       </mfp:component-metadata>
       <mfp:uix2-local-name>page</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>
