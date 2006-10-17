@@ -19,6 +19,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
@@ -58,6 +59,10 @@ public class PdaHtmlSkin extends XhtmlSkin
     NullIcon.sharedInstance(),
     SkinSelectors.INFO_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
+
+    // Path separator: &nbsp;>&nbsp;
+    SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME,
+      new TextIcon("\u00a0>\u00a0"),
 
     SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME,
       new TranslatedTextIcon("af_showDetailHeader.DISCLOSED"),

@@ -605,7 +605,7 @@
                   >
                 path1
               </a>
-            </span>&#xa0;
+            </span>&#xa0;&gt;&#xa0;
           </nobr>
           <nobr
               >
@@ -621,7 +621,7 @@
                   >
                 path2
               </a>
-            </span>&#xa0;
+            </span>&#xa0;&gt;&#xa0;
           </nobr>
         </span>
         <div
@@ -1543,7 +1543,7 @@
                   >
                 path1
               </a>
-            </span>&#xa0;
+            </span>&#xa0;&gt;&#xa0;
           </nobr>
           <nobr
               >
@@ -1559,7 +1559,7 @@
                   >
                 path2
               </a>
-            </span>&#xa0;
+            </span>&#xa0;&gt;&#xa0;
           </nobr>
         </span>
         <div
