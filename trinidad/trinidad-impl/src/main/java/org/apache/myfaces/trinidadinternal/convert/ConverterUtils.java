@@ -215,7 +215,7 @@ public class ConverterUtils
     StringBuffer outBuffer = new StringBuffer(250);
 
     if (isConverter)
-      outBuffer.append("new DecimalFormat(");
+      outBuffer.append("new NumberConverter(");
     else
       outBuffer.append("new DecimalValidator(");
 
@@ -267,7 +267,7 @@ public class ConverterUtils
   {
     StringBuffer outBuffer = new StringBuffer(250);
 
-      outBuffer.append("new DecimalFormat(");
+      outBuffer.append("new NumberConverter(");
 
     outBuffer.append("{D:'");
 
