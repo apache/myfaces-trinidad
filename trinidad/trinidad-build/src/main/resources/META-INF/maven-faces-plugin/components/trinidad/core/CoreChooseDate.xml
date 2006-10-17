@@ -242,7 +242,7 @@ ISO 8601 dates are of the form "yyyy-MM-dd"
         <mfp:group>${md:getTranslatedString("PALETTE_INPUT")}</mfp:group>
       </mfp:component-metadata>
       <mfp:uix2-local-name>inlineDatePicker</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone</mfp:unsupported-agents>
+      <mfp:unsupported-agents>phone</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

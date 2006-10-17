@@ -39,7 +39,6 @@ detail facet will automatically cause the detail column to be displayed.]]>
       </description>
       <facet-name>detailStamp</facet-name>
       <facet-extension>
-        <mfp:unsupported-agents>pda</mfp:unsupported-agents>
         <mfp:unsupported-render-kits>org.apache.myfaces.trinidad.dhtml</mfp:unsupported-render-kits>
       </facet-extension>
     </facet>

@@ -31,7 +31,7 @@
           <mfp:preferred>true</mfp:preferred>
           <mfp:preferred-children>tr:outputText</mfp:preferred-children>
         </mfp:facet-metadata>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </facet-extension>
     </facet>
     <facet>

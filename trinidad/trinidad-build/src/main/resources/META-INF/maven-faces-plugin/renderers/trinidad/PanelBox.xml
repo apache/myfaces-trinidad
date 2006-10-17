@@ -24,7 +24,7 @@
       <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.PanelBoxRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CorePanelBox</mfp:component-type>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </renderer-extension>
     </renderer>
   </render-kit>

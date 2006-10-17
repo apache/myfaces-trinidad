@@ -89,7 +89,7 @@
         <mfp:preferred-children>tr:showDetailItem</mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>panelPanel</mfp:uix2-local-name>
-      <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+      <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
     </component-extension>
   </component>
 </faces-config>

@@ -39,7 +39,7 @@
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
         </mfp:property-metadata>
-        <mfp:unsupported-agents>pda phone voice</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
       </property-extension>
     </property>
     <property>
