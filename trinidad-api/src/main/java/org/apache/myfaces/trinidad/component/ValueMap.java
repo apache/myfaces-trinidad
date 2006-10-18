@@ -34,18 +34,25 @@ import java.io.ObjectInput;
  * 
  * @author The Oracle ADF Faces Team
  */
-final class ValueMap<T> extends AbstractMap<T, T> implements Externalizable 
+final class ValueMap<K, V> extends AbstractMap<K, V> implements Externalizable 
 {
   public ValueMap()
   {
-    // noarg constructor needed for serialization
+    // noarg constructor needed by the Externalizable interface
+    this(13);
+  }
+
+  public ValueMap(int initialCapacity)
+  {
+    _cache = new HashMap<K, V>(initialCapacity);
+    _valueMap = new HashMap<V, K>(initialCapacity);
   }
 
   /**
    * Gets the value associated with the given key
    */
   @Override
-  public T get(Object key)
+  public V get(Object key)
   {
     return _cache.get(key);
   }
@@ -53,19 +60,19 @@ final class ValueMap<T> extends AbstractMap<T, T> implements Externalizable
   /**
    * Gets the key associated with the given value
    */
-  public Object getKey(Object value)
+  public K getKey(V value)
   {
     return _valueMap.get(value);
   }
   
   @Override
-  public T put(T key, T value)
+  public V put(K key, V value)
   {
-    T oldKey = _valueMap.put(value, key);
+    K oldKey = _valueMap.put(value, key);
     assert oldKey == null : "value:"+value+" is referenced by both key:"+key+
       " and key:"+oldKey;                          
 
-    T old = _cache.put(key, value);
+    V old = _cache.put(key, value);
     assert old == null : "can't put the same key twice";
     return old;
   }
@@ -84,17 +91,17 @@ final class ValueMap<T> extends AbstractMap<T, T> implements Externalizable
   }
   
   @Override
-  public Set<Map.Entry<T, T>> entrySet()
+  public Set<Map.Entry<K, V>> entrySet()
   {
     return Collections.unmodifiableSet(_cache.entrySet());
   }
   
-  private static <T> Map<T, T> _setupValueMap(Map<T, T> cache)
+  private static <K,V> Map<V, K> _invertMap(Map<K, V> cache)
   {
-    Map<T, T> valueMap = new HashMap<T, T>(cache.size());
-    for(Map.Entry<T, T> entry : cache.entrySet())
+    Map<V, K> valueMap = new HashMap<V, K>(cache.size());
+    for(Map.Entry<K, V> entry : cache.entrySet())
     {
-      T old = valueMap.put(entry.getValue(), entry.getKey());
+      K old = valueMap.put(entry.getValue(), entry.getKey());
       assert old == null : "the value:"+entry.getValue()+
                            " was bound to both key:"+old+
                            " and key:"+entry.getKey();
@@ -105,18 +112,24 @@ final class ValueMap<T> extends AbstractMap<T, T> implements Externalizable
   
   public void writeExternal(ObjectOutput out) throws IOException
   {
-    out.writeObject(_cache);
+    if (_cache.isEmpty())
+      out.writeObject(null);
+    else
+      out.writeObject(_cache);
   }
 
-  @SuppressWarnings("unchecked")
   public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
   {
-    _cache = (Map<T, T>) in.readObject();
-    _valueMap = _setupValueMap(_cache);
+    Map<K, V> cache = (Map<K, V>) in.readObject();
+    if (cache != null)
+    {
+      _cache = cache;
+      _valueMap = _invertMap(_cache);
+    }
   }
 
-  private Map<T, T> _cache = new HashMap<T, T>(13);
-  private transient Map<T, T> _valueMap = new HashMap<T, T>(13);
+  private Map<K, V> _cache;
+  private transient Map<V, K> _valueMap;
 
   //private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(InvertibleMap.class);
 }
