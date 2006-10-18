@@ -126,4 +126,16 @@ abstract public class Skin
   abstract public void registerIcon(
     String  iconName,
     Icon    icon);
+    
+  /**
+   * Registers a style sheet which defines extension-specific
+   * styles.  The styles specified by this style sheet will be
+   * merged with the Skin's own styles.
+   * @param styleSheetName The name of the style sheet which
+   *          defines the extension's styles.
+   * @throws NullPointerException if styleSheetName is null.
+   */
+  abstract public void registerStyleSheet(
+    String styleSheetName
+    );
 }
