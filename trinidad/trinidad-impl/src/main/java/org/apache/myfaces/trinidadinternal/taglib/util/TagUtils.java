@@ -101,6 +101,18 @@ public class TagUtils
   }
 
   /**
+   * String --> long
+   * @param value
+   * @return
+   */
+  public static long getLong(
+    String      value)
+  {
+    return Long.valueOf(value).longValue();
+
+  }
+
+  /**
    * These are normally NMTOKEN type in attributes
    * String --> String[]
    * @param value
