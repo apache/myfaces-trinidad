@@ -52,9 +52,7 @@ public class PdaHtmlSkin extends XhtmlSkin
   // and subclasses of PdaHtmlSkin.
   private static final Object[] _CUSTOMIZABLE_ICONS = new Object[]
   {
-    // null out icons that have a default in base skin
-    SkinSelectors.ERROR_ICON_ALIAS_NAME,
-    NullIcon.sharedInstance(),
+    // null out icons that have an undesirable default in base skin
     SkinSelectors.WARNING_ICON_ALIAS_NAME,
     NullIcon.sharedInstance(),
     SkinSelectors.INFO_ICON_ALIAS_NAME,
