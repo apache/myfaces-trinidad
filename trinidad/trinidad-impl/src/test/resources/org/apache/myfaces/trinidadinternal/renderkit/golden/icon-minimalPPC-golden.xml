@@ -11,6 +11,12 @@
 
 <!--AttributeTest[name,error]-->
 
+      <span
+           class="AFErrorIconStyle"
+           id="mainId"
+          >
+        X
+      </span>
 <!--AttributeTest[id,null]-->
 
       <span
