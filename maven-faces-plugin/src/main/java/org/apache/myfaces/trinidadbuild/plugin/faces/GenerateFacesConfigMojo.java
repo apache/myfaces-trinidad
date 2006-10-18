@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -143,7 +144,20 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
           // metadata is represented compatibly with JSF 1.1 syntax.
           targetFile.delete();
           targetFile.getParentFile().mkdirs();
-          Result mergedResult = new StreamResult(new FileOutputStream(targetFile));
+
+          File tmpFile = null;
+          OutputStream resultStream;
+          if (transformStylesheet != null)
+          {
+            tmpFile = File.createTempFile("generate-faces-config", null);
+            resultStream = new FileOutputStream(tmpFile);
+          }
+          else
+          {
+            resultStream = new FileOutputStream(targetFile);
+          }
+
+          Result mergedResult = new StreamResult(resultStream);
 
           URL xslURL = getClass().getResource("resources/transform.xsl");
           InputStream xsl = xslURL.openStream();
@@ -152,7 +166,33 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
           transformer.setParameter("packageContains", packageContains);
           transformer.setParameter("typePrefix", typePrefix);
           transformer.transform(mergedSource, mergedResult);
+          resultStream.close();
 
+          // OK, if there's a transformSylesheet, we've written
+          // the output to a temporary file, now transform it again.
+          // =-=FIXME AdamWiner:  no, this is not the smartest and
+          // fastest way to do it.  But after finding out
+          // that XMLFilter apparently doesn't support XSL parameters,
+          // and running into a bizarre "illegal processing instruction:
+          // saxon:warning" error message when using chained handlers, I got
+          // tired of trying to be smart.  This is good enough.
+          if (transformStylesheet != null)
+          {
+            StreamSource tmpSource = new StreamSource(tmpFile);
+            StreamSource transformSource = new StreamSource(
+                new File(configDirectory, transformStylesheet));
+            Transformer finalTransform =
+              transFactory.newTransformer(transformSource);
+            FileOutputStream finalOut = new FileOutputStream(targetFile);
+            Result finalResult =
+              new StreamResult(finalOut);
+
+            finalTransform.transform(tmpSource, finalResult);
+            finalOut.close();
+            tmpFile.delete();
+          }
+
+          
           targetFile.setReadOnly();
 
           getLog().info("Generated " + targetPath);
@@ -220,4 +260,12 @@ public class GenerateFacesConfigMojo extends AbstractFacesMojo
    * @required
    */
   private String typePrefix;
+
+  /**
+   * Name of an XSLT stylesheet in src/main/conf that will be applied
+   * as the final step.  This can be used to implement any final fixup
+   * of the output.
+   * @parameter
+   */
+  private String transformStylesheet;
 }
