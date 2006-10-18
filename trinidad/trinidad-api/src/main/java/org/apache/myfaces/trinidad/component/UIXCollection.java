@@ -16,8 +16,8 @@
 package org.apache.myfaces.trinidad.component;
 
 import java.io.IOException;
-
 import java.io.Serializable;
+
 import java.util.AbstractMap;
 import java.util.Collections;
 import java.util.List;
@@ -30,11 +30,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.event.SelectionEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.CollectionModel;
 import org.apache.myfaces.trinidad.model.SortCriterion;
+import org.apache.myfaces.trinidad.render.ClientRowKeyManager;
+import org.apache.myfaces.trinidad.render.ClientRowKeyManagerFactory;
+
 
 /**
  * Base class for components that do stamping.
@@ -212,8 +216,7 @@ public abstract class UIXCollection extends UIXComponentBase
     // _stampState is stored as an instance variable, so it isn't
     // automatically saved
     Object superState = super.saveState(context);
-    Object stampState;
-    ValueMap<Object> currencyCache;
+    final Object stampState, clientKeyMgr;
 
     // becareful not to create the internal state too early:
     // otherwise, the internal state will be shared between
@@ -222,18 +225,16 @@ public abstract class UIXCollection extends UIXComponentBase
     if (iState != null)
     {
       stampState = iState._stampState;
-      currencyCache = iState._currencyCache;
-      if ((currencyCache != null) && currencyCache.isEmpty())
-        currencyCache = null;
+      clientKeyMgr = iState._clientKeyMgr;
     }
     else
     {
       stampState = null;
-      currencyCache = null;
+      clientKeyMgr = null;
     }
 
-    if ((superState != null) || (stampState != null) || (currencyCache != null))
-      return new Object[]{superState, stampState, currencyCache};
+    if ((superState != null) || (stampState != null) || (clientKeyMgr != null))
+      return new Object[]{superState, stampState, clientKeyMgr};
     return null;
   }
 
@@ -242,25 +243,25 @@ public abstract class UIXCollection extends UIXComponentBase
   @Override
   public void restoreState(FacesContext context, Object state)
   {
-    final Object superState, stampState, currencyCache;
+    final Object superState, stampState, clientKeyMgr;
     Object[] array = (Object[]) state;
     if (array != null)
     {
       superState = array[0];
       stampState = array[1];
-      currencyCache = array[2];
+      clientKeyMgr = array[2];
     }
     else
     {
-      superState = stampState = currencyCache = null;
+      superState = stampState = clientKeyMgr = null;
     }
     super.restoreState(context, superState);
 
-    if ((stampState != null) || (currencyCache != null))
+    if ((stampState != null) || (clientKeyMgr != null))
     {
       InternalState iState = _getInternalState(true);
       iState._stampState = (StampState) stampState;
-      iState._currencyCache = (ValueMap<Object>) currencyCache;
+      iState._clientKeyMgr = (ClientRowKeyManager) clientKeyMgr;
     }
     else
     {
@@ -270,7 +271,7 @@ public abstract class UIXCollection extends UIXComponentBase
       if (iState != null)
       {
         iState._stampState = null;
-        iState._currencyCache = null;
+        iState._clientKeyMgr = null;
       }
     }
   }
@@ -461,10 +462,14 @@ public abstract class UIXCollection extends UIXComponentBase
     InternalState istate = _getInternalState(true);
     // we must not clear the currency cache everytime. only clear
     // it in response to specific events: bug 4773659
+
+    // TODO all this code should be removed and moved into the renderer:
     if (istate._clearTokenCache)
     {
       istate._clearTokenCache = false;
-      _getCurrencyCache().clear();
+      ClientRowKeyManager keyMgr = getClientRowKeyManager();
+      if (keyMgr instanceof DefaultClientKeyManager)
+        ((DefaultClientKeyManager) keyMgr).clear();
     }
     _flushCachedModel();
 
@@ -531,57 +536,13 @@ public abstract class UIXCollection extends UIXComponentBase
     if (_equals(currencyObject, initKey))
       return null;
 
-    String key = _getToken(currencyObject);
+    FacesContext fc = FacesContext.getCurrentInstance();
+    String key = getClientRowKeyManager().getClientRowKey(fc, this, currencyObject);
     return key;
   }
 
-  private String _getToken(Object rowKey)
-  {
-    assert rowKey != null;
 
-    ValueMap<Object> currencyCache = _getCurrencyCache();
-    String key = (String) currencyCache.get(rowKey);
-    if (key == null)
-    {
-      if (rowKey instanceof String)
-      {
-        // TODO: make sure that this string is suitable for use as
-        // NamingContainer ids:
-        key = rowKey.toString();
-        if (_isOptimizedKey(key))
-        {
-          // no need to add to the token map:
-          return key;
-        }
-      }
 
-      key = _createToken(currencyCache);
-
-      if (_LOG.isFiner())
-        _LOG.finer("Storing token:"+key+
-                   " for rowKey:"+rowKey);
-
-      currencyCache.put(rowKey, key);
-    }
-    return key;
-  }
-
-  private boolean _isOptimizedKey(String key)
-  {
-    // if a key could be a number, then it might conflict with our
-    // internal representation of tokens. Therefore, if a key could be
-    // a number, then use the token cache.
-    // if there is no way this key can be a number, then it can
-    // be treated as an optimized key and can bypass the token cache
-    // system:
-    return ((key.length() > 0) && (!Character.isDigit(key.charAt(0))));
-  }
-
-  private String _createToken(ValueMap<Object> currencyCache)
-  {
-    String key = String.valueOf(currencyCache.size());
-    return key;
-  }
 
   /**
    * This is a safe way of getting currency keys and not accidentally forcing
@@ -617,7 +578,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * the start of the encode phase on the next request.
    * <P>
    * This method gets the corresponding currencyKey and passes it to
-   * {@link #setCurrencyKey}
+   * {@link #setRowKey}
    * @see #getCurrencyString
    */
   public void setCurrencyString(String currency)
@@ -628,15 +589,15 @@ public abstract class UIXCollection extends UIXComponentBase
       return;
     }
 
-    Object currencyObject = _isOptimizedKey(currency)
-      ? currency
-      : _getCurrencyCache().getKey(currency);
-    if (currencyObject == null)
+    FacesContext fc = FacesContext.getCurrentInstance();
+    Object rowkey = getClientRowKeyManager().getRowKey(fc, this, currency);
+
+    if (rowkey == null)
     {
       _LOG.severe("Could not restore currency for currencyString:"+currency);
     }
     else
-      setRowKey(currencyObject);
+      setRowKey(rowkey);
   }
 
   /**
@@ -881,6 +842,23 @@ public abstract class UIXCollection extends UIXComponentBase
   protected final CollectionModel getCollectionModel()
   {
     return getCollectionModel(true);
+  }
+
+  public final ClientRowKeyManager getClientRowKeyManager()
+  {
+    // this method must be public, because specific renderers
+    // need access to the ClientRowKeyManager so that they might prune it.
+    
+    InternalState iState = _getInternalState(true);
+    if (iState._clientKeyMgr == null)
+    {
+      FacesContext fc = FacesContext.getCurrentInstance();
+      Renderer r = getRenderer(fc);
+      iState._clientKeyMgr = (r instanceof ClientRowKeyManagerFactory)
+        ? ((ClientRowKeyManagerFactory) r).createClientRowKeyManager(fc, this)
+        : new DefaultClientKeyManager();
+    }
+    return iState._clientKeyMgr;
   }
 
   /**
@@ -1129,14 +1107,6 @@ public abstract class UIXCollection extends UIXComponentBase
     return iState._stampState;
   }
 
-  private ValueMap<Object> _getCurrencyCache()
-  {
-    InternalState iState = _getInternalState(true);
-    if (iState._currencyCache == null)
-      iState._currencyCache = new ValueMap<Object>();
-    return iState._currencyCache;
-  }
-
   /**
    * sets an EL variable.
    * @param varName the name of the variable
@@ -1172,6 +1142,84 @@ public abstract class UIXCollection extends UIXComponentBase
     return component.getFacets().size();
   }
 
+  private static final class DefaultClientKeyManager extends ClientRowKeyManager
+  {
+
+    public void clear()
+    {
+      _currencyCache.clear();
+    }
+
+    public Object getRowKey(FacesContext context, UIComponent component, String clientRowKey)
+    {
+      if (_isOptimizedKey(clientRowKey))
+        return clientRowKey;
+      
+      ValueMap<Object,String> currencyCache = _currencyCache;
+      Object rowkey = currencyCache.getKey(clientRowKey);
+      return rowkey;
+    }
+
+    public String getClientRowKey(FacesContext context, UIComponent component, Object rowKey)
+    {
+      assert rowKey != null;
+
+      ValueMap<Object,String> currencyCache = _currencyCache;
+      String key = currencyCache.get(rowKey);
+      // check to see if we already have a string key:
+      if (key == null)
+      {
+        // we don't have a string-key, so create a new one.
+        
+        // first check to see if the rowkey itself can be used as the string-key:
+        if (rowKey instanceof String)
+        {
+          // TODO: make sure that this string is suitable for use as
+          // NamingContainer ids:
+          key = rowKey.toString();
+          if (_isOptimizedKey(key))
+          {
+            // no need to add to the token map:
+            return key;
+          }
+        }
+
+        key = _createToken(currencyCache);
+
+        if (_LOG.isFiner())
+          _LOG.finer("Storing token:"+key+
+                     " for rowKey:"+rowKey);
+
+        currencyCache.put(rowKey, key);
+      }
+      return key;
+    }
+
+    private static boolean _isOptimizedKey(String key)
+    {
+      // if a key could be a number, then it might conflict with our
+      // internal representation of tokens. Therefore, if a key could be
+      // a number, then use the token cache.
+      // if there is no way this key can be a number, then it can
+      // be treated as an optimized key and can bypass the token cache
+      // system:
+      return ((key.length() > 0) && (!Character.isDigit(key.charAt(0))));
+    }
+
+    private static String _createToken(ValueMap<Object,String> currencyCache)
+    {
+      String key = String.valueOf(currencyCache.size());
+      return key;
+    }
+
+    private ValueMap<Object,String> _currencyCache = new ValueMap<Object,String>();
+  }
+
+  // this component's internal state is stored in an inner class
+  // rather than in individual fields, because we want to make it
+  // easy to quickly suck out or restore its internal state,
+  // when this component is itself used as a stamp inside some other
+  // stamping container, eg: nested tables.
   private static final class InternalState implements Serializable
   {
     private transient boolean _hasEvent = false;
@@ -1190,8 +1238,8 @@ public abstract class UIXCollection extends UIXComponentBase
     // this is the rowKey used to retrieve the default stamp-state for all rows:
     private transient Object _initialStampStateKey = _NULL;
 
+    private ClientRowKeyManager _clientKeyMgr = null;
     private StampState _stampState = null;
-    private ValueMap<Object> _currencyCache = null;
   }
 
   // do not assign a non-null value. values should be assigned lazily. this is
