@@ -19,7 +19,7 @@
 <archetype>
   <id>myfaces-archetype-trinidad</id>
   <resources>
-    <resource>src/main/java/org/apache/myfaces/adf/blank/HelloWorldBacking.java</resource>
+    <resource>src/main/java/org/apache/myfaces/trinidad/blank/HelloWorldBacking.java</resource>
     <resource>src/main/webapp/index.jspx</resource>
     <resource>src/main/webapp/page2.jspx</resource>
     <resource>src/main/webapp/WEB-INF/web.xml</resource>
