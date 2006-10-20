@@ -45,7 +45,7 @@
                   <tr:commandNavigationItem text="Clothing" action="guide.navigationPane"/>
                   <tr:commandNavigationItem text="Equipment" action="guide.navigationPane"/>
                 </tr:navigationPane>
-                <tr:navigationPane hint="buttons">
+                <tr:panelGroupLayout>
                   <tr:commandNavigationItem text="Your Account"
                                       action="guide.navigationPane"/>
                   <tr:outputText value="|"/>
@@ -54,9 +54,9 @@
                   <tr:icon name="required"/>
                   <tr:outputText value="|"/>
                   <tr:commandNavigationItem text="Help" action="guide.navigationPane"/>
-                </tr:navigationPane>
+                </tr:panelGroupLayout>
               </tr:panelGroupLayout>
-              <tr:navigationPane hint="bar">
+              <!--tr:navigationPane hint="bar">
                 <tr:commandNavigationItem text="Jackets" action="guide.navigationPane"
                                     selected="true"/>
                 <tr:commandNavigationItem text="Pants" action="guide.navigationPane"/>
@@ -64,7 +64,7 @@
                 <tr:commandNavigationItem text="Shoes" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Swimwear" action="guide.navigationPane"/>
                 <tr:commandNavigationItem text="Sale Items" action="guide.navigationPane"/>
-              </tr:navigationPane>
+              </tr:navigationPane-->
               <tr:panelGroupLayout layout="horizontal"
                              styleClass="adfFacesDemoSearchPanelGroup">
                 <f:facet name="separator">
