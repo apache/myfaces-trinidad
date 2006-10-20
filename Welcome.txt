@@ -1,3 +1,0 @@
-Welcome to the Apache Incubator ADFFaces project!
-
-Go to http://wiki.apache.org/myfaces/ADF_Faces to learn more!
