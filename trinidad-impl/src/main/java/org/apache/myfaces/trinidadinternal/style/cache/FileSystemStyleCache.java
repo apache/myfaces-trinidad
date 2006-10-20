@@ -685,9 +685,8 @@ public class FileSystemStyleCache implements StyleProvider
     CSSGenerationUtils.writeCSS(context,
                                 styles,
                                 out,
-                                outputFile,
                                 shortStyleClassMap,
-                                AF_STYLE_NAMESPACE,
+                                _NS_PREFIX_ARRAY,
                                 _STYLE_KEY_MAP
                                 );
 
@@ -897,13 +896,13 @@ public class FileSystemStyleCache implements StyleProvider
 
           // now go through the selectors and get the list of selectors 
           // with the namespace prefix and put those into the shortend map
-          String[] nsPrefixArray = new String[] {AF_STYLE_NAMESPACE};
-          int numNSPrefixes = nsPrefixArray.length;
+          int numNSPrefixes = _NS_PREFIX_ARRAY.length;
           for (int prefixIndex=0; prefixIndex< numNSPrefixes; prefixIndex++)
           {
+            String nsPrefix = _NS_PREFIX_ARRAY[prefixIndex];
             Iterator<String> afSelectors =
               CSSGenerationUtils.getNamespacedSelectors(selector,
-                                                        AF_STYLE_NAMESPACE,
+                                                        nsPrefix,
                                                         _STYLE_KEY_MAP);
             if (afSelectors != null)
             {
@@ -1206,7 +1205,7 @@ public class FileSystemStyleCache implements StyleProvider
     {
       if (_classMap == null)
         _classMap = _createMap();
-      String prefix = (styleClass.startsWith(AF_STYLE_NAMESPACE)) ? "" : ".";
+      String prefix = (styleClass.indexOf('|') > -1) ? "" : ".";
       return _getStyle(context, _classMap, styleClass, prefix , false);
     }
 
@@ -1556,14 +1555,8 @@ public class FileSystemStyleCache implements StyleProvider
     _STYLE_KEY_MAP.put("af|panelTabbed::tab-selected-link",
         "af|panelTabbed::tab-selected A");
 
-    /*
-    _STYLE_KEY_MAP.put(":read-only",
-                       ".p_AFReadOnly");
-    _STYLE_KEY_MAP.put(":disabled",
-                       ".p_AFDisabled");
-    _STYLE_KEY_MAP.put(":error",
-                       ".p_AFError");
-    */
   }
-  private static final String AF_STYLE_NAMESPACE = "af|";
+  private static final String _AF_STYLE_NAMESPACE = "af|";
+  private static String[] _NS_PREFIX_ARRAY = new String[] {_AF_STYLE_NAMESPACE};
+
 }

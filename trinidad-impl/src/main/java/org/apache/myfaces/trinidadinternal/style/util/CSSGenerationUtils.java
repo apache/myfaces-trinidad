@@ -56,17 +56,17 @@ public class CSSGenerationUtils
    * @param out The PrintWriter to write to
    * @param shortStyleClassMap A Map which maps style
    *   class names to short names.
-   * @param selectorNamespace the namespace of our special selectors "af|"
-   * @param afSelectorMap A Map which maps the af| component selectors
+   * @param namespacePrefixArray an array with the namespace prefixes of our
+   *  special selectors. e.g., "af|" or "tr|" .
+   * @param afSelectorMap A Map which maps the namespaced component selectors
    *   to their base names (e.g., 'af|menuPath::step' maps to 'af|menuPath A')
    */
   public static void writeCSS(
     StyleContext        context,
     StyleNode[]         styles,
     PrintWriter         out,
-    File                outputFile,
     Map<String, String> shortStyleClassMap,
-    String              selectorNamespace,
+    String[]            namespacePrefixArray,
     Map<String, String> afSelectorMap
     )
   {
@@ -177,50 +177,50 @@ public class CSSGenerationUtils
           assert (selector != null);
 
           // map selectors, if needed
-          // any of the selectors that start with the selectorNamespace will
+          // any of the selectors that start with a namespace prefix will
           // be mapped.
           // e.g., "af|menuPath::step" maps to "af|menuPath A"
           // if the selector does not need to be 'mapped', it will be returned
           // untouched. e.g., .AFInstructionText maps to .AFInstructionText
-          String mappedNSSelector = _getMappedNSSelector(afSelectorMap,
-                                                         selectorNamespace,
-                                                         selector,
-                                                         false);
+          String mappedSelector = _getMappedNSSelector(afSelectorMap,
+                                                       namespacePrefixArray,
+                                                       selector,
+                                                       false);
 
           // write out the full selector
           String validFullNameSelector =
-            _getValidFullNameSelector(mappedNSSelector);
+            _getValidFullNameSelector(mappedSelector, namespacePrefixArray);
           if (validFullNameSelector != null)
             out.print(validFullNameSelector);
 
 
           // shorten all the css-2 style class selectors (those that start with 
-          // '.')and return the shortened string.
+          // '.' and don't have a namespace prefix in it)
+          // and return the shortened string.
           // e.g., selector of '.OraBulletedList A' is shortened to '.xj A'
           // e.g., selector of af|inputText::content is not shortened since
           // it has no css-2 style class selector piece that starts with '.'.
           // e.g., selector of af|foo.Bar will shorten the '.Bar' piece 
           // af|foo.xz
           // e.g., .Foo:hover -> .x0:hover
-          String shortenedSelector = _getShortSelector(mappedNSSelector,
-                                                       shortStyleClassMap,
-                                                       selectorNamespace);
+          String shortenedSelector = _getShortSelector(mappedSelector,
+                                                       shortStyleClassMap);
 
           // run it through a shortener one more time to shorten any
           // of the af component selectors.
           // e.g., 'af|menuPath' is shortened to '.x11'
           String shortSelector =
             _getMappedNSSelector(shortStyleClassMap,
-                                 selectorNamespace,
+                                 namespacePrefixArray,
                                  shortenedSelector,
                                  true);
 
           // if the transformed full name is different than the shortSelector
           // then write out the shortSelector, too.
           if (shortSelector != null)
-          {
+          {          
             String validShortSelector =
-              _getValidFullNameSelector(shortSelector);
+              _getValidFullNameSelector(shortSelector, namespacePrefixArray);
             if (!validFullNameSelector.equals(validShortSelector))
             {
               out.print(",");
@@ -412,7 +412,7 @@ public class CSSGenerationUtils
         // get the component selector, which is just the main part, nothing
         // that includes a '.' ':', or a ' '.
         String afComponentSelector = 
-          _getAfComponentSelector(afSelectors[i], false);
+          _getNSComponentSelector(afSelectors[i], false);
         afUnmappedSelectorList.add(afComponentSelector);
       }
     }
@@ -468,7 +468,7 @@ public class CSSGenerationUtils
    * @param allowPseudoClass
    * @return
    */
-  private static String _getAfComponentSelector(
+  private static String _getNSComponentSelector(
     String singleAfSelector,
     boolean allowPseudoClass)
   {
@@ -521,8 +521,7 @@ public class CSSGenerationUtils
   // namespace
   private static String _getShortSelector(
     String              selector,
-    Map<String, String> shortStyleClassMap,
-    String              selectorNamespace)
+    Map<String, String> shortStyleClassMap)
   {
     if (shortStyleClassMap == null)
       return null;
@@ -585,8 +584,9 @@ public class CSSGenerationUtils
           // see if we've got a shorter version
           String styleClass = selector.substring(styleClassStartIndex + 1, i);
           String shortStyleClass = null;
-          // don't shorten the styles that start with the namespace
-          if (!styleClass.startsWith(selectorNamespace))
+          // don't shorten the styles that contain a namespace, because we 
+          // do this in another step.
+          if (styleClass.indexOf('|') == -1)
             shortStyleClass = shortStyleClassMap.get(styleClass);
 
 
@@ -638,21 +638,19 @@ public class CSSGenerationUtils
    */
   private static String _getMappedNSSelector (
     Map<String, String> map,
-    String              namespace,
+    String[]            nsPrefixArray,
     String              selector,
     boolean             shorten)
   {
-    // break apart by spaces
-    // map each piece; if namespace is not in the piece,
-    // it will remain unchanged
+    // break apart by spaces; map each piece;
+    // if a namespace is not in the piece, it will remain unchanged
     // piece back together.
-
-
+    
+    
     // quick check; null or no namespace in the selector,
     // return the selector unchanged.
-    if ((selector == null) ||
-        (selector.indexOf(namespace) == -1))
-      return selector;
+     if ((selector == null) || (!_hasNamespacePrefix(selector, nsPrefixArray)))
+       return selector;
 
     // split the string into the spaces
     String[] selectorArray;
@@ -670,11 +668,20 @@ public class CSSGenerationUtils
 
     for (int i=0; i < selectorArray.length; i++)
     {
-
-      if (selectorArray[i].indexOf(namespace) > -1)
+      // Assumption is the selector 'piece' only contains one namespace
+      // prefix. af|foo.tr|bar is not a valid selector, so this assumption
+      // is fine.
+      int nsIndex = -1;
+      int numNsPrefixes = nsPrefixArray.length;
+      for (int j=0; (j <  numNsPrefixes) && (nsIndex == -1); j++)
+      {
+       nsIndex = selectorArray[i].indexOf(nsPrefixArray[j]);
+      }
+      
+      if (nsIndex > -1)
       {
         selectorArray[i] = _getEachMappedSelector(map,
-                                                  namespace,
+                                                  nsIndex,
                                                   selectorArray[i],
                                                   shorten);
       }
@@ -686,7 +693,7 @@ public class CSSGenerationUtils
 
   private static String _getEachMappedSelector(
     Map<String, String> map,
-    String              namespace,
+    int                 indexOfNSPrefix,
     String              selector,
     boolean             shorten)
   {
@@ -699,14 +706,13 @@ public class CSSGenerationUtils
     // piece  back together.
     // should I bother mapping pseudo-classes if shorten=true, since they
     // won't be in the map anyway? TODO
-    int indexOfNamespace = selector.indexOf(namespace);
-    if (indexOfNamespace == -1)
+    if (indexOfNSPrefix == -1)
      return selector;
     if (map == null)
       return selector;
     
     
-    String wholeAfSelector = selector.substring(indexOfNamespace);    
+    String wholeAfSelector = selector.substring(indexOfNSPrefix);    
     SelectorPieces pieces = new SelectorPieces();
     
     // get main piece
@@ -789,10 +795,10 @@ public class CSSGenerationUtils
     StringBuffer buffer = new StringBuffer();
 
     // beginning. add '.' if needed.
-    if (indexOfNamespace > 0)
+    if (indexOfNSPrefix > 0)
     {
-      buffer.append(selector.substring(0, indexOfNamespace));
-      if (shorten && selector.charAt(indexOfNamespace-1) != '.')
+      buffer.append(selector.substring(0, indexOfNSPrefix));
+      if (shorten && selector.charAt(indexOfNSPrefix-1) != '.')
         buffer.append('.');
     }
     else if (shorten)
@@ -823,7 +829,19 @@ public class CSSGenerationUtils
     
     return buffer.toString(); 
   }
-
+  
+  private static boolean _hasNamespacePrefix(
+    String   selector, 
+    String[] nsPrefixArray)
+  {
+    boolean hasNamespacePrefix = false;
+    int numNamespaces = nsPrefixArray.length;
+    for (int i=0; (i <  numNamespaces )&& !hasNamespacePrefix; i++)
+      if (selector.indexOf(nsPrefixArray[i]) > -1)
+        hasNamespacePrefix = true;
+    return hasNamespacePrefix;
+  }
+  
   /*
    * Returns a string representation of the contents of the specified array
    * where adjacent elements are separated a space (" ").
@@ -927,30 +945,37 @@ public class CSSGenerationUtils
    * get rid of the | and :: that browsers don't like, and add the
    * '.' where needed to make the af| component selector
    * into a style class selector that is valid to be written to the css file.
-   * @param mappedNSSelector
+   * @param selector
    * @return
    */
-  private static String _getValidFullNameSelector(String mappedNSSelector)
+  private static String _getValidFullNameSelector(
+    String selector,
+    String[] namespacePrefixArray)
   {
-      // get rid of | and :: that the browsers don't like
-      String validSelector =
-        StyleUtils.convertToValidSelector(mappedNSSelector);
+    if (selector.indexOf('|') == -1)
+      return selector;
+      
+    // split on spaces.
+    String[] spacerArray = selector.split("\\s");
 
-      // if the selector starts with af_, then it is our selector, so
-      // add a .
-      if (validSelector.startsWith("af_"))
+    for (int i=0; i < spacerArray.length; i++)
+    {
+      // if this starts with any of our namespaces, then add a '.'
+      if (spacerArray[i].indexOf('|') > -1)
       {
-        validSelector = "." + validSelector;
+        for (int j=0; j < namespacePrefixArray.length; j++)
+        {
+          String nsPrefix = namespacePrefixArray[j];
+          if (spacerArray[i].startsWith(nsPrefix))
+          {
+            spacerArray[i] = ".".concat(spacerArray[i]);
+            break;
+          }       
+        }
       }
-      // now look for any 'space af_' and put a dot in front of the af_
-      // this is for the case of af_panelBox_light af_panelBox_body
-      // unless we do this, we just have .af_panelBox_light af_panelBox_body
-      if (validSelector.indexOf(" af_") > -1)
-      {
-        validSelector = validSelector.replaceAll(" af_", " .af_");
-      }
-
-      return validSelector;
+    }
+    return StyleUtils.convertToValidSelector(
+      _arrayToStringWithSpaces(spacerArray));
 
   }
 
