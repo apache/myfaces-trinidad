@@ -39,12 +39,12 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputDate;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
@@ -457,10 +457,10 @@ public class SimpleInputDateRenderer
     UIComponent  component,
     FacesBean    bean)
   {
-    return CoreRendererUtils.getRelativeId(context,
-                                           component,
-                                           getChooseId(bean));
-
+    return RenderUtils.getRelativeId(context,
+                                     component,
+                                     getChooseId(bean));
+    
   }
 
   // Checks to see whether the current dateField should

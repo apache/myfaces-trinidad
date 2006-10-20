@@ -32,10 +32,11 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputColor;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.render.RenderUtils;
+
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ColorFieldInfoScriptlet;
@@ -427,9 +428,9 @@ public class SimpleInputColorRenderer
     UIComponent  component,
     FacesBean    bean)
   {
-    return CoreRendererUtils.getRelativeId(context,
-                                           component,
-                                           getChooseId(bean));
+    return RenderUtils.getRelativeId(context,
+                                     component,
+                                     getChooseId(bean));
 
   }
 

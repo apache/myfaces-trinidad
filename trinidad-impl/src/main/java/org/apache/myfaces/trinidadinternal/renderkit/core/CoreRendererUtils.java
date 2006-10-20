@@ -15,7 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core;
 
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -24,6 +23,7 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.agent.CapabilityKey;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 
 public class CoreRendererUtils
 {
@@ -36,15 +36,8 @@ public class CoreRendererUtils
     UIComponent  from,
     String       relativeId)
   {
-    if (relativeId == null)
-      return null;
-
-    UIComponent parentNC = _getParentNamingContainer(from.getParent());
-    if (parentNC == null)
-      return relativeId;
-
-    return (parentNC.getClientId(context) +
-            NamingContainer.SEPARATOR_CHAR + relativeId);
+    // Call through to public API
+    return RenderUtils.getRelativeId(context, from, relativeId);
   }
 
 
@@ -83,17 +76,5 @@ public class CoreRendererUtils
       return false;
 
     return true;
-  }
-
-  private static UIComponent _getParentNamingContainer(UIComponent from)
-  {
-    while (from != null)
-    {
-      if (from instanceof NamingContainer)
-        return from;
-      from = from.getParent();
-    }
-
-    return null;
   }
 }
