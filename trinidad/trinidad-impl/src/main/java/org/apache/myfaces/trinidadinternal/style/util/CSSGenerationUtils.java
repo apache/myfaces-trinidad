@@ -366,9 +366,11 @@ public class CSSGenerationUtils
   }
 
   /**
-   * Returns an
-   * Iterator of all of the component selectors that begin with the
-   * given namespace.  For example, ".OraNav1Enabled af|menuPath" returns
+   * Called when creating the shortened styleclass map.
+   * Returns an Iterator of all of the component selectors that begin with the
+   * given namespace. All styleclasses and pseudo-classes are ignored and NOT
+   * returned.
+   * For example, ".OraNav1Enabled af|menuPath" returns
    * a single element Iterator with the string "af|menuPath".
    * "af|menuPath.OraNav1Enabled af|treeTable.text" returns a two
    * element Iterator with "af|menuPath" and "af|treeTable".
@@ -400,7 +402,7 @@ public class CSSGenerationUtils
     String[] afSelectors;
     String[] spacerArray = base.split("\\s");
     afSelectors = 
-        _orderPseudoElementsAndClasses(spacerArray, namespace);
+        _orderPseudoElementsAndClasses(spacerArray);
         
     // loop through each of the af| parts.
     for (int i=0; i < afSelectors.length; i++)
@@ -456,7 +458,16 @@ public class CSSGenerationUtils
 
   }
 
-
+  /**
+   * Called from getNamespacedSelectors. 
+   * Given a single selector that begins with a namespace prefix (most likely
+   * af|), return the main portion -- the prefix+component+pseudo-element.
+   * Styleclasses and pseudo-classes and anything after a space will be ignored,
+   * and won't be returned.
+   * @param singleAfSelector
+   * @param allowPseudoClass
+   * @return
+   */
   private static String _getAfComponentSelector(
     String singleAfSelector,
     boolean allowPseudoClass)
@@ -648,9 +659,9 @@ public class CSSGenerationUtils
     if (!shorten)
     {
       String[] spacerArray = selector.split("\\s");
-
       selectorArray = 
-        _orderPseudoElementsAndClasses(spacerArray, namespace);
+        _orderPseudoElementsAndClasses(spacerArray);
+
     }
     else
     {
@@ -852,69 +863,60 @@ public class CSSGenerationUtils
    * af|foo::p-element.StyleClass (leave alone).
    */
   private static String[]  _orderPseudoElementsAndClasses(
-    String[] input,
-    String   namespace)
+    String[] input)
   {
     List<String> output = new ArrayList<String>();
     for (int i=0; i < input.length; i++)
     {
-      boolean hasNamespace = (input[i].indexOf(namespace) > -1);
 
-      if (!hasNamespace)
+      int indexOfDoubleColon = input[i].indexOf("::");         
+      if (indexOfDoubleColon == -1)
       {
-        // not one of ours, so pass through
+        // no double colon (aka pseudo-element)
         output.add(input[i]);
       }
       else
       {
-        int indexOfDoubleColon = input[i].indexOf("::");         
-        if (indexOfDoubleColon == -1)
+        // you have a double colon index. Now look to see if we need to 
+        // reorder. We have to reorder if the pseudo-element comes after
+        // the pseudo-class or composite style classes.
+        int indexOfFirstColon = input[i].indexOf(':');
+        int indexOfDot = input[i].indexOf('.');
+
+        boolean pseudoClassBeforePseudoElement = 
+          (indexOfFirstColon < indexOfDoubleColon);
+        boolean styleClassBeforePseudoElement =
+          (indexOfDot != -1 && indexOfDot < indexOfDoubleColon);
+          
+        if (!(pseudoClassBeforePseudoElement ||
+              styleClassBeforePseudoElement))
         {
-          // no double colon (aka pseudo-element)
-          output.add(input[i]);
+          output.add(input[i]);  
         }
         else
         {
-          // you have a double colon index. Now look to see if we need to 
-          // reorder. We have to reorder if the pseudo-element comes after
-          // the pseudo-class or composite style classes.
-          int indexOfFirstColon = input[i].indexOf(':');
-          int indexOfDot = input[i].indexOf('.');
+          if (indexOfFirstColon == indexOfDoubleColon)
+            indexOfFirstColon = -1;
+          int indexOfClass = Math.min(indexOfFirstColon, indexOfDot);
+          if (indexOfClass == -1)
+            indexOfClass = Math.max(indexOfFirstColon, indexOfDot);
 
-          boolean pseudoClassBeforePseudoElement = 
-            (indexOfFirstColon < indexOfDoubleColon);
-          boolean styleClassBeforePseudoElement =
-            (indexOfDot != -1 && indexOfDot < indexOfDoubleColon);
-            
-          if (!(pseudoClassBeforePseudoElement ||
-                styleClassBeforePseudoElement))
-          {
-            output.add(input[i]);  
-          }
-          else
-          {
-            if (indexOfFirstColon == indexOfDoubleColon)
-              indexOfFirstColon = -1;
-            int indexOfClass = Math.min(indexOfFirstColon, indexOfDot);
-            if (indexOfClass == -1)
-              indexOfClass = Math.max(indexOfFirstColon, indexOfDot);
-
-            // we have the condition where pseudo-class or styleClass is before
-            // pseudo-element: af|foo:psdo-class::psdo-element
-            // e.g.,
-            // af|inputText:disabled::content
-            // indexOfColon = 12, indexOfDoubleColon = 21
-            // main = 'af|inputText'
-            // mainPlusClasses = 'af|inputText:disabled'
-            // end '::content'
-            String main = input[i].substring(0, indexOfClass);
-            String mainPlusClasses = input[i].substring(0, indexOfDoubleColon);
-            String end = input[i].substring(indexOfDoubleColon);
-            output.add(mainPlusClasses);
-            output.add(main + end);
-          }
+          // we have the condition where pseudo-class or styleClass is before
+          // pseudo-element: af|foo:psdo-class::psdo-element
+          // e.g.,
+          // af|inputText:disabled::content
+          // indexOfColon = 12, indexOfDoubleColon = 21
+          // main = 'af|inputText'
+          // mainPlusClasses = 'af|inputText:disabled'
+          // end '::content'
+          String main = input[i].substring(0, indexOfClass);
+          String mainPlusClasses = input[i].substring(0, indexOfDoubleColon);
+          String end = input[i].substring(indexOfDoubleColon);
+          output.add(mainPlusClasses);
+          output.add(main + end);
         }
-      }      
+      }
+     
     }  
     return output.toArray(new String[output.size()]);
   }

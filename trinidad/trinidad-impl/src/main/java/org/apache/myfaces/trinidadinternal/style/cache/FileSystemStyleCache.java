@@ -895,20 +895,25 @@ public class FileSystemStyleCache implements StyleProvider
             }
           }
 
-          // now go through the selectors and get the list of af| selectors and
-          // put those into the map
-          Iterator<String> afSelectors =
-            CSSGenerationUtils.getNamespacedSelectors(selector,
-                                                      AF_STYLE_NAMESPACE,
-                                                      _STYLE_KEY_MAP);
-          if (afSelectors != null)
+          // now go through the selectors and get the list of selectors 
+          // with the namespace prefix and put those into the shortend map
+          String[] nsPrefixArray = new String[] {AF_STYLE_NAMESPACE};
+          int numNSPrefixes = nsPrefixArray.length;
+          for (int prefixIndex=0; prefixIndex< numNSPrefixes; prefixIndex++)
           {
-            while (afSelectors.hasNext())
+            Iterator<String> afSelectors =
+              CSSGenerationUtils.getNamespacedSelectors(selector,
+                                                        AF_STYLE_NAMESPACE,
+                                                        _STYLE_KEY_MAP);
+            if (afSelectors != null)
             {
-              String styleClass = afSelectors.next();
-
-              if (!map.containsKey(styleClass))
-                map.put(styleClass, _getShortStyleClass(map.size()));
+              while (afSelectors.hasNext())
+              {
+                String styleClass = afSelectors.next();
+  
+                if (!map.containsKey(styleClass))
+                  map.put(styleClass, _getShortStyleClass(map.size()));
+              }
             }
           }
         }
