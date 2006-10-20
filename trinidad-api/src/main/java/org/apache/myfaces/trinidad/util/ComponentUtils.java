@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 package org.apache.myfaces.trinidad.util;
+
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -118,6 +119,31 @@ public class ComponentUtils
   {
     return (value != null)
              ? ((Number)value).longValue()
+             : defaultValue;
+  }
+
+  /**
+   * Utility method for component code that transforms an Object
+   * (which must be a java.lang.Number) into a long.
+   */
+  public static double resolveDouble(
+    Object value
+    )
+  {
+    return resolveDouble(value, 0);
+  }
+
+  /**
+   * Utility method for component code that transforms an Object
+   * (which must be a java.lang.Number) into a long.
+   */
+  public static double resolveDouble(
+    Object value,
+    double   defaultValue
+    )
+  {
+    return (value != null)
+             ? ((Number)value).doubleValue()
              : defaultValue;
   }
 
