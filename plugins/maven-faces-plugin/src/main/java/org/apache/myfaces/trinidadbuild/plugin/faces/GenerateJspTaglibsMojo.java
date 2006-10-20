@@ -2055,6 +2055,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     resolvableTypes.put("java.util.Date", "Date");
     resolvableTypes.put("int", "Integer");
     resolvableTypes.put("float", "Float");
+    resolvableTypes.put("double", "Double");
     resolvableTypes.put("java.util.Locale", "Locale");
     resolvableTypes.put("long", "Long");
     resolvableTypes.put("java.lang.String", "String");
