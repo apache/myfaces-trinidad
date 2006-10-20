@@ -113,6 +113,30 @@ public class TagUtils
   }
 
   /**
+   * String --> long
+   * @param value
+   * @return
+   */
+  public static double getDouble(
+    String      value)
+  {
+    return Double.valueOf(value).doubleValue();
+
+  }
+
+  /**
+   * String --> long
+   * @param value
+   * @return
+   */
+  public static float getFloat(
+    String      value)
+  {
+    return Float.valueOf(value).floatValue();
+
+  }
+
+  /**
    * These are normally NMTOKEN type in attributes
    * String --> String[]
    * @param value
