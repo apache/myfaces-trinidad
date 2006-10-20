@@ -22,8 +22,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.component.core.output.CoreMessage;
+import org.apache.myfaces.trinidad.render.RenderUtils;
 
-import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRendererUtils;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafRenderer;
@@ -80,7 +80,7 @@ public class MessageUtils
     UIComponent  from,
     String       forParam)
   {
-    return CoreRendererUtils.getRelativeId(context, from, forParam);
+    return RenderUtils.getRelativeId(context, from, forParam);
   }
 
 

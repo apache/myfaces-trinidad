@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidad.render;
 import java.io.IOException;
 import java.util.List;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 
@@ -97,5 +98,43 @@ public class RenderUtils
       return null;
 
     return form.getClientId(context);
+  }
+
+  /**
+   * Returns a relative ID for use at rendering time, e.g. "for"
+   * attributes on components.  It does not assume that the target
+   * component can be located.  A relative ID starting with
+   * NamingContainer.SEPARATOR_CHAR (that is, ':') will be
+   * treated as absolute (after dropping that character).
+   */
+  public static String getRelativeId(
+    FacesContext context,
+    UIComponent  from,
+    String       relativeId)
+  {
+    if ((relativeId == null) || (relativeId.length() == 0))
+      return null;
+
+    if (relativeId.charAt(0) == NamingContainer.SEPARATOR_CHAR)
+      return relativeId.substring(1);
+
+    UIComponent parentNC = _getParentNamingContainer(from.getParent());
+    if (parentNC == null)
+      return relativeId;
+
+    return (parentNC.getClientId(context) +
+            NamingContainer.SEPARATOR_CHAR + relativeId);
+  }
+
+  private static UIComponent _getParentNamingContainer(UIComponent from)
+  {
+    while (from != null)
+    {
+      if (from instanceof NamingContainer)
+        return from;
+      from = from.getParent();
+    }
+
+    return null;
   }
 }
