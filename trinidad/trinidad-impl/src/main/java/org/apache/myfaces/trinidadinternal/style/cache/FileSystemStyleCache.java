@@ -1442,33 +1442,6 @@ public class FileSystemStyleCache implements StyleProvider
     _STYLE_KEY_MAP.put("af|panelHeader::level-six",
                  "H6.af|panelHeader");
 
-     // oracle.desktop special styles used in oracle.desktop.HeaderRenderer.
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-one",
-                 "H1.af|panelHeader::color");
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-two",
-                 "H2.af|panelHeader::color");
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-three",
-                 "H3.af|panelHeader::color");
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-four",
-                 "H4.af|panelHeader::color");
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-five",
-                 "H5.af|panelHeader::color");
-    _STYLE_KEY_MAP.put("af|panelHeader::color-level-six",
-                 "H6.af|panelHeader::color");
-
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-one",
-                 "H1.af|panelHeader::dark");
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-two",
-                 "H2.af|panelHeader::dark");
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-three",
-                 "H3.af|panelHeader::dark");
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-four",
-                 "H4.af|panelHeader::dark");
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-five",
-                 "H5.af|panelHeader::dark");
-    _STYLE_KEY_MAP.put("af|panelHeader::dark-level-six",
-                 "H6.af|panelHeader::dark");
-
     // showDetailHeader
     _STYLE_KEY_MAP.put("af|showDetailHeader::level-one",
                  "H1.af|showDetailHeader");
