@@ -336,55 +336,6 @@
     <includeStyle name="AFHeaderText"/>  
   </style>
 
-  <style selector="af|panelHeader::dark-level-one">
-    <includeStyle selector=".AFHeaderLevelOne"/>
-    <includeStyle name="AFVeryDarkForeground"/>
-  </style>
-
-  <style selector="af|panelHeader::dark-level-two">
-    <includeStyle selector=".AFHeaderLevelTwo"/>
-    <includeStyle name="AFVeryDarkForeground"/>    
-  </style>
-
-  <style selector="af|panelHeader::dark-level-three">
-    <includeStyle selector=".AFHeaderLevelThreePlus"/>
-    <includeStyle name="AFVeryDarkForeground"/>       
-  </style>
-  
-  <style selector="af|panelHeader::dark-level-four">
-    <includeStyle selector="af|panelHeader::dark-level-three"/>
-  </style>
-  <style selector="af|panelHeader::dark-level-five">
-    <includeStyle selector="af|panelHeader::dark-level-three"/>
-  </style>
-  <style selector="af|panelHeader::dark-level-six">
-    <includeStyle selector="af|panelHeader::dark-level-three"/>
-  </style>
-
-  <style selector="af|panelHeader::color-level-one">
-    <includeStyle selector=".AFHeaderLevelOne"/>
-    <includeStyle name="AFMediumAccentForeground"/>
-  </style>
-
-  <style selector="af|panelHeader::color-level-two">
-    <includeStyle name=".AFHeaderLevelTwo"/>
-    <includeStyle name="AFMediumAccentForeground"/>    
-  </style>
-
-  <style selector="af|panelHeader::color-level-three">
-    <includeStyle selector=".AFHeaderLevelThreePlus"/>
-    <includeStyle name="AFMediumAccentForeground"/>      
-  </style>
-  <style selector="af|panelHeader::color-level-four">
-    <includeStyle selector="af|panelHeader::color-level-three"/>
-  </style>
-  <style selector="af|panelHeader::color-level-five">
-    <includeStyle selector="af|panelHeader::color-level-three"/>
-  </style>
-  <style selector="af|panelHeader::color-level-six">
-    <includeStyle selector="af|panelHeader::color-level-three"/>
-  </style>
-
 <!-- I don't see this used anywhere
   <style selector=".OraPortletHeader">
     <includeStyle name="AFHeaderText"/>

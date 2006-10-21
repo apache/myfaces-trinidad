@@ -540,12 +540,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
     "af|messages::header";
   public static final String AF_SHOW_DETAIL_HEADER_STYLE_CLASS =
     "af|showDetailHeader";
-  // for dark backgrounds
-  public static final String AF_PANEL_HEADER_DARK_STYLE_CLASS =
-    "af|panelHeader::dark";
-  // for colored backgrounds
-  public static final String AF_PANEL_HEADER_COLOR_STYLE_CLASS =
-    "af|panelHeader::color";
+
   // for errors
   public static final String AF_PANEL_HEADER_ERROR_STYLE_CLASS =
     "af|panelHeader::error";
