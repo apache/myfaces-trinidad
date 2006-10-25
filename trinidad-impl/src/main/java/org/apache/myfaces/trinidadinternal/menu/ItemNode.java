@@ -17,6 +17,8 @@
 */
 package org.apache.myfaces.trinidadinternal.menu;
 
+import java.util.Map;
+
 import javax.faces.webapp.UIComponentTag;
 
 /**
@@ -412,7 +414,32 @@ public class ItemNode extends MenuNode
      
     return value;
   }
-
+  
+  /**
+   * Get the Attributes containing the custom attributes on this node. This 
+   * needs to be public so that the menu model can get them.
+   * 
+   * @return Attributes list containing the custom attributes on this node
+   */
+  public Map<String, String> getCustomPropList()
+  {
+    return _customPropList;
+  }
+  
+  /**
+   * Set the list of custom attributes.
+   * 
+   * @param attrMap Map of attibute name/values for this node
+   * from MenuContentHandlerImpl
+   */
+  protected void setCustomPropList(Map<String, String> attrMap)
+  {
+    _customPropList = attrMap;
+  }
+  
+  // Map for Custom attributes (properties)
+  private Map<String, String> _customPropList = null;
+  
   private String _destination     = null;
   private String _targetFrame     = null;   
   private String _action          = null;

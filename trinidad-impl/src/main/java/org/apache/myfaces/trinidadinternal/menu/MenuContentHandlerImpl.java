@@ -653,15 +653,14 @@ public class MenuContentHandlerImpl extends DefaultHandler
     String disabledStr = _getAndRemoveAttrValue(_DISABLED_ATTR);
     String readOnlyStr = _getAndRemoveAttrValue(_READONLY_ATTR);
     String accessKey   = _getAndRemoveAttrValue(_ACCESSKEY_ATTR);
-    String labelAndAccessKey   = _getAndRemoveAttrValue(_LABEL_AND_ACCESSKEY_ATTR);
+    String labelAndAccessKey = _getAndRemoveAttrValue(_LABEL_AND_ACCESSKEY_ATTR);
     String id          = _getAndRemoveAttrValue(_ID_ATTR);
     String visibleStr  = _getAndRemoveAttrValue(_VISIBLE_ATTR);
     
-    MenuNode menuNode = 
-        (  _currentNodeStyle == MenuConstants.NODE_STYLE_ITEM
-         ? _createItemNode()
-         : _createGroupNode()
-        );
+    MenuNode menuNode = (  _currentNodeStyle == MenuConstants.NODE_STYLE_ITEM
+                         ? _createItemNode()
+                         : _createGroupNode()
+                        );
   
     // Set the generic attributes
     menuNode.setLabel(label);
@@ -676,12 +675,6 @@ public class MenuContentHandlerImpl extends DefaultHandler
     if (labelAndAccessKey != null)
       menuNode.setLabelAndAccessKey(labelAndAccessKey);
 
-    // Set the Any Attributes Attrlist
-    if (_attrMap.size() > 0)
-    {
-      menuNode.setCustomPropList(_attrMap);
-    }
-    
     return menuNode;
   }
   
@@ -731,6 +724,12 @@ public class MenuContentHandlerImpl extends DefaultHandler
     // Former destination node attrs
     itemNode.setDestination(destination);
     itemNode.setTargetFrame(targetFrame);
+    
+    // Set the Any Attributes Attrlist
+    if (_attrMap.size() > 0)
+    {
+      itemNode.setCustomPropList(_attrMap);
+    }
     
     return itemNode;
   }
