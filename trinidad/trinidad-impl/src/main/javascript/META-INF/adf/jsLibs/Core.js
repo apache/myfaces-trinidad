@@ -47,7 +47,7 @@ var _blockOnEverySubmit = false;
 // The name attached to the iFrame from which we do PPR updates
 var _pprIframeName = "_pprIFrame";
 
-// Controls whether or not ADF will allow the first click to go through in
+// Controls whether or not Trinidad will allow the first click to go through in
 // certain instances. When a PPR event occurs, we block all subsequent user
 // input until it completes. However, there may be instances where the client
 // wants to receive the very first click. For example, If the user has entered
@@ -115,7 +115,7 @@ var _navDirty;
 // page loads.
 var _initialFocusID = null;
 
-// Certain ADF facilities can request that focus be set to a particular node,
+// Certain Trinidad facilities can request that focus be set to a particular node,
 // or the node AFTER a particular node following a PPR update. These three
 // variables store the values needed to track down that node.
 var _AdfFocusRequestDoc = null;
@@ -2528,6 +2528,7 @@ function _multiValidate(
   return failures;
 }
 
+
 /**
  * Used for the converters and validators we provide which all have the form
  *
@@ -2555,6 +2556,8 @@ function _createFacesMessage(
                           detail, 
                           TrFacesMessage.SEVERITY_ERROR);
 }
+
+
 
 function _getGlobalErrorString(
   input,
@@ -5507,3 +5510,26 @@ function _getEventObj()
   
   return null;
 }
+
+//***********************************************************
+// "Object Oriented" js below
+//***********************************************************
+/**
+ * User interfaces utility methods
+ */
+var TrUIUtils = new Object();
+
+/**
+ * Remove leading and trailing whitespace
+ */
+TrUIUtils.trim = function(
+data)
+{
+  if (data != null && (typeof data) == 'string')
+    return data.replace(TrUIUtils._TRIM_ALL_RE, '');
+
+  return data;
+}
+
+// regular expression to gather whitespace at beginning and end of line
+TrUIUtils._TRIM_ALL_RE = /^\s*|\s*$/g;

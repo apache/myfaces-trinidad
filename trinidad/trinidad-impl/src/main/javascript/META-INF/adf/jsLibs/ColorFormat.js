@@ -55,6 +55,16 @@ function _rgbColorParse(
   parseString,
   label)
 {
+  // The following are from the javadoc for Number and DateTimeConverter, same applies to color....
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (parseString == null)
+    return null;
+    
+  parseString = TrUIUtils.trim(parseString);
+  if (parseString.length == 0)
+    return null
+
   // return transparent color for localized transparent text
   if (this._allowsTransparent && _cfTrans == parseString)
     return new Color(0,0,0,0);

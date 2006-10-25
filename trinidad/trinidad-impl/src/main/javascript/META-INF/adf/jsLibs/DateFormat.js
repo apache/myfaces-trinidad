@@ -62,6 +62,16 @@ function _simpleDateParse(
   label
   )
 {
+  // The following are from the javadoc for DateTimeConverter
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (parseString == null)
+    return null;
+    
+  parseString = TrUIUtils.trim(parseString);
+  if (parseString.length == 0)
+    return null
+
   var pattern = this._pattern;
   
   var facesMessage = _createFacesMessage( this._msg_summary,
