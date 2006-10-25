@@ -66,16 +66,18 @@ NumberConverter.prototype._decimalParse = function(
   label
   )
 {
-  var facesMessage = null; 
-  if (!numberString)
-  { 
-    facesMessage = _createFacesMessage( messages[(NumberConverter.D+ '_S')],
-                                        messages[NumberConverter.D],
-                                        label,
-                                        numberString);
-    throw new TrConverterException(facesMessage);
-  }
-       
+
+  // The following are from the javadoc for NumberConverter
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (numberString == null)
+    return null;
+    
+  numberString = TrUIUtils.trim(numberString);
+  if (numberString.length == 0)
+    return null
+    
+  var facesMessage = null;        
 
   // Get LocaleSymbols (from Locale.js)
   var symbols = getLocaleSymbols();
@@ -102,80 +104,68 @@ NumberConverter.prototype._decimalParse = function(
     numberString = numberString.replace(decimal, ".");
   }
 
-  // First, reject anything that's all spaces
-  var i = numberString.length - 1;
-  while (i >= 0)
+  // OK; it's non-empty.  Now, disallow exponential
+  // notation, and then use some JS magic to exclude
+  // non-numbers
+  if ((numberString.indexOf('e') < 0) &&
+      (numberString.indexOf('E') < 0) &&
+      (((numberString * numberString) == 0) ||
+       ((numberString / numberString) == 1)))
   {
-    if (numberString.charAt(i) != ' ')
-      break;
-    i--;
-  }
-
-  if (i >= 0)
-  {
-    // OK; it's non-empty.  Now, disallow exponential
-    // notation, and then use some JS magic to exclude
-    // non-numbers
-    if ((numberString.indexOf('e') < 0) &&
-        (numberString.indexOf('E') < 0) &&
-        (((numberString * numberString) == 0) ||
-         ((numberString / numberString) == 1)))
+    var result = parseFloat(numberString);
+    if (!isNaN(result))
     {
-      var result = parseFloat(numberString);
-      if (!isNaN(result))
+      var integerDigits = numberString.length;
+      var fractionDigits = 0;
+
+      var sepIndex = numberString.lastIndexOf('.');
+      if (sepIndex != -1)
       {
-        var integerDigits = numberString.length;
-        var fractionDigits = 0;
-
-        var sepIndex = numberString.lastIndexOf('.');
-        if (sepIndex != -1)
-        {
-          integerDigits = sepIndex;
-          fractionDigits = numberString.length - sepIndex -1;
-        }
-        
-        var messageKey;
-        
-        if ((maxValue != (void 0)) &&
-            (result  > maxValue))
-        {
-          messageKey = NumberConverter.LV;
-        }
-        else if ((minValue != (void 0)) &&
-                 (result  < minValue))
-        {
-          messageKey = NumberConverter.MV;
-        }
-        else if ((maxPrecision != (void 0)) &&
-                 (integerDigits  > maxPrecision))
-        {
-          messageKey = NumberConverter.LID;
-        }
-        else if ((maxScale != (void 0)) &&
-                 (fractionDigits  > maxScale))
-        {
-          messageKey = NumberConverter.LFD;
-        }
-
-        if (messageKey != (void 0))
-        {
-          var messages = messages;
-          
-          if ((messages == (void 0)) ||
-              (messages[messageKey] == (void 0)))
-            throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
-          else
-          {
-            facesMessage =  _createFacesMessage( messages[(messageKey + '_S')],
-                                        messages[messageKey],
-                                        label,
-                                        numberString);
-            throw new TrConverterException(facesMessage);
-          }
-        }
-        
-        return result;
+        integerDigits = sepIndex;
+        fractionDigits = numberString.length - sepIndex -1;
       }
+      
+      var messageKey;
+      
+      if ((maxValue != (void 0)) &&
+          (result  > maxValue))
+      {
+        messageKey = NumberConverter.LV;
+      }
+      else if ((minValue != (void 0)) &&
+               (result  < minValue))
+      {
+        messageKey = NumberConverter.MV;
+      }
+      else if ((maxPrecision != (void 0)) &&
+               (integerDigits  > maxPrecision))
+      {
+        messageKey = NumberConverter.LID;
+      }
+      else if ((maxScale != (void 0)) &&
+               (fractionDigits  > maxScale))
+      {
+        messageKey = NumberConverter.LFD;
+      }
+
+      if (messageKey != (void 0))
+      {
+        var messages = messages;
+        
+        if ((messages == (void 0)) ||
+            (messages[messageKey] == (void 0)))
+          throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
+        else
+        {
+          facesMessage =  _createFacesMessage( messages[(messageKey + '_S')],
+                                      messages[messageKey],
+                                      label,
+                                      numberString);
+          throw new TrConverterException(facesMessage);
+        }
+      }
+      
+      return result;
     }
   }
 
