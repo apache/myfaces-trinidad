@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
+import javax.faces.el.PropertyNotFoundException;
 import javax.faces.el.PropertyResolver;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
@@ -369,7 +370,9 @@ public class XMLMenuModel extends BaseMenuModel
 
   /**
    * Gets the list of custom properties from the node 
-   * and returns the value of propName.
+   * and returns the value of propName.  Node must be an itemNode.
+   * If it is not an itemNode, the node will not have any custom
+   * properties and null will be returned.
    * 
    * @param node Object used to get its list of custom properties
    * @param propName String name of the property whose value is desired
@@ -381,16 +384,24 @@ public class XMLMenuModel extends BaseMenuModel
     if (node == null)
       return null;
       
-    FacesContext context = FacesContext.getCurrentInstance();
+    FacesContext context      = FacesContext.getCurrentInstance();
     PropertyResolver resolver = context.getApplication().getPropertyResolver();
+    String value              = null;
     
-    Map<String, String> propMap = 
-      (Map<String, String>) resolver.getValue(node, _CUSTOM_ATTR_LIST);
-   
-    if (propMap == null)
+    try
+    {
+      Map<String, String> propMap = 
+        (Map<String, String>) resolver.getValue(node, _CUSTOM_ATTR_LIST);
+        
+      value = propMap.get(propName);
+    }
+    catch (PropertyNotFoundException ex)
+    {
+      // if the node is not an itemNode, the node
+      // has no custom properties, so we simply
+      // return null 
       return null;
-      
-    String value = propMap.get(propName);
+    }
     
     // If it is an El expression, we must evaluate it
     // and return its value

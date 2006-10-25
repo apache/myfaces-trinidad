@@ -525,39 +525,6 @@ public class MenuNode
   }
   
   /**
-   * Get the value of a custom attribute.  This needs to be
-   * public so that the menu model can call into the node
-   * to get the value of a custom attribute.
-   * 
-   * @param name String name of the custom attribute
-   * @return Object value of the matching node
-   */
-  public Object getCustomProperty(String name)
-  {
-    String value = _customPropList.get(name);
-    
-    if (   value != null
-        && UIComponentTag.isValueReference(value)
-       )
-     {
-       return MenuUtils.getBoundValue(value);
-     }
-     
-    return value;
-  }
-  
-  /**
-   * Get the Attributes containing the custom attributes on this node. This 
-   * needs to be public so that the menu model can get them.
-   * 
-   * @return Attributes list containing the custom attributes on this node
-   */
-  public Map<String, String> getCustomPropList()
-  {
-    return _customPropList;
-  }
-  
-  /**
    * Get the top-level, root menu model Request Map Key.
    * 
    * @return root, top-level XMLMenuModel's Request Map Key.
@@ -586,17 +553,6 @@ public class MenuNode
     _rootModelKey = rootModelKey;
   }
 
-  /**
-   * Set the list of custom attributes.
-   * 
-   * @param attrMap Map of attibute name/values for this node
-   * from MenuContentHandlerImpl
-   */
-  protected void setCustomPropList(Map<String, String> attrMap)
-  {
-    _customPropList = attrMap;
-  }
-  
   /**
    * setResBundleKey - sets the name of the resource bundle used in 
    * obtaining the node's label text. Used, along with the handerId, 
@@ -817,9 +773,6 @@ public class MenuNode
   private boolean        _labelAndAccessKeyEL = false;
   private String         _labelAndAccessKey   = null;
   private String         _defaultFocusPathStr = null;
-  
-  // Map for Custom attributes (properties)
-  private Map<String, String> _customPropList = null;
   
   // Root Menu model's Request Map Key
   private String _rootModelKey  = null;
