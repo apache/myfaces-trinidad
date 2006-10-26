@@ -91,9 +91,6 @@ public final class IntegerUtils
   // number of cached values
   private static final int _NUM_CACHED = 266;
 
-  // cache of Integer Objects
-  private static Integer[] _sCachedIntegers = new Integer[_NUM_CACHED];
-
   // cache of int Strings
   private static String[] _sCachedStrings = new String[_NUM_CACHED];
 }
