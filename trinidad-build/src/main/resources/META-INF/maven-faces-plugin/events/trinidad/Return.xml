@@ -28,7 +28,7 @@
         <mfp:event-class>org.apache.myfaces.trinidad.event.ReturnEvent</mfp:event-class>
         <mfp:event-listener-class>org.apache.myfaces.trinidad.event.ReturnListener</mfp:event-listener-class>
         <mfp:event-source-interface>org.apache.myfaces.trinidad.component.DialogSource</mfp:event-source-interface>
-        <mfp:event-delivery-phases>Apply Request Values</mfp:event-delivery-phases>
+      <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
       </mfp:event>
   </faces-config-extension>
 </faces-config>
