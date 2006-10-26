@@ -25,6 +25,7 @@
       <mfp:event-type>org.apache.myfaces.trinidad.Poll</mfp:event-type>
       <mfp:event-class>org.apache.myfaces.trinidad.event.PollEvent</mfp:event-class>
       <mfp:event-listener-class>org.apache.myfaces.trinidad.event.PollListener</mfp:event-listener-class>
+      <mfp:event-delivery-phases>Invoke Application,Apply Request Values</mfp:event-delivery-phases>
     </mfp:event>
   </faces-config-extension>
 </faces-config>

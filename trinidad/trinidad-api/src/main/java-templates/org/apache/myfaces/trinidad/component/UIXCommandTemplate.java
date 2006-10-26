@@ -51,7 +51,7 @@ abstract public class UIXCommandTemplate extends UIXComponentBase
   @Override
   public void queueEvent(FacesEvent e)
   {
-    if (e instanceof ActionEvent)
+    if ((e instanceof ActionEvent) || (e instanceof ReturnEvent))
     {
       if (isImmediate())
       {
