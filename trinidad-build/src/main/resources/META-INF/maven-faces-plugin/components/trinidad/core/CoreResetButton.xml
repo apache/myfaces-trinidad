@@ -230,7 +230,7 @@
     <component-extension>
       <mfp:component-family>org.apache.myfaces.trinidad.ResetButton</mfp:component-family>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Reset</mfp:component-supertype>
-      <mfp:renderer-type>org.apache.myfaces.trinidad.ResetButton</mfp:renderer-type>
+      <mfp:renderer-type>org.apache.myfaces.trinidad.Button</mfp:renderer-type>
       <mfp:tag-name>tr:resetButton</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreResetButtonTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
