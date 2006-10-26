@@ -185,6 +185,7 @@ public class FormRenderer extends XhtmlRenderer
     String viewId = context.getViewRoot().getViewId();
     String action =
       context.getApplication().getViewHandler().getActionURL(context, viewId);
+    action = context.getExternalContext().encodeActionURL(action);
 
     rw.writeURIAttribute("action", action, null);
 
