@@ -36,12 +36,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[disabled,false]-->
 
@@ -82,12 +84,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[disabled,true]-->
 
@@ -129,12 +133,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[title,the title]-->
 
@@ -185,12 +191,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[id,myid]-->
 
@@ -231,12 +239,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('myid_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[shortDesc,my short desc]-->
 
@@ -288,12 +298,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[styleClass,mystyle]-->
 
@@ -334,12 +346,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onclick,null]-->
 
@@ -381,12 +395,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -428,12 +444,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -475,12 +493,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -522,12 +542,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -569,12 +591,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -616,12 +640,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -663,12 +689,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -710,12 +738,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -757,12 +787,14 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -804,11 +836,13 @@
             >
            
         </span>
-        <button
+        <input
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="submit"
+             value="Go"
             >
-          Go
-        </button>
+          
+        </input>
       </div>
 </results>

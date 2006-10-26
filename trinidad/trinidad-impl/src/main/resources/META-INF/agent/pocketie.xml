@@ -17,7 +17,8 @@
 <capabilityData xmlns="http://myfaces.apache.org/trinidad/agent/capabilities">
   <capability name="dom" value="form"/>
   <capability name="tables" value="advanced"/> 
-  <capability name="-adfinternal-advancedForms" value="true"/> 
+  <!--PH:pocket IE do not support advanced forms-->
+  <capability name="-adfinternal-advancedForms" value="false"/> 
   <capability name="-adfinternal-intrinsicEvents" value="true"/> 
   <capability name="-adfinternal-disabledFormElements" value="false"/>
   <capability name="-adfinternal-readonlyFormElements" value="false"/> 

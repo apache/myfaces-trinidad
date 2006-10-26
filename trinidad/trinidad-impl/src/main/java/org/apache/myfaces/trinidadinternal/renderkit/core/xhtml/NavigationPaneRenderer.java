@@ -1010,13 +1010,20 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       _renderSpace(rw);
     }
-    rw.startElement("button", null);
+    //The button html element is not supported on all browsers;  use "input"
+    //if it is not
+    boolean useButtonTag = supportsAdvancedForms(arc);
+    String element = useButtonTag ? "button" : "input";
+      
+    rw.startElement(element, null);
     renderStyleClass(context, arc,
       SkinSelectors.AF_NAVIGATION_LEVEL_CHOICE_BUTTON_STYLE_CLASS);
     String goText = arc.getSkin().getTranslatedString(
       arc.getLocaleContext(),
       _GO_BUTTON_LABEL_KEY);
 
+    rw.writeAttribute("type", useButtonTag ? "button"  : "submit", null);
+    
     // The onclick handler will evaluate the value of the selected option:
     rw.writeAttribute(
       "onclick",
@@ -1025,14 +1032,23 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         "'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;",
       null);
 
-    rw.write(goText);
-    rw.endElement("button");
+    if (useButtonTag)
+    {
+      rw.write(goText);        
+    }
+    else
+    {
+      rw.writeAttribute("value", goText, "text");
+    }           
+    
+    rw.endElement(element);
+    
     if (isRtl)
     {
       _renderSpace(rw);
     }
   }
-
+  
   private void _renderSpace(
     ResponseWriter rw
     ) throws IOException

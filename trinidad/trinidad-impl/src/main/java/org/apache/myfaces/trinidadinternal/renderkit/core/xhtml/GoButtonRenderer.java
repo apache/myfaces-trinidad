@@ -29,8 +29,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.nav.CoreGoButton;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
 /**
  * FIXME: the inheritance hierarchy is a bit annoying:  should
  * we extend CommandButtonRenderer or GoLinkRenderer?  Either
@@ -98,9 +96,7 @@ public class GoButtonRenderer extends GoLinkRenderer
       }
       else
       {
-        renderEncodedActionURI(context, "href", getDestination(bean));
-        if (!Boolean.FALSE.equals(arc.getAgent().getCapabilities().get(
-                                        TrinidadAgent.CAP_TARGET)))
+        if (supportsTarget(arc))
         {
           rw.writeAttribute("target", getTargetFrame(bean), null);
         }
