@@ -24,7 +24,7 @@
       <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ChooseDateRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreChooseDate</mfp:component-type>
-        <mfp:unsupported-agents>phone</mfp:unsupported-agents>
+        <mfp:unsupported-agents>phone pda</mfp:unsupported-agents>
       </renderer-extension>
     </renderer>
   </render-kit>
