@@ -724,14 +724,13 @@
             <td
                 >
               
-              <input
+              <a
                    class="OraLink"
                    onclick="_navSubmit('formId', 'goto', '_idXXX',1,'1', '1',null);return false"
-                   type="button"
-                   value="Next"
+                   href="uri-attr:encoded-action-url:#"
                   >
-                
-              </input>
+                Next
+              </a>
             </td>
           </tr>
         </table>
@@ -1669,14 +1668,13 @@
             <td
                 >
               
-              <input
+              <a
                    class="OraLink"
                    onclick="_navSubmit('formId', 'goto', '_idXXX',1,'1', '1',null);return false"
-                   type="button"
-                   value="Next"
+                   href="uri-attr:encoded-action-url:#"
                   >
-                
-              </input>
+                Next
+              </a>
             </td>
           </tr>
         </table>

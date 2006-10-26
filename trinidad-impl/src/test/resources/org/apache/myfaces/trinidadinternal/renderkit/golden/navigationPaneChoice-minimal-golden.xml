@@ -39,6 +39,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -85,6 +86,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -132,6 +134,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -188,6 +191,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -234,6 +238,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('myid_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -291,6 +296,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -337,6 +343,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -384,6 +391,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -431,6 +439,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -478,6 +487,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -525,6 +535,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -572,6 +583,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -619,6 +631,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -666,6 +679,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -713,6 +727,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -760,6 +775,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>
@@ -807,6 +823,7 @@
         <button
              class="af_navigationPane_choice-button"
              onclick="var navLevelSelect = document.getElementById('mainId_af_choice_select'); eval(navLevelSelect.options[navLevelSelect.selectedIndex].value); return false;"
+             type="button"
             >
           Go
         </button>

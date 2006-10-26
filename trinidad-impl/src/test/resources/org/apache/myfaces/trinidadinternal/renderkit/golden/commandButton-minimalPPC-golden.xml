@@ -1,290 +1,315 @@
 <results>
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[accessKey,u]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[disabled,false]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[disabled,true]-->
 
-      <button
+      <input
            class="af_commandButton p_AFDisabled"
            disabled="disabled"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[immediate,false]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[immediate,true]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',0,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[partialSubmit,false]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[partialSubmit,true]-->
 
       <script
           >
         var _pprUpdateMode=false;function _adfspu(f,v,e,s,o){_pprUpdateMode=true;if(!o)o=new Object();o.event=(e)?e:'update';if(s)o.source=s;_submitPartialChange(f,v,o);}
       </script>
-      <button
+      <input
            class="af_commandButton"
            onclick="_adfspu('formId',1,0,'mainId');return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[textAndAccessKey,B&uttonText]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[windowHeight,100]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[windowWidth,200]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[id,myid]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'myid'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:myid"
            name="uri-attr:myid"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[inlineStyle,background-color:red]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            style="background-color:red"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[shortDesc,my button]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            title="my button"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[styleClass,mystyle]-->
 
-      <button
+      <input
            class="mystyle af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onclick,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="return _chain('test-onclick','submitForm(\'formId\',1,{source:\'mainId\'});return false;',this,event,true)"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[ondblclick,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            ondblclick="test-ondblclick"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onkeydown,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeydown="test-onkeydown"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onkeypress,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeypress="test-onkeypress"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onkeyup,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onkeyup="test-onkeyup"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onmousedown,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmousedown="test-onmousedown"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onmousemove,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmousemove="test-onmousemove"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onmouseout,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseout="test-onmouseout"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onmouseover,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseover="test-onmouseover"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 <!--AttributeTest[onmouseup,null]-->
 
-      <button
+      <input
            class="af_commandButton"
            onclick="submitForm('formId',1,{source:'mainId'});return false;"
            onmouseup="test-onmouseup"
-           type="button"
+           type="submit"
+           value="ButtonText"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
           >
-        ButtonText
-      </button>
+        
+      </input>
 </results>

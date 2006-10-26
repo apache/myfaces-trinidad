@@ -3,27 +3,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[id,null]-->
 
@@ -31,27 +34,30 @@
            id="test-id"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[inlineStyle,null]-->
 
@@ -60,27 +66,30 @@
            style="test-inlineStyle"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[rendered,false]-->
 
@@ -90,27 +99,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[shortDesc,null]-->
 
@@ -119,27 +131,30 @@
            title="test-shortDesc"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[styleClass,null]-->
 
@@ -148,27 +163,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[halign,right]-->
 
@@ -176,27 +194,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[halign,start]-->
 
@@ -204,27 +225,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[halign,left]-->
 
@@ -232,27 +256,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[halign,end]-->
 
@@ -260,27 +287,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[halign,center]-->
 
@@ -288,27 +318,30 @@
            id="mainId"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onclick,null]-->
 
@@ -317,27 +350,30 @@
            onclick="test-onclick"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -346,27 +382,30 @@
            ondblclick="test-ondblclick"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -375,27 +414,30 @@
            onkeydown="test-onkeydown"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -404,27 +446,30 @@
            onkeypress="test-onkeypress"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -433,27 +478,30 @@
            onkeyup="test-onkeyup"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -462,27 +510,30 @@
            onmousedown="test-onmousedown"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -491,27 +542,30 @@
            onmousemove="test-onmousemove"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -520,27 +574,30 @@
            onmouseout="test-onmouseout"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -549,27 +606,30 @@
            onmouseover="test-onmouseover"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -578,26 +638,29 @@
            onmouseup="test-onmouseup"
           >
         
-        <button
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 1"
             >
-          button 1
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 2"
             >
-          button 2
-        </button>&#xa0;
-        <button
+          
+        </input>&#xa0;
+        <input
              class="af_commandButton"
              onclick="submitForm('formId',1,{source:'_idXXX'});return false;"
-             type="button"
+             type="submit"
+             value="button 3"
             >
-          button 3
-        </button>
+          
+        </input>
       </span>
 </results>

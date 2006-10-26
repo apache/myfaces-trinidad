@@ -22,14 +22,13 @@
           <td
               >
             
-            <input
+            <a
                  class="OraLink"
                  onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
-                 type="button"
-                 value="Next"
+                 href="uri-attr:encoded-action-url:#"
                 >
-              
-            </input>
+              Next
+            </a>
           </td>
         </tr>
       </table>
@@ -63,14 +62,13 @@
           <td
               >
             
-            <input
+            <a
                  class="OraLink"
                  onclick="_navBarSubmit('formId','goto','mainId',1,'2');return false"
-                 type="button"
-                 value="Next"
+                 href="uri-attr:encoded-action-url:#"
                 >
-              
-            </input>
+              Next
+            </a>
           </td>
         </tr>
       </table>
@@ -90,14 +88,13 @@
           <td
               >
             
-            <input
+            <a
                  class="OraLink"
                  onclick="_navBarSubmit('formId','goto','mainId',0,'4');return false"
-                 type="button"
-                 value="Back"
+                 href="uri-attr:encoded-action-url:#"
                 >
-              
-            </input>
+              Back
+            </a>
           </td>
           <td
               >
@@ -115,14 +112,13 @@
           <td
               >
             
-            <input
+            <a
                  class="OraLink"
                  onclick="_navBarSubmit('formId','goto','mainId',1,'6');return false"
-                 type="button"
-                 value="Next"
+                 href="uri-attr:encoded-action-url:#"
                 >
-              
-            </input>
+              Next
+            </a>
           </td>
         </tr>
       </table>
@@ -151,14 +147,13 @@
           <td
               >
             
-            <input
+            <a
                  class="OraLink"
                  onclick="_navBarSubmit('formId','goto','test-id',1,'2');return false"
-                 type="button"
-                 value="Next"
+                 href="uri-attr:encoded-action-url:#"
                 >
-              
-            </input>
+              Next
+            </a>
           </td>
         </tr>
       </table>
