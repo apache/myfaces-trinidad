@@ -24,7 +24,6 @@ import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/renderkit/core/xhtml/table/CellUtils.java#0 $) $Date: 10-nov-2005.19:02:33 $
@@ -75,7 +74,7 @@ public class CellUtils
       writer.writeAttribute(isRowSpan
                               ? XhtmlConstants.ROWSPAN_ATTRIBUTE
                               : XhtmlConstants.COLSPAN_ATTRIBUTE,
-                            IntegerUtils.getInteger(value),
+                            value,
                             null);
     }
   }

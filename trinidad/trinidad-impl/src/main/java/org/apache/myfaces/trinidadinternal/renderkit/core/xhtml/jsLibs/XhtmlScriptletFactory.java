@@ -105,8 +105,8 @@ public class XhtmlScriptletFactory
         new AliasedScriptlet(LOCALE_LIB, new String[]{
                               "getUserLanguage()",
                               "getJavaLanguage()",
-                              "Converter()", 
-                              "Validator()",
+                              "TrConverter()", 
+                              "TrValidator()",
                               "FastMessageFormatUtils()",
                               "isDigit()",
                               "parseDigit()",
@@ -158,11 +158,11 @@ public class XhtmlScriptletFactory
       new AliasedScriptlet(DATE_FORMAT_LIB,
                            new String[]
                            {
-                             "SimpleDateFormat()",
+                             "TrDateTimeConverter()",
                            },
                            new String[]
                            {
-                             "Converter()",
+                             "TrConverter()",
                              LocaleInfoScriptlet.LOCALE_INFO_KEY,
                              DateFormatInfoScriptlet.DATE_FORMAT_INFO_KEY,
                            });
@@ -170,13 +170,12 @@ public class XhtmlScriptletFactory
       new AliasedScriptlet(CORE_FORMAT_LIB,
                            new String[]
                            {
-                             "DecimalFormat()",
-                             "DecimalConvert()",
-                             "RegExpFormat()",
+                             "TrNumberConverter()",
+                             "TrRegExpValidator()",
                            },
                            new String[]
                            {
-                             "Converter()",
+                             "TrConverter()",
                              LocaleInfoScriptlet.LOCALE_INFO_KEY,
                            });
 
@@ -190,7 +189,7 @@ public class XhtmlScriptletFactory
                            },
                            new String[]
                            {
-                             "Validator()",
+                             "TrValidator()",
                            });
 
     _sShuttleScriptlet =
@@ -221,13 +220,13 @@ public class XhtmlScriptletFactory
       new AliasedScriptlet(COLOR_FORMAT_LIB,
                            new String[]
                            {
-                             "Color()",
+                             "TrColor()",
                              "ColorFormat()",
-                             "RGBColorFormat()",
+                             "TrColorConverter()",
                            },
                            new String[]
                            {
-                             "Converter()",
+                             "TrConverter()",
                              ColorFormatInfoScriptlet.COLOR_FORMAT_INFO_KEY,
                              LocaleInfoScriptlet.LOCALE_INFO_KEY,
                            });
@@ -240,7 +239,7 @@ public class XhtmlScriptletFactory
                            },
                            new String[]
                            {
-                             "SimpleDateFormat()",
+                             "TrDateTimeConverter()",
                            });
     _sDateFieldScriptlet =
       new AliasedScriptlet(DATE_FIELD_LIB,
@@ -268,7 +267,7 @@ public class XhtmlScriptletFactory
                            },
                            new String[]
                            {
-                             "RGBColorFormat()",
+                             "TrColorConverter()",
                            });
 
   }

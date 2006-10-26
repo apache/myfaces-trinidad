@@ -18,7 +18,7 @@
 // External variables used:
 //  _df2DYS: Sets the two-digit year start.
 
-var _AD_ERA = void 0;
+var _AD_ERA = null;
 
 
 function _getADEra()
@@ -32,185 +32,6 @@ function _getADEra()
   return _AD_ERA;
 }
 
-function _simpleDateFormat(
-  formatTime
-  )
-{
-  var stringHolder = new Object();
-  stringHolder.value ="";
-  
-  var pattern = this._pattern;
-  if (typeof pattern != "string")
-    pattern = pattern[0];
-    
-  _doClumping(pattern,
-              this._localeSymbols,
-              _subformat,
-              formatTime,
-              stringHolder);
-  
-  return stringHolder.value;
-}
-
-
-/**
- * Parses a String into a Date using the current object's pattern.  If the
- * parsing fails, undefined will be returned.
- */
-function _simpleDateParse(
-  parseString,
-  label
-  )
-{
-  // The following are from the javadoc for DateTimeConverter
-  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
-  // If the specified String - after trimming - has a zero length, return null.
-  if (parseString == null)
-    return null;
-    
-  parseString = TrUIUtils.trim(parseString);
-  if (parseString.length == 0)
-    return null
-
-  var pattern = this._pattern;
-  
-  var facesMessage = _createFacesMessage( this._msg_summary,
-                                          this._msg_detail,
-                                          label,
-                                          parseString,
-                                          this._exampleString);                                      
-  if (typeof pattern == "string")
-  {
-    return _simpleDateParseImpl(parseString,
-                                pattern,
-                                this._localeSymbols,
-                                facesMessage);
-  }
-  else
-  { 
-    var i;
-    for (i = 0; i < pattern.length; i++)
-    {
-      try{
-        var date = _simpleDateParseImpl(parseString,
-                                        pattern[i],
-                                        this._localeSymbols,
-                                        facesMessage);
-        return date;
-      }
-      catch (e)
-      {
-        // if we're not on the last pattern try the next one, 
-        // but if we're on the last pattern, throw the exception
-        if ( i == pattern.length-1 )
-          throw e;
-      }
-    }
-  }
-}
-
-function _simpleDateParseImpl(
-  parseString,
-  parsePattern,
-  localeSymbols,
-  msg)
-{
-  var parseContext = new Object();
-  parseContext.currIndex = 0;
-  parseContext.parseString = parseString;
-  parseContext.parsedHour = (void 0);
-  parseContext.parsedMinutes = (void 0);
-  parseContext.parsedSeconds = (void 0);
-  parseContext.parsedMilliseconds = (void 0);
-  parseContext.isPM = false;
-  parseContext.parsedBC = false;
-  parseContext.parsedFullYear = (void 0);
-  parseContext.parsedMonth = (void 0);
-  parseContext.parsedDate = (void 0);
-  parseContext.parseException = new TrConverterException( msg);
-
-  var parsedTime = new Date(0);
-  parsedTime.setDate(1);
-
-  // parse the time
-  if (_doClumping(parsePattern,
-                  localeSymbols,
-                  _subparse,
-                  parseContext,
-                  parsedTime))
-  {
-    if (parseString.length != parseContext.currIndex)
-    {
-      throw parseContext.parseException;
-    }
-
-    // Set the parsed year, if any;  adjust for AD vs. BC
-    var year = parseContext.parsedFullYear;
-    if (year != (void 0))
-    {
-      // convert year to BC
-      if (parseContext.parsedBC)
-      {
-        year = _getADEra().getFullYear() - year;
-      }
-
-      parsedTime.setFullYear(year);
-      parseContext.parsedFullYear = year;
-    }
-
-    // Set the parsed month, if any
-    var month = parseContext.parsedMonth;
-    if (month != (void 0))
-      parsedTime.setMonth(month);
-
-    // Set the parsed day-of-month, if any
-    var date = parseContext.parsedDate;
-    if (date != (void 0))
-      parsedTime.setDate(date);
-
-    // Set the parsed hour, if any.  Adjust for AM vs. PM
-    var hour = parseContext.parsedHour;
-    if (hour != (void 0))
-    {
-      if (parseContext.isPM && (hour < 12))
-      {
-        hour += 12;
-      }
-
-      parsedTime.setHours(hour);
-      parseContext.parsedHour = hour;
-    }
-
-    // Set the parsed minutes, if any
-    var minutes = parseContext.parsedMinutes;
-    if (minutes != (void 0))
-      parsedTime.setMinutes(minutes);
-
-    // Set the parsed seconds, if any
-    var seconds = parseContext.parsedSeconds;
-    if (seconds != (void 0))
-      parsedTime.setSeconds(seconds);
-
-    // Set the parsed milliseconds, if any
-    var milliseconds = parseContext.parsedMilliseconds;
-    if (milliseconds != (void 0))
-      parsedTime.setMilliseconds(milliseconds);
-
-    // so far we have done a lenient parse
-    // now we check for strictness
-    if (!_isStrict(parseContext, parsedTime))
-    {
-      throw parseContext.parseException;
-    }
-
-    return parsedTime;
-  }
-  else
-  {
-    // failure
-    throw parseContext.parseException;
-  }
-}
 
 /**
  * Determine whether the parsed time is a strictly parsed value.
@@ -1191,10 +1012,122 @@ function _getPaddedNumber(
 }
 
 
-function _initPatterns(
-  pattern)
+/**
+ * Construct a TrDateTimeConverter with the specifed date pattern for
+ * the specified locale.
+ */
+function TrDateTimeConverter(
+  pattern,  
+  locale,
+  msg_summary,
+  msg_detail,
+  exampleString
+  )
 {
 
+  // for debugging
+  this._class = "TrDateTimeConverter";
+  this._msg_summary = msg_summary;
+  this._msg_detail = msg_detail;
+  this._exampleString = exampleString;
+  
+  
+  // save the Locale elements for the specified locale, or client locale
+  // if no locale is specified
+  this._localeSymbols = getLocaleSymbols(locale);
+
+  // =-= bts need to change default pattern to match JDK
+  if (pattern == (void 0))
+    pattern = this._localeSymbols.getShortDatePatternString();
+
+  var patterns = this._initPatterns(pattern);
+
+  // Stash away the patterns for later use.
+  this._pattern = patterns;
+}
+
+TrDateTimeConverter.prototype = new TrConverter();
+TrDateTimeConverter.prototype.getAsString = function(
+  formatTime
+  )
+{
+
+  var stringHolder = new Object();
+  stringHolder.value ="";
+  
+  var pattern = this._pattern;
+  if (typeof pattern != "string")
+    pattern = pattern[0];
+    
+  _doClumping(pattern,
+              this._localeSymbols,
+              _subformat,
+              formatTime,
+              stringHolder);
+  
+  return stringHolder.value;
+}
+
+/**
+ * Parses a String into a Date using the current object's pattern.  If the
+ * parsing fails, undefined will be returned.
+ */
+TrDateTimeConverter.prototype.getAsObject  = function(
+  parseString,
+  label
+  )
+{
+  // The following are from the javadoc for DateTimeConverter
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (parseString == null)
+    return null;
+    
+  parseString = TrUIUtils.trim(parseString);
+  if (parseString.length == 0)
+    return null
+
+  var pattern = this._pattern;
+  
+  var facesMessage = _createFacesMessage( this._msg_summary,
+                                          this._msg_detail,
+                                          label,
+                                          parseString,
+                                          this._exampleString);                                      
+  if (typeof pattern == "string")
+  {
+    return this._simpleDateParseImpl(parseString,
+                                pattern,
+                                this._localeSymbols,
+                                facesMessage);
+  }
+  else
+  { 
+    var i;
+    for (i = 0; i < pattern.length; i++)
+    {
+      try{
+        var date = this._simpleDateParseImpl(parseString,
+                                        pattern[i],
+                                        this._localeSymbols,
+                                        facesMessage);
+        return date;
+      }
+      catch (e)
+      {
+        // if we're not on the last pattern try the next one, 
+        // but if we're on the last pattern, throw the exception
+        if ( i == pattern.length-1 )
+          throw e;
+      }
+    }
+  }
+}
+
+
+TrDateTimeConverter.prototype._initPatterns  = function(
+  pattern)
+{
   // We need to build up an Array of all acceptable patterns,
   // which we'll stash away for later use.  If we do lenient
   // parsing, then we may end up supporting a variety of patterns
@@ -1256,39 +1189,106 @@ function _initPatterns(
   return patterns;
 }
 
-/**
- * Construct a SimpleDateFormat with the specifed date pattern for
- * the specified locale.
- */
-function SimpleDateFormat(
-  pattern,  
-  locale,
-  msg_summary,
-  msg_detail,
-  exampleString
-  )
+TrDateTimeConverter.prototype._simpleDateParseImpl = function(
+  parseString,
+  parsePattern,
+  localeSymbols,
+  msg)
 {
-  // for debugging
-  this._class = "SimpleDateFormat";
-  this._msg_summary = msg_summary;
-  this._msg_detail = msg_detail;
-  this._exampleString = exampleString;
-  
-  
-  // save the Locale elements for the specified locale, or client locale
-  // if no locale is specified
-  this._localeSymbols = getLocaleSymbols(locale);
 
-  // =-= bts need to change default pattern to match JDK
-  if (pattern == (void 0))
-    pattern = this._localeSymbols.getShortDatePatternString();
+  var parseContext = new Object();
+  parseContext.currIndex = 0;
+  parseContext.parseString = parseString;
+  parseContext.parsedHour = (void 0);
+  parseContext.parsedMinutes = (void 0);
+  parseContext.parsedSeconds = (void 0);
+  parseContext.parsedMilliseconds = (void 0);
+  parseContext.isPM = false;
+  parseContext.parsedBC = false;
+  parseContext.parsedFullYear = (void 0);
+  parseContext.parsedMonth = (void 0);
+  parseContext.parsedDate = (void 0);
+  parseContext.parseException = new TrConverterException( msg);
 
-  var patterns = _initPatterns(pattern);
+  var parsedTime = new Date(0);
+  parsedTime.setDate(1);
 
-  // Stash away the patterns for later use.
-  this._pattern = patterns;
+  // parse the time
+  if (_doClumping(parsePattern,
+                  localeSymbols,
+                  _subparse,
+                  parseContext,
+                  parsedTime))
+  {
+    if (parseString.length != parseContext.currIndex)
+    {
+      throw parseContext.parseException;
+    }
+
+    // Set the parsed year, if any;  adjust for AD vs. BC
+    var year = parseContext.parsedFullYear;
+    if (year != (void 0))
+    {
+      // convert year to BC
+      if (parseContext.parsedBC)
+      {
+        year = _getADEra().getFullYear() - year;
+      }
+
+      parsedTime.setFullYear(year);
+      parseContext.parsedFullYear = year;
+    }
+
+    // Set the parsed month, if any
+    var month = parseContext.parsedMonth;
+    if (month != (void 0))
+      parsedTime.setMonth(month);
+
+    // Set the parsed day-of-month, if any
+    var date = parseContext.parsedDate;
+    if (date != (void 0))
+      parsedTime.setDate(date);
+
+    // Set the parsed hour, if any.  Adjust for AM vs. PM
+    var hour = parseContext.parsedHour;
+    if (hour != (void 0))
+    {
+      if (parseContext.isPM && (hour < 12))
+      {
+        hour += 12;
+      }
+
+      parsedTime.setHours(hour);
+      parseContext.parsedHour = hour;
+    }
+
+    // Set the parsed minutes, if any
+    var minutes = parseContext.parsedMinutes;
+    if (minutes != (void 0))
+      parsedTime.setMinutes(minutes);
+
+    // Set the parsed seconds, if any
+    var seconds = parseContext.parsedSeconds;
+    if (seconds != (void 0))
+      parsedTime.setSeconds(seconds);
+
+    // Set the parsed milliseconds, if any
+    var milliseconds = parseContext.parsedMilliseconds;
+    if (milliseconds != (void 0))
+      parsedTime.setMilliseconds(milliseconds);
+
+    // so far we have done a lenient parse
+    // now we check for strictness
+    if (!_isStrict(parseContext, parsedTime))
+    {
+      throw parseContext.parseException;
+    }
+
+    return parsedTime;
+  }
+  else
+  {
+    // failure
+    throw parseContext.parseException;
+  }
 }
-
-SimpleDateFormat.prototype = new TrConverter();
-SimpleDateFormat.prototype.getAsString = _simpleDateFormat;
-SimpleDateFormat.prototype.getAsObject  = _simpleDateParse;

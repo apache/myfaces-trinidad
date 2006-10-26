@@ -53,7 +53,7 @@ import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.AndBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.ComparisonBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.DefaultingBoundValue;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**

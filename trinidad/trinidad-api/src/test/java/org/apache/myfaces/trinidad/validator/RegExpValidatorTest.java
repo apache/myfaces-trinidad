@@ -185,7 +185,7 @@ public class RegExpValidatorTest extends ValidatorTestCase
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
 
     validator.setPattern("TestSaveRestore");
-    validator.setNoMatchMessageDetail("\"{0}\" in \"{1}\" failed!! {4}");
+    validator.setMessageDetailNoMatch("\"{0}\" in \"{1}\" failed!! {4}");
     RegExpValidator restoreValidator = new  RegExpValidator();
 
     doTestStateHolderSaveRestore(validator, restoreValidator,
@@ -203,9 +203,9 @@ public class RegExpValidatorTest extends ValidatorTestCase
     assertEquals(validator.hashCode(), otherValidator.hashCode());
 
     validator.setPattern("[0-9]");
-    validator.setNoMatchMessageDetail("\"{0}\" in \"{1}\" failed!! {4}");
+    validator.setMessageDetailNoMatch("\"{0}\" in \"{1}\" failed!! {4}");
     otherValidator.setPattern("[0-9]");
-    otherValidator.setNoMatchMessageDetail("\"{0}\" in \"{1}\" failed!! {4}");
+    otherValidator.setMessageDetailNoMatch("\"{0}\" in \"{1}\" failed!! {4}");
     doTestEquals(validator, otherValidator, true);
     assertEquals(validator.hashCode(), otherValidator.hashCode());
 
@@ -223,7 +223,7 @@ public class RegExpValidatorTest extends ValidatorTestCase
     RegExpValidator validator = new RegExpValidator();
 
     validator.setPattern("[0-9]*");
-    validator.setNoMatchMessageDetail("\"{0}\" in \"{1}\" failed!! {4}");
+    validator.setMessageDetailNoMatch("\"{0}\" in \"{1}\" failed!! {4}");
     //some very basic sanity test
 
     try

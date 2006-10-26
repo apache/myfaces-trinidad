@@ -58,7 +58,7 @@
            </ul>
           </p></html>]]>
       </description>
-      <property-name>convertCurrencyMessageDetail</property-name>
+      <property-name>messageDetailConvertCurrency</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
@@ -88,7 +88,7 @@
           </ul>
          </p></html>]]>
       </description>
-      <property-name>convertNumberMessageDetail</property-name>
+      <property-name>messageDetailConvertNumber</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
@@ -120,7 +120,7 @@
           </ul>
          </p></html>]]>
       </description>
-      <property-name>convertPatternMessageDetail</property-name>
+      <property-name>messageDetailConvertPattern</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
@@ -151,7 +151,7 @@
           </ul>
          </p></html>]]>
       </description>
-      <property-name>convertPercentMessageDetail</property-name>
+      <property-name>messageDetailConvertPercent</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>

@@ -27,7 +27,6 @@ import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelPageHeader;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.render.CoreRenderer;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -175,7 +174,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
     if ((rowSpan != 0) || (brandingCount > 0))
     {
       Integer rowSpanObject = (rowSpan > 1)
-                                ? IntegerUtils.getInteger(rowSpan)
+                                ? rowSpan
                                 : null;
 
       writer.startElement("tr", null);
@@ -459,7 +458,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
       writer.startElement("td", null);
 
       if (colSpan > 1)
-        writer.writeAttribute("colspan", IntegerUtils.getInteger(colSpan), null);
+        writer.writeAttribute("colspan", colSpan, null);
 
       writer.writeAttribute("width",
                             "100%", null);
@@ -491,7 +490,7 @@ public class DesktopPanelPageHeaderRenderer extends XhtmlRenderer
                           "100%", null);
 
     if (colSpan > 1)
-      writer.writeAttribute("colspan", IntegerUtils.getInteger(colSpan), null);
+      writer.writeAttribute("colspan", colSpan, null);
 
     writer.startElement("table", null);
     OutputUtils.renderLayoutTableAttributes(context, arc,

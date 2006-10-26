@@ -30,7 +30,7 @@ import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
 
 import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * @todo Do we need to incorporate bug 2669974???
@@ -181,7 +181,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
         if (intCol > _MAX_COLUMNS)
         {
           intCol = _MAX_COLUMNS;
-          columns = IntegerUtils.getInteger(intCol);
+          columns = intCol;
         }
       }
     }
@@ -198,7 +198,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     {
       Object rows = getRows(bean);
       if (rows == null)
-        rows = IntegerUtils.getInteger(getDefaultRows());
+        rows = getDefaultRows();
       else
       {
         if (rows instanceof Number)
@@ -208,7 +208,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
           int intRow = ((Number) rows).intValue();
           if (intRow > _MAX_ROWS)
           {
-            rows = IntegerUtils.getInteger(_MAX_ROWS);
+            rows = _MAX_ROWS;
           }
         }
       }
@@ -492,7 +492,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
           colAdjust = 1;
         }
           
-        columns = IntegerUtils.getInteger((int) colAdjust);
+        columns = (int) colAdjust;
       }
     }
     

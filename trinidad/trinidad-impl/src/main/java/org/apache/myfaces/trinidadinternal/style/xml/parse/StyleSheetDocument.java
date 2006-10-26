@@ -31,7 +31,7 @@ import java.util.List;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 import java.util.Comparator;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 

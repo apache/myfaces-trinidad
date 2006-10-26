@@ -24,10 +24,7 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.skin.Icon;
 
 
@@ -362,7 +359,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
       else
         size = sizeNumber.intValue() + 1;
         
-      setContextHeaderSize(arc, IntegerUtils.getInteger(size));
+      setContextHeaderSize(arc, size);
       return size;
     }
   }

@@ -159,7 +159,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * Overrides detail message identified by message id {@link #MAXIMUM_MESSAGE_ID}
    * @param maximumMessageDetail Custom error message.
    */
-  public void setMaximumMessageDetail(String maximumMessageDetail)
+  public void setMessageDetailMaximum(String maximumMessageDetail)
   {
     _facesBean.setProperty(_MAXIMUM_MESSAGE_DETAIL_KEY, maximumMessageDetail);
   }
@@ -170,7 +170,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
    * @return Custom error message.
    * @see  #setMaximumMessageDetail(String)
    */
-  public String getMaximumMessageDetail()
+  public String getMessageDetailMaximum()
   {
     Object obj = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(obj);
@@ -296,8 +296,8 @@ public class ByteLengthValidator  implements StateHolder, Validator
       ByteLengthValidator other = (ByteLengthValidator) object;
       String encoding = getEncoding();
       String otherEncoding = other.getEncoding();
-      String otherMsgMaxDet = other.getMaximumMessageDetail();
-      String msgMaxDet = getMaximumMessageDetail();
+      String otherMsgMaxDet = other.getMessageDetailMaximum();
+      String msgMaxDet = getMessageDetailMaximum();
 
       if ( this.isTransient() == other.isTransient() &&
             ValidatorUtils.equals(encoding, otherEncoding) &&
@@ -319,7 +319,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
   public int hashCode()
   {
     int result = 17;
-    String maximumMsgDet = getMaximumMessageDetail();
+    String maximumMsgDet = getMessageDetailMaximum();
     String encoding = getEncoding();
     result = 37 * result + (encoding == null? 0 : encoding.hashCode());
     result = 37 * result + (_isTransient ? 0 : 1);
@@ -369,7 +369,7 @@ public class ByteLengthValidator  implements StateHolder, Validator
     _TYPE.registerKey("maximumBytes", int.class, 0);
 
   private static final PropertyKey  _MAXIMUM_MESSAGE_DETAIL_KEY =
-    _TYPE.registerKey("maximumMessageDetail", String.class);
+    _TYPE.registerKey("messageDetailMaximum", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

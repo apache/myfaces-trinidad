@@ -20,20 +20,14 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.List;
 
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.share.text.ColorFormat;
 import org.apache.myfaces.trinidadinternal.share.text.RGBColorFormat;
-
 import org.apache.myfaces.trinidadinternal.share.xml.NamespaceURI;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-
 import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
 
@@ -123,7 +117,7 @@ public final class Coercions
         Integer[] ints = new Integer[array.length];
         for (int i = 0; i < array.length; i++)
         {
-          ints[i] = IntegerUtils.getInteger(Integer.parseInt(array[i]));
+          ints[i] = Integer.parseInt(array[i]);
         }
 
         return ints;
@@ -385,12 +379,12 @@ public final class Coercions
       }
       else if (value instanceof Number)
       {
-        return IntegerUtils.getInteger(((Number)value).intValue());
+        return ((Number)value).intValue();
       }
       else
       {
         int intValue = Integer.parseInt(value.toString());
-        return IntegerUtils.getInteger(intValue);
+        return intValue;
       }
     }
 

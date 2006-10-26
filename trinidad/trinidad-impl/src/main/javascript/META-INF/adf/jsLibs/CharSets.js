@@ -14,28 +14,36 @@
  * limitations under the License.
  */
 
-/*
-**Test
-*/
-
-function EncodingFormat(
+function TrByteLengthValidator(
   length,
   messages
   )
 {
   this._length   = length;
   this._messages = messages;
-  this._class    = "EncodingFormat";
+  this._class    = "TrByteLengthValidator";
 }
 
-EncodingFormat.prototype = new TrValidator();
+TrByteLengthValidator.prototype = new TrValidator();
 
 //LFS - Length failed summary
-EncodingFormat.prototype.LFS  = "LFS";
+TrByteLengthValidator.prototype.LFS  = "LFS";
 //LF - Length failed
-EncodingFormat.prototype.LF  = "LF";
+TrByteLengthValidator.prototype.LF  = "LF";
 
-function _cjkParse(
+function CjkFormat(
+  length,
+  messages
+  )
+{
+  this._base = TrByteLengthValidator;
+  this._base(length, messages);
+  this._class = "CjkFormat";
+  
+}
+
+CjkFormat.prototype = new TrByteLengthValidator();
+CjkFormat.prototype.validate  = function(
   parseString,
   label
   )
@@ -65,22 +73,21 @@ function _cjkParse(
 }
 
 
-function CjkFormat(
+
+
+function Utf8Format(
   length,
   messages
   )
 {
-  this._base = EncodingFormat;
+  this._base = TrByteLengthValidator;
   this._base(length, messages);
-  this._class = "CjkFormat";
-  
+  this._class = "Utf8Format";
 }
 
 
-CjkFormat.prototype = new EncodingFormat();
-CjkFormat.prototype.validate  = _cjkParse;
-
-function _utf8Parse(
+Utf8Format.prototype = new TrByteLengthValidator();
+Utf8Format.prototype.validate  = function(
   parseString,
   label
   )
@@ -117,24 +124,20 @@ function _utf8Parse(
   return parseString;
 }
 
-
-function Utf8Format(
+function SBFormat(
   length,
   messages
   )
 {
-  this._base = EncodingFormat;
+  this._base = TrByteLengthValidator;
   this._base(length, messages);
-  this._class = "Utf8Format";
+  this._class = "SBFormat";
+  
 }
 
 
-Utf8Format.prototype = new EncodingFormat();
-Utf8Format.prototype.validate  = _utf8Parse;
-
-
-
-function _sbParse(
+SBFormat.prototype = new TrByteLengthValidator();
+SBFormat.prototype.validate  = function(
   parseString,
   label
   )
@@ -150,21 +153,3 @@ function _sbParse(
 
   return parseString;
 }
-
-
-function SBFormat(
-  length,
-  messages
-  )
-{
-  this._base = EncodingFormat;
-  this._base(length, messages);
-  this._class = "SBFormat";
-  
-}
-
-
-SBFormat.prototype = new EncodingFormat();
-SBFormat.prototype.validate  = _sbParse;
-
-

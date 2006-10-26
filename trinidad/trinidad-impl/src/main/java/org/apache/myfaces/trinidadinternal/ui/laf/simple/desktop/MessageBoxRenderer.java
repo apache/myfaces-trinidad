@@ -22,13 +22,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidad.skin.Skin;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * MessageBox Renderer for the desktop implementation of the
@@ -316,7 +314,7 @@ public class MessageBoxRenderer
     if (bodyColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(bodyColumnCount);
+    return bodyColumnCount;
   }
 
   // Returns the number of columns for the bottom background cell
@@ -336,7 +334,7 @@ public class MessageBoxRenderer
     if (backgroundColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(backgroundColumnCount);
+    return backgroundColumnCount;
   }
 
   // Returns the number of columns for the top background cell
@@ -356,7 +354,7 @@ public class MessageBoxRenderer
     if (backgroundColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(backgroundColumnCount);
+    return backgroundColumnCount;
   }
 
   // Get the IconData to use for rendering this sideBar

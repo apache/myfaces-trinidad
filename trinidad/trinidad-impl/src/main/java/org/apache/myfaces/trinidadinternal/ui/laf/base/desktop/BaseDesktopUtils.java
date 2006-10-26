@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
@@ -75,7 +73,7 @@ public class BaseDesktopUtils extends XhtmlLafUtils
     {
       // Initialize the NameAndAgentScorer for base/desktop
       super(lafName,
-            IntegerUtils.getInteger(TrinidadAgent.TYPE_DESKTOP),
+            TrinidadAgent.TYPE_DESKTOP,
             null,
             null,
             null);

@@ -183,10 +183,11 @@ public class ConverterUtils
     String minId,
     String defaultId,
     String maxVal,
-    String minVal)
+    String minVal,
+    String type)
   {
     return _getClientConversion(context, component, maxId, minId, defaultId,
-                                maxVal, minVal, false);
+                                maxVal, minVal, false, type);
   }
 
   public static String getClientConversion(
@@ -199,7 +200,7 @@ public class ConverterUtils
     String minVal)
   {
     return _getClientConversion(context, component, maxId, minId, defaultId,
-                                maxVal, minVal, true);
+                                maxVal, minVal, true, null);
   }
 
   private static String _getClientConversion(
@@ -210,14 +211,15 @@ public class ConverterUtils
     String defaultId,
     String maxVal,
     String minVal,
-    boolean isConverter)
+    boolean isConverter,
+    String validatorType)
   {
     StringBuffer outBuffer = new StringBuffer(250);
 
     if (isConverter)
-      outBuffer.append("new NumberConverter(");
+      outBuffer.append("new TrNumberConverter(");
     else
-      outBuffer.append("new DecimalValidator(");
+      outBuffer.append("new " + validatorType + "(");
 
     outBuffer.append("{LV:'");
     FacesMessage maxMessage =
@@ -267,7 +269,7 @@ public class ConverterUtils
   {
     StringBuffer outBuffer = new StringBuffer(250);
 
-      outBuffer.append("new NumberConverter(");
+      outBuffer.append("new TrNumberConverter(");
 
     outBuffer.append("{D:'");
 

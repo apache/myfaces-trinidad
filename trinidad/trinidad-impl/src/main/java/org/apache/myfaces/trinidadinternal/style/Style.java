@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidadinternal.style;
 
 import java.util.Iterator;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 /**
  * A Style object defines a set of visual (or aural) style properties.
  * The Style interface exposes two method for retrieving properties:
@@ -97,22 +95,22 @@ public interface Style
   /**
    * Constant for plain font style.
    */
-  public static final Object PLAIN_FONT_STYLE  = IntegerUtils.getInteger(0);
+  public static final Object PLAIN_FONT_STYLE  = 0;
 
   /**
    * Constant for italic font style.
    */
-  public static final Object ITALIC_FONT_STYLE = IntegerUtils.getInteger(1);
+  public static final Object ITALIC_FONT_STYLE = 1;
 
   /**
    * Constant for plain font weight.
    */
-  public static final Object PLAIN_FONT_WEIGHT = IntegerUtils.getInteger(0);
+  public static final Object PLAIN_FONT_WEIGHT = 0;
 
   /**
    * Constant for bold font weight.
    */
-  public static final Object BOLD_FONT_WEIGHT  = IntegerUtils.getInteger(1);
+  public static final Object BOLD_FONT_WEIGHT  = 1;
 
   /**
    * Returns the names of the properties defined by this style.

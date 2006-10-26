@@ -35,7 +35,7 @@ function _cfsw(
   var value = null;
   var swatch = _getElementById(document, swatchID);
 
-  if (swatch != (void 0))
+  if (swatch != null)
   {
     var converterError = false;
     if (colorField.value != "")
@@ -53,14 +53,14 @@ function _cfsw(
     {
       if (value.alpha == 0)
       {
-        swatch.style.backgroundColor = (void 0);
+        swatch.style.backgroundColor = null;
         swatch.src = _cfTransIconURL;
         swatch.alt = _cfTrans;
       }
       else
       {
         swatch.style.backgroundColor = 
-          new RGBColorFormat("#RRGGBB").getAsString(value);
+          new TrColorConverter("#RRGGBB").getAsString(value);
         swatch.src = _cfOpaqueIconURL;
         swatch.alt = cff.getAsString(value);
       }
@@ -69,7 +69,7 @@ function _cfsw(
     {
       swatch.style.backgroundColor = _cfBgColor;
       swatch.src = _cfOpaqueIconURL;
-      swatch.alt = (void 0);
+      swatch.alt = null;
     }
 
     // make sure tooltips are updated correctly
@@ -90,7 +90,7 @@ function _returnColorPickerValue(
   var colorField = closingWindow._colorField;
 
   // See below!
-  if (colorField == (void 0))
+  if (colorField == null)
   {
     colorField = _savedColorField1879034;
   }
@@ -114,7 +114,7 @@ function _cfUpdate(
   colorField,
   newColor)
 {
-  if (colorField != (void 0))
+  if (colorField != null)
   {
     //
     // get the format to use to format the result
@@ -134,7 +134,7 @@ function _cfUpdate(
 
     //pu: In case of blank selection from external picker, undefined newValue is 
     // legitimate, but "undefined" should not literally appear in the text area.
-    if (newValue == (void 0))
+    if (newValue == null)
       newValue="";
 
     if (newValue != colorField.value)
@@ -144,7 +144,7 @@ function _cfUpdate(
       // with only color swatch displayed
       // bug 2275982
       // trigger onchange programatically
-      if (colorField.onchange != (void 0))
+      if (colorField.onchange != null)
       {
         // The IE event delivery mechanism for built-in events like onchange
         // automatically sets the window.event property for inspection by
@@ -268,7 +268,7 @@ function _lcp(
   
   var patterns = _cfs[nameInForm];
   var pattern = "#RRGGBB"
-  if (patterns != (void 0))
+  if (patterns != null)
   {
     destination += "&pattern=";
     if (typeof patterns == "string")
@@ -298,7 +298,7 @@ function _lcp(
         if (color.alpha == 0)
           destination += escape(_cfTrans);
         else
-          destination += escape(new RGBColorFormat(pattern).getAsString(color));
+          destination += escape(new TrColorConverter(pattern).getAsString(color));
       }
     }
     catch (e)
@@ -308,7 +308,7 @@ function _lcp(
   }
 
   var allowsTransparent = _cfts[nameInForm];
-  if (allowsTransparent != (void 0))
+  if (allowsTransparent != null)
   {
     destination += "&allowsTransparent=" + allowsTransparent;
   }
@@ -327,7 +327,7 @@ function _lcp(
                              'colorDialog',
                              {width:430, height:230},
                              true,
-                             void 0,
+                             null,
                              _returnColorPickerValue);
   
   // save the date field on the calendar window for access

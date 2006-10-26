@@ -99,15 +99,15 @@
                 <f:facet name="help">
                   <tr:outputText value="examples of values that will fail validation: '4' or '7'"/>
                 </f:facet>
-                <f:validateLongRange minimum="5" maximum="6"/>
+                <tr:validateLongRange minimum="5" maximum="6"/>
               </tr:inputText> 
-              <!--tr:inputText value="#{clientValidation.double3}"
+              <tr:inputText value="#{clientValidation.double3}"
                             label="double range validator">
                 <f:facet name="help">
-                  <tr:outputText value="examples of values that will fail validation: '4' or '7'"/>
+                  <tr:outputText value="examples of values that will fail validation: '5.1' or '6.8'"/>
                 </f:facet>
-                <f:validateDoubleRange minimum="5.2" maximum="6.7"/>
-              </tr:inputText-->
+                <tr:validateDoubleRange minimum="5.2" maximum="6.7"/>
+              </tr:inputText>
               <tr:inputText value="#{clientValidation.regExpValue}"
                             label="reg exp validator">
                 <f:facet name="help">
@@ -115,13 +115,13 @@
                 </f:facet>
                 <tr:validateRegExp pattern="[9]"/>
               </tr:inputText>  
-              <!--tr:inputText value="#{clientValidation.lengthValue}"
+              <tr:inputText value="#{clientValidation.lengthValue}"
                             label="length validator">
                 <f:facet name="help">
                   <tr:outputText value="values longer than 4 will fail, for example: '44444444' or 'Seven'"/>
                 </f:facet>
-                <f:validateLength maximum="4"/>
-              </tr:inputText--> 
+                <tr:validateLength maximum="4"/>
+              </tr:inputText> 
               <tr:inputText value="#{clientValidation.byteLengthValue}"
                             label="byte length validator">
                 <f:facet name="help">
@@ -129,14 +129,14 @@
                 </f:facet>
                 <tr:validateByteLength encoding="ISO-8859-1" maximum="4"/>
               </tr:inputText>              
-              <!--tr:inputText value="#{clientValidation.date}"
+              <tr:inputText value="#{clientValidation.date}"
                             label="date range validator">
                 <f:facet name="help">
                   <tr:outputText value="examples of values that will fail validation: 11-11-11"/>
                 </f:facet>
                 <tr:validateDateTimeRange minimum="2004-11-16"
                                           maximum="2004-12-16"/>
-              </tr:inputText-->
+              </tr:inputText>
             </tr:panelFormLayout>
             <tr:panelHeader text="Required"/>
             <tr:spacer height="10"/>

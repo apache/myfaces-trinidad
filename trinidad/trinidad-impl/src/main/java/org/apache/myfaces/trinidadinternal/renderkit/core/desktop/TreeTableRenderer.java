@@ -53,7 +53,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableN
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeTableRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
 import org.apache.myfaces.trinidad.skin.Icon;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * Renderer for treeTable

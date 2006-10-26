@@ -159,10 +159,10 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
       try
       {
          // ADF Converter is not lenient.
-         converter.setConvertNumberMessageDetail(customMessage[0]);
-         converter.setConvertPercentMessageDetail(customMessage[1]);
-         converter.setConvertCurrencyMessageDetail(customMessage[2]);
-         converter.setConvertPatternMessageDetail(customMessage[3]);
+         converter.setMessageDetailConvertNumber(customMessage[0]);
+         converter.setMessageDetailConvertPercent(customMessage[1]);
+         converter.setMessageDetailConvertCurrency(customMessage[2]);
+         converter.setMessageDetailConvertPattern(customMessage[3]);
 
          if ("pattern".equals(types[i]))
             converter.setPattern("##.000");

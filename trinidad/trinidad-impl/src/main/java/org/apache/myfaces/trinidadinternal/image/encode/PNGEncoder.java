@@ -29,7 +29,7 @@ import java.util.zip.CRC32;
 import java.util.zip.DeflaterOutputStream;
 
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
 
@@ -115,13 +115,13 @@ final class PNGEncoder
           {
             // Put the transparent color at index zero.
             // Put the old zero index color at the current index.
-            colors.put(color, IntegerUtils.getInteger(0));
-            colors.put(firstColor, IntegerUtils.getInteger(count));
+            colors.put(color, 0);
+            colors.put(firstColor, count);
             transparentColor = color;
           }
           else
           {
-            colors.put(color, IntegerUtils.getInteger(count));
+            colors.put(color, count);
           }
 
           count++;

@@ -125,5 +125,5 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
 
   private static final String _BYTE_MAX = Byte.toString(Byte.MAX_VALUE);
   private static final String _BYTE_MIN = Byte.toString(Byte.MIN_VALUE);
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 }

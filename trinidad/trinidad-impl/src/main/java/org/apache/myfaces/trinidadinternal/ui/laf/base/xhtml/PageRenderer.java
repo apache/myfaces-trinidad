@@ -20,13 +20,12 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 
 import org.apache.myfaces.trinidad.component.UIXPage;
-
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
 import org.apache.myfaces.trinidadinternal.ui.MutableUINode;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.collection.UINodeList;
 import org.apache.myfaces.trinidadinternal.ui.composite.ContextPoppingUINode;
@@ -37,7 +36,6 @@ import org.apache.myfaces.trinidadinternal.ui.composite.UINodeRenderer;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.NotBoundValue;
 import org.apache.myfaces.trinidadinternal.ui.data.bind.OrBoundValue;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -82,13 +80,13 @@ public class PageRenderer extends UINodeRenderer
                   new BaseMutableUINode(UIConstants.MARLIN_NAMESPACE,
                                         UIConstants.PAGE_MENU_TABS_NAME);
     menuTabs.setAttributeValue(UIConstants.LEVEL_ATTR,
-                               IntegerUtils.getInteger(1));
+                               1);
     pageLayout.setNamedChild(UIConstants.NAVIGATION1_CHILD, menuTabs);
     MutableUINode menuBar =
                   new BaseMutableUINode(UIConstants.MARLIN_NAMESPACE,
                                         UIConstants.PAGE_MENU_BAR_NAME);
     menuBar.setAttributeValue(UIConstants.LEVEL_ATTR,
-                              IntegerUtils.getInteger(2));
+                              2);
     pageLayout.setNamedChild(UIConstants.NAVIGATION2_CHILD, menuBar);
 
     // add the tree
@@ -97,7 +95,7 @@ public class PageRenderer extends UINodeRenderer
                   new BaseMutableUINode(UIConstants.MARLIN_NAMESPACE,
                                         UIConstants.PAGE_NAVIGATION_TREE_NAME);
     navigationTree.setAttributeValue(UIConstants.START_LEVEL_ATTR,
-                              IntegerUtils.getInteger(3));
+                              3);
 
     BoundValue treeRenderedBV = new HasDataBoundValue(
                                   RootBoundValue.getBoundValue(), 3, true);
@@ -121,7 +119,7 @@ public class PageRenderer extends UINodeRenderer
                   new BaseMutableUINode(UIConstants.MARLIN_NAMESPACE,
                                         UIConstants.PAGE_MENU_LIST_NAME);
     menuList.setAttributeValue(UIConstants.LEVEL_ATTR,
-                              IntegerUtils.getInteger(3));
+                              3);
     BoundValue listRenderedBV = new HasDataBoundValue(
                                   RootBoundValue.getBoundValue(), 3, false);
     menuList.setAttributeValue(UIConstants.RENDERED_ATTR, listRenderedBV);

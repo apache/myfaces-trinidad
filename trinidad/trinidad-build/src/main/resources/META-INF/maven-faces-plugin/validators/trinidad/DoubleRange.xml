@@ -19,27 +19,21 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
   <validator>
     <description><![CDATA[Validate that the date entered is within a given range.]]></description>
-    <display-name>validateDateTimeRange</display-name>
-    <validator-id>org.apache.myfaces.trinidad.DateTimeRange</validator-id>
-    <validator-class>org.apache.myfaces.trinidadinternal.validator.DateTimeRangeValidator</validator-class>
+    <display-name>validateDoubleRange</display-name>
+    <validator-id>org.apache.myfaces.trinidad.DoubleRange</validator-id>
+    <validator-class>org.apache.myfaces.trinidadinternal.validator.DoubleRangeValidator</validator-class>
     <property>
-      <description><![CDATA[the maximum java.util.Date.
-           ISO 8601 date strings, of the form 'yyyy-MM-dd'
-           (for example 2004-06-22) is also allowed.
-           This will be parsed to date.]]>
+      <description><![CDATA[the maximum .]]>
       </description>
       <property-name>maximum</property-name>
-      <property-class>java.util.Date</property-class>
+      <property-class>double</property-class>
       <property-extension/>
     </property>
     <property>
-      <description><![CDATA[The minimum java.util.Date.
-           ISO 8601 date strings, of the form 'yyyy-MM-dd'
-           (for example 2004-06-22) are also allowed.
-           This will be parsed to date.]]>
+      <description><![CDATA[The minimum .]]>
       </description>
       <property-name>minimum</property-name>
-      <property-class>java.util.Date</property-class>
+      <property-class>double</property-class>
       <property-extension>
         <mfp:property-metadata>
           <mfp:preferred>true</mfp:preferred>
@@ -144,8 +138,8 @@
       </property-extension>
     </property>
     <validator-extension>
-      <mfp:tag-name>tr:validateDateTimeRange</mfp:tag-name>
-      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDateTimeRangeTag</mfp:tag-class>
+      <mfp:tag-name>tr:validateDoubleRange</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDoubleRangeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
 
         Validate that the date entered is within a given range.
@@ -153,7 +147,7 @@
       <mfp:example>
         <mfp:source-code><![CDATA[<tr:inputDate id="mdf3" value="#{date.date3}"
                                label="max validator">
-  <tr:validateDateTimeRange maximum="#{date.maxDate}"/>
+  <tr:validateDoubleRange maximum="#{date.maxDate}"/>
 </tr:inputDate>
 
 <tr:inputDate id="mdf3" value="2004-11-25"
@@ -162,15 +156,15 @@
   <tr:convertDateTime pattern="yyyy-MM-dd"/>
 
   <!-- Supports ISO date format strings of the form "yyyy-MM-dd" -->
-  <tr:validateDateTimeRange
+  <tr:validateDoubleRange
        minimum="2004-11-16"
        maximum="2004-12-16"
-       messageDetailNotInRange="Date &quot;{1}&quot; does not fall within the range {2} : {3}"/>
+       notInRangeMessageDetail="Date &quot;{1}&quot; does not fall within the range {2} : {3}"/>
 </tr:inputDate>]]>
         </mfp:source-code>
       </mfp:example>
-      <mfp:author>Gabrielle Crawford</mfp:author>
-      <mfp:uix2-local-name>validateDateTimeRange</mfp:uix2-local-name>
+      <mfp:author>Matthias Wessendorf</mfp:author>
+      <mfp:uix2-local-name>validateDoubleRange</mfp:uix2-local-name>
     </validator-extension>
   </validator>
 </faces-config>

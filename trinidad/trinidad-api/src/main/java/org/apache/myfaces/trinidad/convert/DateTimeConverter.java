@@ -349,7 +349,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   * @param convertDateMessageDetail custom error message.
   *
   */
-  public void setConvertDateMessageDetail(String convertDateMessageDetail)
+  public void setMessageDetailConvertDate(String convertDateMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_DATE_MESSAGE_DETAIL_KEY, convertDateMessageDetail);
   }
@@ -362,7 +362,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setConvertDateMessageDetail(String)
    */
-  public String getConvertDateMessageDetail()
+  public String getMessageDetailConvertDate()
   {
     Object msg = _facesBean.getProperty(_CONVERT_DATE_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -375,7 +375,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * Overrides detail message identified by message id {@link #CONVERT_TIME_MESSAGE_ID}
    * @param convertTimeMessageDetail custom error message.
    */
-  public void setConvertTimeMessageDetail(String convertTimeMessageDetail)
+  public void setMessageDetailConvertTime(String convertTimeMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_TIME_MESSAGE_DETAIL_KEY, convertTimeMessageDetail);
   }
@@ -387,7 +387,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.</p>
    * @see #setConvertTimeMessageDetail(java.lang.String)
    */
-  public String getConvertTimeMessageDetail()
+  public String getMessageDetailConvertTime()
   {
     Object msg =_facesBean.getProperty(_CONVERT_TIME_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -401,7 +401,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @param convertBothMessageDetail custom error message.
    * @see #CONVERT_BOTH_MESSAGE_ID
    */
-  public void setConvertBothMessageDetail(String convertBothMessageDetail)
+  public void setMessageDetailConvertBoth(String convertBothMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_BOTH_MESSAGE_DETAIL_KEY, convertBothMessageDetail);
   }
@@ -413,7 +413,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
    * @return custom error message that was set.
    * @see #setConvertBothMessageDetail(java.lang.String)
    */
-  public String getConvertBothMessageDetail()
+  public String getMessageDetailConvertBoth()
   {
      Object msg = _facesBean.getProperty(_CONVERT_BOTH_MESSAGE_DETAIL_KEY);
      return ComponentUtils.resolveString(msg);
@@ -941,12 +941,12 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
            && ConverterUtils.equals(getTimeZone(), other.getTimeZone())
            && ConverterUtils.equals(getType(), other.getType())
            && ConverterUtils.equals(getSecondaryPattern(), other.getSecondaryPattern())
-           && ConverterUtils.equals(getConvertDateMessageDetail(),
-                                    other.getConvertDateMessageDetail())
-           && ConverterUtils.equals(getConvertTimeMessageDetail(),
-                                    other.getConvertTimeMessageDetail())
-           && ConverterUtils.equals(getConvertBothMessageDetail(),
-                                    other.getConvertBothMessageDetail())
+           && ConverterUtils.equals(getMessageDetailConvertDate(),
+                                    other.getMessageDetailConvertDate())
+           && ConverterUtils.equals(getMessageDetailConvertTime(),
+                                    other.getMessageDetailConvertTime())
+           && ConverterUtils.equals(getMessageDetailConvertBoth(),
+                                    other.getMessageDetailConvertBoth())
          )
       {
         return true;
@@ -971,9 +971,9 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     result = result * 37 + _getHashValue(getTimeZone());
     result = result * 37 + _getHashValue(getType());
     result = result * 37 + _getHashValue(getSecondaryPattern());
-    result = result * 37 + _getHashValue(getConvertDateMessageDetail());
-    result = result * 37 + _getHashValue(getConvertTimeMessageDetail());
-    result = result * 37 + _getHashValue(getConvertBothMessageDetail());
+    result = result * 37 + _getHashValue(getMessageDetailConvertDate());
+    result = result * 37 + _getHashValue(getMessageDetailConvertTime());
+    result = result * 37 + _getHashValue(getMessageDetailConvertBoth());
     return result;
   }
 
@@ -1696,13 +1696,13 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     = _TYPE.registerKey("type", String.class, "date");
 
   private static final PropertyKey _CONVERT_DATE_MESSAGE_DETAIL_KEY
-    = _TYPE.registerKey("convertDateMessageDetail", String.class);
+    = _TYPE.registerKey("messageDetailConvertDate", String.class);
 
   private static final PropertyKey _CONVERT_TIME_MESSAGE_DETAIL_KEY
-    = _TYPE.registerKey("convertTimeMessageDetail", String.class);
+    = _TYPE.registerKey("messageDetailConvertTime", String.class);
 
   private static final PropertyKey _CONVERT_BOTH_MESSAGE_DETAIL_KEY
-    = _TYPE.registerKey("convertBothMessageDetail", String.class);
+    = _TYPE.registerKey("messageDetailConvertBoth", String.class);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

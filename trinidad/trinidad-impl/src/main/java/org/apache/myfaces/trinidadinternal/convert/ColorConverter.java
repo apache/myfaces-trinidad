@@ -155,7 +155,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
     }
     String patternsString = patterns.toString();
 
-    sb.append("new RGBColorFormat(");
+    sb.append("new TrColorConverter(");
 
     _appendPatternsArg(sb);
 
@@ -247,7 +247,7 @@ public class ColorConverter extends org.apache.myfaces.trinidad.convert.ColorCon
 
   private FacesMessage _getConvertFacesMessage(FacesContext context)
   {
-    String convMsgDet = getConvertMessageDetail();
+    String convMsgDet = getMessageDetailConvert();
 
    
     // will get replaced in javascript

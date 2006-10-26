@@ -25,7 +25,7 @@ import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageProviderRequest;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 /**
@@ -149,12 +149,11 @@ abstract public class BaseColorizedIconKey
    */
   public Map<Object, Object> getRenderProperties(ImageContext context)
   {
-    ArrayMap<Object, Object> properties = new ArrayMap<Object, Object>(_MAP_SIZE);
+    Map<Object, Object> properties = new ArrayMap<Object, Object>(_MAP_SIZE);
     properties.put(ImageConstants.SOURCE_KEY, getSource());
     properties.put(getColorKey(), getColor());
     properties.put(SURROUNDING_COLOR_KEY, _surroundingColor);
-    properties.put(ImageConstants.DIRECTION_KEY,
-                   IntegerUtils.getInteger(_direction));
+    properties.put(ImageConstants.DIRECTION_KEY, _direction);
     properties.put(LAF_KEY, _lookAndFeel);
 
     return properties;

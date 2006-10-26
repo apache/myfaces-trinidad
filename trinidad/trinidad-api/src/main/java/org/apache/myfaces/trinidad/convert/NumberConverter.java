@@ -363,7 +363,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * Overrides detail message identified by message id {@link #CONVERT_PATTERN_MESSAGE_ID}
    * @param convertPatternMessageDetail Custom error message.
    */
-  public void setConvertPatternMessageDetail(String convertPatternMessageDetail)
+  public void setMessageDetailConvertPattern(String convertPatternMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_PATTERN_MESSAGE_DETAIL_KEY, convertPatternMessageDetail);
   }
@@ -375,7 +375,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @see #setConvertPatternMessageDetail(String)
    *
    */
-  public String getConvertPatternMessageDetail()
+  public String getMessageDetailConvertPattern()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PATTERN_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -389,7 +389,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * Overrides detail message identified by message id {@link #CONVERT_NUMBER_MESSAGE_ID}
    * @param convertNumberMessageDetail custom error message.
    */
-  public void setConvertNumberMessageDetail(String convertNumberMessageDetail)
+  public void setMessageDetailConvertNumber(String convertNumberMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_NUMBER_MESSAGE_DETAIL_KEY, convertNumberMessageDetail);
   }
@@ -401,7 +401,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setConvertNumberMessageDetail(String)
    */
-  public String getConvertNumberMessageDetail()
+  public String getMessageDetailConvertNumber()
   {
     Object msg = _facesBean.getProperty(_CONVERT_NUMBER_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -416,7 +416,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @param convertCurrencyMessageDetail custom error message.
    *
    */
-  public void setConvertCurrencyMessageDetail(String convertCurrencyMessageDetail)
+  public void setMessageDetailConvertCurrency(String convertCurrencyMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_CURRENCY_MESSAGE_DETAIL_KEY,convertCurrencyMessageDetail);
   }
@@ -428,7 +428,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setConvertCurrencyMessageDetail(String)
    */
-  public String getConvertCurrencyMessageDetail()
+  public String getMessageDetailConvertCurrency()
   {
     Object msg = _facesBean.getProperty(_CONVERT_CURRENCY_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -442,7 +442,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * Overrides detail message identified by message id {@link #CONVERT_PERCENT_MESSAGE_ID}
    * @param convertPercentMessageDetail custom error message.
    */
-  public void setConvertPercentMessageDetail(String convertPercentMessageDetail)
+  public void setMessageDetailConvertPercent(String convertPercentMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY, convertPercentMessageDetail);
   }
@@ -455,7 +455,7 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
    * @return Custom error message.
    * @see #setConvertPercentMessageDetail(String)
    */
-  public String getConvertPercentMessageDetail()
+  public String getMessageDetailConvertPercent()
   {
     Object msg = _facesBean.getProperty(_CONVERT_PERCENT_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(msg);
@@ -642,10 +642,10 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     result = result * 37 + (isGroupingUsed() ? 1: 0);
     result = result * 37 + (isIntegerOnly()? 1: 0);
     result = result * 37 + (isTransient() ? 1: 0);
-    result = result * 37 + _getHashValue(getConvertPatternMessageDetail());
-    result = result * 37 + _getHashValue(getConvertNumberMessageDetail());
-    result = result * 37 + _getHashValue(getConvertCurrencyMessageDetail());
-    result = result * 37 + _getHashValue(getConvertPercentMessageDetail());
+    result = result * 37 + _getHashValue(getMessageDetailConvertPattern());
+    result = result * 37 + _getHashValue(getMessageDetailConvertNumber());
+    result = result * 37 + _getHashValue(getMessageDetailConvertCurrency());
+    result = result * 37 + _getHashValue(getMessageDetailConvertPercent());
     return result;
   }
 
@@ -676,14 +676,14 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
         ConverterUtils.equals(getCurrencyCode(), nConv.getCurrencyCode()) &&
         ConverterUtils.equals(getCurrencySymbol(), nConv.getCurrencySymbol()) &&
         ConverterUtils.equals(getPattern(), nConv.getPattern()) &&
-        ConverterUtils.equals(getConvertPatternMessageDetail(),
-                              nConv.getConvertPatternMessageDetail()) &&
-        ConverterUtils.equals(getConvertNumberMessageDetail(),
-                              nConv.getConvertNumberMessageDetail())  &&
-        ConverterUtils.equals(getConvertCurrencyMessageDetail(),
-                              nConv.getConvertCurrencyMessageDetail())&&
-        ConverterUtils.equals(getConvertPercentMessageDetail(),
-                              nConv.getConvertPercentMessageDetail());
+        ConverterUtils.equals(getMessageDetailConvertPattern(),
+                              nConv.getMessageDetailConvertPattern()) &&
+        ConverterUtils.equals(getMessageDetailConvertNumber(),
+                              nConv.getMessageDetailConvertNumber())  &&
+        ConverterUtils.equals(getMessageDetailConvertCurrency(),
+                              nConv.getMessageDetailConvertCurrency())&&
+        ConverterUtils.equals(getMessageDetailConvertPercent(),
+                              nConv.getMessageDetailConvertPercent());
 
     }
     return false;
@@ -1123,16 +1123,16 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
   private static final FacesBean.Type _TYPE = new FacesBean.Type();
 
   private static final PropertyKey _CONVERT_CURRENCY_MESSAGE_DETAIL_KEY
-   = _TYPE.registerKey("convertCurrencyMessageDetail", String.class);
+   = _TYPE.registerKey("messageDetailConvertCurrency", String.class);
 
   private static final PropertyKey _CONVERT_NUMBER_MESSAGE_DETAIL_KEY
-   = _TYPE.registerKey("convertNumberMessageDetail", String.class);
+   = _TYPE.registerKey("messageDetailConvertNumber", String.class);
 
   private static final PropertyKey _CONVERT_PATTERN_MESSAGE_DETAIL_KEY
-   = _TYPE.registerKey("convertPatternMessageDetail", String.class);
+   = _TYPE.registerKey("messageDetailConvertPattern", String.class);
 
   private static final PropertyKey _CONVERT_PERCENT_MESSAGE_DETAIL_KEY
-   = _TYPE.registerKey("convertPercentMessageDetail", String.class);
+   = _TYPE.registerKey("messageDetailConvertPercent", String.class);
 
   private static final PropertyKey _CURRENCY_CODE_KEY
    = _TYPE.registerKey("currencyCode", String.class);

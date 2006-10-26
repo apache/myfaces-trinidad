@@ -202,7 +202,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Overrides detail message identified by message id {@link #MAXIMUM_MESSAGE_ID}
    * @param maximumMessageDetail Custom error message.
    */
-  public void setMaximumMessageDetail(String maximumMessageDetail)
+  public void setMessageDetailMaximum(String maximumMessageDetail)
   {
     _facesBean.setProperty(_MAXIMUM_MESSAGE_DETAIL_KEY, maximumMessageDetail);
   }
@@ -213,7 +213,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMaximumMessageDetail(String)
    */
-  public String getMaximumMessageDetail()
+  public String getMessageDetailMaximum()
   {
     Object maxMsgDet = _facesBean.getProperty(_MAXIMUM_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(maxMsgDet);
@@ -226,7 +226,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Overrides detail message identified by message id {@link #MINIMUM_MESSAGE_ID}
    * @param minimumMessageDetail Custom error message.
    */
-  public void setMinimumMessageDetail(String minimumMessageDetail)
+  public void setMessageDetailMinimum(String minimumMessageDetail)
   {
     _facesBean.setProperty(_MINIMUM_MESSAGE_DETAIL_KEY, minimumMessageDetail);
   }
@@ -237,7 +237,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setMinimumMessageDetail(String)
    */
-  public String getMinimumMessageDetail()
+  public String getMessageDetailMinimum()
   {
     Object minMsgDet = _facesBean.getProperty(_MINIMUM_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(minMsgDet);
@@ -250,7 +250,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * Overrides detail message identified by message id {@link #NOT_IN_RANGE_MESSAGE_ID}
    * @param notInRangeMessageDetail Custom error message.
    */
-  public void setNotInRangeMessageDetail(String notInRangeMessageDetail)
+  public void setMessageDetailNotInRange(String notInRangeMessageDetail)
   {
     _facesBean.setProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY, notInRangeMessageDetail);
   }
@@ -262,7 +262,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
    * @return Custom error message.
    * @see #setNotInRangeMessageDetail(String)
    */
-  public String getNotInRangeMessageDetail()
+  public String getMessageDetailNotInRange()
   {
     Object notInRngMsg = _facesBean.getProperty(_NOT_IN_RANGE_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(notInRngMsg);
@@ -382,12 +382,12 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
       if ( _transientValue == that._transientValue &&
            (ValidatorUtils.equals(getMinimum(), that.getMinimum())) &&
            (ValidatorUtils.equals(getMaximum(), that.getMaximum())) &&
-           (ValidatorUtils.equals(getMaximumMessageDetail(),
-                                   that.getMaximumMessageDetail())) &&
-           (ValidatorUtils.equals(getMinimumMessageDetail(),
-                                   that.getMinimumMessageDetail())) &&
-           (ValidatorUtils.equals(getNotInRangeMessageDetail(),
-                                   that.getNotInRangeMessageDetail()))
+           (ValidatorUtils.equals(getMessageDetailMaximum(),
+                                   that.getMessageDetailMaximum())) &&
+           (ValidatorUtils.equals(getMessageDetailMinimum(),
+                                   that.getMessageDetailMinimum())) &&
+           (ValidatorUtils.equals(getMessageDetailNotInRange(),
+                                   that.getMessageDetailNotInRange()))
           )
       {
         return true;
@@ -402,9 +402,9 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     int result = 17;
     Object max = getMaximum();
     Object min = getMinimum();
-    Object maxMsgDet        =  getMaximumMessageDetail();
-    Object minMsgDet        =  getMinimumMessageDetail();
-    Object notInRangeMsgDet =  getNotInRangeMessageDetail();
+    Object maxMsgDet        =  getMessageDetailMaximum();
+    Object minMsgDet        =  getMessageDetailMinimum();
+    Object notInRangeMsgDet =  getMessageDetailNotInRange();
 
     result = 37 * result + ( max == null ? 0 : max.hashCode());
     result = 37 * result + ( min == null ? 0 : min.hashCode());
@@ -443,7 +443,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     Object value,
     Object min,
     Object max)
-  {
+  { 
     Converter converter = _getConverter(context, component);
 
     Object cValue = _getConvertedValue(context, component, converter, value);
@@ -564,13 +564,13 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
     _TYPE.registerKey("maximum", Date.class );
 
   private static final PropertyKey _MAXIMUM_MESSAGE_DETAIL_KEY =
-    _TYPE.registerKey("maximumMessageDetail", String.class);
+    _TYPE.registerKey("messageDetailMaximum", String.class);
 
   private static final PropertyKey _MINIMUM_MESSAGE_DETAIL_KEY =
-    _TYPE.registerKey("minimumMessageDetail", String.class);
+    _TYPE.registerKey("messageDetailMinimum", String.class);
 
   private static final PropertyKey _NOT_IN_RANGE_MESSAGE_DETAIL_KEY =
-    _TYPE.registerKey("notInRangeMessageDetail", String.class);
+    _TYPE.registerKey("messageDetailNotInRange", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

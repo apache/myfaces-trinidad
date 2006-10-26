@@ -63,7 +63,7 @@ import org.apache.myfaces.trinidadinternal.share.io.InputStreamProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLProvider;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
 import org.apache.myfaces.trinidadinternal.style.util.GraphicsUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
@@ -1693,10 +1693,8 @@ public class FileSystemImageCache implements ImageProvider, ImageConstants
           // We've got a GIF - get the width/height
           int width = (data[6] | (data[7] << 8));
           int height = (data[8] | (data[9] << 8));
-          responseProperties.put(WIDTH_RESPONSE_KEY,
-                                 IntegerUtils.getInteger(width));
-          responseProperties.put(HEIGHT_RESPONSE_KEY,
-                                 IntegerUtils.getInteger(height));
+          responseProperties.put(WIDTH_RESPONSE_KEY, width);
+          responseProperties.put(HEIGHT_RESPONSE_KEY, height);
 
           return data;
         }

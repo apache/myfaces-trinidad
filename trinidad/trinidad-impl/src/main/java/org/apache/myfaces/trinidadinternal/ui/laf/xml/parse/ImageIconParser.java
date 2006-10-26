@@ -16,25 +16,17 @@
 
 package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXParseException;
-
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
-
-import org.apache.myfaces.trinidadinternal.style.Style;
-
-import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.URIImageIcon;
-
+import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
 /**
  * NodeParser for ImageIcons.
@@ -152,7 +144,7 @@ public class ImageIconParser extends BaseNodeParser implements XMLConstants
       // =-=ags Should we check to make sure that we
       //        don't have a negative value?
 
-      return IntegerUtils.getInteger(intValue);
+      return intValue;
     }
     catch (NumberFormatException e)
     {

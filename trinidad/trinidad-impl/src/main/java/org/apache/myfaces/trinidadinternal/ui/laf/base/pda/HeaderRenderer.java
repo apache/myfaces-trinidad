@@ -16,18 +16,15 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.component.core.layout.CorePanelHeader;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafConstants;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 
@@ -63,7 +60,7 @@ public class HeaderRenderer
             else
                 size = sizeNumber.intValue() + 1;
 
-            setContextHeaderSize( context, IntegerUtils.getInteger(size));
+            setContextHeaderSize( context, size);
         }
 
         return size;

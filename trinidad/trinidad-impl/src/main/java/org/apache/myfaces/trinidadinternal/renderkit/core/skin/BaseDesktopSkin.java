@@ -22,7 +22,6 @@ import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Skin implementation for HTML browsers
@@ -99,23 +98,23 @@ public class BaseDesktopSkin extends XhtmlSkin
     SkinSelectors.AF_SELECT_INPUT_COLOR_LAUNCH_ICON_NAME,
       new ContextImageIcon("adf/images/cfb.gif",
                           "adf/images/cfbr.gif",
-                          IntegerUtils.getInteger(24),
-                          IntegerUtils.getInteger(24)),
+                          24,
+                          24),
 
                          
     SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_NAME,
     new ContextImageIcon("adf/images/cfso.gif", 
                          "adf/images/cfsor.gif", 
-                         IntegerUtils.getInteger(12),
-                          IntegerUtils.getInteger(12), 
+                         12,
+                          12, 
                          SkinSelectors.AF_SELECT_INPUT_COLOR_SWATCH_OVERLAY_ICON_STYLE_CLASS, 
                          null),  
     // DateField Icons
     SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME,
       new ContextImageIcon("adf/images/dfb.gif",
                           "adf/images/dfbr.gif",
-                          IntegerUtils.getInteger(19),
-                          IntegerUtils.getInteger(24)),
+                          19,
+                          24),
 
     // GlobalHeader Icons
     SkinSelectors.AF_MENU_BAR_SEPARATOR_ICON_NAME,
@@ -198,8 +197,8 @@ public class BaseDesktopSkin extends XhtmlSkin
     SkinSelectors.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME,
       new ContextImageIcon("adf/images/lvib.gif",
                           "adf/images/lvibr.gif",
-                          IntegerUtils.getInteger(24),
-                          IntegerUtils.getInteger(24)),
+                          24,
+                          24),
 
     // shuttle's 'Move' alias icon that the
     // selectManyShuttle/selectOrderShuttle's move icon keys reference.

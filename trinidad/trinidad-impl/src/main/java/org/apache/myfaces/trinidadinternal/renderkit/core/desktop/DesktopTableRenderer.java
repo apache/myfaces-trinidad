@@ -47,7 +47,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableRende
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableSelectManyRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TableUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table.TreeUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 
 public class DesktopTableRenderer extends TableRenderer
@@ -716,7 +716,7 @@ public class DesktopTableRenderer extends TableRenderer
       writer.startElement(XhtmlConstants.TABLE_ROW_ELEMENT, null);
       writer.startElement(XhtmlConstants.TABLE_DATA_ELEMENT, null);
       writer.writeAttribute(XhtmlConstants.COLSPAN_ATTRIBUTE,
-        IntegerUtils.getInteger(tContext.getActualColumnCount()), null);
+        tContext.getActualColumnCount(), null);
       renderStyleClass(context, arc, SkinSelectors.AF_COLUMN_SORTABLE_HEADER_ICON_STYLE_CLASS);
 
       encodeChild(context, header);

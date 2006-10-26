@@ -31,7 +31,6 @@ import java.awt.image.ImageObserver;
 import java.util.Locale;
 
 import java.util.Map;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 import org.apache.myfaces.trinidadinternal.image.painter.FontUtils;
@@ -144,9 +143,9 @@ public class PainterImageRenderer extends AbstractImageRenderer
 
         // Store width/height for client
         responseProperties.put(WIDTH_RESPONSE_KEY,
-                               IntegerUtils.getInteger(width));
+                               width);
         responseProperties.put(HEIGHT_RESPONSE_KEY,
-                               IntegerUtils.getInteger(height));
+                               height);
 
         return paintImage;
     }

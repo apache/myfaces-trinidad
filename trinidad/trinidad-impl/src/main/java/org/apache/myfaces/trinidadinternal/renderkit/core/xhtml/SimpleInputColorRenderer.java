@@ -29,21 +29,19 @@ import javax.faces.convert.ConverterException;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.input.CoreInputColor;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
-
+import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.convert.ColorConverter;
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.pages.GenericEntry;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.AliasedScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ColorFieldInfoScriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.ConfigurationScriptlet;
-import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.style.util.CSSUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 /**
@@ -367,7 +365,7 @@ public class SimpleInputColorRenderer
     if (converter instanceof ColorConverter)
     {
       int columns = ((ColorConverter) converter).getColumns(FacesContext.getCurrentInstance());
-      columnsInteger = IntegerUtils.getInteger(columns);
+      columnsInteger = columns;
     }
     else
     {
@@ -627,9 +625,7 @@ public class SimpleInputColorRenderer
   }
 
 
-  private static final Integer _DEFAULT_COLUMNS = IntegerUtils.getInteger(11);
-  // @todo 7 seems better than 11 - fix?
-  //  private static final Integer _DEFAULT_COLUMNS = IntegerUtils.getInteger(7);
+  private static final Integer _DEFAULT_COLUMNS = 11;
 
   // AdfRenderingContext property key for the Map which tracks whether
   // a ChooseColor id has been encountered

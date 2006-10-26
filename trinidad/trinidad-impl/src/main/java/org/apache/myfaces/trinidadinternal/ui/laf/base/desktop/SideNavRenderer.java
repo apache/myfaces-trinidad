@@ -20,9 +20,8 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 
 /**
@@ -44,7 +43,7 @@ public class SideNavRenderer extends SideBarRenderer
     int selectedIndex =  getResolvedSelectedIndex( context, node);
 
     context.setLocalProperty( _SELECTED_INDEX_KEY,
-                              IntegerUtils.getInteger(selectedIndex));
+                              selectedIndex);
   }
 
   @Override
@@ -58,7 +57,7 @@ public class SideNavRenderer extends SideBarRenderer
 
     int selectedIndex = ((Number)context.getLocalProperty(0,
                                       _SELECTED_INDEX_KEY,
-                                      IntegerUtils.getInteger(-1))).intValue();
+                                      -1)).intValue();
 
     ResponseWriter writer = context.getResponseWriter();
 

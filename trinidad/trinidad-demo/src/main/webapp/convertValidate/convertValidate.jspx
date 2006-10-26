@@ -102,7 +102,7 @@
                 <tr:convertDateTime pattern="yyyy-MM-dd"/>
                 <tr:validateDateTimeRange minimum="2004-11-16"
                                           maximum="2004-12-16"
-                                          notInRangeMessageDetail='Date "{1}" does not fall within {2} : {3}'/>
+                                          messageDetailNotInRange='Date "{1}" does not fall within {2} : {3}'/>
               </tr:inputDate>
             </tr:panelFormLayout>
            </tr:panelHeader>

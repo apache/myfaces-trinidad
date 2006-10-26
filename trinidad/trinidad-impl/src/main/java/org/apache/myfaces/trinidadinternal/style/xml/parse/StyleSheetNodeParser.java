@@ -21,21 +21,16 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Vector;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXParseException;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.share.xml.BaseNodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.NodeParser;
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
 import org.apache.myfaces.trinidadinternal.share.xml.XMLUtils;
-
 import org.apache.myfaces.trinidadinternal.style.StyleConstants;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.XMLConstants;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXParseException;
 
 /**
  * NodeParser for style sheet nodes
@@ -187,7 +182,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
       int browser = NameUtils.getBrowser(browsers.next());
 
       if (browser != TrinidadAgent.APPLICATION_UNKNOWN)
-        v.addElement(IntegerUtils.getInteger(browser));
+        v.addElement(browser);
     }
 
     _browsers = _getIntegers(v);
@@ -217,7 +212,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
       }
 
       if (version != 0)
-        v.addElement(IntegerUtils.getInteger(version));
+        v.addElement(version);
     }
 
     _versions = _getIntegers(v);
@@ -243,7 +238,7 @@ public class StyleSheetNodeParser extends BaseNodeParser
         platform = StyleSheetNode.__OS_UNIX;
 
       if (platform != TrinidadAgent.OS_UNKNOWN)
-        v.addElement(IntegerUtils.getInteger(platform));
+        v.addElement(platform);
     }
 
     _platforms = _getIntegers(v);

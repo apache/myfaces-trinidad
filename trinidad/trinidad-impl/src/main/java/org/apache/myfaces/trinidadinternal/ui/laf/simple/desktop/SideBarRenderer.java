@@ -22,13 +22,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
-import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.OutputUtils;
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 
 /**
  * SideBar Renderer for the desktop implementation of the
@@ -353,7 +351,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
     if (bodyColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(bodyColumnCount);
+    return bodyColumnCount;
   }
 
   // Returns the number of columns for the bottom background cell
@@ -373,7 +371,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
     if (backgroundColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(backgroundColumnCount);
+    return backgroundColumnCount;
   }
 
   // Returns the number of columns for the top background cell
@@ -393,7 +391,7 @@ public class SideBarRenderer extends SimpleDesktopRenderer
     if (backgroundColumnCount == 1)
       return null;
 
-    return IntegerUtils.getInteger(backgroundColumnCount);
+    return backgroundColumnCount;
   }
 
   // Get the IconData to use for rendering this sideBar
@@ -486,5 +484,5 @@ public class SideBarRenderer extends SimpleDesktopRenderer
   // Keys for looking up IconData properties on the Skin
   private static final Object _ICONS_KEY = new Object();
 
-  private static final Integer _MINIMUM_WIDTH = IntegerUtils.getInteger(150);
+  private static final Integer _MINIMUM_WIDTH = 150;
 }

@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.image.util;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * MapArea describes an area of an image map.

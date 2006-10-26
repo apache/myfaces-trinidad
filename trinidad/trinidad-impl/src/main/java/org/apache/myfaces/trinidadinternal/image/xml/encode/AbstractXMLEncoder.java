@@ -23,7 +23,7 @@ import java.util.Map;
 
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;

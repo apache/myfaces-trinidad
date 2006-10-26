@@ -19,16 +19,12 @@ package org.apache.myfaces.trinidadinternal.validator;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import javax.faces.validator.ValidatorException;
-import org.apache.myfaces.trinidad.util.MessageFactory;
-
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 
 
@@ -38,60 +34,10 @@ import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
  *
  * @author The Oracle ADF Faces Team
  */
-public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
+public class LongRangeValidator extends org.apache.myfaces.trinidad.validator.LongRangeValidator
                                 implements ClientValidator
 {
-  @Override
-  public void validate(
-    FacesContext context,
-    UIComponent component,
-    Object value
-    ) throws ValidatorException
-  {
-    try
-    {
-      super.validate(context, component, value);
-    }
-    catch (ValidatorException ve)
-    {
-         
-      Object label = component.getAttributes().get("label");
-      if ( null == label)
-       label = component.getValueBinding("label");
-       
-      if (value != null && value instanceof Number)
-      {
-        long longValue = ((Number)value).longValue(); 
-        
-        if (longValue > _getMaximum()) 
-        {
-          String maxStr = IntegerUtils.getString(_getMaximum());
-          FacesMessage msg = MessageFactory.getMessage(context,
-                                            MAXIMUM_MESSAGE_ID,
-                                            new Object[]{label, value, maxStr},
-                                            label);                                       
-          throw new ValidatorException(msg);         
-        }
-        else
-        {
-          String minStr = IntegerUtils.getString(_getMinimum());   
-          FacesMessage msg = MessageFactory.getMessage(context,
-                                            MINIMUM_MESSAGE_ID,
-                                            new Object[]{label, value, minStr},
-                                            label);
-                                            
-                                         
-          throw new ValidatorException(msg);    
-        }
-      }
-      else
-      {
-        throw ve;
-      }
-    }     
-  }
 
-  
   public Collection<String> getClientImportNames()
   {
     return _IMPORT_NAMES;
@@ -113,13 +59,13 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     FacesContext context,
     UIComponent component)
   {
-    String maxStr = IntegerUtils.getString(_getMaximum());
-    String minStr = IntegerUtils.getString(_getMinimum());
+    String maxStr = IntegerUtils.getString(getMaximum());
+    String minStr = IntegerUtils.getString(getMinimum());
     return  ConverterUtils.getClientValidation(context, component,
                                                MAXIMUM_MESSAGE_ID,
                                                MINIMUM_MESSAGE_ID,
-                                               VALIDATOR_ID,
-                                               maxStr, minStr);
+                                               javax.faces.validator.LongRangeValidator.VALIDATOR_ID,
+                                               maxStr, minStr, "TrRangeValidator");
   }
   
   
@@ -129,80 +75,6 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
     return null;
   }
   
-
-  // not overriding getMaximum because I'll suddenly
-  // start returning something other than 0...
-  private long _getMaximum()
-  {
-    if (_maximumSet)
-      return super.getMaximum();
-
-    return Long.MAX_VALUE;
-  }
-
-  private long _getMinimum()
-  {
-    if (_minimumSet)
-      return super.getMinimum();
-
-    return Long.MIN_VALUE;
-  }
-
-
-  /**
-   * <p>Set the maximum value .</p>
-   *
-   * @param maximum The new maximum value
-   *
-   */
-  @Override
-  public void setMaximum(long maximum)
-  {
-    super.setMaximum(maximum);
-    _maximumSet = true;
-    
-  }
-
-  /**
-   * <p>Set the minimum value .</p>
-   *
-   * @param minimum The new minimum value
-   *
-   */
-  @Override
-  public void setMinimum(long minimum)
-  {
-    super.setMinimum(minimum);
-    _minimumSet = true;
-  }
-
-  @Override
-  public Object saveState(FacesContext context)
-  {
-    Object values[] = new Object[2];
-    Object clientValues[] = new Object[2];
-    
-    clientValues[0] = _maximumSet ? Boolean.TRUE : Boolean.FALSE;
-    clientValues[1] = _minimumSet ? Boolean.TRUE : Boolean.FALSE;
-    
-    values[0] = super.saveState(context);
-    values[1] = clientValues;
-    return (values);
-  }
-
-  @Override
-  public void restoreState(FacesContext context, Object state)
-  {
-    Object values[] = (Object[]) state;
-    super.restoreState(context, values[0]);
-    Object clientValues[] = (Object[])values[1];
-    _maximumSet = ((Boolean) clientValues[0]).booleanValue();
-    _minimumSet = ((Boolean) clientValues[1]).booleanValue();
-  }
-
-
-  private boolean _maximumSet = false;
-  private boolean _minimumSet = false;
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 
 }

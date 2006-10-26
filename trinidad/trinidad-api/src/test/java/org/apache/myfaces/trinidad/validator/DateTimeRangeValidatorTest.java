@@ -183,7 +183,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     try
     {
       setFacesContext(facesContext);
-      validator.setMaximumMessageDetail("max set");
+      validator.setMessageDetailMaximum("max set");
       validator.validate(facesContext, component, new Date(millis + 1));
       fail("ValidatorException not thrown");
     }
@@ -239,7 +239,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     try
     {
       setFacesContext(facesContext);
-      validator.setMinimumMessageDetail("min set");
+      validator.setMessageDetailMinimum("min set");
       validator.validate(facesContext, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
     }
@@ -305,7 +305,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     try
     {
       setFacesContext(facesContext);
-      validator.setMinimumMessageDetail("min");
+      validator.setMessageDetailMinimum("min");
       validator.validate(facesContext, component, new Date(millis - 1));
       fail("ValidatorException not thrown");
     }
@@ -342,7 +342,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     try
     {
       setFacesContext(facesContext);
-      validator.setNotInRangeMessageDetail("not in range is set");
+      validator.setMessageDetailNotInRange("not in range is set");
       validator.validate(facesContext, component, new Date(millis + 20));
       fail("ValidatorException not thrown");
     }
@@ -371,9 +371,9 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     originalValidator.setMinimum(new Date(millis));
     originalValidator.setMaximum(new Date(millis + 10));
 
-    originalValidator.setMinimumMessageDetail("min");
-    originalValidator.setMaximumMessageDetail("max");
-    originalValidator.setNotInRangeMessageDetail("not in range");
+    originalValidator.setMessageDetailMinimum("min");
+    originalValidator.setMessageDetailMaximum("max");
+    originalValidator.setMessageDetailNotInRange("not in range");
 
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();

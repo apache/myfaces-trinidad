@@ -49,7 +49,7 @@ import org.apache.myfaces.trinidadinternal.ui.laf.base.LafIconProvider;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.NodeRoleUtils;
 import org.apache.myfaces.trinidadinternal.ui.partial.PartialPageRendererUtils;
 import org.apache.myfaces.trinidadinternal.util.FormattedTextParser;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 
 /**
@@ -1641,7 +1641,7 @@ public class XhtmlLafRenderer extends BaseLafRenderer
     {
       resolvedSelectedIndexFromCache = getResolvedSelectedIndex(context, node);
       context.setLocalProperty(_SELECTED_CHILD_INDEX_KEY,
-        IntegerUtils.getInteger(resolvedSelectedIndexFromCache));
+        resolvedSelectedIndexFromCache);
     }
     return resolvedSelectedIndexFromCache;
   }

@@ -20,10 +20,10 @@ function _getDateFieldFormat(dateField)
   {
     var format = _dfs[name];
     if (format)
-      return new SimpleDateFormat(format);
+      return new TrDateTimeConverter(format);
   }
 
-  return new SimpleDateFormat();
+  return new TrDateTimeConverter();
 }
 
 function _fixDFF(dateField)

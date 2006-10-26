@@ -24,7 +24,6 @@ import org.xml.sax.SAXParseException;
 
 import org.apache.myfaces.trinidad.util.ArrayMap;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
@@ -343,9 +342,9 @@ public class BaseImageProviderRequestParser extends BaseNodeParser
       return null;
 
     if (value.equals(XMLConstants.LEFT_TO_RIGHT_DIRECTION))
-      return IntegerUtils.getInteger(LocaleUtils.DIRECTION_LEFTTORIGHT);
+      return LocaleUtils.DIRECTION_LEFTTORIGHT;
     if (value.equals(XMLConstants.RIGHT_TO_LEFT_DIRECTION))
-      return IntegerUtils.getInteger(LocaleUtils.DIRECTION_RIGHTTOLEFT);
+      return LocaleUtils.DIRECTION_RIGHTTOLEFT;
 
     // If it isn't "rtl" or "ltr", it's an error
     _LOG.warning(_DIRECTION_ERROR);

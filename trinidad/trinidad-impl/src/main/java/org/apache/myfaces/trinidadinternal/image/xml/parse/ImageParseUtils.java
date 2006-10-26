@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidadinternal.image.xml.parse;
 
 import org.xml.sax.Attributes;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 import org.apache.myfaces.trinidadinternal.share.xml.ParseContext;
@@ -79,7 +77,7 @@ public class ImageParseUtils
 
     try
     {
-      return IntegerUtils.getInteger(Integer.parseInt(value));
+      return Integer.parseInt(value);
     }
     catch (NumberFormatException e)
     {

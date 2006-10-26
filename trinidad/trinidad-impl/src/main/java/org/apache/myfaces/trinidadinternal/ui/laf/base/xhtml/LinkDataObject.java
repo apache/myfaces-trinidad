@@ -18,15 +18,13 @@ package org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml;
 import java.io.IOException;
 
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObject;
 import org.apache.myfaces.trinidadinternal.ui.data.DataObjectList;
 import org.apache.myfaces.trinidadinternal.ui.data.ListDataObjectList;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.BaseLafUtils;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * used by GlobalButtonRenderer and TabBarRenderer
@@ -55,7 +53,7 @@ public final class LinkDataObject implements DataObject
       // this is, not just the index of the visible children.
       BaseLafUtils.setRenderingProperty(context,
                                         _CURRENT_INDEX_KEY,
-                                        IntegerUtils.getInteger(childIndex));
+                                        childIndex);
 
       if ((child != null) &&
           !Boolean.FALSE.equals(
@@ -126,7 +124,7 @@ public final class LinkDataObject implements DataObject
       {
         // needed for TrainRenderer. It is important to know what child index
         // this is, not just the index of the visible children.
-        LinkDataObject.__setCurrentIndex(context, IntegerUtils.getInteger(i));
+        LinkDataObject.__setCurrentIndex(context, i);
 
         if ((stamp != null) &&
             !Boolean.FALSE.equals(
@@ -166,7 +164,7 @@ public final class LinkDataObject implements DataObject
       // this is, not just the index of the visible children.
       BaseLafUtils.setRenderingProperty(context,
                                         _CURRENT_INDEX_KEY,
-                                        IntegerUtils.getInteger(childIndex));
+                                        childIndex);
 
       if ((child != null) &&
           !Boolean.FALSE.equals(
@@ -313,7 +311,7 @@ public final class LinkDataObject implements DataObject
     Object currentIndex =
       BaseLafUtils.getRenderingProperty(context, _CURRENT_INDEX_KEY, null);
     if (currentIndex == null)
-      return IntegerUtils.getInteger(-1);
+      return -1;
     else
       return (Integer)currentIndex;
 

@@ -218,8 +218,8 @@ public class RegExpValidator implements StateHolder, Validator
 
       if ( this.isTransient() == other.isTransient() &&
            ValidatorUtils.equals(getPattern(), other.getPattern()) &&
-           ValidatorUtils.equals(getNoMatchMessageDetail(),
-                                   other.getNoMatchMessageDetail())
+           ValidatorUtils.equals(getMessageDetailNoMatch(),
+                                   other.getMessageDetailNoMatch())
          )
       {
         return true;
@@ -237,7 +237,7 @@ public class RegExpValidator implements StateHolder, Validator
   {
     int result = 17;
     String pattern = getPattern();
-    String noMesgDetail = getNoMatchMessageDetail();
+    String noMesgDetail = getMessageDetailNoMatch();
     result = 37 * result + (pattern == null? 0 : pattern.hashCode());
     result = 37 * result + (isTransient() ? 0 : 1);
     result = 37 * result + (noMesgDetail == null ? 0 : noMesgDetail.hashCode());
@@ -277,7 +277,7 @@ public class RegExpValidator implements StateHolder, Validator
    * Overrides detail message identified by message id {@link  #NO_MATCH_MESSAGE_ID}
    * @param noMatchMessageDetail
    */
-  public void setNoMatchMessageDetail(String noMatchMessageDetail)
+  public void setMessageDetailNoMatch(String noMatchMessageDetail)
   {
     _facesBean.setProperty(_NO_MATCH_MESSAGE_DETAIL_KEY, noMatchMessageDetail);
   }
@@ -288,7 +288,7 @@ public class RegExpValidator implements StateHolder, Validator
    * @return Custom error message
    * @see #setNoMatchMessageDetail(String)
    */
-  public String getNoMatchMessageDetail()
+  public String getMessageDetailNoMatch()
   {
     Object obj = _facesBean.getProperty(_NO_MATCH_MESSAGE_DETAIL_KEY);
     return ComponentUtils.resolveString(obj);
@@ -325,7 +325,7 @@ public class RegExpValidator implements StateHolder, Validator
     = _TYPE.registerKey("pattern", String.class);
 
   private static final PropertyKey _NO_MATCH_MESSAGE_DETAIL_KEY
-    = _TYPE.registerKey("noMatchMessageDetail", String.class);
+    = _TYPE.registerKey("messageDetailNoMatch", String.class);
 
   private FacesBean _facesBean = ValidatorUtils.getFacesBean(_TYPE);
 

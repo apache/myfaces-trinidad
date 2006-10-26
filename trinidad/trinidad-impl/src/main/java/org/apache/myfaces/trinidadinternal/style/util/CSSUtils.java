@@ -17,22 +17,17 @@
 package org.apache.myfaces.trinidadinternal.style.util;
 
 import java.awt.Color;
+import java.util.Collections;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import java.util.Collections;
-
 import org.apache.myfaces.trinidad.util.ArrayMap;
-
-import org.apache.myfaces.trinidadinternal.util.LRUCache;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-
 import org.apache.myfaces.trinidadinternal.style.CSSStyle;
-import org.apache.myfaces.trinidadinternal.style.Style;
 import org.apache.myfaces.trinidadinternal.style.PropertyParseException;
+import org.apache.myfaces.trinidadinternal.style.Style;
+import org.apache.myfaces.trinidadinternal.util.LRUCache;
 
 /**
  * CSS-related utilities. I think as we move away from xss, this code will
@@ -523,7 +518,7 @@ public class CSSUtils
       throw new PropertyParseException(_INVALID_LENGTH + value);
     }
 
-    return IntegerUtils.getInteger(points);
+    return points;
   }
 
   // Parses length units
@@ -545,7 +540,7 @@ public class CSSUtils
     }
 
     // We just assume the percentage is relative to our base font size - 12pt.
-    return IntegerUtils.getInteger((int)((percent/100.0) * 12));
+    return (int)((percent/100.0) * 12);
   }
 
   private static Color _getSharedColor(int rgb)
@@ -695,15 +690,15 @@ public class CSSUtils
     // fixed defaults - it's better than throwing a PropertyParseException.
     // Again, if you don't like these values, don't use these keywords
     // for image-related styles!
-    "xx-small", IntegerUtils.getInteger(8),
-    "x-small",  IntegerUtils.getInteger(9),
-    "small",    IntegerUtils.getInteger(10),
-    "medium",   IntegerUtils.getInteger(12),
-    "large",    IntegerUtils.getInteger(14),
-    "x-large",  IntegerUtils.getInteger(16),
-    "xx-large", IntegerUtils.getInteger(18),
-    "smaller",  IntegerUtils.getInteger(10),
-    "larger",   IntegerUtils.getInteger(14)
+    "xx-small", 8,
+    "x-small",  9,
+    "small",    10,
+    "medium",   12,
+    "large",    14,
+    "x-large",  16,
+    "xx-large", 18,
+    "smaller",  10,
+    "larger",   14
   };
 
 }

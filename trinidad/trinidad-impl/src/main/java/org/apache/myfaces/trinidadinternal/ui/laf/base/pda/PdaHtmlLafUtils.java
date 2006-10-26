@@ -15,13 +15,10 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
-
 import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/base/pda/PdaHtmlLafUtils.java#0 $) $Date: 10-nov-2005.18:55:02 $
@@ -46,7 +43,7 @@ public class PdaHtmlLafUtils extends XhtmlLafUtils
 
   private static final NameAndAgentScorer _SCORER =
     new NameAndAgentScorer(null,
-                           IntegerUtils.getInteger(TrinidadAgent.TYPE_PDA),
+                           TrinidadAgent.TYPE_PDA,
                            null,
                            null,
                            null);

@@ -15,7 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,24 +23,22 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.Set;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.validator.Validator;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.component.UIXEditableValue;
-import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.context.FormData;
+import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-
-import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.share.data.ServletRequestParameters;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Implementation of FormData from the CoreRenderKit (or,
@@ -426,7 +423,7 @@ public class CoreFormData extends FormData
     String libURI = submitConverter.getClientLibrarySource(context);  
     String clientScript = submitConverter.getClientScript(context, component);
     Collection<String> libRefs = submitConverter.getClientImportNames();  
-    _addClientScripts(context, rc, libURI, clientScript, libRefs, "Converter()");
+    _addClientScripts(context, rc, libURI, clientScript, libRefs, "TrConverter()");
 
     String converter = submitConverter.getClientConversion(context,
                                                            component);
@@ -498,7 +495,7 @@ public class CoreFormData extends FormData
     String libURI = submitValidator.getClientLibrarySource(context);  
     String clientScript = submitValidator.getClientScript(context, component);
     Collection<String> libRefs = submitValidator.getClientImportNames();  
-    _addClientScripts(context, rc, libURI, clientScript, libRefs, "Validator()");
+    _addClientScripts(context, rc, libURI, clientScript, libRefs, "TrValidator()");
  
     String validator = submitValidator.getClientValidation(context,
                                                            component);
@@ -527,7 +524,7 @@ public class CoreFormData extends FormData
     if (validationIndex == null)
     {
       // the new element was added to the end of our vector
-      validationIndex = IntegerUtils.getInteger(validationMap.size());
+      validationIndex = validationMap.size();
 
       // add the new element to our map of strings to indices
       validationMap.put(validation, validationIndex);
@@ -551,7 +548,7 @@ public class CoreFormData extends FormData
       if (errorFormatIndex == null)
       {
         // the new element was added to the end of our vector
-        errorFormatIndex = IntegerUtils.getInteger(errorFormatMap.size());
+        errorFormatIndex = errorFormatMap.size();
         // add the new element to our map of strings to indices
         errorFormatMap.put(errorFormat, errorFormatIndex);
       }
