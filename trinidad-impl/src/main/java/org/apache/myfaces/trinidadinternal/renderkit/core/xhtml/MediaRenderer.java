@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -28,10 +27,8 @@ import javax.faces.context.ResponseWriter;
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.core.output.CoreMedia;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 
 
@@ -334,7 +331,7 @@ public class MediaRenderer extends XhtmlRenderer
           writer.endElement("div");
 
 
-          height = IntegerUtils.getInteger( controlData.height ).toString();
+          height = IntegerUtils.getString(controlData.height);
           _render( context,
                    arc,
                    component,
@@ -893,13 +890,13 @@ public class MediaRenderer extends XhtmlRenderer
       }
       else if ( intHeight < Integer.MAX_VALUE )
       {
-        return IntegerUtils.getInteger(intHeight - controlData.height).toString();
+        return IntegerUtils.getString(intHeight - controlData.height).toString();
       }
     }
 
     if (useMinHeight)
     {
-      return IntegerUtils.getInteger(playerData.minHeight.intValue() -
+      return IntegerUtils.getString(playerData.minHeight.intValue() -
                                      controlData.height).toString();
     }
 
@@ -1600,14 +1597,14 @@ public class MediaRenderer extends XhtmlRenderer
                                                },
                                                false, // no autosize
                                                0,
-                                               IntegerUtils.getInteger(0)),
+                                               0),
         CoreMedia.CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
                                                {
                                                  "controller", "false"
                                                },
                                                false, // no autosize
                                                0,
-                                               IntegerUtils.getInteger(0)),
+                                               0),
         CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(null, // all controls default
                                                false, // no autosize
                                                _QT_CONTROL_HEIGHT,
@@ -1624,14 +1621,14 @@ public class MediaRenderer extends XhtmlRenderer
                                                },
                                                false, // no autosize
                                                0,
-                                               IntegerUtils.getInteger(0)),
+                                               0),
         CoreMedia.CONTROLS_NONE_VISIBLE, new MediaRenderer.ControlData(new String[]
                                                {
                                                  "controller", "false"
                                                },
                                                false, // no autosize
                                                0,
-                                               IntegerUtils.getInteger(0)),
+                                               0),
         CoreMedia.CONTROLS_MINIMAL,      _QUICKTIME_ALL_CONTROL_DATA,
         CoreMedia.CONTROLS_TYPICAL,      _QUICKTIME_ALL_CONTROL_DATA,
         CoreMedia.CONTROLS_ALL,          _QUICKTIME_ALL_CONTROL_DATA,
@@ -1658,7 +1655,7 @@ public class MediaRenderer extends XhtmlRenderer
   private static final Number _WMP_ALL_CONTROLS_WIDTH = new Integer(275);
 
   private static final Number _WMP_MINIMAL_CONTROLS_WIDTH =
-                                                IntegerUtils.getInteger(72);
+                                                72;
   private static final int _WMP_MINIMAL_CONTROLS_HEIGHT = 21;
   private static final int _WMP_ALL_CONTROLS_HEIGHT = 170;
 
@@ -1670,7 +1667,7 @@ public class MediaRenderer extends XhtmlRenderer
                      },
                      true, // autosizes
                      0,
-                     IntegerUtils.getInteger(0));
+                     0);
 
   // =-= bts what about close captioning?
   // =-= bts Is unsupported mime types the right way to go, how about supported
@@ -1720,7 +1717,7 @@ public class MediaRenderer extends XhtmlRenderer
     "autostart",                                     // autostartParamName
     "filename",                                      // sourceParamName
     "playcount",                                     // infiniteLoopParamName,
-    IntegerUtils.getInteger(0),                                            // infiniteLoopParamValue
+    0,                                            // infiniteLoopParamValue
     "playcount",                                     // playCountParamName
     "http://www.microsoft.com/Windows/MediaPlayer/", // pluginsPage
     _WMP_CODE_BASE,                                  // <Object> CodeBase
@@ -1746,83 +1743,6 @@ public class MediaRenderer extends XhtmlRenderer
     });
 
   //
-  // Meta Data for the Windows Media Player 7.1
-  //
-
-  /* WMP 7.1 is not currently activated in any way in this class.
-  private static final String _WMP_7_1_CLASS_ID =
-                               "clasid:6BF52A52-394A-11D3-B153-00C04F79FAA6";
-
-
-  // control data for showing no visible controls on Windows Media Player 7.1
-  private static final MediaRenderer.ControlData _WMP_7_1_NONE_VISIBLE_CONTROL_DATA =
-     new MediaRenderer.ControlData(new String[]{"uimode", "none"},
-                     true, // autosizes
-                     0,
-                     IntegerUtils.getInteger(0));
-
-  // control data for showing typical controls on Windows Media Player 7.1
-  private static final MediaRenderer.ControlData _WMP_7_1_TYPICAL_CONTROL_DATA =
-     new MediaRenderer.ControlData(null,// typical is the default
-                     true, // autosizes
-                     _WMP_CONTROL_HEIGHT,
-                     _WMP_ALL_CONTROLS_WIDTH);
-
-  //
-  // ControlSet shared by all primary content types on WMP 7.1
-  //
-  private static final MediaRenderer.ControlSet _WINDOWS_7_1_CONTROL_SET = new MediaRenderer.ControlSet(
-    new Object[]
-    {
-      CoreMedia.CONTROLS_NONE,         _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
-      CoreMedia.CONTROLS_NONE_VISIBLE, _WMP_7_1_NONE_VISIBLE_CONTROL_DATA,
-      CoreMedia.CONTROLS_MINIMAL,      new MediaRenderer.ControlData(new String[]{"uimode", "mini"},
-                                             true, // autosizes
-                                             _WMP_CONTROL_HEIGHT,
-                                             _WMP_ALL_CONTROLS_WIDTH),
-      CoreMedia.CONTROLS_TYPICAL,      _WMP_7_1_TYPICAL_CONTROL_DATA,
-      CoreMedia.CONTROLS_ALL,          _WMP_7_1_TYPICAL_CONTROL_DATA,
-    });
-
-  private static final MediaRenderer.PlayerData _WINDOWS_7_1_PLAYER_DATA =
-    new MediaRenderer.PlayerData(
-    CoreMedia.PLAYER_WINDOWS,                                  // player type
-    true,                                            // autostart by default
-    "1",                                             // autostartTrueValue
-    "0",                                             // autostartFalseValue
-    true,                                            // can always autosize
-    null,                                            // min player height
-    "autostart",                                     // autostartParamName
-    "filename",                                      // sourceParamName
-    "playcount",                                     // infiniteLoopParamName,
-    IntegerUtils.getInteger(0),                                            // infiniteLoopParamValue
-    "playcount",                                     // playCountParamName
-    "http://www.microsoft.com/Windows/MediaPlayer/", // pluginsPage
-    _WMP_CODE_BASE,                                  // <Object> CodeBase
-    "application/x-mplayer2",                        // playerMimeType
-    _WMP_7_1_CLASS_ID,                               // <Object> ClassID
-    "application/x-oleobject",                       // overrideContentType
-    null,                                            // wireImageToControlsParamName
-    null,                                            // imageWindowControlData
-    new Object[]
-    {
-      "audio", _WINDOWS_7_1_CONTROL_SET,
-      "video", _WINDOWS_7_1_CONTROL_SET,
-    },
-    new String[] // mime-types not supported by Windows Media Player 7.0.1
-    {
-      _QUICKTIME_MIME_TYPE,
-      _QUICKTIME_MIME_TYPE,
-      _REAL_AUDIO_MIME_TYPE,
-      _REAL_AUDIO_PN_MIME_TYPE,
-      _REAL_AUDIO_PLUGIN_MIME_TYPE,
-      _REAL_VIDEO_MIME_TYPE,
-      _REAL_VIDEO_PN_MIME_TYPE,
-      _REAL_VIDEO_PLUGIN_MIME_TYPE,
-   });
-  */
-
-  //
   // Meta Data for the Real Player
   //
   private static final Number _REAL_MINIMAL_WIDTH  = new Integer(44);
@@ -1840,7 +1760,7 @@ public class MediaRenderer extends XhtmlRenderer
      new MediaRenderer.ControlData(null,
                      false,           // no autosize
                      0,
-                     IntegerUtils.getInteger(0));
+                     0);
 
 
 
@@ -1853,7 +1773,7 @@ public class MediaRenderer extends XhtmlRenderer
                      },
                      false,           // no autosize
                      0,
-                     IntegerUtils.getInteger(0));
+                     0);
 
 
 
@@ -1887,7 +1807,7 @@ public class MediaRenderer extends XhtmlRenderer
      new MediaRenderer.ControlData(new String[]{"controls", ""},
                      false,           // no autosize
                      0,
-                     IntegerUtils.getInteger(0));
+                     0);
 
 
   private static final MediaRenderer.PlayerData _REAL_PLAYER_DATA =
@@ -2035,13 +1955,13 @@ public class MediaRenderer extends XhtmlRenderer
   // Object constants for OS's
   //
   private static final Integer _WINDOWS_OS =
-                                  IntegerUtils.getInteger(TrinidadAgent.OS_WINDOWS);
+                                  TrinidadAgent.OS_WINDOWS;
 
   private static final Integer _MAC_OS =
-                                  IntegerUtils.getInteger(TrinidadAgent.OS_MACOS);
+                                  TrinidadAgent.OS_MACOS;
 
   private static final Integer _SOLARIS_OS =
-                                  IntegerUtils.getInteger(TrinidadAgent.OS_SOLARIS);
+                                  TrinidadAgent.OS_SOLARIS;
 
   // Preferred Players for Operating Systems
   /* CURRENTLY UNUSED
@@ -2070,10 +1990,10 @@ public class MediaRenderer extends XhtmlRenderer
   //
   private static Object[] _DEFAULT_INNER_SIZES = new Object[]
   {
-    "audio", new Number[]{IntegerUtils.getInteger(0),
-                          IntegerUtils.getInteger(0)},
-    "video", new Number[]{IntegerUtils.getInteger(200),
-                          IntegerUtils.getInteger(150)},
+    "audio", new Number[]{0,
+                          0},
+    "video", new Number[]{200,
+                          150},
   };
 
   private static final int _DEFAULT_INNER_WIDTH_INDEX  = 0;

@@ -55,7 +55,7 @@
               </ul>
              </p>]]>
       </description>
-      <property-name>noMatchMessageDetail</property-name>
+      <property-name>messageDetailNoMatch</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>

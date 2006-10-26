@@ -351,8 +351,8 @@ public class ColorConverter implements Converter, StateHolder
     return ( ( this.isTransient() == other.isTransient() ) &&
              ( this.isTransparentAllowed() == other.isTransparentAllowed()) &&
              ( _isEqualPatterns(other.getPatterns())) &&
-             ( ConverterUtils.equals(getConvertMessageDetail(),
-                                     other.getConvertMessageDetail()))
+             ( ConverterUtils.equals(getMessageDetailConvert(),
+                                     other.getMessageDetailConvert()))
             );
   }
 
@@ -371,7 +371,7 @@ public class ColorConverter implements Converter, StateHolder
     {
       result = 37 * result + patterns[i].hashCode();
     }
-    String convMsgDet = getConvertMessageDetail();
+    String convMsgDet = getMessageDetailConvert();
     result = result * 37 + (convMsgDet == null ? 0 : convMsgDet.hashCode());
     return result;
   }
@@ -439,7 +439,7 @@ public class ColorConverter implements Converter, StateHolder
    * @param convertMessageDetail Custom error message.
    * @see #CONVERT_MESSAGE_ID
    */
-  public void setConvertMessageDetail(String convertMessageDetail)
+  public void setMessageDetailConvert(String convertMessageDetail)
   {
     _facesBean.setProperty(_CONVERT_MESSAGE_DETAIL_KEY, convertMessageDetail);
   }
@@ -450,7 +450,7 @@ public class ColorConverter implements Converter, StateHolder
    * @return Custom error message.
    * @see #setConvertMessageDetail(String)
    */
-  public String getConvertMessageDetail()
+  public String getMessageDetailConvert()
   {
     return ComponentUtils.resolveString(_facesBean.getProperty(_CONVERT_MESSAGE_DETAIL_KEY));
   }
@@ -608,7 +608,7 @@ public class ColorConverter implements Converter, StateHolder
     = _TYPE.registerKey("patterns", String[].class, DEFAULT_COLOR_FORMAT_PATTERNS);
 
   private static final PropertyKey _CONVERT_MESSAGE_DETAIL_KEY
-    = _TYPE.registerKey("convertMessageDetail", String.class);
+    = _TYPE.registerKey("messageDetailConvert", String.class);
 
   private FacesBean _facesBean = ConverterUtils.getFacesBean(_TYPE);
 

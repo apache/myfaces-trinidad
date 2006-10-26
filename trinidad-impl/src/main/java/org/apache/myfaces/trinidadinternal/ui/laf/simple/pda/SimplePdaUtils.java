@@ -20,10 +20,6 @@ import org.apache.myfaces.trinidadinternal.ui.laf.LookAndFeelManager;
 import org.apache.myfaces.trinidadinternal.ui.laf.NameAndAgentScorer;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.pda.PdaHtmlLafUtils;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-
-
 /**
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/simple/pda/SimplePdaUtils.java#0 $) $Date: 10-nov-2005.18:50:47 $
  * @author The Oracle ADF Faces Team
@@ -49,7 +45,7 @@ public class SimplePdaUtils extends PdaHtmlLafUtils
 
   private static final NameAndAgentScorer _PDA_SCORER =
     new NameAndAgentScorer("simple",
-                           IntegerUtils.getInteger(TrinidadAgent.TYPE_PDA),
+                           TrinidadAgent.TYPE_PDA,
                            null,
                            null,
                            null);

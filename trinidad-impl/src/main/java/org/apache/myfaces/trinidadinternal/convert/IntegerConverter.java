@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 
 import org.apache.myfaces.trinidad.convert.ClientConverter;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 
 /**
@@ -136,5 +136,5 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
   private static final String  _INT_MAX
     = IntegerUtils.getString(Integer.MAX_VALUE);
     
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 }

@@ -26,7 +26,7 @@ import javax.faces.component.UIComponent;
 
 import javax.faces.context.ResponseWriter;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 

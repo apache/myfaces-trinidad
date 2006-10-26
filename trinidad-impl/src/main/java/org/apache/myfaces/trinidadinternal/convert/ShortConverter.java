@@ -127,5 +127,5 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
 
   private static final String _SHORT_MAX = Short.toString(Short.MAX_VALUE);
   private static final String _SHORT_MIN = Short.toString(Short.MIN_VALUE);
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 }

@@ -90,6 +90,6 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
     return null;
   }
 
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "DecimalConvert()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 
 }

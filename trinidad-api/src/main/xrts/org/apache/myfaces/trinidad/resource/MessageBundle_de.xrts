@@ -71,6 +71,8 @@
 <!-- {1} value entered by the user                -->
 <!-- NOTE: The format of this message must match the format of the    -->
 <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+<resource key="javax.faces.DoubleRange" dnt="false">Keine Fliesskommazahl. </resource>
+<resource key="javax.faces.DoubleRange_detail" dnt="false">Wert &quot;{1}&quot; ist keine Fliesskommazahl.</resource>
 <resource key="javax.faces.LongRange" dnt="false">Keine Ganzzahl. </resource>
 <resource key="javax.faces.LongRange_detail" dnt="false">Wert &quot;{1}&quot; ist keine Ganzzahl.</resource>
 <!-- E.g. for input value "test" and maximum value set to "3" -->
@@ -102,6 +104,44 @@
 <!-- {3} represents the maximum allowed date     -->
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE" dnt="false">Datum liegt nicht innerhalb des gültigen Bereichs.</resource>
 <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail" dnt="false">Das eingegebene Datum &quot;{1}&quot; liegt nicht innerhalb des Bereichs gültiger Daten von {2} bis {3}.</resource>
+<!-- Date exceeds date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM" dnt="false">Eingabewert liegt unter dem gültigen Bereich.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt unter dem letzten gültigen Wert {2}.</resource>
+<!-- Date preceeds date range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Date which the user has set     -->
+<!-- {2} represents the minimum allowed date       -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM" dnt="false">Eingabewert liegt über dem gültigen Bereich.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt über dem ersten gültigen Wert {2}.</resource>
+<!-- Date outside date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed date     -->
+<!-- {3} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE" dnt="false">Eingabewert liegt nicht innerhalb des gültigen Bereichs.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt nicht innerhalb des gültigen Bereichs von {2} bis {3}.</resource>
+<!-- Date exceeds date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM" dnt="false">Eingabewert liegt unter dem gültigen Bereich.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt unter dem letzten gültigen Wert {2}.</resource>
+<!-- Date preceeds date range error                -->
+<!-- {0} the label that identifies the component   -->
+<!-- {1} represent Date which the user has set     -->
+<!-- {2} represents the minimum allowed date       -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM" dnt="false">Eingabewert liegt über dem gültigen Bereich.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt über dem ersten gültigen Wert {2}.</resource>
+<!-- Date outside date range error               -->
+<!-- {0} the label that identifies the component -->
+<!-- {1} value entered by the user               -->
+<!-- {2} represents the minimum allowed date     -->
+<!-- {3} represents the maximum allowed date     -->
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE" dnt="false">Eingabewert liegt nicht innerhalb des gültigen Bereichs.</resource>
+<resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE_detail" dnt="false">Der Eingabewert &quot;{1}&quot; liegt nicht innerhalb des gültigen Bereichs von {2} bis {3}.</resource>
 <!-- Input does not match regular expression error                        -->
 <!-- {0} the label that identifies the component                          -->
 <!-- {1} represents the input value                                       -->

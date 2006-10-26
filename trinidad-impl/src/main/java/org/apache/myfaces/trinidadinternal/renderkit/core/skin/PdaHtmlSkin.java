@@ -20,7 +20,6 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 
 /**
  * Skin implementation for HTML browsers
@@ -44,7 +43,7 @@ public class PdaHtmlSkin extends XhtmlSkin
   {    
     setProperty(SkinProperties.AF_NAVIGATIONPATH_SHOW_LAST_ITEM_PROPERTY_KEY, Boolean.FALSE);
     setProperty(SkinProperties.AF_PANELHEADER_INDENT_CONTENT, Boolean.FALSE);
-    setProperty(SkinProperties.AF_PANEL_LIST_DEFAULT_COLUMNS, IntegerUtils.getInteger(2));
+    setProperty(SkinProperties.AF_PANEL_LIST_DEFAULT_COLUMNS, 2);
   }
 
   // This array contains entries for all of the customizable
@@ -71,31 +70,31 @@ public class PdaHtmlSkin extends XhtmlSkin
     SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME,
       new ContextImageIcon("adf/images/dp.gif", 
                            "adf/images/dprtl.gif",
-                           IntegerUtils.getInteger(17),
-                           IntegerUtils.getInteger(18)),
+                           17,
+                           18),
                             
     SkinSelectors.AF_SELECT_INPUT_TEXT_BUTTON_ICON_NAME,
       new ContextImageIcon("adf/images/lovi.gif", 
                            "adf/images/lovirtl.gif",
-                           IntegerUtils.getInteger(18),
-                           IntegerUtils.getInteger(18)), 
+                           18,
+                           18), 
     // @todo these need to be green and in adf/images/lovi (these are for
     // OraclePdaSkin, but we are sharing for now.
     SkinSelectors.AF_COLUMN_UNSORTED_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrt.gif", 
                            null,
-                           IntegerUtils.getInteger(16),
-                           IntegerUtils.getInteger(7)), 
+                           16,
+                           7), 
     SkinSelectors.AF_COLUMN_SORTED_ASCEND_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrta.gif", 
                            null, 
-                           IntegerUtils.getInteger(9),
-                           IntegerUtils.getInteger(9)),    
+                           9,
+                           9),    
     SkinSelectors.AF_COLUMN_SORTED_DESCEND_ICON_NAME,
       new ContextImageIcon("adf/images/oracle/msrtd.gif", 
                            null, 
-                           IntegerUtils.getInteger(9),
-                           IntegerUtils.getInteger(9)),    
+                           9,
+                           9),    
 
   };
 

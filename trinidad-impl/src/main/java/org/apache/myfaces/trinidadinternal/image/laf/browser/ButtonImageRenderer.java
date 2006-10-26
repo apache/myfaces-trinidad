@@ -22,7 +22,7 @@ import java.awt.image.BufferedImage;
 
 import java.util.Map;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
@@ -237,7 +237,7 @@ public class ButtonImageRenderer extends PainterImageRenderer
       if (index < 0)
         return null;
 
-      return IntegerUtils.getInteger(index);
+      return index;
     }
 
     private PaintContext _context;

@@ -50,7 +50,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     UINode node) throws IOException
   {
     super.prerender(context, node);
-    BaseDesktopUtils.addLib(context, "RGBColorFormat()");
+    BaseDesktopUtils.addLib(context, "TrColorConverter()");
   }
 
   @Override
@@ -176,7 +176,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     {
       Object id = getID(context, node);
       if (id == null)
-        id = "(void 0)";
+        id = "null";
       onCellClick = new StringBuffer(id.toString().length() +
                                      onColorSelect.toString().length() +
                                      16);
@@ -372,7 +372,7 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
         {
           Object id = getID(context, node);
           if (id == null)
-            id = "(void 0)";
+            id = "null";
           StringBuffer sb = new StringBuffer(id.toString().length() +
                                              onColorSelect.toString().length() +
                                              21);
@@ -425,8 +425,8 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     // param b  handler body
     // param v  color value
     "function _onCPSel(s,b,v) {" +
-     "var parser = new RGBColorFormat(\"#RRGGBB\"); " +
-     "var color = (v != (void 0)) ? parser.getAsObject(v) : new Color(0,0,0,0); " +
+     "var parser = new TrColorConverter(\"#RRGGBB\"); " +
+     "var color = (v != null) ? parser.getAsObject(v) : new TrColor(0,0,0,0); " +
      "_handleClientEvent('colorSelect', s, {value:color}, b); }";
 
   private static final String _ON_CP_SEL_IE =
@@ -436,9 +436,9 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
     "var ele=window.event.srcElement;" +
     "if (ele.tagName=='A') ele=ele.childNodes[0];" +
      "  if (ele.tagName == 'IMG') {" +
-        "var parser = new RGBColorFormat(\"#RRGGBB\"); " +
+        "var parser = new TrColorConverter(\"#RRGGBB\"); " +
         "var color = parser.getAsObject(ele.style.backgroundColor); " +
-        "if (color == (void 0)) { color = new Color(0,0,0,0) }; " +
+        "if (color == null) { color = new TrColor(0,0,0,0) }; " +
         "_handleClientEvent('colorSelect', s, {value:color}, b);" +
        "}" +
      "}";
@@ -452,9 +452,9 @@ public class ColorPaletteRenderer extends HtmlLafRenderer
       "var ele=e.target; if (ele.tagName=='A') ele=ele.childNodes[0];"+
       " if (ele.tagName == 'IMG') {" +
         "var color = ele.style.backgroundColor;" +
-        "var parser = new RGBColorFormat([\"'rgb'(r, g, b)\",\"'rgb'(r,g,b)\",\"#RRGGBB\"]); " +
+        "var parser = new TrColorConverter([\"'rgb'(r, g, b)\",\"'rgb'(r,g,b)\",\"#RRGGBB\"]); " +
         "color = parser.getAsObject(color); " +
-        "if (color == (void 0)) { color = new Color(0,0,0,0) }; " +
+        "if (color == null) { color = new TrColor(0,0,0,0) }; " +
         "_handleClientEvent('colorSelect', s, {value:color}, b);" +
        "}" +
      "}";

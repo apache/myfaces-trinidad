@@ -22,10 +22,10 @@ function _getColorFieldFormat(
     var format = _cfs[name];
     var trans  = _cfts[name];
     if (format || trans)
-      return new RGBColorFormat(format, trans);
+      return new TrColorConverter(format, trans);
   }
 
-  return new RGBColorFormat();
+  return new TrColorConverter();
 }
 
 function _fixCFF(

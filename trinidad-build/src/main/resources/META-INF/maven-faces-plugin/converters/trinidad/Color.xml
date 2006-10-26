@@ -77,7 +77,7 @@ user's locale.]]>
               </ul>
              </p></html>]]>
       </description>
-      <property-name>convertMessageDetail</property-name>
+      <property-name>messageDetailConvert</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>

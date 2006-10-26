@@ -289,9 +289,9 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
       try
       {
         // ADF Converter is not lenient.
-        converter.setConvertDateMessageDetail(customMessage[0]);
-        converter.setConvertTimeMessageDetail(customMessage[1]);
-        converter.setConvertBothMessageDetail(customMessage[2]);
+        converter.setMessageDetailConvertDate(customMessage[0]);
+        converter.setMessageDetailConvertTime(customMessage[1]);
+        converter.setMessageDetailConvertBoth(customMessage[2]);
         // pattern and date type is driven using the same message.
 
 
@@ -300,7 +300,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
           converter.setPattern("M/d/yyyy");
           // There is no specific messaging scheme for pattern. So use the
           // dateMessageDetail itself for this.
-          converter.setConvertDateMessageDetail(customMessage[3]);
+          converter.setMessageDetailConvertDate(customMessage[3]);
         }
         else
           converter.setType(types[i]);

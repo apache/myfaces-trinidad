@@ -113,8 +113,8 @@ public class ColorConverterTest extends ConverterTestCase
     String[] patterns = {"rrr,ggg,bbb", "rrr-ggg-bbb"};
     String[] otherPatterns = {"rrr,ggg,bbb", "rrr-ggg-bbb"};
     converter.setPatterns(patterns);
-    converter.setConvertMessageDetail("Test message detail");
-    otherConverter.setConvertMessageDetail("Test message detail");
+    converter.setMessageDetailConvert("Test message detail");
+    otherConverter.setMessageDetailConvert("Test message detail");
     otherConverter.setPatterns(otherPatterns);
     doTestEquals(converter, otherConverter, true);
 
@@ -158,7 +158,7 @@ public class ColorConverterTest extends ConverterTestCase
 
     String[] patterns = {"#RRGGBB","RR.GG.BB"};
     converter.setPatterns(patterns);
-    converter.setConvertMessageDetail("Works fine");
+    converter.setMessageDetailConvert("Works fine");
     ColorConverter restoreConverter = new  ColorConverter();
 
     doTestStateHolderSaveRestore(converter, restoreConverter,

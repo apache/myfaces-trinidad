@@ -88,8 +88,29 @@
   <!-- {1} value entered by the user                -->
   <!-- NOTE: The format of this message must match the format of the    -->
   <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+  <resource key="javax.faces.Length">Wrong length.</resource>
+  <resource key="javax.faces.Length_detail">Value "{1}" has the wrong length.</resource>
+
+  <!-- {0} the label that identifies the component  -->
+  <!-- {1} value entered by the user                -->
+  <!-- NOTE: The format of this message must match the format of the    -->
+  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
   <resource key="javax.faces.LongRange">Not an integer.</resource>
   <resource key="javax.faces.LongRange_detail">Value "{1}" is not an integer.</resource>
+
+  <!-- {0} the label that identifies the component  -->
+  <!-- {1} value entered by the user                -->
+  <!-- NOTE: The format of this message must match the format of the    -->
+  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+  <resource key="javax.faces.DoubleRange">Not a float.</resource>
+  <resource key="javax.faces.DoubleRange_detail">Value "{1}" is not a float.</resource>
+
+  <!-- {0} the label that identifies the component  -->
+  <!-- {1} value entered by the user                -->
+  <!-- NOTE: The format of this message must match the format of the    -->
+  <!-- general javascript messages (see  VALIDATION_ALERT_FORMAT below) -->
+  <resource key="org.apache.myfaces.trinidad.DateTimeRange">Wrong date.</resource>
+  <resource key="org.apache.myfaces.trinidad.DateTimeRange_detail">Value "{1}" fit's not into the desired date range.</resource>
 
   <!-- E.g. for input value "test" and maximum value set to "3" -->
   <!--      the message would be:                               -->
@@ -132,6 +153,90 @@
 
   <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE_detail">The date entered, "{1}", is not within the range of valid dates {2} and {3}.</resource>
 
+  <!-- Number exceeds number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the maximum allowed number     -->
+  <resource
+    key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM">Value is too large.</resource>
+
+  <resource
+    key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- Number exceeds number range error                -->
+  <!-- {0} the label that identifies the component   -->
+  <!-- {1} represent Number which the user has set     -->
+  <!-- {2} represents the minimum allowed number       -->
+  <resource
+     key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM">Value is too small.</resource>
+  <resource
+     key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- Number outside number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the minimum allowed number     -->
+  <!-- {3} represents the maximum allowed number     -->
+  <resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE">Value is not within valid range.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.validator.DoubleRangeValidator.NOT_IN_RANGE_detail">The value entered, "{1}", is not within the range of valid values {2} and {3}.</resource>
+
+  <!-- Number exceeds number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the maximum allowed number     -->
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM">Value is too large.</resource>
+
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail">The size of value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- Number exceeds number range error                -->
+  <!-- {0} the label that identifies the component   -->
+  <!-- {1} represent Number which the user has set     -->
+  <!-- {2} represents the minimum allowed number       -->
+  <resource
+     key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM">Value is too small.</resource>
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_detail">The size of value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- Number outside number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the minimum allowed number     -->
+  <!-- {3} represents the maximum allowed number     -->
+  <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE">Value is not within valid range.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE_detail">The size of value entered, "{1}", is not within the range of valid values {2} and {3}.</resource>
+
+  <!-- Number exceeds number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the maximum allowed number     -->
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM">Value is too large.</resource>
+
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM_detail">The value "{1}" is larger than the maximum value of {2}.</resource>
+
+  <!-- Number exceeds number range error                -->
+  <!-- {0} the label that identifies the component   -->
+  <!-- {1} represent Number which the user has set     -->
+  <!-- {2} represents the minimum allowed number       -->
+  <resource
+     key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM">Value is too small.</resource>
+  <resource
+    key="org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM_detail">The value "{1}" is smaller than the minimum value of {2}.</resource>
+
+  <!-- Number outside number range error               -->
+  <!-- {0} the label that identifies the component -->
+  <!-- {1} value entered by the user               -->
+  <!-- {2} represents the minimum allowed number     -->
+  <!-- {3} represents the maximum allowed number     -->
+  <resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE">Value is not within valid range.</resource>
+
+  <resource key="org.apache.myfaces.trinidad.validator.LongRangeValidator.NOT_IN_RANGE_detail">The value entered, "{1}", is not within the range of valid values {2} and {3}.</resource>
+
   <!-- Input does not match regular expression error                        -->
   <!-- {0} the label that identifies the component                          -->
   <!-- {1} represents the input value                                       -->
@@ -142,35 +247,6 @@
 
   <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail">The value "{1}" does not match the regular expression pattern "{2}".</resource>
   
-    <!-- Length of input is less than the minimum specified length -->
-    <!-- {0} the label that identifies the component               -->
-    <!-- {1} value entered by the user                             -->
-    <!-- {2} the minimum length                                    -->
-    <resource
-      key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_detail">The length of the value entered, "{1}", is less than the minimum allowed length of {2}.</resource>
-  
-    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM">Value is too short.</resource>
-   
-     <!-- Length of input violates specified allowable range       -->
-     <!-- {0} the label that identifies the component              -->
-     <!-- {1} value entered by the user                            -->
-     <!-- {2} the minimum length                                   -->
-     <!-- {3} the maximum length                                   -->
-   <resource
-      key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE_detail">The length of the value entered, "{1}", must be between the allowed lengths of {2} and {3}.</resource>
-      
-    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE">Value is out of range.</resource>
-    
-    <!-- Length of input exceeds the specified maximum length     -->
-    <!-- {0} the label that identifies the component              -->
-    <!-- {1} value entered by the user                            -->
-    <!-- {2} the maximum length                                   -->
-    <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM">Value is too long.</resource> 
-    <resource
-      key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_detail">The length of the value entered, "{1}",  exceeds the maximum allowed length of {2}.</resource>
-  
-
-
   <!-- messages for converters -->
 
   <!-- {0} the label that identifies the component             -->

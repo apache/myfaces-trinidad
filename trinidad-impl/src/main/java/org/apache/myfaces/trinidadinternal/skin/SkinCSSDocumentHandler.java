@@ -16,7 +16,6 @@
 package org.apache.myfaces.trinidadinternal.skin;
 
 import java.io.StringReader;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +25,6 @@ import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.style.util.NameUtils;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
 import org.apache.myfaces.trinidadinternal.style.xml.parse.PropertyNode;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
  /** As the Skin css file is parsed, methods in this class are called to
@@ -332,7 +330,7 @@ public class SkinCSSDocumentHandler
           int agentInt = NameUtils.getBrowser(typeArray[i].trim());
           
           if (agentInt != TrinidadAgent.APPLICATION_UNKNOWN)
-            list.add(IntegerUtils.getInteger(agentInt));
+            list.add(agentInt);
         }
       }
       else if (type == _AT_PLATFORM)
@@ -342,7 +340,7 @@ public class SkinCSSDocumentHandler
           int platformInt = NameUtils.getPlatform(typeArray[i].trim());           
 
           if (platformInt != TrinidadAgent.OS_UNKNOWN)
-            list.add(IntegerUtils.getInteger(platformInt));
+            list.add(platformInt);
         }          
       }
       return _getIntArray(list);

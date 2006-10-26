@@ -29,7 +29,7 @@ import org.apache.myfaces.trinidad.component.core.layout.CorePanelList;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 public class PanelListRenderer extends XhtmlRenderer
 {

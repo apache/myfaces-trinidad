@@ -183,7 +183,7 @@ public class ByteLengthValidator
   private FacesMessage _getEscapedJsMaximumMessage(
     FacesContext context)
   {
-    String maxMsgDetail = getMaximumMessageDetail();
+    String maxMsgDetail = getMessageDetailMaximum();
     String maxLength = String.valueOf(getMaximum());
     String label = "{0}";    // this will get substituted on the client
 

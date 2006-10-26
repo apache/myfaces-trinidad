@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.ui.path;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
 
@@ -119,7 +117,7 @@ public class PathImpl implements Path
    */
   public void add(int indexedChild)
   {
-    _add(IntegerUtils.getInteger(indexedChild));
+    _add(indexedChild);
   }
 
 
@@ -147,7 +145,7 @@ public class PathImpl implements Path
           _elements[length + i] = path.getElementName(i);
         else
           _elements[length + i] =
-             IntegerUtils.getInteger(path.getElementIndex(i));
+             path.getElementIndex(i);
       }
     }
 

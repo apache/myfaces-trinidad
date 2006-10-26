@@ -18,8 +18,6 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 
 import java.util.Enumeration;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 /**
  * Dinky little class for enumerating an array of integers.
  * Note: This class assumes that the contents of the
@@ -55,7 +53,7 @@ class IntegerArrayEnumeration implements Enumeration<Integer>
    */
   public Integer nextElement()
   {
-    return IntegerUtils.getInteger(_array[_index++]);
+    return _array[_index++];
   }
 
   private int[] _array;

@@ -226,7 +226,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
                                                 detailMessage.length() +
                                                 summaryMessage.length() +
                                                 exampleString.length());
-      outBuffer.append("new SimpleDateFormat("); // 21
+      outBuffer.append("new TrDateTimeConverter("); // 21
       outBuffer.append(jsPattern);               // jsPattern.length
       outBuffer.append(",null,'");               // 7
       outBuffer.append(summaryMessage);          // summary message.length
@@ -524,6 +524,6 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   private static final String _GMT_MINUS = "GMT-";
   private static final int _MILLIS_PER_HOUR = 60 * 60 * 1000;
   private static final int _MILLIS_PER_MINUTE = 60 * 1000;
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList("SimpleDateFormat()" );
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList("TrDateTimeConverter()" );
 
 }

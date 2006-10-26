@@ -2528,7 +2528,6 @@ function _multiValidate(
   return failures;
 }
 
-
 /**
  * Used for the converters and validators we provide which all have the form
  *
@@ -2546,6 +2545,7 @@ function _createFacesMessage(
   param3
 )
 {  
+
   // format the detail error string
   if (detail != null)
   {
@@ -2556,8 +2556,6 @@ function _createFacesMessage(
                           detail, 
                           TrFacesMessage.SEVERITY_ERROR);
 }
-
-
 
 function _getGlobalErrorString(
   input,
@@ -3795,7 +3793,7 @@ function _loadScriptLibraries(targetDocument)
 
 
 
-/* If the ADF facility needs to set focus to a particualr node after a PPR
+/* If the Trinidad facility needs to set focus to a particualr node after a PPR
  * update, calling this function saves off the data needed to find that node
  *
  * Args:
@@ -4326,7 +4324,7 @@ function _getFormState(formName, exclude)
 /**
  * Determines if the "navigation form" is dirty, returning true if
  * the form is dirty.  This function can only be called if
- * the "navigationFormName" attribute was set on the ADF body component.
+ * the "navigationFormName" attribute was set on the Trinidad body component.
  *
  * @return true if the navigation form is dirty
  */
@@ -4770,7 +4768,7 @@ function _setCookie(name, value)
 
 
 //
-// Set a single value in the ADF cookie
+// Set a single value in the Trinidad cookie
 //
 function _setAdfCookie(index, value)
 {
@@ -4789,7 +4787,7 @@ function _setAdfCookie(index, value)
 
 
 //
-// Extract the decoded form of the ADF cookie
+// Extract the decoded form of the Trinidad cookie
 //
 function _getAdfCookie()
 {
@@ -4857,7 +4855,7 @@ function _getTimeZoneID()
  * key that is pressed along with the ALT key (ALT+accessKey).
  * This is called for IE, not on Mac, only.
  *
- * Background: we want the accesskey to work on our ADF
+ * Background: we want the accesskey to work on our Trinidad
  * buttons (which are links wrapped around an image)
  * like it does for a <button> html element, and that is
  * it activates the button rather than sets focus like it does for a link.
@@ -4885,7 +4883,7 @@ function _monitor(e)
 
     var accessKeyNode = _getNodeWithAccessKey(document, keyPressed);
 
-    // if the element is a ADF Button, make it act like an accelerator
+    // if the element is a Trinidad Button, make it act like an accelerator
 
     if (accessKeyNode != null && (accessKeyNode.getAttribute("adfbtn") != null))
     {

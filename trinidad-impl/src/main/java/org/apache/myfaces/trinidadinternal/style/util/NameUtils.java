@@ -21,7 +21,7 @@ import java.util.Locale;
 import java.util.Vector;
 
 import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 

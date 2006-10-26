@@ -14,15 +14,20 @@
 * limitations under the License.
 */
 package org.apache.myfaces.trinidadinternal.validator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import javax.faces.validator.ValidatorException;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
+import org.apache.myfaces.trinidad.validator.ClientValidator;
+import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
 public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validator.DateTimeRangeValidator
+                                       implements ClientValidator
 {
   public DateTimeRangeValidator()
   {
@@ -44,4 +49,48 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     }
     super.validate(context, component, value);
   }
+  
+  
+  public Collection<String> getClientImportNames()
+  {
+    return _IMPORT_NAMES;
+  }
+
+  public String getClientScript(
+   FacesContext context,
+   UIComponent component)
+  {
+    return null;
+  }
+
+
+  /**
+   * @todo this should have not_in_range messages, not just max and min!
+   * @todo Format these numbers properly.
+   */
+  public String getClientValidation(
+    FacesContext context,
+    UIComponent component)
+  {
+    
+    String maxStr = Long.toString(getMaximum().getTime());
+    String minStr = Long.toString(getMinimum().getTime());
+    
+    return  ConverterUtils.getClientValidation(context, component,
+                                               MAXIMUM_MESSAGE_ID,
+                                               MINIMUM_MESSAGE_ID,
+                                               org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.VALIDATOR_ID,
+                                               maxStr, minStr, "TrDateTimeRangeValidator");
+  }
+  
+  
+  public String getClientLibrarySource(
+   FacesContext context)
+  {
+    return null;
+  }
+  
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
+  
+  
 }

@@ -27,8 +27,6 @@ import java.awt.image.RGBImageFilter;
 import java.util.Map;
 
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.image.ImageConstants;
 import org.apache.myfaces.trinidadinternal.image.ImageContext;
 import org.apache.myfaces.trinidadinternal.image.ImageRenderer;
@@ -93,13 +91,13 @@ public class ColorizedIconImageRenderer implements ImageRenderer
     if (width != -1)
     {
       responseProperties.put(ImageConstants.WIDTH_RESPONSE_KEY,
-                             IntegerUtils.getInteger(width));
+                             width);
     }
 
     if (height != -1)
     {
       responseProperties.put(ImageConstants.HEIGHT_RESPONSE_KEY,
-                             IntegerUtils.getInteger(height));
+                             height);
     }
 
     // This very strange code is here to work around problems

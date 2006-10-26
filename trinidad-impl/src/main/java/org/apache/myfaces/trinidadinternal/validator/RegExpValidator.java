@@ -75,7 +75,7 @@ public class RegExpValidator
                                               + esNoMatchMsgPattern.length()
                                               + esNoMatchMsgSummaryPattern.length());
 
-    outBuffer.append("new RegExpFormat('"); // 18
+    outBuffer.append("new TrRegExpValidator('"); // 18
     outBuffer.append(jsPattern);
     outBuffer.append("',{NM:'");            //  7
     outBuffer.append(esNoMatchMsgPattern);
@@ -100,7 +100,7 @@ public class RegExpValidator
   private FacesMessage _getNoMatchMessage(
     FacesContext context)
   {
-    String noMatchMsg = getNoMatchMessageDetail(); 
+    String noMatchMsg = getMessageDetailNoMatch(); 
     Object[] params = new Object[] {"{0}", "{1}", "{2}"};
 
     return MessageFactory.getMessage(context,
@@ -110,5 +110,5 @@ public class RegExpValidator
   }
 
 
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "RegExpFormat()" );     
+  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrRegExpValidator()" );     
 }

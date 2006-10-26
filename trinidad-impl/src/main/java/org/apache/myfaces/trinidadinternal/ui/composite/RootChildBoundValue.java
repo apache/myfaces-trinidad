@@ -17,11 +17,8 @@ package org.apache.myfaces.trinidadinternal.ui.composite;
 
 import java.util.Hashtable;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.UINode;
-
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.data.BoundValue;
 
 
@@ -56,7 +53,7 @@ public class RootChildBoundValue implements BoundValue
     int childIndex
     )
   {
-    Integer key = IntegerUtils.getInteger(childIndex);
+    Integer key = childIndex;
 
     RootChildBoundValue node = _boundValues.get(key);
 

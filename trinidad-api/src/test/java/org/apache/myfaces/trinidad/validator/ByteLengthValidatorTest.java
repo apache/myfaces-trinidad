@@ -146,7 +146,7 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     ByteLengthValidator validator = new ByteLengthValidator();
     validator.setEncoding("ISO-8859-1");
     validator.setMaximum(4);
-    validator.setMaximumMessageDetail("Testing state holder?");
+    validator.setMessageDetailMaximum("Testing state holder?");
     ByteLengthValidator restoreValidator = new  ByteLengthValidator();
 
     doTestStateHolderSaveRestore(validator, restoreValidator,
@@ -162,26 +162,26 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     //1
     validator.setEncoding("ISO-8859-1");
     validator.setMaximum(100);
-    validator.setMaximumMessageDetail("MaxMessage");
+    validator.setMessageDetailMaximum("MaxMessage");
 
     ByteLengthValidator otherValidator = new ByteLengthValidator();
     otherValidator.setEncoding("ISO-8859-1");
     otherValidator.setMaximum(100);
-    otherValidator.setMaximumMessageDetail("MaxMessage");
+    otherValidator.setMessageDetailMaximum("MaxMessage");
     doTestEquals(validator, otherValidator, true);
     assertEquals(validator.hashCode(), otherValidator.hashCode());
 
     //2
     otherValidator.setMaximum(150);
     validator.setMaximum(150);
-    validator.setMaximumMessageDetail("MaxMessage1");
-    otherValidator.setMaximumMessageDetail("MaxMessage1");
+    validator.setMessageDetailMaximum("MaxMessage1");
+    otherValidator.setMessageDetailMaximum("MaxMessage1");
     doTestEquals(validator, otherValidator, true);
     assertEquals(validator.hashCode(), otherValidator.hashCode());
 
     //3
     otherValidator.setMaximum(200);
-    otherValidator.setMaximumMessageDetail("MaxMessage");
+    otherValidator.setMessageDetailMaximum("MaxMessage");
     doTestEquals(validator, otherValidator, false);
     assertEquals(false, (validator.hashCode() == otherValidator.hashCode()));
   }
@@ -194,7 +194,7 @@ public class ByteLengthValidatorTest extends ValidatorTestCase
     setMockLabelForComponent(wrapper);
     ByteLengthValidator validator = new ByteLengthValidator();
     int maxBytes[]     = {3};
-    validator.setMaximumMessageDetail("\"{1}\"" + _IS_GREATER
+    validator.setMessageDetailMaximum("\"{1}\"" + _IS_GREATER
                                       + maxBytes[0]);
 
     //some very basic sanity test

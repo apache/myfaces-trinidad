@@ -24,7 +24,7 @@ import java.io.InterruptedIOException;
 import java.util.Hashtable;
 
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 import org.apache.myfaces.trinidadinternal.image.painter.ImageLoader;
 
@@ -129,7 +129,7 @@ final class GifEncoder
         // For non-transparent pixels, we first check to see if the
         // color has already been added to the color table.  We use an
         // the Integer RGB value as our hash key
-        Integer colorKey = IntegerUtils.getInteger(color & 0x00ffffff);
+        Integer colorKey = (color & 0x00ffffff);
         Integer colorIndexValue = hsh.get(colorKey);
 
         if (colorIndexValue != null)
@@ -151,7 +151,7 @@ final class GifEncoder
           globalColorTable[off+2] = _getBlue(color);
 
           // Hash the color->index mapping for fast lookups
-          hsh.put(colorKey, IntegerUtils.getInteger(colorIndex));
+          hsh.put(colorKey, colorIndex);
 
           // and Update the index count
           lastColorIndex = colorIndex++;
@@ -183,7 +183,7 @@ final class GifEncoder
         for (int i = 0x00ff00ff; i < 0x00ffffff; i++)
         {
           int col = i;
-          Integer icol = IntegerUtils.getInteger(col);
+          Integer icol = col;
           if (!hsh.containsKey(icol))
           {
             // add entry to table
@@ -367,14 +367,14 @@ final class GifEncoder
 
       if (sqnc > 0)
       {
-        fsqnc_newcol = IntegerUtils.getInteger(sqnc_newcol);
+        fsqnc_newcol = sqnc_newcol;
         Integer sqnc_newcol_code = hsh.get(fsqnc_newcol);
         if (sqnc_newcol_code == null)
         {
           // string not in table.
           // write prefix and add string to table
           _writeByte(stream, sqnc-2, info);
-          hsh.put(fsqnc_newcol, IntegerUtils.getInteger(code++));
+          hsh.put(fsqnc_newcol, code++);
 
           if ((code-2) > infoCompSizeExp)
           { // increase code length

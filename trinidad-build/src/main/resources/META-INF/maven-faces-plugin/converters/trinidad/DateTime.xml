@@ -50,7 +50,7 @@
               </ul>
              </p></html>]]>
       </description>
-      <property-name>convertDateMessageDetail</property-name>
+      <property-name>messageDetailConvertDate</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
@@ -83,7 +83,7 @@
               </ul>
              </p></html>]]>
       </description>
-      <property-name>convertTimeMessageDetail</property-name>
+      <property-name>messageDetailConvertTime</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
@@ -116,7 +116,7 @@
               </ul>
              </p></html>]]>
       </description>
-      <property-name>convertBothMessageDetail</property-name>
+      <property-name>messageDetailConvertBoth</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>

@@ -15,7 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.el;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 /**
  * <p>

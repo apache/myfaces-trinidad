@@ -19,14 +19,12 @@ import java.io.IOException;
 
 import javax.faces.context.ResponseWriter;
 
+import org.apache.myfaces.trinidadinternal.ui.UINode;
+import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientAction;
 import org.apache.myfaces.trinidadinternal.ui.action.ClientActionUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.LinkUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
-import org.apache.myfaces.trinidadinternal.ui.UIXRenderingContext;
-import org.apache.myfaces.trinidadinternal.ui.UINode;
 
 /**
  * Renderer for global buttons
@@ -87,7 +85,7 @@ public class GlobalButtonRenderer extends HtmlLafRenderer
       renderStyleClassAttribute(context, AF_MENU_BUTTONS_IMAGE_STYLE_CLASS);
       renderURIAttribute(context, SOURCE_ATTRIBUTE, iconURI);
       renderAltAndTooltipForImage(context, shortDesc);
-      renderAttribute(context, BORDER_ATTRIBUTE, IntegerUtils.getInteger(0));
+      renderAttribute(context, BORDER_ATTRIBUTE, 0);
       renderAttribute(context, node, WIDTH_ATTRIBUTE, WIDTH_ATTR);
       renderAttribute(context, node, HEIGHT_ATTRIBUTE, HEIGHT_ATTR);
       writer.endElement(IMAGE_ELEMENT);

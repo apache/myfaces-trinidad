@@ -19,8 +19,6 @@ import java.io.IOException;
 
 import org.apache.myfaces.trinidadinternal.util.OptimisticHashMap;
 
-import org.apache.myfaces.trinidadinternal.util.IntegerUtils;
-
 import org.apache.myfaces.trinidadinternal.ui.AttributeKey;
 import org.apache.myfaces.trinidadinternal.ui.BaseUINode;
 import org.apache.myfaces.trinidadinternal.ui.NodeRole;
@@ -60,7 +58,7 @@ public class ContextPoppingUINode extends BaseUINode
     int childIndex
     )
   {
-    Integer key = IntegerUtils.getInteger(childIndex);
+    Integer key = childIndex;
 
     ContextPoppingUINode node = _sContextPoppers.get(key);
 
