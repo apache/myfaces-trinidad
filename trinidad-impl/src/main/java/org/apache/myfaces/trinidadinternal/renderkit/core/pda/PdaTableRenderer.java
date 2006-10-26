@@ -434,8 +434,10 @@ public class PdaTableRenderer extends TableRenderer
     {
       if (hidden[j] != TableRenderingContext.NORMAL_COLUMN)
         continue;
-      CoreColumn column = (CoreColumn) component.getChildren().get(j);
-      if (!column.isRowHeader())
+      UIXColumn column = (UIXColumn) component.getChildren().get(j);
+      boolean isRowHeader = Boolean.TRUE.equals(
+        column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
+      if (!isRowHeader)
       {
         colData.setColumnIndex(physicalCol, j);
         encodeChild(context, column);
