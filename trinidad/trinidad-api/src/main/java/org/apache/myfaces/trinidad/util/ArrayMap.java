@@ -53,9 +53,15 @@ import java.util.Set;
  * @author The Oracle ADF Faces Team
  */
 // -= Simon Lessard =-
-// FIXME: Using a single array for both the key and the value leads to many 
+//        Using a single array for both the key and the value leads to many 
 //        problems, especially with type safety. Using parallel arrays or 
-//        a sigle array containing nodes would be a much cleaner/safer idea.
+//        a single array containing nodes would be a much cleaner/safer idea.
+// =-= AdamWiner =-=
+//        True, but the whole point of this class is maximal efficiency for
+//        small, transient arrays.  The type safety problems are entirely internal,
+//        not exposed to clients.  Parallel arrays or arrays containing nodes
+//        would be less efficient - if you're willing to allocate bonus objects,
+//        and don't care about efficiency, just use HashMap.
 public class ArrayMap<K,V> extends AbstractMap<K,V> implements Cloneable
 {
   /**
