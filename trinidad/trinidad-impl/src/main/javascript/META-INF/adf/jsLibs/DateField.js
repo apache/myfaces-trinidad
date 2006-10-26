@@ -367,7 +367,7 @@ function _dfa(dateField, calendarID)
 {
   if (calendarID != (void 0))
   {
-    if (window._calActiveDateFields === (void 0))
+    if (window._calActiveDateFields == (void 0))
       window._calActiveDateFields = new Object();
 
     if (typeof(dateField) == "string")
