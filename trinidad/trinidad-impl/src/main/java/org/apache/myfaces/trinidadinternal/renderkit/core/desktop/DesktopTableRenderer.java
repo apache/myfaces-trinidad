@@ -74,6 +74,8 @@ public class DesktopTableRenderer extends TableRenderer
     if (_heightKey == null)
       _heightKey = PropertyKey.createPropertyKey("height");
     _allDetailsEnabledKey = type.findKey("allDetailsEnabled");
+    _allDisclosed = new AllDetail(type, true);
+    _allUndisclosed = new AllDetail(type, false);
   }
 
   public DesktopTableRenderer()
@@ -1103,9 +1105,9 @@ public class DesktopTableRenderer extends TableRenderer
 
   static private class AllDetail extends ShowDetailRenderer
   {
-    public AllDetail(boolean disclosed)
+    public AllDetail(FacesBean.Type type, boolean disclosed)
     {
-      super(CoreTable.TYPE);
+      super(type);
       _disclosed = disclosed;
     }
 
@@ -1177,8 +1179,8 @@ public class DesktopTableRenderer extends TableRenderer
   // Private variables
   //
 
-  private CoreRenderer _allDisclosed = new AllDetail(true);
-  private CoreRenderer _allUndisclosed = new AllDetail(false);
+  private CoreRenderer _allDisclosed;
+  private CoreRenderer _allUndisclosed;
   // translation keys
 
   private static final String _SHOW_ALL_DETAILS_TEXT_KEY = "af_table.SHOW_ALL_DETAILS";
