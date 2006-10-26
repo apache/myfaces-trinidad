@@ -280,10 +280,10 @@ public class FormRenderer extends XhtmlRenderer
     //this condition is needed for bug 4526850- It ensures that only
     //state token and form name parameters are overwritten when there is
     //a partial page submission.
-    //PH: also include blackberry browser in this condition
+    // (also include blackberry browser in this condition)
     if (isPDA(arc) && pprImpl == null)
     {
-      //PH: Add hidden elements in the form for enabling PPR on IE Mobile.
+      //Add hidden elements in the form for enabling PPR on IE Mobile.
 
       Object domLevel =  arc.getAgent().getCapabilities().get(
                     TrinidadAgent.CAP_DOM);
@@ -296,16 +296,21 @@ public class FormRenderer extends XhtmlRenderer
         FormData formData = arc.getFormData();
         if(formData != null)
         {
-          //PH: add needed values for PIE to enable PPR.
+          // =-=AdamWiner: this isn't really correct - these
+          // parameters should be added by the components that need
+          // them, not globally by the form control
           if(isPIE)
           {
+            formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
             formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
             formData.addNeededValue(XhtmlConstants.PARTIAL_TARGETS_PARAM);
             formData.addNeededValue(XhtmlConstants.PARTIAL_PARAM);
           }
           else
-          //PH:add needed values for blackberry.
+          {
+            formData.addNeededValue(XhtmlConstants.SOURCE_PARAM);
             formData.addNeededValue(XhtmlConstants.EVENT_PARAM);
+          }
         }
       }
 
