@@ -20,7 +20,7 @@
     <render-kit-id>org.apache.myfaces.trinidadinternal.core</render-kit-id>
     <renderer>
       <component-family>org.apache.myfaces.trinidad.ResetButton</component-family>
-      <renderer-type>org.apache.myfaces.trinidad.ResetButton</renderer-type>
+      <renderer-type>org.apache.myfaces.trinidad.Button</renderer-type>
       <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.ResetButtonRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreResetButton</mfp:component-type>
