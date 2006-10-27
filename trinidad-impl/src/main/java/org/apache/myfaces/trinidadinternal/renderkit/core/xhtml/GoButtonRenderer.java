@@ -46,6 +46,13 @@ public class GoButtonRenderer extends GoLinkRenderer
     super(type);
   }
 
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _iconKey = type.findKey("icon");
+  }
+
 
   @Override
   public boolean getRendersChildren()
@@ -125,6 +132,11 @@ public class GoButtonRenderer extends GoLinkRenderer
                                        getText(bean),
                                        accessKey,
                                        SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
+
+    String icon = getIcon(bean);
+    if (icon != null)
+      OutputUtils.renderImage(context, arc, icon, null, null, null,
+                              getShortDesc(bean));
 
     rw.endElement(element);
   }
@@ -274,6 +286,13 @@ public class GoButtonRenderer extends GoLinkRenderer
   {
     return SkinSelectors.AF_GO_BUTTON_STYLE_CLASS;
   }
+
+  protected String getIcon(FacesBean bean)
+  {
+    return toUri(bean.getProperty(_iconKey));
+  }
+
+  private PropertyKey _iconKey;
 
   static private final List<String> _DISABLED_STATE_LIST =
     Collections.singletonList(SkinSelectors.STATE_DISABLED);

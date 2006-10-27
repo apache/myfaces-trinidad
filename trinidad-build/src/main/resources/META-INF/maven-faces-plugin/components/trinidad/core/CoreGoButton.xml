@@ -98,13 +98,17 @@ to another location instead of delivering an action.]]>
       <property-name>targetFrame</property-name>
       <property-class>java.lang.String</property-class>
     </property>
+
     <property>
-      <description><![CDATA[an onclick Javascript handler.]]></description>
-      <property-name>onclick</property-name>
+      <description>
+        <![CDATA[An URL to an image to use for an icon displayed in the button.]]>
+      </description>
+      <property-name>icon</property-name>
       <property-class>java.lang.String</property-class>
       <property-extension>
         <mfp:property-metadata>
-          <mfp:group>${md:getTranslatedString("EVENTS_GROUP")}</mfp:group>
+          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
+          <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
         </mfp:property-metadata>
       </property-extension>
     </property>

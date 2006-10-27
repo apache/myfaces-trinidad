@@ -41,6 +41,13 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     super(type);
   }
 
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _iconKey = type.findKey("icon");
+  }
+
 
   @Override
   public boolean getRendersChildren()
@@ -70,7 +77,18 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement(element, component);
     renderId(context, component);
-    rw.writeAttribute("type", useButtonTag ? getButtonType() : getInputType(), null);
+
+    // Write the text and access key
+    String text = getText(bean);
+    String icon = getIcon(bean);
+
+    if (useButtonTag)
+      rw.writeAttribute("type", getButtonType(), null);
+    else if (icon != null)
+      rw.writeAttribute("type", "image", null);
+    else
+      rw.writeAttribute("type", getInputType(), null);
+
     if (getDisabled(bean))
     {
       rw.writeAttribute("disabled", Boolean.TRUE, "disabled");
@@ -82,8 +100,6 @@ public class CommandButtonRenderer extends CommandLinkRenderer
       renderAllAttributes(context, arc, bean);
     }
 
-    // Write the text and access key
-    String text = getText(bean);
     char accessKey;
     if (supportsAccessKeys(arc))
     {
@@ -103,14 +119,24 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     if (useButtonTag)
     {
       AccessKeyUtils.renderAccessKeyText(context,
-                                         getText(bean),
+                                         text,
                                          accessKey,
                                          SkinSelectors.AF_ACCESSKEY_STYLE_CLASS);
+      if (icon != null)
+        OutputUtils.renderImage(context, arc, icon, null, null, null,
+                                getShortDesc(bean));
     }
     else
     {
-      rw.writeAttribute("value", text, "text");
-    }          
+      if (icon != null)
+      {
+        renderEncodedResourceURI(context, "src", icon);
+      }
+      else
+      {
+        rw.writeAttribute("value", text, "text");
+      }
+    }
 
     rw.endElement(element);
   }
@@ -206,6 +232,13 @@ public class CommandButtonRenderer extends CommandLinkRenderer
   {
     return SkinSelectors.AF_COMMAND_BUTTON_STYLE_CLASS;
   }
+
+  protected String getIcon(FacesBean bean)
+  {
+    return toUri(bean.getProperty(_iconKey));
+  }
+
+  private PropertyKey _iconKey;
 
   static private final List<String> _DISABLED_STATE_LIST =
     Collections.singletonList(SkinSelectors.STATE_DISABLED);

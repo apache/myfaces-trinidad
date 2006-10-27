@@ -47,33 +47,11 @@
           >
         ButtonText
       </button>
-<!--AttributeTest[longDesc,my long desc]-->
-
-      <button
-           class="af_goButton"
-           onclick="document.location='encoded-action-url:http://www.oracle.com'"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
 <!--AttributeTest[targetFrame,mytarget]-->
 
       <button
            class="af_goButton"
            onclick="top[mytarget].location='encoded-action-url:http://www.oracle.com'"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
-<!--AttributeTest[textAndAccessKey,B&uttonText]-->
-
-      <button
-           class="af_goButton"
-           onclick="document.location='encoded-action-url:http://www.oracle.com'"
            type="button"
            id="uri-attr:mainId"
            name="uri-attr:mainId"
@@ -113,6 +91,22 @@
            name="uri-attr:mainId"
           >
         ButtonText
+      </button>
+<!--AttributeTest[icon,/foo.gif]-->
+
+      <button
+           class="af_goButton"
+           onclick="document.location='encoded-action-url:http://www.oracle.com'"
+           type="button"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+        <img
+             src="/test-context-path/foo.gif"
+            >
+          
+        </img>
       </button>
 <!--AttributeTest[onblur,null]-->
 
