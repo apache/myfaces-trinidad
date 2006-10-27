@@ -236,9 +236,6 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
 
-
-
-
   /**
    * Set a property of type java.lang.Long.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
@@ -260,6 +257,54 @@ abstract public class UIXComponentTag extends UIComponentTag
     else
     {
       bean.setProperty(key, Long.valueOf(value));
+    }
+  }
+
+  /**
+   * Set a property of type java.lang.Dobule.  If the value
+   * is an EL expression, it will be stored as a ValueBinding.
+   * Otherwise, it will parsed with Dobule.valueOf().
+   * Null values are ignored.
+   */
+  protected void setDoubleProperty(
+    FacesBean   bean,
+    PropertyKey key,
+    String      value)
+  {
+    if (value == null)
+      return;
+
+    if (isValueReference(value))
+    {
+      bean.setValueBinding(key, createValueBinding(value));
+    }
+    else
+    {
+      bean.setProperty(key, Double.valueOf(value));
+    }
+  }
+
+  /**
+   * Set a property of type java.lang.Float.  If the value
+   * is an EL expression, it will be stored as a ValueBinding.
+   * Otherwise, it will parsed with Dobule.valueOf().
+   * Null values are ignored.
+   */
+  protected void setFloatProperty(
+    FacesBean   bean,
+    PropertyKey key,
+    String      value)
+  {
+    if (value == null)
+      return;
+
+    if (isValueReference(value))
+    {
+      bean.setValueBinding(key, createValueBinding(value));
+    }
+    else
+    {
+      bean.setProperty(key, Float.valueOf(value));
     }
   }
 
