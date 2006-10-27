@@ -7,11 +7,7 @@
   <!-- ungrouped -->
   <attribute-test name="accessKey" value="u"/>
   <boolean-test name="disabled"/>
-  <attribute-test name="longDesc" value="my long desc"  matchesBase="true"/>
-  <!--attribute-test name="partialTriggers" value="x y" matchesBase="true"/-->
-  <!--boolean-test name="selected"/-->
   <attribute-test name="targetFrame" value="mytarget"/>
-  <attribute-test name="textAndAccessKey" value="B&amp;uttonText"  matchesBase="true"/>
   
   <!-- core -->  
   <attribute-test name="id" value="myid"/>
@@ -19,6 +15,8 @@
   <!--boolean-test name="rendered"/-->
   <attribute-test name="shortDesc" value="my button"/>
   <attribute-test name="styleClass" value="mystyle"/>
+
+  <attribute-test name="icon" value="/foo.gif"/>
   
   <!-- javascript -->
   <js-test/>

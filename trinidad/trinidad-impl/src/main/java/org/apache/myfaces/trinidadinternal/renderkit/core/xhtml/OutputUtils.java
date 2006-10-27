@@ -268,11 +268,18 @@ public class OutputUtils
     UIComponent         comp
     ) throws IOException
   {
+    if (absoluteUri == null)
+      return;
+
     ResponseWriter writer = context.getResponseWriter();
 
     writer.startElement("img", comp);
     writer.writeAttribute("id", id, null);
-    // TODO: writeURIAttribute here
+    // Run through the ExternalContext resource URL encoder
+    /* Temporarily comment out to avoid unnecessary diffs while
+       doing "icon" work on goButton and commandButton
+    absoluteUri = context.getExternalContext().encodeResourceURL(
+      absoluteUri.toString());*/
     writer.writeAttribute("src", absoluteUri, null);
 
     renderAltAndTooltipForImage(context, arc, altText);

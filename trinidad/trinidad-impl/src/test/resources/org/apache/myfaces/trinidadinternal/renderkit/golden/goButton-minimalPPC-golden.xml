@@ -37,27 +37,7 @@
           >
         ButtonText
       </a>
-<!--AttributeTest[longDesc,my long desc]-->
-
-      <a
-           class="af_goButton"
-           href="uri-attr:encoded-action-url:http://www.oracle.com"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </a>
 <!--AttributeTest[targetFrame,mytarget]-->
-
-      <a
-           class="af_goButton"
-           href="uri-attr:encoded-action-url:http://www.oracle.com"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </a>
-<!--AttributeTest[textAndAccessKey,B&uttonText]-->
 
       <a
            class="af_goButton"
@@ -97,6 +77,21 @@
            name="uri-attr:mainId"
           >
         ButtonText
+      </a>
+<!--AttributeTest[icon,/foo.gif]-->
+
+      <a
+           class="af_goButton"
+           href="uri-attr:encoded-action-url:http://www.oracle.com"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+        <img
+             src="/test-context-path/foo.gif"
+            >
+          
+        </img>
       </a>
 <!--AttributeTest[onblur,null]-->
 

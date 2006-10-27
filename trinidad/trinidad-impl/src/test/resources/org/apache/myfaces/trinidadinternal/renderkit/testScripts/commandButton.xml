@@ -7,7 +7,7 @@
   <boolean-test name="disabled"/>
   <boolean-test name="immediate"/>
   <boolean-test name="partialSubmit"/>
-  <attribute-test name="textAndAccessKey" value="B&amp;uttonText"  matchesBase="true"/>
+
   <attribute-test name="windowHeight" value="100" matchesBase="true"/>
   <attribute-test name="windowWidth" value="200" matchesBase="true"/>
   
@@ -16,6 +16,8 @@
   <attribute-test name="inlineStyle" value="background-color:red"/>
   <attribute-test name="shortDesc" value="my button"/>
   <attribute-test name="styleClass" value="mystyle"/>
+
+  <attribute-test name="icon" value="/foo.gif"/>
   
   <!-- javascript -->
   <js-test/>

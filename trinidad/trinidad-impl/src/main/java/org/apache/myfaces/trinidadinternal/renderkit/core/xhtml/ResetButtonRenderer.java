@@ -36,11 +36,13 @@ public class ResetButtonRenderer extends CommandButtonRenderer
     super(CoreResetButton.TYPE);
   }
 
+  @Override
   protected String getButtonType()
   {
     return "reset";
   }
 
+  @Override
   protected String getInputType()
   {
     return "reset";
@@ -67,11 +69,19 @@ public class ResetButtonRenderer extends CommandButtonRenderer
     return onclick;
   }
 
+  @Override
   protected String getDefaultStyleClass(FacesBean bean)
   {
     return SkinSelectors.AF_RESET_BUTTON_STYLE_CLASS;
   }
 
+  @Override
+  protected String getIcon(FacesBean bean)
+  {
+    return null;
+  }
+
+  @Override
   protected boolean getPartialSubmit(FacesBean bean)
   {
     return false;

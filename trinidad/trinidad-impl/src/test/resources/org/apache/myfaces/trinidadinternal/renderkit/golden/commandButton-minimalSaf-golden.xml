@@ -95,17 +95,6 @@
           >
         ButtonText
       </button>
-<!--AttributeTest[textAndAccessKey,B&uttonText]-->
-
-      <button
-           class="af_commandButton"
-           onclick="submitForm('formId',1,{source:'mainId'});return false;"
-           type="button"
-           id="uri-attr:mainId"
-           name="uri-attr:mainId"
-          >
-        ButtonText
-      </button>
 <!--AttributeTest[windowHeight,100]-->
 
       <button
@@ -173,6 +162,22 @@
            name="uri-attr:mainId"
           >
         ButtonText
+      </button>
+<!--AttributeTest[icon,/foo.gif]-->
+
+      <button
+           class="af_commandButton"
+           onclick="submitForm('formId',1,{source:'mainId'});return false;"
+           type="button"
+           id="uri-attr:mainId"
+           name="uri-attr:mainId"
+          >
+        ButtonText
+        <img
+             src="/test-context-path/foo.gif"
+            >
+          
+        </img>
       </button>
 <!--AttributeTest[onclick,null]-->
 

@@ -111,6 +111,19 @@
       <property-class>boolean</property-class>
       <default-value>false</default-value>
     </property>
+    <property>
+      <description>
+        <![CDATA[An URL to an image to use for an icon displayed in the button.]]>
+      </description>
+      <property-name>icon</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:property-editor>IMAGE_URI</mfp:property-editor>
+          <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
 
     <xi:include href="includes/CommonAttrs.xml" xpointer="/faces-config/component/*"/>
     <xi:include href="includes/CoreJSEvents.xml" xpointer="/faces-config/component/*"/>
