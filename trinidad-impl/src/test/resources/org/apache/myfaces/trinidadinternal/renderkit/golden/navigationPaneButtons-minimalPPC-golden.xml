@@ -4,129 +4,70 @@
            id="mainId"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[id,myid]-->
 
@@ -135,129 +76,70 @@
            id="myid"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                       id="uri-attr:myid:stamp"
-                       name="uri-attr:myid:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                       id="uri-attr:myid:stamp"
-                       name="uri-attr:myid:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                       id="uri-attr:myid:stamp"
-                       name="uri-attr:myid:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[shortDesc,my short desc]-->
 
@@ -267,129 +149,70 @@
            title="my short desc"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[styleClass,mystyle]-->
 
@@ -398,129 +221,70 @@
            id="mainId"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onclick,null]-->
 
@@ -530,129 +294,70 @@
            onclick="test-onclick"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -662,129 +367,70 @@
            ondblclick="test-ondblclick"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -794,129 +440,70 @@
            onkeydown="test-onkeydown"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -926,129 +513,70 @@
            onkeypress="test-onkeypress"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -1058,129 +586,70 @@
            onkeyup="test-onkeyup"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -1190,129 +659,70 @@
            onmousedown="test-onmousedown"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -1322,129 +732,70 @@
            onmousemove="test-onmousemove"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -1454,129 +805,70 @@
            onmouseout="test-onmouseout"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -1586,129 +878,70 @@
            onmouseover="test-onmouseover"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -1718,128 +951,69 @@
            onmouseup="test-onmouseup"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    First
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Second
-                  </a>
-                </div>
-              </td>
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-separator"
-                    >
-                  |
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
              class="af_navigationPane_buttons-inactive-enabled"
-             style="display: inline;"
-             summary=""
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <div
-                     class="af_navigationPane_buttons-content"
-                    >
-                  
-                  <a
-                       href="#"
-                       onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                       id="uri-attr:mainId:stamp"
-                       name="uri-attr:mainId:stamp"
-                      >
-                    Third
-                  </a>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 </results>
