@@ -261,9 +261,9 @@ abstract public class UIXComponentTag extends UIComponentTag
   }
 
   /**
-   * Set a property of type java.lang.Dobule.  If the value
+   * Set a property of type java.lang.Double.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
-   * Otherwise, it will parsed with Dobule.valueOf().
+   * Otherwise, it will parsed with Double.valueOf().
    * Null values are ignored.
    */
   protected void setDoubleProperty(
@@ -287,7 +287,7 @@ abstract public class UIXComponentTag extends UIComponentTag
   /**
    * Set a property of type java.lang.Float.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
-   * Otherwise, it will parsed with Dobule.valueOf().
+   * Otherwise, it will parsed with Float.valueOf().
    * Null values are ignored.
    */
   protected void setFloatProperty(
