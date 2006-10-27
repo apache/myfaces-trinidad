@@ -4,444 +4,70 @@
            id="mainId"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[id,myid]-->
 
@@ -450,444 +76,70 @@
            id="myid"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                             id="uri-attr:myid:stamp"
-                             name="uri-attr:myid:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                             id="uri-attr:myid:stamp"
-                             name="uri-attr:myid:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                 id="uri-attr:myid:stamp"
+                 name="uri-attr:myid:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
-                             id="uri-attr:myid:stamp"
-                             name="uri-attr:myid:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[shortDesc,my short desc]-->
 
@@ -897,444 +149,70 @@
            title="my short desc"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onclick,null]-->
 
@@ -1344,444 +222,70 @@
            onclick="test-onclick"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[ondblclick,null]-->
 
@@ -1791,444 +295,70 @@
            ondblclick="test-ondblclick"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeydown,null]-->
 
@@ -2238,444 +368,70 @@
            onkeydown="test-onkeydown"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeypress,null]-->
 
@@ -2685,444 +441,70 @@
            onkeypress="test-onkeypress"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onkeyup,null]-->
 
@@ -3132,444 +514,70 @@
            onkeyup="test-onkeyup"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmousedown,null]-->
 
@@ -3579,444 +587,70 @@
            onmousedown="test-onmousedown"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmousemove,null]-->
 
@@ -4026,444 +660,70 @@
            onmousemove="test-onmousemove"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseout,null]-->
 
@@ -4473,444 +733,70 @@
            onmouseout="test-onmouseout"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseover,null]-->
 
@@ -4920,444 +806,70 @@
            onmouseover="test-onmouseover"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 <!--AttributeTest[onmouseup,null]-->
 
@@ -5367,443 +879,69 @@
            onmouseup="test-onmouseup"
           >
         
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-start"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-start-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          First
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              First
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Second
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end-join-to-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end-join"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <table
-             border="0"
-             cellpadding="0"
-             cellspacing="0"
-             class=""
-             style="display: inline;"
-             summary=""
+              Second
+            </a>
+          </span>
+          <span
+               class="af_navigationPane_buttons-separator"
+              >
+            |
+          </span>
+        </span>
+        <span
+             class="af_navigationPane_buttons-inactive-enabled"
             >
           
-          <tbody
+          <span
+               class="af_navigationPane_buttons-content"
               >
             
-            <tr
+            <a
+                 href="#"
+                 onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                 id="uri-attr:mainId:stamp"
+                 name="uri-attr:mainId:stamp"
                 >
-              
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-start-join-from-inactive"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-mid"
-                          >
-                        
-                        <a
-                             href="#"
-                             onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
-                             id="uri-attr:mainId:stamp"
-                             name="uri-attr:mainId:stamp"
-                            >
-                          Third
-                        </a>
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-mid"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-mid-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-              <td
-                  >
-                
-                <table
-                     border="0"
-                     cellpadding="0"
-                     cellspacing="0"
-                     class="af_navigationPane_tabs-inactive"
-                     summary=""
-                    >
-                  
-                  <tbody
-                      >
-                    
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-end"
-                          >
-                        
-                      </td>
-                    </tr>
-                    <tr
-                        >
-                      
-                      <td
-                           class="af_navigationPane_tabs-bottom-end"
-                          >
-                        
-                        <div
-                             class="af_navigationPane_tabs-bottom-end-content"
-                            >
-                          
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              Third
+            </a>
+          </span>
+        </span>
       </div>
 </results>

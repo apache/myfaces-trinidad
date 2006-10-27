@@ -221,7 +221,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
           currentItemData,
           renderingHint,
           isRtl);
-        previousActive = _getBooleanFromProperty(currentItemData.get("isActive"));
+        previousActive = getBooleanFromProperty(currentItemData.get("isActive"));
       }
 
       // Close up any opened choice tags:
@@ -249,7 +249,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
    * renderStyleAttributes - use the NavigationLevel style class as the default
    * styleClass
    */
-  protected void _renderStyleAttributes(
+  private void _renderStyleAttributes(
     FacesContext        context,
     RenderingContext arc,
     FacesBean           bean) throws IOException
@@ -303,7 +303,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   /**
    * Renders the client ID as both "id" and "name"
    */
-  protected void _renderCommandChildId(
+  private void _renderCommandChildId(
     FacesContext context,
     UIXCommand   component
     ) throws IOException
@@ -340,7 +340,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     UIXCommand commandChild)
   {
     int itemDataIndex = navItemData.getItemCount();
-    boolean isActive = _getBooleanFromProperty(_getCommandChildProperty(commandChild, "selected"));
+    boolean isActive = getBooleanFromProperty(_getCommandChildProperty(commandChild, "selected"));
     if (isActive)
     {
       if (navItemData.getEffectiveActiveIndex() == -1)
@@ -370,23 +370,16 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     navItemData.addItemData(itemDataMap);
   }
 
-  private boolean _getBooleanFromProperty(Object value)
+  protected boolean getBooleanFromProperty(Object value)
   {
     if (value == null)
     {
       return false;
     }
+
     return ("true".equals(value.toString()));
   }
 
-  private String _getPossiblyNullString(Object value)
-  {
-    if (value == null)
-    {
-      return null;
-    }
-    return value.toString();
-  }
 
   private Object _getCommandChildProperty(
     UIXCommand commandChild,
@@ -423,11 +416,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     if (_HINT_BAR.equals(renderingHint))
     {
-      _renderNonOverlappingItem(context, arc, rw, itemData, isRtl, true, false);
+      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, true, false);
     }
     else if (_HINT_BUTTONS.equals(renderingHint))
     {
-      _renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, false);
+      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, false);
     }
     else if (_HINT_CHOICE.equals(renderingHint))
     {
@@ -435,15 +428,15 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
     else if (_HINT_LIST.equals(renderingHint))
     {
-      _renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, true);
+      renderNonOverlappingItem(context, arc, rw, itemData, isRtl, false, true);
     }
     else // _HINT_TABS
     {
-      _renderTabItem(context, arc, rw, itemData, isRtl);
+      renderTabItem(context, arc, rw, itemData, isRtl);
     }
   }
 
-  private void _writeInlineStyles(
+  protected void writeInlineStyles(
     ResponseWriter rw,
     Object userInlineStyle,
     String appendedInlineStyle
@@ -455,7 +448,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
     else
     {
-      String userInlineStyleString = _getPossiblyNullString(userInlineStyle).trim();
+      String userInlineStyleString = toString(userInlineStyle).trim();
       boolean needSemicolon = false;
       int lastIndex = userInlineStyleString.length()-1;
       if ( (lastIndex > 0) && (userInlineStyleString.charAt(lastIndex) != ';') )
@@ -489,7 +482,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
   }
 
-  private void _appendIconAndText(
+  protected void appendIconAndText(
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
@@ -545,19 +538,19 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     if (isDisabled)
     {
-      rw.write(_getPossiblyNullString(itemData.get("text")));
+      rw.write(toString(itemData.get("text")));
       return;
     }
 
     UIXCommand commandChild = (UIXCommand)itemData.get("component");
-    String destination = _getPossiblyNullString(itemData.get("destination"));
+    String destination = toString(itemData.get("destination"));
     boolean immediate = false;
     boolean partialSubmit = false;
     Object old = null;
     if (destination == null)
     {
-      immediate = _getBooleanFromProperty(itemData.get("immediate"));
-      partialSubmit = _getBooleanFromProperty(itemData.get("partialSubmit"));
+      immediate = getBooleanFromProperty(itemData.get("immediate"));
+      partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
       if (partialSubmit)
       {
         AutoSubmitUtils.writeDependencies(context, arc);
@@ -583,7 +576,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     else
     {
       renderEncodedActionURI(context, "href", destination);
-      String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
+      String targetFrame = toString(itemData.get("targetFrame"));
       if ( (targetFrame != null) && !Boolean.FALSE.equals(
         arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
       {
@@ -610,12 +603,12 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     _writeCommandChildProperty(rw, commandChild, "onmouseover");
     _writeCommandChildProperty(rw, commandChild, "onmouseup");
 
-    String accessKey = _getPossiblyNullString(itemData.get("accessKey"));
+    String accessKey = toString(itemData.get("accessKey"));
     if ( !isDisabled && (accessKey != null) )
     {
       rw.writeAttribute("accessKey", accessKey, null);
     }
-    rw.write(_getPossiblyNullString(itemData.get("text")));
+    rw.write(toString(itemData.get("text")));
     rw.endElement("a"); // linkElement
 
     if (destination == null)
@@ -692,7 +685,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     return script;
   }
 
-  private void _renderNonOverlappingItem(
+  protected void renderNonOverlappingItem(
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
@@ -709,11 +702,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     {
       appendedStyle = "display: inline;"; // style to make the table inline
     }
-    _writeInlineStyles(rw, _getPossiblyNullString(itemData.get("inlineStyle")),
+    writeInlineStyles(rw, toString(itemData.get("inlineStyle")),
       appendedStyle); // user's style + what we must have on top of it
     rw.writeAttribute("title", itemData.get("shortDesc"), null);
     StringBuilder itemStyleClass = new StringBuilder();
-    String userStyleClass = _getPossiblyNullString(itemData.get("styleClass"));
+    String userStyleClass = toString(itemData.get("styleClass"));
     if (userStyleClass != null)
     {
       itemStyleClass.append(userStyleClass);
@@ -721,8 +714,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
 
     // Assign the event handlers:
-    boolean isDisabled = _getBooleanFromProperty(itemData.get("isDisabled"));
-    boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
+    boolean isDisabled = getBooleanFromProperty(itemData.get("isDisabled"));
+    boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
     if (isActive)
     {
       if (isDisabled)
@@ -839,18 +832,18 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       renderStyleClass(context, arc,
         SkinSelectors.AF_NAVIGATION_LEVEL_BUTTONS_CONTENT_STYLE_CLASS);
     }
-    _appendIconAndText(
+    appendIconAndText(
       context,
       arc,
       rw,
-      _getPossiblyNullString(itemData.get("icon")),
+      toString(itemData.get("icon")),
       itemData,
       isDisabled,
       isRtl);
     rw.endElement("div"); // centerContent
     rw.endElement("td"); // centerCell
 
-    if ( !isList && !_getBooleanFromProperty(itemData.get("isLast")) )
+    if ( !isList && !getBooleanFromProperty(itemData.get("isLast")) )
     {
       rw.startElement("td", null); // rightCell
       rw.startElement("div", null); // rightContent
@@ -882,14 +875,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     ) throws IOException
   {
     // Choice items do not support icons at this time.
-    boolean isDisabled = _getBooleanFromProperty(itemData.get("isDisabled"));
+    boolean isDisabled = getBooleanFromProperty(itemData.get("isDisabled"));
     // If the agent, doesn't support disabled options, don't render anything
     // for such options
     if ( !isDisabled || 
          Boolean.TRUE.equals(arc.getAgent().getCapabilities().get(
                 TrinidadAgent.CAP_SUPPORTS_DISABLED_OPTIONS)))
     {
-      boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
+      boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
       rw.startElement("option", null);
       if (isActive)
       {
@@ -902,14 +895,14 @@ public class NavigationPaneRenderer extends XhtmlRenderer
       {
         // Write the script to evaluate once the item is selected
         UIXCommand commandChild = (UIXCommand)itemData.get("component");
-        String destination = _getPossiblyNullString(itemData.get("destination"));
+        String destination = toString(itemData.get("destination"));
         boolean immediate = false;
         boolean partialSubmit = false;
         Object old = null;
         if (destination == null)
         {
-          immediate = _getBooleanFromProperty(itemData.get("immediate"));
-          partialSubmit = _getBooleanFromProperty(itemData.get("partialSubmit"));
+          immediate = getBooleanFromProperty(itemData.get("immediate"));
+          partialSubmit = getBooleanFromProperty(itemData.get("partialSubmit"));
           if (partialSubmit)
           {
             AutoSubmitUtils.writeDependencies(context, arc);
@@ -939,7 +932,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         {
           String encodedDestination =
             context.getExternalContext().encodeActionURL(destination.toString());
-          String targetFrame = _getPossiblyNullString(itemData.get("targetFrame"));
+          String targetFrame = toString(itemData.get("targetFrame"));
           StringBuilder sb = new StringBuilder();
           if ( (targetFrame != null) && !Boolean.FALSE.equals(
             arc.getAgent().getCapabilities().get(TrinidadAgent.CAP_TARGET)) )
@@ -961,7 +954,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         rw.writeAttribute("value", selectionScript, null);
       }
 
-      rw.write(_getPossiblyNullString(itemData.get("text")));
+      rw.write(toString(itemData.get("text")));
       rw.endElement("option");
     }
   }
@@ -1059,7 +1052,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     rw.endElement("span");
   }
 
-  private void _renderTabItem(
+  protected void renderTabItem(
     FacesContext context,
     RenderingContext arc,
     ResponseWriter rw,
@@ -1069,11 +1062,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
   {
     rw.startElement("table", null);
     OutputUtils.renderLayoutTableAttributes(context, arc, "0", null);
-    _writeInlineStyles(rw, _getPossiblyNullString(itemData.get("inlineStyle")),
+    writeInlineStyles(rw, toString(itemData.get("inlineStyle")),
       "display: inline;"); // user's style + what we must have on top of it
     rw.writeAttribute("title", itemData.get("shortDesc"), null);
     StringBuilder itemStyleClass = new StringBuilder();
-    String userStyleClass = _getPossiblyNullString(itemData.get("styleClass"));
+    String userStyleClass = toString(itemData.get("styleClass"));
     if (userStyleClass != null)
     {
       itemStyleClass.append(userStyleClass);
@@ -1081,8 +1074,8 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     }
 
     // Assign the event handlers:
-    boolean isDisabled = _getBooleanFromProperty(itemData.get("isDisabled"));
-    boolean isActive = _getBooleanFromProperty(itemData.get("isActive"));
+    boolean isDisabled = getBooleanFromProperty(itemData.get("isDisabled"));
+    boolean isActive = getBooleanFromProperty(itemData.get("isActive"));
     String sectionStyleClass1;
     String sectionStyleClass2 = null;
     if (isActive)
@@ -1108,9 +1101,9 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     _writeInlineTbodyStyles(arc, rw);
     rw.startElement("tr", null);
 
-    boolean isFirst = _getBooleanFromProperty(itemData.get("isFirst"));
-    boolean isLast = _getBooleanFromProperty(itemData.get("isLast"));
-    boolean previousActive = _getBooleanFromProperty(itemData.get("previousActive"));
+    boolean isFirst = getBooleanFromProperty(itemData.get("isFirst"));
+    boolean isLast = getBooleanFromProperty(itemData.get("isLast"));
+    boolean previousActive = getBooleanFromProperty(itemData.get("previousActive"));
 
     // start portion of tab:
     if (isFirst)
@@ -1220,7 +1213,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
         isRtl);
       rw.endElement("td");
     }
-    else if ( isActive ||  (!_getBooleanFromProperty(itemData.get("nextActive"))) )
+    else if ( isActive ||  (!getBooleanFromProperty(itemData.get("nextActive"))) )
     {
       // end-join-selected-to-deselected or end-join-deselected-to-deselected
       rw.startElement("td", null);
@@ -1275,11 +1268,11 @@ public class NavigationPaneRenderer extends XhtmlRenderer
     renderStyleClass(context, arc, topStyleClass);
     if (itemData != null)
     {
-      _appendIconAndText(
+      appendIconAndText(
         context,
         arc,
         rw,
-        _getPossiblyNullString(itemData.get("icon")),
+        toString(itemData.get("icon")),
         itemData,
         isDisabled,
         isRtl);
