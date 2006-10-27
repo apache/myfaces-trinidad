@@ -211,7 +211,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
         
       if (!disabled)
       {
-        writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
+        writer.writeURIAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
         writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
 
         writer.writeAttribute("title", shortDesc, null);
@@ -233,7 +233,7 @@ public class TreeTableNavRenderer extends XhtmlRenderer
     else
     {
       styleClass = SkinSelectors.HGRID_NAV_ROW_ALINK_STYLE_CLASS;
-      writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
+      writer.writeURIAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
       writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
       String shortDesc = 
         arc.getTranslatedString(isTop ? _PREVIOUS_ALT_KEY : _NEXT_ALT_KEY);

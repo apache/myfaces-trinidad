@@ -62,8 +62,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -103,8 +103,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -183,8 +183,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -203,8 +203,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -287,9 +287,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -315,9 +315,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -332,9 +332,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -360,9 +360,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -377,9 +377,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -487,8 +487,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -528,8 +528,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -608,8 +608,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -628,8 +628,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -712,9 +712,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -740,9 +740,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -757,9 +757,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -785,9 +785,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -802,9 +802,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -912,8 +912,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -953,8 +953,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1033,8 +1033,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -1053,8 +1053,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -1137,9 +1137,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1165,9 +1165,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -1182,9 +1182,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1210,9 +1210,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -1227,9 +1227,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1337,8 +1337,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1378,8 +1378,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1458,8 +1458,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -1478,8 +1478,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -1562,9 +1562,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1590,9 +1590,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -1607,9 +1607,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1635,9 +1635,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -1652,9 +1652,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1762,8 +1762,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1803,8 +1803,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1883,8 +1883,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -1903,8 +1903,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_test-id.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -1987,9 +1987,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="test-id:0:hgi"
                            onclick="_uixt_test-id.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2015,9 +2015,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_test-id.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2032,9 +2032,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="test-id:1:hgi"
                            onclick="_uixt_test-id.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2060,9 +2060,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_test-id.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2077,9 +2077,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="test-id:2:hgi"
                            onclick="_uixt_test-id.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2188,8 +2188,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2229,8 +2229,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2309,8 +2309,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -2329,8 +2329,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -2413,9 +2413,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2441,9 +2441,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2458,9 +2458,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2486,9 +2486,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2503,9 +2503,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2614,8 +2614,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2655,8 +2655,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2735,8 +2735,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -2755,8 +2755,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -2839,9 +2839,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2867,9 +2867,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2884,9 +2884,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2912,9 +2912,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -2929,9 +2929,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3039,8 +3039,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3080,8 +3080,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3160,8 +3160,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -3180,8 +3180,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -3264,9 +3264,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3292,9 +3292,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -3309,9 +3309,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3337,9 +3337,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -3354,9 +3354,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3464,8 +3464,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3505,8 +3505,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3585,8 +3585,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -3605,8 +3605,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -3689,9 +3689,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3717,9 +3717,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -3734,9 +3734,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('hide','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3762,9 +3762,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -3779,9 +3779,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('hide','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3807,9 +3807,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('3',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -3824,9 +3824,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:3:hgi"
                            onclick="_uixt_mainId.action('hide','3',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3934,8 +3934,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3975,8 +3975,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4055,8 +4055,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -4075,8 +4075,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -4159,9 +4159,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4187,9 +4187,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -4204,9 +4204,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('hide','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4232,9 +4232,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -4249,9 +4249,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('hide','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4277,9 +4277,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('3',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -4294,9 +4294,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:3:hgi"
                            onclick="_uixt_mainId.action('hide','3',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4404,8 +4404,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4445,8 +4445,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4482,8 +4482,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -4502,8 +4502,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -4586,9 +4586,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4614,9 +4614,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -4631,9 +4631,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4659,9 +4659,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -4676,9 +4676,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4786,8 +4786,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4827,8 +4827,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4907,8 +4907,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -4927,8 +4927,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -5011,9 +5011,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5039,9 +5039,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5056,9 +5056,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5084,9 +5084,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5101,9 +5101,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5212,8 +5212,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5253,8 +5253,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5333,8 +5333,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -5353,8 +5353,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -5437,9 +5437,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5465,9 +5465,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5482,9 +5482,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5510,9 +5510,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5527,9 +5527,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5638,8 +5638,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5679,8 +5679,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5759,8 +5759,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -5779,8 +5779,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -5863,9 +5863,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5891,9 +5891,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5908,9 +5908,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5936,9 +5936,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -5953,9 +5953,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6064,8 +6064,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6105,8 +6105,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6185,8 +6185,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -6205,8 +6205,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -6289,9 +6289,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6317,9 +6317,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -6334,9 +6334,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6362,9 +6362,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -6379,9 +6379,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6490,8 +6490,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6531,8 +6531,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6611,8 +6611,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -6631,8 +6631,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -6715,9 +6715,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6743,9 +6743,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -6760,9 +6760,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6788,9 +6788,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -6805,9 +6805,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6916,8 +6916,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6957,8 +6957,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7037,8 +7037,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -7057,8 +7057,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -7141,9 +7141,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7169,9 +7169,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -7186,9 +7186,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7214,9 +7214,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -7231,9 +7231,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7342,8 +7342,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7383,8 +7383,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7463,8 +7463,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -7483,8 +7483,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -7567,9 +7567,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7595,9 +7595,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -7612,9 +7612,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7640,9 +7640,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -7657,9 +7657,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7768,8 +7768,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7809,8 +7809,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7889,8 +7889,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -7909,8 +7909,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -7993,9 +7993,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8021,9 +8021,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8038,9 +8038,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8066,9 +8066,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8083,9 +8083,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8194,8 +8194,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8235,8 +8235,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8315,8 +8315,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -8335,8 +8335,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -8419,9 +8419,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8447,9 +8447,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8464,9 +8464,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8492,9 +8492,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8509,9 +8509,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8620,8 +8620,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8661,8 +8661,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8741,8 +8741,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -8761,8 +8761,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -8845,9 +8845,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8873,9 +8873,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8890,9 +8890,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8918,9 +8918,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -8935,9 +8935,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -9046,8 +9046,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -9087,8 +9087,8 @@
                           
                           <img
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -9167,8 +9167,8 @@
               
               <img
                    height="2"
-                   src="/test-context-path/adf/images/t.gif"
                    width="0"
+                   src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                   >
                 
               </img>
@@ -9187,8 +9187,8 @@
                   
                   <a
                        class="af_treeTable_path-selected-step"
-                       href="#"
                        onclick="_uixt_mainId.focus('0',this);return false;"
+                       href="uri-attr:#"
                       >
                     
                     <span
@@ -9271,9 +9271,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:0:hgi"
                            onclick="_uixt_mainId.action('hide','0',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -9299,9 +9299,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('1',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -9316,9 +9316,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:1:hgi"
                            onclick="_uixt_mainId.action('show','1',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -9344,9 +9344,9 @@
                     
                     <a
                          class="af_treeTable_focus"
-                         href="#"
                          onclick="_uixt_mainId.focus('2',this);return false;"
                          title="Select to focus in"
+                         href="uri-attr:#"
                         >
                       X
                     </a>
@@ -9361,9 +9361,9 @@
                       
                       <a
                            class="af_treeTable_expansion"
-                           href="#"
                            id="mainId:2:hgi"
                            onclick="_uixt_mainId.action('show','2',this);return false;"
+                           href="uri-attr:#"
                           >
                         
                         <span

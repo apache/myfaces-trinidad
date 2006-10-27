@@ -186,6 +186,7 @@ public class XhtmlUtils
     else
     {
       // The "safe" case: just write out the source
+      libURL = context.getExternalContext().encodeResourceURL(libURL.toString());
       writer.writeAttribute("src", libURL, null);
     }
 

@@ -986,7 +986,7 @@
               <img
                    align="middle"
                    border="0"
-                   src="uri-attr:icon_val"
+                   src="uri-attr:encoded-resource-url:icon_val"
                   >
                 
               </img>

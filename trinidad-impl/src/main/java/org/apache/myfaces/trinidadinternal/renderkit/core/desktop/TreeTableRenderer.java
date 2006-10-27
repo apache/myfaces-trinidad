@@ -548,7 +548,7 @@ public class TreeTableRenderer extends DesktopTableRenderer
       UIXTreeTable tree = ttrc.getUIXTreeTable();
       ResponseWriter out = context.getResponseWriter();
       out.startElement("a", tree);
-      out.writeAttribute("href", "#" , null);
+      out.writeURIAttribute("href", "#" , null);
       // put style classes on the links
       if (isLastChild)
       {

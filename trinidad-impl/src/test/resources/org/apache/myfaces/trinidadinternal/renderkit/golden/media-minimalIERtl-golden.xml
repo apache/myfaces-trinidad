@@ -20,7 +20,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -48,7 +48,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -70,7 +70,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -80,7 +80,7 @@
       <a
            id="mainId"
            type="test-contentType"
-           href="uri-attr:/test-context-path/components/images/seattle.wmv"
+           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </a>
@@ -113,7 +113,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -147,7 +147,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -201,7 +201,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -229,7 +229,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -275,7 +275,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -304,7 +304,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -333,7 +333,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -362,7 +362,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -391,7 +391,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -431,7 +431,7 @@
           
         </param>
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -483,7 +483,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -513,7 +513,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -542,7 +542,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           test-shortDesc
         </a>
@@ -571,7 +571,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -600,7 +600,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -629,7 +629,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -658,7 +658,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -687,7 +687,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -716,7 +716,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -745,7 +745,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -774,7 +774,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -803,7 +803,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -832,7 +832,7 @@
         </param>
         <a
              type="application/x-oleobject"
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>

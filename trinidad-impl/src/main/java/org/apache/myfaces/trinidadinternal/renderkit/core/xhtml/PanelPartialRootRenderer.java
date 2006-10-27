@@ -390,10 +390,10 @@ public class PanelPartialRootRenderer extends XhtmlRenderer
       // iframe.
       if (isIE(arc))
       {
-        writer.writeAttribute("src",
-                              getBaseImageUri(context, arc)
-                                + XhtmlRenderer.TRANSPARENT_GIF,
-                              null);
+        renderEncodedResourceURI(context,
+                                 "src",
+                                 getBaseImageUri(context, arc)
+                                  + XhtmlRenderer.TRANSPARENT_GIF);
       }
       else
       {

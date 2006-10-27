@@ -2,7 +2,7 @@
       <img
            id="mainId"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -12,7 +12,7 @@
            id="mainId"
            ismap="ismap"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -21,7 +21,7 @@
       <img
            id="mainId"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -29,9 +29,9 @@
 
       <img
            id="mainId"
-           longdesc="/test-context-path/bogus/longdesc/uri"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           longdesc="uri-attr:encoded-action-url:/test-context-path/bogus/longdesc/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -40,7 +40,7 @@
       <img
            id="test-id"
            name="test-id"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -50,7 +50,7 @@
            id="mainId"
            name="mainId"
            style="test-inlineStyle"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -61,7 +61,7 @@
       <img
            id="mainId"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -71,7 +71,7 @@
            id="mainId"
            name="mainId"
            title="test-shortDesc"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -81,7 +81,7 @@
            class="test-styleClass"
            id="mainId"
            name="mainId"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -91,7 +91,7 @@
            id="mainId"
            name="mainId"
            onclick="test-onclick"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -101,7 +101,7 @@
            id="mainId"
            name="mainId"
            ondblclick="test-ondblclick"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -111,7 +111,7 @@
            id="mainId"
            name="mainId"
            onkeydown="test-onkeydown"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -121,7 +121,7 @@
            id="mainId"
            name="mainId"
            onkeypress="test-onkeypress"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -131,7 +131,7 @@
            id="mainId"
            name="mainId"
            onkeyup="test-onkeyup"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -141,7 +141,7 @@
            id="mainId"
            name="mainId"
            onmousedown="test-onmousedown"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -151,7 +151,7 @@
            id="mainId"
            name="mainId"
            onmousemove="test-onmousemove"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -161,7 +161,7 @@
            id="mainId"
            name="mainId"
            onmouseout="test-onmouseout"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -171,7 +171,7 @@
            id="mainId"
            name="mainId"
            onmouseover="test-onmouseover"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>
@@ -181,7 +181,7 @@
            id="mainId"
            name="mainId"
            onmouseup="test-onmouseup"
-           src="uri-attr:/test-context-path/bogus/image/uri"
+           src="uri-attr:encoded-resource-url:/test-context-path/bogus/image/uri"
           >
         
       </img>

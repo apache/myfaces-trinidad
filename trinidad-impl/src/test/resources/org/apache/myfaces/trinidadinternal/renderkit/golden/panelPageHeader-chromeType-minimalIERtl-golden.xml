@@ -36,7 +36,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/foo.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
                         >
                       
                     </img>
@@ -47,7 +47,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/bar.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
                         >
                       
                     </img>
@@ -157,7 +157,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/foo.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
                         >
                       
                     </img>
@@ -168,7 +168,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/bar.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
                         >
                       
                     </img>
@@ -277,7 +277,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/foo.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
                         >
                       
                     </img>
@@ -292,7 +292,7 @@
                       >
                     
                     <img
-                         src="uri-attr:/test-context-path/foo/bar.gif"
+                         src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
                         >
                       
                     </img>

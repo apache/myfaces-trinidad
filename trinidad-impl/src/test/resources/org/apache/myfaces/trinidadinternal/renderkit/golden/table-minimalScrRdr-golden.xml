@@ -66,8 +66,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -120,8 +120,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -199,9 +199,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -213,8 +213,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -250,9 +250,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -264,8 +264,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -301,9 +301,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -315,8 +315,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -352,9 +352,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -366,8 +366,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -403,9 +403,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -417,8 +417,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -527,8 +527,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -581,8 +581,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -666,9 +666,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -680,8 +680,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -717,9 +717,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -731,8 +731,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -768,9 +768,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -782,8 +782,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -819,9 +819,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -833,8 +833,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -870,9 +870,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -884,8 +884,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -988,8 +988,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1042,8 +1042,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1122,9 +1122,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1136,8 +1136,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1173,9 +1173,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1187,8 +1187,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1224,9 +1224,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1238,8 +1238,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1275,9 +1275,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1289,8 +1289,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1326,9 +1326,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1340,8 +1340,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1450,8 +1450,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1504,8 +1504,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -1584,9 +1584,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1598,8 +1598,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1643,9 +1643,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1657,8 +1657,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1702,9 +1702,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1716,8 +1716,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1761,9 +1761,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1775,8 +1775,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1820,9 +1820,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -1834,8 +1834,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -1951,8 +1951,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2005,8 +2005,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2084,9 +2084,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2098,8 +2098,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2135,9 +2135,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2149,8 +2149,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2186,9 +2186,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2200,8 +2200,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2237,9 +2237,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2251,8 +2251,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2288,9 +2288,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2302,8 +2302,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2412,8 +2412,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2466,8 +2466,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2545,9 +2545,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2559,8 +2559,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2596,9 +2596,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2610,8 +2610,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2647,9 +2647,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2661,8 +2661,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2698,9 +2698,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2712,8 +2712,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2749,9 +2749,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -2763,8 +2763,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -2873,8 +2873,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2927,8 +2927,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -2978,17 +2978,17 @@
                     
                     <a
                          class="OraLink"
-                         href="#"
                          id="mainId__xc_sa"
                          onclick="return _submitHideShow('formId',1,'show','mainId','mainId__xc_sa','all')"
+                         href="uri-attr:#"
                         >
                       Show All Details
                     </a>&#xa0;|&#xa0;
                     <a
                          class="OraLink"
-                         href="#"
                          id="mainId__xc_ha"
                          onclick="return _submitHideShow('formId',1,'hide','mainId','mainId__xc_ha','all')"
+                         href="uri-attr:#"
                         >
                       Hide All Details
                     </a>
@@ -3050,9 +3050,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3064,8 +3064,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -3101,9 +3101,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3115,8 +3115,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -3152,9 +3152,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3166,8 +3166,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -3203,9 +3203,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3217,8 +3217,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -3254,9 +3254,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3268,8 +3268,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -3378,8 +3378,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3432,8 +3432,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3511,9 +3511,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3525,8 +3525,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Hide
                       </a>
@@ -3581,9 +3581,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3595,8 +3595,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Hide
                       </a>
@@ -3651,9 +3651,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3665,8 +3665,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Hide
                       </a>
@@ -3721,9 +3721,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3735,8 +3735,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Hide
                       </a>
@@ -3791,9 +3791,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -3805,8 +3805,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'hide','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Hide
                       </a>
@@ -3934,8 +3934,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -3988,8 +3988,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4067,9 +4067,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4081,8 +4081,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4118,9 +4118,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4132,8 +4132,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4169,9 +4169,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4183,8 +4183,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4220,9 +4220,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4234,8 +4234,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4271,9 +4271,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4285,8 +4285,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4395,8 +4395,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4449,8 +4449,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4528,9 +4528,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4542,8 +4542,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4579,9 +4579,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4593,8 +4593,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4630,9 +4630,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4644,8 +4644,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4681,9 +4681,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4695,8 +4695,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4732,9 +4732,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -4746,8 +4746,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -4856,8 +4856,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4910,8 +4910,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -4989,9 +4989,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5003,8 +5003,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5040,9 +5040,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5054,8 +5054,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5091,9 +5091,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5105,8 +5105,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5142,9 +5142,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5156,8 +5156,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5193,9 +5193,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5207,8 +5207,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5317,8 +5317,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5371,8 +5371,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5450,9 +5450,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5464,8 +5464,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5501,9 +5501,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5515,8 +5515,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5552,9 +5552,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5566,8 +5566,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5603,9 +5603,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5617,8 +5617,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5654,9 +5654,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5668,8 +5668,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5778,8 +5778,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5832,8 +5832,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -5911,9 +5911,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5925,8 +5925,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -5962,9 +5962,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -5976,8 +5976,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6013,9 +6013,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6027,8 +6027,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6064,9 +6064,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6078,8 +6078,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6115,9 +6115,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6129,8 +6129,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6239,8 +6239,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6293,8 +6293,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6372,9 +6372,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6386,8 +6386,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6423,9 +6423,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6437,8 +6437,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6474,9 +6474,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6488,8 +6488,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6525,9 +6525,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6539,8 +6539,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6576,9 +6576,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6590,8 +6590,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6700,8 +6700,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6754,8 +6754,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -6834,9 +6834,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6848,8 +6848,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6885,9 +6885,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6899,8 +6899,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6936,9 +6936,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -6950,8 +6950,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -6987,9 +6987,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7001,8 +7001,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7038,9 +7038,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7052,8 +7052,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7163,8 +7163,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7217,8 +7217,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7296,9 +7296,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7310,8 +7310,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7347,9 +7347,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7361,8 +7361,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7398,9 +7398,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7412,8 +7412,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7449,9 +7449,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7463,8 +7463,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7500,9 +7500,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7514,8 +7514,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7624,8 +7624,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7678,8 +7678,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -7766,9 +7766,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7780,8 +7780,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7817,9 +7817,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7831,8 +7831,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7868,9 +7868,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7882,8 +7882,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7919,9 +7919,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7933,8 +7933,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -7970,9 +7970,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -7984,8 +7984,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -8094,8 +8094,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8148,8 +8148,8 @@
                           <img
                                alt=""
                                height="1"
-                               src="/test-context-path/adf/images/t.gif"
                                width="5"
+                               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                               >
                             
                           </img>
@@ -8236,9 +8236,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd0"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8250,8 +8250,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd0','0')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -8287,9 +8287,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd1"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8301,8 +8301,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd1','1')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -8338,9 +8338,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd2"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8352,8 +8352,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd2','2')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -8389,9 +8389,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd3"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8403,8 +8403,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd3','3')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>
@@ -8440,9 +8440,9 @@
                         >
                       
                       <a
-                           href="#"
                            id="mainIddd4"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         
                         <span
@@ -8454,8 +8454,8 @@
                       </a>
                       <a
                            class="OraLink"
-                           href="#"
                            onclick="return _submitHideShow('formId',1,'show','mainId','mainIddd4','4')"
+                           href="uri-attr:#"
                           >
                         Show
                       </a>

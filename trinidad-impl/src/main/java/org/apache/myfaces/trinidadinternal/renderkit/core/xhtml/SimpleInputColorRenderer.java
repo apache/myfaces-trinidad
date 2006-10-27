@@ -468,9 +468,7 @@ public class SimpleInputColorRenderer
       writer.writeAttribute("onclick",
                             getLaunchOnclick(context, arc, component, bean),
                             null);
-      // @todo Restore
-      //      writer.writeURIAttribute("href", "#", null);
-      writer.writeAttribute("href", "#", null);
+      writer.writeURIAttribute("href", "#", null);
     }
 
     writer.startElement("img", component);
@@ -501,7 +499,9 @@ public class SimpleInputColorRenderer
       Icon icon = arc.getIcon(XhtmlConstants.COLOR_PALETTE_TRANSPARENT_ICON_NAME);
       if (icon != null)
       {
-        writer.writeAttribute("src", icon.getImageURI(context, arc), null);
+        // FIXME: this should happen with just rendering the Icon, *not*
+        // by extracting the URI
+        renderEncodedResourceURI(context, "src", icon.getImageURI(context, arc));
       }
 
       String key = editable ?
@@ -512,7 +512,7 @@ public class SimpleInputColorRenderer
     else
     {
       String transparentURI = getBaseImageUri(context, arc) + TRANSPARENT_GIF;
-      writer.writeAttribute("src", transparentURI, null);
+      renderEncodedResourceURI(context, "src", transparentURI);
 
       if (editable)
         altText = arc.getTranslatedString("af_inputColor.LAUNCH_PICKER_TIP");

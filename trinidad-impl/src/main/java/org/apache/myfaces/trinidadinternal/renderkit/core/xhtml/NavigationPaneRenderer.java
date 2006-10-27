@@ -571,7 +571,7 @@ public class NavigationPaneRenderer extends XhtmlRenderer
 
     if (destination == null)
     {
-      rw.writeAttribute("href", "#", null); // required for IE to support ":hover" styles
+      rw.writeURIAttribute("href", "#", null); // required for IE to support ":hover" styles
     }
     else
     {

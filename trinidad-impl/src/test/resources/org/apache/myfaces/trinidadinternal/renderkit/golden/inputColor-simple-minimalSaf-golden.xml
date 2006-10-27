@@ -16,14 +16,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -32,9 +32,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -71,8 +71,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -82,8 +82,8 @@
              class="p_OraColorFieldSwatch"
              height="15"
              id="mainId$sw"
-             src="/test-context-path/adf/images/t.gif"
              width="15"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -111,14 +111,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -127,9 +127,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -160,8 +160,8 @@
           
         </input>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -170,9 +170,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -208,14 +208,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -224,9 +224,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -263,8 +263,8 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -274,8 +274,8 @@
              class="p_OraColorFieldSwatch"
              height="15"
              id="mainId$sw"
-             src="/test-context-path/adf/images/t.gif"
              width="15"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
@@ -299,14 +299,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -315,9 +315,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -353,14 +353,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -369,9 +369,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -402,8 +402,8 @@
           <img
                alt=""
                height="1"
-               src="/test-context-path/adf/images/t.gif"
                width="8"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -413,8 +413,8 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -439,14 +439,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','test-id'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -455,9 +455,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="test-id$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -494,14 +494,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -510,9 +510,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -549,14 +549,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -565,9 +565,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -603,14 +603,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -619,9 +619,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -658,14 +658,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -674,9 +674,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -713,14 +713,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -729,9 +729,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -768,14 +768,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -784,9 +784,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -823,14 +823,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -839,9 +839,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -878,14 +878,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -894,9 +894,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -933,14 +933,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -949,9 +949,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -988,14 +988,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -1004,9 +1004,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -1043,14 +1043,14 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="8"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>
         <a
-             href="#"
              onclick="_lcp('formId','mainId'); return false"
+             href="uri-attr:#"
             >
           
           <img
@@ -1059,9 +1059,9 @@
                class="p_OraColorFieldSwatch"
                height="15"
                id="mainId$sw"
-               src="/test-context-path/adf/images/t.gif"
                title="Select to access color picker"
                width="15"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>

@@ -4,7 +4,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -17,7 +17,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -38,8 +38,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -61,8 +61,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -84,8 +84,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -111,8 +111,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -134,8 +134,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -157,8 +157,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -175,7 +175,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -188,7 +188,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -209,8 +209,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -232,8 +232,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -255,8 +255,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -282,8 +282,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -305,8 +305,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -328,8 +328,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -347,7 +347,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -360,7 +360,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -381,8 +381,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -404,8 +404,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -427,8 +427,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -454,8 +454,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -477,8 +477,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -500,8 +500,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -519,7 +519,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -532,7 +532,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -553,8 +553,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -576,8 +576,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -599,8 +599,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -626,8 +626,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -649,8 +649,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -672,8 +672,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -691,7 +691,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -704,7 +704,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -725,8 +725,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -748,8 +748,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -771,8 +771,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -798,8 +798,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -821,8 +821,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -844,8 +844,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -863,7 +863,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -876,7 +876,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -897,8 +897,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -920,8 +920,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -943,8 +943,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -970,8 +970,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -993,8 +993,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1016,8 +1016,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1035,7 +1035,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1048,7 +1048,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1069,8 +1069,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1092,8 +1092,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1115,8 +1115,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1142,8 +1142,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1165,8 +1165,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1188,8 +1188,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1207,7 +1207,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1220,7 +1220,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1241,8 +1241,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1264,8 +1264,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1287,8 +1287,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1314,8 +1314,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1337,8 +1337,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1360,8 +1360,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1379,7 +1379,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1392,7 +1392,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1413,8 +1413,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1436,8 +1436,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1459,8 +1459,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1486,8 +1486,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1509,8 +1509,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1532,8 +1532,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1551,7 +1551,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1564,7 +1564,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1585,8 +1585,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1608,8 +1608,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1631,8 +1631,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1658,8 +1658,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1681,8 +1681,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1704,8 +1704,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1723,7 +1723,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1736,7 +1736,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1757,8 +1757,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1780,8 +1780,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1803,8 +1803,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1830,8 +1830,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1853,8 +1853,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1876,8 +1876,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1895,7 +1895,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -1908,7 +1908,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -1929,8 +1929,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1952,8 +1952,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -1975,8 +1975,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2002,8 +2002,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2025,8 +2025,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2048,8 +2048,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2067,7 +2067,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -2080,7 +2080,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -2101,8 +2101,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2124,8 +2124,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2147,8 +2147,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2174,8 +2174,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2197,8 +2197,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2220,8 +2220,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2239,7 +2239,7 @@
           >
         
         <img
-             src="uri-attr:/test-context-path/foo/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/foo.gif"
             >
           
         </img>
@@ -2252,7 +2252,7 @@
           
         </img>
         <img
-             src="uri-attr:/test-context-path/foo/bar.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo/bar.gif"
             >
           
         </img>
@@ -2273,8 +2273,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2296,8 +2296,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2319,8 +2319,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2346,8 +2346,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2369,8 +2369,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >
@@ -2392,8 +2392,8 @@
                 >
               
               <a
-                   href="#"
                    onclick="submitForm('formId',1,{source:'_idXXX:_idXXX'});return false;"
+                   href="uri-attr:#"
                    id="uri-attr:_idXXX:_idXXX"
                    name="uri-attr:_idXXX:_idXXX"
                   >

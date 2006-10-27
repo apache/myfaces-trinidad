@@ -188,7 +188,7 @@ public class PanelHeaderRenderer extends XhtmlRenderer
                            XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
         renderStyleClass(context, arc,
                          SkinSelectors.AF_PANEL_HEADER_ICON_STYLE_CLASS);
-        writer.writeURIAttribute("src", iconUri, "icon");
+        renderEncodedResourceURI(context, "src", iconUri);
         writer.endElement("img");
       }
     }

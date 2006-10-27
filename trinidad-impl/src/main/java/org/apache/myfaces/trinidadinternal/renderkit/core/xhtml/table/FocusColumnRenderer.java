@@ -78,7 +78,7 @@ public class FocusColumnRenderer extends SpecialColumnRenderer
       {
         String onclick = 
           TreeUtils.callJSFocusNode(hGrid, ttrc.getJSVarName());
-        writer.writeAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
+        writer.writeURIAttribute(XhtmlConstants.HREF_ATTRIBUTE, "#", null);
         writer.writeAttribute(XhtmlConstants.ONCLICK_ATTRIBUTE, onclick, null);
       }
 

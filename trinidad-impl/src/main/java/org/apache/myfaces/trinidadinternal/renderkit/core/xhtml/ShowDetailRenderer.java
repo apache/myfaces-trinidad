@@ -350,7 +350,7 @@ public class ShowDetailRenderer extends ShowDetailItemRenderer
     ResponseWriter rw = context.getResponseWriter();
     rw.startElement("a", null);
     rw.writeAttribute("onclick", onclickString, null);
-    rw.writeAttribute("href", "#", null);
+    rw.writeURIAttribute("href", "#", null);
   }
 
   private String _generateOnClickString(

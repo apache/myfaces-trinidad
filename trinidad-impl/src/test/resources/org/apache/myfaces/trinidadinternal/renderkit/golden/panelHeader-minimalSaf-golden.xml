@@ -99,7 +99,7 @@
           <img
                alt=""
                class="af_panelHeader_icon-style"
-               src="uri-attr:test-icon"
+               src="uri-attr:encoded-resource-url:test-icon"
               >
             
           </img>

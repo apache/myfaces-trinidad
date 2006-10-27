@@ -69,8 +69,8 @@ public class ImageRenderer extends XhtmlRenderer
 
     super.renderAllAttributes(context, arc, bean);
 
-    rw.writeURIAttribute("src", getSource(bean), "source");
-    rw.writeAttribute("longdesc", getLongDescURL(bean), "longDescURL");
+    renderEncodedResourceURI(context, "src", getSource(bean));
+    renderEncodedActionURI(context, "longdesc", getLongDescURL(bean));
 
     _renderImageMap(bean, rw);
   }

@@ -367,7 +367,7 @@ public class PanelBoxRenderer
                                                 arc,  
                                                 XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
         
-        writer.writeURIAttribute("src", icon, _iconKey.getName());
+        renderEncodedResourceURI(context, "src", icon);
         writer.endElement("img");
       }
     }
@@ -380,7 +380,7 @@ public class PanelBoxRenderer
                                                 arc,  
                                                 XhtmlConstants.EMPTY_STRING_ATTRIBUTE_VALUE);
         
-        writer.writeURIAttribute("src", icon, _iconKey.getName());
+        renderEncodedResourceURI(context, "src", icon);
         writer.endElement("img");
       }
       
