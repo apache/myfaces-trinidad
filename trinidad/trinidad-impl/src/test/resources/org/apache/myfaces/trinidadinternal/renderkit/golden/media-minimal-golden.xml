@@ -6,7 +6,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -14,7 +14,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -28,7 +28,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -36,7 +36,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -49,7 +49,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -57,7 +57,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -67,7 +67,7 @@
       <a
            id="mainId"
            type="test-contentType"
-           href="uri-attr:/test-context-path/components/images/seattle.wmv"
+           href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </a>
@@ -81,7 +81,7 @@
            showcontrols="false"
            type="application/x-mplayer2"
            width="200"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -89,7 +89,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -104,7 +104,7 @@
            showcontrols="false"
            type="application/x-mplayer2"
            width="200"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -112,7 +112,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -130,7 +130,7 @@
            showtracker="false"
            type="application/x-mplayer2"
            width="200"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -138,7 +138,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -152,7 +152,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -160,7 +160,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -177,7 +177,7 @@
            showstatusbar="true"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -185,7 +185,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -199,7 +199,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="190"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -207,7 +207,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -221,7 +221,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -229,7 +229,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -243,7 +243,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="160"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -251,7 +251,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -265,7 +265,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -273,7 +273,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -289,7 +289,7 @@
            pluginspage="http://www.real.com/player/"
            type="audio/x-pn-realaudio-plugin"
            width="220"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -312,7 +312,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -326,7 +326,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -334,7 +334,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -350,7 +350,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -358,7 +358,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -373,7 +373,7 @@
            title="test-shortDesc"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -381,7 +381,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           test-shortDesc
         </a>
@@ -396,7 +396,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -404,7 +404,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -419,7 +419,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -427,7 +427,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -442,7 +442,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -450,7 +450,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -465,7 +465,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -473,7 +473,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -488,7 +488,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -496,7 +496,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -511,7 +511,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -519,7 +519,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -534,7 +534,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -542,7 +542,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -557,7 +557,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -565,7 +565,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -580,7 +580,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -588,7 +588,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>
@@ -603,7 +603,7 @@
            pluginspage="http://www.microsoft.com/Windows/MediaPlayer/"
            type="application/x-mplayer2"
            width="275"
-           src="uri-attr:/test-context-path/components/images/seattle.wmv"
+           src="uri-attr:encoded-resource-url:/test-context-path/components/images/seattle.wmv"
           >
         
       </embed>
@@ -611,7 +611,7 @@
           >
         
         <a
-             href="uri-attr:/test-context-path/components/images/seattle.wmv"
+             href="uri-attr:encoded-action-url:/test-context-path/components/images/seattle.wmv"
             >
           
         </a>

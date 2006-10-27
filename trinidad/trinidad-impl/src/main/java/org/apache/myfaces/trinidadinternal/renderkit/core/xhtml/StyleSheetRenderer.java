@@ -117,7 +117,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
           String type = provider.getContentStyleType(sContext);
           writer.writeAttribute("type", type, null);
           
-          writer.writeAttribute("href", baseURL + href, null);
+          renderEncodedResourceURI(context, "href", baseURL + href);
           writer.endElement("link");
         }
       }

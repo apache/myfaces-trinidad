@@ -27,8 +27,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -71,8 +71,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -115,8 +115,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -158,8 +158,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:myid:stamp"
                        name="uri-attr:myid:stamp"
                       >
@@ -202,8 +202,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:myid:stamp"
                        name="uri-attr:myid:stamp"
                       >
@@ -246,8 +246,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'myid:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:myid:stamp"
                        name="uri-attr:myid:stamp"
                       >
@@ -290,8 +290,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -334,8 +334,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -378,8 +378,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -422,8 +422,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -466,8 +466,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -510,8 +510,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -554,8 +554,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -598,8 +598,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -642,8 +642,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -686,8 +686,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -730,8 +730,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -774,8 +774,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -818,8 +818,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -862,8 +862,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -906,8 +906,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -950,8 +950,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -994,8 +994,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1038,8 +1038,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1082,8 +1082,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1126,8 +1126,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1170,8 +1170,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1214,8 +1214,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1258,8 +1258,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1302,8 +1302,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1346,8 +1346,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1390,8 +1390,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1434,8 +1434,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1478,8 +1478,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1522,8 +1522,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1566,8 +1566,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1610,8 +1610,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1654,8 +1654,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >
@@ -1698,8 +1698,8 @@
                     >
                   
                   <a
-                       href="#"
                        onclick="submitForm('formId',1,{source:'mainId:stamp'});return false;"
+                       href="uri-attr:#"
                        id="uri-attr:mainId:stamp"
                        name="uri-attr:mainId:stamp"
                       >

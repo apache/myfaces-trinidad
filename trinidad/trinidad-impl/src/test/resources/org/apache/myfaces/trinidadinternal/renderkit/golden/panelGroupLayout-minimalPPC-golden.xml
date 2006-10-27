@@ -6,16 +6,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -43,8 +43,8 @@
             <img
                  alt=""
                  height="1"
-                 src="/test-context-path/adf/images/t.gif"
                  width="10"
+                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                 >
               
             </img>
@@ -59,8 +59,8 @@
             <img
                  alt=""
                  height="1"
-                 src="/test-context-path/adf/images/t.gif"
                  width="10"
+                 src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
                 >
               
             </img>
@@ -80,16 +80,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -106,8 +106,8 @@
           <img
                alt=""
                height="1"
-               src="/test-context-path/adf/images/t.gif"
                width="10"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -118,8 +118,8 @@
           <img
                alt=""
                height="1"
-               src="/test-context-path/adf/images/t.gif"
                width="10"
+               src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
               >
             
           </img>
@@ -134,16 +134,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -158,16 +158,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -183,16 +183,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -207,16 +207,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -231,16 +231,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -255,16 +255,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -279,16 +279,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -303,16 +303,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -327,16 +327,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -351,16 +351,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -375,16 +375,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -399,16 +399,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -423,16 +423,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -447,16 +447,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3
@@ -471,16 +471,16 @@
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>2
         <img
              alt=""
              height="1"
-             src="/test-context-path/adf/images/t.gif"
              width="10"
+             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
             >
           
         </img>3

@@ -88,7 +88,7 @@
           >
         ButtonText
         <img
-             src="/test-context-path/foo.gif"
+             src="uri-attr:encoded-resource-url:/test-context-path/foo.gif"
             >
           
         </img>

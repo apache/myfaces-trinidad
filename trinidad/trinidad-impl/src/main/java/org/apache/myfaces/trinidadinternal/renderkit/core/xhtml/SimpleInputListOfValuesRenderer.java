@@ -252,7 +252,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     {
       rw.startElement("img", null);
       rw.writeAttribute("border", "0", null);
-      rw.writeURIAttribute("src", iconUri, "icon");
+      renderEncodedResourceURI(context, "src", iconUri);
       OutputUtils.renderAltAndTooltipForImage(context, arc, title);
       rw.writeAttribute("align", align, null);
       rw.endElement("img");

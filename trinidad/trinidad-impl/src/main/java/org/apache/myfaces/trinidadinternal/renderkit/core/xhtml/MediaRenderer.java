@@ -501,7 +501,7 @@ public class MediaRenderer extends XhtmlRenderer
       }
 
       // link to the content
-      writer.writeURIAttribute("href", source, null);
+      renderEncodedActionURI(context, "href", source);
 
       // mime-type of content
       writer.writeAttribute("type", contentType, null);
@@ -511,7 +511,7 @@ public class MediaRenderer extends XhtmlRenderer
         // =-=AEW Just noticed: this code fails to render "alt"; before
         // using, check accessibility!!!
         writer.startElement("img", component);
-        writer.writeURIAttribute("src", iconUrl, null);
+        renderEncodedResourceURI(context, "src", iconUrl);
         writer.endElement("img");
       }
 
@@ -1150,7 +1150,7 @@ public class MediaRenderer extends XhtmlRenderer
     // write out the source if any
     if (sourceAttrName != null)
     {
-      writer.writeURIAttribute(sourceAttrName, source, null);
+      renderEncodedResourceURI(context, sourceAttrName, source);
     }
 
     //

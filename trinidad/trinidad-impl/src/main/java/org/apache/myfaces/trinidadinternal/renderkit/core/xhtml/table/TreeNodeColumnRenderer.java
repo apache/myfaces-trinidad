@@ -107,7 +107,7 @@ public class TreeNodeColumnRenderer extends ColumnRenderer
                        SkinSelectors.AF_TREE_TABLE_EXPANSION_ICON_STYLE_CLASS);
 
       writer.writeAttribute("onclick", onclick, null);
-      writer.writeAttribute("href", "#", null);
+      writer.writeURIAttribute("href", "#", null);
 
       // Render the expand/collapse Icon
       _renderExpansionIcon(context, arc, disclosed, onclick);

@@ -644,7 +644,7 @@
                       
                       <img
                            alt=""
-                           src="uri-attr:http://www.oracle.com/images/oracle.gif"
+                           src="uri-attr:encoded-resource-url:http://www.oracle.com/images/oracle.gif"
                           >
                         
                       </img>

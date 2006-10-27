@@ -505,7 +505,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       assert(destString != null);
       String url = EncoderUtils.appendURLArguments(destString,
                                                    keysAndValues);
-      writer.writeURIAttribute("href", url, null);
+      renderEncodedActionURI(context, "href", url);
     }
   }
 
