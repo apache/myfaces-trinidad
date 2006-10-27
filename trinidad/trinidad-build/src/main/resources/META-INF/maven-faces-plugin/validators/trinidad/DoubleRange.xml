@@ -58,7 +58,7 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the maximum allowed date
+             {2} the maximum allowed value
             </li>
            </ul>
           </p>]]>
@@ -89,7 +89,7 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the minimum allowed date
+             {2} the minimum allowed value
             </li>
            </ul>
           </p>]]>
@@ -121,10 +121,10 @@
              {1} value entered by the user
             </li>
             <li>
-             {2} the minimum allowed date
+             {2} the minimum allowed value
             </li>
             <li>
-             {3} the maximum allowed date
+             {3} the maximum allowed value
             </li>
            </ul>
           </p>]]>
@@ -142,25 +142,13 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDoubleRangeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
 
-        Validate that the date entered is within a given range.
+        Validate that the value entered is within a given range.
 </html:p>]]></mfp:long-description>
       <mfp:example>
-        <mfp:source-code><![CDATA[<tr:inputDate id="mdf3" value="#{date.date3}"
+        <mfp:source-code><![CDATA[<tr:inputText id="mdf3" value="#{bean.value}"
                                label="max validator">
-  <tr:validateDoubleRange maximum="#{date.maxDate}"/>
-</tr:inputDate>
-
-<tr:inputDate id="mdf3" value="2004-11-25"
-                                tip="min=2004-11-16  max=2004-12-16"
-                                label="Submission period">
-  <tr:convertDateTime pattern="yyyy-MM-dd"/>
-
-  <!-- Supports ISO date format strings of the form "yyyy-MM-dd" -->
-  <tr:validateDoubleRange
-       minimum="2004-11-16"
-       maximum="2004-12-16"
-       notInRangeMessageDetail="Date &quot;{1}&quot; does not fall within the range {2} : {3}"/>
-</tr:inputDate>]]>
+  <tr:validateDoubleRange maximum="#{bean.maxValue}"/>
+</tr:inputText>]]>
         </mfp:source-code>
       </mfp:example>
       <mfp:author>Matthias Wessendorf</mfp:author>
