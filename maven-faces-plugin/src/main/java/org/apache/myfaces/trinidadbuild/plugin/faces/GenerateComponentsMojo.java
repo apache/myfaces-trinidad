@@ -659,6 +659,10 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     {
       return "new Integer(" + value + ")";
     }
+    else if ("double".equals(className))
+    {
+      return "new Double(" + value + ")";
+    }
     else if ("float".equals(className))
     {
       return "new Float(" + value + ")";
@@ -1329,6 +1333,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     //resolvableTypes.put("java.util.Date", "Date");
     resolvableTypes.put("int", "Integer");
     resolvableTypes.put("float", "Float");
+    resolvableTypes.put("double", "Double");
     resolvableTypes.put("java.util.Locale", "Locale");
     resolvableTypes.put("long", "Long");
     resolvableTypes.put("java.lang.String", "String");
