@@ -42,21 +42,13 @@ import org.apache.myfaces.trinidad.context.LocaleContext;
 public final class MutableLocaleContext extends LocaleContextImpl
 {
   /**
-   * Creates a MutableLocaleContext based off of the default Locale.
-   */
-  public MutableLocaleContext()
-  {
-    super();
-  }
-
-  /**
    * Creates a MutableLocaleContext based off of the specified Locale.
    */
   public MutableLocaleContext(
-    Locale baseLocale
+    Locale formattingLocale
     )
   {
-    super(baseLocale);
+    super(formattingLocale);
   }
 
   /**
@@ -66,17 +58,17 @@ public final class MutableLocaleContext extends LocaleContextImpl
    * can use the translation Locale to force subcomponents to only
    * use translations in a language supported by the application.
    * <p>
-   * @param baseLocale Locale providing default behavior for the LocaleContext.
+   * @param formattingLocale Locale providing default behavior for the LocaleContext.
    *                   If not specified, the defualt Locale is used.
    * @param translationLocale Locale to use for translations.  If not
-   *                          specified, the baseLocale is used.
+   *                          specified, the formattingLocale is used.
    */
   public MutableLocaleContext(
-    Locale baseLocale,
+    Locale formattingLocale,
     Locale translationLocale
     )
   {
-    super(baseLocale, translationLocale);
+    super(formattingLocale, translationLocale);
   }
 
   /**
@@ -84,7 +76,7 @@ public final class MutableLocaleContext extends LocaleContextImpl
    */
   public MutableLocaleContext(LocaleContext context)
   {
-    super(context.getLocale(), context.getTranslationLocale());
+    super(context.getFormattingLocale(), context.getTranslationLocale());
 
     setReadingDirection(((LocaleContextImpl)context).getReadingDirection());
     setTimeZone(context.getTimeZone());

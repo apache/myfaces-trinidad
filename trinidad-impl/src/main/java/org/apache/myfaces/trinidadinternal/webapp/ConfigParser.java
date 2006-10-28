@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.webapp;
 
 import java.io.InputStream;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
@@ -36,8 +37,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
 import org.apache.myfaces.trinidad.util.ClassLoaderUtils;
+
+import org.apache.myfaces.trinidadinternal.context.RequestContextBean;
+import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 
 
@@ -195,29 +198,26 @@ public class ConfigParser
           {
             Object value;
 
-            if ((key == RequestContextBean.NUMBER_GROUPING_SEPARATOR_KEY) ||
-                (key == RequestContextBean.DECIMAL_SEPARATOR_KEY))
+            if (key.getType() == Character.class)
             {
-              value = new Character(_currentText.charAt(0));
+              value = _currentText.charAt(0);
             }
-            else if (key == RequestContextBean.PAGE_FLOW_SCOPE_LIFETIME_KEY)
+            else if (key.getType() == Integer.class)
             {
               value = _getIntegerValue(_currentText, qName);
             }
-            else if (key == RequestContextBean.RIGHT_TO_LEFT_KEY ||
-                     key == RequestContextBean.DEBUG_OUTPUT_KEY ||
-                     key == RequestContextBean.CLIENT_VALIDATION_DISABLED_KEY)
+            else if (key.getType() == Boolean.class)
             {
               value = ("true".equalsIgnoreCase(_currentText)
                        ? Boolean.TRUE : Boolean.FALSE);
             }
-            else if (key == RequestContextBean.TIME_ZONE_KEY)
+            else if (key.getType() == TimeZone.class)
             {
               value = TimeZone.getTimeZone(_currentText);
             }
-            else if (key == RequestContextBean.TWO_DIGIT_YEAR_START)
+            else if (key.getType() == Locale.class)
             {
-              value = _getIntegerValue(_currentText, qName);
+              value = LocaleUtils.getLocaleForIANAString(_currentText);
             }
             else
             {

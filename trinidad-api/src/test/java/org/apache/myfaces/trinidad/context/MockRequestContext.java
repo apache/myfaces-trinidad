@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
@@ -156,6 +157,17 @@ public class MockRequestContext extends RequestContext
   public void setRightToLeft(boolean rtl)
   {
     _rtl = rtl;
+  }
+
+  @Override
+  public Locale getFormattingLocale()
+  {
+    return _formattingLocale;
+  }
+
+  public void setFormattingLocale(Locale formattingLocale)
+  {
+    _formattingLocale = formattingLocale;
   }
 
   @Override
@@ -306,5 +318,5 @@ public class MockRequestContext extends RequestContext
   private Accessibility _accMode;
   private Agent _agent;
   private boolean _rtl = false;
-  
+  private Locale _formattingLocale;
 }

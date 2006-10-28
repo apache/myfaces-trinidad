@@ -215,8 +215,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
                                          " be specified");
     }
 
-    Locale locale = _getLocale(context);
     RequestContext reqCtx = RequestContext.getCurrentInstance();
+    Locale locale = _getLocale(reqCtx, context);
 
     NumberFormat fmt = _getNumberFormat(pattern, type, locale, reqCtx);
 
@@ -292,8 +292,8 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
     }
 
 
-    Locale locale  = _getLocale(context);
     RequestContext reqCtx = RequestContext.getCurrentInstance();
+    Locale locale  = _getLocale(reqCtx, context);
 
     NumberFormat formatter = _getNumberFormat(pattern, type, locale, reqCtx);
 
@@ -1030,11 +1030,17 @@ public class NumberConverter extends javax.faces.convert.NumberConverter
                                      component);
   }
 
-  private Locale _getLocale(FacesContext context)
+  private Locale _getLocale(RequestContext rc, FacesContext context)
   {
     Locale locale = getLocale();
     if (locale == null )
-     locale = context.getViewRoot().getLocale();
+    {
+      locale = rc.getFormattingLocale();
+      if (locale == null)
+      {
+        locale = context.getViewRoot().getLocale();
+      }
+    }
 
     return locale;
   }

@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import javax.faces.component.UIComponent;
@@ -161,6 +162,12 @@ public class MRequestContext extends RequestContext
   public void setRightToLeft(boolean rtl)
   {
     _rtl = rtl;
+  }
+
+  @Override
+  public Locale getFormattingLocale()
+  {
+    return null;
   }
 
   @Override

@@ -39,26 +39,16 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/share/nls/LocaleContext.java#0 $) $Date: 10-nov-2005.19:00:03 $
  * @author The Oracle ADF Faces Team
  */
-// -= Simon Lessard =-
 public class LocaleContextImpl extends LocaleContext
 {
-  /**
-   * Creates a LocaleContext based off of the default Locale.
-   */
-  public LocaleContextImpl()
-  {
-    this(null);
-  }
-
-
   /**
    * Creates a LocaleContext based off of the specified Locale.
    */
   public LocaleContextImpl(
-    Locale baseLocale
+    Locale locale
     )
   {
-    this(baseLocale, null);
+    this(locale, locale);
   }
 
 
@@ -69,29 +59,30 @@ public class LocaleContextImpl extends LocaleContext
    * can use the translation Locale to force subcomponents to only
    * use translations in a language supported by the application.
    * <p>
-   * @param baseLocale Locale providing default behavior for the LocaleContext.
+   * @param formattingLocale Locale providing default formatting
+   *    behavior for the LocaleContext.
    *                   If not specified, the defualt Locale is used.
    * @param translationLocale Locale to use for translations.  If not
-   *                          specified, the baseLocale is used.
+   *                          specified, the formattingLocale is used.
    */
   public LocaleContextImpl(
-    Locale baseLocale,
+    Locale formattingLocale,
     Locale translationLocale
     )
   {
     if (!getClass().getName().startsWith("org.apache.myfaces.trinidadinternal.share.nls."))
       throw new IllegalStateException("User-defined subclasses not supported.");
 
-    if (baseLocale == null)
+    if (formattingLocale == null)
     {
-      baseLocale = Locale.getDefault();
+      formattingLocale = Locale.getDefault();
     }
 
-    _locale = baseLocale;
+    _formattingLocale = formattingLocale;
 
     // default the translation locale to the baseLocale
     if (translationLocale == null)
-      translationLocale = baseLocale;
+      translationLocale = formattingLocale;
 
     _transLocale = translationLocale;
 
@@ -99,36 +90,35 @@ public class LocaleContextImpl extends LocaleContext
   }
 
   /**
-   * Returns the locale that should be used for rendering.  Attributes
-   * on the current node should override this.
-   */
-  public Locale getLocale()
-  {
-    return _locale;
-  }
-
-  /**
-   * Returns the locale that should be used for translations..
+   * Returns the locale that should be used for translations.
    */
   public Locale getTranslationLocale()
   {
     return _transLocale;
   }
 
+  /**
+   * Returns the locale that should be used for formatting.
+   */
+  public Locale getFormattingLocale()
+  {
+    return _formattingLocale;
+  }
+
 
   /**
    * Returns the Locale in IANA String format.
    */
-  public String getIANALocaleString()
+  public String getFormattingIANALocaleString()
   {
-    if (_ianaLocale == null)
+    if (_formattingIanaLocale == null)
     {
-      String localeString = _locale.toString();
+      String localeString = _formattingLocale.toString();
 
-      _ianaLocale = localeString.replace('_', '-');
+      _formattingIanaLocale = localeString.replace('_', '-');
     }
 
-    return _ianaLocale;
+    return _formattingIanaLocale;
   }
 
 
@@ -237,8 +227,10 @@ public class LocaleContextImpl extends LocaleContext
   {
     StringBuffer buffer = new StringBuffer(super.toString());
 
-    buffer.append(" locale=");
-    buffer.append(getLocale());
+    buffer.append(" translationLocale=");
+    buffer.append(getTranslationLocale());
+    buffer.append(", formattingLocale=");
+    buffer.append(getFormattingLocale());
     buffer.append(", direction=");
     buffer.append(getReadingDirection());
     buffer.append(", timeZone=");
@@ -363,7 +355,7 @@ public class LocaleContextImpl extends LocaleContext
   @Override
   public int hashCode()
   {
-    return getLocale().hashCode();
+    return getFormattingLocale().hashCode();
   }
 
   /**
@@ -381,8 +373,8 @@ public class LocaleContextImpl extends LocaleContext
     LocaleContextImpl that = (LocaleContextImpl)obj;
 
     return
-      (this.getLocale().equals(that.getLocale())                         &&
-       this.getTranslationLocale().equals(that.getTranslationLocale())   &&
+      (this.getTranslationLocale().equals(that.getTranslationLocale())   &&
+       this.getFormattingLocale().equals(that.getFormattingLocale())     &&
        this.getTimeZone().equals(that.getTimeZone())                     &&
        (this.getReadingDirection() == that.getReadingDirection())        &&
        this.getDateFormatContext().equals(that.getDateFormatContext())   &&
@@ -443,9 +435,9 @@ public class LocaleContextImpl extends LocaleContext
 
   private HashMap<String, ResourceBundle> _bundles;
 
-  private Locale   _locale;
+  private Locale   _formattingLocale;
   private Locale   _transLocale;
-  private transient String _ianaLocale;
+  private transient String _formattingIanaLocale;
   private transient String _transIanaLocale;
   private TimeZone _timeZone;
 

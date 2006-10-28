@@ -326,7 +326,7 @@ public class RequestContextImpl extends RequestContext
       // Support the "session" token
       if ("session".equalsIgnoreCase(changeManager))
       {
-        _LOG.info("ADF Faces is using HTTPSession for change persistence");
+        _LOG.info("Apache Trinidad is using HTTPSession for change persistence");
         return new SessionChangeManager();
       }
       // Otherwise, just assume its a class name.
@@ -397,6 +397,18 @@ public class RequestContextImpl extends RequestContext
     }
 
     return false;
+  }
+
+  public Locale getFormattingLocale()
+  {
+    Object o = _bean.getProperty(RequestContextBean.FORMATTING_LOCALE_KEY);
+    if (o == null)
+      return null;
+
+    if (o instanceof Locale)
+      return (Locale) o;
+    
+    return LocaleUtils.getLocaleForIANAString(o.toString());
   }
 
 

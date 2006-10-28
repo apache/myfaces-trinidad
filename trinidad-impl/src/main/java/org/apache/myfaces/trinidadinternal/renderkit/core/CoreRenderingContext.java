@@ -20,6 +20,7 @@ import java.beans.Beans;
 import java.io.File;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
@@ -483,8 +484,13 @@ public class CoreRenderingContext extends RenderingContext
     FacesContext    fContext,
     RequestContext context)
   {
-    MutableLocaleContext localeContext = new MutableLocaleContext(
-                                   fContext.getViewRoot().getLocale());
+    Locale translations = fContext.getViewRoot().getLocale();
+    Locale formatting = context.getFormattingLocale();
+    if (formatting == null)
+      formatting = translations;
+
+    MutableLocaleContext localeContext = new MutableLocaleContext(formatting,
+                                                                  translations);
 
     localeContext.setReadingDirection(context.isRightToLeft() ?
                                       LocaleUtils.DIRECTION_RIGHTTOLEFT :

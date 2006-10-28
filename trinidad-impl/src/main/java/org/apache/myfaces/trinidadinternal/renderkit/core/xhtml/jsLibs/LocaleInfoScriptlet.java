@@ -71,7 +71,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
 
     // write out the i18n Locale as a js variable
     writer.writeText("var _locale='", null);
-    writer.writeText(lc.getIANALocaleString(), null);
+    writer.writeText(lc.getFormattingIANALocaleString(), null);
     writer.writeText("';", null);
 
     // write out the translation Locale as a js variable
@@ -112,7 +112,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
     RenderingContext arc)
   {
     Locale elementsLocale = _getJSLocaleElementsLocale(
-                                    arc.getLocaleContext().getLocale());
+                                    arc.getLocaleContext().getFormattingLocale());
     String var = getSupportedLocaleVariant(arc);
     if (var != null)
     {
@@ -145,7 +145,7 @@ class LocaleInfoScriptlet extends LibraryScriptlet
    */
   public String getSupportedLocaleVariant(RenderingContext arc)
   {
-    String variant = arc.getLocaleContext().getLocale().getVariant();
+    String variant = arc.getLocaleContext().getFormattingLocale().getVariant();
     variant = variant.toUpperCase();
 
     if (variant.startsWith("ORACLE"))
