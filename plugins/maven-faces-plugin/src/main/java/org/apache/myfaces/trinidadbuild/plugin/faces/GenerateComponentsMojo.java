@@ -669,7 +669,7 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     }
     else
     {
-      throw new IllegalStateException();
+      throw new IllegalStateException("property-class " + className + " not supported for default-value");
     }
   }
 
