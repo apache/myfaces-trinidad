@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidad.context;
 
 import java.awt.Color;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
@@ -246,11 +247,16 @@ abstract public class RequestContext
 
   /**
    * Returns true if the user should be shown output in right-to-left.
-   * @todo Should this be a java.lang.Boolean to better encapsulate
-   *  "default off of Locale"?  Currently, this forces Locale-checking
-   *  code into this method.
    */
   public abstract boolean isRightToLeft();
+
+  /**
+   * Returns the formatting locale.  Converters without an explicit locale
+   * should use this to format values.  If not set, converters should
+   * default to the value of FacesContext.getViewRoot().getLocale().
+   * This will, by default, simply return null.
+   */
+  public abstract Locale getFormattingLocale();
 
   //
   //  Number formatting

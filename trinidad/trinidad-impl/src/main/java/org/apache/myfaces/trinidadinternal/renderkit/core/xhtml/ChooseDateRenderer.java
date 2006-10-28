@@ -258,7 +258,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     // Bug 2388968:  Java's "short" weekdays in Arabic are single
     // letters, which we're told are inadequate.  Output entire
     // names instead.
-    if ("ar".equals(arc.getLocaleContext().getLocale().getLanguage()))
+    if ("ar".equals(arc.getLocaleContext().getFormattingLocale().getLanguage()))
       shortWeekdays = dateSymbols.getWeekdays();
     else
       shortWeekdays = dateSymbols.getShortWeekdays();
@@ -733,7 +733,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
       XhtmlConstants.VALUE_PARAM,
       String.valueOf(selectedTime),
       LOC_PARAM,
-      arc.getLocaleContext().getIANALocaleString()
+      arc.getLocaleContext().getFormattingIANALocaleString()
     };
   }
 
@@ -1198,7 +1198,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
     LocaleContext localeContext = arc.getLocaleContext();
 
     Calendar calendar = Calendar.getInstance(localeContext.getTimeZone(),
-                                localeContext.getLocale());
+                                localeContext.getFormattingLocale());
     if (calendar instanceof GregorianCalendar)
     {
       ((GregorianCalendar) calendar).setGregorianChange(
@@ -1389,7 +1389,7 @@ public class ChooseDateRenderer extends XhtmlRenderer
 
     if (symbols == null)
     {
-      symbols = new DateFormatSymbols(arc.getLocaleContext().getLocale());
+      symbols = new DateFormatSymbols(arc.getLocaleContext().getFormattingLocale());
 
       arc.getProperties().put(_DATE_SYMBOLS_KEY, symbols);
     }

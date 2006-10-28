@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.context;
 
+import java.util.Locale;
 import java.util.TimeZone;
 
 import org.apache.myfaces.trinidad.bean.FacesBeanImpl;
@@ -39,6 +40,8 @@ public class RequestContextBean extends FacesBeanImpl
     TYPE.registerKey("accessibility-mode");
   static public final PropertyKey RIGHT_TO_LEFT_KEY =
     TYPE.registerKey("right-to-left", Boolean.class);
+  static public final PropertyKey FORMATTING_LOCALE_KEY =
+    TYPE.registerKey("formatting-locale", Locale.class);
   static public final PropertyKey NUMBER_GROUPING_SEPARATOR_KEY =
     TYPE.registerKey("number-grouping-separator", Character.class);
   static public final PropertyKey DECIMAL_SEPARATOR_KEY =

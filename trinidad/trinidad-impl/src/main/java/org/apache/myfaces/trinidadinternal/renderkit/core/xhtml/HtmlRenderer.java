@@ -107,7 +107,7 @@ public class HtmlRenderer extends XhtmlRenderer
     writer.writeAttribute("dir", direction, null);
 
     // render the correct language
-    String lang = arc.getLocaleContext().getIANALocaleString();
+    String lang = arc.getLocaleContext().getTranslationIANALocaleString();
     if (lang != null)
     {
       if (isXML)

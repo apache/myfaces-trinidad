@@ -1504,10 +1504,18 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     String pattern
     )
   {
-    Locale locale = getLocale();
+    RequestContext reqContext = RequestContext.getCurrentInstance();
 
+    Locale locale = getLocale();
     if (null == locale)
-      locale = context.getViewRoot().getLocale();
+    {
+      if (reqContext != null)
+        locale = reqContext.getFormattingLocale();
+      if (locale == null)
+      {
+        locale = context.getViewRoot().getLocale();
+      }
+    }
 
     TimeZone tZone = _getTimeZone();
 
@@ -1574,9 +1582,8 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
           }
         }
 
-        RequestContext adfContext = RequestContext.getCurrentInstance();
         Calendar cal;
-        if (adfContext == null)
+        if (reqContext == null)
         {
           cal = null;
           if(_LOG.isWarning())
@@ -1586,7 +1593,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
         }
         else
         {
-          cal = new GregorianCalendar(adfContext.getTwoDigitYearStart(), 0, 0);
+          cal = new GregorianCalendar(reqContext.getTwoDigitYearStart(), 0, 0);
         }
         if (cal != null)
           simpleFormat.set2DigitYearStart(cal.getTime());

@@ -34,20 +34,40 @@ abstract public class LocaleContext
   }
 
   /**
-   * Returns the locale that should be used for rendering.  Attributes
-   * on the current node should override this.
+   * Returns the locale that should be used for formatting.
    */
-  abstract public Locale getLocale();
+  abstract public Locale getFormattingLocale();
+
+  /**
+   * Returns the formatting Locale in IANA String format.
+   */
+  abstract public String getFormattingIANALocaleString();
+
+
+  /**
+   * Returns the locale that should be used for formatting.
+   * @deprecated use getFormattingLocale()
+   */
+  public Locale getLocale()
+  {
+    return getFormattingLocale();
+  }
+
+  /**
+   * Returns the Locale in IANA String format.
+   * @deprecated use getFormattingIANALocaleString()
+   */
+  public String getIANALocaleString()
+  {
+    return getFormattingIANALocaleString();
+  }
+
+
 
   /**
    * Returns the locale that should be used for translations..
    */
   abstract public Locale getTranslationLocale();
-
-  /**
-   * Returns the Locale in IANA String format.
-   */
-  abstract public String getIANALocaleString();
 
 
   /**

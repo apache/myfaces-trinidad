@@ -504,7 +504,8 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     if (dateTimeConverterLocale != null)
     {
       Locale defaultLocale =
-        RenderingContext.getCurrentInstance().getLocaleContext().getLocale();
+        RenderingContext.getCurrentInstance().getLocaleContext().
+           getFormattingLocale();
       return !dateTimeConverterLocale.equals(defaultLocale);
     }
 

@@ -72,9 +72,10 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     FacesContext context,
     UIComponent component)
   {
-    
-    String maxStr = Long.toString(getMaximum().getTime());
-    String minStr = Long.toString(getMinimum().getTime());
+    Date max = getMaximum();
+    Date min = getMinimum();
+    String maxStr = (max == null) ? null : Long.toString(max.getTime());
+    String minStr = (min == null) ? null : Long.toString(min.getTime());
     
     return  ConverterUtils.getClientValidation(context, component,
                                                MAXIMUM_MESSAGE_ID,
