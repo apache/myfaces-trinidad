@@ -23,14 +23,14 @@
     <validator-id>org.apache.myfaces.trinidad.Length</validator-id>
     <validator-class>org.apache.myfaces.trinidadinternal.validator.LengthValidator</validator-class>
     <property>
-      <description><![CDATA[the maximum .]]>
+      <description><![CDATA[The maximum double value of the entered value.]]>
       </description>
       <property-name>maximum</property-name>
       <property-class>int</property-class>
       <property-extension/>
     </property>
     <property>
-      <description><![CDATA[The minimum .]]>
+      <description><![CDATA[The minimum double value of the entered value.]]>
       </description>
       <property-name>minimum</property-name>
       <property-class>int</property-class>
