@@ -24,8 +24,6 @@ import javax.faces.component.UIComponent;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.apache.myfaces.trinidad.validator.DateTimeRangeValidator;
-import org.apache.myfaces.trinidad.validator.RegExpValidator;
 import org.apache.myfaces.trinidadbuild.test.MockUIComponentWrapper;
 import org.apache.shale.test.mock.MockApplication;
 import org.jmock.Mock;
@@ -88,7 +86,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
     Mock mock = buildMockUIComponent();
     UIComponent component = (UIComponent) mock.proxy();
     MockUIComponentWrapper wrapper = new MockUIComponentWrapper(mock, component);
-    RegExpValidator validator = new RegExpValidator();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
 
     doTestNullContext(wrapper, validator);
   }
@@ -98,7 +96,7 @@ public class DateTimeRangeValidatorTest extends ValidatorTestCase
    */
   public void testNullComponent()
   {
-    RegExpValidator validator = new RegExpValidator();
+    DateTimeRangeValidator validator = new DateTimeRangeValidator();
 
     doTestNullComponent(facesContext, validator);
   }
