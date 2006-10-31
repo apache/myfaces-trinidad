@@ -97,6 +97,33 @@
     </managed-bean-scope>
   </managed-bean>
 
+  <managed-bean>
+    <managed-bean-name>germanHolidays</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.GermanHolidayDateListProvider
+    </managed-bean-class>
+    <managed-bean-scope>
+       application
+    </managed-bean-scope>
+  </managed-bean>
+  
+  <managed-bean>
+    <managed-bean-name>dateRestrictionValidator</managed-bean-name>
+    <managed-bean-class>
+       org.apache.myfaces.trinidaddemo.DateRestrictionValidatorBean
+    </managed-bean-class>
+    <managed-bean-scope>
+       request
+    </managed-bean-scope>
+    <managed-property>
+      <property-name>nationalHolidays</property-name>
+      <value>#{germanHolidays}</value>
+    </managed-property>
+    <managed-property>
+      <property-name>country</property-name>
+      <value>German</value>
+    </managed-property>
+  </managed-bean>
 
   <managed-bean>
     <managed-bean-name>action</managed-bean-name>
@@ -1815,6 +1842,12 @@
     <navigation-case>
       <from-outcome>clientConvert</from-outcome>
       <to-view-id>/convertValidate/clientConvert.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
+      <from-outcome>dateRestrictionValidate</from-outcome>
+      <to-view-id>/convertValidate/dateRestrictionValidate.jspx</to-view-id>
       <redirect/>
     </navigation-case>
 
