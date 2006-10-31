@@ -21,7 +21,7 @@
     <description><![CDATA[Validate that the date entered is within a given range.]]></description>
     <display-name>validateDateRestriction</display-name>
     <validator-id>org.apache.myfaces.trinidad.DateRestriction</validator-id>
-    <validator-class>org.apache.myfaces.trinidadinternal.validator.DateRestrictionValidator</validator-class>
+    <validator-class>org.apache.myfaces.trinidad.validator.DateRestrictionValidator</validator-class>
     <property>
       <description><![CDATA[the .]]>
       </description>
