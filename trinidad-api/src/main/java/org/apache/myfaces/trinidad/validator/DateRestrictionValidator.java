@@ -84,6 +84,7 @@ public class DateRestrictionValidator implements Validator, StateHolder {
 
   /**
    * Construct a {@link Validator} with no preconfigured limits.
+   * @author Matthias Wessendorf
    */
   public DateRestrictionValidator()
   {
