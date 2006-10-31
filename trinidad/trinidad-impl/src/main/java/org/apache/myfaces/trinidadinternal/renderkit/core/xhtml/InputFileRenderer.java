@@ -32,6 +32,13 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
   {
     super(CoreInputFile.TYPE);
   }
+
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputFile = new SimpleInputFileRenderer(type);
+  }
   
   @Override
   protected final void encodeAll(
@@ -70,7 +77,6 @@ public class InputFileRenderer extends InputLabelAndMessageRenderer
   {
     return false;
   }
-  
-  private SimpleInputFileRenderer _simpleInputFile =
-     new SimpleInputFileRenderer();
+
+  private SimpleInputFileRenderer _simpleInputFile;
 }

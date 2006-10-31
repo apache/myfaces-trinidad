@@ -27,6 +27,13 @@ public class InputDateRenderer extends InputLabelAndMessageRenderer
   }  
   
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputDate = new SimpleInputDateRenderer(type);
+  }
+
+  @Override
   protected FormInputRenderer getFormInputRenderer()
   {
     return _simpleInputDate;
@@ -38,6 +45,5 @@ public class InputDateRenderer extends InputLabelAndMessageRenderer
     return "af|inputDate";
   }  
 
-  private SimpleInputDateRenderer _simpleInputDate =
-     new SimpleInputDateRenderer();
+  private SimpleInputDateRenderer _simpleInputDate;
 }

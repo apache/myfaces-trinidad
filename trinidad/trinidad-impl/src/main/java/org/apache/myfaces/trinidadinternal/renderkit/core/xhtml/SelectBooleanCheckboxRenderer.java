@@ -29,6 +29,14 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
   }  
   
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleSelectBooleanCheckbox = new SimpleSelectBooleanCheckboxRenderer(type);
+  }
+
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectBooleanCheckbox";
@@ -61,6 +69,5 @@ public class SelectBooleanCheckboxRenderer extends InputLabelAndMessageRenderer
     return _simpleSelectBooleanCheckbox;
   }  
 
-  private SimpleSelectBooleanCheckboxRenderer _simpleSelectBooleanCheckbox =
-     new SimpleSelectBooleanCheckboxRenderer();
+  private SimpleSelectBooleanCheckboxRenderer _simpleSelectBooleanCheckbox;
 }

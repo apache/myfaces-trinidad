@@ -28,6 +28,13 @@ public class SelectManyListboxRenderer extends InputLabelAndMessageRenderer
   }  
   
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleSelectManyListbox = new SimpleSelectManyListboxRenderer(type);
+  }
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|selectManyListbox";
@@ -45,6 +52,5 @@ public class SelectManyListboxRenderer extends InputLabelAndMessageRenderer
     return _simpleSelectManyListbox;
   }  
 
-  private SimpleSelectManyListboxRenderer _simpleSelectManyListbox =
-     new SimpleSelectManyListboxRenderer();
+  private SimpleSelectManyListboxRenderer _simpleSelectManyListbox;
 }

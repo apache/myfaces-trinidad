@@ -53,7 +53,12 @@ public class SimpleInputColorRenderer
 {
   public SimpleInputColorRenderer()
   {
-    super(CoreInputColor.TYPE);
+    this(CoreInputColor.TYPE);
+  }
+
+  public SimpleInputColorRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
 
   @Override

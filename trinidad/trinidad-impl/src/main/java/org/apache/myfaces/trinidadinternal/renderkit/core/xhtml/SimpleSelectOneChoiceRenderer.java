@@ -39,8 +39,14 @@ public class SimpleSelectOneChoiceRenderer extends SimpleSelectOneRenderer
 {
   public SimpleSelectOneChoiceRenderer()
   {
-    super(CoreSelectOneChoice.TYPE);
+    this(CoreSelectOneChoice.TYPE);
   }
+
+  public SimpleSelectOneChoiceRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+
 
   @Override
   protected void findTypeConstants(FacesBean.Type type)

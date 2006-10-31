@@ -27,6 +27,13 @@ public class SelectOneListboxRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectOneListbox.TYPE);
     
   }
+
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleSelectOneListbox = new SimpleSelectOneListboxRenderer(type);
+  }
   
   @Override
   protected String getRootStyleClass(FacesBean bean)  
@@ -46,6 +53,5 @@ public class SelectOneListboxRenderer extends InputLabelAndMessageRenderer
     return _simpleSelectOneListbox;
   }  
 
-  private SimpleSelectOneListboxRenderer _simpleSelectOneListbox =
-     new SimpleSelectOneListboxRenderer();
+  private SimpleSelectOneListboxRenderer _simpleSelectOneListbox;
 }

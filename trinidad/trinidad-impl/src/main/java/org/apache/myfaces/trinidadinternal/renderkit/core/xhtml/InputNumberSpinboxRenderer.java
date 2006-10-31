@@ -28,6 +28,14 @@ public class InputNumberSpinboxRenderer extends InputLabelAndMessageRenderer
   }
 
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputNumberSpinbox = new SimpleInputNumberSpinboxRenderer(type);
+  }
+
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)
   {
     return "af|inputNumberSpinbox";
@@ -45,8 +53,5 @@ public class InputNumberSpinboxRenderer extends InputLabelAndMessageRenderer
     return _simpleInputNumberSpinbox;
   }
 
-  private SimpleInputNumberSpinboxRenderer _simpleInputNumberSpinbox =
-     new SimpleInputNumberSpinboxRenderer();
-
-
+  private SimpleInputNumberSpinboxRenderer _simpleInputNumberSpinbox;
 }

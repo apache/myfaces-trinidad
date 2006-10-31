@@ -31,6 +31,13 @@ public class InputColorRenderer extends InputLabelAndMessageRenderer
   }  
 
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputColor = new SimpleInputColorRenderer(type);
+  }
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputColor";
@@ -64,7 +71,6 @@ public class InputColorRenderer extends InputLabelAndMessageRenderer
 
     return Boolean.TRUE.equals(o);
   }
-  
-  private SimpleInputColorRenderer _simpleInputColor =
-     new SimpleInputColorRenderer();
+
+  private SimpleInputColorRenderer _simpleInputColor;
 }

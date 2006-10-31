@@ -41,7 +41,12 @@ public class SimpleSelectManyCheckboxRenderer extends SimpleSelectManyRenderer
 {
   public SimpleSelectManyCheckboxRenderer()
   {
-    super(CoreSelectManyCheckbox.TYPE);
+    this(CoreSelectManyCheckbox.TYPE);
+  }
+
+  public SimpleSelectManyCheckboxRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
   
   @Override

@@ -32,6 +32,7 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
+    _simpleSelectOneRadio = new SimpleSelectOneRadioRenderer(type);
   } 
   
   @Override
@@ -78,6 +79,5 @@ public class SelectOneRadioRenderer extends InputLabelAndMessageRenderer
 
   private PropertyKey _layoutKey;
 
-  private SimpleSelectOneRadioRenderer _simpleSelectOneRadio =
-     new SimpleSelectOneRadioRenderer();
+  private SimpleSelectOneRadioRenderer _simpleSelectOneRadio;
 }

@@ -33,6 +33,7 @@ public class SelectManyCheckboxRenderer extends InputLabelAndMessageRenderer
   {
     super.findTypeConstants(type);
     _layoutKey = type.findKey("layout");
+    _simpleSelectManyCheckbox = new SimpleSelectManyCheckboxRenderer(type);
   } 
   
   @Override
@@ -79,6 +80,5 @@ public class SelectManyCheckboxRenderer extends InputLabelAndMessageRenderer
 
   private PropertyKey _layoutKey;
 
-  private SimpleSelectManyCheckboxRenderer _simpleSelectManyCheckbox =
-     new SimpleSelectManyCheckboxRenderer();
+  private SimpleSelectManyCheckboxRenderer _simpleSelectManyCheckbox;
 }

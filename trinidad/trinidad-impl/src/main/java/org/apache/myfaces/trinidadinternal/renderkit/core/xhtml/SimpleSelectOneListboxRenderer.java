@@ -40,9 +40,15 @@ public class SimpleSelectOneListboxRenderer extends SimpleSelectOneRenderer
 {
   public SimpleSelectOneListboxRenderer()
   {
-    super(CoreSelectOneListbox.TYPE);
+    this(CoreSelectOneListbox.TYPE);
   }
   
+  public SimpleSelectOneListboxRenderer(FacesBean.Type type)
+  {
+    super(type);
+  }
+  
+
   @Override
   protected void findTypeConstants(FacesBean.Type type)
   {
