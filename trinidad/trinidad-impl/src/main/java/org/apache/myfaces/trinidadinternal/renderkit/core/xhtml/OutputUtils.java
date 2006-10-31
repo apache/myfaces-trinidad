@@ -244,13 +244,13 @@ public class OutputUtils
    * Renders an image tag.
    */
   static public void renderImage(
-    FacesContext        context,
+    FacesContext     context,
     RenderingContext arc,
-    Object              absoluteUri,
-    Object              width,
-    Object              height,
-    Object              id,
-    Object              altText
+    Object           absoluteUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText
     ) throws IOException
   {
     renderImage(context, arc, absoluteUri,
@@ -258,14 +258,30 @@ public class OutputUtils
   }
 
   static public void renderImage(
-    FacesContext        context,
+    FacesContext     context,
     RenderingContext arc,
-    Object              absoluteUri,
-    Object              width,
-    Object              height,
-    Object              id,
-    Object              altText,
-    UIComponent         comp
+    Object           absoluteUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText,
+    UIComponent      comp
+    ) throws IOException
+  {
+    renderImage(context, arc, absoluteUri,
+                width, height, id, altText, comp, null);
+  }
+
+  static public void renderImage(
+    FacesContext     context,
+    RenderingContext arc,
+    Object           absoluteUri,
+    Object           width,
+    Object           height,
+    Object           id,
+    Object           altText,
+    UIComponent      comp,
+    String           inlineStyle
     ) throws IOException
   {
     if (absoluteUri == null)
@@ -290,6 +306,11 @@ public class OutputUtils
     if (height != null)
     {
       writer.writeAttribute("height", height, null);
+    }
+
+    if (inlineStyle != null)
+    {
+      writer.writeAttribute("style", inlineStyle, null);
     }
 
     writer.endElement("img");
