@@ -325,12 +325,12 @@ public final class TreeUtils
       UIXHierarchy tree)
   {
     String currencyString = parameters.get(_PATH_PARAM);
-    tree.setCurrencyString(currencyString);
+    tree.setClientRowKey(currencyString);
   }
 
   private static String _getPathParam(UIXHierarchy tree)
   {
-    String currencyString = tree.getCurrencyString();
+    String currencyString = tree.getClientRowKey();
     return currencyString;
   }
 

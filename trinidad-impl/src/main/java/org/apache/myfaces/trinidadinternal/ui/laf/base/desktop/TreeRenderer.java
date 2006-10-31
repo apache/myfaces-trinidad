@@ -402,7 +402,7 @@ public class TreeRenderer extends HtmlLafRenderer
 
   private static String _callJSSelect(UIXHierarchy tree, String jsVarName)
   {
-    String currencyStr = tree.getCurrencyString();
+    String currencyStr = tree.getClientRowKey();
     return jsVarName+".select(this,'"+currencyStr+"');";
   }
 

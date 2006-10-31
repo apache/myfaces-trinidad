@@ -88,7 +88,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
         else
           state = ((UIXTree) table).getSelectedRowKeys();
 
-        table.setCurrencyString(selection);
+        table.setClientRowKey(selection);
         if (!state.isContained())
         {
           RowKeySet unselected = state.clone();
@@ -257,7 +257,7 @@ public class TableSelectOneRenderer extends XhtmlRenderer
       TableRenderingContext tContext =
         TableRenderingContext.getCurrentInstance();
       return ((UIXCollection) tContext.getCollectionComponent()).
-                getCurrencyString();
+                getClientRowKey();
     }
 
     @Override
