@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<!--
+  Copyright 2006 The Apache Software Foundation.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:tr="http://myfaces.apache.org/trinidad"
+              xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin">
+  <validator>
+    <description><![CDATA[Validate that the date entered is within a given range.]]></description>
+    <display-name>validateDateRestriction</display-name>
+    <validator-id>org.apache.myfaces.trinidad.DateRestriction</validator-id>
+    <validator-class>org.apache.myfaces.trinidadinternal.validator.DateRestrictionValidator</validator-class>
+    <property>
+      <description><![CDATA[the .]]>
+      </description>
+      <property-name>invalidMonths</property-name>
+      <property-class>java.lang.String[]</property-class>
+      <property-extension/>
+    </property>
+    
+    <property>
+      <description><![CDATA[the .]]>
+      </description>
+      <property-name>invalidDaysOfWeek</property-name>
+      <property-class>java.lang.String[]</property-class>
+      <property-extension/>
+    </property>
+    
+    <property>
+      <description><![CDATA[the .]]>
+      </description>
+      <property-name>invalidDays</property-name>
+      <property-class>org.apache.myfaces.trinidad.model.DateListProvider</property-class>
+      <property-extension/>
+    </property>
+    
+    <property>
+      <description><![CDATA[<p>
+           The detail error message to be used for constructing faces messages,
+          </p>]]>
+      </description>
+      <property-name>messageDetailInvalidMonths</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[<p>
+           The detail error message to be used for constructing faces messages,
+          </p>]]>
+      </description>
+      <property-name>messageDetailInvalidDaysOfWeek</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    <property>
+      <description><![CDATA[<p>
+           The detail error message to be used for constructing faces messages,
+          </p>]]>
+      </description>
+      <property-name>messageDetailInvalidDays</property-name>
+      <property-class>java.lang.String</property-class>
+      <property-extension>
+        <mfp:property-metadata>
+          <mfp:preferred>true</mfp:preferred>
+        </mfp:property-metadata>
+      </property-extension>
+    </property>
+    
+    <validator-extension>
+      <mfp:tag-name>tr:validateDateRestriction</mfp:tag-name>
+      <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.validator.ValidateDateRestrictionTag</mfp:tag-class>
+      <mfp:author>Matthias Wessendorf</mfp:author>
+      <mfp:uix2-local-name>validateDateTimeRange</mfp:uix2-local-name>
+    </validator-extension>
+  </validator>
+</faces-config>
