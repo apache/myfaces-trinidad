@@ -281,7 +281,7 @@ public class DateTimeRangeValidator implements Validator, StateHolder {
   {
     if ((context == null) || (component == null))
     {
-      throw new NullPointerException();
+      throw new NullPointerException("FacesContext or Component is null");
     }
 
     if (value != null)
