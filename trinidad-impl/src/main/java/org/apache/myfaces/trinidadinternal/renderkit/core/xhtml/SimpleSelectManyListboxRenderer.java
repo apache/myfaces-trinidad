@@ -46,7 +46,7 @@ public class SimpleSelectManyListboxRenderer extends SimpleSelectManyRenderer
     this(CoreSelectManyListbox.TYPE);
   }
 
-  protected SimpleSelectManyListboxRenderer(FacesBean.Type type)
+  public SimpleSelectManyListboxRenderer(FacesBean.Type type)
   {
     super(type);
   }

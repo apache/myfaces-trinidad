@@ -49,7 +49,7 @@ public class SimpleInputListOfValuesRenderer extends SimpleInputTextRenderer
     this(CoreInputListOfValues.TYPE);
   }
   
-  protected SimpleInputListOfValuesRenderer(FacesBean.Type type)
+  public SimpleInputListOfValuesRenderer(FacesBean.Type type)
   {
     super(type);
   }

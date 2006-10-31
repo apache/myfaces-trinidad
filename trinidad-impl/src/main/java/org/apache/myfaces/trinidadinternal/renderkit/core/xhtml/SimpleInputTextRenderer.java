@@ -42,7 +42,7 @@ public class SimpleInputTextRenderer extends FormInputRenderer
     this(CoreInputText.TYPE);
   }
 
-  protected SimpleInputTextRenderer(FacesBean.Type type)
+  public SimpleInputTextRenderer(FacesBean.Type type)
   {
     super(type);
   }

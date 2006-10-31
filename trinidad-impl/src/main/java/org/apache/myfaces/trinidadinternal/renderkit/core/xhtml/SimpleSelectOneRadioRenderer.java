@@ -41,7 +41,12 @@ public class SimpleSelectOneRadioRenderer extends SimpleSelectOneRenderer
 {
   public SimpleSelectOneRadioRenderer()
   {
-    super(CoreSelectOneRadio.TYPE);
+    this(CoreSelectOneRadio.TYPE);
+  }
+
+  public SimpleSelectOneRadioRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
 
   @Override

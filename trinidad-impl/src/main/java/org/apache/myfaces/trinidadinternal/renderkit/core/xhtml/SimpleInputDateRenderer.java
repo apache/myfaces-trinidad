@@ -54,7 +54,12 @@ public class SimpleInputDateRenderer
 {
   public SimpleInputDateRenderer()
   {
-    super(CoreInputDate.TYPE);
+    this(CoreInputDate.TYPE);
+  }
+
+  public SimpleInputDateRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
 
   @Override

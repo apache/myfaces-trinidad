@@ -31,7 +31,12 @@ public class SimpleInputFileRenderer extends SimpleInputTextRenderer
 {
   public SimpleInputFileRenderer()
   {
-    super(CoreInputFile.TYPE);
+    this(CoreInputFile.TYPE);
+  }
+
+  public SimpleInputFileRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
 
   //

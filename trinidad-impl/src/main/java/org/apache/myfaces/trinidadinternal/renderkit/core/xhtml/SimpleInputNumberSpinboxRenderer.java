@@ -37,7 +37,12 @@ public class SimpleInputNumberSpinboxRenderer extends SimpleInputListOfValuesRen
 {
   public SimpleInputNumberSpinboxRenderer()
   {
-    super(CoreInputNumberSpinbox.TYPE);
+    this(CoreInputNumberSpinbox.TYPE);
+  }
+
+  public SimpleInputNumberSpinboxRenderer(FacesBean.Type type)
+  {
+    super(type);
   }
 
   @Override

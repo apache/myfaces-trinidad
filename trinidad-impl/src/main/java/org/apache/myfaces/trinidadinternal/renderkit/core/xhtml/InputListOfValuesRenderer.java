@@ -29,6 +29,14 @@ public class InputListOfValuesRenderer extends InputLabelAndMessageRenderer
   }  
 
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputListOfValues = new SimpleInputListOfValuesRenderer(type);
+  }
+
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputListOfValues";
@@ -37,10 +45,8 @@ public class InputListOfValuesRenderer extends InputLabelAndMessageRenderer
   @Override
   protected FormInputRenderer getFormInputRenderer()
   {
-    return _simpleInputListOfValue;
+    return _simpleInputListOfValues;
   }
 
-  private SimpleInputListOfValuesRenderer _simpleInputListOfValue =
-     new SimpleInputListOfValuesRenderer();
-
+  private SimpleInputListOfValuesRenderer _simpleInputListOfValues;
 }

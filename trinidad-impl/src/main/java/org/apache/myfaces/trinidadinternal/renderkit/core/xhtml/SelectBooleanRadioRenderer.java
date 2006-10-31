@@ -26,6 +26,14 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectBooleanRadio.TYPE);
     
   } 
+
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleSelectBooleanRadio = new SimpleSelectBooleanRadioRenderer(type);
+  }
+
   
   @Override
   protected String getRootStyleClass(FacesBean bean)  
@@ -60,6 +68,5 @@ public class SelectBooleanRadioRenderer extends InputLabelAndMessageRenderer
     return _simpleSelectBooleanRadio;
   }  
 
-  private SimpleSelectBooleanRadioRenderer _simpleSelectBooleanRadio =
-     new SimpleSelectBooleanRadioRenderer();
+  private SimpleSelectBooleanRadioRenderer _simpleSelectBooleanRadio;
 }

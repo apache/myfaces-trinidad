@@ -27,6 +27,13 @@ public class SelectOneChoiceRenderer extends InputLabelAndMessageRenderer
     super(CoreSelectOneChoice.TYPE);
     
   }  
+
+  @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleSelectOneChoice = new SimpleSelectOneChoiceRenderer(type);
+  }
   
   @Override
   protected String getRootStyleClass(FacesBean bean)  
@@ -40,6 +47,5 @@ public class SelectOneChoiceRenderer extends InputLabelAndMessageRenderer
     return _simpleSelectOneChoice;
   }  
 
-  private SimpleSelectOneChoiceRenderer _simpleSelectOneChoice =
-     new SimpleSelectOneChoiceRenderer();
+  private SimpleSelectOneChoiceRenderer _simpleSelectOneChoice;
 }

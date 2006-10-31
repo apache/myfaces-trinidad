@@ -28,6 +28,13 @@ public class InputTextRenderer extends InputLabelAndMessageRenderer
   } 
 
   @Override
+  protected void findTypeConstants(FacesBean.Type type)
+  {
+    super.findTypeConstants(type);
+    _simpleInputText = new SimpleInputTextRenderer(type);
+  }
+
+  @Override
   protected String getRootStyleClass(FacesBean bean)  
   {
     return "af|inputText";
@@ -48,8 +55,5 @@ public class InputTextRenderer extends InputLabelAndMessageRenderer
     return _simpleInputText;
   }
  
-  private SimpleInputTextRenderer _simpleInputText =
-     new SimpleInputTextRenderer();
-
-
+  private SimpleInputTextRenderer _simpleInputText;
 }
