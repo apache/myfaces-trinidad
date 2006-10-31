@@ -144,7 +144,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
     {
       String currencyStr = entry.getKey();
       boolean select = (Boolean.TRUE == entry.getValue());
-      table.setCurrencyString(currencyStr);
+      table.setClientRowKey(currencyStr);
 
       // TODO: do not mutate the component's selectedRowKeys here.
       // instead mutate when the SelectionEvent is broadcast:
@@ -232,7 +232,7 @@ public class TableSelectManyRenderer extends TableSelectOneRenderer
                              NamingContainer.SEPARATOR_CHAR +
                              UNSELECTED_KEY);
     String value = ((UIXCollection) tContext.getCollectionComponent()).
-                getCurrencyString();
+                getClientRowKey();
 
     OutputUtils.renderHiddenField(context,
                                   unsuccessfulId,

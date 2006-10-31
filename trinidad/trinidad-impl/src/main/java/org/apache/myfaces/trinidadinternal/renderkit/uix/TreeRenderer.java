@@ -61,7 +61,7 @@ public class TreeRenderer extends UINodeRendererBase
     {
       UIXTree tree = (UIXTree) component;
       Object oldPath = tree.getRowKey();
-      tree.setCurrencyString(currencyStr);
+      tree.setClientRowKey(currencyStr);
       tree.getSelectedRowKeys().clear();
       tree.getSelectedRowKeys().add();
       tree.setRowKey(oldPath);

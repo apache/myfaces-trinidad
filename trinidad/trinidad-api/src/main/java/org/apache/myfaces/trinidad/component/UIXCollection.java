@@ -512,16 +512,38 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
-   * Gets a short currency string that can be used to setup this component later.
-   * All the information needed to restore the rowData on this component
-   * (for example: rowkey) is encoded on this currency string.
-   * However, this currency string is very short. As a result, its lifetime is
-   * also very short. Currency strings are valid across one request only.
-   * They come into existence during the encode phase, and they are cleared before
-   * the start of the encode phase on the next request.
-   * @see #setCurrencyString
+   * @deprecated use getClientRowKey
+   * @see #getClientRowKey
    */
   public String getCurrencyString()
+  {
+    return getClientRowKey();  
+  }
+  
+  /**
+   * @deprecated use setClientRowKey
+   * @see #setClientRowKey
+   */
+  public void setCurrencyString(String currency)
+  {
+    setClientRowKey(currency);
+  }
+
+
+  /**
+   * Gets a String version of the current rowkey.
+   * The contents of the String are controlled by the current
+   * {@link ClientRowKeyManager}.
+   * This String can be passed into the {@link #setClientRowKey} method
+   * to restore the current rowData.
+   * The lifetime of this String is short and it may not be valid during
+   * future requests; however, it is guaranteed to be valid
+   * for the next subsequent request.
+   * @see UIXCollection#setClientRowKey(java.lang.String)
+   * @see UIXCollection#getClientRowKeyManager()
+   * @see ClientRowKeyManager#getClientRowKey
+   */
+  public String getClientRowKey()
   {
     // only call getCurrencyKey if we already have a dataModel.
     // otherwise behave as though no currency was set.
@@ -567,53 +589,43 @@ public abstract class UIXCollection extends UIXComponentBase
   }
 
   /**
-   * Restores this component's rowData to be what it was when the given
-   * currency string was created.
-   * <P>
-   * All the information needed to restore the rowData on this component
-   * (for example: rowkey) is encoded on the given currency string.
-   * However, this currency string is very short. As a result, its lifetime is
-   * also very short. Currency strings are valid across one request only.
-   * They come into existence during the encode phase, and they are cleared before
-   * the start of the encode phase on the next request.
-   * <P>
-   * This method gets the corresponding currencyKey and passes it to
-   * {@link #setRowKey}
-   * @see #getCurrencyString
-   */
-  public void setCurrencyString(String currency)
+     * Restores this component's rowData to be what it was when the given
+     * client rowKey string was created.
+     * @see UIXCollection#getClientRowKey()
+     */
+  public void setClientRowKey(String clientRowKey)
   {
-    if (currency == null)
+    if (clientRowKey == null)
     {
       setRowKey(_getCurrencyKeyForInitialStampState());
       return;
     }
 
     FacesContext fc = FacesContext.getCurrentInstance();
-    Object rowkey = getClientRowKeyManager().getRowKey(fc, this, currency);
+    Object rowkey = getClientRowKeyManager().getRowKey(fc, this, clientRowKey);
 
     if (rowkey == null)
     {
-      _LOG.severe("Could not restore currency for currencyString:"+currency);
+      _LOG.severe("Could not find rowKey for clientRowKey:"+clientRowKey);
     }
     else
       setRowKey(rowkey);
   }
 
   /**
-   * Gets the client-id of this component, without any NamingContainers.
-   * This id changes depending on the currency Object.
-   * Because this implementation uses currency strings, the local client ID is
-   * not stable for very long. Its lifetime is the same as that of a
-   * currency string.
-   * @see #getCurrencyString
-   * @return the local clientId
-   */
+     * Gets the client-id of this component, without any NamingContainers.
+     * This id changes depending on the currency Object.
+     * Because this implementation uses currency strings, the local client ID is
+     * not stable for very long. Its lifetime is the same as that of a
+     * currency string.
+     * @see UIXCollection#getClientRowKey()
+     * @return the local clientId
+     */
   @Override
   protected final String getLocalClientId()
   {
     String id = super.getLocalClientId();
-    String key = getCurrencyString();
+    String key = getClientRowKey();
     if (key != null)
     {
       id += NamingContainer.SEPARATOR_CHAR + key;
