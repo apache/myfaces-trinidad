@@ -112,7 +112,7 @@ abstract public class UIXEditableValueTemplate
     // Submitted value == null means "the component was not submitted
     // at all";  validation should not continue
     Object submittedValue = getSubmittedValue();
-    if (submittedValue == null && !this.isRequired())
+    if (submittedValue == null)
       return;
 
     Object newValue = null;
