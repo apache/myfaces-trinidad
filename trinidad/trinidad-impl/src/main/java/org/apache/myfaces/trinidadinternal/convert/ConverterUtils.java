@@ -252,7 +252,7 @@ public class ConverterUtils
     outBuffer.append("',D_S:'");
     outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getSummary()));
 
-    outBuffer.append("'},(void 0),0,");
+    outBuffer.append("'},null,0,");
     outBuffer.append(maxVal);
     outBuffer.append(',');
     outBuffer.append(minVal);
