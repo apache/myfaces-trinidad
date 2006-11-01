@@ -70,12 +70,12 @@ public class RegExpValidator
                              XhtmlUtils.escapeJS(message.getSummary());
 
 
-    StringBuffer outBuffer = new StringBuffer(35
+    StringBuffer outBuffer = new StringBuffer(39
                                               + jsPattern.length()
                                               + esNoMatchMsgPattern.length()
                                               + esNoMatchMsgSummaryPattern.length());
 
-    outBuffer.append("new TrRegExpValidator('"); // 18
+    outBuffer.append("new TrRegExpValidator('"); // 22
     outBuffer.append(jsPattern);
     outBuffer.append("',{NM:'");            //  7
     outBuffer.append(esNoMatchMsgPattern);
