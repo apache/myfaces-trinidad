@@ -322,9 +322,23 @@ function _decimalParse(
   throw new TrConverterException(facesMessage);
 }
 
+function TrRegExpValidator(
+  pattern,
+  messages
+  )
+{  
+  this._pattern  = pattern;
+  this._messages = messages;
+  this._class = "TrRegExpValidator";
+}
 
+// no match pattern
+TrRegExpValidator.NM = 'NM';
+// no match pattern summary
+TrRegExpValidator.NMS = 'NMS';
 
-function _regExpParse(
+TrRegExpValidator.prototype = new TrValidator();
+TrRegExpValidator.prototype.validate  = function(
   parseString,
   label
   )
@@ -349,22 +363,3 @@ function _regExpParse(
     throw new TrValidatorException(facesMessage); 
   }
 }
-
-
-function TrRegExpValidator(
-  pattern,
-  messages
-  )
-{  
-  this._pattern  = pattern;
-  this._messages = messages;
-  this._class = "TrRegExpValidator";
-}
-
-// no match pattern
-TrRegExpValidator.NM = 'NM';
-// no match pattern summary
-TrRegExpValidator.NMS = 'NMS';
-
-TrRegExpValidator.prototype = new TrValidator();
-TrRegExpValidator.prototype.validate  = _regExpParse;
