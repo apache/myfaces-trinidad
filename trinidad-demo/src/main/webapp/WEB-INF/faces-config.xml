@@ -1852,6 +1852,12 @@
     </navigation-case>
 
     <navigation-case>
+      <from-outcome>clientDateRestrictionValidate</from-outcome>
+      <to-view-id>/convertValidate/clientDateRestrictionValidate.jspx</to-view-id>
+      <redirect/>
+    </navigation-case>
+
+    <navigation-case>
       <from-outcome>convertValidateDemos</from-outcome>
       <to-view-id>/convertValidate/index.jspx</to-view-id>
       <redirect/>

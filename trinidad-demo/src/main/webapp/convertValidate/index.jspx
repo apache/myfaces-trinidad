@@ -33,6 +33,7 @@
               <tr:panelGroupLayout layout="vertical">
                 <tr:commandLink text="client converters and validators" action="clientConvert"/>
                 <tr:commandLink text="converters and validators" action="convertValidate"/>
+                <tr:commandLink text="client Date Restriction Validator" action="clientDateRestrictionValidate" />
                 <tr:commandLink text="Date Restriction Validator" action="dateRestrictionValidate" />
                 <tr:commandLink text="message customization on validators and converters" action="messageCustomization"/>
               </tr:panelGroupLayout>
