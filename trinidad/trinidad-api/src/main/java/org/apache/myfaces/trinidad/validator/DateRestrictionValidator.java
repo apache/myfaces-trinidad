@@ -172,18 +172,8 @@ public class DateRestrictionValidator implements Validator, StateHolder {
 
     if (value != null)
     {
-      TimeZone tz = null;
-      RequestContext rctx = RequestContext.getCurrentInstance();
-      if (rctx != null)
-      {
-        tz = rctx.getTimeZone();
-      }
-      else
-      {
-        tz = TimeZone.getDefault();
-      }
-      Calendar calendar = Calendar.getInstance(tz);
-      calendar.setTime(_getDateValue(value));
+      Calendar calendar = getCalendar();
+      calendar.setTime(getDateValue(value));
       Date convertedDate = calendar.getTime();
       
       String weekday = _dayMap.get(calendar.get(Calendar.DAY_OF_WEEK));
@@ -352,13 +342,30 @@ public class DateRestrictionValidator implements Validator, StateHolder {
     return converter;
   }
 
+  
+  protected Calendar getCalendar()
+  {
+    TimeZone tz = null;
+    RequestContext rctx = RequestContext.getCurrentInstance();
+    if (rctx != null)
+    {
+      tz = rctx.getTimeZone();
+    }
+    else
+    {
+      tz = TimeZone.getDefault();
+    }
+    return Calendar.getInstance(tz);
+
+  }
+  
   /**
    * Parses the already converted value to a <code>java.util.Date</code>.
    * @param value converted value
    * @return fulltyped <code>java.util.Date</code>
    * @throws IllegalArgumentException
    */
-  private static Date _getDateValue(
+  protected static Date getDateValue(
       Object value) throws IllegalArgumentException
     {
       if (value instanceof Date)

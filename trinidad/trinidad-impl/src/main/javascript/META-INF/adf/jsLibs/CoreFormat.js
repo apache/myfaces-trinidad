@@ -202,6 +202,81 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   
 }
 
+function TrDateRestrictionValidator(
+  messages,
+  maxPrecision,
+  maxScale,
+  weekdaysValue,
+  monthValue,
+  weekdaysMap,
+  monthMap)
+{
+  this._messages = messages;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._weekdaysValue = weekdaysValue;
+  this._monthValue = monthValue;
+  this._weekdaysMap = weekdaysMap;
+  this._monthMap = monthMap;
+
+  // for debugging
+  this._class = "TrDateRestrictionValidator";
+}
+
+// weekday value
+TrDateRestrictionValidator.WV = 'WV';
+// month value
+TrDateRestrictionValidator.MV  = 'MV';
+// default
+TrDateRestrictionValidator.D   = 'D';
+
+TrDateRestrictionValidator.prototype = new TrValidator();
+TrDateRestrictionValidator.prototype.validate  = function(
+  value,
+  label
+)
+{
+
+  submittedDay = value.getDay();
+  weekDaysArray = eval(this._weekdaysValue);
+  if(weekDaysArray)
+  {
+  	var dayString = this._weekdaysMap[submittedDay];
+  	for(var i = 0; i < weekDaysArray.length; ++i)
+  	{
+  		if(weekDaysArray[i].toLowerCase() == dayString)
+  		{
+        facesMessage = _createFacesMessage(this._messages[(TrDateRestrictionValidator.WV+ '_S')],
+                                       this._messages[TrDateRestrictionValidator.WV],
+                                        label,
+                                        ""+value,
+                                        dayString);
+        throw new TrConverterException(facesMessage);
+  		}
+  	}
+  }
+  
+  submittedMonth = value.getMonth();
+  monthArray = eval(this._monthValue);
+  if(monthArray)
+  {
+  	var monthString = this._monthMap[submittedMonth];
+  	for(var i = 0; i < monthArray.length; ++i)
+  	{
+  		if(monthArray[i].toLowerCase() == monthString)
+  		{
+        facesMessage = _createFacesMessage(this._messages[(TrDateRestrictionValidator.MV+ '_S')],
+                                       this._messages[TrDateRestrictionValidator.MV],
+                                        label,
+                                        ""+value,
+                                        monthString);
+        throw new TrConverterException(facesMessage);
+  		}
+  	}
+  }
+	return value;
+}
+
 function _decimalParse(
   numberString,
   messages,

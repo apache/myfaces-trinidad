@@ -14,6 +14,176 @@
  * limitations under the License.
  */
 
+/**
+ * Construct a TrColorConverter with the specifed color pattern.
+ */
+function TrColorConverter(
+  pattern,
+  allowsTransparent,
+  msg_summary,
+  msg_detail,
+  patternsString)
+{
+  // for debugging
+  this._class = "TrColorConverter";
+  this._allowsTransparent = allowsTransparent;  
+  this._msg_summary = msg_summary; 
+  this._msg_detail = msg_detail;
+  this._patternsString = patternsString;     
+  
+  if (pattern != null)
+  {
+    if (typeof(pattern) == "string" ) 
+      pattern = [pattern];
+  }
+
+  this._pattern = pattern;
+}
+
+TrColorConverter.prototype = new TrConverter();
+TrColorConverter.prototype.getAsString = function(
+  formatColor)
+{
+  //pu: Return undefined string for an undefined Color.
+  if (formatColor == null)
+    return null;
+
+  // return localized transparent text for transparent color
+  if (formatColor.alpha == 0)
+    return _cfTrans;
+
+  var stringHolder = new Object();
+  stringHolder.value ="";
+  
+  var pattern = this._pattern;
+  if (typeof pattern != "string")
+    pattern = pattern[0];
+    
+  _cfoDoClumping(pattern,
+              _cfoSubformat,
+              formatColor,
+              stringHolder);
+  
+  return stringHolder.value;
+}
+
+/**
+ * Parses a String into a Color using the current object's pattern.  If the
+ * parsing fails, undefined will be returned.
+ */
+TrColorConverter.prototype.getAsObject  = function(
+  parseString,
+  label)
+{
+  // The following are from the javadoc for Number and DateTimeConverter, same applies to color....
+  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
+  // If the specified String - after trimming - has a zero length, return null.
+  if (parseString == null)
+    return null;
+    
+  parseString = TrUIUtils.trim(parseString);
+  if (parseString.length == 0)
+    return null
+
+  // return transparent color for localized transparent text
+  if (this._allowsTransparent && _cfTrans == parseString)
+    return new TrColor(0,0,0,0);
+     
+  var facesMessage = _createFacesMessage( this._msg_summary,
+                                          this._msg_detail,
+                                          label,
+                                          parseString,
+                                          this._patternsString);
+  
+  var pattern = this._pattern;                                       
+  if (typeof pattern == "string")
+  {
+    return this._rgbColorParseImpl(parseString,
+                              pattern,
+                              facesMessage);
+  }
+  else
+  { 
+    var i;
+    for (i = 0; i < pattern.length; i++)
+    {
+      try{
+        var color = this._rgbColorParseImpl(parseString,
+                                     pattern[i],
+                                     facesMessage);
+        return color;
+      }
+      catch (e)
+      {
+        // if we're not on the last pattern try the next one, 
+        // but if we're on the last pattern, throw the exception
+        if ( i == pattern.length-1)
+          throw e;
+      }
+    }
+  }
+}
+
+TrColorConverter.prototype._rgbColorParseImpl  = function(
+  parseString,
+  parsePattern,
+  msg)
+{
+  var parseContext = new Object();
+  parseContext.currIndex = 0;
+  parseContext.parseString = parseString;
+  parseContext.parseException = new TrConverterException(msg);
+  
+  var parsedColor = new TrColor(0x00, 0x00, 0x00);
+
+  // parse the color
+  if (_cfoDoClumping(parsePattern,
+                  _cfoSubParse,
+                  parseContext,
+                  parsedColor))
+  {
+    if (parseString.length != parseContext.currIndex)
+    {
+      throw parseContext.parseException;
+    }
+
+    return parsedColor;
+  }
+  else
+  {
+    // failure
+    throw parseContext.parseException;
+  }
+}
+
+function TrColor(
+  red,
+  green,
+  blue,
+  alpha)
+{
+  // for debugging
+  this._class = "TrColor";
+  
+  if (alpha == null)
+    alpha = 0xff;
+
+  this.red   = (red & 0xff);
+  this.green = (green & 0xff);
+  this.blue  = (blue & 0xff);
+  this.alpha = (alpha & 0xff);
+}
+
+TrColor.prototype.toString = function()
+{
+  return "rgba(" + this.red + 
+         "," + this.green + 
+         "," + this.blue + 
+         "," + this.alpha + ")";
+}
+
+
+
 
 // External variables used:
 //  _cfTrans    - the localized text for transparent colors
@@ -150,6 +320,7 @@ function _cfoSubformat(
   stringHolder
   )
 {    
+
   // string to append to the toString
   var appendString = null;
   
@@ -447,172 +618,4 @@ function _cfoGetPaddedNumber(
   }
   
   return stringNumber;
-}
-
-/**
- * Construct a TrColorConverter with the specifed color pattern.
- */
-function TrColorConverter(
-  pattern,
-  allowsTransparent,
-  msg_summary,
-  msg_detail,
-  patternsString)
-{
-  // for debugging
-  this._class = "TrColorConverter";
-  this._allowsTransparent = allowsTransparent;  
-  this._msg_summary = msg_summary; 
-  this._msg_detail = msg_detail;
-  this._patternsString = patternsString;     
-  
-  if (pattern != null)
-  {
-    if (typeof(pattern) == "string" ) 
-      pattern = [pattern];
-  }
-
-  this._pattern = pattern;
-}
-
-TrColorConverter.prototype = new TrConverter();
-TrColorConverter.prototype.getAsString = function(
-  formatColor)
-{
-  //pu: Return undefined string for an undefined Color.
-  if (formatColor == null)
-    return null;
-
-  // return localized transparent text for transparent color
-  if (formatColor.alpha == 0)
-    return _cfTrans;
-
-  var stringHolder = new Object();
-  stringHolder.value ="";
-  
-  var pattern = this._pattern;
-  if (typeof pattern != "string")
-    pattern = pattern[0];
-    
-  _cfoDoClumping(pattern,
-              _cfoSubformat,
-              formatColor,
-              stringHolder);
-  
-  return stringHolder.value;
-}
-
-/**
- * Parses a String into a Color using the current object's pattern.  If the
- * parsing fails, undefined will be returned.
- */
-TrColorConverter.prototype.getAsObject  = function(
-  parseString,
-  label)
-{
-  // The following are from the javadoc for Number and DateTimeConverter, same applies to color....
-  // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
-  // If the specified String - after trimming - has a zero length, return null.
-  if (parseString == null)
-    return null;
-    
-  parseString = TrUIUtils.trim(parseString);
-  if (parseString.length == 0)
-    return null
-
-  // return transparent color for localized transparent text
-  if (this._allowsTransparent && _cfTrans == parseString)
-    return new TrColor(0,0,0,0);
-     
-  var facesMessage = _createFacesMessage( this._msg_summary,
-                                          this._msg_detail,
-                                          label,
-                                          parseString,
-                                          this._patternsString);
-  
-  var pattern = this._pattern;                                       
-  if (typeof pattern == "string")
-  {
-    return this._rgbColorParseImpl(parseString,
-                              pattern,
-                              facesMessage);
-  }
-  else
-  { 
-    var i;
-    for (i = 0; i < pattern.length; i++)
-    {
-      try{
-        var color = this._rgbColorParseImpl(parseString,
-                                     pattern[i],
-                                     facesMessage);
-        return color;
-      }
-      catch (e)
-      {
-        // if we're not on the last pattern try the next one, 
-        // but if we're on the last pattern, throw the exception
-        if ( i == pattern.length-1)
-          throw e;
-      }
-    }
-  }
-}
-
-TrColorConverter.prototype._rgbColorParseImpl  = function(
-  parseString,
-  parsePattern,
-  msg)
-{
-  var parseContext = new Object();
-  parseContext.currIndex = 0;
-  parseContext.parseString = parseString;
-  parseContext.parseException = new TrConverterException(msg);
-  
-  var parsedColor = new TrColor(0x00, 0x00, 0x00);
-
-  // parse the color
-  if (_cfoDoClumping(parsePattern,
-                  _cfoSubParse,
-                  parseContext,
-                  parsedColor))
-  {
-    if (parseString.length != parseContext.currIndex)
-    {
-      throw parseContext.parseException;
-    }
-
-    return parsedColor;
-  }
-  else
-  {
-    // failure
-    throw parseContext.parseException;
-  }
-}
-
-function TrColor(
-  red,
-  green,
-  blue,
-  alpha)
-{
-  // for debugging
-  this._class = "TrColor";
-  
-  if (alpha == null)
-    alpha = 0xff;
-
-  this.red   = (red & 0xff);
-  this.green = (green & 0xff);
-  this.blue  = (blue & 0xff);
-  this.alpha = (alpha & 0xff);
-}
-
-TrColor.prototype.toString = function()
-{
-  return "rgba(" + this.red + 
-         "," + this.green + 
-         "," + this.blue + 
-         "," + this.alpha + ")";
 }
