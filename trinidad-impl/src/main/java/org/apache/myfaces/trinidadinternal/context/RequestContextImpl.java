@@ -223,15 +223,10 @@ public class RequestContextImpl extends RequestContext
     return (String) _bean.getProperty(RequestContextBean.OUTPUT_MODE_KEY);
   }
 
-  // get skinFamily; default to minimal if nothing is specified.
   @Override
   public String getSkinFamily()
   {
-    String skinFamily =
-      (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
-    if (skinFamily == null)
-      skinFamily = "minimal";
-    return skinFamily;
+    return (String) _bean.getProperty(RequestContextBean.SKIN_FAMILY_KEY);
   }
 
   @Override

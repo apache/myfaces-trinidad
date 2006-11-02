@@ -344,6 +344,15 @@ public class CoreRenderingContext extends RenderingContext
   }
 
   /**
+   * Return the default skin family, which is "minimal" for the
+   * core renderkit.
+   */
+  protected String getDefaultSkinFamily()
+  {
+    return "minimal";
+  }
+
+  /**
    * Set the local variable _skin to be the Skin from the
    * SkinFactory that best matches
    * the <skin-family> and current render-kit-id.
@@ -353,6 +362,8 @@ public class CoreRenderingContext extends RenderingContext
   private void _initializeSkin(RequestContext afContext)
   {
     String skinFamily = afContext.getSkinFamily();
+    if (skinFamily == null)
+      skinFamily = getDefaultSkinFamily();
     String renderKitId = "org.apache.myfaces.trinidad.desktop";
 
     // =-=jmw @todo when we have proper renderKitId switching, I can
