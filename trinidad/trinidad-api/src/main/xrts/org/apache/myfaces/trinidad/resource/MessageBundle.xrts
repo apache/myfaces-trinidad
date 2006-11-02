@@ -177,7 +177,7 @@
   <resource
      key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH">Date is not in a valid month.</resource>
   <resource
-    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail">The date entered, "{1}", is inside the month {2}.</resource>
+    key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_detail">The date entered, "{1}", is in an invalid month.</resource>
 
   <!-- Date outside date range error               -->
   <!-- {0} the label that identifies the component -->
@@ -186,7 +186,7 @@
   <!-- {3} represents the maximum allowed date     -->
   <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY">Date is not within a valid weekday.</resource>
 
-  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail">The date entered, "{1}", is a {2} and therefor not valid.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_detail">The date entered, "{1}", is an invalid day of the week.</resource>
 
   <!-- Number exceeds number range error               -->
   <!-- {0} the label that identifies the component -->
