@@ -39,15 +39,6 @@
             <tr:spacer height="10"/>
             <tr:panelFormLayout>
 
-              <tr:inputDate id="days" value="#{dateRestrictionValidator.testInvalidDays}"
-                                  label="Select a date!">
-                <f:facet name="help">
-                  <tr:outputText value="Ensures, that  #{dateRestrictionValidator.country} holidays are not selectable"/>
-                </f:facet>
-                <tr:convertDateTime pattern="yyyy-MM-dd"/>
-                <tr:validateDateRestriction  invalidDays="#{dateRestrictionValidator.nationalHolidays}" />
-              </tr:inputDate>
-              
               <tr:inputDate id="month" value="#{dateRestrictionValidator.testInvalidMonth}"
                                   label="Select a date!">
                 <f:facet name="help">
