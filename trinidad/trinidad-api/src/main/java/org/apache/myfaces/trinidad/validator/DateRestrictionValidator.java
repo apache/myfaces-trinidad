@@ -428,17 +428,17 @@ public class DateRestrictionValidator implements Validator, StateHolder {
       FacesContext context,
       UIComponent component,
       Object value,
-      Object weekday)
+      Object day)
   { 
       Converter converter = _getConverter(context, component);
 
       Object cValue = _getConvertedValue(context, component, converter, value);
-      Object cWeekday   = _getConvertedValue(context, component, converter, weekday);
+      Object cDay   = _getConvertedValue(context, component, converter, day);
 
       Object msg   = _getRawInvalidDaysMessageDetail();
       Object label = ValidatorUtils.getComponentLabel(component);
 
-      Object[] params = {label, cValue, cWeekday};
+      Object[] params = {label, cValue, cDay};
 
       return MessageFactory.getMessage(context, DAY_MESSAGE_ID,
                                         msg, params, component);
