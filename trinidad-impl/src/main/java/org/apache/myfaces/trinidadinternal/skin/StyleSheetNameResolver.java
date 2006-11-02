@@ -293,8 +293,8 @@ class StyleSheetNameResolver implements NameResolver
 
   // Error messages
   private static final String _STYLES_DIR_ERROR =
-    "Could not locate the ADF styles directory."
-    + "Please be sure that the ADF installable resources are installed.";
+    "Could not locate the Trinidad styles directory."
+    + "Please be sure that the Trinidad installable resources are installed.";
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(StyleSheetNameResolver.class);
 }

@@ -21,7 +21,7 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The ADF Chart is used to diplay data in a chart format.]]>
+    <description><![CDATA[The Apache Trinidad Chart is used to diplay data in a chart format.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/basechart.png</small-icon>
@@ -65,7 +65,7 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.Chart</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXChartTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-          The ADF Chart is used to display data in a Chart Format.
+          The Apache Trinidad Chart is used to display data in a Chart Format.
         </html:p>]]>
       </mfp:long-description>
       <mfp:author>Venkata Guddanti</mfp:author>

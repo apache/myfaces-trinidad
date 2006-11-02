@@ -30,7 +30,7 @@ import javax.faces.context.FacesContext;
 import org.apache.myfaces.trinidad.component.UIXComponent;
 
 /**
- * TagLibrary implementation for Oracle ADF core library.
+ * TagLibrary implementation for Apache Trinidad core library.
  * @author Adam Winer
  * @version
  */

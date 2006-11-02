@@ -32,7 +32,7 @@
               exist for ".AFRequiredIcon", ".AFWarningIcon",
               ".AFInfoIcon", and ".AFErrorIcon". They are "required",
               "warning", "info", and "error" respectively.
-              See the ADF Faces skins documentation for a list of icon names.]]>
+              See the Apache Trinidad skins documentation for a list of icon names.]]>
       </description>
       <property-name>name</property-name>
       <property-class>java.lang.String</property-class>

@@ -308,7 +308,7 @@ public class CoreRenderKit extends RenderKitBase
         if (_LOG.isFine())
         {
           _LOG.fine("Page navigation to {0} happened during a PPR request " +
-                    "on {1};  ADF Faces is forcing a redirect.",
+                    "on {1};  Apache Trinidad is forcing a redirect.",
                     new String[]{viewId, originalRoot.getViewId()});
         }
 

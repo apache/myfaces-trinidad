@@ -19,8 +19,8 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xi="http://www.w3.org/2001/XInclude">
   <component>
-    <description><![CDATA[This component lays out a label and children.  Typically, the only child of this component will be an input element of some sort, but as many children as necessary can be added.  When using panelLabelAndMessage with ADF input components, you should always set simple="true" on the input components.  Non-simple ADF input components already effectively have all the functionality of panelLabelAndMessage.
-      To lay out multiple panelLabelAndMessage components - or multiple non-simple ADF input components - you can use the panelForm component.  When panelLabelAndMessage components are placed inside a panelForm the labels will line up.]]></description>
+    <description><![CDATA[This component lays out a label and children.  Typically, the only child of this component will be an input element of some sort, but as many children as necessary can be added.  When using panelLabelAndMessage with Trinidad input components, you should always set simple="true" on the input components.  Non-simple Trinidad input components already effectively have all the functionality of panelLabelAndMessage.
+      To lay out multiple panelLabelAndMessage components - or multiple non-simple Trinidad input components - you can use the panelForm component.  When panelLabelAndMessage components are placed inside a panelForm the labels will line up.]]></description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelLabelAndMessage.png</small-icon>
     </icon>
@@ -130,16 +130,16 @@
           This component lays out a label, children, tip, and associated message.
           Typically, the only child of this component will be an
           input element of some sort, but as many children as necessary can
-          be added.  When using panelLabelAndMessage with ADF
+          be added.  When using panelLabelAndMessage with Trinidad
           input components, you should <html:strong>always</html:strong>
           set <html:code>simple=&quot;true&quot;</html:code> on the input
-          components.  Non-simple ADF input components already
+          components.  Non-simple Trinidad input components already
           effectively have all the functionality of
           panelLabelAndMessage.
         </html:p>
         <html:p>
           To lay out multiple panelLabelAndMessage components - or multiple
-          non-simple ADF input components - you can use the
+          non-simple Trinidad input components - you can use the
           panelForm component.  When panelLabelAndMessage components are
           placed inside a panelForm the labels will line up.
         </html:p>]]>

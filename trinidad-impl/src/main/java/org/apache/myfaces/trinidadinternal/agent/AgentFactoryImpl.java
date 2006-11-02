@@ -26,7 +26,7 @@ import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 
 
 /**
- * ADF implementation of AgentFactory.
+ * Trinidad implementation of AgentFactory.
  */
 public class AgentFactoryImpl implements AgentFactory
 {
@@ -95,7 +95,7 @@ public class AgentFactoryImpl implements AgentFactory
     //OracleJDevMobile because in each of these cases we know we have an
     //exact match in the device repository for the agent name.  This is
     //because the jdev design time and ITS runtime have access to the same
-    //device repository as the ADF runtime
+    //device repository as the Trinidad runtime
     //The PDA DT useragent string will be: OracleJDevMobile/PDA/[agentName]
     //The telnet DT and RT useragent string will be:
     //OracleJDevMobile/ITS/[agentName]

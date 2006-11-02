@@ -21,7 +21,7 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[ADF Faces navigationTree components are used to display hierarchical navigation data.]]></description>
+    <description><![CDATA[Apache Trinidad navigationTree components are used to display hierarchical navigation data.]]></description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseNavigationTree.png</small-icon>
     </icon>
@@ -128,7 +128,7 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXNavigationTreeTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
           
-            ADF Faces navigationTree components are used to display hierarchical navigation data.
+            Apache Trinidad navigationTree components are used to display hierarchical navigation data.
           </html:p>]]>
       </mfp:long-description>
       <mfp:author>Gabrielle Crawford</mfp:author>

@@ -20,7 +20,7 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The ADF NavigationTree is used to display data that is structured in a hierarchical format.]]>
+    <description><![CDATA[The Trinidad NavigationTree is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/navigationTree.png</small-icon>

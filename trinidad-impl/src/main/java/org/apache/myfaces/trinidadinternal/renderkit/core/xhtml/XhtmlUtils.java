@@ -72,7 +72,7 @@ public class XhtmlUtils
 
 
   /**
-   * Returns true if the agent has enough support for ADF Faces
+   * Returns true if the agent has enough support for Trinidad
    * to launch separate windows.  We require both multiple window
    * support and PPR support.
    */

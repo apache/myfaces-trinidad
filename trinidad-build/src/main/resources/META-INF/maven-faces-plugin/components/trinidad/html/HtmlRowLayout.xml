@@ -224,7 +224,7 @@
     </tr:panelGroupLayout>
   </trh:rowLayout>
   <trh:rowLayout>
-    <tr:panelHeader text="ADF Faces Components"/>
+    <tr:panelHeader text="Apache Trinidad Components"/>
     <trh:cellFormat columnSpan="2">
       <tr:panelHeader text="Faces Servlet"/>
     </trh:cellFormat>

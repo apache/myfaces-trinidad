@@ -37,7 +37,7 @@ public class MinimalDesktopSkinExtension extends SkinExtension
     super(baseSkin,
           _MINIMAL_DESKTOP_ID,
           _MINIMAL_FAMILY,
-          XhtmlConstants.ORACLE_ADF_DESKTOP);
+          XhtmlConstants.APACHE_TRINIDAD_DESKTOP);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);

@@ -204,9 +204,9 @@
       <mfp:example>
         <xhtml:p>The following is an example of panelTabbed.</xhtml:p>
         <mfp:source-code><![CDATA[<tr:panelTabbed>
-          <tr:showDetailItem text="ADF Faces Components">
-            <tr:panelHeader text="ADF Faces Components First Child"/>
-            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          <tr:showDetailItem text="Apache Trinidad Components">
+            <tr:panelHeader text="Apache Trinidad Components First Child"/>
+            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
           </tr:showDetailItem>
           <tr:showDetailItem text="Architecture" disabled="true">
             <tr:panelHeader text="Architecture First Child"/>
@@ -220,9 +220,9 @@
         </mfp:source-code>
         <xhtml:p>The following example renders with the tab bar appearing only above the contents.</xhtml:p>
         <mfp:source-code><![CDATA[<tr:panelTabbed>
-          <tr:showDetailItem text="ADF Faces Components" position="above">
-            <tr:panelHeader text="ADF Faces Components First Child"/>
-            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          <tr:showDetailItem text="Apache Trinidad Components" position="above">
+            <tr:panelHeader text="Apache Trinidad Components First Child"/>
+            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
           </tr:showDetailItem>
           <tr:showDetailItem text="Architecture">
             <tr:panelHeader text="Architecture First Child"/>

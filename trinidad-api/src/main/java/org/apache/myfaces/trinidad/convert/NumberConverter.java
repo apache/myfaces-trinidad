@@ -62,8 +62,8 @@ import org.apache.myfaces.trinidad.util.MessageFactory;
  * value registered in trinidad-config.xml is obtained using
  * api from {@link org.apache.myfaces.trinidad.context.RequestContext}.</p>
  *
- * <p>Since ADF Faces is compatible only with JDK 1.4 and higher versions,
- * the <code>currencyCode</code> gets preferance over <code>currencySymbol</code>
+ * <p>Since Apache Trinidad is compatible only with JDK 1.4 and higher versions,
+ * the <code>currencyCode</code> gets preference over <code>currencySymbol</code>
  * See RI's {@link javax.faces.convert.NumberConverter} for the way in which
  * <code>currencyCode</code> and <code>currencySymbol</code> gets preference for
  * different version of JDK.

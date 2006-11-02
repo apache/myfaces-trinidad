@@ -349,7 +349,7 @@ public class ViewHandlerImpl extends ViewHandler
       _checkTimestamp = Boolean.valueOf(performCheck);
       if (_LOG.isInfo() && _checkTimestamp.booleanValue())
       {
-        _LOG.info("ADF Faces is running with time-stamp checking enabled. "+
+        _LOG.info("Apache Trinidad is running with time-stamp checking enabled. "+
                   "This should not be used in a production environment. "+
                   "See the "+_CHECK_TIMESTAMP_PARAM+
                   " property in WEB-INF/web.xml");

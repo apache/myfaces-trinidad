@@ -330,7 +330,7 @@
   The selectManyShuttle does not allow for reordering;
   the selectOrderShuttle component adds this functionality
   to selectManyShuttle.  selectManyShuttle also does not include
-  automatic messaging support, unlike most other ADF messaging
+  automatic messaging support, unlike most other Trinidad messaging
   components.
          </html:p>
           <section name="Attributes">

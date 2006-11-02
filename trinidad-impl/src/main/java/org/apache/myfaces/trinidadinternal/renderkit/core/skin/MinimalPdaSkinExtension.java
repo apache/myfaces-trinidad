@@ -37,7 +37,7 @@ public class MinimalPdaSkinExtension extends SkinExtension
     super(baseSkin,
           _MINIMAL_PDA_ID,
           _MINIMAL_FAMILY,
-          XhtmlConstants.ORACLE_ADF_PDA);
+          XhtmlConstants.APACHE_TRINIDAD_PDA);
 
     // Register our style sheet
     setStyleSheetName(_MINIMAL_STYLE_SHEET_NAME);

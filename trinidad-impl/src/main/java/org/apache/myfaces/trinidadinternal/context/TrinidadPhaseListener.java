@@ -36,7 +36,7 @@ import org.apache.myfaces.trinidadinternal.webapp.TrinidadFilterImpl;
  */
 public class TrinidadPhaseListener implements PhaseListener
 {
-  static public final String CACHED_ADF_FACES_CONTEXT =
+  static public final String CACHED_REQUEST_CONTEXT =
     "org.apache.myfaces.trinidadinternal.context.CachedRequestContext";
 
   /**
@@ -140,7 +140,7 @@ public class TrinidadPhaseListener implements PhaseListener
 
       if (context == null)
       {
-        Object cachedRequestContext = requestMap.get(CACHED_ADF_FACES_CONTEXT);
+        Object cachedRequestContext = requestMap.get(CACHED_REQUEST_CONTEXT);
         
         // Catch both the null scenario and the 
         // RequestContext-from-a-different-classloader scenario
@@ -162,7 +162,7 @@ public class TrinidadPhaseListener implements PhaseListener
           context = factory.createContext(
                              fContext.getExternalContext().getContext(),
                              fContext.getExternalContext().getRequest());
-          requestMap.put(CACHED_ADF_FACES_CONTEXT, context);
+          requestMap.put(CACHED_REQUEST_CONTEXT, context);
         }
       }
     }

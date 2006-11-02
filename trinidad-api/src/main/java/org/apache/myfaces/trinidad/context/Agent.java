@@ -26,7 +26,7 @@ import java.util.Map;
  * </p>
  * <p>
  * Capability names that are implementation private must be defined so using appropriate
- * naming schemes. ADF private capability names are prefixed using "-adfinternal-xxx",
+ * naming schemes. Trinidad private capability names are prefixed using "-adfinternal-xxx",
  * and such capability names (and their values) may change at anytime
  * (and not guaranteed to be supported in future releases).
  * <p>

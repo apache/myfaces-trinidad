@@ -20,7 +20,7 @@
               xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The ADF Table is used to display tabular data. It also supports selection (both single and multiple), sorting, record navigation and detail-disclosure.]]>
+    <description><![CDATA[The Trinidad Table is used to display tabular data. It also supports selection (both single and multiple), sorting, record navigation and detail-disclosure.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/table.png</small-icon>
@@ -49,13 +49,13 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.Table</mfp:renderer-type>
       <mfp:tag-name>tr:table</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreTableTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[The ADF Table is used to display tabular data. It also supports selection
+      <mfp:long-description><![CDATA[The Trinidad Table is used to display tabular data. It also supports selection
 (both single and multiple), sorting, record navigation and
 detail-disclosure.
 
          <section name="Table Model">
            <p>
-            The ADF Table component uses a model to access the data
+            The Trinidad Table component uses a model to access the data
             in the underlying list. The specific model class is
             <code>org.apache.myfaces.trinidad.model.CollectionModel</code>.
             You may also use other model instances, e.g.,
@@ -70,7 +70,7 @@ detail-disclosure.
         <section name="Columns">
           <P>
             The immediate children of a Table component must all be
-            <code>&lt;tr:column&gt;</code> components. Each visible ADF Column
+            <code>&lt;tr:column&gt;</code> components. Each visible Trinidad Column
             component creates a separate column in the Table.
             For more information see the documentation for
             <code>&lt;column&gt;</code>
@@ -129,7 +129,7 @@ detail-disclosure.
             The selection feature of a Table lets the user select one
             or more rows in the list. The user can then perform some operation on
             the selected rows by activating an appropriate ActionSource component (e.g.,
-            by clicking on an ADF CommandButton). Use the &quot;selection&quot; facet on the Table
+            by clicking on a commandButton). Use the &quot;selection&quot; facet on the Table
       to enable the selection feature.
           </p>
           <p>

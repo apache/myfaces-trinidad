@@ -26,7 +26,7 @@
     <component-type>org.apache.myfaces.trinidad.HtmlBody</component-type>
     <component-class>org.apache.myfaces.trinidad.component.html.HtmlBody</component-class>
     <property>
-      <description><![CDATA[whether or not ADF will allow the first click to go
+      <description><![CDATA[whether or not Trinidad will allow the first click to go
              through in certain instances. When a PPR event occurs, we block
              all subsequent user input until it completes. However, there may
              be instances where the client wants to receive the very first
@@ -233,12 +233,8 @@
       <mfp:long-description><![CDATA[<html:p>
             Tag for the HTML body element.  In addition
 to providing support for the standard HTML body functionality,
-the ADF body component enables partial-page rendering (PPR) support
+the Trinidad body component enables partial-page rendering (PPR) support
 and assigning initial page focus.
-<!--
-as well as automatic detection of dirtied content (via
-the navigationFormName attribute).
--->
           </html:p>]]>
       </mfp:long-description>
       <mfp:example>

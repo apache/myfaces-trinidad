@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.share.config;
 /**
  * The <code>Configuration</code> class and its default
  * implementation, <code>ConfigurationImpl</code>, are remnant
- * configuration classes for the UIX portions of ADF Faces, and
+ * configuration classes for the UIX portions of Trinidad, and
  * should not be used for new code.
  * <p>
  * @see org.apache.myfaces.trinidadinternal.share.config.ConfigurationImpl
@@ -30,9 +30,9 @@ abstract public class Configuration
 {
   /**
    * Disables optimizations that are normally performed by the
-   * ADF Renderers to reduce content size.
+   * Trinidad Renderers to reduce content size.
    * <p>
-   * This Boolean property controls whether or not ADF Renderer
+   * This Boolean property controls whether or not Trinidad Renderer
    * implementations should attempt to reduce the size of generated
    * content, for example, by compressing style class names.  These
    * optimizations are enabled by default.  In general,

@@ -47,7 +47,7 @@ public interface UploadedFile
    * {@link org.apache.myfaces.trinidad.webapp.UploadedFileProcessor}.
    * This is always null with the default <code>UploadedFileProcessor</code>,
    * but custom implementations may use this to pass additional information
-   * needed for later processing.  (Note that ADF Faces cannot
+   * needed for later processing.  (Note that Apache Trinidad cannot
    * cannot guarantee that the  instance returned from
    * code>UploadedFileProcessor</code> is the same one made available
    * later.

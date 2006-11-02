@@ -237,9 +237,9 @@ public final class XhtmlConstants
   //
   // Copied from XhtmlLafConstants
   //
-  public static final String ORACLE_ADF_DESKTOP = 
+  public static final String APACHE_TRINIDAD_DESKTOP = 
     "org.apache.myfaces.trinidad.desktop";
-  public static final String ORACLE_ADF_PDA = 
+  public static final String APACHE_TRINIDAD_PDA = 
     "org.apache.myfaces.trinidad.pda";
   
   /** Unicode character for non-breaking space */

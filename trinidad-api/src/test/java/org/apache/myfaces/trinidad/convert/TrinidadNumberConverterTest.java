@@ -33,8 +33,8 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * Test ADF NumberConverter
- * @author Vijay Venaktaraman (vijay.venkataraman@oracle.com)
+ * Test Trinidad NumberConverter
+ * @author Vijay Venaktaraman
  * @version $Name: $ ($version: $) $Date: 16-aug-2005.15:12:23 $
  */
 public class TrinidadNumberConverterTest extends NumberConverterTestCase
@@ -120,7 +120,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
      context.getViewRoot().setLocale(locale);
      try
      {
-       // ADF Converter is not lenient.
+       // Trinidad Converter is not lenient.
        Object obj = converter.getAsObject(context, wrapper.getUIComponent(), inputValue);
        fail("Expected converter exception");
      }
@@ -158,7 +158,7 @@ public class TrinidadNumberConverterTest extends NumberConverterTestCase
 
       try
       {
-         // ADF Converter is not lenient.
+         // Trinidad Converter is not lenient.
          converter.setMessageDetailConvertNumber(customMessage[0]);
          converter.setMessageDetailConvertPercent(customMessage[1]);
          converter.setMessageDetailConvertCurrency(customMessage[2]);

@@ -20,7 +20,7 @@ import java.io.IOException;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 /**
- * Interface responsible for processing file uploads.  An ADF Faces
+ * Interface responsible for processing file uploads.  An Apache Trinidad
  * application has a single <code>UploadedFileProcessor</code> instance.
  * It is accessible from the {@link org.apache.myfaces.trinidad.context.RequestContext},
  * but will be invoked automatically by the framework as needed.  Developers

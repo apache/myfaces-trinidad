@@ -119,7 +119,7 @@
             "id" attribute:</xhtml:p>
         <mfp:source-code>&lt;tr:goLink id="foo"/&gt;</mfp:source-code>
         <xhtml:p>A standard goLink:</xhtml:p>
-        <mfp:source-code>&lt;tr:goLink text="ADF Faces"
+        <mfp:source-code>&lt;tr:goLink text="Trinidad"
               destination="http://myfaces.apache.org"/&gt;</mfp:source-code>
       </mfp:example>
       <mfp:author>Andy Schwartz</mfp:author>

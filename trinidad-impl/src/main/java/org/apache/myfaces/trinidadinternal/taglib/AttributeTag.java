@@ -41,7 +41,7 @@ import javax.servlet.jsp.tagext.TagSupport;
  * One other minor modification is that the name attribute cannot be EL-bound.
  * </p>
  * 
- * @todo Remove this class when ADF Faces upgrades to depend on JSF v1.2
+ * @todo Remove this class when Trinidad upgrades to depend on JSF v1.2
  */
 public class AttributeTag extends TagSupport 
 {

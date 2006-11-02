@@ -134,13 +134,13 @@ tip), and may use simpler layout primitives]]>
       <mfp:tag-name>tr:inputFile</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreInputFileTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The inputFile component is a component that can
-          be used to upload a file.  Any ADF form that contains this component
+          be used to upload a file.  Any Trinidad form that contains this component
           must have usesUpload set to true.  The &quot;value&quot; property
           of an inputFile component will be set to an instance
           of the <html:code>org.apache.myfaces.trinidad.model.UploadedFile</html:code>
           class when a file is uploaded (with the appropriate
           <html:code>ValueChangeEvent</html:code> delivered.)  Before
-          using this, developers must install the ADF Faces filter.]]>
+          using this, developers must install the Apache Trinidad filter.]]>
       </mfp:long-description>
       <mfp:example>
         <mfp:source-code><![CDATA[<tr:form usesUpload="true">

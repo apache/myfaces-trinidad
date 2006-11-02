@@ -126,7 +126,7 @@
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTreeTag</mfp:tag-class>
       <mfp:naming-container>true</mfp:naming-container>
       <mfp:long-description><![CDATA[<html:p>
-            ADF Faces tree components are used to display hierarchical data. 
+            Apache Trinidad tree components are used to display hierarchical data. 
             For example,
             if we have a personnel organization chart depicting all the direct 
             reports under 
@@ -138,7 +138,7 @@
       
           <section name="The Tree Model">
             <html:P>
-              The ADF tree components use a model to access the data in the
+              The Apache Trinidad tree components use a model to access the data in the
               underlying hierarchy.  The specific model class is
               <html:code>org.apache.myfaces.trinidad.model.TreeModel</html:code>.
 
@@ -150,7 +150,7 @@
 
           <section name="Data">
             <html:P>
-              The tree components use a stamping strategy similar to the ADF Table
+              The tree components use a stamping strategy similar to the Trinidad Table
               component.  Child components are used to display the
               data for each element in the tree. Each child component is not recreated
               per element; instead, each child is repeatedly
@@ -182,7 +182,7 @@
 
           <section name="Expand/Collapse State">
             <html:P>
-              The ADF tree components use an instance of the
+              The Trinidad tree components use an instance of the
               <html:code>org.apache.myfaces.trinidad.model.RowKeySet</html:code>
               class to keep track
               of which elements are expanded. This instance is stored

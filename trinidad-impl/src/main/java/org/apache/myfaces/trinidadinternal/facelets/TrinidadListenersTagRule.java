@@ -99,7 +99,7 @@ final class TrinidadListenersTagRule extends MetaRule
         if (!arrayType.isArray())
           return null;
         
-        // Ignore non-ADF types
+        // Ignore non-Trinidad types
         Class<?> listenerClass = arrayType.getComponentType();
         if (!listenerClass.getName().startsWith("org.apache.myfaces.trinidad."))
           return null;

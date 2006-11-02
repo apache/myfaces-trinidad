@@ -110,12 +110,12 @@ This facet may not always line up perfectly, especially if the labels or fields 
            columns, and also supports a footer facet.
           </html:p>
           <html:p>
-           Usually, this component will simply contain labelled ADF Faces input
+           Usually, this component will simply contain labelled Apache Trinidad input
            components in its main content - these are inputText, inputFile,
-           selectInputColor, selectInputText, selectInputDate,
-           selectBooleanCheckBox, selectBooleanRadio, selectOneChoice,
-           selectOneListBox, selectOneRadio, and
-           selectManyListBox.  These components must have
+           inputColor, inputListOfValues, inputDate,
+           selectBooleanCheckbox, selectBooleanRadio, selectOneChoice,
+           selectOneListbox, selectOneRadio, selectManyCheckbox, and
+           selectManyListbox.  These components must have
            their &quot;simple&quot; attribute set to false, which is the default,
            and will cause the labels and fields inside the panelFormLayout
            to be aligned vertically.
@@ -181,10 +181,10 @@ This facet may not always line up perfectly, especially if the labels or fields 
       <mfp:author>Gabrielle Crawford</mfp:author>
       <mfp:component-metadata>
         <mfp:group>${md:getTranslatedString("PALETTE_LAYOUT")}</mfp:group>
-        <mfp:preferred-children>tr:inputText tr:inputHidden tr:inputFile tr:selectBooleanCheckBox
+        <mfp:preferred-children>tr:inputText tr:inputFile tr:selectBooleanCheckbox
           tr:selectBooleanRadio tr:inputColor tr:inputDate
-          tr:inputListOfValues tr:selectManyListBox tr:selectOneChoice 
-          tr:selectOneRadio tr:panelLabelAndMessage
+          tr:inputListOfValues tr:selectManyListbox tr:selectOneChoice 
+          tr:selectOneRadio tr:panelLabelAndMessage tr:selectManyCheckbox
         </mfp:preferred-children>
       </mfp:component-metadata>
       <mfp:uix2-local-name>messageComponentLayout</mfp:uix2-local-name>

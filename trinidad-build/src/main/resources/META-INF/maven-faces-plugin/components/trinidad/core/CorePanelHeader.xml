@@ -79,9 +79,9 @@
         <xhtml:p>Basic example.</xhtml:p>
         <mfp:source-code>
           <![CDATA[<tr:panelHeader text="This is a panelHeader">
-  <tr:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
+  <tr:goLink text="Apache Trinidad" destination="http://myfaces.apache.org"/>
   <tr:panelHeader text="This is a Sub-panelHeader" >
-    <tr:goLink text="ADF Faces" destination="http://myfaces.apache.org"/>
+    <tr:goLink text="Apache Trinidad" destination="http://myfaces.apache.org"/>
   </tr:panelHeader>
 </tr:panelHeader>]]>
         </mfp:source-code>

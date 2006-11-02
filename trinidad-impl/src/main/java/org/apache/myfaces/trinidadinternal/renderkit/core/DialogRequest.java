@@ -142,7 +142,7 @@ class DialogRequest
   //
   static private synchronized String _getDialogWindowName()
   {
-    return "ADFDialog" + _sCount++;
+    return "TrinidadDialog" + _sCount++;
   }
 
   private final String             _clientId;

@@ -288,7 +288,7 @@ public class TrinidadDateTimeConverterTest extends DateTimeConverterTestCase
 
       try
       {
-        // ADF Converter is not lenient.
+        // Trinidad Converter is not lenient.
         converter.setMessageDetailConvertDate(customMessage[0]);
         converter.setMessageDetailConvertTime(customMessage[1]);
         converter.setMessageDetailConvertBoth(customMessage[2]);

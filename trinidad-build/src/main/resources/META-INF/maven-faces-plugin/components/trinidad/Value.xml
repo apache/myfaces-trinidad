@@ -22,7 +22,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The UIXValue component contains all the shared attributes
-   supported by all ADF Faces components that support the JSF
+   supported by all Apache Trinidad components that support the JSF
    ValueHolder interface, and therefore support values and Converters.]]>
     </description>
     <icon>
