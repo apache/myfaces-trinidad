@@ -67,9 +67,9 @@
       <mfp:example>
         <xhtml:p>The following is an example of panelAccordion.</xhtml:p>
         <mfp:source-code><![CDATA[<tr:panelAccordion>
-          <tr:showDetailItem text="ADF Faces Components">
-            <tr:panelHeader text="ADF Faces Components First Child"/>
-            <tr:panelHeader text="ADF Faces Components Second Child"/>
+          <tr:showDetailItem text="Apache Trinidad Components">
+            <tr:panelHeader text="Apache Trinidad Components First Child"/>
+            <tr:panelHeader text="Apache Trinidad Components Second Child"/>
           </tr:showDetailItem>
           <tr:showDetailItem text="Architecture" disabled="true">
             <tr:panelHeader text="Architecture First Child"/>

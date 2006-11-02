@@ -222,8 +222,8 @@
           instance for each color to display.
           </html:p>
           <html:p>
-          In order to simplify the use of standard palettes, ADF Faces makes 
-          certain palettes available via the uix.colorPalette EL implicit 
+          In order to simplify the use of standard palettes, Apache Trinidad makes 
+          certain palettes available via the requestContext.colorPalette EL implicit 
           object.  The &quot;#{requestContext.colorPalette}&quot; implicit object
           provides access to four standard color palettes:
           <html:ul>

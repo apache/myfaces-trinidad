@@ -255,7 +255,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    * Renders the beginning of a paragraph.
    * 
    * @param context the current Faces context
-   * @param arc     the current ADF rendering context
+   * @param arc     the current rendering context
    * @param bean    the property holder for the rendered document.
    * 
    * @throws IOException if a problem occurs while writing the content to the 
@@ -276,7 +276,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    * Renders a separator between 2 paragraphs.
    * 
    * @param context   the current Faces context
-   * @param arc       the current ADF rendering context
+   * @param arc       the current rendering context
    * @param separator the component to render as a separator
    * @param bean      the property holder for the rendered document.
    * 
@@ -308,7 +308,7 @@ public class OutputDocumentRenderer extends ValueRenderer
    * Renders the title of the rendered document.
    * 
    * @param context the current Faces context
-   * @param arc     the current ADF rendering context
+   * @param arc     the current rendering context
    * @param comp    the document component
    * @param bean    the property holder for the rendered document.
    * 

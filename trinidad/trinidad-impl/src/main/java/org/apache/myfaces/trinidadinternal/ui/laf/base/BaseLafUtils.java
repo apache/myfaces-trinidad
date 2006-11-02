@@ -591,7 +591,7 @@ public class BaseLafUtils implements UIConstants
 
   /**
    * This method returns the modified URL for design time to pick up the resources
-   * from ADF Faces jar, and dynamic resources from temp cache directory.
+   * from the Trinidad jar, and dynamic resources from temp cache directory.
    */
   @SuppressWarnings("unchecked")
   private static String _generateDesignTimeURL(

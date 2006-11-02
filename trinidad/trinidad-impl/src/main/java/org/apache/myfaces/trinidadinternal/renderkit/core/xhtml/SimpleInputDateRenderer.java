@@ -234,20 +234,20 @@ public class SimpleInputDateRenderer
     {
         DateTimeConverter dtc = (DateTimeConverter) converter;
 
-        boolean adfDTC = _isAdfDateTimeConverter(converter);
+        boolean trinidadDTC = _isTrinidadDateTimeConverter(converter);
 
-        if (!adfDTC)
+        if (!trinidadDTC)
         {
-            // if it is not the ADF DateTimeConverter, set the date style to
+            // if it is not the Trinidad DateTimeConverter, set the date style to
             // short
             dtc.setDateStyle("short");
         }
 
-        // if it is not the ADF DateTimeConverter or (it is AND
+        // if it is not the Trinidad DateTimeConverter or (it is AND
         // no time zone is set) then we want to set the
         // time zone to the one in the faces context or use
         // the default server time zone on the converter
-        if(!adfDTC || dtc.getTimeZone() == null)
+        if(!trinidadDTC || dtc.getTimeZone() == null)
         {
             TimeZone tz = null;
 
@@ -532,7 +532,7 @@ public class SimpleInputDateRenderer
   }
 
 
-  private static boolean _isAdfDateTimeConverter(Converter converter)
+  private static boolean _isTrinidadDateTimeConverter(Converter converter)
   {
     return (converter instanceof
             org.apache.myfaces.trinidad.convert.DateTimeConverter);

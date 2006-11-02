@@ -62,11 +62,11 @@ horizontal line, or vertically.]]>
   <f:facet name="separator">
     <tr:spacer width="10" height="1"/>
   </f:facet>
-  <tr:goLink text="ADF Faces 1"
+  <tr:goLink text="Apache Trinidad 1"
         destination="http://myfaces.apache.org"/>
-  <tr:goLink text="ADF Faces 2"
+  <tr:goLink text="Apache Trinidad 2"
         destination="http://myfaces.apache.org"/>
-  <tr:goLink text="ADF Faces 3"
+  <tr:goLink text="Apache Trinidad 3"
         destination="http://myfaces.apache.org"/>
 </tr:panelGroupLayoutLayout>]]>
         </mfp:source-code>

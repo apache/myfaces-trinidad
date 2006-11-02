@@ -153,7 +153,7 @@ public class PartialPageContextImpl extends PartialPageContext
    * Notifies the PartialPageContext that the specified partial target is
    * about to be rendered.
    * <p>
-   * This method is called automatically by ADF Faces during the partial
+   * This method is called automatically by Trinidad during the partial
    * rendering pass when a partial target is about to be rendered.
    * Clients should never need to call this method.
    *
@@ -184,7 +184,7 @@ public class PartialPageContextImpl extends PartialPageContext
    * Notifies the PartialPageContext that the current partial target
    * has finished rendering.
    * <p>
-   * This method is called automatically by ADF Faces during the partial
+   * This method is called automatically by Trinidad during the partial
    * rendering pass when a partial target has finished rendering.
    * Clients should never need to call this method.
    *

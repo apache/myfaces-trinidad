@@ -24,7 +24,7 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 /**
  * The DialogService API defines a number of
- * APIs that are needed to implement ADF Faces dialogs,
+ * APIs that are needed to implement Apache Trinidad dialogs,
  * but will only rarely be called by page authors.
  * They are instead intended for developers of controller
  * frameworks and component developers.

@@ -21,7 +21,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The importScript tag supports importing the built-in scripts
-         provided by ADF Faces.]]>
+         provided by Apache Trinidad.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/importScript.png</small-icon>
@@ -47,7 +47,7 @@
       <mfp:tag-name>tr:importScript</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreImportScriptTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The importScript component supports importing the built-in scripts
-          provided by ADF Faces.  It can be used to ensure that a Javascript
+          provided by Apache Trinidad.  It can be used to ensure that a Javascript
           function is available before using it in a Javascript handler.
           Only the first reference to a script will result in its
           being imported.]]>

@@ -440,7 +440,7 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
    *  Creates javascript used to submit the page.
    *
    * @param component the UIComponent object
-   * @param rCtx the ADF Faces rendering context object
+   * @param rCtx the Trinidad UIX rendering context object
    * @param detailItemId Id of the item that will be disclosed
    * @param formName id of the containing form
    * @param compId id of the panelAccordion component

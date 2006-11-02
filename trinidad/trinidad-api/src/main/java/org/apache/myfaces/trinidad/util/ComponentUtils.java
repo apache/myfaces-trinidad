@@ -20,7 +20,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 /**
- * Utility functions used by the ADF Faces components.
+ * Utility functions used by the Apache Trinidad components.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-api/src/main/java/oracle/adf/view/faces/util/ComponentUtils.java#0 $) $Date: 10-nov-2005.19:08:37 $
  * @author The Oracle ADF Faces Team

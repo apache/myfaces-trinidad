@@ -175,7 +175,7 @@ public class LibraryScriptlet extends Scriptlet
           debugJavascript.equalsIgnoreCase("true"))
       {
         _debugJavascript = Boolean.TRUE;
-        _LOG.info("ADF Faces is running with debug javascript." +
+        _LOG.info("Apache Trinidad is running with debug javascript." +
                   " Do not use in a production environment."+
                   " See the "+_DEBUG_JAVASCRIPT+" parameter in"+
                   " /WEB-INF/web.xml");

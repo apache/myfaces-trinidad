@@ -89,7 +89,7 @@ that submit the page) outside of the main content of a page.  If
 this main content is in a UIXSubform, it could not be fully
 processed whenever those buttons are clicked, since those
 buttons aren't inside of the UIXSubform.  To support this
-scenario, ADF Faces supports a &quot;default&quot; property on
+scenario, Apache Trinidad supports a &quot;default&quot; property on
 UIXSubform.  A &quot;default&quot; subform behaves like any other
 subform in most respects, but if <html:em>no</html:em> subforms
 are &quot;submitted&quot; - if no subform has an appropriate event

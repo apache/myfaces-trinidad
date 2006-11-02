@@ -71,7 +71,7 @@ public class HiddenLabelUtils
   }
 
   /**
-   * Returns true if ADF Faces wants a hidden label for
+   * Returns true if we want a hidden label for
    * a particular ID.
    */
   static public boolean wantsHiddenLabel(

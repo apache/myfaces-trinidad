@@ -17,7 +17,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:mfp="http://myfaces.apache.org/maven-faces-plugin"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The ADF Chart is used to diplay data in a chart format.]]>
+    <description><![CDATA[The Trinidad Chart is used to diplay data in a chart format.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/chart.png</small-icon>
@@ -156,7 +156,7 @@
       <mfp:tag-name>tr:chart</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreChartTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-          The ADF Chart is used to display data as a chart.
+          The Trinidad Chart is used to display data as a chart.
         </html:p>]]>
       </mfp:long-description>
       <mfp:example>

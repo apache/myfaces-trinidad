@@ -75,7 +75,7 @@ class TrinidadLogRecord extends LogRecord
       StackTraceElement frame = stack[i];
       String cname = frame.getClassName();
       if (cname.equals(_JDK_LOG_CLASS) ||
-          cname.equals(_ADF_LOG_CLASS))
+          cname.equals(_TRINIDAD_LOG_CLASS))
         break;
 
       i++;
@@ -88,7 +88,7 @@ class TrinidadLogRecord extends LogRecord
       String cname = frame.getClassName();
 
       if (cname.equals(_JDK_LOG_CLASS) ||
-          cname.equals(_ADF_LOG_CLASS))
+          cname.equals(_TRINIDAD_LOG_CLASS))
       {
         i++;
         continue;
@@ -121,7 +121,7 @@ class TrinidadLogRecord extends LogRecord
   private static final String _JDK_LOG_CLASS = 
     "java.util.logging.Logger";
   
-  private static final String _ADF_LOG_CLASS =
+  private static final String _TRINIDAD_LOG_CLASS =
     "org.apache.myfaces.trinidad.logging.TrinidadLogger";
 }
 

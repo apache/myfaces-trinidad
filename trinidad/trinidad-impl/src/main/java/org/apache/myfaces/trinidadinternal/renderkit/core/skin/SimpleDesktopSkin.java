@@ -68,6 +68,6 @@ public class SimpleDesktopSkin extends BaseDesktopSkin
   @Override
   public String getRenderKitId()
   {
-    return XhtmlConstants.ORACLE_ADF_DESKTOP;
+    return XhtmlConstants.APACHE_TRINIDAD_DESKTOP;
   }
 }

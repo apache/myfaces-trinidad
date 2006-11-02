@@ -21,7 +21,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[panelPartialRoot enables partial-page rendering on pages that cannot
-use the ADF document or body tags.]]>
+use the Trinidad document or body tags.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/panelPartialRoot.png</small-icon>
@@ -57,7 +57,7 @@ use the ADF document or body tags.]]>
       <mfp:long-description><![CDATA[<html:p>
         The panelPartialRoot component is used to enable partial page
         rendering of a UIComponent tree or subtree.  Most pages will simply
-        use the ADF document tag, or failing that the ADF body tag, but
+        use the Trinidad document tag, or failing that the Trinidad body tag, but
 	if neither are possible, this component may be used instead.
         There may be multiple panelPartialRoot blocks on a page.
         </html:p>]]>

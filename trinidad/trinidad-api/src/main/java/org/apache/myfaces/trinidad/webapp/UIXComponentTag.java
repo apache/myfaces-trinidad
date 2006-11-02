@@ -474,7 +474,7 @@ abstract public class UIXComponentTag extends UIComponentTag
    * @return an array of each constituent value, or null
    *  if there are no tokens (that is, the string is empty or
    *  all whitespace)
-   * @todo Move to utility function somewhere (ADF Share?)
+   * @todo Move to utility function somewhere 
    */
   static private final String[] _parseNameTokens(String stringValue)
   {

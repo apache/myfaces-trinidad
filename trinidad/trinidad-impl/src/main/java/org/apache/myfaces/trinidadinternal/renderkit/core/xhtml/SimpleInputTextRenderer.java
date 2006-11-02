@@ -759,14 +759,10 @@ public class SimpleInputTextRenderer extends FormInputRenderer
   }
 
   /**
-   * @todo Support in ADF Faces?
+   * @todo Support in Trinidad?
    */
   protected boolean getNoAutoComplete(FacesBean bean)
   {
-    /**
-    return (Boolean.TRUE.equals(node.getAttributeValue(context,
-                                                       NO_AUTO_COMPLETE_ATTR)));
-    */
     return false;
   }
   /*

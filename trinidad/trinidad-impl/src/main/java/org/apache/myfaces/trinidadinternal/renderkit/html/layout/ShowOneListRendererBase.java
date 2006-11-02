@@ -379,10 +379,7 @@ abstract class ShowOneListRendererBase extends UINodeRendererBase
                                                      label.length());
           out.writeText(encoder.encodeParameter(strBefAccessKey), null);
 
-          // =-=rbaranwa "U" is deprecated in HTML 4.0. The suggested way out
-          // is to use stylesheet to mark text as underlined. Need to revisit
-          // this particular part later.
-          //=-=yeelee ADFFACES-153: use default style (underline) for access key
+          //ADFFACES-153: use default style (underline) for access key
           out.startElement ("span", null);
           XhtmlRenderer.renderStyleClass (FacesContext.getCurrentInstance(),
                                           RenderingContext.getCurrentInstance(),  

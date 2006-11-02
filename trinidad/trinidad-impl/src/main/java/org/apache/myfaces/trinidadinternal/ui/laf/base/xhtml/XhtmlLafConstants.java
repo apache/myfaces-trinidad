@@ -472,7 +472,7 @@ public interface XhtmlLafConstants extends BaseLafConstants
   // customizable.
   public static final String HGRID_LOCATOR_HEADER_STYLE =
     "OraHGridLocatorHeader";
-  // These styles are for large record sets, which we do not have in ADF Faces
+  // These styles are for large record sets, which we do not support in Trinidad
   // yet. When we do, should these be customizable styles? If so, the names
   // will have to change to be like af|treeTable::nav-row-ilink
   public static final String HGRID_NAV_ROW_ILINK_STYLE_CLASS =

@@ -21,7 +21,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[Component that displays a message on behalf of a component.
-ADF input components typically support automatically showing
+Trinidad input components typically support automatically showing
 their own messages, so this tag should be used only when
 setting the "simple" attribute to true.]]>
     </description>
@@ -74,11 +74,11 @@ setting the "simple" attribute to true.]]>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.output.CoreMessageTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
  Component that displays a message on behalf of a component.
- ADF input components typically support automatically showing
+ Trinidad input components typically support automatically showing
  their own messages, including a tip and the error message.
  Developers should use this when they set &quot;simple&quot;
- to &quot;true&quot; on an ADF input component, or when using
- a non-ADF input component.
+ to &quot;true&quot; on an Trinidad input component, or when using
+ a non-Trinidad input component.
 </html:p>]]>
       </mfp:long-description>
       <mfp:example>

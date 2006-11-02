@@ -166,7 +166,7 @@ abstract public class RequestContext
     Map<String, Object> windowProperties);
 
   //
-  // General ADF Faces
+  // General Apache Trinidad
   //
 
   /**

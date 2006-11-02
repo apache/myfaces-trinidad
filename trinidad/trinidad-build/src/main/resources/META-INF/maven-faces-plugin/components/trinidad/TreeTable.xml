@@ -21,7 +21,7 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[The ADF TreeTable is used to display data that is structured in a hierarchical format.]]>
+    <description><![CDATA[The Apache Trinidad TreeTable is used to display data that is structured in a hierarchical format.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/baseTreeTable.png</small-icon>
@@ -72,9 +72,9 @@
       <mfp:renderer-type>org.apache.myfaces.trinidad.BaseTreeTable</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXTreeTableTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<html:p>
-          The ADF TreeTable is used to display data that is structured in a hierarchical format.
+          The Apache Trinidad TreeTable is used to display data that is structured in a hierarchical format.
           This component displays a hierarchy
-          in a UI similar to an ADF Table, and is more elaborate than the Tree component.
+          in a UI similar to a Trinidad Table, and is more elaborate than the Tree component.
           TreeTable supports displaying columns of data per element in the hierarchy.
           Unlike the Tree component, TreeTable
           only supports single rooted hierarchies. The features of the TreeTable
@@ -83,7 +83,7 @@
         </html:p>
 
         <html:p>
-          Like the Table, the TreeTable's children must be ADF
+          Like the Table, the TreeTable's children must be Trinidad
           Column components. Like the Tree, the TreeTable has a &quot;nodeStamp&quot;
           facet which renders the &quot;Object Name&quot; Column.
 

@@ -40,7 +40,7 @@ public class TrinidadLogger
   }
 
   /**
-   * Get the Java logger from an ADF Logger.
+   * Get the Java logger from an Trinidad Logger.
    * 
    * @return a java Logger instance
    */

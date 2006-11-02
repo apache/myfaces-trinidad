@@ -52,7 +52,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinFactoryImpl;
 import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 
 /**
- * Actual implementation of the ADF Faces servlet filter.
+ * Actual implementation of the Trinidad servlet filter.
  * <p>
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/webapp/AdfFacesFilterImpl.java#0 $) $Date: 10-nov-2005.18:48:59 $
  * @author The Oracle ADF Faces Team
@@ -187,7 +187,7 @@ public class TrinidadFilterImpl implements Filter
     // See if we've got a cached RequestContext instance;  if so,
     // reattach it
     Object cachedRequestContext = 
-      request.getAttribute(TrinidadPhaseListener.CACHED_ADF_FACES_CONTEXT);
+      request.getAttribute(TrinidadPhaseListener.CACHED_REQUEST_CONTEXT);
 
     // Catch both the null scenario and the 
     // RequestContext-from-a-different-classloader scenario
@@ -199,7 +199,7 @@ public class TrinidadFilterImpl implements Filter
     else
     {
       context = factory.createContext(_servletContext, request);
-      request.setAttribute(TrinidadPhaseListener.CACHED_ADF_FACES_CONTEXT,
+      request.setAttribute(TrinidadPhaseListener.CACHED_REQUEST_CONTEXT,
                            context);
     }
 

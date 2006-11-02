@@ -111,7 +111,7 @@ should be allowed to wrap]]></description>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.data.CoreColumnTag</mfp:tag-class>
       <mfp:long-description><![CDATA[<P>
             The immediate children of a Table component must all be
-            <code>&lt;tr:column&gt;</code> components. Each visible ADF Column
+            <code>&lt;tr:column&gt;</code> components. Each visible Trinidad Column
             component creates a separate column in the Table.
           </P>
           <P>

@@ -21,7 +21,7 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The selectItem tag represents a single item that the user
-may select from a list, choice, radio, or shuttle ADF control.]]>
+may select from a list, choice, radio, or shuttle Trinidad control.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/selectItem.png</small-icon>
@@ -72,7 +72,7 @@ may select from a list, choice, radio, or shuttle ADF control.]]>
       <mfp:tag-name>tr:selectItem</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.input.CoreSelectItemTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The selectItem tag represents a single item that the user
-may select from a list, choice, radio, or shuttle ADF control.
+may select from a list, choice, radio, or shuttle Trinidad control.
 It may be used in place of the JSF selectItem or selectItems
 tags, but is very similar (largely not requiring &quot;item&quot; in front
 of its attributes.)]]>

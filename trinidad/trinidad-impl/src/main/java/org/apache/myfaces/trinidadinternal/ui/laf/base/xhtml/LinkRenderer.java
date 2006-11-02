@@ -158,7 +158,7 @@ public class LinkRenderer extends XhtmlLafRenderer
 
   public static void setSaveModelDisabled(UIXRenderingContext context, boolean isDisabled)
   {
-    /* =-=AEW Save model not available in ADF Faces
+    /* =-=AEW Save model not available in Trinidad
     if (BodyRenderer.__isSaveModelActive(context))
     {
       setRenderingProperty(context, _SAVE_MODEL_DISABLED_KEY,

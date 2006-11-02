@@ -21,7 +21,7 @@
               xmlns:mafp="http://myfaces.apache.org/maven-trinidad-plugin"
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
-    <description><![CDATA[UIXOutput is a concrete base class for all ADF Faces output components that
+    <description><![CDATA[UIXOutput is a concrete base class for all Apache Trinidad output components that
 support type conversion.]]>
     </description>
     <icon>
@@ -34,7 +34,7 @@ support type conversion.]]>
       <mfp:component-supertype>org.apache.myfaces.trinidad.Value</mfp:component-supertype>
       <mfp:renderer-type>org.apache.myfaces.trinidad.Text</mfp:renderer-type>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.UIXOutputTag</mfp:tag-class>
-      <mfp:long-description><![CDATA[UIXOutput is a concrete base class for all ADF Faces output components that
+      <mfp:long-description><![CDATA[UIXOutput is a concrete base class for all Apache Trinidad output components that
 support type conversion.  All UIXOutput classes output something,
 but they all also support a &quot;value&quot; attribute that can be converted
 into a String with a <html:code>javax.faces.convert.Converter</html:code>.]]>

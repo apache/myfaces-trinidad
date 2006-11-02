@@ -21,8 +21,8 @@
               xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <component>
     <description><![CDATA[The styleSheet tag generates the style
-          sheet link reference to a generated ADF Faces style sheet.
-          This is automatically included for you if you use the ADF head tag.]]>
+          sheet link reference to a generated Apache Trinidad style sheet.
+          This is automatically included for you if you use the Trinidad head tag.]]>
     </description>
     <icon>
       <small-icon>/org/apache/myfaces/trinidad/metadata/icons/styleSheet.png</small-icon>
@@ -36,8 +36,8 @@
       <mfp:tag-name>trh:styleSheet</mfp:tag-name>
       <mfp:tag-class>org.apache.myfaces.trinidadinternal.taglib.core.CoreStyleSheetTag</mfp:tag-class>
       <mfp:long-description><![CDATA[The styleSheet component generates the style
-          sheet link reference to a generated ADF Faces style sheet.
-          This is automatically included for you if you use the ADF
+          sheet link reference to a generated Apache Trinidad style sheet.
+          This is automatically included for you if you use the Trinidad
           HtmlHead component.]]>
       </mfp:long-description>
       <mfp:author>Brian Albers</mfp:author>

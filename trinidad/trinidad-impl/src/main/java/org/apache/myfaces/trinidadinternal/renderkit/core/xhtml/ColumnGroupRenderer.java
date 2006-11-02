@@ -42,7 +42,7 @@ import org.apache.myfaces.trinidad.util.IntegerUtils;
 /**
  * @todo Kill the now-strange "compute mode", since we can
  *       just iterate over the things.
- * @todo Support abbreviation!!!  Missing from ADF Faces so far.
+ * @todo Support abbreviation!!!  Missing from Trinidad so far.
  * @todo Support required?  Support messageType?
  */
 public class ColumnGroupRenderer extends XhtmlRenderer

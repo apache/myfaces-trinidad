@@ -170,14 +170,14 @@ class LocaleUtils
     {
       try
       {
-        bundle = ResourceBundle.getBundle(_ADF_FACES_MESSAGE_BUNDLE,
+        bundle = ResourceBundle.getBundle(_APACHE_TRINIDAD_MESSAGE_BUNDLE,
                                           locale, loader);
         // let us cache the found bundle
         _cacheBundle(locale, bundle);
       }
       catch (MissingResourceException missingResource)
       {
-        _LOG.severe("unable to load bundle " +_ADF_FACES_MESSAGE_BUNDLE);
+        _LOG.severe("unable to load bundle " +_APACHE_TRINIDAD_MESSAGE_BUNDLE);
         _LOG.severe(missingResource);
       }
     }
@@ -279,7 +279,7 @@ class LocaleUtils
   }
 
 
-  private static final String _ADF_FACES_MESSAGE_BUNDLE
+  private static final String _APACHE_TRINIDAD_MESSAGE_BUNDLE
     = "org.apache.myfaces.trinidad.resource.MessageBundle";
 
   // cache Bundles based on locale
