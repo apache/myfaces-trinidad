@@ -667,6 +667,17 @@ public class GenerateComponentsMojo extends AbstractFacesMojo
     {
       return "new Float(" + value + ")";
     }
+    else if ("Number".equals(className))
+    {
+      if(value.indexOf(".") == -1)
+      {
+        return "new Integer(" + value + ")";
+      }
+      else
+      {
+        return "new Double(" + value + ")";
+      }
+    }
     else
     {
       throw new IllegalStateException("property-class " + className + " not supported for default-value");
