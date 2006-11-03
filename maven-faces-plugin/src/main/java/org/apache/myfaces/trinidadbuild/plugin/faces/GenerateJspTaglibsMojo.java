@@ -1665,6 +1665,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       String boxedClass = Util.getBoxedClass(propClass);
       String setProperty = "setProperty";
       if (!boxedClass.equals(propClass) ||
+          "java.lang.Number".equals(propFullClass) ||
            "java.util.Date".equals(propFullClass) ||
           (boxedClass.indexOf("[]") != -1))
       {
