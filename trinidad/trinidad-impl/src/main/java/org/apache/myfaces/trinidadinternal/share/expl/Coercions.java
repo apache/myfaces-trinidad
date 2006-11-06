@@ -84,6 +84,10 @@ public final class Coercions
       {
         return toDouble(text);
       }
+      else if ((type == Number.class))
+      {
+        return toNumber(text);
+      }
       else if ((type == Character.class) || (type == Character.TYPE))
       {
         Character c = toCharacter(text);
@@ -459,7 +463,19 @@ public final class Coercions
 
     return null;
   }
+  public static Number toNumber(
+      Object value)
+    {
+      if(((String)value).indexOf(".") == -1){
+        return toInteger(value);
+      }
+      else
+      {
+        return toDouble(value);
+      }
 
+    }
+  
   public static String toString(
     Object value)
   {
