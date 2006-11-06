@@ -204,7 +204,7 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
     else
     {
-      if(value.indexOf(".") == -1)
+      if(value.indexOf('.') == -1)
         bean.setProperty(key, Integer.valueOf(value));
       else
         bean.setProperty(key, Double.valueOf(value));
