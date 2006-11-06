@@ -184,14 +184,13 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
   }
 
-
   /**
-   * Set a property of type java.lang.Integer.  If the value
+   * Set a property of type java.lang.Number.  If the value
    * is an EL expression, it will be stored as a ValueBinding.
-   * Otherwise, it will parsed with Integer.valueOf().
+   * Otherwise, it will parsed with Integer.valueOf() or Double.valueOf() .
    * Null values are ignored.
    */
-  protected void setIntegerProperty(
+  protected void setNumberProperty(
     FacesBean   bean,
     PropertyKey key,
     String      value)
@@ -205,9 +204,35 @@ abstract public class UIXComponentTag extends UIComponentTag
     }
     else
     {
-      bean.setProperty(key, Integer.valueOf(value));
+      if(value.indexOf(".") == -1)
+        bean.setProperty(key, Integer.valueOf(value));
+      else
+        bean.setProperty(key, Double.valueOf(value));
     }
   }
+ /**
+  * Set a property of type java.lang.Integer.  If the value
+  * is an EL expression, it will be stored as a ValueBinding.
+  * Otherwise, it will parsed with Integer.valueOf().
+  * Null values are ignored.
+  */
+ protected void setIntegerProperty(
+   FacesBean   bean,
+   PropertyKey key,
+   String      value)
+ {
+   if (value == null)
+     return;
+
+   if (isValueReference(value))
+   {
+     bean.setValueBinding(key, createValueBinding(value));
+   }
+   else
+   {
+     bean.setProperty(key, Integer.valueOf(value));
+   }
+ }
 
 
   /**
