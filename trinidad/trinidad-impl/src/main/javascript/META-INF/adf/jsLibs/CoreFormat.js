@@ -93,24 +93,30 @@ TrRangeValidator.prototype.validate  = function(
   label
 )
 {
-
-  // This should probably do more than call decimalParse!
-  // the following line is needed because what's being passed
-  // into the validator is a number, and _decimalParse expects a string.
-  numberString = "" + value;
-  try
+  string = "" + value;
+  numberValue = parseFloat(string);
+  
+  if(numberValue >= this._minValue && numberValue <= this._maxValue)
   {
-    return _decimalParse(numberString, 
-                       this._messages,
-                       this._maxPrecision,
-                       this._maxScale,
-                       this._maxValue,
-                       this._minValue,
-                       label);
+    return string;
   }
-  catch (e)
+  else
   {
-    throw new TrValidatorException(e.getFacesMessage());
+    if(numberValue>this._maxValue)
+    {
+      facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.LV+ '_S')],
+                                       this._messages[TrNumberConverter.LV],
+                                        label,
+                                        string);
+    }
+    else
+    {
+      facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.MV+ '_S')],
+                                       this._messages[TrNumberConverter.MV],
+                                        label,
+                                        string);
+    }
+    throw new TrConverterException(facesMessage);
   }
 }
 
@@ -139,9 +145,6 @@ TrLengthValidator.prototype.validate  = function(
 )
 {
 
-  // This should probably do more than call decimalParse!
-  // the following line is needed because what's being passed
-  // into the validator is a number, and _decimalParse expects a string.
   string = "" + value;
   length = string.length;
   
@@ -344,38 +347,37 @@ function _decimalParse(
       if (sepIndex != -1)
       {
         integerDigits = sepIndex;
-        fractionDigits = numberString.length - sepIndex -1;
+        fractionDigits = parseInt(numberString.length - parseInt(sepIndex -1));
       }
       
       var messageKey;
-      
-      if ((maxValue != (void 0)) &&
+      if ((maxValue != null) &&
           (result  > maxValue))
       {
         messageKey = TrNumberConverter.LV;
       }
-      else if ((minValue != (void 0)) &&
+      else if ((minValue != null) &&
                (result  < minValue))
       {
         messageKey = TrNumberConverter.MV;
       }
-      else if ((maxPrecision != (void 0)) &&
+      else if ((maxPrecision != null) &&
                (integerDigits  > maxPrecision))
       {
         messageKey = TrNumberConverter.LID;
       }
-      else if ((maxScale != (void 0)) &&
+
+      else if ((maxScale != null) &&
                (fractionDigits  > maxScale))
       {
         messageKey = TrNumberConverter.LFD;
       }
 
-      if (messageKey != (void 0))
+      if (messageKey != null)
       {
         var messages = messages;
-        
-        if ((messages == (void 0)) ||
-            (messages[messageKey] == (void 0)))
+        if ((messages == null) ||
+            (messages[messageKey] == null))
           throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
         else
         {
