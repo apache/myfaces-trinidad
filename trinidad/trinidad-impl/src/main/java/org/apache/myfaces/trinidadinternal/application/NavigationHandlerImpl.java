@@ -44,7 +44,7 @@ public class NavigationHandlerImpl extends NavigationHandler
       RequestContext afc = RequestContext.getCurrentInstance();
 
       // Handle "dialog:" URLs
-      if (outcome.startsWith(afc.getDialogNavigationPrefix()))
+      if (outcome.startsWith(afc.getDialogService().getDialogNavigationPrefix()))
       {
         // Navigate back to the original root
         context.setViewRoot(oldRoot);
