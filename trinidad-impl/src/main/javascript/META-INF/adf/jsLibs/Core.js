@@ -2034,7 +2034,7 @@ function createNameValueString(form) {
             }
           }
           else if (element.type == "checkbox" && element.checked)
-            datatosend += ( element.name + "=" + escape(element.value) + "& ");
+            datatosend += ( element.name + "=" + escape(element.value) + "&");
           else if (element.type == "radio" && element.checked == true)
             datatosend +=  (element.name + "=" + escape(element.value) + "&");
         }
