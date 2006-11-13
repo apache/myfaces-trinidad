@@ -18,6 +18,7 @@ package org.apache.myfaces.trinidad.context;
 import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
