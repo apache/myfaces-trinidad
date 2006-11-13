@@ -22,6 +22,7 @@ import javax.faces.component.UIViewRoot;
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
 
+
 /**
  * The DialogService API defines a number of
  * APIs that are needed to implement Apache Trinidad dialogs,
@@ -31,6 +32,13 @@ import org.apache.myfaces.trinidad.event.ReturnEvent;
  */
 abstract public class DialogService
 {
+  /**
+   * Configuration parameter for setting the prefix used in
+   * dialog navigation.
+   */
+  public static final String DIALOG_NAVIGATION_PREFIX_PARAM_NAME =
+    "org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX";
+
   /**
    * Create an DialogService.
    */
@@ -167,5 +175,29 @@ abstract public class DialogService
     Object returnValue,
     Map<Object, Object> returnParams);
 
+  /**
+   * Returns the prefix that, when used for navigational outcomes,
+   * will trigger the dialog framework.
+   */
+  public String getDialogNavigationPrefix()
+  {
+    if (_dialogPrefix == null)
+    {
+      FacesContext context = FacesContext.getCurrentInstance();
+      _dialogPrefix = context.getExternalContext().getInitParameter(
+                                DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+      
+      if(_dialogPrefix == null)
+      {
+        _dialogPrefix = _DEFAULT_DIALOG_NAVIGATION_PREFIX;
+      }
+    }
+
+    return _dialogPrefix;
+  }
+
   private UIComponent _currentLaunchSource;
+  private static String _dialogPrefix;
+
+  private static final String _DEFAULT_DIALOG_NAVIGATION_PREFIX = "dialog:";
 }
