@@ -26,7 +26,6 @@ public class NavigationHandlerImpl extends NavigationHandler
   public NavigationHandlerImpl(NavigationHandler delegate)
   {
     _delegate = delegate;
-    _dialogPrefix = null;
   }
 
   @Override
@@ -42,13 +41,13 @@ public class NavigationHandlerImpl extends NavigationHandler
     UIViewRoot newRoot = context.getViewRoot();
     if ((outcome != null) && (newRoot != oldRoot))
     {
+      RequestContext afc = RequestContext.getCurrentInstance();
+
       // Handle "dialog:" URLs
-      if (outcome.startsWith(_getDialogPrefix(context)))
+      if (outcome.startsWith(afc.getDialogNavigationPrefix()))
       {
         // Navigate back to the original root
         context.setViewRoot(oldRoot);
-
-        RequestContext afc = RequestContext.getCurrentInstance();
 
         // Give ourselves a new page flow scope
         afc.getPageFlowScopeProvider().pushPageFlowScope(context, true);
@@ -58,21 +57,6 @@ public class NavigationHandlerImpl extends NavigationHandler
     }
   }
   
-  private String _getDialogPrefix(FacesContext context) {
-    if (_dialogPrefix == null) {
-        _dialogPrefix = context.getExternalContext().getInitParameter(DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
-        
-        if(_dialogPrefix == null) {
-        	_dialogPrefix = DEFAULT_DIALOG_NAVIGATION_PREFIX;
-        }
-    }
-
-    return _dialogPrefix;
-  }
-
-  public static final String DEFAULT_DIALOG_NAVIGATION_PREFIX = "dialog:";
-  public static final String DIALOG_NAVIGATION_PREFIX_PARAM_NAME = "org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX";
   
   private NavigationHandler _delegate;
-  private static String _dialogPrefix;
 }
