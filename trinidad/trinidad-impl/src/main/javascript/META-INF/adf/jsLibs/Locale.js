@@ -377,7 +377,7 @@ function _getDecimalSeparator()
 
 function _getGroupingSeparator()
 {
-  if (_groupingSep != (void 0))
+  if (_groupingSep != null)
     return _groupingSep;
 
   return this.getLocaleElements()["NumberElements"][1];
