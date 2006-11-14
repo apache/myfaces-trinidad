@@ -27,6 +27,7 @@ import org.apache.myfaces.trinidad.component.UIXShowDetail;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.render.RenderUtils;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.ui.UIConstants;
@@ -467,24 +468,46 @@ public class CorePanelAccordionRenderer extends UINodeRendererBase
 
     if (pprEnabled)
     {
-      // encode PPR targets first.
-      String encodedPartialTargets =
-        ShowOneUtils.getEncodedPartialTargets(component, compId);
+        //PPR on PocketIE and IE Mobile does not work properly. Therefore, 
+        //do a full page submission. Note that BlackBerry does not get into
+        //this piece of code because it is not pprEnabled.
+        if(CoreRenderer.isPDA(RenderingContext.getCurrentInstance())) 
+        {
+          //PH: Previous Code had event set to 'show' (event:'show')
+          //at all times. As a result a showDetail item will 'show'
+          //but won't 'hide'. Therefore, I changed it to event:event.
+          StringBuilder onClickHandlerBuff = new StringBuilder("submitForm('")
+                                      .append(formName)
+                                      .append("',")
+                                      .append(validate)
+                                      .append(", {event:'")
+                                      .append(event)
+                                      .append("',source:'")
+                                      .append(detailItemId)
+                                      .append("'});return false;");
+          onClickHandler = onClickHandlerBuff.toString();
+        }
+        else
+        {
+          // encode PPR targets first.
+          String encodedPartialTargets =
+            ShowOneUtils.getEncodedPartialTargets(component, compId);
 
-      StringBuilder onClickHandlerBuff =
-          new StringBuilder("_submitPartialChange('")
-          .append(formName)
-          .append("',")
-          .append(validate)
-          .append(", {partialTargets:'")
-          .append(encodedPartialTargets)
-          .append("', event:'")
-          .append(event)
-          .append("',source:'")
-          .append(detailItemId)
-          .append("'});return false;");
+          StringBuilder onClickHandlerBuff =
+              new StringBuilder("_submitPartialChange('")
+              .append(formName)
+              .append("',")
+              .append(validate)
+              .append(", {partialTargets:'")
+              .append(encodedPartialTargets)
+              .append("', event:'")
+              .append(event)
+              .append("',source:'")
+              .append(detailItemId)
+              .append("'});return false;");
 
-      onClickHandler = onClickHandlerBuff.toString();
+          onClickHandler = onClickHandlerBuff.toString();            
+        }     
     }
     else
     {

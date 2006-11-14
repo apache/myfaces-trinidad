@@ -92,10 +92,11 @@ public class CoreResponseStateManager extends ResponseStateManager
     output.writeObject(serializedView.getStructure());
     output.writeObject(serializedView.getState());
 
-    zip.finish();
-
-    b64_out.finish();
-    bw.flush();
+    // this will flush the ObjectOutputStream, and close the GZIP stream, which
+    // will call finish() on the GZIP stream, and then close the B64 stream,
+    // which will cause it to write out the proper padding, and then close
+    // the BufferedWriter which will also cause it to flush:
+    output.close();
 
     String retVal = sw.toString();
 

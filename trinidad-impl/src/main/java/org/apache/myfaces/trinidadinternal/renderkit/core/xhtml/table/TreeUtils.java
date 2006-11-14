@@ -16,6 +16,9 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.table;
 
 import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -33,6 +36,7 @@ import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.model.RowKeySet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.HiddenLabelUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TableRenderer;
@@ -102,6 +106,53 @@ public final class TreeUtils
     else
       return path;
   }
+
+  /**
+   * Utility method to expand the focusRowKey during intial
+   * rendering.
+   * @param tree
+   */
+  public static void expandFocusRowKey(UIXTree tree)
+  {
+    if (!RequestContext.getCurrentInstance().isPostback())
+    {
+      Object focusRowKey = tree.getFocusRowKey();
+      if ( focusRowKey != null)
+      {
+        List<Object> focusPath = 
+          new ArrayList<Object>(tree.getAllAncestorContainerRowKeys(focusRowKey));
+        focusPath.add(focusRowKey);
+        int size = focusPath.size();
+        RowKeySet disclosedRowKeys = tree.getDisclosedRowKeys();
+        for ( int i = 0 ; i < size; i++)
+        {
+          Object subkey = focusPath.get(i);
+          disclosedRowKeys.add(subkey);
+        }     
+      }
+    }
+  }
+
+  /**
+   * Utility method to default the focusRowKey to the root node, if
+   * it is not set
+   * @param tree
+   */
+  public static void setDefaultFocusRowKey(UIXTree tree)
+  {
+    Object path = tree.getFocusRowKey();
+    if (path == null)
+    {
+      Object oldKey = tree.getRowKey();
+      tree.setRowKey(null);
+      tree.setRowIndex(0);
+      if (tree.isRowAvailable())
+      {
+        tree.setFocusRowKey(tree.getRowKey());
+      }
+      tree.setRowKey(oldKey);
+    }    
+  }  
 
   /**
    * writes the JS function needed for generating tree events.

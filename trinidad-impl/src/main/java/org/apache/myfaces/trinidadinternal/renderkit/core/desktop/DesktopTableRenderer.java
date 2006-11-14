@@ -973,7 +973,11 @@ public class DesktopTableRenderer extends TableRenderer
     {
       if (hidden[i] != TableRenderingContext.NORMAL_COLUMN)
         continue;
-      UIXColumn column = (UIXColumn) children.get(i);
+      UIComponent child = children.get(i);
+      if (!(child instanceof UIXColumn))
+        continue;
+
+      UIXColumn column = (UIXColumn) child;
       boolean isRowHeader = Boolean.TRUE.equals(
             column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
       if (!isRowHeader)

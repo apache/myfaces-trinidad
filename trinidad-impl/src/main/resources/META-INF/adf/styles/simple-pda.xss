@@ -125,6 +125,11 @@
     <includeStyle name="AFDarkForeground"/>
   </style>  
   
+  <!--PH:include styling for body background of a message box-->
+  <style selector="af|messages::body">
+      <includeStyle name="AFLightAccentBackground"/>
+  </style>  
+  
     <!-- Page Sub Header Text TBD -->
     <!-- Page Content Header TBD -->
     <!-- Instruction Text == .AFInstructionText, OK -->

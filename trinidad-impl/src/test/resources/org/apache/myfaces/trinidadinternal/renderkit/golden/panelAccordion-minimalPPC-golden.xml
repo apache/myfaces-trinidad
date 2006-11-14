@@ -13,7 +13,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -41,9 +47,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -55,9 +67,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -78,7 +96,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -106,9 +130,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -120,9 +150,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -143,7 +179,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -171,9 +213,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -185,9 +233,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -208,7 +262,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -236,9 +296,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -250,9 +316,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -273,7 +345,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -301,9 +379,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -315,9 +399,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -338,7 +428,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -366,9 +462,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -380,9 +482,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -403,7 +511,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -431,9 +545,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -445,9 +565,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -468,7 +594,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -496,9 +628,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -510,9 +648,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -533,7 +677,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -561,9 +711,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -575,9 +731,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -598,7 +760,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -626,9 +794,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -640,9 +814,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -663,7 +843,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -691,9 +877,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -705,9 +897,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -727,7 +925,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -755,9 +959,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'test-id', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -769,9 +979,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'test-id', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -792,7 +1008,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -820,9 +1042,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -834,9 +1062,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -856,7 +1090,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -884,9 +1124,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -898,9 +1144,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>
@@ -921,7 +1173,13 @@
                class="af_panelAccordion_title-link"
                name="_idXXX"
               >
-            1
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Shown information"
+                >
+              [-]
+            </span>1
           </a>
         </div>
         <table
@@ -949,9 +1207,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            2
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>2
           </a>
         </div>
         <div
@@ -963,9 +1227,15 @@
                class="af_panelAccordion_title-link"
                href="#"
                name="_idXXX"
-               onclick="_submitPartialChange('formId',1, {partialTargets:'mainId', event:'show',source:'_idXXX'});return false;"
+               onclick="submitForm('formId',1, {event:'show',source:'_idXXX'});return false;"
               >
-            3
+            
+            <span
+                 class="p_OraHideShowDisclosedSymbol"
+                 title="Select to show information"
+                >
+              [+]
+            </span>3
           </a>
         </div>
       </div>

@@ -1,151 +1,337 @@
 <results>&nbsp;
-      <b
+      <table
+           class="af_messages_body"
           >
         
-        <span
-             class="af_messages_header"
-            >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-          >
-        
-      </hr>
-<!-- MessageTest[ id:null,WARN ]-->
-&nbsp;
-      <b
-          >
-        
-        <span
-             class="af_messages_header"
-            >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-          >
-        
-      </hr>
-<!--AttributeTest[id,id_val]-->
-&nbsp;
-      <b
-          >
-        
-        <span
-             class="af_messages_header"
-            >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-          >
-        
-      </hr>
-<!--AttributeTest[inlineStyle,background-color:red]-->
-&nbsp;
-      <b
-          >
-        
-        <span
-             class="af_messages_header"
-            >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-           style="background-color:red"
-          >
-        
-      </hr>
-<!--AttributeTest[message,message_val]-->
-&nbsp;
-      <b
-          >
-        
-        <span
-             class="af_messages_header"
-            >
-          Warning
-        </span>
-        <br
+        <tr
             >
           
-        </br>message_val
-      </b>
-      <hr
-           size="1"
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
+<!-- MessageTest[ id:null,WARN ]-->
+&nbsp;
+      <table
+           class="af_messages_body"
           >
         
-      </hr>
+        <tr
+            >
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[id,id_val]-->
+&nbsp;
+      <table
+           class="af_messages_body"
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[inlineStyle,background-color:red]-->
+&nbsp;
+      <table
+           class="af_messages_body"
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
+<!--AttributeTest[message,message_val]-->
+&nbsp;
+      <table
+           class="af_messages_body"
+          >
+        
+        <tr
+            >
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+              <br
+                  >
+                
+              </br>message_val
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[messageType,error]-->
 &nbsp;
-      <b
+      <table
+           class="af_messages_body"
           >
         
-        <span
-             class="af_messages_header"
+        <tr
             >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-          >
-        
-      </hr>
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[shortDesc,shortDesc_val]-->
 &nbsp;
-      <b
+      <table
+           class="af_messages_body"
           >
         
-        <span
-             class="af_messages_header"
+        <tr
             >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-           title="shortDesc_val"
-          >
-        
-      </hr>
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[styleClass,styleClass_val]-->
 &nbsp;
-      <b
+      <table
+           class="af_messages_body"
           >
         
-        <span
-             class="af_messages_header"
+        <tr
             >
-          Warning
-        </span>
-      </b>
-      <hr
-           class="styleClass_val"
-           size="1"
-          >
-        
-      </hr>
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
 <!--AttributeTest[text,text_val]-->
 &nbsp;
-      <b
+      <table
+           class="af_messages_body"
           >
         
-        <span
-             class="af_messages_header"
+        <tr
             >
-          Warning
-        </span>
-      </b>
-      <hr
-           size="1"
-          >
-        
-      </hr>
+          
+          <td
+              >
+            
+            <b
+                >
+              
+              <span
+                   class="af_messages_header"
+                  >
+                Warning
+              </span>
+            </b>
+            <ol
+                 class="af_messages_list"
+                >
+              
+              <li
+                  >
+                message summary - message detail
+              </li>
+              <li
+                  >
+                 - message summary
+              </li>
+            </ol>
+          </td>
+        </tr>
+      </table>
 </results>

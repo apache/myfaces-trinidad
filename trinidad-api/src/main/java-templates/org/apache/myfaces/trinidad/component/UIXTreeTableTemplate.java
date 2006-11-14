@@ -277,51 +277,39 @@ abstract public class UIXTreeTableTemplate extends UIXTree
     TableUtils.__processColumnFacets(context, this, nodeStamp, phaseId);
 
     Object oldPath = getRowKey();
+    RowKeySet state = getDisclosedRowKeys();
     try
     {
       Object path = getFocusRowKey();
+      setRowKey(path);
       if (path == null)
       {
-        // no data in this TreeTable
-        return;
-      }
-
-      setRowKey(path);
-      TableUtils.__processStampedChildren(context, this, phaseId);
-      processComponent(context, nodeStamp, phaseId); // bug 4688568
-      RowKeySet state = getDisclosedRowKeys();
-      if (state.isContained())
-      {
-        enterContainer();
         HierarchyUtils.__iterateOverTree(context,
                                          phaseId,
                                          this,
                                          state,
-                                         true);
+                                         true);        
+
+      }
+      else
+      {
+        TableUtils.__processStampedChildren(context, this, phaseId);
+        processComponent(context, nodeStamp, phaseId); // bug 4688568
+  
+        if (state.isContained())
+        {
+          enterContainer();
+          HierarchyUtils.__iterateOverTree(context,
+                                           phaseId,
+                                           this,
+                                           state,
+                                           true);
+        }
       }
     }
     finally
     {
       setRowKey(oldPath);
-    }
-  }
-
-  @Override
-  void __init()
-  {
-    super.__init();
-    Object path = getFocusRowKey();
-    if (path == null)
-    {
-      TreeModel model = getTreeModel();
-      Object oldKey = model.getRowKey();
-      model.setRowKey(null);
-      model.setRowIndex(0);
-      if (model.isRowAvailable())
-      {
-        setFocusRowKey(model.getRowKey());
-      }
-      model.setRowKey(oldKey);
     }
   }
 

@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
 import org.apache.myfaces.trinidad.component.CollectionComponent;
 import org.apache.myfaces.trinidad.component.UIXHierarchy;
+import org.apache.myfaces.trinidad.component.UIXTree;
 import org.apache.myfaces.trinidad.component.UIXTreeTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreTreeTable;
 import org.apache.myfaces.trinidad.context.RequestContext;
@@ -159,6 +160,9 @@ public class TreeTableRenderer extends DesktopTableRenderer
       _LOG.warning("'nodeStamp' facet missing!");
       return;
     }
+
+    TreeUtils.setDefaultFocusRowKey((UIXTree) component);
+    TreeUtils.expandFocusRowKey((UIXTree) component);
 
     super.encodeAll(context, arc, component, bean);
 

@@ -391,8 +391,12 @@ public class PdaTableRenderer extends TableRenderer
     {
       if (hidden[currCol] == TableRenderingContext.NORMAL_COLUMN)
       {
-        UIXColumn column =
-          (UIXColumn) component.getChildren().get(currCol);
+        UIComponent child = 
+          (UIComponent) component.getChildren().get(currCol);
+        if (!(child instanceof UIXColumn))
+          continue;
+
+        UIXColumn column = (UIXColumn) child;
         boolean isRowHeader = Boolean.TRUE.equals(
             column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
         if (!isRowHeader)
@@ -434,7 +438,12 @@ public class PdaTableRenderer extends TableRenderer
     {
       if (hidden[j] != TableRenderingContext.NORMAL_COLUMN)
         continue;
-      UIXColumn column = (UIXColumn) component.getChildren().get(j);
+      UIComponent child = 
+        (UIComponent) component.getChildren().get(j);
+      if (!(child instanceof UIXColumn))
+        continue;
+
+      UIXColumn column = (UIXColumn) child;
       boolean isRowHeader = Boolean.TRUE.equals(
         column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
       if (!isRowHeader)

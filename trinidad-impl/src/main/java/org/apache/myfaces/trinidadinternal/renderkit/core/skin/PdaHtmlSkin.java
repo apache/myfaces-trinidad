@@ -19,6 +19,7 @@ import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinProperties;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.skin.icon.ContextImageIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.NullIcon;
+import org.apache.myfaces.trinidadinternal.skin.icon.ReferenceIcon;
 import org.apache.myfaces.trinidadinternal.skin.icon.TextIcon;
 
 /**
@@ -61,12 +62,39 @@ public class PdaHtmlSkin extends XhtmlSkin
     SkinSelectors.PATH_SEPARATOR_ICON_ALIAS_NAME,
       new TextIcon("\u00a0>\u00a0"),
 
+    // define icons
+    //PH: HideShow Icons. showDetail prompt facet should add a link so that
+    //it can be expanded; on desktop there is an arrow the user can click to
+    //expand regardless of what the prompt is, but on PDA we normally cause the
+    //default Hide/Show text to be a link; since the prompt facet can be
+    //anything we need to add an ICON like the desktop. However, unicode
+    //characters do not work for Pocket IE and IE Mobile. Therefore, create
+    //icons from text [+] [-]
+
+    SkinSelectors.DETAIL_DISCLOSED_ICON_ALIAS_NAME,
+      new TextIcon("[-]",
+                    null,
+                    SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                    null),
+
+    SkinSelectors.DETAIL_UNDISCLOSED_ICON_ALIAS_NAME,
+      new TextIcon("[+]",
+                    null,
+                    SkinSelectors.HIDE_SHOW_DISCLOSED_SYMBOL_STYLE_CLASS,
+                    null),
+
+    SkinSelectors.AF_SHOW_DETAIL_DISCLOSED_ICON_NAME,
+      new ReferenceIcon(SkinSelectors.DETAIL_DISCLOSED_ICON_ALIAS_NAME),
+
+    SkinSelectors.AF_SHOW_DETAIL_UNDISCLOSED_ICON_NAME,
+      new ReferenceIcon(SkinSelectors.DETAIL_UNDISCLOSED_ICON_ALIAS_NAME),
+      
     SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_DISCLOSED_ICON_NAME,
       new TranslatedTextIcon("af_showDetailHeader.DISCLOSED"),
-      SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME,
+    SkinSelectors.AF_SHOW_DETAIL_HEADER_SD_UNDISCLOSED_ICON_NAME,
       new TranslatedTextIcon("af_showDetailHeader.UNDISCLOSED"),
       
-   // define icons
+    // define icons
     SkinSelectors.AF_SELECT_INPUT_DATE_LAUNCH_ICON_NAME,
       new ContextImageIcon("adf/images/dp.gif", 
                            "adf/images/dprtl.gif",
