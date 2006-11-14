@@ -105,13 +105,6 @@ abstract public class UIXTreeTemplate extends UIXHierarchy
   }
 
   @Override
-  void __encodeBegin(FacesContext context) throws IOException
-  {
-    HierarchyUtils.__handleEncodeBegin(this, getDisclosedRowKeys());
-    super.__encodeBegin(context);
-  }
-
-  @Override
   void __init()
   {
     super.__init();

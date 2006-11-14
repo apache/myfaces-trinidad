@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidad.component.UIXTable;
 import org.apache.myfaces.trinidad.component.core.data.CoreColumn;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.context.Agent;
+import org.apache.myfaces.trinidad.context.FormData;
 import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.event.RowDisclosureEvent;
 import org.apache.myfaces.trinidad.event.RangeChangeEvent;
@@ -231,10 +232,11 @@ abstract public class TableRenderer extends XhtmlRenderer
   @Override
   protected void encodeAll(
     FacesContext        context,
-    RenderingContext arc,
+    RenderingContext    arc,
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+
     // save current skin resource map, if any, on the local property
     Map<String, String> oldSkinResourceMap = arc.getSkinResourceKeyMap();
 
@@ -285,15 +287,21 @@ abstract public class TableRenderer extends XhtmlRenderer
       renderSingleRow(context, arc, tContext, component);
 
       String tid = tContext.getTableId();
-      if (arc.getFormData() != null)
+      FormData formData = arc.getFormData();
+      if (formData != null)
       {
+        // Add sorting parameters.
+        // =-=AdamWiner FIXME: only really needed with sorting.
+        formData.addNeededValue(XhtmlConstants.STATE_PARAM);
+        formData.addNeededValue(XhtmlConstants.VALUE_PARAM);
+
         rw.startElement(XhtmlConstants.SCRIPT_ELEMENT, null);
         renderScriptDeferAttribute(context, arc);
         // Bug #3426092:
         // render the type="text/javascript" attribute in accessibility mode
         renderScriptTypeAttribute(context, arc);
 
-        String formName = arc.getFormData().getName();
+        String formName = formData.getName();
 
         rw.writeText(tContext.getJSVarName()+"="+
                      TreeUtils.createNewJSCollectionComponentState(formName, tid)+";", null);
@@ -343,15 +351,6 @@ abstract public class TableRenderer extends XhtmlRenderer
       OutputUtils.renderHiddenField(context,
                                     tContext.getTableId() + ":rangeStart",
                                     IntegerUtils.getString(first));
-
-      /* =-=AEW ENABLE IF WE REBUILD THE SAVE MODEL
-      if (BodyRenderer.__isSaveModelActive(context) &&
-          (tContext.getSelection() != null) &&
-          !tContext.getRowData().isEmptyTable())
-      {
-        _writeNavExclude(tContext);
-      }
-      */
 
       rw.endElement("div");
     }
@@ -484,7 +483,11 @@ abstract public class TableRenderer extends XhtmlRenderer
       String selection = (String)
         treeTable.getAttributes().get(CoreTable.ROW_SELECTION_KEY.getName());
 
-      UIXColumn column = (UIXColumn) children.get(i);
+      UIComponent child = children.get(i);
+      if (!(child instanceof UIXColumn))
+        continue;
+
+      UIXColumn column = (UIXColumn) child;
       boolean isRowHeader = Boolean.TRUE.equals(
             column.getAttributes().get(CoreColumn.ROW_HEADER_KEY.getName()));
       if (isRowHeader)

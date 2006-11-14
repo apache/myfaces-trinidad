@@ -445,7 +445,11 @@ public abstract class UIXCollection extends UIXComponentBase
    * Clear the rowKey-to-currencyString cache.
    * The cache is not cleared immediately; instead it will be cleared
    * when {@link #encodeBegin} is called.
+   * @deprecated Have your Renderer implement {@link ClientRowKeyManagerFactory}
+   * and create your own {@link ClientRowKeyManager} instances. Then you can
+   * manage the lifecycle of each key inside your ClientRowKeyManager.
    */
+  @Deprecated
   protected void clearCurrencyStringCache()
   {
     _getInternalState(true)._clearTokenCache = true;
@@ -515,6 +519,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @deprecated use getClientRowKey
    * @see #getClientRowKey
    */
+  @Deprecated
   public String getCurrencyString()
   {
     return getClientRowKey();  
@@ -524,6 +529,7 @@ public abstract class UIXCollection extends UIXComponentBase
    * @deprecated use setClientRowKey
    * @see #setClientRowKey
    */
+  @Deprecated
   public void setCurrencyString(String currency)
   {
     setClientRowKey(currency);
@@ -856,6 +862,15 @@ public abstract class UIXCollection extends UIXComponentBase
     return getCollectionModel(true);
   }
 
+  /**
+   * Gets the ClientRowKeyManager that is used to handle the
+   * @{link #getClientRowKey} and  
+   * @{link #setClientRowKey} methods.
+   * If the manager does not already exist a new one is created.
+   * In order to create your own manager, your Renderer (for this component)
+   * must implement
+   * {@link ClientRowKeyManagerFactory}
+   */
   public final ClientRowKeyManager getClientRowKeyManager()
   {
     // this method must be public, because specific renderers

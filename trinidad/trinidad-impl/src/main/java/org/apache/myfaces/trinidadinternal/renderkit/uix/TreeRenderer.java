@@ -15,6 +15,7 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.uix;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
 
@@ -36,6 +37,18 @@ import org.apache.myfaces.trinidadinternal.uinode.UINodeRendererBase;
  */
 public class TreeRenderer extends UINodeRendererBase
 {
+  
+  @Override
+  public void encodeBegin(FacesContext context,
+                          UIComponent component)
+    throws IOException
+  {
+    TreeUtils.expandFocusRowKey((UIXTree) component);
+    super.encodeBegin(context, component);
+  }
+  
+
+  
   /**
    * @todo do not mess with selection here. queue an event.
    */

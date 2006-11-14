@@ -24,12 +24,6 @@ import java.io.IOException;
  * It takes a Writer as its single argument to its constructor and all
  * bytes written to the stream are correspondingly converted into Base64
  * and written out to the provided writer.
- *  
- * This class extends OutputStream.  It adds one additional method called 
- * finish() which appends padding characters to the end of the data if 
- * necessary.  
- *
- * @version
  */
 public class Base64OutputStream extends OutputStream
 {
@@ -48,10 +42,9 @@ public class Base64OutputStream extends OutputStream
   @Override
   public void write(int b) throws IOException
   {
-    _single[0] = (byte)b;
+    _single[0] = (byte) b;
     this.write(_single, 0, 1);
-   
-  } // end write(int b)
+  } 
   
   /**
    * Writes len bytes from the specified byte array starting at offset off 
@@ -80,12 +73,13 @@ public class Base64OutputStream extends OutputStream
   {
     if (b==null) 
     {
-      throw new NullPointerException();
+      throw new NullPointerException("byte[] cannot be null");
     }
       
     if (off<0 || len<0 || off+len>b.length) 
     {
-      throw new IndexOutOfBoundsException();
+      throw new IndexOutOfBoundsException("Actual Length:"+b.length+" offset:"+off+
+                                          " length:"+len);
     }
     
     int lengthToProcess = len;
@@ -169,15 +163,34 @@ public class Base64OutputStream extends OutputStream
 
   } //end write(byte[], int off, int len)
   
+  @Override
+  public void flush() throws IOException 
+  {
+    _out.flush();
+  }
+
+  /**
+   * Call this method to indicate end of data stream 
+   * and to append any padding characters if necessary.  This method should be 
+   * called only if there will be no subsequent calls to a write method.  
+   * Subsequent calls to the write method will result in incorrect encoding.
+   * 
+   * @deprecated use the close() method instead.
+   */
+  @Deprecated
+  public void finish() throws IOException
+  {
+    close();
+  }
   
   /**
-   * Call this method to indicate end of data stream without closing stream 
+   * Call this method to indicate end of data stream 
    * and to append any padding characters if necessary.  This method should be 
    * called only if there will be no subsequent calls to a write method.  
    * Subsequent calls to the write method will result in incorrect encoding.
    * 
    */
-  public void finish() throws IOException
+  public void close() throws IOException
   {
     if (_numLeftoverBytes==1) 
     {
@@ -222,11 +235,7 @@ public class Base64OutputStream extends OutputStream
       
       _out.write(encodedChars);
     } 
-    else 
-    {
-      // no need for padding
-      return;
-    }
+    _out.close();
   }
   
   
@@ -323,23 +332,21 @@ public class Base64OutputStream extends OutputStream
     if (c == 63)
       return '/';
       
-    // error, not a valid B64 char
-    return (char)0;
-    
+    throw new AssertionError("Invalid B64 character code:"+c);
   }
 
   
   /** stores leftover bytes from previous call to write method **/
-  private byte[]      _leftoverBytes;
+  private final byte[]      _leftoverBytes;
   
   /** indicates the number of bytes that were leftover after the last triplet 
    * was formed in the last call to write method  **/
   private int         _numLeftoverBytes;
   
-  /// a byte array used merely for efficiency purposes in method write(int b)
-  private final byte[]      _single = new byte[1];
   // cached four-character array
   private final char[]      _fourChars = new char[4];
+  // cached single-byte array
+  private final byte[]      _single = new byte[1];
 
   // Writer that will receive all completed character output
   private final Writer      _out;  

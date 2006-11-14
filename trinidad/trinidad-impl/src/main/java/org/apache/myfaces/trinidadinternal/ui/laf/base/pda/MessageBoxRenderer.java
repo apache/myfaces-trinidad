@@ -1,12 +1,12 @@
 /*
  * Copyright  2000-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,8 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.pda;
 
 import java.io.IOException;
+
+import java.util.Iterator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -30,6 +32,10 @@ import org.apache.myfaces.trinidadinternal.ui.beans.MarlinBean;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.MessageBoxUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafRenderer;
 import org.apache.myfaces.trinidad.skin.Icon;
+import org.apache.myfaces.trinidadinternal.ui.BaseMutableUINode;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.desktop.MessageWrapper;
+import org.apache.myfaces.trinidadinternal.util.MessageUtils;
+
 
 
 /**
@@ -47,8 +53,12 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     UINode           node
     ) throws IOException
   {
-
-    if (MessageBoxUtils.sIsRendered(context, node, _allMessages))
+    //PH:set whether or not only global messages be rendererd depending on
+    //the globalOnly attribute's value
+    
+    if (MessageBoxUtils.sIsRendered(context, node, 
+                        !Boolean.TRUE.equals(getAttributeValue(context, node,
+                                                    GLOBAL_ONLY_ATTR, null))))
     {
       super.prerender(context, node);
       context.setLocalProperty( _MB_IS_RENDERED, Boolean.TRUE);
@@ -98,7 +108,8 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
 
   }
 
-  private static final void _renderLine(
+  //PH:No reason for _renderLine to be static
+  private final void _renderLine(
     UIXRenderingContext context,
     UINode           node,
     String           messageStyle,
@@ -123,6 +134,13 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     text.setStyleClass(messageStyle);
     text.setAttributeValue(TEXT_ATTR, getTranslatedString(context, messageKey) );
 
+    //PH: Create BODY Styling for the entire MessageBox.
+	writer.startElement("table", null);
+	renderStyleClassAttribute(context, "af|messages::body");
+	writer.startElement("tr", null);
+	writer.startElement("td", null);
+
+
     writer.startElement("b", node.getUIComponent());
     text.render(context);
 
@@ -135,7 +153,171 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
     }
 
     writer.endElement("b");
-    sep.render(context, node);
+    //PH:Do not render a separator. User may not necessary place a message
+    //component at the top of the page. Moreover, styling should not be 
+    //hard-coded like this.Application developer should have all the control 
+    //over styling. I am using a Background instead of a separator to make a 
+    //message box distinct from the rest of the content in the application page.
+    //sep.render(context, node);
+
+    //PH:start rendering global and per-component messages
+    boolean useList = MessageBoxUtils.sMultipleMessages(context, 
+                           !Boolean.TRUE.equals(getAttributeValue(context, node,
+                                                    GLOBAL_ONLY_ATTR, null))
+    );
+
+    if (useList)
+    {
+      // render the message list
+      writer.startElement("ol", null);
+    }
+    else
+    {
+      // render a div
+      writer.startElement("div", null);
+    }
+
+    // oracle pda's renderer allows different list styles depending
+    // upon if it is a list or a div, and whether it is an error or not.
+    // should we do the same here? For now, don't worry about it.
+    renderStyleClassAttribute(context, "af|messages::list");
+
+    // Do the global messages first
+    _renderMessages(context, writer, true, useList);
+
+    // Then client component messages
+    if (!Boolean.TRUE.equals(getAttributeValue(context, node,
+                                                    GLOBAL_ONLY_ATTR, null)))
+      _renderMessages(context, writer, false, useList);
+
+    if (useList)
+      writer.endElement("ol");
+    else
+    {
+      writer.endElement("div");
+    }
+
+    writer.endElement("td");
+    writer.endElement("tr");
+    writer.endElement("table");
+  }
+
+  private void _renderMessages(
+    UIXRenderingContext context,
+    ResponseWriter writer,
+    boolean isGlobal,
+    boolean useList
+    ) throws IOException
+  {
+    BaseMutableUINode currentChild = null;
+    String summary;
+    String detail;
+
+    Iterator<MessageWrapper> itr = (isGlobal
+                    ? MessageBoxUtils.sGetGlobalsIterator(context)
+                    : MessageBoxUtils.sGetClientsIterator(context));
+
+    while (itr.hasNext())
+    {
+      MessageWrapper msg = itr.next();
+
+      if (useList)
+        writer.startElement("li", null);
+
+      summary = msg.getSummary();
+      detail = msg.getDetail();
+
+      if (isGlobal)
+        _writeGlobalMsg(context, writer, summary, detail);
+      else
+        currentChild = _writeClientMsg(context, writer, summary,
+                                       msg, currentChild);
+
+      if (useList)
+        writer.endElement("li");
+    }
+  }
+
+  private void _writeGlobalMsg(
+    UIXRenderingContext context,
+    ResponseWriter writer,
+    String summary,
+    String detail
+    ) throws IOException
+  {
+    String text = MessageUtils.getGlobalMessage(context, summary, detail);
+    if (isTextFormatted(text))
+      renderFormattedText(context, text);
+    else
+      writer.writeText(text, null);
+  }
+
+  private BaseMutableUINode _writeClientMsg(
+    UIXRenderingContext context,
+    ResponseWriter writer,
+    String summary,
+    MessageWrapper msg,
+    BaseMutableUINode currentChild
+    ) throws IOException
+  {
+    String description;
+
+    if (summary != null)
+    {
+      String pattern;
+      String[] parameters;
+
+      parameters = new String[] {summary};
+      pattern = getTranslatedString(context, "af_messages.LIST_FORMAT_private");
+      description = formatString(context, pattern, parameters);
+    }
+    else
+    {
+      description = "";
+    }
+
+    // get (or generate) the current child
+    currentChild = _generateChild(msg, currentChild);
+    currentChild.render(context);
+
+    if (isTextFormatted(summary))
+      renderFormattedText(context, description);
+    else
+      writer.writeText(description, null);
+
+    return currentChild;
+  }
+
+  private BaseMutableUINode _generateChild(
+    MessageWrapper   msg,
+    BaseMutableUINode cachedChild)
+  {
+    if (cachedChild == null)
+      cachedChild = new BaseMutableUINode(MARLIN_NAMESPACE, LINK_NAME);
+
+    // link text
+    String label = msg.getLabel();
+    cachedChild.setAttributeValue(TEXT_ATTR, label);
+
+    String anchor = null;
+    String summary = null;
+
+    if (label != null)
+    {
+      // If the text is null, no need to actually collect these values
+      anchor = MessageUtils.getAnchor(msg.getId().toString());
+      if (anchor != null)
+        anchor = "#"+anchor;
+
+      summary = msg.getSummary();
+    }
+
+    // However, we always have to update the anchor and description because
+    // they were possibly set the last time this link was used. Even if they
+    // don't render in the page, they'll be in the HTML.
+    cachedChild.setAttributeValue(DESTINATION_ATTR, anchor);
+    cachedChild.setAttributeValue(LONG_DESC_ATTR, summary);
+    return cachedChild;
   }
 
   private String _getMessageTextStyle(
@@ -200,9 +382,6 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
   // Private variables
   //
 
-  // On PDA we render only global messages
-  private final static boolean _allMessages = false;
-
   // local message types
   static private final int _INFORMATION_TYPE  = 0;
   static private final int _WARNING_TYPE      = 1;
@@ -226,15 +405,5 @@ public class MessageBoxRenderer extends XhtmlLafRenderer
 
 
   private static final Object _MB_IS_RENDERED = new Object();
-  // Create a Separator renderer, but don't render the ID
-  // =-=AEW This hack is necessary for RenderKit test passing;
-  // it can be cleaned up as long as you fix the RenderKit test too.
-  private static final SeparatorRenderer sep = new SeparatorRenderer()
-  {
-    @Override
-    protected void renderID(UIXRenderingContext context, UINode node)
-    {
-      ;
-    }
-  };
+
 }

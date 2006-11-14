@@ -73,21 +73,21 @@ public class CoreCommonScriptsResourceLoader extends AggregatingResourceLoader
   // List of all libraries
   static private final String[] _DEBUG_LIBRARIES =
   {
-    "META-INF/adf/jsDebug/CharSets.js",
-    "META-INF/adf/jsDebug/CoreFormat.js",
-    "META-INF/adf/jsDebug/DateField.js",
-    "META-INF/adf/jsDebug/DateFieldFormat.js",
-    "META-INF/adf/jsDebug/DateFormat.js",
-    "META-INF/adf/jsDebug/Locale.js",
-    "META-INF/adf/jsDebug/Core.js",
-    "META-INF/adf/jsDebug/Window.js",
-    "META-INF/adf/jsDebug/PPR.js",
-    "META-INF/adf/jsDebug/TableProxy.js",
-    "META-INF/adf/jsDebug/Poll.js",
-    "META-INF/adf/jsDebug/ColorField.js",
-    "META-INF/adf/jsDebug/ColorFieldFormat.js",
-    "META-INF/adf/jsDebug/ColorFormat.js",
-    "META-INF/adf/jsDebug/Shuttle.js",
+    "META-INF/adf/jsLibsDebug/CharSets.js",
+    "META-INF/adf/jsLibsDebug/CoreFormat.js",
+    "META-INF/adf/jsLibsDebug/DateField.js",
+    "META-INF/adf/jsLibsDebug/DateFieldFormat.js",
+    "META-INF/adf/jsLibsDebug/DateFormat.js",
+    "META-INF/adf/jsLibsDebug/Locale.js",
+    "META-INF/adf/jsLibsDebug/Core.js",
+    "META-INF/adf/jsLibsDebug/Window.js",
+    "META-INF/adf/jsLibsDebug/PPR.js",
+    "META-INF/adf/jsLibsDebug/TableProxy.js",
+    "META-INF/adf/jsLibsDebug/Poll.js",
+    "META-INF/adf/jsLibsDebug/ColorField.js",
+    "META-INF/adf/jsLibsDebug/ColorFieldFormat.js",
+    "META-INF/adf/jsLibsDebug/ColorFormat.js",
+    "META-INF/adf/jsLibsDebug/Shuttle.js",
   };
 
   static private final String _NEWLINE_SEPARATOR = "\n";

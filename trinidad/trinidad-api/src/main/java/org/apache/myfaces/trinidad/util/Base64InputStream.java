@@ -82,7 +82,18 @@ public class Base64InputStream extends InputStream
     return result;
   }
   
-  
+  @Override
+  public void close() throws IOException 
+  {
+    _in.close();
+  }
+
+  @Override
+  public int available() throws IOException 
+  {
+    return _in.ready() ? 1 : 0;
+  }
+
   /**
    * Reads in _QUANTUM_SIZE number of base64 characters from the reader 
    * and converts them into bytes and places these bytes into the decodedBuffer
