@@ -13,6 +13,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.render.Renderer;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.render.CoreRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.AutoSubmitUtils;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -36,7 +37,7 @@ public class HtmlCommandButtonRenderer extends Renderer
     Map<String, Object> attrs = component.getAttributes();
     UICommand command = (UICommand) component;
     // Which button type (SUBMIT, RESET, or BUTTON) should we generate?
-    String type = (String) attrs.get("type");
+    String type = CoreRenderer.toString(attrs.get("type"));
     if (type == null) 
     {
       type = "submit";
@@ -44,10 +45,9 @@ public class HtmlCommandButtonRenderer extends Renderer
 
     ResponseWriter writer = context.getResponseWriter();
    
-    Object value = command.getValue();
-    String label = (value != null) ? value.toString() : "";
+    String label = CoreRenderer.toString(command.getValue());
    
-    String imageSrc = (String) attrs.get("image");
+    String imageSrc = CoreRenderer.toUri("image");
     writer.startElement("input", component);
     String id = component.getClientId(context);
     writer.writeAttribute("id", id, "id");
@@ -70,7 +70,7 @@ public class HtmlCommandButtonRenderer extends Renderer
               null/*no event*/,
               null,
               false/* return false*/);
-    String onclick = (String) attrs.get("onclick");
+    String onclick = CoreRenderer.toString(attrs.get("onclick"));
     script = XhtmlUtils.getChainedJS(onclick, script, true);
 
     writer.writeAttribute("onclick", script, null);
