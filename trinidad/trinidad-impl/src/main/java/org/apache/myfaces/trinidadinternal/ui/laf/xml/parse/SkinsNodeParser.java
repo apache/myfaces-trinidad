@@ -18,6 +18,8 @@ package org.apache.myfaces.trinidadinternal.ui.laf.xml.parse;
 
 import java.util.ArrayList;
 
+import java.util.List;
+
 import org.apache.myfaces.trinidadinternal.skin.SkinExtension;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXParseException;
@@ -32,7 +34,7 @@ import org.apache.myfaces.trinidadinternal.skin.SkinUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.xml.XMLConstants;
 
 /**
- * NodeParser for <skins> elements
+ * NodeParser for &lt;skins&gt; element in trinidad-skins.xml
  *
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/ui/laf/xml/parse/SkinsNodeParser.java#0 $) $Date: 10-nov-2005.18:50:46 $
  * @author The Oracle ADF Faces Team
@@ -48,7 +50,10 @@ public class SkinsNodeParser extends BaseNodeParser
     Attributes   attrs
     ) throws SAXParseException
   {
-    return context.getParser(SkinExtension.class, namespaceURI, localName);
+    if ("skin-addition".equals(localName))
+      return context.getParser(SkinAdditionNode.class, namespaceURI, localName);
+    else
+      return context.getParser(SkinNode.class, namespaceURI, localName);
   }
 
   @Override
@@ -59,19 +64,14 @@ public class SkinsNodeParser extends BaseNodeParser
     Object       child
     ) throws SAXParseException
   {
-    assert ((child == null) || (child instanceof SkinExtension));
-
-    SkinExtension skinExtension = (SkinExtension)child;
+    assert ((child == null) || 
+            (child instanceof SkinNode) ||
+            (child instanceof SkinAdditionNode));
     
-    // register skin with factory, this way when we create each skin
-    // in SkinExtensionParser, we can extend any skin that has already
-    // been registered with the skin factory.
-    SkinFactory skinFactory = SkinUtils.getSkinFactory(context);
-    skinFactory.addSkin(skinExtension.getId(), skinExtension);
-    
-    // add to list
-    if (child instanceof SkinExtension)
-      _skins.add((SkinExtension)child);
+    if ((child instanceof SkinAdditionNode))    
+      _skinAdditions.add((SkinAdditionNode)child);
+    else
+      _skins.add((SkinNode)child);
   }
 
   @Override
@@ -81,13 +81,11 @@ public class SkinsNodeParser extends BaseNodeParser
     String       localName
     ) throws SAXParseException
   {
-    if (_skins.isEmpty())
-      return null;
-
-    SkinExtension[] skinExtension = new SkinExtension[_skins.size()];
-
-    return _skins.toArray(skinExtension);
+    return new SkinsNode(_skins,
+                         _skinAdditions);
   }
 
-  private ArrayList<SkinExtension> _skins = new ArrayList<SkinExtension>();
+  private List<SkinNode> _skins = new ArrayList<SkinNode>();
+  private List<SkinAdditionNode> _skinAdditions = new ArrayList<SkinAdditionNode>();
+  
 }
