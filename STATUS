@@ -4,13 +4,9 @@ ADF Faces Status
 PROJECT STATUS
 ==============
 
-  The ADF Faces project represents the incubation of a comprehensive library
+  The Apache Trinidad project represents the incubation of a comprehensive library
   of JavaServer Faces components. The intended destination of this project
   is the existing Apache MyFaces project.
-
-  Note that ADF Faces is a temporary working name for the incubation of the
-  corresponding code and committers. The final name of the component library
-  will be chosen by the MyFaces developer community, in the usual Apache fashion.
 
 PENDING ISSUES
 ==============
@@ -21,13 +17,6 @@ TODO!!! for updating the reports (which is end of August)
 
 OTHER NEWS
 ==========
-
-2006-08-02 Renaming of some components done
-2006-07-27 Repackaging and refactoring done
-2006-06-13 Added new committer (Jeanne Waldman)
-2006-06-12 Added Trinidad to MyFaces's Continuum
-2006-06-12 Voted for the name Trinidad
-2006-06-08 Started vote for a new project name
 
 RELEASE STATUS
 ==============
@@ -47,9 +36,9 @@ Committers
     awiner      Adam Winer
     baranda     Bruno Aranda
     craigmcc    Craig McClanahan
+    gcrawford   Gabrielle Crawford
     jfallows    John Fallows
     jwaldman    Jeanne Waldman
     matzew      Matthias Wessendorf
     mmarinschek Martin Marinschek
-    TBD         Simon Lessard
-    TBD         Jonas Jacobi
+    slessard         Simon Lessard
