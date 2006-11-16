@@ -892,29 +892,31 @@ public class FileSystemStyleCache implements StyleProvider
                   map.put(styleClass, _getShortStyleClass(map.size()));
               }
             }
-          }
-
-          // now go through the selectors and get the list of selectors 
-          // with the namespace prefix and put those into the shortend map
-          int numNSPrefixes = _NS_PREFIX_ARRAY.length;
-          for (int prefixIndex=0; prefixIndex< numNSPrefixes; prefixIndex++)
-          {
-            String nsPrefix = _NS_PREFIX_ARRAY[prefixIndex];
-            Iterator<String> afSelectors =
-              CSSGenerationUtils.getNamespacedSelectors(selector,
-                                                        nsPrefix,
-                                                        _STYLE_KEY_MAP);
-            if (afSelectors != null)
+            
+            // now go through the selectors and get the list of selectors 
+            // with the namespace prefix and put those into the shortend map
+            int numNSPrefixes = _NS_PREFIX_ARRAY.length;
+            for (int prefixIndex=0; prefixIndex< numNSPrefixes; prefixIndex++)
             {
-              while (afSelectors.hasNext())
+              String nsPrefix = _NS_PREFIX_ARRAY[prefixIndex];
+              Iterator<String> afSelectors =
+                CSSGenerationUtils.getNamespacedSelectors(selector,
+                                                          nsPrefix,
+                                                          _STYLE_KEY_MAP);
+              if (afSelectors != null)
               {
-                String styleClass = afSelectors.next();
-  
-                if (!map.containsKey(styleClass))
-                  map.put(styleClass, _getShortStyleClass(map.size()));
+                while (afSelectors.hasNext())
+                {
+                  String styleClass = afSelectors.next();
+            
+                  if (!map.containsKey(styleClass))
+                    map.put(styleClass, _getShortStyleClass(map.size()));
+                }
               }
             }
           }
+
+
         }
       }
     }
