@@ -46,11 +46,12 @@ abstract public class ValueRenderer extends XhtmlRenderer
     FacesBean    bean)
   {
     Object value = getValue(bean);
-    if (value == null)
-      return null;
-
     Converter converter = getConverter(bean);
-    if ((converter == null) && !(value instanceof String))
+    // If there's no explicitly set converter, and the value is non-null
+    // and not a String, try to get a default converter
+    if ((converter == null) &&
+        (value != null) &&
+        !(value instanceof String))
       converter = getDefaultConverter(context, bean);
 
     if (converter != null)
@@ -58,7 +59,7 @@ abstract public class ValueRenderer extends XhtmlRenderer
       return converter.getAsString(context, component, value);
     }
 
-    return value.toString();
+    return toString(value);
   }
 
 
