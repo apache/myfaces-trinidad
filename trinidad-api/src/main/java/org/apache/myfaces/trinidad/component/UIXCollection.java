@@ -1142,7 +1142,9 @@ public abstract class UIXCollection extends UIXComponentBase
    */
   private Object _setELVar(String varName, Object newData)
   {
-    assert varName != null;
+    if (varName == null)
+      return null;
+
     // we need to place each row at an EL reachable place so that it
     // can be accessed via the 'var' variable. Let's place it on the
     // requestMap:
