@@ -586,7 +586,7 @@ class SkinStyleSheetParserUtils
     boolean createStyleNode = false;
     // append all the styles that are not content, width or height into
     // inline style
-    CSSStyle inlineStyle = new CSSStyle();
+    CSSStyle inlineStyle = null;
 
     for(PropertyNode propertyNode : noTrPropertyNodeList)
     {
@@ -626,6 +626,7 @@ class SkinStyleSheetParserUtils
       else
       {
         // create an inlineStyle with all the extraneous style properties
+        inlineStyle = new CSSStyle();
         inlineStyle.setProperty(propertyName, propertyValue);
       }
 
@@ -641,6 +642,8 @@ class SkinStyleSheetParserUtils
         // don't allow styleClass from the css parsing file. We can handle
         // this when we have style includes
         // put back the width/height properties if there were some
+        if (heightValue != null || widthValue != null)
+          inlineStyle = new CSSStyle();
         if (heightValue != null)
          inlineStyle.setProperty("height", heightValue);
         if (widthValue != null)
@@ -690,10 +693,9 @@ class SkinStyleSheetParserUtils
       }
       else
       {
-        /// neither text or image icon. Must be a StyleClassIcon
+        /// neither text or image icon.
         if (inlineStyle != null)
         {
-         // icon = new StyleClassIcon(selectorName);
          // create a styleNode, too with the inlineStyles.
          createStyleNode = true;
         }

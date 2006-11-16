@@ -1,12 +1,12 @@
 /*
  * Copyright  2003-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -185,7 +185,7 @@ abstract public class BaseImageIcon extends Icon
     }
     else if (attrs != null)
     {
-      styleClass = (String) attrs.get(Icon.STYLE_CLASS_KEY);    
+      styleClass = (String) attrs.get(Icon.STYLE_CLASS_KEY);
 
     }
 
@@ -195,14 +195,18 @@ abstract public class BaseImageIcon extends Icon
     // to at least make sure it is valid.
     if (styleClass != null)
     {
-      String convertedStyleClass = 
+      String convertedStyleClass =
         StyleUtils.convertToValidSelector(arc.getStyleClass(styleClass));
-  
+
       writer.writeAttribute("class", convertedStyleClass, null);
     }
 
     if (_inlineStyle != null)
-      writer.writeAttribute("style", _inlineStyle.toInlineString(), null);
+    {
+      String inlineStyleString = _inlineStyle.toInlineString();
+      if (!("".equals(inlineStyleString)))
+        writer.writeAttribute("style", inlineStyleString, null);
+    }
 
     // Write out alt/title attrs
     Object altText = _getAltText(attrs);
@@ -327,7 +331,7 @@ abstract public class BaseImageIcon extends Icon
       // need to set the img align attribute in order to force
       // an icon to line up with its associated text.
       Object align = attrs.get(Icon.ALIGN_KEY);
-      
+
       if (align != null)
       {
         // absmiddle isn't actually a valid alignment value according
@@ -336,7 +340,7 @@ abstract public class BaseImageIcon extends Icon
         // seem to have the desired results in all cases.  In particular,
         // when we switch from absmiddle to vertical-align:middle, the
         // dateField's button drops down by two pixels.
-        
+
         writer.writeAttribute("align", align, null);
       }
     }
