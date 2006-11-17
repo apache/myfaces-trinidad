@@ -97,6 +97,29 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     }
   }
 
+
+  // hook for custom component tag java content
+  protected void writeCustomComponentTagHandlerContent(
+      PrettyWriter  out,
+      ComponentBean component) throws IOException
+  {
+  }
+
+  // hook for custom component tag java imports
+  protected void addCustomComponentTagHandlerImports(
+      Set           imports,
+      ComponentBean component)
+  {
+  }
+
+  // hook for custom component descriptor content
+  protected void writeCustomComponentTagDescriptorContent(
+      XMLStreamWriter  stream,
+      ComponentBean    component)throws XMLStreamException
+  {
+  }
+
+
   /**
    * Generates tag library descriptors for parsed component metadata.
    */
@@ -342,12 +365,15 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
       stream.writeEndElement();
     }
 
+
+    GenerateJspTaglibsMojo.this.writeCustomComponentTagDescriptorContent(stream, component);
+
     Iterator properties = component.properties(true);
     properties = new FilteredIterator(properties, new TagAttributeFilter());
     while (properties.hasNext())
     {
       PropertyBean property = (PropertyBean)properties.next();
-      _writeTagAttribute(stream,
+      writeTagAttribute(stream,
                          property.getPropertyName(),
                          property.getDescription(),
                          property.getUnsupportedAgents());
@@ -383,14 +409,14 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     }
 
     // converters need an id attribute
-    _writeTagAttribute(stream, "id", "the identifier for the component", null);
+    writeTagAttribute(stream, "id", "the identifier for the component", null);
 
     Iterator properties = converter.properties();
     properties = new FilteredIterator(properties, new TagAttributeFilter());
     while (properties.hasNext())
     {
       PropertyBean property = (PropertyBean)properties.next();
-      _writeTagAttribute(stream,
+      writeTagAttribute(stream,
                          property.getPropertyName(),
                          property.getDescription(),
                          property.getUnsupportedAgents());
@@ -400,7 +426,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     stream.writeEndElement();
   }
 
-  private void _writeTagAttribute(
+  protected void writeTagAttribute(
     XMLStreamWriter stream,
     String          propertyName,
     String          description,
@@ -474,14 +500,14 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
     }
 
     // validators need an id attribute
-    _writeTagAttribute(stream, "id", "the identifier for the component", null);
+    writeTagAttribute(stream, "id", "the identifier for the component", null);
 
     Iterator properties = validator.properties();
     properties = new FilteredIterator(properties, new TagAttributeFilter());
     while (properties.hasNext())
     {
       PropertyBean property = (PropertyBean)properties.next();
-      _writeTagAttribute(stream,
+      writeTagAttribute(stream,
                          property.getPropertyName(),
                          property.getDescription(),
                          property.getUnsupportedAgents());
@@ -1254,6 +1280,11 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
           _writeGetComponentType(out, component);
           _writeGetRendererType(out, component);
         }
+
+
+        GenerateJspTaglibsMojo.this.writeCustomComponentTagHandlerContent(out, component);
+
+
         _writePropertyMethods(out, component);
         _writeSetProperties(out, componentClass, component);
         _writeRelease(out, component);
@@ -1316,7 +1347,7 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         if (propertyClass != null && property.isLiteralOnly())
         {
           // Import the property class only if only litterals are supported
-          // otherwise the class will be a String inside the tag to support 
+          // otherwise the class will be a String inside the tag to support
           // ValueBinding
           imports.add(propertyClass);
         }
@@ -1362,8 +1393,12 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
         //}
       }
 
+
+      GenerateJspTaglibsMojo.this.addCustomComponentTagHandlerImports(imports, component);
+
       // do not import implicit!
       imports.removeAll(Util.PRIMITIVE_TYPES);
+
 
       String tagClass = component.getTagClass();
       String packageName = Util.getPackageFromFullClass(tagClass);
@@ -1991,55 +2026,55 @@ public class GenerateJspTaglibsMojo extends AbstractFacesMojo
    * @required
    * @readonly
    */
-  private MavenProject project;
+  protected MavenProject project;
 
   /**
    * @parameter
    * @required
    */
-  private Map taglibs;
+  protected Map taglibs;
 
   /**
    * @parameter expression="META-INF/maven-faces-plugin/faces-config.xml"
    * @required
    * @readonly
    */
-  private String resourcePath;
+  protected String resourcePath;
 
   /**
    * @parameter expression="src/main/conf"
    * @required
    */
-  private File configSourceDirectory;
+  protected File configSourceDirectory;
 
   /**
    * @parameter expression="src/main/java-templates"
    * @required
    */
-  private File templateSourceDirectory;
+  protected File templateSourceDirectory;
 
   /**
    * @parameter expression="${project.build.directory}/maven-faces-plugin/main/java"
    * @required
    */
-  private File generatedSourceDirectory;
+  protected File generatedSourceDirectory;
 
   /**
    * @parameter expression="${project.build.directory}/maven-faces-plugin/main/resources"
    * @required
    */
-  private File generatedResourcesDirectory;
+  protected File generatedResourcesDirectory;
 
   /**
    * @parameter
    * @required
    */
-  private String packageContains;
+  protected String packageContains;
 
   /**
    * @parameter
    */
-  private boolean force;
+  protected boolean force;
 
   static private String _resolveType(
     String className)
