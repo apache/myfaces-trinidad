@@ -18,21 +18,16 @@ package org.apache.myfaces.trinidadinternal.validator;
 
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.util.MessageFactory;
-
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
  * <p>Enables byte length validation at the client side. </p>
@@ -48,13 +43,11 @@ public class ByteLengthValidator
     super();
   }
 
-  
   public String getClientLibrarySource(
    FacesContext context)
   {
     return null;
   }
-
 
   /**
    * {@inheritDoc}
@@ -109,17 +102,11 @@ public class ByteLengthValidator
       }
     }
 
-    FacesMessage message = _getEscapedJsMaximumMessage(context);
-    
     String maxLength = String.valueOf(getMaximum());
 
     constr.append(maxLength);
 
-    constr.append(",{LF:'");
-    constr.append(XhtmlLafUtils.escapeJS(message.getDetail()));
-    constr.append("',LFS:'");
-    constr.append(XhtmlLafUtils.escapeJS(message.getSummary()));
-    constr.append( "'})");
+    constr.append(")");
 
     return constr.toString();
   }
@@ -179,23 +166,6 @@ public class ByteLengthValidator
     }
     return _UNSUPPORTED_TYPE;
   }
-
-  private FacesMessage _getEscapedJsMaximumMessage(
-    FacesContext context)
-  {
-    String maxMsgDetail = getMessageDetailMaximum();
-    String maxLength = String.valueOf(getMaximum());
-    String label = "{0}";    // this will get substituted on the client
-
-    Object[] params = new Object[] {label, "{1}", maxLength};
-
-    return  MessageFactory.getMessage(context,
-                                  ByteLengthValidator.MAXIMUM_MESSAGE_ID,
-                                  maxMsgDetail,
-                                  params);
-
-  }
-
 
   // Type where all characters are single byte
   static private final int _SINGLE_BYTE_TYPE = 0;

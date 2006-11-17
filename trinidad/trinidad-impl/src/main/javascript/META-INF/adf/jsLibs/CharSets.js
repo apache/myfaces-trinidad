@@ -15,29 +15,21 @@
  */
 
 function TrByteLengthValidator(
-  length,
-  messages
+  length
   )
 {
   this._length   = length;
-  this._messages = messages;
   this._class    = "TrByteLengthValidator";
 }
 
 TrByteLengthValidator.prototype = new TrValidator();
 
-//LFS - Length failed summary
-TrByteLengthValidator.prototype.LFS  = "LFS";
-//LF - Length failed
-TrByteLengthValidator.prototype.LF  = "LF";
-
 function CjkFormat(
-  length,
-  messages
+  length
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, messages);
+  this._base(length);
   this._class = "CjkFormat";
   
 }
@@ -59,8 +51,7 @@ CjkFormat.prototype.validate  = function(
    
     if (length < 0)
     {
-      var facesMessage = _createFacesMessage( this._messages[this.LFS],
-                                              this._messages[this.LF],
+      var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
                                               label,
                                               parseString);   
       throw new TrValidatorException(facesMessage);     
@@ -76,12 +67,11 @@ CjkFormat.prototype.validate  = function(
 
 
 function Utf8Format(
-  length,
-  messages
+  length
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, messages);
+  this._base(length);
   this._class = "Utf8Format";
 }
 
@@ -111,8 +101,7 @@ Utf8Format.prototype.validate  = function(
 
     if (length < 0)
     {
-      var facesMessage = _createFacesMessage( this._messages[this.LFS],
-                                              this._messages[this.LF],
+      var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
                                               label,
                                               parseString);   
       throw new TrValidatorException(facesMessage);              
@@ -125,12 +114,11 @@ Utf8Format.prototype.validate  = function(
 }
 
 function SBFormat(
-  length,
-  messages
+  length
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, messages);
+  this._base(length);
   this._class = "SBFormat";
   
 }
@@ -144,10 +132,9 @@ SBFormat.prototype.validate  = function(
 {
   if (this._length < parseString.length)
   {
-    var facesMessage = _createFacesMessage( this._messages[this.LFS],
-                                            this._messages[this.LF],
-                                            label,
-                                            parseString);   
+    var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
+                                              label,
+                                              parseString);   
     throw new TrValidatorException(facesMessage);      
   }
 

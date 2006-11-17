@@ -24,14 +24,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.validator.ValidatorException;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
 
-import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
-import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
@@ -107,7 +104,7 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
       monthValues  = "null";
     }
 
-    return _getTrDateRestrictionValidator(context, component, WEEKDAY_MESSAGE_ID, MONTH_MESSAGE_ID, VALIDATOR_ID, weekdaysValues, monthValues);
+    return _getTrDateRestrictionValidator(context, component, weekdaysValues, monthValues);
   }
   
   
@@ -120,43 +117,11 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
   private static String _getTrDateRestrictionValidator(
       FacesContext context,
       UIComponent component,
-      String weekId,
-      String monthId,
-      String defaultId,
       String weekdaysValues,
       String monthValues)
   {
-    StringBuffer outBuffer = new StringBuffer(250);
+    StringBuffer outBuffer = new StringBuffer();
     outBuffer.append("new TrDateRestrictionValidator(");
-
-    FacesMessage weekMessage =
-      MessageFactory.getMessage(context, weekId,
-                                  new Object[]{"{0}", "{1}", "{2}"});
-
-    outBuffer.append("{WV:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(weekMessage.getDetail()));
-
-    outBuffer.append("',WV_S:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(weekMessage.getSummary()));    
-
-    FacesMessage monthMessage =
-      MessageFactory.getMessage(context, monthId,
-                                  new Object[]{"{0}", "{1}", "{2}"});
-
-    outBuffer.append("',MV:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(monthMessage.getDetail()));
-    outBuffer.append("',MV_S:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(monthMessage.getSummary()));  
-    
-    FacesMessage defaultMessage =
-      MessageFactory.getMessage(context, defaultId,
-                                  new Object[]{"{0}", "{1}"});
-
-    outBuffer.append("',D:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getDetail())); 
-    outBuffer.append("',D_S:'");
-    outBuffer.append(XhtmlLafUtils.escapeJS(defaultMessage.getSummary()));
-    outBuffer.append("'},null,0,");
     outBuffer.append(weekdaysValues);
     outBuffer.append(',');
     outBuffer.append(monthValues);

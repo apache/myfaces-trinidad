@@ -1019,18 +1019,19 @@ function _getPaddedNumber(
 function TrDateTimeConverter(
   pattern,  
   locale,
-  msg_summary,
-  msg_detail,
-  exampleString
+  exampleString,
+  key,
+  summary,
+  detail
   )
 {
 
   // for debugging
   this._class = "TrDateTimeConverter";
-  this._msg_summary = msg_summary;
-  this._msg_detail = msg_detail;
   this._exampleString = exampleString;
-  
+  this._key = key;
+  this._summary = summary;
+  this._detail = detail;
   
   // save the Locale elements for the specified locale, or client locale
   // if no locale is specified
@@ -1089,11 +1090,22 @@ TrDateTimeConverter.prototype.getAsObject  = function(
 
   var pattern = this._pattern;
   
-  var facesMessage = _createFacesMessage( this._msg_summary,
-                                          this._msg_detail,
+  var facesMessage;
+  if(this._key != "null")
+  {
+    facesMessage = _createFacesMessage( this._key,
                                           label,
                                           parseString,
-                                          this._exampleString);                                      
+                                          this._exampleString);
+  }
+  else
+  {
+    facesMessage = _createCustomFacesMessage( this._summary,
+                                          this._detail,
+                                          label,
+                                          parseString,
+                                          this._exampleString);
+  }
   if (typeof pattern == "string")
   {
     return this._simpleDateParseImpl(parseString,

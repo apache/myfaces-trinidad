@@ -113,11 +113,7 @@ public class LongConverter extends javax.faces.convert.LongConverter
     FacesContext context,
     UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context, component,
-                                              MAXIMUM_MESSAGE_ID,
-                                              MINIMUM_MESSAGE_ID,
-                                              CONVERT_MESSAGE_ID,
-                                              _LONG_MAX, _LONG_MIN);
+    return _getTrLongConverter(context, component, _LONG_MAX, _LONG_MIN);
   }
 
 
@@ -126,6 +122,24 @@ public class LongConverter extends javax.faces.convert.LongConverter
     return _IMPORT_NAMES;
   }
 
+  private static String _getTrLongConverter(
+      FacesContext context,
+      UIComponent component,
+      String maxVal,
+      String minVal)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrLongConverter(");
+
+      outBuffer.append("null,null,0,");
+      outBuffer.append(maxVal);
+      outBuffer.append(',');
+      outBuffer.append(minVal);
+      outBuffer.append(")");
+
+      return outBuffer.toString();
+    }
 
   private static final String _LONG_MIN
     = IntegerUtils.getString(Long.MIN_VALUE);

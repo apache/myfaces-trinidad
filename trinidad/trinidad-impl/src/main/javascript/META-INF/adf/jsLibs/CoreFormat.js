@@ -14,27 +14,27 @@
  * limitations under the License.
  */
 
-function TrNumberConverter(
-  messages,
+function TrIntegerConverter(
+  message,
   maxPrecision,
   maxScale,
   maxValue,
   minValue)
 {
-  this._messages = messages;
+  this._message = message;
   this._maxPrecision = maxPrecision;
   this._maxScale = maxScale;
   this._maxValue = maxValue;
   this._minValue = minValue;
 
   // for debugging
-  this._class = "TrNumberConverter";
+  this._class = "TrIntegerConverter";
 }
 
-TrNumberConverter.prototype = new TrConverter();
+TrIntegerConverter.prototype = new TrConverter();
 
 
-TrNumberConverter.prototype.getAsString = function(
+TrIntegerConverter.prototype.getAsString = function(
   number,
   label
   )
@@ -42,13 +42,224 @@ TrNumberConverter.prototype.getAsString = function(
   return "" + number;
 }
 
-TrNumberConverter.prototype.getAsObject = function(
+TrIntegerConverter.prototype.getAsObject = function(
   numberString,
   label
   )
 {
   return _decimalParse(numberString, 
-                       this._messages,
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.IntegerConverter",
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+function TrLongConverter(
+  message,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._message = message;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "TrLongConverter";
+}
+
+TrLongConverter.prototype = new TrConverter();
+
+
+TrLongConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrLongConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return _decimalParse(numberString, 
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.LongConverter",
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+function TrShortConverter(
+  message,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._message = message;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "TrShortConverter";
+}
+
+TrShortConverter.prototype = new TrConverter();
+
+
+TrShortConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrShortConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return _decimalParse(numberString, 
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.ShortConverter",
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+function TrByteConverter(
+  message,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._message = message;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "TrByteConverter";
+}
+
+TrByteConverter.prototype = new TrConverter();
+
+
+TrByteConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrByteConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return _decimalParse(numberString, 
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.ByteConverter",
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+
+function TrDoubleConverter(
+  message,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._message = message;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "TrDoubleConverter";
+}
+
+TrDoubleConverter.prototype = new TrConverter();
+
+
+TrDoubleConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrDoubleConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return _decimalParse(numberString, 
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.DoubleConverter",
+                       this._maxPrecision,
+                       this._maxScale,
+                       this._maxValue,
+                       this._minValue,
+                       label);
+}
+function TrFloatConverter(
+  message,
+  maxPrecision,
+  maxScale,
+  maxValue,
+  minValue)
+{
+  this._message = message;
+  this._maxPrecision = maxPrecision;
+  this._maxScale = maxScale;
+  this._maxValue = maxValue;
+  this._minValue = minValue;
+
+  // for debugging
+  this._class = "TrFloatConverter";
+}
+
+TrFloatConverter.prototype = new TrConverter();
+
+TrFloatConverter.prototype.getAsString = function(
+  number,
+  label
+  )
+{
+  return "" + number;
+}
+
+TrFloatConverter.prototype.getAsObject = function(
+  numberString,
+  label
+  )
+{
+  return _decimalParse(numberString, 
+                       this._message,
+                       "org.apache.myfaces.trinidad.convert.FloatConverter",
                        this._maxPrecision,
                        this._maxScale,
                        this._maxValue,
@@ -57,29 +268,10 @@ TrNumberConverter.prototype.getAsObject = function(
 }
 
 
-
-// Less fraction digits
-TrNumberConverter.LFD = 'LFD';
-// Less integer digits
-TrNumberConverter.LID = 'LID';
-// Less value
-TrNumberConverter.LV  = 'LV';
-// More value
-TrNumberConverter.MV  = 'MV';
-// default
-TrNumberConverter.D   = 'D';
-
-
 function TrRangeValidator(
-  messages,
-  maxPrecision,
-  maxScale,
   maxValue,
   minValue)
 {
-  this._messages = messages;
-  this._maxPrecision = maxPrecision;
-  this._maxScale = maxScale;
   this._maxValue = maxValue;
   this._minValue = minValue;
 
@@ -104,33 +296,27 @@ TrRangeValidator.prototype.validate  = function(
   {
     if(numberValue>this._maxValue)
     {
-      facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.LV+ '_S')],
-                                       this._messages[TrNumberConverter.LV],
+      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LongRangeValidator.MAXIMUM",
                                         label,
-                                        string);
+                                        string,
+                                        ""+this._maxValue);
     }
     else
     {
-      facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.MV+ '_S')],
-                                       this._messages[TrNumberConverter.MV],
+      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LongRangeValidator.MINIMUM",
                                         label,
-                                        string);
+                                        string,
+                                        ""+this._minValue);
     }
     throw new TrConverterException(facesMessage);
   }
 }
 
 function TrLengthValidator(
-  messages,
-  maxPrecision,
-  maxScale,
   maxValue,
   minValue)
 {
  
-  this._messages = messages;
-  this._maxPrecision = maxPrecision;
-  this._maxScale = maxScale;
   this._maxValue = maxValue;
   this._minValue = minValue;
 
@@ -154,25 +340,20 @@ TrLengthValidator.prototype.validate  = function(
   }
   else
   {
-    facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.D+ '_S')],
-                                       this._messages[TrNumberConverter.D],
+    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE",
                                         label,
-                                        string);
+                                        string,
+                                        ""+this._minValue,
+                                        ""+this._maxValue);
     throw new TrConverterException(facesMessage);
   }
 }
 
 function TrDateTimeRangeValidator(
-  messages,
-  maxPrecision,
-  maxScale,
   maxValue,
   minValue)
 {
  
-  this._messages = messages;
-  this._maxPrecision = maxPrecision;
-  this._maxScale = maxScale;
   this._maxValue = maxValue;
   this._minValue = minValue;
 
@@ -196,27 +377,22 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   }
   else
   {
-    facesMessage = _createFacesMessage(this._messages[(TrNumberConverter.D+ '_S')],
-                                       this._messages[TrNumberConverter.D],
+    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE",
                                         label,
-                                        ""+value);
+                                        ""+value,
+                                        ""+new Date(this._minValue),
+                                        ""+new Date(this._maxValue));
     throw new TrConverterException(facesMessage);
   }
   
 }
 
 function TrDateRestrictionValidator(
-  messages,
-  maxPrecision,
-  maxScale,
   weekdaysValue,
   monthValue,
   weekdaysMap,
   monthMap)
 {
-  this._messages = messages;
-  this._maxPrecision = maxPrecision;
-  this._maxScale = maxScale;
   this._weekdaysValue = weekdaysValue;
   this._monthValue = monthValue;
   this._weekdaysMap = weekdaysMap;
@@ -226,20 +402,12 @@ function TrDateRestrictionValidator(
   this._class = "TrDateRestrictionValidator";
 }
 
-// weekday value
-TrDateRestrictionValidator.WV = 'WV';
-// month value
-TrDateRestrictionValidator.MV  = 'MV';
-// default
-TrDateRestrictionValidator.D   = 'D';
-
 TrDateRestrictionValidator.prototype = new TrValidator();
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
   label
 )
 {
-
   submittedDay = value.getDay();
   weekDaysArray = eval(this._weekdaysValue);
   if(weekDaysArray)
@@ -249,8 +417,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
   	{
   		if(weekDaysArray[i].toLowerCase() == dayString)
   		{
-        facesMessage = _createFacesMessage(this._messages[(TrDateRestrictionValidator.WV+ '_S')],
-                                       this._messages[TrDateRestrictionValidator.WV],
+        facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY",
                                         label,
                                         ""+value,
                                         dayString);
@@ -268,8 +435,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
   	{
   		if(monthArray[i].toLowerCase() == monthString)
   		{
-        facesMessage = _createFacesMessage(this._messages[(TrDateRestrictionValidator.MV+ '_S')],
-                                       this._messages[TrDateRestrictionValidator.MV],
+        facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH",
                                         label,
                                         ""+value,
                                         monthString);
@@ -282,9 +448,8 @@ TrDateRestrictionValidator.prototype.validate  = function(
 
 function _decimalParse(
   numberString,
-  messages,
-  maxPrecision,
-  maxScale,
+  message,
+  standardKey,
   maxValue,
   minValue,
   label
@@ -312,10 +477,24 @@ function _decimalParse(
     if ((numberString.indexOf(grouping) == 0) ||
         (numberString.lastIndexOf(grouping) ==  (numberString.length - 1)))
     {
-      facesMessage =  _createFacesMessage( messages[(TrNumberConverter.D+ '_S')],
-                                        messages[TrNumberConverter.D],
-                                        label,
-                                        numberString);
+      if(message == null)
+      {
+        facesMessage =  _createFacesMessage( standardKey+".CONVERT",
+                                          label,
+                                          numberString);
+      }
+      else
+      { 
+        facesMessage =  _createFacesMessage( standardKey+".CONVERT",
+                                          label,
+                                          numberString);
+        //var summary = "";
+        //var detail = "";
+        //facesMessage =  _createCustomMessage( summary,
+                                          //detail,
+                                          //label,
+                                          //numberString);
+      }
       throw new TrConverterException(facesMessage);
     }
 
@@ -351,26 +530,16 @@ function _decimalParse(
       }
       
       var messageKey;
+      //not true for float/double converter
       if ((maxValue != null) &&
           (result  > maxValue))
       {
-        messageKey = TrNumberConverter.LV;
+        messageKey = standardKey+".MAXIMUM";
       }
       else if ((minValue != null) &&
                (result  < minValue))
       {
-        messageKey = TrNumberConverter.MV;
-      }
-      else if ((maxPrecision != null) &&
-               (integerDigits  > maxPrecision))
-      {
-        messageKey = TrNumberConverter.LID;
-      }
-
-      else if ((maxScale != null) &&
-               (fractionDigits  > maxScale))
-      {
-        messageKey = TrNumberConverter.LFD;
+        messageKey = standardKey+".MINIMUM";
       }
 
       if (messageKey != null)
@@ -381,8 +550,7 @@ function _decimalParse(
           throw  new TrConverterException(null, null, "Conversion failed, but no appropriate message found");  // default error format
         else
         {
-          facesMessage =  _createFacesMessage( messages[(messageKey + '_S')],
-                                      messages[messageKey],
+          facesMessage =  _createFacesMessage( messageKey,
                                       label,
                                       numberString);
           throw new TrConverterException(facesMessage);
@@ -392,27 +560,19 @@ function _decimalParse(
     }
   }
 
-  facesMessage = _createFacesMessage( messages[(TrNumberConverter.D+ '_S')],
-                                        messages[TrNumberConverter.D],
+  facesMessage = _createFacesMessage( standardKey+".CONVERT",
                                         label,
                                         numberString);
   throw new TrConverterException(facesMessage);
 }
 
 function TrRegExpValidator(
-  pattern,
-  messages
+  pattern
   )
 {  
   this._pattern  = pattern;
-  this._messages = messages;
   this._class = "TrRegExpValidator";
 }
-
-// no match pattern
-TrRegExpValidator.NM = 'NM';
-// no match pattern summary
-TrRegExpValidator.NMS = 'NMS';
 
 TrRegExpValidator.prototype = new TrValidator();
 TrRegExpValidator.prototype.validate  = function(
@@ -432,8 +592,7 @@ TrRegExpValidator.prototype.validate  = function(
   }
   else
   {    
-    var facesMessage = _createFacesMessage( this._messages[TrRegExpValidator.NMS],
-                                            this._messages[TrRegExpValidator.NM],
+    var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH",
                                             label,
                                             parseString,
                                             this._pattern);                                          

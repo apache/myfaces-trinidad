@@ -110,11 +110,7 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
     FacesContext context,
     UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context, component,
-                                              MAXIMUM_MESSAGE_ID,
-                                              MINIMUM_MESSAGE_ID,
-                                              CONVERT_MESSAGE_ID,
-                                              _BYTE_MAX, _BYTE_MIN);
+    return _getTrByteConverter(context, component, _BYTE_MAX, _BYTE_MIN);
   }
 
   public Collection<String> getClientImportNames()
@@ -122,6 +118,24 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
     return _IMPORT_NAMES;
   }
 
+  private static String _getTrByteConverter(
+      FacesContext context,
+      UIComponent component,
+      String maxVal,
+      String minVal)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrByteConverter(");
+
+      outBuffer.append("null,null,0,");
+      outBuffer.append(maxVal);
+      outBuffer.append(',');
+      outBuffer.append(minVal);
+      outBuffer.append(")");
+
+      return outBuffer.toString();
+    }
 
   private static final String _BYTE_MAX = Byte.toString(Byte.MAX_VALUE);
   private static final String _BYTE_MIN = Byte.toString(Byte.MIN_VALUE);

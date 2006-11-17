@@ -1050,7 +1050,7 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
   {
     // if pattern is set then - conversion would have been carried out using
     // the pattern or secondary pattern.
-    String key = _getViolationMessageKey(pattern);
+    String key = getViolationMessageKey(pattern);
     return _getConvertErrorFacesMessage(context, key, params, component);
 
   }
@@ -1269,6 +1269,25 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
     UIComponent component
     )
   {
+    Object msgPattern = getMessagePattern(context, key, params, component);
+    return MessageFactory.getMessage(context, key, msgPattern,
+                                     params, component);
+  }
+  
+  private String _getExample(FacesContext context, String pattern)
+  {
+    DateFormat format = _getDateFormat(context, pattern);
+    return format.format(_EXAMPLE_DATE);
+  }
+
+
+  protected Object getMessagePattern(
+      FacesContext context,
+      String key,
+      Object[] params,
+      UIComponent component
+      )
+  {
     Object msgPattern;
     if (key == CONVERT_DATE_MESSAGE_ID)
     {
@@ -1288,19 +1307,11 @@ public class DateTimeConverter extends javax.faces.convert.DateTimeConverter
       throw new IllegalArgumentException("Illegal message id "
                                         + "unexpected value " + key );
     }
-
-    return MessageFactory.getMessage(context, key, msgPattern,
-                                     params, component);
+      
+    return msgPattern;
   }
 
-  private String _getExample(FacesContext context, String pattern)
-  {
-    DateFormat format = _getDateFormat(context, pattern);
-    return format.format(_EXAMPLE_DATE);
-  }
-
-
-  private String _getViolationMessageKey(String pattern)
+  protected String getViolationMessageKey(String pattern)
   {
     String key = null;
     // if pattern is null, then use ViolationMessage based on type specified

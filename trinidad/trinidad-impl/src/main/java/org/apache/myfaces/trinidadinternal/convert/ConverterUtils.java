@@ -176,6 +176,9 @@ public class ConverterUtils
     }
   }
 
+  /**
+   * @deprecated method needs to an overhaul
+   */
   public static String getClientValidation(
     FacesContext context,
     UIComponent component,
@@ -261,7 +264,13 @@ public class ConverterUtils
     return outBuffer.toString();
   }
 
-
+  /**
+   * @deprecated not used currently
+   * @param context
+   * @param component
+   * @param defaultId
+   * @return
+   */
   public static String getClientConversion(
     FacesContext context,
     UIComponent component,
