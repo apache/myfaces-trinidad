@@ -15,21 +15,27 @@
  */
 
 function TrByteLengthValidator(
-  length
+  length,
+  summary,
+  detail
   )
 {
   this._length   = length;
+  this._summary = summary;
+  this._detail = detail;
   this._class    = "TrByteLengthValidator";
 }
 
 TrByteLengthValidator.prototype = new TrValidator();
 
 function CjkFormat(
-  length
+  length,
+  summary,
+  detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length);
+  this._base(length, summary,detail);
   this._class = "CjkFormat";
   
 }
@@ -51,9 +57,20 @@ CjkFormat.prototype.validate  = function(
    
     if (length < 0)
     {
-      var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                              label,
-                                              parseString);   
+      var facesMessage;
+      if(this._summary == undefined)
+      {
+        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
+                                                label,
+                                                parseString);
+      }
+      else
+      {
+        facesMessage = _createCustomFacesMessage(this._summary,
+                                            this._detail,
+                                            label,
+                                            parseString);
+      }
       throw new TrValidatorException(facesMessage);     
     }
 
@@ -67,11 +84,13 @@ CjkFormat.prototype.validate  = function(
 
 
 function Utf8Format(
-  length
+  length,
+  summary,
+  detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length);
+  this._base(length, summary,detail);
   this._class = "Utf8Format";
 }
 
@@ -101,9 +120,20 @@ Utf8Format.prototype.validate  = function(
 
     if (length < 0)
     {
-      var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                              label,
-                                              parseString);   
+      var facesMessage;
+      if(this._summary == undefined)
+      {
+        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
+                                                label,
+                                                parseString);
+      }
+      else
+      {
+        facesMessage = _createCustomFacesMessage(this._summary,
+                                            this._detail,
+                                            label,
+                                            parseString);
+      }
       throw new TrValidatorException(facesMessage);              
     }
 
@@ -114,11 +144,13 @@ Utf8Format.prototype.validate  = function(
 }
 
 function SBFormat(
-  length
+  length,
+  summary,
+  detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length);
+  this._base(length, summary,detail);
   this._class = "SBFormat";
   
 }
@@ -132,9 +164,20 @@ SBFormat.prototype.validate  = function(
 {
   if (this._length < parseString.length)
   {
-    var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                              label,
-                                              parseString);   
+      var facesMessage;
+      if(this._summary == undefined)
+      {
+        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
+                                                label,
+                                                parseString);
+      }
+      else
+      {
+        facesMessage = _createCustomFacesMessage(this._summary,
+                                            this._detail,
+                                            label,
+                                            parseString);
+      }
     throw new TrValidatorException(facesMessage);      
   }
 

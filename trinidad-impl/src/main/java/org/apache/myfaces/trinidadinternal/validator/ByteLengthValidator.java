@@ -23,11 +23,14 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
+import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
  * <p>Enables byte length validation at the client side. </p>
@@ -103,9 +106,10 @@ public class ByteLengthValidator
     }
 
     String maxLength = String.valueOf(getMaximum());
-
     constr.append(maxLength);
-
+    
+    _applyCustomMessage(context, constr, maxLength);
+    
     constr.append(")");
 
     return constr.toString();
@@ -130,6 +134,29 @@ public class ByteLengthValidator
       default:
         return null;
     }
+  }
+  
+  private void _applyCustomMessage(FacesContext context, StringBuffer constr, String maxLength)
+  {
+    String maxMsgDetail = getMessageDetailMaximum();
+    if(maxMsgDetail != null)
+    {
+      String label = "{0}";    // this will get substituted on the client
+      Object[] params = new Object[] {label, "{1}", maxLength};
+      FacesMessage msg = MessageFactory.getMessage(context,
+          ByteLengthValidator.MAXIMUM_MESSAGE_ID,
+          maxMsgDetail,
+          params);
+      
+      constr.append(",'");
+      constr.append(XhtmlLafUtils.escapeJS(msg.getSummary()));
+      constr.append("','");
+      constr.append(XhtmlLafUtils.escapeJS(msg.getDetail()));
+      constr.append("'");
+      
+    }
+    
+    
   }
 
   static private int _getType(String encoding)

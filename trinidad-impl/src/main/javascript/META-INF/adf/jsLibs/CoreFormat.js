@@ -567,10 +567,14 @@ function _decimalParse(
 }
 
 function TrRegExpValidator(
-  pattern
+  pattern,
+  summary,
+  detail
   )
 {  
   this._pattern  = pattern;
+  this._summary = summary;
+  this._detail = detail;
   this._class = "TrRegExpValidator";
 }
 
@@ -591,11 +595,23 @@ TrRegExpValidator.prototype.validate  = function(
     return parseString;
   }
   else
-  {    
-    var facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH",
-                                            label,
-                                            parseString,
-                                            this._pattern);                                          
+  {
+    var facesMessage;
+    if(this._summary == undefined)
+    {
+      facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH",
+                                              label,
+                                              parseString,
+                                              this._pattern);                                          
+    }
+    else
+    {
+      facesMessage = _createCustomFacesMessage(this._summary,
+                                          this._detail,
+                                          label,
+                                          parseString,
+                                          this._pattern);                                          
+    }
     throw new TrValidatorException(facesMessage); 
   }
 }

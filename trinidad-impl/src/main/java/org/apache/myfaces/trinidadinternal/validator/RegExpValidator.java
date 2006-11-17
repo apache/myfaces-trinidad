@@ -18,9 +18,11 @@ package org.apache.myfaces.trinidadinternal.validator;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.util.MessageFactory;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 
@@ -64,11 +66,34 @@ public class RegExpValidator
     StringBuffer outBuffer = new StringBuffer(22
                                               + jsPattern.length());
 
-    outBuffer.append("new TrRegExpValidator("); // 21
+    outBuffer.append("new TrRegExpValidator('"); // 21
     outBuffer.append(jsPattern);
-    outBuffer.append(")");                // 1
+    _applyCustomMessage(context, outBuffer);
+    outBuffer.append("')");                // 1
 
     return outBuffer.toString();
+  }
+  
+  private void _applyCustomMessage(FacesContext context, StringBuffer outBuffer)
+  {
+    String noMatchMsg = getMessageDetailNoMatch();
+    if(noMatchMsg != null)
+    {
+      Object[] params = new Object[] {"{0}", "{1}", "{2}"};
+
+      FacesMessage message = MessageFactory.getMessage(context,
+                                  RegExpValidator.NO_MATCH_MESSAGE_ID,
+                                  noMatchMsg,
+                                  params);
+      String esNoMatchMsgPattern = XhtmlUtils.escapeJS(message.getDetail());
+      String esNoMatchMsgSummaryPattern = 
+                               XhtmlUtils.escapeJS(message.getSummary());
+      outBuffer.append("','");            //  7
+      outBuffer.append(esNoMatchMsgSummaryPattern);
+      outBuffer.append("','");            //  7
+      outBuffer.append(esNoMatchMsgPattern);
+    }    
+
   }
   
   public Collection<String> getClientImportNames()
