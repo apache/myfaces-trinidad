@@ -1,12 +1,12 @@
 /*
  * Copyright  2000-2006 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,8 +23,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Locale;
@@ -71,9 +73,9 @@ import org.xml.sax.SAXException;
  * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/style/cache/FileSystemStyleCache.java#0 $) $Date: 10-nov-2005.18:58:54 $
  * @author The Oracle ADF Faces Team
  */
-// -= Simon Lessard =- 
-// TODO: Synchronization does not seem to be needed since there's 
-//       synchronized blocks in the code, using HashMap hence 
+// -= Simon Lessard =-
+// TODO: Synchronization does not seem to be needed since there's
+//       synchronized blocks in the code, using HashMap hence
 //       looks like a better choice than Hashtable.
 public class FileSystemStyleCache implements StyleProvider
 {
@@ -353,6 +355,7 @@ public class FileSystemStyleCache implements StyleProvider
     Hashtable<Object, Entry> entryCache = null;
     StyleSheetDocument document = null;
     Map<String, String> shortStyleClassMap = null;
+    String[] namespacePrefixes = null;
 
     boolean checkModified  = context.checkStylesModified();
 
@@ -374,6 +377,7 @@ public class FileSystemStyleCache implements StyleProvider
         _entryCache = null;
         _document = null;
         _shortStyleClassMap = null;
+        _namespacePrefixes  = null;
       }
 
       // We get references to our two caches (the "normal" cache,
@@ -399,11 +403,13 @@ public class FileSystemStyleCache implements StyleProvider
       entryCache = _entryCache;
 
       // Get the document up front too.
+      // this sets up _shortStyleClassMap and _namespacePrefixes
       document = _getStyleSheetDocument(context);
       if (document == null)
         return null;
 
       shortStyleClassMap = _shortStyleClassMap;
+      namespacePrefixes = _namespacePrefixes;
     }
 
     // Look up the style sheet
@@ -429,6 +435,7 @@ public class FileSystemStyleCache implements StyleProvider
                         key,
                         entryCache,
                         shortStyleClassMap,
+                        namespacePrefixes,
                         checkModified);
   }
 
@@ -470,6 +477,7 @@ public class FileSystemStyleCache implements StyleProvider
     Key                      key,
     Hashtable<Object, Entry> entryCache,
     Map<String, String>      shortStyleClassMap,
+    String[]                 namespacePrefixes,
     boolean                  checkModified
     )
   {
@@ -486,6 +494,7 @@ public class FileSystemStyleCache implements StyleProvider
                                        document,
                                        styles,
                                        shortStyleClassMap,
+                                       namespacePrefixes,
                                        checkModified);
 
     _LOG.fine("Finished processing stylesheet {0}", uri);
@@ -547,7 +556,7 @@ public class FileSystemStyleCache implements StyleProvider
     // Entries with the same style sheet derivation are compatible.
     // Get the style sheet derivation list.
     Iterator<StyleSheetNode> e = document.getStyleSheets(context);
-    // -= Simon Lessard =- 
+    // -= Simon Lessard =-
     // TODO: Check if synchronization is truly required
     Vector<StyleSheetNode> v = _copyIterator(e);
     StyleSheetNode[] styleSheets;
@@ -586,8 +595,10 @@ public class FileSystemStyleCache implements StyleProvider
     if (_document == null)
       _document = document;
 
+    // Re-initialize our Array of namespace prefixes that are in the selectors
     // Re-initialize our Map of short style class names
-    _shortStyleClassMap = _getShortStyleClassMap(context, _document);
+    _namespacePrefixes = _getNamespacePrefixes(context, _document);
+    _shortStyleClassMap = _getShortStyleClassMap(context, _document, _namespacePrefixes);
 
     return document;
   }
@@ -607,7 +618,7 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
     }
 
-    // -= Simon Lessard =- 
+    // -= Simon Lessard =-
     // TODO: Check if synchronization is truly required
     Vector<StyleNode> v = new Vector<StyleNode>();
     while (e.hasNext())
@@ -626,6 +637,7 @@ public class FileSystemStyleCache implements StyleProvider
     StyleSheetDocument  document,
     StyleNode[]         styles,
     Map<String, String> shortStyleClassMap,
+    String[]            namespacePrefixes,
     boolean             checkModified)
   {
     // Get a name for the new style sheet
@@ -686,7 +698,7 @@ public class FileSystemStyleCache implements StyleProvider
                                 styles,
                                 out,
                                 shortStyleClassMap,
-                                _NS_PREFIX_ARRAY,
+                                namespacePrefixes,
                                 _STYLE_KEY_MAP
                                 );
 
@@ -841,10 +853,40 @@ public class FileSystemStyleCache implements StyleProvider
     return source + target;
   }
 
+  // Create an array of all the namespace prefixes in the xss/css file. E.g., "af|" or "tr|"
+  private static String[] _getNamespacePrefixes(
+    StyleContext       context,
+    StyleSheetDocument document)
+  {
+
+    assert (document != null);
+    Iterator<StyleSheetNode> styleSheets = document.getStyleSheets(context);
+    assert (styleSheets != null);
+    Set<String> namespacePrefixesSet = new HashSet<String>();
+    while (styleSheets.hasNext())
+    {
+      StyleSheetNode styleSheet = styleSheets.next();
+      Iterator<StyleNode> styles = styleSheet.getStyles();
+      assert (styles != null);
+      while (styles.hasNext())
+      {
+        StyleNode style = styles.next();
+        String selector = style.getSelector();
+
+        if (selector != null)
+        {
+          CSSGenerationUtils.getNamespacePrefixes(namespacePrefixesSet, selector);
+        }
+      }
+    }
+    return namespacePrefixesSet.toArray(_EMPTY_STRING_ARRAY);
+  }
+
   // Create the map of full style classes to short style classes
   private static Map<String, String> _getShortStyleClassMap(
     StyleContext       context,
-    StyleSheetDocument document)
+    StyleSheetDocument document,
+    String[]           namespacePrefixes)
   {
     // Use a HashMap to avoid unnecessary synchronization of Hashtable
     Map<String, String> map = new HashMap<String, String>();
@@ -879,9 +921,9 @@ public class FileSystemStyleCache implements StyleProvider
           }
           else
           {
-            Iterator<String> styleClasses = 
+            Iterator<String> styleClasses =
               CSSGenerationUtils.getStyleClasses(selector);
-            
+
             if (styleClasses != null)
             {
               while (styleClasses.hasNext())
@@ -892,13 +934,12 @@ public class FileSystemStyleCache implements StyleProvider
                   map.put(styleClass, _getShortStyleClass(map.size()));
               }
             }
-            
-            // now go through the selectors and get the list of selectors 
-            // with the namespace prefix and put those into the shortend map
-            int numNSPrefixes = _NS_PREFIX_ARRAY.length;
-            for (int prefixIndex=0; prefixIndex< numNSPrefixes; prefixIndex++)
+
+            int length = namespacePrefixes.length;
+
+            for (int i=0; i < length; i++)
             {
-              String nsPrefix = _NS_PREFIX_ARRAY[prefixIndex];
+              String nsPrefix = namespacePrefixes[i];
               Iterator<String> afSelectors =
                 CSSGenerationUtils.getNamespacedSelectors(selector,
                                                           nsPrefix,
@@ -908,7 +949,7 @@ public class FileSystemStyleCache implements StyleProvider
                 while (afSelectors.hasNext())
                 {
                   String styleClass = afSelectors.next();
-            
+
                   if (!map.containsKey(styleClass))
                     map.put(styleClass, _getShortStyleClass(map.size()));
                 }
@@ -1287,7 +1328,7 @@ public class FileSystemStyleCache implements StyleProvider
 
 
     // Our local Style maps
-    // -= Simon Lessard =- 
+    // -= Simon Lessard =-
     // TODO: Check if synchronization is truly needed
     private Hashtable<String, Style> _selectorMap;
     private Hashtable<String, Style> _classMap;
@@ -1380,6 +1421,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Map which maps from full style class names to
   // our compressed names.
   private Map<String, String> _shortStyleClassMap;
+  private String[]            _namespacePrefixes;
 
   // Constants
 
@@ -1392,7 +1434,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Table of shared FileSystemStyleCaches, hashed by path.
   // Note on table size: We don't expect to have very many instances
   // running in a single VM - table can be small.
-  private static final Hashtable<String, StyleProvider> _sSharedCaches = 
+  private static final Hashtable<String, StyleProvider> _sSharedCaches =
     new Hashtable<String, StyleProvider>(19);
 
   // Java name for UTF8 encoding
@@ -1409,7 +1451,7 @@ public class FileSystemStyleCache implements StyleProvider
   // Prefix to use for short style classes
   private static final String _SHORT_CLASS_PREFIX = "x";
 
-  // -= Simon Lessard =- 
+  // -= Simon Lessard =-
   // TODO: Check if synchronization is truly needed
   private static final Hashtable<String, String> _sCanonicalPaths = new Hashtable<String, String>(19);
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(FileSystemStyleCache.class);
@@ -1422,7 +1464,7 @@ public class FileSystemStyleCache implements StyleProvider
   // selector names to the css file.
   // jmw. @todo Need to find a better spot for this, like the skin?
   private static final Map<String, String> _STYLE_KEY_MAP;
-  
+
   static
   {
     _STYLE_KEY_MAP =  new HashMap<String, String>();
@@ -1531,7 +1573,7 @@ public class FileSystemStyleCache implements StyleProvider
         "af|panelTabbed::tab-selected A");
 
   }
-  private static final String _AF_STYLE_NAMESPACE = "af|";
-  private static String[] _NS_PREFIX_ARRAY = new String[] {_AF_STYLE_NAMESPACE};
+
+  private static final String[] _EMPTY_STRING_ARRAY = new String[0];
 
 }
