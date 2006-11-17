@@ -107,11 +107,7 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
     FacesContext context,
     UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context, component,
-                                              MAXIMUM_MESSAGE_ID,
-                                              MINIMUM_MESSAGE_ID,
-                                              CONVERT_MESSAGE_ID,
-                                              _SHORT_MAX, _SHORT_MIN);
+    return _getTrShortConverter(context, component, _SHORT_MAX, _SHORT_MIN);
   }
   
   public String getClientLibrarySource(
@@ -124,6 +120,25 @@ public class ShortConverter extends javax.faces.convert.ShortConverter
   {
     return _IMPORT_NAMES;
   }
+  
+  private static String _getTrShortConverter(
+      FacesContext context,
+      UIComponent component,
+      String maxVal,
+      String minVal)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrShortConverter(");
+
+      outBuffer.append("null,null,0,");
+      outBuffer.append(maxVal);
+      outBuffer.append(',');
+      outBuffer.append(minVal);
+      outBuffer.append(")");
+
+      return outBuffer.toString();
+    }
 
   private static final String _SHORT_MAX = Short.toString(Short.MAX_VALUE);
   private static final String _SHORT_MIN = Short.toString(Short.MIN_VALUE);

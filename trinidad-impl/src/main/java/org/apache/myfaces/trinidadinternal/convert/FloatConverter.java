@@ -76,7 +76,7 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
    FacesContext context,
    UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context,component,CONVERT_MESSAGE_ID);
+    return _getTrFloatConverter(context, component);
   }
 
   public Collection<String> getClientImportNames()
@@ -88,7 +88,23 @@ public class FloatConverter extends javax.faces.convert.FloatConverter
    FacesContext context)
   {
     return null;
-  }  
+  }
+  
+  private String _getTrFloatConverter(
+      FacesContext context,
+      UIComponent component)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrFloatConverter(");
+      outBuffer.append("'");
+      outBuffer.append("null");
+      outBuffer.append("')");
+
+      return outBuffer.toString();
+    }
+
+
 
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );  
 }

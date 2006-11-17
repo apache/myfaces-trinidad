@@ -76,7 +76,7 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
     FacesContext context,
     UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context,component,CONVERT_MESSAGE_ID);
+    return _getTrDoubleConverter(context, component);
   }
 
   public Collection<String> getClientImportNames()
@@ -89,6 +89,20 @@ public class DoubleConverter extends javax.faces.convert.DoubleConverter
   {
     return null;
   }
+  
+  private String _getTrDoubleConverter(
+      FacesContext context,
+      UIComponent component)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrDoubleConverter(");
+      outBuffer.append("'");
+      outBuffer.append("null");
+      outBuffer.append("')");
+
+      return outBuffer.toString();
+    }
 
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
 

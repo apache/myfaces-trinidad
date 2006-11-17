@@ -20,16 +20,16 @@
 function TrColorConverter(
   pattern,
   allowsTransparent,
-  msg_summary,
-  msg_detail,
-  patternsString)
+  patternsString,
+  summary,
+  detail)
 {
   // for debugging
   this._class = "TrColorConverter";
   this._allowsTransparent = allowsTransparent;  
-  this._msg_summary = msg_summary; 
-  this._msg_detail = msg_detail;
   this._patternsString = patternsString;     
+  this._summary = summary;
+  this._detail = detail;
   
   if (pattern != null)
   {
@@ -89,11 +89,24 @@ TrColorConverter.prototype.getAsObject  = function(
   if (this._allowsTransparent && _cfTrans == parseString)
     return new TrColor(0,0,0,0);
      
-  var facesMessage = _createFacesMessage( this._msg_summary,
-                                          this._msg_detail,
-                                          label,
-                                          parseString,
-                                          this._patternsString);
+  var facesMessage;
+  
+  if(this._summary == undefined)
+  {
+    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.convert.ColorConverter.CONVERT",
+                                            label,
+                                            parseString,
+                                            this._patternsString);
+  }
+  else
+  {
+    facesMessage = _createCustomFacesMessage(this._summary,
+                                            this._detail,
+                                            label,
+                                            parseString,
+                                            this._patternsString);
+  }
+  
   
   var pattern = this._pattern;                                       
   if (typeof pattern == "string")

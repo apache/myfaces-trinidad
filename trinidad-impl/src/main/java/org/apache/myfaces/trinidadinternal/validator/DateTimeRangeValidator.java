@@ -18,12 +18,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
-import javax.faces.validator.ValidatorException;
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
 
 public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validator.DateTimeRangeValidator
@@ -77,11 +76,8 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
     String maxStr = (max == null) ? null : Long.toString(max.getTime());
     String minStr = (min == null) ? null : Long.toString(min.getTime());
     
-    return  ConverterUtils.getClientValidation(context, component,
-                                               MAXIMUM_MESSAGE_ID,
-                                               MINIMUM_MESSAGE_ID,
-                                               org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.VALIDATOR_ID,
-                                               maxStr, minStr, "TrDateTimeRangeValidator");
+    return _getTrDateTimeRangeValidator(context, component, maxStr, minStr);
+    
   }
   
   
@@ -90,6 +86,23 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
   {
     return null;
   }
+  
+  private static String _getTrDateTimeRangeValidator(
+      FacesContext context,
+      UIComponent component,
+      String max,
+      String min)
+  {
+    StringBuffer outBuffer = new StringBuffer();
+    outBuffer.append("new TrDateTimeRangeValidator(");
+    outBuffer.append(max);
+    outBuffer.append(',');
+    outBuffer.append(min);
+    outBuffer.append(")");
+
+    return outBuffer.toString();
+  }
+
   
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
   

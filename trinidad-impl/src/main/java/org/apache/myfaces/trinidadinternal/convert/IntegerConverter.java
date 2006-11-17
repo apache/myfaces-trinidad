@@ -26,7 +26,6 @@ import javax.faces.convert.ConverterException;
 import org.apache.myfaces.trinidad.convert.ClientConverter;
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 
-
 /**
  * <p>Implementation for <code>java.lang.Integer</code> values.</p>
  *
@@ -117,11 +116,7 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
     FacesContext context,
     UIComponent component)
   {
-    return ConverterUtils.getClientConversion(context, component,
-                                              MAXIMUM_MESSAGE_ID,
-                                              MINIMUM_MESSAGE_ID,
-                                              CONVERT_MESSAGE_ID,
-                                              _INT_MAX, _INT_MIN);
+    return _getTrIntegerConverter(context, component, _INT_MAX, _INT_MIN);
   }
 
 
@@ -130,6 +125,24 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
     return _IMPORT_NAMES;
   }
 
+  private static String _getTrIntegerConverter(
+      FacesContext context,
+      UIComponent component,
+      String maxVal,
+      String minVal)
+    {
+      StringBuffer outBuffer = new StringBuffer(250);
+
+      outBuffer.append("new TrIntegerConverter(");
+
+      outBuffer.append("null,null,0,");
+      outBuffer.append(maxVal);
+      outBuffer.append(',');
+      outBuffer.append(minVal);
+      outBuffer.append(")");
+
+      return outBuffer.toString();
+    }
 
   private static final String  _INT_MIN
     = IntegerUtils.getString(Integer.MIN_VALUE);

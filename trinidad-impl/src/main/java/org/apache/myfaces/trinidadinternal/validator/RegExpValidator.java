@@ -18,11 +18,8 @@ package org.apache.myfaces.trinidadinternal.validator;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.util.MessageFactory;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
@@ -64,24 +61,12 @@ public class RegExpValidator
    
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
     
-    FacesMessage message = _getNoMatchMessage(context);
-    String esNoMatchMsgPattern = XhtmlUtils.escapeJS(message.getDetail());
-    String esNoMatchMsgSummaryPattern = 
-                             XhtmlUtils.escapeJS(message.getSummary());
+    StringBuffer outBuffer = new StringBuffer(22
+                                              + jsPattern.length());
 
-
-    StringBuffer outBuffer = new StringBuffer(39
-                                              + jsPattern.length()
-                                              + esNoMatchMsgPattern.length()
-                                              + esNoMatchMsgSummaryPattern.length());
-
-    outBuffer.append("new TrRegExpValidator('"); // 22
+    outBuffer.append("new TrRegExpValidator("); // 21
     outBuffer.append(jsPattern);
-    outBuffer.append("',{NM:'");            //  7
-    outBuffer.append(esNoMatchMsgPattern);
-    outBuffer.append("',NMS:'");            //  7
-    outBuffer.append(esNoMatchMsgSummaryPattern);
-    outBuffer.append("'})");                // 3
+    outBuffer.append(")");                // 1
 
     return outBuffer.toString();
   }
@@ -96,19 +81,6 @@ public class RegExpValidator
   {
     return null;
   }
-
-  private FacesMessage _getNoMatchMessage(
-    FacesContext context)
-  {
-    String noMatchMsg = getMessageDetailNoMatch(); 
-    Object[] params = new Object[] {"{0}", "{1}", "{2}"};
-
-    return MessageFactory.getMessage(context,
-                                  RegExpValidator.NO_MATCH_MESSAGE_ID,
-                                  noMatchMsg,
-                                  params);
-  }
-
 
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrRegExpValidator()" );     
 }

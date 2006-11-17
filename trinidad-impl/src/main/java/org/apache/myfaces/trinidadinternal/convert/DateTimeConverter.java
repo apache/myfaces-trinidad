@@ -17,7 +17,6 @@ package org.apache.myfaces.trinidadinternal.convert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -27,31 +26,35 @@ import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
-import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import javax.faces.component.ValueHolder;
-import javax.faces.convert.Converter;
-
 import org.apache.myfaces.trinidad.convert.ClientConverter;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.MessageFactory;
+import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
 import org.apache.myfaces.trinidadinternal.ui.laf.base.xhtml.XhtmlLafUtils;
 
 /**
- * <p>This class implements client side equivalent of DateTimeConverter.
- * This class pushes all relevant information to the client side so
- * that conversion can be enabled at the client side. </p>
- *
- * @version $Name:  $ ($Revision: adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $) $Date: 10-nov-2005.19:06:22 $
+ * <p>
+ * This class implements client side equivalent of DateTimeConverter. This class
+ * pushes all relevant information to the client side so that conversion can be
+ * enabled at the client side.
+ * </p>
+ * 
+ * @version $Name: $ ($Revision:
+ *          adfrt/faces/adf-faces-impl/src/main/java/oracle/adfinternal/view/faces/convert/DateTimeConverter.java#0 $)
+ *          $Date: 10-nov-2005.19:06:22 $
  * @author The Oracle ADF Faces Team
  */
-public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateTimeConverter
-                               implements ClientConverter
-                                   
+public class DateTimeConverter extends
+    org.apache.myfaces.trinidad.convert.DateTimeConverter implements
+    ClientConverter
+
 {
   public DateTimeConverter()
   {
@@ -69,7 +72,8 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   }
 
   @Override
-  public String getAsString(FacesContext context, UIComponent component, Object value)
+  public String getAsString(FacesContext context, UIComponent component,
+      Object value)
   {
     if (value == null)
       return null;
@@ -83,9 +87,9 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return super.getAsString(context, component, value);
   }
 
-
   @Override
-  public Object getAsObject(FacesContext context, UIComponent component, String value)
+  public Object getAsObject(FacesContext context, UIComponent component,
+      String value)
   {
     Object date = super.getAsObject(context, component, value);
     if (date == null)
@@ -95,17 +99,12 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   }
 
   /**
-   * Super class only returns instances of java.util.Date.
-   * However, the expected type of the attribute might be
-   * java.sql.Timestamp. Therefore, we must get the expected type
-   * and convert if necessary: bug 4549630:
+   * Super class only returns instances of java.util.Date. However, the expected
+   * type of the attribute might be java.sql.Timestamp. Therefore, we must get
+   * the expected type and convert if necessary: bug 4549630:
    */
-  static Object __typeConvert(
-    FacesContext context,
-    Converter converter,
-    UIComponent component,
-    String strValue,
-    Object value)
+  static Object __typeConvert(FacesContext context, Converter converter,
+      UIComponent component, String strValue, Object value)
   {
     assert value != null;
     ValueBinding binding = component.getValueBinding("value");
@@ -113,7 +112,8 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     {
       Class<?> expectedType = binding.getType(context);
       // Sometimes the type might be null, if it cannot be determined:
-      if ((expectedType != null) && (!expectedType.isAssignableFrom(value.getClass())))
+      if ((expectedType != null)
+          && (!expectedType.isAssignableFrom(value.getClass())))
       {
         // sometimes we might have to return the date/number as a string.
         // see bug 4602629:
@@ -125,10 +125,10 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
           if (strValue.equals(holder.getValue()))
             return strValue;
           return converter.getAsString(context, component, value);
-        }
-        else
+        } else
         {
-          GenericConverterFactory fac = GenericConverterFactory.getCurrentInstance();
+          GenericConverterFactory fac = GenericConverterFactory
+              .getCurrentInstance();
           value = fac.convert(value, expectedType);
         }
       }
@@ -140,14 +140,15 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   public String getClientScript(FacesContext context, UIComponent component)
   {
 
-    if ( component == null)
+    if (component == null)
     {
-      _LOG.severe("The component is null, but it is needed for the client id, so no script written");
+      _LOG
+          .severe("The component is null, but it is needed for the client id, so no script written");
       return null;
     }
     // Add a JavaScript Object to store the datefield formats
-    // on the client-side.  We currently store the format string
-    // for each and every field.  It'd be more efficient to have
+    // on the client-side. We currently store the format string
+    // for each and every field. It'd be more efficient to have
     // an array of formats, then store for each field the
     // index of the format, especially if we could delay outputting
     // these objects to when the <form> closes.
@@ -158,7 +159,8 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       // =-=AEW Only if Javascript...
       // -= Simon Lessard =-
       // FIXME: JSF 1.2 specifies <String, Object>
-      Map<Object, Object> requestMap = context.getExternalContext().getRequestMap();
+      Map<Object, Object> requestMap = context.getExternalContext()
+          .getRequestMap();
 
       // this fetch could be at the place where we append, but has been
       // moved ahead to optimize use of StringBuffer
@@ -171,7 +173,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
       if (requestMap.get(_PATTERN_WRITTEN_KEY) == null)
       {
-        requestMap.put( _PATTERN_WRITTEN_KEY, Boolean.TRUE);
+        requestMap.put(_PATTERN_WRITTEN_KEY, Boolean.TRUE);
         // only create the _dfs object if it doesn't exist. This is to
         // make sure we don't have problems like bug 3448873 where we
         // wipe out _dfs[xxx] values if we ppr the first date field on a
@@ -186,8 +188,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       buff.append(";");
 
       return buff.toString();
-    }
-    else
+    } else
     {
       _LOG.severe("Client id is null, no script rendered");
     }
@@ -195,10 +196,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return null;
   }
 
-  public String getClientConversion(
-    FacesContext context,
-    UIComponent component
-    )
+  public String getClientConversion(FacesContext context, UIComponent component)
   {
     // for now, we are disabling the client-side validation when the
     // locale is not the page's locale.
@@ -215,52 +213,72 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
       if (pattern == null)
         pattern = getSecondaryPattern();
-      Object[] params = new Object[] {"{0}", "{1}", "{2}"};
-      FacesMessage msg = getParseErrorMessage(context, component,
-                                        pattern, params);
-      String detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
-      String summaryMessage = XhtmlLafUtils.escapeJS(msg.getSummary());
+
+      String key = getViolationMessageKey(pattern);
+
+      Object[] params = new Object[]
+      {
+          "{0}", "{1}", "{2}"
+      };
+      Object msgPattern = getMessagePattern(context, key, params, component);
+
+      FacesMessage msg = null;
+      String detailMessage = null;
+      String summaryMessage = null;
+      int customMessages = 0;
+      if (msgPattern != null)
+      {
+        msg = MessageFactory.getMessage(context, key, msgPattern, params,
+            component);
+        detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
+        summaryMessage = XhtmlLafUtils.escapeJS(msg.getSummary());
+        key = "null";
+        customMessages = 6 + detailMessage.length() + summaryMessage.length();
+
+      }
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
-      
-      StringBuffer outBuffer = new StringBuffer(36 + jsPattern.length() +
-                                                detailMessage.length() +
-                                                summaryMessage.length() +
-                                                exampleString.length());
+      String escapedKey = XhtmlLafUtils.escapeJS(key);
+
+      StringBuffer outBuffer = new StringBuffer(36 + jsPattern.length()
+          + exampleString.length() + escapedKey.length() + customMessages);
       outBuffer.append("new TrDateTimeConverter("); // 21
-      outBuffer.append(jsPattern);               // jsPattern.length
-      outBuffer.append(",null,'");               // 7
-      outBuffer.append(summaryMessage);          // summary message.length
-      outBuffer.append("','");                   // 3
-      outBuffer.append(detailMessage);           // detail message.length/
-      outBuffer.append("','");                   // 3
-      outBuffer.append(exampleString);           // exampleString.length
-      outBuffer.append("')");                    // 2
+      outBuffer.append(jsPattern); // jsPattern.length
+      outBuffer.append(",null,'"); // 7
+      outBuffer.append(exampleString); // exampleString.length
+      outBuffer.append("','"); // 3
+      outBuffer.append(escapedKey); // escapedKey.length
+
+      if (msgPattern != null)
+      {
+        outBuffer.append("','"); // 3
+        outBuffer.append(summaryMessage); // summary message.length
+        outBuffer.append("','"); // 3
+        outBuffer.append(detailMessage); // detail message.length/
+      }
+
+      outBuffer.append("')"); // 2
 
       return outBuffer.toString();
-    }
-    else
+    } else
     {
       // no pattern-matchable date
       return null;
     }
   }
 
-
   public Collection<String> getClientImportNames()
   {
     return _IMPORT_NAMES;
   }
 
-
-  public String getClientLibrarySource(
-   FacesContext context)
+  public String getClientLibrarySource(FacesContext context)
   {
     return null;
   }
 
-   /**
-   * Returns the number of columns of text a field should
-   * have to fully display the contents of a valid string.
+  /**
+   * Returns the number of columns of text a field should have to fully display
+   * the contents of a valid string.
    */
   public int getColumns()
   {
@@ -279,8 +297,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     {
       // for now, just return the length of the date pattern
       len = pattern.length();
-    }
-    else
+    } else
     {
       // If no pattern set, try converting to a pattern,
       // otherwise fall back to the length of "mm/dd/yyyy" -
@@ -290,17 +307,16 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
       try
       {
-         FacesContext context = FacesContext.getCurrentInstance();
+        FacesContext context = FacesContext.getCurrentInstance();
         // this the pattern obtained by applying the styles
         Object format = getDateFormat(context, null);
         if (format instanceof SimpleDateFormat)
         {
-          applyPattern = ((SimpleDateFormat)format).toPattern();
+          applyPattern = ((SimpleDateFormat) format).toPattern();
         }
-      }
-      catch (ConverterException e)
+      } catch (ConverterException e)
       {
-         // Do nothing here. Any error that was there would have been reported
+        // Do nothing here. Any error that was there would have been reported
         ;
       }
 
@@ -310,7 +326,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
         // styles then apply based on the secondary pattern
         applyPattern = getSecondaryPattern();
       }
-      if ( applyPattern != null )
+      if (applyPattern != null)
         len = applyPattern.length() + 2;
       else
         len = 10;
@@ -330,15 +346,16 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
     if (component instanceof ValueHolder)
     {
-      Object value = ((ValueHolder)component).getValue();
+      Object value = ((ValueHolder) component).getValue();
       if (value == null)
         return null;
 
-      if(value instanceof Date)
+      if (value instanceof Date)
       {
-        return (Date)value;
+        return (Date) value;
       }
-      GenericConverterFactory fac = GenericConverterFactory.getCurrentInstance();
+      GenericConverterFactory fac = GenericConverterFactory
+          .getCurrentInstance();
       if (fac.isConvertible(value, Date.class))
       {
         return (Date) fac.convert(value, Date.class);
@@ -348,16 +365,15 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   }
 
   /**
-   * Override to represent the id of the TimeZone used by DateFormat
-   * as GMT offset value so that we always format Date based on
-   * GMTOffsetTimeZone style (z) instead of using standard short or long
-   * TimeZone names of Java, since these names are not available in
-   * client side JavaScript.
+   * Override to represent the id of the TimeZone used by DateFormat as GMT
+   * offset value so that we always format Date based on GMTOffsetTimeZone style
+   * (z) instead of using standard short or long TimeZone names of Java, since
+   * these names are not available in client side JavaScript.
    */
   @Override
   protected TimeZone getFormattingTimeZone(TimeZone tZone)
   {
-    TimeZone zone = (TimeZone)tZone.clone();
+    TimeZone zone = (TimeZone) tZone.clone();
 
     // set the id as "GMT Sign Hours : Minutes"
     StringBuffer zoneId = new StringBuffer(9);
@@ -368,8 +384,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
       zoneId.append(_GMT_MINUS);
       // abs value
       rawOffset = -rawOffset;
-    }
-    else
+    } else
     {
       zoneId.append(_GMT_PLUS);
     }
@@ -394,11 +409,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return zone;
   }
 
-
-
-  protected String getJSPattern(
-    FacesContext context
-    )
+  protected String getJSPattern(FacesContext context)
   {
     String jsPattern = null;
     String datePattern = getPattern();
@@ -411,15 +422,13 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
         DateFormat format = getDateFormat(context, datePattern);
         if ((format != null) && (format instanceof SimpleDateFormat))
         {
-          datePattern = ((SimpleDateFormat)format).toPattern();
-        }
-        else
+          datePattern = ((SimpleDateFormat) format).toPattern();
+        } else
         {
           // no pattern available
           datePattern = _NO_JS_PATTERN;
         }
-      }
-      catch(ConverterException ce)
+      } catch (ConverterException ce)
       {
         // Let us be lenient.. if pattern cannot be created
         datePattern = _NO_JS_PATTERN;
@@ -427,8 +436,8 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     }
     // If secondary pattern is available push that to the Client side, thus
     // being lenient.
-    if ( (datePattern == null || datePattern == _NO_JS_PATTERN)
-                                       && getSecondaryPattern() != null)
+    if ((datePattern == null || datePattern == _NO_JS_PATTERN)
+        && getSecondaryPattern() != null)
     {
       int length = getSecondaryPattern().length() * 2 + 2;
       StringBuffer outBuffer = new StringBuffer(length);
@@ -440,7 +449,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     {
       String secondaryPattern = getSecondaryPattern();
 
-      if (datePattern != _NO_JS_PATTERN  )
+      if (datePattern != _NO_JS_PATTERN)
       {
         int length = datePattern.length() * 2 + 2;
         if (secondaryPattern != null)
@@ -448,8 +457,7 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
 
         StringBuffer outBuffer = new StringBuffer(length);
         jsPattern = _getEscapedPattern(outBuffer, datePattern, secondaryPattern);
-      }
-      else
+      } else
       {
         jsPattern = datePattern;
       }
@@ -457,22 +465,16 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     return jsPattern;
   }
 
-  //get the escaped form of the pattern
-  private static void _escapePattern(
-    StringBuffer buffer,
-    String pattern
-    )
+  // get the escaped form of the pattern
+  private static void _escapePattern(StringBuffer buffer, String pattern)
   {
     buffer.append('\'');
     XhtmlUtils.escapeJS(buffer, pattern);
     buffer.append('\'');
   }
 
-  private static String _getEscapedPattern(
-    StringBuffer buffer,
-    String pattern,
-    String secondaryPattern
-    )
+  private static String _getEscapedPattern(StringBuffer buffer, String pattern,
+      String secondaryPattern)
   {
     if (secondaryPattern != null)
       buffer.append('[');
@@ -503,16 +505,16 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
     Locale dateTimeConverterLocale = getLocale();
     if (dateTimeConverterLocale != null)
     {
-      Locale defaultLocale =
-        RenderingContext.getCurrentInstance().getLocaleContext().
-           getFormattingLocale();
+      Locale defaultLocale = RenderingContext.getCurrentInstance()
+          .getLocaleContext().getFormattingLocale();
       return !dateTimeConverterLocale.equals(defaultLocale);
     }
 
     return false;
   }
 
-  private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(DateTimeConverter.class);
+  private static final TrinidadLogger _LOG = TrinidadLogger
+      .createTrinidadLogger(DateTimeConverter.class);
 
   // RenderingContext key indicating the _dateFormat object
   // has been created
@@ -522,9 +524,14 @@ public class DateTimeConverter extends org.apache.myfaces.trinidad.convert.DateT
   private static final String _NO_JS_PATTERN = new String();
 
   private static final String _GMT_PLUS = "GMT+";
+
   private static final String _GMT_MINUS = "GMT-";
+
   private static final int _MILLIS_PER_HOUR = 60 * 60 * 1000;
+
   private static final int _MILLIS_PER_MINUTE = 60 * 1000;
-  private static final Collection<String> _IMPORT_NAMES = Collections.singletonList("TrDateTimeConverter()" );
+
+  private static final Collection<String> _IMPORT_NAMES = Collections
+      .singletonList("TrDateTimeConverter()");
 
 }

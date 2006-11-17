@@ -23,10 +23,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
-import org.apache.myfaces.trinidadinternal.convert.ConverterUtils;
-
-
-
 
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
@@ -62,11 +58,7 @@ public class DoubleRangeValidator extends org.apache.myfaces.trinidad.validator.
     String maxStr = Double.toString(getMaximum());
     String minStr = Double.toString(getMinimum());
     
-    return  ConverterUtils.getClientValidation(context, component,
-                                               MAXIMUM_MESSAGE_ID,
-                                               MINIMUM_MESSAGE_ID,
-                                               javax.faces.validator.DoubleRangeValidator.VALIDATOR_ID,
-                                               maxStr, minStr, "TrRangeValidator");
+    return  _getTrRangeValidator(context, component, maxStr, minStr);
   }
   
   
@@ -74,6 +66,22 @@ public class DoubleRangeValidator extends org.apache.myfaces.trinidad.validator.
    FacesContext context)
   {
     return null;
+  }
+  
+  private static String _getTrRangeValidator(
+      FacesContext context,
+      UIComponent component,
+      String max,
+      String min)
+  {
+    StringBuffer outBuffer = new StringBuffer();
+    outBuffer.append("new TrRangeValidator(");
+    outBuffer.append(max);
+    outBuffer.append(',');
+    outBuffer.append(min);
+    outBuffer.append(")");
+
+    return outBuffer.toString();
   }
   
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
