@@ -457,6 +457,43 @@ public class CSSGenerationUtils
     return afSelectorList.iterator();
 
   }
+  
+  /**
+   * Add to the namespacePrefixes Set any namespace prefixes found in this selector.
+   * @param namespacePrefixes
+   * @param selector
+   */
+  public static void getNamespacePrefixes(
+    Set<String> namespacePrefixes,
+    String selector) 
+  {
+
+    int length = selector.length();  
+    int startSubstringIndex = 0;
+    // Loop through each character of the selector looking for namespace prefixes.
+    for (int i = 0; i < length; i++)
+    {
+      char c = selector.charAt(i);
+      if (c == '|')
+      {
+        String prefix = selector.substring(startSubstringIndex, i+1);
+        startSubstringIndex = i+1;
+        // protect against just | in the prefix by checking length.
+        if (prefix.length() > 1)
+          namespacePrefixes.add(prefix); 
+      }
+      else if(!_isStyleClassTerminator(c))
+      {
+        // keep going if it isn't a terminating character
+      }
+      else
+      {
+        // update the startSubstring index.
+        startSubstringIndex = i+1;
+      }
+    }
+    return;
+  }
 
   /**
    * Called from getNamespacedSelectors. 
@@ -1151,6 +1188,7 @@ public class CSSGenerationUtils
     _BUILT_IN_PSEUDO_CLASSES.add(":active");
     _BUILT_IN_PSEUDO_CLASSES.add(":focus");
   }
+
 
   private static final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(CSSGenerationUtils.class);
 }
