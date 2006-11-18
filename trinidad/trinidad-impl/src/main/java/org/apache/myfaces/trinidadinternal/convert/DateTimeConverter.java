@@ -232,21 +232,20 @@ public class DateTimeConverter extends
             component);
         detailMessage = XhtmlLafUtils.escapeJS(msg.getDetail());
         summaryMessage = XhtmlLafUtils.escapeJS(msg.getSummary());
-        key = "null";
         customMessages = 6 + detailMessage.length() + summaryMessage.length();
 
       }
       String exampleString = XhtmlLafUtils.escapeJS(getExample(context));
-      String escapedKey = XhtmlLafUtils.escapeJS(key);
+      String escapedType = XhtmlLafUtils.escapeJS(getType().toUpperCase());
 
       StringBuffer outBuffer = new StringBuffer(36 + jsPattern.length()
-          + exampleString.length() + escapedKey.length() + customMessages);
+          + exampleString.length() + escapedType.length() + customMessages);
       outBuffer.append("new TrDateTimeConverter("); // 21
       outBuffer.append(jsPattern); // jsPattern.length
       outBuffer.append(",null,'"); // 7
       outBuffer.append(exampleString); // exampleString.length
       outBuffer.append("','"); // 3
-      outBuffer.append(escapedKey); // escapedKey.length
+      outBuffer.append(escapedType); // escapedKey.length
 
       if (msgPattern != null)
       {
