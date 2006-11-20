@@ -307,14 +307,17 @@ public class SkinUtils
     
     // Add WEB-INF/trinidad-skins.xml skins to skin factory. (sorted first)    
     SkinsNode webInfSkinsNode = _getWebInfSkinsNode(context);
-    List<SkinNode> webInfSkinNodes = webInfSkinsNode.getSkinNodes();
-
-    List<SkinNode> sortedWebInfSkinNodes = _sortSkinNodes(skinFactory, webInfSkinNodes);
-    
-    // register skins found in webInfSkinNodes
-    for (SkinNode skinNode : sortedWebInfSkinNodes)
+    if (webInfSkinsNode != null)
     {
-      _addSkinToFactory(skinFactory, skinNode, false);
+      List<SkinNode> webInfSkinNodes = webInfSkinsNode.getSkinNodes();
+  
+      List<SkinNode> sortedWebInfSkinNodes = _sortSkinNodes(skinFactory, webInfSkinNodes);
+      
+      // register skins found in webInfSkinNodes
+      for (SkinNode skinNode : sortedWebInfSkinNodes)
+      {
+        _addSkinToFactory(skinFactory, skinNode, false);
+      }
     }
     
     // register all the skin additions from META-INF trinidad-skins.xml and WEB-INF
@@ -328,8 +331,11 @@ public class SkinUtils
       _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, true);    
     } 
     // register skin-additions from WEB-INF/trinidad-skins.xml file
-    List<SkinAdditionNode> skinAdditionNodeList = webInfSkinsNode.getSkinAdditionNodes();
-    _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, false);    
+    if (webInfSkinsNode != null)
+    {
+      List<SkinAdditionNode> skinAdditionNodeList = webInfSkinsNode.getSkinAdditionNodes();
+      _registerSkinAdditions(fContext, skinFactory, skinAdditionNodeList, false);    
+    }
     
   }
   
