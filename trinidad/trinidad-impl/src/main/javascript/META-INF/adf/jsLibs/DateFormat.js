@@ -23,7 +23,7 @@ var _AD_ERA = null;
 
 function _getADEra()
 {
-  if (_AD_ERA == (void 0))
+  if (_AD_ERA == null)
   {
     _AD_ERA = new Date(0);
     _AD_ERA.setFullYear(1);
@@ -47,7 +47,7 @@ function _isStrict(
   {
     var parsed = "parsed" + checks[i];
 
-    if (parseContext[parsed] != (void 0) &&
+    if (parseContext[parsed] != null &&
         parseContext[parsed] != parsedTime["get" + checks[i]]())
     {
       // failure for strict parsing
@@ -193,6 +193,7 @@ function _subformat(
   stringHolder
   )
 {    
+
   // string to append to the toString
   var appendString = null;
   
@@ -328,7 +329,7 @@ function _subformat(
         // truncate 2 and 1 digit years to that number of digits
         var maxDigits = (charCount <= 2)
                           ? charCount
-                          : (void 0);
+                          : null;
                           
                           
         appendString = _getPaddedNumber(year, charCount, maxDigits);
@@ -352,7 +353,7 @@ function _subformat(
       break;
       
       case 'Z': // RFC 822 timeZone - "Sign TwoDigitHours Minutes"
-      {
+      { 
         var tzString = _getTimeZoneOffsetString(time, true);
         if (tzString)
         {
@@ -390,6 +391,7 @@ function _subformat(
  */
 function _getTimeZoneOffsetString(time, rfcFormat)
 {
+
   // timeZoneOffset in javascript gives
   // the wrong sign, so I am switching it.
   var timeZnOffset = -1* time.getTimezoneOffset();
@@ -437,10 +439,8 @@ function _getLocaleTimeZoneDifference()
   // the timeZoneOffset is in minutes.
   var currentDateTzOffset = currentDate.getTimezoneOffset() * -1;
   var tzOffsetDiff = 0;
-  if (_uixLocaleTZ)
-    tzOffsetDiff = (_uixLocaleTZ - currentDateTzOffset);
   
-  return tzOffsetDiff;
+  return tzOffsetDiff - currentDateTzOffset;
 }
 
 /**
@@ -468,7 +468,7 @@ function _subparse(
     {
       case 'D': // day in year
         // skip this number
-        if (_accumulateNumber(parseContext, 3) == (void 0))
+        if (_accumulateNumber(parseContext, 3) == null)
         {
           return false;
         }
@@ -483,7 +483,7 @@ function _subparse(
                                      ? localeSymbols.getShortWeekdays()
                                      : localeSymbols.getWeekdays());
                                      
-        if (dayIndex == (void 0))
+        if (dayIndex == null)
         {
           return false;
         }
@@ -492,7 +492,7 @@ function _subparse(
       
       case 'F': // day of week in month
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == (void 0))
+        if (_accumulateNumber(parseContext, 2) == null)
         {
           return false;
         }
@@ -502,7 +502,7 @@ function _subparse(
       {
         var eraIndex = _matchArray(parseContext, localeSymbols.getEras());
         
-        if (eraIndex != (void 0))
+        if (eraIndex != null)
         {
           if (eraIndex == 0)
           {
@@ -538,7 +538,7 @@ function _subparse(
           monthIndex = _matchArray(parseContext, nameArray);
         }
 
-        if (monthIndex != (void 0))
+        if (monthIndex != null)
         {
           parseContext.parsedMonth = (monthIndex + monthOffset);
         }
@@ -553,7 +553,7 @@ function _subparse(
       {
         var milliseconds = _accumulateNumber(parseContext, 3);
 
-        if (milliseconds != (void 0))
+        if (milliseconds != null)
         {
           parseContext.parsedMilliseconds = milliseconds;
         }
@@ -566,7 +566,7 @@ function _subparse(
       
       case 'W': // week in month
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == (void 0))
+        if (_accumulateNumber(parseContext, 2) == null)
         {
           return false;
         }
@@ -577,7 +577,7 @@ function _subparse(
         var amPMIndex = _matchArray(parseContext,
                                     localeSymbols.getAmPmStrings());
         
-        if (amPMIndex == (void 0))
+        if (amPMIndex == null)
         {
           return false;
         }
@@ -595,7 +595,7 @@ function _subparse(
       {
         var dayOfMonth = _accumulateNumber(parseContext, 2);
                 
-        if (dayOfMonth != (void 0))
+        if (dayOfMonth != null)
         {
           parseContext.parsedDate = dayOfMonth;
         }
@@ -613,7 +613,7 @@ function _subparse(
       {
         var hour = _accumulateNumber(parseContext, 2);
         
-        if (hour != (void 0))
+        if (hour != null)
         {
           if ((formatType == 'h') && (hour == 12))
             hour = 0;
@@ -634,7 +634,7 @@ function _subparse(
       {
         var minutes = _accumulateNumber(parseContext, 2);
         
-        if (minutes != (void 0))
+        if (minutes != null)
         {
           parseContext.parsedMinutes = minutes;
         }
@@ -649,7 +649,7 @@ function _subparse(
       {
         var seconds = _accumulateNumber(parseContext, 2);
 
-        if (seconds != (void 0))
+        if (seconds != null)
         {
           parseContext.parsedSeconds = seconds;
         }
@@ -662,7 +662,7 @@ function _subparse(
 
       case 'w': // week in year
         // skip this number
-        if (_accumulateNumber(parseContext, 2) == (void 0))
+        if (_accumulateNumber(parseContext, 2) == null)
         {
           return false;
         }
@@ -673,7 +673,7 @@ function _subparse(
         var year = _accumulateNumber(parseContext, 4);
         var enteredChars = parseContext.currIndex - inStartIndex;
         // if we have a 2-digit year, add in the default year
-        if (year != (void 0))
+        if (year != null)
         {
           if ((enteredChars > 2) &&
               (charCount <= 2) &&
@@ -724,13 +724,13 @@ function _subparse(
         if( (parseContext.parseString.length - parseContext.currIndex) > 0)
         {
           // consume the plus or minus
-          if(_matchArray(parseContext, ["-", "+"]) == (void 0))
+          if(_matchArray(parseContext, ["-", "+"]) == null)
           {
             return false;
           }
           
           // accumulate the hour offset number
-          if(_accumulateNumber(parseContext, 2) == (void 0))
+          if(_accumulateNumber(parseContext, 2) == null)
           {
             return false;
           }
@@ -743,7 +743,7 @@ function _subparse(
           
           // accumulate minute offset number (should have 2 digits)
           if(((parseContext.parseString.length - parseContext.currIndex) < 2) ||
-             _accumulateNumber(parseContext, 2) == (void 0))
+             _accumulateNumber(parseContext, 2) == null)
           {
             return false;
           }
@@ -760,19 +760,19 @@ function _subparse(
         }
         
         // consume the plus or minus
-        if(_matchArray(parseContext, ["-", "+"]) == (void 0))
+        if(_matchArray(parseContext, ["-", "+"]) == null)
         {
           return false;
         }
           
         // accumulate the hour offset number
-        if(_accumulateNumber(parseContext, 2) == (void 0))
+        if(_accumulateNumber(parseContext, 2) == null)
         {
           return false;
         }
           
         // accumulate the minute offset number
-        if(_accumulateNumber(parseContext, 2) == (void 0))
+        if(_accumulateNumber(parseContext, 2) == null)
         {
           return false;
         }
@@ -801,7 +801,7 @@ function _fix2DYear(year)
 {
   var defaultCentury;
 
-  if (_df2DYS != (void 0))
+  if (_df2DYS != null)
   {
     // year               51    01
     // offsetYear       1950  1950
@@ -853,7 +853,7 @@ function _matchArray(
   }
   
   // no match
-  return (void 0);
+  return null;
 }
 
 
@@ -952,7 +952,7 @@ function _accumulateNumber(
   else
   {
     // no number at this location
-    return (void 0);
+    return null;
   }
 }
 
@@ -983,7 +983,7 @@ function _getPaddedNumber(
   //
   // pad out any number strings that are too short
   //
-  if (minDigits != (void 0))
+  if (minDigits != null)
   {    
     var addedDigits = minDigits - stringNumber.length;
   
@@ -997,7 +997,7 @@ function _getPaddedNumber(
   //
   // truncate any number strings that are too long
   //
-  if (maxDigits != (void 0))
+  if (maxDigits != null)
   {
     var extraDigits = stringNumber.length - maxDigits;
     
@@ -1032,13 +1032,14 @@ function TrDateTimeConverter(
   this._type = type;
   this._summary = summary;
   this._detail = detail;
+  this._offset = null;
   
   // save the Locale elements for the specified locale, or client locale
   // if no locale is specified
   this._localeSymbols = getLocaleSymbols(locale);
 
   // =-= bts need to change default pattern to match JDK
-  if (pattern == (void 0))
+  if (pattern == null)
     pattern = this._localeSymbols.getShortDatePatternString();
 
   var patterns = this._initPatterns(pattern);
@@ -1053,6 +1054,12 @@ TrDateTimeConverter.prototype.getAsString = function(
   )
 {
 
+  //correct Date Time ?
+  if(this._offset)
+  {
+    var min = formatTime.getMinutes();
+    formatTime.setMinutes((+min) - parseInt(this._offset));
+  }
   var stringHolder = new Object();
   stringHolder.value ="";
   
@@ -1069,6 +1076,18 @@ TrDateTimeConverter.prototype.getAsString = function(
   return stringHolder.value;
 }
 
+TrDateTimeConverter.prototype.setDiffInMins = function(
+  offset
+  )
+{ 
+  this._offset = offset;
+}
+
+TrDateTimeConverter.prototype.getDiffInMins = function()
+{
+  return this._offset;
+}
+
 /**
  * Parses a String into a Date using the current object's pattern.  If the
  * parsing fails, undefined will be returned.
@@ -1078,12 +1097,13 @@ TrDateTimeConverter.prototype.getAsObject  = function(
   label
   )
 {
+
   // The following are from the javadoc for DateTimeConverter
   // If the specified String is null, return a null. Otherwise, trim leading and trailing whitespace before proceeding.
   // If the specified String - after trimming - has a zero length, return null.
   if (parseString == null)
     return null;
-    
+
   parseString = TrUIUtils.trim(parseString);
   if (parseString.length == 0)
     return null
@@ -1211,15 +1231,15 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
   var parseContext = new Object();
   parseContext.currIndex = 0;
   parseContext.parseString = parseString;
-  parseContext.parsedHour = (void 0);
-  parseContext.parsedMinutes = (void 0);
-  parseContext.parsedSeconds = (void 0);
-  parseContext.parsedMilliseconds = (void 0);
+  parseContext.parsedHour = null;
+  parseContext.parsedMinutes = null;
+  parseContext.parsedSeconds = null;
+  parseContext.parsedMilliseconds = null;
   parseContext.isPM = false;
   parseContext.parsedBC = false;
-  parseContext.parsedFullYear = (void 0);
-  parseContext.parsedMonth = (void 0);
-  parseContext.parsedDate = (void 0);
+  parseContext.parsedFullYear = null;
+  parseContext.parsedMonth = null;
+  parseContext.parsedDate = null;
   parseContext.parseException = new TrConverterException( msg);
 
   var parsedTime = new Date(0);
@@ -1239,7 +1259,7 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
 
     // Set the parsed year, if any;  adjust for AD vs. BC
     var year = parseContext.parsedFullYear;
-    if (year != (void 0))
+    if (year != null)
     {
       // convert year to BC
       if (parseContext.parsedBC)
@@ -1253,17 +1273,17 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
 
     // Set the parsed month, if any
     var month = parseContext.parsedMonth;
-    if (month != (void 0))
+    if (month != null)
       parsedTime.setMonth(month);
 
     // Set the parsed day-of-month, if any
     var date = parseContext.parsedDate;
-    if (date != (void 0))
+    if (date != null)
       parsedTime.setDate(date);
 
     // Set the parsed hour, if any.  Adjust for AM vs. PM
     var hour = parseContext.parsedHour;
-    if (hour != (void 0))
+    if (hour != null)
     {
       if (parseContext.isPM && (hour < 12))
       {
@@ -1276,17 +1296,17 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
 
     // Set the parsed minutes, if any
     var minutes = parseContext.parsedMinutes;
-    if (minutes != (void 0))
+    if (minutes != null)
       parsedTime.setMinutes(minutes);
 
     // Set the parsed seconds, if any
     var seconds = parseContext.parsedSeconds;
-    if (seconds != (void 0))
+    if (seconds != null)
       parsedTime.setSeconds(seconds);
 
     // Set the parsed milliseconds, if any
     var milliseconds = parseContext.parsedMilliseconds;
-    if (milliseconds != (void 0))
+    if (milliseconds != null)
       parsedTime.setMilliseconds(milliseconds);
 
     // so far we have done a lenient parse
@@ -1294,6 +1314,13 @@ TrDateTimeConverter.prototype._simpleDateParseImpl = function(
     if (!_isStrict(parseContext, parsedTime))
     {
       throw parseContext.parseException;
+    }
+
+    //correct Date Time ?
+    if(this._offset)
+    {
+      var min = parsedTime.getMinutes();
+      parsedTime.setMinutes((+min) + parseInt(this._offset));
     }
 
     return parsedTime;
