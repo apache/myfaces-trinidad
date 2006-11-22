@@ -15,10 +15,10 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
-import java.io.IOException;
+import static org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SelectManyShuttleRenderer._EMPTY_INT_ARRAY;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,25 +28,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
-import javax.faces.el.ValueBinding;
-
 import javax.faces.model.SelectItem;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.bean.PropertyKey;
-
-import org.apache.myfaces.trinidad.context.FormData;
-import org.apache.myfaces.trinidad.context.RenderingContext;
-
-import org.apache.myfaces.trinidad.component.UIXSelectMany;
-import org.apache.myfaces.trinidad.component.UIXSelectOrder;
 import org.apache.myfaces.trinidad.component.core.input.CoreSelectManyShuttle;
+import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
-import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.Icon;
-
-import org.apache.myfaces.trinidad.util.IntegerUtils;
-import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidadinternal.renderkit.uix.SelectItemSupport;
 
 
