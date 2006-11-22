@@ -15,8 +15,6 @@
  */
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
-import static org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SelectManyShuttleRenderer._EMPTY_INT_ARRAY;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
