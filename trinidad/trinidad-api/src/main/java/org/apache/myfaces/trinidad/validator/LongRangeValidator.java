@@ -123,6 +123,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    */
   public void setMaximum(long maximum)
   {
+    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, new Long(maximum));
   }
 
@@ -146,6 +147,7 @@ public class LongRangeValidator extends javax.faces.validator.LongRangeValidator
    */
   public void setMinimum(long minimum)
   {
+    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, new Long(minimum));
   }
 

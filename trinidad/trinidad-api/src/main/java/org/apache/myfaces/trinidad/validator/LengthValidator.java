@@ -123,6 +123,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    */
   public void setMaximum(int maximum)
   {
+    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, new Integer(maximum));
   }
 
@@ -146,6 +147,7 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
    */
   public void setMinimum(int minimum)
   {
+    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, new Integer(minimum));
   }
 
