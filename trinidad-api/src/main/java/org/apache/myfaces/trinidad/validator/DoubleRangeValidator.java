@@ -121,6 +121,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    */
   public void setMaximum(double maximum)
   {
+    super.setMaximum(maximum);
     _facesBean.setProperty(_MAXIMUM_KEY, new Double(maximum));
   }
 
@@ -144,6 +145,7 @@ public class DoubleRangeValidator extends javax.faces.validator.DoubleRangeValid
    */
   public void setMinimum(double minimum)
   {
+    super.setMinimum(minimum);
     _facesBean.setProperty(_MINIMUM_KEY, new Double(minimum));
   }
 
