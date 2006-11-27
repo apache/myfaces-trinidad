@@ -29,6 +29,7 @@ import org.apache.myfaces.trinidad.component.core.CoreStyleSheet;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 
+import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.style.StyleContext;
 import org.apache.myfaces.trinidadinternal.style.StyleProvider;
 import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
@@ -41,20 +42,6 @@ import org.apache.myfaces.trinidadinternal.style.util.StyleUtils;
  */
 public class StyleSheetRenderer extends XhtmlRenderer
 { 
-  /**
-   * Disables optimizations that are normally performed by the
-   * Trinidad Renderers to reduce content size.
-   * <p>
-   * This Boolean property controls whether or not Trinidad Renderer
-   * implementations should attempt to reduce the size of generated
-   * content, for example, by compressing style class names.  These
-   * optimizations are enabled by default.  In general,
-   * clients should not need to disable these optimizations.  However,
-   * clients that want to disable this functionality for testing or
-   * debugging purposes can do so by setting this property to Boolean.TRUE.
-   */
-  static public final String DISABLE_CONTENT_COMPRESSION =
-    "org.apache.myfaces.trinidadinternal.DISABLE_CONTENT_COMPRESSION";
 
   public StyleSheetRenderer()
   {
@@ -135,9 +122,7 @@ public class StyleSheetRenderer extends XhtmlRenderer
       // Hand the Faces-major renderers the style Map for compressing.
       // Oddly enough, this code has to be after provider.getStyleSheetURI(),
       // because that call boostraps up the style provider in general.
-      if (!"true".equals(
-          context.getExternalContext().getInitParameter(
-                                 DISABLE_CONTENT_COMPRESSION)))
+      if (!XhtmlUtils.isDisableContentCompression(context, arc))
       {
         if (arc instanceof CoreRenderingContext)
         {
