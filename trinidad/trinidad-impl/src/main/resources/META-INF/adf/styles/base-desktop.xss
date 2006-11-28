@@ -3601,24 +3601,25 @@
     <includeStyle selector=".AFHeaderLevelOne"/>  
   </style>
   
-  <style selector=".PortletHeader1">
+  <style selector=".PortletHeading1">
     <includeStyle selector=".AFHeaderLevelOne"/>  
   </style>
   
-  <style selector=".PortletHeader2">
+  <style selector=".PortletHeading2">
     <includeStyle selector=".AFHeaderLevelTwo"/>  
   </style>  
   
-  <style selector=".PortletHeader3">
+  <style selector=".PortletHeading3">
     <includeStyle selector=".AFHeaderLevelThreePlus"/>  
   </style> 
   
-  <style selector=".PortletHeader4">
+  <style selector=".PortletHeading4">
     <includeStyle selector=".AFHeaderLevelThreePlus"/>  
   </style>
   
   <style selector=".PortletSubHeaderColor">
-    <includeStyle selector="af|panelBox::header"/>
+    <includeStyle name="AFBoxBackground"/>
+    <includeStyle name="AFPanelBoxBody"/>
   </style>
   
   <style selector=".PortletSubHeaderLink">
@@ -3729,7 +3730,7 @@
   </style>
   
   <style selector=".portlet-form-input-field">
-    <includeStyle name="AFLabel"/>
+    <includeStyle selector="af|inputText::content"/>  
   </style>   
   
   <style selector=".portlet-form-button">
