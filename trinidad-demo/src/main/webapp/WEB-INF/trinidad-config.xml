@@ -22,7 +22,9 @@
   <!-- you can use EL to get the skin. This allows the skin to change between
        requests. -->
   <skin-family>#{prefs.proxy.skinFamily}</skin-family>
-
+  <!--
+  <output-mode>portlet</output-mode>
+  -->
   <!--  Uncomment any of these to enable them -->
   <!-- accessibility-mode>inaccessible</accessibility-mode -->  
 </trinidad-config>
