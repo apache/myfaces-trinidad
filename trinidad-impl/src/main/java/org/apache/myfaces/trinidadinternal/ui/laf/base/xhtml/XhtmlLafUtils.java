@@ -29,7 +29,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.context.RenderingContext;
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Icon;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
@@ -311,9 +310,12 @@ public class XhtmlLafUtils extends BaseLafUtils
     // try to get it now
     if (styleClasses == null)
     {
-      if (!(XhtmlUtils.isDisableContentCompression(context.getFacesContext(), 
-          RequestContext.getCurrentInstance())))
+      ExternalContext external =
+        context.getFacesContext().getExternalContext();
 
+      if (!"true".equals(
+           external.getInitParameter(
+             Configuration.DISABLE_CONTENT_COMPRESSION)))
       {
         StyleContext styleContext = context.getStyleContext();
         StyleProvider provider = context.getStyleContext().getStyleProvider();

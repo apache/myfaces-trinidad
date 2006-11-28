@@ -39,11 +39,9 @@ import org.apache.myfaces.trinidad.context.Agent;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
 import org.apache.myfaces.trinidad.context.RenderingContext;
 
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.Scriptlet;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.jsLibs.XhtmlScriptletFactory;
 
-import org.apache.myfaces.trinidadinternal.share.config.Configuration;
 import org.apache.myfaces.trinidadinternal.share.util.FastMessageFormat;
 
 
@@ -86,39 +84,6 @@ public class XhtmlUtils
             Boolean.TRUE.equals(
              agent.getCapabilities().get(TrinidadAgent.CAP_PARTIAL_RENDERING)));
   }
-  
-  /**
-   * Return true if we should disable content compression
-   * @param fContext FacesContext
-   * @param renderingContext RenderingContext, where we can get the outputMode.
-   * @return true if we should disable content compression. If in a portlet, then we want to
-   * disable content compression.
-   */
-  static public boolean isDisableContentCompression(
-    FacesContext     fContext,
-    RenderingContext renderingContext)
-  {    
-    String outputMode = renderingContext.getOutputMode();
-    return _isDisableContentCompression(fContext, outputMode);
-  }
-  
-  /**
-   * Return true if we should disable content compression
-   * @param fContext FacesContext
-   * @param requestContext RequestContext, where we can get the outputMode.
-   * @return true if we should disable content compression. If in a portlet, then we want to
-   * disable content compression.
-   */
-  static public boolean isDisableContentCompression(
-    FacesContext   fContext,
-    RequestContext requestContext)
-  {
-    String outputMode = requestContext.getOutputMode();
-    return _isDisableContentCompression(fContext, outputMode);
-  }
-
-  
-
 
   /** Library key for the locale lib */
   public static final String CORE_LIB =
@@ -537,25 +502,6 @@ public class XhtmlUtils
   {
     FastMessageFormat formatter = new FastMessageFormat(pattern);
     return formatter.format(parameters);
-  }
-  
-  
-  /**
-   * Return true if we should disable content compression. It looks at both the disable
-   * content compression init parameter and the outputMode.
-   * @param fContext
-   * @param outputMode String. We compare this against XhtmlConstants.OUTPUT_MODE_PORTLET
-   * @return
-   */
-  static private boolean _isDisableContentCompression(
-    FacesContext fContext,
-    String       outputMode)
-  {
-    String disableContentCompressionParam =
-      fContext.getExternalContext().getInitParameter(Configuration.DISABLE_CONTENT_COMPRESSION);
-    return ("true".equals(disableContentCompressionParam) || 
-            XhtmlConstants.OUTPUT_MODE_PORTLET.equals(outputMode));
-
   }
 
   /** HashMap mapping names to their scriptlets */

@@ -20,12 +20,10 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.context.FacesContext;
-
-import org.apache.myfaces.trinidad.context.RequestContext;
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidad.skin.Skin;
 import org.apache.myfaces.trinidad.skin.SkinFactory;
-import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
+
 
 
 /**
@@ -96,8 +94,6 @@ public class SkinFactoryImpl extends SkinFactory
 
   /**
    * given the skinFamily and renderKitId, pass back the Skin.
-   * If outputMode is PORTLET, then we ignore
-   * the render-kit-id and get the 'portlet' skin for that skin family.
    * @param context FacesContext for the request currently being
    * processed, or <code>null</code> if none is available.
    * @param family skin family of the requested {@link Skin} instance
@@ -117,12 +113,9 @@ public class SkinFactoryImpl extends SkinFactory
    if (family == null)
      throw new NullPointerException("Null skin family");
 
-    // default render-kit-id, if needed.
-    if (XhtmlConstants.OUTPUT_MODE_PORTLET.equals(
-        RequestContext.getCurrentInstance().getOutputMode()))
-      renderKitId = XhtmlConstants.OUTPUT_MODE_PORTLET;
-    else if (renderKitId == null) 
-      renderKitId = _RENDER_KIT_ID_CORE;
+    // if there isn't a specific renderKitId specified, get the skin
+    // with the default render kit.
+    if (renderKitId == null) renderKitId = _RENDER_KIT_ID_CORE;
 
     // loop through each skin in the SkinFactory
     // and see if the family and the renderKitId match
@@ -146,16 +139,15 @@ public class SkinFactoryImpl extends SkinFactory
                     " and renderkit " + renderKitId + ", so we will" +
                     " use the simple skin");
      }
- 
-    // if we get here, that means we couldn't find an exact 
-    // family/renderKitId match, so return the simple skin 
-    // that matches the renderkitid.
-    if (renderKitId.equals(XhtmlConstants.OUTPUT_MODE_PORTLET))
-      return getSkin(context, _SIMPLE_PORTLET);
-    else if (renderKitId.equals(_RENDER_KIT_ID_PDA))
+
+    if (renderKitId.equals(_RENDER_KIT_ID_PDA))
+    {
       return getSkin(context, _SIMPLE_PDA);
-    else 
+    }
+    else
+    {
       return getSkin(context, _SIMPLE_DESKTOP);
+    }
 
   }
 
@@ -173,7 +165,6 @@ public class SkinFactoryImpl extends SkinFactory
   static private final String _RENDER_KIT_ID_PDA = "org.apache.myfaces.trinidad.pda";
   static private final String _SIMPLE_PDA = "simple.pda";
   static private final String _SIMPLE_DESKTOP = "simple.desktop";
-  static private final String _SIMPLE_PORTLET = "simple.portlet";
 
   static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(SkinFactoryImpl.class);
 
