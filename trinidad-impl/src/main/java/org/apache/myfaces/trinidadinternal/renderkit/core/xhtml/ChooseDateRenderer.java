@@ -1131,7 +1131,15 @@ public class ChooseDateRenderer extends XhtmlRenderer
         // sensitive manner.  That said, specifying the attributes in
         // Date or Number form is still preferred over String form.
         //
-        value = new Date((String)value);
+        try
+        {
+          value = new Date((String)value);
+        }
+        catch (Exception e)
+        {
+          _LOG.warning("Invalid string attribute for chooseDate: {0}",
+                       value);
+        }
       }
       else if (value instanceof Calendar)
       {
