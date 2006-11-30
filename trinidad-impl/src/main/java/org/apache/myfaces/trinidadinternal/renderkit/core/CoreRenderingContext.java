@@ -65,7 +65,11 @@ public class CoreRenderingContext extends RenderingContext
     _properties = new HashMap<Object, Object>();
     
     _outputMode = afContext.getOutputMode();
-    _agent = _initializeAgent(context, afContext.getAgent(), _outputMode);
+    _agent = _initializeAgent(context,
+                              afContext.getAgent(),
+                              // Go back through getOutputMode()
+                              // in case anyone has overidden getOutputMode()
+                              getOutputMode());
 
     _initializeSkin(afContext);
     _initializePPR(context, afContext);
