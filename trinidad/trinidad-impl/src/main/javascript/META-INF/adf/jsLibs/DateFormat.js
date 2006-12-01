@@ -1072,7 +1072,16 @@ TrDateTimeConverter.prototype.getAsString = function(
               _subformat,
               formatTime,
               stringHolder);
-  
+
+  if(this._offset)
+  {
+  	var gmtDiff = (((this._offset + formatTime.getTimezoneOffset()) * -1) / 60);
+  	if(parseInt(gmtDiff) > 0)
+  	{
+  		stringHolder.value = stringHolder.value + "+"
+  	}
+  	stringHolder.value = stringHolder.value + gmtDiff + ":00";
+  }
   return stringHolder.value;
 }
 
