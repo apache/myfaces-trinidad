@@ -75,7 +75,7 @@ public class NavigationHandlerImpl extends NavigationHandler
 
       // First, look in the application map for "true" or Boolean.TRUE.
       Object disabledAttr = context.getExternalContext().getApplicationMap().
-        get(DialogService.DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+        get(DialogService.DISABLE_DIALOG_OUTCOMES_PARAM_NAME);
       if (disabledAttr != null)
       {
         _disabled = "true".equalsIgnoreCase(disabledAttr.toString());
@@ -84,7 +84,7 @@ public class NavigationHandlerImpl extends NavigationHandler
       {
         String disabledParam =
           context.getExternalContext().getInitParameter(
-                        DialogService.DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+                        DialogService.DISABLE_DIALOG_OUTCOMES_PARAM_NAME);
         if (disabledParam != null)
         {
           _disabled = "true".equalsIgnoreCase(disabledParam);
