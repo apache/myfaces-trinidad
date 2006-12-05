@@ -41,6 +41,14 @@ abstract public class DialogService
     "org.apache.myfaces.trinidad.DIALOG_NAVIGATION_PREFIX";
 
   /**
+   * Configuration parameter for setting the prefix used in
+   * dialog navigation.  This can either be set as a WEB-INF/web.xml
+   * or programatically set as a ServletContext attribute.
+   */
+  public static final String DISABLE_DIALOG_OUTCOMES_PARAM_NAME =
+    "org.apache.myfaces.trinidad.DISABLE_DIALOG_OUTCOMES";
+
+  /**
    * Create an DialogService.
    */
   protected DialogService()

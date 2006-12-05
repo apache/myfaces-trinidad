@@ -19,6 +19,7 @@ import javax.faces.application.NavigationHandler;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.context.DialogService;
 import org.apache.myfaces.trinidad.context.RequestContext;
 
 public class NavigationHandlerImpl extends NavigationHandler
@@ -34,6 +35,12 @@ public class NavigationHandlerImpl extends NavigationHandler
     String       fromAction,
     String       outcome)
   {
+    if (_disableNavigationHandler(context))
+    {
+      _delegate.handleNavigation(context, fromAction, outcome);
+      return;
+    }
+
     UIViewRoot oldRoot = context.getViewRoot();
         
     _delegate.handleNavigation(context, fromAction, outcome);
@@ -57,6 +64,37 @@ public class NavigationHandlerImpl extends NavigationHandler
     }
   }
   
-  
+  /**
+   * Returns true if "dialog:" prefixes should be entirely disabled.
+   */
+  synchronized private boolean _disableNavigationHandler(FacesContext context)
+  {
+    if (_disabled == null)
+    {
+      _disabled = Boolean.FALSE;
+
+      // First, look in the application map for "true" or Boolean.TRUE.
+      Object disabledAttr = context.getExternalContext().getApplicationMap().
+        get(DialogService.DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+      if (disabledAttr != null)
+      {
+        _disabled = "true".equalsIgnoreCase(disabledAttr.toString());
+      }
+      else
+      {
+        String disabledParam =
+          context.getExternalContext().getInitParameter(
+                        DialogService.DIALOG_NAVIGATION_PREFIX_PARAM_NAME);
+        if (disabledParam != null)
+        {
+          _disabled = "true".equalsIgnoreCase(disabledParam);
+        }
+      }
+    }
+    
+    return _disabled.booleanValue();
+  }
+
+  private Boolean _disabled;
   private NavigationHandler _delegate;
 }
