@@ -147,6 +147,8 @@ public class ClassLoaderUtils
     String      name,
     ClassLoader callerClassLoader)
   {
+    _checkResourceName(name);
+
     URL url = null;
 
     ClassLoader loader = getContextClassLoader();
@@ -180,6 +182,8 @@ public class ClassLoaderUtils
     String      name,
     ClassLoader callerClassLoader)
   {
+    _checkResourceName(name);
+
     InputStream stream = null;
 
     ClassLoader loader = getContextClassLoader();
@@ -293,6 +297,15 @@ public class ClassLoaderUtils
     return null;
   }
 
+  private static void _checkResourceName(String name)
+  {
+    if ((name != null) && name.startsWith("/"))
+    {
+      _LOG.warning("Resource name \"" + name + "\" begins with a slash, " +
+                   "which is not portable.");
+                   
+    }
+  }
 
   private static final TrinidadLogger _LOG =
     TrinidadLogger.createTrinidadLogger(ClassLoaderUtils.class);
