@@ -145,7 +145,7 @@ public class CoreRenderingContext extends RenderingContext
    */
   public TrinidadAgent getTrinidadAgent()
   {
-    return _agent;
+    return (TrinidadAgent) getAgent();
   }
 
   @Override
@@ -372,7 +372,7 @@ public class CoreRenderingContext extends RenderingContext
 
     // =-=jmw @todo when we have proper renderKitId switching, I can
     // get rid of this bit of code.
-    if (TrinidadAgent.TYPE_PDA == _agent.getAgentType())
+    if (TrinidadAgent.TYPE_PDA == getTrinidadAgent().getAgentType())
     {
       renderKitId = "org.apache.myfaces.trinidad.pda";
     }
@@ -558,8 +558,6 @@ public class CoreRenderingContext extends RenderingContext
   {
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_INTRINSIC_EVENTS,
                                 Boolean.FALSE);
-    _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
-                                TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_SCRIPTING_SPEED,
                                 TrinidadAgent.SCRIPTING_SPEED_CAP_NONE);
     _PRINTABLE_CAPABILITIES.put(TrinidadAgent.CAP_NAVIGATION,
