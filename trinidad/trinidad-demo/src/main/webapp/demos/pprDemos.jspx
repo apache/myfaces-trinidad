@@ -246,6 +246,26 @@
                            text="Go to feature demos page."/>
          </tr:panelGroupLayout>
        </tr:panelHeader>
+       <tr:panelHeader text="Naming container tests"> 
+         <tr:panelGroupLayout layout="vertical">
+           <f:subview id="sub">
+             <tr:outputFormatted  partialTriggers="::pSub_link ::pSub_button"
+                                  styleUsage="instruction"
+                                  value="#{partialDemoUtil.status.linkUpdate}">
+               <f:convertDateTime pattern="HH:mm:ss"/>
+             </tr:outputFormatted>
+           </f:subview>
+           <f:subview id="sub2">
+            <f:subview id="sub3">
+             <tr:outputFormatted  partialTriggers=":::pSub_link :::pSub_button"
+                                  styleUsage="instruction"
+                                  value="#{partialDemoUtil.status.linkUpdate}">
+               <f:convertDateTime pattern="HH:mm:ss"/>
+             </tr:outputFormatted>
+             </f:subview>
+           </f:subview>
+         </tr:panelGroupLayout>
+       </tr:panelHeader>
        <tr:panelHeader text="This Reset button will reset all values on the page.">
         <tr:commandButton id="reset"
                           text="Reset"

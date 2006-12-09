@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
+import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -492,20 +493,30 @@ public class RequestContextImpl extends RequestContext
     {
       String trigger = triggers[i];
 
-      // Wildcards removed for now....
-      // if ("*".equals(trigger))
-      //   master = _GLOBAL_TRIGGER;
-      // else
-      UIComponent master = listener.getParent().findComponent(trigger);
-
-      // Get the set of listeners on this trigger and add this component.
-      Set<UIComponent> listeners = pl.get(master);
-      if (listeners == null)
+      // Look for the master component.  Note that if the listener is itself 
+      // a naming container, we don't want to restrict ourselves to looking
+      // inside - we want to look outside instead (at least, that was
+      // the old ADF Faces rules, and now we should stick with it for
+      // backwards compatibility even within Trinidad)
+      UIComponent master = _findRelativeComponent(listener.getParent(),
+                                                  trigger);
+      //listener.getParent().findComponent(trigger);
+      if (master == null)
       {
-        listeners = new HashSet<UIComponent>();
-        pl.put(master, listeners);
+        _LOG.warning("Could not find partial trigger " + trigger +
+                     " from " + listener);
       }
-      listeners.add(listener);
+      else
+      {
+        // Get the set of listeners on this trigger and add this component.
+        Set<UIComponent> listeners = pl.get(master);
+        if (listeners == null)
+        {
+          listeners = new HashSet<UIComponent>();
+          pl.put(master, listeners);
+        }
+        listeners.add(listener);
+      }
     }
   }
 
@@ -717,7 +728,42 @@ public class RequestContextImpl extends RequestContext
     return _partialListeners;
   }
 
+  static private UIComponent _findRelativeComponent(
+    UIComponent from,
+    String      relativeId)
+  {
+    int idLength = relativeId.length();
+    // Figure out how many colons
+    int colonCount = 0;
+    while (colonCount < idLength)
+    {
+      if (relativeId.charAt(colonCount) != NamingContainer.SEPARATOR_CHAR)
+        break;
+      colonCount++;
+    }
 
+    // colonCount == 0: fully relative
+    // colonCount == 1: absolute (still normal findComponent syntax)
+    // colonCount > 1: for each extra colon after 1, go up a naming container
+    // (to the view root, if naming containers run out)
+    if (colonCount > 1)
+    {
+      relativeId = relativeId.substring(colonCount);
+      for (int j = 1; j < colonCount; j++)
+      {
+        while (from.getParent() != null)
+        {
+          from = from.getParent();
+          if (from instanceof NamingContainer)
+            break;
+        }
+      }
+    }
+
+    return from.findComponent(relativeId);
+  }
+
+  
   private RequestContextBean _bean;
   private HelpProvider        _provider;
   private Map<UIComponent, Set<UIComponent>> _partialListeners;
