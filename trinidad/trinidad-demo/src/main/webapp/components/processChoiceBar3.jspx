@@ -39,7 +39,7 @@
                 <tr:commandNavigationItem text="#{foo.label}"
                                     action="#{foo.getOutcome}"
                                     immediate="#{processMenuModel.immediate}"
-                                    readOnly="#{processMenuModel.readOnly}"/>
+                                    disabled="#{processMenuModel.readOnly}"/>
               </f:facet>
             </tr:processChoiceBar>    
 

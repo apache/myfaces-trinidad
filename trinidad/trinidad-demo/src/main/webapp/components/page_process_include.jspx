@@ -38,7 +38,7 @@
                      text="#{foo.label}"
                      action="#{foo.getOutcome}"
                      immediate="#{processPageMenuModel.immediate}"
-                     readOnly="#{processPageMenuModel.readOnly}"/>
+                     disabled="#{processPageMenuModel.readOnly}"/>
                  </f:facet>
               </tr:train>    
             </f:facet>   
@@ -85,7 +85,7 @@
                 <tr:commandNavigationItem text="#{foo.label}"
                                     action="#{foo.getOutcome}"
                                     immediate="#{processPageMenuModel.immediate}"
-                                    readOnly="#{processPageMenuModel.readOnly}"/>
+                                    disabled="#{processPageMenuModel.readOnly}"/>
               </f:facet>
             </tr:processChoiceBar>
           </tr:page>

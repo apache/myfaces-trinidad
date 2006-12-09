@@ -4,9 +4,8 @@
                   value="#{pageList}" var="foo">
     <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" 
                tr:facet="nodeStamp" 
-               text="#{foo.label}"/> 
-               <!--the el below doesn't work-->
-               <!--readOnly="#{pageList.readOnly}"/-->
+               text="#{foo.label}"
+               disabled="#{pageList.readOnly}"/>
   </base-component>
   
 
