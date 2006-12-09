@@ -106,13 +106,6 @@
       </property-extension>
     </property>
     <property>
-      <description><![CDATA[whether the item should be rendered as readOnly. Depending on the renderer the text may or may not appear when readOnly is true.]]>
-      </description>
-      <property-name>readOnly</property-name>
-      <property-class>boolean</property-class>
-      <default-value>false</default-value>
-    </property>
-    <property>
       <description><![CDATA[whether the item is selected.]]></description>
       <property-name>selected</property-name>
       <property-class>boolean</property-class>

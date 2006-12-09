@@ -193,6 +193,8 @@ public class TrainRenderer
         
         if(!train.getStations().isEmpty())
         {
+          process.setRowKey(train.getFocusRowKey());
+        
           // There're visible stations currently, let render them.
           writer.startElement(XhtmlConstants.TABLE_BODY_ELEMENT, null);
           _renderTrain(context, arc, process, bean, stamp, train);
@@ -1294,7 +1296,6 @@ public class TrainRenderer
       _active      = false;
       _visited     = false;
       _disabled    = false;
-      _readOnly    = false;
       _parentEnd   = false;
       _parentStart = false;
       _train       = train;
@@ -1316,7 +1317,6 @@ public class TrainRenderer
       _active      = active;
       _visited     = visited;
       _disabled    = _getBooleanAttribute(attributes, "disabled", false);
-      _readOnly    = _getBooleanAttribute(attributes, "readOnly", false);
       _parentEnd   = false;
       _parentStart = false;
       _train       = train;
@@ -1364,16 +1364,16 @@ public class TrainRenderer
           return null;
         }
       }
-      else if(isDisabled() || getNext().isDisabled())
-      {
-        return _STATE_DISABLED;
-      }
       else if(getNext().isVisited())
       {
         return _STATE_VISITED;
       }
       else
       {
+        if (getNext().isDisabled())
+        {
+          return _STATE_DISABLED;
+        }
         return _STATE_UNVISITED;
       }
     }
@@ -1445,16 +1445,16 @@ public class TrainRenderer
           return null;
         }
       }
-      else if(isDisabled() || getPrevious().isDisabled())
-      {
-        return _STATE_DISABLED;
-      }
       else if(isVisited())
       {
         return _STATE_VISITED;
       }
       else
       {
+        if(isDisabled())
+        {
+          return _STATE_DISABLED;
+        }
         return _STATE_UNVISITED;
       }
     }
@@ -1467,15 +1467,10 @@ public class TrainRenderer
         return states;
       }
       
-      if(isDisabled())
-      {
-        states.add(_STATE_DISABLED);
-        return states;
-      }
-      
       if(isActive())
       {
         states.add(_STATE_ACTIVE);
+        return states;
       }
       else if(isVisited())
       {
@@ -1486,7 +1481,7 @@ public class TrainRenderer
         states.add(_STATE_UNVISITED);
       }
       
-      if(isReadOnly())
+      if(isDisabled())
       {
         states.add(_STATE_READ_ONLY);
       }
@@ -1579,11 +1574,6 @@ public class TrainRenderer
       return hasPrevious() && _previous.isDisabled();
     }
     
-    public boolean isReadOnly()
-    {
-      return _readOnly;
-    }
-    
     public boolean isVisited()
     {
       return _visited;
@@ -1623,11 +1613,6 @@ public class TrainRenderer
     public void setPrevious(Station previous)
     {
       _previous = previous;
-    }
-    
-    public void setReadOnly(boolean readOnly)
-    {
-      _readOnly = readOnly;
     }
     
     private boolean _getBooleanAttribute(
@@ -1683,14 +1668,6 @@ public class TrainRenderer
       names.addFirst(builder.toString());
       builder.delete(baseIndex, baseIndex + suffixLength);
       
-      if(isDisabled())
-      {
-        builder.append(_SUFFIX_DISABLED);
-        builder.append(SkinSelectors.ICON_SUFFIX);
-        names.addFirst(builder.toString());
-      }
-      else 
-      {
         if(isActive())
         {
           builder.append(_SUFFIX_ACTIVE);
@@ -1708,16 +1685,15 @@ public class TrainRenderer
         
         builder.append(SkinSelectors.ICON_SUFFIX);
         names.addFirst(builder.toString());
+
         builder.delete(baseIndex, baseIndex + suffixLength);
         
-        if(isReadOnly())
+      if (isDisabled())
         {
           builder.append(_SUFFIX_READ_ONLY);
           builder.append(SkinSelectors.ICON_SUFFIX);
           names.addFirst(builder.toString());
         }
-      }
-      
       return names;
     }
     
@@ -1742,7 +1718,6 @@ public class TrainRenderer
     private boolean _overflowStart; // Is this station the prev step set link?
     private boolean _parentEnd;    // Is this station a parent end?
     private boolean _parentStart;  // Is this station a parent start?
-    private boolean _readOnly;     // Read only attribute
     private boolean _visited;      // Is this station visited?
     
     private int _rowIndex; // Row index

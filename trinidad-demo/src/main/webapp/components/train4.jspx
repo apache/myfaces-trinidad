@@ -37,7 +37,7 @@
                 <tr:commandNavigationItem text="#{foo.label}"
                                     action="#{foo.getOutcome}"
                                     immediate="#{processTrainMenuModel.immediate}"
-                                    readOnly="#{processTrainMenuModel.readOnly}"/>
+                                    disabled="#{processTrainMenuModel.readOnly}"/>
               </f:facet>
             </tr:train>   
             <tr:commandLink action="guide.train4a" text="Go to subprocess"/>
