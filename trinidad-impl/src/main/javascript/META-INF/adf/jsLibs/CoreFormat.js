@@ -282,9 +282,11 @@ function TrRangeValidator(
 TrRangeValidator.prototype = new TrValidator();
 TrRangeValidator.prototype.validate  = function(
   value,
-  label
+  label,
+  converter
 )
 {
+	
   string = "" + value;
   numberValue = parseFloat(string);
   
@@ -327,7 +329,8 @@ function TrLengthValidator(
 TrLengthValidator.prototype = new TrValidator();
 TrLengthValidator.prototype.validate  = function(
   value,
-  label
+  label,
+  converter
 )
 {
 
@@ -364,7 +367,8 @@ function TrDateTimeRangeValidator(
 TrDateTimeRangeValidator.prototype = new TrValidator();
 TrDateTimeRangeValidator.prototype.validate  = function(
   value,
-  label
+  label,
+  converter
 )
 {
   dateTime = value.getTime();
@@ -379,9 +383,9 @@ TrDateTimeRangeValidator.prototype.validate  = function(
   {
     facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.NOT_IN_RANGE",
                                         label,
-                                        ""+value,
-                                        ""+new Date(this._minValue),
-                                        ""+new Date(this._maxValue));
+                                        ""+converter.getAsString(value),
+                                        ""+converter.getAsString(new Date(this._minValue)),
+                                        ""+converter.getAsString(new Date(this._maxValue)));
     throw new TrConverterException(facesMessage);
   }
   
@@ -405,7 +409,8 @@ function TrDateRestrictionValidator(
 TrDateRestrictionValidator.prototype = new TrValidator();
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
-  label
+  label,
+  converter
 )
 {
   submittedDay = value.getDay();
@@ -581,7 +586,8 @@ function TrRegExpValidator(
 TrRegExpValidator.prototype = new TrValidator();
 TrRegExpValidator.prototype.validate  = function(
   parseString,
-  label
+  label,
+  converter
   )
 {
   //For some reason when using digits as input values 

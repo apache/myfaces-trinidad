@@ -43,7 +43,8 @@ function CjkFormat(
 CjkFormat.prototype = new TrByteLengthValidator();
 CjkFormat.prototype.validate  = function(
   parseString,
-  label
+  label,
+  converter
   )
 {
   var i = 0;
@@ -98,7 +99,8 @@ function Utf8Format(
 Utf8Format.prototype = new TrByteLengthValidator();
 Utf8Format.prototype.validate  = function(
   parseString,
-  label
+  label,
+  converter
   )
 {
   var i = 0;
@@ -159,7 +161,8 @@ function SBFormat(
 SBFormat.prototype = new TrByteLengthValidator();
 SBFormat.prototype.validate  = function(
   parseString,
-  label
+  label,
+  converter
   )
 {
   if (this._length < parseString.length)

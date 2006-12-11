@@ -596,8 +596,9 @@ function TrValidator()
  * containing the TrFacesMessage describing the failure. 
  * @param value value to be validated 
  * @param label label to identify the editableValueHolder to the user
+ * @param converter converter to format error string properly
  */
-TrValidator.prototype.validate = function(value, label){}
+TrValidator.prototype.validate = function(value, label, converter){}
 
 
 /** 
