@@ -2490,7 +2490,7 @@ function _multiValidate(
                 var validator = eval(validatorConstructor);
 
                 try {
-                  validator.validate(value, label);
+                  validator.validate(value, label, converter);
                 }
                 catch (e)
                 {
