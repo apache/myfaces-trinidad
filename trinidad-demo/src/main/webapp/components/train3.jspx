@@ -35,7 +35,8 @@
                 <tr:commandNavigationItem text="#{foo.label}"
                                     action="#{foo.getOutcome}"
                                     immediate="#{processTrainMenuModel.immediate}"
-                                    disabled="#{processTrainMenuModel.readOnly}"/>
+                                    disabled="#{processTrainMenuModel.readOnly}"
+                                    visited="#{processTrainMenuModel.visited}"/>
               </f:facet>
             </tr:train>   
             </tr:panelGroupLayout>

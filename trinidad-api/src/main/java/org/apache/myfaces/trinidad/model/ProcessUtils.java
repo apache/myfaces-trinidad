@@ -304,7 +304,107 @@ public class ProcessUtils
 
     return false;
   }
+  
+  
+  // Plus One case
 
+  /**
+   * For the Plus One case, a stop is considered visited if, 
+   * - it's before the current or,
+   * - is the current stop itself
+   * 
+   * @param model the menuModel instance to use. When the model is passed in, 
+   *  a call to model.getRowKey should return the rowKey for the "current" node.
+   * @param defaultReturnValue if the current and focus nodes aren't
+   *  siblings in the tree, this value will be returned.
+   * @return whether or not the current node has been visited.
+   */
+  public static boolean isVisited(
+    MenuModel model,
+    boolean   defaultReturnValue
+)
+  {
+    Object focusPath = model.getFocusRowKey();
+    Object currPath = model.getRowKey();
+  
+    boolean returnDefault = _hasDifferentAncestors (model, 
+                                                    focusPath,
+                                                    currPath);
+                                                    
+    if (returnDefault)
+    {
+      model.setRowKey(currPath);
+      return defaultReturnValue;
+    }
+                           
+    // current node is active
+    if (focusPath.equals(currPath))
+    {
+      model.setRowKey(currPath);
+      return true;
+    }
+    
+    // nodes before the current node are visited
+    model.setRowKey(focusPath);
+    int focusIndex = model.getRowIndex();
+    model.setRowKey(currPath);
+    int currIndex = model.getRowIndex();
+
+    if (currIndex <= focusIndex)
+      return true;
+
+    return false;
+  }
+
+  /**
+   * For the Max Visited case, a stop is considered visited if
+   *   - a stop is before the active stop
+   *   - or is the active stop
+   *   
+   * @param model the menuModel instance to use. When the model is passed in, a 
+   *  call to model.getRowKey should return the rowKey for the "current" node.
+   * @param maxVisitedRowKey the rowKey to use to determine the max visited node
+   * @param defaultReturnValue if the current, maxVisited and focus nodes aren't
+   *  siblings in the tree, this value will be returned.
+   * @return whether or not the current node has been visited.
+   */
+  public static boolean isVisited (
+    MenuModel model,
+    Object maxVisitedRowKey,
+    boolean defaultReturnValue)
+  {
+    Object focusPath = model.getFocusRowKey();
+    Object currPath = model.getRowKey();
+
+    boolean returnDefault = _hasDifferentAncestors(model,
+                                                   focusPath,
+                                                   currPath,
+                                                   maxVisitedRowKey);
+
+    if (returnDefault)
+    {
+      model.setRowKey(currPath);
+      return defaultReturnValue;
+    }
+
+    // on active node
+    if (focusPath.equals(currPath))
+    {
+      model.setRowKey(currPath);
+      return true;
+    }
+
+    model.setRowKey(maxVisitedRowKey);
+    int maxIndex = model.getRowIndex();
+
+    model.setRowKey(currPath);
+    int currIndex = model.getRowIndex();
+
+    if (currIndex <= maxIndex)
+      return true;
+
+    return false;
+  }
 
   /**
    * Get the rowKey of the max visited node in the respective process.

@@ -5,7 +5,9 @@
     <component tr:type="org.apache.myfaces.trinidad.CoreCommandNavigationItem" 
                tr:facet="nodeStamp" 
                text="#{foo.label}"
-               disabled="#{pageList.readOnly}"/>
+               disabled="#{pageList.readOnly}"
+               visited="#{pageList.visited}"
+               immediate="#{pageList.immediate}"/>
   </base-component>
   
 
