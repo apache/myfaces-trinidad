@@ -908,8 +908,7 @@ public class TrainRenderer
         UIComponent      stamp)
     {
       // Save the model state
-      int maxVisitedIndex  = _getMaxVisitedIndex(arc, process);
-      int activeIndex      = _loadStations(process, stamp, maxVisitedIndex);
+      int activeIndex      = _loadStations(process, stamp);
       int visibleStopCount = _getVisibleStopCount(arc);
       
       _formName     = arc.getFormData().getName();
@@ -968,8 +967,7 @@ public class TrainRenderer
         UIXProcess  process,
         UIComponent stamp,
         int         index,
-        boolean     active,
-        boolean     visited)
+        boolean     active)
     {
       process.setRowIndex(index);
       if(stamp.isRendered())
@@ -979,39 +977,10 @@ public class TrainRenderer
                                   stamp, 
                                   index, 
                                   process.getRowKey(), 
-                                  active, 
-                                  visited));
+                                  active));
       }
     }
 
-    /**
-     * Get the maxVisited attribute from the node and return it.
-     */
-    private int _getMaxVisitedIndex(
-      RenderingContext arc, 
-      UIComponent component)
-    {
-      int maxVisitedIndex = NO_CHILD_INDEX;
-      Integer maxVisited = (Integer) _getMaxVisited(arc, component);
-      if (maxVisited != null)
-      {
-        maxVisitedIndex = maxVisited.intValue();
-      }
-      return maxVisitedIndex;
-    }
-
-    /**
-     * Returns the MAX_VISITED_ATTR
-     * @todo =-=jmw Hopefully we'll be told this someday.
-     */
-    private static Object _getMaxVisited(
-      RenderingContext arc, 
-      UIComponent component)
-    {
-      // return component.getAttributes().get("maxVisited");
-      return null;
-    }
-    
     private int _getVisibleStopCount(RenderingContext arc)
     {
       Object propValue = 
@@ -1090,8 +1059,7 @@ public class TrainRenderer
     
     private int _loadStations(
         UIXProcess  process,
-        UIComponent stamp,
-        int         maxVisitedIndex)
+        UIComponent stamp)
     {
       _initialRowKey = process.getRowKey();
       try
@@ -1107,37 +1075,23 @@ public class TrainRenderer
         assert activeIndex < count;
         
         _stations = new ArrayList<Station>(count);
-        
+        boolean bActiveStop = false;
+
         // Process visited stations
-        for(; index < activeIndex; index++)
-        {
-          _createStation(process, stamp, index, false, true);
-        }
-        
-        assert index == activeIndex;
-        
-        _createStation(process, stamp, index, true, true);
-        index++;
-        // Might have an invisible active station. Thsi is weird, but still.
-        // You never know what users want to do, but let support 
-        // it nevertheless for now. 
-        // selectedIndex is either the active station index or the index 
-        // of the station just before the selected one if active is not visible.
-        activeIndex = _stations.size() - 1;
-        
-        if(maxVisitedIndex != NO_CHILD_INDEX)
-        {
-          for(; index < maxVisitedIndex; index++)
-          {
-            _createStation(process, stamp, index, false, true);
-          }
-        }
-        
         for(; index < count; index++)
         {
-          _createStation(process, stamp, index, false, false);
+          bActiveStop = (index == activeIndex);
+          _createStation(process, stamp, index, bActiveStop);
+          if (bActiveStop)
+          {
+            // Might have an invisible active station. Thsi is weird, but still.
+            // You never know what users want to do, but let support 
+            // it nevertheless for now. 
+            // selectedIndex is either the active station index or the index 
+            // of the station just before the selected one if active is not visible.
+            activeIndex = _stations.size() - 1;
+          }
         }
-        
         return activeIndex;
       }
       finally
@@ -1307,15 +1261,14 @@ public class TrainRenderer
         UIComponent stamp,
         int         index,
         Object      rowKey,
-        boolean     active,
-        boolean     visited)
+        boolean     active)
     {
       Map<String, Object> attributes = stamp.getAttributes();
       
       _rowIndex    = index;
       _rowKey      = rowKey;
       _active      = active;
-      _visited     = visited;
+      _visited     = _getBooleanAttribute(attributes, "visited", false);
       _disabled    = _getBooleanAttribute(attributes, "disabled", false);
       _parentEnd   = false;
       _parentStart = false;
@@ -1718,7 +1671,7 @@ public class TrainRenderer
     private boolean _overflowStart; // Is this station the prev step set link?
     private boolean _parentEnd;    // Is this station a parent end?
     private boolean _parentStart;  // Is this station a parent start?
-    private boolean _visited;      // Is this station visited?
+    private boolean _visited;      // visited attribute
     
     private int _rowIndex; // Row index
     

@@ -195,6 +195,32 @@ public class ProcessMenuModel extends ViewIdPropertyMenuModel
       return ProcessUtils.isReadOnly(this, maxPath, true);
     }
   }
+  
+  /**
+   * For the Max Visited case, a stop is considered visited if
+   *   - a stop is before the max visited stop
+   *   - or is the max visited stop
+   *   
+   * For the Plus One case, a stop is considered visited if, 
+   *   - it's before the current or,
+   *   - is the current stop itself
+   *   
+   * @return
+   */
+  public boolean isVisited()
+  {
+    // Max Visited
+    Object maxPathKey = getMaxPathKey();
+    if ( maxPathKey == null)
+    {
+      return ProcessUtils.isVisited(this, false);
+    }
+    else
+    {
+      Object  maxPath = ProcessUtils.getMaxVisitedRowKey(this, maxPathKey);
+      return ProcessUtils.isVisited(this, maxPath, false);
+    }
+  }  
 
   /**
    * to clear the max visited path out of the session

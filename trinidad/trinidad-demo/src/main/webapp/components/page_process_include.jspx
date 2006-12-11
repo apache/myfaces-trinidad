@@ -38,7 +38,8 @@
                      text="#{foo.label}"
                      action="#{foo.getOutcome}"
                      immediate="#{processPageMenuModel.immediate}"
-                     disabled="#{processPageMenuModel.readOnly}"/>
+                     disabled="#{processPageMenuModel.readOnly}"
+                     visited="#{processTrainMenuModel.visited}"/>
                  </f:facet>
               </tr:train>    
             </f:facet>   

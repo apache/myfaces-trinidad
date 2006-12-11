@@ -115,6 +115,18 @@
       </property-extension>
     </property>
     <property>
+      <description><![CDATA[whether the item is in visited state. Depending on 
+      the renderer the item may appear in a visited style, if true. This 
+      property is currently used only within the a train component.]]>
+      </description>
+      <property-name>visited</property-name>
+      <property-class>boolean</property-class>
+      <default-value>false</default-value>
+      <property-extension>
+        <mfp:required>false</mfp:required>
+      </property-extension>
+    </property>
+    <property>
       <description><![CDATA[the target frame for the go component.]]></description>
       <property-name>targetFrame</property-name>
       <property-class>java.lang.String</property-class>
