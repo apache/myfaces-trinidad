@@ -23,6 +23,8 @@ import javax.faces.event.PhaseId;
 
 import org.apache.myfaces.trinidad.event.DisclosureEvent;
 
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+
 /**
  * Base class for ShowDetail component.
  * @version $Name:  $ ($Revision$) $Date$
@@ -73,7 +75,21 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     {
       // Expand or collapse this showDetail
       boolean isDisclosed = ((DisclosureEvent) event).isExpanded();
-      setDisclosed(isDisclosed);
+      // If the component is already in that disclosure state, we 
+      // have a renderer bug.  Either it delivered an unnecessary event,
+      // or even worse it set disclosed on its own instead of waiting 
+      // for the disclosure event to do that, which will lead to lifecycle
+      // problems.  So in either case, warn the developer.
+      if (isDisclosed == isDisclosed())
+      {
+        _LOG.warning("Event {0} was delivered to a showDetail "+
+                     "already in that disclosure state.", event);
+      }
+      else
+      {
+        setDisclosed(isDisclosed);
+      }
+
       //pu: Implicitly record a Change for 'disclosed' attribute
       addAttributeChange("disclosed",
                          isDisclosed ? Boolean.TRUE : Boolean.FALSE);
@@ -108,4 +124,5 @@ abstract public class UIXShowDetailTemplate extends UIXComponentBase
     super.queueEvent(e);
   }
 
+  static private final TrinidadLogger _LOG = TrinidadLogger.createTrinidadLogger(UIXShowDetail.class);
 }
