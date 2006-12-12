@@ -62,6 +62,28 @@ abstract public class RenderKitTestCase extends TestSuite
     _initTests();
   }
 
+  protected void setUp() throws Exception
+  {
+  }
+
+  protected void tearDown() throws Exception
+  {
+  }
+
+  public void run(TestResult result)
+  {
+    try
+    {
+      setUp();
+      super.run(result);
+      tearDown();
+    }
+    catch (Exception e)
+    {
+      result.addError(this, e);
+    }
+  }
+
 
   abstract public class BaseTest extends TestCase
   {
