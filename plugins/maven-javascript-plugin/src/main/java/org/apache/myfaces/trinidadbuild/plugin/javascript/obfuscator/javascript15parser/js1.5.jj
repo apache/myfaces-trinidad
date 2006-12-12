@@ -383,11 +383,11 @@ void AllocationExpression():
 }
 {
         LOOKAHEAD(4)  t=<NEW> <THIS>       (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
     |   LOOKAHEAD(4)  t=<NEW> Identifier() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD(2) Arguments()] 
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
     |   LOOKAHEAD(4)  t=<NEW> FunctionConstructor() (LOOKAHEAD(2) NewSuffix())* [LOOKAHEAD (2) Arguments()] 
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
 }
 
 
@@ -411,17 +411,23 @@ void UnaryOp():
 }
 {
         t=<DELETE>
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
     |   t=<VOID>
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
     |   t=<TYPEOF>
-            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
-    |   <INCR>
-    |   <DECR>
-    |   <PLUS>
-    |   <MINUS>
-    |   <TILDE>
-    |   <BANG>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<INCR>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
+    |   t=<DECR>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<PLUS>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<MINUS>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<TILDE>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
+    |   t=<BANG>
+            {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}    
 }
 
 void UnaryExpression():
@@ -448,7 +454,7 @@ void MultiplicativeExpression():
 void AddOp():
 {}
 {
-        <PLUS>
+        <PLUS> 
     |   <MINUS>
 }
 
@@ -491,11 +497,11 @@ void RelationalExpression():
                            | t=<INSTANCEOF> 
                              {JSParserUtils.annotateToken(t, 
                                                           AnnotationConstants.UNDEFINED, 
-                                                          null, 2);}
+                                                          null, AnnotatedToken.INFIX_WS);}
                            | t=<IN> 
                              {JSParserUtils.annotateToken(t,
                                                           AnnotationConstants.UNDEFINED,
-                                                          null, 2);})
+                                                          null, AnnotatedToken.INFIX_WS);})
              ShiftExpression())*
 }
 
@@ -508,7 +514,7 @@ void RelationalExpressionNoIN():
             ( (  RelOp() 
                | t=<INSTANCEOF>  
                  {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
-                                              null, 2);})
+                                              null, AnnotatedToken.INFIX_WS);})
               ShiftExpression())*
 }
 
@@ -743,7 +749,7 @@ void VariableStatement():
         Token t;
 }
 {
-        t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+        t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
         VariableDeclarationList(t) Sc()
 }
  
@@ -839,7 +845,7 @@ void IfStatement():
         <IF> <LPAREN> Expression() <RPAREN> 
             Statement() 
             [ LOOKAHEAD(1) t=<ELSE> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED,
-                                                                 null, 1);}
+                                                                 null, AnnotatedToken.PREFIX_WS);}
               Statement()
             ]
 }
@@ -888,7 +894,7 @@ void ForVarStatement():
 }
 {
         <FOR> <LPAREN>  t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
-                                                             null, 1);}
+                                                             null, AnnotatedToken.PREFIX_WS);}
                         VariableDeclarationList(t) <SEMICOLON> 
                         [Expression()]  <SEMICOLON> 
                         [Expression()]  <RPAREN> 
@@ -902,7 +908,7 @@ void ForInStatement():
 {
         <FOR> <LPAREN>  ExpressionNoIN() 
                         t=<IN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, 
-                                                            null, 2);}
+                                                            null, AnnotatedToken.INFIX_WS);}
                         ExpressionNoIN() <RPAREN> 
             Statement()
 }
@@ -913,14 +919,14 @@ void ForVarInStatement():
 }
 {
         <FOR> <LPAREN>  
-                t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+                t=<VAR> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
                 t=Identifier() 
                   {
-   	                  JSParserUtils.annotateToken(t, AnnotationConstants.VAR_IDENTIFIER, null, 1);
+   	                  JSParserUtils.annotateToken(t, AnnotationConstants.VAR_IDENTIFIER, null, AnnotatedToken.PREFIX_WS);
    	                  JSParserUtils.pushToken(_contextStack, (AnnotatedToken)t);
                   }
                 [Initializer()] 
-                t=<IN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 2);}
+                t=<IN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.INFIX_WS);}
                 ExpressionNoIN() 
               <RPAREN> 
             Statement()
@@ -943,7 +949,7 @@ void ReturnStatement():
         Token t;
 }
 {
-        t=<RETURN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+        t=<RETURN> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
         [Expression()] Sc()
 }
 
@@ -967,7 +973,7 @@ void ThrowStatement():
         Token t;
 }
 {
-        t=<THROW> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+        t=<THROW> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
         [Expression()] Sc()
 }
 
@@ -976,7 +982,7 @@ void CaseGuard():
         Token t;
 }
 {
-        t=<CASE> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, 1);}
+        t=<CASE> {JSParserUtils.annotateToken(t, AnnotationConstants.UNDEFINED, null, AnnotatedToken.PREFIX_WS);}
         Expression() <COLON>
     |   <_DEFAULT> <COLON>
 }
@@ -1018,7 +1024,7 @@ void NamedFunction():
                                                AnnotationConstants.FUNCTION_PARAM_IDENTIFIER,
                                                null, -1); 
                   JSParserUtils.annotateToken(tFunction, AnnotationConstants.NAMED_FUNCTION,
-                                              params, 1); 
+                                              params, AnnotatedToken.PREFIX_WS); 
                   JSParserUtils.pushTokens(_contextStack, params);
               } 
 

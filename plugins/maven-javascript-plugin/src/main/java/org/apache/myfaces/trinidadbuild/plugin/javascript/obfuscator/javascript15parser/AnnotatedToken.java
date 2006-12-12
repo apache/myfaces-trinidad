@@ -26,10 +26,13 @@ public class AnnotatedToken extends Token {
         SPECIAL_TYPES.add("Assert");
         SPECIAL_TYPES.add("Logger");
     }
+    
+    public static final int PREFIX_WS = 1;
+    public static final int INFIX_WS = 2;
 
     protected int _annotationKind = AnnotationConstants.UNDEFINED;
     protected Object _annotationObject;
-    protected int _wsSensitive;
+    protected int _wsSensitive = 0;
     protected boolean _remove;
     protected boolean _funcUsesEval;
     protected String _type = "undefined";
@@ -98,11 +101,11 @@ public class AnnotatedToken extends Token {
     }
 
     public boolean isPrefixWSSensitive() {
-        return _wsSensitive == 1;
+        return _wsSensitive == PREFIX_WS;
     }
 
     public boolean isInfixWSSensitive() {
-        return _wsSensitive == 2;
+        return _wsSensitive == INFIX_WS;
     }
 
     public boolean isRemovableKeyword() {
