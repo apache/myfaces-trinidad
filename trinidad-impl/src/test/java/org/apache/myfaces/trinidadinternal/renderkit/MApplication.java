@@ -129,7 +129,7 @@ public class MApplication extends Application
   @Override
   public void setVariableResolver(VariableResolver resolver)
   {
-    throw new UnsupportedOperationException("Should not be called during rendering");
+    _variableResolver = resolver;
   }
 
   @Override
