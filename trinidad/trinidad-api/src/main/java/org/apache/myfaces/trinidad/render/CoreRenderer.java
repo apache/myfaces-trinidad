@@ -599,7 +599,8 @@ public class CoreRenderer extends Renderer
       if (styleClasses[i] != null)
       {
         String styleClass = arc.getStyleClass(styleClasses[i]);
-        length += styleClass.length() + 1;
+        if (styleClass != null)
+          length += styleClass.length() + 1;
         styleClasses[i] = styleClass;
       }
     }

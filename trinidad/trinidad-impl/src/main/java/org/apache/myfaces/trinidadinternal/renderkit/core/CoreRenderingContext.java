@@ -57,6 +57,12 @@ import org.apache.myfaces.trinidadinternal.util.nls.LocaleUtils;
 
 public class CoreRenderingContext extends RenderingContext
 {
+  /**
+   * String marker used to indicate the style class is empty and can
+   * be ignored.
+   */
+  static public final String EMPTY_STYLE_CLASS = "";
+
   public CoreRenderingContext()
   {
     FacesContext context = FacesContext.getCurrentInstance();
@@ -251,7 +257,12 @@ public class CoreRenderingContext extends RenderingContext
     }
 
     if (shortenedStyle != null)
+    {
+      if (EMPTY_STYLE_CLASS == shortenedStyle)
+        return null;
+
       styleClass = shortenedStyle;
+    }
     else
     {
       // if we didn't shorten the style classes, then make sure the

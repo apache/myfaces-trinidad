@@ -161,6 +161,22 @@ public class StyleNode
   {
     return _selector;
   }
+  
+  /**
+   * Returns true if the style node has no properties. 
+   */
+  public boolean isEmpty()
+  {
+    if (_properties != null && _properties.length > 0)
+      return false;
+    if (_compoundProperties != null && _compoundProperties.length > 0)
+      return false;
+    if (_includedStyles != null && _includedStyles.length > 0)
+      return false;
+    if (_includedProperties != null && _includedProperties.length > 0)
+      return false;
+    return true;
+  }
 
   /**
    * Implementation of StyleNode.getProperties().
