@@ -24,11 +24,14 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -36,6 +39,7 @@ import java.util.Vector;
 
 import org.apache.myfaces.trinidad.logging.TrinidadLogger;
 import org.apache.myfaces.trinidadinternal.agent.TrinidadAgent;
+import org.apache.myfaces.trinidadinternal.renderkit.core.CoreRenderingContext;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.SkinSelectors;
 import org.apache.myfaces.trinidadinternal.share.io.CachingNameResolver;
 import org.apache.myfaces.trinidadinternal.share.io.DefaultNameResolver;
@@ -618,16 +622,11 @@ public class FileSystemStyleCache implements StyleProvider
       return null;
     }
 
-    // -= Simon Lessard =-
-    // TODO: Check if synchronization is truly required
-    Vector<StyleNode> v = new Vector<StyleNode>();
+    List<StyleNode> v = new ArrayList<StyleNode>();
     while (e.hasNext())
-      v.addElement(e.next());
+      v.add(e.next());
 
-    StyleNode[] styles = new StyleNode[v.size()];
-    v.copyInto(styles);
-
-    return styles;
+    return v.toArray(new StyleNode[v.size()]);
   }
 
   // Generates the CSS file for the specified context and styles.
@@ -896,6 +895,7 @@ public class FileSystemStyleCache implements StyleProvider
     Iterator<StyleSheetNode> styleSheets = document.getStyleSheets(context);
     assert (styleSheets != null);
 
+    Set<String> emptySelectors = new HashSet<String>();
     while (styleSheets.hasNext())
     {
       StyleSheetNode styleSheet = styleSheets.next();
@@ -908,8 +908,6 @@ public class FileSystemStyleCache implements StyleProvider
 
         if (selector != null)
         {
-
-
           // If we've got a single style class selector, add it
           // to the map. Otherwise, we need to search the selector
           // for style classes.
@@ -918,6 +916,11 @@ public class FileSystemStyleCache implements StyleProvider
             String styleClass = selector.substring(1);
             if (!map.containsKey(styleClass))
               map.put(styleClass, _getShortStyleClass(map.size()));
+            
+            if (style.isEmpty())
+              emptySelectors.add(styleClass);
+            else
+              emptySelectors.remove(styleClass);
           }
           else
           {
@@ -929,14 +932,17 @@ public class FileSystemStyleCache implements StyleProvider
               while (styleClasses.hasNext())
               {
                 String styleClass = styleClasses.next();
-
+                
                 if (!map.containsKey(styleClass))
                   map.put(styleClass, _getShortStyleClass(map.size()));
+                
+                // Don't remove any styleclass that is referred to
+                emptySelectors.remove(styleClass);
               }
             }
-
+            
             int length = namespacePrefixes.length;
-
+            
             for (int i=0; i < length; i++)
             {
               String nsPrefix = namespacePrefixes[i];
@@ -946,12 +952,23 @@ public class FileSystemStyleCache implements StyleProvider
                                                           _STYLE_KEY_MAP);
               if (afSelectors != null)
               {
+                boolean isFirst = true;
                 while (afSelectors.hasNext())
                 {
                   String styleClass = afSelectors.next();
-
+                  
                   if (!map.containsKey(styleClass))
                     map.put(styleClass, _getShortStyleClass(map.size()));
+                  if (isFirst && !afSelectors.hasNext() && style.isEmpty())
+                  {
+                    emptySelectors.add(styleClass);
+                  }
+                  else
+                  {
+                    emptySelectors.remove(styleClass);
+                  }
+                  
+                  isFirst = false;
                 }
               }
             }
@@ -962,13 +979,15 @@ public class FileSystemStyleCache implements StyleProvider
       }
     }
 
+    // Replace all empty keys with an empty string as the selector
+    for (String emptyKey : emptySelectors)
+      map.put(emptyKey, CoreRenderingContext.EMPTY_STYLE_CLASS);
+
     // We actually need a Map, since this object is exposed
     // via public APIs.  Also, we need the Map to be immutable,
     // or else we would need to create a new copy of the Map
     // each time it is requested.
-    // =-ags We could just clone the Map and wrap it in a Map
-    //       if we want to allow clients to modify the Map.
-    return new ImmutableMapAdapter<String, String>(map);
+    return Collections.unmodifiableMap(map);
   }
 
   // Helper method used by _getShortStyleClassMap().  Returns a new
@@ -1334,70 +1353,6 @@ public class FileSystemStyleCache implements StyleProvider
     private Hashtable<String, Style> _classMap;
     private Hashtable<String, Style> _nameMap;
   }
-
-  // Wraps a Map in an immutable Map
-  // -= Simon Lessard =-
-  // FIXME: WAHHHH! This is BAD... extending HashMap creates a
-  //        big array that will never be used... Furthermore,
-  //        Collections.unmodifiableMap does just that!!!
-  private static class ImmutableMapAdapter<K, V> extends HashMap<K, V>
-  {
-    public ImmutableMapAdapter(Map<K, V> map)
-    {
-      _map = map;
-    }
-
-    @Override
-    public int size()
-    {
-      return _map.size();
-    }
-
-    @Override
-    public boolean isEmpty()
-    {
-      return _map.isEmpty();
-    }
-
-    public Iterator<K> keys()
-    {
-      Set<K> keys = _map.keySet();
-      if (keys == null)
-        return null;
-
-      return keys.iterator();
-    }
-
-    public Iterator<V> elements()
-    {
-      Collection<V> values = _map.values();
-      if (values == null)
-        return null;
-
-      return values.iterator();
-    }
-
-    @Override
-    public V get(Object key)
-    {
-      return _map.get(key);
-    }
-
-    @Override
-    public V put(K key, V value)
-    {
-      throw new IllegalArgumentException();
-    }
-
-    @Override
-    public V remove(Object key)
-    {
-      throw new IllegalArgumentException();
-    }
-
-    private final Map<K, V> _map;
-  }
-
 
   private File   _sourceFile; // The source XSS file
   private String _targetPath; // The location of the cache

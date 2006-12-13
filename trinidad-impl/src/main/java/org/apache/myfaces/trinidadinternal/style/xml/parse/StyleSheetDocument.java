@@ -19,7 +19,7 @@ package org.apache.myfaces.trinidadinternal.style.xml.parse;
 import java.awt.Color;
 
 import java.util.Map;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.NoSuchElementException;
@@ -194,14 +194,10 @@ public class StyleSheetDocument
     // We also need to provide a Map for storing selector-based
     // styles and another for storing name-based styles, used by
     // _resolveStyle() to store results
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required
-    Hashtable<String, StyleNode> resolvedStyles = 
-      new Hashtable<String, StyleNode>();
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required    
-    Hashtable<String, StyleNode> resolvedNamedStyles = 
-      new Hashtable<String, StyleNode>();
+    HashMap<String, StyleNode> resolvedStyles = 
+      new HashMap<String, StyleNode>();
+    HashMap<String, StyleNode> resolvedNamedStyles = 
+      new HashMap<String, StyleNode>();
 
     // Now, loop through all StyleNodes in all StyleSheetNodes
     // Note: The algorithm used here is actually much more inefficient
@@ -375,12 +371,10 @@ public class StyleSheetDocument
     if (styleSheets == null)
       return null;
 
-    // -= Simon Lessard =- 
-    // TODO: Check if synchronization is truly required
     return _resolveStyle(context,
                          styleSheets,
-                         new Hashtable<String, StyleNode>(19),  // Resolved styles
-                         new Hashtable<String, StyleNode>(19),  // Resolved named styles
+                         new HashMap<String, StyleNode>(19),  // Resolved styles
+                         new HashMap<String, StyleNode>(19),  // Resolved named styles
                          null,               // Include stack
                          null,               // Named include stack
                          id,
