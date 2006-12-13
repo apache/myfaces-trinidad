@@ -31,7 +31,10 @@
     <component-type>org.apache.myfaces.trinidad.Value</component-type>
     <component-class>org.apache.myfaces.trinidad.component.UIXValue</component-class>
     <property>
-      <description><![CDATA[the value of the component]]></description>
+      <description><![CDATA[the value of the component.  If the EL binding
+for the "value" points to a bean property with a getter but no setter, and
+this is an editable component, the component will be rendered 
+in read-only mode.]]></description>
       <property-name>value</property-name>
       <property-class>java.lang.Object</property-class>
       <property-extension>
