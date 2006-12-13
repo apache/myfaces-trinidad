@@ -214,6 +214,19 @@ public class SimpleInputDateRenderer
     super.renderIcon(context, arc, component, bean);
   }
 
+  @Override 
+  protected void renderAfterTextField(
+    FacesContext        context,
+    RenderingContext arc,
+    UIComponent         component,
+    FacesBean           bean) throws IOException
+  {
+    // ADFFACES-317: don't bother rendering the icon if there's
+    // an attached chooser
+    if (_getChooseId(arc) == null)
+      super.renderAfterTextField(context, arc, component, bean);
+  }
+
   /**
    * @todo - should the default style be "short" or "default", which
    * may map to "medium"
@@ -230,38 +243,38 @@ public class SimpleInputDateRenderer
     // for convenience, we will set the time zone of the converter to that
     // specified by the context or, if that is not present, to the time zone
     // of the server
-    if(converter instanceof DateTimeConverter)
+    if (converter instanceof DateTimeConverter)
     {
-        DateTimeConverter dtc = (DateTimeConverter) converter;
-
-        boolean trinidadDTC = _isTrinidadDateTimeConverter(converter);
-
-        if (!trinidadDTC)
+      DateTimeConverter dtc = (DateTimeConverter) converter;
+      
+      boolean trinidadDTC = _isTrinidadDateTimeConverter(converter);
+      
+      if (!trinidadDTC)
+      {
+        // if it is not the Trinidad DateTimeConverter, set the date style to
+        // short
+        dtc.setDateStyle("short");
+      }
+      
+      // if it is not the Trinidad DateTimeConverter or (it is AND
+      // no time zone is set) then we want to set the
+      // time zone to the one in the faces context or use
+      // the default server time zone on the converter
+      if (!trinidadDTC || dtc.getTimeZone() == null)
+      {
+        TimeZone tz = null;
+        
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        tz = requestContext.getTimeZone();
+        if(tz == null)
         {
-            // if it is not the Trinidad DateTimeConverter, set the date style to
-            // short
-            dtc.setDateStyle("short");
+          tz = TimeZone.getDefault();
         }
-
-        // if it is not the Trinidad DateTimeConverter or (it is AND
-        // no time zone is set) then we want to set the
-        // time zone to the one in the faces context or use
-        // the default server time zone on the converter
-        if(!trinidadDTC || dtc.getTimeZone() == null)
-        {
-            TimeZone tz = null;
-
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            tz = requestContext.getTimeZone();
-            if(tz == null)
-            {
-                tz = TimeZone.getDefault();
-            }
-
-            dtc.setTimeZone(tz);
-        }
+        
+        dtc.setTimeZone(tz);
+      }
     }
-
+    
     return converter;
   }
 
@@ -276,7 +289,7 @@ public class SimpleInputDateRenderer
     if (chooseId != null)
       length += chooseId.length();
 
-    StringBuffer buffer = new StringBuffer(length);
+    StringBuilder buffer = new StringBuilder(length);
     buffer.append(_BLUR_PREFIX);
 
     if (chooseId != null)
@@ -306,7 +319,7 @@ public class SimpleInputDateRenderer
       if (chooseId != null)
         length += chooseId.length();
 
-      StringBuffer buffer = new StringBuffer(length);
+      StringBuilder buffer = new StringBuilder(length);
       buffer.append(_FOCUS_PREFIX);
 
       if (chooseId != null)
@@ -346,7 +359,7 @@ public class SimpleInputDateRenderer
       return null;
 
     // we want something big enough
-    StringBuffer onClickBuffer = new StringBuffer(100);
+    StringBuilder onClickBuffer = new StringBuilder(100);
 
     onClickBuffer.append("_ldp('");
     onClickBuffer.append(arc.getFormData().getName());
