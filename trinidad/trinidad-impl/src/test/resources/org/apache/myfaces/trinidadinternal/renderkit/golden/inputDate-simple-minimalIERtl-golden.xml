@@ -51,26 +51,6 @@
             >
           
         </input>
-        <script
-            >
-          t(8,1)
-        </script>
-        <a
-             onclick="_ldp('formId','mainId'); return false"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               alt="Select to access date picker"
-               border="0"
-               height="24"
-               src="/test-context-path/adf/images/dfbr.gif"
-               width="19"
-              >
-            
-          </img>
-        </a>
       </span>
       <script
           >

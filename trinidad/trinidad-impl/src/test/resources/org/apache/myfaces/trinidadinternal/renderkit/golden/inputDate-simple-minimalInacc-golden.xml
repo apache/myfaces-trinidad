@@ -53,28 +53,6 @@
             >
           
         </input>
-        <img
-             height="1"
-             width="8"
-             src="uri-attr:encoded-resource-url:/test-context-path/adf/images/t.gif"
-            >
-          
-        </img>
-        <a
-             onclick="_ldp('formId','mainId'); return false"
-             href="uri-attr:#"
-            >
-          
-          <img
-               align="middle"
-               border="0"
-               height="24"
-               src="/test-context-path/adf/images/dfb.gif"
-               width="19"
-              >
-            
-          </img>
-        </a>
       </span>
       <script
           >
