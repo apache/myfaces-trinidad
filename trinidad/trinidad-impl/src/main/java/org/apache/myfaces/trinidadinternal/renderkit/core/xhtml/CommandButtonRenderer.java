@@ -193,9 +193,16 @@ public class CommandButtonRenderer extends CommandLinkRenderer
     }
     else
     {
+      List<String> parsedStyleClasses = OutputUtils.parseStyleClassList(styleClass);
+      int userStyleClassCount;
+      if (parsedStyleClasses == null)
+        userStyleClassCount = (styleClass == null) ? 0 : 1;
+      else
+        userStyleClassCount = parsedStyleClasses.size();
+
       int numStates =   ((stateStyleClasses != null) ? 
                          stateStyleClasses.size() : 0);
-      int numClasses = ((styleClass != null) ? 1 : 0) +
+      int numClasses = userStyleClassCount +
                         ((defaultStyleClass != null) ? 1 : 0) +
                         numStates;
       if (numClasses > 0)
@@ -205,8 +212,18 @@ public class CommandButtonRenderer extends CommandLinkRenderer
         String[] styleClasses = new String[numClasses];
         
         int i=0;
-        if (styleClass != null)
+        if (parsedStyleClasses != null)
+        {
+          while (i < userStyleClassCount)
+          {
+            styleClasses[i] = parsedStyleClasses.get(i);
+            i++;
+          }
+        }
+        else if (styleClass != null)
+        {
           styleClasses[i++] = styleClass;
+        }
         if (defaultStyleClass != null)
           styleClasses[i++] = defaultStyleClass;
          

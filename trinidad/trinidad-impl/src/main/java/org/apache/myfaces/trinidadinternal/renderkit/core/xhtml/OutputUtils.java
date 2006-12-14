@@ -19,6 +19,8 @@ import java.awt.Color;
 
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -37,6 +39,44 @@ import org.apache.myfaces.trinidad.skin.Icon;
  */
 public class OutputUtils
 {
+  /**
+   * Parse a styleclass string, which may have spaces, into a list
+   * of style classes.   Returns null if it's just a single class.
+   */
+  public static List<String> parseStyleClassList(String styleClass)
+  {
+    if (styleClass == null)
+      return null;
+
+    // If there's no spaces, it's just a single class - return
+    // AdamWiner: should we care about all Unicode whitspace?
+    // This will catch 99.9% of cases, and this code needs to be
+    // fast
+    int spaceIndex = styleClass.indexOf(' ');
+    if (spaceIndex < 0)
+      return null;
+
+    // Iterate through the string and build up the split list
+    // AdamWiner: Regex split() would be a lot less code, but
+    // it doesn't automatically trim empty strings.
+    int prevSpaceIndex = 0;
+    List<String> styleClasses = new ArrayList<String>();
+    do
+    {
+      if (spaceIndex > prevSpaceIndex)
+        styleClasses.add(styleClass.substring(prevSpaceIndex, spaceIndex));
+      prevSpaceIndex = spaceIndex + 1;
+      spaceIndex = styleClass.indexOf(' ', prevSpaceIndex);
+    }
+    while (spaceIndex >= 0);
+
+    if (prevSpaceIndex < styleClass.length())
+      styleClasses.add(styleClass.substring(prevSpaceIndex));
+
+    return styleClasses;
+  }
+
+
   /**
    * Gets the character encoding of the output.
    */

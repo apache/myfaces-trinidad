@@ -17,6 +17,7 @@ package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -382,30 +383,55 @@ public class XhtmlRenderer extends CoreRenderer
     String              defaultStyleClass) throws IOException
   {
     String styleClass = getStyleClass(bean);
+    List<String> parsedStyleClasses = OutputUtils.parseStyleClassList(styleClass);
+
     if (defaultStyleClass != null)
     {
       if(styleClass!= null )
       {
-        defaultStyleClass = arc.getStyleClass(defaultStyleClass);
-        styleClass = arc.getStyleClass(styleClass);
-        renderStyleClasses( context,
-                            arc,
-                            new String[]{styleClass, defaultStyleClass});
+        // If we've got both a defaultStyleClass and a styleClass,
+        // build up an array containing each - and if the styleClass
+        // is really a list of styleClasses, break it apart so it
+        // can be compressed correctly
+        int styleCount = (parsedStyleClasses == null) ? 1 : parsedStyleClasses.size();
+        String[] styleClasses = new String[1 + styleCount];
+        if (parsedStyleClasses != null)
+        {
+          for (int i = 0; i < styleCount; i++)
+            styleClasses[i] = parsedStyleClasses.get(i);
+        }
+        else
+        {
+          styleClasses[0] = styleClass;
+        }
+
+        styleClasses[styleCount] = defaultStyleClass;
+
+        renderStyleClasses(context,
+                           arc,
+                           styleClasses);
       }
       else
       {
-        defaultStyleClass = arc.getStyleClass(defaultStyleClass);
-        context.getResponseWriter().writeAttribute("class",
-                                                   defaultStyleClass,
-                                                   null);
+        renderStyleClass(context, arc, defaultStyleClass);
       }
     }
     else if (styleClass != null)
     {
-      styleClass = arc.getStyleClass(styleClass);
-      context.getResponseWriter().writeAttribute("class",
-                                                 styleClass,
-                                                 "styleClass");
+      if (parsedStyleClasses == null)
+      {
+        styleClass = arc.getStyleClass(styleClass);
+        context.getResponseWriter().writeAttribute("class",
+                                                   arc.getStyleClass(styleClass),
+                                                   "styleClass");
+      }
+      else
+      {
+        renderStyleClasses(context,
+                           arc,
+                           parsedStyleClasses.toArray(
+                                   new String[parsedStyleClasses.size()]));
+      }
     }
 
     String style = getInlineStyle(bean);

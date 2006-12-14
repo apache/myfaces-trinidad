@@ -16,6 +16,7 @@
 package org.apache.myfaces.trinidadinternal.renderkit.core.xhtml;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -189,12 +190,35 @@ public abstract class InputLabelAndMessageRenderer extends LabelAndMessageRender
       requiredStyleClass = SkinSelectors.STATE_REQUIRED;
     }
    
-    renderStyleClasses(context, arc, new String[]{styleClass,
-                                                  contentStyleClass,
-                                                  disabledStyleClass,
-                                                  readOnlyStyleClass,
-                                                  requiredStyleClass});
-    
+    List<String> parsedStyleClasses =
+      OutputUtils.parseStyleClassList(styleClass);
+    int userStyleClassCount;
+    if (parsedStyleClasses == null)
+      userStyleClassCount = (styleClass == null) ? 0 : 1;
+    else
+      userStyleClassCount = parsedStyleClasses.size();
+
+    String[] styleClasses = new String[userStyleClassCount + 4];
+    int i=0;
+    if (parsedStyleClasses != null)
+    {
+      while (i < userStyleClassCount)
+      {
+        styleClasses[i] = parsedStyleClasses.get(i);
+        i++;
+      }
+    }
+    else if (styleClass != null)
+    {
+      styleClasses[i++] = styleClass;
+    }
+
+    styleClasses[i++] = contentStyleClass;
+    styleClasses[i++] = disabledStyleClass;
+    styleClasses[i++] = readOnlyStyleClass;
+    styleClasses[i++] = requiredStyleClass;
+
+    renderStyleClasses(context, arc, styleClasses);
     renderInlineStyle(context, arc, bean);  
   }
     
