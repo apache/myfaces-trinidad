@@ -66,6 +66,18 @@
   <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION">Conversion failed.</resource>
   <resource key="org.apache.myfaces.trinidad.UIXEditableValue.CONVERSION_detail">The value "{1}" was not understood: {2}</resource>
 
+  <!-- hints for validators -->
+  <resource key="org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT">The maximum allowed byte length for this value is {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT">The allowed maximum for this value is {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT">The allowed minimum for this value is {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT">The allowed maximum for this value is {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT">The allowed minimum for this value is {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT">The date can not be after {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT">The date can not be before {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT">The picked date is one of the following weekdays: {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT">The picked date is in one of the following month: {0}.</resource>
+  <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT">The value must match this pattern: {0}.</resource>
+
   <!-- messages for validators -->
 
   <!-- Note: The parameter numbers of these faces messages do not match -->
@@ -281,6 +293,26 @@
   <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH">Value does not match pattern.</resource>
 
   <resource key="org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_detail">The value "{1}" does not match the regular expression pattern "{2}".</resource>
+  
+  <!-- hints for converters -->
+
+  <!-- default format for DateTimeConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT">The date to enter must follow a format like "{0}".</resource>
+  <!-- default format for ColorConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT">The color to enter must follow a format like "{0}".</resource>
+
+  <!-- default format for IntegerConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT">The entered value must be a integer</resource>
+  <!-- default format for LongConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.LongConverter.FORMAT_HINT">The entered value must be a long</resource>
+  <!-- default format for ShortConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.ShortConverter.FORMAT_HINT">The entered value must be a short</resource>
+  <!-- default format for ByteConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.ByteConverter.FORMAT_HINT">The entered value must be a byte</resource>
+  <!-- default format for DoubleConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.DoubleConverter.FORMAT_HINT">The entered value must be a double</resource>
+  <!-- default format for FloatConverter-->
+  <resource key="org.apache.myfaces.trinidad.convert.FloatConverter.FORMAT_HINT">The entered value must be a float</resource>
   
   <!-- messages for converters -->
 
