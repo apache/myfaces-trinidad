@@ -41,6 +41,13 @@ function TrColorConverter(
 }
 
 TrColorConverter.prototype = new TrConverter();
+
+TrColorConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.ColorConverter.FORMAT_HINT",
+	  this._pattern);
+}
 TrColorConverter.prototype.getAsString = function(
   formatColor)
 {
