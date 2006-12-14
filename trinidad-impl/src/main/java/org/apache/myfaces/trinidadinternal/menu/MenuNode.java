@@ -470,15 +470,13 @@ public class MenuNode
   }
   
   /**
-   * getId - gets the id of the node.
+   * getId - gets the metadata id of the node.
    * 
    * @return - String identifier for the node component.
    */
   public String getId()
   {
-    // This must be made unique so that we do not have duplicates 
-    // in the idNodeMap on the menu's tree.      
-    return _id + _nodeSysId;
+    return _id;
   }
 
   /*===========================================================================
@@ -601,10 +599,19 @@ public class MenuNode
   }
 
   /**
-   * Set the MenuContentHandlerImpl's id.
+   * getUniqueId - gets the unique id of the node.
    * 
-   * This is appended to the node's id in getId() to 
-   * ensure that each node's id is unique.
+   * @return - String identifier for the node component.
+   */
+  protected String getUniqueId()
+  {
+    // This must be made unique so that we do not have duplicates 
+    // in the idNodeMap on the menu's tree.      
+    return _id + _nodeSysId;
+  }
+
+  /**
+   * Set the MenuContentHandlerImpl's id.
    * 
    * @return String object id of the MenuContentHandlerImpl
    */
@@ -616,7 +623,7 @@ public class MenuNode
   /**
    * Set the Menu Node's System id.
    * 
-   * This is appended to the node's id in getId() to 
+   * This is appended to the node's id in getUniqueId() to 
    * ensure that each node's id is unique.
    * 
    * @return String object System id of the node.

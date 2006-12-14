@@ -377,7 +377,7 @@ public class ItemNode extends MenuNode
 
     // Appending nodeId to URL so that we can identify the node
     // when getFocusRowKey() is called on the model.
-    return value != null ? value + "?nodeId=" + getId() : value;
+    return value != null ? value + "?nodeId=" + getUniqueId() : value;
   }
   
   /**
