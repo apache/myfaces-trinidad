@@ -41,6 +41,17 @@ function CjkFormat(
 }
 
 CjkFormat.prototype = new TrByteLengthValidator();
+CjkFormat.prototype.getHints = function(
+  converter
+  )
+{
+  var messages = new Array();
+  messages.push(TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	  this._length)
+	);
+	return messages;
+}
 CjkFormat.prototype.validate  = function(
   parseString,
   label,
@@ -97,6 +108,17 @@ function Utf8Format(
 
 
 Utf8Format.prototype = new TrByteLengthValidator();
+Utf8Format.prototype.getHints = function(
+  converter
+  )
+{
+  var messages = new Array();
+  messages.push(TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	  this._length)
+	);
+	return messages;
+}
 Utf8Format.prototype.validate  = function(
   parseString,
   label,
@@ -159,6 +181,17 @@ function SBFormat(
 
 
 SBFormat.prototype = new TrByteLengthValidator();
+SBFormat.prototype.getHints = function(
+  converter
+  )
+{
+  var messages = new Array();
+  messages.push(TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM_HINT",
+	  this._length)
+	);
+	return messages;
+}
 SBFormat.prototype.validate  = function(
   parseString,
   label,

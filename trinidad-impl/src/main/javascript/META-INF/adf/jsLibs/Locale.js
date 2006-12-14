@@ -549,6 +549,46 @@ LocaleSymbols.prototype.getMonetaryDecimalSeparator = _getMonetaryDecimalSeparat
 LocaleSymbols.prototype.getLocaleElements = _getLocaleElements;
 
 /**
+ * ConverterHint "interface" for a client side TrConverter instance.
+ * The ConverterHint "interface" is for guiding a user on the desired format to ensure
+ * that no converter exceptions are thrown.
+ *
+ */
+function TrConverterHint()
+{
+  // for debugging
+  this._class = "TrConverterHint";
+}
+
+/**
+ * Returns a hint for the used converter, which format is
+ * expected by the ui component.
+ */
+TrConverterHint.prototype.getFormatHint = function(){}
+
+/**
+ * ValidatorHint "interface" for a client side TrValidator instance.
+ * The ValidatorHint "interface" is to guide a user when entering a
+ * value to an input component, to ensure that no validator exceptions is thrown.
+ */
+function TrValidatorHint()
+{
+  // for debugging
+  this._class = "TrValidatorHint";
+}
+
+/**
+ * Since an implementation of this "interface" can have multiple
+ * hints available, we return all available hint messages in an JavaScript Array.
+ * 
+ * @param converter converter is passed to this method, because sometimes a default converter is used
+ * and the validator, implementing this interface, shouldn't need to figure out
+ * anything about that
+ */
+TrConverterHint.prototype.getHints = function(converter){}
+
+
+/**
  * Converter "interface" similar to javax.faces.convert.Converter,
  * except that all relevant information must be passed to the constructor
  * as the context and component are not passed to the getAsString or getAsObject method 
@@ -852,4 +892,29 @@ TrMessageFactory.getDetailString = function(
     
   // TODO should I be doing string concat here, or have a map of key -> detailKey?
   return TrMessageFactory._TRANSLATIONS[key+"_detail"];
+}
+
+TrMessageFactory.getString = function(
+  key
+  )
+{
+  return TrMessageFactory.getSummaryString(key);
+}
+
+TrMessageFactory.createMessage = function(
+  key,
+  parameters
+  )
+{  
+  // the strings to create a facesMessage to use have been sent down
+  var message = TrMessageFactory.getSummaryString(key);       
+  if ( message != null )
+  {
+    if ( parameters != null )
+    {
+      message = TrFastMessageFormatUtils.format(message,parameters);
+    }
+  }
+    
+  return message;
 }

@@ -1049,6 +1049,14 @@ function TrDateTimeConverter(
 }
 
 TrDateTimeConverter.prototype = new TrConverter();
+
+TrDateTimeConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.DateTimeConverter.FORMAT_HINT",
+    this._pattern);
+}
+
 TrDateTimeConverter.prototype.getAsString = function(
   formatTime
   )

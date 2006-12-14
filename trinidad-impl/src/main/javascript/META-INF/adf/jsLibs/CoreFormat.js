@@ -33,6 +33,12 @@ function TrIntegerConverter(
 
 TrIntegerConverter.prototype = new TrConverter();
 
+TrIntegerConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.IntegerConverter.FORMAT_HINT",
+	  null);
+}
 
 TrIntegerConverter.prototype.getAsString = function(
   number,
@@ -75,6 +81,12 @@ function TrLongConverter(
 
 TrLongConverter.prototype = new TrConverter();
 
+TrLongConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.LongConverter.FORMAT_HINT",
+	  null);
+}
 
 TrLongConverter.prototype.getAsString = function(
   number,
@@ -117,6 +129,12 @@ function TrShortConverter(
 
 TrShortConverter.prototype = new TrConverter();
 
+TrShortConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.ShortConverter.FORMAT_HINT",
+	  null);
+}
 
 TrShortConverter.prototype.getAsString = function(
   number,
@@ -159,6 +177,12 @@ function TrByteConverter(
 
 TrByteConverter.prototype = new TrConverter();
 
+TrByteConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.ByteConverter.FORMAT_HINT",
+	  null);
+}
 
 TrByteConverter.prototype.getAsString = function(
   number,
@@ -202,6 +226,12 @@ function TrDoubleConverter(
 
 TrDoubleConverter.prototype = new TrConverter();
 
+TrDoubleConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.DoubleConverter.FORMAT_HINT",
+	  null);
+}
 
 TrDoubleConverter.prototype.getAsString = function(
   number,
@@ -244,6 +274,13 @@ function TrFloatConverter(
 
 TrFloatConverter.prototype = new TrConverter();
 
+TrFloatConverter.prototype.getFormatHint = function()
+{
+	return TrMessageFactory.createMessage(
+    "org.apache.myfaces.trinidad.convert.FloatConverter.FORMAT_HINT",
+	  null);
+}
+
 TrFloatConverter.prototype.getAsString = function(
   number,
   label
@@ -280,6 +317,24 @@ function TrRangeValidator(
 }
 
 TrRangeValidator.prototype = new TrValidator();
+TrRangeValidator.prototype.getHints = function(
+  converter
+  )
+{
+	var hints = new Array();
+	hints.push(
+  	TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.RangeValidator.MAXIMUM_HINT",
+	    ""+this._maxValue)
+   );
+	hints.push(
+  	TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.RangeValidator.MINIMUM_HINT",
+	    ""+this._minValue)
+   );
+
+  return hints;
+}
 TrRangeValidator.prototype.validate  = function(
   value,
   label,
@@ -327,6 +382,17 @@ function TrLengthValidator(
 }
 
 TrLengthValidator.prototype = new TrValidator();
+TrLengthValidator.prototype.getHints = function(
+  converter
+  )
+{
+  return _returnHints(
+    this._maxValue,
+    this._minValue,
+    "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM_HINT"
+  );
+}
 TrLengthValidator.prototype.validate  = function(
   value,
   label,
@@ -365,6 +431,17 @@ function TrDateTimeRangeValidator(
 }
 
 TrDateTimeRangeValidator.prototype = new TrValidator();
+TrDateTimeRangeValidator.prototype.getHints = function(
+  converter
+  )
+{
+  return _returnHints(
+    converter.getAsString(new Date(this._maxValue)),
+    converter.getAsString(new Date(this._minValue)),
+    "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MAXIMUM_HINT",
+    "org.apache.myfaces.trinidad.validator.DateTimeRangeValidator.MINIMUM_HINT"
+  );
+}
 TrDateTimeRangeValidator.prototype.validate  = function(
   value,
   label,
@@ -393,20 +470,29 @@ TrDateTimeRangeValidator.prototype.validate  = function(
 
 function TrDateRestrictionValidator(
   weekdaysValue,
-  monthValue,
-  weekdaysMap,
-  monthMap)
+  monthValue)
 {
   this._weekdaysValue = weekdaysValue;
   this._monthValue = monthValue;
-  this._weekdaysMap = weekdaysMap;
-  this._monthMap = monthMap;
+  this._weekdaysMap = {'2':'tue','4':'thu','6':'sat','1':'mon','3':'wed','5':'fri','0':'sun'};
+  this._monthMap = {'2':'mar','4':'may','9':'oct','8':'sep','11':'dec','6':'jul','1':'feb','3':'apr','10':'nov','7':'aug','5':'jun','0':'jan'};
 
   // for debugging
   this._class = "TrDateRestrictionValidator";
 }
 
 TrDateRestrictionValidator.prototype = new TrValidator();
+TrDateRestrictionValidator.prototype.getHints = function(
+  converter
+  )
+{
+  return _returnHints(
+    this._weekdaysValue,
+    this._monthValue,
+    "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY_HINT",
+    "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH_HINT"
+  );
+}
 TrDateRestrictionValidator.prototype.validate  = function(
   value,
   label,
@@ -424,7 +510,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
   		{
         facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY",
                                         label,
-                                        ""+value,
+                                        ""+converter.getAsString(value),
                                         dayString);
         throw new TrConverterException(facesMessage);
   		}
@@ -442,7 +528,7 @@ TrDateRestrictionValidator.prototype.validate  = function(
   		{
         facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH",
                                         label,
-                                        ""+value,
+                                        ""+converter.getAsString(value),
                                         monthString);
         throw new TrConverterException(facesMessage);
   		}
@@ -584,6 +670,17 @@ function TrRegExpValidator(
 }
 
 TrRegExpValidator.prototype = new TrValidator();
+TrRegExpValidator.prototype.getHints = function(
+  converter
+  )
+{
+  var hints = new Array();
+  hints.push(TrMessageFactory.createMessage(
+      "org.apache.myfaces.trinidad.validator.RegExpValidator.NO_MATCH_HINT",
+      ""+this._pattern)
+  );
+  return hints;
+}
 TrRegExpValidator.prototype.validate  = function(
   parseString,
   label,
@@ -620,4 +717,36 @@ TrRegExpValidator.prototype.validate  = function(
     }
     throw new TrValidatorException(facesMessage); 
   }
+}
+
+function _returnHints(
+  max,
+  min,
+  maxKey,
+  minKey
+)
+{
+  var hints = null;
+  if(max)
+  {
+    hints = new Array();
+    hints.push(
+      TrMessageFactory.createMessage(
+        maxKey,
+	      ""+max)
+	  );
+  }
+  if(min)
+  {
+    if(!hints)
+    {
+      hints = new Array();
+    }
+    hints.push(
+      TrMessageFactory.createMessage(
+        minKey,
+	      ""+min)
+     );
+  }
+  return hints;
 }

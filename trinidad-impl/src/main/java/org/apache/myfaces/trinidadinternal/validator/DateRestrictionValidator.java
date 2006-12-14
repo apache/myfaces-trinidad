@@ -16,16 +16,13 @@ package org.apache.myfaces.trinidadinternal.validator;
 */
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.faces.validator.ValidatorException;
-import javax.faces.context.FacesContext;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.validator.ValidatorException;
 
 import org.apache.myfaces.trinidad.validator.ClientValidator;
 import org.apache.myfaces.trinidadinternal.convert.GenericConverterFactory;
@@ -41,7 +38,6 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
   public DateRestrictionValidator()
   {
     super();
-    _initJsDateMap();
   }
 
   @Override
@@ -125,56 +121,11 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
     outBuffer.append(weekdaysValues);
     outBuffer.append(',');
     outBuffer.append(monthValues);
-    outBuffer.append(',');
-    outBuffer.append(_getMapAsJson(_jsWeekDays));
-    outBuffer.append(',');
-    outBuffer.append(_getMapAsJson(_jsMonths));
     outBuffer.append(")");
 
     return outBuffer.toString();
   }
   
-  private static String _getMapAsJson(Map map)
-  {
-    StringBuilder sb = new StringBuilder();
-    try
-    {
-      JsonUtils.writeMap(sb, map, false);
-    }
-    catch (IOException e)
-    {
-      sb.append("null");
-    }
-    return sb.toString();
-  }
-  
-  private void _initJsDateMap()
-  {
-    _jsWeekDays = new HashMap<Integer, String>();
-    _jsWeekDays.put(Calendar.SUNDAY-1, "sun");
-    _jsWeekDays.put(Calendar.MONDAY-1, "mon");
-    _jsWeekDays.put(Calendar.TUESDAY-1, "tue");
-    _jsWeekDays.put(Calendar.WEDNESDAY-1, "wed");
-    _jsWeekDays.put(Calendar.THURSDAY-1, "thu");
-    _jsWeekDays.put(Calendar.FRIDAY-1, "fri");
-    _jsWeekDays.put(Calendar.SATURDAY-1, "sat");
-    
-    _jsMonths = new HashMap<Integer, String>();
-    _jsMonths.put(Calendar.JANUARY, "jan");
-    _jsMonths.put(Calendar.FEBRUARY, "feb");
-    _jsMonths.put(Calendar.MARCH, "mar");
-    _jsMonths.put(Calendar.APRIL, "apr");
-    _jsMonths.put(Calendar.MAY, "may");
-    _jsMonths.put(Calendar.JUNE, "jun");
-    _jsMonths.put(Calendar.JULY, "jul");
-    _jsMonths.put(Calendar.AUGUST, "aug");
-    _jsMonths.put(Calendar.SEPTEMBER, "sep");
-    _jsMonths.put(Calendar.OCTOBER, "oct");
-    _jsMonths.put(Calendar.NOVEMBER, "nov");
-    _jsMonths.put(Calendar.DECEMBER, "dec");
-  }
   
   private static final Collection<String> _IMPORT_NAMES = Collections.singletonList( "TrNumberConverter()" );
-  private static Map<Integer, String> _jsMonths = null;
-  private static Map<Integer, String> _jsWeekDays = null;
 }
