@@ -907,7 +907,7 @@ public class MenuContentHandlerImpl extends DefaultHandler
       }
       
       // Get the Id of the node
-      String idProp = node.getId(); 
+      String idProp = node.getUniqueId(); 
       
       if (idProp != null)
       {
