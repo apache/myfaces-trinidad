@@ -1217,7 +1217,22 @@ public final class SkinSelectors
      "af|treeTable::prev-disabled-icon";
    public static final String AF_TREE_TABLE_NB_NEXT_DISABLED_ICON_NAME =
      "af|treeTable::next-disabled-icon";
-     
+
+
+  //                                                                         //
+  //                                                                         //
+  // ============================== tr:tree =============================== //
+  //                                                                         //
+  //
+  public static final String TREE_NODE_ADJUST_STYLE_CLASS = 
+    "p_OraTreeNodeAdjust";
+  public static final String TREE_ROW_STYLE_CLASS = "p_OraTreeRow";
+  public static final String TREE_ROW_SELECTED_STYLE_CLASS = 
+    "p_OraTreeRowSelected";
+  public static final String TREE_ICON_STYLE_CLASS = "p_OraTreeIcon";
+  public static final String TREE_DISCLOSED_SYMBOL_STYLE_CLASS = 
+    "p_OraTreeDisclosedSymbol";
+
   //                                                                         //
   //                                                                         //
   // ============================== tr:chart =============================== //

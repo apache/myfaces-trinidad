@@ -21,7 +21,7 @@
     <renderer>
       <component-family>org.apache.myfaces.trinidad.Tree</component-family>
       <renderer-type>org.apache.myfaces.trinidad.Tree</renderer-type>
-      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.uix.TreeRenderer</renderer-class>
+      <renderer-class>org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.TreeRenderer</renderer-class>
       <renderer-extension>
         <mfp:component-type>org.apache.myfaces.trinidad.CoreTree</mfp:component-type>
         <mfp:unsupported-agents>phone voice</mfp:unsupported-agents>
