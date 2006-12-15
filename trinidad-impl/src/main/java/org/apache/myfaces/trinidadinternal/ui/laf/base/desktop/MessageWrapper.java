@@ -16,6 +16,8 @@
 package org.apache.myfaces.trinidadinternal.ui.laf.base.desktop;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 import org.apache.myfaces.trinidad.util.LabeledFacesMessage;
 
@@ -70,6 +72,13 @@ public class MessageWrapper extends FacesMessage
       Object label = ((LabeledFacesMessage) _msg).getLabel();
       if (label != null)
       {
+        // TODO: change to ValueExpression in JSF 1.2
+        if (label instanceof ValueBinding)
+        {
+          FacesContext context = FacesContext.getCurrentInstance();
+          label = ((ValueBinding) label).getValue(context);
+        }
+
         _label = label.toString();
         return _label;
       }
