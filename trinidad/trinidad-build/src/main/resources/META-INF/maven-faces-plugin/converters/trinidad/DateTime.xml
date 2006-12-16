@@ -227,7 +227,7 @@
       <mfp:long-description><![CDATA[Converts string into java.util.Date and vice versa based on the pattern
           and style set.
           <html:p>
-            New dateStyle <html:code>shortish</html:code> has been introduced.
+            The default dateStyle is <html:code>shortish</html:code>.
             Shortish is identical to <html:code>short</html:code> but forces the year to be
             a full four digits. <code>dateStyle</code> defaults to <html:code>shortish</html:code>
             if it was not set.
