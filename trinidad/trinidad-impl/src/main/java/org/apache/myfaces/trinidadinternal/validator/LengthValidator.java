@@ -16,14 +16,18 @@
 
 package org.apache.myfaces.trinidadinternal.validator;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.myfaces.trinidad.util.IntegerUtils;
 import org.apache.myfaces.trinidad.validator.ClientValidator;
+import org.apache.myfaces.trinidadinternal.util.JsonUtils;
 
 /**
  * <p>Implementation for <code>java.lang.Long</code> values.</p>
@@ -57,8 +61,16 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
   {
     String maxStr = IntegerUtils.getString(getMaximum());
     String minStr = IntegerUtils.getString(getMinimum());
-    
-    return _getTrLengthValidator(context, component, maxStr, minStr);
+    String messageDetailMax = this.getMessageDetailMaximum();
+    String messageDetailMin = this.getMessageDetailMinimum();
+    Map<String, String> cMessages = null;
+    if(messageDetailMax != null || messageDetailMin != null)
+    {
+      cMessages = new HashMap<String, String>();
+      cMessages.put("max", messageDetailMax);
+      cMessages.put("min", messageDetailMin);
+    }
+    return _getTrLengthValidator(context, component, maxStr, minStr, cMessages);
 
   }
   
@@ -72,13 +84,31 @@ public class LengthValidator extends org.apache.myfaces.trinidad.validator.Lengt
       FacesContext context,
       UIComponent component,
       String max,
-      String min)
+      String min,
+      Map messages)
   {
-    StringBuffer outBuffer = new StringBuffer();
+    StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrLengthValidator(");
     outBuffer.append(max);
     outBuffer.append(',');
     outBuffer.append(min);
+    outBuffer.append(',');
+    if(messages == null)
+    {
+      outBuffer.append("null");
+    }
+    else
+    {
+      try
+      {
+        JsonUtils.writeMap(outBuffer, messages, false);
+      }
+      catch (IOException e)
+      {
+        outBuffer.append("null");
+      }
+    }
+      
     outBuffer.append(")");
 
     return outBuffer.toString();
