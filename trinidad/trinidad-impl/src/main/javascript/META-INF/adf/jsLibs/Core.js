@@ -2971,7 +2971,7 @@ function _formatErrorString(
     // include dollar signs, which leads Netscape astray (bug 2242675)
     var indexOf = currString.indexOf(currRegExp);
 
-    if (currValue.indexOf(currRegExp) >= 0)
+    if (currValue.indexOf && currValue.indexOf(currRegExp) >= 0)
     {
      var b1 = '';
      for (i=0; i<currValue.length; i++)
