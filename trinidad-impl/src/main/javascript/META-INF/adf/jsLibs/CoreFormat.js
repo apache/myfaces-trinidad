@@ -371,11 +371,13 @@ TrRangeValidator.prototype.validate  = function(
 
 function TrLengthValidator(
   maxValue,
-  minValue)
+  minValue,
+  messages)
 {
  
   this._maxValue = maxValue;
   this._minValue = minValue;
+  this._messages = messages;
 
   // for debugging
   this._class = "TrLengthValidator";
@@ -411,18 +413,44 @@ TrLengthValidator.prototype.validate  = function(
   {
     if(length < this._minValue) //to short
     {
-      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM",
+    	var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM";
+    	var facesMessage;
+    	if(this._messages && this._messages["min"])
+    	{
+        facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["min"],
                                         label,
                                         string,
                                         ""+this._minValue);
+    	}
+    	else
+    	{
+        facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._minValue);
+    	}
       throw new TrConverterException(facesMessage);
     }
     if(length > this._maxValue) //to long
     {
-      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM",
+      var key = "org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM";
+      var facesMessage;
+      if(this._messages && this._messages["max"])
+      {
+        facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["max"],
                                         label,
                                         string,
                                         ""+this._maxValue);
+      }
+      else
+      {
+        facesMessage = _createFacesMessage(key,
+                                        label,
+                                        string,
+                                        ""+this._maxValue);
+      }
       throw new TrConverterException(facesMessage);
     }
   }
