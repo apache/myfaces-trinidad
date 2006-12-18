@@ -112,6 +112,8 @@ public class LengthValidator extends javax.faces.validator.LengthValidator
   public int getMaximum()
   {
     Object maxInt = _facesBean.getProperty(_MAXIMUM_KEY);
+    if(maxInt == null)
+      maxInt = Integer.MAX_VALUE;
     return ComponentUtils.resolveInteger(maxInt);
   }
 
