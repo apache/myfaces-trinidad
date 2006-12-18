@@ -409,12 +409,22 @@ TrLengthValidator.prototype.validate  = function(
   }
   else
   {
-    facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.NOT_IN_RANGE",
+    if(length < this._minValue) //to short
+    {
+      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.MINIMUM",
                                         label,
                                         string,
-                                        ""+this._minValue,
+                                        ""+this._minValue);
+      throw new TrConverterException(facesMessage);
+    }
+    if(length > this._maxValue) //to long
+    {
+      facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.LengthValidator.MAXIMUM",
+                                        label,
+                                        string,
                                         ""+this._maxValue);
-    throw new TrConverterException(facesMessage);
+      throw new TrConverterException(facesMessage);
+    }
   }
 }
 
