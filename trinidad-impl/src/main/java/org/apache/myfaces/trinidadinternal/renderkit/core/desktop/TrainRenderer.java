@@ -166,7 +166,13 @@ public class TrainRenderer
                                    ", found " + 
                                    component.getClass().getName());
     }
-    
+
+    if (arc.getFormData() == null)
+    {
+      _LOG.warning("Trains must be used inside of a form");
+      return;
+    }
+
     UIXProcess process = (UIXProcess) component;
     UIComponent stamp = process.getNodeStamp();
 
