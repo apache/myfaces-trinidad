@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
+var _byteLenKey = "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM";
+
 function TrByteLengthValidator(
   length,
-  summary,
   detail
   )
 {
   this._length   = length;
-  this._summary = summary;
   this._detail = detail;
   this._class    = "TrByteLengthValidator";
 }
@@ -30,12 +30,11 @@ TrByteLengthValidator.prototype = new TrValidator();
 
 function CjkFormat(
   length,
-  summary,
   detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, summary,detail);
+  this._base(length, detail);
   this._class = "CjkFormat";
   
 }
@@ -70,18 +69,19 @@ CjkFormat.prototype.validate  = function(
     if (length < 0)
     {
       var facesMessage;
-      if(this._summary == undefined)
+      if(this._detail == undefined)
       {
-        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                                label,
-                                                parseString);
+        facesMessage = _createFacesMessage(_byteLenKey,
+                                           label,
+                                           parseString);
       }
       else
       {
-        facesMessage = _createCustomFacesMessage(this._summary,
-                                            this._detail,
-                                            label,
-                                            parseString);
+        facesMessage = _createCustomFacesMessage(
+                                           TrMessageFactory.getSummaryString(_byteLenKey),
+                                           this._detail,
+                                           label,
+                                           parseString);
       }
       throw new TrValidatorException(facesMessage);     
     }
@@ -97,12 +97,11 @@ CjkFormat.prototype.validate  = function(
 
 function Utf8Format(
   length,
-  summary,
   detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, summary,detail);
+  this._base(length, detail);
   this._class = "Utf8Format";
 }
 
@@ -145,15 +144,16 @@ Utf8Format.prototype.validate  = function(
     if (length < 0)
     {
       var facesMessage;
-      if(this._summary == undefined)
+      if(this._detail == undefined)
       {
-        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                                label,
-                                                parseString);
+        facesMessage = _createFacesMessage(_byteLenKey,
+                                           label,
+                                           parseString);
       }
       else
       {
-        facesMessage = _createCustomFacesMessage(this._summary,
+        facesMessage = _createCustomFacesMessage(
+                                            TrMessageFactory.getSummaryString(_byteLenKey),
                                             this._detail,
                                             label,
                                             parseString);
@@ -169,12 +169,11 @@ Utf8Format.prototype.validate  = function(
 
 function SBFormat(
   length,
-  summary,
   detail
   )
 {
   this._base = TrByteLengthValidator;
-  this._base(length, summary,detail);
+  this._base(length, detail);
   this._class = "SBFormat";
   
 }
@@ -201,15 +200,16 @@ SBFormat.prototype.validate  = function(
   if (this._length < parseString.length)
   {
       var facesMessage;
-      if(this._summary == undefined)
+      if(this._detail == undefined)
       {
-        facesMessage = _createFacesMessage( "org.apache.myfaces.trinidad.validator.ByteLengthValidator.MAXIMUM",
-                                                label,
-                                                parseString);
+        facesMessage = _createFacesMessage(_byteLenKey,
+                                           label,
+                                           parseString);
       }
       else
       {
-        facesMessage = _createCustomFacesMessage(this._summary,
+        facesMessage = _createCustomFacesMessage(
+                                            TrMessageFactory.getSummaryString(_byteLenKey),
                                             this._detail,
                                             label,
                                             parseString);
