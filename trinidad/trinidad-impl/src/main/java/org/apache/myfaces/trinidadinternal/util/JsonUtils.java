@@ -347,7 +347,7 @@ public final class JsonUtils
       }
       else
       {
-        out.append("{");
+        out.append('{');
         Set entries = map.entrySet();
         for (Iterator iter = entries.iterator();
              iter.hasNext();)
