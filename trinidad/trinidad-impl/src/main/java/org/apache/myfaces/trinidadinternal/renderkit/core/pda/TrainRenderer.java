@@ -20,17 +20,18 @@ import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import javax.faces.context.ResponseWriter;
 
 import org.apache.myfaces.trinidad.bean.FacesBean;
 import org.apache.myfaces.trinidad.component.UIXProcess;
 import org.apache.myfaces.trinidad.component.core.nav.CoreTrain;
 import org.apache.myfaces.trinidad.context.RenderingContext;
+import org.apache.myfaces.trinidad.logging.TrinidadLogger;
+import org.apache.myfaces.trinidad.util.IntegerUtils;
+
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlConstants;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlRenderer;
 import org.apache.myfaces.trinidadinternal.renderkit.core.xhtml.XhtmlUtils;
-import org.apache.myfaces.trinidad.util.IntegerUtils;
 
 public class TrainRenderer
   extends XhtmlRenderer
@@ -51,6 +52,12 @@ public class TrainRenderer
     UIComponent         component,
     FacesBean           bean) throws IOException
   {
+    if (arc.getFormData() == null)
+    {
+      _LOG.warning("Trains must be used inside of a form");
+      return;
+    }
+
     UIXProcess process = (UIXProcess) component;          
     UIComponent stamp = process.getNodeStamp();
     
@@ -121,4 +128,7 @@ public class TrainRenderer
   static private final String _SINGLE_RANGE_FORMAT_NO_TOTAL_STRING =
     "af_train.FORMAT_NO_TOTAL";
 
+  private static final TrinidadLogger _LOG = 
+    TrinidadLogger.createTrinidadLogger(TrainRenderer.class);
+  
 }
