@@ -896,6 +896,8 @@ public class FileSystemStyleCache implements StyleProvider
     assert (styleSheets != null);
 
     Set<String> emptySelectors = new HashSet<String>();
+    Set<String> nonEmptySelectors = new HashSet<String>(512);
+
     while (styleSheets.hasNext())
     {
       StyleSheetNode styleSheet = styleSheets.next();
@@ -920,7 +922,7 @@ public class FileSystemStyleCache implements StyleProvider
             if (style.isEmpty())
               emptySelectors.add(styleClass);
             else
-              emptySelectors.remove(styleClass);
+              nonEmptySelectors.add(styleClass);
           }
           else
           {
@@ -937,7 +939,7 @@ public class FileSystemStyleCache implements StyleProvider
                   map.put(styleClass, _getShortStyleClass(map.size()));
                 
                 // Don't remove any styleclass that is referred to
-                emptySelectors.remove(styleClass);
+                nonEmptySelectors.add(styleClass);
               }
             }
             
@@ -965,7 +967,7 @@ public class FileSystemStyleCache implements StyleProvider
                   }
                   else
                   {
-                    emptySelectors.remove(styleClass);
+                    nonEmptySelectors.add(styleClass);
                   }
                   
                   isFirst = false;
@@ -973,11 +975,11 @@ public class FileSystemStyleCache implements StyleProvider
               }
             }
           }
-
-
         }
       }
     }
+
+    emptySelectors.removeAll(nonEmptySelectors);
 
     // Replace all empty keys with an empty string as the selector
     for (String emptyKey : emptySelectors)
