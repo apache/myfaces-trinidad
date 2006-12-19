@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -99,8 +101,20 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
       weekdaysValues  = "null";
       monthValues  = "null";
     }
+    
+    
+    String messageDetailDaysOfWeek = this.getMessageDetailInvalidDaysOfWeek();
+    String messageDetailMonth = this.getMessageDetailInvalidMonths();
+    
+    Map<String, String> cMessages = null;
+    if(messageDetailDaysOfWeek != null || messageDetailMonth != null)
+    {
+      cMessages = new HashMap<String, String>();
+      cMessages.put("days", messageDetailDaysOfWeek);
+      cMessages.put("month", messageDetailMonth);
+    }
 
-    return _getTrDateRestrictionValidator(context, component, weekdaysValues, monthValues);
+    return _getTrDateRestrictionValidator(context, component, weekdaysValues, monthValues, cMessages);
   }
   
   
@@ -114,14 +128,31 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
       FacesContext context,
       UIComponent component,
       String weekdaysValues,
-      String monthValues)
+      String monthValues,
+      Map messages)
   {
     StringBuilder outBuffer = new StringBuilder(31 + weekdaysValues.length() + monthValues.length());
     outBuffer.append("new TrDateRestrictionValidator(");
     outBuffer.append(weekdaysValues);
     outBuffer.append(',');
     outBuffer.append(monthValues);
-    outBuffer.append(")");
+    outBuffer.append(',');
+    if(messages == null)
+    {
+      outBuffer.append("null");
+    }
+    else
+    {
+      try
+      {
+        JsonUtils.writeMap(outBuffer, messages, false);
+      }
+      catch (IOException e)
+      {
+        outBuffer.append("null");
+      }
+    }
+    outBuffer.append(')');
 
     return outBuffer.toString();
   }
