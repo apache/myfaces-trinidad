@@ -74,7 +74,7 @@ public class DoubleRangeValidator extends org.apache.myfaces.trinidad.validator.
       String max,
       String min)
   {
-    StringBuffer outBuffer = new StringBuffer();
+    StringBuilder outBuffer = new StringBuilder();
     outBuffer.append("new TrRangeValidator(");
     outBuffer.append(max);
     outBuffer.append(',');

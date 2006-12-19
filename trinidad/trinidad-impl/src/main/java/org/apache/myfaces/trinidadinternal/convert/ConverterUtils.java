@@ -217,7 +217,7 @@ public class ConverterUtils
     boolean isConverter,
     String validatorType)
   {
-    StringBuffer outBuffer = new StringBuffer(250);
+    StringBuilder outBuffer = new StringBuilder(250);
 
     if (isConverter)
       outBuffer.append("new TrNumberConverter(");
@@ -276,7 +276,7 @@ public class ConverterUtils
     UIComponent component,
     String defaultId)
   {
-    StringBuffer outBuffer = new StringBuffer(250);
+    StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrNumberConverter(");
 

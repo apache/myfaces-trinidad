@@ -93,7 +93,7 @@ public class DateTimeRangeValidator extends org.apache.myfaces.trinidad.validato
       String max,
       String min)
   {
-    StringBuffer outBuffer = new StringBuffer();
+    StringBuilder outBuffer = new StringBuilder(31 + min.length() + max.length());
     outBuffer.append("new TrDateTimeRangeValidator(");
     outBuffer.append(max);
     outBuffer.append(',');

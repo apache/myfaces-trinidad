@@ -63,7 +63,7 @@ public class RegExpValidator
    
     String jsPattern = XhtmlUtils.escapeJS(getPattern());
     
-    StringBuffer outBuffer = new StringBuffer(22
+    StringBuilder outBuffer = new StringBuilder(22
                                               + jsPattern.length());
 
     outBuffer.append("new TrRegExpValidator('"); // 21
@@ -74,7 +74,7 @@ public class RegExpValidator
     return outBuffer.toString();
   }
   
-  private void _applyCustomMessage(FacesContext context, StringBuffer outBuffer)
+  private void _applyCustomMessage(FacesContext context, StringBuilder outBuffer)
   {
     String noMatchMsg = getMessageDetailNoMatch();
     if(noMatchMsg != null)
@@ -86,11 +86,7 @@ public class RegExpValidator
                                   noMatchMsg,
                                   params);
       String esNoMatchMsgPattern = XhtmlUtils.escapeJS(message.getDetail());
-      String esNoMatchMsgSummaryPattern = 
-                               XhtmlUtils.escapeJS(message.getSummary());
-      outBuffer.append("','");            //  7
-      outBuffer.append(esNoMatchMsgSummaryPattern);
-      outBuffer.append("','");            //  7
+      outBuffer.append("','");
       outBuffer.append(esNoMatchMsgPattern);
     }    
 

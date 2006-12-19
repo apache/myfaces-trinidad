@@ -131,7 +131,7 @@ public class IntegerConverter extends javax.faces.convert.IntegerConverter
       String maxVal,
       String minVal)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrIntegerConverter(");
 

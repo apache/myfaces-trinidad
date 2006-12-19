@@ -116,7 +116,7 @@ public class DateRestrictionValidator extends org.apache.myfaces.trinidad.valida
       String weekdaysValues,
       String monthValues)
   {
-    StringBuffer outBuffer = new StringBuffer();
+    StringBuilder outBuffer = new StringBuilder(31 + weekdaysValues.length() + monthValues.length());
     outBuffer.append("new TrDateRestrictionValidator(");
     outBuffer.append(weekdaysValues);
     outBuffer.append(',');

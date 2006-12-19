@@ -124,7 +124,7 @@ public class ByteConverter extends javax.faces.convert.ByteConverter
       String maxVal,
       String minVal)
     {
-      StringBuffer outBuffer = new StringBuffer(250);
+      StringBuilder outBuffer = new StringBuilder(250);
 
       outBuffer.append("new TrByteConverter(");
 
