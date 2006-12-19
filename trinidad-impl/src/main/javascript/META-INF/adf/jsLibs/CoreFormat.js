@@ -649,10 +649,13 @@ TrDateTimeRangeValidator.prototype.validate  = function(
 
 function TrDateRestrictionValidator(
   weekdaysValue,
-  monthValue)
+  monthValue,
+  messages)
+  
 {
   this._weekdaysValue = weekdaysValue;
   this._monthValue = monthValue;
+  this._messages = messages;
   this._weekdaysMap = {'2':'tue','4':'thu','6':'sat','1':'mon','3':'wed','5':'fri','0':'sun'};
   this._monthMap = {'2':'mar','4':'may','9':'oct','8':'sep','11':'dec','6':'jul','1':'feb','3':'apr','10':'nov','7':'aug','5':'jun','0':'jan'};
 
@@ -687,10 +690,23 @@ TrDateRestrictionValidator.prototype.validate  = function(
   	{
   		if(weekDaysArray[i].toLowerCase() == dayString)
   		{
-        facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY",
+  			var facesMessage;
+  			var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.WEEKDAY";
+  			if(this._messages && this._messages["days"])
+  			{
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["days"],
                                         label,
                                         ""+converter.getAsString(value),
                                         dayString);
+  			}
+  			else
+  			{
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        dayString);
+  			}
         throw new TrConverterException(facesMessage);
   		}
   	}
@@ -705,10 +721,23 @@ TrDateRestrictionValidator.prototype.validate  = function(
   	{
   		if(monthArray[i].toLowerCase() == monthString)
   		{
-        facesMessage = _createFacesMessage("org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH",
+  			var facesMessage;
+  			var key = "org.apache.myfaces.trinidad.validator.DateRestrictionValidator.MONTH";
+  			if(this._messages && this._messages["month"])
+  			{
+          facesMessage = _createCustomFacesMessage(TrMessageFactory.getSummaryString(key),
+                                        this._messages["month"],
                                         label,
                                         ""+converter.getAsString(value),
                                         monthString);
+  			}
+  			else
+  			{
+          facesMessage = _createFacesMessage(key,
+                                        label,
+                                        ""+converter.getAsString(value),
+                                        monthString);
+  			}
         throw new TrConverterException(facesMessage);
   		}
   	}
